@@ -8,6 +8,7 @@ import org.lwjgl.*;
 import org.lwjgl.system.linux.*;
 import org.lwjgl.system.macosx.*;
 import org.lwjgl.system.openbsd.*;
+import org.lwjgl.system.freebsd.*;
 import org.lwjgl.system.windows.*;
 
 import javax.annotation.*;
@@ -126,6 +127,8 @@ public final class APIUtil {
                 return MacOSXLibrary.create(name);
             case OPENBSD:
                 return new OpenBSDLibrary(name);
+            case FREEBSD:
+                return new FreeBSDLibrary(name);
             default:
                 throw new IllegalStateException();
         }

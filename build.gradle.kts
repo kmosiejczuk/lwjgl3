@@ -64,6 +64,7 @@ enum class Platforms(val classifier: String) {
     LINUX_ARM32("linux-arm32"),
     MACOS("macos"),
     OPENBSD("openbsd"),
+    FREEBSD("freebsd"),
     WINDOWS("windows"),
     WINDOWS_X86("windows-x86");
 
