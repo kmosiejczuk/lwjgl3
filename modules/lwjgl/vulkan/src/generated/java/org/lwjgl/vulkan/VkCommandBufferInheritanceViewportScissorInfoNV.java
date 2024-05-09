@@ -26,6 +26,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@link VK10#VK_DYNAMIC_STATE_SCISSOR DYNAMIC_STATE_SCISSOR}</li>
  * <li>{@link VK13#VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT DYNAMIC_STATE_SCISSOR_WITH_COUNT}</li>
  * <li>{@link EXTDiscardRectangles#VK_DYNAMIC_STATE_DISCARD_RECTANGLE_EXT DYNAMIC_STATE_DISCARD_RECTANGLE_EXT}</li>
+ * <li>{@link EXTDiscardRectangles#VK_DYNAMIC_STATE_DISCARD_RECTANGLE_ENABLE_EXT DYNAMIC_STATE_DISCARD_RECTANGLE_ENABLE_EXT}</li>
+ * <li>{@link EXTDiscardRectangles#VK_DYNAMIC_STATE_DISCARD_RECTANGLE_MODE_EXT DYNAMIC_STATE_DISCARD_RECTANGLE_MODE_EXT}</li>
  * </ul>
  * 
  * <p>as well as the following state, with restrictions on inherited depth values and viewport count:</p>
@@ -62,8 +64,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedViewportScissor2D">inherited viewport scissor</a> feature is not enabled, {@code viewportScissor2D} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
- * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiViewport">multiple viewports</a> feature is not enabled and {@code viewportScissor2D} is {@link VK10#VK_TRUE TRUE}, then {@code viewportDepthCount} <b>must</b> be 1</li>
+ * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedViewportScissor2D">{@code inheritedViewportScissor2D}</a> feature is not enabled, {@code viewportScissor2D} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiViewport">{@code multiViewport}</a> feature is not enabled and {@code viewportScissor2D} is {@link VK10#VK_TRUE TRUE}, then {@code viewportDepthCount} <b>must</b> be 1</li>
  * <li>If {@code viewportScissor2D} is {@link VK10#VK_TRUE TRUE}, then {@code viewportDepthCount} <b>must</b> be greater than 0</li>
  * <li>If {@code viewportScissor2D} is {@link VK10#VK_TRUE TRUE}, then {@code pViewportDepths} <b>must</b> be a valid pointer to an array of {@code viewportDepthCount} valid {@link VkViewport} structures, except any requirements on {@code x}, {@code y}, {@code width}, and {@code height} do not apply</li>
  * <li>If {@code viewportScissor2D} is {@link VK10#VK_TRUE TRUE}, then the command buffer <b>must</b> be recorded with the {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT}</li>

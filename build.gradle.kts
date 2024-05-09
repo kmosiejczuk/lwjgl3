@@ -101,9 +101,28 @@ enum class Artifacts(
         "lwjgl-egl", "LWJGL - EGL bindings",
         "An interface between Khronos rendering APIs such as OpenGL ES or OpenVG and the underlying native platform window system."
     ),
+    FMOD(
+        "lwjgl-fmod", "LWJGL - FMOD bindings",
+        "An end-to-end solution for adding sound and music to any game."
+    ),
+    FREETYPE(
+        "lwjgl-freetype", "LWJGL - FreeType bindings",
+        "A freely available software library to render fonts.",
+        *Platforms.ALL
+    ),
     GLFW(
         "lwjgl-glfw", "LWJGL - GLFW bindings",
         "A multi-platform library for OpenGL, OpenGL ES and Vulkan development on the desktop. It provides a simple API for creating windows, contexts and surfaces, receiving input and events.",
+        *Platforms.ALL
+    ),
+    HARFBUZZ(
+        "lwjgl-harfbuzz", "LWJGL - HarfBuzz bindings",
+        "A text shaping library that allows programs to convert a sequence of Unicode input into properly formatted and positioned glyph output — for any writing system and language.",
+        *Platforms.ALL
+    ),
+    HWLOC(
+        "lwjgl-hwloc", "LWJGL - hwloc bindings",
+        "A portable abstraction of the hierarchical topology of modern architectures, including NUMA memory nodes, sockets, shared caches, cores and simultaneous multithreading.",
         *Platforms.ALL
     ),
     JAWT(
@@ -113,6 +132,11 @@ enum class Artifacts(
     JEMALLOC(
         "lwjgl-jemalloc", "LWJGL - jemalloc bindings",
         "A general purpose malloc implementation that emphasizes fragmentation avoidance and scalable concurrency support.",
+        *Platforms.ALL
+    ),
+    KTX(
+        "lwjgl-ktx", "LWJGL - KTX (Khronos Texture) bindings",
+        "A lightweight container for textures for OpenGL®, Vulkan® and other GPU APIs.",
         *Platforms.ALL
     ),
     LIBDIVIDE(
@@ -154,7 +178,7 @@ enum class Artifacts(
     ),
     NFD(
         "lwjgl-nfd", "LWJGL - Native File Dialog bindings",
-        "A tiny, neat C library that portably invokes native file open and save dialogs.",
+        "A small C library that portably invokes native file open, folder select and file save dialogs.",
         *Platforms.ALL
     ),
     NUKLEAR(
@@ -361,7 +385,7 @@ publishing {
 
             licenses {
                 license {
-                    name.set("BSD")
+                    name.set("BSD-3-Clause")
                     url.set("https://www.lwjgl.org/license")
                     distribution.set("repo")
                 }

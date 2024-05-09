@@ -30,14 +30,11 @@ val KHR_present_id = "KHRPresentId".nativeClassVK("KHR_present_id", type = "devi
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRSwapchain VK_KHR_swapchain}</li>
-            </ul></dd>
+            <dd>{@link KHRSwapchain VK_KHR_swapchain} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Keith Packard <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_present_id]%20@keithp%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_present_id%20extension%3E%3E">keithp</a></li>
+                <li>Keith Packard <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_present_id]%20@keithp%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_present_id%20extension*">keithp</a></li>
             </ul></dd>
         </dl>
 

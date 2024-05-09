@@ -29,6 +29,10 @@ package org.lwjgl.vulkan;
  * 
  * <p>GLSL variables declared using the {@code __pervertexNV} GLSL qualifier are expected to be decorated with {@code PerVertexNV} in SPIR-V.</p>
  * 
+ * <h5>Promotion to {@code VK_KHR_fragment_shader_barycentric}</h5>
+ * 
+ * <p>All functionality in this extension is included in {@link KHRFragmentShaderBarycentric VK_KHR_fragment_shader_barycentric}, with the suffix changed to KHR.</p>
+ * 
  * <h5>VK_NV_fragment_shader_barycentric</h5>
  * 
  * <dl>
@@ -41,13 +45,14 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+ * <dt><b>Deprecation state</b></dt>
  * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
+ * <li><em>Promoted</em> to {@link KHRFragmentShaderBarycentric VK_KHR_fragment_shader_barycentric} extension</li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Pat Brown <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_fragment_shader_barycentric]%20@nvpbrown%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_fragment_shader_barycentric%20extension%3E%3E">nvpbrown</a></li>
+ * <li>Pat Brown <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_fragment_shader_barycentric]%20@nvpbrown%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_fragment_shader_barycentric%20extension*">nvpbrown</a></li>
  * </ul></dd>
  * </dl>
  * 

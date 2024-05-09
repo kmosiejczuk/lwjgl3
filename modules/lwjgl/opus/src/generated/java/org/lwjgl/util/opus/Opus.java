@@ -876,7 +876,7 @@ public class Opus {
      *
      * @param st         decoder state
      * @param data       input payload (Use a {@code NULL} pointer to indicate packet loss)
-     * @param pcm        output signal (interleaved if 2 channels) (length is {@code frame_size*channels*sizeof(opus_int16)}
+     * @param pcm        output signal (interleaved if 2 channels) (length is {@code frame_size*channels*sizeof(float)}
      * @param frame_size number of samples per channel of available space in pcm.
      *                   
      *                   <p>If this is less than the maximum packet duration (120ms; 5760 for 48kHz), this function will not be capable of decoding some packets. In the case
@@ -888,7 +888,7 @@ public class Opus {
      *
      * @return number of decoded samples or a negative error code
      */
-    public static int opus_decode_float(@NativeType("OpusDecoder *") long st, @Nullable @NativeType("unsigned char const *") ByteBuffer data, @NativeType("opus_int16 *") ShortBuffer pcm, int frame_size, int decode_fec) {
+    public static int opus_decode_float(@NativeType("OpusDecoder *") long st, @Nullable @NativeType("unsigned char const *") ByteBuffer data, @NativeType("float *") FloatBuffer pcm, int frame_size, int decode_fec) {
         if (CHECKS) {
             check(pcm, frame_size * memGetInt(st + 8));
         }
@@ -1909,7 +1909,9 @@ public class Opus {
      * @param value allowed values:
      * <dl>
      * <dt>0</dt><dd>Disable inband FEC (default).</dd>
-     * <dt>1</dt><dd>Enable inband FEC.</dd>
+     * <dt>1</dt><dd>Inband FEC enabled. If the packet loss rate is sufficiently high, Opus will automatically switch to SILK even at high rates to enable use
+     * of that FEC.</dd>
+     * <dt>2</dt><dd>Inband FEC enabled, but does not necessarily switch to SILK if we have music.</dd>
      * </dl>
      */
     public static CTLRequest OPUS_SET_INBAND_FEC(int value) { return new CTLRequestI(OPUS_SET_INBAND_FEC_REQUEST, value); }
@@ -1920,7 +1922,9 @@ public class Opus {
      * @return one of the following values:
      * <dl>
      * <dt>0</dt><dd>Inband FEC disabled (default).</dd>
-     * <dt>1</dt><dd>Inband FEC enabled.</dd>
+     * <dt>1</dt><dd>Inband FEC enabled. If the packet loss rate is sufficiently high, Opus will automatically switch to SILK even at high rates to enable use
+     * of that FEC.</dd>
+     * <dt>2</dt><dd>Inband FEC enabled, but does not necessarily switch to SILK if we have music.</dd>
      * </dl>
      */
     public static CTLRequest OPUS_GET_INBAND_FEC(IntBuffer value) { return new CTLRequestP(OPUS_GET_INBAND_FEC_REQUEST, memAddress(value)); }

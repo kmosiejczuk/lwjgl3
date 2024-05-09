@@ -18,11 +18,21 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure describing capabilities of a surface.
  * 
+ * <h5>Description</h5>
+ * 
+ * <p>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is enabled and {@link VkPhysicalDeviceSurfaceInfo2KHR}{@code ::surface} in the {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceCapabilities2KHR GetPhysicalDeviceSurfaceCapabilities2KHR} call is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the values returned in {@code minImageCount}, {@code maxImageCount}, {@code currentExtent}, and {@code currentTransform} will not reflect that of any surface and will instead be as such:</p>
+ * 
+ * <ul>
+ * <li>{@code minImageCount} and {@code maxImageCount} will be <code>0xFFFFFFFF</code></li>
+ * <li>{@code currentExtent} will be <code>(0xFFFFFFFF, 0xFFFFFFFF)</code></li>
+ * <li>{@code currentTransform} will be {@link KHRSurface#VK_SURFACE_TRANSFORM_INHERIT_BIT_KHR SURFACE_TRANSFORM_INHERIT_BIT_KHR}</li>
+ * </ul>
+ * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD}, {@link VkSharedPresentSurfaceCapabilitiesKHR}, {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT}, or {@link VkSurfaceProtectedCapabilitiesKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD}, {@link VkSharedPresentSurfaceCapabilitiesKHR}, {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT}, {@link VkSurfaceCapabilitiesPresentBarrierNV}, {@link VkSurfacePresentModeCompatibilityEXT}, {@link VkSurfacePresentScalingCapabilitiesEXT}, or {@link VkSurfaceProtectedCapabilitiesKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * </ul>
  * 
@@ -102,6 +112,12 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
     public VkSurfaceCapabilities2KHR pNext(VkSharedPresentSurfaceCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT} value to the {@code pNext} chain. */
     public VkSurfaceCapabilities2KHR pNext(VkSurfaceCapabilitiesFullScreenExclusiveEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkSurfaceCapabilitiesPresentBarrierNV} value to the {@code pNext} chain. */
+    public VkSurfaceCapabilities2KHR pNext(VkSurfaceCapabilitiesPresentBarrierNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkSurfacePresentModeCompatibilityEXT} value to the {@code pNext} chain. */
+    public VkSurfaceCapabilities2KHR pNext(VkSurfacePresentModeCompatibilityEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkSurfacePresentScalingCapabilitiesEXT} value to the {@code pNext} chain. */
+    public VkSurfaceCapabilities2KHR pNext(VkSurfacePresentScalingCapabilitiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSurfaceProtectedCapabilitiesKHR} value to the {@code pNext} chain. */
     public VkSurfaceCapabilities2KHR pNext(VkSurfaceProtectedCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
@@ -331,6 +347,12 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
         public VkSurfaceCapabilities2KHR.Buffer pNext(VkSharedPresentSurfaceCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT} value to the {@code pNext} chain. */
         public VkSurfaceCapabilities2KHR.Buffer pNext(VkSurfaceCapabilitiesFullScreenExclusiveEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkSurfaceCapabilitiesPresentBarrierNV} value to the {@code pNext} chain. */
+        public VkSurfaceCapabilities2KHR.Buffer pNext(VkSurfaceCapabilitiesPresentBarrierNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkSurfacePresentModeCompatibilityEXT} value to the {@code pNext} chain. */
+        public VkSurfaceCapabilities2KHR.Buffer pNext(VkSurfacePresentModeCompatibilityEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkSurfacePresentScalingCapabilitiesEXT} value to the {@code pNext} chain. */
+        public VkSurfaceCapabilities2KHR.Buffer pNext(VkSurfacePresentScalingCapabilitiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSurfaceProtectedCapabilitiesKHR} value to the {@code pNext} chain. */
         public VkSurfaceCapabilities2KHR.Buffer pNext(VkSurfaceProtectedCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
 

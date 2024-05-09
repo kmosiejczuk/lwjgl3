@@ -23,8 +23,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code binding} <b>must</b> be less than {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputBindings}</li>
  * <li>{@code stride} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputBindingStride}</li>
- * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateZeroDivisor">vertexAttributeInstanceRateZeroDivisor</a> feature is not enabled, {@code divisor} <b>must</b> not be 0</li>
- * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateDivisor">vertexAttributeInstanceRateDivisor</a> feature is not enabled, {@code divisor} <b>must</b> be 1</li>
+ * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateZeroDivisor">{@code vertexAttributeInstanceRateZeroDivisor}</a> feature is not enabled, {@code divisor} <b>must</b> not be 0</li>
+ * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateDivisor">{@code vertexAttributeInstanceRateDivisor}</a> feature is not enabled, {@code divisor} <b>must</b> be 1</li>
  * <li>{@code divisor} <b>must</b> be a value between 0 and {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT}{@code ::maxVertexAttribDivisor}, inclusive</li>
  * <li>If {@code divisor} is not 1 then {@code inputRate} <b>must</b> be of type {@link VK10#VK_VERTEX_INPUT_RATE_INSTANCE VERTEX_INPUT_RATE_INSTANCE}</li>
  * </ul>
@@ -32,13 +32,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT}</li>
+ * <li>{@code sType} <b>must</b> be {@link EXTShaderObject#VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT}</li>
  * <li>{@code inputRate} <b>must</b> be a valid {@code VkVertexInputRate} value</li>
  * </ul>
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link EXTVertexInputDynamicState#vkCmdSetVertexInputEXT CmdSetVertexInputEXT}</p>
+ * <p>{@link EXTShaderObject#vkCmdSetVertexInputEXT CmdSetVertexInputEXT}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -118,14 +118,14 @@ public class VkVertexInputBindingDescription2EXT extends Struct implements Nativ
     /** a {@code VkVertexInputRate} value specifying whether vertex attribute addressing is a function of the vertex index or of the instance index. */
     @NativeType("VkVertexInputRate")
     public int inputRate() { return ninputRate(address()); }
-    /** the number of successive instances that will use the same value of the vertex attribute when instanced rendering is enabled. This member <b>can</b> be set to a value other than 1 if the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateDivisor">vertexAttributeInstanceRateDivisor</a> feature is enabled. For example, if the divisor is N, the same vertex attribute will be applied to N successive instances before moving on to the next vertex attribute. The maximum value of {@code divisor} is implementation-dependent and can be queried using {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT}{@code ::maxVertexAttribDivisor}. A value of 0 <b>can</b> be used for the divisor if the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateZeroDivisor">{@code vertexAttributeInstanceRateZeroDivisor}</a> feature is enabled. In this case, the same vertex attribute will be applied to all instances. */
+    /** the number of successive instances that will use the same value of the vertex attribute when instanced rendering is enabled. This member <b>can</b> be set to a value other than 1 if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateDivisor">{@code vertexAttributeInstanceRateDivisor}</a> feature is enabled. For example, if the divisor is N, the same vertex attribute will be applied to N successive instances before moving on to the next vertex attribute. The maximum value of {@code divisor} is implementation-dependent and can be queried using {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT}{@code ::maxVertexAttribDivisor}. A value of 0 <b>can</b> be used for the divisor if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateZeroDivisor">{@code vertexAttributeInstanceRateZeroDivisor}</a> feature is enabled. In this case, the same vertex attribute will be applied to all instances. */
     @NativeType("uint32_t")
     public int divisor() { return ndivisor(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkVertexInputBindingDescription2EXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT} value to the {@link #sType} field. */
-    public VkVertexInputBindingDescription2EXT sType$Default() { return sType(EXTVertexInputDynamicState.VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT); }
+    /** Sets the {@link EXTShaderObject#VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT} value to the {@link #sType} field. */
+    public VkVertexInputBindingDescription2EXT sType$Default() { return sType(EXTShaderObject.VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkVertexInputBindingDescription2EXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #binding} field. */
@@ -366,8 +366,8 @@ public class VkVertexInputBindingDescription2EXT extends Struct implements Nativ
 
         /** Sets the specified value to the {@link VkVertexInputBindingDescription2EXT#sType} field. */
         public VkVertexInputBindingDescription2EXT.Buffer sType(@NativeType("VkStructureType") int value) { VkVertexInputBindingDescription2EXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT} value to the {@link VkVertexInputBindingDescription2EXT#sType} field. */
-        public VkVertexInputBindingDescription2EXT.Buffer sType$Default() { return sType(EXTVertexInputDynamicState.VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT); }
+        /** Sets the {@link EXTShaderObject#VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT} value to the {@link VkVertexInputBindingDescription2EXT#sType} field. */
+        public VkVertexInputBindingDescription2EXT.Buffer sType$Default() { return sType(EXTShaderObject.VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT); }
         /** Sets the specified value to the {@link VkVertexInputBindingDescription2EXT#pNext} field. */
         public VkVertexInputBindingDescription2EXT.Buffer pNext(@NativeType("void *") long value) { VkVertexInputBindingDescription2EXT.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkVertexInputBindingDescription2EXT#binding} field. */

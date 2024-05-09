@@ -29,7 +29,7 @@ import static org.lwjgl.system.libffi.LibFFI.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>{@code pfnReallocation} <b>must</b> return an allocation with enough space for {@code size} bytes, and the contents of the original allocation from bytes zero to <code>min(original size, new size) - 1</code> <b>must</b> be preserved in the returned allocation. If {@code size} is larger than the old size, the contents of the additional space are undefined. If satisfying these requirements involves creating a new allocation, then the old allocation <b>should</b> be freed.</p>
+ * <p>If the reallocation was successful, {@code pfnReallocation} <b>must</b> return an allocation with enough space for {@code size} bytes, and the contents of the original allocation from bytes zero to <code>min(original size, new size) - 1</code> <b>must</b> be preserved in the returned allocation. If {@code size} is larger than the old size, the contents of the additional space are undefined. If satisfying these requirements involves creating a new allocation, then the old allocation <b>should</b> be freed.</p>
  * 
  * <p>If {@code pOriginal} is {@code NULL}, then {@code pfnReallocation} <b>must</b> behave equivalently to a call to {@link VkAllocationFunction} with the same parameter values (without {@code pOriginal}).</p>
  * 
@@ -39,7 +39,7 @@ import static org.lwjgl.system.libffi.LibFFI.*;
  * 
  * <p>If this function fails and {@code pOriginal} is non-{@code NULL} the application <b>must</b> not free the old allocation.</p>
  * 
- * <p>{@code pfnReallocation} <b>must</b> follow the same <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkAllocationFunction_return_rules">rules for return values as {@code PFN_vkAllocationFunction}</a>.</p>
+ * <p>{@code pfnReallocation} <b>must</b> follow the same <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkAllocationFunction_return_rules">rules for return values as {@code PFN_vkAllocationFunction}</a>.</p>
  * 
  * <h5>See Also</h5>
  * 
@@ -77,7 +77,7 @@ public interface VkReallocationFunctionI extends CallbackI {
      * @param pOriginal       <b>must</b> be either {@code NULL} or a pointer previously returned by {@code pfnReallocation} or {@code pfnAllocation} of a compatible allocator.
      * @param size            the size in bytes of the requested allocation.
      * @param alignment       the requested alignment of the allocation in bytes and <b>must</b> be a power of two.
-     * @param allocationScope a {@code VkSystemAllocationScope} value specifying the allocation scope of the lifetime of the allocation, as described <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#memory-host-allocation-scope">here</a>.
+     * @param allocationScope a {@code VkSystemAllocationScope} value specifying the allocation scope of the lifetime of the allocation, as described <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-host-allocation-scope">here</a>.
      */
     @NativeType("void *") long invoke(@NativeType("void *") long pUserData, @NativeType("void *") long pOriginal, @NativeType("size_t") long size, @NativeType("size_t") long alignment, @NativeType("VkSystemAllocationScope") int allocationScope);
 

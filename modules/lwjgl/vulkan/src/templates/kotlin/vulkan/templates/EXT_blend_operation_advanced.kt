@@ -43,13 +43,11 @@ val EXT_blend_operation_advanced = "EXTBlendOperationAdvanced".nativeClassVK("EX
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jeff Bolz <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_blend_operation_advanced]%20@jeffbolznv%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_blend_operation_advanced%20extension%3E%3E">jeffbolznv</a></li>
+                <li>Jeff Bolz <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_blend_operation_advanced]%20@jeffbolznv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_blend_operation_advanced%20extension*">jeffbolznv</a></li>
             </ul></dd>
         </dl>
 
@@ -173,7 +171,7 @@ val EXT_blend_operation_advanced = "EXTBlendOperationAdvanced".nativeClassVK("EX
         </table>
 
         <h5>See Also</h5>
-        ##VkPipelineColorBlendAdvancedStateCreateInfoEXT
+        ##VkColorBlendAdvancedEXT, ##VkPipelineColorBlendAdvancedStateCreateInfoEXT
         """,
 
         "BLEND_OVERLAP_UNCORRELATED_EXT".."0",

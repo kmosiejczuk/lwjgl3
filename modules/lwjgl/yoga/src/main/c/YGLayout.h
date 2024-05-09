@@ -1,16 +1,17 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 #pragma once
+
+#ifdef __cplusplus
+
 #include "BitUtils.h"
 #include "YGFloatOptional.h"
 #include "Yoga-internal.h"
-
-using namespace facebook::yoga;
 
 struct YGLayout {
   std::array<float, 4> position = {};
@@ -21,12 +22,8 @@ struct YGLayout {
 
 private:
   static constexpr size_t directionOffset = 0;
-  static constexpr size_t didUseLegacyFlagOffset =
-      directionOffset + facebook::yoga::detail::bitWidthFn<YGDirection>();
-  static constexpr size_t doesLegacyStretchFlagAffectsLayoutOffset =
-      didUseLegacyFlagOffset + 1;
   static constexpr size_t hadOverflowOffset =
-      doesLegacyStretchFlagAffectsLayoutOffset + 1;
+      directionOffset + facebook::yoga::detail::bitWidthFn<YGDirection>();
   uint8_t flags = 0;
 
 public:
@@ -55,25 +52,6 @@ public:
         flags, directionOffset, direction);
   }
 
-  bool didUseLegacyFlag() const {
-    return facebook::yoga::detail::getBooleanData(
-        flags, didUseLegacyFlagOffset);
-  }
-
-  void setDidUseLegacyFlag(bool val) {
-    facebook::yoga::detail::setBooleanData(flags, didUseLegacyFlagOffset, val);
-  }
-
-  bool doesLegacyStretchFlagAffectsLayout() const {
-    return facebook::yoga::detail::getBooleanData(
-        flags, doesLegacyStretchFlagAffectsLayoutOffset);
-  }
-
-  void setDoesLegacyStretchFlagAffectsLayout(bool val) {
-    facebook::yoga::detail::setBooleanData(
-        flags, doesLegacyStretchFlagAffectsLayoutOffset, val);
-  }
-
   bool hadOverflow() const {
     return facebook::yoga::detail::getBooleanData(flags, hadOverflowOffset);
   }
@@ -85,3 +63,5 @@ public:
   bool operator==(YGLayout layout) const;
   bool operator!=(YGLayout layout) const { return !(*this == layout); }
 };
+
+#endif

@@ -10,6 +10,7 @@ import org.lwjgl.assimp.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
+import org.lwjgl.util.nfd.*;
 import org.lwjgl.util.par.*;
 
 import javax.annotation.*;
@@ -18,6 +19,7 @@ import java.nio.*;
 import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.regex.*;
 
 import static java.lang.Math.*;
 import static org.lwjgl.assimp.Assimp.*;
@@ -25,6 +27,7 @@ import static org.lwjgl.demo.util.IOUtil.*;
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL31C.*;
+import static org.lwjgl.opengl.GL33C.*;
 import static org.lwjgl.stb.STBEasyFont.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
@@ -33,6 +36,37 @@ import static org.lwjgl.util.par.ParShapes.*;
 import static org.lwjgl.util.tootle.Tootle.*;
 
 public final class HelloTootle {
+
+    private static final Pattern REGEX_SPACE = Pattern.compile("\\s+");
+
+    private static final NFDFilterItem.Buffer ASSIMP_FILTER_LIST;
+    static {
+        int formatCount = (int)aiGetImportFormatCount();
+
+        Map<String, String> importers = new HashMap<>(formatCount);
+        for (int i = 0; i < formatCount; i++) {
+            AIImporterDesc desc = Objects.requireNonNull(aiGetImportFormatDescription(i));
+
+            String name       = desc.mNameString();
+            String extensions = desc.mFileExtensionsString();
+
+            int importerIndex = name.indexOf(" Importer");
+            importers.put(
+                importerIndex == -1 ? name : name.substring(0, name.indexOf(" Importer")),
+                String.join(",", REGEX_SPACE.split(extensions))
+            );
+        }
+
+        String[] names = importers.keySet().toArray(new String[0]);
+        Arrays.sort(names);
+
+        ASSIMP_FILTER_LIST = NFDFilterItem.malloc(formatCount);
+        for (int i = 0; i < names.length; i++) {
+            ASSIMP_FILTER_LIST.get(i)
+                .name(memUTF8(names[i]))
+                .spec(memUTF8(importers.get(names[i])));
+        }
+    }
 
     private final long window;
 
@@ -381,6 +415,8 @@ public final class HelloTootle {
             throw new OutOfMemoryError();
         }
         aiSetImportPropertyInteger(propertyStore, AI_CONFIG_PP_PTV_NORMALIZE, 1);
+
+        NFD_Init();
     }
 
     public static void main(String[] args) {
@@ -400,6 +436,12 @@ public final class HelloTootle {
             new HelloTootle().run();
         } finally {
             TootleCleanup();
+
+            for (NFDFilterItem item : ASSIMP_FILTER_LIST) {
+                memFree(item.name());
+                memFree(item.spec());
+            }
+            ASSIMP_FILTER_LIST.free();
         }
     }
 
@@ -433,6 +475,8 @@ public final class HelloTootle {
         if (debugCB != null) {
             debugCB.free();
         }
+
+        NFD_Quit();
     }
 
     private void run() {
@@ -939,11 +983,11 @@ public final class HelloTootle {
         try (MemoryStack stack = stackPush()) {
             PointerBuffer pp = stack.mallocPointer(1);
 
-            int result = NFD_OpenDialog(null, Paths.get("modules/samples/src/test/resources/demo").toAbsolutePath().toString(), pp);
+            int result = NFD_OpenDialog(pp, ASSIMP_FILTER_LIST, Paths.get("modules/samples/src/test/resources/demo").toAbsolutePath().toString());
             switch (result) {
                 case NFD_OKAY:
                     String filePath = pp.getStringUTF8(0);
-                    nNFD_Free(pp.get(0));
+                    NFD_FreePath(pp.get(0));
 
                     AIScene scene = importScene(stack, filePath);
                     if (scene != null) {
@@ -1406,7 +1450,7 @@ public final class HelloTootle {
             if (!supported) {
                 return;
             }
-            glBeginQuery(GL33C.GL_TIME_ELAPSED, queries.get(cur % GPU_QUERY_COUNT));
+            glBeginQuery(GL_TIME_ELAPSED, queries.get(cur % GPU_QUERY_COUNT));
             cur++;
         }
 
@@ -1415,20 +1459,20 @@ public final class HelloTootle {
                 return 0;
             }
 
-            glEndQuery(GL33C.GL_TIME_ELAPSED);
+            glEndQuery(GL_TIME_ELAPSED);
 
             int n = 0;
             try (MemoryStack stack = stackPush()) {
                 IntBuffer available = stack.ints(1);
+                LongBuffer timeElapsed = stack.mallocLong(1);
                 while (available.get(0) != 0 && ret <= cur) {
                     // check for results if there are any
                     glGetQueryObjectiv(queries.get(ret % GPU_QUERY_COUNT), GL_QUERY_RESULT_AVAILABLE, available);
                     if (available.get(0) != 0) {
-                        LongBuffer timeElapsed = stack.mallocLong(1);
-                        GL33C.glGetQueryObjectui64v(queries.get(ret % GPU_QUERY_COUNT), GL_QUERY_RESULT, timeElapsed);
+                        glGetQueryObjectui64v(queries.get(ret % GPU_QUERY_COUNT), GL_QUERY_RESULT, timeElapsed);
                         ret++;
                         if (n < maxTimes) {
-                            times.put(n, (float)((double)timeElapsed.get(0) * 1e-9));
+                            times.put(n, (float)(timeElapsed.get(0) * 1e-9));
                             n++;
                         }
                     }

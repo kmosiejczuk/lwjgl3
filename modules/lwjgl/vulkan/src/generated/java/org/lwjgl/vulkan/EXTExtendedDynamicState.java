@@ -34,17 +34,14 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
- * </ul></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Deprecation state</b></dt>
  * <dd><ul>
- * <li><em>Promoted</em> to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
+ * <li><em>Promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Piers Daniell <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_extended_dynamic_state]%20@pdaniell-nv%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_extended_dynamic_state%20extension%3E%3E">pdaniell-nv</a></li>
+ * <li>Piers Daniell <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_extended_dynamic_state]%20@pdaniell-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_extended_dynamic_state%20extension*">pdaniell-nv</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -65,7 +62,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <li>Graeme Leese, Broadcom</li>
  * <li>Hans-Kristian Arntzen, Valve Corporation</li>
  * <li>Jan-Harald Fredriksen, Arm Limited</li>
- * <li>Jason Ekstrand, Intel</li>
+ * <li>Faith Ekstrand, Intel</li>
  * <li>Jeff Bolz, NVIDIA</li>
  * <li>Jesse Hall, Google</li>
  * <li>Philip Rebohle, Valve Corporation</li>
@@ -293,7 +290,7 @@ public class EXTExtendedDynamicState {
      * See {@link VK13#vkCmdSetDepthCompareOp CmdSetDepthCompareOp}.
      *
      * @param commandBuffer  the command buffer into which the command will be recorded.
-     * @param depthCompareOp specifies the depth comparison operator.
+     * @param depthCompareOp a {@code VkCompareOp} value specifying the comparison operator used for the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth-comparison">Depth Comparison</a> step of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth">depth test</a>.
      */
     public static void vkCmdSetDepthCompareOpEXT(VkCommandBuffer commandBuffer, @NativeType("VkCompareOp") int depthCompareOp) {
         long __functionAddress = commandBuffer.getCapabilities().vkCmdSetDepthCompareOpEXT;

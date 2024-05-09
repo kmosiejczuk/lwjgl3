@@ -23,30 +23,29 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code codeSize} <b>must</b> be greater than 0</li>
+ * <li>If the {@link NVGLSLShader VK_NV_glsl_shader} extension is not enabled, {@code pCode} <b>must</b> be a pointer to SPIR-V code</li>
  * <li>If {@code pCode} is a pointer to SPIR-V code, {@code codeSize} <b>must</b> be a multiple of 4</li>
- * <li>{@code pCode} <b>must</b> point to either valid SPIR-V code, formatted and packed as described by the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirv-spec">Khronos SPIR-V Specification</a> or valid GLSL code which <b>must</b> be written to the {@code GL_KHR_vulkan_glsl} extension specification</li>
- * <li>If {@code pCode} is a pointer to SPIR-V code, that code <b>must</b> adhere to the validation rules described by the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-module-validation">Validation Rules within a Module</a> section of the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
+ * <li>{@code pCode} <b>must</b> point to either valid SPIR-V code, formatted and packed as described by the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirv-spec">Khronos SPIR-V Specification</a> or valid GLSL code which <b>must</b> be written to the {@code GL_KHR_vulkan_glsl} extension specification</li>
+ * <li>If {@code pCode} is a pointer to SPIR-V code, that code <b>must</b> adhere to the validation rules described by the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-module-validation">Validation Rules within a Module</a> section of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
  * <li>If {@code pCode} is a pointer to GLSL code, it <b>must</b> be valid GLSL code written to the {@code GL_KHR_vulkan_glsl} GLSL extension specification</li>
  * <li>{@code pCode} <b>must</b> declare the {@code Shader} capability for SPIR-V code</li>
- * <li>{@code pCode} <b>must</b> not declare any capability that is not supported by the API, as described by the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-module-validation">Capabilities</a> section of the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
- * <li>If {@code pCode} declares any of the capabilities listed in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
- * <li>{@code pCode} <b>must</b> not declare any SPIR-V extension that is not supported by the API, as described by the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions">Extension</a> section of the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
- * <li>If {@code pCode} declares any of the SPIR-V extensions listed in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
+ * <li>{@code pCode} <b>must</b> not declare any capability that is not supported by the API, as described by the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-module-validation">Capabilities</a> section of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
+ * <li>If {@code pCode} declares any of the capabilities listed in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
+ * <li>{@code pCode} <b>must</b> not declare any SPIR-V extension that is not supported by the API, as described by the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions">Extension</a> section of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
+ * <li>If {@code pCode} declares any of the SPIR-V extensions listed in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkShaderModuleValidationCacheCreateInfoEXT}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be 0</li>
  * <li>{@code pCode} <b>must</b> be a valid pointer to an array of {@code codeSize / 4} {@code uint32_t} values</li>
  * </ul>
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VK10#vkCreateShaderModule CreateShaderModule}</p>
+ * <p>{@link VK10#vkCreateShaderModule CreateShaderModule}, {@link EXTShaderModuleIdentifier#vkGetShaderModuleCreateInfoIdentifierEXT GetShaderModuleCreateInfoIdentifierEXT}</p>
  * 
  * <h3>Layout</h3>
  * 

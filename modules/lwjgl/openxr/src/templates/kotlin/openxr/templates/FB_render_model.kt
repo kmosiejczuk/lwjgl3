@@ -11,13 +11,15 @@ import openxr.*
 val FB_render_model = "FBRenderModel".nativeClassXR("FB_render_model", type = "instance", postfix = "FB") {
     documentation =
         """
-        The $templateName extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_FB_render_model">XR_FB_render_model</a> extension.
+
+        This extension allows applications to request GLTF models for certain connected devices supported by the runtime. Paths that correspond to these devices will be provided through the extension and can be used to get information about the models as well as loading them.
         """
 
     IntConstant(
         "The extension specification version.",
 
-        "FB_render_model_SPEC_VERSION".."1"
+        "FB_render_model_SPEC_VERSION".."3"
     )
 
     StringConstant(
@@ -39,7 +41,8 @@ val FB_render_model = "FBRenderModel".nativeClassXR("FB_render_model", type = "i
         "TYPE_RENDER_MODEL_PROPERTIES_FB".."1000119001",
         "TYPE_RENDER_MODEL_BUFFER_FB".."1000119002",
         "TYPE_RENDER_MODEL_LOAD_INFO_FB".."1000119003",
-        "TYPE_SYSTEM_RENDER_MODEL_PROPERTIES_FB".."1000119004"
+        "TYPE_SYSTEM_RENDER_MODEL_PROPERTIES_FB".."1000119004",
+        "TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB".."1000119005"
     )
 
     EnumConstant(
@@ -47,6 +50,23 @@ val FB_render_model = "FBRenderModel".nativeClassXR("FB_render_model", type = "i
 
         "ERROR_RENDER_MODEL_KEY_INVALID_FB".."-1000119000",
         "RENDER_MODEL_UNAVAILABLE_FB".."1000119020"
+    )
+
+    EnumConstant(
+        """
+        XrRenderModelFlagBitsFB - XrRenderModelFlagBitsFB
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_1_BIT_FB — Minimal level of support.  Can only contain a single mesh.  Can only contain a single texture.  Can not contain transparency.  Assumes unlit rendering.  Requires Extension KHR_texturebasisu.</li>
+            <li>#RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_2_BIT_FB — All of XR_RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_1_BIT_FB support plus: Multiple meshes. Multiple Textures. Texture Transparency.</li>
+        </ul>
+
+        Render Model Support Levels: An application <b>should</b> request a model of a certain complexity via the ##XrRenderModelCapabilitiesRequestFB on the structure chain of ##XrRenderModelPropertiesFB passed into #GetRenderModelPropertiesFB(). The flags on the ##XrRenderModelCapabilitiesRequestFB are an acknowledgement of the application’s ability to render such a model. Multiple values of {@code XrRenderModelFlagBitsFB} can be set on this variable to indicate acceptance of different support levels. The flags parameter on the ##XrRenderModelPropertiesFB will indicate what capabilities the model in the runtime actually requires. It will be set to a single value of {@code XrRenderModelFlagBitsFB}.
+        """,
+
+        "RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_1_BIT_FB".enum(0x00000001),
+        "RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_2_BIT_FB".enum(0x00000002)
     )
 
     XrResult(
@@ -100,7 +120,7 @@ val FB_render_model = "FBRenderModel".nativeClassXR("FB_render_model", type = "i
 
         XrSession("session", "the specified {@code XrSession}."),
         AutoSize("paths")..uint32_t("pathCapacityInput", "the capacity of the {@code paths}, or 0 to retrieve the required capacity."),
-        Check(1)..uint32_t.p("pathCountOutput", "a pointer to the count of {@code float} {@code paths} written, or a pointer to the required capacity in the case that {@code pathCapacityInput} is 0."),
+        Check(1)..uint32_t.p("pathCountOutput", "a pointer to the count of {@code float} {@code paths} written, or a pointer to the required capacity in the case that {@code pathCapacityInput} is insufficient."),
         nullable..XrRenderModelPathInfoFB.p("paths", "a pointer to an application-allocated array that will be filled with ##XrRenderModelPathInfoFB values that are supported by the runtime, but <b>can</b> be {@code NULL} if {@code pathCapacityInput} is 0")
     )
 
@@ -179,7 +199,7 @@ val FB_render_model = "FBRenderModel".nativeClassXR("FB_render_model", type = "i
 ￿    XrRenderModelBufferFB*                      buffer);</code></pre>
 
         <h5>Description</h5>
-        #LoadRenderModelFB() is used to load the GLTF model data using a valid {@code modelKey}. #LoadRenderModelFB() loads the model as a byte buffer containing the GLTF in the binary format (GLB). The GLB data <b>must</b> conform to the glTF 2.0 format defined at <a target="_blank" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">https://github.com/KhronosGroup/glTF/tree/master/specification/2.0</a>. The GLB <b>may</b> contain texture data in a format that requires the use of the {@code KHR_texture_basisu} GLTF extension defined at <a target="_blank" href="https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_basisu">https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_basisu</a>. Therefore, the application <b>should</b> ensure it can handle this extension.
+        #LoadRenderModelFB() is used to load the GLTF model data using a valid {@code modelKey}. #LoadRenderModelFB() loads the model as a byte buffer containing the GLTF in the binary format (GLB). The GLB data <b>must</b> conform to the glTF 2.0 format defined at {uri-fb-gltf2} The GLB <b>may</b> contain texture data in a format that requires the use of the {@code KHR_texture_basisu} GLTF extension defined at {uri-fb-gltf2-basisu}. Therefore, the application <b>should</b> ensure it can handle this extension.
 
         If the device for the requested model is disconnected or does not match the {@code modelKey} provided, #LoadRenderModelFB() <b>must</b> return #RENDER_MODEL_UNAVAILABLE_FB as well as a {@code bufferCountOutput} value of 0 indicating that the model was not available.
 

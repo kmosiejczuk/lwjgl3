@@ -40,11 +40,12 @@ public final class Library {
 
     static {
         if (DEBUG) {
-            apiLog("Version: " + Version.getVersion());
-            apiLog("\t OS: " + System.getProperty("os.name") + " v" + System.getProperty("os.version"));
-            apiLog("\tJRE: " + Platform.get().getName() + " " + System.getProperty("os.arch") + " " + System.getProperty("java.version"));
-            apiLog(
-                "\tJVM: " + System.getProperty("java.vm.name") + " v" + System.getProperty("java.vm.version") + " by " + System.getProperty("java.vm.vendor")
+            DEBUG_STREAM.print(
+                "[LWJGL] Version: " + Version.getVersion() +
+                "\n\t OS: " + System.getProperty("os.name") + " v" + System.getProperty("os.version") +
+                "\n\tJRE: " + Platform.get().getName() + " " + System.getProperty("os.arch") + " " + System.getProperty("java.version") +
+                "\n\tJVM: " + System.getProperty("java.vm.name") + " v" + System.getProperty("java.vm.version") + " by " + System.getProperty("java.vm.vendor") +
+                "\n"
             );
         }
 
@@ -84,13 +85,18 @@ public final class Library {
         String module,
         String name
     ) throws UnsatisfiedLinkError {
-        apiLog("Loading JNI library: " + name);
-        apiLog("\tModule: " + module);
+        if (DEBUG) {
+            DEBUG_STREAM.print(
+                "[LWJGL] Loading JNI library: " + name +
+                "\n\tModule: " + module +
+                "\n"
+            );
+        }
 
         // METHOD 1: absolute path
         if (Paths.get(name).isAbsolute()) {
             load.accept(name);
-            apiLog("\tSuccess");
+            apiLogMore("Success");
             return;
         }
 
@@ -105,19 +111,21 @@ public final class Library {
                 return;
             }
         } else {
-            // Always use the SLL if the library is found in the classpath,
-            // so that newer versions can be detected.
             boolean debugLoader = Configuration.DEBUG_LOADER.get(false);
             try {
-                String regular = getRegularFilePath(libURL);
-                if (regular != null) {
-                    load.accept(regular);
-                    apiLog("\tLoaded from classpath: " + regular);
-                    return;
+                if (!Configuration.SHARED_LIBRARY_EXTRACT_FORCE.get(false)) {
+                    String regular = getRegularFilePath(libURL);
+                    if (regular != null) {
+                        load.accept(regular);
+                        apiLogMore("Loaded from classpath: " + regular);
+                        return;
+                    }
                 }
 
+                // Always use the SLL if the library is found in the classpath,
+                // so that newer versions can be detected.
                 if (debugLoader) {
-                    apiLog("\tUsing SharedLibraryLoader...");
+                    apiLogMore("Using SharedLibraryLoader...");
                 }
                 // Extract from classpath and try org.lwjgl.librarypath
                 try (FileChannel ignored = SharedLibraryLoader.load(name, libName, libURL, load)) {
@@ -149,14 +157,16 @@ public final class Library {
             // In that case, ClassLoader::findLibrary was used to return the library path (e.g. OSGi does this with native libraries in bundles).
             Path libFile = javaLibraryPath == null ? null : findFile(javaLibraryPath, module, libName, bundledWithLWJGL);
             if (libFile != null) {
-                apiLog(String.format("\tLoaded from %s: %s", JAVA_LIBRARY_PATH, libFile));
-                checkHash(context, libFile);
+                apiLogMore(String.format("Loaded from %s: %s", JAVA_LIBRARY_PATH, libFile));
+                if (bundledWithLWJGL) {
+                    checkHash(context, libFile, module, libName);
+                }
             } else {
-                apiLog("\tLoaded from a ClassLoader provided path.");
+                apiLogMore("Loaded from a ClassLoader provided path.");
             }
             return;
         } catch (Throwable t) {
-            apiLog(String.format("\t%s not found in %s", libName, JAVA_LIBRARY_PATH));
+            apiLogMore(libName + " not found in " + JAVA_LIBRARY_PATH);
         }
 
         detectPlatformMismatch(context, module);
@@ -172,13 +182,15 @@ public final class Library {
     private static boolean loadSystem(Consumer<String> load, Class<?> context, String module, String libName, boolean bundledWithLWJGL, String property, String paths) {
         Path libFile = findFile(paths, module, libName, bundledWithLWJGL);
         if (libFile == null) {
-            apiLog(String.format("\t%s not found in %s=%s", libName, property, paths));
+            apiLogMore(libName + " not found in " + property + "=" + paths);
             return false;
         }
 
         load.accept(libFile.toAbsolutePath().toString());
-        apiLog(String.format("\tLoaded from %s: %s", property, libFile));
-        checkHash(context, libFile);
+        apiLogMore("Loaded from " + property + ": " + libFile);
+        if (bundledWithLWJGL) {
+            checkHash(context, libFile, module, libName);
+        }
         return true;
     }
 
@@ -226,13 +238,18 @@ public final class Library {
 
     @SuppressWarnings("try")
     private static SharedLibrary loadNative(Class<?> context, String module, String name, boolean bundledWithLWJGL, boolean printError) {
-        apiLog("Loading library: " + name);
-        apiLog("\tModule: " + module);
+        if (DEBUG) {
+            DEBUG_STREAM.print(
+                "[LWJGL] Loading library: " + name +
+                "\n\tModule: " + module +
+                "\n"
+            );
+        }
 
         // METHOD 1: absolute path
         if (Paths.get(name).isAbsolute()) {
             SharedLibrary lib = apiCreateLibrary(name);
-            apiLog("\tSuccess");
+            apiLogMore("Success");
             return lib;
         }
 
@@ -249,17 +266,19 @@ public final class Library {
         } else {
             boolean debugLoader = Configuration.DEBUG_LOADER.get(false);
             try {
-                String regular = getRegularFilePath(libURL);
-                if (regular != null) {
-                    lib = apiCreateLibrary(regular);
-                    apiLog("\tLoaded from classpath: " + regular);
-                    return lib;
+                if (!Configuration.SHARED_LIBRARY_EXTRACT_FORCE.get(false)) {
+                    String regular = getRegularFilePath(libURL);
+                    if (regular != null) {
+                        lib = apiCreateLibrary(regular);
+                        apiLogMore("Loaded from classpath: " + regular);
+                        return lib;
+                    }
                 }
 
                 // Always use the SLL if the library is found in the classpath,
                 // so that newer versions can be detected.
                 if (debugLoader) {
-                    apiLog("\tUsing SharedLibraryLoader...");
+                    apiLogMore("Using SharedLibraryLoader...");
                 }
                 // Extract from classpath and try org.lwjgl.librarypath
                 try (FileChannel ignored = SharedLibraryLoader.load(name, libName, libURL, null)) {
@@ -294,7 +313,7 @@ public final class Library {
                     String libPath = (String)findLibrary.invoke(context.getClassLoader(), name);
                     if (libPath != null) {
                         lib = apiCreateLibrary(libPath);
-                        apiLog(String.format("\tLoaded from ClassLoader provided path: %s", libPath));
+                        apiLogMore("Loaded from ClassLoader provided path: " + libPath);
                         return lib;
                     }
                 } catch (Exception ignored) {
@@ -333,12 +352,12 @@ public final class Library {
         try {
             lib = apiCreateLibrary(libName);
             String path = lib.getPath();
-            apiLog(path == null
-                ? "\tLoaded from system paths"
-                : "\tLoaded from system paths: " + path);
+            apiLogMore(path == null
+                ? "Loaded from system paths"
+                : "Loaded from system paths: " + path);
         } catch (UnsatisfiedLinkError e) {
             lib = null;
-            apiLog(String.format("\t%s not found in system paths", libName));
+            apiLogMore(libName + " not found in system paths");
         }
         return lib;
     }
@@ -356,13 +375,15 @@ public final class Library {
     private static SharedLibrary loadNative(Class<?> context, String module, String libName, boolean bundledWithLWJGL, String property, String paths) {
         Path libFile = findFile(paths, module, libName, bundledWithLWJGL);
         if (libFile == null) {
-            apiLog(String.format("\t%s not found in %s=%s", libName, property, paths));
+            apiLogMore(libName + " not found in " + property + "=" + paths);
             return null;
         }
 
         SharedLibrary lib = apiCreateLibrary(libFile.toAbsolutePath().toString());
-        apiLog(String.format("\tLoaded from %s: %s", property, libFile));
-        checkHash(context, libFile);
+        apiLogMore("Loaded from " + property + ": " + libFile);
+        if (bundledWithLWJGL) {
+            checkHash(context, libFile, module, libName);
+        }
         return lib;
     }
 
@@ -482,6 +503,10 @@ public final class Library {
     }
 
     private static void detectPlatformMismatch(Class<?> context, String module) {
+        if (!module.startsWith("org.lwjgl")) {
+            return;
+        }
+
         String moduleTitle = module.equals("org.lwjgl") ? "lwjgl" : "lwjgl-" + module.substring("org.lwjgl.".length());
 
         List<String> platforms = new ArrayList<>(8);
@@ -504,24 +529,12 @@ public final class Library {
         }
 
         if (!platforms.isEmpty()) {
-            DEBUG_STREAM.println("[LWJGL] Platform/architecture mismatch detected for module: " + module);
-            DEBUG_STREAM.println("\tJVM platform:");
-            DEBUG_STREAM.format(
-                "\t\t%s %s %s\n",
-                Platform.get().getName(),
-                System.getProperty("os.arch"),
-                System.getProperty("java.version")
-            );
-            DEBUG_STREAM.format(
-                "\t\t%s v%s by %s\n",
-                System.getProperty("java.vm.name"),
-                System.getProperty("java.vm.version"),
-                System.getProperty("java.vm.vendor")
-            );
-            DEBUG_STREAM.format(
-                "\tPlatform%s available on classpath:\n\t\t%s\n",
-                (platforms.size() == 1 ? "" : "s"),
-                String.join("\n\t\t", platforms)
+            DEBUG_STREAM.print(
+                "[LWJGL] Platform/architecture mismatch detected for module: " + module +
+                "\n\tJVM platform:" +
+                "\t\t" + Platform.get().getName() + " " + System.getProperty("os.arch") + " " + System.getProperty("java.version") + "\n" +
+                "\t\t" + System.getProperty("java.vm.name") + " v" + System.getProperty("java.vm.version") + " by " + System.getProperty("java.vm.vendor") + "\n" +
+                "\tPlatform" + (platforms.size() == 1 ? "" : "s") + " available on classpath:\n\t\t" + String.join("\n\t\t", platforms) + "\n"
             );
         }
     }
@@ -538,13 +551,17 @@ public final class Library {
     }
 
     static void printError(String message) {
-        DEBUG_STREAM.println(message);
+        StringBuilder sb = new StringBuilder(message);
+        sb.append("\n");
+
         if (!DEBUG) {
-            DEBUG_STREAM.println("[LWJGL] Enable debug mode with -Dorg.lwjgl.util.Debug=true for better diagnostics.");
+            sb.append("[LWJGL] Enable debug mode with -Dorg.lwjgl.util.Debug=true for better diagnostics.\n");
             if (!Configuration.DEBUG_LOADER.get(false)) {
-                DEBUG_STREAM.println("[LWJGL] Enable the SharedLibraryLoader debug mode with -Dorg.lwjgl.util.DebugLoader=true for better diagnostics.");
+                sb.append("[LWJGL] Enable the SharedLibraryLoader debug mode with -Dorg.lwjgl.util.DebugLoader=true for better diagnostics.\n");
             }
         }
+
+        DEBUG_STREAM.print(sb);
     }
 
     /**
@@ -555,7 +572,7 @@ public final class Library {
      * @param context the class to use to discover the shared library hash in the classpath
      * @param libFile the library file loaded
      */
-    private static void checkHash(Class<?> context, Path libFile) {
+    private static void checkHash(Class<?> context, Path libFile, String module, String libName) {
         if (!CHECKS) {
             return;
         }
@@ -564,7 +581,7 @@ public final class Library {
             URL classesURL = null;
             URL nativesURL = null;
 
-            Enumeration<URL> resources = context.getClassLoader().getResources(libFile.getFileName() + ".sha1");
+            Enumeration<URL> resources = context.getClassLoader().getResources("META-INF/" + getBundledPath(module, libName) + ".sha1");
             while (resources.hasMoreElements()) {
                 URL url = resources.nextElement();
                 if (NATIVES_JAR.matcher(url.toExternalForm()).find()) {

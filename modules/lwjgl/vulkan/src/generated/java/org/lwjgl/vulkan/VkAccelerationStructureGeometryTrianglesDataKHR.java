@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code vertexStride} <b>must</b> be a multiple of the size in bytes of the smallest component of {@code vertexFormat}</li>
  * <li>{@code vertexStride} <b>must</b> be less than or equal to <code>2<sup>32</sup>-1</code></li>
- * <li>{@code vertexFormat} <b>must</b> support the {@link KHRAccelerationStructure#VK_FORMAT_FEATURE_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR FORMAT_FEATURE_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR} in {@link VkFormatProperties}{@code ::bufferFeatures} as returned by {@link VK11#vkGetPhysicalDeviceFormatProperties2 GetPhysicalDeviceFormatProperties2}</li>
+ * <li>The <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-buffer-view-format-features">format features</a> of {@code vertexFormat} <b>must</b> contain {@link KHRAccelerationStructure#VK_FORMAT_FEATURE_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR FORMAT_FEATURE_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR}</li>
  * <li>{@code indexType} <b>must</b> be {@link VK10#VK_INDEX_TYPE_UINT16 INDEX_TYPE_UINT16}, {@link VK10#VK_INDEX_TYPE_UINT32 INDEX_TYPE_UINT32}, or {@link KHRAccelerationStructure#VK_INDEX_TYPE_NONE_KHR INDEX_TYPE_NONE_KHR}</li>
  * </ul>
  * 
@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRAccelerationStructure#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkAccelerationStructureGeometryMotionTrianglesDataNV}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkAccelerationStructureGeometryMotionTrianglesDataNV}, {@link VkAccelerationStructureTrianglesDisplacementMicromapNV}, or {@link VkAccelerationStructureTrianglesOpacityMicromapEXT}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code vertexFormat} <b>must</b> be a valid {@code VkFormat} value</li>
  * <li>{@code indexType} <b>must</b> be a valid {@code VkIndexType} value</li>
@@ -156,6 +156,10 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct impl
     public VkAccelerationStructureGeometryTrianglesDataKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkAccelerationStructureGeometryMotionTrianglesDataNV} value to the {@code pNext} chain. */
     public VkAccelerationStructureGeometryTrianglesDataKHR pNext(VkAccelerationStructureGeometryMotionTrianglesDataNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkAccelerationStructureTrianglesDisplacementMicromapNV} value to the {@code pNext} chain. */
+    public VkAccelerationStructureGeometryTrianglesDataKHR pNext(VkAccelerationStructureTrianglesDisplacementMicromapNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkAccelerationStructureTrianglesOpacityMicromapEXT} value to the {@code pNext} chain. */
+    public VkAccelerationStructureGeometryTrianglesDataKHR pNext(VkAccelerationStructureTrianglesOpacityMicromapEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #vertexFormat} field. */
     public VkAccelerationStructureGeometryTrianglesDataKHR vertexFormat(@NativeType("VkFormat") int value) { nvertexFormat(address(), value); return this; }
     /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@link #vertexData} field. */
@@ -436,6 +440,10 @@ public class VkAccelerationStructureGeometryTrianglesDataKHR extends Struct impl
         public VkAccelerationStructureGeometryTrianglesDataKHR.Buffer pNext(@NativeType("void const *") long value) { VkAccelerationStructureGeometryTrianglesDataKHR.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkAccelerationStructureGeometryMotionTrianglesDataNV} value to the {@code pNext} chain. */
         public VkAccelerationStructureGeometryTrianglesDataKHR.Buffer pNext(VkAccelerationStructureGeometryMotionTrianglesDataNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkAccelerationStructureTrianglesDisplacementMicromapNV} value to the {@code pNext} chain. */
+        public VkAccelerationStructureGeometryTrianglesDataKHR.Buffer pNext(VkAccelerationStructureTrianglesDisplacementMicromapNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkAccelerationStructureTrianglesOpacityMicromapEXT} value to the {@code pNext} chain. */
+        public VkAccelerationStructureGeometryTrianglesDataKHR.Buffer pNext(VkAccelerationStructureTrianglesOpacityMicromapEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkAccelerationStructureGeometryTrianglesDataKHR#vertexFormat} field. */
         public VkAccelerationStructureGeometryTrianglesDataKHR.Buffer vertexFormat(@NativeType("VkFormat") int value) { VkAccelerationStructureGeometryTrianglesDataKHR.nvertexFormat(address(), value); return this; }
         /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@link VkAccelerationStructureGeometryTrianglesDataKHR#vertexData} field. */

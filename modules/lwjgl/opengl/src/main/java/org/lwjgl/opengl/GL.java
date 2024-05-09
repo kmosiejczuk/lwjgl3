@@ -102,10 +102,7 @@ public final class GL {
                 GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGL.so.1", "libGL.so");
                 break;
             case MACOSX:
-                String override = Configuration.OPENGL_LIBRARY_NAME.get();
-                GL = override != null
-                    ? Library.loadNative(GL.class, "org.lwjgl.opengl", override)
-                    : MacOSXLibrary.getWithIdentifier("com.apple.opengl");
+                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL");
                 break;
             case WINDOWS:
                 GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "opengl32");
@@ -162,7 +159,7 @@ public final class GL {
                     if (address == NULL) {
                         address = library.getFunctionAddress(functionName);
                         if (address == NULL && DEBUG_FUNCTIONS) {
-                            apiLog("Failed to locate address for GL function " + memASCII(functionName));
+                            apiLogMissing("GL", functionName);
                         }
                     }
 
@@ -423,7 +420,7 @@ public final class GL {
             }
 
             for (int m = M == 1 ? 1 : 0; m <= maxMinor; m++) {
-                supportedExtensions.add(String.format("OpenGL%d%d", M, m));
+                supportedExtensions.add("OpenGL" + M + m);
             }
         }
 

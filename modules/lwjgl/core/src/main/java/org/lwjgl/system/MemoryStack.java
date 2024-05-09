@@ -200,9 +200,16 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
             if (popped != null) {
                 reportAsymmetricPop(pushed, popped);
             }
-            debugFrames[frameIndex - 1] = null;
 
+            debugFrames[frameIndex - 1] = null;
             return super.pop();
+        }
+
+        // No need to check pop in try-with-resources
+        @Override
+        public void close() {
+            debugFrames[frameIndex - 1] = null;
+            super.pop();
         }
 
         private static void reportAsymmetricPop(Object pushed, Object popped) {
@@ -688,6 +695,27 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
             buffer.put(i, memAddress(values[i]));
         }
         return buffer;
+    }
+
+    // -------------------------------------------------
+
+    /**
+     * Allocates a new {@link PointerBuffer} of size {@code buffer.remaining()}
+     * and fills it with the addresses of the values within the provided {@link CustomBuffer}
+     * starting at {@code buffer.position()}.
+     *
+     * @param buffer the {@link CustomBuffer} to obtain its element addresses of
+     * @return a {@link PointerBuffer} containing the buffer's element addresses
+     */
+    public PointerBuffer pointersOfElements(CustomBuffer<?> buffer) {
+        int remaining = buffer.remaining();
+        long addr = buffer.address();
+        long sizeof = buffer.sizeof();
+        PointerBuffer pointerBuffer = mallocPointer(remaining);
+        for (int i = 0; i < remaining; i++) {
+            pointerBuffer.put(i, addr + sizeof * i);
+        }
+        return pointerBuffer;
     }
 
     // -------------------------------------------------

@@ -11,7 +11,16 @@ import openxr.*
 val EXT_debug_utils = "EXTDebugUtils".nativeClassXR("EXT_debug_utils", type = "instance", postfix = "EXT") {
     documentation =
         """
-        The $templateName extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_EXT_debug_utils">XR_EXT_debug_utils</a> extension.
+
+        Due to the nature of the OpenXR interface, there is very little error information available to the developer and application. By using the {@link EXTDebugUtils XR_EXT_debug_utils} extension, developers <b>can</b> obtain more information. When combined with validation layers, even more detailed feedback on the application’s use of OpenXR will be provided.
+
+        This extension provides the following capabilities:
+
+        <ul>
+            <li>The ability to create a debug messenger which will pass along debug messages to an application supplied callback.</li>
+            <li>The ability to identify specific OpenXR handles using a name to improve tracking.</li>
+        </ul>
         """
 
     IntConstant(
@@ -42,7 +51,9 @@ val EXT_debug_utils = "EXTDebugUtils".nativeClassXR("EXT_debug_utils", type = "i
     )
 
     EnumConstant(
-        "XrDebugUtilsMessageSeverityFlagBitsEXT",
+        """
+        XrDebugUtilsMessageSeverityFlagBitsEXT - XrDebugUtilsMessageSeverityFlagBitsEXT
+        """,
 
         "DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT".enum(0x00000001),
         "DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT".enum(0x00000010),
@@ -51,7 +62,9 @@ val EXT_debug_utils = "EXTDebugUtils".nativeClassXR("EXT_debug_utils", type = "i
     )
 
     EnumConstant(
-        "XrDebugUtilsMessageTypeFlagBitsEXT",
+        """
+        XrDebugUtilsMessageTypeFlagBitsEXT - XrDebugUtilsMessageTypeFlagBitsEXT
+        """,
 
         "DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT".enum(0x00000001),
         "DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT".enum(0x00000002),

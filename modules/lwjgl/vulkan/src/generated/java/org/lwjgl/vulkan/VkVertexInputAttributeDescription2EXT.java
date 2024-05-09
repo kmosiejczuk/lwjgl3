@@ -24,20 +24,20 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code location} <b>must</b> be less than {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputAttributes}</li>
  * <li>{@code binding} <b>must</b> be less than {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputBindings}</li>
  * <li>{@code offset} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputAttributeOffset}</li>
- * <li>{@code format} <b>must</b> be allowed as a vertex buffer format, as specified by the {@link VK10#VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT FORMAT_FEATURE_VERTEX_BUFFER_BIT} flag in {@link VkFormatProperties}{@code ::bufferFeatures} returned by {@code vkGetPhysicalDeviceFormatProperties}</li>
+ * <li>The <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-buffer-view-format-features">format features</a> of {@code format} <b>must</b> contain {@link VK10#VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT FORMAT_FEATURE_VERTEX_BUFFER_BIT}</li>
  * <li>If the {@link KHRPortabilitySubset VK_KHR_portability_subset} extension is enabled, and {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR}{@code ::vertexAttributeAccessBeyondStride} is {@link VK10#VK_FALSE FALSE}, the sum of {@code offset} plus the size of the vertex attribute data described by {@code format} <b>must</b> not be greater than {@code stride} in the {@link VkVertexInputBindingDescription2EXT} referenced in {@code binding}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT}</li>
+ * <li>{@code sType} <b>must</b> be {@link EXTShaderObject#VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT}</li>
  * <li>{@code format} <b>must</b> be a valid {@code VkFormat} value</li>
  * </ul>
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link EXTVertexInputDynamicState#vkCmdSetVertexInputEXT CmdSetVertexInputEXT}</p>
+ * <p>{@link EXTShaderObject#vkCmdSetVertexInputEXT CmdSetVertexInputEXT}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -123,8 +123,8 @@ public class VkVertexInputAttributeDescription2EXT extends Struct implements Nat
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkVertexInputAttributeDescription2EXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT} value to the {@link #sType} field. */
-    public VkVertexInputAttributeDescription2EXT sType$Default() { return sType(EXTVertexInputDynamicState.VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT); }
+    /** Sets the {@link EXTShaderObject#VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT} value to the {@link #sType} field. */
+    public VkVertexInputAttributeDescription2EXT sType$Default() { return sType(EXTShaderObject.VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkVertexInputAttributeDescription2EXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #location} field. */
@@ -365,8 +365,8 @@ public class VkVertexInputAttributeDescription2EXT extends Struct implements Nat
 
         /** Sets the specified value to the {@link VkVertexInputAttributeDescription2EXT#sType} field. */
         public VkVertexInputAttributeDescription2EXT.Buffer sType(@NativeType("VkStructureType") int value) { VkVertexInputAttributeDescription2EXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT} value to the {@link VkVertexInputAttributeDescription2EXT#sType} field. */
-        public VkVertexInputAttributeDescription2EXT.Buffer sType$Default() { return sType(EXTVertexInputDynamicState.VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT); }
+        /** Sets the {@link EXTShaderObject#VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT} value to the {@link VkVertexInputAttributeDescription2EXT#sType} field. */
+        public VkVertexInputAttributeDescription2EXT.Buffer sType$Default() { return sType(EXTShaderObject.VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT); }
         /** Sets the specified value to the {@link VkVertexInputAttributeDescription2EXT#pNext} field. */
         public VkVertexInputAttributeDescription2EXT.Buffer pNext(@NativeType("void *") long value) { VkVertexInputAttributeDescription2EXT.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkVertexInputAttributeDescription2EXT#location} field. */

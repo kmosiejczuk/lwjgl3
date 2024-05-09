@@ -35,6 +35,7 @@ public final class Spv {
      * <li>{@link #SpvSourceLanguageOpenCL_CPP SourceLanguageOpenCL_CPP}</li>
      * <li>{@link #SpvSourceLanguageHLSL SourceLanguageHLSL}</li>
      * <li>{@link #SpvSourceLanguageCPP_for_OpenCL SourceLanguageCPP_for_OpenCL}</li>
+     * <li>{@link #SpvSourceLanguageSYCL SourceLanguageSYCL}</li>
      * <li>{@link #SpvSourceLanguageMax SourceLanguageMax}</li>
      * </ul>
      */
@@ -46,6 +47,7 @@ public final class Spv {
         SpvSourceLanguageOpenCL_CPP     = 4,
         SpvSourceLanguageHLSL           = 5,
         SpvSourceLanguageCPP_for_OpenCL = 6,
+        SpvSourceLanguageSYCL           = 7,
         SpvSourceLanguageMax            = 0x7fffffff;
 
     /**
@@ -75,6 +77,8 @@ public final class Spv {
      * <li>{@link #SpvExecutionModelMissNV ExecutionModelMissNV}</li>
      * <li>{@link #SpvExecutionModelCallableKHR ExecutionModelCallableKHR}</li>
      * <li>{@link #SpvExecutionModelCallableNV ExecutionModelCallableNV}</li>
+     * <li>{@link #SpvExecutionModelTaskEXT ExecutionModelTaskEXT}</li>
+     * <li>{@link #SpvExecutionModelMeshEXT ExecutionModelMeshEXT}</li>
      * <li>{@link #SpvExecutionModelMax ExecutionModelMax}</li>
      * </ul>
      */
@@ -100,6 +104,8 @@ public final class Spv {
         SpvExecutionModelMissNV                 = 5317,
         SpvExecutionModelCallableKHR            = 5318,
         SpvExecutionModelCallableNV             = 5318,
+        SpvExecutionModelTaskEXT                = 5364,
+        SpvExecutionModelMeshEXT                = 5365,
         SpvExecutionModelMax                    = 0x7fffffff;
 
     /**
@@ -197,11 +203,21 @@ public final class Spv {
      * <li>{@link #SpvExecutionModeSignedZeroInfNanPreserve ExecutionModeSignedZeroInfNanPreserve}</li>
      * <li>{@link #SpvExecutionModeRoundingModeRTE ExecutionModeRoundingModeRTE}</li>
      * <li>{@link #SpvExecutionModeRoundingModeRTZ ExecutionModeRoundingModeRTZ}</li>
+     * <li>{@link #SpvExecutionModeEarlyAndLateFragmentTestsAMD ExecutionModeEarlyAndLateFragmentTestsAMD}</li>
      * <li>{@link #SpvExecutionModeStencilRefReplacingEXT ExecutionModeStencilRefReplacingEXT}</li>
+     * <li>{@link #SpvExecutionModeStencilRefUnchangedFrontAMD ExecutionModeStencilRefUnchangedFrontAMD}</li>
+     * <li>{@link #SpvExecutionModeStencilRefGreaterFrontAMD ExecutionModeStencilRefGreaterFrontAMD}</li>
+     * <li>{@link #SpvExecutionModeStencilRefLessFrontAMD ExecutionModeStencilRefLessFrontAMD}</li>
+     * <li>{@link #SpvExecutionModeStencilRefUnchangedBackAMD ExecutionModeStencilRefUnchangedBackAMD}</li>
+     * <li>{@link #SpvExecutionModeStencilRefGreaterBackAMD ExecutionModeStencilRefGreaterBackAMD}</li>
+     * <li>{@link #SpvExecutionModeStencilRefLessBackAMD ExecutionModeStencilRefLessBackAMD}</li>
+     * <li>{@link #SpvExecutionModeOutputLinesEXT ExecutionModeOutputLinesEXT}</li>
      * <li>{@link #SpvExecutionModeOutputLinesNV ExecutionModeOutputLinesNV}</li>
+     * <li>{@link #SpvExecutionModeOutputPrimitivesEXT ExecutionModeOutputPrimitivesEXT}</li>
      * <li>{@link #SpvExecutionModeOutputPrimitivesNV ExecutionModeOutputPrimitivesNV}</li>
      * <li>{@link #SpvExecutionModeDerivativeGroupQuadsNV ExecutionModeDerivativeGroupQuadsNV}</li>
      * <li>{@link #SpvExecutionModeDerivativeGroupLinearNV ExecutionModeDerivativeGroupLinearNV}</li>
+     * <li>{@link #SpvExecutionModeOutputTrianglesEXT ExecutionModeOutputTrianglesEXT}</li>
      * <li>{@link #SpvExecutionModeOutputTrianglesNV ExecutionModeOutputTrianglesNV}</li>
      * <li>{@link #SpvExecutionModePixelInterlockOrderedEXT ExecutionModePixelInterlockOrderedEXT}</li>
      * <li>{@link #SpvExecutionModePixelInterlockUnorderedEXT ExecutionModePixelInterlockUnorderedEXT}</li>
@@ -219,6 +235,7 @@ public final class Spv {
      * <li>{@link #SpvExecutionModeNoGlobalOffsetINTEL ExecutionModeNoGlobalOffsetINTEL}</li>
      * <li>{@link #SpvExecutionModeNumSIMDWorkitemsINTEL ExecutionModeNumSIMDWorkitemsINTEL}</li>
      * <li>{@link #SpvExecutionModeSchedulerTargetFmaxMhzINTEL ExecutionModeSchedulerTargetFmaxMhzINTEL}</li>
+     * <li>{@link #SpvExecutionModeNamedBarrierCountINTEL ExecutionModeNamedBarrierCountINTEL}</li>
      * <li>{@link #SpvExecutionModeMax ExecutionModeMax}</li>
      * </ul>
      */
@@ -268,11 +285,21 @@ public final class Spv {
         SpvExecutionModeSignedZeroInfNanPreserve         = 4461,
         SpvExecutionModeRoundingModeRTE                  = 4462,
         SpvExecutionModeRoundingModeRTZ                  = 4463,
+        SpvExecutionModeEarlyAndLateFragmentTestsAMD     = 5017,
         SpvExecutionModeStencilRefReplacingEXT           = 5027,
+        SpvExecutionModeStencilRefUnchangedFrontAMD      = 5079,
+        SpvExecutionModeStencilRefGreaterFrontAMD        = 5080,
+        SpvExecutionModeStencilRefLessFrontAMD           = 5081,
+        SpvExecutionModeStencilRefUnchangedBackAMD       = 5082,
+        SpvExecutionModeStencilRefGreaterBackAMD         = 5083,
+        SpvExecutionModeStencilRefLessBackAMD            = 5084,
+        SpvExecutionModeOutputLinesEXT                   = 5269,
         SpvExecutionModeOutputLinesNV                    = 5269,
+        SpvExecutionModeOutputPrimitivesEXT              = 5270,
         SpvExecutionModeOutputPrimitivesNV               = 5270,
         SpvExecutionModeDerivativeGroupQuadsNV           = 5289,
         SpvExecutionModeDerivativeGroupLinearNV          = 5290,
+        SpvExecutionModeOutputTrianglesEXT               = 5298,
         SpvExecutionModeOutputTrianglesNV                = 5298,
         SpvExecutionModePixelInterlockOrderedEXT         = 5366,
         SpvExecutionModePixelInterlockUnorderedEXT       = 5367,
@@ -290,6 +317,7 @@ public final class Spv {
         SpvExecutionModeNoGlobalOffsetINTEL              = 5895,
         SpvExecutionModeNumSIMDWorkitemsINTEL            = 5896,
         SpvExecutionModeSchedulerTargetFmaxMhzINTEL      = 5903,
+        SpvExecutionModeNamedBarrierCountINTEL           = 6417,
         SpvExecutionModeMax                              = 0x7fffffff;
 
     /**
@@ -325,6 +353,7 @@ public final class Spv {
      * <li>{@link #SpvStorageClassShaderRecordBufferNV StorageClassShaderRecordBufferNV}</li>
      * <li>{@link #SpvStorageClassPhysicalStorageBuffer StorageClassPhysicalStorageBuffer}</li>
      * <li>{@link #SpvStorageClassPhysicalStorageBufferEXT StorageClassPhysicalStorageBufferEXT}</li>
+     * <li>{@link #SpvStorageClassTaskPayloadWorkgroupEXT StorageClassTaskPayloadWorkgroupEXT}</li>
      * <li>{@link #SpvStorageClassCodeSectionINTEL StorageClassCodeSectionINTEL}</li>
      * <li>{@link #SpvStorageClassDeviceOnlyINTEL StorageClassDeviceOnlyINTEL}</li>
      * <li>{@link #SpvStorageClassHostOnlyINTEL StorageClassHostOnlyINTEL}</li>
@@ -359,6 +388,7 @@ public final class Spv {
         SpvStorageClassShaderRecordBufferNV     = 5343,
         SpvStorageClassPhysicalStorageBuffer    = 5349,
         SpvStorageClassPhysicalStorageBufferEXT = 5349,
+        SpvStorageClassTaskPayloadWorkgroupEXT  = 5402,
         SpvStorageClassCodeSectionINTEL         = 5605,
         SpvStorageClassDeviceOnlyINTEL          = 5936,
         SpvStorageClassHostOnlyINTEL            = 5937,
@@ -922,6 +952,7 @@ public final class Spv {
      * <li>{@link #SpvDecorationPassthroughNV DecorationPassthroughNV}</li>
      * <li>{@link #SpvDecorationViewportRelativeNV DecorationViewportRelativeNV}</li>
      * <li>{@link #SpvDecorationSecondaryViewportRelativeNV DecorationSecondaryViewportRelativeNV}</li>
+     * <li>{@link #SpvDecorationPerPrimitiveEXT DecorationPerPrimitiveEXT}</li>
      * <li>{@link #SpvDecorationPerPrimitiveNV DecorationPerPrimitiveNV}</li>
      * <li>{@link #SpvDecorationPerViewNV DecorationPerViewNV}</li>
      * <li>{@link #SpvDecorationPerTaskNV DecorationPerTaskNV}</li>
@@ -971,6 +1002,8 @@ public final class Spv {
      * <li>{@link #SpvDecorationPrefetchINTEL DecorationPrefetchINTEL}</li>
      * <li>{@link #SpvDecorationStallEnableINTEL DecorationStallEnableINTEL}</li>
      * <li>{@link #SpvDecorationFuseLoopsInFunctionINTEL DecorationFuseLoopsInFunctionINTEL}</li>
+     * <li>{@link #SpvDecorationAliasScopeINTEL DecorationAliasScopeINTEL}</li>
+     * <li>{@link #SpvDecorationNoAliasINTEL DecorationNoAliasINTEL}</li>
      * <li>{@link #SpvDecorationBufferLocationINTEL DecorationBufferLocationINTEL}</li>
      * <li>{@link #SpvDecorationIOPipeStorageINTEL DecorationIOPipeStorageINTEL}</li>
      * <li>{@link #SpvDecorationFunctionFloatingPointModeINTEL DecorationFunctionFloatingPointModeINTEL}</li>
@@ -1035,6 +1068,7 @@ public final class Spv {
         SpvDecorationPassthroughNV                      = 5250,
         SpvDecorationViewportRelativeNV                 = 5252,
         SpvDecorationSecondaryViewportRelativeNV        = 5256,
+        SpvDecorationPerPrimitiveEXT                    = 5271,
         SpvDecorationPerPrimitiveNV                     = 5271,
         SpvDecorationPerViewNV                          = 5272,
         SpvDecorationPerTaskNV                          = 5273,
@@ -1084,6 +1118,8 @@ public final class Spv {
         SpvDecorationPrefetchINTEL                      = 5902,
         SpvDecorationStallEnableINTEL                   = 5905,
         SpvDecorationFuseLoopsInFunctionINTEL           = 5907,
+        SpvDecorationAliasScopeINTEL                    = 5914,
+        SpvDecorationNoAliasINTEL                       = 5915,
         SpvDecorationBufferLocationINTEL                = 5921,
         SpvDecorationIOPipeStorageINTEL                 = 5944,
         SpvDecorationFunctionFloatingPointModeINTEL     = 6080,
@@ -1186,6 +1222,10 @@ public final class Spv {
      * <li>{@link #SpvBuiltInFragmentSizeNV BuiltInFragmentSizeNV}</li>
      * <li>{@link #SpvBuiltInFragInvocationCountEXT BuiltInFragInvocationCountEXT}</li>
      * <li>{@link #SpvBuiltInInvocationsPerPixelNV BuiltInInvocationsPerPixelNV}</li>
+     * <li>{@link #SpvBuiltInPrimitivePointIndicesEXT BuiltInPrimitivePointIndicesEXT}</li>
+     * <li>{@link #SpvBuiltInPrimitiveLineIndicesEXT BuiltInPrimitiveLineIndicesEXT}</li>
+     * <li>{@link #SpvBuiltInPrimitiveTriangleIndicesEXT BuiltInPrimitiveTriangleIndicesEXT}</li>
+     * <li>{@link #SpvBuiltInCullPrimitiveEXT BuiltInCullPrimitiveEXT}</li>
      * <li>{@link #SpvBuiltInLaunchIdKHR BuiltInLaunchIdKHR}</li>
      * <li>{@link #SpvBuiltInLaunchIdNV BuiltInLaunchIdNV}</li>
      * <li>{@link #SpvBuiltInLaunchSizeKHR BuiltInLaunchSizeKHR}</li>
@@ -1219,6 +1259,7 @@ public final class Spv {
      * <li>{@link #SpvBuiltInSMCountNV BuiltInSMCountNV}</li>
      * <li>{@link #SpvBuiltInWarpIDNV BuiltInWarpIDNV}</li>
      * <li>{@link #SpvBuiltInSMIDNV BuiltInSMIDNV}</li>
+     * <li>{@link #SpvBuiltInCullMaskKHR BuiltInCullMaskKHR}</li>
      * <li>{@link #SpvBuiltInMax BuiltInMax}</li>
      * </ul>
      */
@@ -1311,6 +1352,10 @@ public final class Spv {
         SpvBuiltInFragmentSizeNV              = 5292,
         SpvBuiltInFragInvocationCountEXT      = 5293,
         SpvBuiltInInvocationsPerPixelNV       = 5293,
+        SpvBuiltInPrimitivePointIndicesEXT    = 5294,
+        SpvBuiltInPrimitiveLineIndicesEXT     = 5295,
+        SpvBuiltInPrimitiveTriangleIndicesEXT = 5296,
+        SpvBuiltInCullPrimitiveEXT            = 5299,
         SpvBuiltInLaunchIdKHR                 = 5319,
         SpvBuiltInLaunchIdNV                  = 5319,
         SpvBuiltInLaunchSizeKHR               = 5320,
@@ -1344,6 +1389,7 @@ public final class Spv {
         SpvBuiltInSMCountNV                   = 5375,
         SpvBuiltInWarpIDNV                    = 5376,
         SpvBuiltInSMIDNV                      = 5377,
+        SpvBuiltInCullMaskKHR                 = 6021,
         SpvBuiltInMax                         = 0x7fffffff;
 
     /**
@@ -1621,6 +1667,8 @@ public final class Spv {
      * <li>{@link #SpvMemoryAccessMakePointerVisibleKHRShift MemoryAccessMakePointerVisibleKHRShift}</li>
      * <li>{@link #SpvMemoryAccessNonPrivatePointerShift MemoryAccessNonPrivatePointerShift}</li>
      * <li>{@link #SpvMemoryAccessNonPrivatePointerKHRShift MemoryAccessNonPrivatePointerKHRShift}</li>
+     * <li>{@link #SpvMemoryAccessAliasScopeINTELMaskShift MemoryAccessAliasScopeINTELMaskShift}</li>
+     * <li>{@link #SpvMemoryAccessNoAliasINTELMaskShift MemoryAccessNoAliasINTELMaskShift}</li>
      * <li>{@link #SpvMemoryAccessMax MemoryAccessMax}</li>
      * </ul>
      */
@@ -1634,6 +1682,8 @@ public final class Spv {
         SpvMemoryAccessMakePointerVisibleKHRShift   = 4,
         SpvMemoryAccessNonPrivatePointerShift       = 5,
         SpvMemoryAccessNonPrivatePointerKHRShift    = 5,
+        SpvMemoryAccessAliasScopeINTELMaskShift     = 16,
+        SpvMemoryAccessNoAliasINTELMaskShift        = 17,
         SpvMemoryAccessMax                          = 0x7fffffff;
 
     /**
@@ -1652,6 +1702,8 @@ public final class Spv {
      * <li>{@link #SpvMemoryAccessMakePointerVisibleKHRMask MemoryAccessMakePointerVisibleKHRMask}</li>
      * <li>{@link #SpvMemoryAccessNonPrivatePointerMask MemoryAccessNonPrivatePointerMask}</li>
      * <li>{@link #SpvMemoryAccessNonPrivatePointerKHRMask MemoryAccessNonPrivatePointerKHRMask}</li>
+     * <li>{@link #SpvMemoryAccessAliasScopeINTELMaskMask MemoryAccessAliasScopeINTELMaskMask}</li>
+     * <li>{@link #SpvMemoryAccessNoAliasINTELMaskMask MemoryAccessNoAliasINTELMaskMask}</li>
      * </ul>
      */
     public static final int
@@ -1664,7 +1716,9 @@ public final class Spv {
         SpvMemoryAccessMakePointerVisibleMask      = 0x00000010,
         SpvMemoryAccessMakePointerVisibleKHRMask   = 0x00000010,
         SpvMemoryAccessNonPrivatePointerMask       = 0x00000020,
-        SpvMemoryAccessNonPrivatePointerKHRMask    = 0x00000020;
+        SpvMemoryAccessNonPrivatePointerKHRMask    = 0x00000020,
+        SpvMemoryAccessAliasScopeINTELMaskMask     = 0x00010000,
+        SpvMemoryAccessNoAliasINTELMaskMask        = 0x00020000;
 
     /**
      * {@code SpvScope}
@@ -1890,6 +1944,7 @@ public final class Spv {
      * <li>{@link #SpvCapabilityFragmentFullyCoveredEXT CapabilityFragmentFullyCoveredEXT}</li>
      * <li>{@link #SpvCapabilityMeshShadingNV CapabilityMeshShadingNV}</li>
      * <li>{@link #SpvCapabilityImageFootprintNV CapabilityImageFootprintNV}</li>
+     * <li>{@link #SpvCapabilityMeshShadingEXT CapabilityMeshShadingEXT}</li>
      * <li>{@link #SpvCapabilityFragmentBarycentricKHR CapabilityFragmentBarycentricKHR}</li>
      * <li>{@link #SpvCapabilityFragmentBarycentricNV CapabilityFragmentBarycentricNV}</li>
      * <li>{@link #SpvCapabilityComputeDerivativeGroupQuadsNV CapabilityComputeDerivativeGroupQuadsNV}</li>
@@ -1970,6 +2025,7 @@ public final class Spv {
      * <li>{@link #SpvCapabilityFPGAMemoryAccessesINTEL CapabilityFPGAMemoryAccessesINTEL}</li>
      * <li>{@link #SpvCapabilityFPGAClusterAttributesINTEL CapabilityFPGAClusterAttributesINTEL}</li>
      * <li>{@link #SpvCapabilityLoopFuseINTEL CapabilityLoopFuseINTEL}</li>
+     * <li>{@link #SpvCapabilityMemoryAccessAliasingINTEL CapabilityMemoryAccessAliasingINTEL}</li>
      * <li>{@link #SpvCapabilityFPGABufferLocationINTEL CapabilityFPGABufferLocationINTEL}</li>
      * <li>{@link #SpvCapabilityArbitraryPrecisionFixedPointINTEL CapabilityArbitraryPrecisionFixedPointINTEL}</li>
      * <li>{@link #SpvCapabilityUSMStorageClassesINTEL CapabilityUSMStorageClassesINTEL}</li>
@@ -1984,13 +2040,17 @@ public final class Spv {
      * <li>{@link #SpvCapabilityDotProductInput4x8BitPackedKHR CapabilityDotProductInput4x8BitPackedKHR}</li>
      * <li>{@link #SpvCapabilityDotProduct CapabilityDotProduct}</li>
      * <li>{@link #SpvCapabilityDotProductKHR CapabilityDotProductKHR}</li>
+     * <li>{@link #SpvCapabilityRayCullMaskKHR CapabilityRayCullMaskKHR}</li>
      * <li>{@link #SpvCapabilityBitInstructions CapabilityBitInstructions}</li>
+     * <li>{@link #SpvCapabilityGroupNonUniformRotateKHR CapabilityGroupNonUniformRotateKHR}</li>
      * <li>{@link #SpvCapabilityAtomicFloat32AddEXT CapabilityAtomicFloat32AddEXT}</li>
      * <li>{@link #SpvCapabilityAtomicFloat64AddEXT CapabilityAtomicFloat64AddEXT}</li>
      * <li>{@link #SpvCapabilityLongConstantCompositeINTEL CapabilityLongConstantCompositeINTEL}</li>
      * <li>{@link #SpvCapabilityOptNoneINTEL CapabilityOptNoneINTEL}</li>
      * <li>{@link #SpvCapabilityAtomicFloat16AddEXT CapabilityAtomicFloat16AddEXT}</li>
      * <li>{@link #SpvCapabilityDebugInfoModuleINTEL CapabilityDebugInfoModuleINTEL}</li>
+     * <li>{@link #SpvCapabilitySplitBarrierINTEL CapabilitySplitBarrierINTEL}</li>
+     * <li>{@link #SpvCapabilityGroupUniformArithmeticKHR CapabilityGroupUniformArithmeticKHR}</li>
      * <li>{@link #SpvCapabilityMax CapabilityMax}</li>
      * </ul>
      */
@@ -2113,6 +2173,7 @@ public final class Spv {
         SpvCapabilityFragmentFullyCoveredEXT                      = 5265,
         SpvCapabilityMeshShadingNV                                = 5266,
         SpvCapabilityImageFootprintNV                             = 5282,
+        SpvCapabilityMeshShadingEXT                               = 5283,
         SpvCapabilityFragmentBarycentricKHR                       = 5284,
         SpvCapabilityFragmentBarycentricNV                        = 5284,
         SpvCapabilityComputeDerivativeGroupQuadsNV                = 5288,
@@ -2193,6 +2254,7 @@ public final class Spv {
         SpvCapabilityFPGAMemoryAccessesINTEL                      = 5898,
         SpvCapabilityFPGAClusterAttributesINTEL                   = 5904,
         SpvCapabilityLoopFuseINTEL                                = 5906,
+        SpvCapabilityMemoryAccessAliasingINTEL                    = 5910,
         SpvCapabilityFPGABufferLocationINTEL                      = 5920,
         SpvCapabilityArbitraryPrecisionFixedPointINTEL            = 5922,
         SpvCapabilityUSMStorageClassesINTEL                       = 5935,
@@ -2207,13 +2269,17 @@ public final class Spv {
         SpvCapabilityDotProductInput4x8BitPackedKHR               = 6018,
         SpvCapabilityDotProduct                                   = 6019,
         SpvCapabilityDotProductKHR                                = 6019,
+        SpvCapabilityRayCullMaskKHR                               = 6020,
         SpvCapabilityBitInstructions                              = 6025,
+        SpvCapabilityGroupNonUniformRotateKHR                     = 6026,
         SpvCapabilityAtomicFloat32AddEXT                          = 6033,
         SpvCapabilityAtomicFloat64AddEXT                          = 6034,
         SpvCapabilityLongConstantCompositeINTEL                   = 6089,
         SpvCapabilityOptNoneINTEL                                 = 6094,
         SpvCapabilityAtomicFloat16AddEXT                          = 6095,
         SpvCapabilityDebugInfoModuleINTEL                         = 6114,
+        SpvCapabilitySplitBarrierINTEL                            = 6141,
+        SpvCapabilityGroupUniformArithmeticKHR                    = 6400,
         SpvCapabilityMax                                          = 0x7fffffff;
 
     /**
@@ -2822,6 +2888,7 @@ public final class Spv {
      * <li>{@link #SpvOpSubgroupAllKHR OpSubgroupAllKHR}</li>
      * <li>{@link #SpvOpSubgroupAnyKHR OpSubgroupAnyKHR}</li>
      * <li>{@link #SpvOpSubgroupAllEqualKHR OpSubgroupAllEqualKHR}</li>
+     * <li>{@link #SpvOpGroupNonUniformRotateKHR OpGroupNonUniformRotateKHR}</li>
      * <li>{@link #SpvOpSubgroupReadInvocationKHR OpSubgroupReadInvocationKHR}</li>
      * <li>{@link #SpvOpTraceRayKHR OpTraceRayKHR}</li>
      * <li>{@link #SpvOpExecuteCallableKHR OpExecuteCallableKHR}</li>
@@ -2859,6 +2926,8 @@ public final class Spv {
      * <li>{@link #SpvOpFragmentFetchAMD OpFragmentFetchAMD}</li>
      * <li>{@link #SpvOpReadClockKHR OpReadClockKHR}</li>
      * <li>{@link #SpvOpImageSampleFootprintNV OpImageSampleFootprintNV}</li>
+     * <li>{@link #SpvOpEmitMeshTasksEXT OpEmitMeshTasksEXT}</li>
+     * <li>{@link #SpvOpSetMeshOutputsEXT OpSetMeshOutputsEXT}</li>
      * <li>{@link #SpvOpGroupNonUniformPartitionNV OpGroupNonUniformPartitionNV}</li>
      * <li>{@link #SpvOpWritePackedPrimitiveIndices4x8NV OpWritePackedPrimitiveIndices4x8NV}</li>
      * <li>{@link #SpvOpReportIntersectionKHR OpReportIntersectionKHR}</li>
@@ -3088,6 +3157,9 @@ public final class Spv {
      * <li>{@link #SpvOpArbitraryFloatPowRINTEL OpArbitraryFloatPowRINTEL}</li>
      * <li>{@link #SpvOpArbitraryFloatPowNINTEL OpArbitraryFloatPowNINTEL}</li>
      * <li>{@link #SpvOpLoopControlINTEL OpLoopControlINTEL}</li>
+     * <li>{@link #SpvOpAliasDomainDeclINTEL OpAliasDomainDeclINTEL}</li>
+     * <li>{@link #SpvOpAliasScopeDeclINTEL OpAliasScopeDeclINTEL}</li>
+     * <li>{@link #SpvOpAliasScopeListDeclINTEL OpAliasScopeListDeclINTEL}</li>
      * <li>{@link #SpvOpFixedSqrtINTEL OpFixedSqrtINTEL}</li>
      * <li>{@link #SpvOpFixedRecipINTEL OpFixedRecipINTEL}</li>
      * <li>{@link #SpvOpFixedRsqrtINTEL OpFixedRsqrtINTEL}</li>
@@ -3126,6 +3198,16 @@ public final class Spv {
      * <li>{@link #SpvOpTypeStructContinuedINTEL OpTypeStructContinuedINTEL}</li>
      * <li>{@link #SpvOpConstantCompositeContinuedINTEL OpConstantCompositeContinuedINTEL}</li>
      * <li>{@link #SpvOpSpecConstantCompositeContinuedINTEL OpSpecConstantCompositeContinuedINTEL}</li>
+     * <li>{@link #SpvOpControlBarrierArriveINTEL OpControlBarrierArriveINTEL}</li>
+     * <li>{@link #SpvOpControlBarrierWaitINTEL OpControlBarrierWaitINTEL}</li>
+     * <li>{@link #SpvOpGroupIMulKHR OpGroupIMulKHR}</li>
+     * <li>{@link #SpvOpGroupFMulKHR OpGroupFMulKHR}</li>
+     * <li>{@link #SpvOpGroupBitwiseAndKHR OpGroupBitwiseAndKHR}</li>
+     * <li>{@link #SpvOpGroupBitwiseOrKHR OpGroupBitwiseOrKHR}</li>
+     * <li>{@link #SpvOpGroupBitwiseXorKHR OpGroupBitwiseXorKHR}</li>
+     * <li>{@link #SpvOpGroupLogicalAndKHR OpGroupLogicalAndKHR}</li>
+     * <li>{@link #SpvOpGroupLogicalOrKHR OpGroupLogicalOrKHR}</li>
+     * <li>{@link #SpvOpGroupLogicalXorKHR OpGroupLogicalXorKHR}</li>
      * <li>{@link #SpvOpMax OpMax}</li>
      * </ul>
      */
@@ -3480,6 +3562,7 @@ public final class Spv {
         SpvOpSubgroupAllKHR                                                        = 4428,
         SpvOpSubgroupAnyKHR                                                        = 4429,
         SpvOpSubgroupAllEqualKHR                                                   = 4430,
+        SpvOpGroupNonUniformRotateKHR                                              = 4431,
         SpvOpSubgroupReadInvocationKHR                                             = 4432,
         SpvOpTraceRayKHR                                                           = 4445,
         SpvOpExecuteCallableKHR                                                    = 4446,
@@ -3517,6 +3600,8 @@ public final class Spv {
         SpvOpFragmentFetchAMD                                                      = 5012,
         SpvOpReadClockKHR                                                          = 5056,
         SpvOpImageSampleFootprintNV                                                = 5283,
+        SpvOpEmitMeshTasksEXT                                                      = 5294,
+        SpvOpSetMeshOutputsEXT                                                     = 5295,
         SpvOpGroupNonUniformPartitionNV                                            = 5296,
         SpvOpWritePackedPrimitiveIndices4x8NV                                      = 5299,
         SpvOpReportIntersectionKHR                                                 = 5334,
@@ -3746,6 +3831,9 @@ public final class Spv {
         SpvOpArbitraryFloatPowRINTEL                                               = 5881,
         SpvOpArbitraryFloatPowNINTEL                                               = 5882,
         SpvOpLoopControlINTEL                                                      = 5887,
+        SpvOpAliasDomainDeclINTEL                                                  = 5911,
+        SpvOpAliasScopeDeclINTEL                                                   = 5912,
+        SpvOpAliasScopeListDeclINTEL                                               = 5913,
         SpvOpFixedSqrtINTEL                                                        = 5923,
         SpvOpFixedRecipINTEL                                                       = 5924,
         SpvOpFixedRsqrtINTEL                                                       = 5925,
@@ -3784,6 +3872,16 @@ public final class Spv {
         SpvOpTypeStructContinuedINTEL                                              = 6090,
         SpvOpConstantCompositeContinuedINTEL                                       = 6091,
         SpvOpSpecConstantCompositeContinuedINTEL                                   = 6092,
+        SpvOpControlBarrierArriveINTEL                                             = 6142,
+        SpvOpControlBarrierWaitINTEL                                               = 6143,
+        SpvOpGroupIMulKHR                                                          = 6401,
+        SpvOpGroupFMulKHR                                                          = 6402,
+        SpvOpGroupBitwiseAndKHR                                                    = 6403,
+        SpvOpGroupBitwiseOrKHR                                                     = 6404,
+        SpvOpGroupBitwiseXorKHR                                                    = 6405,
+        SpvOpGroupLogicalAndKHR                                                    = 6406,
+        SpvOpGroupLogicalOrKHR                                                     = 6407,
+        SpvOpGroupLogicalXorKHR                                                    = 6408,
         SpvOpMax                                                                   = 0x7fffffff;
 
     private Spv() {}

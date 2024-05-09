@@ -95,13 +95,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRExternalMemory VK_KHR_external_memory}</li>
- * </ul></dd>
+ * <dd>{@link KHRExternalMemory VK_KHR_external_memory}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Carsten Rohde <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_external_memory_rdma]%20@crohde%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_external_memory_rdma%20extension%3E%3E">crohde</a></li>
+ * <li>Carsten Rohde <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_external_memory_rdma]%20@crohde%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_external_memory_rdma%20extension*">crohde</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -205,7 +202,7 @@ public class NVExternalMemoryRdma {
      *
      * @param device                      the logical device that created the device memory being exported.
      * @param pMemoryGetRemoteAddressInfo a pointer to a {@link VkMemoryGetRemoteAddressInfoNV} structure containing parameters of the export operation.
-     * @param pAddress                    will return the address representing the payload of the device memory object.
+     * @param pAddress                    a pointer to a {@code VkRemoteAddressNV} value in which an address representing the payload of the device memory object is returned.
      */
     @NativeType("VkResult")
     public static int vkGetMemoryRemoteAddressNV(VkDevice device, @NativeType("VkMemoryGetRemoteAddressInfoNV const *") VkMemoryGetRemoteAddressInfoNV pMemoryGetRemoteAddressInfo, @NativeType("VkRemoteAddressNV *") PointerBuffer pAddress) {

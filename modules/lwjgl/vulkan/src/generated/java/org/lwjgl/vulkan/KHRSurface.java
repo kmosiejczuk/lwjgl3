@@ -38,14 +38,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>1</dd>
  * <dt><b>Revision</b></dt>
  * <dd>25</dd>
- * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_surface]%20@cubanismo%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_surface%20extension%3E%3E">cubanismo</a></li>
- * <li>Ian Elliott <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_surface]%20@ianelliottus%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_surface%20extension%3E%3E">ianelliottus</a></li>
+ * <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_surface]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_surface%20extension*">cubanismo</a></li>
+ * <li>Ian Elliott <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_surface]%20@ianelliottus%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_surface%20extension*">ianelliottus</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -69,7 +65,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <li>Graham Sellers, AMD</li>
  * <li>Jeff Vigil, Qualcomm</li>
  * <li>Chia-I Wu, LunarG</li>
- * <li>Jason Ekstrand, Intel</li>
+ * <li>Faith Ekstrand, Intel</li>
  * </ul></dd>
  * </dl>
  */
@@ -167,7 +163,7 @@ public class KHRSurface {
      * 
      * <h5>See Also</h5>
      * 
-     * <p>{@link VkSwapchainCreateInfoKHR}, {@link EXTFullScreenExclusive#vkGetPhysicalDeviceSurfacePresentModes2EXT GetPhysicalDeviceSurfacePresentModes2EXT}, {@link #vkGetPhysicalDeviceSurfacePresentModesKHR GetPhysicalDeviceSurfacePresentModesKHR}</p>
+     * <p>{@link VkSurfacePresentModeCompatibilityEXT}, {@link VkSurfacePresentModeEXT}, {@link VkSwapchainCreateInfoKHR}, {@link VkSwapchainPresentModeInfoEXT}, {@link VkSwapchainPresentModesCreateInfoEXT}, {@link EXTFullScreenExclusive#vkGetPhysicalDeviceSurfacePresentModes2EXT GetPhysicalDeviceSurfacePresentModes2EXT}, {@link #vkGetPhysicalDeviceSurfacePresentModesKHR GetPhysicalDeviceSurfacePresentModesKHR}</p>
      */
     public static final int
         VK_PRESENT_MODE_IMMEDIATE_KHR    = 0,
@@ -201,12 +197,17 @@ public class KHRSurface {
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
-     * <p>In the initial release of the {@code VK_KHR_surface} and {@link KHRSwapchain VK_KHR_swapchain} extensions, the token {@link #VK_COLORSPACE_SRGB_NONLINEAR_KHR COLORSPACE_SRGB_NONLINEAR_KHR} was used. Starting in the 2016-05-13 updates to the extension branches, matching release 1.0.13 of the core API specification, {@link #VK_COLOR_SPACE_SRGB_NONLINEAR_KHR COLOR_SPACE_SRGB_NONLINEAR_KHR} is used instead for consistency with Vulkan naming rules. The older enum is still available for backwards compatibility.</p>
+     * <p>In the initial release of the {@link KHRSurface VK_KHR_surface} and {@link KHRSwapchain VK_KHR_swapchain} extensions, the token {@link #VK_COLORSPACE_SRGB_NONLINEAR_KHR COLORSPACE_SRGB_NONLINEAR_KHR} was used. Starting in the 2016-05-13 updates to the extension branches, matching release 1.0.13 of the core API specification, {@link #VK_COLOR_SPACE_SRGB_NONLINEAR_KHR COLOR_SPACE_SRGB_NONLINEAR_KHR} is used instead for consistency with Vulkan naming rules. The older enum is still available for backwards compatibility.</p>
      * </div>
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
      * <p>In older versions of this extension {@link EXTSwapchainColorspace#VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT COLOR_SPACE_DISPLAY_P3_LINEAR_EXT} was misnamed {@link EXTSwapchainColorspace#VK_COLOR_SPACE_DCI_P3_LINEAR_EXT COLOR_SPACE_DCI_P3_LINEAR_EXT}. This has been updated to indicate that it uses RGB color encoding, not XYZ. The old name is deprecated but is maintained for backwards compatibility.</p>
+     * </div>
+     * 
+     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+     * 
+     * <p>For a traditional “{@code Linear}” or non-gamma transfer function color space use {@link EXTSwapchainColorspace#VK_COLOR_SPACE_PASS_THROUGH_EXT COLOR_SPACE_PASS_THROUGH_EXT}.</p>
      * </div>
      * 
      * <p>The color components of non-linear color space swap chain images <b>must</b> have had the appropriate transfer function applied. The color space selected for the swap chain image will not affect the processing of data written into the image by the implementation. Vulkan requires that all implementations support the sRGB transfer function by use of an SRGB pixel format. Other transfer functions, such as SMPTE 170M or SMPTE2084, <b>can</b> be performed by the application shader. This extension defines enums for {@code VkColorSpaceKHR} that correspond to the following color spaces:</p>
@@ -228,7 +229,7 @@ public class KHRSurface {
      * </tbody>
      * </table>
      * 
-     * <p>The transfer functions are described in the “{@code Transfer Functions}” chapter of the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#data-format">Khronos Data Format Specification</a>.</p>
+     * <p>The transfer functions are described in the “{@code Transfer Functions}” chapter of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#data-format">Khronos Data Format Specification</a>.</p>
      * 
      * <p>Except Display-P3 OETF, which is:</p>
      * 
@@ -336,7 +337,7 @@ public class KHRSurface {
      *
      * @param instance   the instance used to create the surface.
      * @param surface    the surface to destroy.
-     * @param pAllocator the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
+     * @param pAllocator the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
      */
     public static void vkDestroySurfaceKHR(VkInstance instance, @NativeType("VkSurfaceKHR") long surface, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
         nvkDestroySurfaceKHR(instance, surface, memAddressSafe(pAllocator));
@@ -601,7 +602,7 @@ public class KHRSurface {
      * 
      * <p>If {@code pPresentModes} is {@code NULL}, then the number of presentation modes supported for the given {@code surface} is returned in {@code pPresentModeCount}. Otherwise, {@code pPresentModeCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pPresentModes} array, and on return the variable is overwritten with the number of values actually written to {@code pPresentModes}. If the value of {@code pPresentModeCount} is less than the number of presentation modes supported, at most {@code pPresentModeCount} values will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available modes were returned.</p>
      * 
-     * <p>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is enabled, the values returned in {@code pPresentModes} will be identical for every valid surface created on this physical device, and so {@code surface} <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}.</p>
+     * <p>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is enabled and {@code surface} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the values returned in {@code pPresentModes} will only indicate support for {@link #VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR}, {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR}, and {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR}. To query support for any other present mode, a valid handle <b>must</b> be provided in {@code surface}.</p>
      * 
      * <h5>Valid Usage</h5>
      * 

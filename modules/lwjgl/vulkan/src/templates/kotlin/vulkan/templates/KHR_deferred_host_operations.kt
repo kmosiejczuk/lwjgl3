@@ -14,7 +14,7 @@ val KHR_deferred_host_operations = "KHRDeferredHostOperations".nativeClassVK("KH
         The {@link KHRDeferredHostOperations VK_KHR_deferred_host_operations} extension defines the infrastructure and usage patterns for deferrable commands, but does not specify any commands as deferrable. This is left to additional dependent extensions. Commands <b>must</b> not be deferred unless the deferral is specifically allowed by another extension which depends on {@link KHRDeferredHostOperations VK_KHR_deferred_host_operations}.
 
         <h5>Code Examples</h5>
-        The following examples will illustrate the concept of deferrable operations using a hypothetical example. The command {@code vkDoSomethingExpensiveEXT} denotes a deferrable command. The structure stext:VkExpensiveOperationArgsEXT represents the arguments which it would normally accept.
+        The following examples will illustrate the concept of deferrable operations using a hypothetical example. The command {@code vkDoSomethingExpensive} denotes a deferrable command.
 
         The following example illustrates how a vulkan application might request deferral of an expensive operation:
 
@@ -65,7 +65,7 @@ val KHR_deferred_host_operations = "KHRDeferredHostOperations".nativeClassVK("KH
 ￿                // in a job system, a return of VK_THREAD_IDLE_KHR should queue another
 ￿                // job, but it is not functionally required
 ￿    }
-￿  );
+￿  ));
 ￿}
 ￿
 ￿for (auto &amp;f : joins) {
@@ -135,14 +135,9 @@ val KHR_deferred_host_operations = "KHRDeferredHostOperations".nativeClassVK("KH
             <dt><b>Revision</b></dt>
             <dd>4</dd>
 
-            <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
-
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Josh Barczak <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_deferred_host_operations]%20@jbarczak%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_deferred_host_operations%20extension%3E%3E">jbarczak</a></li>
+                <li>Josh Barczak <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_deferred_host_operations]%20@jbarczak%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_deferred_host_operations%20extension*">jbarczak</a></li>
             </ul></dd>
         </dl>
 
@@ -236,7 +231,7 @@ val KHR_deferred_host_operations = "KHRDeferredHostOperations".nativeClassVK("KH
         """,
 
         VkDevice("device", "the device which owns {@code operation}."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
         Check(1)..VkDeferredOperationKHR.p("pDeferredOperation", "a pointer to a handle in which the created {@code VkDeferredOperationKHR} is returned.")
     )
 
@@ -280,7 +275,7 @@ val KHR_deferred_host_operations = "KHRDeferredHostOperations".nativeClassVK("KH
 
         VkDevice("device", "the device which owns {@code operation}."),
         VkDeferredOperationKHR("operation", "the completed operation to be destroyed."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
     )
 
     uint32_t(

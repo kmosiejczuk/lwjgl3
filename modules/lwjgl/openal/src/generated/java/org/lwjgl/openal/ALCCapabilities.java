@@ -66,10 +66,16 @@ public final class ALCCapabilities {
         alcDevicePauseSOFT,
         alcDeviceResumeSOFT;
 
+    // SOFT_reopen_device
+    public final long
+        alcReopenDeviceSOFT;
+
     /** When true, {@link ALC10} is supported. */
     public final boolean OpenALC10;
     /** When true, {@link ALC11} is supported. */
     public final boolean OpenALC11;
+    /** When true, {@link SOFTLoopbackBformat} is supported. */
+    public final boolean OpenALC_SOFT_loopback_bformat;
     /** When true, {@link EnumerateAllExt} is supported. */
     public final boolean ALC_ENUMERATE_ALL_EXT;
     /**
@@ -100,8 +106,12 @@ public final class ALCCapabilities {
     public final boolean ALC_SOFT_loopback;
     /** When true, {@link SOFTOutputLimiter} is supported. */
     public final boolean ALC_SOFT_output_limiter;
+    /** When true, {@link SOFTOutputMode} is supported. */
+    public final boolean ALC_SOFT_output_mode;
     /** When true, {@link SOFTPauseDevice} is supported. */
     public final boolean ALC_SOFT_pause_device;
+    /** When true, {@link SOFTReopenDevice} is supported. */
+    public final boolean ALC_SOFT_reopen_device;
 
     /** Device handle. */
     final long device;
@@ -112,10 +122,11 @@ public final class ALCCapabilities {
     ALCCapabilities(FunctionProviderLocal provider, long device, Set<String> ext, IntFunction<PointerBuffer> bufferFactory) {
         this.device = device;
 
-        PointerBuffer caps = bufferFactory.apply(30);
+        PointerBuffer caps = bufferFactory.apply(31);
 
         OpenALC10 = check_ALC10(provider, device, caps, ext);
         OpenALC11 = check_ALC11(provider, device, caps, ext);
+        OpenALC_SOFT_loopback_bformat = ext.contains("OpenALC_SOFT_loopback_bformat");
         ALC_ENUMERATE_ALL_EXT = ext.contains("ALC_ENUMERATE_ALL_EXT");
         ALC_ENUMERATION_EXT = ext.contains("ALC_ENUMERATION_EXT");
         ALC_EXT_CAPTURE = check_EXT_CAPTURE(provider, device, caps, ext);
@@ -129,7 +140,9 @@ public final class ALCCapabilities {
         ALC_SOFT_HRTF = check_SOFT_HRTF(provider, device, caps, ext);
         ALC_SOFT_loopback = check_SOFT_loopback(provider, device, caps, ext);
         ALC_SOFT_output_limiter = ext.contains("ALC_SOFT_output_limiter");
+        ALC_SOFT_output_mode = ext.contains("ALC_SOFT_output_mode");
         ALC_SOFT_pause_device = check_SOFT_pause_device(provider, device, caps, ext);
+        ALC_SOFT_reopen_device = check_SOFT_reopen_device(provider, device, caps, ext);
 
         alcOpenDevice = caps.get(0);
         alcCloseDevice = caps.get(1);
@@ -161,6 +174,7 @@ public final class ALCCapabilities {
         alcRenderSamplesSOFT = caps.get(27);
         alcDevicePauseSOFT = caps.get(28);
         alcDeviceResumeSOFT = caps.get(29);
+        alcReopenDeviceSOFT = caps.get(30);
 
         addresses = ThreadLocalUtil.setupAddressBuffer(caps);
     }
@@ -266,6 +280,18 @@ public final class ALCCapabilities {
         },
             "alcDevicePauseSOFT", "alcDeviceResumeSOFT"
         ) || reportMissing("ALC", "ALC_SOFT_pause_device");
+    }
+
+    private static boolean check_SOFT_reopen_device(FunctionProviderLocal provider, long device, PointerBuffer caps, Set<String> ext) {
+        if (!ext.contains("ALC_SOFT_reopen_device")) {
+            return false;
+        }
+
+        return checkFunctions(provider, device, caps, new int[] {
+            30
+        },
+            "alcReopenDeviceSOFT"
+        ) || reportMissing("ALC", "ALC_SOFT_reopen_device");
     }
 
 }

@@ -26,8 +26,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
- * <li>{@code type} <b>must</b> be one of the following XrStructureType values: {@link KHRCompositionLayerCube#XR_TYPE_COMPOSITION_LAYER_CUBE_KHR TYPE_COMPOSITION_LAYER_CUBE_KHR}, {@link KHRCompositionLayerCylinder#XR_TYPE_COMPOSITION_LAYER_CYLINDER_KHR TYPE_COMPOSITION_LAYER_CYLINDER_KHR}, {@link KHRCompositionLayerEquirect2#XR_TYPE_COMPOSITION_LAYER_EQUIRECT2_KHR TYPE_COMPOSITION_LAYER_EQUIRECT2_KHR}, {@link KHRCompositionLayerEquirect#XR_TYPE_COMPOSITION_LAYER_EQUIRECT_KHR TYPE_COMPOSITION_LAYER_EQUIRECT_KHR}, {@link XR10#XR_TYPE_COMPOSITION_LAYER_PROJECTION TYPE_COMPOSITION_LAYER_PROJECTION}, {@link XR10#XR_TYPE_COMPOSITION_LAYER_QUAD TYPE_COMPOSITION_LAYER_QUAD}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrCompositionLayerAlphaBlendFB}, {@link XrCompositionLayerColorScaleBiasKHR}, {@link XrCompositionLayerImageLayoutFB}, {@link XrCompositionLayerPassthroughFB}, {@link XrCompositionLayerSecureContentFB}</li>
+ * <li>{@code type} <b>must</b> be one of the following XrStructureType values: {@link KHRCompositionLayerCube#XR_TYPE_COMPOSITION_LAYER_CUBE_KHR TYPE_COMPOSITION_LAYER_CUBE_KHR}, {@link KHRCompositionLayerCylinder#XR_TYPE_COMPOSITION_LAYER_CYLINDER_KHR TYPE_COMPOSITION_LAYER_CYLINDER_KHR}, {@link KHRCompositionLayerEquirect2#XR_TYPE_COMPOSITION_LAYER_EQUIRECT2_KHR TYPE_COMPOSITION_LAYER_EQUIRECT2_KHR}, {@link KHRCompositionLayerEquirect#XR_TYPE_COMPOSITION_LAYER_EQUIRECT_KHR TYPE_COMPOSITION_LAYER_EQUIRECT_KHR}, {@link HTCPassthrough#XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_HTC TYPE_COMPOSITION_LAYER_PASSTHROUGH_HTC}, {@link XR10#XR_TYPE_COMPOSITION_LAYER_PROJECTION TYPE_COMPOSITION_LAYER_PROJECTION}, {@link XR10#XR_TYPE_COMPOSITION_LAYER_QUAD TYPE_COMPOSITION_LAYER_QUAD}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrCompositionLayerAlphaBlendFB}, {@link XrCompositionLayerColorScaleBiasKHR}, {@link XrCompositionLayerDepthTestFB}, {@link XrCompositionLayerImageLayoutFB}, {@link XrCompositionLayerPassthroughFB}, {@link XrCompositionLayerSecureContentFB}, {@link XrCompositionLayerSettingsFB}</li>
  * <li>{@code layerFlags} <b>must</b> be 0 or a valid combination of {@code XrCompositionLayerFlagBits} values</li>
  * <li>{@code space} <b>must</b> be a valid {@code XrSpace} handle</li>
  * </ul>
@@ -112,12 +112,16 @@ public class XrCompositionLayerBaseHeader extends Struct implements NativeResour
     public XrCompositionLayerBaseHeader next(XrCompositionLayerAlphaBlendFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrCompositionLayerColorScaleBiasKHR} value to the {@code next} chain. */
     public XrCompositionLayerBaseHeader next(XrCompositionLayerColorScaleBiasKHR value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrCompositionLayerDepthTestFB} value to the {@code next} chain. */
+    public XrCompositionLayerBaseHeader next(XrCompositionLayerDepthTestFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrCompositionLayerImageLayoutFB} value to the {@code next} chain. */
     public XrCompositionLayerBaseHeader next(XrCompositionLayerImageLayoutFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrCompositionLayerPassthroughFB} value to the {@code next} chain. */
     public XrCompositionLayerBaseHeader next(XrCompositionLayerPassthroughFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrCompositionLayerSecureContentFB} value to the {@code next} chain. */
     public XrCompositionLayerBaseHeader next(XrCompositionLayerSecureContentFB value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrCompositionLayerSettingsFB} value to the {@code next} chain. */
+    public XrCompositionLayerBaseHeader next(XrCompositionLayerSettingsFB value) { return this.next(value.next(this.next()).address()); }
     /** Sets the specified value to the {@link #layerFlags} field. */
     public XrCompositionLayerBaseHeader layerFlags(@NativeType("XrCompositionLayerFlags") long value) { nlayerFlags(address(), value); return this; }
     /** Sets the specified value to the {@link #space} field. */
@@ -209,6 +213,11 @@ public class XrCompositionLayerBaseHeader extends Struct implements NativeResour
         return wrap(XrCompositionLayerBaseHeader.class, value);
     }
 
+    /** Upcasts the specified {@code XrCompositionLayerPassthroughHTC} instance to {@code XrCompositionLayerBaseHeader}. */
+    public static XrCompositionLayerBaseHeader create(XrCompositionLayerPassthroughHTC value) {
+        return wrap(XrCompositionLayerBaseHeader.class, value);
+    }
+
     /**
      * Returns a new {@link XrCompositionLayerBaseHeader.Buffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed.
      *
@@ -280,6 +289,11 @@ public class XrCompositionLayerBaseHeader extends Struct implements NativeResour
 
     /** Upcasts the specified {@code XrCompositionLayerEquirect2KHR.Buffer} instance to {@code XrCompositionLayerBaseHeader.Buffer}. */
     public static XrCompositionLayerBaseHeader.Buffer create(XrCompositionLayerEquirect2KHR.Buffer value) {
+        return wrap(Buffer.class, value);
+    }
+
+    /** Upcasts the specified {@code XrCompositionLayerPassthroughHTC.Buffer} instance to {@code XrCompositionLayerBaseHeader.Buffer}. */
+    public static XrCompositionLayerBaseHeader.Buffer create(XrCompositionLayerPassthroughHTC.Buffer value) {
         return wrap(Buffer.class, value);
     }
 
@@ -409,12 +423,16 @@ public class XrCompositionLayerBaseHeader extends Struct implements NativeResour
         public XrCompositionLayerBaseHeader.Buffer next(XrCompositionLayerAlphaBlendFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrCompositionLayerColorScaleBiasKHR} value to the {@code next} chain. */
         public XrCompositionLayerBaseHeader.Buffer next(XrCompositionLayerColorScaleBiasKHR value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrCompositionLayerDepthTestFB} value to the {@code next} chain. */
+        public XrCompositionLayerBaseHeader.Buffer next(XrCompositionLayerDepthTestFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrCompositionLayerImageLayoutFB} value to the {@code next} chain. */
         public XrCompositionLayerBaseHeader.Buffer next(XrCompositionLayerImageLayoutFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrCompositionLayerPassthroughFB} value to the {@code next} chain. */
         public XrCompositionLayerBaseHeader.Buffer next(XrCompositionLayerPassthroughFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrCompositionLayerSecureContentFB} value to the {@code next} chain. */
         public XrCompositionLayerBaseHeader.Buffer next(XrCompositionLayerSecureContentFB value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrCompositionLayerSettingsFB} value to the {@code next} chain. */
+        public XrCompositionLayerBaseHeader.Buffer next(XrCompositionLayerSettingsFB value) { return this.next(value.next(this.next()).address()); }
         /** Sets the specified value to the {@link XrCompositionLayerBaseHeader#layerFlags} field. */
         public XrCompositionLayerBaseHeader.Buffer layerFlags(@NativeType("XrCompositionLayerFlags") long value) { XrCompositionLayerBaseHeader.nlayerFlags(address(), value); return this; }
         /** Sets the specified value to the {@link XrCompositionLayerBaseHeader#space} field. */

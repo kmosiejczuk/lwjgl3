@@ -30,13 +30,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
- * </ul></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Sharif Elcott <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_color_write_enable]%20@selcott%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_color_write_enable%20extension%3E%3E">selcott</a></li>
+ * <li>Sharif Elcott <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_color_write_enable]%20@selcott%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_color_write_enable%20extension*">selcott</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -104,7 +101,7 @@ public class EXTColorWriteEnable {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically enable or disable</a> writes to a color attachment, call:</p>
+     * <p>To <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically enable or disable</a> writes to a color attachment, call:</p>
      * 
      * <pre><code>
      * void                                    vkCmdSetColorWriteEnableEXT(
@@ -114,13 +111,13 @@ public class EXTColorWriteEnable {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the color write enables for subsequent drawing commands when the graphics pipeline is created with {@link #VK_DYNAMIC_STATE_COLOR_WRITE_ENABLE_EXT DYNAMIC_STATE_COLOR_WRITE_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorWriteCreateInfoEXT}{@code ::pColorWriteEnables} values used to create the currently active pipeline.</p>
+     * <p>This command sets the color write enables for subsequent drawing commands when drawing using <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link #VK_DYNAMIC_STATE_COLOR_WRITE_ENABLE_EXT DYNAMIC_STATE_COLOR_WRITE_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorWriteCreateInfoEXT}{@code ::pColorWriteEnables} values used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-colorWriteEnable">colorWriteEnable</a> feature <b>must</b> be enabled</li>
-     * <li>{@code attachmentCount} <b>must</b> be equal to the {@code attachmentCount} member of the {@link VkPipelineColorBlendStateCreateInfo} structure specified during pipeline creation</li>
+     * <li>The <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-colorWriteEnable">{@code colorWriteEnable}</a> feature <b>must</b> be enabled</li>
+     * <li>{@code attachmentCount} <b>must</b> be less than or equal to the {@code maxColorAttachments} member of {@link VkPhysicalDeviceLimits}</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -128,8 +125,9 @@ public class EXTColorWriteEnable {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pColorWriteEnables} <b>must</b> be a valid pointer to an array of {@code attachmentCount} {@code VkBool32} values</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
+     * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * <li>{@code attachmentCount} <b>must</b> be greater than 0</li>
      * </ul>
      * 
@@ -143,8 +141,8 @@ public class EXTColorWriteEnable {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Graphics</td></tr></tbody>
+     * <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
      * @param commandBuffer      the command buffer into which the command will be recorded.

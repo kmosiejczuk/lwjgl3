@@ -53,11 +53,6 @@ val NV_glsl_shader = "NVGLSLShader".nativeClassVK("NV_glsl_shader", type = "devi
             <dt><b>Revision</b></dt>
             <dd>1</dd>
 
-            <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
-
             <dt><b>Deprecation state</b></dt>
             <dd><ul>
                 <li><em>Deprecated</em> without replacement</li>
@@ -65,7 +60,7 @@ val NV_glsl_shader = "NVGLSLShader".nativeClassVK("NV_glsl_shader", type = "devi
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Piers Daniell <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_glsl_shader]%20@pdaniell-nv%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_glsl_shader%20extension%3E%3E">pdaniell-nv</a></li>
+                <li>Piers Daniell <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_glsl_shader]%20@pdaniell-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_glsl_shader%20extension*">pdaniell-nv</a></li>
             </ul></dd>
         </dl>
 

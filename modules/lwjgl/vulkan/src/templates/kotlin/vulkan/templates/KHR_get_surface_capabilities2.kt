@@ -28,14 +28,11 @@ val KHR_get_surface_capabilities2 = "KHRGetSurfaceCapabilities2".nativeClassVK("
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRSurface VK_KHR_surface}</li>
-            </ul></dd>
+            <dd>{@link KHRSurface VK_KHR_surface}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_get_surface_capabilities2]%20@cubanismo%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_get_surface_capabilities2%20extension%3E%3E">cubanismo</a></li>
+                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_get_surface_capabilities2]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_get_surface_capabilities2%20extension*">cubanismo</a></li>
             </ul></dd>
         </dl>
 
@@ -95,12 +92,16 @@ val KHR_get_surface_capabilities2 = "KHRGetSurfaceCapabilities2".nativeClassVK("
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>{@code pSurfaceInfo→surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
-            <li>{@code pSurfaceInfo→surface} <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
+            <li>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is not enabled, {@code pSurfaceInfo→surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
+            <li>If {@code pSurfaceInfo→surface} is not #NULL_HANDLE, it <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
         </ul>
 
         <ul>
             <li>If a ##VkSurfaceCapabilitiesFullScreenExclusiveEXT structure is included in the {@code pNext} chain of {@code pSurfaceCapabilities}, a ##VkSurfaceFullScreenExclusiveWin32InfoEXT structure <b>must</b> be included in the {@code pNext} chain of {@code pSurfaceInfo}</li>
+            <li>If a ##VkSurfacePresentModeCompatibilityEXT structure is included in the {@code pNext} chain of {@code pSurfaceCapabilities}, a ##VkSurfacePresentModeEXT structure <b>must</b> be included in the {@code pNext} chain of {@code pSurfaceInfo}</li>
+            <li>If a ##VkSurfacePresentScalingCapabilitiesEXT structure is included in the {@code pNext} chain of {@code pSurfaceCapabilities}, a ##VkSurfacePresentModeEXT structure <b>must</b> be included in the {@code pNext} chain of {@code pSurfaceInfo}</li>
+            <li>If a ##VkSurfacePresentModeCompatibilityEXT structure is included in the {@code pNext} chain of {@code pSurfaceCapabilities}, {@code pSurfaceInfo→surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
+            <li>If a ##VkSurfacePresentScalingCapabilitiesEXT structure is included in the {@code pNext} chain of {@code pSurfaceCapabilities}, {@code pSurfaceInfo→surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>

@@ -119,8 +119,18 @@ div {
     EnumConstant(
         "YGExperimentalFeature",
 
-        "ExperimentalFeatureWebFlexBasis".enum
+        "ExperimentalFeatureWebFlexBasis".enum,
+        "ExperimentalFeatureAbsolutePercentageAgainstPaddingEdge".enum,
+        "ExperimentalFeatureFixAbsoluteTrailingColumnMargin".enum
     )
+
+    val Gutters = EnumConstant(
+        "YGGutter",
+
+        "GutterColumn".enum,
+        "GutterRow".enum,
+        "GutterAll".enum
+    ).javaDocLinks
 
     EnumConstant(
         "YGFlexDirection",
@@ -360,7 +370,7 @@ div {
     )
 
     void(
-        "NodeMarkDirtyAndPropogateToDescendants",
+        "NodeMarkDirtyAndPropagateToDescendants",
         """
         Marks the current node and all its descendants as dirty.
 
@@ -507,13 +517,6 @@ div {
 
     bool(
         "NodeIsDirty",
-        "",
-
-        node
-    )
-
-    bool(
-        "NodeLayoutGetDidUseLegacyFlag",
         "",
 
         node
@@ -824,6 +827,22 @@ div {
     )
 
     void(
+        "NodeStyleSetGap",
+        "",
+
+        node,
+        YGGutter("gutter", "", Gutters),
+        float("gapLength", "")
+    )
+    float(
+        "NodeStyleGetGap",
+        "",
+
+        constNode,
+        YGGutter("gutter", "", Gutters)
+    )
+
+    void(
         "NodeStyleSetWidth",
         "",
 
@@ -1035,12 +1054,6 @@ div {
 
         node
     )
-    bool(
-        "NodeLayoutGetDidLegacyStretchFlagAffectLayout",
-        "",
-
-        node
-    )
 
     float(
         "NodeLayoutGetMargin",
@@ -1115,12 +1128,11 @@ div {
         float("pixelsInPoint", "")
     )
 
-    void(
-        "ConfigSetShouldDiffLayoutWithoutLegacyStretchBehaviour",
+    bool(
+        "ConfigGetUseLegacyStretchBehaviour",
         "",
 
-        YGConfigRef("config", ""),
-        bool("shouldDiffLayout", "")
+        YGConfigRef("config", "")
     )
 
     void(
@@ -1235,6 +1247,7 @@ div {
     YG_TYPE_TO_STRING(YGEdge)
     YG_TYPE_TO_STRING(YGExperimentalFeature)
     YG_TYPE_TO_STRING(YGFlexDirection)
+    YG_TYPE_TO_STRING(YGGutter)
     YG_TYPE_TO_STRING(YGJustify)
     YG_TYPE_TO_STRING(YGLogLevel)
     YG_TYPE_TO_STRING(YGMeasureMode)

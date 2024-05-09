@@ -33,22 +33,16 @@ val KHR_sampler_ycbcr_conversion = "KHRSamplerYcbcrConversion".nativeClassVK("KH
             <dd>14</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRMaintenance1 VK_KHR_maintenance1}</li>
-                <li>Requires {@link KHRBindMemory2 VK_KHR_bind_memory2}</li>
-                <li>Requires {@link KHRGetMemoryRequirements2 VK_KHR_get_memory_requirements2}</li>
-                <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
-            </ul></dd>
+            <dd>{@link KHRMaintenance1 VK_KHR_maintenance1} and {@link KHRBindMemory2 VK_KHR_bind_memory2} and {@link KHRGetMemoryRequirements2 VK_KHR_get_memory_requirements2} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
 
             <dt><b>Deprecation state</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
+                <li><em>Promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Andrew Garrard <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_sampler_ycbcr_conversion]%20@fluppeteer%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_sampler_ycbcr_conversion%20extension%3E%3E">fluppeteer</a></li>
+                <li>Andrew Garrard <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_sampler_ycbcr_conversion]%20@fluppeteer%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_sampler_ycbcr_conversion%20extension*">fluppeteer</a></li>
             </ul></dd>
         </dl>
 
@@ -223,7 +217,7 @@ val KHR_sampler_ycbcr_conversion = "KHRSamplerYcbcrConversion".nativeClassVK("KH
 
         VkDevice("device", "the logical device that creates the sampler Y′C<sub>B</sub>C<sub>R</sub> conversion."),
         VkSamplerYcbcrConversionCreateInfo.const.p("pCreateInfo", "a pointer to a ##VkSamplerYcbcrConversionCreateInfo structure specifying the requested sampler Y′C<sub>B</sub>C<sub>R</sub> conversion."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
         Check(1)..VkSamplerYcbcrConversion.p("pYcbcrConversion", "a pointer to a {@code VkSamplerYcbcrConversion} handle in which the resulting sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is returned.")
     )
 
@@ -233,6 +227,6 @@ val KHR_sampler_ycbcr_conversion = "KHRSamplerYcbcrConversion".nativeClassVK("KH
 
         VkDevice("device", "the logical device that destroys the Y′C<sub>B</sub>C<sub>R</sub> conversion."),
         VkSamplerYcbcrConversion("ycbcrConversion", "the conversion to destroy."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
     )
 }

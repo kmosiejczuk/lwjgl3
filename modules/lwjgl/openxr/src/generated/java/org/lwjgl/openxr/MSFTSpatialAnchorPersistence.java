@@ -17,7 +17,11 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** The MSFT_spatial_anchor_persistence extension. */
+/**
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_MSFT_spatial_anchor_persistence">XR_MSFT_spatial_anchor_persistence</a> extension.
+ * 
+ * <p>This extension allows persistence and retrieval of spatial anchors sharing and localization across application sessions on a device. Spatial anchors persisted during an application session on a device will only be able to be retrieved during sessions of that same application on the same device. This extension requires {@link MSFTSpatialAnchor XR_MSFT_spatial_anchor} to also be enabled.</p>
+ */
 public class MSFTSpatialAnchorPersistence {
 
     /** The extension specification version. */
@@ -307,7 +311,7 @@ public class MSFTSpatialAnchorPersistence {
      * <p>{@link XrSpatialAnchorPersistenceNameMSFT}</p>
      *
      * @param spatialAnchorStore            the {@code XrSpatialAnchorStoreConnectionMSFT} anchor store to perform the enumeration operation on.
-     * @param spatialAnchorNamesCountOutput filled in by the runtime with the count of anchor names written or the required capacity in the case that {@code spatialAnchorNamesCapacityInput} is 0.
+     * @param spatialAnchorNamesCountOutput filled in by the runtime with the count of anchor names written or the required capacity in the case that {@code spatialAnchorNamesCapacityInput} is insufficient.
      * @param persistedAnchorNames          a pointer to an array of {@link XrSpatialAnchorPersistenceNameMSFT} structures, but <b>can</b> be {@code NULL} if propertyCapacityInput is 0.
      */
     @NativeType("XrResult")

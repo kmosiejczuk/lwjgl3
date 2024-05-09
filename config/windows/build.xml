@@ -236,10 +236,7 @@ EXPORTS
         <build module="nfd" simple="true" if:true="${binding.nfd}">
             <beforeCompile>
                 <compile>
-                    <arg value="/I${src.main}"/>
-                    <arg value="/DUNICODE"/>
-                    <arg value="/D_UNICODE"/>
-                    <fileset dir="." includes="${src.main}/nfd_common.c"/>
+                    <arg value="/I${src.main}\include"/>
                     <fileset dir="." includes="${src.main}/nfd_win.cpp"/>
                 </compile>
             </beforeCompile>
@@ -423,9 +420,14 @@ EXPORTS
             <parallel threadsPerProcessor="4" failonany="true">
 
             <update-dependency module="assimp" artifact="assimp.dll"/>
+            <update-dependency module="assimp" artifact="draco.dll"/>
             <update-dependency module="bgfx" artifact="bgfx.dll"/>
-            <update-dependency module="jemalloc" artifact="jemalloc.dll"/>
+            <update-dependency module="freetype" artifact="freetype.dll"/>
             <update-dependency module="glfw" artifact="glfw.dll"/>
+            <update-dependency module="harfbuzz" artifact="harfbuzz.dll"/>
+            <update-dependency module="hwloc" artifact="hwloc.dll"/>
+            <update-dependency module="jemalloc" artifact="jemalloc.dll"/>
+            <update-dependency module="ktx" artifact="ktx.dll"/>
             <update-dependency module="openal" artifact="OpenAL.dll"/>
             <update-dependency module="openvr" artifact="openvr_api.dll"/>
             <update-dependency module="openxr" artifact="openxr-loader.dll"/>

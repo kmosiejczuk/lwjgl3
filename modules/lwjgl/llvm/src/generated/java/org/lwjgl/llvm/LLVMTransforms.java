@@ -24,45 +24,45 @@ public class LLVMTransforms {
 
         /** Function address. */
         public static final long
-            AddAggressiveInstCombinerPass                         = LLVMCore.getLibrary().getFunctionAddress("LLVMAddAggressiveInstCombinerPass"),
-            AddCoroEarlyPass                                      = LLVMCore.getLibrary().getFunctionAddress("LLVMAddCoroEarlyPass"),
-            AddCoroSplitPass                                      = LLVMCore.getLibrary().getFunctionAddress("LLVMAddCoroSplitPass"),
-            AddCoroElidePass                                      = LLVMCore.getLibrary().getFunctionAddress("LLVMAddCoroElidePass"),
-            AddCoroCleanupPass                                    = LLVMCore.getLibrary().getFunctionAddress("LLVMAddCoroCleanupPass"),
-            PassManagerBuilderAddCoroutinePassesToExtensionPoints = LLVMCore.getLibrary().getFunctionAddress("LLVMPassManagerBuilderAddCoroutinePassesToExtensionPoints"),
+            AddAggressiveInstCombinerPass                         = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddAggressiveInstCombinerPass"),
+            AddCoroEarlyPass                                      = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddCoroEarlyPass"),
+            AddCoroSplitPass                                      = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddCoroSplitPass"),
+            AddCoroElidePass                                      = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddCoroElidePass"),
+            AddCoroCleanupPass                                    = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddCoroCleanupPass"),
+            PassManagerBuilderAddCoroutinePassesToExtensionPoints = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassManagerBuilderAddCoroutinePassesToExtensionPoints"),
             AddInstructionCombiningPass                           = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddInstructionCombiningPass"),
-            AddInstructionSimplifyPass                            = LLVMCore.getLibrary().getFunctionAddress("LLVMAddInstructionSimplifyPass"),
-            AddArgumentPromotionPass                              = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddArgumentPromotionPass"),
+            AddInstructionSimplifyPass                            = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddInstructionSimplifyPass"),
+            AddArgumentPromotionPass                              = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddArgumentPromotionPass"),
             AddConstantMergePass                                  = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddConstantMergePass"),
-            AddMergeFunctionsPass                                 = LLVMCore.getLibrary().getFunctionAddress("LLVMAddMergeFunctionsPass"),
-            AddCalledValuePropagationPass                         = LLVMCore.getLibrary().getFunctionAddress("LLVMAddCalledValuePropagationPass"),
+            AddMergeFunctionsPass                                 = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddMergeFunctionsPass"),
+            AddCalledValuePropagationPass                         = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddCalledValuePropagationPass"),
             AddDeadArgEliminationPass                             = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddDeadArgEliminationPass"),
             AddFunctionAttrsPass                                  = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddFunctionAttrsPass"),
             AddFunctionInliningPass                               = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddFunctionInliningPass"),
             AddAlwaysInlinerPass                                  = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddAlwaysInlinerPass"),
             AddGlobalDCEPass                                      = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddGlobalDCEPass"),
             AddGlobalOptimizerPass                                = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddGlobalOptimizerPass"),
-            AddIPConstantPropagationPass                          = LLVMCore.getLibrary().getFunctionAddress("LLVMAddIPConstantPropagationPass"),
-            AddPruneEHPass                                        = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddPruneEHPass"),
+            AddIPConstantPropagationPass                          = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddIPConstantPropagationPass"),
+            AddPruneEHPass                                        = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddPruneEHPass"),
             AddIPSCCPPass                                         = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddIPSCCPPass"),
             AddInternalizePass                                    = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddInternalizePass"),
-            AddInternalizePassWithMustPreservePredicate           = LLVMCore.getLibrary().getFunctionAddress("LLVMAddInternalizePassWithMustPreservePredicate"),
+            AddInternalizePassWithMustPreservePredicate           = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddInternalizePassWithMustPreservePredicate"),
             AddStripDeadPrototypesPass                            = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddStripDeadPrototypesPass"),
             AddStripSymbolsPass                                   = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddStripSymbolsPass"),
-            RunPasses                                             = LLVMCore.getLibrary().getFunctionAddress("LLVMRunPasses"),
-            CreatePassBuilderOptions                              = LLVMCore.getLibrary().getFunctionAddress("LLVMCreatePassBuilderOptions"),
-            PassBuilderOptionsSetVerifyEach                       = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetVerifyEach"),
-            PassBuilderOptionsSetDebugLogging                     = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetDebugLogging"),
-            PassBuilderOptionsSetLoopInterleaving                 = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetLoopInterleaving"),
-            PassBuilderOptionsSetLoopVectorization                = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetLoopVectorization"),
-            PassBuilderOptionsSetSLPVectorization                 = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetSLPVectorization"),
-            PassBuilderOptionsSetLoopUnrolling                    = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetLoopUnrolling"),
-            PassBuilderOptionsSetForgetAllSCEVInLoopUnroll        = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetForgetAllSCEVInLoopUnroll"),
-            PassBuilderOptionsSetLicmMssaOptCap                   = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetLicmMssaOptCap"),
-            PassBuilderOptionsSetLicmMssaNoAccForPromotionCap     = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetLicmMssaNoAccForPromotionCap"),
-            PassBuilderOptionsSetCallGraphProfile                 = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetCallGraphProfile"),
-            PassBuilderOptionsSetMergeFunctions                   = LLVMCore.getLibrary().getFunctionAddress("LLVMPassBuilderOptionsSetMergeFunctions"),
-            DisposePassBuilderOptions                             = LLVMCore.getLibrary().getFunctionAddress("LLVMDisposePassBuilderOptions"),
+            RunPasses                                             = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMRunPasses"),
+            CreatePassBuilderOptions                              = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMCreatePassBuilderOptions"),
+            PassBuilderOptionsSetVerifyEach                       = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetVerifyEach"),
+            PassBuilderOptionsSetDebugLogging                     = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetDebugLogging"),
+            PassBuilderOptionsSetLoopInterleaving                 = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetLoopInterleaving"),
+            PassBuilderOptionsSetLoopVectorization                = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetLoopVectorization"),
+            PassBuilderOptionsSetSLPVectorization                 = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetSLPVectorization"),
+            PassBuilderOptionsSetLoopUnrolling                    = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetLoopUnrolling"),
+            PassBuilderOptionsSetForgetAllSCEVInLoopUnroll        = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetForgetAllSCEVInLoopUnroll"),
+            PassBuilderOptionsSetLicmMssaOptCap                   = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetLicmMssaOptCap"),
+            PassBuilderOptionsSetLicmMssaNoAccForPromotionCap     = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetLicmMssaNoAccForPromotionCap"),
+            PassBuilderOptionsSetCallGraphProfile                 = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetCallGraphProfile"),
+            PassBuilderOptionsSetMergeFunctions                   = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassBuilderOptionsSetMergeFunctions"),
+            DisposePassBuilderOptions                             = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMDisposePassBuilderOptions"),
             PassManagerBuilderCreate                              = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMPassManagerBuilderCreate"),
             PassManagerBuilderDispose                             = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMPassManagerBuilderDispose"),
             PassManagerBuilderSetOptLevel                         = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMPassManagerBuilderSetOptLevel"),
@@ -73,9 +73,9 @@ public class LLVMTransforms {
             PassManagerBuilderUseInlinerWithThreshold             = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMPassManagerBuilderUseInlinerWithThreshold"),
             PassManagerBuilderPopulateFunctionPassManager         = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMPassManagerBuilderPopulateFunctionPassManager"),
             PassManagerBuilderPopulateModulePassManager           = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMPassManagerBuilderPopulateModulePassManager"),
-            PassManagerBuilderPopulateLTOPassManager              = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMPassManagerBuilderPopulateLTOPassManager"),
+            PassManagerBuilderPopulateLTOPassManager              = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMPassManagerBuilderPopulateLTOPassManager"),
             AddAggressiveDCEPass                                  = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddAggressiveDCEPass"),
-            AddDCEPass                                            = LLVMCore.getLibrary().getFunctionAddress("LLVMAddDCEPass"),
+            AddDCEPass                                            = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddDCEPass"),
             AddBitTrackingDCEPass                                 = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddBitTrackingDCEPass"),
             AddAlignmentFromAssumptionsPass                       = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddAlignmentFromAssumptionsPass"),
             AddCFGSimplificationPass                              = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddCFGSimplificationPass"),
@@ -92,9 +92,9 @@ public class LLVMTransforms {
             AddLoopRotatePass                                     = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddLoopRotatePass"),
             AddLoopRerollPass                                     = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddLoopRerollPass"),
             AddLoopUnrollPass                                     = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddLoopUnrollPass"),
-            AddLoopUnrollAndJamPass                               = LLVMCore.getLibrary().getFunctionAddress("LLVMAddLoopUnrollAndJamPass"),
-            AddLoopUnswitchPass                                   = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddLoopUnswitchPass"),
-            AddLowerAtomicPass                                    = LLVMCore.getLibrary().getFunctionAddress("LLVMAddLowerAtomicPass"),
+            AddLoopUnrollAndJamPass                               = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddLoopUnrollAndJamPass"),
+            AddLoopUnswitchPass                                   = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddLoopUnswitchPass"),
+            AddLowerAtomicPass                                    = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddLowerAtomicPass"),
             AddMemCpyOptPass                                      = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddMemCpyOptPass"),
             AddPartiallyInlineLibCallsPass                        = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddPartiallyInlineLibCallsPass"),
             AddReassociatePass                                    = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddReassociatePass"),
@@ -104,21 +104,21 @@ public class LLVMTransforms {
             AddScalarReplAggregatesPassWithThreshold              = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddScalarReplAggregatesPassWithThreshold"),
             AddSimplifyLibCallsPass                               = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddSimplifyLibCallsPass"),
             AddTailCallEliminationPass                            = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddTailCallEliminationPass"),
-            AddConstantPropagationPass                            = LLVMCore.getLibrary().getFunctionAddress("LLVMAddConstantPropagationPass"),
+            AddConstantPropagationPass                            = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddConstantPropagationPass"),
             AddDemoteMemoryToRegisterPass                         = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddDemoteMemoryToRegisterPass"),
             AddVerifierPass                                       = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddVerifierPass"),
             AddCorrelatedValuePropagationPass                     = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddCorrelatedValuePropagationPass"),
             AddEarlyCSEPass                                       = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddEarlyCSEPass"),
             AddEarlyCSEMemSSAPass                                 = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddEarlyCSEMemSSAPass"),
             AddLowerExpectIntrinsicPass                           = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddLowerExpectIntrinsicPass"),
-            AddLowerConstantIntrinsicsPass                        = LLVMCore.getLibrary().getFunctionAddress("LLVMAddLowerConstantIntrinsicsPass"),
+            AddLowerConstantIntrinsicsPass                        = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddLowerConstantIntrinsicsPass"),
             AddTypeBasedAliasAnalysisPass                         = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddTypeBasedAliasAnalysisPass"),
             AddScopedNoAliasAAPass                                = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddScopedNoAliasAAPass"),
             AddBasicAliasAnalysisPass                             = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddBasicAliasAnalysisPass"),
-            AddUnifyFunctionExitNodesPass                         = LLVMCore.getLibrary().getFunctionAddress("LLVMAddUnifyFunctionExitNodesPass"),
+            AddUnifyFunctionExitNodesPass                         = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddUnifyFunctionExitNodesPass"),
             AddLowerSwitchPass                                    = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddLowerSwitchPass"),
             AddPromoteMemoryToRegisterPass                        = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddPromoteMemoryToRegisterPass"),
-            AddAddDiscriminatorsPass                              = LLVMCore.getLibrary().getFunctionAddress("LLVMAddAddDiscriminatorsPass"),
+            AddAddDiscriminatorsPass                              = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMAddAddDiscriminatorsPass"),
             AddLoopVectorizePass                                  = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddLoopVectorizePass"),
             AddSLPVectorizePass                                   = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMAddSLPVectorizePass");
 
@@ -237,6 +237,7 @@ public class LLVMTransforms {
     public static void LLVMAddArgumentPromotionPass(@NativeType("LLVMPassManagerRef") long PM) {
         long __functionAddress = Functions.AddArgumentPromotionPass;
         if (CHECKS) {
+            check(__functionAddress);
             check(PM);
         }
         invokePV(PM, __functionAddress);
@@ -365,6 +366,7 @@ public class LLVMTransforms {
     public static void LLVMAddPruneEHPass(@NativeType("LLVMPassManagerRef") long PM) {
         long __functionAddress = Functions.AddPruneEHPass;
         if (CHECKS) {
+            check(__functionAddress);
             check(PM);
         }
         invokePV(PM, __functionAddress);
@@ -783,6 +785,7 @@ public class LLVMTransforms {
     public static void LLVMPassManagerBuilderPopulateLTOPassManager(@NativeType("LLVMPassManagerBuilderRef") long PMB, @NativeType("LLVMPassManagerRef") long PM, @NativeType("LLVMBool") boolean Internalize, @NativeType("LLVMBool") boolean RunInliner) {
         long __functionAddress = Functions.PassManagerBuilderPopulateLTOPassManager;
         if (CHECKS) {
+            check(__functionAddress);
             check(PMB);
             check(PM);
         }
@@ -1010,6 +1013,7 @@ public class LLVMTransforms {
     public static void LLVMAddLoopUnswitchPass(@NativeType("LLVMPassManagerRef") long PM) {
         long __functionAddress = Functions.AddLoopUnswitchPass;
         if (CHECKS) {
+            check(__functionAddress);
             check(PM);
         }
         invokePV(PM, __functionAddress);

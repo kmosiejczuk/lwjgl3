@@ -11,13 +11,36 @@ import openxr.*
 val MSFT_scene_understanding = "MSFTSceneUnderstanding".nativeClassXR("MSFT_scene_understanding", type = "instance", postfix = "MSFT") {
     documentation =
         """
-        The $templateName extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_MSFT_scene_understanding">XR_MSFT_scene_understanding</a> extension.
+
+        Scene understanding provides applications with a structured, high-level representation of the planes, meshes, and objects in the user’s environment, enabling the development of spatially-aware applications.
+
+        The application requests computation of a scene, receiving the list of scene components observed in the environment around the user. These scene components contain information such as:
+
+        <ul>
+            <li>The type of the discovered objects (wall, floor, ceiling, or other surface type).</li>
+            <li>The planes and their bounds that represent the object.</li>
+            <li>The visual and collider triangle meshes that represent the object.</li>
+        </ul>
+
+        The application can use this information to reason about the structure and location of the environment, to place holograms on surfaces, or render clues for grounding objects.
+
+        An application typically uses this extension in the following steps:
+
+        <ul>
+            <li>Create an {@code XrSceneObserverMSFT} handle to manage the system resource of the scene understanding compute.</li>
+            <li>Start the scene compute by calling #ComputeNewSceneMSFT() with ##XrSceneBoundsMSFT to specify the scan range and a list of {@code XrSceneComputeFeatureMSFT} features.</li>
+            <li>Inspect the completion of computation by polling #GetSceneComputeStateMSFT().</li>
+            <li>Once compute is completed, create an {@code XrSceneMSFT} handle to the result by calling #CreateSceneMSFT().</li>
+            <li>Get properties of scene components using #GetSceneComponentsMSFT().</li>
+            <li>Locate scene components using #LocateSceneComponentsMSFT().</li>
+        </ul>
         """
 
     IntConstant(
         "The extension specification version.",
 
-        "MSFT_scene_understanding_SPEC_VERSION".."1"
+        "MSFT_scene_understanding_SPEC_VERSION".."2"
     )
 
     StringConstant(
@@ -287,7 +310,7 @@ val MSFT_scene_understanding = "MSFTSceneUnderstanding".nativeClassXR("MSFT_scen
         XrInstance("instance", "a handle to an {@code XrInstance}."),
         XrSystemId("systemId", "the {@code XrSystemId} whose scene compute features will be enumerated."),
         AutoSize("features")..uint32_t("featureCapacityInput", "the capacity of the array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("featureCountOutput", "a pointer to the count of scene compute features, or a pointer to the required capacity in the case that {@code featureCapacityInput} is 0."),
+        Check(1)..uint32_t.p("featureCountOutput", "a pointer to the count of scene compute features, or a pointer to the required capacity in the case that {@code featureCapacityInput} is insufficient."),
         nullable..XrSceneComputeFeatureMSFT.p("features", "an array of {@code XrSceneComputeFeatureMSFT}.")
     )
 
@@ -429,6 +452,7 @@ val MSFT_scene_understanding = "MSFTSceneUnderstanding".nativeClassXR("MSFT_scen
                 <li>#ERROR_SESSION_LOST</li>
                 <li>#ERROR_OUT_OF_MEMORY</li>
                 <li>#ERROR_LIMIT_REACHED</li>
+                <li>#ERROR_COMPUTE_NEW_SCENE_NOT_COMPLETED_MSFT</li>
             </ul></dd>
         </dl>
 
@@ -596,7 +620,10 @@ val MSFT_scene_understanding = "MSFTSceneUnderstanding".nativeClassXR("MSFT_scen
                 <li>#ERROR_SESSION_LOST</li>
                 <li>#ERROR_OUT_OF_MEMORY</li>
                 <li>#ERROR_TIME_INVALID</li>
+                <li>#ERROR_SCENE_COMPUTE_FEATURE_INCOMPATIBLE_MSFT</li>
+                <li>#ERROR_SCENE_COMPUTE_CONSISTENCY_MISMATCH_MSFT</li>
                 <li>#ERROR_POSE_INVALID</li>
+                <li>#ERROR_COMPUTE_NEW_SCENE_NOT_COMPLETED_MSFT</li>
             </ul></dd>
         </dl>
 
@@ -699,6 +726,7 @@ val MSFT_scene_understanding = "MSFTSceneUnderstanding".nativeClassXR("MSFT_scen
                 <li>#ERROR_SESSION_LOST</li>
                 <li>#ERROR_OUT_OF_MEMORY</li>
                 <li>#ERROR_SIZE_INSUFFICIENT</li>
+                <li>#ERROR_SCENE_COMPONENT_TYPE_MISMATCH_MSFT</li>
             </ul></dd>
         </dl>
 
@@ -827,6 +855,7 @@ val MSFT_scene_understanding = "MSFTSceneUnderstanding".nativeClassXR("MSFT_scen
                 <li>#ERROR_INSTANCE_LOST</li>
                 <li>#ERROR_SESSION_LOST</li>
                 <li>#ERROR_OUT_OF_MEMORY</li>
+                <li>#ERROR_SCENE_MESH_BUFFER_ID_INVALID_MSFT</li>
                 <li>#ERROR_SCENE_COMPONENT_ID_INVALID_MSFT</li>
             </ul></dd>
         </dl>

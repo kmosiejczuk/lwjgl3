@@ -34,7 +34,7 @@
             <condition property="gcc" value="@{gcc.exec}" else="@{gpp.exec}"><equals arg1="@{lang}" arg2="c"/></condition>
             <mkdir dir="@{dest}"/>
             <apply dir="@{dest}" executable="${gcc}" dest="@{dest}" skipemptyfilesets="true" failonerror="true" parallel="true" taskname="Compiler">
-                <arg line="-c" unless:set="cpp"/>
+                <arg line="-c -std=gnu11" unless:set="cpp"/>
                 <arg line="-c -std=gnu++14" if:set="cpp"/>
                 <arg line="-m64" if:set="build.arch.x64"/>
                 <arg line="-m32 -mfpmath=sse -msse -msse2" if:set="build.arch.x86"/>
@@ -259,19 +259,17 @@
         </build>
 
         <!-- NativeFileDialog -->
-        <build module="nfd" simple="true" if:true="${binding.nfd}">
+        <build module="nfd" simple="true" linker="g++" if:true="${binding.nfd}">
             <beforeCompile>
                 <local name="linux.triplet"/>
                 <condition property="linux.triplet" value="x86_64-linux-gnu"><not><isset property="build.arch.arm"/></not></condition>
                 <condition property="linux.triplet" value="arm-linux-gnueabihf"><isset property="build.arch.arm32"/></condition>
                 <condition property="linux.triplet" value="aarch64-linux-gnu"><isset property="build.arch.arm64"/></condition>
 
-                <compile>
-                    <arg line="-I/usr/include/gtk-3.0 -I/usr/include/glib-2.0 -I/usr/lib/${linux.triplet}/glib-2.0/include -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/atk-1.0"/>
-                    <arg value="-I${src.main.rel}"/>
+                <compile lang="c++">
+                    <arg line="-I/usr/include/gtk-3.0 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/lib/${linux.triplet}/glib-2.0/include -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/atk-1.0"/>
                     <arg value="-I${src.main.rel}/include"/>
-                    <fileset dir="." includes="${src.main}/nfd_common.c"/>
-                    <fileset dir="." includes="${src.main}/nfd_gtk.c"/>
+                    <fileset dir="." includes="${src.main}/nfd_gtk.cpp"/>
                 </compile>
             </beforeCompile>
             <source>
@@ -321,6 +319,7 @@
             </source>
             <link>
                 <arg value="-ldl"/>
+                <arg value="-lm"/>
                 <arg value="-l:libGL.so.1" unless:set="gcc.libpath.opengl"/>
                 <arg line="-L ${gcc.libpath.opengl} -l:libGL.so.1" if:set="gcc.libpath.opengl"/>
             </link>
@@ -353,6 +352,7 @@
                 <compile lang="c++">
                     <arg value="-I${src.main.rel}"/>
                     <fileset dir="." includes="${src.main}/*.cc"/>
+                    <fileset dir="." includes="${src.generated}/*.cpp"/>
                 </compile>
                 <compile>
                     <arg value="-I${src.main.rel}"/>
@@ -408,8 +408,8 @@
                 <arg value="-I${module.lwjgl.rel}/vulkan/src/main/c"/>
                 <fileset dir="." includes="${src.generated}/*.cpp"/>
             </source>
-            <link if:set="build.arch.arm">
-                <arg value="-latomic"/>
+            <link>
+                <arg value="-latomic" if:set="build.arch.arm"/>
             </link>
         </build>
 
@@ -461,9 +461,14 @@
             <parallel threadsPerProcessor="4" failonany="true">
 
             <update-dependency module="assimp" artifact="libassimp.so"/>
+            <update-dependency module="assimp" artifact="libdraco.so"/>
             <update-dependency module="bgfx" artifact="libbgfx.so"/>
-            <update-dependency module="jemalloc" artifact="libjemalloc.so"/>
+            <update-dependency module="freetype" artifact="libfreetype.so"/>
             <update-dependency module="glfw" artifact="libglfw.so"/>
+            <update-dependency module="harfbuzz" artifact="libharfbuzz.so"/>
+            <update-dependency module="hwloc" artifact="libhwloc.so"/>
+            <update-dependency module="jemalloc" artifact="libjemalloc.so"/>
+            <update-dependency module="ktx" artifact="libktx.so"/>
             <update-dependency module="openal" artifact="libopenal.so"/>
             <update-dependency module="openvr" artifact="libopenvr_api.so"/>
             <update-dependency module="openxr" artifact="libopenxr_loader.so"/>

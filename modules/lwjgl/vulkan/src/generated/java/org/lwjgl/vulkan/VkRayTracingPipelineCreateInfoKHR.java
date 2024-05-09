@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The parameters {@code basePipelineHandle} and {@code basePipelineIndex} are described in more detail in <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-pipeline-derivatives">Pipeline Derivatives</a>.</p>
+ * <p>The parameters {@code basePipelineHandle} and {@code basePipelineIndex} are described in more detail in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-pipeline-derivatives">Pipeline Derivatives</a>.</p>
  * 
  * <p>When {@link KHRPipelineLibrary#VK_PIPELINE_CREATE_LIBRARY_BIT_KHR PIPELINE_CREATE_LIBRARY_BIT_KHR} is specified, this pipeline defines a <em>pipeline library</em> which <b>cannot</b> be bound as a ray tracing pipeline directly. Instead, pipeline libraries define common shaders and shader groups which <b>can</b> be included in future pipeline creation.</p>
  * 
@@ -29,24 +29,29 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>When referencing shader groups in order to obtain a shader group handle, groups defined in those libraries are treated as if they were defined as additional entries in {@code pGroups}, appended in the order they appear in the {@code pLibraries} array and in the {@code pGroups} array when those libraries were defined. The shaders these groups reference are set when the pipeline library is created, referencing those specified in the pipeline library, not in the pipeline that includes it.</p>
  * 
- * <p>The default stack size for a pipeline if {@link KHRRayTracingPipeline#VK_DYNAMIC_STATE_RAY_TRACING_PIPELINE_STACK_SIZE_KHR DYNAMIC_STATE_RAY_TRACING_PIPELINE_STACK_SIZE_KHR} is not provided is computed as described in <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#ray-tracing-pipeline-stack">Ray Tracing Pipeline Stack</a>.</p>
+ * <p>The default stack size for a pipeline if {@link KHRRayTracingPipeline#VK_DYNAMIC_STATE_RAY_TRACING_PIPELINE_STACK_SIZE_KHR DYNAMIC_STATE_RAY_TRACING_PIPELINE_STACK_SIZE_KHR} is not provided is computed as described in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#ray-tracing-pipeline-stack">Ray Tracing Pipeline Stack</a>.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code flags} contains the {@link VK10#VK_PIPELINE_CREATE_DERIVATIVE_BIT PIPELINE_CREATE_DERIVATIVE_BIT} flag, and {@code basePipelineIndex} is {@code -1}, {@code basePipelineHandle} <b>must</b> be a valid handle to a ray tracing {@code VkPipeline}</li>
+ * <li>If {@code flags} contains the {@link VK10#VK_PIPELINE_CREATE_DERIVATIVE_BIT PIPELINE_CREATE_DERIVATIVE_BIT} flag, and {@code basePipelineIndex} is -1, {@code basePipelineHandle} <b>must</b> be a valid handle to a ray tracing {@code VkPipeline}</li>
  * <li>If {@code flags} contains the {@link VK10#VK_PIPELINE_CREATE_DERIVATIVE_BIT PIPELINE_CREATE_DERIVATIVE_BIT} flag, and {@code basePipelineHandle} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code basePipelineIndex} <b>must</b> be a valid index into the calling command’s {@code pCreateInfos} parameter</li>
- * <li>If {@code flags} contains the {@link VK10#VK_PIPELINE_CREATE_DERIVATIVE_BIT PIPELINE_CREATE_DERIVATIVE_BIT} flag, and {@code basePipelineIndex} is not {@code -1}, {@code basePipelineHandle} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
- * <li>If {@code flags} contains the {@link VK10#VK_PIPELINE_CREATE_DERIVATIVE_BIT PIPELINE_CREATE_DERIVATIVE_BIT} flag, and {@code basePipelineHandle} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code basePipelineIndex} <b>must</b> be {@code -1}</li>
- * <li>The shader code for the entry points identified by {@code pStages}, and the rest of the state identified by this structure <b>must</b> adhere to the pipeline linking rules described in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces">Shader Interfaces</a> chapter</li>
- * <li>{@code layout} <b>must</b> be <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-pipelinelayout-consistency">consistent</a> with all shaders specified in {@code pStages}</li>
+ * <li>If {@code flags} contains the {@link VK10#VK_PIPELINE_CREATE_DERIVATIVE_BIT PIPELINE_CREATE_DERIVATIVE_BIT} flag, {@code basePipelineIndex} <b>must</b> be -1 or {@code basePipelineHandle} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If a push constant block is declared in a shader, a push constant range in {@code layout} <b>must</b> match both the shader stage and range</li>
+ * <li>If a <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-resources">resource variables</a> is declared in a shader, a descriptor slot in {@code layout} <b>must</b> match the shader stage</li>
+ * <li>If a <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-resources">resource variables</a> is declared in a shader, and the descriptor type is not {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, a descriptor slot in {@code layout} <b>must</b> match the descriptor type</li>
+ * <li>If a <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-resources">resource variables</a> is declared in a shader as an array, a descriptor slot in {@code layout} <b>must</b> match the descriptor count</li>
+ * </ul>
+ * 
+ * <ul>
+ * <li>The shader code for the entry points identified by {@code pStages}, and the rest of the state identified by this structure <b>must</b> adhere to the pipeline linking rules described in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces">Shader Interfaces</a> chapter</li>
  * <li>The number of resources in {@code layout} accessible to each shader stage that is used by the pipeline <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxPerStageResources}</li>
  * <li>{@code flags} <b>must</b> not include {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV}</li>
- * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineCreationCacheControl">{@code pipelineCreationCacheControl}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link VK13#VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT} or {@link VK13#VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT}</li>
+ * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineCreationCacheControl">{@code pipelineCreationCacheControl}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link VK13#VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT} or {@link VK13#VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT}</li>
  * <li>If {@code flags} does not include {@link KHRPipelineLibrary#VK_PIPELINE_CREATE_LIBRARY_BIT_KHR PIPELINE_CREATE_LIBRARY_BIT_KHR}, the {@code stage} member of at least one element of {@code pStages}, including those implicitly added by {@code pLibraryInfo}, <b>must</b> be {@link KHRRayTracingPipeline#VK_SHADER_STAGE_RAYGEN_BIT_KHR SHADER_STAGE_RAYGEN_BIT_KHR}</li>
  * <li>{@code maxPipelineRayRecursionDepth} <b>must</b> be less than or equal to {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR}{@code ::maxRayRecursionDepth}</li>
  * <li>If {@code flags} includes {@link KHRPipelineLibrary#VK_PIPELINE_CREATE_LIBRARY_BIT_KHR PIPELINE_CREATE_LIBRARY_BIT_KHR}, {@code pLibraryInterface} <b>must</b> not be {@code NULL}</li>
- * <li>If {@code pLibraryInfo} is not {@code NULL} and its {@code libraryCount} member is greater than 0, its {@code pLibraryInterface} member <b>must</b> not be {@code NULL}</li>
+ * <li>If {@code pLibraryInfo} is not {@code NULL} and its {@code libraryCount} member is greater than 0, {@code pLibraryInterface} <b>must</b> not be {@code NULL}</li>
  * <li>Each element of {@code pLibraryInfo→pLibraries} <b>must</b> have been created with the value of {@code maxPipelineRayRecursionDepth} equal to that in this pipeline</li>
  * <li>If {@code pLibraryInfo} is not {@code NULL}, each element of its {@code pLibraries} member <b>must</b> have been created with a {@code layout} that is compatible with the {@code layout} in this pipeline</li>
  * <li>If {@code pLibraryInfo} is not {@code NULL}, each element of its {@code pLibraries} member <b>must</b> have been created with values of the {@code maxPipelineRayPayloadSize} and {@code maxPipelineRayHitAttributeSize} members of {@code pLibraryInterface} equal to those in this pipeline</li>
@@ -60,21 +65,25 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If the {@link KHRPipelineLibrary VK_KHR_pipeline_library} extension is not enabled, {@code pLibraryInfo} and {@code pLibraryInterface} <b>must</b> be {@code NULL}</li>
  * <li>If {@code flags} includes {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_BIT_KHR PIPELINE_CREATE_RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_BIT_KHR}, for any element of {@code pGroups} with a {@code type} of {@link KHRRayTracingPipeline#VK_RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR} or {@link KHRRayTracingPipeline#VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR}, the {@code anyHitShader} of that element <b>must</b> not be {@link KHRRayTracingPipeline#VK_SHADER_UNUSED_KHR SHADER_UNUSED_KHR}</li>
  * <li>If {@code flags} includes {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR PIPELINE_CREATE_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR}, for any element of {@code pGroups} with a {@code type} of {@link KHRRayTracingPipeline#VK_RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR} or {@link KHRRayTracingPipeline#VK_RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR RAY_TRACING_SHADER_GROUP_TYPE_PROCEDURAL_HIT_GROUP_KHR}, the {@code closestHitShader} of that element <b>must</b> not be {@link KHRRayTracingPipeline#VK_SHADER_UNUSED_KHR SHADER_UNUSED_KHR}</li>
- * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-rayTraversalPrimitiveCulling">{@code rayTraversalPrimitiveCulling}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SKIP_AABBS_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SKIP_AABBS_BIT_KHR}</li>
- * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-rayTraversalPrimitiveCulling">{@code rayTraversalPrimitiveCulling}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SKIP_TRIANGLES_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SKIP_TRIANGLES_BIT_KHR}</li>
+ * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rayTraversalPrimitiveCulling">{@code rayTraversalPrimitiveCulling}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SKIP_AABBS_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SKIP_AABBS_BIT_KHR}</li>
+ * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rayTraversalPrimitiveCulling">{@code rayTraversalPrimitiveCulling}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SKIP_TRIANGLES_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SKIP_TRIANGLES_BIT_KHR}</li>
  * <li>{@code flags} <b>must</b> not include both {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SKIP_TRIANGLES_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SKIP_TRIANGLES_BIT_KHR} and {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SKIP_AABBS_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SKIP_AABBS_BIT_KHR}</li>
- * <li>If {@code flags} includes {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR}, <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-rayTracingPipelineShaderGroupHandleCaptureReplay">{@code rayTracingPipelineShaderGroupHandleCaptureReplay}</a> <b>must</b> be enabled</li>
+ * <li>If {@code flags} includes {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR}, <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rayTracingPipelineShaderGroupHandleCaptureReplay">{@code rayTracingPipelineShaderGroupHandleCaptureReplay}</a> <b>must</b> be enabled</li>
  * <li>If {@link VkPhysicalDeviceRayTracingPipelineFeaturesKHR}{@code ::rayTracingPipelineShaderGroupHandleCaptureReplay} is {@link VK10#VK_TRUE TRUE} and the {@code pShaderGroupCaptureReplayHandle} member of any element of {@code pGroups} is not {@code NULL}, {@code flags} <b>must</b> include {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR}</li>
- * <li>If {@code pLibraryInfo} is not {@code NULL} and its {@code libraryCount} is 0, {@code stageCount} <b>must</b> not be 0</li>
- * <li>If {@code pLibraryInfo} is not {@code NULL} and its {@code libraryCount} is 0, {@code groupCount} <b>must</b> not be 0</li>
+ * <li>If {@code pLibraryInfo} is {@code NULL} or its {@code libraryCount} is 0, {@code stageCount} <b>must</b> not be 0</li>
+ * <li>If {@code flags} does not include {@link KHRPipelineLibrary#VK_PIPELINE_CREATE_LIBRARY_BIT_KHR PIPELINE_CREATE_LIBRARY_BIT_KHR} and either {@code pLibraryInfo} is {@code NULL} or its {@code libraryCount} is 0, {@code groupCount} <b>must</b> not be 0</li>
  * <li>Any element of the {@code pDynamicStates} member of {@code pDynamicState} <b>must</b> be {@link KHRRayTracingPipeline#VK_DYNAMIC_STATE_RAY_TRACING_PIPELINE_STACK_SIZE_KHR DYNAMIC_STATE_RAY_TRACING_PIPELINE_STACK_SIZE_KHR}</li>
+ * <li>If {@link VkPipelineCreationFeedbackCreateInfo}{@code ::pipelineStageCreationFeedbackCount} is not 0, it <b>must</b> be equal to {@code stageCount}</li>
+ * <li>The {@code stage} value in all {@code pStages} elements <b>must</b> be one of {@link KHRRayTracingPipeline#VK_SHADER_STAGE_RAYGEN_BIT_KHR SHADER_STAGE_RAYGEN_BIT_KHR}, {@link KHRRayTracingPipeline#VK_SHADER_STAGE_ANY_HIT_BIT_KHR SHADER_STAGE_ANY_HIT_BIT_KHR}, {@link KHRRayTracingPipeline#VK_SHADER_STAGE_CLOSEST_HIT_BIT_KHR SHADER_STAGE_CLOSEST_HIT_BIT_KHR}, {@link KHRRayTracingPipeline#VK_SHADER_STAGE_MISS_BIT_KHR SHADER_STAGE_MISS_BIT_KHR}, {@link KHRRayTracingPipeline#VK_SHADER_STAGE_INTERSECTION_BIT_KHR SHADER_STAGE_INTERSECTION_BIT_KHR}, or {@link KHRRayTracingPipeline#VK_SHADER_STAGE_CALLABLE_BIT_KHR SHADER_STAGE_CALLABLE_BIT_KHR}</li>
+ * <li>If {@code flags} includes {@link EXTOpacityMicromap#VK_PIPELINE_CREATE_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT PIPELINE_CREATE_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT}, each element of {@code pLibraryInfo→pLibraries} <b>must</b> have been created with the {@link EXTOpacityMicromap#VK_PIPELINE_CREATE_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT PIPELINE_CREATE_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT} bit set</li>
+ * <li>If {@code flags} includes {@link NVDisplacementMicromap#VK_PIPELINE_CREATE_RAY_TRACING_DISPLACEMENT_MICROMAP_BIT_NV PIPELINE_CREATE_RAY_TRACING_DISPLACEMENT_MICROMAP_BIT_NV}, each element of {@code pLibraryInfo→pLibraries} <b>must</b> have been created with the {@link NVDisplacementMicromap#VK_PIPELINE_CREATE_RAY_TRACING_DISPLACEMENT_MICROMAP_BIT_NV PIPELINE_CREATE_RAY_TRACING_DISPLACEMENT_MICROMAP_BIT_NV} bit set</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkPipelineCreationFeedbackCreateInfo}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkPipelineCreationFeedbackCreateInfo} or {@link VkPipelineRobustnessCreateInfoEXT}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code VkPipelineCreateFlagBits} values</li>
  * <li>If {@code stageCount} is not 0, {@code pStages} <b>must</b> be a valid pointer to an array of {@code stageCount} valid {@link VkPipelineShaderStageCreateInfo} structures</li>
@@ -208,7 +217,7 @@ public class VkRayTracingPipelineCreateInfoKHR extends Struct implements NativeR
     @Nullable
     @NativeType("VkRayTracingShaderGroupCreateInfoKHR const *")
     public VkRayTracingShaderGroupCreateInfoKHR.Buffer pGroups() { return npGroups(address()); }
-    /** the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#ray-tracing-recursion-depth">maximum recursion depth</a> of shaders executed by this pipeline. */
+    /** the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#ray-tracing-recursion-depth">maximum recursion depth</a> of shaders executed by this pipeline. */
     @NativeType("uint32_t")
     public int maxPipelineRayRecursionDepth() { return nmaxPipelineRayRecursionDepth(address()); }
     /** a pointer to a {@link VkPipelineLibraryCreateInfoKHR} structure defining pipeline libraries to include. */
@@ -243,6 +252,8 @@ public class VkRayTracingPipelineCreateInfoKHR extends Struct implements NativeR
     public VkRayTracingPipelineCreateInfoKHR pNext(VkPipelineCreationFeedbackCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPipelineCreationFeedbackCreateInfoEXT} value to the {@code pNext} chain. */
     public VkRayTracingPipelineCreateInfoKHR pNext(VkPipelineCreationFeedbackCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkPipelineRobustnessCreateInfoEXT} value to the {@code pNext} chain. */
+    public VkRayTracingPipelineCreateInfoKHR pNext(VkPipelineRobustnessCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #flags} field. */
     public VkRayTracingPipelineCreateInfoKHR flags(@NativeType("VkPipelineCreateFlags") int value) { nflags(address(), value); return this; }
     /** Sets the address of the specified {@link VkPipelineShaderStageCreateInfo.Buffer} to the {@link #pStages} field. */
@@ -599,6 +610,8 @@ public class VkRayTracingPipelineCreateInfoKHR extends Struct implements NativeR
         public VkRayTracingPipelineCreateInfoKHR.Buffer pNext(VkPipelineCreationFeedbackCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPipelineCreationFeedbackCreateInfoEXT} value to the {@code pNext} chain. */
         public VkRayTracingPipelineCreateInfoKHR.Buffer pNext(VkPipelineCreationFeedbackCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkPipelineRobustnessCreateInfoEXT} value to the {@code pNext} chain. */
+        public VkRayTracingPipelineCreateInfoKHR.Buffer pNext(VkPipelineRobustnessCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkRayTracingPipelineCreateInfoKHR#flags} field. */
         public VkRayTracingPipelineCreateInfoKHR.Buffer flags(@NativeType("VkPipelineCreateFlags") int value) { VkRayTracingPipelineCreateInfoKHR.nflags(address(), value); return this; }
         /** Sets the address of the specified {@link VkPipelineShaderStageCreateInfo.Buffer} to the {@link VkRayTracingPipelineCreateInfoKHR#pStages} field. */

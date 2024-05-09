@@ -13,11 +13,30 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** The FB_passthrough extension. */
+/**
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_FB_passthrough">XR_FB_passthrough</a> extension.
+ * 
+ * <p>Passthrough is a way to show a user their physical environment in a light-blocking VR headset. Applications may use passthrough in a multitude of ways, including:</p>
+ * 
+ * <ul>
+ * <li>Creating AR-like experiences, where virtual objects augment the user’s environment.</li>
+ * <li>Bringing real objects into a VR experience.</li>
+ * <li>Mapping the playspace such that a VR experience is customized to it.</li>
+ * </ul>
+ * 
+ * <p>This extension allows:</p>
+ * 
+ * <ul>
+ * <li>An application to request passthrough to be composited with the application content.</li>
+ * <li>An application to specify the compositing and blending rules between passthrough and VR content.</li>
+ * <li>An application to apply styles, such as color mapping and edge rendering, to passthrough.</li>
+ * <li>An application to provide a geometry to be used in place of the user’s physical environment. Camera images will be projected onto the surface provided by the application. In some cases where a part of the environment, such as a desk, can be approximated well, this provides better visual experience.</li>
+ * </ul>
+ */
 public class FBPassthrough {
 
     /** The extension specification version. */
-    public static final int XR_FB_passthrough_SPEC_VERSION = 1;
+    public static final int XR_FB_passthrough_SPEC_VERSION = 3;
 
     /** The extension name. */
     public static final String XR_FB_PASSTHROUGH_EXTENSION_NAME = "XR_FB_passthrough";
@@ -34,23 +53,27 @@ public class FBPassthrough {
      * <li>{@link #XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB}</li>
      * <li>{@link #XR_TYPE_GEOMETRY_INSTANCE_CREATE_INFO_FB TYPE_GEOMETRY_INSTANCE_CREATE_INFO_FB}</li>
      * <li>{@link #XR_TYPE_GEOMETRY_INSTANCE_TRANSFORM_FB TYPE_GEOMETRY_INSTANCE_TRANSFORM_FB}</li>
+     * <li>{@link #XR_TYPE_SYSTEM_PASSTHROUGH_PROPERTIES2_FB TYPE_SYSTEM_PASSTHROUGH_PROPERTIES2_FB}</li>
      * <li>{@link #XR_TYPE_PASSTHROUGH_STYLE_FB TYPE_PASSTHROUGH_STYLE_FB}</li>
      * <li>{@link #XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_RGBA_FB TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_RGBA_FB}</li>
      * <li>{@link #XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB}</li>
+     * <li>{@link #XR_TYPE_PASSTHROUGH_BRIGHTNESS_CONTRAST_SATURATION_FB TYPE_PASSTHROUGH_BRIGHTNESS_CONTRAST_SATURATION_FB}</li>
      * <li>{@link #XR_TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB}</li>
      * </ul>
      */
     public static final int
-        XR_TYPE_SYSTEM_PASSTHROUGH_PROPERTIES_FB        = 1000118000,
-        XR_TYPE_PASSTHROUGH_CREATE_INFO_FB              = 1000118001,
-        XR_TYPE_PASSTHROUGH_LAYER_CREATE_INFO_FB        = 1000118002,
-        XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB        = 1000118003,
-        XR_TYPE_GEOMETRY_INSTANCE_CREATE_INFO_FB        = 1000118004,
-        XR_TYPE_GEOMETRY_INSTANCE_TRANSFORM_FB          = 1000118005,
-        XR_TYPE_PASSTHROUGH_STYLE_FB                    = 1000118020,
-        XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_RGBA_FB   = 1000118021,
-        XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB   = 1000118022,
-        XR_TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB = 1000118030;
+        XR_TYPE_SYSTEM_PASSTHROUGH_PROPERTIES_FB              = 1000118000,
+        XR_TYPE_PASSTHROUGH_CREATE_INFO_FB                    = 1000118001,
+        XR_TYPE_PASSTHROUGH_LAYER_CREATE_INFO_FB              = 1000118002,
+        XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB              = 1000118003,
+        XR_TYPE_GEOMETRY_INSTANCE_CREATE_INFO_FB              = 1000118004,
+        XR_TYPE_GEOMETRY_INSTANCE_TRANSFORM_FB                = 1000118005,
+        XR_TYPE_SYSTEM_PASSTHROUGH_PROPERTIES2_FB             = 1000118006,
+        XR_TYPE_PASSTHROUGH_STYLE_FB                          = 1000118020,
+        XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_RGBA_FB         = 1000118021,
+        XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB         = 1000118022,
+        XR_TYPE_PASSTHROUGH_BRIGHTNESS_CONTRAST_SATURATION_FB = 1000118023,
+        XR_TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB       = 1000118030;
 
     /**
      * Extends {@code XrResult}.
@@ -93,8 +116,35 @@ public class FBPassthrough {
         XR_OBJECT_TYPE_PASSTHROUGH_LAYER_FB = 1000118002,
         XR_OBJECT_TYPE_GEOMETRY_INSTANCE_FB = 1000118004;
 
-    /** XrPassthroughFlagBitsFB */
-    public static final int XR_PASSTHROUGH_IS_RUNNING_AT_CREATION_BIT_FB = 0x1;
+    /**
+     * XrPassthroughCapabilityFlagBitsFB - XrPassthroughCapabilityFlagBitsFB
+     * 
+     * <h5>Flag Descriptions</h5>
+     * 
+     * <ul>
+     * <li>{@link #XR_PASSTHROUGH_CAPABILITY_BIT_FB PASSTHROUGH_CAPABILITY_BIT_FB} — The system supports passthrough.</li>
+     * <li>{@link #XR_PASSTHROUGH_CAPABILITY_COLOR_BIT_FB PASSTHROUGH_CAPABILITY_COLOR_BIT_FB} — The system can show passthrough with realistic colors. {@link #XR_PASSTHROUGH_CAPABILITY_BIT_FB PASSTHROUGH_CAPABILITY_BIT_FB} <b>must</b> be set if {@link #XR_PASSTHROUGH_CAPABILITY_COLOR_BIT_FB PASSTHROUGH_CAPABILITY_COLOR_BIT_FB} is set.</li>
+     * <li>{@link #XR_PASSTHROUGH_CAPABILITY_LAYER_DEPTH_BIT_FB PASSTHROUGH_CAPABILITY_LAYER_DEPTH_BIT_FB} — The system supports passthrough layers composited using depth testing. {@link #XR_PASSTHROUGH_CAPABILITY_BIT_FB PASSTHROUGH_CAPABILITY_BIT_FB} <b>must</b> be set if {@link #XR_PASSTHROUGH_CAPABILITY_LAYER_DEPTH_BIT_FB PASSTHROUGH_CAPABILITY_LAYER_DEPTH_BIT_FB} is set.</li>
+     * </ul>
+     */
+    public static final int
+        XR_PASSTHROUGH_CAPABILITY_BIT_FB             = 0x1,
+        XR_PASSTHROUGH_CAPABILITY_COLOR_BIT_FB       = 0x2,
+        XR_PASSTHROUGH_CAPABILITY_LAYER_DEPTH_BIT_FB = 0x4;
+
+    /**
+     * XrPassthroughFlagBitsFB - XrPassthroughFlagBitsFB
+     * 
+     * <h5>Flag Descriptions</h5>
+     * 
+     * <ul>
+     * <li>{@link #XR_PASSTHROUGH_IS_RUNNING_AT_CREATION_BIT_FB PASSTHROUGH_IS_RUNNING_AT_CREATION_BIT_FB} — The object (passthrough, layer) is running at creation.</li>
+     * <li>{@link #XR_PASSTHROUGH_LAYER_DEPTH_BIT_FB PASSTHROUGH_LAYER_DEPTH_BIT_FB} — The passthrough system sends depth information to the compositor. Only applicable to layer objects.</li>
+     * </ul>
+     */
+    public static final int
+        XR_PASSTHROUGH_IS_RUNNING_AT_CREATION_BIT_FB = 0x1,
+        XR_PASSTHROUGH_LAYER_DEPTH_BIT_FB            = 0x2;
 
     /**
      * XrPassthroughLayerPurposeFB - Layer purpose
@@ -105,6 +155,7 @@ public class FBPassthrough {
      * <li>{@link #XR_PASSTHROUGH_LAYER_PURPOSE_RECONSTRUCTION_FB PASSTHROUGH_LAYER_PURPOSE_RECONSTRUCTION_FB} — Reconstruction passthrough (full screen environment)</li>
      * <li>{@link #XR_PASSTHROUGH_LAYER_PURPOSE_PROJECTED_FB PASSTHROUGH_LAYER_PURPOSE_PROJECTED_FB} — Projected passthrough (using a custom surface)</li>
      * <li>{@link FBPassthroughKeyboardHands#XR_PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_HANDS_FB PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_HANDS_FB} — Passthrough layer purpose for keyboard hands presence.</li>
+     * <li>{@link FBPassthroughKeyboardHands#XR_PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_MASKED_HANDS_FB PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_MASKED_HANDS_FB} — Passthrough layer purpose for keyboard hands presence with keyboard masked hand transitions (i.e passthrough hands rendered only when they are over the keyboard).</li>
      * </ul>
      * 
      * <h5>See Also</h5>
@@ -116,15 +167,15 @@ public class FBPassthrough {
         XR_PASSTHROUGH_LAYER_PURPOSE_PROJECTED_FB      = 1;
 
     /**
-     * XrPassthroughStateChangedFlagBitsFB
+     * XrPassthroughStateChangedFlagBitsFB - XrPassthroughStateChangedFlagBitsFB
      * 
-     * <h5>Enum values:</h5>
+     * <h5>Flag Descriptions</h5>
      * 
      * <ul>
-     * <li>{@link #XR_PASSTHROUGH_STATE_CHANGED_REINIT_REQUIRED_BIT_FB PASSTHROUGH_STATE_CHANGED_REINIT_REQUIRED_BIT_FB}</li>
-     * <li>{@link #XR_PASSTHROUGH_STATE_CHANGED_NON_RECOVERABLE_ERROR_BIT_FB PASSTHROUGH_STATE_CHANGED_NON_RECOVERABLE_ERROR_BIT_FB}</li>
-     * <li>{@link #XR_PASSTHROUGH_STATE_CHANGED_RECOVERABLE_ERROR_BIT_FB PASSTHROUGH_STATE_CHANGED_RECOVERABLE_ERROR_BIT_FB}</li>
-     * <li>{@link #XR_PASSTHROUGH_STATE_CHANGED_RESTORED_ERROR_BIT_FB PASSTHROUGH_STATE_CHANGED_RESTORED_ERROR_BIT_FB}</li>
+     * <li>{@link #XR_PASSTHROUGH_STATE_CHANGED_REINIT_REQUIRED_BIT_FB PASSTHROUGH_STATE_CHANGED_REINIT_REQUIRED_BIT_FB} — Passthrough system requires reinitialization.</li>
+     * <li>{@link #XR_PASSTHROUGH_STATE_CHANGED_NON_RECOVERABLE_ERROR_BIT_FB PASSTHROUGH_STATE_CHANGED_NON_RECOVERABLE_ERROR_BIT_FB} — Non-recoverable error has occurred. A device reboot or a firmware update may be required.</li>
+     * <li>{@link #XR_PASSTHROUGH_STATE_CHANGED_RECOVERABLE_ERROR_BIT_FB PASSTHROUGH_STATE_CHANGED_RECOVERABLE_ERROR_BIT_FB} — A recoverable error has occurred. The runtime will attempt to recover, but some functionality may be temporarily unavailable.</li>
+     * <li>{@link #XR_PASSTHROUGH_STATE_CHANGED_RESTORED_ERROR_BIT_FB PASSTHROUGH_STATE_CHANGED_RESTORED_ERROR_BIT_FB} — The runtime has recovered from a previous error and is functioning normally.</li>
      * </ul>
      */
     public static final int

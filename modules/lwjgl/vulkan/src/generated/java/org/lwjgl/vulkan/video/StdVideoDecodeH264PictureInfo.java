@@ -23,13 +23,14 @@ import static org.lwjgl.vulkan.video.STDVulkanVideoCodecH264.*;
  * 
  * <pre><code>
  * struct StdVideoDecodeH264PictureInfo {
+ *     {@link StdVideoDecodeH264PictureInfoFlags StdVideoDecodeH264PictureInfoFlags} flags;
  *     uint8_t {@link #seq_parameter_set_id};
  *     uint8_t {@link #pic_parameter_set_id};
- *     uint16_t {@link #reserved};
+ *     uint8_t reserved1;
+ *     uint8_t reserved2;
  *     uint16_t {@link #frame_num};
  *     uint16_t {@link #idr_pic_id};
  *     int32_t {@link #PicOrderCnt}[STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE];
- *     {@link StdVideoDecodeH264PictureInfoFlags StdVideoDecodeH264PictureInfoFlags} flags;
  * }</code></pre>
  */
 public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResource {
@@ -42,35 +43,38 @@ public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResou
 
     /** The struct member offsets. */
     public static final int
+        FLAGS,
         SEQ_PARAMETER_SET_ID,
         PIC_PARAMETER_SET_ID,
-        RESERVED,
+        RESERVED1,
+        RESERVED2,
         FRAME_NUM,
         IDR_PIC_ID,
-        PICORDERCNT,
-        FLAGS;
+        PICORDERCNT;
 
     static {
         Layout layout = __struct(
+            __member(StdVideoDecodeH264PictureInfoFlags.SIZEOF, StdVideoDecodeH264PictureInfoFlags.ALIGNOF),
+            __member(1),
+            __member(1),
             __member(1),
             __member(1),
             __member(2),
             __member(2),
-            __member(2),
-            __array(4, STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE),
-            __member(StdVideoDecodeH264PictureInfoFlags.SIZEOF, StdVideoDecodeH264PictureInfoFlags.ALIGNOF)
+            __array(4, STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE)
         );
 
         SIZEOF = layout.getSize();
         ALIGNOF = layout.getAlignment();
 
-        SEQ_PARAMETER_SET_ID = layout.offsetof(0);
-        PIC_PARAMETER_SET_ID = layout.offsetof(1);
-        RESERVED = layout.offsetof(2);
-        FRAME_NUM = layout.offsetof(3);
-        IDR_PIC_ID = layout.offsetof(4);
-        PICORDERCNT = layout.offsetof(5);
-        FLAGS = layout.offsetof(6);
+        FLAGS = layout.offsetof(0);
+        SEQ_PARAMETER_SET_ID = layout.offsetof(1);
+        PIC_PARAMETER_SET_ID = layout.offsetof(2);
+        RESERVED1 = layout.offsetof(3);
+        RESERVED2 = layout.offsetof(4);
+        FRAME_NUM = layout.offsetof(5);
+        IDR_PIC_ID = layout.offsetof(6);
+        PICORDERCNT = layout.offsetof(7);
     }
 
     /**
@@ -86,15 +90,14 @@ public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResou
     @Override
     public int sizeof() { return SIZEOF; }
 
+    /** @return a {@link StdVideoDecodeH264PictureInfoFlags} view of the {@code flags} field. */
+    public StdVideoDecodeH264PictureInfoFlags flags() { return nflags(address()); }
     /** selecting SPS from the Picture Parameters */
     @NativeType("uint8_t")
     public byte seq_parameter_set_id() { return nseq_parameter_set_id(address()); }
     /** selecting PPS from the Picture Parameters and the SPS */
     @NativeType("uint8_t")
     public byte pic_parameter_set_id() { return npic_parameter_set_id(address()); }
-    /** for structure members 32-bit packing/alignment */
-    @NativeType("uint16_t")
-    public short reserved() { return nreserved(address()); }
     /** 7.4.3 Slice header semantics */
     @NativeType("uint16_t")
     public short frame_num() { return nframe_num(address()); }
@@ -107,15 +110,15 @@ public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResou
     /** topFieldOrderCnt and BottomFieldOrderCnt fields */
     @NativeType("int32_t")
     public int PicOrderCnt(int index) { return nPicOrderCnt(address(), index); }
-    /** @return a {@link StdVideoDecodeH264PictureInfoFlags} view of the {@code flags} field. */
-    public StdVideoDecodeH264PictureInfoFlags flags() { return nflags(address()); }
 
+    /** Copies the specified {@link StdVideoDecodeH264PictureInfoFlags} to the {@code flags} field. */
+    public StdVideoDecodeH264PictureInfo flags(StdVideoDecodeH264PictureInfoFlags value) { nflags(address(), value); return this; }
+    /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
+    public StdVideoDecodeH264PictureInfo flags(java.util.function.Consumer<StdVideoDecodeH264PictureInfoFlags> consumer) { consumer.accept(flags()); return this; }
     /** Sets the specified value to the {@link #seq_parameter_set_id} field. */
     public StdVideoDecodeH264PictureInfo seq_parameter_set_id(@NativeType("uint8_t") byte value) { nseq_parameter_set_id(address(), value); return this; }
     /** Sets the specified value to the {@link #pic_parameter_set_id} field. */
     public StdVideoDecodeH264PictureInfo pic_parameter_set_id(@NativeType("uint8_t") byte value) { npic_parameter_set_id(address(), value); return this; }
-    /** Sets the specified value to the {@link #reserved} field. */
-    public StdVideoDecodeH264PictureInfo reserved(@NativeType("uint16_t") short value) { nreserved(address(), value); return this; }
     /** Sets the specified value to the {@link #frame_num} field. */
     public StdVideoDecodeH264PictureInfo frame_num(@NativeType("uint16_t") short value) { nframe_num(address(), value); return this; }
     /** Sets the specified value to the {@link #idr_pic_id} field. */
@@ -124,28 +127,22 @@ public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResou
     public StdVideoDecodeH264PictureInfo PicOrderCnt(@NativeType("int32_t[STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE]") IntBuffer value) { nPicOrderCnt(address(), value); return this; }
     /** Sets the specified value at the specified index of the {@link #PicOrderCnt} field. */
     public StdVideoDecodeH264PictureInfo PicOrderCnt(int index, @NativeType("int32_t") int value) { nPicOrderCnt(address(), index, value); return this; }
-    /** Copies the specified {@link StdVideoDecodeH264PictureInfoFlags} to the {@code flags} field. */
-    public StdVideoDecodeH264PictureInfo flags(StdVideoDecodeH264PictureInfoFlags value) { nflags(address(), value); return this; }
-    /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
-    public StdVideoDecodeH264PictureInfo flags(java.util.function.Consumer<StdVideoDecodeH264PictureInfoFlags> consumer) { consumer.accept(flags()); return this; }
 
     /** Initializes this struct with the specified values. */
     public StdVideoDecodeH264PictureInfo set(
+        StdVideoDecodeH264PictureInfoFlags flags,
         byte seq_parameter_set_id,
         byte pic_parameter_set_id,
-        short reserved,
         short frame_num,
         short idr_pic_id,
-        IntBuffer PicOrderCnt,
-        StdVideoDecodeH264PictureInfoFlags flags
+        IntBuffer PicOrderCnt
     ) {
+        flags(flags);
         seq_parameter_set_id(seq_parameter_set_id);
         pic_parameter_set_id(pic_parameter_set_id);
-        reserved(reserved);
         frame_num(frame_num);
         idr_pic_id(idr_pic_id);
         PicOrderCnt(PicOrderCnt);
-        flags(flags);
 
         return this;
     }
@@ -275,12 +272,14 @@ public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResou
 
     // -----------------------------------
 
+    /** Unsafe version of {@link #flags}. */
+    public static StdVideoDecodeH264PictureInfoFlags nflags(long struct) { return StdVideoDecodeH264PictureInfoFlags.create(struct + StdVideoDecodeH264PictureInfo.FLAGS); }
     /** Unsafe version of {@link #seq_parameter_set_id}. */
     public static byte nseq_parameter_set_id(long struct) { return UNSAFE.getByte(null, struct + StdVideoDecodeH264PictureInfo.SEQ_PARAMETER_SET_ID); }
     /** Unsafe version of {@link #pic_parameter_set_id}. */
     public static byte npic_parameter_set_id(long struct) { return UNSAFE.getByte(null, struct + StdVideoDecodeH264PictureInfo.PIC_PARAMETER_SET_ID); }
-    /** Unsafe version of {@link #reserved}. */
-    public static short nreserved(long struct) { return UNSAFE.getShort(null, struct + StdVideoDecodeH264PictureInfo.RESERVED); }
+    public static byte nreserved1(long struct) { return UNSAFE.getByte(null, struct + StdVideoDecodeH264PictureInfo.RESERVED1); }
+    public static byte nreserved2(long struct) { return UNSAFE.getByte(null, struct + StdVideoDecodeH264PictureInfo.RESERVED2); }
     /** Unsafe version of {@link #frame_num}. */
     public static short nframe_num(long struct) { return UNSAFE.getShort(null, struct + StdVideoDecodeH264PictureInfo.FRAME_NUM); }
     /** Unsafe version of {@link #idr_pic_id}. */
@@ -291,15 +290,15 @@ public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResou
     public static int nPicOrderCnt(long struct, int index) {
         return UNSAFE.getInt(null, struct + StdVideoDecodeH264PictureInfo.PICORDERCNT + check(index, STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE) * 4);
     }
-    /** Unsafe version of {@link #flags}. */
-    public static StdVideoDecodeH264PictureInfoFlags nflags(long struct) { return StdVideoDecodeH264PictureInfoFlags.create(struct + StdVideoDecodeH264PictureInfo.FLAGS); }
 
+    /** Unsafe version of {@link #flags(StdVideoDecodeH264PictureInfoFlags) flags}. */
+    public static void nflags(long struct, StdVideoDecodeH264PictureInfoFlags value) { memCopy(value.address(), struct + StdVideoDecodeH264PictureInfo.FLAGS, StdVideoDecodeH264PictureInfoFlags.SIZEOF); }
     /** Unsafe version of {@link #seq_parameter_set_id(byte) seq_parameter_set_id}. */
     public static void nseq_parameter_set_id(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoDecodeH264PictureInfo.SEQ_PARAMETER_SET_ID, value); }
     /** Unsafe version of {@link #pic_parameter_set_id(byte) pic_parameter_set_id}. */
     public static void npic_parameter_set_id(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoDecodeH264PictureInfo.PIC_PARAMETER_SET_ID, value); }
-    /** Unsafe version of {@link #reserved(short) reserved}. */
-    public static void nreserved(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoDecodeH264PictureInfo.RESERVED, value); }
+    public static void nreserved1(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoDecodeH264PictureInfo.RESERVED1, value); }
+    public static void nreserved2(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoDecodeH264PictureInfo.RESERVED2, value); }
     /** Unsafe version of {@link #frame_num(short) frame_num}. */
     public static void nframe_num(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoDecodeH264PictureInfo.FRAME_NUM, value); }
     /** Unsafe version of {@link #idr_pic_id(short) idr_pic_id}. */
@@ -313,8 +312,6 @@ public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResou
     public static void nPicOrderCnt(long struct, int index, int value) {
         UNSAFE.putInt(null, struct + StdVideoDecodeH264PictureInfo.PICORDERCNT + check(index, STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE) * 4, value);
     }
-    /** Unsafe version of {@link #flags(StdVideoDecodeH264PictureInfoFlags) flags}. */
-    public static void nflags(long struct, StdVideoDecodeH264PictureInfoFlags value) { memCopy(value.address(), struct + StdVideoDecodeH264PictureInfo.FLAGS, StdVideoDecodeH264PictureInfoFlags.SIZEOF); }
 
     // -----------------------------------
 
@@ -354,15 +351,14 @@ public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResou
             return ELEMENT_FACTORY;
         }
 
+        /** @return a {@link StdVideoDecodeH264PictureInfoFlags} view of the {@code flags} field. */
+        public StdVideoDecodeH264PictureInfoFlags flags() { return StdVideoDecodeH264PictureInfo.nflags(address()); }
         /** @return the value of the {@link StdVideoDecodeH264PictureInfo#seq_parameter_set_id} field. */
         @NativeType("uint8_t")
         public byte seq_parameter_set_id() { return StdVideoDecodeH264PictureInfo.nseq_parameter_set_id(address()); }
         /** @return the value of the {@link StdVideoDecodeH264PictureInfo#pic_parameter_set_id} field. */
         @NativeType("uint8_t")
         public byte pic_parameter_set_id() { return StdVideoDecodeH264PictureInfo.npic_parameter_set_id(address()); }
-        /** @return the value of the {@link StdVideoDecodeH264PictureInfo#reserved} field. */
-        @NativeType("uint16_t")
-        public short reserved() { return StdVideoDecodeH264PictureInfo.nreserved(address()); }
         /** @return the value of the {@link StdVideoDecodeH264PictureInfo#frame_num} field. */
         @NativeType("uint16_t")
         public short frame_num() { return StdVideoDecodeH264PictureInfo.nframe_num(address()); }
@@ -375,15 +371,15 @@ public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResou
         /** @return the value at the specified index of the {@link StdVideoDecodeH264PictureInfo#PicOrderCnt} field. */
         @NativeType("int32_t")
         public int PicOrderCnt(int index) { return StdVideoDecodeH264PictureInfo.nPicOrderCnt(address(), index); }
-        /** @return a {@link StdVideoDecodeH264PictureInfoFlags} view of the {@code flags} field. */
-        public StdVideoDecodeH264PictureInfoFlags flags() { return StdVideoDecodeH264PictureInfo.nflags(address()); }
 
+        /** Copies the specified {@link StdVideoDecodeH264PictureInfoFlags} to the {@code flags} field. */
+        public StdVideoDecodeH264PictureInfo.Buffer flags(StdVideoDecodeH264PictureInfoFlags value) { StdVideoDecodeH264PictureInfo.nflags(address(), value); return this; }
+        /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
+        public StdVideoDecodeH264PictureInfo.Buffer flags(java.util.function.Consumer<StdVideoDecodeH264PictureInfoFlags> consumer) { consumer.accept(flags()); return this; }
         /** Sets the specified value to the {@link StdVideoDecodeH264PictureInfo#seq_parameter_set_id} field. */
         public StdVideoDecodeH264PictureInfo.Buffer seq_parameter_set_id(@NativeType("uint8_t") byte value) { StdVideoDecodeH264PictureInfo.nseq_parameter_set_id(address(), value); return this; }
         /** Sets the specified value to the {@link StdVideoDecodeH264PictureInfo#pic_parameter_set_id} field. */
         public StdVideoDecodeH264PictureInfo.Buffer pic_parameter_set_id(@NativeType("uint8_t") byte value) { StdVideoDecodeH264PictureInfo.npic_parameter_set_id(address(), value); return this; }
-        /** Sets the specified value to the {@link StdVideoDecodeH264PictureInfo#reserved} field. */
-        public StdVideoDecodeH264PictureInfo.Buffer reserved(@NativeType("uint16_t") short value) { StdVideoDecodeH264PictureInfo.nreserved(address(), value); return this; }
         /** Sets the specified value to the {@link StdVideoDecodeH264PictureInfo#frame_num} field. */
         public StdVideoDecodeH264PictureInfo.Buffer frame_num(@NativeType("uint16_t") short value) { StdVideoDecodeH264PictureInfo.nframe_num(address(), value); return this; }
         /** Sets the specified value to the {@link StdVideoDecodeH264PictureInfo#idr_pic_id} field. */
@@ -392,10 +388,6 @@ public class StdVideoDecodeH264PictureInfo extends Struct implements NativeResou
         public StdVideoDecodeH264PictureInfo.Buffer PicOrderCnt(@NativeType("int32_t[STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE]") IntBuffer value) { StdVideoDecodeH264PictureInfo.nPicOrderCnt(address(), value); return this; }
         /** Sets the specified value at the specified index of the {@link StdVideoDecodeH264PictureInfo#PicOrderCnt} field. */
         public StdVideoDecodeH264PictureInfo.Buffer PicOrderCnt(int index, @NativeType("int32_t") int value) { StdVideoDecodeH264PictureInfo.nPicOrderCnt(address(), index, value); return this; }
-        /** Copies the specified {@link StdVideoDecodeH264PictureInfoFlags} to the {@code flags} field. */
-        public StdVideoDecodeH264PictureInfo.Buffer flags(StdVideoDecodeH264PictureInfoFlags value) { StdVideoDecodeH264PictureInfo.nflags(address(), value); return this; }
-        /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
-        public StdVideoDecodeH264PictureInfo.Buffer flags(java.util.function.Consumer<StdVideoDecodeH264PictureInfoFlags> consumer) { consumer.accept(flags()); return this; }
 
     }
 

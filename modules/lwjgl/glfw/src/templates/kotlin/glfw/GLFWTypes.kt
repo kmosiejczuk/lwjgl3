@@ -84,14 +84,14 @@ void* function_name(size_t size, void* user)""")}
 
             This function must return either a memory block at least {@code size} bytes long, or #NULL if allocation failed. Note that not all parts of GLFW
             handle allocation failures gracefully yet.
-    
+
             This function may be called during #Init() but before the library is flagged as initialized, as well as during #Terminate() after the library is no
             longer flagged as initialized.
-    
+
             Any memory allocated by this function will be deallocated during library termination or earlier.
-    
+
             The size will always be greater than zero. Allocations of size zero are filtered out before reaching the custom allocator.
-        
+
             ${note(ul(
                 "The returned memory block must be valid at least until it is deallocated.",
                 "This function should not call any GLFW function.",
@@ -101,7 +101,6 @@ void* function_name(size_t size, void* user)""")}
         since = "version 3.4"
     }
 }
-
 
 val GLFWreallocatefun = Module.GLFW.callback {
     void.p(
@@ -234,14 +233,24 @@ val GLFWerrorfun = Module.GLFW.callback {
             public void invoke(int error, long description) {
                 String msg = getDescription(description);
 
-                stream.printf("[LWJGL] %s error\n", ERROR_CODES.get(error));
-                stream.println("\tDescription : " + msg);
-                stream.println("\tStacktrace  :");
+                StringBuilder sb = new StringBuilder(512);
+                sb
+                    .append("[LWJGL] ")
+                    .append(ERROR_CODES.get(error))
+                    .append(" error\n")
+                    .append("\tDescription : ")
+                    .append(msg)
+                    .append("\n")
+                    .append("\tStacktrace  :\n");
+
                 StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-                for ( int i = 4; i < stack.length; i++ ) {
-                    stream.print("\t\t");
-                    stream.println(stack[i].toString());
+                for (int i = 4; i < stack.length; i++) {
+                    sb.append("\t\t");
+                    sb.append(stack[i]);
+                    sb.append("\n");
                 }
+
+                stream.print(sb);
             }
         };
     }

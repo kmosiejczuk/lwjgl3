@@ -142,10 +142,24 @@ public final class ALCapabilities {
     public final long
         alBufferSubDataSOFT;
 
+    // SOFT_callback_buffer
+    public final long
+        alBufferCallbackSOFT,
+        alGetBufferPtrSOFT,
+        alGetBuffer3PtrSOFT,
+        alGetBufferPtrvSOFT;
+
     // SOFT_deferred_updates
     public final long
         alDeferUpdatesSOFT,
         alProcessUpdatesSOFT;
+
+    // SOFT_events
+    public final long
+        alEventControlSOFT,
+        alEventCallbackSOFT,
+        alGetPointerSOFT,
+        alGetPointervSOFT;
 
     // SOFT_source_latency
     public final long
@@ -170,8 +184,6 @@ public final class ALCapabilities {
     public final boolean OpenAL10;
     /** When true, {@link AL11} is supported. */
     public final boolean OpenAL11;
-    /** When true, {@link SOFTBformatEx} is supported. */
-    public final boolean OpenAL_SOFT_bformat_ex;
     /** When true, {@link EXTAlaw} is supported. */
     public final boolean AL_EXT_ALAW;
     /** When true, {@link EXTBFormat} is supported. */
@@ -214,18 +226,26 @@ public final class ALCapabilities {
     public final boolean AL_LOKI_quadriphonic;
     /** When true, {@link LOKIWAVEFormat} is supported. */
     public final boolean AL_LOKI_WAVE_format;
+    /** When true, {@link SOFTBformatEx} is supported. */
+    public final boolean AL_SOFT_bformat_ex;
     /** When true, {@link SOFTBlockAlignment} is supported. */
     public final boolean AL_SOFT_block_alignment;
     /** When true, {@link SOFTBufferSamples} is supported. */
     public final boolean AL_SOFT_buffer_samples;
     /** When true, {@link SOFTBufferSubData} is supported. */
     public final boolean AL_SOFT_buffer_sub_data;
+    /** When true, {@link SOFTCallbackBuffer} is supported. */
+    public final boolean AL_SOFT_callback_buffer;
     /** When true, {@link SOFTDeferredUpdates} is supported. */
     public final boolean AL_SOFT_deferred_updates;
     /** When true, {@link SOFTDirectChannels} is supported. */
     public final boolean AL_SOFT_direct_channels;
     /** When true, {@link SOFTDirectChannelsRemix} is supported. */
     public final boolean AL_SOFT_direct_channels_remix;
+    /** When true, {@link SOFTEffectTarget} is supported. */
+    public final boolean AL_SOFT_effect_target;
+    /** When true, {@link SOFTEvents} is supported. */
+    public final boolean AL_SOFT_events;
     /** When true, {@link SOFTGainClampEx} is supported. */
     public final boolean AL_SOFT_gain_clamp_ex;
     /** When true, {@link SOFTLoopPoints} is supported. */
@@ -240,16 +260,19 @@ public final class ALCapabilities {
     public final boolean AL_SOFT_source_resampler;
     /** When true, {@link SOFTSourceSpatialize} is supported. */
     public final boolean AL_SOFT_source_spatialize;
+    /** When true, {@link SOFTUHJ} is supported. */
+    public final boolean AL_SOFT_UHJ;
+    /** When true, {@link SOFTXHoldOnDisconnect} is supported. */
+    public final boolean AL_SOFTX_hold_on_disconnect;
 
     /** Off-heap array of the above function addresses. */
     final PointerBuffer addresses;
 
     ALCapabilities(FunctionProvider provider, Set<String> ext, IntFunction<PointerBuffer> bufferFactory) {
-        PointerBuffer caps = bufferFactory.apply(123);
+        PointerBuffer caps = bufferFactory.apply(131);
 
         OpenAL10 = check_AL10(provider, caps, ext);
         OpenAL11 = check_AL11(provider, caps, ext);
-        OpenAL_SOFT_bformat_ex = ext.contains("OpenAL_SOFT_bformat_ex");
         AL_EXT_ALAW = ext.contains("AL_EXT_ALAW");
         AL_EXT_BFORMAT = ext.contains("AL_EXT_BFORMAT");
         AL_EXT_DOUBLE = ext.contains("AL_EXT_DOUBLE");
@@ -271,12 +294,16 @@ public final class ALCapabilities {
         AL_LOKI_IMA_ADPCM = ext.contains("AL_LOKI_IMA_ADPCM");
         AL_LOKI_quadriphonic = ext.contains("AL_LOKI_quadriphonic");
         AL_LOKI_WAVE_format = ext.contains("AL_LOKI_WAVE_format");
+        AL_SOFT_bformat_ex = ext.contains("AL_SOFT_bformat_ex");
         AL_SOFT_block_alignment = ext.contains("AL_SOFT_block_alignment");
         AL_SOFT_buffer_samples = check_SOFT_buffer_samples(provider, caps, ext);
         AL_SOFT_buffer_sub_data = check_SOFT_buffer_sub_data(provider, caps, ext);
+        AL_SOFT_callback_buffer = check_SOFT_callback_buffer(provider, caps, ext);
         AL_SOFT_deferred_updates = check_SOFT_deferred_updates(provider, caps, ext);
         AL_SOFT_direct_channels = ext.contains("AL_SOFT_direct_channels");
         AL_SOFT_direct_channels_remix = ext.contains("AL_SOFT_direct_channels_remix");
+        AL_SOFT_effect_target = ext.contains("AL_SOFT_effect_target");
+        AL_SOFT_events = check_SOFT_events(provider, caps, ext);
         AL_SOFT_gain_clamp_ex = ext.contains("AL_SOFT_gain_clamp_ex");
         AL_SOFT_loop_points = ext.contains("AL_SOFT_loop_points");
         AL_SOFT_MSADPCM = ext.contains("AL_SOFT_MSADPCM");
@@ -284,6 +311,8 @@ public final class ALCapabilities {
         AL_SOFT_source_length = ext.contains("AL_SOFT_source_length");
         AL_SOFT_source_resampler = check_SOFT_source_resampler(provider, caps, ext);
         AL_SOFT_source_spatialize = ext.contains("AL_SOFT_source_spatialize");
+        AL_SOFT_UHJ = ext.contains("AL_SOFT_UHJ");
+        AL_SOFTX_hold_on_disconnect = ext.contains("AL_SOFTX_hold_on_disconnect");
 
         alGetError = caps.get(0);
         alEnable = caps.get(1);
@@ -393,21 +422,29 @@ public final class ALCapabilities {
         alGetBufferSamplesSOFT = caps.get(105);
         alIsBufferFormatSupportedSOFT = caps.get(106);
         alBufferSubDataSOFT = caps.get(107);
-        alDeferUpdatesSOFT = caps.get(108);
-        alProcessUpdatesSOFT = caps.get(109);
-        alSourcedSOFT = caps.get(110);
-        alSource3dSOFT = caps.get(111);
-        alSourcedvSOFT = caps.get(112);
-        alGetSourcedSOFT = caps.get(113);
-        alGetSource3dSOFT = caps.get(114);
-        alGetSourcedvSOFT = caps.get(115);
-        alSourcei64SOFT = caps.get(116);
-        alSource3i64SOFT = caps.get(117);
-        alSourcei64vSOFT = caps.get(118);
-        alGetSourcei64SOFT = caps.get(119);
-        alGetSource3i64SOFT = caps.get(120);
-        alGetSourcei64vSOFT = caps.get(121);
-        alGetStringiSOFT = caps.get(122);
+        alBufferCallbackSOFT = caps.get(108);
+        alGetBufferPtrSOFT = caps.get(109);
+        alGetBuffer3PtrSOFT = caps.get(110);
+        alGetBufferPtrvSOFT = caps.get(111);
+        alDeferUpdatesSOFT = caps.get(112);
+        alProcessUpdatesSOFT = caps.get(113);
+        alEventControlSOFT = caps.get(114);
+        alEventCallbackSOFT = caps.get(115);
+        alGetPointerSOFT = caps.get(116);
+        alGetPointervSOFT = caps.get(117);
+        alSourcedSOFT = caps.get(118);
+        alSource3dSOFT = caps.get(119);
+        alSourcedvSOFT = caps.get(120);
+        alGetSourcedSOFT = caps.get(121);
+        alGetSource3dSOFT = caps.get(122);
+        alGetSourcedvSOFT = caps.get(123);
+        alSourcei64SOFT = caps.get(124);
+        alSource3i64SOFT = caps.get(125);
+        alSourcei64vSOFT = caps.get(126);
+        alGetSourcei64SOFT = caps.get(127);
+        alGetSource3i64SOFT = caps.get(128);
+        alGetSourcei64vSOFT = caps.get(129);
+        alGetStringiSOFT = caps.get(130);
 
         addresses = ThreadLocalUtil.setupAddressBuffer(caps);
     }
@@ -501,16 +538,40 @@ public final class ALCapabilities {
         ) || reportMissing("AL", "AL_SOFT_buffer_sub_data");
     }
 
+    private static boolean check_SOFT_callback_buffer(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
+        if (!ext.contains("AL_SOFT_callback_buffer")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            108, 109, 110, 111
+        },
+            "alBufferCallbackSOFT", "alGetBufferPtrSOFT", "alGetBuffer3PtrSOFT", "alGetBufferPtrvSOFT"
+        ) || reportMissing("AL", "AL_SOFT_callback_buffer");
+    }
+
     private static boolean check_SOFT_deferred_updates(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
         if (!ext.contains("AL_SOFT_deferred_updates")) {
             return false;
         }
 
         return checkFunctions(provider, caps, new int[] {
-            108, 109
+            112, 113
         },
             "alDeferUpdatesSOFT", "alProcessUpdatesSOFT"
         ) || reportMissing("AL", "AL_SOFT_deferred_updates");
+    }
+
+    private static boolean check_SOFT_events(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
+        if (!ext.contains("AL_SOFT_events")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            114, 115, 116, 117
+        },
+            "alEventControlSOFT", "alEventCallbackSOFT", "alGetPointerSOFT", "alGetPointervSOFT"
+        ) || reportMissing("AL", "AL_SOFT_events");
     }
 
     private static boolean check_SOFT_source_latency(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
@@ -519,7 +580,7 @@ public final class ALCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121
+            118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129
         },
             "alSourcedSOFT", "alSource3dSOFT", "alSourcedvSOFT", "alGetSourcedSOFT", "alGetSource3dSOFT", "alGetSourcedvSOFT", "alSourcei64SOFT", 
             "alSource3i64SOFT", "alSourcei64vSOFT", "alGetSourcei64SOFT", "alGetSource3i64SOFT", "alGetSourcei64vSOFT"
@@ -532,7 +593,7 @@ public final class ALCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            122
+            130
         },
             "alGetStringiSOFT"
         ) || reportMissing("AL", "AL_SOFT_source_resampler");

@@ -24,11 +24,11 @@ package org.lwjgl.vulkan;
  * 
  * <p>The job or task based game engines that are being developed to take advantage of explicit graphics APIs like Vulkan may behave exceptionally poorly if any of the above scenarios occur. However, most game engines are already built to “{@code stream}” in assets dynamically as the user plays the game. By adding control by way of {@code VkPipelineCreateFlags}, we can require an ICD to report back a failure in critical execution paths rather than forcing an unexpected wait.</p>
  * 
- * <p>Applications can prevent unexpected compilation by setting {@link #VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT_EXT PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT_EXT} on stext:Vk*PipelineCreateInfo{@code ::flags}. When set, an ICD must not attempt pipeline or shader compilation to create the pipeline object. The ICD will return the result {@link #VK_PIPELINE_COMPILE_REQUIRED_EXT PIPELINE_COMPILE_REQUIRED_EXT}. An ICD may still return a valid {@code VkPipeline} object by either re-using existing pre-compiled objects such as those from a pipeline cache, or derivative pipelines.</p>
+ * <p>Applications can prevent unexpected compilation by setting {@link #VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT_EXT PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT_EXT} on stext:Vk*PipelineCreateInfo{@code ::flags}. When set, an ICD must not attempt pipeline or shader compilation to create the pipeline object. In such a case, if the implementation fails to create a pipeline without compilation, the implementation <b>must</b> return the result {@link #VK_PIPELINE_COMPILE_REQUIRED_EXT PIPELINE_COMPILE_REQUIRED_EXT} and return {@link VK10#VK_NULL_HANDLE NULL_HANDLE} for the pipeline.</p>
  * 
  * <p>By default {@code vkCreate*Pipelines} calls must attempt to create all pipelines before returning. Setting {@link #VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT_EXT PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT_EXT} on stext:Vk*PipelineCreateInfo{@code ::flags} can be used as an escape hatch for batched pipeline creates.</p>
  * 
- * <p>Hidden locks also add to the unpredictability of the cost of pipeline creation. The most common case of locks inside the stext:vkCreate*Pipelines is internal synchronization of the {@code VkPipelineCache} object. {@link #VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT} can be set when calling {@link VK10#vkCreatePipelineCache CreatePipelineCache} to state the cache is <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-threadingbehavior">externally synchronized</a>.</p>
+ * <p>Hidden locks also add to the unpredictability of the cost of pipeline creation. The most common case of locks inside the stext:vkCreate*Pipelines is internal synchronization of the {@code VkPipelineCache} object. {@link #VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT} can be set when calling {@link VK10#vkCreatePipelineCache CreatePipelineCache} to state the cache is <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-threadingbehavior">externally synchronized</a>.</p>
  * 
  * <p>The hope is that armed with this information application and engine developers can leverage existing asset streaming systems to recover from "just-in-time" pipeline creation stalls.</p>
  * 
@@ -48,16 +48,14 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>3</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * </ul></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
  * <dt><b>Deprecation state</b></dt>
  * <dd><ul>
- * <li><em>Promoted</em> to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
+ * <li><em>Promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Gregory Grebe <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_pipeline_creation_cache_control]%20@grgrebe_amd%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_pipeline_creation_cache_control%20extension%3E%3E">grgrebe_amd</a></li>
+ * <li>Gregory Grebe <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_pipeline_creation_cache_control]%20@grgrebe_amd%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_pipeline_creation_cache_control%20extension*">grgrebe_amd</a></li>
  * </ul></dd>
  * </dl>
  * 

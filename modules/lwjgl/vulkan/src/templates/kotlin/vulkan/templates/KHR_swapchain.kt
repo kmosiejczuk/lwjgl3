@@ -33,15 +33,12 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
             <dd>70</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRSurface VK_KHR_surface}</li>
-            </ul></dd>
+            <dd>{@link KHRSurface VK_KHR_surface}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_swapchain]%20@cubanismo%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_swapchain%20extension%3E%3E">cubanismo</a></li>
-                <li>Ian Elliott <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_swapchain]%20@ianelliottus%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_swapchain%20extension%3E%3E">ianelliottus</a></li>
+                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_swapchain]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_swapchain%20extension*">cubanismo</a></li>
+                <li>Ian Elliott <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_swapchain]%20@ianelliottus%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_swapchain%20extension*">ianelliottus</a></li>
             </ul></dd>
         </dl>
 
@@ -72,7 +69,7 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
                 <li>Graham Sellers, AMD</li>
                 <li>Jeff Vigil, Qualcomm</li>
                 <li>Chia-I Wu, LunarG</li>
-                <li>Jason Ekstrand, Intel</li>
+                <li>Faith Ekstrand, Intel</li>
                 <li>Matthaeus G. Chajdas, AMD</li>
                 <li>Ray Smith, ARM</li>
             </ul></dd>
@@ -173,7 +170,40 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
 ￿    VkSwapchainKHR*                             pSwapchain);</code></pre>
 
         <h5>Description</h5>
-        If the {@code oldSwapchain} parameter of {@code pCreateInfo} is a valid swapchain, which has exclusive full-screen access, that access is released from {@code oldSwapchain}. If the command succeeds in this case, the newly created swapchain will automatically acquire exclusive full-screen access from {@code oldSwapchain}.
+        As mentioned above, if {@code vkCreateSwapchainKHR} succeeds, it will return a handle to a swapchain containing an array of at least {@code pCreateInfo→minImageCount} presentable images.
+
+        While acquired by the application, presentable images <b>can</b> be used in any way that equivalent non-presentable images <b>can</b> be used. A presentable image is equivalent to a non-presentable image created with the following ##VkImageCreateInfo parameters:
+
+        <table class="lwjgl">
+            <thead><tr><th>##VkImageCreateInfo Field</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>{@code flags}</td><td>#IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT is set if #SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR is set #IMAGE_CREATE_PROTECTED_BIT is set if #SWAPCHAIN_CREATE_PROTECTED_BIT_KHR is set #IMAGE_CREATE_MUTABLE_FORMAT_BIT and #IMAGE_CREATE_EXTENDED_USAGE_BIT_KHR are both set if #SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR is set all other bits are unset</td></tr>
+                <tr><td>{@code imageType}</td><td>#IMAGE_TYPE_2D</td></tr>
+                <tr><td>{@code format}</td><td>{@code pCreateInfo→imageFormat}</td></tr>
+                <tr><td>{@code extent}</td><td>{{@code pCreateInfo→imageExtent.width}, {@code pCreateInfo→imageExtent.height}, 1}</td></tr>
+                <tr><td>{@code mipLevels}</td><td>1</td></tr>
+                <tr><td>{@code arrayLayers}</td><td>{@code pCreateInfo→imageArrayLayers}</td></tr>
+                <tr><td>{@code samples}</td><td>#SAMPLE_COUNT_1_BIT</td></tr>
+                <tr><td>{@code tiling}</td><td>#IMAGE_TILING_OPTIMAL</td></tr>
+                <tr><td>{@code usage}</td><td>{@code pCreateInfo→imageUsage}</td></tr>
+                <tr><td>{@code sharingMode}</td><td>{@code pCreateInfo→imageSharingMode}</td></tr>
+                <tr><td>{@code queueFamilyIndexCount}</td><td>{@code pCreateInfo→queueFamilyIndexCount}</td></tr>
+                <tr><td>{@code pQueueFamilyIndices}</td><td>{@code pCreateInfo→pQueueFamilyIndices}</td></tr>
+                <tr><td>{@code initialLayout}</td><td>#IMAGE_LAYOUT_UNDEFINED</td></tr>
+            </tbody>
+        </table>
+
+        The {@code pCreateInfo→surface} <b>must</b> not be destroyed until after the swapchain is destroyed.
+
+        If {@code pCreateInfo→oldSwapchain} is #NULL_HANDLE, and the native window referred to by {@code pCreateInfo→surface} is already associated with a Vulkan swapchain, #ERROR_NATIVE_WINDOW_IN_USE_KHR <b>must</b> be returned.
+
+        If the native window referred to by {@code pCreateInfo→surface} is already associated with a non-Vulkan graphics API surface, #ERROR_NATIVE_WINDOW_IN_USE_KHR <b>must</b> be returned.
+
+        The native window referred to by {@code pCreateInfo→surface} <b>must</b> not become associated with a non-Vulkan graphics API surface before all associated Vulkan swapchains have been destroyed.
+
+        {@code vkCreateSwapchainKHR} will return #ERROR_DEVICE_LOST if the logical device was lost. The {@code VkSwapchainKHR} is a child of the {@code device}, and <b>must</b> be destroyed before the {@code device}. However, {@code VkSurfaceKHR} is not a child of any {@code VkDevice} and is not affected by the lost device. After successfully recreating a {@code VkDevice}, the same {@code VkSurfaceKHR} <b>can</b> be used to create a new {@code VkSwapchainKHR}, provided the previous one was destroyed.
+
+        If the {@code oldSwapchain} parameter of {@code pCreateInfo} is a valid swapchain, which has exclusive full-screen access, that access is released from {@code pCreateInfo→oldSwapchain}. If the command succeeds in this case, the newly created swapchain will automatically acquire exclusive full-screen access from {@code pCreateInfo→oldSwapchain}.
 
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
         This implicit transfer is intended to avoid exiting and entering full-screen exclusive mode, which may otherwise cause unwanted visual updates to the display.
@@ -184,6 +214,8 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
         In particular, it will fail if the {@code imageExtent} member of {@code pCreateInfo} does not match the extents of the monitor. Other reasons for failure may include the app not being set as high-dpi aware, or if the physical device and monitor are not compatible in this mode.
         </div>
+
+        If the {@code pNext} chain of ##VkSwapchainCreateInfoKHR includes a ##VkSwapchainPresentBarrierCreateInfoNV structure, then that structure includes additional swapchain creation parameters specific to the present barrier. Swapchain creation <b>may</b> fail if the state of the current system restricts the usage of the present barrier feature ##VkSurfaceCapabilitiesPresentBarrierNV, or a swapchain itself does not satisfy all the required conditions. In this scenario #ERROR_INITIALIZATION_FAILED is returned.
 
         When the {@code VkSurfaceKHR} in ##VkSwapchainCreateInfoKHR is a display surface, then the {@code VkDisplayModeKHR} in display surface’s ##VkDisplaySurfaceCreateInfoKHR is associated with a particular {@code VkDisplayKHR}. Swapchain creation <b>may</b> fail if that {@code VkDisplayKHR} is not acquired by the application. In this scenario #ERROR_INITIALIZATION_FAILED is returned.
 
@@ -216,6 +248,7 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
                 <li>#ERROR_SURFACE_LOST_KHR</li>
                 <li>#ERROR_NATIVE_WINDOW_IN_USE_KHR</li>
                 <li>#ERROR_INITIALIZATION_FAILED</li>
+                <li>#ERROR_COMPRESSION_EXHAUSTED_EXT</li>
             </ul></dd>
         </dl>
 
@@ -225,7 +258,7 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
 
         VkDevice("device", "the device to create the swapchain for."),
         VkSwapchainCreateInfoKHR.const.p("pCreateInfo", "a pointer to a ##VkSwapchainCreateInfoKHR structure specifying the parameters of the created swapchain."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the swapchain object when there is no more specific allocator available (see <a target=\"_blank\" href=\"https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>)."),
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the swapchain object when there is no more specific allocator available (see <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>)."),
         Check(1)..VkSwapchainKHR.p("pSwapchain", "a pointer to a {@code VkSwapchainKHR} handle in which the created swapchain object will be returned.")
     )
 
@@ -262,7 +295,7 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
             <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
             <li>If {@code swapchain} is not #NULL_HANDLE, {@code swapchain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
             <li>If {@code pAllocator} is not {@code NULL}, {@code pAllocator} <b>must</b> be a valid pointer to a valid ##VkAllocationCallbacks structure</li>
-            <li>Both of {@code device}, and {@code swapchain} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
+            <li>If {@code swapchain} is a valid handle, it <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
         </ul>
 
         <h5>Host Synchronization</h5>
@@ -276,7 +309,7 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
 
         VkDevice("device", "the {@code VkDevice} associated with {@code swapchain}."),
         VkSwapchainKHR("swapchain", "the swapchain to destroy."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the swapchain object when there is no more specific allocator available (see <a target=\"_blank\" href=\"https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>).")
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the swapchain object when there is no more specific allocator available (see <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>).")
     )
 
     VkResult(
@@ -303,7 +336,7 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
             <li>{@code swapchain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
             <li>{@code pSwapchainImageCount} <b>must</b> be a valid pointer to a {@code uint32_t} value</li>
             <li>If the value referenced by {@code pSwapchainImageCount} is not 0, and {@code pSwapchainImages} is not {@code NULL}, {@code pSwapchainImages} <b>must</b> be a valid pointer to an array of {@code pSwapchainImageCount} {@code VkImage} handles</li>
-            <li>Both of {@code device}, and {@code swapchain} <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
+            <li>{@code swapchain} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
         </ul>
 
         <h5>Return Codes</h5>
@@ -345,6 +378,9 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
 ￿    VkFence                                     fence,
 ￿    uint32_t*                                   pImageIndex);</code></pre>
 
+        <h5>Description</h5>
+        If the {@code swapchain} has been created with the #SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT flag, the image whose index is returned in {@code pImageIndex} will be fully backed by memory before this call returns to the application, as if it is bound completely and contiguously to a single {@code VkDeviceMemory} object.
+
         <h5>Valid Usage</h5>
         <ul>
             <li>{@code swapchain} <b>must</b> not be in the retired state</li>
@@ -352,7 +388,7 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
             <li>If {@code semaphore} is not #NULL_HANDLE it <b>must</b> not have any uncompleted signal or wait operations pending</li>
             <li>If {@code fence} is not #NULL_HANDLE it <b>must</b> be unsignaled and <b>must</b> not be associated with any other queue command that has not yet completed execution on that queue</li>
             <li>{@code semaphore} and {@code fence} <b>must</b> not both be equal to #NULL_HANDLE</li>
-            <li>If the number of currently acquired images is greater than the difference between the number of images in {@code swapchain} and the value of ##VkSurfaceCapabilitiesKHR{@code ::minImageCount} as returned by a call to #GetPhysicalDeviceSurfaceCapabilities2KHR() with the {@code surface} used to create {@code swapchain}, {@code timeout} <b>must</b> not be {@code UINT64_MAX}</li>
+            <li>If <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#swapchain-acquire-forward-progress">forward progress</a> cannot be guaranteed for the {@code surface} used to create the {@code swapchain} member of {@code pAcquireInfo}, the {@code timeout} member of {@code pAcquireInfo} <b>must</b> not be {@code UINT64_MAX}</li>
             <li>{@code semaphore} <b>must</b> have a {@code VkSemaphoreType} of #SEMAPHORE_TYPE_BINARY</li>
         </ul>
 
@@ -363,9 +399,9 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
             <li>If {@code semaphore} is not #NULL_HANDLE, {@code semaphore} <b>must</b> be a valid {@code VkSemaphore} handle</li>
             <li>If {@code fence} is not #NULL_HANDLE, {@code fence} <b>must</b> be a valid {@code VkFence} handle</li>
             <li>{@code pImageIndex} <b>must</b> be a valid pointer to a {@code uint32_t} value</li>
+            <li>{@code swapchain} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
             <li>If {@code semaphore} is a valid handle, it <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
             <li>If {@code fence} is a valid handle, it <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
-            <li>Both of {@code device}, and {@code swapchain} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
         </ul>
 
         <h5>Host Synchronization</h5>
@@ -428,7 +464,7 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
             <li>Each element of {@code pSwapchains} member of {@code pPresentInfo} <b>must</b> be a swapchain that is created for a surface for which presentation is supported from {@code queue} as determined using a call to {@code vkGetPhysicalDeviceSurfaceSupportKHR}</li>
             <li>If more than one member of {@code pSwapchains} was created from a display surface, all display surfaces referenced that refer to the same display <b>must</b> use the same display mode</li>
             <li>When a semaphore wait operation referring to a binary semaphore defined by the elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} executes on {@code queue}, there <b>must</b> be no other queues waiting on the same semaphore</li>
-            <li>All elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} <b>must</b> be semaphores that are signaled, or have <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-semaphores-signaling">semaphore signal operations</a> previously submitted for execution</li>
+            <li>All elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} <b>must</b> be semaphores that are signaled, or have <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-semaphores-signaling">semaphore signal operations</a> previously submitted for execution</li>
             <li>All elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} <b>must</b> be created with a {@code VkSemaphoreType} of #SEMAPHORE_TYPE_BINARY</li>
             <li>All elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} <b>must</b> reference a semaphore signal operation that has been submitted for execution and any semaphore signal operations on which it depends (if any) <b>must</b> have also been submitted for execution</li>
         </ul>
@@ -466,8 +502,7 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
 
         <h5>Command Properties</h5>
         <table class="lwjgl">
-            <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-            <tbody><tr><td>-</td><td>-</td><td>Any</td></tr></tbody>
+            <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
         </table>
 
         <h5>Return Codes</h5>
@@ -681,9 +716,12 @@ val KHR_swapchain = "KHRSwapchain".nativeClassVK("KHR_swapchain", type = "device
 ￿    const VkAcquireNextImageInfoKHR*            pAcquireInfo,
 ￿    uint32_t*                                   pImageIndex);</code></pre>
 
+        <h5>Description</h5>
+        If the {@code swapchain} has been created with the #SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT flag, the image whose index is returned in {@code pImageIndex} will be fully backed by memory before this call returns to the application.
+
         <h5>Valid Usage</h5>
         <ul>
-            <li>If the number of currently acquired images is greater than the difference between the number of images in the {@code swapchain} member of {@code pAcquireInfo} and the value of ##VkSurfaceCapabilitiesKHR{@code ::minImageCount} as returned by a call to #GetPhysicalDeviceSurfaceCapabilities2KHR() with the {@code surface} used to create {@code swapchain}, the {@code timeout} member of {@code pAcquireInfo} <b>must</b> not be {@code UINT64_MAX}</li>
+            <li>If <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#swapchain-acquire-forward-progress">forward progress</a> cannot be guaranteed for the {@code surface} used to create {@code swapchain}, the {@code timeout} member of {@code pAcquireInfo} <b>must</b> not be {@code UINT64_MAX}</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>

@@ -22,12 +22,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If a {@link VkPipelineShaderStageRequiredSubgroupSizeCreateInfo} structure is included in the {@code pNext} chain of {@link VkPipelineShaderStageCreateInfo}, it specifies that the pipeline shader stage being compiled has a required subgroup size.</p>
  * 
+ * <p>If a {@link VkShaderRequiredSubgroupSizeCreateInfoEXT} structure is included in the {@code pNext} chain of {@link VkShaderCreateInfoEXT}, it specifies that the shader being compiled has a required subgroup size.</p>
+ * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
  * <li>{@code requiredSubgroupSize} <b>must</b> be a power-of-two integer</li>
- * <li>{@code requiredSubgroupSize} <b>must</b> be greater or equal to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#limits-minSubgroupSize">minSubgroupSize</a></li>
- * <li>{@code requiredSubgroupSize} <b>must</b> be less than or equal to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxSubgroupSize">maxSubgroupSize</a></li>
+ * <li>{@code requiredSubgroupSize} <b>must</b> be greater or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-minSubgroupSize">{@code minSubgroupSize}</a></li>
+ * <li>{@code requiredSubgroupSize} <b>must</b> be less than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxSubgroupSize">{@code maxSubgroupSize}</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>

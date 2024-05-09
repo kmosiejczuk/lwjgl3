@@ -15,7 +15,13 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** The MSFT_controller_model extension. */
+/**
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_MSFT_controller_model">XR_MSFT_controller_model</a> extension.
+ * 
+ * <p>This extension provides a mechanism to load a GLTF model for controllers. An application <b>can</b> render the controller model using the real time pose input from controller’s grip action pose and animate controller parts representing the user’s interactions, such as pressing a button, or pulling a trigger.</p>
+ * 
+ * <p>This extension supports any controller interaction profile that supports subpathname:/grip/pose. The returned controller model represents the physical controller held in the user’s hands, and it <b>may</b> be different from the current interaction profile.</p>
+ */
 public class MSFTControllerModel {
 
     /** The extension specification version. */
@@ -146,7 +152,7 @@ public class MSFTControllerModel {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>The {@link #xrLoadControllerModelMSFT LoadControllerModelMSFT} function loads the controller model as a byte buffer containing a binary form of glTF (a.k.a GLB file format) for the controller. The binary glTF data <b>must</b> conform to glTF 2.0 format defined at <a target="_blank" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">https://github.com/KhronosGroup/glTF/tree/master/specification/2.0</a>.</p>
+     * <p>The {@link #xrLoadControllerModelMSFT LoadControllerModelMSFT} function loads the controller model as a byte buffer containing a binary form of glTF (a.k.a GLB file format) for the controller. The binary glTF data <b>must</b> conform to glTF 2.0 format defined at {uri-msft-gltf2}.</p>
      * 
      * <pre><code>
      * XrResult xrLoadControllerModelMSFT(
@@ -194,7 +200,7 @@ public class MSFTControllerModel {
      *
      * @param session           the specified {@code XrSession}.
      * @param modelKey          the model key corresponding to the controller render model being queried.
-     * @param bufferCountOutput filled in by the runtime with the count of elements in {@code buffer} array, or returns the required capacity in the case that {@code bufferCapacityInput} is 0.
+     * @param bufferCountOutput filled in by the runtime with the count of elements in {@code buffer} array, or returns the required capacity in the case that {@code bufferCapacityInput} is insufficient.
      * @param buffer            a pointer to an application-allocated array of the model for the device that will be filled with the {@code uint8_t} values by the runtime. It <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0.
      */
     @NativeType("XrResult")

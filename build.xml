@@ -46,7 +46,7 @@
         <ant antfile="update-dependencies.xml" target="check-dependencies" inheritAll="false"/>
 
         <taskdef resource="org/jetbrains/kotlin/ant/antlib.xml" classpath="${kotlinc}/lib/kotlin-ant.jar"/>
-        <taskdef resource="testngtasks" classpath="${lib}/java/testng.jar"/>
+        <taskdef resource="testngtasks" classpath="${lib}/java/testng.jar;${lib}/java/slf4j-api.jar;${lib}/java/slf4j-jdk14.jar"/>
     </target>
 
     <target name="init-wiki" description="Initializes the lwjgl3-wiki git repository in /wiki. [Optional]">
@@ -289,7 +289,7 @@
         </apply>
     </target>
 
-    <target name="hydrate-kotlinc" description="Downloads the compiled Kotlin templates to build.lwjgl.org">
+    <target name="hydrate-kotlinc" description="Downloads the compiled Kotlin templates to build.lwjgl.org" depends="init">
         <!-- Download cache -->
         <get taskname="Downloading templates.jar" src="https://build.lwjgl.org/ci/templates.jar" dest="."/>
 
@@ -467,32 +467,35 @@
         <mkdir dir="${bin.lwjgl}/core/META-INF/versions/9" if:set="jdk9"/>
         <mkdir dir="${bin.lwjgl}/core/META-INF/versions/10" if:set="jdk10"/>
         <delete file="${bin.lwjgl}/core/META-INF/versions/9/module-info.class" quiet="true" if:set="jdk9"/>
-        <lwjgl.javac9
-            destdir="${bin.lwjgl}/core/META-INF/versions/9"
-            classpath="${bin.lwjgl}/core"
-
-            srcdir="${module.lwjgl}/core/src/main/java9"
-            includes="**"
-
-            taskname="javac: Core - Java 9"
-            if:set="jdk9"
-        />
-        <lwjgl.javac10
-            destdir="${bin.lwjgl}/core/META-INF/versions/10"
-            classpath="${bin.lwjgl}/core"
-
-            srcdir="${module.lwjgl}/core/src/main/java10"
-            includes="**"
-
-            taskname="javac: Core - Java 10"
-            if:set="jdk10"
-        />
+        <lwjgl.javac9 destdir="${bin.lwjgl}/core/META-INF/versions/9" taskname="javac: Core - Java 9" if:set="jdk9">
+            <classpath>
+                <pathelement path="${bin.lwjgl}/core"/>
+                <pathelement path="${lib}/java/jsr305.jar"/>
+            </classpath>
+            <src>
+                <pathelement path="${module.lwjgl}/core/src/main/java9"/>
+            </src>
+            <include name="**"/>
+        </lwjgl.javac9>
+        <lwjgl.javac10 destdir="${bin.lwjgl}/core/META-INF/versions/10" taskname="javac: Core - Java 10" if:set="jdk10">
+            <classpath>
+                <pathelement path="${bin.lwjgl}/core"/>
+            </classpath>
+            <src>
+                <pathelement path="${module.lwjgl}/core/src/main/java10"/>
+            </src>
+            <include name="**"/>
+        </lwjgl.javac10>
 
         <parallel threadsPerProcessor="1">
             <compileBinding binding="assimp"/>
             <compileBinding binding="bgfx"/>
             <compileBinding binding="cuda"/>
             <compileBinding binding="egl"/>
+            <compileBinding binding="fmod"/>
+            <compileBinding binding="freetype"/>
+            <compileBinding binding="harfbuzz"/>
+            <compileBinding binding="hwloc"/>
             <compileBinding binding="jawt"/>
             <compileBinding binding="jemalloc"/>
             <compileBinding binding="libdivide"/>
@@ -550,6 +553,12 @@
             <exclude name="org/lwjgl/glfw/GLFWNativeNSGL.java" unless:true="${binding.opengl}"/>
             <exclude name="org/lwjgl/glfw/GLFWNativeWGL.java" unless:true="${binding.opengl}"/>
             <exclude name="org/lwjgl/glfw/GLFWVulkan.java" unless:true="${binding.vulkan}"/>
+        </compileBinding>
+
+        <compileBinding binding="ktx">
+            <classpath>
+                <pathelement path="${bin.lwjgl}/vulkan"/>
+            </classpath>
         </compileBinding>
 
         <compileBinding binding="openxr">
@@ -832,12 +841,17 @@
             <include name="org/lwjgl/demo/system/linux/liburing/**" if:set="platform.linux"/>
 
             <include name="org/lwjgl/demo/util/*.java"/>
+            <include name="org/lwjgl/demo/util/freetype/**" if:true="${binding.freetype}"/>
+            <include name="org/lwjgl/demo/util/harfbuzz/**" if:true="${binding.harfbuzz}"/>
+            <include name="org/lwjgl/demo/util/hwloc/**" if:true="${binding.hwloc}"/>
+            <include name="org/lwjgl/demo/util/ktx/**" if:true="${binding.ktx}"/>
             <include name="org/lwjgl/demo/util/lmdb/**" if:true="${binding.lmdb}"/>
             <include name="org/lwjgl/demo/util/lz4/**" if:true="${binding.lz4}"/>
             <include name="org/lwjgl/demo/util/meow/**" if:true="${binding.meow}"/>
             <include name="org/lwjgl/demo/util/meshoptimizer/**" if:true="${binding.meshoptimizer}"/>
             <include name="org/lwjgl/demo/util/nfd/**" if:set="test.nfd"/>
             <include name="org/lwjgl/demo/util/par/**" if:set="test.par"/>
+            <include name="org/lwjgl/demo/util/remotery/**" if:true="${binding.remotery}"/>
             <include name="org/lwjgl/demo/util/tinyexr/**" if:set="test.tinyexr"/>
             <include name="org/lwjgl/demo/util/tinyfd/**" if:set="test.tinyfd"/>
             <include name="org/lwjgl/demo/util/tootle/**" if:set="test.tootle"/>
@@ -863,6 +877,8 @@
                 <pathelement path="${bin.test}"/>
                 <pathelement path="${lib}/java/jcommander.jar"/>
                 <pathelement path="${lib}/java/jquery.jar"/>
+                <pathelement path="${lib}/java/slf4j-api.jar"/>
+                <pathelement path="${lib}/java/slf4j-jdk14.jar"/>
                 <pathelement path="${lib}/native"/>
             </classpath>
 
@@ -871,7 +887,7 @@
             <jvmarg value="-Dorg.lwjgl.util.Debug=true"/>
             <jvmarg value="-Dorg.lwjgl.util.DebugAllocator=true"/>
             <jvmarg value="-XstartOnFirstThread" if:set="platform.macos"/>
-            <jvmarg value="-Xss8m"/> <!-- for StackTest::testSOE -->
+            <jvmarg value="-Xss8m" unless:set="build.arch.arm"/> <!-- for StackTest::testSOE -->
             <jvmarg line="${jvmargs}" if:set="jvmargs"/>
 
             <xmlfileset dir="${config}" includes="tests.xml,tests_${platform}.xml"/>
@@ -972,7 +988,6 @@
             notree="true"
             public="true"
             Splitindex="true"
-            maxmemory="2G"
             failonerror="true"
             verbose="true"
         >
@@ -1034,37 +1049,57 @@
         </apply>
     </target>
 
-    <macrodef name="get-release-offline">
-        <attribute name="arch"/>
-        <attribute name="file"/>
-
-        <sequential>
-            <local name="available"/>
-            <available file="${lib.native}/${module.path}/@{file}" property="available"/>
-
-            <echo message="release: ${lib.native}/${module.path}/@{file} is missing" level="warning" unless:set="available"/>
-            <quiet if:set="available">
-                <copy file="${lib.native}/${module.path}/@{file}" todir="${release}/${module}/native/${platform}/@{arch}/${module.path}"/>
-            </quiet>
-        </sequential>
-    </macrodef>
-
     <macrodef name="get-release">
         <attribute name="platform"/>
         <attribute name="arch"/>
         <attribute name="file"/>
 
         <sequential>
-            <quiet>
-                <mkdir dir="${release}/${module}/native/@{platform}/@{arch}/${module.path}"/>
-            </quiet>
-            <get
-                src="https://build.lwjgl.org/${build.type}/${platform.@{platform}.remote}/@{arch}/@{file}"
-                dest="${release}/${module}/native/@{platform}/@{arch}/${module.path}"
-                usetimestamp="true"
-                unless:true="${build.offline}"
-            />
-            <get-release-offline arch="@{arch}" file="@{file}" if:true="${build.offline}"/>
+            <!-- Skip .git files in offline mode -->
+            <local name="skip.git"/>
+            <condition property="skip.git">
+                <and>
+                    <istrue value="${build.offline}"/>
+                    <matches string="@{file}" pattern="^.+\.git$"/>
+                </and>
+            </condition>
+
+            <sequential unless:set="skip.git">
+                <local name="destination"/>
+                <condition property="destination"
+                   value="${release}/${module}/META-INF/@{platform}/@{arch}/${module.path}"
+                    else="${release}/${module}/native/@{platform}/@{arch}/${module.path}"
+                >
+                    <matches string="@{file}" pattern="^.+\.git$"/>
+                </condition>
+
+                <!-- Online build -->
+                <sequential unless:true="${build.offline}">
+                    <quiet>
+                        <mkdir dir="${destination}"/>
+                    </quiet>
+                    <get
+                        src="https://build.lwjgl.org/${build.type}/${platform.@{platform}.remote}/@{arch}/@{file}"
+                        dest="${destination}"
+                        usetimestamp="true"
+                    />
+                </sequential>
+
+                <!-- Offline build -->
+                <sequential if:true="${build.offline}">
+                    <local name="source"/>
+                    <property name="source" value="${lib}/native/@{platform}/@{arch}/${module.path}/@{file}"/>
+
+                    <local name="available"/>
+                    <available file="${source}" property="available"/>
+
+                    <echo message="Missing offline artifact: ${source}" level="warning" unless:set="available"/>
+                    <quiet if:set="available">
+                        <mkdir dir="${destination}"/>
+                        <copy file="${source}" todir="${destination}"/>
+                    </quiet>
+                </sequential>
+            </sequential>
         </sequential>
     </macrodef>
 
@@ -1104,11 +1139,12 @@
             <local name="platform.skip"/>
             <condition property="platform.skip">
                 <resourcecount when="eq" count="0">
-                    <fileset dir="${release}/${module}/native" includes="@{path}/${module.path}/*.@{type}"/>
+                    <fileset dir="${release}/${module}" includes="native/@{path}/${module.path}/*.@{type}"/>
                 </resourcecount>
             </condition>
 
             <lwjgl-jar destfile="${release}/${module}/${module}-natives-@{platform}.jar" platform="@{path}" title="@{title}" unless:set="platform.skip">
+                <fileset dir="${release}/${module}" includes="META-INF/@{path}/${module.path}/*.@{type}*"/>
                 <fileset dir="${release}/${module}/native" includes="@{path}/${module.path}/*.@{type}*"/>
                 <fileset dir="${release}/${module}/native/@{path}" includes="META-INF/versions/9/module-info.class" if:set="jdk9"/>
                 <content/>
@@ -1173,72 +1209,75 @@
                 <content/>
             </parallel>
 
-            <local name="checksum.skip"/>
-            <condition property="checksum.skip">
+            <local name="missing-natives"/>
+            <condition property="missing-natives">
                 <and>
                     <istrue value="${build.offline}"/>
                     <resourcecount when="eq" count="0">
-                        <fileset dir="${release}/${module}/native">
-                            <include name="**/*.dll"/>
-                            <include name="**/*.dylib"/>
-                            <include name="**/*.so"/>
+                        <fileset dir="${release}/${module}">
+                            <include name="native/**/*.dll"/>
+                            <include name="native/**/*.dylib"/>
+                            <include name="native/**/*.so"/>
                         </fileset>
                     </resourcecount>
                 </and>
             </condition>
 
-            <checksum algorithm="SHA-1" fileext=".sha1" unless:set="checksum.skip">
-                <fileset dir="${release}/${module}/native">
-                    <include name="**/*.dll"/>
-                    <include name="**/*.dylib"/>
-                    <include name="**/*.so"/>
-                </fileset>
-            </checksum>
+            <sequential unless:set="missing-natives">
+                <mkdir dir="${release}/${module}/META-INF"/>
+                <checksum algorithm="SHA-1" fileext=".sha1" todir="${release}/${module}/META-INF">
+                    <fileset dir="${release}/${module}/native">
+                        <include name="**/*.dll"/>
+                        <include name="**/*.dylib"/>
+                        <include name="**/*.so"/>
+                    </fileset>
+                </checksum>
 
-            <!-- Generate module-info classes -->
-            <java
-                classpath="bin/classes/generator"
-                classname="org.lwjgl.generator.util.ModuleInfoGen"
-                fork="true"
-                failonerror="true"
-                taskname="module-info-gen :: native :: ${module}"
-                if:set="jdk9"
-            >
-                <jvmarg value="-Dmodule.name.source=${module.name}"/>
-                <jvmarg value="-Dmodule.name.release=${module}"/>
-                <jvmarg value="-Dmodule.version=${module.version}"/>
-            </java>
+                <!-- Generate module-info classes -->
+                <java
+                    classpath="bin/classes/generator"
+                    classname="org.lwjgl.generator.util.ModuleInfoGen"
+                    fork="true"
+                    failonerror="true"
+                    taskname="module-info-gen :: native :: ${module}"
+                    if:set="jdk9"
+                >
+                    <jvmarg value="-Dmodule.name.source=${module.name}"/>
+                    <jvmarg value="-Dmodule.name.release=${module}"/>
+                    <jvmarg value="-Dmodule.version=${module.version}"/>
+                </java>
 
-            <!-- Create native jar files -->
-            <parallel threadsPerProcessor="1" failonany="true">
-                <natives-jar name="@{name}" title="@{title}" platform="linux" path="linux/x64" type="so">
-                    <linux-content/>
-                </natives-jar>
-                <natives-jar name="@{name}" title="@{title}" platform="linux-arm64" path="linux/arm64" type="so">
-                    <linux-arm64-content/>
-                </natives-jar>
-                <natives-jar name="@{name}" title="@{title}" platform="linux-arm32" path="linux/arm32" type="so">
-                    <linux-arm32-content/>
-                </natives-jar>
-                <natives-jar name="@{name}" title="@{title}" platform="macos" path="macos/x64" type="dylib">
-                    <macos-content/>
-                </natives-jar>
-                <natives-jar name="@{name}" title="@{title}" platform="macos-arm64" path="macos/arm64" type="dylib">
-                    <macos-arm64-content/>
-                </natives-jar>
-                <natives-jar name="@{name}" title="@{title}" platform="openbsd" path="openbsd/x64" type="so">
-                    <openbsd-content/>
-                </natives-jar>
-                <natives-jar name="@{name}" title="@{title}" platform="windows" path="windows/x64" type="dll">
-                    <windows-content/>
-                </natives-jar>
-                <natives-jar name="@{name}" title="@{title}" platform="windows-x86" path="windows/x86" type="dll">
-                    <windows-x86-content/>
-                </natives-jar>
-                <natives-jar name="@{name}" title="@{title}" platform="windows-arm64" path="windows/arm64" type="dll">
-                    <windows-arm64-content/>
-                </natives-jar>
-            </parallel>
+                <!-- Create native jar files -->
+                <parallel threadsPerProcessor="1" failonany="true">
+                    <natives-jar name="@{name}" title="@{title}" platform="linux" path="linux/x64" type="so">
+                        <linux-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="linux-arm64" path="linux/arm64" type="so">
+                        <linux-arm64-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="linux-arm32" path="linux/arm32" type="so">
+                        <linux-arm32-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="macos" path="macos/x64" type="dylib">
+                        <macos-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="macos-arm64" path="macos/arm64" type="dylib">
+                        <macos-arm64-content/>
+                    </natives-jar>
+		    <natives-jar name="@{name}" title="@{title}" platform="openbsd" path="openbsd/x64" type="so">
+                         <openbsd-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="windows" path="windows/x64" type="dll">
+                        <windows-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="windows-x86" path="windows/x86" type="dll">
+                        <windows-x86-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="windows-arm64" path="windows/arm64" type="dll">
+                        <windows-arm64-content/>
+                    </natives-jar>
+                </parallel>
+            </sequential>
         </sequential>
     </macrodef>
 
@@ -1268,6 +1307,10 @@
             <local name="module.path"/>
             <property name="module.path" value="${module.@{name}.path}"/>
 
+            <quiet>
+                <mkdir dir="${release}/${module}"/>
+            </quiet>
+
             <!-- Bundle natives -->
             <release-natives name="@{name}" title="@{title}" native-library="@{native-library}" unless:set="java-only.binding.@{name}">
                 <content><natives/></content>
@@ -1284,11 +1327,12 @@
 
             <!-- Bundle classes -->
             <lwjgl-jar destfile="${release}/${module}/${module}.jar" title="@{title}">
-                <fileset dir="${release}/${module}/native" includes="*.sha1" unless:set="java-only.binding.@{name}"/>
+                <fileset dir="${release}/${module}" includes="META-INF/**/*.sha1" unless:set="java-only.binding.@{name}"/>
                 <fileset dir="${bin.lwjgl}/@{name}" includes="**"/>
             </lwjgl-jar>
             <quiet>
                 <delete dir="${release}/${module}/native" unless:set="java-only.binding.@{name}"/>
+                <delete dir="${release}/${module}/META-INF" unless:set="java-only.binding.@{name}"/>
             </quiet>
 
             <local name="hasMain"/>
@@ -1310,7 +1354,6 @@
                 nohelp="true"
                 notree="true"
                 public="true"
-                maxmemory="1G"
                 failonerror="true"
                 unless:set="javadoc.skip"
             >
@@ -1462,7 +1505,41 @@
         </sequential>
 
         <!-- Assimp -->
-        <release-module name="assimp" native-library="assimp" title="assimp" if:true="${binding.assimp}"/>
+        <release-module name="assimp" title="assimp" if:true="${binding.assimp}">
+            <natives>
+                <get-release platform="linux" arch="x64" file="libassimp.so"/>
+                <get-release platform="linux" arch="x64" file="libassimp.so.git"/>
+                <get-release platform="linux" arch="x64" file="libdraco.so"/>
+
+                <get-release platform="linux" arch="arm64" file="libassimp.so"/>
+                <get-release platform="linux" arch="arm64" file="libassimp.so.git"/>
+                <get-release platform="linux" arch="arm64" file="libdraco.so"/>
+
+                <get-release platform="linux" arch="arm32" file="libassimp.so"/>
+                <get-release platform="linux" arch="arm32" file="libassimp.so.git"/>
+                <get-release platform="linux" arch="arm32" file="libdraco.so"/>
+
+                <get-release platform="macos" arch="x64" file="libassimp.dylib"/>
+                <get-release platform="macos" arch="x64" file="libassimp.dylib.git"/>
+                <get-release platform="macos" arch="x64" file="libdraco.dylib"/>
+
+                <get-release platform="macos" arch="arm64" file="libassimp.dylib"/>
+                <get-release platform="macos" arch="arm64" file="libassimp.dylib.git"/>
+                <get-release platform="macos" arch="arm64" file="libdraco.dylib"/>
+
+                <get-release platform="windows" arch="x64" file="assimp.dll"/>
+                <get-release platform="windows" arch="x64" file="assimp.dll.git"/>
+                <get-release platform="windows" arch="x64" file="draco.dll"/>
+
+                <get-release platform="windows" arch="x86" file="assimp.dll"/>
+                <get-release platform="windows" arch="x86" file="assimp.dll.git"/>
+                <get-release platform="windows" arch="x86" file="draco.dll"/>
+
+                <get-release platform="windows" arch="arm64" file="assimp.dll"/>
+                <get-release platform="windows" arch="arm64" file="assimp.dll.git"/>
+                <get-release platform="windows" arch="arm64" file="draco.dll"/>
+            </natives>
+        </release-module>
 
         <!-- bgfx -->
         <release-module name="bgfx" title="bgfx" if:true="${binding.bgfx}">
@@ -1495,6 +1572,12 @@
 
         <!-- EGL -->
         <release-module name="egl" title="EGL" if:true="${binding.egl}"/>
+
+        <!-- FMOD -->
+        <release-module name="fmod" title="FMOD" if:true="${binding.fmod}"/>
+
+        <!-- FreeType -->
+        <release-module name="freetype" native-library="freetype" title="FreeType" if:true="${binding.freetype}"/>
 
         <!-- GLFW -->
         <release-module name="glfw" title="GLFW" if:true="${binding.glfw}">
@@ -1532,11 +1615,20 @@
             </natives>
         </release-module>
 
+        <!-- HarfBuzz -->
+        <release-module name="harfbuzz" native-library="harfbuzz" title="HarfBuzz" if:true="${binding.harfbuzz}"/>
+
+        <!-- hwloc -->
+        <release-module name="hwloc" native-library="hwloc" title="hwloc" if:true="${binding.hwloc}"/>
+
         <!-- JAWT -->
         <release-module name="jawt" title="JAWT" if:true="${binding.jawt}"/>
 
         <!-- jemalloc -->
         <release-module name="jemalloc" native-library="jemalloc" title="jemalloc" if:true="${binding.jemalloc}"/>
+
+        <!-- KTX -->
+        <release-module name="ktx" native-library="ktx" title="KTX" if:true="${binding.ktx}"/>
 
         <!-- libdivide -->
         <release-module name="libdivide" native-library="lwjgl_libdivide" title="libdivide" if:true="${binding.libdivide}"/>

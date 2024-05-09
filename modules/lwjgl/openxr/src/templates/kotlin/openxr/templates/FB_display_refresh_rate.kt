@@ -11,7 +11,24 @@ import openxr.*
 val FB_display_refresh_rate = "FBDisplayRefreshRate".nativeClassXR("FB_display_refresh_rate", type = "instance", postfix = "FB") {
     documentation =
         """
-        The $templateName extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_FB_display_refresh_rate">XR_FB_display_refresh_rate</a> extension.
+
+        On platforms which support dynamically adjusting the display refresh rate, application developers may request a specific display refresh rate in order to improve the overall user experience, examples include:
+
+        <ul>
+            <li>A video application may choose a display refresh rate which better matches the video content playback rate in order to achieve smoother video frames.</li>
+            <li>An application which can support a higher frame rate may choose to render at the higher rate to improve the overall perceptual quality, for example, lower latency and less flicker.</li>
+        </ul>
+
+        This extension allows:
+
+        <ul>
+            <li>An application to identify what display refresh rates the session supports and the current display refresh rate.</li>
+            <li>An application to request a display refresh rate to indicate its preference to the runtime.</li>
+            <li>An application to receive notification of changes to the display refresh rate which are delivered via events.</li>
+        </ul>
+
+        In order to enable the functionality of this extension, the application <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo{@code ::enabledExtensionNames} parameter as indicated in the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#extensions">extensions</a> section.
         """
 
     IntConstant(
@@ -90,7 +107,7 @@ val FB_display_refresh_rate = "FBDisplayRefreshRate".nativeClassXR("FB_display_r
 
         XrSession("session", "the session that enumerates the supported display refresh rates."),
         AutoSize("displayRefreshRates")..uint32_t("displayRefreshRateCapacityInput", "the capacity of the {@code displayRefreshRates}, or 0 to retrieve the required capacity."),
-        Check(1)..uint32_t.p("displayRefreshRateCountOutput", "a pointer to the count of {@code float} {@code displayRefreshRates} written, or a pointer to the required capacity in the case that {@code displayRefreshRateCapacityInput} is 0."),
+        Check(1)..uint32_t.p("displayRefreshRateCountOutput", "a pointer to the count of {@code float} {@code displayRefreshRates} written, or a pointer to the required capacity in the case that {@code displayRefreshRateCapacityInput} is insufficient."),
         nullable..float.p("displayRefreshRates", "a pointer to an array of {@code float} display refresh rates, but <b>can</b> be {@code NULL} if {@code displayRefreshRateCapacityInput} is 0.")
     )
 

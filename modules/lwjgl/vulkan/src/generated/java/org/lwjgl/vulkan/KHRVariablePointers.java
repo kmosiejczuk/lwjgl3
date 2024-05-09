@@ -12,7 +12,7 @@ package org.lwjgl.vulkan;
  * 
  * <h5>Promotion to Vulkan 1.1</h5>
  * 
- * <p>All functionality in this extension is included in core Vulkan 1.1, with the KHR suffix omitted, however support for the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-variablePointersStorageBuffer">{@code variablePointersStorageBuffer}</a> feature is made optional. The original type, enum and command names are still available as aliases of the core functionality.</p>
+ * <p>All functionality in this extension is included in core Vulkan 1.1, with the KHR suffix omitted, however support for the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-variablePointersStorageBuffer">{@code variablePointersStorageBuffer}</a> feature is made optional. The original type, enum and command names are still available as aliases of the core functionality.</p>
  * 
  * <h5>VK_KHR_variable_pointers</h5>
  * 
@@ -26,18 +26,14 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
- * <li>Requires {@link KHRStorageBufferStorageClass VK_KHR_storage_buffer_storage_class}</li>
- * </ul></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRStorageBufferStorageClass VK_KHR_storage_buffer_storage_class}</dd>
  * <dt><b>Deprecation state</b></dt>
  * <dd><ul>
- * <li><em>Promoted</em> to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
+ * <li><em>Promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Jesse Hall <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_variable_pointers]%20@critsec%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_variable_pointers%20extension%3E%3E">critsec</a></li>
+ * <li>Jesse Hall <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_variable_pointers]%20@critsec%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_variable_pointers%20extension*">critsec</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -62,7 +58,7 @@ package org.lwjgl.vulkan;
  * <li>Graeme Leese, Broadcom</li>
  * <li>Weifeng Zhang, Qualcomm</li>
  * <li>Stephen Clarke, Imagination Technologies</li>
- * <li>Jason Ekstrand, Intel</li>
+ * <li>Faith Ekstrand, Intel</li>
  * <li>Jesse Hall, Google</li>
  * </ul></dd>
  * </dl>

@@ -30,13 +30,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRDisplay VK_KHR_display}</li>
- * </ul></dd>
+ * <dd>{@link KHRDisplay VK_KHR_display}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_get_display_properties2]%20@cubanismo%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_get_display_properties2%20extension%3E%3E">cubanismo</a></li>
+ * <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_get_display_properties2]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_get_display_properties2%20extension*">cubanismo</a></li>
  * </ul></dd>
  * </dl>
  * 

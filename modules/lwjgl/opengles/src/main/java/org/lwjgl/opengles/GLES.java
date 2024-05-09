@@ -149,7 +149,7 @@ public final class GLES {
                     if (address == NULL) {
                         address = library.getFunctionAddress(functionName);
                         if (address == NULL && DEBUG_FUNCTIONS) {
-                            apiLog("Failed to locate address for GLES function " + memASCII(functionName));
+                            apiLogMissing("GLES", functionName);
                         }
                     }
 
@@ -327,7 +327,7 @@ public final class GLES {
             }
 
             for (int m = 0; m <= maxMinor; m++) {
-                supportedExtensions.add(String.format("GLES%d%d", M, m));
+                supportedExtensions.add("GLES" + M + m);
             }
         }
 

@@ -13,9 +13,14 @@
     <orderEntry type="module" module-name="templates.core" />
     <orderEntry type="module" module-name="templates.cuda" />
     <orderEntry type="module" module-name="templates.egl" />
+    <orderEntry type="module" module-name="templates.fmod" />
+    <orderEntry type="module" module-name="templates.freetype" />
     <orderEntry type="module" module-name="templates.glfw" />
+    <orderEntry type="module" module-name="templates.harfbuzz" />
+    <orderEntry type="module" module-name="templates.hwloc" />
     <orderEntry type="module" module-name="templates.jawt" />
     <orderEntry type="module" module-name="templates.jemalloc" />
+    <orderEntry type="module" module-name="templates.ktx" />
     <orderEntry type="module" module-name="templates.libdivide" />
     <orderEntry type="module" module-name="templates.llvm" />
     <orderEntry type="module" module-name="templates.lmdb" />

@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>{@code pfnReallocation} <b>must</b> return an allocation with enough space for {@code size} bytes, and the contents of the original allocation from bytes zero to <code>min(original size, new size) - 1</code> <b>must</b> be preserved in the returned allocation. If {@code size} is larger than the old size, the contents of the additional space are undefined. If satisfying these requirements involves creating a new allocation, then the old allocation <b>should</b> be freed.</p>
+ * <p>If the reallocation was successful, {@code pfnReallocation} <b>must</b> return an allocation with enough space for {@code size} bytes, and the contents of the original allocation from bytes zero to <code>min(original size, new size) - 1</code> <b>must</b> be preserved in the returned allocation. If {@code size} is larger than the old size, the contents of the additional space are undefined. If satisfying these requirements involves creating a new allocation, then the old allocation <b>should</b> be freed.</p>
  * 
  * <p>If {@code pOriginal} is {@code NULL}, then {@code pfnReallocation} <b>must</b> behave equivalently to a call to {@link VkAllocationFunction} with the same parameter values (without {@code pOriginal}).</p>
  * 
@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>If this function fails and {@code pOriginal} is non-{@code NULL} the application <b>must</b> not free the old allocation.</p>
  * 
- * <p>{@code pfnReallocation} <b>must</b> follow the same <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkAllocationFunction_return_rules">rules for return values as {@code PFN_vkAllocationFunction}</a>.</p>
+ * <p>{@code pfnReallocation} <b>must</b> follow the same <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkAllocationFunction_return_rules">rules for return values as {@code PFN_vkAllocationFunction}</a>.</p>
  * 
  * <h5>See Also</h5>
  * 

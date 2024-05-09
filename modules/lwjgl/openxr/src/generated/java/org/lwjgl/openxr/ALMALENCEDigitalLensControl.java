@@ -10,7 +10,32 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 
-/** The ALMALENCE_digital_lens_control extension. */
+/**
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_ALMALENCE_digital_lens_control">XR_ALMALENCE_digital_lens_control</a> extension.
+ * 
+ * <p>Digital Lens for VR (DLVR) is a computational lens aberration correction technology enabling high resolution, visual clarity and fidelity in VR head mounted displays. The Digital Lens allows to overcome two fundamental factors limiting VR picture quality, size constraints and presence of a moving optical element — the eye pupil.</p>
+ * 
+ * <p>Features:</p>
+ * 
+ * <ul>
+ * <li>Complete removal of lateral chromatic aberrations, across the entire FoV, at all gaze directions.</li>
+ * <li>Correction of longitudinal chromatic aberrations, lens blur and higher order aberrations.</li>
+ * <li>Increase of visible resolution.</li>
+ * <li>Enhancement of edge contrast (otherwise degraded due to lens smear).</li>
+ * <li>Enables high quality at wide FoV.</li>
+ * </ul>
+ * 
+ * <p>For OpenXR runtimes DLVR is implemented as implicit API Layer distributed by Almalence Inc. as installable package. DLVR utilize eye tracking data (eye pupil coordinates and gaze direction) to produce corrections of render frames. As long as current core OpenXR API doesn’t expose an eye tracking data, DLVR API Layer relies on 3rd-party eye tracking runtimes.</p>
+ * 
+ * <p>List of supported eye tracking devices:</p>
+ * 
+ * <ul>
+ * <li><em>Tobii_VR4_CARBON_P1</em> (HP Reverb G2 Omnicept Edition)</li>
+ * <li><em>Tobii_VR4_U2_P2</em> (HTC Vive Pro Eye)</li>
+ * </ul>
+ * 
+ * <p>This extension enables the handling of the Digital Lens for VR API Layer by calling {@link #xrSetDigitalLensControlALMALENCE SetDigitalLensControlALMALENCE}.</p>
+ */
 public class ALMALENCEDigitalLensControl {
 
     /** The extension specification version. */
@@ -22,7 +47,15 @@ public class ALMALENCEDigitalLensControl {
     /** Extends {@code XrStructureType}. */
     public static final int XR_TYPE_DIGITAL_LENS_CONTROL_ALMALENCE = 1000196000;
 
-    /** XrDigitalLensControlFlagBitsALMALENCE */
+    /**
+     * XrDigitalLensControlFlagBitsALMALENCE - XrDigitalLensControlFlagBitsALMALENCE
+     * 
+     * <h5>Flag Descriptions</h5>
+     * 
+     * <ul>
+     * <li>{@link #XR_DIGITAL_LENS_CONTROL_PROCESSING_DISABLE_BIT_ALMALENCE DIGITAL_LENS_CONTROL_PROCESSING_DISABLE_BIT_ALMALENCE} — disables Digital Lens processing of render textures</li>
+     * </ul>
+     */
     public static final int XR_DIGITAL_LENS_CONTROL_PROCESSING_DISABLE_BIT_ALMALENCE = 0x1;
 
     protected ALMALENCEDigitalLensControl() {

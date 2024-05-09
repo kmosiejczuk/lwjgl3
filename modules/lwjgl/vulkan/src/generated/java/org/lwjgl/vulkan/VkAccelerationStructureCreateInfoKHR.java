@@ -35,6 +35,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Applications <b>should</b> create an acceleration structure with a specific {@code VkAccelerationStructureTypeKHR} other than {@link KHRAccelerationStructure#VK_ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR}.</p>
  * 
+ * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+ * 
+ * <p>{@link KHRAccelerationStructure#VK_ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR} is intended to be used by API translation layers. This can be used at acceleration structure creation time in cases where the actual acceleration structure type (top or bottom) is not yet known. The actual acceleration structure type must be specified as {@link KHRAccelerationStructure#VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR} or {@link KHRAccelerationStructure#VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR} when the build is performed.</p>
+ * </div>
+ * 
  * <p>If the acceleration structure will be the target of a build operation, the required size for an acceleration structure <b>can</b> be queried with {@link KHRAccelerationStructure#vkGetAccelerationStructureBuildSizesKHR GetAccelerationStructureBuildSizesKHR}. If the acceleration structure is going to be the target of a compacting copy, {@link KHRAccelerationStructure#vkCmdWriteAccelerationStructuresPropertiesKHR CmdWriteAccelerationStructuresPropertiesKHR} or {@link KHRAccelerationStructure#vkWriteAccelerationStructuresPropertiesKHR WriteAccelerationStructuresPropertiesKHR} <b>can</b> be used to obtain the compacted size required.</p>
  * 
  * <p>If the acceleration structure will be the target of a build operation with {@link NVRayTracingMotionBlur#VK_BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV} it <b>must</b> include {@link NVRayTracingMotionBlur#VK_ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV} in {@code flags} and include {@link VkAccelerationStructureMotionInfoNV} as an extension structure in {@code pNext} with the number of instances as metadata for the object.</p>
@@ -50,13 +55,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code offset} <b>must</b> be a multiple of 256 bytes</li>
  * <li>If {@link NVRayTracingMotionBlur#VK_ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV} is set in {@code flags} and {@code type} is {@link KHRAccelerationStructure#VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR}, one member of the {@code pNext} chain <b>must</b> be a pointer to a valid instance of {@link VkAccelerationStructureMotionInfoNV}</li>
  * <li>If any geometry includes {@link VkAccelerationStructureGeometryMotionTrianglesDataNV} then {@code flags} <b>must</b> contain {@link NVRayTracingMotionBlur#VK_ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV}</li>
+ * <li>If {@code createFlags} includes {@link EXTDescriptorBuffer#VK_ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}, the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorBufferCaptureReplay">{@code descriptorBufferCaptureReplay}</a> feature <b>must</b> be enabled</li>
+ * <li>If the {@code pNext} chain includes a {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT} structure, {@code createFlags} <b>must</b> contain {@link EXTDescriptorBuffer#VK_ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRAccelerationStructure#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_KHR STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkAccelerationStructureMotionInfoNV}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkAccelerationStructureMotionInfoNV} or {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code createFlags} <b>must</b> be a valid combination of {@code VkAccelerationStructureCreateFlagBitsKHR} values</li>
  * <li>{@code buffer} <b>must</b> be a valid {@code VkBuffer} handle</li>
@@ -159,7 +166,7 @@ public class VkAccelerationStructureCreateInfoKHR extends Struct implements Nati
     /** a {@code VkAccelerationStructureTypeKHR} value specifying the type of acceleration structure that will be created. */
     @NativeType("VkAccelerationStructureTypeKHR")
     public int type() { return ntype(address()); }
-    /** the device address requested for the acceleration structure if the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-accelerationStructureCaptureReplay">{@code accelerationStructureCaptureReplay}</a> feature is being used. */
+    /** the device address requested for the acceleration structure if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-accelerationStructureCaptureReplay">{@code accelerationStructureCaptureReplay}</a> feature is being used. */
     @NativeType("VkDeviceAddress")
     public long deviceAddress() { return ndeviceAddress(address()); }
 
@@ -171,6 +178,8 @@ public class VkAccelerationStructureCreateInfoKHR extends Struct implements Nati
     public VkAccelerationStructureCreateInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkAccelerationStructureMotionInfoNV} value to the {@code pNext} chain. */
     public VkAccelerationStructureCreateInfoKHR pNext(VkAccelerationStructureMotionInfoNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT} value to the {@code pNext} chain. */
+    public VkAccelerationStructureCreateInfoKHR pNext(VkOpaqueCaptureDescriptorDataCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #createFlags} field. */
     public VkAccelerationStructureCreateInfoKHR createFlags(@NativeType("VkAccelerationStructureCreateFlagsKHR") int value) { ncreateFlags(address(), value); return this; }
     /** Sets the specified value to the {@link #buffer} field. */
@@ -437,6 +446,8 @@ public class VkAccelerationStructureCreateInfoKHR extends Struct implements Nati
         public VkAccelerationStructureCreateInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkAccelerationStructureCreateInfoKHR.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkAccelerationStructureMotionInfoNV} value to the {@code pNext} chain. */
         public VkAccelerationStructureCreateInfoKHR.Buffer pNext(VkAccelerationStructureMotionInfoNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT} value to the {@code pNext} chain. */
+        public VkAccelerationStructureCreateInfoKHR.Buffer pNext(VkOpaqueCaptureDescriptorDataCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkAccelerationStructureCreateInfoKHR#createFlags} field. */
         public VkAccelerationStructureCreateInfoKHR.Buffer createFlags(@NativeType("VkAccelerationStructureCreateFlagsKHR") int value) { VkAccelerationStructureCreateInfoKHR.ncreateFlags(address(), value); return this; }
         /** Sets the specified value to the {@link VkAccelerationStructureCreateInfoKHR#buffer} field. */

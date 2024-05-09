@@ -34,6 +34,7 @@ public class LLVMOrc {
             OrcSymbolStringPoolClearDeadEntries                   = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcSymbolStringPoolClearDeadEntries"),
             OrcExecutionSessionIntern                             = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcExecutionSessionIntern"),
             OrcRetainSymbolStringPoolEntry                        = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcRetainSymbolStringPoolEntry"),
+            OrcExecutionSessionLookup                             = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcExecutionSessionLookup"),
             OrcReleaseSymbolStringPoolEntry                       = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcReleaseSymbolStringPoolEntry"),
             OrcSymbolStringPoolEntryStr                           = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcSymbolStringPoolEntryStr"),
             OrcReleaseResourceTracker                             = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcReleaseResourceTracker"),
@@ -41,25 +42,25 @@ public class LLVMOrc {
             OrcResourceTrackerRemove                              = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcResourceTrackerRemove"),
             OrcDisposeDefinitionGenerator                         = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcDisposeDefinitionGenerator"),
             OrcDisposeMaterializationUnit                         = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcDisposeMaterializationUnit"),
-            OrcCreateCustomMaterializationUnit                    = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcCreateCustomMaterializationUnit"),
+            OrcCreateCustomMaterializationUnit                    = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcCreateCustomMaterializationUnit"),
             OrcAbsoluteSymbols                                    = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcAbsoluteSymbols"),
-            OrcLazyReexports                                      = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcLazyReexports"),
-            OrcDisposeMaterializationResponsibility               = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcDisposeMaterializationResponsibility"),
-            OrcMaterializationResponsibilityGetTargetDylib        = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityGetTargetDylib"),
-            OrcMaterializationResponsibilityGetExecutionSession   = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityGetExecutionSession"),
-            OrcMaterializationResponsibilityGetSymbols            = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityGetSymbols"),
-            OrcDisposeCSymbolFlagsMap                             = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcDisposeCSymbolFlagsMap"),
-            OrcMaterializationResponsibilityGetInitializerSymbol  = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityGetInitializerSymbol"),
-            OrcMaterializationResponsibilityGetRequestedSymbols   = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityGetRequestedSymbols"),
-            OrcDisposeSymbols                                     = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcDisposeSymbols"),
-            OrcMaterializationResponsibilityNotifyResolved        = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityNotifyResolved"),
-            OrcMaterializationResponsibilityNotifyEmitted         = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityNotifyEmitted"),
-            OrcMaterializationResponsibilityDefineMaterializing   = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityDefineMaterializing"),
-            OrcMaterializationResponsibilityFailMaterialization   = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityFailMaterialization"),
-            OrcMaterializationResponsibilityReplace               = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityReplace"),
-            OrcMaterializationResponsibilityDelegate              = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityDelegate"),
-            OrcMaterializationResponsibilityAddDependencies       = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityAddDependencies"),
-            OrcMaterializationResponsibilityAddDependenciesForAll = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcMaterializationResponsibilityAddDependenciesForAll"),
+            OrcLazyReexports                                      = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcLazyReexports"),
+            OrcDisposeMaterializationResponsibility               = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcDisposeMaterializationResponsibility"),
+            OrcMaterializationResponsibilityGetTargetDylib        = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityGetTargetDylib"),
+            OrcMaterializationResponsibilityGetExecutionSession   = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityGetExecutionSession"),
+            OrcMaterializationResponsibilityGetSymbols            = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityGetSymbols"),
+            OrcDisposeCSymbolFlagsMap                             = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcDisposeCSymbolFlagsMap"),
+            OrcMaterializationResponsibilityGetInitializerSymbol  = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityGetInitializerSymbol"),
+            OrcMaterializationResponsibilityGetRequestedSymbols   = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityGetRequestedSymbols"),
+            OrcDisposeSymbols                                     = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcDisposeSymbols"),
+            OrcMaterializationResponsibilityNotifyResolved        = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityNotifyResolved"),
+            OrcMaterializationResponsibilityNotifyEmitted         = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityNotifyEmitted"),
+            OrcMaterializationResponsibilityDefineMaterializing   = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityDefineMaterializing"),
+            OrcMaterializationResponsibilityFailMaterialization   = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityFailMaterialization"),
+            OrcMaterializationResponsibilityReplace               = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityReplace"),
+            OrcMaterializationResponsibilityDelegate              = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityDelegate"),
+            OrcMaterializationResponsibilityAddDependencies       = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityAddDependencies"),
+            OrcMaterializationResponsibilityAddDependenciesForAll = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcMaterializationResponsibilityAddDependenciesForAll"),
             OrcExecutionSessionCreateBareJITDylib                 = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcExecutionSessionCreateBareJITDylib"),
             OrcExecutionSessionCreateJITDylib                     = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcExecutionSessionCreateJITDylib"),
             OrcExecutionSessionGetJITDylibByName                  = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcExecutionSessionGetJITDylibByName"),
@@ -69,32 +70,35 @@ public class LLVMOrc {
             OrcJITDylibClear                                      = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcJITDylibClear"),
             OrcJITDylibAddGenerator                               = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcJITDylibAddGenerator"),
             OrcCreateCustomCAPIDefinitionGenerator                = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcCreateCustomCAPIDefinitionGenerator"),
+            OrcLookupStateContinueLookup                          = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcLookupStateContinueLookup"),
             OrcCreateDynamicLibrarySearchGeneratorForProcess      = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcCreateDynamicLibrarySearchGeneratorForProcess"),
+            OrcCreateDynamicLibrarySearchGeneratorForPath         = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcCreateDynamicLibrarySearchGeneratorForPath"),
+            OrcCreateStaticLibrarySearchGeneratorForPath          = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcCreateStaticLibrarySearchGeneratorForPath"),
             OrcCreateNewThreadSafeContext                         = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcCreateNewThreadSafeContext"),
             OrcThreadSafeContextGetContext                        = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcThreadSafeContextGetContext"),
             OrcDisposeThreadSafeContext                           = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcDisposeThreadSafeContext"),
             OrcCreateNewThreadSafeModule                          = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcCreateNewThreadSafeModule"),
             OrcDisposeThreadSafeModule                            = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcDisposeThreadSafeModule"),
-            OrcThreadSafeModuleWithModuleDo                       = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcThreadSafeModuleWithModuleDo"),
+            OrcThreadSafeModuleWithModuleDo                       = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcThreadSafeModuleWithModuleDo"),
             OrcJITTargetMachineBuilderDetectHost                  = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcJITTargetMachineBuilderDetectHost"),
             OrcJITTargetMachineBuilderCreateFromTargetMachine     = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcJITTargetMachineBuilderCreateFromTargetMachine"),
             OrcDisposeJITTargetMachineBuilder                     = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcDisposeJITTargetMachineBuilder"),
-            OrcJITTargetMachineBuilderGetTargetTriple             = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcJITTargetMachineBuilderGetTargetTriple"),
-            OrcJITTargetMachineBuilderSetTargetTriple             = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcJITTargetMachineBuilderSetTargetTriple"),
-            OrcObjectLayerAddObjectFile                           = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcObjectLayerAddObjectFile"),
-            OrcObjectLayerAddObjectFileWithRT                     = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcObjectLayerAddObjectFileWithRT"),
-            OrcObjectLayerEmit                                    = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcObjectLayerEmit"),
+            OrcJITTargetMachineBuilderGetTargetTriple             = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcJITTargetMachineBuilderGetTargetTriple"),
+            OrcJITTargetMachineBuilderSetTargetTriple             = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcJITTargetMachineBuilderSetTargetTriple"),
+            OrcObjectLayerAddObjectFile                           = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcObjectLayerAddObjectFile"),
+            OrcObjectLayerAddObjectFileWithRT                     = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcObjectLayerAddObjectFileWithRT"),
+            OrcObjectLayerEmit                                    = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcObjectLayerEmit"),
             OrcDisposeObjectLayer                                 = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMOrcDisposeObjectLayer"),
-            OrcIRTransformLayerEmit                               = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcIRTransformLayerEmit"),
-            OrcIRTransformLayerSetTransform                       = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcIRTransformLayerSetTransform"),
-            OrcObjectTransformLayerSetTransform                   = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcObjectTransformLayerSetTransform"),
-            OrcCreateLocalIndirectStubsManager                    = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcCreateLocalIndirectStubsManager"),
-            OrcDisposeIndirectStubsManager                        = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcDisposeIndirectStubsManager"),
-            OrcCreateLocalLazyCallThroughManager                  = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcCreateLocalLazyCallThroughManager"),
-            OrcDisposeLazyCallThroughManager                      = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcDisposeLazyCallThroughManager"),
-            OrcCreateDumpObjects                                  = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcCreateDumpObjects"),
-            OrcDisposeDumpObjects                                 = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcDisposeDumpObjects"),
-            OrcDumpObjects_CallOperator                           = LLVMCore.getLibrary().getFunctionAddress("LLVMOrcDumpObjects_CallOperator");
+            OrcIRTransformLayerEmit                               = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcIRTransformLayerEmit"),
+            OrcIRTransformLayerSetTransform                       = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcIRTransformLayerSetTransform"),
+            OrcObjectTransformLayerSetTransform                   = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcObjectTransformLayerSetTransform"),
+            OrcCreateLocalIndirectStubsManager                    = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcCreateLocalIndirectStubsManager"),
+            OrcDisposeIndirectStubsManager                        = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcDisposeIndirectStubsManager"),
+            OrcCreateLocalLazyCallThroughManager                  = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcCreateLocalLazyCallThroughManager"),
+            OrcDisposeLazyCallThroughManager                      = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcDisposeLazyCallThroughManager"),
+            OrcCreateDumpObjects                                  = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcCreateDumpObjects"),
+            OrcDisposeDumpObjects                                 = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcDisposeDumpObjects"),
+            OrcDumpObjects_CallOperator                           = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMOrcDumpObjects_CallOperator");
 
     }
 
@@ -106,6 +110,7 @@ public class LLVMOrc {
      * <h5>Enum values:</h5>
      * 
      * <ul>
+     * <li>{@link #LLVMJITSymbolGenericFlagsNone JITSymbolGenericFlagsNone}</li>
      * <li>{@link #LLVMJITSymbolGenericFlagsExported JITSymbolGenericFlagsExported}</li>
      * <li>{@link #LLVMJITSymbolGenericFlagsWeak JITSymbolGenericFlagsWeak}</li>
      * <li>{@link #LLVMJITSymbolGenericFlagsCallable JITSymbolGenericFlagsCallable}</li>
@@ -113,6 +118,7 @@ public class LLVMOrc {
      * </ul>
      */
     public static final int
+        LLVMJITSymbolGenericFlagsNone                           = 0,
         LLVMJITSymbolGenericFlagsExported                       = 1 << 0,
         LLVMJITSymbolGenericFlagsWeak                           = 1 << 1,
         LLVMJITSymbolGenericFlagsCallable                       = 1 << 2,
@@ -290,6 +296,44 @@ public class LLVMOrc {
         invokePV(S, __functionAddress);
     }
 
+    // --- [ LLVMOrcExecutionSessionLookup ] ---
+
+    /** Unsafe version of: {@link #LLVMOrcExecutionSessionLookup OrcExecutionSessionLookup} */
+    public static void nLLVMOrcExecutionSessionLookup(long ES, int K, long SearchOrder, long SearchOrderSize, long Symbols, long SymbolsSize, long HandleResult, long Ctx) {
+        long __functionAddress = Functions.OrcExecutionSessionLookup;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(ES);
+        }
+        invokePPPPPPPV(ES, K, SearchOrder, SearchOrderSize, Symbols, SymbolsSize, HandleResult, Ctx, __functionAddress);
+    }
+
+    /**
+     * Look up symbols in an execution session.
+     * 
+     * <p>This is a wrapper around the general {@code ExecutionSession::lookup} function.</p>
+     * 
+     * <p>The {@code SearchOrder} argument contains a list of ({@code JITDylibs}, {@code JITDylibSearchFlags}) pairs that describe the search order. The
+     * {@code JITDylibs} will be searched in the given order to try to find the symbols in the {@code Symbols} argument.</p>
+     * 
+     * <p>The Symbols argument should contain a null-terminated array of ({@code SymbolStringPtr}, {@code SymbolLookupFlags}) pairs describing the symbols to be
+     * searched for. This function takes ownership of the elements of the {@code Symbols} array. The {@code Name} fields of the {@code Symbols} elements are
+     * taken to have been retained by the client for this function. The client should <b>not</b> release the {@code Name} fields, but are still responsible
+     * for destroying the array itself.</p>
+     * 
+     * <p>The {@code HandleResult} function will be called once all searched for symbols have been found, or an error occurs. The {@code HandleResult} function
+     * will be passed an {@code LLVMErrorRef} indicating success or failure, and (on success) a null-terminated {@code LLVMOrcCSymbolMapPairs} array
+     * containing the function result, and the {@code Ctx} value passed to the lookup function.</p>
+     * 
+     * <p>The client is fully responsible for managing the lifetime of the {@code Ctx} object. A common idiom is to allocate the context prior to the lookup and
+     * deallocate it in the handler.</p>
+     * 
+     * <p>THIS API IS EXPERIMENTAL AND LIKELY TO CHANGE IN THE NEAR FUTURE!</p>
+     */
+    public static void LLVMOrcExecutionSessionLookup(@NativeType("LLVMOrcExecutionSessionRef") long ES, @NativeType("LLVMOrcLookupKind") int K, @Nullable @NativeType("LLVMOrcCJITDylibSearchOrder") LLVMOrcCJITDylibSearchOrderElement.Buffer SearchOrder, @Nullable @NativeType("LLVMOrcCLookupSet") LLVMOrcCLookupSetElement.Buffer Symbols, @NativeType("LLVMOrcExecutionSessionLookupHandleResultFunction") LLVMOrcExecutionSessionLookupHandleResultFunctionI HandleResult, @NativeType("void *") long Ctx) {
+        nLLVMOrcExecutionSessionLookup(ES, K, memAddressSafe(SearchOrder), remainingSafe(SearchOrder), memAddressSafe(Symbols), remainingSafe(Symbols), HandleResult.address(), Ctx);
+    }
+
     // --- [ LLVMOrcReleaseSymbolStringPoolEntry ] ---
 
     /** Reduces the ref-count for of a {@code SymbolStringPool} entry. */
@@ -303,6 +347,7 @@ public class LLVMOrc {
 
     // --- [ LLVMOrcSymbolStringPoolEntryStr ] ---
 
+    /** Unsafe version of: {@link #LLVMOrcSymbolStringPoolEntryStr OrcSymbolStringPoolEntryStr} */
     public static long nLLVMOrcSymbolStringPoolEntryStr(long S) {
         long __functionAddress = Functions.OrcSymbolStringPoolEntryStr;
         if (CHECKS) {
@@ -311,6 +356,11 @@ public class LLVMOrc {
         return invokePP(S, __functionAddress);
     }
 
+    /**
+     * Return the c-string for the given symbol.
+     * 
+     * <p>This string will remain valid until the entry is freed (once all {@code LLVMOrcSymbolStringPoolEntryRefs} have been released).</p>
+     */
     @Nullable
     @NativeType("char const *")
     public static String LLVMOrcSymbolStringPoolEntryStr(@NativeType("LLVMOrcSymbolStringPoolEntryRef") long S) {
@@ -488,7 +538,7 @@ public class LLVMOrc {
      * <p>If a client wishes to reuse elements of the {@code Sym} array after this call they must explicitly retain each of the elements for themselves.</p>
      */
     @NativeType("LLVMOrcMaterializationUnitRef")
-    public static long LLVMOrcAbsoluteSymbols(@NativeType("LLVMOrcCSymbolMapPairs") LLVMJITCSymbolMapPair.Buffer Syms) {
+    public static long LLVMOrcAbsoluteSymbols(@NativeType("LLVMOrcCSymbolMapPairs") LLVMOrcCSymbolMapPair.Buffer Syms) {
         return nLLVMOrcAbsoluteSymbols(Syms.address(), Syms.remaining());
     }
 
@@ -741,7 +791,7 @@ public class LLVMOrc {
      * @since 13
      */
     @NativeType("LLVMErrorRef")
-    public static long LLVMOrcMaterializationResponsibilityNotifyResolved(@NativeType("LLVMOrcMaterializationResponsibilityRef") long MR, @NativeType("LLVMOrcCSymbolMapPairs") LLVMJITCSymbolMapPair.Buffer Symbols) {
+    public static long LLVMOrcMaterializationResponsibilityNotifyResolved(@NativeType("LLVMOrcMaterializationResponsibilityRef") long MR, @NativeType("LLVMOrcCSymbolMapPairs") LLVMOrcCSymbolMapPair.Buffer Symbols) {
         return nLLVMOrcMaterializationResponsibilityNotifyResolved(MR, Symbols.address(), Symbols.remaining());
     }
 
@@ -1125,18 +1175,38 @@ public class LLVMOrc {
     // --- [ LLVMOrcCreateCustomCAPIDefinitionGenerator ] ---
 
     /** Unsafe version of: {@link #LLVMOrcCreateCustomCAPIDefinitionGenerator OrcCreateCustomCAPIDefinitionGenerator} */
-    public static long nLLVMOrcCreateCustomCAPIDefinitionGenerator(long F, long Ctx) {
+    public static long nLLVMOrcCreateCustomCAPIDefinitionGenerator(long F, long Ctx, long Dispose) {
         long __functionAddress = Functions.OrcCreateCustomCAPIDefinitionGenerator;
-        if (CHECKS) {
-            check(Ctx);
-        }
-        return invokePPP(F, Ctx, __functionAddress);
+        return invokePPPP(F, Ctx, Dispose, __functionAddress);
     }
 
-    /** Create a custom generator. */
+    /**
+     * Create a custom generator.
+     * 
+     * <p>The {@code F} argument will be used to implement the {@code DefinitionGenerator}'s {@code tryToGenerate} method (see
+     * {@link LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction}).</p>
+     * 
+     * <p>{@code Ctx} is a context object that will be passed to {@code F}. This argument is permitted to be null.</p>
+     * 
+     * <p>{@code Dispose} is the disposal function for {@code Ctx}. This argument is permitted to be null (in which case the client is responsible for the
+     * lifetime of {@code Ctx}).</p>
+     */
     @NativeType("LLVMOrcDefinitionGeneratorRef")
-    public static long LLVMOrcCreateCustomCAPIDefinitionGenerator(@NativeType("LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction") LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunctionI F, @NativeType("void *") long Ctx) {
-        return nLLVMOrcCreateCustomCAPIDefinitionGenerator(F.address(), Ctx);
+    public static long LLVMOrcCreateCustomCAPIDefinitionGenerator(@NativeType("LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction") LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunctionI F, @NativeType("void *") long Ctx, @Nullable @NativeType("LLVMOrcDisposeCAPIDefinitionGeneratorFunction") LLVMOrcDisposeCAPIDefinitionGeneratorFunctionI Dispose) {
+        return nLLVMOrcCreateCustomCAPIDefinitionGenerator(F.address(), Ctx, memAddressSafe(Dispose));
+    }
+
+    // --- [ LLVMOrcLookupStateContinueLookup ] ---
+
+    /** Continue a lookup that was suspended in a generator (see {@link LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction}). */
+    public static void LLVMOrcLookupStateContinueLookup(@NativeType("LLVMOrcLookupStateRef") long S, @NativeType("LLVMErrorRef") long Err) {
+        long __functionAddress = Functions.OrcLookupStateContinueLookup;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(S);
+            check(Err);
+        }
+        invokePPV(S, Err, __functionAddress);
     }
 
     // --- [ LLVMOrcCreateDynamicLibrarySearchGeneratorForProcess ] ---
@@ -1144,7 +1214,7 @@ public class LLVMOrc {
     /** Unsafe version of: {@link #LLVMOrcCreateDynamicLibrarySearchGeneratorForProcess OrcCreateDynamicLibrarySearchGeneratorForProcess} */
     public static long nLLVMOrcCreateDynamicLibrarySearchGeneratorForProcess(long Result, byte GlobalPrefx, long Filter, long FilterCtx) {
         long __functionAddress = Functions.OrcCreateDynamicLibrarySearchGeneratorForProcess;
-        return invokePPPP(Result, GlobalPrefx, Filter, FilterCtx, __functionAddress);
+        return invokePBPPP(Result, GlobalPrefx, Filter, FilterCtx, __functionAddress);
     }
 
     /**
@@ -1164,6 +1234,126 @@ public class LLVMOrc {
             check(Result, 1);
         }
         return nLLVMOrcCreateDynamicLibrarySearchGeneratorForProcess(memAddress(Result), GlobalPrefx, memAddressSafe(Filter), FilterCtx);
+    }
+
+    // --- [ LLVMOrcCreateDynamicLibrarySearchGeneratorForPath ] ---
+
+    /** Unsafe version of: {@link #LLVMOrcCreateDynamicLibrarySearchGeneratorForPath OrcCreateDynamicLibrarySearchGeneratorForPath} */
+    public static long nLLVMOrcCreateDynamicLibrarySearchGeneratorForPath(long Result, long FileName, byte GlobalPrefix, long Filter, long FilterCtx) {
+        long __functionAddress = Functions.OrcCreateDynamicLibrarySearchGeneratorForPath;
+        if (CHECKS) {
+            check(__functionAddress);
+        }
+        return invokePPBPPP(Result, FileName, GlobalPrefix, Filter, FilterCtx, __functionAddress);
+    }
+
+    /**
+     * Get a {@code LLVMOrcCreateDynamicLibrarySearchGeneratorForPath} that will reflect library symbols into the {@code JITDylib}. On success the resulting
+     * generator is owned by the client. Ownership is typically transferred by adding the instance to a {@code JITDylib} using {@link #LLVMOrcJITDylibAddGenerator OrcJITDylibAddGenerator},
+     * 
+     * <p>The {@code GlobalPrefix} argument specifies the character that appears on the front of linker-mangled symbols for the target platform (e.g. '_' on
+     * MachO). If non-null, this character will be stripped from the start of all symbol strings before passing the remaining substring to {@code dlsym}.</p>
+     * 
+     * <p>The optional {@code Filter} and {@code Ctx} arguments can be used to supply a symbol name filter: Only symbols for which the filter returns true will
+     * be visible to JIT'd code. If the {@code Filter} argument is null then all library symbols will be visible to JIT'd code. Note that the symbol name
+     * passed to the {@code Filter} function is the full mangled symbol: The client is responsible for stripping the global prefix if present.</p>
+     * 
+     * <p>THIS API IS EXPERIMENTAL AND LIKELY TO CHANGE IN THE NEAR FUTURE!</p>
+     */
+    @NativeType("LLVMErrorRef")
+    public static long LLVMOrcCreateDynamicLibrarySearchGeneratorForPath(@NativeType("LLVMOrcDefinitionGeneratorRef *") PointerBuffer Result, @NativeType("char const *") ByteBuffer FileName, @NativeType("char") byte GlobalPrefix, @Nullable @NativeType("LLVMOrcSymbolPredicate") LLVMOrcSymbolPredicateI Filter, @NativeType("void *") long FilterCtx) {
+        if (CHECKS) {
+            check(Result, 1);
+            checkNT1(FileName);
+        }
+        return nLLVMOrcCreateDynamicLibrarySearchGeneratorForPath(memAddress(Result), memAddress(FileName), GlobalPrefix, memAddressSafe(Filter), FilterCtx);
+    }
+
+    /**
+     * Get a {@code LLVMOrcCreateDynamicLibrarySearchGeneratorForPath} that will reflect library symbols into the {@code JITDylib}. On success the resulting
+     * generator is owned by the client. Ownership is typically transferred by adding the instance to a {@code JITDylib} using {@link #LLVMOrcJITDylibAddGenerator OrcJITDylibAddGenerator},
+     * 
+     * <p>The {@code GlobalPrefix} argument specifies the character that appears on the front of linker-mangled symbols for the target platform (e.g. '_' on
+     * MachO). If non-null, this character will be stripped from the start of all symbol strings before passing the remaining substring to {@code dlsym}.</p>
+     * 
+     * <p>The optional {@code Filter} and {@code Ctx} arguments can be used to supply a symbol name filter: Only symbols for which the filter returns true will
+     * be visible to JIT'd code. If the {@code Filter} argument is null then all library symbols will be visible to JIT'd code. Note that the symbol name
+     * passed to the {@code Filter} function is the full mangled symbol: The client is responsible for stripping the global prefix if present.</p>
+     * 
+     * <p>THIS API IS EXPERIMENTAL AND LIKELY TO CHANGE IN THE NEAR FUTURE!</p>
+     */
+    @NativeType("LLVMErrorRef")
+    public static long LLVMOrcCreateDynamicLibrarySearchGeneratorForPath(@NativeType("LLVMOrcDefinitionGeneratorRef *") PointerBuffer Result, @NativeType("char const *") CharSequence FileName, @NativeType("char") byte GlobalPrefix, @Nullable @NativeType("LLVMOrcSymbolPredicate") LLVMOrcSymbolPredicateI Filter, @NativeType("void *") long FilterCtx) {
+        if (CHECKS) {
+            check(Result, 1);
+        }
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(FileName, true);
+            long FileNameEncoded = stack.getPointerAddress();
+            return nLLVMOrcCreateDynamicLibrarySearchGeneratorForPath(memAddress(Result), FileNameEncoded, GlobalPrefix, memAddressSafe(Filter), FilterCtx);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ LLVMOrcCreateStaticLibrarySearchGeneratorForPath ] ---
+
+    /** Unsafe version of: {@link #LLVMOrcCreateStaticLibrarySearchGeneratorForPath OrcCreateStaticLibrarySearchGeneratorForPath} */
+    public static long nLLVMOrcCreateStaticLibrarySearchGeneratorForPath(long Result, long ObjLayer, long FileName, long TargetTriple) {
+        long __functionAddress = Functions.OrcCreateStaticLibrarySearchGeneratorForPath;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(ObjLayer);
+        }
+        return invokePPPPP(Result, ObjLayer, FileName, TargetTriple, __functionAddress);
+    }
+
+    /**
+     * Get a {@code LLVMOrcCreateStaticLibrarySearchGeneratorForPath} that will reflect static library symbols into the {@code JITDylib}. On success the
+     * resulting generator is owned by the client. Ownership is typically transferred by adding the instance to a {@code JITDylib} using
+     * {@link #LLVMOrcJITDylibAddGenerator OrcJITDylibAddGenerator},
+     * 
+     * <p>Call with the optional {@code TargetTriple} argument will succeed if the file at the given path is a static library or a MachO universal binary
+     * containing a static library that is compatible with the given triple. Otherwise it will return an error.</p>
+     * 
+     * <p>THIS API IS EXPERIMENTAL AND LIKELY TO CHANGE IN THE NEAR FUTURE!</p>
+     */
+    @NativeType("LLVMErrorRef")
+    public static long LLVMOrcCreateStaticLibrarySearchGeneratorForPath(@NativeType("LLVMOrcDefinitionGeneratorRef *") PointerBuffer Result, @NativeType("LLVMOrcObjectLayerRef") long ObjLayer, @NativeType("char const *") ByteBuffer FileName, @Nullable @NativeType("char const *") ByteBuffer TargetTriple) {
+        if (CHECKS) {
+            check(Result, 1);
+            checkNT1(FileName);
+            checkNT1Safe(TargetTriple);
+        }
+        return nLLVMOrcCreateStaticLibrarySearchGeneratorForPath(memAddress(Result), ObjLayer, memAddress(FileName), memAddressSafe(TargetTriple));
+    }
+
+    /**
+     * Get a {@code LLVMOrcCreateStaticLibrarySearchGeneratorForPath} that will reflect static library symbols into the {@code JITDylib}. On success the
+     * resulting generator is owned by the client. Ownership is typically transferred by adding the instance to a {@code JITDylib} using
+     * {@link #LLVMOrcJITDylibAddGenerator OrcJITDylibAddGenerator},
+     * 
+     * <p>Call with the optional {@code TargetTriple} argument will succeed if the file at the given path is a static library or a MachO universal binary
+     * containing a static library that is compatible with the given triple. Otherwise it will return an error.</p>
+     * 
+     * <p>THIS API IS EXPERIMENTAL AND LIKELY TO CHANGE IN THE NEAR FUTURE!</p>
+     */
+    @NativeType("LLVMErrorRef")
+    public static long LLVMOrcCreateStaticLibrarySearchGeneratorForPath(@NativeType("LLVMOrcDefinitionGeneratorRef *") PointerBuffer Result, @NativeType("LLVMOrcObjectLayerRef") long ObjLayer, @NativeType("char const *") CharSequence FileName, @Nullable @NativeType("char const *") CharSequence TargetTriple) {
+        if (CHECKS) {
+            check(Result, 1);
+        }
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(FileName, true);
+            long FileNameEncoded = stack.getPointerAddress();
+            stack.nUTF8Safe(TargetTriple, true);
+            long TargetTripleEncoded = TargetTriple == null ? NULL : stack.getPointerAddress();
+            return nLLVMOrcCreateStaticLibrarySearchGeneratorForPath(memAddress(Result), ObjLayer, FileNameEncoded, TargetTripleEncoded);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
     }
 
     // --- [ LLVMOrcCreateNewThreadSafeContext ] ---

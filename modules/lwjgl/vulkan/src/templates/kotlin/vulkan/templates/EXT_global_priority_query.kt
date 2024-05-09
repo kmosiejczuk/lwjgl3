@@ -28,11 +28,7 @@ val EXT_global_priority_query = "EXTGlobalPriorityQuery".nativeClassVK("EXT_glob
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link EXTGlobalPriority VK_EXT_global_priority}</li>
-                <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
-            </ul></dd>
+            <dd>{@link EXTGlobalPriority VK_EXT_global_priority} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
 
             <dt><b>Deprecation state</b></dt>
             <dd><ul>
@@ -41,7 +37,7 @@ val EXT_global_priority_query = "EXTGlobalPriorityQuery".nativeClassVK("EXT_glob
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Yiwei Zhang <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_global_priority_query]%20@zhangyiwei%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_global_priority_query%20extension%3E%3E">zhangyiwei</a></li>
+                <li>Yiwei Zhang <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_global_priority_query]%20@zhangyiwei%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_global_priority_query%20extension*">zhangyiwei</a></li>
             </ul></dd>
         </dl>
 

@@ -22,13 +22,10 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRSwapchain VK_KHR_swapchain}</li>
- * </ul></dd>
+ * <dd>{@link KHRSwapchain VK_KHR_swapchain}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Ian Elliott <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_incremental_present]%20@ianelliottus%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_incremental_present%20extension%3E%3E">ianelliottus</a></li>
+ * <li>Ian Elliott <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_incremental_present]%20@ianelliottus%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_incremental_present%20extension*">ianelliottus</a></li>
  * </ul></dd>
  * </dl>
  * 

@@ -6,7 +6,7 @@
 package org.lwjgl.vulkan;
 
 /**
- * This extension allows applications to clamp the minimum LOD value during <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#textures-image-level-selection">Image Level(s) Selection</a> and <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#textures-integer-coordinate-operations">Integer Texel Coordinate Operations</a> with a given {@code VkImageView} by {@link VkImageViewMinLodCreateInfoEXT}{@code ::minLod}.
+ * This extension allows applications to clamp the minimum LOD value during <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-image-level-selection">Image Level(s) Selection</a>, <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-gather">Texel Gathering</a> and <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-integer-coordinate-operations">Integer Texel Coordinate Operations</a> with a given {@code VkImageView} by {@link VkImageViewMinLodCreateInfoEXT}{@code ::minLod}.
  * 
  * <p>This extension may be useful to restrict a {@code VkImageView} to only mips which have been uploaded, and the use of fractional {@code minLod} can be useful for smoothly introducing new mip levels when using linear mipmap filtering.</p>
  * 
@@ -22,13 +22,10 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
- * </ul></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Joshua Ashton <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_image_view_min_lod]%20@Joshua-Ashton%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_image_view_min_lod%20extension%3E%3E">Joshua-Ashton</a></li>
+ * <li>Joshua Ashton <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_image_view_min_lod]%20@Joshua-Ashton%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_image_view_min_lod%20extension*">Joshua-Ashton</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -45,7 +42,7 @@ package org.lwjgl.vulkan;
  * <li>Hans-Kristian Arntzen, Valve</li>
  * <li>Samuel Iglesias Gonsalvez, Igalia</li>
  * <li>Tobias Hector, AMD</li>
- * <li>Jason Ekstrand, Intel</li>
+ * <li>Faith Ekstrand, Intel</li>
  * <li>Tom Olson, ARM</li>
  * </ul></dd>
  * </dl>

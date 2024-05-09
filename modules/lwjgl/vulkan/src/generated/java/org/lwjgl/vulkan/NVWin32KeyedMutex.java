@@ -152,17 +152,14 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link NVExternalMemoryWin32 VK_NV_external_memory_win32}</li>
- * </ul></dd>
+ * <dd>{@link NVExternalMemoryWin32 VK_NV_external_memory_win32}</dd>
  * <dt><b>Deprecation state</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to {@link KHRWin32KeyedMutex VK_KHR_win32_keyed_mutex} extension</li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Carsten Rohde <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_win32_keyed_mutex]%20@crohde%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_win32_keyed_mutex%20extension%3E%3E">crohde</a></li>
+ * <li>Carsten Rohde <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_win32_keyed_mutex]%20@crohde%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_win32_keyed_mutex%20extension*">crohde</a></li>
  * </ul></dd>
  * </dl>
  * 

@@ -164,19 +164,14 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
             <dt><b>Revision</b></dt>
             <dd>2</dd>
 
-            <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
-
             <dt><b>Special Use</b></dt>
             <dd><ul>
-                <li><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
+                <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Lionel Landwerlin <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_INTEL_performance_query]%20@llandwerlin%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_INTEL_performance_query%20extension%3E%3E">llandwerlin</a></li>
+                <li>Lionel Landwerlin <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_INTEL_performance_query]%20@llandwerlin%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_INTEL_performance_query%20extension*">llandwerlin</a></li>
             </ul></dd>
         </dl>
 
@@ -357,7 +352,7 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
         Uninitialize a device for performance queries.
 
         <h5>C Specification</h5>
-        Once performance query operations have completed, uninitalize the device for performance queries with the call:
+        Once performance query operations have completed, uninitialize the device for performance queries with the call:
 
         <pre><code>
 ￿void vkUninitializePerformanceApiINTEL(
@@ -389,8 +384,9 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
         <ul>
             <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
             <li>{@code pMarkerInfo} <b>must</b> be a valid pointer to a valid ##VkPerformanceMarkerInfoINTEL structure</li>
-            <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
+            <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
             <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, compute, or transfer operations</li>
+            <li>This command <b>must</b> only be called outside of a video coding scope</li>
         </ul>
 
         <h5>Host Synchronization</h5>
@@ -401,8 +397,8 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
 
         <h5>Command Properties</h5>
         <table class="lwjgl">
-            <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-            <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Graphics Compute Transfer</td></tr></tbody>
+            <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+            <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute Transfer</td><td>Action State</td></tr></tbody>
         </table>
 
         <h5>Return Codes</h5>
@@ -433,7 +429,7 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
         Markers.
 
         <h5>C Specification</h5>
-        When monitoring the behavior of an application wihtin the dataset generated by the entire set of applications running on the system, it is useful to identify draw calls within a potentially huge amount of performance data. To do so, application can generate stream markers that will be used to trace back a particular draw call with a particular performance data item.
+        When monitoring the behavior of an application within the dataset generated by the entire set of applications running on the system, it is useful to identify draw calls within a potentially huge amount of performance data. To do so, application can generate stream markers that will be used to trace back a particular draw call with a particular performance data item.
 
         <pre><code>
 ￿VkResult vkCmdSetPerformanceStreamMarkerINTEL(
@@ -444,8 +440,9 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
         <ul>
             <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
             <li>{@code pMarkerInfo} <b>must</b> be a valid pointer to a valid ##VkPerformanceStreamMarkerInfoINTEL structure</li>
-            <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
+            <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
             <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, compute, or transfer operations</li>
+            <li>This command <b>must</b> only be called outside of a video coding scope</li>
         </ul>
 
         <h5>Host Synchronization</h5>
@@ -456,8 +453,8 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
 
         <h5>Command Properties</h5>
         <table class="lwjgl">
-            <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-            <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Graphics Compute Transfer</td></tr></tbody>
+            <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+            <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute Transfer</td><td>Action State</td></tr></tbody>
         </table>
 
         <h5>Return Codes</h5>
@@ -504,8 +501,9 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
         <ul>
             <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
             <li>{@code pOverrideInfo} <b>must</b> be a valid pointer to a valid ##VkPerformanceOverrideInfoINTEL structure</li>
-            <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
+            <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
             <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, compute, or transfer operations</li>
+            <li>This command <b>must</b> only be called outside of a video coding scope</li>
         </ul>
 
         <h5>Host Synchronization</h5>
@@ -516,8 +514,8 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
 
         <h5>Command Properties</h5>
         <table class="lwjgl">
-            <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-            <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Graphics Compute Transfer</td></tr></tbody>
+            <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+            <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute Transfer</td><td>State</td></tr></tbody>
         </table>
 
         <h5>Return Codes</h5>
@@ -601,7 +599,7 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>{@code configuration} <b>must</b> not be released before all command buffers submitted while the configuration was set are in <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">pending state</a></li>
+            <li>{@code configuration} <b>must</b> not be released before all command buffers submitted while the configuration was set are in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">pending state</a></li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -657,8 +655,7 @@ val INTEL_performance_query = "INTELPerformanceQuery".nativeClassVK("INTEL_perfo
 
         <h5>Command Properties</h5>
         <table class="lwjgl">
-            <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-            <tbody><tr><td>-</td><td>-</td><td>Any</td></tr></tbody>
+            <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
         </table>
 
         <h5>Return Codes</h5>

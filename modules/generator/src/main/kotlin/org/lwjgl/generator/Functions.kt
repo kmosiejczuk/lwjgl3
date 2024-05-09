@@ -283,9 +283,9 @@ class Func(
     private fun validate() {
         returns.nativeType.let {
             if (it is StructType)
-                it.definition.hasUsageOutput()
+                it.definition.setUsageOutput()
             else if (it is PointerType<*> && it.elementType is StructType)
-                it.elementType.definition.hasUsageResultPointer()
+                it.elementType.definition.setUsageResultPointer()
         }
 
         var returnCount = 0
@@ -294,9 +294,9 @@ class Func(
             it.nativeType.dereference.let { type ->
                 if (type is StructType) {
                     if (it.isInput)
-                        type.definition.hasUsageInput()
+                        type.definition.setUsageInput()
                     else
-                        type.definition.hasUsageOutput()
+                        type.definition.setUsageOutput()
                 }
             }
 
@@ -838,7 +838,12 @@ class Func(
                     returns.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "byte"
                     returns.nativeType is PointerType<*>                   -> "pointer"
                     else                                                   -> returns.nativeType.nativeMethodType
-                }}(0);
+                }}(${when (returns.nativeType.mapping) {
+                    PrimitiveMapping.BOOLEAN,
+                    PrimitiveMapping.BYTE  -> "(byte)"
+                    PrimitiveMapping.SHORT -> "(short)"
+                    else                   -> ""
+                }}0);
             """
             } else ""}long arguments = stack.nmalloc(POINTER_SIZE, POINTER_SIZE * ${parameters.size});
             ${parameters.asSequence()
@@ -869,7 +874,7 @@ class Func(
                     returns.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "Byte"
                     returns.nativeType is PointerType<*>                   -> "Address"
                     else                                                   -> returns.nativeType.nativeMethodType.upperCaseFirst
-                }}(__result);"""
+                }}(__result)${if (returns.nativeType.mapping == PrimitiveMapping.BOOLEAN || returns.nativeType.mapping == PrimitiveMapping.BOOLEAN4) " != 0" else ""};"""
             } else ""}
         } finally {
             stack.setPointer(stackPointer);
@@ -2052,7 +2057,7 @@ class Func(
                     }
                 } else if (!returns.isVoid) {
                     print(if (code.nativeAfterCall != null) "$RESULT = " else "return ")
-                    if (returns.jniFunctionType != returns.nativeType.name)
+                    if (returns.jniFunctionType != returns.toNativeType(nativeClass.binding))
                         print("(${returns.jniFunctionType})")
                     if (returns.nativeType is PointerType<*> && nativeClass.binding == null)
                         print("(uintptr_t)")

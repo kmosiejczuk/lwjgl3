@@ -29,7 +29,7 @@ val spvc_resources = "spvc_resources".handle
 val spvc_set = "spvc_set".handle
 val spvc_type = "spvc_type".handle
 
-val spvc_bool = typedef(IntegerType("unsigned char", PrimitiveMapping.BOOLEAN, unsigned = true), "spvc_bool")
+val spvc_bool = typedef(PrimitiveType("unsigned char", PrimitiveMapping.BOOLEAN), "spvc_bool")
 val spvc_constant_id = typedef(SpvId, "spvc_constant_id")
 val spvc_type_id = typedef(SpvId, "spvc_type_id")
 val spvc_variable_id = typedef(SpvId, "spvc_variable_id")
@@ -51,6 +51,8 @@ val spvc_msl_sampler_filter = "spvc_msl_sampler_filter".enumType
 val spvc_msl_sampler_mip_filter = "spvc_msl_sampler_mip_filter".enumType
 val spvc_msl_sampler_ycbcr_model_conversion = "spvc_msl_sampler_ycbcr_model_conversion".enumType
 val spvc_msl_sampler_ycbcr_range = "spvc_msl_sampler_ycbcr_range".enumType
+val spvc_msl_shader_variable_format = "spvc_msl_shader_variable_format".enumType
+val spvc_msl_shader_variable_rate = "spvc_msl_shader_variable_rate".enumType
 val spvc_msl_vertex_format = "spvc_msl_vertex_format".enumType
 val spvc_resource_type = "spvc_resource_type".enumType
 val spvc_result = "spvc_result".enumType
@@ -168,6 +170,8 @@ val spvc_msl_vertex_attribute = struct(Module.SPVC, "SpvcMslVertexAttribute", na
         Defines MSL characteristics of a vertex attribute at a particular location.
 
         After compilation, it is possible to query whether or not this location was used.
+
+        Deprecated; use ##SpvcMslShaderInterfaceVar.
         """
 
     unsigned_int("location", "")
@@ -179,19 +183,30 @@ val spvc_msl_vertex_attribute = struct(Module.SPVC, "SpvcMslVertexAttribute", na
     SpvBuiltIn("builtin", "")
 }
 
-val spvc_msl_shader_input = struct(Module.SPVC, "SpvcMslShaderInput", nativeName = "spvc_msl_shader_input") {
+val spvc_msl_shader_interface_var = struct(Module.SPVC, "SpvcMslShaderInterfaceVar", nativeName = "spvc_msl_shader_interface_var") {
     documentation =
         """
         Defines MSL characteristics of an input variable at a particular location.
 
         After compilation, it is possible to query whether or not this location was used. If {@code vecsize} is nonzero, it must be greater than or equal to
         the {@code vecsize} declared in the shader, or behavior is undefined.
+
+        Deprecated; use {@code spvc_msl_shader_interface_var_2}.
         """
 
 	unsigned("location", "")
 	spvc_msl_vertex_format("format", "")
 	SpvBuiltIn("builtin", "")
 	unsigned("vecsize", "")
+}
+val spvc_msl_shader_input = typedef(spvc_msl_shader_interface_var, "spvc_msl_shader_input", "SpvcMslShaderInput")
+
+val spvc_msl_shader_interface_var_2 = struct(Module.SPVC, "SpvcMslShaderInterfaceVar2", nativeName = "spvc_msl_shader_interface_var_2") {
+    unsigned("location", "")
+    spvc_msl_shader_variable_format("format", "")
+    SpvBuiltIn("builtin", "")
+    unsigned("vecsize", "")
+    spvc_msl_shader_variable_rate("rate", "")
 }
 
 val spvc_msl_resource_binding = struct(Module.SPVC, "SpvcMslResourceBinding", nativeName = "spvc_msl_resource_binding") {

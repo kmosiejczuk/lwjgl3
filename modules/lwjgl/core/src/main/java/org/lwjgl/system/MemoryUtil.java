@@ -143,12 +143,17 @@ public final class MemoryUtil {
         static final MemoryAllocator ALLOCATOR;
 
         static {
+            boolean debug = Configuration.DEBUG_MEMORY_ALLOCATOR.get(false);
+
             ALLOCATOR_IMPL = MemoryManage.getInstance();
-            ALLOCATOR = Configuration.DEBUG_MEMORY_ALLOCATOR.get(false)
+            ALLOCATOR = debug
                 ? new DebugAllocator(ALLOCATOR_IMPL)
                 : ALLOCATOR_IMPL;
 
             apiLog("MemoryUtil allocator: " + ALLOCATOR.getClass().getSimpleName());
+            if (debug && !Configuration.DEBUG_MEMORY_ALLOCATOR_FAST.get(false)) {
+                apiLogMore("Reminder: enable Configuration.DEBUG_MEMORY_ALLOCATOR_FAST for low overhead allocation tracking.");
+            }
         }
     }
 
@@ -996,6 +1001,19 @@ public final class MemoryUtil {
             throw new IllegalArgumentException("The source buffer range is too wide");
         }
         return wrap(BUFFER_BYTE, memAddress(buffer), buffer.remaining() * buffer.sizeof()).order(NATIVE_ORDER);
+    }
+
+    /**
+     * Creates a {@link ByteBuffer} instance as a view of the specified {@link Struct}.
+     *
+     * <p>The returned {@code ByteBuffer} instance will be set to the native {@link ByteOrder}.</p>
+     *
+     * @param value the struct value
+     *
+     * @return the {@code ByteBuffer} view
+     */
+    public static ByteBuffer memByteBuffer(Struct value) {
+        return wrap(BUFFER_BYTE, value.address, value.sizeof()).order(NATIVE_ORDER);
     }
 
     /**

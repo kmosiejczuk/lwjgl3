@@ -11,13 +11,30 @@ import openxr.*
 val FB_passthrough = "FBPassthrough".nativeClassXR("FB_passthrough", type = "instance", postfix = "FB") {
     documentation =
         """
-        The $templateName extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_FB_passthrough">XR_FB_passthrough</a> extension.
+
+        Passthrough is a way to show a user their physical environment in a light-blocking VR headset. Applications may use passthrough in a multitude of ways, including:
+
+        <ul>
+            <li>Creating AR-like experiences, where virtual objects augment the user’s environment.</li>
+            <li>Bringing real objects into a VR experience.</li>
+            <li>Mapping the playspace such that a VR experience is customized to it.</li>
+        </ul>
+
+        This extension allows:
+
+        <ul>
+            <li>An application to request passthrough to be composited with the application content.</li>
+            <li>An application to specify the compositing and blending rules between passthrough and VR content.</li>
+            <li>An application to apply styles, such as color mapping and edge rendering, to passthrough.</li>
+            <li>An application to provide a geometry to be used in place of the user’s physical environment. Camera images will be projected onto the surface provided by the application. In some cases where a part of the environment, such as a desk, can be approximated well, this provides better visual experience.</li>
+        </ul>
         """
 
     IntConstant(
         "The extension specification version.",
 
-        "FB_passthrough_SPEC_VERSION".."1"
+        "FB_passthrough_SPEC_VERSION".."3"
     )
 
     StringConstant(
@@ -35,9 +52,11 @@ val FB_passthrough = "FBPassthrough".nativeClassXR("FB_passthrough", type = "ins
         "TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB".."1000118003",
         "TYPE_GEOMETRY_INSTANCE_CREATE_INFO_FB".."1000118004",
         "TYPE_GEOMETRY_INSTANCE_TRANSFORM_FB".."1000118005",
+        "TYPE_SYSTEM_PASSTHROUGH_PROPERTIES2_FB".."1000118006",
         "TYPE_PASSTHROUGH_STYLE_FB".."1000118020",
         "TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_RGBA_FB".."1000118021",
         "TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB".."1000118022",
+        "TYPE_PASSTHROUGH_BRIGHTNESS_CONTRAST_SATURATION_FB".."1000118023",
         "TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB".."1000118030"
     )
 
@@ -67,9 +86,35 @@ val FB_passthrough = "FBPassthrough".nativeClassXR("FB_passthrough", type = "ins
     )
 
     EnumConstant(
-        "XrPassthroughFlagBitsFB",
+        """
+        XrPassthroughCapabilityFlagBitsFB - XrPassthroughCapabilityFlagBitsFB
 
-        "PASSTHROUGH_IS_RUNNING_AT_CREATION_BIT_FB".enum(0x00000001)
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#PASSTHROUGH_CAPABILITY_BIT_FB — The system supports passthrough.</li>
+            <li>#PASSTHROUGH_CAPABILITY_COLOR_BIT_FB — The system can show passthrough with realistic colors. #PASSTHROUGH_CAPABILITY_BIT_FB <b>must</b> be set if #PASSTHROUGH_CAPABILITY_COLOR_BIT_FB is set.</li>
+            <li>#PASSTHROUGH_CAPABILITY_LAYER_DEPTH_BIT_FB — The system supports passthrough layers composited using depth testing. #PASSTHROUGH_CAPABILITY_BIT_FB <b>must</b> be set if #PASSTHROUGH_CAPABILITY_LAYER_DEPTH_BIT_FB is set.</li>
+        </ul>
+        """,
+
+        "PASSTHROUGH_CAPABILITY_BIT_FB".enum(0x00000001),
+        "PASSTHROUGH_CAPABILITY_COLOR_BIT_FB".enum(0x00000002),
+        "PASSTHROUGH_CAPABILITY_LAYER_DEPTH_BIT_FB".enum(0x00000004)
+    )
+
+    EnumConstant(
+        """
+        XrPassthroughFlagBitsFB - XrPassthroughFlagBitsFB
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#PASSTHROUGH_IS_RUNNING_AT_CREATION_BIT_FB — The object (passthrough, layer) is running at creation.</li>
+            <li>#PASSTHROUGH_LAYER_DEPTH_BIT_FB — The passthrough system sends depth information to the compositor. Only applicable to layer objects.</li>
+        </ul>
+        """,
+
+        "PASSTHROUGH_IS_RUNNING_AT_CREATION_BIT_FB".enum(0x00000001),
+        "PASSTHROUGH_LAYER_DEPTH_BIT_FB".enum(0x00000002)
     )
 
     EnumConstant(
@@ -81,6 +126,7 @@ val FB_passthrough = "FBPassthrough".nativeClassXR("FB_passthrough", type = "ins
             <li>#PASSTHROUGH_LAYER_PURPOSE_RECONSTRUCTION_FB — Reconstruction passthrough (full screen environment)</li>
             <li>#PASSTHROUGH_LAYER_PURPOSE_PROJECTED_FB — Projected passthrough (using a custom surface)</li>
             <li>#PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_HANDS_FB — Passthrough layer purpose for keyboard hands presence.</li>
+            <li>#PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_MASKED_HANDS_FB — Passthrough layer purpose for keyboard hands presence with keyboard masked hand transitions (i.e passthrough hands rendered only when they are over the keyboard).</li>
         </ul>
 
         <h5>See Also</h5>
@@ -92,7 +138,17 @@ val FB_passthrough = "FBPassthrough".nativeClassXR("FB_passthrough", type = "ins
     )
 
     EnumConstant(
-        "XrPassthroughStateChangedFlagBitsFB",
+        """
+        XrPassthroughStateChangedFlagBitsFB - XrPassthroughStateChangedFlagBitsFB
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#PASSTHROUGH_STATE_CHANGED_REINIT_REQUIRED_BIT_FB — Passthrough system requires reinitialization.</li>
+            <li>#PASSTHROUGH_STATE_CHANGED_NON_RECOVERABLE_ERROR_BIT_FB — Non-recoverable error has occurred. A device reboot or a firmware update may be required.</li>
+            <li>#PASSTHROUGH_STATE_CHANGED_RECOVERABLE_ERROR_BIT_FB — A recoverable error has occurred. The runtime will attempt to recover, but some functionality may be temporarily unavailable.</li>
+            <li>#PASSTHROUGH_STATE_CHANGED_RESTORED_ERROR_BIT_FB — The runtime has recovered from a previous error and is functioning normally.</li>
+        </ul>
+        """,
 
         "PASSTHROUGH_STATE_CHANGED_REINIT_REQUIRED_BIT_FB".enum(0x00000001),
         "PASSTHROUGH_STATE_CHANGED_NON_RECOVERABLE_ERROR_BIT_FB".enum(0x00000002),

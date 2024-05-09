@@ -25,15 +25,10 @@ import static org.lwjgl.system.JNI.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRSwapchain VK_KHR_swapchain}</li>
- * <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
- * <li>Requires {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2}</li>
- * </ul></dd>
+ * <dd>{@link KHRSwapchain VK_KHR_swapchain} and {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2} and      {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}      or      <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Alon Or-bach <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_shared_presentable_image]%20@alonorbach%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_shared_presentable_image%20extension%3E%3E">alonorbach</a></li>
+ * <li>Alon Or-bach <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_shared_presentable_image]%20@alonorbach%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_shared_presentable_image%20extension*">alonorbach</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -113,7 +108,7 @@ public class KHRSharedPresentableImage {
      * <ul>
      * <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
      * <li>{@code swapchain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
-     * <li>Both of {@code device}, and {@code swapchain} <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
+     * <li>{@code swapchain} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
      * </ul>
      * 
      * <h5>Host Synchronization</h5>

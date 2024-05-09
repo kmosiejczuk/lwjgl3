@@ -23,6 +23,9 @@ private const val CAPS_DEVICE = "VKCapabilitiesDevice"
 
 private val EXTENSION_TYPES = HashMap<String, String>()
 
+private val NativeClass.isInstanceExtension get() = EXTENSION_TYPES[templateName] == "instance" || templateName.startsWith("VK")
+private val NativeClass.isDeviceExtension get() = EXTENSION_TYPES[templateName] == "device" || templateName.startsWith("VK")
+
 private enum class VKFunctionType {
     PROC,
     GLOBAL,
@@ -34,9 +37,8 @@ private val Func.type: VKFunctionType
     get() = when {
         name == "vkGetInstanceProcAddr"                 -> PROC // dlsym/GetProcAddress
         parameters[0].nativeType !is WrappedPointerType -> GLOBAL // vkGetInstanceProcAddr: VK_NULL_HANDLE
-        parameters[0].nativeType.let {
-            it === VkInstance || it === VkPhysicalDevice
-        }                                               -> INSTANCE // vkGetInstanceProcAddr: instance handle
+        parameters[0].nativeType.let { it === VkInstance || it === VkPhysicalDevice } || EXTENSION_TYPES[nativeClass.templateName] == "instance"
+                                                        -> INSTANCE // vkGetInstanceProcAddr: instance handle
         else                                            -> DEVICE // vkGetDeviceProcAddr: device handle
     }
 
@@ -87,7 +89,12 @@ val VK_BINDING_INSTANCE = Generator.register(object : APIBinding(
         writer.println(if (function.has<Capabilities>())
             "${function.get<Capabilities>().expression}.${function.name};"
         else
-            "${function.getParams { it.nativeType is WrappedPointerType }.first().name}.getCapabilities().${function.name};"
+            "${function.getParams { it.nativeType is WrappedPointerType }.first().name}${
+                if (function.isInstanceFunction && !function.parameters[0].nativeType.let { it === VkInstance || it === VkPhysicalDevice })
+                    ".getCapabilitiesInstance()"
+                else
+                    ".getCapabilities()"
+            }.${function.name};"
         )
     }
 
@@ -95,7 +102,7 @@ val VK_BINDING_INSTANCE = Generator.register(object : APIBinding(
         val capName = nativeClass.capName
 
         print("""
-    private static boolean check_${nativeClass.templateName}(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+    private static boolean check_${nativeClass.templateName}(FunctionProvider provider, long[] caps, Set<String> ext) {
         if (!ext.contains("$capName")) {
             return false;
         }""")
@@ -125,7 +132,12 @@ val VK_BINDING_INSTANCE = Generator.register(object : APIBinding(
     init {
         javaImport("static org.lwjgl.system.Checks.*")
 
-        documentation = "Defines the capabilities of a Vulkan {@code VkInstance}."
+        documentation =
+            """
+            Reports the enabled capabilities and function pointers of a Vulkan {@code VkInstance}.
+
+            The addresses are cached for future use. This class also allows developers to query the capabilities made available to the Vulkan instance handle.
+            """
     }
 
     override fun PrintWriter.generateJava() {
@@ -152,7 +164,7 @@ val VK_BINDING_INSTANCE = Generator.register(object : APIBinding(
                     .joinToString(",\n$t$t") { cmd -> cmd.name }
 
                 if (functions.isNotEmpty()) {
-                    println("\n$t// ${it.templateName}")
+                    println("\n$t/** Function pointers for ${it.templateName} */")
                     println("${t}public final long")
                     println("$t$t$functions;")
                 }
@@ -183,15 +195,14 @@ val VK_BINDING_INSTANCE = Generator.register(object : APIBinding(
 
         classes.forEach {
             val capName = it.capName
-            val hasFlag = EXTENSION_TYPES[it.templateName] == "instance" || it.templateName.startsWith("VK")
             if (it.functions.any { func -> func.isInstanceFunction }) {
                 print(
-                    if (hasFlag)
+                    if (it.isInstanceExtension)
                         "\n$t$t$capName = check_${it.templateName}(provider, caps, ext);"
                     else
                         "\n$t${t}check_${it.templateName}(provider, caps, deviceExt);"
                 )
-            } else if (hasFlag) {
+            } else if (it.isInstanceExtension) {
                 print("\n$t$t$capName = ext.contains(\"$capName\");")
             }
         }
@@ -222,7 +233,7 @@ val VK_BINDING_DEVICE = Generator.register(object : GeneratorTarget(Module.VULKA
     private fun PrintWriter.checkExtensionFunctions(nativeClass: NativeClass, commands: Map<String, Int>) {
         val capName = nativeClass.capName
 
-        val isDeviceExtension = EXTENSION_TYPES[nativeClass.templateName] == "device" || nativeClass.templateName.startsWith("VK")
+        val isDeviceExtension = nativeClass.isDeviceExtension
         val hasDependencies = nativeClass.functions.any { it.has<DependsOn>() }
         print("""
     private static boolean check_${nativeClass.templateName}(FunctionProvider provider, long[] caps""")
@@ -270,7 +281,12 @@ val VK_BINDING_DEVICE = Generator.register(object : GeneratorTarget(Module.VULKA
             "static org.lwjgl.system.Checks.*"
         )
 
-        documentation = "Defines the capabilities of a Vulkan {@code VkDevice}."
+        documentation =
+            """
+            Reports the enabled capabilities and function pointers of a Vulkan {@code VkDevice}.
+
+            The addresses are cached for future use. This class also allows developers to query the capabilities made available to the Vulkan device handle.
+            """
     }
 
     override fun PrintWriter.generateJava() {
@@ -297,7 +313,7 @@ val VK_BINDING_DEVICE = Generator.register(object : GeneratorTarget(Module.VULKA
                     .joinToString(",\n$t$t") { cmd -> cmd.name }
 
                 if (functions.isNotEmpty()) {
-                    println("\n$t// ${it.templateName}")
+                    println("\n$t/** Function pointers for ${it.templateName} */")
                     println("${t}public final long")
                     println("$t$t$functions;")
                 }
@@ -328,15 +344,14 @@ val VK_BINDING_DEVICE = Generator.register(object : GeneratorTarget(Module.VULKA
 
         classes.forEach {
             val capName = it.capName
-            val hasFlag = EXTENSION_TYPES[it.templateName] == "device" || it.templateName.startsWith("VK")
             if (it.functions.any { func -> func.isDeviceFunction }) {
                 print(
-                    if (hasFlag)
+                    if (it.isDeviceExtension)
                         "\n$t$t$capName = check_${it.templateName}(provider, caps, ext);"
                     else
                         "\n$t${t}check_${it.templateName}(provider, caps, capsInstance);"
                 )
-            } else if (hasFlag) {
+            } else if (it.isDeviceExtension) {
                 print("\n$t$t$capName = ext.contains(\"$capName\");")
             }
         }

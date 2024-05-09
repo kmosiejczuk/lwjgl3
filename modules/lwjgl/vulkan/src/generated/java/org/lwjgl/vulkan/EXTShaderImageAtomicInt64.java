@@ -24,13 +24,10 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
- * </ul></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Tobias Hector <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_shader_image_atomic_int64]%20@tobski%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_shader_image_atomic_int64%20extension%3E%3E">tobski</a></li>
+ * <li>Tobias Hector <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_shader_image_atomic_int64]%20@tobski%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_shader_image_atomic_int64%20extension*">tobski</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -52,7 +49,7 @@ package org.lwjgl.vulkan;
  * <li>Graham Wihlidal, Epic Games</li>
  * <li>Tobias Hector, AMD</li>
  * <li>Jeff Bolz, Nvidia</li>
- * <li>Jason Ekstrand, Intel</li>
+ * <li>Faith Ekstrand, Intel</li>
  * </ul></dd>
  * </dl>
  */

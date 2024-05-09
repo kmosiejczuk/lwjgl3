@@ -15,11 +15,15 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** The FB_render_model extension. */
+/**
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_FB_render_model">XR_FB_render_model</a> extension.
+ * 
+ * <p>This extension allows applications to request GLTF models for certain connected devices supported by the runtime. Paths that correspond to these devices will be provided through the extension and can be used to get information about the models as well as loading them.</p>
+ */
 public class FBRenderModel {
 
     /** The extension specification version. */
-    public static final int XR_FB_render_model_SPEC_VERSION = 1;
+    public static final int XR_FB_render_model_SPEC_VERSION = 3;
 
     /** The extension name. */
     public static final String XR_FB_RENDER_MODEL_EXTENSION_NAME = "XR_FB_render_model";
@@ -38,14 +42,16 @@ public class FBRenderModel {
      * <li>{@link #XR_TYPE_RENDER_MODEL_BUFFER_FB TYPE_RENDER_MODEL_BUFFER_FB}</li>
      * <li>{@link #XR_TYPE_RENDER_MODEL_LOAD_INFO_FB TYPE_RENDER_MODEL_LOAD_INFO_FB}</li>
      * <li>{@link #XR_TYPE_SYSTEM_RENDER_MODEL_PROPERTIES_FB TYPE_SYSTEM_RENDER_MODEL_PROPERTIES_FB}</li>
+     * <li>{@link #XR_TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB}</li>
      * </ul>
      */
     public static final int
-        XR_TYPE_RENDER_MODEL_PATH_INFO_FB         = 1000119000,
-        XR_TYPE_RENDER_MODEL_PROPERTIES_FB        = 1000119001,
-        XR_TYPE_RENDER_MODEL_BUFFER_FB            = 1000119002,
-        XR_TYPE_RENDER_MODEL_LOAD_INFO_FB         = 1000119003,
-        XR_TYPE_SYSTEM_RENDER_MODEL_PROPERTIES_FB = 1000119004;
+        XR_TYPE_RENDER_MODEL_PATH_INFO_FB            = 1000119000,
+        XR_TYPE_RENDER_MODEL_PROPERTIES_FB           = 1000119001,
+        XR_TYPE_RENDER_MODEL_BUFFER_FB               = 1000119002,
+        XR_TYPE_RENDER_MODEL_LOAD_INFO_FB            = 1000119003,
+        XR_TYPE_SYSTEM_RENDER_MODEL_PROPERTIES_FB    = 1000119004,
+        XR_TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB = 1000119005;
 
     /**
      * Extends {@code XrResult}.
@@ -60,6 +66,22 @@ public class FBRenderModel {
     public static final int
         XR_ERROR_RENDER_MODEL_KEY_INVALID_FB = -1000119000,
         XR_RENDER_MODEL_UNAVAILABLE_FB       = 1000119020;
+
+    /**
+     * XrRenderModelFlagBitsFB - XrRenderModelFlagBitsFB
+     * 
+     * <h5>Flag Descriptions</h5>
+     * 
+     * <ul>
+     * <li>{@link #XR_RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_1_BIT_FB RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_1_BIT_FB} — Minimal level of support.  Can only contain a single mesh.  Can only contain a single texture.  Can not contain transparency.  Assumes unlit rendering.  Requires Extension KHR_texturebasisu.</li>
+     * <li>{@link #XR_RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_2_BIT_FB RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_2_BIT_FB} — All of XR_RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_1_BIT_FB support plus: Multiple meshes. Multiple Textures. Texture Transparency.</li>
+     * </ul>
+     * 
+     * <p>Render Model Support Levels: An application <b>should</b> request a model of a certain complexity via the {@link XrRenderModelCapabilitiesRequestFB} on the structure chain of {@link XrRenderModelPropertiesFB} passed into {@link #xrGetRenderModelPropertiesFB GetRenderModelPropertiesFB}. The flags on the {@link XrRenderModelCapabilitiesRequestFB} are an acknowledgement of the application’s ability to render such a model. Multiple values of {@code XrRenderModelFlagBitsFB} can be set on this variable to indicate acceptance of different support levels. The flags parameter on the {@link XrRenderModelPropertiesFB} will indicate what capabilities the model in the runtime actually requires. It will be set to a single value of {@code XrRenderModelFlagBitsFB}.</p>
+     */
+    public static final int
+        XR_RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_1_BIT_FB = 0x1,
+        XR_RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_2_BIT_FB = 0x2;
 
     /** API Constants */
     public static final long XR_NULL_RENDER_MODEL_KEY_FB = 0x0L;
@@ -134,7 +156,7 @@ public class FBRenderModel {
      * <p>{@link XrRenderModelPathInfoFB}</p>
      *
      * @param session         the specified {@code XrSession}.
-     * @param pathCountOutput a pointer to the count of {@code float} {@code paths} written, or a pointer to the required capacity in the case that {@code pathCapacityInput} is 0.
+     * @param pathCountOutput a pointer to the count of {@code float} {@code paths} written, or a pointer to the required capacity in the case that {@code pathCapacityInput} is insufficient.
      * @param paths           a pointer to an application-allocated array that will be filled with {@link XrRenderModelPathInfoFB} values that are supported by the runtime, but <b>can</b> be {@code NULL} if {@code pathCapacityInput} is 0
      */
     @NativeType("XrResult")
@@ -247,7 +269,7 @@ public class FBRenderModel {
      * 
      * <h5>Description</h5>
      * 
-     * <p>{@link #xrLoadRenderModelFB LoadRenderModelFB} is used to load the GLTF model data using a valid {@code modelKey}. {@link #xrLoadRenderModelFB LoadRenderModelFB} loads the model as a byte buffer containing the GLTF in the binary format (GLB). The GLB data <b>must</b> conform to the glTF 2.0 format defined at <a target="_blank" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">https://github.com/KhronosGroup/glTF/tree/master/specification/2.0</a>. The GLB <b>may</b> contain texture data in a format that requires the use of the {@code KHR_texture_basisu} GLTF extension defined at <a target="_blank" href="https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_basisu">https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_basisu</a>. Therefore, the application <b>should</b> ensure it can handle this extension.</p>
+     * <p>{@link #xrLoadRenderModelFB LoadRenderModelFB} is used to load the GLTF model data using a valid {@code modelKey}. {@link #xrLoadRenderModelFB LoadRenderModelFB} loads the model as a byte buffer containing the GLTF in the binary format (GLB). The GLB data <b>must</b> conform to the glTF 2.0 format defined at {uri-fb-gltf2} The GLB <b>may</b> contain texture data in a format that requires the use of the {@code KHR_texture_basisu} GLTF extension defined at {uri-fb-gltf2-basisu}. Therefore, the application <b>should</b> ensure it can handle this extension.</p>
      * 
      * <p>If the device for the requested model is disconnected or does not match the {@code modelKey} provided, {@link #xrLoadRenderModelFB LoadRenderModelFB} <b>must</b> return {@link #XR_RENDER_MODEL_UNAVAILABLE_FB RENDER_MODEL_UNAVAILABLE_FB} as well as a {@code bufferCountOutput} value of 0 indicating that the model was not available.</p>
      * 

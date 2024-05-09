@@ -30,17 +30,11 @@ val EXT_full_screen_exclusive = "EXTFullScreenExclusive".nativeClassVK("EXT_full
             <dd>4</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
-                <li>Requires {@link KHRSurface VK_KHR_surface}</li>
-                <li>Requires {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2}</li>
-                <li>Requires {@link KHRSwapchain VK_KHR_swapchain}</li>
-            </ul></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRSurface VK_KHR_surface} and {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2} and {@link KHRSwapchain VK_KHR_swapchain}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_full_screen_exclusive]%20@cubanismo%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_full_screen_exclusive%20extension%3E%3E">cubanismo</a></li>
+                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_full_screen_exclusive]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_full_screen_exclusive%20extension*">cubanismo</a></li>
             </ul></dd>
         </dl>
 
@@ -212,7 +206,7 @@ val EXT_full_screen_exclusive = "EXTFullScreenExclusive".nativeClassVK("EXT_full
         <ul>
             <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
             <li>{@code swapchain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
-            <li>Both of {@code device}, and {@code swapchain} <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
+            <li>{@code swapchain} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
         </ul>
 
         <h5>Return Codes</h5>

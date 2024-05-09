@@ -22,22 +22,18 @@ val KHR_ray_query = "KHRRayQuery".nativeClassVK("KHR_ray_query", type = "device"
         </ul>
 
         <h5>Sample Code</h5>
-        Example of ray query in a GLSL shader
+        Example of ray query in a GLSL shader, illustrating how to use ray queries to determine whether a given position (at ray origin) is in shadow or not, by tracing a ray towards the light, and checking for any intersections with geometry occluding the light.
 
         <pre><code>
 ￿rayQueryEXT rq;
 ￿
-￿rayQueryInitializeEXT(rq, accStruct, gl_RayFlagsNoneEXT, 0, origin, tMin, direction, tMax);
+￿rayQueryInitializeEXT(rq, accStruct, gl_RayFlagsTerminateOnFirstHitEXT, cullMask, origin, tMin, direction, tMax);
 ￿
-￿while(rayQueryProceedEXT(rq)) {
-￿    if (rayQueryGetIntersectionTypeEXT(rq, false) == gl_RayQueryCandidateIntersectionTriangleEXT) {
-￿        //...
-￿        rayQueryConfirmIntersectionEXT(rq);
-￿    }
-￿}
+￿// Traverse the acceleration structure and store information about the first intersection (if any)
+￿rayQueryProceedEXT(rq);
 ￿
 ￿if (rayQueryGetIntersectionTypeEXT(rq, true) == gl_RayQueryCommittedIntersectionNoneEXT) {
-￿    //...
+￿    // Not in shadow
 ￿}</code></pre>
 
         <h5>VK_KHR_ray_query</h5>
@@ -55,15 +51,11 @@ val KHR_ray_query = "KHRRayQuery".nativeClassVK("KHR_ray_query", type = "device"
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.1</li>
-                <li>Requires {@link KHRSpirv14 VK_KHR_spirv_1_4}</li>
-                <li>Requires {@link KHRAccelerationStructure VK_KHR_acceleration_structure}</li>
-            </ul></dd>
+            <dd>{@link KHRSpirv14 VK_KHR_spirv_1_4} and {@link KHRAccelerationStructure VK_KHR_acceleration_structure}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Daniel Koch <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_ray_query]%20@dgkoch%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_ray_query%20extension%3E%3E">dgkoch</a></li>
+                <li>Daniel Koch <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_ray_query]%20@dgkoch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_ray_query%20extension*">dgkoch</a></li>
             </ul></dd>
         </dl>
 

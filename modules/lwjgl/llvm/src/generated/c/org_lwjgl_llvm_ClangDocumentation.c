@@ -40,6 +40,8 @@ typedef CXString (*clang_VerbatimLineComment_getTextPROC) (CXComment);
 typedef CXString (*clang_HTMLTagComment_getAsStringPROC) (CXComment);
 typedef CXString (*clang_FullComment_getAsHTMLPROC) (CXComment);
 typedef CXString (*clang_FullComment_getAsXMLPROC) (CXComment);
+typedef CXString (*clang_getSymbolGraphForUSRPROC) (uintptr_t, uintptr_t);
+typedef CXString (*clang_getSymbolGraphForCursorPROC) (CXCursor);
 
 EXTERN_C_ENTER
 
@@ -54,14 +56,14 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1Comment_1g
     clang_Comment_getKindPROC clang_Comment_getKind = (clang_Comment_getKindPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_Comment_getKind(*Comment);
+    return clang_Comment_getKind(*Comment);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1Comment_1getNumChildren(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress) {
     clang_Comment_getNumChildrenPROC clang_Comment_getNumChildren = (clang_Comment_getNumChildrenPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_Comment_getNumChildren(*Comment);
+    return clang_Comment_getNumChildren(*Comment);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1Comment_1getChild(JNIEnv *__env, jclass clazz, jlong CommentAddress, jint ChildIdx, jlong __functionAddress, jlong __result) {
@@ -75,14 +77,14 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1Comment_1i
     clang_Comment_isWhitespacePROC clang_Comment_isWhitespace = (clang_Comment_isWhitespacePROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_Comment_isWhitespace(*Comment);
+    return clang_Comment_isWhitespace(*Comment);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1InlineContentComment_1hasTrailingNewline(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress) {
     clang_InlineContentComment_hasTrailingNewlinePROC clang_InlineContentComment_hasTrailingNewline = (clang_InlineContentComment_hasTrailingNewlinePROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_InlineContentComment_hasTrailingNewline(*Comment);
+    return clang_InlineContentComment_hasTrailingNewline(*Comment);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1TextComment_1getText(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress, jlong __result) {
@@ -103,14 +105,14 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1InlineComm
     clang_InlineCommandComment_getRenderKindPROC clang_InlineCommandComment_getRenderKind = (clang_InlineCommandComment_getRenderKindPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_InlineCommandComment_getRenderKind(*Comment);
+    return clang_InlineCommandComment_getRenderKind(*Comment);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1InlineCommandComment_1getNumArgs(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress) {
     clang_InlineCommandComment_getNumArgsPROC clang_InlineCommandComment_getNumArgs = (clang_InlineCommandComment_getNumArgsPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_InlineCommandComment_getNumArgs(*Comment);
+    return clang_InlineCommandComment_getNumArgs(*Comment);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1InlineCommandComment_1getArgText(JNIEnv *__env, jclass clazz, jlong CommentAddress, jint ArgIdx, jlong __functionAddress, jlong __result) {
@@ -131,14 +133,14 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1HTMLStartT
     clang_HTMLStartTagComment_isSelfClosingPROC clang_HTMLStartTagComment_isSelfClosing = (clang_HTMLStartTagComment_isSelfClosingPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_HTMLStartTagComment_isSelfClosing(*Comment);
+    return clang_HTMLStartTagComment_isSelfClosing(*Comment);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1HTMLStartTag_1getNumAttrs(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress) {
     clang_HTMLStartTag_getNumAttrsPROC clang_HTMLStartTag_getNumAttrs = (clang_HTMLStartTag_getNumAttrsPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_HTMLStartTag_getNumAttrs(*Comment);
+    return clang_HTMLStartTag_getNumAttrs(*Comment);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1HTMLStartTag_1getAttrName(JNIEnv *__env, jclass clazz, jlong CommentAddress, jint AttrIdx, jlong __functionAddress, jlong __result) {
@@ -166,7 +168,7 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1BlockComma
     clang_BlockCommandComment_getNumArgsPROC clang_BlockCommandComment_getNumArgs = (clang_BlockCommandComment_getNumArgsPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_BlockCommandComment_getNumArgs(*Comment);
+    return clang_BlockCommandComment_getNumArgs(*Comment);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1BlockCommandComment_1getArgText(JNIEnv *__env, jclass clazz, jlong CommentAddress, jint ArgIdx, jlong __functionAddress, jlong __result) {
@@ -194,28 +196,28 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1ParamComma
     clang_ParamCommandComment_isParamIndexValidPROC clang_ParamCommandComment_isParamIndexValid = (clang_ParamCommandComment_isParamIndexValidPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_ParamCommandComment_isParamIndexValid(*Comment);
+    return clang_ParamCommandComment_isParamIndexValid(*Comment);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1ParamCommandComment_1getParamIndex(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress) {
     clang_ParamCommandComment_getParamIndexPROC clang_ParamCommandComment_getParamIndex = (clang_ParamCommandComment_getParamIndexPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_ParamCommandComment_getParamIndex(*Comment);
+    return clang_ParamCommandComment_getParamIndex(*Comment);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1ParamCommandComment_1isDirectionExplicit(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress) {
     clang_ParamCommandComment_isDirectionExplicitPROC clang_ParamCommandComment_isDirectionExplicit = (clang_ParamCommandComment_isDirectionExplicitPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_ParamCommandComment_isDirectionExplicit(*Comment);
+    return clang_ParamCommandComment_isDirectionExplicit(*Comment);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1ParamCommandComment_1getDirection(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress) {
     clang_ParamCommandComment_getDirectionPROC clang_ParamCommandComment_getDirection = (clang_ParamCommandComment_getDirectionPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_ParamCommandComment_getDirection(*Comment);
+    return clang_ParamCommandComment_getDirection(*Comment);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1TParamCommandComment_1getParamName(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress, jlong __result) {
@@ -229,21 +231,21 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1TParamComm
     clang_TParamCommandComment_isParamPositionValidPROC clang_TParamCommandComment_isParamPositionValid = (clang_TParamCommandComment_isParamPositionValidPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_TParamCommandComment_isParamPositionValid(*Comment);
+    return clang_TParamCommandComment_isParamPositionValid(*Comment);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1TParamCommandComment_1getDepth(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress) {
     clang_TParamCommandComment_getDepthPROC clang_TParamCommandComment_getDepth = (clang_TParamCommandComment_getDepthPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_TParamCommandComment_getDepth(*Comment);
+    return clang_TParamCommandComment_getDepth(*Comment);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1TParamCommandComment_1getIndex(JNIEnv *__env, jclass clazz, jlong CommentAddress, jint Depth, jlong __functionAddress) {
     clang_TParamCommandComment_getIndexPROC clang_TParamCommandComment_getIndex = (clang_TParamCommandComment_getIndexPROC)(uintptr_t)__functionAddress;
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)clang_TParamCommandComment_getIndex(*Comment, Depth);
+    return clang_TParamCommandComment_getIndex(*Comment, Depth);
 }
 
 JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1VerbatimBlockLineComment_1getText(JNIEnv *__env, jclass clazz, jlong CommentAddress, jlong __functionAddress, jlong __result) {
@@ -279,6 +281,21 @@ JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1FullCommen
     CXComment *Comment = (CXComment *)(uintptr_t)CommentAddress;
     UNUSED_PARAMS(__env, clazz)
     *((CXString*)(uintptr_t)__result) = clang_FullComment_getAsXML(*Comment);
+}
+
+JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1getSymbolGraphForUSR(JNIEnv *__env, jclass clazz, jlong usrAddress, jlong apiAddress, jlong __functionAddress, jlong __result) {
+    clang_getSymbolGraphForUSRPROC clang_getSymbolGraphForUSR = (clang_getSymbolGraphForUSRPROC)(uintptr_t)__functionAddress;
+    uintptr_t usr = (uintptr_t)usrAddress;
+    uintptr_t api = (uintptr_t)apiAddress;
+    UNUSED_PARAMS(__env, clazz)
+    *((CXString*)(uintptr_t)__result) = clang_getSymbolGraphForUSR(usr, api);
+}
+
+JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangDocumentation_nclang_1getSymbolGraphForCursor(JNIEnv *__env, jclass clazz, jlong cursorAddress, jlong __functionAddress, jlong __result) {
+    clang_getSymbolGraphForCursorPROC clang_getSymbolGraphForCursor = (clang_getSymbolGraphForCursorPROC)(uintptr_t)__functionAddress;
+    CXCursor *cursor = (CXCursor *)(uintptr_t)cursorAddress;
+    UNUSED_PARAMS(__env, clazz)
+    *((CXString*)(uintptr_t)__result) = clang_getSymbolGraphForCursor(*cursor);
 }
 
 EXTERN_C_EXIT

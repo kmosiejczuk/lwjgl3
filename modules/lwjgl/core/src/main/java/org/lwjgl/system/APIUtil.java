@@ -81,10 +81,27 @@ public final class APIUtil {
      *
      * @param msg the message to print
      */
-    public static void apiLog(@Nullable CharSequence msg) {
+    public static void apiLog(CharSequence msg) {
         if (DEBUG) {
-            DEBUG_STREAM.print("[LWJGL] ");
-            DEBUG_STREAM.println(msg);
+            DEBUG_STREAM.print("[LWJGL] " + msg + "\n");
+        }
+    }
+
+    /**
+     * Same as {@link #apiLog}, but replaces the LWJGL prefix with a tab character.
+     *
+     * @param msg the message to print, in continuation of a previous message
+     */
+    public static void apiLogMore(CharSequence msg) {
+        if (DEBUG) {
+            DEBUG_STREAM.print("\t" + msg + "\n");
+        }
+    }
+
+    public static void apiLogMissing(String api, ByteBuffer functionName) {
+        if (DEBUG) {
+            String function = memASCII(functionName, functionName.remaining() - 1);
+            DEBUG_STREAM.print("[LWJGL] Failed to locate address for " + api + " function " + function + "\n");
         }
     }
 
@@ -126,10 +143,22 @@ public final class APIUtil {
         }
         return a;
     }
-
     private static void requiredFunctionMissing(String functionName) {
         if (!Configuration.DISABLE_FUNCTION_CHECKS.get(false)) {
             throw new NullPointerException("A required function is missing: " + functionName);
+        }
+    }
+
+    public static long apiGetFunctionAddressOptional(SharedLibrary library, String functionName) {
+        long a = library.getFunctionAddress(functionName);
+        if (DEBUG_FUNCTIONS && a == NULL) {
+            optionalFunctionMissing(library, functionName);
+        }
+        return a;
+    }
+    private static void optionalFunctionMissing(SharedLibrary library, String functionName) {
+        if (DEBUG) {
+            DEBUG_STREAM.print("[LWJGL] Failed to locate address for " + library.getName() + " function " + functionName + "\n");
         }
     }
 

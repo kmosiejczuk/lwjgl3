@@ -13,7 +13,15 @@ val KHR_vulkan_enable = "KHRVulkanEnable".nativeClassXR("KHR_vulkan_enable", typ
     javaImport("org.lwjgl.vulkan.*")
     documentation =
         """
-        The $templateName extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_KHR_vulkan_enable">XR_KHR_vulkan_enable</a> extension.
+
+        This extension enables the use of the Vulkan graphics API in an OpenXR runtime. Without this extension, the OpenXR runtime may not be able to use any Vulkan swapchain images.
+
+        This extension provides the mechanisms necessary for an application to generate a valid ##XrGraphicsBindingVulkanKHR structure in order to create a Vulkan-based {@code XrSession}. Note that during this process the application is responsible for creating all the required Vulkan objects.
+
+        This extension also provides mechanisms for the application to interact with images acquired by calling #EnumerateSwapchainImages().
+
+        In order to expose the structures, types, and functions of this extension, you <b>must</b> define #USE_GRAPHICS_API_VULKAN before including the OpenXR platform header {@code openxr_platform.h}, in all portions of your library or application that include it.
         """
 
     IntConstant(
@@ -84,7 +92,7 @@ val KHR_vulkan_enable = "KHRVulkanEnable".nativeClassXR("KHR_vulkan_enable", typ
         XrInstance("instance", "an {@code XrInstance} handle previously created with #CreateInstance()."),
         XrSystemId("systemId", "an {@code XrSystemId} handle for the system which will be used to create a session."),
         AutoSize("buffer")..uint32_t("bufferCapacityInput", "the capacity of the {@code buffer}, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("bufferCountOutput", "a pointer to the count of characters written (including terminating {@code \\0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is 0."),
+        Check(1)..uint32_t.p("bufferCountOutput", "a pointer to the count of characters written (including terminating {@code \\0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is insufficient."),
         nullable..char.p("buffer", "a pointer to an array of characters, but <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0. The format of the output is a single space (ASCII {@code 0x20}) delimited string of extension names.")
     )
 
@@ -136,7 +144,7 @@ val KHR_vulkan_enable = "KHRVulkanEnable".nativeClassXR("KHR_vulkan_enable", typ
         XrInstance("instance", "an {@code XrInstance} handle previously created with #CreateInstance()."),
         XrSystemId("systemId", "an {@code XrSystemId} handle for the system which will be used to create a session."),
         AutoSize("buffer")..uint32_t("bufferCapacityInput", "the capacity of the {@code buffer}, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("bufferCountOutput", "a pointer to the count of characters written (including terminating {@code \\0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is 0."),
+        Check(1)..uint32_t.p("bufferCountOutput", "a pointer to the count of characters written (including terminating {@code \\0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is insufficient."),
         nullable..char.p("buffer", "a pointer to an array of characters, but <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0. The format of the output is a single space (ASCII {@code 0x20}) delimited string of extension names.")
     )
 

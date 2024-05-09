@@ -17,11 +17,36 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** The MSFT_scene_understanding extension. */
+/**
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_MSFT_scene_understanding">XR_MSFT_scene_understanding</a> extension.
+ * 
+ * <p>Scene understanding provides applications with a structured, high-level representation of the planes, meshes, and objects in the user’s environment, enabling the development of spatially-aware applications.</p>
+ * 
+ * <p>The application requests computation of a scene, receiving the list of scene components observed in the environment around the user. These scene components contain information such as:</p>
+ * 
+ * <ul>
+ * <li>The type of the discovered objects (wall, floor, ceiling, or other surface type).</li>
+ * <li>The planes and their bounds that represent the object.</li>
+ * <li>The visual and collider triangle meshes that represent the object.</li>
+ * </ul>
+ * 
+ * <p>The application can use this information to reason about the structure and location of the environment, to place holograms on surfaces, or render clues for grounding objects.</p>
+ * 
+ * <p>An application typically uses this extension in the following steps:</p>
+ * 
+ * <ul>
+ * <li>Create an {@code XrSceneObserverMSFT} handle to manage the system resource of the scene understanding compute.</li>
+ * <li>Start the scene compute by calling {@link #xrComputeNewSceneMSFT ComputeNewSceneMSFT} with {@link XrSceneBoundsMSFT} to specify the scan range and a list of {@code XrSceneComputeFeatureMSFT} features.</li>
+ * <li>Inspect the completion of computation by polling {@link #xrGetSceneComputeStateMSFT GetSceneComputeStateMSFT}.</li>
+ * <li>Once compute is completed, create an {@code XrSceneMSFT} handle to the result by calling {@link #xrCreateSceneMSFT CreateSceneMSFT}.</li>
+ * <li>Get properties of scene components using {@link #xrGetSceneComponentsMSFT GetSceneComponentsMSFT}.</li>
+ * <li>Locate scene components using {@link #xrLocateSceneComponentsMSFT LocateSceneComponentsMSFT}.</li>
+ * </ul>
+ */
 public class MSFTSceneUnderstanding {
 
     /** The extension specification version. */
-    public static final int XR_MSFT_scene_understanding_SPEC_VERSION = 1;
+    public static final int XR_MSFT_scene_understanding_SPEC_VERSION = 2;
 
     /** The extension name. */
     public static final String XR_MSFT_SCENE_UNDERSTANDING_EXTENSION_NAME = "XR_MSFT_scene_understanding";
@@ -348,7 +373,7 @@ public class MSFTSceneUnderstanding {
      *
      * @param instance           a handle to an {@code XrInstance}.
      * @param systemId           the {@code XrSystemId} whose scene compute features will be enumerated.
-     * @param featureCountOutput a pointer to the count of scene compute features, or a pointer to the required capacity in the case that {@code featureCapacityInput} is 0.
+     * @param featureCountOutput a pointer to the count of scene compute features, or a pointer to the required capacity in the case that {@code featureCapacityInput} is insufficient.
      * @param features           an array of {@code XrSceneComputeFeatureMSFT}.
      */
     @NativeType("XrResult")
@@ -537,6 +562,7 @@ public class MSFTSceneUnderstanding {
      * <li>{@link XR10#XR_ERROR_SESSION_LOST ERROR_SESSION_LOST}</li>
      * <li>{@link XR10#XR_ERROR_OUT_OF_MEMORY ERROR_OUT_OF_MEMORY}</li>
      * <li>{@link XR10#XR_ERROR_LIMIT_REACHED ERROR_LIMIT_REACHED}</li>
+     * <li>{@link #XR_ERROR_COMPUTE_NEW_SCENE_NOT_COMPLETED_MSFT ERROR_COMPUTE_NEW_SCENE_NOT_COMPLETED_MSFT}</li>
      * </ul></dd>
      * </dl>
      * 
@@ -735,7 +761,10 @@ public class MSFTSceneUnderstanding {
      * <li>{@link XR10#XR_ERROR_SESSION_LOST ERROR_SESSION_LOST}</li>
      * <li>{@link XR10#XR_ERROR_OUT_OF_MEMORY ERROR_OUT_OF_MEMORY}</li>
      * <li>{@link XR10#XR_ERROR_TIME_INVALID ERROR_TIME_INVALID}</li>
+     * <li>{@link #XR_ERROR_SCENE_COMPUTE_FEATURE_INCOMPATIBLE_MSFT ERROR_SCENE_COMPUTE_FEATURE_INCOMPATIBLE_MSFT}</li>
+     * <li>{@link #XR_ERROR_SCENE_COMPUTE_CONSISTENCY_MISMATCH_MSFT ERROR_SCENE_COMPUTE_CONSISTENCY_MISMATCH_MSFT}</li>
      * <li>{@link XR10#XR_ERROR_POSE_INVALID ERROR_POSE_INVALID}</li>
+     * <li>{@link #XR_ERROR_COMPUTE_NEW_SCENE_NOT_COMPLETED_MSFT ERROR_COMPUTE_NEW_SCENE_NOT_COMPLETED_MSFT}</li>
      * </ul></dd>
      * </dl>
      * 
@@ -870,6 +899,7 @@ public class MSFTSceneUnderstanding {
      * <li>{@link XR10#XR_ERROR_SESSION_LOST ERROR_SESSION_LOST}</li>
      * <li>{@link XR10#XR_ERROR_OUT_OF_MEMORY ERROR_OUT_OF_MEMORY}</li>
      * <li>{@link XR10#XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT}</li>
+     * <li>{@link #XR_ERROR_SCENE_COMPONENT_TYPE_MISMATCH_MSFT ERROR_SCENE_COMPONENT_TYPE_MISMATCH_MSFT}</li>
      * </ul></dd>
      * </dl>
      * 
@@ -1033,6 +1063,7 @@ public class MSFTSceneUnderstanding {
      * <li>{@link XR10#XR_ERROR_INSTANCE_LOST ERROR_INSTANCE_LOST}</li>
      * <li>{@link XR10#XR_ERROR_SESSION_LOST ERROR_SESSION_LOST}</li>
      * <li>{@link XR10#XR_ERROR_OUT_OF_MEMORY ERROR_OUT_OF_MEMORY}</li>
+     * <li>{@link #XR_ERROR_SCENE_MESH_BUFFER_ID_INVALID_MSFT ERROR_SCENE_MESH_BUFFER_ID_INVALID_MSFT}</li>
      * <li>{@link #XR_ERROR_SCENE_COMPONENT_ID_INVALID_MSFT ERROR_SCENE_COMPONENT_ID_INVALID_MSFT}</li>
      * </ul></dd>
      * </dl>

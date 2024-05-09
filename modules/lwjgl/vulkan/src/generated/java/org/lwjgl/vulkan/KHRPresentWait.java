@@ -25,14 +25,10 @@ import static org.lwjgl.system.JNI.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRSwapchain VK_KHR_swapchain}</li>
- * <li>Requires {@link KHRPresentId VK_KHR_present_id}</li>
- * </ul></dd>
+ * <dd>{@link KHRSwapchain VK_KHR_swapchain} and {@link KHRPresentId VK_KHR_present_id}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Keith Packard <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_present_wait]%20@keithp%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_present_wait%20extension%3E%3E">keithp</a></li>
+ * <li>Keith Packard <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_present_wait]%20@keithp%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_present_wait%20extension*">keithp</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -74,7 +70,7 @@ public class KHRPresentWait {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>When the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-presentWait">{@code presentWait}</a> feature is enabled, an application <b>can</b> wait for an image to be presented to the user by first specifying a presentId for the target presentation by adding a {@link VkPresentIdKHR} structure to the {@code pNext} chain of the {@link VkPresentInfoKHR} structure and then waiting for that presentation to complete by calling:</p>
+     * <p>When the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-presentWait">{@code presentWait}</a> feature is enabled, an application <b>can</b> wait for an image to be presented to the user by first specifying a presentId for the target presentation by adding a {@link VkPresentIdKHR} structure to the {@code pNext} chain of the {@link VkPresentInfoKHR} structure and then waiting for that presentation to complete by calling:</p>
      * 
      * <pre><code>
      * VkResult vkWaitForPresentKHR(
@@ -91,7 +87,7 @@ public class KHRPresentWait {
      * 
      * <p>When the presentation has completed, the presentId associated with the related {@code pSwapchains} entry will be increased in value so that it is at least equal to the value provided in the {@link VkPresentIdKHR} structure.</p>
      * 
-     * <p>There is no requirement for any precise timing relationship between the presentation of the image to the user and the update of the presentId value, but implementations <b>should</b> make this as close as possible to the presentation of the first pixel in the new image to the user.</p>
+     * <p>There is no requirement for any precise timing relationship between the presentation of the image to the user and the update of the presentId value, but implementations <b>should</b> make this as close as possible to the presentation of the first pixel in the next image being presented to the user.</p>
      * 
      * <p>The call to {@code vkWaitForPresentKHR} will block until either the presentId associated with {@code swapchain} is greater than or equal to {@code presentId}, or {@code timeout} nanoseconds passes. When the swapchain becomes OUT_OF_DATE, the call will either return {@link VK10#VK_SUCCESS SUCCESS} (if the image was delivered to the presentation engine and may have been presented to the user) or will return early with status {@link KHRSwapchain#VK_ERROR_OUT_OF_DATE_KHR ERROR_OUT_OF_DATE_KHR} (if the image was not presented to the user).</p>
      * 
@@ -101,7 +97,7 @@ public class KHRPresentWait {
      * 
      * <ul>
      * <li>{@code swapchain} <b>must</b> not be in the retired state</li>
-     * <li>The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-presentWait">{@code presentWait}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-presentWait">{@code presentWait}</a> feature <b>must</b> be enabled</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -109,7 +105,7 @@ public class KHRPresentWait {
      * <ul>
      * <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
      * <li>{@code swapchain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
-     * <li>Both of {@code device}, and {@code swapchain} <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
+     * <li>{@code swapchain} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
      * </ul>
      * 
      * <h5>Host Synchronization</h5>
@@ -125,12 +121,16 @@ public class KHRPresentWait {
      * <dd><ul>
      * <li>{@link VK10#VK_SUCCESS SUCCESS}</li>
      * <li>{@link VK10#VK_TIMEOUT TIMEOUT}</li>
+     * <li>{@link KHRSwapchain#VK_SUBOPTIMAL_KHR SUBOPTIMAL_KHR}</li>
      * </ul></dd>
      * <dt>On failure, this command returns</dt>
      * <dd><ul>
      * <li>{@link VK10#VK_ERROR_OUT_OF_HOST_MEMORY ERROR_OUT_OF_HOST_MEMORY}</li>
      * <li>{@link VK10#VK_ERROR_OUT_OF_DEVICE_MEMORY ERROR_OUT_OF_DEVICE_MEMORY}</li>
      * <li>{@link VK10#VK_ERROR_DEVICE_LOST ERROR_DEVICE_LOST}</li>
+     * <li>{@link KHRSwapchain#VK_ERROR_OUT_OF_DATE_KHR ERROR_OUT_OF_DATE_KHR}</li>
+     * <li>{@link KHRSurface#VK_ERROR_SURFACE_LOST_KHR ERROR_SURFACE_LOST_KHR}</li>
+     * <li>{@link EXTFullScreenExclusive#VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT}</li>
      * </ul></dd>
      * </dl>
      *

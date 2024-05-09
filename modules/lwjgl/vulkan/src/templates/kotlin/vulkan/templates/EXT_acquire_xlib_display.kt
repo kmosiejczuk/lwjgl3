@@ -30,14 +30,11 @@ val EXT_acquire_xlib_display = "EXTAcquireXlibDisplay".nativeClassVK("EXT_acquir
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link EXTDirectModeDisplay VK_EXT_direct_mode_display}</li>
-            </ul></dd>
+            <dd>{@link EXTDirectModeDisplay VK_EXT_direct_mode_display}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_acquire_xlib_display]%20@cubanismo%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_acquire_xlib_display%20extension%3E%3E">cubanismo</a></li>
+                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_acquire_xlib_display]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_acquire_xlib_display%20extension*">cubanismo</a></li>
             </ul></dd>
         </dl>
 
@@ -89,7 +86,7 @@ val EXT_acquire_xlib_display = "EXTAcquireXlibDisplay".nativeClassVK("EXT_acquir
 ￿    VkDisplayKHR                                display);</code></pre>
 
         <h5>Description</h5>
-        All permissions necessary to control the display are granted to the Vulkan instance associated with {@code physicalDevice} until the display is released or the X11 connection specified by {@code dpy} is terminated. Permission to access the display <b>may</b> be temporarily revoked during periods when the X11 server from which control was acquired itself loses access to {@code display}. During such periods, operations which require access to the display <b>must</b> fail with an approriate error code. If the X11 server associated with {@code dpy} does not own {@code display}, or if permission to access it has already been acquired by another entity, the call <b>must</b> return the error code #ERROR_INITIALIZATION_FAILED.
+        All permissions necessary to control the display are granted to the Vulkan instance associated with {@code physicalDevice} until the display is released or the X11 connection specified by {@code dpy} is terminated. Permission to access the display <b>may</b> be temporarily revoked during periods when the X11 server from which control was acquired itself loses access to {@code display}. During such periods, operations which require access to the display <b>must</b> fail with an appropriate error code. If the X11 server associated with {@code dpy} does not own {@code display}, or if permission to access it has already been acquired by another entity, the call <b>must</b> return the error code #ERROR_INITIALIZATION_FAILED.
 
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
         One example of when an X11 server loses access to a display is when it loses ownership of its virtual terminal.

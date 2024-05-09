@@ -166,8 +166,37 @@ public class Yoga {
         YGEdgeVertical   = 7,
         YGEdgeAll        = 8;
 
-    /** YGExperimentalFeature */
-    public static final int YGExperimentalFeatureWebFlexBasis = 0;
+    /**
+     * YGExperimentalFeature
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #YGExperimentalFeatureWebFlexBasis ExperimentalFeatureWebFlexBasis}</li>
+     * <li>{@link #YGExperimentalFeatureAbsolutePercentageAgainstPaddingEdge ExperimentalFeatureAbsolutePercentageAgainstPaddingEdge}</li>
+     * <li>{@link #YGExperimentalFeatureFixAbsoluteTrailingColumnMargin ExperimentalFeatureFixAbsoluteTrailingColumnMargin}</li>
+     * </ul>
+     */
+    public static final int
+        YGExperimentalFeatureWebFlexBasis                         = 0,
+        YGExperimentalFeatureAbsolutePercentageAgainstPaddingEdge = 1,
+        YGExperimentalFeatureFixAbsoluteTrailingColumnMargin      = 2;
+
+    /**
+     * YGGutter
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #YGGutterColumn GutterColumn}</li>
+     * <li>{@link #YGGutterRow GutterRow}</li>
+     * <li>{@link #YGGutterAll GutterAll}</li>
+     * </ul>
+     */
+    public static final int
+        YGGutterColumn = 0,
+        YGGutterRow    = 1,
+        YGGutterAll    = 2;
 
     /**
      * YGFlexDirection
@@ -566,10 +595,10 @@ public class Yoga {
         nYGNodeMarkDirty(node);
     }
 
-    // --- [ YGNodeMarkDirtyAndPropogateToDescendants ] ---
+    // --- [ YGNodeMarkDirtyAndPropagateToDescendants ] ---
 
-    /** Unsafe version of: {@link #YGNodeMarkDirtyAndPropogateToDescendants NodeMarkDirtyAndPropogateToDescendants} */
-    public static native void nYGNodeMarkDirtyAndPropogateToDescendants(long node);
+    /** Unsafe version of: {@link #YGNodeMarkDirtyAndPropagateToDescendants NodeMarkDirtyAndPropagateToDescendants} */
+    public static native void nYGNodeMarkDirtyAndPropagateToDescendants(long node);
 
     /**
      * Marks the current node and all its descendants as dirty.
@@ -577,11 +606,11 @@ public class Yoga {
      * <p>Intended to be used for Yoga benchmarks. Don't use in production, as calling {@link #YGNodeCalculateLayout NodeCalculateLayout} will cause the recalculation of each and every
      * node.</p>
      */
-    public static void YGNodeMarkDirtyAndPropogateToDescendants(@NativeType("YGNodeRef") long node) {
+    public static void YGNodeMarkDirtyAndPropagateToDescendants(@NativeType("YGNodeRef") long node) {
         if (CHECKS) {
             check(node);
         }
-        nYGNodeMarkDirtyAndPropogateToDescendants(node);
+        nYGNodeMarkDirtyAndPropagateToDescendants(node);
     }
 
     // --- [ YGFloatIsUndefined ] ---
@@ -786,18 +815,6 @@ public class Yoga {
             check(node);
         }
         return nYGNodeIsDirty(node);
-    }
-
-    // --- [ YGNodeLayoutGetDidUseLegacyFlag ] ---
-
-    public static native boolean nYGNodeLayoutGetDidUseLegacyFlag(long node);
-
-    @NativeType("bool")
-    public static boolean YGNodeLayoutGetDidUseLegacyFlag(@NativeType("YGNodeRef") long node) {
-        if (CHECKS) {
-            check(node);
-        }
-        return nYGNodeLayoutGetDidUseLegacyFlag(node);
     }
 
     // --- [ YGNodeStyleSetDirection ] ---
@@ -1320,6 +1337,32 @@ public class Yoga {
         return nYGNodeStyleGetBorder(node, edge);
     }
 
+    // --- [ YGNodeStyleSetGap ] ---
+
+    /** Unsafe version of: {@link #YGNodeStyleSetGap NodeStyleSetGap} */
+    public static native void nYGNodeStyleSetGap(long node, int gutter, float gapLength);
+
+    /** @param gutter one of:<br><table><tr><td>{@link #YGGutterColumn GutterColumn}</td><td>{@link #YGGutterRow GutterRow}</td><td>{@link #YGGutterAll GutterAll}</td></tr></table> */
+    public static void YGNodeStyleSetGap(@NativeType("YGNodeRef") long node, @NativeType("YGGutter") int gutter, float gapLength) {
+        if (CHECKS) {
+            check(node);
+        }
+        nYGNodeStyleSetGap(node, gutter, gapLength);
+    }
+
+    // --- [ YGNodeStyleGetGap ] ---
+
+    /** Unsafe version of: {@link #YGNodeStyleGetGap NodeStyleGetGap} */
+    public static native float nYGNodeStyleGetGap(long node, int gutter);
+
+    /** @param gutter one of:<br><table><tr><td>{@link #YGGutterColumn GutterColumn}</td><td>{@link #YGGutterRow GutterRow}</td><td>{@link #YGGutterAll GutterAll}</td></tr></table> */
+    public static float YGNodeStyleGetGap(@NativeType("YGNodeConstRef") long node, @NativeType("YGGutter") int gutter) {
+        if (CHECKS) {
+            check(node);
+        }
+        return nYGNodeStyleGetGap(node, gutter);
+    }
+
     // --- [ YGNodeStyleSetWidth ] ---
 
     public static native void nYGNodeStyleSetWidth(long node, float width);
@@ -1673,18 +1716,6 @@ public class Yoga {
         return nYGNodeLayoutGetHadOverflow(node);
     }
 
-    // --- [ YGNodeLayoutGetDidLegacyStretchFlagAffectLayout ] ---
-
-    public static native boolean nYGNodeLayoutGetDidLegacyStretchFlagAffectLayout(long node);
-
-    @NativeType("bool")
-    public static boolean YGNodeLayoutGetDidLegacyStretchFlagAffectLayout(@NativeType("YGNodeRef") long node) {
-        if (CHECKS) {
-            check(node);
-        }
-        return nYGNodeLayoutGetDidLegacyStretchFlagAffectLayout(node);
-    }
-
     // --- [ YGNodeLayoutGetMargin ] ---
 
     /** Unsafe version of: {@link #YGNodeLayoutGetMargin NodeLayoutGetMargin} */
@@ -1837,15 +1868,16 @@ public class Yoga {
         nYGConfigSetPointScaleFactor(config, pixelsInPoint);
     }
 
-    // --- [ YGConfigSetShouldDiffLayoutWithoutLegacyStretchBehaviour ] ---
+    // --- [ YGConfigGetUseLegacyStretchBehaviour ] ---
 
-    public static native void nYGConfigSetShouldDiffLayoutWithoutLegacyStretchBehaviour(long config, boolean shouldDiffLayout);
+    public static native boolean nYGConfigGetUseLegacyStretchBehaviour(long config);
 
-    public static void YGConfigSetShouldDiffLayoutWithoutLegacyStretchBehaviour(@NativeType("YGConfigRef") long config, @NativeType("bool") boolean shouldDiffLayout) {
+    @NativeType("bool")
+    public static boolean YGConfigGetUseLegacyStretchBehaviour(@NativeType("YGConfigRef") long config) {
         if (CHECKS) {
             check(config);
         }
-        nYGConfigSetShouldDiffLayoutWithoutLegacyStretchBehaviour(config, shouldDiffLayout);
+        return nYGConfigGetUseLegacyStretchBehaviour(config);
     }
 
     // --- [ YGConfigSetUseLegacyStretchBehaviour ] ---
@@ -1903,7 +1935,7 @@ public class Yoga {
     /** Unsafe version of: {@link #YGConfigSetExperimentalFeatureEnabled ConfigSetExperimentalFeatureEnabled} */
     public static native void nYGConfigSetExperimentalFeatureEnabled(long config, int feature, boolean enabled);
 
-    /** @param feature must be:<br><table><tr><td>{@link #YGExperimentalFeatureWebFlexBasis ExperimentalFeatureWebFlexBasis}</td></tr></table> */
+    /** @param feature one of:<br><table><tr><td>{@link #YGExperimentalFeatureWebFlexBasis ExperimentalFeatureWebFlexBasis}</td></tr><tr><td>{@link #YGExperimentalFeatureAbsolutePercentageAgainstPaddingEdge ExperimentalFeatureAbsolutePercentageAgainstPaddingEdge}</td></tr><tr><td>{@link #YGExperimentalFeatureFixAbsoluteTrailingColumnMargin ExperimentalFeatureFixAbsoluteTrailingColumnMargin}</td></tr></table> */
     public static void YGConfigSetExperimentalFeatureEnabled(@NativeType("YGConfigRef") long config, @NativeType("YGExperimentalFeature") int feature, @NativeType("bool") boolean enabled) {
         if (CHECKS) {
             check(config);
@@ -1916,7 +1948,7 @@ public class Yoga {
     /** Unsafe version of: {@link #YGConfigIsExperimentalFeatureEnabled ConfigIsExperimentalFeatureEnabled} */
     public static native boolean nYGConfigIsExperimentalFeatureEnabled(long config, int feature);
 
-    /** @param feature must be:<br><table><tr><td>{@link #YGExperimentalFeatureWebFlexBasis ExperimentalFeatureWebFlexBasis}</td></tr></table> */
+    /** @param feature one of:<br><table><tr><td>{@link #YGExperimentalFeatureWebFlexBasis ExperimentalFeatureWebFlexBasis}</td></tr><tr><td>{@link #YGExperimentalFeatureAbsolutePercentageAgainstPaddingEdge ExperimentalFeatureAbsolutePercentageAgainstPaddingEdge}</td></tr><tr><td>{@link #YGExperimentalFeatureFixAbsoluteTrailingColumnMargin ExperimentalFeatureFixAbsoluteTrailingColumnMargin}</td></tr></table> */
     @NativeType("bool")
     public static boolean YGConfigIsExperimentalFeatureEnabled(@NativeType("YGConfigRef") long config, @NativeType("YGExperimentalFeature") int feature) {
         if (CHECKS) {
@@ -2059,7 +2091,7 @@ public class Yoga {
     /** Unsafe version of: {@link #YGExperimentalFeatureToString ExperimentalFeatureToString} */
     public static native long nYGExperimentalFeatureToString(int value);
 
-    /** @param value must be:<br><table><tr><td>{@link #YGExperimentalFeatureWebFlexBasis ExperimentalFeatureWebFlexBasis}</td></tr></table> */
+    /** @param value one of:<br><table><tr><td>{@link #YGExperimentalFeatureWebFlexBasis ExperimentalFeatureWebFlexBasis}</td></tr><tr><td>{@link #YGExperimentalFeatureAbsolutePercentageAgainstPaddingEdge ExperimentalFeatureAbsolutePercentageAgainstPaddingEdge}</td></tr><tr><td>{@link #YGExperimentalFeatureFixAbsoluteTrailingColumnMargin ExperimentalFeatureFixAbsoluteTrailingColumnMargin}</td></tr></table> */
     @NativeType("char const *")
     public static String YGExperimentalFeatureToString(@NativeType("YGExperimentalFeature") int value) {
         long __result = nYGExperimentalFeatureToString(value);
@@ -2075,6 +2107,18 @@ public class Yoga {
     @NativeType("char const *")
     public static String YGFlexDirectionToString(@NativeType("YGFlexDirection") int value) {
         long __result = nYGFlexDirectionToString(value);
+        return memASCII(__result);
+    }
+
+    // --- [ YGGutterToString ] ---
+
+    /** Unsafe version of: {@link #YGGutterToString GutterToString} */
+    public static native long nYGGutterToString(int value);
+
+    /** @param value one of:<br><table><tr><td>{@link #YGGutterColumn GutterColumn}</td><td>{@link #YGGutterRow GutterRow}</td><td>{@link #YGGutterAll GutterAll}</td></tr></table> */
+    @NativeType("char const *")
+    public static String YGGutterToString(@NativeType("YGGutter") int value) {
+        long __result = nYGGutterToString(value);
         return memASCII(__result);
     }
 

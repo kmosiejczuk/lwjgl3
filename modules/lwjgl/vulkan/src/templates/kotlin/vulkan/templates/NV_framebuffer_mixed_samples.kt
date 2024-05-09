@@ -38,14 +38,9 @@ val NV_framebuffer_mixed_samples = "NVFramebufferMixedSamples".nativeClassVK("NV
             <dt><b>Revision</b></dt>
             <dd>1</dd>
 
-            <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
-
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jeff Bolz <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_framebuffer_mixed_samples]%20@jeffbolznv%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_framebuffer_mixed_samples%20extension%3E%3E">jeffbolznv</a></li>
+                <li>Jeff Bolz <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_framebuffer_mixed_samples]%20@jeffbolznv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_framebuffer_mixed_samples%20extension*">jeffbolznv</a></li>
             </ul></dd>
         </dl>
 
@@ -92,7 +87,7 @@ val NV_framebuffer_mixed_samples = "NVFramebufferMixedSamples".nativeClassVK("NV
         </ul>
 
         <h5>See Also</h5>
-        ##VkPipelineCoverageModulationStateCreateInfoNV
+        ##VkPipelineCoverageModulationStateCreateInfoNV, #CmdSetCoverageModulationModeNV()
         """,
 
         "COVERAGE_MODULATION_MODE_NONE_NV".."0",

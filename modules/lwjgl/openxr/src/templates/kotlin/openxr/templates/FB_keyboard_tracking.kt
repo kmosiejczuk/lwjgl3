@@ -11,7 +11,9 @@ import openxr.*
 val FB_keyboard_tracking = "FBKeyboardTracking".nativeClassXR("FB_keyboard_tracking", type = "instance", postfix = "FB") {
     documentation =
         """
-        The $templateName extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_FB_keyboard_tracking">XR_FB_keyboard_tracking</a> extension.
+
+        This extension allows the application to query the system for a supported trackable keyboard type and obtain an {@code XrSpace} handle to track it. It also provides relevant metadata about the keyboard itself, including bounds and a human readable identifier.
         """
 
     IntConstant(
@@ -41,7 +43,17 @@ val FB_keyboard_tracking = "FBKeyboardTracking".nativeClassXR("FB_keyboard_track
     )
 
     EnumConstant(
-        "XrKeyboardTrackingFlagBitsFB",
+        """
+        XrKeyboardTrackingFlagBitsFB - XrKeyboardTrackingFlagBitsFB
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#KEYBOARD_TRACKING_EXISTS_BIT_FB — indicates that the system has a physically tracked keyboard to report.  If not set then no other bits should be considered to be valid or meaningful.  If set either XR_KEYBOARD_TRACKING_LOCAL_BIT_FB or XR_KEYBOARD_TRACKING_REMOTE_BIT_FB must also be set.</li>
+            <li>#KEYBOARD_TRACKING_LOCAL_BIT_FB — indicates that the physically tracked keyboard is intended to be used in a local pairing with the system.  Mutally exclusive with XR_KEYBOARD_TRACKING_REMOTE_BIT_FB.</li>
+            <li>#KEYBOARD_TRACKING_REMOTE_BIT_FB — indicates that the physically tracked keyboard is intended to be used while paired to a separate remote computing device. Mutally exclusive with XR_KEYBOARD_TRACKING_LOCAL_BIT_FB.</li>
+            <li>#KEYBOARD_TRACKING_CONNECTED_BIT_FB — indicates that the physically tracked keyboard is actively connected to the headset and capable of sending key data</li>
+        </ul>
+        """,
 
         "KEYBOARD_TRACKING_EXISTS_BIT_FB".enum(0x00000001),
         "KEYBOARD_TRACKING_LOCAL_BIT_FB".enum(0x00000002),
@@ -50,7 +62,15 @@ val FB_keyboard_tracking = "FBKeyboardTracking".nativeClassXR("FB_keyboard_track
     )
 
     EnumConstant(
-        "XrKeyboardTrackingQueryFlagBitsFB",
+        """
+        XrKeyboardTrackingQueryFlagBitsFB - XrKeyboardTrackingQueryFlagBitsFB
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#KEYBOARD_TRACKING_QUERY_LOCAL_BIT_FB — indicates the query is for the physically tracked keyboard that is intended to be used in a local pairing with the System. Mutally exclusive with XR_KEYBOARD_TRACKING_QUERY_REMOTE_BIT_FB.</li>
+            <li>#KEYBOARD_TRACKING_QUERY_REMOTE_BIT_FB — indicates the query is for the physically tracked keyboard that may be connected to a separate remote computing device. Mutally exclusive with XR_KEYBOARD_TRACKING_QUERY_LOCAL_BIT_FB.</li>
+        </ul>
+        """,
 
         "KEYBOARD_TRACKING_QUERY_LOCAL_BIT_FB".enum(0x00000002),
         "KEYBOARD_TRACKING_QUERY_REMOTE_BIT_FB".enum(0x00000004)

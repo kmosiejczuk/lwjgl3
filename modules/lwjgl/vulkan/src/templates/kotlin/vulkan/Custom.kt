@@ -45,7 +45,7 @@ fun templateCustomization() {
 
         IntConstant(
             "The Vulkan registry version used to generate the LWJGL bindings.",
-            "HEADER_VERSION".."206"
+            "HEADER_VERSION".."246"
         )
 
         LongConstant(
@@ -101,7 +101,7 @@ fun templateCustomization() {
             noPrefix = true
         )
 
-        macro(expression = "(version >>> 22) & 0xFFF")..uint32_t(
+        macro(expression = "version & 0xFFF")..uint32_t(
             "VK_API_VERSION_PATCH",
             "Extracts the API patch version number from a packed version number.",
 

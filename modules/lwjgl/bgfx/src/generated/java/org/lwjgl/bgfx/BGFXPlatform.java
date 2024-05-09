@@ -31,7 +31,7 @@ public class BGFXPlatform {
     }
 
     /**
-     * Render frame. ({@code bgfx_renderer_frame_t})
+     * Render frame. ({@code bgfx_render_frame_t})
      * 
      * <h5>Enum values:</h5>
      * 
@@ -69,7 +69,7 @@ public class BGFXPlatform {
      *
      * @return current renderer state. One of: {@link #BGFX_RENDER_FRAME_NO_CONTEXT RENDER_FRAME_NO_CONTEXT} {@link #BGFX_RENDER_FRAME_RENDER RENDER_FRAME_RENDER} {@link #BGFX_RENDER_FRAME_TIMEOUT RENDER_FRAME_TIMEOUT} {@link #BGFX_RENDER_FRAME_EXITING RENDER_FRAME_EXITING} {@link #BGFX_RENDER_FRAME_COUNT RENDER_FRAME_COUNT}
      */
-    @NativeType("bgfx_renderer_frame_t")
+    @NativeType("bgfx_render_frame_t")
     public static int bgfx_render_frame(@NativeType("int32_t") int _msecs) {
         long __functionAddress = Functions.render_frame;
         return invokeI(_msecs, __functionAddress);
@@ -127,7 +127,7 @@ public class BGFXPlatform {
     @NativeType("uintptr_t")
     public static long bgfx_override_internal_texture_ptr(@NativeType("bgfx_texture_handle_t") short _handle, @NativeType("uintptr_t") long _ptr) {
         long __functionAddress = Functions.override_internal_texture_ptr;
-        return invokePP(_handle, _ptr, __functionAddress);
+        return invokeCPP(_handle, _ptr, __functionAddress);
     }
 
     // --- [ bgfx_override_internal_texture ] ---
@@ -135,7 +135,7 @@ public class BGFXPlatform {
     /** Unsafe version of: {@link #bgfx_override_internal_texture override_internal_texture} */
     public static long nbgfx_override_internal_texture(short _handle, short _width, short _height, byte _numMips, int _format, long _flags) {
         long __functionAddress = Functions.override_internal_texture;
-        return invokeJP(_handle, _width, _height, _numMips, _format, _flags, __functionAddress);
+        return invokeCCCUJP(_handle, _width, _height, _numMips, _format, _flags, __functionAddress);
     }
 
     /**

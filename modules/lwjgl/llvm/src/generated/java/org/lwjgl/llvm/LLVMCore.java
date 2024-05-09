@@ -32,6 +32,7 @@ public class LLVMCore {
         public static final long
             InitializeCore                             = apiGetFunctionAddress(LLVM, "LLVMInitializeCore"),
             Shutdown                                   = apiGetFunctionAddress(LLVM, "LLVMShutdown"),
+            GetVersion                                 = apiGetFunctionAddressOptional(LLVM, "LLVMGetVersion"),
             CreateMessage                              = apiGetFunctionAddress(LLVM, "LLVMCreateMessage"),
             DisposeMessage                             = apiGetFunctionAddress(LLVM, "LLVMDisposeMessage"),
             ContextCreate                              = apiGetFunctionAddress(LLVM, "LLVMContextCreate"),
@@ -40,8 +41,9 @@ public class LLVMCore {
             ContextGetDiagnosticHandler                = apiGetFunctionAddress(LLVM, "LLVMContextGetDiagnosticHandler"),
             ContextGetDiagnosticContext                = apiGetFunctionAddress(LLVM, "LLVMContextGetDiagnosticContext"),
             ContextSetYieldCallback                    = apiGetFunctionAddress(LLVM, "LLVMContextSetYieldCallback"),
-            ContextShouldDiscardValueNames             = LLVM.getFunctionAddress("LLVMContextShouldDiscardValueNames"),
-            ContextSetDiscardValueNames                = LLVM.getFunctionAddress("LLVMContextSetDiscardValueNames"),
+            ContextShouldDiscardValueNames             = apiGetFunctionAddressOptional(LLVM, "LLVMContextShouldDiscardValueNames"),
+            ContextSetDiscardValueNames                = apiGetFunctionAddressOptional(LLVM, "LLVMContextSetDiscardValueNames"),
+            ContextSetOpaquePointers                   = apiGetFunctionAddressOptional(LLVM, "LLVMContextSetOpaquePointers"),
             ContextDispose                             = apiGetFunctionAddress(LLVM, "LLVMContextDispose"),
             GetDiagInfoDescription                     = apiGetFunctionAddress(LLVM, "LLVMGetDiagInfoDescription"),
             GetDiagInfoSeverity                        = apiGetFunctionAddress(LLVM, "LLVMGetDiagInfoSeverity"),
@@ -52,69 +54,69 @@ public class LLVMCore {
             CreateEnumAttribute                        = apiGetFunctionAddress(LLVM, "LLVMCreateEnumAttribute"),
             GetEnumAttributeKind                       = apiGetFunctionAddress(LLVM, "LLVMGetEnumAttributeKind"),
             GetEnumAttributeValue                      = apiGetFunctionAddress(LLVM, "LLVMGetEnumAttributeValue"),
-            CreateTypeAttribute                        = LLVM.getFunctionAddress("LLVMCreateTypeAttribute"),
-            GetTypeAttributeValue                      = LLVM.getFunctionAddress("LLVMGetTypeAttributeValue"),
+            CreateTypeAttribute                        = apiGetFunctionAddressOptional(LLVM, "LLVMCreateTypeAttribute"),
+            GetTypeAttributeValue                      = apiGetFunctionAddressOptional(LLVM, "LLVMGetTypeAttributeValue"),
             CreateStringAttribute                      = apiGetFunctionAddress(LLVM, "LLVMCreateStringAttribute"),
             GetStringAttributeKind                     = apiGetFunctionAddress(LLVM, "LLVMGetStringAttributeKind"),
             GetStringAttributeValue                    = apiGetFunctionAddress(LLVM, "LLVMGetStringAttributeValue"),
             IsEnumAttribute                            = apiGetFunctionAddress(LLVM, "LLVMIsEnumAttribute"),
             IsStringAttribute                          = apiGetFunctionAddress(LLVM, "LLVMIsStringAttribute"),
-            IsTypeAttribute                            = LLVM.getFunctionAddress("LLVMIsTypeAttribute"),
-            GetTypeByName2                             = LLVM.getFunctionAddress("LLVMGetTypeByName2"),
+            IsTypeAttribute                            = apiGetFunctionAddressOptional(LLVM, "LLVMIsTypeAttribute"),
+            GetTypeByName2                             = apiGetFunctionAddressOptional(LLVM, "LLVMGetTypeByName2"),
             ModuleCreateWithName                       = apiGetFunctionAddress(LLVM, "LLVMModuleCreateWithName"),
             ModuleCreateWithNameInContext              = apiGetFunctionAddress(LLVM, "LLVMModuleCreateWithNameInContext"),
             CloneModule                                = apiGetFunctionAddress(LLVM, "LLVMCloneModule"),
             DisposeModule                              = apiGetFunctionAddress(LLVM, "LLVMDisposeModule"),
             GetModuleIdentifier                        = apiGetFunctionAddress(LLVM, "LLVMGetModuleIdentifier"),
             SetModuleIdentifier                        = apiGetFunctionAddress(LLVM, "LLVMSetModuleIdentifier"),
-            GetSourceFileName                          = LLVM.getFunctionAddress("LLVMGetSourceFileName"),
-            SetSourceFileName                          = LLVM.getFunctionAddress("LLVMSetSourceFileName"),
+            GetSourceFileName                          = apiGetFunctionAddressOptional(LLVM, "LLVMGetSourceFileName"),
+            SetSourceFileName                          = apiGetFunctionAddressOptional(LLVM, "LLVMSetSourceFileName"),
             GetDataLayoutStr                           = apiGetFunctionAddress(LLVM, "LLVMGetDataLayoutStr"),
             GetDataLayout                              = apiGetFunctionAddress(LLVM, "LLVMGetDataLayout"),
             SetDataLayout                              = apiGetFunctionAddress(LLVM, "LLVMSetDataLayout"),
             GetTarget                                  = apiGetFunctionAddress(LLVM, "LLVMGetTarget"),
             SetTarget                                  = apiGetFunctionAddress(LLVM, "LLVMSetTarget"),
-            CopyModuleFlagsMetadata                    = LLVM.getFunctionAddress("LLVMCopyModuleFlagsMetadata"),
-            DisposeModuleFlagsMetadata                 = LLVM.getFunctionAddress("LLVMDisposeModuleFlagsMetadata"),
-            ModuleFlagEntriesGetFlagBehavior           = LLVM.getFunctionAddress("LLVMModuleFlagEntriesGetFlagBehavior"),
-            ModuleFlagEntriesGetKey                    = LLVM.getFunctionAddress("LLVMModuleFlagEntriesGetKey"),
-            ModuleFlagEntriesGetMetadata               = LLVM.getFunctionAddress("LLVMModuleFlagEntriesGetMetadata"),
-            GetModuleFlag                              = LLVM.getFunctionAddress("LLVMGetModuleFlag"),
-            AddModuleFlag                              = LLVM.getFunctionAddress("LLVMAddModuleFlag"),
+            CopyModuleFlagsMetadata                    = apiGetFunctionAddressOptional(LLVM, "LLVMCopyModuleFlagsMetadata"),
+            DisposeModuleFlagsMetadata                 = apiGetFunctionAddressOptional(LLVM, "LLVMDisposeModuleFlagsMetadata"),
+            ModuleFlagEntriesGetFlagBehavior           = apiGetFunctionAddressOptional(LLVM, "LLVMModuleFlagEntriesGetFlagBehavior"),
+            ModuleFlagEntriesGetKey                    = apiGetFunctionAddressOptional(LLVM, "LLVMModuleFlagEntriesGetKey"),
+            ModuleFlagEntriesGetMetadata               = apiGetFunctionAddressOptional(LLVM, "LLVMModuleFlagEntriesGetMetadata"),
+            GetModuleFlag                              = apiGetFunctionAddressOptional(LLVM, "LLVMGetModuleFlag"),
+            AddModuleFlag                              = apiGetFunctionAddressOptional(LLVM, "LLVMAddModuleFlag"),
             DumpModule                                 = apiGetFunctionAddress(LLVM, "LLVMDumpModule"),
             PrintModuleToFile                          = apiGetFunctionAddress(LLVM, "LLVMPrintModuleToFile"),
             PrintModuleToString                        = apiGetFunctionAddress(LLVM, "LLVMPrintModuleToString"),
-            GetModuleInlineAsm                         = LLVM.getFunctionAddress("LLVMGetModuleInlineAsm"),
-            SetModuleInlineAsm2                        = LLVM.getFunctionAddress("LLVMSetModuleInlineAsm2"),
-            AppendModuleInlineAsm                      = LLVM.getFunctionAddress("LLVMAppendModuleInlineAsm"),
-            GetInlineAsm                               = LLVM.getFunctionAddress("LLVMGetInlineAsm"),
+            GetModuleInlineAsm                         = apiGetFunctionAddressOptional(LLVM, "LLVMGetModuleInlineAsm"),
+            SetModuleInlineAsm2                        = apiGetFunctionAddressOptional(LLVM, "LLVMSetModuleInlineAsm2"),
+            AppendModuleInlineAsm                      = apiGetFunctionAddressOptional(LLVM, "LLVMAppendModuleInlineAsm"),
+            GetInlineAsm                               = apiGetFunctionAddressOptional(LLVM, "LLVMGetInlineAsm"),
             GetModuleContext                           = apiGetFunctionAddress(LLVM, "LLVMGetModuleContext"),
             GetTypeByName                              = apiGetFunctionAddress(LLVM, "LLVMGetTypeByName"),
-            GetFirstNamedMetadata                      = LLVM.getFunctionAddress("LLVMGetFirstNamedMetadata"),
-            GetLastNamedMetadata                       = LLVM.getFunctionAddress("LLVMGetLastNamedMetadata"),
-            GetNextNamedMetadata                       = LLVM.getFunctionAddress("LLVMGetNextNamedMetadata"),
-            GetPreviousNamedMetadata                   = LLVM.getFunctionAddress("LLVMGetPreviousNamedMetadata"),
-            GetNamedMetadata                           = LLVM.getFunctionAddress("LLVMGetNamedMetadata"),
-            GetOrInsertNamedMetadata                   = LLVM.getFunctionAddress("LLVMGetOrInsertNamedMetadata"),
-            GetNamedMetadataName                       = LLVM.getFunctionAddress("LLVMGetNamedMetadataName"),
+            GetFirstNamedMetadata                      = apiGetFunctionAddressOptional(LLVM, "LLVMGetFirstNamedMetadata"),
+            GetLastNamedMetadata                       = apiGetFunctionAddressOptional(LLVM, "LLVMGetLastNamedMetadata"),
+            GetNextNamedMetadata                       = apiGetFunctionAddressOptional(LLVM, "LLVMGetNextNamedMetadata"),
+            GetPreviousNamedMetadata                   = apiGetFunctionAddressOptional(LLVM, "LLVMGetPreviousNamedMetadata"),
+            GetNamedMetadata                           = apiGetFunctionAddressOptional(LLVM, "LLVMGetNamedMetadata"),
+            GetOrInsertNamedMetadata                   = apiGetFunctionAddressOptional(LLVM, "LLVMGetOrInsertNamedMetadata"),
+            GetNamedMetadataName                       = apiGetFunctionAddressOptional(LLVM, "LLVMGetNamedMetadataName"),
             GetNamedMetadataNumOperands                = apiGetFunctionAddress(LLVM, "LLVMGetNamedMetadataNumOperands"),
             GetNamedMetadataOperands                   = apiGetFunctionAddress(LLVM, "LLVMGetNamedMetadataOperands"),
             AddNamedMetadataOperand                    = apiGetFunctionAddress(LLVM, "LLVMAddNamedMetadataOperand"),
-            GetDebugLocDirectory                       = LLVM.getFunctionAddress("LLVMGetDebugLocDirectory"),
-            GetDebugLocFilename                        = LLVM.getFunctionAddress("LLVMGetDebugLocFilename"),
-            GetDebugLocLine                            = LLVM.getFunctionAddress("LLVMGetDebugLocLine"),
-            GetDebugLocColumn                          = LLVM.getFunctionAddress("LLVMGetDebugLocColumn"),
+            GetDebugLocDirectory                       = apiGetFunctionAddressOptional(LLVM, "LLVMGetDebugLocDirectory"),
+            GetDebugLocFilename                        = apiGetFunctionAddressOptional(LLVM, "LLVMGetDebugLocFilename"),
+            GetDebugLocLine                            = apiGetFunctionAddressOptional(LLVM, "LLVMGetDebugLocLine"),
+            GetDebugLocColumn                          = apiGetFunctionAddressOptional(LLVM, "LLVMGetDebugLocColumn"),
             AddFunction                                = apiGetFunctionAddress(LLVM, "LLVMAddFunction"),
             GetNamedFunction                           = apiGetFunctionAddress(LLVM, "LLVMGetNamedFunction"),
             GetFirstFunction                           = apiGetFunctionAddress(LLVM, "LLVMGetFirstFunction"),
             GetLastFunction                            = apiGetFunctionAddress(LLVM, "LLVMGetLastFunction"),
             GetNextFunction                            = apiGetFunctionAddress(LLVM, "LLVMGetNextFunction"),
             GetPreviousFunction                        = apiGetFunctionAddress(LLVM, "LLVMGetPreviousFunction"),
-            SetModuleInlineAsm                         = LLVM.getFunctionAddress("LLVMSetModuleInlineAsm"),
+            SetModuleInlineAsm                         = apiGetFunctionAddressOptional(LLVM, "LLVMSetModuleInlineAsm"),
             GetTypeKind                                = apiGetFunctionAddress(LLVM, "LLVMGetTypeKind"),
             TypeIsSized                                = apiGetFunctionAddress(LLVM, "LLVMTypeIsSized"),
             GetTypeContext                             = apiGetFunctionAddress(LLVM, "LLVMGetTypeContext"),
-            DumpType                                   = LLVM.getFunctionAddress("LLVMDumpType"),
+            DumpType                                   = apiGetFunctionAddressOptional(LLVM, "LLVMDumpType"),
             PrintTypeToString                          = apiGetFunctionAddress(LLVM, "LLVMPrintTypeToString"),
             Int1TypeInContext                          = apiGetFunctionAddress(LLVM, "LLVMInt1TypeInContext"),
             Int8TypeInContext                          = apiGetFunctionAddress(LLVM, "LLVMInt8TypeInContext"),
@@ -132,14 +134,14 @@ public class LLVMCore {
             IntType                                    = apiGetFunctionAddress(LLVM, "LLVMIntType"),
             GetIntTypeWidth                            = apiGetFunctionAddress(LLVM, "LLVMGetIntTypeWidth"),
             HalfTypeInContext                          = apiGetFunctionAddress(LLVM, "LLVMHalfTypeInContext"),
-            BFloatTypeInContext                        = LLVM.getFunctionAddress("LLVMBFloatTypeInContext"),
+            BFloatTypeInContext                        = apiGetFunctionAddressOptional(LLVM, "LLVMBFloatTypeInContext"),
             FloatTypeInContext                         = apiGetFunctionAddress(LLVM, "LLVMFloatTypeInContext"),
             DoubleTypeInContext                        = apiGetFunctionAddress(LLVM, "LLVMDoubleTypeInContext"),
             X86FP80TypeInContext                       = apiGetFunctionAddress(LLVM, "LLVMX86FP80TypeInContext"),
             FP128TypeInContext                         = apiGetFunctionAddress(LLVM, "LLVMFP128TypeInContext"),
             PPCFP128TypeInContext                      = apiGetFunctionAddress(LLVM, "LLVMPPCFP128TypeInContext"),
             HalfType                                   = apiGetFunctionAddress(LLVM, "LLVMHalfType"),
-            BFloatType                                 = LLVM.getFunctionAddress("LLVMBFloatType"),
+            BFloatType                                 = apiGetFunctionAddressOptional(LLVM, "LLVMBFloatType"),
             FloatType                                  = apiGetFunctionAddress(LLVM, "LLVMFloatType"),
             DoubleType                                 = apiGetFunctionAddress(LLVM, "LLVMDoubleType"),
             X86FP80Type                                = apiGetFunctionAddress(LLVM, "LLVMX86FP80Type"),
@@ -160,37 +162,40 @@ public class LLVMCore {
             StructGetTypeAtIndex                       = apiGetFunctionAddress(LLVM, "LLVMStructGetTypeAtIndex"),
             IsPackedStruct                             = apiGetFunctionAddress(LLVM, "LLVMIsPackedStruct"),
             IsOpaqueStruct                             = apiGetFunctionAddress(LLVM, "LLVMIsOpaqueStruct"),
-            IsLiteralStruct                            = LLVM.getFunctionAddress("LLVMIsLiteralStruct"),
+            IsLiteralStruct                            = apiGetFunctionAddressOptional(LLVM, "LLVMIsLiteralStruct"),
             GetElementType                             = apiGetFunctionAddress(LLVM, "LLVMGetElementType"),
             GetSubtypes                                = apiGetFunctionAddress(LLVM, "LLVMGetSubtypes"),
             GetNumContainedTypes                       = apiGetFunctionAddress(LLVM, "LLVMGetNumContainedTypes"),
             ArrayType                                  = apiGetFunctionAddress(LLVM, "LLVMArrayType"),
             GetArrayLength                             = apiGetFunctionAddress(LLVM, "LLVMGetArrayLength"),
             PointerType                                = apiGetFunctionAddress(LLVM, "LLVMPointerType"),
+            PointerTypeIsOpaque                        = apiGetFunctionAddressOptional(LLVM, "LLVMPointerTypeIsOpaque"),
+            PointerTypeInContext                       = apiGetFunctionAddressOptional(LLVM, "LLVMPointerTypeInContext"),
             GetPointerAddressSpace                     = apiGetFunctionAddress(LLVM, "LLVMGetPointerAddressSpace"),
             VectorType                                 = apiGetFunctionAddress(LLVM, "LLVMVectorType"),
-            ScalableVectorType                         = LLVM.getFunctionAddress("LLVMScalableVectorType"),
+            ScalableVectorType                         = apiGetFunctionAddressOptional(LLVM, "LLVMScalableVectorType"),
             GetVectorSize                              = apiGetFunctionAddress(LLVM, "LLVMGetVectorSize"),
             VoidTypeInContext                          = apiGetFunctionAddress(LLVM, "LLVMVoidTypeInContext"),
             LabelTypeInContext                         = apiGetFunctionAddress(LLVM, "LLVMLabelTypeInContext"),
             X86MMXTypeInContext                        = apiGetFunctionAddress(LLVM, "LLVMX86MMXTypeInContext"),
-            X86AMXTypeInContext                        = LLVM.getFunctionAddress("LLVMX86AMXTypeInContext"),
-            TokenTypeInContext                         = LLVM.getFunctionAddress("LLVMTokenTypeInContext"),
-            MetadataTypeInContext                      = LLVM.getFunctionAddress("LLVMMetadataTypeInContext"),
+            X86AMXTypeInContext                        = apiGetFunctionAddressOptional(LLVM, "LLVMX86AMXTypeInContext"),
+            TokenTypeInContext                         = apiGetFunctionAddressOptional(LLVM, "LLVMTokenTypeInContext"),
+            MetadataTypeInContext                      = apiGetFunctionAddressOptional(LLVM, "LLVMMetadataTypeInContext"),
             VoidType                                   = apiGetFunctionAddress(LLVM, "LLVMVoidType"),
             LabelType                                  = apiGetFunctionAddress(LLVM, "LLVMLabelType"),
             X86MMXType                                 = apiGetFunctionAddress(LLVM, "LLVMX86MMXType"),
-            X86AMXType                                 = LLVM.getFunctionAddress("LLVMX86AMXType"),
+            X86AMXType                                 = apiGetFunctionAddressOptional(LLVM, "LLVMX86AMXType"),
+            TargetExtTypeInContext                     = apiGetFunctionAddressOptional(LLVM, "LLVMTargetExtTypeInContext"),
             TypeOf                                     = apiGetFunctionAddress(LLVM, "LLVMTypeOf"),
             GetValueKind                               = apiGetFunctionAddress(LLVM, "LLVMGetValueKind"),
-            GetValueName2                              = LLVM.getFunctionAddress("LLVMGetValueName2"),
-            SetValueName2                              = LLVM.getFunctionAddress("LLVMSetValueName2"),
+            GetValueName2                              = apiGetFunctionAddressOptional(LLVM, "LLVMGetValueName2"),
+            SetValueName2                              = apiGetFunctionAddressOptional(LLVM, "LLVMSetValueName2"),
             DumpValue                                  = apiGetFunctionAddress(LLVM, "LLVMDumpValue"),
             PrintValueToString                         = apiGetFunctionAddress(LLVM, "LLVMPrintValueToString"),
             ReplaceAllUsesWith                         = apiGetFunctionAddress(LLVM, "LLVMReplaceAllUsesWith"),
             IsConstant                                 = apiGetFunctionAddress(LLVM, "LLVMIsConstant"),
             IsUndef                                    = apiGetFunctionAddress(LLVM, "LLVMIsUndef"),
-            IsPoison                                   = LLVM.getFunctionAddress("LLVMIsPoison"),
+            IsPoison                                   = apiGetFunctionAddressOptional(LLVM, "LLVMIsPoison"),
             IsAArgument                                = apiGetFunctionAddress(LLVM, "LLVMIsAArgument"),
             IsABasicBlock                              = apiGetFunctionAddress(LLVM, "LLVMIsABasicBlock"),
             IsAInlineAsm                               = apiGetFunctionAddress(LLVM, "LLVMIsAInlineAsm"),
@@ -211,7 +216,7 @@ public class LLVMCore {
             IsAConstantVector                          = apiGetFunctionAddress(LLVM, "LLVMIsAConstantVector"),
             IsAGlobalValue                             = apiGetFunctionAddress(LLVM, "LLVMIsAGlobalValue"),
             IsAGlobalAlias                             = apiGetFunctionAddress(LLVM, "LLVMIsAGlobalAlias"),
-            IsAGlobalIFunc                             = LLVM.getFunctionAddress("LLVMIsAGlobalIFunc"),
+            IsAGlobalIFunc                             = apiGetFunctionAddressOptional(LLVM, "LLVMIsAGlobalIFunc"),
             IsAGlobalObject                            = apiGetFunctionAddress(LLVM, "LLVMIsAGlobalObject"),
             IsAFunction                                = apiGetFunctionAddress(LLVM, "LLVMIsAFunction"),
             IsAGlobalVariable                          = apiGetFunctionAddress(LLVM, "LLVMIsAGlobalVariable"),
@@ -221,9 +226,9 @@ public class LLVMCore {
             IsACallInst                                = apiGetFunctionAddress(LLVM, "LLVMIsACallInst"),
             IsAIntrinsicInst                           = apiGetFunctionAddress(LLVM, "LLVMIsAIntrinsicInst"),
             IsADbgInfoIntrinsic                        = apiGetFunctionAddress(LLVM, "LLVMIsADbgInfoIntrinsic"),
-            IsADbgVariableIntrinsic                    = LLVM.getFunctionAddress("LLVMIsADbgVariableIntrinsic"),
+            IsADbgVariableIntrinsic                    = apiGetFunctionAddressOptional(LLVM, "LLVMIsADbgVariableIntrinsic"),
             IsADbgDeclareInst                          = apiGetFunctionAddress(LLVM, "LLVMIsADbgDeclareInst"),
-            IsADbgLabelInst                            = LLVM.getFunctionAddress("LLVMIsADbgLabelInst"),
+            IsADbgLabelInst                            = apiGetFunctionAddressOptional(LLVM, "LLVMIsADbgLabelInst"),
             IsAMemIntrinsic                            = apiGetFunctionAddress(LLVM, "LLVMIsAMemIntrinsic"),
             IsAMemCpyInst                              = apiGetFunctionAddress(LLVM, "LLVMIsAMemCpyInst"),
             IsAMemMoveInst                             = apiGetFunctionAddress(LLVM, "LLVMIsAMemMoveInst"),
@@ -286,7 +291,7 @@ public class LLVMCore {
             ConstNull                                  = apiGetFunctionAddress(LLVM, "LLVMConstNull"),
             ConstAllOnes                               = apiGetFunctionAddress(LLVM, "LLVMConstAllOnes"),
             GetUndef                                   = apiGetFunctionAddress(LLVM, "LLVMGetUndef"),
-            GetPoison                                  = LLVM.getFunctionAddress("LLVMGetPoison"),
+            GetPoison                                  = apiGetFunctionAddressOptional(LLVM, "LLVMGetPoison"),
             IsNull                                     = apiGetFunctionAddress(LLVM, "LLVMIsNull"),
             ConstPointerNull                           = apiGetFunctionAddress(LLVM, "LLVMConstPointerNull"),
             ConstInt                                   = apiGetFunctionAddress(LLVM, "LLVMConstInt"),
@@ -307,6 +312,7 @@ public class LLVMCore {
             ConstStruct                                = apiGetFunctionAddress(LLVM, "LLVMConstStruct"),
             ConstArray                                 = apiGetFunctionAddress(LLVM, "LLVMConstArray"),
             ConstNamedStruct                           = apiGetFunctionAddress(LLVM, "LLVMConstNamedStruct"),
+            GetAggregateElement                        = apiGetFunctionAddressOptional(LLVM, "LLVMGetAggregateElement"),
             GetElementAsConstant                       = apiGetFunctionAddress(LLVM, "LLVMGetElementAsConstant"),
             ConstVector                                = apiGetFunctionAddress(LLVM, "LLVMConstVector"),
             GetConstOpcode                             = apiGetFunctionAddress(LLVM, "LLVMGetConstOpcode"),
@@ -315,28 +321,28 @@ public class LLVMCore {
             ConstNeg                                   = apiGetFunctionAddress(LLVM, "LLVMConstNeg"),
             ConstNSWNeg                                = apiGetFunctionAddress(LLVM, "LLVMConstNSWNeg"),
             ConstNUWNeg                                = apiGetFunctionAddress(LLVM, "LLVMConstNUWNeg"),
-            ConstFNeg                                  = apiGetFunctionAddress(LLVM, "LLVMConstFNeg"),
+            ConstFNeg                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstFNeg"),
             ConstNot                                   = apiGetFunctionAddress(LLVM, "LLVMConstNot"),
             ConstAdd                                   = apiGetFunctionAddress(LLVM, "LLVMConstAdd"),
             ConstNSWAdd                                = apiGetFunctionAddress(LLVM, "LLVMConstNSWAdd"),
             ConstNUWAdd                                = apiGetFunctionAddress(LLVM, "LLVMConstNUWAdd"),
-            ConstFAdd                                  = apiGetFunctionAddress(LLVM, "LLVMConstFAdd"),
+            ConstFAdd                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstFAdd"),
             ConstSub                                   = apiGetFunctionAddress(LLVM, "LLVMConstSub"),
             ConstNSWSub                                = apiGetFunctionAddress(LLVM, "LLVMConstNSWSub"),
             ConstNUWSub                                = apiGetFunctionAddress(LLVM, "LLVMConstNUWSub"),
-            ConstFSub                                  = apiGetFunctionAddress(LLVM, "LLVMConstFSub"),
+            ConstFSub                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstFSub"),
             ConstMul                                   = apiGetFunctionAddress(LLVM, "LLVMConstMul"),
             ConstNSWMul                                = apiGetFunctionAddress(LLVM, "LLVMConstNSWMul"),
             ConstNUWMul                                = apiGetFunctionAddress(LLVM, "LLVMConstNUWMul"),
-            ConstFMul                                  = apiGetFunctionAddress(LLVM, "LLVMConstFMul"),
-            ConstUDiv                                  = apiGetFunctionAddress(LLVM, "LLVMConstUDiv"),
-            ConstExactUDiv                             = apiGetFunctionAddress(LLVM, "LLVMConstExactUDiv"),
-            ConstSDiv                                  = apiGetFunctionAddress(LLVM, "LLVMConstSDiv"),
-            ConstExactSDiv                             = apiGetFunctionAddress(LLVM, "LLVMConstExactSDiv"),
-            ConstFDiv                                  = apiGetFunctionAddress(LLVM, "LLVMConstFDiv"),
-            ConstURem                                  = apiGetFunctionAddress(LLVM, "LLVMConstURem"),
-            ConstSRem                                  = apiGetFunctionAddress(LLVM, "LLVMConstSRem"),
-            ConstFRem                                  = apiGetFunctionAddress(LLVM, "LLVMConstFRem"),
+            ConstFMul                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstFMul"),
+            ConstUDiv                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstUDiv"),
+            ConstExactUDiv                             = apiGetFunctionAddressOptional(LLVM, "LLVMConstExactUDiv"),
+            ConstSDiv                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstSDiv"),
+            ConstExactSDiv                             = apiGetFunctionAddressOptional(LLVM, "LLVMConstExactSDiv"),
+            ConstFDiv                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstFDiv"),
+            ConstURem                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstURem"),
+            ConstSRem                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstSRem"),
+            ConstFRem                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstFRem"),
             ConstAnd                                   = apiGetFunctionAddress(LLVM, "LLVMConstAnd"),
             ConstOr                                    = apiGetFunctionAddress(LLVM, "LLVMConstOr"),
             ConstXor                                   = apiGetFunctionAddress(LLVM, "LLVMConstXor"),
@@ -345,10 +351,10 @@ public class LLVMCore {
             ConstShl                                   = apiGetFunctionAddress(LLVM, "LLVMConstShl"),
             ConstLShr                                  = apiGetFunctionAddress(LLVM, "LLVMConstLShr"),
             ConstAShr                                  = apiGetFunctionAddress(LLVM, "LLVMConstAShr"),
-            ConstGEP                                   = apiGetFunctionAddress(LLVM, "LLVMConstGEP"),
-            ConstGEP2                                  = LLVM.getFunctionAddress("LLVMConstGEP2"),
-            ConstInBoundsGEP                           = apiGetFunctionAddress(LLVM, "LLVMConstInBoundsGEP"),
-            ConstInBoundsGEP2                          = LLVM.getFunctionAddress("LLVMConstInBoundsGEP2"),
+            ConstGEP                                   = apiGetFunctionAddressOptional(LLVM, "LLVMConstGEP"),
+            ConstGEP2                                  = apiGetFunctionAddressOptional(LLVM, "LLVMConstGEP2"),
+            ConstInBoundsGEP                           = apiGetFunctionAddressOptional(LLVM, "LLVMConstInBoundsGEP"),
+            ConstInBoundsGEP2                          = apiGetFunctionAddressOptional(LLVM, "LLVMConstInBoundsGEP2"),
             ConstTrunc                                 = apiGetFunctionAddress(LLVM, "LLVMConstTrunc"),
             ConstSExt                                  = apiGetFunctionAddress(LLVM, "LLVMConstSExt"),
             ConstZExt                                  = apiGetFunctionAddress(LLVM, "LLVMConstZExt"),
@@ -372,9 +378,9 @@ public class LLVMCore {
             ConstExtractElement                        = apiGetFunctionAddress(LLVM, "LLVMConstExtractElement"),
             ConstInsertElement                         = apiGetFunctionAddress(LLVM, "LLVMConstInsertElement"),
             ConstShuffleVector                         = apiGetFunctionAddress(LLVM, "LLVMConstShuffleVector"),
-            ConstExtractValue                          = apiGetFunctionAddress(LLVM, "LLVMConstExtractValue"),
-            ConstInsertValue                           = apiGetFunctionAddress(LLVM, "LLVMConstInsertValue"),
-            BlockAddress                               = LLVM.getFunctionAddress("LLVMBlockAddress"),
+            ConstExtractValue                          = apiGetFunctionAddressOptional(LLVM, "LLVMConstExtractValue"),
+            ConstInsertValue                           = apiGetFunctionAddressOptional(LLVM, "LLVMConstInsertValue"),
+            BlockAddress                               = apiGetFunctionAddressOptional(LLVM, "LLVMBlockAddress"),
             ConstInlineAsm                             = apiGetFunctionAddress(LLVM, "LLVMConstInlineAsm"),
             GetGlobalParent                            = apiGetFunctionAddress(LLVM, "LLVMGetGlobalParent"),
             IsDeclaration                              = apiGetFunctionAddress(LLVM, "LLVMIsDeclaration"),
@@ -386,20 +392,20 @@ public class LLVMCore {
             SetVisibility                              = apiGetFunctionAddress(LLVM, "LLVMSetVisibility"),
             GetDLLStorageClass                         = apiGetFunctionAddress(LLVM, "LLVMGetDLLStorageClass"),
             SetDLLStorageClass                         = apiGetFunctionAddress(LLVM, "LLVMSetDLLStorageClass"),
-            GetUnnamedAddress                          = LLVM.getFunctionAddress("LLVMGetUnnamedAddress"),
-            SetUnnamedAddress                          = LLVM.getFunctionAddress("LLVMSetUnnamedAddress"),
-            GlobalGetValueType                         = LLVM.getFunctionAddress("LLVMGlobalGetValueType"),
+            GetUnnamedAddress                          = apiGetFunctionAddressOptional(LLVM, "LLVMGetUnnamedAddress"),
+            SetUnnamedAddress                          = apiGetFunctionAddressOptional(LLVM, "LLVMSetUnnamedAddress"),
+            GlobalGetValueType                         = apiGetFunctionAddressOptional(LLVM, "LLVMGlobalGetValueType"),
             HasUnnamedAddr                             = apiGetFunctionAddress(LLVM, "LLVMHasUnnamedAddr"),
             SetUnnamedAddr                             = apiGetFunctionAddress(LLVM, "LLVMSetUnnamedAddr"),
             GetAlignment                               = apiGetFunctionAddress(LLVM, "LLVMGetAlignment"),
             SetAlignment                               = apiGetFunctionAddress(LLVM, "LLVMSetAlignment"),
-            GlobalSetMetadata                          = LLVM.getFunctionAddress("LLVMGlobalSetMetadata"),
-            GlobalEraseMetadata                        = LLVM.getFunctionAddress("LLVMGlobalEraseMetadata"),
-            GlobalClearMetadata                        = LLVM.getFunctionAddress("LLVMGlobalClearMetadata"),
-            GlobalCopyAllMetadata                      = LLVM.getFunctionAddress("LLVMGlobalCopyAllMetadata"),
-            DisposeValueMetadataEntries                = LLVM.getFunctionAddress("LLVMDisposeValueMetadataEntries"),
-            ValueMetadataEntriesGetKind                = LLVM.getFunctionAddress("LLVMValueMetadataEntriesGetKind"),
-            ValueMetadataEntriesGetMetadata            = LLVM.getFunctionAddress("LLVMValueMetadataEntriesGetMetadata"),
+            GlobalSetMetadata                          = apiGetFunctionAddressOptional(LLVM, "LLVMGlobalSetMetadata"),
+            GlobalEraseMetadata                        = apiGetFunctionAddressOptional(LLVM, "LLVMGlobalEraseMetadata"),
+            GlobalClearMetadata                        = apiGetFunctionAddressOptional(LLVM, "LLVMGlobalClearMetadata"),
+            GlobalCopyAllMetadata                      = apiGetFunctionAddressOptional(LLVM, "LLVMGlobalCopyAllMetadata"),
+            DisposeValueMetadataEntries                = apiGetFunctionAddressOptional(LLVM, "LLVMDisposeValueMetadataEntries"),
+            ValueMetadataEntriesGetKind                = apiGetFunctionAddressOptional(LLVM, "LLVMValueMetadataEntriesGetKind"),
+            ValueMetadataEntriesGetMetadata            = apiGetFunctionAddressOptional(LLVM, "LLVMValueMetadataEntriesGetMetadata"),
             AddGlobal                                  = apiGetFunctionAddress(LLVM, "LLVMAddGlobal"),
             AddGlobalInAddressSpace                    = apiGetFunctionAddress(LLVM, "LLVMAddGlobalInAddressSpace"),
             GetNamedGlobal                             = apiGetFunctionAddress(LLVM, "LLVMGetNamedGlobal"),
@@ -418,26 +424,27 @@ public class LLVMCore {
             SetThreadLocalMode                         = apiGetFunctionAddress(LLVM, "LLVMSetThreadLocalMode"),
             IsExternallyInitialized                    = apiGetFunctionAddress(LLVM, "LLVMIsExternallyInitialized"),
             SetExternallyInitialized                   = apiGetFunctionAddress(LLVM, "LLVMSetExternallyInitialized"),
-            AddAlias                                   = apiGetFunctionAddress(LLVM, "LLVMAddAlias"),
-            GetNamedGlobalAlias                        = LLVM.getFunctionAddress("LLVMGetNamedGlobalAlias"),
-            GetFirstGlobalAlias                        = LLVM.getFunctionAddress("LLVMGetFirstGlobalAlias"),
-            GetLastGlobalAlias                         = LLVM.getFunctionAddress("LLVMGetLastGlobalAlias"),
-            GetNextGlobalAlias                         = LLVM.getFunctionAddress("LLVMGetNextGlobalAlias"),
-            GetPreviousGlobalAlias                     = LLVM.getFunctionAddress("LLVMGetPreviousGlobalAlias"),
-            AliasGetAliasee                            = LLVM.getFunctionAddress("LLVMAliasGetAliasee"),
-            AliasSetAliasee                            = LLVM.getFunctionAddress("LLVMAliasSetAliasee"),
+            AddAlias                                   = apiGetFunctionAddressOptional(LLVM, "LLVMAddAlias"),
+            AddAlias2                                  = apiGetFunctionAddressOptional(LLVM, "LLVMAddAlias2"),
+            GetNamedGlobalAlias                        = apiGetFunctionAddressOptional(LLVM, "LLVMGetNamedGlobalAlias"),
+            GetFirstGlobalAlias                        = apiGetFunctionAddressOptional(LLVM, "LLVMGetFirstGlobalAlias"),
+            GetLastGlobalAlias                         = apiGetFunctionAddressOptional(LLVM, "LLVMGetLastGlobalAlias"),
+            GetNextGlobalAlias                         = apiGetFunctionAddressOptional(LLVM, "LLVMGetNextGlobalAlias"),
+            GetPreviousGlobalAlias                     = apiGetFunctionAddressOptional(LLVM, "LLVMGetPreviousGlobalAlias"),
+            AliasGetAliasee                            = apiGetFunctionAddressOptional(LLVM, "LLVMAliasGetAliasee"),
+            AliasSetAliasee                            = apiGetFunctionAddressOptional(LLVM, "LLVMAliasSetAliasee"),
             DeleteFunction                             = apiGetFunctionAddress(LLVM, "LLVMDeleteFunction"),
             HasPersonalityFn                           = apiGetFunctionAddress(LLVM, "LLVMHasPersonalityFn"),
             GetPersonalityFn                           = apiGetFunctionAddress(LLVM, "LLVMGetPersonalityFn"),
             SetPersonalityFn                           = apiGetFunctionAddress(LLVM, "LLVMSetPersonalityFn"),
-            LookupIntrinsicID                          = LLVM.getFunctionAddress("LLVMLookupIntrinsicID"),
+            LookupIntrinsicID                          = apiGetFunctionAddressOptional(LLVM, "LLVMLookupIntrinsicID"),
             GetIntrinsicID                             = apiGetFunctionAddress(LLVM, "LLVMGetIntrinsicID"),
-            GetIntrinsicDeclaration                    = LLVM.getFunctionAddress("LLVMGetIntrinsicDeclaration"),
-            IntrinsicGetType                           = LLVM.getFunctionAddress("LLVMIntrinsicGetType"),
-            IntrinsicGetName                           = LLVM.getFunctionAddress("LLVMIntrinsicGetName"),
-            IntrinsicCopyOverloadedName                = LLVM.getFunctionAddress("LLVMIntrinsicCopyOverloadedName"),
-            IntrinsicCopyOverloadedName2               = LLVM.getFunctionAddress("LLVMIntrinsicCopyOverloadedName2"),
-            IntrinsicIsOverloaded                      = LLVM.getFunctionAddress("LLVMIntrinsicIsOverloaded"),
+            GetIntrinsicDeclaration                    = apiGetFunctionAddressOptional(LLVM, "LLVMGetIntrinsicDeclaration"),
+            IntrinsicGetType                           = apiGetFunctionAddressOptional(LLVM, "LLVMIntrinsicGetType"),
+            IntrinsicGetName                           = apiGetFunctionAddressOptional(LLVM, "LLVMIntrinsicGetName"),
+            IntrinsicCopyOverloadedName                = apiGetFunctionAddressOptional(LLVM, "LLVMIntrinsicCopyOverloadedName"),
+            IntrinsicCopyOverloadedName2               = apiGetFunctionAddressOptional(LLVM, "LLVMIntrinsicCopyOverloadedName2"),
+            IntrinsicIsOverloaded                      = apiGetFunctionAddressOptional(LLVM, "LLVMIntrinsicIsOverloaded"),
             GetFunctionCallConv                        = apiGetFunctionAddress(LLVM, "LLVMGetFunctionCallConv"),
             SetFunctionCallConv                        = apiGetFunctionAddress(LLVM, "LLVMSetFunctionCallConv"),
             GetGC                                      = apiGetFunctionAddress(LLVM, "LLVMGetGC"),
@@ -459,18 +466,18 @@ public class LLVMCore {
             GetNextParam                               = apiGetFunctionAddress(LLVM, "LLVMGetNextParam"),
             GetPreviousParam                           = apiGetFunctionAddress(LLVM, "LLVMGetPreviousParam"),
             SetParamAlignment                          = apiGetFunctionAddress(LLVM, "LLVMSetParamAlignment"),
-            AddGlobalIFunc                             = LLVM.getFunctionAddress("LLVMAddGlobalIFunc"),
-            GetNamedGlobalIFunc                        = LLVM.getFunctionAddress("LLVMGetNamedGlobalIFunc"),
-            GetFirstGlobalIFunc                        = LLVM.getFunctionAddress("LLVMGetFirstGlobalIFunc"),
-            GetLastGlobalIFunc                         = LLVM.getFunctionAddress("LLVMGetLastGlobalIFunc"),
-            GetNextGlobalIFunc                         = LLVM.getFunctionAddress("LLVMGetNextGlobalIFunc"),
-            GetPreviousGlobalIFunc                     = LLVM.getFunctionAddress("LLVMGetPreviousGlobalIFunc"),
-            GetGlobalIFuncResolver                     = LLVM.getFunctionAddress("LLVMGetGlobalIFuncResolver"),
-            SetGlobalIFuncResolver                     = LLVM.getFunctionAddress("LLVMSetGlobalIFuncResolver"),
-            EraseGlobalIFunc                           = LLVM.getFunctionAddress("LLVMEraseGlobalIFunc"),
-            RemoveGlobalIFunc                          = LLVM.getFunctionAddress("LLVMRemoveGlobalIFunc"),
-            MDStringInContext2                         = LLVM.getFunctionAddress("LLVMMDStringInContext2"),
-            MDNodeInContext2                           = LLVM.getFunctionAddress("LLVMMDNodeInContext2"),
+            AddGlobalIFunc                             = apiGetFunctionAddressOptional(LLVM, "LLVMAddGlobalIFunc"),
+            GetNamedGlobalIFunc                        = apiGetFunctionAddressOptional(LLVM, "LLVMGetNamedGlobalIFunc"),
+            GetFirstGlobalIFunc                        = apiGetFunctionAddressOptional(LLVM, "LLVMGetFirstGlobalIFunc"),
+            GetLastGlobalIFunc                         = apiGetFunctionAddressOptional(LLVM, "LLVMGetLastGlobalIFunc"),
+            GetNextGlobalIFunc                         = apiGetFunctionAddressOptional(LLVM, "LLVMGetNextGlobalIFunc"),
+            GetPreviousGlobalIFunc                     = apiGetFunctionAddressOptional(LLVM, "LLVMGetPreviousGlobalIFunc"),
+            GetGlobalIFuncResolver                     = apiGetFunctionAddressOptional(LLVM, "LLVMGetGlobalIFuncResolver"),
+            SetGlobalIFuncResolver                     = apiGetFunctionAddressOptional(LLVM, "LLVMSetGlobalIFuncResolver"),
+            EraseGlobalIFunc                           = apiGetFunctionAddressOptional(LLVM, "LLVMEraseGlobalIFunc"),
+            RemoveGlobalIFunc                          = apiGetFunctionAddressOptional(LLVM, "LLVMRemoveGlobalIFunc"),
+            MDStringInContext2                         = apiGetFunctionAddressOptional(LLVM, "LLVMMDStringInContext2"),
+            MDNodeInContext2                           = apiGetFunctionAddressOptional(LLVM, "LLVMMDNodeInContext2"),
             MDStringInContext                          = apiGetFunctionAddress(LLVM, "LLVMMDStringInContext"),
             MDString                                   = apiGetFunctionAddress(LLVM, "LLVMMDString"),
             MDNodeInContext                            = apiGetFunctionAddress(LLVM, "LLVMMDNodeInContext"),
@@ -493,9 +500,9 @@ public class LLVMCore {
             GetNextBasicBlock                          = apiGetFunctionAddress(LLVM, "LLVMGetNextBasicBlock"),
             GetPreviousBasicBlock                      = apiGetFunctionAddress(LLVM, "LLVMGetPreviousBasicBlock"),
             GetEntryBasicBlock                         = apiGetFunctionAddress(LLVM, "LLVMGetEntryBasicBlock"),
-            InsertExistingBasicBlockAfterInsertBlock   = LLVM.getFunctionAddress("LLVMInsertExistingBasicBlockAfterInsertBlock"),
-            AppendExistingBasicBlock                   = LLVM.getFunctionAddress("LLVMAppendExistingBasicBlock"),
-            CreateBasicBlockInContext                  = LLVM.getFunctionAddress("LLVMCreateBasicBlockInContext"),
+            InsertExistingBasicBlockAfterInsertBlock   = apiGetFunctionAddressOptional(LLVM, "LLVMInsertExistingBasicBlockAfterInsertBlock"),
+            AppendExistingBasicBlock                   = apiGetFunctionAddressOptional(LLVM, "LLVMAppendExistingBasicBlock"),
+            CreateBasicBlockInContext                  = apiGetFunctionAddressOptional(LLVM, "LLVMCreateBasicBlockInContext"),
             AppendBasicBlockInContext                  = apiGetFunctionAddress(LLVM, "LLVMAppendBasicBlockInContext"),
             AppendBasicBlock                           = apiGetFunctionAddress(LLVM, "LLVMAppendBasicBlock"),
             InsertBasicBlockInContext                  = apiGetFunctionAddress(LLVM, "LLVMInsertBasicBlockInContext"),
@@ -509,12 +516,13 @@ public class LLVMCore {
             HasMetadata                                = apiGetFunctionAddress(LLVM, "LLVMHasMetadata"),
             GetMetadata                                = apiGetFunctionAddress(LLVM, "LLVMGetMetadata"),
             SetMetadata                                = apiGetFunctionAddress(LLVM, "LLVMSetMetadata"),
-            InstructionGetAllMetadataOtherThanDebugLoc = LLVM.getFunctionAddress("LLVMInstructionGetAllMetadataOtherThanDebugLoc"),
+            InstructionGetAllMetadataOtherThanDebugLoc = apiGetFunctionAddressOptional(LLVM, "LLVMInstructionGetAllMetadataOtherThanDebugLoc"),
             GetInstructionParent                       = apiGetFunctionAddress(LLVM, "LLVMGetInstructionParent"),
             GetNextInstruction                         = apiGetFunctionAddress(LLVM, "LLVMGetNextInstruction"),
             GetPreviousInstruction                     = apiGetFunctionAddress(LLVM, "LLVMGetPreviousInstruction"),
             InstructionRemoveFromParent                = apiGetFunctionAddress(LLVM, "LLVMInstructionRemoveFromParent"),
             InstructionEraseFromParent                 = apiGetFunctionAddress(LLVM, "LLVMInstructionEraseFromParent"),
+            DeleteInstruction                          = apiGetFunctionAddressOptional(LLVM, "LLVMDeleteInstruction"),
             GetInstructionOpcode                       = apiGetFunctionAddress(LLVM, "LLVMGetInstructionOpcode"),
             GetICmpPredicate                           = apiGetFunctionAddress(LLVM, "LLVMGetICmpPredicate"),
             GetFCmpPredicate                           = apiGetFunctionAddress(LLVM, "LLVMGetFCmpPredicate"),
@@ -531,7 +539,7 @@ public class LLVMCore {
             GetCallSiteStringAttribute                 = apiGetFunctionAddress(LLVM, "LLVMGetCallSiteStringAttribute"),
             RemoveCallSiteEnumAttribute                = apiGetFunctionAddress(LLVM, "LLVMRemoveCallSiteEnumAttribute"),
             RemoveCallSiteStringAttribute              = apiGetFunctionAddress(LLVM, "LLVMRemoveCallSiteStringAttribute"),
-            GetCalledFunctionType                      = LLVM.getFunctionAddress("LLVMGetCalledFunctionType"),
+            GetCalledFunctionType                      = apiGetFunctionAddressOptional(LLVM, "LLVMGetCalledFunctionType"),
             GetCalledValue                             = apiGetFunctionAddress(LLVM, "LLVMGetCalledValue"),
             IsTailCall                                 = apiGetFunctionAddress(LLVM, "LLVMIsTailCall"),
             SetTailCall                                = apiGetFunctionAddress(LLVM, "LLVMSetTailCall"),
@@ -549,6 +557,7 @@ public class LLVMCore {
             GetAllocatedType                           = apiGetFunctionAddress(LLVM, "LLVMGetAllocatedType"),
             IsInBounds                                 = apiGetFunctionAddress(LLVM, "LLVMIsInBounds"),
             SetIsInBounds                              = apiGetFunctionAddress(LLVM, "LLVMSetIsInBounds"),
+            GetGEPSourceElementType                    = apiGetFunctionAddressOptional(LLVM, "LLVMGetGEPSourceElementType"),
             AddIncoming                                = apiGetFunctionAddress(LLVM, "LLVMAddIncoming"),
             CountIncoming                              = apiGetFunctionAddress(LLVM, "LLVMCountIncoming"),
             GetIncomingValue                           = apiGetFunctionAddress(LLVM, "LLVMGetIncomingValue"),
@@ -565,11 +574,12 @@ public class LLVMCore {
             InsertIntoBuilder                          = apiGetFunctionAddress(LLVM, "LLVMInsertIntoBuilder"),
             InsertIntoBuilderWithName                  = apiGetFunctionAddress(LLVM, "LLVMInsertIntoBuilderWithName"),
             DisposeBuilder                             = apiGetFunctionAddress(LLVM, "LLVMDisposeBuilder"),
-            GetCurrentDebugLocation2                   = LLVM.getFunctionAddress("LLVMGetCurrentDebugLocation2"),
-            SetCurrentDebugLocation2                   = LLVM.getFunctionAddress("LLVMSetCurrentDebugLocation2"),
-            SetInstDebugLocation                       = LLVM.getFunctionAddress("LLVMSetInstDebugLocation"),
-            BuilderGetDefaultFPMathTag                 = LLVM.getFunctionAddress("LLVMBuilderGetDefaultFPMathTag"),
-            BuilderSetDefaultFPMathTag                 = LLVM.getFunctionAddress("LLVMBuilderSetDefaultFPMathTag"),
+            GetCurrentDebugLocation2                   = apiGetFunctionAddressOptional(LLVM, "LLVMGetCurrentDebugLocation2"),
+            SetCurrentDebugLocation2                   = apiGetFunctionAddressOptional(LLVM, "LLVMSetCurrentDebugLocation2"),
+            SetInstDebugLocation                       = apiGetFunctionAddressOptional(LLVM, "LLVMSetInstDebugLocation"),
+            AddMetadataToInst                          = apiGetFunctionAddressOptional(LLVM, "LLVMAddMetadataToInst"),
+            BuilderGetDefaultFPMathTag                 = apiGetFunctionAddressOptional(LLVM, "LLVMBuilderGetDefaultFPMathTag"),
+            BuilderSetDefaultFPMathTag                 = apiGetFunctionAddressOptional(LLVM, "LLVMBuilderSetDefaultFPMathTag"),
             SetCurrentDebugLocation                    = apiGetFunctionAddress(LLVM, "LLVMSetCurrentDebugLocation"),
             GetCurrentDebugLocation                    = apiGetFunctionAddress(LLVM, "LLVMGetCurrentDebugLocation"),
             BuildRetVoid                               = apiGetFunctionAddress(LLVM, "LLVMBuildRetVoid"),
@@ -579,16 +589,16 @@ public class LLVMCore {
             BuildCondBr                                = apiGetFunctionAddress(LLVM, "LLVMBuildCondBr"),
             BuildSwitch                                = apiGetFunctionAddress(LLVM, "LLVMBuildSwitch"),
             BuildIndirectBr                            = apiGetFunctionAddress(LLVM, "LLVMBuildIndirectBr"),
-            BuildInvoke                                = apiGetFunctionAddress(LLVM, "LLVMBuildInvoke"),
-            BuildInvoke2                               = LLVM.getFunctionAddress("LLVMBuildInvoke2"),
+            BuildInvoke                                = apiGetFunctionAddressOptional(LLVM, "LLVMBuildInvoke"),
+            BuildInvoke2                               = apiGetFunctionAddressOptional(LLVM, "LLVMBuildInvoke2"),
             BuildUnreachable                           = apiGetFunctionAddress(LLVM, "LLVMBuildUnreachable"),
             BuildResume                                = apiGetFunctionAddress(LLVM, "LLVMBuildResume"),
             BuildLandingPad                            = apiGetFunctionAddress(LLVM, "LLVMBuildLandingPad"),
-            BuildCleanupRet                            = LLVM.getFunctionAddress("LLVMBuildCleanupRet"),
-            BuildCatchRet                              = LLVM.getFunctionAddress("LLVMBuildCatchRet"),
-            BuildCatchPad                              = LLVM.getFunctionAddress("LLVMBuildCatchPad"),
-            BuildCleanupPad                            = LLVM.getFunctionAddress("LLVMBuildCleanupPad"),
-            BuildCatchSwitch                           = LLVM.getFunctionAddress("LLVMBuildCatchSwitch"),
+            BuildCleanupRet                            = apiGetFunctionAddressOptional(LLVM, "LLVMBuildCleanupRet"),
+            BuildCatchRet                              = apiGetFunctionAddressOptional(LLVM, "LLVMBuildCatchRet"),
+            BuildCatchPad                              = apiGetFunctionAddressOptional(LLVM, "LLVMBuildCatchPad"),
+            BuildCleanupPad                            = apiGetFunctionAddressOptional(LLVM, "LLVMBuildCleanupPad"),
+            BuildCatchSwitch                           = apiGetFunctionAddressOptional(LLVM, "LLVMBuildCatchSwitch"),
             AddCase                                    = apiGetFunctionAddress(LLVM, "LLVMAddCase"),
             AddDestination                             = apiGetFunctionAddress(LLVM, "LLVMAddDestination"),
             GetNumClauses                              = apiGetFunctionAddress(LLVM, "LLVMGetNumClauses"),
@@ -596,13 +606,13 @@ public class LLVMCore {
             AddClause                                  = apiGetFunctionAddress(LLVM, "LLVMAddClause"),
             IsCleanup                                  = apiGetFunctionAddress(LLVM, "LLVMIsCleanup"),
             SetCleanup                                 = apiGetFunctionAddress(LLVM, "LLVMSetCleanup"),
-            AddHandler                                 = LLVM.getFunctionAddress("LLVMAddHandler"),
-            GetNumHandlers                             = LLVM.getFunctionAddress("LLVMGetNumHandlers"),
-            GetHandlers                                = LLVM.getFunctionAddress("LLVMGetHandlers"),
-            GetArgOperand                              = LLVM.getFunctionAddress("LLVMGetArgOperand"),
-            SetArgOperand                              = LLVM.getFunctionAddress("LLVMSetArgOperand"),
-            GetParentCatchSwitch                       = LLVM.getFunctionAddress("LLVMGetParentCatchSwitch"),
-            SetParentCatchSwitch                       = LLVM.getFunctionAddress("LLVMSetParentCatchSwitch"),
+            AddHandler                                 = apiGetFunctionAddressOptional(LLVM, "LLVMAddHandler"),
+            GetNumHandlers                             = apiGetFunctionAddressOptional(LLVM, "LLVMGetNumHandlers"),
+            GetHandlers                                = apiGetFunctionAddressOptional(LLVM, "LLVMGetHandlers"),
+            GetArgOperand                              = apiGetFunctionAddressOptional(LLVM, "LLVMGetArgOperand"),
+            SetArgOperand                              = apiGetFunctionAddressOptional(LLVM, "LLVMSetArgOperand"),
+            GetParentCatchSwitch                       = apiGetFunctionAddressOptional(LLVM, "LLVMGetParentCatchSwitch"),
+            SetParentCatchSwitch                       = apiGetFunctionAddressOptional(LLVM, "LLVMSetParentCatchSwitch"),
             BuildAdd                                   = apiGetFunctionAddress(LLVM, "LLVMBuildAdd"),
             BuildNSWAdd                                = apiGetFunctionAddress(LLVM, "LLVMBuildNSWAdd"),
             BuildNUWAdd                                = apiGetFunctionAddress(LLVM, "LLVMBuildNUWAdd"),
@@ -637,31 +647,31 @@ public class LLVMCore {
             BuildNot                                   = apiGetFunctionAddress(LLVM, "LLVMBuildNot"),
             BuildMalloc                                = apiGetFunctionAddress(LLVM, "LLVMBuildMalloc"),
             BuildArrayMalloc                           = apiGetFunctionAddress(LLVM, "LLVMBuildArrayMalloc"),
-            BuildMemSet                                = LLVM.getFunctionAddress("LLVMBuildMemSet"),
-            BuildMemCpy                                = LLVM.getFunctionAddress("LLVMBuildMemCpy"),
-            BuildMemMove                               = LLVM.getFunctionAddress("LLVMBuildMemMove"),
+            BuildMemSet                                = apiGetFunctionAddressOptional(LLVM, "LLVMBuildMemSet"),
+            BuildMemCpy                                = apiGetFunctionAddressOptional(LLVM, "LLVMBuildMemCpy"),
+            BuildMemMove                               = apiGetFunctionAddressOptional(LLVM, "LLVMBuildMemMove"),
             BuildAlloca                                = apiGetFunctionAddress(LLVM, "LLVMBuildAlloca"),
             BuildArrayAlloca                           = apiGetFunctionAddress(LLVM, "LLVMBuildArrayAlloca"),
             BuildFree                                  = apiGetFunctionAddress(LLVM, "LLVMBuildFree"),
-            BuildLoad                                  = apiGetFunctionAddress(LLVM, "LLVMBuildLoad"),
-            BuildLoad2                                 = LLVM.getFunctionAddress("LLVMBuildLoad2"),
+            BuildLoad                                  = apiGetFunctionAddressOptional(LLVM, "LLVMBuildLoad"),
+            BuildLoad2                                 = apiGetFunctionAddressOptional(LLVM, "LLVMBuildLoad2"),
             BuildStore                                 = apiGetFunctionAddress(LLVM, "LLVMBuildStore"),
-            BuildGEP                                   = apiGetFunctionAddress(LLVM, "LLVMBuildGEP"),
-            BuildInBoundsGEP                           = apiGetFunctionAddress(LLVM, "LLVMBuildInBoundsGEP"),
-            BuildStructGEP                             = apiGetFunctionAddress(LLVM, "LLVMBuildStructGEP"),
-            BuildGEP2                                  = LLVM.getFunctionAddress("LLVMBuildGEP2"),
-            BuildInBoundsGEP2                          = LLVM.getFunctionAddress("LLVMBuildInBoundsGEP2"),
-            BuildStructGEP2                            = LLVM.getFunctionAddress("LLVMBuildStructGEP2"),
+            BuildGEP                                   = apiGetFunctionAddressOptional(LLVM, "LLVMBuildGEP"),
+            BuildInBoundsGEP                           = apiGetFunctionAddressOptional(LLVM, "LLVMBuildInBoundsGEP"),
+            BuildStructGEP                             = apiGetFunctionAddressOptional(LLVM, "LLVMBuildStructGEP"),
+            BuildGEP2                                  = apiGetFunctionAddressOptional(LLVM, "LLVMBuildGEP2"),
+            BuildInBoundsGEP2                          = apiGetFunctionAddressOptional(LLVM, "LLVMBuildInBoundsGEP2"),
+            BuildStructGEP2                            = apiGetFunctionAddressOptional(LLVM, "LLVMBuildStructGEP2"),
             BuildGlobalString                          = apiGetFunctionAddress(LLVM, "LLVMBuildGlobalString"),
             BuildGlobalStringPtr                       = apiGetFunctionAddress(LLVM, "LLVMBuildGlobalStringPtr"),
             GetVolatile                                = apiGetFunctionAddress(LLVM, "LLVMGetVolatile"),
             SetVolatile                                = apiGetFunctionAddress(LLVM, "LLVMSetVolatile"),
-            GetWeak                                    = LLVM.getFunctionAddress("LLVMGetWeak"),
-            SetWeak                                    = LLVM.getFunctionAddress("LLVMSetWeak"),
+            GetWeak                                    = apiGetFunctionAddressOptional(LLVM, "LLVMGetWeak"),
+            SetWeak                                    = apiGetFunctionAddressOptional(LLVM, "LLVMSetWeak"),
             GetOrdering                                = apiGetFunctionAddress(LLVM, "LLVMGetOrdering"),
-            SetOrdering                                = LLVM.getFunctionAddress("LLVMSetOrdering"),
-            GetAtomicRMWBinOp                          = LLVM.getFunctionAddress("LLVMGetAtomicRMWBinOp"),
-            SetAtomicRMWBinOp                          = LLVM.getFunctionAddress("LLVMSetAtomicRMWBinOp"),
+            SetOrdering                                = apiGetFunctionAddressOptional(LLVM, "LLVMSetOrdering"),
+            GetAtomicRMWBinOp                          = apiGetFunctionAddressOptional(LLVM, "LLVMGetAtomicRMWBinOp"),
+            SetAtomicRMWBinOp                          = apiGetFunctionAddressOptional(LLVM, "LLVMSetAtomicRMWBinOp"),
             BuildTrunc                                 = apiGetFunctionAddress(LLVM, "LLVMBuildTrunc"),
             BuildZExt                                  = apiGetFunctionAddress(LLVM, "LLVMBuildZExt"),
             BuildSExt                                  = apiGetFunctionAddress(LLVM, "LLVMBuildSExt"),
@@ -680,14 +690,15 @@ public class LLVMCore {
             BuildTruncOrBitCast                        = apiGetFunctionAddress(LLVM, "LLVMBuildTruncOrBitCast"),
             BuildCast                                  = apiGetFunctionAddress(LLVM, "LLVMBuildCast"),
             BuildPointerCast                           = apiGetFunctionAddress(LLVM, "LLVMBuildPointerCast"),
-            BuildPointerCast2                          = LLVM.getFunctionAddress("LLVMBuildPointerCast2"),
+            BuildIntCast2                              = apiGetFunctionAddressOptional(LLVM, "LLVMBuildIntCast2"),
             BuildIntCast                               = apiGetFunctionAddress(LLVM, "LLVMBuildIntCast"),
+            GetCastOpcode                              = apiGetFunctionAddressOptional(LLVM, "LLVMGetCastOpcode"),
             BuildFPCast                                = apiGetFunctionAddress(LLVM, "LLVMBuildFPCast"),
             BuildICmp                                  = apiGetFunctionAddress(LLVM, "LLVMBuildICmp"),
             BuildFCmp                                  = apiGetFunctionAddress(LLVM, "LLVMBuildFCmp"),
             BuildPhi                                   = apiGetFunctionAddress(LLVM, "LLVMBuildPhi"),
-            BuildCall                                  = apiGetFunctionAddress(LLVM, "LLVMBuildCall"),
-            BuildCall2                                 = LLVM.getFunctionAddress("LLVMBuildCall2"),
+            BuildCall                                  = apiGetFunctionAddressOptional(LLVM, "LLVMBuildCall"),
+            BuildCall2                                 = apiGetFunctionAddressOptional(LLVM, "LLVMBuildCall2"),
             BuildSelect                                = apiGetFunctionAddress(LLVM, "LLVMBuildSelect"),
             BuildVAArg                                 = apiGetFunctionAddress(LLVM, "LLVMBuildVAArg"),
             BuildExtractElement                        = apiGetFunctionAddress(LLVM, "LLVMBuildExtractElement"),
@@ -695,16 +706,17 @@ public class LLVMCore {
             BuildShuffleVector                         = apiGetFunctionAddress(LLVM, "LLVMBuildShuffleVector"),
             BuildExtractValue                          = apiGetFunctionAddress(LLVM, "LLVMBuildExtractValue"),
             BuildInsertValue                           = apiGetFunctionAddress(LLVM, "LLVMBuildInsertValue"),
-            BuildFreeze                                = LLVM.getFunctionAddress("LLVMBuildFreeze"),
+            BuildFreeze                                = apiGetFunctionAddressOptional(LLVM, "LLVMBuildFreeze"),
             BuildIsNull                                = apiGetFunctionAddress(LLVM, "LLVMBuildIsNull"),
             BuildIsNotNull                             = apiGetFunctionAddress(LLVM, "LLVMBuildIsNotNull"),
-            BuildPtrDiff                               = apiGetFunctionAddress(LLVM, "LLVMBuildPtrDiff"),
+            BuildPtrDiff                               = apiGetFunctionAddressOptional(LLVM, "LLVMBuildPtrDiff"),
+            BuildPtrDiff2                              = apiGetFunctionAddressOptional(LLVM, "LLVMBuildPtrDiff2"),
             BuildFence                                 = apiGetFunctionAddress(LLVM, "LLVMBuildFence"),
             BuildAtomicRMW                             = apiGetFunctionAddress(LLVM, "LLVMBuildAtomicRMW"),
             BuildAtomicCmpXchg                         = apiGetFunctionAddress(LLVM, "LLVMBuildAtomicCmpXchg"),
-            GetNumMaskElements                         = LLVM.getFunctionAddress("LLVMGetNumMaskElements"),
-            GetUndefMaskElem                           = LLVM.getFunctionAddress("LLVMGetUndefMaskElem"),
-            GetMaskValue                               = LLVM.getFunctionAddress("LLVMGetMaskValue"),
+            GetNumMaskElements                         = apiGetFunctionAddressOptional(LLVM, "LLVMGetNumMaskElements"),
+            GetUndefMaskElem                           = apiGetFunctionAddressOptional(LLVM, "LLVMGetUndefMaskElem"),
+            GetMaskValue                               = apiGetFunctionAddressOptional(LLVM, "LLVMGetMaskValue"),
             IsAtomicSingleThread                       = apiGetFunctionAddress(LLVM, "LLVMIsAtomicSingleThread"),
             SetAtomicSingleThread                      = apiGetFunctionAddress(LLVM, "LLVMSetAtomicSingleThread"),
             GetCmpXchgSuccessOrdering                  = apiGetFunctionAddress(LLVM, "LLVMGetCmpXchgSuccessOrdering"),
@@ -910,6 +922,7 @@ public class LLVMCore {
      * <li>{@link #LLVMScalableVectorTypeKind ScalableVectorTypeKind} - Scalable SIMD vector type</li>
      * <li>{@link #LLVMBFloatTypeKind BFloatTypeKind} - 16 bit brain floating point type</li>
      * <li>{@link #LLVMX86_AMXTypeKind X86_AMXTypeKind} - X86 AMX</li>
+     * <li>{@link #LLVMTargetExtTypeKind TargetExtTypeKind} - Target extension type</li>
      * </ul>
      */
     public static final int
@@ -932,7 +945,8 @@ public class LLVMCore {
         LLVMTokenTypeKind          = 16,
         LLVMScalableVectorTypeKind = 17,
         LLVMBFloatTypeKind         = 18,
-        LLVMX86_AMXTypeKind        = 19;
+        LLVMX86_AMXTypeKind        = 19,
+        LLVMTargetExtTypeKind      = 20;
 
     /**
      * {@code LLVMLinkage}
@@ -1152,6 +1166,7 @@ public class LLVMCore {
      * <li>{@link #LLVMInlineAsmValueKind InlineAsmValueKind}</li>
      * <li>{@link #LLVMInstructionValueKind InstructionValueKind}</li>
      * <li>{@link #LLVMPoisonValueValueKind PoisonValueValueKind}</li>
+     * <li>{@link #LLVMConstantTargetNoneValueKind ConstantTargetNoneValueKind}</li>
      * </ul>
      */
     public static final int
@@ -1180,7 +1195,8 @@ public class LLVMCore {
         LLVMMetadataAsValueValueKind       = 22,
         LLVMInlineAsmValueKind             = 23,
         LLVMInstructionValueKind           = 24,
-        LLVMPoisonValueValueKind           = 25;
+        LLVMPoisonValueValueKind           = 25,
+        LLVMConstantTargetNoneValueKind    = 26;
 
     /**
      * {@code LLVMIntPredicate}
@@ -1334,6 +1350,8 @@ public class LLVMCore {
      * <li>{@link #LLVMAtomicRMWBinOpUMin AtomicRMWBinOpUMin} - Sets the value if it's greater than the original using an unsigned comparison and return the old one</li>
      * <li>{@link #LLVMAtomicRMWBinOpFAdd AtomicRMWBinOpFAdd} - Add a floating point value and return the old one</li>
      * <li>{@link #LLVMAtomicRMWBinOpFSub AtomicRMWBinOpFSub} - Subtract a floating point value and return the old one</li>
+     * <li>{@link #LLVMAtomicRMWBinOpFMax AtomicRMWBinOpFMax} - Sets the value if it's greater than the original using a floating point comparison and return the old one</li>
+     * <li>{@link #LLVMAtomicRMWBinOpFMin AtomicRMWBinOpFMin} - Sets the value if it's smaller than the original using a floating point comparison and return the old one</li>
      * </ul>
      */
     public static final int
@@ -1349,7 +1367,9 @@ public class LLVMCore {
         LLVMAtomicRMWBinOpUMax = 9,
         LLVMAtomicRMWBinOpUMin = 10,
         LLVMAtomicRMWBinOpFAdd = 11,
-        LLVMAtomicRMWBinOpFSub = 12;
+        LLVMAtomicRMWBinOpFSub = 12,
+        LLVMAtomicRMWBinOpFMax = 13,
+        LLVMAtomicRMWBinOpFMin = 14;
 
     /**
      * {@code LLVMDiagnosticSeverity}
@@ -1450,6 +1470,31 @@ public class LLVMCore {
     public static void LLVMShutdown() {
         long __functionAddress = Functions.Shutdown;
         invokeV(__functionAddress);
+    }
+
+    // --- [ LLVMGetVersion ] ---
+
+    /** Unsafe version of: {@link #LLVMGetVersion GetVersion} */
+    public static void nLLVMGetVersion(long Major, long Minor, long Patch) {
+        long __functionAddress = Functions.GetVersion;
+        if (CHECKS) {
+            check(__functionAddress);
+        }
+        invokePPPV(Major, Minor, Patch, __functionAddress);
+    }
+
+    /**
+     * Return the major, minor, and patch version of LLVM.
+     * 
+     * <p>The version components are returned via the function's three output parameters or skipped if a {@code NULL} pointer was supplied.</p>
+     */
+    public static void LLVMGetVersion(@Nullable @NativeType("unsigned *") IntBuffer Major, @Nullable @NativeType("unsigned *") IntBuffer Minor, @Nullable @NativeType("unsigned *") IntBuffer Patch) {
+        if (CHECKS) {
+            checkSafe(Major, 1);
+            checkSafe(Minor, 1);
+            checkSafe(Patch, 1);
+        }
+        nLLVMGetVersion(memAddressSafe(Major), memAddressSafe(Minor), memAddressSafe(Patch));
     }
 
     // --- [ LLVMCreateMessage ] ---
@@ -1613,6 +1658,18 @@ public class LLVMCore {
             check(C);
         }
         invokePV(C, Discard ? 1 : 0, __functionAddress);
+    }
+
+    // --- [ LLVMContextSetOpaquePointers ] ---
+
+    /** Set whether the given context is in opaque pointer mode. */
+    public static void LLVMContextSetOpaquePointers(@NativeType("LLVMContextRef") long C, @NativeType("LLVMBool") boolean OpaquePointers) {
+        long __functionAddress = Functions.ContextSetOpaquePointers;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(C);
+        }
+        invokePV(C, OpaquePointers ? 1 : 0, __functionAddress);
     }
 
     // --- [ LLVMContextDispose ] ---
@@ -3895,9 +3952,9 @@ public class LLVMCore {
     // --- [ LLVMGetElementType ] ---
 
     /**
-     * Obtain the type of elements within a sequential type.
+     * Obtain the element type of an array or vector type.
      * 
-     * <p>This works on array, vector, and pointer types.</p>
+     * <p>This currently also works for pointer types, but this usage is deprecated.</p>
      */
     @NativeType("LLVMTypeRef")
     public static long LLVMGetElementType(@NativeType("LLVMTypeRef") long Ty) {
@@ -3982,6 +4039,32 @@ public class LLVMCore {
             check(ElementType);
         }
         return invokePP(ElementType, AddressSpace, __functionAddress);
+    }
+
+    // --- [ LLVMPointerTypeIsOpaque ] ---
+
+    /** Determine whether a pointer is opaque. */
+    @NativeType("LLVMBool")
+    public static boolean LLVMPointerTypeIsOpaque(@NativeType("LLVMTypeRef") long Ty) {
+        long __functionAddress = Functions.PointerTypeIsOpaque;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(Ty);
+        }
+        return invokePI(Ty, __functionAddress) != 0;
+    }
+
+    // --- [ LLVMPointerTypeInContext ] ---
+
+    /** Create an opaque pointer type in a context. */
+    @NativeType("LLVMTypeRef")
+    public static long LLVMPointerTypeInContext(@NativeType("LLVMContextRef") long C, @NativeType("unsigned") int AddressSpace) {
+        long __functionAddress = Functions.PointerTypeInContext;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(C);
+        }
+        return invokePP(C, AddressSpace, __functionAddress);
     }
 
     // --- [ LLVMGetPointerAddressSpace ] ---
@@ -4169,6 +4252,40 @@ public class LLVMCore {
             check(__functionAddress);
         }
         return invokeP(__functionAddress);
+    }
+
+    // --- [ LLVMTargetExtTypeInContext ] ---
+
+    /** Unsafe version of: {@link #LLVMTargetExtTypeInContext TargetExtTypeInContext} */
+    public static long nLLVMTargetExtTypeInContext(long C, long Name, long TypeParams, int TypeParamCount, long IntParams, int IntParamCount) {
+        long __functionAddress = Functions.TargetExtTypeInContext;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(C);
+        }
+        return invokePPPPP(C, Name, TypeParams, TypeParamCount, IntParams, IntParamCount, __functionAddress);
+    }
+
+    /** Create a target extension type in LLVM context. */
+    @NativeType("LLVMTypeRef")
+    public static long LLVMTargetExtTypeInContext(@NativeType("LLVMContextRef") long C, @NativeType("char const *") ByteBuffer Name, @Nullable @NativeType("LLVMTypeRef *") PointerBuffer TypeParams, @Nullable @NativeType("unsigned *") IntBuffer IntParams) {
+        if (CHECKS) {
+            checkNT1(Name);
+        }
+        return nLLVMTargetExtTypeInContext(C, memAddress(Name), memAddressSafe(TypeParams), remainingSafe(TypeParams), memAddressSafe(IntParams), remainingSafe(IntParams));
+    }
+
+    /** Create a target extension type in LLVM context. */
+    @NativeType("LLVMTypeRef")
+    public static long LLVMTargetExtTypeInContext(@NativeType("LLVMContextRef") long C, @NativeType("char const *") CharSequence Name, @Nullable @NativeType("LLVMTypeRef *") PointerBuffer TypeParams, @Nullable @NativeType("unsigned *") IntBuffer IntParams) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(Name, true);
+            long NameEncoded = stack.getPointerAddress();
+            return nLLVMTargetExtTypeInContext(C, NameEncoded, memAddressSafe(TypeParams), remainingSafe(TypeParams), memAddressSafe(IntParams), remainingSafe(IntParams));
+        } finally {
+            stack.setPointer(stackPointer);
+        }
     }
 
     // --- [ LLVMTypeOf ] ---
@@ -5519,7 +5636,7 @@ public class LLVMCore {
         if (CHECKS) {
             check(IntTy);
         }
-        return invokePPP(IntTy, Text, Radix, __functionAddress);
+        return invokePPUP(IntTy, Text, Radix, __functionAddress);
     }
 
     /**
@@ -5560,7 +5677,7 @@ public class LLVMCore {
         if (CHECKS) {
             check(IntTy);
         }
-        return invokePPP(IntTy, Text, SLen, Radix, __functionAddress);
+        return invokePPUP(IntTy, Text, SLen, Radix, __functionAddress);
     }
 
     /** Obtain a constant value for an integer parsed from a string with specified length. */
@@ -5878,9 +5995,30 @@ public class LLVMCore {
         return nLLVMConstNamedStruct(StructTy, memAddress(ConstantVals), ConstantVals.remaining());
     }
 
+    // --- [ LLVMGetAggregateElement ] ---
+
+    /**
+     * Get element of a constant aggregate (struct, array or vector) at the specified index.
+     * 
+     * <p>Returns null if the index is out of range, or it's not possible to determine the element (e.g., because the constant is a constant expression.)</p>
+     */
+    @NativeType("LLVMValueRef")
+    public static long LLVMGetAggregateElement(@NativeType("LLVMValueRef") long C, @NativeType("unsigned") int Idx) {
+        long __functionAddress = Functions.GetAggregateElement;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(C);
+        }
+        return invokePP(C, Idx, __functionAddress);
+    }
+
     // --- [ LLVMGetElementAsConstant ] ---
 
-    /** Get an element at specified index as a constant. */
+    /**
+     * Get an element at specified index as a constant.
+     * 
+     * <p>Deprecated, use {@link #LLVMGetAggregateElement GetAggregateElement} instead.</p>
+     */
     @NativeType("LLVMValueRef")
     public static long LLVMGetElementAsConstant(@NativeType("LLVMValueRef") long C, @NativeType("unsigned int") int idx) {
         long __functionAddress = Functions.GetElementAsConstant;
@@ -5976,6 +6114,7 @@ public class LLVMCore {
     public static long LLVMConstFNeg(@NativeType("LLVMValueRef") long ConstantVal) {
         long __functionAddress = Functions.ConstFNeg;
         if (CHECKS) {
+            check(__functionAddress);
             check(ConstantVal);
         }
         return invokePP(ConstantVal, __functionAddress);
@@ -6034,6 +6173,7 @@ public class LLVMCore {
     public static long LLVMConstFAdd(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstFAdd;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6082,6 +6222,7 @@ public class LLVMCore {
     public static long LLVMConstFSub(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstFSub;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6130,6 +6271,7 @@ public class LLVMCore {
     public static long LLVMConstFMul(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstFMul;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6142,6 +6284,7 @@ public class LLVMCore {
     public static long LLVMConstUDiv(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstUDiv;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6154,6 +6297,7 @@ public class LLVMCore {
     public static long LLVMConstExactUDiv(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstExactUDiv;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6166,6 +6310,7 @@ public class LLVMCore {
     public static long LLVMConstSDiv(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstSDiv;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6178,6 +6323,7 @@ public class LLVMCore {
     public static long LLVMConstExactSDiv(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstExactSDiv;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6190,6 +6336,7 @@ public class LLVMCore {
     public static long LLVMConstFDiv(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstFDiv;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6202,6 +6349,7 @@ public class LLVMCore {
     public static long LLVMConstURem(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstURem;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6214,6 +6362,7 @@ public class LLVMCore {
     public static long LLVMConstSRem(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstSRem;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6226,6 +6375,7 @@ public class LLVMCore {
     public static long LLVMConstFRem(@NativeType("LLVMValueRef") long LHSConstant, @NativeType("LLVMValueRef") long RHSConstant) {
         long __functionAddress = Functions.ConstFRem;
         if (CHECKS) {
+            check(__functionAddress);
             check(LHSConstant);
             check(RHSConstant);
         }
@@ -6333,6 +6483,7 @@ public class LLVMCore {
     public static long nLLVMConstGEP(long ConstantVal, long ConstantIndices, int NumIndices) {
         long __functionAddress = Functions.ConstGEP;
         if (CHECKS) {
+            check(__functionAddress);
             check(ConstantVal);
         }
         return invokePPP(ConstantVal, ConstantIndices, NumIndices, __functionAddress);
@@ -6367,6 +6518,7 @@ public class LLVMCore {
     public static long nLLVMConstInBoundsGEP(long ConstantVal, long ConstantIndices, int NumIndices) {
         long __functionAddress = Functions.ConstInBoundsGEP;
         if (CHECKS) {
+            check(__functionAddress);
             check(ConstantVal);
         }
         return invokePPP(ConstantVal, ConstantIndices, NumIndices, __functionAddress);
@@ -6680,6 +6832,7 @@ public class LLVMCore {
     public static long nLLVMConstExtractValue(long AggConstant, long IdxList, int NumIdx) {
         long __functionAddress = Functions.ConstExtractValue;
         if (CHECKS) {
+            check(__functionAddress);
             check(AggConstant);
         }
         return invokePPP(AggConstant, IdxList, NumIdx, __functionAddress);
@@ -6695,6 +6848,7 @@ public class LLVMCore {
     public static long nLLVMConstInsertValue(long AggConstant, long ElementValueConstant, long IdxList, int NumIdx) {
         long __functionAddress = Functions.ConstInsertValue;
         if (CHECKS) {
+            check(__functionAddress);
             check(AggConstant);
             check(ElementValueConstant);
         }
@@ -7322,6 +7476,7 @@ public class LLVMCore {
     public static long nLLVMAddAlias(long M, long Ty, long Aliasee, long Name) {
         long __functionAddress = Functions.AddAlias;
         if (CHECKS) {
+            check(__functionAddress);
             check(M);
             check(Ty);
             check(Aliasee);
@@ -7344,6 +7499,42 @@ public class LLVMCore {
             stack.nUTF8(Name, true);
             long NameEncoded = stack.getPointerAddress();
             return nLLVMAddAlias(M, Ty, Aliasee, NameEncoded);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ LLVMAddAlias2 ] ---
+
+    /** Unsafe version of: {@link #LLVMAddAlias2 AddAlias2} */
+    public static long nLLVMAddAlias2(long M, long ValueTy, int AddrSpace, long Aliasee, long Name) {
+        long __functionAddress = Functions.AddAlias2;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(M);
+            check(ValueTy);
+            check(Aliasee);
+        }
+        return invokePPPPP(M, ValueTy, AddrSpace, Aliasee, Name, __functionAddress);
+    }
+
+    /** Add a GlobalAlias with the given value type, address space and aliasee. */
+    @NativeType("LLVMValueRef")
+    public static long LLVMAddAlias2(@NativeType("LLVMModuleRef") long M, @NativeType("LLVMTypeRef") long ValueTy, @NativeType("unsigned") int AddrSpace, @NativeType("LLVMValueRef") long Aliasee, @NativeType("char const *") ByteBuffer Name) {
+        if (CHECKS) {
+            checkNT1(Name);
+        }
+        return nLLVMAddAlias2(M, ValueTy, AddrSpace, Aliasee, memAddress(Name));
+    }
+
+    /** Add a GlobalAlias with the given value type, address space and aliasee. */
+    @NativeType("LLVMValueRef")
+    public static long LLVMAddAlias2(@NativeType("LLVMModuleRef") long M, @NativeType("LLVMTypeRef") long ValueTy, @NativeType("unsigned") int AddrSpace, @NativeType("LLVMValueRef") long Aliasee, @NativeType("char const *") CharSequence Name) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(Name, true);
+            long NameEncoded = stack.getPointerAddress();
+            return nLLVMAddAlias2(M, ValueTy, AddrSpace, Aliasee, NameEncoded);
         } finally {
             stack.setPointer(stackPointer);
         }
@@ -9213,7 +9404,7 @@ public class LLVMCore {
     // --- [ LLVMInstructionRemoveFromParent ] ---
 
     /**
-     * Remove and delete an instruction.
+     * Remove an instruction.
      * 
      * <p>The instruction specified is removed from its containing building block but is kept alive.</p>
      */
@@ -9235,6 +9426,22 @@ public class LLVMCore {
     public static void LLVMInstructionEraseFromParent(@NativeType("LLVMValueRef") long Inst) {
         long __functionAddress = Functions.InstructionEraseFromParent;
         if (CHECKS) {
+            check(Inst);
+        }
+        invokePV(Inst, __functionAddress);
+    }
+
+    // --- [ LLVMDeleteInstruction ] ---
+
+    /**
+     * Delete an instruction.
+     * 
+     * <p>The instruction specified is deleted. It must have previously been removed from its containing building block.</p>
+     */
+    public static void LLVMDeleteInstruction(@NativeType("LLVMValueRef") long Inst) {
+        long __functionAddress = Functions.DeleteInstruction;
+        if (CHECKS) {
+            check(__functionAddress);
             check(Inst);
         }
         invokePV(Inst, __functionAddress);
@@ -9369,7 +9576,7 @@ public class LLVMCore {
 
     // --- [ LLVMSetInstrParamAlignment ] ---
 
-    public static void LLVMSetInstrParamAlignment(@NativeType("LLVMValueRef") long Instr, @NativeType("unsigned int") int index, @NativeType("unsigned int") int Align) {
+    public static void LLVMSetInstrParamAlignment(@NativeType("LLVMValueRef") long Instr, @NativeType("LLVMAttributeIndex") int index, @NativeType("unsigned int") int Align) {
         long __functionAddress = Functions.SetInstrParamAlignment;
         if (CHECKS) {
             check(Instr);
@@ -9733,7 +9940,7 @@ public class LLVMCore {
 
     // --- [ LLVMIsInBounds ] ---
 
-    /** Check whether the given {@code GEP} instruction is inbounds. */
+    /** Check whether the given {@code GEP} operator is inbounds. */
     @NativeType("LLVMBool")
     public static boolean LLVMIsInBounds(@NativeType("LLVMValueRef") long GEP) {
         long __functionAddress = Functions.IsInBounds;
@@ -9752,6 +9959,19 @@ public class LLVMCore {
             check(GEP);
         }
         invokePV(GEP, InBounds ? 1 : 0, __functionAddress);
+    }
+
+    // --- [ LLVMGetGEPSourceElementType ] ---
+
+    /** Get the source element type of the given GEP operator. */
+    @NativeType("LLVMTypeRef")
+    public static long LLVMGetGEPSourceElementType(@NativeType("LLVMValueRef") long GEP) {
+        long __functionAddress = Functions.GetGEPSourceElementType;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(GEP);
+        }
+        return invokePP(GEP, __functionAddress);
     }
 
     // --- [ LLVMAddIncoming ] ---
@@ -9811,7 +10031,7 @@ public class LLVMCore {
 
     // --- [ LLVMGetNumIndices ] ---
 
-    /** Obtain the number of indices. NB: This also works on {@code GEP}. */
+    /** Obtain the number of indices. NB: This also works on {@code GEP} operators. */
     @NativeType("unsigned int")
     public static int LLVMGetNumIndices(@NativeType("LLVMValueRef") long Inst) {
         long __functionAddress = Functions.GetNumIndices;
@@ -10012,12 +10232,27 @@ public class LLVMCore {
      * Attempts to set the debug location for the given instruction using the current debug location for the given builder. If the builder has no current
      * debug location, this function is a no-op.
      * 
+     * <p>Deprecated in favor of the more general {@link #LLVMAddMetadataToInst AddMetadataToInst}.</p>
+     * 
      * <p>See {@code llvm::IRBuilder::SetInstDebugLocation()}.</p>
      *
      * @since 9
      */
     public static void LLVMSetInstDebugLocation(@NativeType("LLVMBuilderRef") long Builder, @NativeType("LLVMValueRef") long Inst) {
         long __functionAddress = Functions.SetInstDebugLocation;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(Builder);
+            check(Inst);
+        }
+        invokePPV(Builder, Inst, __functionAddress);
+    }
+
+    // --- [ LLVMAddMetadataToInst ] ---
+
+    /** Adds the metadata registered with the given builder to the given instruction. */
+    public static void LLVMAddMetadataToInst(@NativeType("LLVMBuilderRef") long Builder, @NativeType("LLVMValueRef") long Inst) {
+        long __functionAddress = Functions.AddMetadataToInst;
         if (CHECKS) {
             check(__functionAddress);
             check(Builder);
@@ -10184,6 +10419,7 @@ public class LLVMCore {
     public static long nLLVMBuildInvoke(long Builder, long Fn, long Args, int NumArgs, long Then, long Catch, long Name) {
         long __functionAddress = Functions.BuildInvoke;
         if (CHECKS) {
+            check(__functionAddress);
             check(Builder);
             check(Fn);
             check(Then);
@@ -11859,6 +12095,7 @@ public class LLVMCore {
     public static long nLLVMBuildLoad(long Builder, long PointerVal, long Name) {
         long __functionAddress = Functions.BuildLoad;
         if (CHECKS) {
+            check(__functionAddress);
             check(Builder);
             check(PointerVal);
         }
@@ -11939,6 +12176,7 @@ public class LLVMCore {
     public static long nLLVMBuildGEP(long B, long Pointer, long Indices, int NumIndices, long Name) {
         long __functionAddress = Functions.BuildGEP;
         if (CHECKS) {
+            check(__functionAddress);
             check(B);
             check(Pointer);
         }
@@ -11970,6 +12208,7 @@ public class LLVMCore {
     public static long nLLVMBuildInBoundsGEP(long B, long Pointer, long Indices, int NumIndices, long Name) {
         long __functionAddress = Functions.BuildInBoundsGEP;
         if (CHECKS) {
+            check(__functionAddress);
             check(B);
             check(Pointer);
         }
@@ -12001,6 +12240,7 @@ public class LLVMCore {
     public static long nLLVMBuildStructGEP(long B, long Pointer, int Idx, long Name) {
         long __functionAddress = Functions.BuildStructGEP;
         if (CHECKS) {
+            check(__functionAddress);
             check(B);
             check(Pointer);
         }
@@ -12873,11 +13113,11 @@ public class LLVMCore {
         }
     }
 
-    // --- [ LLVMBuildPointerCast2 ] ---
+    // --- [ LLVMBuildIntCast2 ] ---
 
-    /** Unsafe version of: {@link #LLVMBuildPointerCast2 BuildPointerCast2} */
-    public static long nLLVMBuildPointerCast2(long Builder, long Val, long DestTy, int IsSigned, long Name) {
-        long __functionAddress = Functions.BuildPointerCast2;
+    /** Unsafe version of: {@link #LLVMBuildIntCast2 BuildIntCast2} */
+    public static long nLLVMBuildIntCast2(long Builder, long Val, long DestTy, int IsSigned, long Name) {
+        long __functionAddress = Functions.BuildIntCast2;
         if (CHECKS) {
             check(__functionAddress);
             check(Builder);
@@ -12889,21 +13129,21 @@ public class LLVMCore {
 
     /** @since 8.0 */
     @NativeType("LLVMValueRef")
-    public static long LLVMBuildPointerCast2(@NativeType("LLVMBuilderRef") long Builder, @NativeType("LLVMValueRef") long Val, @NativeType("LLVMTypeRef") long DestTy, @NativeType("LLVMBool") boolean IsSigned, @NativeType("char const *") ByteBuffer Name) {
+    public static long LLVMBuildIntCast2(@NativeType("LLVMBuilderRef") long Builder, @NativeType("LLVMValueRef") long Val, @NativeType("LLVMTypeRef") long DestTy, @NativeType("LLVMBool") boolean IsSigned, @NativeType("char const *") ByteBuffer Name) {
         if (CHECKS) {
             checkNT1(Name);
         }
-        return nLLVMBuildPointerCast2(Builder, Val, DestTy, IsSigned ? 1 : 0, memAddress(Name));
+        return nLLVMBuildIntCast2(Builder, Val, DestTy, IsSigned ? 1 : 0, memAddress(Name));
     }
 
     /** @since 8.0 */
     @NativeType("LLVMValueRef")
-    public static long LLVMBuildPointerCast2(@NativeType("LLVMBuilderRef") long Builder, @NativeType("LLVMValueRef") long Val, @NativeType("LLVMTypeRef") long DestTy, @NativeType("LLVMBool") boolean IsSigned, @NativeType("char const *") CharSequence Name) {
+    public static long LLVMBuildIntCast2(@NativeType("LLVMBuilderRef") long Builder, @NativeType("LLVMValueRef") long Val, @NativeType("LLVMTypeRef") long DestTy, @NativeType("LLVMBool") boolean IsSigned, @NativeType("char const *") CharSequence Name) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             stack.nUTF8(Name, true);
             long NameEncoded = stack.getPointerAddress();
-            return nLLVMBuildPointerCast2(Builder, Val, DestTy, IsSigned ? 1 : 0, NameEncoded);
+            return nLLVMBuildIntCast2(Builder, Val, DestTy, IsSigned ? 1 : 0, NameEncoded);
         } finally {
             stack.setPointer(stackPointer);
         }
@@ -12939,6 +13179,19 @@ public class LLVMCore {
         } finally {
             stack.setPointer(stackPointer);
         }
+    }
+
+    // --- [ LLVMGetCastOpcode ] ---
+
+    @NativeType("LLVMOpcode")
+    public static int LLVMGetCastOpcode(@NativeType("LLVMValueRef") long Src, @NativeType("LLVMBool") boolean SrcIsSigned, @NativeType("LLVMTypeRef") long DestTy, @NativeType("LLVMBool") boolean DestIsSigned) {
+        long __functionAddress = Functions.GetCastOpcode;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(Src);
+            check(DestTy);
+        }
+        return invokePPI(Src, SrcIsSigned ? 1 : 0, DestTy, DestIsSigned ? 1 : 0, __functionAddress);
     }
 
     // --- [ LLVMBuildFPCast ] ---
@@ -13079,6 +13332,7 @@ public class LLVMCore {
     public static long nLLVMBuildCall(long Builder, long Fn, long Args, int NumArgs, long Name) {
         long __functionAddress = Functions.BuildCall;
         if (CHECKS) {
+            check(__functionAddress);
             check(Builder);
             check(Fn);
         }
@@ -13469,6 +13723,7 @@ public class LLVMCore {
     public static long nLLVMBuildPtrDiff(long Builder, long LHS, long RHS, long Name) {
         long __functionAddress = Functions.BuildPtrDiff;
         if (CHECKS) {
+            check(__functionAddress);
             check(Builder);
             check(LHS);
             check(RHS);
@@ -13491,6 +13746,40 @@ public class LLVMCore {
             stack.nUTF8(Name, true);
             long NameEncoded = stack.getPointerAddress();
             return nLLVMBuildPtrDiff(Builder, LHS, RHS, NameEncoded);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ LLVMBuildPtrDiff2 ] ---
+
+    public static long nLLVMBuildPtrDiff2(long Builder, long ElemTy, long LHS, long RHS, long Name) {
+        long __functionAddress = Functions.BuildPtrDiff2;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(Builder);
+            check(ElemTy);
+            check(LHS);
+            check(RHS);
+        }
+        return invokePPPPPP(Builder, ElemTy, LHS, RHS, Name, __functionAddress);
+    }
+
+    @NativeType("LLVMValueRef")
+    public static long LLVMBuildPtrDiff2(@NativeType("LLVMBuilderRef") long Builder, @NativeType("LLVMTypeRef") long ElemTy, @NativeType("LLVMValueRef") long LHS, @NativeType("LLVMValueRef") long RHS, @NativeType("char const *") ByteBuffer Name) {
+        if (CHECKS) {
+            checkNT1(Name);
+        }
+        return nLLVMBuildPtrDiff2(Builder, ElemTy, LHS, RHS, memAddress(Name));
+    }
+
+    @NativeType("LLVMValueRef")
+    public static long LLVMBuildPtrDiff2(@NativeType("LLVMBuilderRef") long Builder, @NativeType("LLVMTypeRef") long ElemTy, @NativeType("LLVMValueRef") long LHS, @NativeType("LLVMValueRef") long RHS, @NativeType("char const *") CharSequence Name) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(Name, true);
+            long NameEncoded = stack.getPointerAddress();
+            return nLLVMBuildPtrDiff2(Builder, ElemTy, LHS, RHS, NameEncoded);
         } finally {
             stack.setPointer(stackPointer);
         }

@@ -8,6 +8,8 @@ package org.lwjgl.vulkan;
 /**
  * Applications using Nvidia Nsight™ Aftermath SDK for Vulkan to integrate device crash dumps into their error reporting mechanisms, <b>may</b> use this extension to configure options related to device crash dump creation.
  * 
+ * <p>Version 2 of this extension adds {@link #VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_ERROR_REPORTING_BIT_NV DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_ERROR_REPORTING_BIT_NV} which when set enables enhanced reporting of shader execution errors.</p>
+ * 
  * <h5>VK_NV_device_diagnostics_config</h5>
  * 
  * <dl>
@@ -18,15 +20,12 @@ package org.lwjgl.vulkan;
  * <dt><b>Registered Extension Number</b></dt>
  * <dd>301</dd>
  * <dt><b>Revision</b></dt>
- * <dd>1</dd>
+ * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
- * </ul></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Kedarnath Thangudu <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_device_diagnostics_config]%20@kthangudu%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_device_diagnostics_config%20extension%3E%3E">kthangudu</a></li>
+ * <li>Kedarnath Thangudu <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_device_diagnostics_config]%20@kthangudu%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_device_diagnostics_config%20extension*">kthangudu</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -34,7 +33,7 @@ package org.lwjgl.vulkan;
  * 
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
- * <dd>2019-12-15</dd>
+ * <dd>2022-04-06</dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
  * <li>Kedarnath Thangudu, NVIDIA</li>
@@ -45,7 +44,7 @@ package org.lwjgl.vulkan;
 public final class NVDeviceDiagnosticsConfig {
 
     /** The extension specification version. */
-    public static final int VK_NV_DEVICE_DIAGNOSTICS_CONFIG_SPEC_VERSION = 1;
+    public static final int VK_NV_DEVICE_DIAGNOSTICS_CONFIG_SPEC_VERSION = 2;
 
     /** The extension name. */
     public static final String VK_NV_DEVICE_DIAGNOSTICS_CONFIG_EXTENSION_NAME = "VK_NV_device_diagnostics_config";
@@ -72,13 +71,15 @@ public final class NVDeviceDiagnosticsConfig {
      * <ul>
      * <li>{@link #VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_DEBUG_INFO_BIT_NV DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_DEBUG_INFO_BIT_NV} enables the generation of debug information for shaders.</li>
      * <li>{@link #VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_RESOURCE_TRACKING_BIT_NV DEVICE_DIAGNOSTICS_CONFIG_ENABLE_RESOURCE_TRACKING_BIT_NV} enables driver side tracking of resources (images, buffers, etc.) used to augment the device fault information.</li>
-     * <li>{@link #VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_AUTOMATIC_CHECKPOINTS_BIT_NV DEVICE_DIAGNOSTICS_CONFIG_ENABLE_AUTOMATIC_CHECKPOINTS_BIT_NV} enables automatic insertion of <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#device-diagnostic-checkpoints">diagnostic checkpoints</a> for draw calls, dispatches, trace rays, and copies. The CPU call stack at the time of the command will be associated as the marker data for the automatically inserted checkpoints.</li>
+     * <li>{@link #VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_AUTOMATIC_CHECKPOINTS_BIT_NV DEVICE_DIAGNOSTICS_CONFIG_ENABLE_AUTOMATIC_CHECKPOINTS_BIT_NV} enables automatic insertion of <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#device-diagnostic-checkpoints">diagnostic checkpoints</a> for draw calls, dispatches, trace rays, and copies. The CPU call stack at the time of the command will be associated as the marker data for the automatically inserted checkpoints.</li>
+     * <li>{@link #VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_ERROR_REPORTING_BIT_NV DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_ERROR_REPORTING_BIT_NV} enables shader error reporting.</li>
      * </ul>
      */
     public static final int
-        VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_DEBUG_INFO_BIT_NV     = 0x1,
-        VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_RESOURCE_TRACKING_BIT_NV     = 0x2,
-        VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_AUTOMATIC_CHECKPOINTS_BIT_NV = 0x4;
+        VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_DEBUG_INFO_BIT_NV      = 0x1,
+        VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_RESOURCE_TRACKING_BIT_NV      = 0x2,
+        VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_AUTOMATIC_CHECKPOINTS_BIT_NV  = 0x4,
+        VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_ERROR_REPORTING_BIT_NV = 0x8;
 
     private NVDeviceDiagnosticsConfig() {}
 

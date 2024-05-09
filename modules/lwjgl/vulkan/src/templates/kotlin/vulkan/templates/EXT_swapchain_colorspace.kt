@@ -28,14 +28,11 @@ val EXT_swapchain_colorspace = "EXTSwapchainColorspace".nativeClassVK("EXT_swapc
             <dd>4</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRSurface VK_KHR_surface}</li>
-            </ul></dd>
+            <dd>{@link KHRSurface VK_KHR_surface}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Courtney Goeltzenleuchter <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_swapchain_colorspace]%20@courtney-g%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_swapchain_colorspace%20extension%3E%3E">courtney-g</a></li>
+                <li>Courtney Goeltzenleuchter <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_swapchain_colorspace]%20@courtney-g%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_swapchain_colorspace%20extension*">courtney-g</a></li>
             </ul></dd>
         </dl>
 

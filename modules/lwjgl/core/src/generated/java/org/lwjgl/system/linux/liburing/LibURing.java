@@ -104,12 +104,12 @@ public class LibURing {
     public static native int nio_uring_queue_init(int entries, long ring, int flags);
 
     /**
-     * Executes the {@link LibIOURing#io_uring_setup setup} syscall to  initialize the submission and completion queues in the kernel with at least {@code entries} entries and then maps the
+     * Executes the {@link #io_uring_setup setup} syscall to  initialize the submission and completion queues in the kernel with at least {@code entries} entries and then maps the
      * resulting file descriptor to memory shared between the application and the kernel.
      * 
      * <p>On success, the resources held by {@code ring} should be released via a corresponding call to {@link #io_uring_queue_exit queue_exit}.</p>
      *
-     * @param flags will be passed through to the {@link LibIOURing#io_uring_setup setup} syscall
+     * @param flags will be passed through to the {@link #io_uring_setup setup} syscall
      *
      * @return 0 on success and {@code ring} will point to the shared memory containing the {@code io_uring} queues. On failure {@code -errno} is returned.
      */
@@ -125,7 +125,7 @@ public class LibURing {
     /**
      * For users that want to specify {@code sq_thread_cpu} or {@code sq_thread_idle}, this interface is a convenient helper for {@code mmap()}ing the rings.
      *
-     * @param fd   a file descriptor returned by {@link LibIOURing#io_uring_setup setup}
+     * @param fd   a file descriptor returned by {@link #io_uring_setup setup}
      * @param ring on success, contains the necessary information to read/write to the rings
      *
      * @return {@code -errno} on error, or zero on success
@@ -271,25 +271,6 @@ public class LibURing {
         return nio_uring_submit_and_wait_timeout(ring.address(), memAddress(cqe_ptr), cqe_ptr.remaining(), memAddressSafe(ts), sigmask);
     }
 
-    // --- [ io_uring_get_sqe ] ---
-
-    /** Unsafe version of: {@link #io_uring_get_sqe get_sqe} */
-    public static native long nio_uring_get_sqe(long ring);
-
-    /**
-     * Gets the next available submission queue entry from the submission queue belonging to the {@code ring} param.
-     * 
-     * <p>If a submission queue event is returned, it should be filled out via one of the prep functions such as {@link #io_uring_prep_read prep_read} and submitted via {@link #io_uring_submit submit}.</p>
-     *
-     * @return a pointer to the next submission queue event on success and {@code NULL} on failure
-     */
-    @Nullable
-    @NativeType("struct io_uring_sqe *")
-    public static IOURingSQE io_uring_get_sqe(@NativeType("struct io_uring *") IOURing ring) {
-        long __result = nio_uring_get_sqe(ring.address());
-        return IOURingSQE.createSafe(__result);
-    }
-
     // --- [ io_uring_register_buffers ] ---
 
     /** Unsafe version of: {@link #io_uring_register_buffers register_buffers} */
@@ -319,6 +300,26 @@ public class LibURing {
             check(tags, iovecs.remaining());
         }
         return nio_uring_register_buffers_tags(ring.address(), iovecs.address(), memAddress(tags), iovecs.remaining());
+    }
+
+    // --- [ io_uring_register_buffers_sparse ] ---
+
+    /** Unsafe version of: {@link #io_uring_register_buffers_sparse register_buffers_sparse} */
+    public static native int nio_uring_register_buffers_sparse(long ring, int nr_iovecs);
+
+    /**
+     * Registers {@code nr_iovecs} empty buffers belonging to the {@code ring}.
+     * 
+     * <p>These buffers must be updated before use, using eg {@link #io_uring_register_buffers_update_tag register_buffers_update_tag}.</p>
+     * 
+     * <p>After the caller has registered the buffers, they can be used with one of the fixed buffers functions.</p>
+     * 
+     * <p>Registered buffers is an optimization that is useful in conjunction with {@code O_DIRECT} reads and writes, where it maps the specified range into the
+     * kernel once when the buffer is registered rather than doing a map and unmap for each IO every time IO is performed to that region. Additionally, it
+     * also avoids manipulating the page reference counts for each IO.</p>
+     */
+    public static int io_uring_register_buffers_sparse(@NativeType("struct io_uring *") IOURing ring, @NativeType("unsigned") int nr_iovecs) {
+        return nio_uring_register_buffers_sparse(ring.address(), nr_iovecs);
     }
 
     // --- [ io_uring_register_buffers_update_tag ] ---
@@ -373,6 +374,22 @@ public class LibURing {
         return nio_uring_register_files_tags(ring.address(), memAddress(files), memAddress(tags), files.remaining());
     }
 
+    // --- [ io_uring_register_files_sparse ] ---
+
+    /** Unsafe version of: {@link #io_uring_register_files_sparse register_files_sparse} */
+    public static native int nio_uring_register_files_sparse(long ring, int nr_files);
+
+    /**
+     * Registers an empty file table of {@code nr_files} number of file descriptors.
+     * 
+     * <p>Registering a file table is a prerequisite for using any request that uses direct descriptors.</p>
+     * 
+     * <p>The sparse variant is available in kernels 5.19 and later.</p>
+     */
+    public static int io_uring_register_files_sparse(@NativeType("struct io_uring *") IOURing ring, @NativeType("unsigned") int nr_files) {
+        return nio_uring_register_files_sparse(ring.address(), nr_files);
+    }
+
     // --- [ io_uring_register_files_update_tag ] ---
 
     public static native int nio_uring_register_files_update_tag(long ring, int off, long files, long tags, int nr_files);
@@ -396,7 +413,7 @@ public class LibURing {
 
     public static native int nio_uring_register_files_update(long ring, int off, long files, int nr_files);
 
-    public static int io_uring_register_files_update(@NativeType("struct io_uring *") IOURing ring, @NativeType("unsigned") int off, @NativeType("int *") IntBuffer files) {
+    public static int io_uring_register_files_update(@NativeType("struct io_uring *") IOURing ring, @NativeType("unsigned") int off, @NativeType("int const *") IntBuffer files) {
         return nio_uring_register_files_update(ring.address(), off, memAddress(files), files.remaining());
     }
 
@@ -502,6 +519,262 @@ public class LibURing {
         return nio_uring_register_iowq_max_workers(ring.address(), memAddress(values));
     }
 
+    // --- [ io_uring_register_ring_fd ] ---
+
+    /** Unsafe version of: {@link #io_uring_register_ring_fd register_ring_fd} */
+    public static native int nio_uring_register_ring_fd(long ring);
+
+    /**
+     * Registers the file descriptor of the ring.
+     * 
+     * <p>Whenever {@link #io_uring_enter enter} is called to submit request or wait for completions, the kernel must grab a reference to the file descriptor. If the application
+     * using io_uring is threaded, the file table is marked as shared, and the reference grab and put of the file descriptor count is more expensive than it
+     * is for a non-threaded application.</p>
+     * 
+     * <p>Similarly to how io_uring allows registration of files, this allow registration of the ring file descriptor itself. This reduces the overhead of the
+     * {@code io_uring_enter (2)} system call.</p>
+     * 
+     * <p>If an application using liburing is threaded, then an application should call this function to register the ring descriptor when a ring is set up. See
+     * NOTES for restrictions when a ring is shared.</p>
+     * 
+     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+     * 
+     * <p>When the ring descriptor is registered, it is stored internally in the {@code struct io_uring} structure. For applications that share a ring between
+     * threads, for example having one thread do submits and another reap events, then this optimization cannot be used as each thread may have a different
+     * index for the registered ring fd.</p>
+     * </div>
+     *
+     * @return 1 on success, indicating that one file descriptor was registered, or {@code -errno} on error
+     */
+    public static int io_uring_register_ring_fd(@NativeType("struct io_uring *") IOURing ring) {
+        return nio_uring_register_ring_fd(ring.address());
+    }
+
+    // --- [ io_uring_unregister_ring_fd ] ---
+
+    /** Unsafe version of: {@link #io_uring_unregister_ring_fd unregister_ring_fd} */
+    public static native int nio_uring_unregister_ring_fd(long ring);
+
+    /**
+     * Unregisters the file descriptor of the ring.
+     * 
+     * <p>Unregisters a ring descriptor previously registered with the task. This is done automatically when {@link #io_uring_queue_exit queue_exit} is called, but can also be done to
+     * free up space for new ring registrations. For more information on ring descriptor registration, see {@link #io_uring_register_ring_fd register_ring_fd}.</p>
+     *
+     * @return 1 on success, indicating that one file descriptor was unregistered, or {@code -errno} on error
+     */
+    public static int io_uring_unregister_ring_fd(@NativeType("struct io_uring *") IOURing ring) {
+        return nio_uring_unregister_ring_fd(ring.address());
+    }
+
+    // --- [ io_uring_close_ring_fd ] ---
+
+    public static native int nio_uring_close_ring_fd(long ring);
+
+    public static int io_uring_close_ring_fd(@NativeType("struct io_uring *") IOURing ring) {
+        return nio_uring_close_ring_fd(ring.address());
+    }
+
+    // --- [ io_uring_register_buf_ring ] ---
+
+    /** Unsafe version of: {@link #io_uring_register_buf_ring register_buf_ring} */
+    public static native int nio_uring_register_buf_ring(long ring, long reg, int flags);
+
+    /**
+     * Registers a shared buffer ring to be used with provided buffers.
+     * 
+     * <p>For the request types that support it, provided buffers are given to the ring and one is selected by a request if it has {@link LibIOURing#IOSQE_BUFFER_SELECT} set in
+     * the SQE {@code flags}, when the request is ready to receive data. This allows both clear ownership of the buffer lifetime, and a way to have more
+     * read/receive type of operations in flight than buffers available.</p>
+     * 
+     * <p>The {@code reg} argument must be filled in with the appropriate information. It looks as follows:</p>
+     * 
+     * <pre><code>
+     * struct io_uring_buf_reg {
+     *     __u64 ring_addr;
+     *     __u32 ring_entries;
+     *     __u16 bgid;
+     *     __u16 pad;
+     *     __u64 resv[3];
+     * };</code></pre>
+     * 
+     * <p>The {@code ring_addr} field must contain the address to the memory allocated to fit this ring. The memory must be page aligned and hence allocated
+     * appropriately using eg {@code posix_memalign (3)} or similar. The size of the ring is the product of {@code ring_entries} and the size of
+     * {@code "struct io_uring_buf"}. {@code ring_entries} is the desired size of the ring, and must be a power-of-2 in size. {@code bgid} is the buffer group
+     * ID associated with this ring. SQEs that select a buffer has a buffer group associated with them in their {@code buf_group} field, and the associated
+     * CQE will have {@link LibIOURing#IORING_CQE_F_BUFFER} set in their {@code flags} member, which will also contain the specific ID of the buffer selected. The
+     * rest of the fields are reserved and must be cleared to zero.</p>
+     * 
+     * <p>The {@code flags} argument is currently unused and must be set to zero.</p>
+     * 
+     * <p>A shared buffer ring looks as follows:</p>
+     * 
+     * <pre><code>
+     * struct io_uring_buf_ring {
+     *     union {
+     *     struct {
+     *             __u64 resv1;
+     *             __u32 resv2;
+     *             __u16 resv3;
+     *             __u16 tail;
+     *     };
+     *     struct io_uring_buf bufs[0];
+     *     };
+     * };</code></pre>
+     * 
+     * <p>where {@code tail} is the index at which the application can insert new buffers for consumption by requests, and {@code struct io_uring_buf} is buffer
+     * definition:</p>
+     * 
+     * <pre><code>
+     * struct io_uring_buf {
+     *     __u64 addr;
+     *     __u32 len;
+     *     __u16 bid;
+     *     __u16 resv;
+     * };</code></pre>
+     * 
+     * <p>where {@code addr} is the address for the buffer, {@code len} is the length of the buffer in bytes, and {@code bid} is the buffer ID that will be
+     * returned in the CQE once consumed.</p>
+     * 
+     * <p>Reserved fields must not be touched. Applications must use {@link #io_uring_buf_ring_init buf_ring_init} to initialise the buffer ring. Applications may use
+     * {@link #io_uring_buf_ring_add buf_ring_add} and {@link #io_uring_buf_ring_advance buf_ring_advance} or {@link #io_uring_buf_ring_advance buf_ring_advance} to provide buffers, which will set these fields and update the tail.</p>
+     * 
+     * <p>Available since 5.19.</p>
+     *
+     * @return 0 on success, {@code -errno} on failure
+     */
+    public static int io_uring_register_buf_ring(@NativeType("struct io_uring *") IOURing ring, @NativeType("struct io_uring_buf_reg *") IOURingBufReg reg, @NativeType("unsigned int") int flags) {
+        return nio_uring_register_buf_ring(ring.address(), reg.address(), flags);
+    }
+
+    // --- [ io_uring_unregister_buf_ring ] ---
+
+    /** Unsafe version of: {@link #io_uring_unregister_buf_ring unregister_buf_ring} */
+    public static native int nio_uring_unregister_buf_ring(long ring, int bgid);
+
+    /**
+     * Function unregisters a previously registered shared buffer ring indicated by {@code bgid}.
+     *
+     * @return 0 on success, {@code -errno} on failure
+     */
+    public static int io_uring_unregister_buf_ring(@NativeType("struct io_uring *") IOURing ring, int bgid) {
+        return nio_uring_unregister_buf_ring(ring.address(), bgid);
+    }
+
+    // --- [ io_uring_register_sync_cancel ] ---
+
+    public static native int nio_uring_register_sync_cancel(long ring, long reg);
+
+    public static int io_uring_register_sync_cancel(@NativeType("struct io_uring *") IOURing ring, @NativeType("struct io_uring_sync_cancel_reg *") IOURingSyncCancelReg reg) {
+        return nio_uring_register_sync_cancel(ring.address(), reg.address());
+    }
+
+    // --- [ io_uring_register_file_alloc_range ] ---
+
+    public static native int nio_uring_register_file_alloc_range(long ring, int off, int len);
+
+    public static int io_uring_register_file_alloc_range(@NativeType("struct io_uring *") IOURing ring, @NativeType("unsigned") int off, @NativeType("unsigned") int len) {
+        return nio_uring_register_file_alloc_range(ring.address(), off, len);
+    }
+
+    // --- [ io_uring_get_events ] ---
+
+    /** Unsafe version of: {@link #io_uring_get_events get_events} */
+    public static native int nio_uring_get_events(long ring);
+
+    /**
+     * Runs outstanding work and flushes completion events to the CQE ring.
+     * 
+     * <p>There can be events needing to be flushed if the ring was full and had overflowed. Alternatively if the ring was setup with the {@link LibIOURing#IORING_SETUP_DEFER_TASKRUN SETUP_DEFER_TASKRUN}
+     * flag then this will process outstanding tasks, possibly resulting in more CQEs.</p>
+     *
+     * @return 0 on success, {@code -errno} on failure
+     */
+    public static int io_uring_get_events(@NativeType("struct io_uring *") IOURing ring) {
+        return nio_uring_get_events(ring.address());
+    }
+
+    // --- [ io_uring_submit_and_get_events ] ---
+
+    /** Unsafe version of: {@link #io_uring_submit_and_get_events submit_and_get_events} */
+    public static native int nio_uring_submit_and_get_events(long ring);
+
+    /**
+     * Submits the next events to the submission queue as with {@link #io_uring_submit submit}.
+     * 
+     * <p>After submission it will flush CQEs as with {@link #io_uring_get_events get_events}.</p>
+     * 
+     * <p>The benefit of this function is that it does both with only one system call.</p>
+     *
+     * @return the number of submitted submission queue entries on success, {@code -errno} on failure
+     */
+    public static int io_uring_submit_and_get_events(@NativeType("struct io_uring *") IOURing ring) {
+        return nio_uring_submit_and_get_events(ring.address());
+    }
+
+    // --- [ io_uring_enter ] ---
+
+    /** Unsafe version of: {@link #io_uring_enter enter} */
+    public static native int nio_uring_enter(int fd, int to_submit, int min_complete, int flags, long sig);
+
+    /** See {@link LibIOURing#io_uring_enter enter}. */
+    public static int io_uring_enter(@NativeType("unsigned int") int fd, @NativeType("unsigned int") int to_submit, @NativeType("unsigned int") int min_complete, @NativeType("unsigned int") int flags, @NativeType("sigset_t *") long sig) {
+        if (CHECKS) {
+            check(sig);
+        }
+        return nio_uring_enter(fd, to_submit, min_complete, flags, sig);
+    }
+
+    // --- [ io_uring_enter2 ] ---
+
+    /** Unsafe version of: {@link #io_uring_enter2 enter2} */
+    public static native int nio_uring_enter2(int fd, int to_submit, int min_complete, int flags, long sig, long sz);
+
+    /** See {@link LibIOURing#io_uring_enter2 enter2}. */
+    public static int io_uring_enter2(@NativeType("unsigned int") int fd, @NativeType("unsigned int") int to_submit, @NativeType("unsigned int") int min_complete, @NativeType("unsigned int") int flags, @NativeType("sigset_t *") long sig, @NativeType("size_t") long sz) {
+        if (CHECKS) {
+            check(sig);
+        }
+        return nio_uring_enter2(fd, to_submit, min_complete, flags, sig, sz);
+    }
+
+    // --- [ io_uring_setup ] ---
+
+    /** Unsafe version of: {@link #io_uring_setup setup} */
+    public static native int nio_uring_setup(int entries, long p);
+
+    /** See {@link LibIOURing#io_uring_setup setup}. */
+    public static int io_uring_setup(@NativeType("unsigned int") int entries, @NativeType("struct io_uring_params *") IOURingParams p) {
+        return nio_uring_setup(entries, p.address());
+    }
+
+    // --- [ io_uring_register ] ---
+
+    /** See {@link LibIOURing#io_uring_register register}. */
+    public static native int io_uring_register(@NativeType("unsigned int") int fd, @NativeType("unsigned int") int opcode, @NativeType("void *") long arg, @NativeType("unsigned int") int nr_args);
+
+    // --- [ io_uring_setup_buf_ring ] ---
+
+    public static native long nio_uring_setup_buf_ring(long ring, int nentries, int bgid, int flags, long ret);
+
+    @Nullable
+    @NativeType("struct io_uring_buf_ring *")
+    public static IOURingBufRing io_uring_setup_buf_ring(@NativeType("struct io_uring *") IOURing ring, @NativeType("unsigned int") int nentries, int bgid, @NativeType("unsigned int") int flags, @NativeType("int *") IntBuffer ret) {
+        if (CHECKS) {
+            check(ret, 1);
+        }
+        long __result = nio_uring_setup_buf_ring(ring.address(), nentries, bgid, flags, memAddress(ret));
+        return IOURingBufRing.createSafe(__result);
+    }
+
+    // --- [ io_uring_free_buf_ring ] ---
+
+    public static native int nio_uring_free_buf_ring(long ring, long br, int nentries, int bgid);
+
+    public static int io_uring_free_buf_ring(@NativeType("struct io_uring *") IOURing ring, @NativeType("struct io_uring_buf_ring *") IOURingBufRing br, @NativeType("unsigned int") int nentries, int bgid) {
+        return nio_uring_free_buf_ring(ring.address(), br.address(), nentries, bgid);
+    }
+
     // --- [ io_uring_cqe_seen ] ---
 
     /** Unsafe version of: {@link #io_uring_cqe_seen cqe_seen} */
@@ -603,7 +876,7 @@ public class LibURing {
      * <p>This splice operation can be used to implement {@code sendfile} by splicing to an intermediate pipe first, then splice to the final destination. In
      * fact, the implementation of {@code sendfile} in kernel uses {@code splice} internally.</p>
      * 
-     * <p>NOTE that even if {@code fd_in} or {@code fd_out} refers to a pipe, the splice operation can still failed with {@code EINVAL} if one of the fd doesn't
+     * <p>NOTE that even if {@code fd_in} or {@code fd_out} refers to a pipe, the splice operation can still fail with {@code EINVAL} if one of the fd doesn't
      * explicitly support splice operation, e.g. reading from terminal is unsupported from kernel 5.7 to 5.11. Check issue #291 for more information.</p>
      *
      * @param off_in       if {@code fd_in} refers to a pipe, {@code off_in} must be {@code (int64_t) -1}; If {@code fd_in} does not refer to a pipe and {@code off_in} is
@@ -782,6 +1055,14 @@ public class LibURing {
         nio_uring_prep_recvmsg(sqe.address(), fd, msg.address(), flags);
     }
 
+    // --- [ io_uring_prep_recvmsg_multishot ] ---
+
+    public static native void nio_uring_prep_recvmsg_multishot(long sqe, int fd, long msg, int flags);
+
+    public static void io_uring_prep_recvmsg_multishot(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("struct msghdr *") Msghdr msg, @NativeType("unsigned") int flags) {
+        nio_uring_prep_recvmsg_multishot(sqe.address(), fd, msg.address(), flags);
+    }
+
     // --- [ io_uring_prep_sendmsg ] ---
 
     public static native void nio_uring_prep_sendmsg(long sqe, int fd, long msg, int flags);
@@ -887,12 +1168,53 @@ public class LibURing {
         nio_uring_prep_accept_direct(sqe.address(), fd, addr.address(), memAddress(addrlen), flags, file_index);
     }
 
+    // --- [ io_uring_prep_multishot_accept ] ---
+
+    public static native void nio_uring_prep_multishot_accept(long sqe, int fd, long addr, long addrlen, int flags);
+
+    public static void io_uring_prep_multishot_accept(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("struct sockaddr *") Sockaddr addr, @NativeType("socklen_t *") IntBuffer addrlen, int flags) {
+        if (CHECKS) {
+            check(addrlen, 1);
+        }
+        nio_uring_prep_multishot_accept(sqe.address(), fd, addr.address(), memAddress(addrlen), flags);
+    }
+
+    // --- [ io_uring_prep_multishot_accept_direct ] ---
+
+    public static native void nio_uring_prep_multishot_accept_direct(long sqe, int fd, long addr, long addrlen, int flags);
+
+    public static void io_uring_prep_multishot_accept_direct(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("struct sockaddr *") Sockaddr addr, @NativeType("socklen_t *") IntBuffer addrlen, int flags) {
+        if (CHECKS) {
+            check(addrlen, 1);
+        }
+        nio_uring_prep_multishot_accept_direct(sqe.address(), fd, addr.address(), memAddress(addrlen), flags);
+    }
+
+    // --- [ io_uring_prep_cancel64 ] ---
+
+    public static native void nio_uring_prep_cancel64(long sqe, long user_data, int flags);
+
+    public static void io_uring_prep_cancel64(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("__u64") long user_data, int flags) {
+        nio_uring_prep_cancel64(sqe.address(), user_data, flags);
+    }
+
     // --- [ io_uring_prep_cancel ] ---
 
     public static native void nio_uring_prep_cancel(long sqe, long user_data, int flags);
 
-    public static void io_uring_prep_cancel(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("__u64") long user_data, int flags) {
+    public static void io_uring_prep_cancel(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("void *") long user_data, int flags) {
+        if (CHECKS) {
+            check(user_data);
+        }
         nio_uring_prep_cancel(sqe.address(), user_data, flags);
+    }
+
+    // --- [ io_uring_prep_cancel_fd ] ---
+
+    public static native void nio_uring_prep_cancel_fd(long sqe, int fd, int flags);
+
+    public static void io_uring_prep_cancel_fd(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("unsigned int") int flags) {
+        nio_uring_prep_cancel_fd(sqe.address(), fd, flags);
     }
 
     // --- [ io_uring_prep_link_timeout ] ---
@@ -1077,12 +1399,115 @@ public class LibURing {
         nio_uring_prep_send(sqe.address(), sockfd, memAddress(buf), buf.remaining(), flags);
     }
 
+    // --- [ io_uring_prep_send_zc ] ---
+
+    public static native void nio_uring_prep_send_zc(long sqe, int sockfd, long buf, long len, int flags, int zc_flags);
+
+    public static void io_uring_prep_send_zc(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int sockfd, @NativeType("void const *") ByteBuffer buf, int flags, @NativeType("unsigned") int zc_flags) {
+        nio_uring_prep_send_zc(sqe.address(), sockfd, memAddress(buf), buf.remaining(), flags, zc_flags);
+    }
+
+    // --- [ io_uring_prep_send_zc_fixed ] ---
+
+    public static native void nio_uring_prep_send_zc_fixed(long sqe, int sockfd, long buf, long len, int flags, int zc_flags, int buf_index);
+
+    public static void io_uring_prep_send_zc_fixed(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int sockfd, @NativeType("void const *") ByteBuffer buf, int flags, @NativeType("unsigned") int zc_flags, @NativeType("unsigned") int buf_index) {
+        nio_uring_prep_send_zc_fixed(sqe.address(), sockfd, memAddress(buf), buf.remaining(), flags, zc_flags, buf_index);
+    }
+
+    // --- [ io_uring_prep_sendmsg_zc ] ---
+
+    public static native void nio_uring_prep_sendmsg_zc(long sqe, int fd, long msg, int flags);
+
+    public static void io_uring_prep_sendmsg_zc(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("struct msghdr const *") Msghdr msg, @NativeType("unsigned") int flags) {
+        if (CHECKS) {
+            Msghdr.validate(msg.address());
+        }
+        nio_uring_prep_sendmsg_zc(sqe.address(), fd, msg.address(), flags);
+    }
+
+    // --- [ io_uring_prep_send_set_addr ] ---
+
+    public static native void nio_uring_prep_send_set_addr(long sqe, long dest_addr, short addr_len);
+
+    public static void io_uring_prep_send_set_addr(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("struct sockaddr const *") Sockaddr dest_addr, @NativeType("__u16") short addr_len) {
+        nio_uring_prep_send_set_addr(sqe.address(), dest_addr.address(), addr_len);
+    }
+
     // --- [ io_uring_prep_recv ] ---
 
     public static native void nio_uring_prep_recv(long sqe, int sockfd, long buf, long len, int flags);
 
     public static void io_uring_prep_recv(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int sockfd, @NativeType("void *") ByteBuffer buf, int flags) {
         nio_uring_prep_recv(sqe.address(), sockfd, memAddress(buf), buf.remaining(), flags);
+    }
+
+    // --- [ io_uring_prep_recv_multishot ] ---
+
+    public static native void nio_uring_prep_recv_multishot(long sqe, int sockfd, long buf, long len, int flags);
+
+    public static void io_uring_prep_recv_multishot(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int sockfd, @NativeType("void *") ByteBuffer buf, int flags) {
+        nio_uring_prep_recv_multishot(sqe.address(), sockfd, memAddress(buf), buf.remaining(), flags);
+    }
+
+    // --- [ io_uring_recvmsg_validate ] ---
+
+    public static native long nio_uring_recvmsg_validate(long buf, int buf_len, long msgh);
+
+    @Nullable
+    @NativeType("struct io_uring_recvmsg_out *")
+    public static IOURingRecvmsgOut io_uring_recvmsg_validate(@NativeType("void *") ByteBuffer buf, @NativeType("struct msghdr *") Msghdr msgh) {
+        long __result = nio_uring_recvmsg_validate(memAddress(buf), buf.remaining(), msgh.address());
+        return IOURingRecvmsgOut.createSafe(__result);
+    }
+
+    // --- [ io_uring_recvmsg_name ] ---
+
+    public static native long nio_uring_recvmsg_name(long o);
+
+    @NativeType("void *")
+    public static long io_uring_recvmsg_name(@NativeType("struct io_uring_recvmsg_out *") IOURingRecvmsgOut o) {
+        return nio_uring_recvmsg_name(o.address());
+    }
+
+    // --- [ io_uring_recvmsg_cmsg_firsthdr ] ---
+
+    public static native long nio_uring_recvmsg_cmsg_firsthdr(long o, long msgh);
+
+    @Nullable
+    @NativeType("struct cmsghdr *")
+    public static CMsghdr io_uring_recvmsg_cmsg_firsthdr(@NativeType("struct io_uring_recvmsg_out *") IOURingRecvmsgOut o, @NativeType("struct msghdr *") Msghdr msgh) {
+        long __result = nio_uring_recvmsg_cmsg_firsthdr(o.address(), msgh.address());
+        return CMsghdr.createSafe(__result);
+    }
+
+    // --- [ io_uring_recvmsg_cmsg_nexthdr ] ---
+
+    public static native long nio_uring_recvmsg_cmsg_nexthdr(long o, long msgh, long cmsg);
+
+    @Nullable
+    @NativeType("struct cmsghdr *")
+    public static CMsghdr io_uring_recvmsg_cmsg_nexthdr(@NativeType("struct io_uring_recvmsg_out *") IOURingRecvmsgOut o, @NativeType("struct msghdr *") Msghdr msgh, @NativeType("struct cmsghdr *") CMsghdr cmsg) {
+        long __result = nio_uring_recvmsg_cmsg_nexthdr(o.address(), msgh.address(), cmsg.address());
+        return CMsghdr.createSafe(__result);
+    }
+
+    // --- [ io_uring_recvmsg_payload ] ---
+
+    public static native long nio_uring_recvmsg_payload(long o, long msgh);
+
+    @NativeType("void *")
+    public static long io_uring_recvmsg_payload(@NativeType("struct io_uring_recvmsg_out *") IOURingRecvmsgOut o, @NativeType("struct msghdr *") Msghdr msgh) {
+        return nio_uring_recvmsg_payload(o.address(), msgh.address());
+    }
+
+    // --- [ io_uring_recvmsg_payload_length ] ---
+
+    public static native int nio_uring_recvmsg_payload_length(long o, int buf_len, long msgh);
+
+    @NativeType("unsigned int")
+    public static int io_uring_recvmsg_payload_length(@NativeType("struct io_uring_recvmsg_out *") IOURingRecvmsgOut o, int buf_len, @NativeType("struct msghdr *") Msghdr msgh) {
+        return nio_uring_recvmsg_payload_length(o.address(), buf_len, msgh.address());
     }
 
     // --- [ io_uring_prep_openat2 ] ---
@@ -1186,11 +1611,33 @@ public class LibURing {
         }
     }
 
+    // --- [ io_uring_prep_unlink ] ---
+
+    public static native void nio_uring_prep_unlink(long sqe, long path, int flags);
+
+    public static void io_uring_prep_unlink(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") ByteBuffer path, int flags) {
+        if (CHECKS) {
+            checkNT1(path);
+        }
+        nio_uring_prep_unlink(sqe.address(), memAddress(path), flags);
+    }
+
+    public static void io_uring_prep_unlink(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") CharSequence path, int flags) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(path, true);
+            long pathEncoded = stack.getPointerAddress();
+            nio_uring_prep_unlink(sqe.address(), pathEncoded, flags);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ io_uring_prep_renameat ] ---
 
     public static native void nio_uring_prep_renameat(long sqe, int olddfd, long oldpath, int newdfd, long newpath, int flags);
 
-    public static void io_uring_prep_renameat(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int olddfd, @NativeType("char const *") ByteBuffer oldpath, int newdfd, @NativeType("char const *") ByteBuffer newpath, int flags) {
+    public static void io_uring_prep_renameat(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int olddfd, @NativeType("char const *") ByteBuffer oldpath, int newdfd, @NativeType("char const *") ByteBuffer newpath, @NativeType("unsigned int") int flags) {
         if (CHECKS) {
             checkNT1(oldpath);
             checkNT1(newpath);
@@ -1198,7 +1645,7 @@ public class LibURing {
         nio_uring_prep_renameat(sqe.address(), olddfd, memAddress(oldpath), newdfd, memAddress(newpath), flags);
     }
 
-    public static void io_uring_prep_renameat(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int olddfd, @NativeType("char const *") CharSequence oldpath, int newdfd, @NativeType("char const *") CharSequence newpath, int flags) {
+    public static void io_uring_prep_renameat(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int olddfd, @NativeType("char const *") CharSequence oldpath, int newdfd, @NativeType("char const *") CharSequence newpath, @NativeType("unsigned int") int flags) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             stack.nUTF8(oldpath, true);
@@ -1206,6 +1653,31 @@ public class LibURing {
             stack.nUTF8(newpath, true);
             long newpathEncoded = stack.getPointerAddress();
             nio_uring_prep_renameat(sqe.address(), olddfd, oldpathEncoded, newdfd, newpathEncoded, flags);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ io_uring_prep_rename ] ---
+
+    public static native void nio_uring_prep_rename(long sqe, long oldpath, long newpath);
+
+    public static void io_uring_prep_rename(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") ByteBuffer oldpath, @NativeType("char const *") ByteBuffer newpath) {
+        if (CHECKS) {
+            checkNT1(oldpath);
+            checkNT1(newpath);
+        }
+        nio_uring_prep_rename(sqe.address(), memAddress(oldpath), memAddress(newpath));
+    }
+
+    public static void io_uring_prep_rename(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") CharSequence oldpath, @NativeType("char const *") CharSequence newpath) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(oldpath, true);
+            long oldpathEncoded = stack.getPointerAddress();
+            stack.nUTF8(newpath, true);
+            long newpathEncoded = stack.getPointerAddress();
+            nio_uring_prep_rename(sqe.address(), oldpathEncoded, newpathEncoded);
         } finally {
             stack.setPointer(stackPointer);
         }
@@ -1241,6 +1713,28 @@ public class LibURing {
         }
     }
 
+    // --- [ io_uring_prep_mkdir ] ---
+
+    public static native void nio_uring_prep_mkdir(long sqe, long path, int mode);
+
+    public static void io_uring_prep_mkdir(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") ByteBuffer path, int mode) {
+        if (CHECKS) {
+            checkNT1(path);
+        }
+        nio_uring_prep_mkdir(sqe.address(), memAddress(path), mode);
+    }
+
+    public static void io_uring_prep_mkdir(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") CharSequence path, int mode) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(path, true);
+            long pathEncoded = stack.getPointerAddress();
+            nio_uring_prep_mkdir(sqe.address(), pathEncoded, mode);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ io_uring_prep_symlinkat ] ---
 
     public static native void nio_uring_prep_symlinkat(long sqe, long target, int newdirfd, long linkpath);
@@ -1261,6 +1755,31 @@ public class LibURing {
             stack.nUTF8(linkpath, true);
             long linkpathEncoded = stack.getPointerAddress();
             nio_uring_prep_symlinkat(sqe.address(), targetEncoded, newdirfd, linkpathEncoded);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ io_uring_prep_symlink ] ---
+
+    public static native void nio_uring_prep_symlink(long sqe, long target, long linkpath);
+
+    public static void io_uring_prep_symlink(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") ByteBuffer target, @NativeType("char const *") ByteBuffer linkpath) {
+        if (CHECKS) {
+            checkNT1(target);
+            checkNT1(linkpath);
+        }
+        nio_uring_prep_symlink(sqe.address(), memAddress(target), memAddress(linkpath));
+    }
+
+    public static void io_uring_prep_symlink(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") CharSequence target, @NativeType("char const *") CharSequence linkpath) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(target, true);
+            long targetEncoded = stack.getPointerAddress();
+            stack.nUTF8(linkpath, true);
+            long linkpathEncoded = stack.getPointerAddress();
+            nio_uring_prep_symlink(sqe.address(), targetEncoded, linkpathEncoded);
         } finally {
             stack.setPointer(stackPointer);
         }
@@ -1289,6 +1808,181 @@ public class LibURing {
         } finally {
             stack.setPointer(stackPointer);
         }
+    }
+
+    // --- [ io_uring_prep_link ] ---
+
+    public static native void nio_uring_prep_link(long sqe, long oldpath, long newpath, int flags);
+
+    public static void io_uring_prep_link(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") ByteBuffer oldpath, @NativeType("char const *") ByteBuffer newpath, int flags) {
+        if (CHECKS) {
+            checkNT1(oldpath);
+            checkNT1(newpath);
+        }
+        nio_uring_prep_link(sqe.address(), memAddress(oldpath), memAddress(newpath), flags);
+    }
+
+    public static void io_uring_prep_link(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") CharSequence oldpath, @NativeType("char const *") CharSequence newpath, int flags) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(oldpath, true);
+            long oldpathEncoded = stack.getPointerAddress();
+            stack.nUTF8(newpath, true);
+            long newpathEncoded = stack.getPointerAddress();
+            nio_uring_prep_link(sqe.address(), oldpathEncoded, newpathEncoded, flags);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ io_uring_prep_msg_ring_cqe_flags ] ---
+
+    public static native void nio_uring_prep_msg_ring_cqe_flags(long sqe, int fd, int len, long data, int flags, int cqe_flags);
+
+    public static void io_uring_prep_msg_ring_cqe_flags(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("unsigned int") int len, @NativeType("__u64") long data, @NativeType("unsigned int") int flags, @NativeType("unsigned int") int cqe_flags) {
+        nio_uring_prep_msg_ring_cqe_flags(sqe.address(), fd, len, data, flags, cqe_flags);
+    }
+
+    // --- [ io_uring_prep_msg_ring ] ---
+
+    public static native void nio_uring_prep_msg_ring(long sqe, int fd, int len, long data, int flags);
+
+    public static void io_uring_prep_msg_ring(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("unsigned int") int len, @NativeType("__u64") long data, @NativeType("unsigned int") int flags) {
+        nio_uring_prep_msg_ring(sqe.address(), fd, len, data, flags);
+    }
+
+    // --- [ io_uring_prep_msg_ring_fd ] ---
+
+    public static native void nio_uring_prep_msg_ring_fd(long sqe, int fd, int source_fd, int target_fd, long data, int flags);
+
+    public static void io_uring_prep_msg_ring_fd(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, int source_fd, int target_fd, @NativeType("__u64") long data, @NativeType("unsigned int") int flags) {
+        nio_uring_prep_msg_ring_fd(sqe.address(), fd, source_fd, target_fd, data, flags);
+    }
+
+    // --- [ io_uring_prep_msg_ring_fd_alloc ] ---
+
+    public static native void nio_uring_prep_msg_ring_fd_alloc(long sqe, int fd, int source_fd, long data, int flags);
+
+    public static void io_uring_prep_msg_ring_fd_alloc(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, int source_fd, @NativeType("__u64") long data, @NativeType("unsigned int") int flags) {
+        nio_uring_prep_msg_ring_fd_alloc(sqe.address(), fd, source_fd, data, flags);
+    }
+
+    // --- [ io_uring_prep_getxattr ] ---
+
+    public static native void nio_uring_prep_getxattr(long sqe, long name, long value, long path, int len);
+
+    public static void io_uring_prep_getxattr(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") ByteBuffer name, @NativeType("char *") ByteBuffer value, @NativeType("char const *") ByteBuffer path) {
+        if (CHECKS) {
+            checkNT1(name);
+            checkNT1(path);
+        }
+        nio_uring_prep_getxattr(sqe.address(), memAddress(name), memAddress(value), memAddress(path), value.remaining());
+    }
+
+    public static void io_uring_prep_getxattr(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") CharSequence name, @NativeType("char *") ByteBuffer value, @NativeType("char const *") CharSequence path) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(name, true);
+            long nameEncoded = stack.getPointerAddress();
+            stack.nUTF8(path, true);
+            long pathEncoded = stack.getPointerAddress();
+            nio_uring_prep_getxattr(sqe.address(), nameEncoded, memAddress(value), pathEncoded, value.remaining());
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ io_uring_prep_setxattr ] ---
+
+    public static native void nio_uring_prep_setxattr(long sqe, long name, long value, long path, int flags, int len);
+
+    public static void io_uring_prep_setxattr(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") ByteBuffer name, @NativeType("char const *") ByteBuffer value, @NativeType("char const *") ByteBuffer path, int flags) {
+        if (CHECKS) {
+            checkNT1(name);
+            checkNT1(path);
+        }
+        nio_uring_prep_setxattr(sqe.address(), memAddress(name), memAddress(value), memAddress(path), flags, value.remaining());
+    }
+
+    public static void io_uring_prep_setxattr(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("char const *") CharSequence name, @NativeType("char const *") ByteBuffer value, @NativeType("char const *") CharSequence path, int flags) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(name, true);
+            long nameEncoded = stack.getPointerAddress();
+            stack.nUTF8(path, true);
+            long pathEncoded = stack.getPointerAddress();
+            nio_uring_prep_setxattr(sqe.address(), nameEncoded, memAddress(value), pathEncoded, flags, value.remaining());
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ io_uring_prep_fgetxattr ] ---
+
+    public static native void nio_uring_prep_fgetxattr(long sqe, int fd, long name, long value, int len);
+
+    public static void io_uring_prep_fgetxattr(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("char const *") ByteBuffer name, @NativeType("char *") ByteBuffer value) {
+        if (CHECKS) {
+            checkNT1(name);
+        }
+        nio_uring_prep_fgetxattr(sqe.address(), fd, memAddress(name), memAddress(value), value.remaining());
+    }
+
+    public static void io_uring_prep_fgetxattr(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("char const *") CharSequence name, @NativeType("char *") ByteBuffer value) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(name, true);
+            long nameEncoded = stack.getPointerAddress();
+            nio_uring_prep_fgetxattr(sqe.address(), fd, nameEncoded, memAddress(value), value.remaining());
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ io_uring_prep_fsetxattr ] ---
+
+    public static native void nio_uring_prep_fsetxattr(long sqe, int fd, long name, long value, int flags, int len);
+
+    public static void io_uring_prep_fsetxattr(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("char const *") ByteBuffer name, @NativeType("char const *") ByteBuffer value, int flags) {
+        if (CHECKS) {
+            checkNT1(name);
+        }
+        nio_uring_prep_fsetxattr(sqe.address(), fd, memAddress(name), memAddress(value), flags, value.remaining());
+    }
+
+    public static void io_uring_prep_fsetxattr(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("char const *") CharSequence name, @NativeType("char const *") ByteBuffer value, int flags) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(name, true);
+            long nameEncoded = stack.getPointerAddress();
+            nio_uring_prep_fsetxattr(sqe.address(), fd, nameEncoded, memAddress(value), flags, value.remaining());
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ io_uring_prep_socket ] ---
+
+    public static native void nio_uring_prep_socket(long sqe, int domain, int type, int protocol, int flags);
+
+    public static void io_uring_prep_socket(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int domain, int type, int protocol, @NativeType("unsigned int") int flags) {
+        nio_uring_prep_socket(sqe.address(), domain, type, protocol, flags);
+    }
+
+    // --- [ io_uring_prep_socket_direct ] ---
+
+    public static native void nio_uring_prep_socket_direct(long sqe, int domain, int type, int protocol, int file_index, int flags);
+
+    public static void io_uring_prep_socket_direct(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int domain, int type, int protocol, @NativeType("unsigned int") int file_index, @NativeType("unsigned int") int flags) {
+        nio_uring_prep_socket_direct(sqe.address(), domain, type, protocol, file_index, flags);
+    }
+
+    // --- [ io_uring_prep_socket_direct_alloc ] ---
+
+    public static native void nio_uring_prep_socket_direct_alloc(long sqe, int domain, int type, int protocol, int flags);
+
+    public static void io_uring_prep_socket_direct_alloc(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int domain, int type, int protocol, @NativeType("unsigned int") int flags) {
+        nio_uring_prep_socket_direct_alloc(sqe.address(), domain, type, protocol, flags);
     }
 
     // --- [ io_uring_sq_ready ] ---
@@ -1348,6 +2042,20 @@ public class LibURing {
             IOURing.validate(ring.address());
         }
         return nio_uring_cq_ready(ring.address());
+    }
+
+    // --- [ io_uring_cq_has_overflow ] ---
+
+    /** Unsafe version of: {@link #io_uring_cq_has_overflow cq_has_overflow} */
+    public static native boolean nio_uring_cq_has_overflow(long ring);
+
+    /** Returns true if there are overflow entries waiting to be flushed onto the CQ ring */
+    @NativeType("bool")
+    public static boolean io_uring_cq_has_overflow(@NativeType("struct io_uring const *") IOURing ring) {
+        if (CHECKS) {
+            IOURing.validate(ring.address());
+        }
+        return nio_uring_cq_has_overflow(ring.address());
     }
 
     // --- [ io_uring_cq_eventfd_enabled ] ---
@@ -1428,6 +2136,41 @@ public class LibURing {
         return nio_uring_wait_cqe(ring.address(), memAddress(cqe_ptr));
     }
 
+    // --- [ io_uring_buf_ring_advance ] ---
+
+    public static native void nio_uring_buf_ring_advance(long br, int count);
+
+    public static void io_uring_buf_ring_advance(@NativeType("struct io_uring_buf_ring *") IOURingBufRing br, int count) {
+        nio_uring_buf_ring_advance(br.address(), count);
+    }
+
+    // --- [ io_uring_buf_ring_cq_advance ] ---
+
+    public static native void nio_uring_buf_ring_cq_advance(long ring, long br, int count);
+
+    public static void io_uring_buf_ring_cq_advance(@NativeType("struct io_uring *") IOURing ring, @NativeType("struct io_uring_buf_ring *") IOURingBufRing br, int count) {
+        nio_uring_buf_ring_cq_advance(ring.address(), br.address(), count);
+    }
+
+    // --- [ io_uring_get_sqe ] ---
+
+    /** Unsafe version of: {@link #io_uring_get_sqe get_sqe} */
+    public static native long nio_uring_get_sqe(long ring);
+
+    /**
+     * Gets the next available submission queue entry from the submission queue belonging to the {@code ring} param.
+     * 
+     * <p>If a submission queue event is returned, it should be filled out via one of the prep functions such as {@link #io_uring_prep_read prep_read} and submitted via {@link #io_uring_submit submit}.</p>
+     *
+     * @return a pointer to the next submission queue event on success and {@code NULL} on failure
+     */
+    @Nullable
+    @NativeType("struct io_uring_sqe *")
+    public static IOURingSQE io_uring_get_sqe(@NativeType("struct io_uring *") IOURing ring) {
+        long __result = nio_uring_get_sqe(ring.address());
+        return IOURingSQE.createSafe(__result);
+    }
+
     // --- [ io_uring_mlock_size ] ---
 
     /**
@@ -1453,105 +2196,34 @@ public class LibURing {
         return nio_uring_mlock_size_params(entries, p.address());
     }
 
-    /** Array version of: {@link #nio_uring_register_buffers_tags} */
-    public static native int nio_uring_register_buffers_tags(long ring, long iovecs, long[] tags, int nr);
+    // --- [ io_uring_major_version ] ---
 
-    /** Array version of: {@link #io_uring_register_buffers_tags register_buffers_tags} */
-    public static int io_uring_register_buffers_tags(@NativeType("struct io_uring *") IOURing ring, @NativeType("struct iovec const *") IOVec.Buffer iovecs, @NativeType("__u64 const *") long[] tags) {
-        if (CHECKS) {
-            check(tags, iovecs.remaining());
-        }
-        return nio_uring_register_buffers_tags(ring.address(), iovecs.address(), tags, iovecs.remaining());
+    public static native int io_uring_major_version();
+
+    // --- [ io_uring_minor_version ] ---
+
+    public static native int io_uring_minor_version();
+
+    // --- [ io_uring_check_version ] ---
+
+    @NativeType("bool")
+    public static native boolean io_uring_check_version(int major, int minor);
+
+    /** Return the appropriate mask for a buffer ring of size {@code ring_entries} */
+    public static int io_uring_buf_ring_mask(@NativeType("__u32") int ring_entries) {
+        return ring_entries - 1;
     }
 
-    /** Array version of: {@link #nio_uring_register_buffers_update_tag} */
-    public static native int nio_uring_register_buffers_update_tag(long ring, int off, long iovecs, long[] tags, int nr);
-
-    /** Array version of: {@link #io_uring_register_buffers_update_tag register_buffers_update_tag} */
-    public static int io_uring_register_buffers_update_tag(@NativeType("struct io_uring *") IOURing ring, @NativeType("unsigned") int off, @NativeType("struct iovec const *") IOVec.Buffer iovecs, @NativeType("__u64 const *") long[] tags) {
-        if (CHECKS) {
-            check(tags, iovecs.remaining());
-        }
-        return nio_uring_register_buffers_update_tag(ring.address(), off, iovecs.address(), tags, iovecs.remaining());
+    public static void io_uring_buf_ring_init(@NativeType("struct io_uring_buf_ring *") IOURingBufRing br) {
+        br.tail((short)0);
     }
 
-    /** Array version of: {@link #nio_uring_register_files} */
-    public static native int nio_uring_register_files(long ring, int[] files, int nr_files);
+    public static void io_uring_buf_ring_add(@NativeType("struct io_uring_buf_ring *") IOURingBufRing br, @NativeType("void *") ByteBuffer addr, @NativeType("unsigned short") short bid, int mask, int buf_offset) {
+        IOURingBuf buf = br.bufs((br.tail() + buf_offset) & mask);
 
-    /** Array version of: {@link #io_uring_register_files register_files} */
-    public static int io_uring_register_files(@NativeType("struct io_uring *") IOURing ring, @NativeType("int const *") int[] files) {
-        return nio_uring_register_files(ring.address(), files, files.length);
-    }
-
-    /** Array version of: {@link #nio_uring_register_files_tags} */
-    public static native int nio_uring_register_files_tags(long ring, int[] files, long[] tags, int nr);
-
-    /** Array version of: {@link #io_uring_register_files_tags register_files_tags} */
-    public static int io_uring_register_files_tags(@NativeType("struct io_uring *") IOURing ring, @NativeType("int const *") int[] files, @NativeType("__u64 const *") long[] tags) {
-        if (CHECKS) {
-            check(tags, files.length);
-        }
-        return nio_uring_register_files_tags(ring.address(), files, tags, files.length);
-    }
-
-    /** Array version of: {@link #nio_uring_register_files_update_tag} */
-    public static native int nio_uring_register_files_update_tag(long ring, int off, int[] files, long[] tags, int nr_files);
-
-    /** Array version of: {@link #io_uring_register_files_update_tag register_files_update_tag} */
-    public static int io_uring_register_files_update_tag(@NativeType("struct io_uring *") IOURing ring, @NativeType("unsigned") int off, @NativeType("int const *") int[] files, @NativeType("__u64 const *") long[] tags) {
-        if (CHECKS) {
-            check(tags, files.length);
-        }
-        return nio_uring_register_files_update_tag(ring.address(), off, files, tags, files.length);
-    }
-
-    /** Array version of: {@link #nio_uring_register_files_update} */
-    public static native int nio_uring_register_files_update(long ring, int off, int[] files, int nr_files);
-
-    /** Array version of: {@link #io_uring_register_files_update register_files_update} */
-    public static int io_uring_register_files_update(@NativeType("struct io_uring *") IOURing ring, @NativeType("unsigned") int off, @NativeType("int *") int[] files) {
-        return nio_uring_register_files_update(ring.address(), off, files, files.length);
-    }
-
-    /** Array version of: {@link #nio_uring_register_iowq_max_workers} */
-    public static native int nio_uring_register_iowq_max_workers(long ring, int[] values);
-
-    /** Array version of: {@link #io_uring_register_iowq_max_workers register_iowq_max_workers} */
-    public static int io_uring_register_iowq_max_workers(@NativeType("struct io_uring *") IOURing ring, @NativeType("unsigned int *") int[] values) {
-        if (CHECKS) {
-            check(values, 2);
-        }
-        return nio_uring_register_iowq_max_workers(ring.address(), values);
-    }
-
-    /** Array version of: {@link #nio_uring_prep_accept} */
-    public static native void nio_uring_prep_accept(long sqe, int fd, long addr, int[] addrlen, int flags);
-
-    /** Array version of: {@link #io_uring_prep_accept prep_accept} */
-    public static void io_uring_prep_accept(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("struct sockaddr *") Sockaddr addr, @NativeType("socklen_t *") int[] addrlen, int flags) {
-        if (CHECKS) {
-            check(addrlen, 1);
-        }
-        nio_uring_prep_accept(sqe.address(), fd, addr.address(), addrlen, flags);
-    }
-
-    /** Array version of: {@link #nio_uring_prep_accept_direct} */
-    public static native void nio_uring_prep_accept_direct(long sqe, int fd, long addr, int[] addrlen, int flags, int file_index);
-
-    /** Array version of: {@link #io_uring_prep_accept_direct prep_accept_direct} */
-    public static void io_uring_prep_accept_direct(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, int fd, @NativeType("struct sockaddr *") Sockaddr addr, @NativeType("socklen_t *") int[] addrlen, int flags, @NativeType("unsigned int") int file_index) {
-        if (CHECKS) {
-            check(addrlen, 1);
-        }
-        nio_uring_prep_accept_direct(sqe.address(), fd, addr.address(), addrlen, flags, file_index);
-    }
-
-    /** Array version of: {@link #nio_uring_prep_files_update} */
-    public static native void nio_uring_prep_files_update(long sqe, int[] fds, int nr_fds, int offset);
-
-    /** Array version of: {@link #io_uring_prep_files_update prep_files_update} */
-    public static void io_uring_prep_files_update(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("int *") int[] fds, int offset) {
-        nio_uring_prep_files_update(sqe.address(), fds, fds.length, offset);
+        buf.addr(memAddress(addr));
+        buf.len(addr.remaining());
+        buf.bid(bid);
     }
 
 }

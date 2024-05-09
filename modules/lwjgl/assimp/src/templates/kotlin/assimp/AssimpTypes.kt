@@ -5,12 +5,25 @@
 package assimp
 
 import org.lwjgl.generator.*
+import java.io.*
 
-val ASSIMP_BINDING = simpleBinding(
-    Module.ASSIMP,
-    libraryExpression = """Configuration.ASSIMP_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("assimp"))""",
-    bundledWithLWJGL = true
-)
+val ASSIMP_BINDING = object : SimpleBinding(Module.ASSIMP, "ASSIMP") {
+    override fun PrintWriter.generateFunctionSetup(nativeClass: NativeClass) {
+        println("\n${t}private static final SharedLibrary DRACO = Library.loadNative(Assimp.class, \"${module.java}\", Configuration.ASSIMP_DRACO_LIBRARY_NAME.get(Platform.mapLibraryNameBundled(\"draco\")), true);")
+        println("${t}private static final SharedLibrary ASSIMP = Library.loadNative(Assimp.class, \"${module.java}\", Configuration.ASSIMP_LIBRARY_NAME.get(Platform.mapLibraryNameBundled(\"assimp\")), true);")
+        generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from the assimp {@link SharedLibrary}. */")
+        println("""
+    /** Returns the assimp {@link SharedLibrary}. */
+    public static SharedLibrary getLibrary() {
+        return ASSIMP;
+    }
+
+    /** Returns the Draco {@link SharedLibrary}. */
+    public static SharedLibrary getDraco() {
+        return DRACO;
+    }""")
+    }
+}
 
 val ai_int32 = typedef(int32_t, "ai_int32")
 val ai_uint32 = typedef(uint32_t, "ai_uint32")
@@ -319,7 +332,7 @@ val aiBone = struct(Module.ASSIMP, "AIBone", nativeName = "struct aiBone") {
     aiMatrix4x4(
         "mOffsetMatrix",
         """
-        matrix that transforms from bone space to mesh space in bind pose.
+        matrix that transforms from mesh space to bone space in bind pose.
 
         This matrix describes the position of the mesh in the local space of this bone when the skeleton was bound. Thus it can be used directly to determine a
         desired vertex position, given the world-space transform of the bone when animated, and the position of the vertex in mesh space.
@@ -368,6 +381,8 @@ val aiAnimMesh = struct(Module.ASSIMP, "AIAnimMesh", nativeName = "struct aiAnim
     )
     float("mWeight", "Weight of the {@code AnimMesh}.")
 }
+
+val aiMorphingMethod = "aiMorphingMethod".enumType
 
 val aiMesh = struct(Module.ASSIMP, "AIMesh", nativeName = "struct aiMesh") {
     javaImport("static org.lwjgl.assimp.Assimp.*")
@@ -511,21 +526,111 @@ val aiMesh = struct(Module.ASSIMP, "AIMesh", nativeName = "struct aiMesh") {
     )
     AutoSize("mAnimMeshes", optional = true)..unsigned_int(
         "mNumAnimMeshes",
-        "The number of attachment meshes. Note! Currently only works with Collada loader."
+        """
+        The number of attachment meshes.
+
+        Currently known to work with loaders:
+        ${ul(
+            "Collada",
+            "gltf"
+        )}
+        """
     )
     aiAnimMesh.p.p(
         "mAnimMeshes",
         """
         Attachment meshes for this mesh, for vertex-based animation. Attachment meshes carry replacement data for some of the mesh'es vertex components
-        (usually positions, normals). Note! Currently only works with Collada loader.
+        (usually positions, normals).
+
+        Currently known to work with loaders:
+        ${ul(
+            "Collada",
+            "gltf"
+        )}
         """
     )
-    unsigned_int("mMethod", "Method of morphing when anim-meshes are specified.").links("MorphingMethod_\\w+")
+    aiMorphingMethod("mMethod", "Method of morphing when anim-meshes are specified.").links("MorphingMethod_\\w+")
     aiAABB("mAABB", "the bounding box")
     Check("AI_MAX_NUMBER_OF_TEXTURECOORDS")..nullable..aiString.p.p(
         "mTextureCoordsNames",
         "Vertex UV stream names. Pointer to array of size #AI_MAX_NUMBER_OF_TEXTURECOORDS."
     )
+}
+
+val aiSkeletonBone = struct(Module.ASSIMP, "AISkeletonBone", nativeName = "struct aiSkeletonBone") {
+    documentation =
+        """
+        A skeleton bone represents a single bone is a skeleton structure.
+
+        Skeleton-Animations can be represented via a skeleton struct, which describes a hierarchical tree assembled from skeleton bones. A bone is linked to a
+        mesh. The bone knows its parent bone. If there is no parent bone the parent id is marked with -1.
+
+        The skeleton-bone stores a pointer to its used armature. If there is no armature this value if set to {@code nullptr}.
+
+        A skeleton bone stores its offset-matrix, which is the absolute transformation for the bone. The bone stores the locale transformation to its parent as
+        well. You can compute the offset matrix by multiplying the hierarchy like:
+        ${codeBlock("""
+Tree: s1 -> s2 -> s3
+Offset-Matrix s3 = locale-s3 * locale-s2 * locale-s1""")}
+        """
+
+    int("mParent", "the parent bone index, is -1 one if this bone represents the root bone")
+    nullable..aiNode.p(
+        "mArmature",
+        """
+        The bone armature node - used for skeleton conversion.
+
+        You must enable #Process_PopulateArmatureData to populate this.
+        """
+    )
+    nullable..aiNode.p(
+        "mNode",
+        """
+        The bone node in the scene - used for skeleton conversion.
+
+        You must enable #Process_PopulateArmatureData to populate this.
+        """
+    )
+    AutoSize("mMeshId", "mWeights")..unsigned_int("mNumnWeights", "the number of weights");
+    aiMesh.p("mMeshId", "the mesh index, which will get influenced by the weight")
+    aiVertexWeight.p("mWeights", "the influence weights of this bone, by vertex index")
+    aiMatrix4x4(
+        "mOffsetMatrix",
+        """
+        Matrix that transforms from bone space to mesh space in bind pose.
+
+        This matrix describes the position of the mesh in the local space of this bone when the skeleton was bound. Thus it can be used directly to determine a
+        desired vertex position, given the world-space transform of the bone when animated, and the position of the vertex in mesh space.
+
+        It is sometimes called an inverse-bind matrix, or inverse bind pose matrix.
+        """
+    )
+    aiMatrix4x4("mLocalMatrix", "matrix that transforms the local bone in bind pose")
+}
+
+val aiSkeleton = struct(Module.ASSIMP, "AISkeleton", nativeName = "struct aiSkeleton") {
+    documentation =
+        """
+        A skeleton represents the bone hierarchy of an animation.
+
+        Skeleton animations can be described as a tree of bones:
+        ${codeBlock("""
+   root
+     |
+   node1
+   /   \
+node3  node4""")}
+
+        If you want to calculate the transformation of node three you need to compute the transformation hierarchy for the transformation chain of node3:
+        ${codeBlock("""
+root->node1->node3""")}
+
+        Each node is represented as a skeleton instance.
+        """
+
+    aiString("mName", "the name of the skeleton instance")
+    AutoSize("mBones")..unsigned_int("mNumBones", "the number of bones in the skeleton")
+    aiSkeletonBone.p.p("mBones", "the bone instance in the skeleton");
 }
 
 val aiUVTransform = struct(Module.ASSIMP, "AIUVTransform", nativeName = "struct aiUVTransform", mutable = false) {
@@ -641,8 +746,8 @@ val aiMeshMorphKey = struct(Module.ASSIMP, "AIMeshMorphKey", nativeName = "struc
     documentation = "Binds a morph anim mesh to a specific point in time."
 
     double("mTime", "the time of this key")
-    unsigned_int.p("mValues", "the values at the time of this key")
-    double.p("mWeights", "the weights at the time of this key")
+    unsigned_int.p("mValues", "index of attachment mesh to apply weight at the same position in {@code mWeights}")
+    double.p("mWeights", "weight to apply to the blend shape index at the same position in {@code mValues}")
     AutoSize("mValues", "mWeights")..unsigned_int("mNumValuesAndWeights", "the number of values and weights")
 }
 
@@ -1030,6 +1135,9 @@ val aiScene = struct(Module.ASSIMP, "AIScene", nativeName = "struct aiScene") {
         """
     )
     aiString("mName", "The name of the scene itself.")
+
+    AutoSize("mSkeletons", optional = true)..unsigned_int("mNumSkeletons", "")
+    aiSkeleton.p.p("mSkeletons", "")
 
     char.p("mPrivate", "Internal use only, do not touch!").private()
 }

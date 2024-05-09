@@ -34,15 +34,10 @@ import static org.lwjgl.system.JNI.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
- * <li>Requires {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2}</li>
- * <li>Requires {@link KHRSwapchain VK_KHR_swapchain}</li>
- * </ul></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2} and {@link KHRSwapchain VK_KHR_swapchain}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Matthaeus G. Chajdas <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMD_display_native_hdr]%20@anteru%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_AMD_display_native_hdr%20extension%3E%3E">anteru</a></li>
+ * <li>Matthaeus G. Chajdas <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMD_display_native_hdr]%20@anteru%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_AMD_display_native_hdr%20extension*">anteru</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -113,7 +108,7 @@ public class AMDDisplayNativeHdr {
      * <ul>
      * <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
      * <li>{@code swapChain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
-     * <li>Both of {@code device}, and {@code swapChain} <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
+     * <li>{@code swapChain} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
      * </ul>
      * 
      * <h5>Valid Usage</h5>

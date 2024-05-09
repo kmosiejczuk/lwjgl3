@@ -52,7 +52,9 @@ public class Spvc {
             get_version                                           = apiGetFunctionAddress(SPVC, "spvc_get_version"),
             get_commit_revision_and_timestamp                     = apiGetFunctionAddress(SPVC, "spvc_get_commit_revision_and_timestamp"),
             msl_vertex_attribute_init                             = apiGetFunctionAddress(SPVC, "spvc_msl_vertex_attribute_init"),
+            msl_shader_interface_var_init                         = apiGetFunctionAddress(SPVC, "spvc_msl_shader_interface_var_init"),
             msl_shader_input_init                                 = apiGetFunctionAddress(SPVC, "spvc_msl_shader_input_init"),
+            msl_shader_interface_var_init_2                       = apiGetFunctionAddress(SPVC, "spvc_msl_shader_interface_var_init_2"),
             msl_resource_binding_init                             = apiGetFunctionAddress(SPVC, "spvc_msl_resource_binding_init"),
             msl_get_aux_buffer_struct_version                     = apiGetFunctionAddress(SPVC, "spvc_msl_get_aux_buffer_struct_version"),
             msl_constexpr_sampler_init                            = apiGetFunctionAddress(SPVC, "spvc_msl_constexpr_sampler_init"),
@@ -92,10 +94,14 @@ public class Spvc {
             compiler_msl_add_vertex_attribute                     = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_vertex_attribute"),
             compiler_msl_add_resource_binding                     = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_resource_binding"),
             compiler_msl_add_shader_input                         = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_shader_input"),
+            compiler_msl_add_shader_input_2                       = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_shader_input_2"),
+            compiler_msl_add_shader_output                        = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_shader_output"),
+            compiler_msl_add_shader_output_2                      = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_shader_output_2"),
             compiler_msl_add_discrete_descriptor_set              = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_discrete_descriptor_set"),
             compiler_msl_set_argument_buffer_device_address_space = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_set_argument_buffer_device_address_space"),
             compiler_msl_is_vertex_attribute_used                 = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_is_vertex_attribute_used"),
             compiler_msl_is_shader_input_used                     = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_is_shader_input_used"),
+            compiler_msl_is_shader_output_used                    = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_is_shader_output_used"),
             compiler_msl_is_resource_used                         = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_is_resource_used"),
             compiler_msl_remap_constexpr_sampler                  = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_remap_constexpr_sampler"),
             compiler_msl_remap_constexpr_sampler_by_binding       = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_remap_constexpr_sampler_by_binding"),
@@ -204,7 +210,7 @@ public class Spvc {
 
     public static final int SPVC_C_API_VERSION_MAJOR = 0;
 
-    public static final int SPVC_C_API_VERSION_MINOR = 48;
+    public static final int SPVC_C_API_VERSION_MINOR = 51;
 
     public static final int SPVC_C_API_VERSION_PATCH = 0;
 
@@ -325,6 +331,7 @@ public class Spvc {
      * <li>{@link #SPVC_RESOURCE_TYPE_SEPARATE_SAMPLERS RESOURCE_TYPE_SEPARATE_SAMPLERS}</li>
      * <li>{@link #SPVC_RESOURCE_TYPE_ACCELERATION_STRUCTURE RESOURCE_TYPE_ACCELERATION_STRUCTURE}</li>
      * <li>{@link #SPVC_RESOURCE_TYPE_RAY_QUERY RESOURCE_TYPE_RAY_QUERY}</li>
+     * <li>{@link #SPVC_RESOURCE_TYPE_SHADER_RECORD_BUFFER RESOURCE_TYPE_SHADER_RECORD_BUFFER}</li>
      * </ul>
      */
     public static final int
@@ -341,7 +348,8 @@ public class Spvc {
         SPVC_RESOURCE_TYPE_SEPARATE_IMAGE         = 10,
         SPVC_RESOURCE_TYPE_SEPARATE_SAMPLERS      = 11,
         SPVC_RESOURCE_TYPE_ACCELERATION_STRUCTURE = 12,
-        SPVC_RESOURCE_TYPE_RAY_QUERY              = 13;
+        SPVC_RESOURCE_TYPE_RAY_QUERY              = 13,
+        SPVC_RESOURCE_TYPE_SHADER_RECORD_BUFFER   = 14;
 
     /**
      * {@code spvc_builtin_resource_type}
@@ -450,7 +458,43 @@ public class Spvc {
      * 
      * <p>Currently limited to specifying if the input is an 8-bit unsigned integer, 16-bit unsigned integer, or some other format.</p>
      * 
-     * <p>({@code spvc_msl_shader_input_format})</p>
+     * <p>({@code spvc_msl_shader_variable_format})</p>
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #SPVC_MSL_SHADER_VARIABLE_FORMAT_OTHER MSL_SHADER_VARIABLE_FORMAT_OTHER}</li>
+     * <li>{@link #SPVC_MSL_SHADER_VARIABLE_FORMAT_UINT8 MSL_SHADER_VARIABLE_FORMAT_UINT8}</li>
+     * <li>{@link #SPVC_MSL_SHADER_VARIABLE_FORMAT_UINT16 MSL_SHADER_VARIABLE_FORMAT_UINT16}</li>
+     * <li>{@link #SPVC_MSL_SHADER_VARIABLE_FORMAT_ANY16 MSL_SHADER_VARIABLE_FORMAT_ANY16}</li>
+     * <li>{@link #SPVC_MSL_SHADER_VARIABLE_FORMAT_ANY32 MSL_SHADER_VARIABLE_FORMAT_ANY32}</li>
+     * </ul>
+     */
+    public static final int
+        SPVC_MSL_SHADER_VARIABLE_FORMAT_OTHER  = 0,
+        SPVC_MSL_SHADER_VARIABLE_FORMAT_UINT8  = 1,
+        SPVC_MSL_SHADER_VARIABLE_FORMAT_UINT16 = 2,
+        SPVC_MSL_SHADER_VARIABLE_FORMAT_ANY16  = 3,
+        SPVC_MSL_SHADER_VARIABLE_FORMAT_ANY32  = 4;
+
+    /**
+     * Deprecated. ({@code spvc_msl_vertex_format})
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #SPVC_MSL_VERTEX_FORMAT_OTHER MSL_VERTEX_FORMAT_OTHER}</li>
+     * <li>{@link #SPVC_MSL_VERTEX_FORMAT_UINT8 MSL_VERTEX_FORMAT_UINT8}</li>
+     * <li>{@link #SPVC_MSL_VERTEX_FORMAT_UINT16 MSL_VERTEX_FORMAT_UINT16}</li>
+     * </ul>
+     */
+    public static final int
+        SPVC_MSL_VERTEX_FORMAT_OTHER  = SPVC_MSL_SHADER_VARIABLE_FORMAT_OTHER,
+        SPVC_MSL_VERTEX_FORMAT_UINT8  = SPVC_MSL_SHADER_VARIABLE_FORMAT_UINT8,
+        SPVC_MSL_VERTEX_FORMAT_UINT16 = SPVC_MSL_SHADER_VARIABLE_FORMAT_UINT16;
+
+    /**
+     * Deprecated. ({@code spvc_msl_input_format})
      * 
      * <h5>Enum values:</h5>
      * 
@@ -463,29 +507,27 @@ public class Spvc {
      * </ul>
      */
     public static final int
-        SPVC_MSL_SHADER_INPUT_FORMAT_OTHER  = 0,
-        SPVC_MSL_SHADER_INPUT_FORMAT_UINT8  = 1,
-        SPVC_MSL_SHADER_INPUT_FORMAT_UINT16 = 2,
-        SPVC_MSL_SHADER_INPUT_FORMAT_ANY16  = 3,
-        SPVC_MSL_SHADER_INPUT_FORMAT_ANY32  = 4;
+        SPVC_MSL_SHADER_INPUT_FORMAT_OTHER  = SPVC_MSL_SHADER_VARIABLE_FORMAT_OTHER,
+        SPVC_MSL_SHADER_INPUT_FORMAT_UINT8  = SPVC_MSL_SHADER_VARIABLE_FORMAT_UINT8,
+        SPVC_MSL_SHADER_INPUT_FORMAT_UINT16 = SPVC_MSL_SHADER_VARIABLE_FORMAT_UINT16,
+        SPVC_MSL_SHADER_INPUT_FORMAT_ANY16  = SPVC_MSL_SHADER_VARIABLE_FORMAT_ANY16,
+        SPVC_MSL_SHADER_INPUT_FORMAT_ANY32  = SPVC_MSL_SHADER_VARIABLE_FORMAT_ANY32;
 
     /**
-     * Deprecated.
-     * 
-     * <p>({@code spvc_msl_vertex_format})</p>
+     * {@code spvc_msl_shader_variable_rate}
      * 
      * <h5>Enum values:</h5>
      * 
      * <ul>
-     * <li>{@link #SPVC_MSL_VERTEX_FORMAT_OTHER MSL_VERTEX_FORMAT_OTHER}</li>
-     * <li>{@link #SPVC_MSL_VERTEX_FORMAT_UINT8 MSL_VERTEX_FORMAT_UINT8}</li>
-     * <li>{@link #SPVC_MSL_VERTEX_FORMAT_UINT16 MSL_VERTEX_FORMAT_UINT16}</li>
+     * <li>{@link #SPVC_MSL_SHADER_VARIABLE_RATE_PER_VERTEX MSL_SHADER_VARIABLE_RATE_PER_VERTEX}</li>
+     * <li>{@link #SPVC_MSL_SHADER_VARIABLE_RATE_PER_PRIMITIVE MSL_SHADER_VARIABLE_RATE_PER_PRIMITIVE}</li>
+     * <li>{@link #SPVC_MSL_SHADER_VARIABLE_RATE_PER_PATCH MSL_SHADER_VARIABLE_RATE_PER_PATCH}</li>
      * </ul>
      */
     public static final int
-        SPVC_MSL_VERTEX_FORMAT_OTHER  = SPVC_MSL_SHADER_INPUT_FORMAT_OTHER,
-        SPVC_MSL_VERTEX_FORMAT_UINT8  = SPVC_MSL_SHADER_INPUT_FORMAT_UINT8,
-        SPVC_MSL_VERTEX_FORMAT_UINT16 = SPVC_MSL_SHADER_INPUT_FORMAT_UINT16;
+        SPVC_MSL_SHADER_VARIABLE_RATE_PER_VERTEX    = 0,
+        SPVC_MSL_SHADER_VARIABLE_RATE_PER_PRIMITIVE = 1,
+        SPVC_MSL_SHADER_VARIABLE_RATE_PER_PATCH     = 2;
 
     /**
      * Maps to C++ API.
@@ -832,6 +874,9 @@ public class Spvc {
      * <li>{@link #SPVC_COMPILER_OPTION_MSL_FORCE_SAMPLE_RATE_SHADING COMPILER_OPTION_MSL_FORCE_SAMPLE_RATE_SHADING}</li>
      * <li>{@link #SPVC_COMPILER_OPTION_MSL_IOS_SUPPORT_BASE_VERTEX_INSTANCE COMPILER_OPTION_MSL_IOS_SUPPORT_BASE_VERTEX_INSTANCE}</li>
      * <li>{@link #SPVC_COMPILER_OPTION_GLSL_OVR_MULTIVIEW_VIEW_COUNT COMPILER_OPTION_GLSL_OVR_MULTIVIEW_VIEW_COUNT}</li>
+     * <li>{@link #SPVC_COMPILER_OPTION_RELAX_NAN_CHECKS COMPILER_OPTION_RELAX_NAN_CHECKS}</li>
+     * <li>{@link #SPVC_COMPILER_OPTION_MSL_RAW_BUFFER_TESE_INPUT COMPILER_OPTION_MSL_RAW_BUFFER_TESE_INPUT}</li>
+     * <li>{@link #SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_INPUT_BUFFER_INDEX COMPILER_OPTION_MSL_SHADER_PATCH_INPUT_BUFFER_INDEX}</li>
      * </ul>
      */
     public static final int
@@ -914,7 +959,10 @@ public class Spvc {
         SPVC_COMPILER_OPTION_MSL_FIXED_SUBGROUP_SIZE                        = 74 | SPVC_COMPILER_OPTION_MSL_BIT,
         SPVC_COMPILER_OPTION_MSL_FORCE_SAMPLE_RATE_SHADING                  = 75 | SPVC_COMPILER_OPTION_MSL_BIT,
         SPVC_COMPILER_OPTION_MSL_IOS_SUPPORT_BASE_VERTEX_INSTANCE           = 76 | SPVC_COMPILER_OPTION_MSL_BIT,
-        SPVC_COMPILER_OPTION_GLSL_OVR_MULTIVIEW_VIEW_COUNT                  = 77 | SPVC_COMPILER_OPTION_GLSL_BIT;
+        SPVC_COMPILER_OPTION_GLSL_OVR_MULTIVIEW_VIEW_COUNT                  = 77 | SPVC_COMPILER_OPTION_GLSL_BIT,
+        SPVC_COMPILER_OPTION_RELAX_NAN_CHECKS                               = 78 | SPVC_COMPILER_OPTION_COMMON_BIT,
+        SPVC_COMPILER_OPTION_MSL_RAW_BUFFER_TESE_INPUT                      = 79 | SPVC_COMPILER_OPTION_MSL_BIT,
+        SPVC_COMPILER_OPTION_MSL_SHADER_PATCH_INPUT_BUFFER_INDEX            = 80 | SPVC_COMPILER_OPTION_MSL_BIT;
 
     protected Spvc() {
         throw new UnsupportedOperationException();
@@ -967,6 +1015,23 @@ public class Spvc {
         nspvc_msl_vertex_attribute_init(attr.address());
     }
 
+    // --- [ spvc_msl_shader_interface_var_init ] ---
+
+    /** Unsafe version of: {@link #spvc_msl_shader_interface_var_init msl_shader_interface_var_init} */
+    public static void nspvc_msl_shader_interface_var_init(long var) {
+        long __functionAddress = Functions.msl_shader_interface_var_init;
+        invokePV(var, __functionAddress);
+    }
+
+    /**
+     * Initializes the shader input struct.
+     * 
+     * <p>Deprecated. Use {@link #spvc_msl_shader_interface_var_init_2 msl_shader_interface_var_init_2}.</p>
+     */
+    public static void spvc_msl_shader_interface_var_init(@NativeType("spvc_msl_shader_interface_var *") SpvcMslShaderInterfaceVar var) {
+        nspvc_msl_shader_interface_var_init(var.address());
+    }
+
     // --- [ spvc_msl_shader_input_init ] ---
 
     /** Unsafe version of: {@link #spvc_msl_shader_input_init msl_shader_input_init} */
@@ -975,9 +1040,22 @@ public class Spvc {
         invokePV(input, __functionAddress);
     }
 
-    /** Initializes the shader input struct. */
+    /** Deprecated. Use {@link #spvc_msl_shader_interface_var_init msl_shader_interface_var_init}. */
     public static void spvc_msl_shader_input_init(@NativeType("spvc_msl_shader_input *") SpvcMslShaderInput input) {
         nspvc_msl_shader_input_init(input.address());
+    }
+
+    // --- [ spvc_msl_shader_interface_var_init_2 ] ---
+
+    /** Unsafe version of: {@link #spvc_msl_shader_interface_var_init_2 msl_shader_interface_var_init_2} */
+    public static void nspvc_msl_shader_interface_var_init_2(long var) {
+        long __functionAddress = Functions.msl_shader_interface_var_init_2;
+        invokePV(var, __functionAddress);
+    }
+
+    /** Initializes the shader interface variable struct. */
+    public static void spvc_msl_shader_interface_var_init_2(@NativeType("spvc_msl_shader_interface_var_2 *") SpvcMslShaderInterfaceVar2 var) {
+        nspvc_msl_shader_interface_var_init_2(var.address());
     }
 
     // --- [ spvc_msl_resource_binding_init ] ---
@@ -1551,6 +1629,7 @@ public class Spvc {
 
     // --- [ spvc_compiler_msl_add_shader_input ] ---
 
+    /** Unsafe version of: {@link #spvc_compiler_msl_add_shader_input compiler_msl_add_shader_input} */
     public static int nspvc_compiler_msl_add_shader_input(long compiler, long input) {
         long __functionAddress = Functions.compiler_msl_add_shader_input;
         if (CHECKS) {
@@ -1559,9 +1638,57 @@ public class Spvc {
         return invokePPI(compiler, input, __functionAddress);
     }
 
+    /** Deprecated; use {@link #spvc_compiler_msl_add_shader_input_2 compiler_msl_add_shader_input_2}. */
     @NativeType("spvc_result")
-    public static int spvc_compiler_msl_add_shader_input(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_msl_shader_input const *") SpvcMslShaderInput input) {
+    public static int spvc_compiler_msl_add_shader_input(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_msl_shader_interface_var const *") SpvcMslShaderInterfaceVar input) {
         return nspvc_compiler_msl_add_shader_input(compiler, input.address());
+    }
+
+    // --- [ spvc_compiler_msl_add_shader_input_2 ] ---
+
+    public static int nspvc_compiler_msl_add_shader_input_2(long compiler, long input) {
+        long __functionAddress = Functions.compiler_msl_add_shader_input_2;
+        if (CHECKS) {
+            check(compiler);
+        }
+        return invokePPI(compiler, input, __functionAddress);
+    }
+
+    @NativeType("spvc_result")
+    public static int spvc_compiler_msl_add_shader_input_2(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_msl_shader_interface_var_2 const *") SpvcMslShaderInterfaceVar2 input) {
+        return nspvc_compiler_msl_add_shader_input_2(compiler, input.address());
+    }
+
+    // --- [ spvc_compiler_msl_add_shader_output ] ---
+
+    /** Unsafe version of: {@link #spvc_compiler_msl_add_shader_output compiler_msl_add_shader_output} */
+    public static int nspvc_compiler_msl_add_shader_output(long compiler, long output) {
+        long __functionAddress = Functions.compiler_msl_add_shader_output;
+        if (CHECKS) {
+            check(compiler);
+        }
+        return invokePPI(compiler, output, __functionAddress);
+    }
+
+    /** Deprecated; use {@link #spvc_compiler_msl_add_shader_output_2 compiler_msl_add_shader_output_2}. */
+    @NativeType("spvc_result")
+    public static int spvc_compiler_msl_add_shader_output(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_msl_shader_interface_var const *") SpvcMslShaderInterfaceVar output) {
+        return nspvc_compiler_msl_add_shader_output(compiler, output.address());
+    }
+
+    // --- [ spvc_compiler_msl_add_shader_output_2 ] ---
+
+    public static int nspvc_compiler_msl_add_shader_output_2(long compiler, long output) {
+        long __functionAddress = Functions.compiler_msl_add_shader_output_2;
+        if (CHECKS) {
+            check(compiler);
+        }
+        return invokePPI(compiler, output, __functionAddress);
+    }
+
+    @NativeType("spvc_result")
+    public static int spvc_compiler_msl_add_shader_output_2(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_msl_shader_interface_var_2 const *") SpvcMslShaderInterfaceVar2 output) {
+        return nspvc_compiler_msl_add_shader_output_2(compiler, output.address());
     }
 
     // --- [ spvc_compiler_msl_add_discrete_descriptor_set ] ---
@@ -1603,6 +1730,17 @@ public class Spvc {
     @NativeType("spvc_bool")
     public static boolean spvc_compiler_msl_is_shader_input_used(@NativeType("spvc_compiler") long compiler, @NativeType("unsigned") int location) {
         long __functionAddress = Functions.compiler_msl_is_shader_input_used;
+        if (CHECKS) {
+            check(compiler);
+        }
+        return invokePZ(compiler, location, __functionAddress);
+    }
+
+    // --- [ spvc_compiler_msl_is_shader_output_used ] ---
+
+    @NativeType("spvc_bool")
+    public static boolean spvc_compiler_msl_is_shader_output_used(@NativeType("spvc_compiler") long compiler, @NativeType("unsigned") int location) {
+        long __functionAddress = Functions.compiler_msl_is_shader_output_used;
         if (CHECKS) {
             check(compiler);
         }

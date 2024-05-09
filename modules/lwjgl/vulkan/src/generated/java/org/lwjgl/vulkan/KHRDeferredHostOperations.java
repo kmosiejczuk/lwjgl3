@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <h5>Code Examples</h5>
  * 
- * <p>The following examples will illustrate the concept of deferrable operations using a hypothetical example. The command {@code vkDoSomethingExpensiveEXT} denotes a deferrable command. The structure stext:VkExpensiveOperationArgsEXT represents the arguments which it would normally accept.</p>
+ * <p>The following examples will illustrate the concept of deferrable operations using a hypothetical example. The command {@code vkDoSomethingExpensive} denotes a deferrable command.</p>
  * 
  * <p>The following example illustrates how a vulkan application might request deferral of an expensive operation:</p>
  * 
@@ -71,7 +71,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *                 // in a job system, a return of VK_THREAD_IDLE_KHR should queue another
  *                 // job, but it is not functionally required
  *     }
- *   );
+ *   ));
  * }
  * 
  * for (auto &amp;f : joins) {
@@ -138,13 +138,9 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>269</dd>
  * <dt><b>Revision</b></dt>
  * <dd>4</dd>
- * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Josh Barczak <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_deferred_host_operations]%20@jbarczak%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_deferred_host_operations%20extension%3E%3E">jbarczak</a></li>
+ * <li>Josh Barczak <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_deferred_host_operations]%20@jbarczak%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_deferred_host_operations%20extension*">jbarczak</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -253,7 +249,7 @@ public class KHRDeferredHostOperations {
      * <p>{@link VkAllocationCallbacks}</p>
      *
      * @param device             the device which owns {@code operation}.
-     * @param pAllocator         controls host memory allocation as described in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator         controls host memory allocation as described in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pDeferredOperation a pointer to a handle in which the created {@code VkDeferredOperationKHR} is returned.
      */
     @NativeType("VkResult")
@@ -317,7 +313,7 @@ public class KHRDeferredHostOperations {
      *
      * @param device     the device which owns {@code operation}.
      * @param operation  the completed operation to be destroyed.
-     * @param pAllocator controls host memory allocation as described in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator controls host memory allocation as described in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
     public static void vkDestroyDeferredOperationKHR(VkDevice device, @NativeType("VkDeferredOperationKHR") long operation, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
         nvkDestroyDeferredOperationKHR(device, operation, memAddressSafe(pAllocator));

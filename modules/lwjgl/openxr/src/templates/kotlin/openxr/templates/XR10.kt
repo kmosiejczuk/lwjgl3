@@ -108,6 +108,10 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
                 <tr><td>#ERROR_SCENE_COMPUTE_CONSISTENCY_MISMATCH_MSFT</td><td>Scene compute consistency mismatch. (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
                 <tr><td>#ERROR_DISPLAY_REFRESH_RATE_UNSUPPORTED_FB</td><td>The display refresh rate is not supported by the platform. (Added by the {@link FBDisplayRefreshRate XR_FB_display_refresh_rate} extension)</td></tr>
                 <tr><td>#ERROR_COLOR_SPACE_UNSUPPORTED_FB</td><td>The color space is not supported by the runtime. (Added by the {@link FBColorSpace XR_FB_color_space} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB</td><td>The component type is not supported for this space. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_COMPONENT_NOT_ENABLED_FB</td><td>The required component is not enabled for this space. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_COMPONENT_STATUS_PENDING_FB</td><td>A request to set the component’s status is currently pending. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_COMPONENT_STATUS_ALREADY_SET_FB</td><td>The component is already set to the requested value. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
                 <tr><td>#ERROR_UNEXPECTED_STATE_PASSTHROUGH_FB</td><td>The object state is unexpected for the issued command. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
                 <tr><td>#ERROR_FEATURE_ALREADY_CREATED_PASSTHROUGH_FB</td><td>Trying to create an MR feature when one was already created and only one instance is allowed. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
                 <tr><td>#ERROR_FEATURE_REQUIRED_PASSTHROUGH_FB</td><td>Requested functionality requires a feature to be created first. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
@@ -119,11 +123,17 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
                 <tr><td>#ERROR_MARKER_ID_INVALID_VARJO</td><td>The specified marker ID is not valid. (Added by the {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension)</td></tr>
                 <tr><td>#ERROR_SPATIAL_ANCHOR_NAME_NOT_FOUND_MSFT</td><td>A spatial anchor was not found associated with the spatial anchor name provided (Added by the {@link MSFTSpatialAnchorPersistence XR_MSFT_spatial_anchor_persistence} extension)</td></tr>
                 <tr><td>#ERROR_SPATIAL_ANCHOR_NAME_INVALID_MSFT</td><td>The spatial anchor name provided was not valid (Added by the {@link MSFTSpatialAnchorPersistence XR_MSFT_spatial_anchor_persistence} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_MAPPING_INSUFFICIENT_FB</td><td>Anchor import from cloud or export from device failed. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_LOCALIZATION_FAILED_FB</td><td>Anchors were downloaded from the cloud but failed to be imported/aligned on the device. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_NETWORK_TIMEOUT_FB</td><td>Timeout occurred while waiting for network request to complete. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_NETWORK_REQUEST_FAILED_FB</td><td>The network request failed. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_CLOUD_STORAGE_DISABLED_FB</td><td>Cloud storage is required for this operation but is currently disabled. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+                <tr><td>#ERROR_HINT_ALREADY_SET_QCOM</td><td>Tracking optimization hint is already set for the domain. (Added by the {@link QCOMTrackingOptimizationSettings XR_QCOM_tracking_optimization_settings} extension)</td></tr>
             </tbody>
         </table>
 
         <h5>See Also</h5>
-        #ResultToString()
+        ##XrEventDataSceneCaptureCompleteFB, ##XrEventDataSpaceEraseCompleteFB, ##XrEventDataSpaceListSaveCompleteFB, ##XrEventDataSpaceQueryCompleteFB, ##XrEventDataSpaceSaveCompleteFB, ##XrEventDataSpaceSetStatusCompleteFB, ##XrEventDataSpaceShareCompleteFB, ##XrEventDataSpatialAnchorCreateCompleteFB, #ResultToString()
         """,
 
         "SUCCESS".."0",
@@ -193,7 +203,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         Note that all extension enums begin at the extension enum base of <code>1<sup>10</sup></code> (base 10). Each extension is assigned a block of 1000 enums, starting at the enum base and arranged by the extension’s index.
 
         <h5>See Also</h5>
-        ##XrActionCreateInfo, ##XrActionSetCreateInfo, ##XrActionSpaceCreateInfo, ##XrActionStateBoolean, ##XrActionStateFloat, ##XrActionStateGetInfo, ##XrActionStatePose, ##XrActionStateVector2f, ##XrActionsSyncInfo, ##XrApiLayerProperties, ##XrBaseInStructure, ##XrBaseOutStructure, ##XrBindingModificationBaseHeaderKHR, ##XrBindingModificationsKHR, ##XrBoundSourcesForActionEnumerateInfo, ##XrCompositionLayerAlphaBlendFB, ##XrCompositionLayerBaseHeader, ##XrCompositionLayerColorScaleBiasKHR, ##XrCompositionLayerCubeKHR, ##XrCompositionLayerCylinderKHR, ##XrCompositionLayerDepthInfoKHR, ##XrCompositionLayerDepthTestVARJO, ##XrCompositionLayerEquirect2KHR, ##XrCompositionLayerEquirectKHR, ##XrCompositionLayerImageLayoutFB, ##XrCompositionLayerPassthroughFB, ##XrCompositionLayerProjection, ##XrCompositionLayerProjectionView, ##XrCompositionLayerQuad, ##XrCompositionLayerReprojectionInfoMSFT, ##XrCompositionLayerReprojectionPlaneOverrideMSFT, ##XrCompositionLayerSecureContentFB, ##XrCompositionLayerSpaceWarpInfoFB, ##XrControllerModelKeyStateMSFT, ##XrControllerModelNodePropertiesMSFT, ##XrControllerModelNodeStateMSFT, ##XrControllerModelPropertiesMSFT, ##XrControllerModelStateMSFT, ##XrDebugUtilsLabelEXT, ##XrDebugUtilsMessengerCallbackDataEXT, ##XrDebugUtilsMessengerCreateInfoEXT, ##XrDebugUtilsObjectNameInfoEXT, ##XrDigitalLensControlALMALENCE, ##XrEventDataBaseHeader, ##XrEventDataBuffer, ##XrEventDataDisplayRefreshRateChangedFB, ##XrEventDataEventsLost, ##XrEventDataInstanceLossPending, ##XrEventDataInteractionProfileChanged, ##XrEventDataMainSessionVisibilityChangedEXTX, ##XrEventDataMarkerTrackingUpdateVARJO, ##XrEventDataPassthroughStateChangedFB, ##XrEventDataPerfSettingsEXT, ##XrEventDataReferenceSpaceChangePending, ##XrEventDataSessionStateChanged, ##XrEventDataVisibilityMaskChangedKHR, ##XrEventDataViveTrackerConnectedHTCX, ##XrExtensionProperties, ##XrEyeGazeSampleTimeEXT, ##XrFacialExpressionsHTC, ##XrFacialTrackerCreateInfoHTC, ##XrFoveatedViewConfigurationViewVARJO, ##XrFoveationLevelProfileCreateInfoFB, ##XrFoveationProfileCreateInfoFB, ##XrFrameBeginInfo, ##XrFrameEndInfo, ##XrFrameState, ##XrFrameWaitInfo, ##XrGeometryInstanceCreateInfoFB, ##XrGeometryInstanceTransformFB, ##XrGraphicsBindingEGLMNDX, ##XrGraphicsBindingOpenGLWaylandKHR, ##XrGraphicsBindingOpenGLWin32KHR, ##XrGraphicsBindingOpenGLXcbKHR, ##XrGraphicsBindingOpenGLXlibKHR, ##XrGraphicsBindingVulkanKHR, ##XrGraphicsRequirementsOpenGLESKHR, ##XrGraphicsRequirementsOpenGLKHR, ##XrGraphicsRequirementsVulkanKHR, ##XrHandJointLocationsEXT, ##XrHandJointVelocitiesEXT, ##XrHandJointsLocateInfoEXT, ##XrHandJointsMotionRangeInfoEXT, ##XrHandMeshMSFT, ##XrHandMeshSpaceCreateInfoMSFT, ##XrHandMeshUpdateInfoMSFT, ##XrHandPoseTypeInfoMSFT, ##XrHandTrackerCreateInfoEXT, ##XrHandTrackingAimStateFB, ##XrHandTrackingCapsulesStateFB, ##XrHandTrackingMeshFB, ##XrHandTrackingScaleFB, ##XrHapticActionInfo, ##XrHapticBaseHeader, ##XrHapticVibration, ##XrHolographicWindowAttachmentMSFT, ##XrInputSourceLocalizedNameGetInfo, ##XrInstanceCreateInfo, ##XrInstanceProperties, ##XrInteractionProfileAnalogThresholdVALVE, ##XrInteractionProfileState, ##XrInteractionProfileSuggestedBinding, ##XrKeyboardSpaceCreateInfoFB, ##XrKeyboardTrackingQueryFB, ##XrLoaderInitInfoBaseHeaderKHR, ##XrMarkerSpaceCreateInfoVARJO, ##XrNewSceneComputeInfoMSFT, ##XrPassthroughColorMapMonoToMonoFB, ##XrPassthroughColorMapMonoToRgbaFB, ##XrPassthroughCreateInfoFB, ##XrPassthroughKeyboardHandsIntensityFB, ##XrPassthroughLayerCreateInfoFB, ##XrPassthroughStyleFB, ##XrReferenceSpaceCreateInfo, ##XrRenderModelBufferFB, ##XrRenderModelLoadInfoFB, ##XrRenderModelPathInfoFB, ##XrRenderModelPropertiesFB, ##XrSceneComponentLocationsMSFT, ##XrSceneComponentParentFilterInfoMSFT, ##XrSceneComponentsGetInfoMSFT, ##XrSceneComponentsLocateInfoMSFT, ##XrSceneComponentsMSFT, ##XrSceneCreateInfoMSFT, ##XrSceneDeserializeInfoMSFT, ##XrSceneMeshBuffersGetInfoMSFT, ##XrSceneMeshBuffersMSFT, ##XrSceneMeshIndicesUint16MSFT, ##XrSceneMeshIndicesUint32MSFT, ##XrSceneMeshVertexBufferMSFT, ##XrSceneMeshesMSFT, ##XrSceneObjectTypesFilterInfoMSFT, ##XrSceneObjectsMSFT, ##XrSceneObserverCreateInfoMSFT, ##XrScenePlaneAlignmentFilterInfoMSFT, ##XrScenePlanesMSFT, ##XrSecondaryViewConfigurationFrameEndInfoMSFT, ##XrSecondaryViewConfigurationFrameStateMSFT, ##XrSecondaryViewConfigurationLayerInfoMSFT, ##XrSecondaryViewConfigurationSessionBeginInfoMSFT, ##XrSecondaryViewConfigurationStateMSFT, ##XrSecondaryViewConfigurationSwapchainCreateInfoMSFT, ##XrSerializedSceneFragmentDataGetInfoMSFT, ##XrSessionActionSetsAttachInfo, ##XrSessionBeginInfo, ##XrSessionCreateInfo, ##XrSessionCreateInfoOverlayEXTX, ##XrSpaceLocation, ##XrSpaceVelocity, ##XrSpatialAnchorCreateInfoMSFT, ##XrSpatialAnchorFromPersistedAnchorCreateInfoMSFT, ##XrSpatialAnchorPersistenceInfoMSFT, ##XrSpatialAnchorSpaceCreateInfoMSFT, ##XrSpatialGraphNodeSpaceCreateInfoMSFT, ##XrSwapchainCreateInfo, ##XrSwapchainCreateInfoFoveationFB, ##XrSwapchainImageAcquireInfo, ##XrSwapchainImageBaseHeader, ##XrSwapchainImageFoveationVulkanFB, ##XrSwapchainImageOpenGLESKHR, ##XrSwapchainImageOpenGLKHR, ##XrSwapchainImageReleaseInfo, ##XrSwapchainImageVulkanKHR, ##XrSwapchainImageWaitInfo, ##XrSwapchainStateBaseHeaderFB, ##XrSwapchainStateFoveationFB, ##XrSwapchainStateSamplerOpenGLESFB, ##XrSwapchainStateSamplerVulkanFB, ##XrSystemColorSpacePropertiesFB, ##XrSystemEyeGazeInteractionPropertiesEXT, ##XrSystemFacialTrackingPropertiesHTC, ##XrSystemFoveatedRenderingPropertiesVARJO, ##XrSystemGetInfo, ##XrSystemHandTrackingMeshPropertiesMSFT, ##XrSystemHandTrackingPropertiesEXT, ##XrSystemKeyboardTrackingPropertiesFB, ##XrSystemMarkerTrackingPropertiesVARJO, ##XrSystemPassthroughPropertiesFB, ##XrSystemProperties, ##XrSystemRenderModelPropertiesFB, ##XrSystemSpaceWarpPropertiesFB, ##XrTriangleMeshCreateInfoFB, ##XrView, ##XrViewConfigurationDepthRangeEXT, ##XrViewConfigurationProperties, ##XrViewConfigurationView, ##XrViewConfigurationViewFovEPIC, ##XrViewLocateFoveatedRenderingVARJO, ##XrViewLocateInfo, ##XrViewState, ##XrVisibilityMaskKHR, ##XrVisualMeshComputeLodInfoMSFT, ##XrViveTrackerPathsHTCX, ##XrVulkanDeviceCreateInfoKHR, ##XrVulkanGraphicsDeviceGetInfoKHR, ##XrVulkanInstanceCreateInfoKHR, ##XrVulkanSwapchainFormatListCreateInfoKHR, #StructureTypeToString()
+        ##XrActionCreateInfo, ##XrActionSetCreateInfo, ##XrActionSpaceCreateInfo, ##XrActionStateBoolean, ##XrActionStateFloat, ##XrActionStateGetInfo, ##XrActionStatePose, ##XrActionStateVector2f, ##XrActionsSyncInfo, ##XrActiveActionSetPrioritiesEXT, ##XrApiLayerProperties, ##XrBaseInStructure, ##XrBaseOutStructure, ##XrBindingModificationBaseHeaderKHR, ##XrBindingModificationsKHR, ##XrBodyJointLocationsFB, ##XrBodyJointsLocateInfoFB, ##XrBodySkeletonFB, ##XrBodyTrackerCreateInfoFB, ##XrBoundSourcesForActionEnumerateInfo, ##XrBoundary2DFB, ##XrCompositionLayerAlphaBlendFB, ##XrCompositionLayerBaseHeader, ##XrCompositionLayerColorScaleBiasKHR, ##XrCompositionLayerCubeKHR, ##XrCompositionLayerCylinderKHR, ##XrCompositionLayerDepthInfoKHR, ##XrCompositionLayerDepthTestFB, ##XrCompositionLayerDepthTestVARJO, ##XrCompositionLayerEquirect2KHR, ##XrCompositionLayerEquirectKHR, ##XrCompositionLayerImageLayoutFB, ##XrCompositionLayerPassthroughFB, ##XrCompositionLayerPassthroughHTC, ##XrCompositionLayerProjection, ##XrCompositionLayerProjectionView, ##XrCompositionLayerQuad, ##XrCompositionLayerReprojectionInfoMSFT, ##XrCompositionLayerReprojectionPlaneOverrideMSFT, ##XrCompositionLayerSecureContentFB, ##XrCompositionLayerSettingsFB, ##XrCompositionLayerSpaceWarpInfoFB, ##XrControllerModelKeyStateMSFT, ##XrControllerModelNodePropertiesMSFT, ##XrControllerModelNodeStateMSFT, ##XrControllerModelPropertiesMSFT, ##XrControllerModelStateMSFT, ##XrCoordinateSpaceCreateInfoML, ##XrDebugUtilsLabelEXT, ##XrDebugUtilsMessengerCallbackDataEXT, ##XrDebugUtilsMessengerCreateInfoEXT, ##XrDebugUtilsObjectNameInfoEXT, ##XrDevicePcmSampleRateStateFB, ##XrDigitalLensControlALMALENCE, ##XrEventDataBaseHeader, ##XrEventDataBuffer, ##XrEventDataDisplayRefreshRateChangedFB, ##XrEventDataEventsLost, ##XrEventDataInstanceLossPending, ##XrEventDataInteractionProfileChanged, ##XrEventDataMainSessionVisibilityChangedEXTX, ##XrEventDataMarkerTrackingUpdateVARJO, ##XrEventDataPassthroughStateChangedFB, ##XrEventDataPerfSettingsEXT, ##XrEventDataReferenceSpaceChangePending, ##XrEventDataSceneCaptureCompleteFB, ##XrEventDataSessionStateChanged, ##XrEventDataSpaceEraseCompleteFB, ##XrEventDataSpaceListSaveCompleteFB, ##XrEventDataSpaceQueryCompleteFB, ##XrEventDataSpaceQueryResultsAvailableFB, ##XrEventDataSpaceSaveCompleteFB, ##XrEventDataSpaceSetStatusCompleteFB, ##XrEventDataSpaceShareCompleteFB, ##XrEventDataSpatialAnchorCreateCompleteFB, ##XrEventDataVisibilityMaskChangedKHR, ##XrEventDataViveTrackerConnectedHTCX, ##XrExtensionProperties, ##XrExternalCameraOCULUS, ##XrEyeGazeSampleTimeEXT, ##XrEyeGazesFB, ##XrEyeGazesInfoFB, ##XrEyeTrackerCreateInfoFB, ##XrFaceExpressionInfoFB, ##XrFaceExpressionWeightsFB, ##XrFaceTrackerCreateInfoFB, ##XrFacialExpressionsHTC, ##XrFacialTrackerCreateInfoHTC, ##XrForceFeedbackCurlApplyLocationsMNDX, ##XrFoveatedViewConfigurationViewVARJO, ##XrFoveationApplyInfoHTC, ##XrFoveationCustomModeInfoHTC, ##XrFoveationDynamicModeInfoHTC, ##XrFoveationEyeTrackedProfileCreateInfoMETA, ##XrFoveationEyeTrackedStateMETA, ##XrFoveationLevelProfileCreateInfoFB, ##XrFoveationProfileCreateInfoFB, ##XrFrameBeginInfo, ##XrFrameEndInfo, ##XrFrameEndInfoML, ##XrFrameState, ##XrFrameWaitInfo, ##XrGeometryInstanceCreateInfoFB, ##XrGeometryInstanceTransformFB, ##XrGlobalDimmerFrameEndInfoML, ##XrGraphicsBindingEGLMNDX, ##XrGraphicsBindingOpenGLWaylandKHR, ##XrGraphicsBindingOpenGLWin32KHR, ##XrGraphicsBindingOpenGLXcbKHR, ##XrGraphicsBindingOpenGLXlibKHR, ##XrGraphicsBindingVulkanKHR, ##XrGraphicsRequirementsOpenGLKHR, ##XrGraphicsRequirementsVulkanKHR, ##XrHandJointLocationsEXT, ##XrHandJointVelocitiesEXT, ##XrHandJointsLocateInfoEXT, ##XrHandJointsMotionRangeInfoEXT, ##XrHandMeshMSFT, ##XrHandMeshSpaceCreateInfoMSFT, ##XrHandMeshUpdateInfoMSFT, ##XrHandPoseTypeInfoMSFT, ##XrHandTrackerCreateInfoEXT, ##XrHandTrackingAimStateFB, ##XrHandTrackingCapsulesStateFB, ##XrHandTrackingMeshFB, ##XrHandTrackingScaleFB, ##XrHapticActionInfo, ##XrHapticAmplitudeEnvelopeVibrationFB, ##XrHapticBaseHeader, ##XrHapticPcmVibrationFB, ##XrHapticVibration, ##XrHolographicWindowAttachmentMSFT, ##XrInputSourceLocalizedNameGetInfo, ##XrInstanceCreateInfo, ##XrInstanceProperties, ##XrInteractionProfileAnalogThresholdVALVE, ##XrInteractionProfileDpadBindingEXT, ##XrInteractionProfileState, ##XrInteractionProfileSuggestedBinding, ##XrKeyboardSpaceCreateInfoFB, ##XrKeyboardTrackingQueryFB, ##XrLoaderInitInfoBaseHeaderKHR, ##XrLocalDimmingFrameEndInfoMETA, ##XrMarkerSpaceCreateInfoVARJO, ##XrNewSceneComputeInfoMSFT, ##XrPassthroughBrightnessContrastSaturationFB, ##XrPassthroughColorHTC, ##XrPassthroughColorMapMonoToMonoFB, ##XrPassthroughColorMapMonoToRgbaFB, ##XrPassthroughCreateInfoFB, ##XrPassthroughCreateInfoHTC, ##XrPassthroughKeyboardHandsIntensityFB, ##XrPassthroughLayerCreateInfoFB, ##XrPassthroughMeshTransformInfoHTC, ##XrPassthroughStyleFB, ##XrPerformanceMetricsCounterMETA, ##XrPerformanceMetricsStateMETA, ##XrReferenceSpaceCreateInfo, ##XrRenderModelBufferFB, ##XrRenderModelCapabilitiesRequestFB, ##XrRenderModelLoadInfoFB, ##XrRenderModelPathInfoFB, ##XrRenderModelPropertiesFB, ##XrRoomLayoutFB, ##XrSceneCaptureRequestInfoFB, ##XrSceneComponentLocationsMSFT, ##XrSceneComponentParentFilterInfoMSFT, ##XrSceneComponentsGetInfoMSFT, ##XrSceneComponentsLocateInfoMSFT, ##XrSceneComponentsMSFT, ##XrSceneCreateInfoMSFT, ##XrSceneDeserializeInfoMSFT, ##XrSceneMeshBuffersGetInfoMSFT, ##XrSceneMeshBuffersMSFT, ##XrSceneMeshIndicesUint16MSFT, ##XrSceneMeshIndicesUint32MSFT, ##XrSceneMeshVertexBufferMSFT, ##XrSceneMeshesMSFT, ##XrSceneObjectTypesFilterInfoMSFT, ##XrSceneObjectsMSFT, ##XrSceneObserverCreateInfoMSFT, ##XrScenePlaneAlignmentFilterInfoMSFT, ##XrScenePlanesMSFT, ##XrSecondaryViewConfigurationFrameEndInfoMSFT, ##XrSecondaryViewConfigurationFrameStateMSFT, ##XrSecondaryViewConfigurationLayerInfoMSFT, ##XrSecondaryViewConfigurationSessionBeginInfoMSFT, ##XrSecondaryViewConfigurationStateMSFT, ##XrSecondaryViewConfigurationSwapchainCreateInfoMSFT, ##XrSemanticLabelsFB, ##XrSerializedSceneFragmentDataGetInfoMSFT, ##XrSessionActionSetsAttachInfo, ##XrSessionBeginInfo, ##XrSessionCreateInfo, ##XrSessionCreateInfoOverlayEXTX, ##XrSpaceComponentFilterInfoFB, ##XrSpaceComponentStatusFB, ##XrSpaceComponentStatusSetInfoFB, ##XrSpaceContainerFB, ##XrSpaceEraseInfoFB, ##XrSpaceFilterInfoBaseHeaderFB, ##XrSpaceListSaveInfoFB, ##XrSpaceLocation, ##XrSpaceQueryInfoBaseHeaderFB, ##XrSpaceQueryInfoFB, ##XrSpaceQueryResultsFB, ##XrSpaceSaveInfoFB, ##XrSpaceShareInfoFB, ##XrSpaceStorageLocationFilterInfoFB, ##XrSpaceUserCreateInfoFB, ##XrSpaceUuidFilterInfoFB, ##XrSpaceVelocity, ##XrSpatialAnchorCreateInfoFB, ##XrSpatialAnchorCreateInfoMSFT, ##XrSpatialAnchorFromPersistedAnchorCreateInfoMSFT, ##XrSpatialAnchorPersistenceInfoMSFT, ##XrSpatialAnchorSpaceCreateInfoMSFT, ##XrSpatialGraphNodeBindingPropertiesGetInfoMSFT, ##XrSpatialGraphNodeBindingPropertiesMSFT, ##XrSpatialGraphNodeSpaceCreateInfoMSFT, ##XrSpatialGraphStaticNodeBindingCreateInfoMSFT, ##XrSwapchainCreateInfo, ##XrSwapchainCreateInfoFoveationFB, ##XrSwapchainImageAcquireInfo, ##XrSwapchainImageBaseHeader, ##XrSwapchainImageFoveationVulkanFB, ##XrSwapchainImageOpenGLKHR, ##XrSwapchainImageReleaseInfo, ##XrSwapchainImageVulkanKHR, ##XrSwapchainImageWaitInfo, ##XrSwapchainStateBaseHeaderFB, ##XrSwapchainStateFoveationFB, ##XrSwapchainStateSamplerOpenGLESFB, ##XrSwapchainStateSamplerVulkanFB, ##XrSystemBodyTrackingPropertiesFB, ##XrSystemColorSpacePropertiesFB, ##XrSystemEyeGazeInteractionPropertiesEXT, ##XrSystemEyeTrackingPropertiesFB, ##XrSystemFaceTrackingPropertiesFB, ##XrSystemFacialTrackingPropertiesHTC, ##XrSystemForceFeedbackCurlPropertiesMNDX, ##XrSystemFoveatedRenderingPropertiesVARJO, ##XrSystemFoveationEyeTrackedPropertiesMETA, ##XrSystemGetInfo, ##XrSystemHandTrackingMeshPropertiesMSFT, ##XrSystemHandTrackingPropertiesEXT, ##XrSystemHeadsetIdPropertiesMETA, ##XrSystemKeyboardTrackingPropertiesFB, ##XrSystemMarkerTrackingPropertiesVARJO, ##XrSystemPassthroughProperties2FB, ##XrSystemPassthroughPropertiesFB, ##XrSystemProperties, ##XrSystemRenderModelPropertiesFB, ##XrSystemSpaceWarpPropertiesFB, ##XrSystemSpatialEntityPropertiesFB, ##XrTriangleMeshCreateInfoFB, ##XrView, ##XrViewConfigurationDepthRangeEXT, ##XrViewConfigurationProperties, ##XrViewConfigurationView, ##XrViewConfigurationViewFovEPIC, ##XrViewLocateFoveatedRenderingVARJO, ##XrViewLocateInfo, ##XrViewState, ##XrVisibilityMaskKHR, ##XrVisualMeshComputeLodInfoMSFT, ##XrViveTrackerPathsHTCX, ##XrVulkanDeviceCreateInfoKHR, ##XrVulkanGraphicsDeviceGetInfoKHR, ##XrVulkanInstanceCreateInfoKHR, ##XrVulkanSwapchainCreateInfoMETA, ##XrVulkanSwapchainFormatListCreateInfoKHR, #StructureTypeToString()
         """,
 
         "TYPE_UNKNOWN".."0",
@@ -313,7 +323,21 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
     )
 
     EnumConstant(
-        "XrSpaceVelocityFlagBits",
+        """
+        XrSpaceVelocityFlagBits - Space velocity flags
+
+        <h5>Description</h5>
+        The flag bits have the following meanings:
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#SPACE_VELOCITY_LINEAR_VALID_BIT — Indicates that the {@code linearVelocity} member contains valid data. Applications <b>must</b> not read the {@code linearVelocity} field if this flag is unset.</li>
+            <li>#SPACE_VELOCITY_ANGULAR_VALID_BIT — Indicates that the {@code angularVelocity} member contains valid data. Applications <b>must</b> not read the {@code angularVelocity} field if this flag is unset.</li>
+        </ul>
+
+        <h5>See Also</h5>
+        ##XrSpaceVelocity
+        """,
 
         "SPACE_VELOCITY_LINEAR_VALID_BIT".enum(0x00000001),
         "SPACE_VELOCITY_ANGULAR_VALID_BIT".enum(0x00000002)
@@ -368,7 +392,23 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
     )
 
     EnumConstant(
-        "XrSpaceLocationFlagBits",
+        """
+        XrSpaceLocationFlagBits - Space location flags
+
+        <h5>Description</h5>
+        The flag bits have the following meanings:
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#SPACE_LOCATION_ORIENTATION_VALID_BIT indicates that the {@code pose} field’s {@code orientation} field contains valid data. For a space location tracking a device with its own inertial tracking, #SPACE_LOCATION_ORIENTATION_TRACKED_BIT <b>should</b> remain set when this bit is set. Applications <b>must</b> not read the {@code pose} field’s {@code orientation} if this flag is unset.</li>
+            <li>#SPACE_LOCATION_POSITION_VALID_BIT indicates that the {@code pose} field’s {@code position} field contains valid data. When a space location loses tracking, runtimes <b>should</b> continue to provide valid but untracked {@code position} values that are inferred or last-known, so long as it’s still meaningful for the application to use that position, clearing #SPACE_LOCATION_POSITION_TRACKED_BIT until positional tracking is recovered. Applications <b>must</b> not read the {@code pose} field’s {@code position} if this flag is unset.</li>
+            <li>#SPACE_LOCATION_ORIENTATION_TRACKED_BIT indicates that the {@code pose} field’s {@code orientation} field represents an actively tracked orientation. For a space location tracking a device with its own inertial tracking, this bit <b>should</b> remain set when #SPACE_LOCATION_ORIENTATION_VALID_BIT is set. For a space location tracking an object whose orientation is no longer known during tracking loss (e.g. an observed QR code), runtimes <b>should</b> continue to provide valid but untracked {@code orientation} values, so long as it’s still meaningful for the application to use that orientation.</li>
+            <li>#SPACE_LOCATION_POSITION_TRACKED_BIT indicates that the {@code pose} field’s {@code position} field represents an actively tracked position. When a space location loses tracking, runtimes <b>should</b> continue to provide valid but untracked {@code position} values that are inferred or last-known, e.g. based on neck model updates, inertial dead reckoning, or a last-known position, so long as it’s still meaningful for the application to use that position.</li>
+        </ul>
+
+        <h5>See Also</h5>
+        ##XrSpaceLocation, #LocateSpace()
+        """,
 
         "SPACE_LOCATION_ORIENTATION_VALID_BIT".enum(0x00000001),
         "SPACE_LOCATION_POSITION_VALID_BIT".enum(0x00000002),
@@ -377,14 +417,51 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
     )
 
     EnumConstant(
-        "XrSwapchainCreateFlagBits",
+        """
+        XrSwapchainCreateFlagBits - Swapchain creation flags
+
+        <h5>Description</h5>
+        The flag bits have the following meanings:
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#SWAPCHAIN_CREATE_PROTECTED_CONTENT_BIT indicates that the swapchain’s images will be protected from CPU access, using a mechanism such as Vulkan protected memory.</li>
+            <li>#SWAPCHAIN_CREATE_STATIC_IMAGE_BIT indicates that the application will acquire and release only one image to this swapchain over its entire lifetime. The runtime <b>must</b> allocate only one swapchain image.</li>
+        </ul>
+
+        A runtime <b>may</b> implement any of these, but is not required to. A runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateSwapchain() if an {@code XrSwapchainCreateFlags} bit is requested but not implemented.
+
+        <h5>See Also</h5>
+        ##XrSwapchainCreateInfo
+        """,
 
         "SWAPCHAIN_CREATE_PROTECTED_CONTENT_BIT".enum(0x00000001),
         "SWAPCHAIN_CREATE_STATIC_IMAGE_BIT".enum(0x00000002)
     )
 
     EnumConstant(
-        "XrSwapchainUsageFlagBits",
+        """
+        XrSwapchainUsageFlagBits - Swapchain usage flags
+
+        <h5>Description</h5>
+        The flag bits have the following meanings:
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#SWAPCHAIN_USAGE_COLOR_ATTACHMENT_BIT — Specifies that the image <b>may</b> be a color rendering target.</li>
+            <li>#SWAPCHAIN_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT — Specifies that the image <b>may</b> be a depth/stencil rendering target.</li>
+            <li>#SWAPCHAIN_USAGE_UNORDERED_ACCESS_BIT — Specifies that the image <b>may</b> be accessed out of order and that access <b>may</b> be via atomic operations.</li>
+            <li>#SWAPCHAIN_USAGE_TRANSFER_SRC_BIT — Specifies that the image <b>may</b> be used as the source of a transfer operation.</li>
+            <li>#SWAPCHAIN_USAGE_TRANSFER_DST_BIT — Specifies that the image <b>may</b> be used as the destination of a transfer operation.</li>
+            <li>#SWAPCHAIN_USAGE_SAMPLED_BIT — Specifies that the image <b>may</b> be sampled by a shader.</li>
+            <li>#SWAPCHAIN_USAGE_MUTABLE_FORMAT_BIT — Specifies that the image <b>may</b> be reinterpreted as another image format.</li>
+            <li>#SWAPCHAIN_USAGE_INPUT_ATTACHMENT_BIT_MND — Specifies that the image <b>may</b> be used as a input attachment. (Added by the {@link MNDSwapchainUsageInputAttachmentBit XR_MND_swapchain_usage_input_attachment_bit} extension)</li>
+            <li>#SWAPCHAIN_USAGE_INPUT_ATTACHMENT_BIT_KHR — Specifies that the image <b>may</b> be used as a input attachment. (Added by the {@link KHRSwapchainUsageInputAttachmentBit XR_KHR_swapchain_usage_input_attachment_bit} extension)</li>
+        </ul>
+
+        <h5>See Also</h5>
+        ##XrSwapchainCreateInfo, #CreateSwapchain()
+        """,
 
         "SWAPCHAIN_USAGE_COLOR_ATTACHMENT_BIT".enum(0x00000001),
         "SWAPCHAIN_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT".enum(0x00000002),
@@ -396,7 +473,22 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
     )
 
     EnumConstant(
-        "XrCompositionLayerFlagBits",
+        """
+        XrCompositionLayerFlagBits - Composition layer flags
+
+        <h5>Description</h5>
+        The flag bits have the following meanings:
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT — Enables chromatic aberration correction when not done by default. This flag has no effect on any known conformant runtime, and is planned for deprecation for OpenXR 1.1</li>
+            <li>#COMPOSITION_LAYER_BLEND_TEXTURE_SOURCE_ALPHA_BIT — Enables the layer texture alpha channel.</li>
+            <li>#COMPOSITION_LAYER_UNPREMULTIPLIED_ALPHA_BIT — Indicates the texture color channels have not been premultiplied by the texture alpha channel.</li>
+        </ul>
+
+        <h5>See Also</h5>
+        ##XrCompositionLayerProjection, ##XrCompositionLayerQuad
+        """,
 
         "COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT".enum(0x00000001),
         "COMPOSITION_LAYER_BLEND_TEXTURE_SOURCE_ALPHA_BIT".enum(0x00000002),
@@ -404,7 +496,23 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
     )
 
     EnumConstant(
-        "XrViewStateFlagBits",
+        """
+        XrViewStateFlagBits - View state flags
+
+        <h5>Description</h5>
+        The flag bits have the following meanings:
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#VIEW_STATE_ORIENTATION_VALID_BIT indicates whether all ##XrView orientations contain valid data. Applications <b>must</b> not read any of the ##XrView {@code pose} {@code orientation} fields if this flag is unset. #VIEW_STATE_ORIENTATION_TRACKED_BIT <b>should</b> generally remain set when this bit is set for views on a tracked headset or handheld device.</li>
+            <li>#VIEW_STATE_POSITION_VALID_BIT indicates whether all ##XrView positions contain valid data. Applications <b>must</b> not read any of the ##XrView{@code ::pose} {@code position} fields if this flag is unset. When a view loses tracking, runtimes <b>should</b> continue to provide valid but untracked view {@code position} values that are inferred or last-known, so long as it’s still meaningful for the application to render content using that position, clearing #VIEW_STATE_POSITION_TRACKED_BIT until tracking is recovered.</li>
+            <li>#VIEW_STATE_ORIENTATION_TRACKED_BIT indicates whether all ##XrView orientations represent an actively tracked orientation. This bit <b>should</b> generally remain set when #VIEW_STATE_ORIENTATION_VALID_BIT is set for views on a tracked headset or handheld device.</li>
+            <li>#VIEW_STATE_POSITION_TRACKED_BIT indicates whether all ##XrView positions represent an actively tracked position. When a view loses tracking, runtimes <b>should</b> continue to provide valid but untracked view {@code position} values that are inferred or last-known, e.g. based on neck model updates, inertial dead reckoning, or a last-known position, so long as it’s still meaningful for the application to render content using that position.</li>
+        </ul>
+
+        <h5>See Also</h5>
+        ##XrView, ##XrViewState, #LocateViews()
+        """,
 
         "VIEW_STATE_ORIENTATION_VALID_BIT".enum(0x00000001),
         "VIEW_STATE_POSITION_VALID_BIT".enum(0x00000002),
@@ -437,7 +545,22 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
     )
 
     EnumConstant(
-        "XrInputSourceLocalizedNameFlagBits",
+        """
+        XrInputSourceLocalizedNameFlagBits - Input source localized name flags
+
+        <h5>Description</h5>
+        The flag bits have the following meanings:
+
+        <h5>Flag Descriptions</h5>
+        <ul>
+            <li>#INPUT_SOURCE_LOCALIZED_NAME_USER_PATH_BIT indicates that the runtime <b>must</b> include the user path portion of the string in the result, if available. E.g. {@code Left Hand}.</li>
+            <li>#INPUT_SOURCE_LOCALIZED_NAME_INTERACTION_PROFILE_BIT indicates that the runtime <b>must</b> include the interaction profile portion of the string in the result, if available. E.g. {@code Vive Controller}.</li>
+            <li>#INPUT_SOURCE_LOCALIZED_NAME_COMPONENT_BIT indicates that the runtime <b>must</b> include the input component portion of the string in the result, if available. E.g. {@code Trigger}.</li>
+        </ul>
+
+        <h5>See Also</h5>
+        #GetInputSourceLocalizedName()
+        """,
 
         "INPUT_SOURCE_LOCALIZED_NAME_USER_PATH_BIT".enum(0x00000001),
         "INPUT_SOURCE_LOCALIZED_NAME_INTERACTION_PROFILE_BIT".enum(0x00000002),
@@ -684,9 +807,9 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         ##XrApiLayerProperties
         """,
 
-        AutoSize("properties")..uint32_t("propertyCapacityInput", "the capacity of the properties array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("propertyCountOutput", "a pointer to the count of properties written, or a pointer to the required capacity in the case that propertyCapacityInput is 0."),
-        nullable..XrApiLayerProperties.p("properties", "a pointer to an array of ##XrApiLayerProperties structures, but <b>can</b> be {@code NULL} if propertyCapacityInput is 0.")
+        AutoSize("properties")..uint32_t("propertyCapacityInput", "the capacity of the {@code properties} array, or 0 to indicate a request to retrieve the required capacity."),
+        Check(1)..uint32_t.p("propertyCountOutput", "a pointer to the count of {@code properties} written, or a pointer to the required capacity in the case that {@code propertyCapacityInput} is insufficient."),
+        nullable..XrApiLayerProperties.p("properties", "a pointer to an array of ##XrApiLayerProperties structures, but <b>can</b> be {@code NULL} if {@code propertyCapacityInput} is 0.")
     )
 
     GlobalCommand..XrResult(
@@ -705,8 +828,6 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    XrExtensionProperties*                      properties);</code></pre>
 
         <h5>Description</h5>
-        If {@code properties} is {@code NULL}, then the number of extensions properties available is returned in {@code propertyCountOutput}. Otherwise, {@code propertyCountInput} must point to a variable set by the user to the number of elements in the {@code properties} array. If {@code propertyCountInput} is less than the number of extension properties available, the contents of {@code properties} will be undefined. If {@code propertyCountInput} is smaller than the number of extensions available, the runtime <b>must</b> return the failure code #ERROR_SIZE_INSUFFICIENT and the contents of {@code properties} are undefined.
-
         Because the list of available layers may change externally between calls to #EnumerateInstanceExtensionProperties(), two calls <b>may</b> retrieve different results if a {@code layerName} is available in one call but not in another. The extensions supported by a layer may also change between two calls, e.g. if the layer implementation is replaced by a different version between those calls.
 
         <h5>Valid Usage (Implicit)</h5>
@@ -739,8 +860,8 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         """,
 
         nullable..charUTF8.const.p("layerName", "either {@code NULL} or a pointer to a string naming the API layer to retrieve extensions from, as returned by #EnumerateApiLayerProperties()."),
-        AutoSize("properties")..uint32_t("propertyCapacityInput", "the capacity of the properties array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("propertyCountOutput", "a pointer to the count of properties written, or a pointer to the required capacity in the case that {@code propertyCapacityInput} is 0."),
+        AutoSize("properties")..uint32_t("propertyCapacityInput", "the capacity of the {@code properties} array, or 0 to indicate a request to retrieve the required capacity."),
+        Check(1)..uint32_t.p("propertyCountOutput", "a pointer to the count of {@code properties} written, or a pointer to the required capacity in the case that {@code propertyCapacityInput} is insufficient."),
         nullable..XrExtensionProperties.p("properties", "a pointer to an array of ##XrExtensionProperties structures, but <b>can</b> be {@code NULL} if {@code propertyCapacityInput} is 0.")
     )
 
@@ -1226,7 +1347,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         XrSystemId("systemId", "the {@code XrSystemId} whose environment blend modes will be enumerated."),
         XrViewConfigurationType("viewConfigurationType", "the {@code XrViewConfigurationType} to enumerate."),
         AutoSize("environmentBlendModes")..uint32_t("environmentBlendModeCapacityInput", "the capacity of the {@code environmentBlendModes} array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("environmentBlendModeCountOutput", "a pointer to the count of {@code environmentBlendModes} written, or a pointer to the required capacity in the case that {@code environmentBlendModeCapacityInput} is 0."),
+        Check(1)..uint32_t.p("environmentBlendModeCountOutput", "a pointer to the count of {@code environmentBlendModes} written, or a pointer to the required capacity in the case that {@code environmentBlendModeCapacityInput} is insufficient."),
         nullable..XrEnvironmentBlendMode.p("environmentBlendModes", "a pointer to an array of {@code XrEnvironmentBlendMode} values, but <b>can</b> be {@code NULL} if {@code environmentBlendModeCapacityInput} is 0.")
     )
 
@@ -1386,8 +1507,8 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         """,
 
         XrSession("session", "a handle to an {@code XrSession} previously created with #CreateSession()."),
-        AutoSize("spaces")..uint32_t("spaceCapacityInput", "the capacity of the spaces array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("spaceCountOutput", "a pointer to the count of spaces written, or a pointer to the required capacity in the case that {@code spaceCapacityInput} is 0."),
+        AutoSize("spaces")..uint32_t("spaceCapacityInput", "the capacity of the {@code spaces} array, or 0 to indicate a request to retrieve the required capacity."),
+        Check(1)..uint32_t.p("spaceCountOutput", "a pointer to the count of {@code spaces} written, or a pointer to the required capacity in the case that {@code spaceCapacityInput} is insufficient."),
         nullable..XrReferenceSpaceType.p("spaces", "a pointer to an application-allocated array that will be filled with the enumerant of each supported reference space. It <b>can</b> be {@code NULL} if {@code spaceCapacityInput} is 0.")
     )
 
@@ -1600,7 +1721,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         The runtime <b>must</b> return a location with both #SPACE_LOCATION_POSITION_VALID_BIT and #SPACE_LOCATION_POSITION_TRACKED_BIT set when locating {@code space} and {@code baseSpace} if both spaces were created relative to the same entity (e.g. two action spaces for the same action), even if the entity is currently untracked. The location in this case is the difference in the two spaces' application-specified transforms relative to that common entity.
 
-        The runtime <b>should</b> return a location with #SPACE_LOCATION_POSITION_VALID_BIT set and #SPACE_LOCATION_POSITION_TRACKED_BIT unset for spaces tracking two static entities in the world when their relative pose is known to the runtime. This enables applications to make use of the runtime’s latest knowledge of the world, even during tracking loss.
+        During tracking loss, the runtime <b>should</b> return a location with #SPACE_LOCATION_POSITION_VALID_BIT and #SPACE_LOCATION_ORIENTATION_VALID_BIT set and #SPACE_LOCATION_POSITION_TRACKED_BIT and #SPACE_LOCATION_ORIENTATION_TRACKED_BIT unset for spaces tracking two static entities in the world when their relative pose is known to the runtime. This enables applications to continue to make use of the runtime’s latest knowledge of the world.
 
         If an ##XrSpaceVelocity structure is chained to the {@code next} pointer of ##XrSpaceLocation and the velocity is observed or can be calculated by the runtime, the runtime <b>must</b> fill in the linear velocity of the origin of space within the reference frame of {@code baseSpace} and set the #SPACE_VELOCITY_LINEAR_VALID_BIT. Similarly, if an ##XrSpaceVelocity structure is chained to the {@code next} pointer of ##XrSpaceLocation and the angular velocity is observed or can be calculated by the runtime, the runtime <b>must</b> fill in the angular velocity of the origin of space within the reference frame of {@code baseSpace} and set the #SPACE_VELOCITY_ANGULAR_VALID_BIT.
 
@@ -1655,7 +1776,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
     XrResult(
         "DestroySpace",
         """
-        Creates a space based on a pose action.
+        Destroys an XrSpace.
 
         <h5>C Specification</h5>
         The #DestroySpace() function is defined as:
@@ -1749,7 +1870,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         XrInstance("instance", "the instance from which {@code systemId} was retrieved."),
         XrSystemId("systemId", "the {@code XrSystemId} whose view configurations will be enumerated."),
         AutoSize("viewConfigurationsTypes")..uint32_t("viewConfigurationsTypeCapacityInput", "the capacity of the {@code viewConfigurations} array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("viewConfigurationsTypeCountOutput", "a pointer to the count of {@code viewConfigurations} written, or a pointer to the required capacity in the case that {@code viewConfigurationsTypeCapacityInput} is 0."),
+        Check(1)..uint32_t.p("viewConfigurationsTypeCountOutput", "a pointer to the count of {@code viewConfigurations} written, or a pointer to the required capacity in the case that {@code viewConfigurationsTypeCapacityInput} is insufficient."),
         nullable..XrViewConfigurationType.p("viewConfigurationsTypes", "a pointer to an array of {@code XrViewConfigurationType} values, but <b>can</b> be {@code NULL} if {@code viewConfigurationsTypeCapacityInput} is 0.")
     )
 
@@ -1887,6 +2008,8 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <h5>Description</h5>
         #EnumerateSwapchainFormats() enumerates the texture formats supported by the current session. The type of formats returned are dependent on the graphics API specified in #CreateSession(). For example, if a DirectX graphics API was specified, then the enumerated formats correspond to the DXGI formats, such as {@code DXGI_FORMAT_R8G8B8A8_UNORM_SRGB}. Texture formats <b>should</b> be in order from highest to lowest runtime preference. The application <b>should</b> use the highest preference format that it supports for optimal performance and quality.
 
+        With an OpenGL-based graphics API, the texture formats correspond to OpenGL internal formats.
+
         Runtimes <b>must</b> always return identical buffer contents from this enumeration for the lifetime of the session.
 
         <h5>Valid Usage (Implicit)</h5>
@@ -1921,7 +2044,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         XrSession("session", "the session that enumerates the supported formats."),
         AutoSize("formats")..uint32_t("formatCapacityInput", "the capacity of the {@code formats}, or 0 to retrieve the required capacity."),
-        Check(1)..uint32_t.p("formatCountOutput", "a pointer to the count of {@code uint64_t} formats written, or a pointer to the required capacity in the case that {@code formatCapacityInput} is 0."),
+        Check(1)..uint32_t.p("formatCountOutput", "a pointer to the count of {@code uint64_t} formats written, or a pointer to the required capacity in the case that {@code formatCapacityInput} is insufficient."),
         nullable..int64_t.p("formats", "a pointer to an array of {@code int64_t} format ids, but <b>can</b> be {@code NULL} if {@code formatCapacityInput} is 0. The format ids are specific to the specified graphics API.")
     )
 
@@ -2057,7 +2180,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <ul>
             <li>{@code swapchain} <b>must</b> be a valid {@code XrSwapchain} handle</li>
             <li>{@code imageCountOutput} <b>must</b> be a pointer to a {@code uint32_t} value</li>
-            <li>If {@code imageCapacityInput} is not 0, {@code images} <b>must</b> be a pointer to an array of {@code imageCapacityInput} ##XrSwapchainImageBaseHeader-based structures. See also: ##XrSwapchainImageOpenGLESKHR, ##XrSwapchainImageOpenGLKHR, ##XrSwapchainImageVulkanKHR</li>
+            <li>If {@code imageCapacityInput} is not 0, {@code images} <b>must</b> be a pointer to an array of {@code imageCapacityInput} ##XrSwapchainImageBaseHeader-based structures. See also: ##XrSwapchainImageOpenGLKHR, ##XrSwapchainImageVulkanKHR</li>
         </ul>
 
         <h5>Return Codes</h5>
@@ -2085,7 +2208,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         XrSwapchain("swapchain", "the {@code XrSwapchain} to get images from."),
         AutoSize("images")..uint32_t("imageCapacityInput", "the capacity of the {@code images} array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("imageCountOutput", "a pointer to the count of {@code images} written, or a pointer to the required capacity in the case that {@code imageCapacityInput} is 0."),
+        Check(1)..uint32_t.p("imageCountOutput", "a pointer to the count of {@code images} written, or a pointer to the required capacity in the case that {@code imageCapacityInput} is insufficient."),
         nullable..XrSwapchainImageBaseHeader.p("images", "a pointer to an array of graphics API-specific {@code XrSwapchainImage} structures, all of the same type, based on ##XrSwapchainImageBaseHeader. It <b>can</b> be {@code NULL} if {@code imageCapacityInput} is 0.")
     )
 
@@ -2519,6 +2642,11 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
             <li>If {@code frameBeginInfo} is not {@code NULL}, {@code frameBeginInfo} <b>must</b> be a pointer to a valid ##XrFrameBeginInfo structure</li>
         </ul>
 
+        <h5>Thread Safety</h5>
+        <ul>
+            <li>Access to the {@code session} parameter by any other #BeginFrame() or #EndFrame() call <b>must</b> be externally synchronized</li>
+        </ul>
+
         <h5>Return Codes</h5>
         <dl>
             <dt>On success, this command returns</dt>
@@ -2592,6 +2720,11 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <ul>
             <li>{@code session} <b>must</b> be a valid {@code XrSession} handle</li>
             <li>{@code frameEndInfo} <b>must</b> be a pointer to a valid ##XrFrameEndInfo structure</li>
+        </ul>
+
+        <h5>Thread Safety</h5>
+        <ul>
+            <li>Access to the {@code session} parameter by any other #BeginFrame() or #EndFrame() call <b>must</b> be externally synchronized</li>
         </ul>
 
         <h5>Return Codes</h5>
@@ -2798,7 +2931,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         XrInstance("instance", "an instance previously created."),
         XrPath("path", "the valid {@code XrPath} value to retrieve the path string for."),
         AutoSize("buffer")..uint32_t("bufferCapacityInput", "the capacity of the buffer, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("bufferCountOutput", "a pointer to the count of characters written (including the terminating '\\0'), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is 0."),
+        Check(1)..uint32_t.p("bufferCountOutput", "a pointer to the count of characters written to {@code buffer} (including the terminating '\\0'), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is insufficient."),
         nullable..char.p("buffer", "a pointer to an application-allocated buffer that will be filled with the semantic path string. It <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0.")
     )
 
@@ -3476,6 +3609,10 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         As bindings for actions do not change between calls to #SyncActions(), #EnumerateBoundSourcesForAction() <b>must</b> enumerate the same set of bound sources, or absence of bound sources, for a given query (defined by the {@code enumerateInfo} parameter) between any two calls to #SyncActions().
 
+        <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+        The {@code XrPath} bound sources returned by the runtime are opaque values and <b>should</b> not be inspected or persisted. They are only intended for use in conjunction with #GetInputSourceLocalizedName().
+        </div>
+
         <h5>Valid Usage (Implicit)</h5>
         <ul>
             <li>{@code session} <b>must</b> be a valid {@code XrSession} handle</li>
@@ -3512,8 +3649,8 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         XrSession("session", "the {@code XrSession} being queried."),
         XrBoundSourcesForActionEnumerateInfo.const.p("enumerateInfo", "an ##XrBoundSourcesForActionEnumerateInfo providing the query information."),
         AutoSize("sources")..uint32_t("sourceCapacityInput", "the capacity of the array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("sourceCountOutput", "a pointer to the count of sources, or a pointer to the required capacity in the case that {@code sourceCapacityInput} is 0."),
-        nullable..XrPath.p("sources", "a pointer to an application-allocated array that will be filled with the {@code XrPath} values for all sources. It <b>can</b> be {@code NULL} if {@code sourceCapacityInput} is 0.")
+        Check(1)..uint32_t.p("sourceCountOutput", "a pointer to the count of {@code sources}, or a pointer to the required capacity in the case that {@code sourceCapacityInput} is insufficient."),
+        nullable..XrPath.p("sources", "a pointer to an application-allocated array that will be filled with the {@code XrPath} values for all bound sources. It <b>can</b> be {@code NULL} if {@code sourceCapacityInput} is 0.")
     )
 
     XrResult(
@@ -3533,7 +3670,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    char*                                       buffer);</code></pre>
 
         <h5>Description</h5>
-        #GetInputSourceLocalizedName() returns a string for the input source in the current system locale.
+        #GetInputSourceLocalizedName() returns a string for the bound source in the current system locale.
 
         If #AttachSessionActionSets() has not yet been called for the session, the runtime <b>must</b> return #ERROR_ACTIONSET_NOT_ATTACHED.
 
@@ -3571,11 +3708,11 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         ##XrInputSourceLocalizedNameGetInfo
         """,
 
-        XrSession("session", "a handle to the {@code XrSession} associated with the action that reported this source."),
+        XrSession("session", "a handle to the {@code XrSession} associated with the action that reported this bound source."),
         XrInputSourceLocalizedNameGetInfo.const.p("getInfo", "an ##XrInputSourceLocalizedNameGetInfo providing the query information."),
-        AutoSize("buffer")..uint32_t("bufferCapacityInput", "the capacity of the buffer, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("bufferCountOutput", "a pointer to the count of name characters written (including the terminating {@code \\0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is 0."),
-        nullable..char.p("buffer", "a pointer to an application-allocated buffer that will be filled with the source name. It <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0.")
+        AutoSize("buffer")..uint32_t("bufferCapacityInput", "the capacity of the {@code buffer}, or 0 to indicate a request to retrieve the required capacity."),
+        Check(1)..uint32_t.p("bufferCountOutput", "a pointer to the count of name characters written to {@code buffer} (including the terminating {@code \\0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is insufficient."),
+        nullable..char.p("buffer", "a pointer to an application-allocated buffer that will be filled with the bound source name. It <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0.")
     )
 
     // Haptics
@@ -3595,7 +3732,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    const XrHapticBaseHeader*                   hapticFeedback);</code></pre>
 
         <h5>Description</h5>
-        Triggers a haptic event through the specified action of type #TYPE_HAPTIC_VIBRATION. The runtime <b>should</b> deliver this request to the appropriate device, but exactly which device, if any, this event is sent to is up to the runtime to decide. If an appropriate device is unavailable the runtime <b>may</b> ignore this request for haptic feedback.
+        Triggers a haptic event through the specified action of type #ACTION_TYPE_VIBRATION_OUTPUT. The runtime <b>should</b> deliver this request to the appropriate device, but exactly which device, if any, this event is sent to is up to the runtime to decide. If an appropriate device is unavailable the runtime <b>may</b> ignore this request for haptic feedback.
 
         If {@code session} is not focused, the runtime <b>must</b> return #SESSION_NOT_FOCUSED, and not trigger a haptic event.
 
@@ -3605,7 +3742,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <ul>
             <li>{@code session} <b>must</b> be a valid {@code XrSession} handle</li>
             <li>{@code hapticActionInfo} <b>must</b> be a pointer to a valid ##XrHapticActionInfo structure</li>
-            <li>{@code hapticFeedback} <b>must</b> be a pointer to a valid ##XrHapticBaseHeader-based structure. See also: ##XrHapticVibration</li>
+            <li>{@code hapticFeedback} <b>must</b> be a pointer to a valid ##XrHapticBaseHeader-based structure. See also: ##XrHapticAmplitudeEnvelopeVibrationFB, ##XrHapticPcmVibrationFB, ##XrHapticVibration</li>
         </ul>
 
         <h5>Return Codes</h5>

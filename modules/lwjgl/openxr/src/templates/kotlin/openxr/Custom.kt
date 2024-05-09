@@ -47,28 +47,33 @@ private fun generateDispatchableHandle(handle: PointerType<*>, parent: PointerTy
 fun templateCustomization() {
     generateDispatchableHandle(XrActionSet, XrInstance)
     generateDispatchableHandle(XrAction, XrActionSet)
+    generateDispatchableHandle(XrBodyTrackerFB, XrSession)
     generateDispatchableHandle(XrDebugUtilsMessengerEXT, XrInstance)
+    generateDispatchableHandle(XrEyeTrackerFB, XrSession)
+    generateDispatchableHandle(XrFaceTrackerFB, XrSession)
     generateDispatchableHandle(XrFacialTrackerHTC, XrSession)
     generateDispatchableHandle(XrFoveationProfileFB, XrSession)
     generateDispatchableHandle(XrGeometryInstanceFB, XrSession)
     generateDispatchableHandle(XrHandTrackerEXT, XrSession)
     generateDispatchableHandle(XrPassthroughFB, XrSession)
+    generateDispatchableHandle(XrPassthroughHTC, XrSession)
     generateDispatchableHandle(XrPassthroughLayerFB, XrSession)
     generateDispatchableHandle(XrSceneMSFT, XrSceneObserverMSFT)
     generateDispatchableHandle(XrSceneObserverMSFT, XrSession)
     generateDispatchableHandle(XrSession, XrInstance)
     generateDispatchableHandle(XrSpace, XrSession)
+    generateDispatchableHandle(XrSpaceUserFB, XrSession)
     generateDispatchableHandle(XrSpatialAnchorMSFT, XrSession)
     generateDispatchableHandle(XrSpatialAnchorStoreConnectionMSFT, XrSession)
+    generateDispatchableHandle(XrSpatialGraphNodeBindingMSFT, XrSession)
     generateDispatchableHandle(XrSwapchain, XrSession)
     generateDispatchableHandle(XrTriangleMeshFB, XrSession)
-
 
     XR10.apply {
         LongConstant(
             "OpenXR current version number.",
 
-            "CURRENT_API_VERSION".."XR_MAKE_VERSION(1, 0, 20)"
+            "CURRENT_API_VERSION".."XR_MAKE_VERSION(1, 0, 27)"
         )
 
         macro(expression = "((major & 0xFFFFL) << 48) | ((minor & 0xFFFFL) << 32) | (patch & 0xFFFF_FFFFL)")..uint64_t(
@@ -228,6 +233,22 @@ fun templateCustomization() {
 
             "FACIAL_EXPRESSION_EYE_COUNT_HTC"..14,
             "FACIAL_EXPRESSION_LIP_COUNT_HTC"..37
+        )
+    }
+
+    FB_haptic_amplitude_envelope.apply {
+        IntConstant(
+            "API Constants",
+
+            "MAX_HAPTIC_AMPLITUDE_ENVELOPE_SAMPLES_FB"..4000
+        )
+    }
+
+    FB_haptic_pcm.apply {
+        IntConstant(
+            "API Constants",
+
+            "MAX_HAPTIC_PCM_BUFFER_SIZE_FB"..4000
         )
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -83,6 +83,30 @@ CompactValue YGNode::computeEdgeValueForColumn(
   }
 }
 
+CompactValue YGNode::computeRowGap(
+    const YGStyle::Gutters& gutters,
+    CompactValue defaultValue) {
+  if (!gutters[YGGutterRow].isUndefined()) {
+    return gutters[YGGutterRow];
+  } else if (!gutters[YGGutterAll].isUndefined()) {
+    return gutters[YGGutterAll];
+  } else {
+    return defaultValue;
+  }
+}
+
+CompactValue YGNode::computeColumnGap(
+    const YGStyle::Gutters& gutters,
+    CompactValue defaultValue) {
+  if (!gutters[YGGutterColumn].isUndefined()) {
+    return gutters[YGGutterColumn];
+  } else if (!gutters[YGGutterAll].isUndefined()) {
+    return gutters[YGGutterAll];
+  } else {
+    return defaultValue;
+  }
+}
+
 YGFloatOptional YGNode::getLeadingPosition(
     const YGFlexDirection axis,
     const float axisSize) const {
@@ -161,6 +185,15 @@ YGFloatOptional YGNode::getMarginForAxis(
     const YGFlexDirection axis,
     const float widthSize) const {
   return getLeadingMargin(axis, widthSize) + getTrailingMargin(axis, widthSize);
+}
+
+YGFloatOptional YGNode::getGapForAxis(
+    const YGFlexDirection axis,
+    const float widthSize) const {
+  auto gap = YGFlexDirectionIsRow(axis)
+      ? computeColumnGap(style_.gap(), CompactValue::ofZero())
+      : computeRowGap(style_.gap(), CompactValue::ofZero());
+  return YGResolveValue(gap, widthSize);
 }
 
 YGSize YGNode::measure(
@@ -415,20 +448,20 @@ void YGNode::cloneChildrenIfNeeded(void* cloneContext) {
   iterChildrenAfterCloningIfNeeded([](YGNodeRef, void*) {}, cloneContext);
 }
 
-void YGNode::markDirtyAndPropogate() {
+void YGNode::markDirtyAndPropagate() {
   if (!facebook::yoga::detail::getBooleanData(flags, isDirty_)) {
     setDirty(true);
     setLayoutComputedFlexBasis(YGFloatOptional());
     if (owner_) {
-      owner_->markDirtyAndPropogate();
+      owner_->markDirtyAndPropagate();
     }
   }
 }
 
-void YGNode::markDirtyAndPropogateDownwards() {
+void YGNode::markDirtyAndPropagateDownwards() {
   facebook::yoga::detail::setBooleanData(flags, isDirty_, true);
   for_each(children_.begin(), children_.end(), [](YGNodeRef childNode) {
-    childNode->markDirtyAndPropogateDownwards();
+    childNode->markDirtyAndPropagateDownwards();
   });
 }
 
@@ -525,53 +558,6 @@ YGFloatOptional YGNode::getTrailingPaddingAndBorder(
     const float widthSize) const {
   return getTrailingPadding(axis, widthSize) +
       YGFloatOptional(getTrailingBorder(axis));
-}
-
-bool YGNode::didUseLegacyFlag() {
-  bool didUseLegacyFlag = layout_.didUseLegacyFlag();
-  if (didUseLegacyFlag) {
-    return true;
-  }
-  for (const auto& child : children_) {
-    if (child->layout_.didUseLegacyFlag()) {
-      didUseLegacyFlag = true;
-      break;
-    }
-  }
-  return didUseLegacyFlag;
-}
-
-void YGNode::setLayoutDoesLegacyFlagAffectsLayout(
-    bool doesLegacyFlagAffectsLayout) {
-  layout_.setDoesLegacyStretchFlagAffectsLayout(doesLegacyFlagAffectsLayout);
-}
-
-void YGNode::setLayoutDidUseLegacyFlag(bool didUseLegacyFlag) {
-  layout_.setDidUseLegacyFlag(didUseLegacyFlag);
-}
-
-bool YGNode::isLayoutTreeEqualToNode(const YGNode& node) const {
-  if (children_.size() != node.children_.size()) {
-    return false;
-  }
-  if (layout_ != node.layout_) {
-    return false;
-  }
-  if (children_.size() == 0) {
-    return true;
-  }
-
-  bool isLayoutTreeEqual = true;
-  YGNodeRef otherNodeChildren = nullptr;
-  for (std::vector<YGNodeRef>::size_type i = 0; i < children_.size(); ++i) {
-    otherNodeChildren = node.children_[i];
-    isLayoutTreeEqual =
-        children_[i]->isLayoutTreeEqualToNode(*otherNodeChildren);
-    if (!isLayoutTreeEqual) {
-      return false;
-    }
-  }
-  return isLayoutTreeEqual;
 }
 
 void YGNode::reset() {

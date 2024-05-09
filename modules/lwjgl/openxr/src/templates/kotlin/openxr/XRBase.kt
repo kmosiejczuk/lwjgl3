@@ -9,6 +9,7 @@ import org.lwjgl.generator.*
 fun XR_DEFINE_HANDLE(name: String) = WrappedPointerType(name)
 fun XR_DEFINE_ATOM(name: String) = typedef(uint64_t, name)
 
+val XrAsyncRequestIdFB = XR_DEFINE_ATOM("XrAsyncRequestIdFB")
 val XrBool32 = PrimitiveType("XrBool32", PrimitiveMapping.BOOLEAN4)
 val XrControllerModelKeyMSFT = XR_DEFINE_ATOM("XrControllerModelKeyMSFT")
 val XrDuration = typedef(uint64_t, "XrDuration")
@@ -36,3 +37,11 @@ val xcb_glx_fbconfig_t = typedef(uint32_t, "xcb_glx_fbconfig_t")
 val xcb_visualid_t = typedef(uint32_t, "xcb_visualid_t")
 val xcb_glx_drawable_t = typedef(uint32_t, "xcb_glx_drawable_t")
 val xcb_glx_context_t = typedef(uint32_t, "xcb_glx_context_t")
+
+// XR_ML_compat
+val MLCoordinateFrameUID = struct(Module.OPENXR, "MLCoordinateFrameUID", mutable = false) {
+    uint64_t("data", "")[2]
+}
+
+// XR_FB_spatial_entity_user
+val XrSpaceUserIdFB = typedef(uint64_t, "XrSpaceUserIdFB")

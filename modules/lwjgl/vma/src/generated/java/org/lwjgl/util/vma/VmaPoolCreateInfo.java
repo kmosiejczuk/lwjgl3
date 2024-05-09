@@ -94,7 +94,7 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
     /** Vulkan memory type index to allocate this pool from */
     @NativeType("uint32_t")
     public int memoryTypeIndex() { return nmemoryTypeIndex(address()); }
-    /** Use combination of {@code VmaPoolCreateFlagBits}. One or more of:<br><table><tr><td>{@link Vma#VMA_POOL_CREATE_IGNORE_BUFFER_IMAGE_GRANULARITY_BIT POOL_CREATE_IGNORE_BUFFER_IMAGE_GRANULARITY_BIT}</td><td>{@link Vma#VMA_POOL_CREATE_LINEAR_ALGORITHM_BIT POOL_CREATE_LINEAR_ALGORITHM_BIT}</td></tr><tr><td>{@link Vma#VMA_POOL_CREATE_BUDDY_ALGORITHM_BIT POOL_CREATE_BUDDY_ALGORITHM_BIT}</td><td>{@link Vma#VMA_POOL_CREATE_TLSF_ALGORITHM_BIT POOL_CREATE_TLSF_ALGORITHM_BIT}</td></tr><tr><td>{@link Vma#VMA_POOL_CREATE_ALGORITHM_MASK POOL_CREATE_ALGORITHM_MASK}</td></tr></table> */
+    /** Use combination of {@code VmaPoolCreateFlagBits}. One or more of:<br><table><tr><td>{@link Vma#VMA_POOL_CREATE_IGNORE_BUFFER_IMAGE_GRANULARITY_BIT POOL_CREATE_IGNORE_BUFFER_IMAGE_GRANULARITY_BIT}</td><td>{@link Vma#VMA_POOL_CREATE_LINEAR_ALGORITHM_BIT POOL_CREATE_LINEAR_ALGORITHM_BIT}</td></tr><tr><td>{@link Vma#VMA_POOL_CREATE_ALGORITHM_MASK POOL_CREATE_ALGORITHM_MASK}</td></tr></table> */
     @NativeType("VmaPoolCreateFlags")
     public int flags() { return nflags(address()); }
     /**
@@ -176,6 +176,10 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
     public VmaPoolCreateInfo pMemoryAllocateNext(VkExportMemoryWin32HandleInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkExportMemoryWin32HandleInfoNV} value to the {@code pMemoryAllocateNext} chain. */
     public VmaPoolCreateInfo pMemoryAllocateNext(VkExportMemoryWin32HandleInfoNV value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+    /** Prepends the specified {@link VkExportMetalObjectCreateInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
+    public VmaPoolCreateInfo pMemoryAllocateNext(VkExportMetalObjectCreateInfoEXT value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+    /** Prepends the specified {@link VkImportAndroidHardwareBufferInfoANDROID} value to the {@code pMemoryAllocateNext} chain. */
+    public VmaPoolCreateInfo pMemoryAllocateNext(VkImportAndroidHardwareBufferInfoANDROID value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkImportMemoryFdInfoKHR} value to the {@code pMemoryAllocateNext} chain. */
     public VmaPoolCreateInfo pMemoryAllocateNext(VkImportMemoryFdInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkImportMemoryHostPointerInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
@@ -184,6 +188,8 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
     public VmaPoolCreateInfo pMemoryAllocateNext(VkImportMemoryWin32HandleInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkImportMemoryWin32HandleInfoNV} value to the {@code pMemoryAllocateNext} chain. */
     public VmaPoolCreateInfo pMemoryAllocateNext(VkImportMemoryWin32HandleInfoNV value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+    /** Prepends the specified {@link VkImportMetalBufferInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
+    public VmaPoolCreateInfo pMemoryAllocateNext(VkImportMetalBufferInfoEXT value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkMemoryAllocateFlagsInfo} value to the {@code pMemoryAllocateNext} chain. */
     public VmaPoolCreateInfo pMemoryAllocateNext(VkMemoryAllocateFlagsInfo value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkMemoryAllocateFlagsInfoKHR} value to the {@code pMemoryAllocateNext} chain. */
@@ -490,6 +496,10 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkExportMemoryWin32HandleInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkExportMemoryWin32HandleInfoNV} value to the {@code pMemoryAllocateNext} chain. */
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkExportMemoryWin32HandleInfoNV value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+        /** Prepends the specified {@link VkExportMetalObjectCreateInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
+        public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkExportMetalObjectCreateInfoEXT value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+        /** Prepends the specified {@link VkImportAndroidHardwareBufferInfoANDROID} value to the {@code pMemoryAllocateNext} chain. */
+        public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkImportAndroidHardwareBufferInfoANDROID value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkImportMemoryFdInfoKHR} value to the {@code pMemoryAllocateNext} chain. */
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkImportMemoryFdInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkImportMemoryHostPointerInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
@@ -498,6 +508,8 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkImportMemoryWin32HandleInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkImportMemoryWin32HandleInfoNV} value to the {@code pMemoryAllocateNext} chain. */
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkImportMemoryWin32HandleInfoNV value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+        /** Prepends the specified {@link VkImportMetalBufferInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
+        public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkImportMetalBufferInfoEXT value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkMemoryAllocateFlagsInfo} value to the {@code pMemoryAllocateNext} chain. */
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkMemoryAllocateFlagsInfo value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkMemoryAllocateFlagsInfoKHR} value to the {@code pMemoryAllocateNext} chain. */

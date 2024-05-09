@@ -25,13 +25,10 @@ import static org.lwjgl.system.JNI.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRExternalMemory VK_KHR_external_memory}</li>
- * </ul></dd>
+ * <dd>{@link KHRExternalMemory VK_KHR_external_memory} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Daniel Rakos <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_external_memory_host]%20@drakos-amd%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_external_memory_host%20extension%3E%3E">drakos-amd</a></li>
+ * <li>Daniel Rakos <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_external_memory_host]%20@drakos-amd%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_external_memory_host%20extension*">drakos-amd</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -48,7 +45,7 @@ import static org.lwjgl.system.JNI.*;
  * <li>David Mao, AMD</li>
  * <li>Daniel Rakos, AMD</li>
  * <li>Tobias Hector, Imagination Technologies</li>
- * <li>Jason Ekstrand, Intel</li>
+ * <li>Faith Ekstrand, Intel</li>
  * <li>James Jones, NVIDIA</li>
  * </ul></dd>
  * </dl>

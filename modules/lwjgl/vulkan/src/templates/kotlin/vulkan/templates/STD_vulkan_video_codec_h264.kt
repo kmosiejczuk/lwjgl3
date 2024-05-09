@@ -12,25 +12,15 @@ val STD_vulkan_video_codec_h264 = "STDVulkanVideoCodecH264".nativeClassVK("STD_v
     javaImport("static org.lwjgl.vulkan.video.STDVulkanVideo.*")
 
     IntConstant(
-        "The extension specification version.",
-
-        "VK_STD_VULKAN_VIDEO_CODEC_H264_SPEC_VERSION".."VK_MAKE_VIDEO_STD_VERSION(0, 9, 5)"
-    ).noPrefix()
-
-    StringConstant(
-        "The extension name.",
-
-        "VK_STD_VULKAN_VIDEO_CODEC_H264_EXTENSION_NAME".."VK_STD_vulkan_video_codec_h264"
-    ).noPrefix()
-
-    IntConstant(
         "",
 
         "VIDEO_H264_CPB_CNT_LIST_SIZE".."32",
         "VIDEO_H264_SCALING_LIST_4X4_NUM_LISTS".."6",
         "VIDEO_H264_SCALING_LIST_4X4_NUM_ELEMENTS".."16",
-        "VIDEO_H264_SCALING_LIST_8X8_NUM_LISTS".."2",
-        "VIDEO_H264_SCALING_LIST_8X8_NUM_ELEMENTS".."64"
+        "VIDEO_H264_SCALING_LIST_8X8_NUM_LISTS".."6",
+        "VIDEO_H264_SCALING_LIST_8X8_NUM_ELEMENTS".."64",
+        "VIDEO_H264_MAX_NUM_LIST_REF".."32",
+        "VIDEO_H264_MAX_CHROMA_PLANES".."2"
     )
 
     EnumConstant(
@@ -54,28 +44,28 @@ val STD_vulkan_video_codec_h264 = "STDVulkanVideoCodecH264".nativeClassVK("STD_v
     )
 
     EnumConstant(
-        "{@code StdVideoH264Level}",
+        "{@code StdVideoH264LevelIdc}",
 
-        "VIDEO_H264_LEVEL_1_0".enum("", "0"),
-        "VIDEO_H264_LEVEL_1_1".enum,
-        "VIDEO_H264_LEVEL_1_2".enum,
-        "VIDEO_H264_LEVEL_1_3".enum,
-        "VIDEO_H264_LEVEL_2_0".enum,
-        "VIDEO_H264_LEVEL_2_1".enum,
-        "VIDEO_H264_LEVEL_2_2".enum,
-        "VIDEO_H264_LEVEL_3_0".enum,
-        "VIDEO_H264_LEVEL_3_1".enum,
-        "VIDEO_H264_LEVEL_3_2".enum,
-        "VIDEO_H264_LEVEL_4_0".enum,
-        "VIDEO_H264_LEVEL_4_1".enum,
-        "VIDEO_H264_LEVEL_4_2".enum,
-        "VIDEO_H264_LEVEL_5_0".enum,
-        "VIDEO_H264_LEVEL_5_1".enum,
-        "VIDEO_H264_LEVEL_5_2".enum,
-        "VIDEO_H264_LEVEL_6_0".enum,
-        "VIDEO_H264_LEVEL_6_1".enum,
-        "VIDEO_H264_LEVEL_6_2".enum,
-        "VIDEO_H264_LEVEL_INVALID".enum("", 0x7FFFFFFF)
+        "VIDEO_H264_LEVEL_IDC_1_0".enum("", "0"),
+        "VIDEO_H264_LEVEL_IDC_1_1".enum,
+        "VIDEO_H264_LEVEL_IDC_1_2".enum,
+        "VIDEO_H264_LEVEL_IDC_1_3".enum,
+        "VIDEO_H264_LEVEL_IDC_2_0".enum,
+        "VIDEO_H264_LEVEL_IDC_2_1".enum,
+        "VIDEO_H264_LEVEL_IDC_2_2".enum,
+        "VIDEO_H264_LEVEL_IDC_3_0".enum,
+        "VIDEO_H264_LEVEL_IDC_3_1".enum,
+        "VIDEO_H264_LEVEL_IDC_3_2".enum,
+        "VIDEO_H264_LEVEL_IDC_4_0".enum,
+        "VIDEO_H264_LEVEL_IDC_4_1".enum,
+        "VIDEO_H264_LEVEL_IDC_4_2".enum,
+        "VIDEO_H264_LEVEL_IDC_5_0".enum,
+        "VIDEO_H264_LEVEL_IDC_5_1".enum,
+        "VIDEO_H264_LEVEL_IDC_5_2".enum,
+        "VIDEO_H264_LEVEL_IDC_6_0".enum,
+        "VIDEO_H264_LEVEL_IDC_6_1".enum,
+        "VIDEO_H264_LEVEL_IDC_6_2".enum,
+        "VIDEO_H264_LEVEL_IDC_INVALID".enum("", 0x7FFFFFFF)
     )
 
     EnumConstant(
@@ -195,8 +185,19 @@ val STD_vulkan_video_codec_h264 = "STDVulkanVideoCodecH264".nativeClassVK("STD_v
 
     // vulkan_video_codec_h264std_decode.h
 
+    IntConstant(
+        "The extension specification version.",
+
+        "VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_SPEC_VERSION".."VK_MAKE_VIDEO_STD_VERSION(1, 0, 0)"
+    ).noPrefix()
+
+    StringConstant(
+        "The extension name.",
+
+        "VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_EXTENSION_NAME".."VK_STD_vulkan_video_codec_h264_decode"
+    ).noPrefix()
+
     IntConstant("", "VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE".."2")
-    IntConstant("", "VIDEO_DECODE_H264_MVC_REF_LIST_SIZE".."15")
 
     EnumConstant(
         "{@code StdVideoDecodeH264FieldOrderCount}",
@@ -205,4 +206,21 @@ val STD_vulkan_video_codec_h264 = "STDVulkanVideoCodecH264".nativeClassVK("STD_v
         "VIDEO_DECODE_H264_FIELD_ORDER_COUNT_BOTTOM".enum,
         "VIDEO_DECODE_H264_FIELD_ORDER_COUNT_INVALID".enum("", 0x7FFFFFFF)
     )
+
+    // vulkan_video_codec_h264std_encode.h
+
+    IntConstant(
+        "The extension specification version.",
+
+        "VK_STD_VULKAN_VIDEO_CODEC_H264_ENCODE_SPEC_VERSION".."VK_MAKE_VIDEO_STD_VERSION(0, 9, 9)"
+    ).noPrefix()
+
+    StringConstant(
+        "The extension name.",
+
+        "VK_STD_VULKAN_VIDEO_CODEC_H264_ENCODE_EXTENSION_NAME".."VK_STD_vulkan_video_codec_h264_encode"
+    ).noPrefix()
+
+
+
 }

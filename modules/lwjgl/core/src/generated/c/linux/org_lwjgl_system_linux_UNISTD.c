@@ -7,6 +7,14 @@
 #include <unistd.h>
 #include <errno.h>
 
+#include <sys/syscall.h>
+
+#ifndef SYS_gettid
+#error "SYS_gettid unavailable on this system"
+#endif
+
+#define gettid() ((pid_t)syscall(SYS_gettid))
+
 EXTERN_C_ENTER
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_UNISTD_close(JNIEnv *__env, jclass clazz, jint fd) {
@@ -32,6 +40,21 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_system_linux_UNISTD_nread(JNIEnv *__env, 
     __result = (jlong)read(fd, buf, (size_t)count);
     saveErrno();
     return __result;
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_UNISTD_getpid(JNIEnv *__env, jclass clazz) {
+    UNUSED_PARAMS(__env, clazz)
+    return (jint)getpid();
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_UNISTD_getppid(JNIEnv *__env, jclass clazz) {
+    UNUSED_PARAMS(__env, clazz)
+    return (jint)getppid();
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_UNISTD_gettid(JNIEnv *__env, jclass clazz) {
+    UNUSED_PARAMS(__env, clazz)
+    return (jint)gettid();
 }
 
 EXTERN_C_EXIT

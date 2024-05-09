@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code queueFamilyIndex} <b>must</b> be less than {@code pQueueFamilyPropertyCount} returned by {@code vkGetPhysicalDeviceQueueFamilyProperties}</li>
  * <li>{@code queueCount} <b>must</b> be less than or equal to the {@code queueCount} member of the {@link VkQueueFamilyProperties} structure, as returned by {@code vkGetPhysicalDeviceQueueFamilyProperties} in the {@code pQueueFamilyProperties}[queueFamilyIndex]</li>
  * <li>Each element of {@code pQueuePriorities} <b>must</b> be between {@code 0.0} and {@code 1.0} inclusive</li>
- * <li>If the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#features-protectedMemory">protected memory</a> feature is not enabled, the {@link VK11#VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT DEVICE_QUEUE_CREATE_PROTECTED_BIT} bit of {@code flags} <b>must</b> not be set</li>
+ * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled, the {@link VK11#VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT DEVICE_QUEUE_CREATE_PROTECTED_BIT} bit of {@code flags} <b>must</b> not be set</li>
  * <li>If {@code flags} includes {@link VK11#VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT DEVICE_QUEUE_CREATE_PROTECTED_BIT}, {@code queueFamilyIndex} <b>must</b> be the index of a queue family that includes the {@link VK11#VK_QUEUE_PROTECTED_BIT QUEUE_PROTECTED_BIT} capability</li>
  * </ul>
  * 
@@ -113,16 +113,16 @@ public class VkDeviceQueueCreateInfo extends Struct implements NativeResource {
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask indicating behavior of the queue. */
+    /** a bitmask indicating behavior of the queues. */
     @NativeType("VkDeviceQueueCreateFlags")
     public int flags() { return nflags(address()); }
-    /** an unsigned integer indicating the index of the queue family in which to create the queue on this device. This index corresponds to the index of an element of the {@code pQueueFamilyProperties} array that was returned by {@code vkGetPhysicalDeviceQueueFamilyProperties}. */
+    /** an unsigned integer indicating the index of the queue family in which to create the queues on this device. This index corresponds to the index of an element of the {@code pQueueFamilyProperties} array that was returned by {@code vkGetPhysicalDeviceQueueFamilyProperties}. */
     @NativeType("uint32_t")
     public int queueFamilyIndex() { return nqueueFamilyIndex(address()); }
-    /** an unsigned integer specifying the number of queues to create in the queue family indicated by {@code queueFamilyIndex}. */
+    /** an unsigned integer specifying the number of queues to create in the queue family indicated by {@code queueFamilyIndex}, and with the behavior specified by {@code flags}. */
     @NativeType("uint32_t")
     public int queueCount() { return nqueueCount(address()); }
-    /** a pointer to an array of {@code queueCount} normalized floating point values, specifying priorities of work that will be submitted to each created queue. See <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-priority">Queue Priority</a> for more information. */
+    /** a pointer to an array of {@code queueCount} normalized floating point values, specifying priorities of work that will be submitted to each created queue. See <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-priority">Queue Priority</a> for more information. */
     @NativeType("float const *")
     public FloatBuffer pQueuePriorities() { return npQueuePriorities(address()); }
 

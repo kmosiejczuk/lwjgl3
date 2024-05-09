@@ -5,7 +5,7 @@
 [![Backers on Open Collective](https://opencollective.com/lwjgl/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/lwjgl/sponsors/badge.svg)](#sponsors)
 ![Size](https://img.shields.io/github/repo-size/LWJGL/lwjgl3.svg?label=size&colorB=lightgray)
-[![Build Status](https://img.shields.io/github/workflow/status/LWJGL-CI/glfw/LWJGL%20Build?logo=github)](https://github.com/LWJGL-CI/lwjgl3/actions/workflows/CI.yml)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/LWJGL-CI/lwjgl3/CI.yml?branch=master)](https://github.com/LWJGL-CI/lwjgl3/actions/workflows/CI.yml)
 
 ## LWJGL - Lightweight Java Game Library 3
 
@@ -112,9 +112,11 @@ improve the chances of a quick and useful response.
 |Library|Description|
 |-------|-----------|
 |[EGL](https://www.khronos.org/egl)|An interface between Khronos rendering APIs such as OpenGL ES or OpenVG and the underlying native platform window system.|
+|[KTX (Khronos Texture)](https://www.khronos.org/ktx/)|A lightweight container for textures for OpenGL®, Vulkan® and other GPU APIs.|
 |[OpenCL](https://www.khronos.org/opencl/)|An open, royalty-free standard for cross-platform, parallel programming of diverse processors found in personal computers, servers, mobile devices and embedded platforms.|
 |[OpenGL](https://www.khronos.org/opengl/)|The most widely adopted 2D and 3D graphics API in the industry, bringing thousands of applications to a wide variety of computer platforms.|
 |[OpenGL ES](https://www.khronos.org/opengles/)|A royalty-free, cross-platform API for full-function 2D and 3D graphics on embedded systems - including consoles, phones, appliances and vehicles.|
+|[OpenXR](https://www.khronos.org/openxr/)|A royalty-free, open standard that provides high-performance access to Augmented Reality (AR) and Virtual Reality (VR)—collectively known as XR—platforms and devices.|
 |[Vulkan](https://www.khronos.org/vulkan/)|A new generation graphics and compute API that provides high-efficiency, cross-platform access to modern GPUs used in a wide variety of devices from PCs and consoles to mobile phones and embedded platforms.|
 
 #### Display and Input
@@ -123,13 +125,14 @@ improve the chances of a quick and useful response.
 |-------|-----------|
 |[GLFW](http://www.glfw.org/)|Create multiple windows, handle user input (keyboard, mouse, gaming peripherals) and manage contexts. Also features multi-monitor support, clipboard access, file drag-n-drop, and [much more](http://www.glfw.org/docs/latest/news.html).|
 |[JAWT](http://docs.oracle.com/javase/8/docs/technotes/guides/awt/AWT_Native_Interface.html)|The AWT native interface.|
-|[nfd](https://github.com/mlabbe/nativefiledialog)|A tiny, neat C library that portably invokes native file open and save dialogs.|
+|[Native File Dialog Extended](https://github.com/btzy/nativefiledialog-extended)|A small C library that portably invokes native file open, folder select and file save dialogs.|
 |[tinyfd](https://sourceforge.net/projects/tinyfiledialogs/)|A native dialog library.|
 
 #### Audio
 
 |Library|Description|
 |-------|-----------|
+|[FMOD](https://www.fmod.com)|An end-to-end solution for adding sound and music to any game.|
 |[OpenAL](https://www.openal.org/)|A cross-platform 3D audio API appropriate for use with gaming applications and many other types of audio applications.|
 |[OpenAL Soft](http://kcat.strangesoft.net/openal.html)|An LGPL-licensed, cross-platform, software implementation of the OpenAL 3D audio API.|
 |[Opus](https://opus-codec.org/)|A totally open, royalty-free, highly versatile audio codec.|
@@ -140,6 +143,8 @@ improve the chances of a quick and useful response.
 |-------|-----------|
 |[Assimp](http://www.assimp.org/)|A portable Open Source library to import various well-known 3D model formats in a uniform manner.|
 |[bgfx](https://bkaradzic.github.io/bgfx/)|Cross-platform, graphics API agnostic, “Bring Your Own Engine/Framework” style rendering library, licensed under permissive BSD-2 clause open source license.|
+|[FreeType](https://freetype.org/)|A freely available software library to render fonts.|
+|[HarfBuzz](https://harfbuzz.github.io/)|A text shaping library that allows programs to convert a sequence of Unicode input into properly formatted and positioned glyph output — for any writing system and language.|
 |[meshoptimizer](https://github.com/zeux/meshoptimizer)|A mesh optimization library that makes meshes smaller and faster to render.|
 |[NanoSVG](https://github.com/memononen/nanosvg)|A simple stupid SVG parser.|
 |[NanoVG](https://github.com/memononen/nanovg)|A small antialiased vector graphics rendering library for OpenGL.|
@@ -160,7 +165,6 @@ improve the chances of a quick and useful response.
 |-------|-----------|
 |[LibOVR](https://developer.oculus.com/documentation/)|The API of the Oculus SDK.|
 |[OpenVR](https://github.com/ValveSoftware/openvr)|An API and runtime that allows access to VR hardware from multiple vendors without requiring that applications have specific knowledge of the hardware they are targeting.|
-|[OpenXR](https://www.khronos.org/openxr/)|A royalty-free, open standard that provides high-performance access to Augmented Reality (AR) and Virtual Reality (VR)—collectively known as XR—platforms and devices.|
 
 #### [stb](https://github.com/nothings/stb) - single-file public domain libraries for C/C++
 
@@ -180,6 +184,7 @@ improve the chances of a quick and useful response.
 |Library|Description|
 |-------|-----------|
 |[CUDA](https://developer.nvidia.com/cuda-zone/)|A parallel computing platform and programming model developed by NVIDIA for general computing on GPUs.|
+|[hwloc](https://www.open-mpi.org/projects/hwloc/)|A portable abstraction of the hierarchical topology of modern architectures, including NUMA memory nodes, sockets, shared caches, cores and simultaneous multithreading.|
 |[jemalloc](http://jemalloc.net/)|A general purpose malloc implementation that emphasizes fragmentation avoidance and scalable concurrency support.|
 |[libffi](https://sourceware.org)|A portable, high level programming interface to various calling conventions.|
 |[libdivide](https://libdivide.com/)|A library that replaces expensive integer divides with comparatively cheap multiplication and bitshifts.|
@@ -215,3 +220,13 @@ Our gold sponsors:
 <a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/7/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/7/avatar.svg"></a>
 <a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/8/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/9/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/9/avatar.svg"></a>
+<a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/10/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/10/avatar.svg"></a>
+<a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/11/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/11/avatar.svg"></a>
+<a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/12/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/12/avatar.svg"></a>
+<a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/13/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/13/avatar.svg"></a>
+<a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/14/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/14/avatar.svg"></a>
+<a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/15/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/15/avatar.svg"></a>
+<a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/16/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/16/avatar.svg"></a>
+<a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/17/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/17/avatar.svg"></a>
+<a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/18/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/18/avatar.svg"></a>
+<a href="https://opencollective.com/lwjgl/tiers/gold-sponsor/19/website" target="_blank"><img src="https://opencollective.com/lwjgl/tiers/gold-sponsor/19/avatar.svg"></a>

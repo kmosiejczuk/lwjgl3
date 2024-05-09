@@ -21,7 +21,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>The number of slices of the {@code extent} (for 3D) or layers of the {@code srcSubresource} (for non-3D) <b>must</b> match the number of slices of the {@code extent} (for 3D) or layers of the {@code dstSubresource} (for non-3D)</li>
+ * <li>If the {@link KHRSamplerYcbcrConversion VK_KHR_sampler_ycbcr_conversion} extension is not enabled and {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, the {@code aspectMask} member of {@code srcSubresource} and {@code dstSubresource} <b>must</b> match</li>
+ * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled and {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, the {@code layerCount} member of {@code srcSubresource} and {@code dstSubresource} <b>must</b> match</li>
+ * <li>{@code extent.width} <b>must</b> not be 0</li>
+ * <li>{@code extent.height} <b>must</b> not be 0</li>
+ * <li>{@code extent.depth} <b>must</b> not be 0</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>

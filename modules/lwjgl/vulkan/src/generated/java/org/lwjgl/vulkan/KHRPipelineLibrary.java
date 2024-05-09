@@ -19,13 +19,9 @@ package org.lwjgl.vulkan;
  * <dd>291</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
- * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Christoph Kubisch <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_pipeline_library]%20@pixeljetstream%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_pipeline_library%20extension%3E%3E">pixeljetstream</a></li>
+ * <li>Christoph Kubisch <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_pipeline_library]%20@pixeljetstream%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_pipeline_library%20extension*">pixeljetstream</a></li>
  * </ul></dd>
  * </dl>
  * 

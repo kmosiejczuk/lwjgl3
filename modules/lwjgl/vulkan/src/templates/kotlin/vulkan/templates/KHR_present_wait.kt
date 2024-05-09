@@ -30,15 +30,11 @@ val KHR_present_wait = "KHRPresentWait".nativeClassVK("KHR_present_wait", type =
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRSwapchain VK_KHR_swapchain}</li>
-                <li>Requires {@link KHRPresentId VK_KHR_present_id}</li>
-            </ul></dd>
+            <dd>{@link KHRSwapchain VK_KHR_swapchain} and {@link KHRPresentId VK_KHR_present_id}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Keith Packard <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_present_wait]%20@keithp%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_present_wait%20extension%3E%3E">keithp</a></li>
+                <li>Keith Packard <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_present_wait]%20@keithp%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_present_wait%20extension*">keithp</a></li>
             </ul></dd>
         </dl>
 
@@ -84,7 +80,7 @@ val KHR_present_wait = "KHRPresentWait".nativeClassVK("KHR_present_wait", type =
         Wait for presentation.
 
         <h5>C Specification</h5>
-        When the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#features-presentWait">{@code presentWait}</a> feature is enabled, an application <b>can</b> wait for an image to be presented to the user by first specifying a presentId for the target presentation by adding a ##VkPresentIdKHR structure to the {@code pNext} chain of the ##VkPresentInfoKHR structure and then waiting for that presentation to complete by calling:
+        When the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-presentWait">{@code presentWait}</a> feature is enabled, an application <b>can</b> wait for an image to be presented to the user by first specifying a presentId for the target presentation by adding a ##VkPresentIdKHR structure to the {@code pNext} chain of the ##VkPresentInfoKHR structure and then waiting for that presentation to complete by calling:
 
         <pre><code>
 ￿VkResult vkWaitForPresentKHR(
@@ -100,7 +96,7 @@ val KHR_present_wait = "KHRPresentWait".nativeClassVK("KHR_present_wait", type =
 
         When the presentation has completed, the presentId associated with the related {@code pSwapchains} entry will be increased in value so that it is at least equal to the value provided in the ##VkPresentIdKHR structure.
 
-        There is no requirement for any precise timing relationship between the presentation of the image to the user and the update of the presentId value, but implementations <b>should</b> make this as close as possible to the presentation of the first pixel in the new image to the user.
+        There is no requirement for any precise timing relationship between the presentation of the image to the user and the update of the presentId value, but implementations <b>should</b> make this as close as possible to the presentation of the first pixel in the next image being presented to the user.
 
         The call to {@code vkWaitForPresentKHR} will block until either the presentId associated with {@code swapchain} is greater than or equal to {@code presentId}, or {@code timeout} nanoseconds passes. When the swapchain becomes OUT_OF_DATE, the call will either return #SUCCESS (if the image was delivered to the presentation engine and may have been presented to the user) or will return early with status #ERROR_OUT_OF_DATE_KHR (if the image was not presented to the user).
 
@@ -109,14 +105,14 @@ val KHR_present_wait = "KHRPresentWait".nativeClassVK("KHR_present_wait", type =
         <h5>Valid Usage</h5>
         <ul>
             <li>{@code swapchain} <b>must</b> not be in the retired state</li>
-            <li>The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#features-presentWait">{@code presentWait}</a> feature <b>must</b> be enabled</li>
+            <li>The <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-presentWait">{@code presentWait}</a> feature <b>must</b> be enabled</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
             <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
             <li>{@code swapchain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
-            <li>Both of {@code device}, and {@code swapchain} <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
+            <li>{@code swapchain} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
         </ul>
 
         <h5>Host Synchronization</h5>
@@ -130,6 +126,7 @@ val KHR_present_wait = "KHRPresentWait".nativeClassVK("KHR_present_wait", type =
             <dd><ul>
                 <li>#SUCCESS</li>
                 <li>#TIMEOUT</li>
+                <li>#SUBOPTIMAL_KHR</li>
             </ul></dd>
 
             <dt>On failure, this command returns</dt>
@@ -137,6 +134,9 @@ val KHR_present_wait = "KHRPresentWait".nativeClassVK("KHR_present_wait", type =
                 <li>#ERROR_OUT_OF_HOST_MEMORY</li>
                 <li>#ERROR_OUT_OF_DEVICE_MEMORY</li>
                 <li>#ERROR_DEVICE_LOST</li>
+                <li>#ERROR_OUT_OF_DATE_KHR</li>
+                <li>#ERROR_SURFACE_LOST_KHR</li>
+                <li>#ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</li>
             </ul></dd>
         </dl>
         """,

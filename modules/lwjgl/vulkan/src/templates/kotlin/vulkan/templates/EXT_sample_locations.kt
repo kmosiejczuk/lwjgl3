@@ -32,14 +32,11 @@ val EXT_sample_locations = "EXTSampleLocations".nativeClassVK("EXT_sample_locati
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
-            </ul></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Daniel Rakos <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_sample_locations]%20@drakos-amd%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_sample_locations%20extension%3E%3E">drakos-amd</a></li>
+                <li>Daniel Rakos <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_sample_locations]%20@drakos-amd%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_sample_locations%20extension*">drakos-amd</a></li>
             </ul></dd>
         </dl>
 
@@ -101,7 +98,7 @@ val EXT_sample_locations = "EXTSampleLocations".nativeClassVK("EXT_sample_locati
         Set sample locations dynamically for a command buffer.
 
         <h5>C Specification</h5>
-        To <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#pipelines-dynamic-state">dynamically set</a> the sample locations used for rasterization, call:
+        To <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#pipelines-dynamic-state">dynamically set</a> the sample locations used for rasterization, call:
 
         <pre><code>
 ￿void vkCmdSetSampleLocationsEXT(
@@ -109,11 +106,10 @@ val EXT_sample_locations = "EXTSampleLocations".nativeClassVK("EXT_sample_locati
 ￿    const VkSampleLocationsInfoEXT*             pSampleLocationsInfo);</code></pre>
 
         <h5>Description</h5>
-        This command sets the custom sample locations for subsequent drawing commands when the graphics pipeline is created with #DYNAMIC_STATE_SAMPLE_LOCATIONS_EXT set in ##VkPipelineDynamicStateCreateInfo{@code ::pDynamicStates}, and when the ##VkPipelineSampleLocationsStateCreateInfoEXT{@code ::sampleLocationsEnable} property of the bound graphics pipeline is #TRUE. Otherwise, this state is specified by the ##VkPipelineSampleLocationsStateCreateInfoEXT{@code ::sampleLocationsInfo} values used to create the currently active pipeline.
+        This command sets the custom sample locations for subsequent drawing commands when drawing using <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#shaders-objects">shader objects</a>, or when the graphics pipeline is created with #DYNAMIC_STATE_SAMPLE_LOCATIONS_EXT set in ##VkPipelineDynamicStateCreateInfo{@code ::pDynamicStates}, and when the ##VkPipelineSampleLocationsStateCreateInfoEXT{@code ::sampleLocationsEnable} property of the bound graphics pipeline is #TRUE. Otherwise, this state is specified by the ##VkPipelineSampleLocationsStateCreateInfoEXT{@code ::sampleLocationsInfo} values used to create the currently active pipeline.
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>The {@code sampleLocationsPerPixel} member of {@code pSampleLocationsInfo} <b>must</b> equal the {@code rasterizationSamples} member of the ##VkPipelineMultisampleStateCreateInfo structure the bound graphics pipeline has been created with</li>
             <li>If ##VkPhysicalDeviceSampleLocationsPropertiesEXT{@code ::variableSampleLocations} is #FALSE then the current render pass <b>must</b> have been begun by specifying a ##VkRenderPassSampleLocationsBeginInfoEXT structure whose {@code pPostSubpassSampleLocations} member contains an element with a {@code subpassIndex} matching the current subpass index and the {@code sampleLocationsInfo} member of that element <b>must</b> match the sample locations state pointed to by {@code pSampleLocationsInfo}</li>
         </ul>
 
@@ -121,8 +117,9 @@ val EXT_sample_locations = "EXTSampleLocations".nativeClassVK("EXT_sample_locati
         <ul>
             <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
             <li>{@code pSampleLocationsInfo} <b>must</b> be a valid pointer to a valid ##VkSampleLocationsInfoEXT structure</li>
-            <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
+            <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
             <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
+            <li>This command <b>must</b> only be called outside of a video coding scope</li>
         </ul>
 
         <h5>Host Synchronization</h5>
@@ -133,8 +130,8 @@ val EXT_sample_locations = "EXTSampleLocations".nativeClassVK("EXT_sample_locati
 
         <h5>Command Properties</h5>
         <table class="lwjgl">
-            <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-            <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Graphics</td></tr></tbody>
+            <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+            <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
         </table>
 
         <h5>See Also</h5>
@@ -151,7 +148,7 @@ val EXT_sample_locations = "EXTSampleLocations".nativeClassVK("EXT_sample_locati
         Report sample count specific multisampling capabilities of a physical device.
 
         <h5>C Specification</h5>
-        To query additional multisampling capabilities which <b>may</b> be supported for a specific sample count, beyond the minimum capabilities described for <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#limits">Limits</a> above, call:
+        To query additional multisampling capabilities which <b>may</b> be supported for a specific sample count, beyond the minimum capabilities described for <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#limits">Limits</a> above, call:
 
         <pre><code>
 ￿void vkGetPhysicalDeviceMultisamplePropertiesEXT(

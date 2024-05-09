@@ -19,7 +19,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import org.lwjgl.vulkan.*;
 
-/** The KHR_vulkan_enable extension. */
+/**
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_KHR_vulkan_enable">XR_KHR_vulkan_enable</a> extension.
+ * 
+ * <p>This extension enables the use of the Vulkan graphics API in an OpenXR runtime. Without this extension, the OpenXR runtime may not be able to use any Vulkan swapchain images.</p>
+ * 
+ * <p>This extension provides the mechanisms necessary for an application to generate a valid {@link XrGraphicsBindingVulkanKHR} structure in order to create a Vulkan-based {@code XrSession}. Note that during this process the application is responsible for creating all the required Vulkan objects.</p>
+ * 
+ * <p>This extension also provides mechanisms for the application to interact with images acquired by calling {@link XR10#xrEnumerateSwapchainImages EnumerateSwapchainImages}.</p>
+ * 
+ * <p>In order to expose the structures, types, and functions of this extension, you <b>must</b> define {@link XR10#XR_USE_GRAPHICS_API_VULKAN USE_GRAPHICS_API_VULKAN} before including the OpenXR platform header {@code openxr_platform.h}, in all portions of your library or application that include it.</p>
+ */
 public class KHRVulkanEnable {
 
     /** The extension specification version. */
@@ -110,7 +120,7 @@ public class KHRVulkanEnable {
      *
      * @param instance          an {@code XrInstance} handle previously created with {@link XR10#xrCreateInstance CreateInstance}.
      * @param systemId          an {@code XrSystemId} handle for the system which will be used to create a session.
-     * @param bufferCountOutput a pointer to the count of characters written (including terminating {@code \0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is 0.
+     * @param bufferCountOutput a pointer to the count of characters written (including terminating {@code \0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is insufficient.
      * @param buffer            a pointer to an array of characters, but <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0. The format of the output is a single space (ASCII {@code 0x20}) delimited string of extension names.
      */
     @NativeType("XrResult")
@@ -183,7 +193,7 @@ public class KHRVulkanEnable {
      *
      * @param instance          an {@code XrInstance} handle previously created with {@link XR10#xrCreateInstance CreateInstance}.
      * @param systemId          an {@code XrSystemId} handle for the system which will be used to create a session.
-     * @param bufferCountOutput a pointer to the count of characters written (including terminating {@code \0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is 0.
+     * @param bufferCountOutput a pointer to the count of characters written (including terminating {@code \0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is insufficient.
      * @param buffer            a pointer to an array of characters, but <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0. The format of the output is a single space (ASCII {@code 0x20}) delimited string of extension names.
      */
     @NativeType("XrResult")

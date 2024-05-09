@@ -13,6 +13,9 @@ val IMG_format_pvrtc = "IMGFormatPVRTC".nativeClassVK("IMG_format_pvrtc", type =
         """
         {@code VK_IMG_format_pvrtc} provides additional texture compression functionality specific to Imagination Technologies PowerVR Texture compression format (called PVRTC).
 
+        <h5>Deprecation</h5>
+        Both PVRTC1 and PVRTC2 are slower than standard image formats on PowerVR GPUs, and support will be removed from future hardware.
+
         <h5>VK_IMG_format_pvrtc</h5>
         <dl>
             <dt><b>Name String</b></dt>
@@ -27,9 +30,9 @@ val IMG_format_pvrtc = "IMGFormatPVRTC".nativeClassVK("IMG_format_pvrtc", type =
             <dt><b>Revision</b></dt>
             <dd>1</dd>
 
-            <dt><b>Extension and Version Dependencies</b></dt>
+            <dt><b>Deprecation state</b></dt>
             <dd><ul>
-                <li>Requires Vulkan 1.0</li>
+                <li><em>Deprecated</em> without replacement</li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

@@ -37,10 +37,7 @@ val NV_ray_tracing_motion_blur = "NVRayTracingMotionBlur".nativeClassVK("NV_ray_
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRRayTracingPipeline VK_KHR_ray_tracing_pipeline}</li>
-            </ul></dd>
+            <dd>{@link KHRRayTracingPipeline VK_KHR_ray_tracing_pipeline}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>

@@ -11,13 +11,25 @@ import openxr.*
 val FB_color_space = "FBColorSpace".nativeClassXR("FB_color_space", type = "instance", postfix = "FB") {
     documentation =
         """
-        The $templateName extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_FB_color_space">XR_FB_color_space</a> extension.
+
+        XR devices may use a color space that is different from many monitors used in development. Application developers may desire to specify the color space in which they have authored their application so appropriate colors are shown when the application is running on the XR device.
+
+        This extension allows:
+
+        <ul>
+            <li>An application to get the native color space of the XR device.</li>
+            <li>An application to enumerate the supported color spaces for the session.</li>
+            <li>An application to set the color space for the session.</li>
+        </ul>
+
+        In order to enable the functionality of this extension, the application <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo{@code ::enabledExtensionNames} parameter as indicated in the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#extensions">extensions</a> section.
         """
 
     IntConstant(
         "The extension specification version.",
 
-        "FB_color_space_SPEC_VERSION".."2"
+        "FB_color_space_SPEC_VERSION".."3"
     )
 
     StringConstant(
@@ -160,7 +172,7 @@ val FB_color_space = "FBColorSpace".nativeClassXR("FB_color_space", type = "inst
 
         XrSession("session", "the session that enumerates the supported color spaces."),
         AutoSize("colorSpaces")..uint32_t("colorSpaceCapacityInput", "the capacity of the {@code colorSpaces} array, or 0 to retrieve the required capacity."),
-        Check(1)..uint32_t.p("colorSpaceCountOutput", "a pointer to the count of {@code XrColorSpaceFB} {@code colorSpaces} written, or a pointer to the required capacity in the case that {@code colorSpaceCapacityInput} is 0."),
+        Check(1)..uint32_t.p("colorSpaceCountOutput", "a pointer to the count of {@code XrColorSpaceFB} {@code colorSpaces} written, or a pointer to the required capacity in the case that {@code colorSpaceCapacityInput} is insufficient."),
         nullable..XrColorSpaceFB.p("colorSpaces", "a pointer to an array of {@code XrColorSpaceFB} color spaces, but <b>can</b> be {@code NULL} if {@code colorSpaceCapacityInput} is 0.")
     )
 
