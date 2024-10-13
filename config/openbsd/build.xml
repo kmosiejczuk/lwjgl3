@@ -508,7 +508,7 @@
         </build>
 
         <!-- xxHash -->
-        <build module="xxhash" simple="true" if:true="${binding.xxhash}"> 
+        <build module="xxhash" simple="true" if:true="${binding.xxhash}">
             <beforeCompile>
                 <compile>
                     <arg value="-I/usr/include"/>

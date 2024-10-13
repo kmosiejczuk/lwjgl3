@@ -3,10 +3,10 @@
     <type>org.netbeans.modules.ant.freeform</type>
     <configuration>
         <general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
-            <!-- Do not use Project Properties customizer when editing this file manually. 
- To prevent the customizer from showing, create nbproject/project.properties file and enter 
-auxiliary.show.customizer=false 
-property there. Adding 
+            <!-- Do not use Project Properties customizer when editing this file manually.
+ To prevent the customizer from showing, create nbproject/project.properties file and enter
+auxiliary.show.customizer=false
+property there. Adding
 auxiliary.show.customizer.message=<message>
  will show your customized message when someone attempts to open the customizer.  -->
             <name>LWJGL 3</name>
