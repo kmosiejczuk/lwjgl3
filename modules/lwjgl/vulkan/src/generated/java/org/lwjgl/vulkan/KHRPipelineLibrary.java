@@ -8,8 +8,6 @@ package org.lwjgl.vulkan;
 /**
  * A pipeline library is a special pipeline that cannot be bound, instead it defines a set of shaders and shader groups which can be linked into other pipelines. This extension defines the infrastructure for pipeline libraries, but does not specify the creation or usage of pipeline libraries. This is left to additional dependent extensions.
  * 
- * <h5>VK_KHR_pipeline_library</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_KHR_pipeline_library}</dd>
@@ -21,7 +19,7 @@ package org.lwjgl.vulkan;
  * <dd>1</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Christoph Kubisch <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_pipeline_library]%20@pixeljetstream%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_pipeline_library%20extension*">pixeljetstream</a></li>
+ * <li>Christoph Kubisch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_pipeline_library]%20@pixeljetstream%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_pipeline_library%20extension*">pixeljetstream</a></li>
  * </ul></dd>
  * </dl>
  * 

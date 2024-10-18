@@ -36,9 +36,10 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #depth};
  *     uint32_t {@link #levelCount};
  *     uint32_t {@link #layerCount};
+ *     uint64_t {@link #allocationId};
  * }</code></pre>
  */
-public class ktxVulkanTexture extends Struct implements NativeResource {
+public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -59,7 +60,8 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
         HEIGHT,
         DEPTH,
         LEVELCOUNT,
-        LAYERCOUNT;
+        LAYERCOUNT,
+        ALLOCATIONID;
 
     static {
         Layout layout = __struct(
@@ -74,7 +76,8 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
             __member(4),
             __member(4),
             __member(4),
-            __member(4)
+            __member(4),
+            __member(8)
         );
 
         SIZEOF = layout.getSize();
@@ -92,6 +95,16 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
         DEPTH = layout.offsetof(9);
         LEVELCOUNT = layout.offsetof(10);
         LAYERCOUNT = layout.offsetof(11);
+        ALLOCATIONID = layout.offsetof(12);
+    }
+
+    protected ktxVulkanTexture(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected ktxVulkanTexture create(long address, @Nullable ByteBuffer container) {
+        return new ktxVulkanTexture(address, container);
     }
 
     /**
@@ -122,7 +135,7 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
     /** layout of the created image. Has the same value as {@code layout} parameter passed to the loader. */
     @NativeType("VkImageLayout")
     public int imageLayout() { return nimageLayout(address()); }
-    /** the memory allocated for the image on the Vulkan device */
+    /** the memory (sub)allocation for the image on the Vulkan device. Will not be used with suballocators. */
     @NativeType("VkDeviceMemory")
     public long deviceMemory() { return ndeviceMemory(address()); }
     /** viewType corresponding to {@code image}. Reflects the dimensionality, cubeness and arrayness of the image. */
@@ -143,34 +156,37 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
     /** the number of array layers in the image */
     @NativeType("uint32_t")
     public int layerCount() { return nlayerCount(address()); }
+    /** an id referencing suballocation(s) */
+    @NativeType("uint64_t")
+    public long allocationId() { return nallocationId(address()); }
 
     // -----------------------------------
 
     /** Returns a new {@code ktxVulkanTexture} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static ktxVulkanTexture malloc() {
-        return wrap(ktxVulkanTexture.class, nmemAllocChecked(SIZEOF));
+        return new ktxVulkanTexture(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code ktxVulkanTexture} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static ktxVulkanTexture calloc() {
-        return wrap(ktxVulkanTexture.class, nmemCallocChecked(1, SIZEOF));
+        return new ktxVulkanTexture(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code ktxVulkanTexture} instance allocated with {@link BufferUtils}. */
     public static ktxVulkanTexture create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(ktxVulkanTexture.class, memAddress(container), container);
+        return new ktxVulkanTexture(memAddress(container), container);
     }
 
     /** Returns a new {@code ktxVulkanTexture} instance for the specified memory address. */
     public static ktxVulkanTexture create(long address) {
-        return wrap(ktxVulkanTexture.class, address);
+        return new ktxVulkanTexture(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ktxVulkanTexture createSafe(long address) {
-        return address == NULL ? null : wrap(ktxVulkanTexture.class, address);
+        return address == NULL ? null : new ktxVulkanTexture(address, null);
     }
 
     /**
@@ -179,7 +195,7 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static ktxVulkanTexture.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -188,7 +204,7 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static ktxVulkanTexture.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -198,7 +214,7 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
      */
     public static ktxVulkanTexture.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -208,13 +224,13 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static ktxVulkanTexture.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static ktxVulkanTexture.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -223,7 +239,7 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static ktxVulkanTexture malloc(MemoryStack stack) {
-        return wrap(ktxVulkanTexture.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new ktxVulkanTexture(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -232,7 +248,7 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static ktxVulkanTexture calloc(MemoryStack stack) {
-        return wrap(ktxVulkanTexture.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new ktxVulkanTexture(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -242,7 +258,7 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static ktxVulkanTexture.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -252,7 +268,7 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static ktxVulkanTexture.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -281,6 +297,8 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
     public static int nlevelCount(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.LEVELCOUNT); }
     /** Unsafe version of {@link #layerCount}. */
     public static int nlayerCount(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.LAYERCOUNT); }
+    /** Unsafe version of {@link #allocationId}. */
+    public static long nallocationId(long struct) { return UNSAFE.getLong(null, struct + ktxVulkanTexture.ALLOCATIONID); }
 
     // -----------------------------------
 
@@ -292,9 +310,9 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
         /**
          * Creates a new {@code ktxVulkanTexture.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link ktxVulkanTexture#SIZEOF}, and its mark will be undefined.
+         * by {@link ktxVulkanTexture#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -356,6 +374,9 @@ public class ktxVulkanTexture extends Struct implements NativeResource {
         /** @return the value of the {@link ktxVulkanTexture#layerCount} field. */
         @NativeType("uint32_t")
         public int layerCount() { return ktxVulkanTexture.nlayerCount(address()); }
+        /** @return the value of the {@link ktxVulkanTexture#allocationId} field. */
+        @NativeType("uint64_t")
+        public long allocationId() { return ktxVulkanTexture.nallocationId(address()); }
 
     }
 

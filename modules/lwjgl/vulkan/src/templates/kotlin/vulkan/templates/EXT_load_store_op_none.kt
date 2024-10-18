@@ -15,7 +15,9 @@ val EXT_load_store_op_none = "EXTLoadStoreOpNone".nativeClassVK("EXT_load_store_
 
         Additionally, #ATTACHMENT_LOAD_OP_NONE_EXT is introduced to avoid unnecessary synchronization when an attachment is not used during a render pass at all. In combination with #ATTACHMENT_STORE_OP_NONE_EXT, this is useful as an alternative to preserve attachments in applications that cannot decide if an attachment will be used in a render pass until after the necessary pipelines have been created.
 
-        <h5>VK_EXT_load_store_op_none</h5>
+        <h5>Promotion to {@code VK_KHR_load_store_op_none}</h5>
+        All functionality in this extension is included in {@link KHRLoadStoreOpNone VK_KHR_load_store_op_none}, with the suffix changed to KHR. The original enum names are still available as aliases of the KHR functionality.
+
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_load_store_op_none}</dd>
@@ -29,9 +31,14 @@ val EXT_load_store_op_none = "EXTLoadStoreOpNone".nativeClassVK("EXT_load_store_
             <dt><b>Revision</b></dt>
             <dd>1</dd>
 
+            <dt><b>Deprecation State</b></dt>
+            <dd><ul>
+                <li><em>Promoted</em> to {@link KHRLoadStoreOpNone VK_KHR_load_store_op_none} extension</li>
+            </ul></dd>
+
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Shahbaz Youssefi <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_load_store_op_none]%20@syoussefi%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_load_store_op_none%20extension*">syoussefi</a></li>
+                <li>Shahbaz Youssefi <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_load_store_op_none]%20@syoussefi%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_load_store_op_none%20extension*">syoussefi</a></li>
             </ul></dd>
         </dl>
 

@@ -43,9 +43,10 @@ import static org.lwjgl.system.MemoryStack.*;
  *     unsigned int randomSeed;
  *     int maxConvolutionThreads;
  *     int maxOpusCodecs;
+ *     int maxSpatialObjects;
  * }</code></pre>
  */
-public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
+public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -76,7 +77,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
         RESAMPLERMETHOD,
         RANDOMSEED,
         MAXCONVOLUTIONTHREADS,
-        MAXOPUSCODECS;
+        MAXOPUSCODECS,
+        MAXSPATIALOBJECTS;
 
     static {
         Layout layout = __struct(
@@ -94,6 +96,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
             __member(4),
             __member(4),
             __member(2),
+            __member(4),
             __member(4),
             __member(4),
             __member(4),
@@ -129,6 +132,16 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
         RANDOMSEED = layout.offsetof(19);
         MAXCONVOLUTIONTHREADS = layout.offsetof(20);
         MAXOPUSCODECS = layout.offsetof(21);
+        MAXSPATIALOBJECTS = layout.offsetof(22);
+    }
+
+    protected FMOD_ADVANCEDSETTINGS(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected FMOD_ADVANCEDSETTINGS create(long address, @Nullable ByteBuffer container) {
+        return new FMOD_ADVANCEDSETTINGS(address, container);
     }
 
     /**
@@ -195,6 +208,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
     public int maxConvolutionThreads() { return nmaxConvolutionThreads(address()); }
     /** @return the value of the {@code maxOpusCodecs} field. */
     public int maxOpusCodecs() { return nmaxOpusCodecs(address()); }
+    /** @return the value of the {@code maxSpatialObjects} field. */
+    public int maxSpatialObjects() { return nmaxSpatialObjects(address()); }
 
     /** Sets the specified value to the {@code cbSize} field. */
     public FMOD_ADVANCEDSETTINGS cbSize(int value) { ncbSize(address(), value); return this; }
@@ -240,6 +255,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
     public FMOD_ADVANCEDSETTINGS maxConvolutionThreads(int value) { nmaxConvolutionThreads(address(), value); return this; }
     /** Sets the specified value to the {@code maxOpusCodecs} field. */
     public FMOD_ADVANCEDSETTINGS maxOpusCodecs(int value) { nmaxOpusCodecs(address(), value); return this; }
+    /** Sets the specified value to the {@code maxSpatialObjects} field. */
+    public FMOD_ADVANCEDSETTINGS maxSpatialObjects(int value) { nmaxSpatialObjects(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public FMOD_ADVANCEDSETTINGS set(
@@ -264,7 +281,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
         int resamplerMethod,
         int randomSeed,
         int maxConvolutionThreads,
-        int maxOpusCodecs
+        int maxOpusCodecs,
+        int maxSpatialObjects
     ) {
         cbSize(cbSize);
         maxMPEGCodecs(maxMPEGCodecs);
@@ -288,6 +306,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
         randomSeed(randomSeed);
         maxConvolutionThreads(maxConvolutionThreads);
         maxOpusCodecs(maxOpusCodecs);
+        maxSpatialObjects(maxSpatialObjects);
 
         return this;
     }
@@ -308,29 +327,29 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
 
     /** Returns a new {@code FMOD_ADVANCEDSETTINGS} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static FMOD_ADVANCEDSETTINGS malloc() {
-        return wrap(FMOD_ADVANCEDSETTINGS.class, nmemAllocChecked(SIZEOF));
+        return new FMOD_ADVANCEDSETTINGS(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code FMOD_ADVANCEDSETTINGS} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static FMOD_ADVANCEDSETTINGS calloc() {
-        return wrap(FMOD_ADVANCEDSETTINGS.class, nmemCallocChecked(1, SIZEOF));
+        return new FMOD_ADVANCEDSETTINGS(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code FMOD_ADVANCEDSETTINGS} instance allocated with {@link BufferUtils}. */
     public static FMOD_ADVANCEDSETTINGS create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(FMOD_ADVANCEDSETTINGS.class, memAddress(container), container);
+        return new FMOD_ADVANCEDSETTINGS(memAddress(container), container);
     }
 
     /** Returns a new {@code FMOD_ADVANCEDSETTINGS} instance for the specified memory address. */
     public static FMOD_ADVANCEDSETTINGS create(long address) {
-        return wrap(FMOD_ADVANCEDSETTINGS.class, address);
+        return new FMOD_ADVANCEDSETTINGS(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static FMOD_ADVANCEDSETTINGS createSafe(long address) {
-        return address == NULL ? null : wrap(FMOD_ADVANCEDSETTINGS.class, address);
+        return address == NULL ? null : new FMOD_ADVANCEDSETTINGS(address, null);
     }
 
     /**
@@ -339,7 +358,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static FMOD_ADVANCEDSETTINGS.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -348,7 +367,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static FMOD_ADVANCEDSETTINGS.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -358,7 +377,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
      */
     public static FMOD_ADVANCEDSETTINGS.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -368,13 +387,13 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static FMOD_ADVANCEDSETTINGS.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static FMOD_ADVANCEDSETTINGS.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -383,7 +402,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static FMOD_ADVANCEDSETTINGS malloc(MemoryStack stack) {
-        return wrap(FMOD_ADVANCEDSETTINGS.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new FMOD_ADVANCEDSETTINGS(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -392,7 +411,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static FMOD_ADVANCEDSETTINGS calloc(MemoryStack stack) {
-        return wrap(FMOD_ADVANCEDSETTINGS.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new FMOD_ADVANCEDSETTINGS(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -402,7 +421,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static FMOD_ADVANCEDSETTINGS.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -412,7 +431,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static FMOD_ADVANCEDSETTINGS.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -461,6 +480,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
     public static int nmaxConvolutionThreads(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXCONVOLUTIONTHREADS); }
     /** Unsafe version of {@link #maxOpusCodecs}. */
     public static int nmaxOpusCodecs(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXOPUSCODECS); }
+    /** Unsafe version of {@link #maxSpatialObjects}. */
+    public static int nmaxSpatialObjects(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXSPATIALOBJECTS); }
 
     /** Unsafe version of {@link #cbSize(int) cbSize}. */
     public static void ncbSize(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.CBSIZE, value); }
@@ -506,6 +527,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
     public static void nmaxConvolutionThreads(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXCONVOLUTIONTHREADS, value); }
     /** Unsafe version of {@link #maxOpusCodecs(int) maxOpusCodecs}. */
     public static void nmaxOpusCodecs(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXOPUSCODECS, value); }
+    /** Unsafe version of {@link #maxSpatialObjects(int) maxSpatialObjects}. */
+    public static void nmaxSpatialObjects(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXSPATIALOBJECTS, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -527,9 +550,9 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
         /**
          * Creates a new {@code FMOD_ADVANCEDSETTINGS.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link FMOD_ADVANCEDSETTINGS#SIZEOF}, and its mark will be undefined.
+         * by {@link FMOD_ADVANCEDSETTINGS#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -606,6 +629,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
         public int maxConvolutionThreads() { return FMOD_ADVANCEDSETTINGS.nmaxConvolutionThreads(address()); }
         /** @return the value of the {@code maxOpusCodecs} field. */
         public int maxOpusCodecs() { return FMOD_ADVANCEDSETTINGS.nmaxOpusCodecs(address()); }
+        /** @return the value of the {@code maxSpatialObjects} field. */
+        public int maxSpatialObjects() { return FMOD_ADVANCEDSETTINGS.nmaxSpatialObjects(address()); }
 
         /** Sets the specified value to the {@code cbSize} field. */
         public FMOD_ADVANCEDSETTINGS.Buffer cbSize(int value) { FMOD_ADVANCEDSETTINGS.ncbSize(address(), value); return this; }
@@ -651,6 +676,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct implements NativeResource {
         public FMOD_ADVANCEDSETTINGS.Buffer maxConvolutionThreads(int value) { FMOD_ADVANCEDSETTINGS.nmaxConvolutionThreads(address(), value); return this; }
         /** Sets the specified value to the {@code maxOpusCodecs} field. */
         public FMOD_ADVANCEDSETTINGS.Buffer maxOpusCodecs(int value) { FMOD_ADVANCEDSETTINGS.nmaxOpusCodecs(address(), value); return this; }
+        /** Sets the specified value to the {@code maxSpatialObjects} field. */
+        public FMOD_ADVANCEDSETTINGS.Buffer maxSpatialObjects(int value) { FMOD_ADVANCEDSETTINGS.nmaxSpatialObjects(address(), value); return this; }
 
     }
 

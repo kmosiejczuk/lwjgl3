@@ -14,7 +14,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_FB_passthrough">XR_FB_passthrough</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_FB_passthrough">XR_FB_passthrough</a> extension.
  * 
  * <p>Passthrough is a way to show a user their physical environment in a light-blocking VR headset. Applications may use passthrough in a multitude of ways, including:</p>
  * 
@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class FBPassthrough {
 
     /** The extension specification version. */
-    public static final int XR_FB_passthrough_SPEC_VERSION = 3;
+    public static final int XR_FB_passthrough_SPEC_VERSION = 4;
 
     /** The extension name. */
     public static final String XR_FB_PASSTHROUGH_EXTENSION_NAME = "XR_FB_passthrough";
@@ -154,8 +154,8 @@ public class FBPassthrough {
      * <ul>
      * <li>{@link #XR_PASSTHROUGH_LAYER_PURPOSE_RECONSTRUCTION_FB PASSTHROUGH_LAYER_PURPOSE_RECONSTRUCTION_FB} — Reconstruction passthrough (full screen environment)</li>
      * <li>{@link #XR_PASSTHROUGH_LAYER_PURPOSE_PROJECTED_FB PASSTHROUGH_LAYER_PURPOSE_PROJECTED_FB} — Projected passthrough (using a custom surface)</li>
-     * <li>{@link FBPassthroughKeyboardHands#XR_PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_HANDS_FB PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_HANDS_FB} — Passthrough layer purpose for keyboard hands presence.</li>
-     * <li>{@link FBPassthroughKeyboardHands#XR_PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_MASKED_HANDS_FB PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_MASKED_HANDS_FB} — Passthrough layer purpose for keyboard hands presence with keyboard masked hand transitions (i.e passthrough hands rendered only when they are over the keyboard).</li>
+     * <li>{@link FBPassthroughKeyboardHands#XR_PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_HANDS_FB PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_HANDS_FB} — Passthrough layer purpose for keyboard hands presence.  (Added by the {@link FBPassthroughKeyboardHands XR_FB_passthrough_keyboard_hands} extension)</li>
+     * <li>{@link FBPassthroughKeyboardHands#XR_PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_MASKED_HANDS_FB PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_MASKED_HANDS_FB} — Passthrough layer purpose for keyboard hands presence with keyboard masked hand transitions (i.e passthrough hands rendered only when they are over the keyboard).  (Added by the {@link FBPassthroughKeyboardHands XR_FB_passthrough_keyboard_hands} extension)</li>
      * </ul>
      * 
      * <h5>See Also</h5>
@@ -777,7 +777,7 @@ public class FBPassthrough {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Creates an {@code XrGeometryInstanceFB} handle. Geometry instance functionality requires <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#XR_FB_triangle_mesh">XR_FB_triangle_mesh</a> extension to be enabled. An {@code XrGeometryInstanceFB} connects a layer, a mesh, and a transformation, with the semantics that a specific mesh will be instantiated in a specific layer with a specific transformation. A mesh can be instantiated multiple times, in the same or in different layers.</p>
+     * <p>Creates an {@code XrGeometryInstanceFB} handle. Geometry instance functionality requires {@link FBTriangleMesh XR_FB_triangle_mesh} extension to be enabled. An {@code XrGeometryInstanceFB} connects a layer, a mesh, and a transformation, with the semantics that a specific mesh will be instantiated in a specific layer with a specific transformation. A mesh can be instantiated multiple times, in the same or in different layers.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -873,6 +873,8 @@ public class FBPassthrough {
      * <li>{@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED}</li>
      * </ul></dd>
      * </dl>
+     *
+     * @param instance the {@code XrGeometryInstanceFB} to be destroyed.
      */
     @NativeType("XrResult")
     public static int xrDestroyGeometryInstanceFB(XrGeometryInstanceFB instance) {
@@ -944,6 +946,9 @@ public class FBPassthrough {
      * <h5>See Also</h5>
      * 
      * <p>{@link XrGeometryInstanceTransformFB}</p>
+     *
+     * @param instance       the {@code XrGeometryInstanceFB} to get the transform.
+     * @param transformation the {@link XrGeometryInstanceTransformFB} to be set.
      */
     @NativeType("XrResult")
     public static int xrGeometryInstanceSetTransformFB(XrGeometryInstanceFB instance, @NativeType("XrGeometryInstanceTransformFB const *") XrGeometryInstanceTransformFB transformation) {

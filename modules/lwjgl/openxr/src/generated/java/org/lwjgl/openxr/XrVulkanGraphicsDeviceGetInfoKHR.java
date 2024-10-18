@@ -26,7 +26,7 @@ import org.lwjgl.vulkan.*;
  * <ul>
  * <li>The {@link KHRVulkanEnable2 XR_KHR_vulkan_enable2} extension <b>must</b> be enabled prior to using {@link XrVulkanGraphicsDeviceGetInfoKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRVulkanEnable2#XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code vulkanInstance} <b>must</b> be a valid {@code VkInstance} value</li>
  * </ul>
  * 
@@ -38,13 +38,13 @@ import org.lwjgl.vulkan.*;
  * 
  * <pre><code>
  * struct XrVulkanGraphicsDeviceGetInfoKHR {
- *     XrStructureType type;
- *     void const * next;
+ *     XrStructureType {@link #type};
+ *     void const * {@link #next};
  *     XrSystemId {@link #systemId};
  *     VkInstance {@link #vulkanInstance};
  * }</code></pre>
  */
-public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeResource {
+public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDeviceGetInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -76,6 +76,15 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
         VULKANINSTANCE = layout.offsetof(3);
     }
 
+    protected XrVulkanGraphicsDeviceGetInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrVulkanGraphicsDeviceGetInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new XrVulkanGraphicsDeviceGetInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code XrVulkanGraphicsDeviceGetInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -89,10 +98,10 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code type} field. */
+    /** the {@code XrStructureType} of this structure. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** @return the value of the {@code next} field. */
+    /** {@code NULL} or a pointer to the next structure in a structure chain. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
     /** an {@code XrSystemId} handle for the system which will be used to create a session. */
@@ -102,11 +111,11 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
     @NativeType("VkInstance")
     public long vulkanInstance() { return nvulkanInstance(address()); }
 
-    /** Sets the specified value to the {@code type} field. */
+    /** Sets the specified value to the {@link #type} field. */
     public XrVulkanGraphicsDeviceGetInfoKHR type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link KHRVulkanEnable2#XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR} value to the {@code type} field. */
+    /** Sets the {@link KHRVulkanEnable2#XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR} value to the {@link #type} field. */
     public XrVulkanGraphicsDeviceGetInfoKHR type$Default() { return type(KHRVulkanEnable2.XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR); }
-    /** Sets the specified value to the {@code next} field. */
+    /** Sets the specified value to the {@link #next} field. */
     public XrVulkanGraphicsDeviceGetInfoKHR next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Sets the specified value to the {@link #systemId} field. */
     public XrVulkanGraphicsDeviceGetInfoKHR systemId(@NativeType("XrSystemId") long value) { nsystemId(address(), value); return this; }
@@ -144,29 +153,29 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
 
     /** Returns a new {@code XrVulkanGraphicsDeviceGetInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrVulkanGraphicsDeviceGetInfoKHR malloc() {
-        return wrap(XrVulkanGraphicsDeviceGetInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new XrVulkanGraphicsDeviceGetInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrVulkanGraphicsDeviceGetInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrVulkanGraphicsDeviceGetInfoKHR calloc() {
-        return wrap(XrVulkanGraphicsDeviceGetInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new XrVulkanGraphicsDeviceGetInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrVulkanGraphicsDeviceGetInfoKHR} instance allocated with {@link BufferUtils}. */
     public static XrVulkanGraphicsDeviceGetInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrVulkanGraphicsDeviceGetInfoKHR.class, memAddress(container), container);
+        return new XrVulkanGraphicsDeviceGetInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code XrVulkanGraphicsDeviceGetInfoKHR} instance for the specified memory address. */
     public static XrVulkanGraphicsDeviceGetInfoKHR create(long address) {
-        return wrap(XrVulkanGraphicsDeviceGetInfoKHR.class, address);
+        return new XrVulkanGraphicsDeviceGetInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrVulkanGraphicsDeviceGetInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(XrVulkanGraphicsDeviceGetInfoKHR.class, address);
+        return address == NULL ? null : new XrVulkanGraphicsDeviceGetInfoKHR(address, null);
     }
 
     /**
@@ -175,7 +184,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrVulkanGraphicsDeviceGetInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -184,7 +193,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrVulkanGraphicsDeviceGetInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -194,7 +203,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
      */
     public static XrVulkanGraphicsDeviceGetInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -204,13 +213,13 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrVulkanGraphicsDeviceGetInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrVulkanGraphicsDeviceGetInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -219,7 +228,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static XrVulkanGraphicsDeviceGetInfoKHR malloc(MemoryStack stack) {
-        return wrap(XrVulkanGraphicsDeviceGetInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrVulkanGraphicsDeviceGetInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -228,7 +237,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static XrVulkanGraphicsDeviceGetInfoKHR calloc(MemoryStack stack) {
-        return wrap(XrVulkanGraphicsDeviceGetInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrVulkanGraphicsDeviceGetInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -238,7 +247,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrVulkanGraphicsDeviceGetInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -248,7 +257,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static XrVulkanGraphicsDeviceGetInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +299,9 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
         /**
          * Creates a new {@code XrVulkanGraphicsDeviceGetInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrVulkanGraphicsDeviceGetInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link XrVulkanGraphicsDeviceGetInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -318,10 +327,10 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code type} field. */
+        /** @return the value of the {@link XrVulkanGraphicsDeviceGetInfoKHR#type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrVulkanGraphicsDeviceGetInfoKHR.ntype(address()); }
-        /** @return the value of the {@code next} field. */
+        /** @return the value of the {@link XrVulkanGraphicsDeviceGetInfoKHR#next} field. */
         @NativeType("void const *")
         public long next() { return XrVulkanGraphicsDeviceGetInfoKHR.nnext(address()); }
         /** @return the value of the {@link XrVulkanGraphicsDeviceGetInfoKHR#systemId} field. */
@@ -331,11 +340,11 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct implements NativeRe
         @NativeType("VkInstance")
         public long vulkanInstance() { return XrVulkanGraphicsDeviceGetInfoKHR.nvulkanInstance(address()); }
 
-        /** Sets the specified value to the {@code type} field. */
+        /** Sets the specified value to the {@link XrVulkanGraphicsDeviceGetInfoKHR#type} field. */
         public XrVulkanGraphicsDeviceGetInfoKHR.Buffer type(@NativeType("XrStructureType") int value) { XrVulkanGraphicsDeviceGetInfoKHR.ntype(address(), value); return this; }
-        /** Sets the {@link KHRVulkanEnable2#XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR} value to the {@code type} field. */
+        /** Sets the {@link KHRVulkanEnable2#XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR} value to the {@link XrVulkanGraphicsDeviceGetInfoKHR#type} field. */
         public XrVulkanGraphicsDeviceGetInfoKHR.Buffer type$Default() { return type(KHRVulkanEnable2.XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR); }
-        /** Sets the specified value to the {@code next} field. */
+        /** Sets the specified value to the {@link XrVulkanGraphicsDeviceGetInfoKHR#next} field. */
         public XrVulkanGraphicsDeviceGetInfoKHR.Buffer next(@NativeType("void const *") long value) { XrVulkanGraphicsDeviceGetInfoKHR.nnext(address(), value); return this; }
         /** Sets the specified value to the {@link XrVulkanGraphicsDeviceGetInfoKHR#systemId} field. */
         public XrVulkanGraphicsDeviceGetInfoKHR.Buffer systemId(@NativeType("XrSystemId") long value) { XrVulkanGraphicsDeviceGetInfoKHR.nsystemId(address(), value); return this; }

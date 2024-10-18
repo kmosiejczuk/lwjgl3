@@ -23,6 +23,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
  * <p>When creating a descriptor pool that will contain descriptors for combined image samplers of multi-planar formats, an application needs to account for non-trivial descriptor consumption when choosing the {@code descriptorCount} value, as indicated by {@link VkSamplerYcbcrConversionImageFormatProperties}{@code ::combinedImageSamplerDescriptorCount}.</p>
+ * 
+ * <p>For simplicity the application <b>can</b> use the {@link VkPhysicalDeviceMaintenance6PropertiesKHR}{@code ::maxCombinedImageSamplerDescriptorCount} property, which is sized to accommodate any and all <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</p>
  * </div>
  * 
  * <h5>Valid Usage</h5>
@@ -50,7 +52,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #descriptorCount};
  * }</code></pre>
  */
-public class VkDescriptorPoolSize extends Struct implements NativeResource {
+public class VkDescriptorPoolSize extends Struct<VkDescriptorPoolSize> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -74,6 +76,15 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
 
         TYPE = layout.offsetof(0);
         DESCRIPTORCOUNT = layout.offsetof(1);
+    }
+
+    protected VkDescriptorPoolSize(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkDescriptorPoolSize create(long address, @Nullable ByteBuffer container) {
+        return new VkDescriptorPoolSize(address, container);
     }
 
     /**
@@ -128,29 +139,29 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
 
     /** Returns a new {@code VkDescriptorPoolSize} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDescriptorPoolSize malloc() {
-        return wrap(VkDescriptorPoolSize.class, nmemAllocChecked(SIZEOF));
+        return new VkDescriptorPoolSize(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkDescriptorPoolSize} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDescriptorPoolSize calloc() {
-        return wrap(VkDescriptorPoolSize.class, nmemCallocChecked(1, SIZEOF));
+        return new VkDescriptorPoolSize(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkDescriptorPoolSize} instance allocated with {@link BufferUtils}. */
     public static VkDescriptorPoolSize create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkDescriptorPoolSize.class, memAddress(container), container);
+        return new VkDescriptorPoolSize(memAddress(container), container);
     }
 
     /** Returns a new {@code VkDescriptorPoolSize} instance for the specified memory address. */
     public static VkDescriptorPoolSize create(long address) {
-        return wrap(VkDescriptorPoolSize.class, address);
+        return new VkDescriptorPoolSize(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorPoolSize createSafe(long address) {
-        return address == NULL ? null : wrap(VkDescriptorPoolSize.class, address);
+        return address == NULL ? null : new VkDescriptorPoolSize(address, null);
     }
 
     /**
@@ -159,7 +170,7 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDescriptorPoolSize.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -168,7 +179,7 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDescriptorPoolSize.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -178,7 +189,7 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
      */
     public static VkDescriptorPoolSize.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -188,13 +199,13 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDescriptorPoolSize.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorPoolSize.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -222,7 +233,7 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorPoolSize malloc(MemoryStack stack) {
-        return wrap(VkDescriptorPoolSize.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkDescriptorPoolSize(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -231,7 +242,7 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorPoolSize calloc(MemoryStack stack) {
-        return wrap(VkDescriptorPoolSize.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkDescriptorPoolSize(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -241,7 +252,7 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDescriptorPoolSize.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +262,7 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDescriptorPoolSize.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -276,9 +287,9 @@ public class VkDescriptorPoolSize extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkDescriptorPoolSize.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDescriptorPoolSize#SIZEOF}, and its mark will be undefined.
+         * by {@link VkDescriptorPoolSize#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

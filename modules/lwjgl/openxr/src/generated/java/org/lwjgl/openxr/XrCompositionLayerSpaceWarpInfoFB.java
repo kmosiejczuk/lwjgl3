@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBSpaceWarp XR_FB_space_warp} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerSpaceWarpInfoFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBSpaceWarp#XR_TYPE_COMPOSITION_LAYER_SPACE_WARP_INFO_FB TYPE_COMPOSITION_LAYER_SPACE_WARP_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code layerFlags} <b>must</b> be 0 or a valid combination of {@code XrCompositionLayerSpaceWarpInfoFlagBitsFB} values</li>
  * <li>{@code motionVectorSubImage} <b>must</b> be a valid {@link XrSwapchainSubImage} structure</li>
  * <li>{@code depthSubImage} <b>must</b> be a valid {@link XrSwapchainSubImage} structure</li>
@@ -53,7 +53,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #farZ};
  * }</code></pre>
  */
-public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeResource {
+public class XrCompositionLayerSpaceWarpInfoFB extends Struct<XrCompositionLayerSpaceWarpInfoFB> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -103,6 +103,15 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
         FARZ = layout.offsetof(9);
     }
 
+    protected XrCompositionLayerSpaceWarpInfoFB(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrCompositionLayerSpaceWarpInfoFB create(long address, @Nullable ByteBuffer container) {
+        return new XrCompositionLayerSpaceWarpInfoFB(address, container);
+    }
+
     /**
      * Creates a {@code XrCompositionLayerSpaceWarpInfoFB} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -131,7 +140,7 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
     public XrPosef appSpaceDeltaPose() { return nappSpaceDeltaPose(address()); }
     /** identifies the depth image {@link XrSwapchainSubImage} to be associated with motionVectorSubImage. The swapchain should be created with {@link XR10#XR_SWAPCHAIN_USAGE_SAMPLED_BIT SWAPCHAIN_USAGE_SAMPLED_BIT} | {@link XR10#XR_SWAPCHAIN_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT SWAPCHAIN_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT}. */
     public XrSwapchainSubImage depthSubImage() { return ndepthSubImage(address()); }
-    /** {@code minDepth} and {@code maxDepth} are the range of depth values the {@code depthSwapchain} could have, in the range of <code>[0.0,1.0]</code>. This is akin to min and max values of OpenGL’s {@code glDepthRange}, but with the requirement here that <code>maxDepth ≥ minDepth</code>. */
+    /** {@code minDepth} and {@code maxDepth} are the range of depth values the depth swapchain could have, in the range of <code>[0.0,1.0]</code>. This is akin to min and max values of OpenGL’s {@code glDepthRange}, but with the requirement here that <code>maxDepth ≥ minDepth</code>. */
     public float minDepth() { return nminDepth(address()); }
     /** see {@code minDepth} */
     public float maxDepth() { return nmaxDepth(address()); }
@@ -212,29 +221,29 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
 
     /** Returns a new {@code XrCompositionLayerSpaceWarpInfoFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrCompositionLayerSpaceWarpInfoFB malloc() {
-        return wrap(XrCompositionLayerSpaceWarpInfoFB.class, nmemAllocChecked(SIZEOF));
+        return new XrCompositionLayerSpaceWarpInfoFB(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrCompositionLayerSpaceWarpInfoFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrCompositionLayerSpaceWarpInfoFB calloc() {
-        return wrap(XrCompositionLayerSpaceWarpInfoFB.class, nmemCallocChecked(1, SIZEOF));
+        return new XrCompositionLayerSpaceWarpInfoFB(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrCompositionLayerSpaceWarpInfoFB} instance allocated with {@link BufferUtils}. */
     public static XrCompositionLayerSpaceWarpInfoFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrCompositionLayerSpaceWarpInfoFB.class, memAddress(container), container);
+        return new XrCompositionLayerSpaceWarpInfoFB(memAddress(container), container);
     }
 
     /** Returns a new {@code XrCompositionLayerSpaceWarpInfoFB} instance for the specified memory address. */
     public static XrCompositionLayerSpaceWarpInfoFB create(long address) {
-        return wrap(XrCompositionLayerSpaceWarpInfoFB.class, address);
+        return new XrCompositionLayerSpaceWarpInfoFB(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrCompositionLayerSpaceWarpInfoFB createSafe(long address) {
-        return address == NULL ? null : wrap(XrCompositionLayerSpaceWarpInfoFB.class, address);
+        return address == NULL ? null : new XrCompositionLayerSpaceWarpInfoFB(address, null);
     }
 
     /**
@@ -243,7 +252,7 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerSpaceWarpInfoFB.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -252,7 +261,7 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerSpaceWarpInfoFB.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -262,7 +271,7 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
      */
     public static XrCompositionLayerSpaceWarpInfoFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -272,13 +281,13 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerSpaceWarpInfoFB.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrCompositionLayerSpaceWarpInfoFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -287,7 +296,7 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
      * @param stack the stack from which to allocate
      */
     public static XrCompositionLayerSpaceWarpInfoFB malloc(MemoryStack stack) {
-        return wrap(XrCompositionLayerSpaceWarpInfoFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrCompositionLayerSpaceWarpInfoFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -296,7 +305,7 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
      * @param stack the stack from which to allocate
      */
     public static XrCompositionLayerSpaceWarpInfoFB calloc(MemoryStack stack) {
-        return wrap(XrCompositionLayerSpaceWarpInfoFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrCompositionLayerSpaceWarpInfoFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -306,7 +315,7 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerSpaceWarpInfoFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -316,7 +325,7 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerSpaceWarpInfoFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -383,9 +392,9 @@ public class XrCompositionLayerSpaceWarpInfoFB extends Struct implements NativeR
         /**
          * Creates a new {@code XrCompositionLayerSpaceWarpInfoFB.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrCompositionLayerSpaceWarpInfoFB#SIZEOF}, and its mark will be undefined.
+         * by {@link XrCompositionLayerSpaceWarpInfoFB#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

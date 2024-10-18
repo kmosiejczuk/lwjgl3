@@ -25,6 +25,12 @@ fun templateCustomization() {
     """
     }
 
+    VkMemoryRequirements.definition.apply {
+        this["size"].mutable()
+        this["alignment"].mutable()
+        this["memoryTypeBits"].mutable()
+    }
+
     VkShaderModuleCreateInfo.definition.apply {
         AutoSize("pCode")..this["codeSize"]
         PrimitiveType("uint32_t", PrimitiveMapping.BYTE).const.p("pCode", "points to code that is used to create the shader module")
@@ -45,7 +51,7 @@ fun templateCustomization() {
 
         IntConstant(
             "The Vulkan registry version used to generate the LWJGL bindings.",
-            "HEADER_VERSION".."246"
+            "HEADER_VERSION".."289"
         )
 
         LongConstant(
@@ -272,9 +278,9 @@ fun templateCustomization() {
             )}
 
             The only changes to the functionality added by these extensions were to {@code VK_KHR_shader_draw_parameters}, which had a
-            <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-features-shaderDrawParameters">feature bit</a>
+            <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-features-shaderDrawParameters">feature bit</a>
             added to determine support in the core API, and
-            <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-features-variablePointersStorageBuffer">{@code variablePointersStorageBuffer}</a>
+            <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-features-variablePointersStorageBuffer">{@code variablePointersStorageBuffer}</a>
             from {@code VK_KHR_variable_pointers} was made optional.
 
             Additionally, Vulkan 1.1 added support for {@link VkPhysicalDeviceSubgroupProperties subgroup operations},
@@ -365,47 +371,47 @@ fun templateCustomization() {
                 "SPIR-V version 1.4.",
                 "SPIR-V version 1.5.",
                 """
-                The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-samplerMirrorClampToEdge">samplerMirrorClampToEdge</a>
+                The <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-samplerMirrorClampToEdge">samplerMirrorClampToEdge</a>
                 feature which indicates whether the implementation supports the #SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE sampler address mode.
                 """,
                 "The {@code ShaderNonUniform} capability in SPIR-V version 1.5.",
                 """
-                The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-shaderOutputViewportIndex">shaderOutputViewportIndex</a>
+                The <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-shaderOutputViewportIndex">shaderOutputViewportIndex</a>
                 feature which indicates that the
-                <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#spirvenv-capabilities-table-shader-viewport-index">{@code ShaderViewportIndex}</a>
+                <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#spirvenv-capabilities-table-shader-viewport-index">{@code ShaderViewportIndex}</a>
                 capability can be used.
                 """,
                 """
-                The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-shaderOutputLayer">shaderOutputLayer</a>
+                The <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-shaderOutputLayer">shaderOutputLayer</a>
                 feature which indicates that the
-                <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#spirvenv-capabilities-table-shader-layer">{@code ShaderLayer}</a>
+                <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#spirvenv-capabilities-table-shader-layer">{@code ShaderLayer}</a>
                 capability can be used.
                 """,
                 """
-                The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-subgroupBroadcastDynamicId">subgroupBroadcastDynamicId</a> 
+                The <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-subgroupBroadcastDynamicId">subgroupBroadcastDynamicId</a> 
                 feature which allows the "{@code Id}" operand of {@code OpGroupNonUniformBroadcast} to be dynamically uniform within a subgroup, and the
                 "{@code Index}" operand of {@code OpGroupNonUniformQuadBroadcast} to be dynamically uniform within a derivative group, in shader modules of
                 version 1.5 or higher.
                 """,
                 """
-                The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-drawIndirectCount">drawIndirectCount</a>
+                The <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-drawIndirectCount">drawIndirectCount</a>
                 feature which indicates whether the #CmdDrawIndirectCount() and #CmdDrawIndexedIndirectCount() functions can be used.
                 """,
                 """
-                The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-descriptorIndexing">descriptorIndexing</a>
+                The <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-descriptorIndexing">descriptorIndexing</a>
                 feature which indicates the implementation supports the minimum number of descriptor indexing features as defined in the
-                <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-requirements">Feature Requirements</a>
+                <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-requirements">Feature Requirements</a>
                 section.
                 """,
                 """
-                The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-samplerFilterMinmax">samplerFilterMinmax</a>
+                The <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#features-samplerFilterMinmax">samplerFilterMinmax</a>
                 feature which indicates whether the implementation supports the minimum number of image formats that support the
                 #FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT feature bit as defined by the
-                <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#limits-filterMinmaxSingleComponentFormats-minimum-requirements">{@code filterMinmaxSingleComponentFormats}</a>
+                <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#limits-filterMinmaxSingleComponentFormats-minimum-requirements">{@code filterMinmaxSingleComponentFormats}</a>
                 property minimum requirements.
                 """,
                 """
-                The <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#limits-framebufferIntegerColorSampleCounts">framebufferIntegerColorSampleCounts</a>
+                The <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html\#limits-framebufferIntegerColorSampleCounts">framebufferIntegerColorSampleCounts</a>
                 limit which indicates the color sample counts that are supported for all framebuffer color attachments with integer formats.
                 """
             )}
@@ -447,7 +453,7 @@ fun templateCustomization() {
                 EXT_texel_buffer_alignment.link,
                 EXT_texture_compression_astc_hdr.link,
                 EXT_tooling_info.link,
-                EXT_ycbcr_2plane_444_formats.link                
+                EXT_ycbcr_2plane_444_formats.link
             )}
 
             All differences in behavior between these extensions and the corresponding Vulkan 1.3 functionality are summarized below.

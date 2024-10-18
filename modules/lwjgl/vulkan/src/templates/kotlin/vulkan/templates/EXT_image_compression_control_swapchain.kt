@@ -13,7 +13,6 @@ val EXT_image_compression_control_swapchain = "EXTImageCompressionControlSwapcha
         """
         This extension enables fixed-rate image compression and adds the ability to control when this kind of compression can be applied to swapchain images.
 
-        <h5>VK_EXT_image_compression_control_swapchain</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_image_compression_control_swapchain}</dd>
@@ -32,7 +31,7 @@ val EXT_image_compression_control_swapchain = "EXTImageCompressionControlSwapcha
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jan-Harald Fredriksen <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_image_compression_control_swapchain]%20@janharaldfredriksen-arm%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_image_compression_control_swapchain%20extension*">janharaldfredriksen-arm</a></li>
+                <li>Jan-Harald Fredriksen <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_image_compression_control_swapchain]%20@janharaldfredriksen-arm%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_image_compression_control_swapchain%20extension*">janharaldfredriksen-arm</a></li>
             </ul></dd>
         </dl>
 

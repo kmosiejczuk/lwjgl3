@@ -22,12 +22,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>Multiplication of the combiner rates using the fragment width/height in linear space is equivalent to an addition of those values in log2 space. Some implementations inadvertently implemented an addition in linear space due to unclear requirements originating outside of this specification. This resulted in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-fragmentShadingRateStrictMultiplyCombiner">{@code fragmentShadingRateStrictMultiplyCombiner}</a> being added. Fortunately, this only affects situations where a rate of 1 in either dimension is combined with another rate of 1. All other combinations result in the exact same result as if multiplication was performed in linear space due to the clamping logic, and the fact that both the sum and product of 2 and 2 are equal. In many cases, this limit will not affect the correct operation of applications.</p>
+ * <p>Multiplication of the combiner rates using the fragment width/height in linear space is equivalent to an addition of those values in log2 space. Some implementations inadvertently implemented an addition in linear space due to unclear requirements originating outside of this specification. This resulted in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-fragmentShadingRateStrictMultiplyCombiner">{@code fragmentShadingRateStrictMultiplyCombiner}</a> being added. Fortunately, this only affects situations where a rate of 1 in either dimension is combined with another rate of 1. All other combinations result in the exact same result as if multiplication was performed in linear space due to the clamping logic, and the fact that both the sum and product of 2 and 2 are equal. In many cases, this limit will not affect the correct operation of applications.</p>
  * </div>
  * 
  * <p>If the {@link VkPhysicalDeviceFragmentShadingRatePropertiesKHR} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
  * 
- * <p>These properties are related to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate">fragment shading rates</a>.</p>
+ * <p>These properties are related to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate">fragment shading rates</a>.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -64,7 +64,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #fragmentShadingRateStrictMultiplyCombiner};
  * }</code></pre>
  */
-public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct implements NativeResource {
+public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct<VkPhysicalDeviceFragmentShadingRatePropertiesKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -141,6 +141,15 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
         FRAGMENTSHADINGRATESTRICTMULTIPLYCOMBINER = layout.offsetof(18);
     }
 
+    protected VkPhysicalDeviceFragmentShadingRatePropertiesKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDeviceFragmentShadingRatePropertiesKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDeviceFragmentShadingRatePropertiesKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDeviceFragmentShadingRatePropertiesKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -154,26 +163,26 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates minimum supported width and height of the portion of the framebuffer corresponding to each texel in a fragment shading rate attachment. Each value <b>must</b> be less than or equal to the values in {@code maxFragmentShadingRateAttachmentTexelSize}. Each value <b>must</b> be a power-of-two. It <b>must</b> be <code>(0,0)</code> if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is not supported. */
+    /** indicates minimum supported width and height of the portion of the framebuffer corresponding to each texel in a fragment shading rate attachment. Each value <b>must</b> be less than or equal to the values in {@code maxFragmentShadingRateAttachmentTexelSize}. Each value <b>must</b> be a power-of-two. It <b>must</b> be <code>(0,0)</code> if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is not supported. */
     public VkExtent2D minFragmentShadingRateAttachmentTexelSize() { return nminFragmentShadingRateAttachmentTexelSize(address()); }
-    /** indicates maximum supported width and height of the portion of the framebuffer corresponding to each texel in a fragment shading rate attachment. Each value <b>must</b> be greater than or equal to the values in {@code minFragmentShadingRateAttachmentTexelSize}. Each value <b>must</b> be a power-of-two. It <b>must</b> be <code>(0,0)</code> if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is not supported. */
+    /** indicates maximum supported width and height of the portion of the framebuffer corresponding to each texel in a fragment shading rate attachment. Each value <b>must</b> be greater than or equal to the values in {@code minFragmentShadingRateAttachmentTexelSize}. Each value <b>must</b> be a power-of-two. It <b>must</b> be <code>(0,0)</code> if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is not supported. */
     public VkExtent2D maxFragmentShadingRateAttachmentTexelSize() { return nmaxFragmentShadingRateAttachmentTexelSize(address()); }
-    /** indicates the maximum ratio between the width and height of the portion of the framebuffer corresponding to each texel in a fragment shading rate attachment. {@code maxFragmentShadingRateAttachmentTexelSizeAspectRatio} <b>must</b> be a power-of-two value, and <b>must</b> be less than or equal to <code>max(maxFragmentShadingRateAttachmentTexelSize.width / minFragmentShadingRateAttachmentTexelSize.height, maxFragmentShadingRateAttachmentTexelSize.height / minFragmentShadingRateAttachmentTexelSize.width)</code>. It <b>must</b> be 0 if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is not supported. */
+    /** indicates the maximum ratio between the width and height of the portion of the framebuffer corresponding to each texel in a fragment shading rate attachment. {@code maxFragmentShadingRateAttachmentTexelSizeAspectRatio} <b>must</b> be a power-of-two value, and <b>must</b> be less than or equal to <code>max(maxFragmentShadingRateAttachmentTexelSize.width / minFragmentShadingRateAttachmentTexelSize.height, maxFragmentShadingRateAttachmentTexelSize.height / minFragmentShadingRateAttachmentTexelSize.width)</code>. It <b>must</b> be 0 if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is not supported. */
     @NativeType("uint32_t")
     public int maxFragmentShadingRateAttachmentTexelSizeAspectRatio() { return nmaxFragmentShadingRateAttachmentTexelSizeAspectRatio(address()); }
-    /** specifies whether the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-primitive">primitive fragment shading rate</a> <b>can</b> be used when multiple viewports are used. If this value is {@link VK10#VK_FALSE FALSE}, only a single viewport <b>must</b> be used, and applications <b>must</b> not write to the {@code ViewportMaskNV} or {@code ViewportIndex} built-in when setting {@code PrimitiveShadingRateKHR}. It <b>must</b> be {@link VK10#VK_FALSE FALSE} if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderOutputViewportIndex">{@code shaderOutputViewportIndex}</a> feature, the {@link EXTShaderViewportIndexLayer VK_EXT_shader_viewport_index_layer} extension, or the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not supported, or if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveFragmentShadingRate">{@code primitiveFragmentShadingRate}</a> feature is not supported. */
+    /** specifies whether the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-primitive">primitive fragment shading rate</a> <b>can</b> be used when multiple viewports are used. If this value is {@link VK10#VK_FALSE FALSE}, only a single viewport <b>must</b> be used, and applications <b>must</b> not write to the {@code ViewportMaskNV} or {@code ViewportIndex} built-in when setting {@code PrimitiveShadingRateKHR}. It <b>must</b> be {@link VK10#VK_FALSE FALSE} if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderOutputViewportIndex">{@code shaderOutputViewportIndex}</a> feature, the {@link EXTShaderViewportIndexLayer VK_EXT_shader_viewport_index_layer} extension, or the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not supported, or if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveFragmentShadingRate">{@code primitiveFragmentShadingRate}</a> feature is not supported. */
     @NativeType("VkBool32")
     public boolean primitiveFragmentShadingRateWithMultipleViewports() { return nprimitiveFragmentShadingRateWithMultipleViewports(address()) != 0; }
-    /** specifies whether a shading rate attachment image view <b>can</b> be created with multiple layers. If this value is {@link VK10#VK_FALSE FALSE}, when creating an image view with a {@code usage} that includes {@link KHRFragmentShadingRate#VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}, {@code layerCount} <b>must</b> be 1. It <b>must</b> be {@link VK10#VK_FALSE FALSE} if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> feature, the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderOutputViewportIndex">{@code shaderOutputViewportIndex}</a> feature, the {@link EXTShaderViewportIndexLayer VK_EXT_shader_viewport_index_layer} extension, or the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not supported, or if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is not supported. */
+    /** specifies whether a shading rate attachment image view <b>can</b> be created with multiple layers. If this value is {@link VK10#VK_FALSE FALSE}, when creating an image view with a {@code usage} that includes {@link KHRFragmentShadingRate#VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}, {@code layerCount} <b>must</b> be 1. It <b>must</b> be {@link VK10#VK_FALSE FALSE} if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> feature, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderOutputViewportIndex">{@code shaderOutputViewportIndex}</a> feature, the {@link EXTShaderViewportIndexLayer VK_EXT_shader_viewport_index_layer} extension, or the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not supported, or if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is not supported. */
     @NativeType("VkBool32")
     public boolean layeredShadingRateAttachments() { return nlayeredShadingRateAttachments(address()) != 0; }
-    /** specifies whether {@code VkFragmentShadingRateCombinerOpKHR} enums other than {@link KHRFragmentShadingRate#VK_FRAGMENT_SHADING_RATE_COMBINER_OP_KEEP_KHR FRAGMENT_SHADING_RATE_COMBINER_OP_KEEP_KHR} or {@link KHRFragmentShadingRate#VK_FRAGMENT_SHADING_RATE_COMBINER_OP_REPLACE_KHR FRAGMENT_SHADING_RATE_COMBINER_OP_REPLACE_KHR} <b>can</b> be used. It <b>must</b> be {@link VK10#VK_FALSE FALSE} unless either the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveFragmentShadingRate">{@code primitiveFragmentShadingRate}</a> or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is supported. */
+    /** specifies whether {@code VkFragmentShadingRateCombinerOpKHR} enums other than {@link KHRFragmentShadingRate#VK_FRAGMENT_SHADING_RATE_COMBINER_OP_KEEP_KHR FRAGMENT_SHADING_RATE_COMBINER_OP_KEEP_KHR} or {@link KHRFragmentShadingRate#VK_FRAGMENT_SHADING_RATE_COMBINER_OP_REPLACE_KHR FRAGMENT_SHADING_RATE_COMBINER_OP_REPLACE_KHR} <b>can</b> be used. It <b>must</b> be {@link VK10#VK_FALSE FALSE} unless either the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveFragmentShadingRate">{@code primitiveFragmentShadingRate}</a> or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is supported. */
     @NativeType("VkBool32")
     public boolean fragmentShadingRateNonTrivialCombinerOps() { return nfragmentShadingRateNonTrivialCombinerOps(address()) != 0; }
     /** indicates the maximum supported width and height of a fragment. Its {@code width} and {@code height} members <b>must</b> both be power-of-two values. This limit is purely informational, and is not validated. */
@@ -196,13 +205,13 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
     /** specifies whether the implementation supports reading or writing {@code SampleMask} for multi-pixel fragments. If this value is {@link VK10#VK_FALSE FALSE}, using that built-in will clamp the fragment shading rate to <code>(1,1)</code>. */
     @NativeType("VkBool32")
     public boolean fragmentShadingRateWithShaderSampleMask() { return nfragmentShadingRateWithShaderSampleMask(address()) != 0; }
-    /** specifies whether <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-conservativeraster">conservative rasterization</a> is supported for multi-pixel fragments. It <b>must</b> be {@link VK10#VK_FALSE FALSE} if {@link EXTConservativeRasterization VK_EXT_conservative_rasterization} is not supported. If this value is {@link VK10#VK_FALSE FALSE}, using <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-conservativeraster">conservative rasterization</a> will clamp the fragment shading rate to <code>(1,1)</code>. */
+    /** specifies whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-conservativeraster">conservative rasterization</a> is supported for multi-pixel fragments. It <b>must</b> be {@link VK10#VK_FALSE FALSE} if {@link EXTConservativeRasterization VK_EXT_conservative_rasterization} is not supported. If this value is {@link VK10#VK_FALSE FALSE}, using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-conservativeraster">conservative rasterization</a> will clamp the fragment shading rate to <code>(1,1)</code>. */
     @NativeType("VkBool32")
     public boolean fragmentShadingRateWithConservativeRasterization() { return nfragmentShadingRateWithConservativeRasterization(address()) != 0; }
-    /** specifies whether <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-shader-interlock">fragment shader interlock</a> is supported for multi-pixel fragments. It <b>must</b> be {@link VK10#VK_FALSE FALSE} if {@link EXTFragmentShaderInterlock VK_EXT_fragment_shader_interlock} is not supported. If this value is {@link VK10#VK_FALSE FALSE}, using <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-shader-interlock">fragment shader interlock</a> will clamp the fragment shading rate to <code>(1,1)</code>. */
+    /** specifies whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-shader-interlock">fragment shader interlock</a> is supported for multi-pixel fragments. It <b>must</b> be {@link VK10#VK_FALSE FALSE} if {@link EXTFragmentShaderInterlock VK_EXT_fragment_shader_interlock} is not supported. If this value is {@link VK10#VK_FALSE FALSE}, using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-shader-interlock">fragment shader interlock</a> will clamp the fragment shading rate to <code>(1,1)</code>. */
     @NativeType("VkBool32")
     public boolean fragmentShadingRateWithFragmentShaderInterlock() { return nfragmentShadingRateWithFragmentShaderInterlock(address()) != 0; }
-    /** specifies whether <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-samplelocations">custom sample locations</a> are supported for multi-pixel fragments. It <b>must</b> be {@link VK10#VK_FALSE FALSE} if {@link EXTSampleLocations VK_EXT_sample_locations} is not supported. If this value is {@link VK10#VK_FALSE FALSE}, using <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-samplelocations">custom sample locations</a> will clamp the fragment shading rate to <code>(1,1)</code>. */
+    /** specifies whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-samplelocations">custom sample locations</a> are supported for multi-pixel fragments. It <b>must</b> be {@link VK10#VK_FALSE FALSE} if {@link EXTSampleLocations VK_EXT_sample_locations} is not supported. If this value is {@link VK10#VK_FALSE FALSE}, using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-samplelocations">custom sample locations</a> will clamp the fragment shading rate to <code>(1,1)</code>. */
     @NativeType("VkBool32")
     public boolean fragmentShadingRateWithCustomSampleLocations() { return nfragmentShadingRateWithCustomSampleLocations(address()) != 0; }
     /** specifies whether {@link KHRFragmentShadingRate#VK_FRAGMENT_SHADING_RATE_COMBINER_OP_MUL_KHR FRAGMENT_SHADING_RATE_COMBINER_OP_MUL_KHR} accurately performs a multiplication or not. Implementations where this value is {@link VK10#VK_FALSE FALSE} will instead combine rates with an addition. If {@code fragmentShadingRateNonTrivialCombinerOps} is {@link VK10#VK_FALSE FALSE}, implementations <b>must</b> report this as {@link VK10#VK_FALSE FALSE}. If {@code fragmentShadingRateNonTrivialCombinerOps} is {@link VK10#VK_TRUE TRUE}, implementations <b>should</b> report this as {@link VK10#VK_TRUE TRUE}. */
@@ -243,29 +252,29 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
 
     /** Returns a new {@code VkPhysicalDeviceFragmentShadingRatePropertiesKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR malloc() {
-        return wrap(VkPhysicalDeviceFragmentShadingRatePropertiesKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDeviceFragmentShadingRatePropertiesKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceFragmentShadingRatePropertiesKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR calloc() {
-        return wrap(VkPhysicalDeviceFragmentShadingRatePropertiesKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDeviceFragmentShadingRatePropertiesKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceFragmentShadingRatePropertiesKHR} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDeviceFragmentShadingRatePropertiesKHR.class, memAddress(container), container);
+        return new VkPhysicalDeviceFragmentShadingRatePropertiesKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceFragmentShadingRatePropertiesKHR} instance for the specified memory address. */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR create(long address) {
-        return wrap(VkPhysicalDeviceFragmentShadingRatePropertiesKHR.class, address);
+        return new VkPhysicalDeviceFragmentShadingRatePropertiesKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDeviceFragmentShadingRatePropertiesKHR.class, address);
+        return address == NULL ? null : new VkPhysicalDeviceFragmentShadingRatePropertiesKHR(address, null);
     }
 
     /**
@@ -274,7 +283,7 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -283,7 +292,7 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -293,7 +302,7 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
      */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -303,13 +312,13 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -318,7 +327,7 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceFragmentShadingRatePropertiesKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDeviceFragmentShadingRatePropertiesKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -327,7 +336,7 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceFragmentShadingRatePropertiesKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDeviceFragmentShadingRatePropertiesKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -337,7 +346,7 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -347,7 +356,7 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceFragmentShadingRatePropertiesKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -406,9 +415,9 @@ public class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Struct imp
         /**
          * Creates a new {@code VkPhysicalDeviceFragmentShadingRatePropertiesKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceFragmentShadingRatePropertiesKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDeviceFragmentShadingRatePropertiesKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

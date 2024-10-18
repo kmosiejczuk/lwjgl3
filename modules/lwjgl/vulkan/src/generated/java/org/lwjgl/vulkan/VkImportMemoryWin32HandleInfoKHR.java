@@ -42,8 +42,8 @@ import org.lwjgl.system.windows.*;
  * <li>If {@code handleType} is not 0 and {@code handle} is {@code NULL}, {@code name} <b>must</b> name a valid memory resource of the type specified by {@code handleType}</li>
  * <li>If {@code handleType} is not 0 and {@code name} is {@code NULL}, {@code handle} <b>must</b> be a valid handle of the type specified by {@code handleType}</li>
  * <li>If {@code handle} is not {@code NULL}, {@code name} <b>must</b> be {@code NULL}</li>
- * <li>If {@code handle} is not {@code NULL}, it <b>must</b> obey any requirements listed for {@code handleType} in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#external-memory-handle-types-compatibility">external memory handle types compatibility</a></li>
- * <li>If {@code name} is not {@code NULL}, it <b>must</b> obey any requirements listed for {@code handleType} in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#external-memory-handle-types-compatibility">external memory handle types compatibility</a></li>
+ * <li>If {@code handle} is not {@code NULL}, it <b>must</b> obey any requirements listed for {@code handleType} in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#external-memory-handle-types-compatibility">external memory handle types compatibility</a></li>
+ * <li>If {@code name} is not {@code NULL}, it <b>must</b> obey any requirements listed for {@code handleType} in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#external-memory-handle-types-compatibility">external memory handle types compatibility</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -64,7 +64,7 @@ import org.lwjgl.system.windows.*;
  *     LPCWSTR {@link #name};
  * }</code></pre>
  */
-public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeResource {
+public class VkImportMemoryWin32HandleInfoKHR extends Struct<VkImportMemoryWin32HandleInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -99,6 +99,15 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
         NAME = layout.offsetof(4);
     }
 
+    protected VkImportMemoryWin32HandleInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkImportMemoryWin32HandleInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkImportMemoryWin32HandleInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkImportMemoryWin32HandleInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -112,7 +121,7 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -177,29 +186,29 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
 
     /** Returns a new {@code VkImportMemoryWin32HandleInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImportMemoryWin32HandleInfoKHR malloc() {
-        return wrap(VkImportMemoryWin32HandleInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkImportMemoryWin32HandleInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkImportMemoryWin32HandleInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImportMemoryWin32HandleInfoKHR calloc() {
-        return wrap(VkImportMemoryWin32HandleInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkImportMemoryWin32HandleInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkImportMemoryWin32HandleInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkImportMemoryWin32HandleInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkImportMemoryWin32HandleInfoKHR.class, memAddress(container), container);
+        return new VkImportMemoryWin32HandleInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkImportMemoryWin32HandleInfoKHR} instance for the specified memory address. */
     public static VkImportMemoryWin32HandleInfoKHR create(long address) {
-        return wrap(VkImportMemoryWin32HandleInfoKHR.class, address);
+        return new VkImportMemoryWin32HandleInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImportMemoryWin32HandleInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkImportMemoryWin32HandleInfoKHR.class, address);
+        return address == NULL ? null : new VkImportMemoryWin32HandleInfoKHR(address, null);
     }
 
     /**
@@ -208,7 +217,7 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryWin32HandleInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -217,7 +226,7 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryWin32HandleInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -227,7 +236,7 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
      */
     public static VkImportMemoryWin32HandleInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -237,13 +246,13 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryWin32HandleInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImportMemoryWin32HandleInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -271,7 +280,7 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static VkImportMemoryWin32HandleInfoKHR malloc(MemoryStack stack) {
-        return wrap(VkImportMemoryWin32HandleInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkImportMemoryWin32HandleInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -280,7 +289,7 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static VkImportMemoryWin32HandleInfoKHR calloc(MemoryStack stack) {
-        return wrap(VkImportMemoryWin32HandleInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkImportMemoryWin32HandleInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -290,7 +299,7 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryWin32HandleInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -300,7 +309,7 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryWin32HandleInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -352,9 +361,9 @@ public class VkImportMemoryWin32HandleInfoKHR extends Struct implements NativeRe
         /**
          * Creates a new {@code VkImportMemoryWin32HandleInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImportMemoryWin32HandleInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkImportMemoryWin32HandleInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -22,8 +22,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>The new struct {@link VkShaderModuleValidationCacheCreateInfoEXT} can be included in the {@code pNext} chain at {@link VK10#vkCreateShaderModule CreateShaderModule} time. It contains a {@code VkValidationCacheEXT} to use when validating the {@code VkShaderModule}.</p>
  * 
- * <h5>VK_EXT_validation_cache</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_validation_cache}</dd>
@@ -35,7 +33,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>1</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Cort Stratton <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_validation_cache]%20@cdwfs%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_validation_cache%20extension*">cdwfs</a></li>
+ * <li>Cort Stratton <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_validation_cache]%20@cdwfs%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_validation_cache%20extension*">cdwfs</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -165,7 +163,7 @@ public class EXTValidationCache {
      *
      * @param device           the logical device that creates the validation cache object.
      * @param pCreateInfo      a pointer to a {@link VkValidationCacheCreateInfoEXT} structure containing the initial parameters for the validation cache object.
-     * @param pAllocator       controls host memory allocation as described in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator       controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pValidationCache a pointer to a {@code VkValidationCacheEXT} handle in which the resulting validation cache object is returned.
      */
     @NativeType("VkResult")
@@ -228,7 +226,7 @@ public class EXTValidationCache {
      *
      * @param device          the logical device that destroys the validation cache object.
      * @param validationCache the handle of the validation cache to destroy.
-     * @param pAllocator      controls host memory allocation as described in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator      controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
     public static void vkDestroyValidationCacheEXT(VkDevice device, @NativeType("VkValidationCacheEXT") long validationCache, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
         nvkDestroyValidationCacheEXT(device, validationCache, memAddressSafe(pAllocator));
@@ -347,7 +345,7 @@ public class EXTValidationCache {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pData} is {@code NULL}, then the maximum size of the data that <b>can</b> be retrieved from the validation cache, in bytes, is returned in {@code pDataSize}. Otherwise, {@code pDataSize} <b>must</b> point to a variable set by the user to the size of the buffer, in bytes, pointed to by {@code pData}, and on return the variable is overwritten with the amount of data actually written to {@code pData}. If {@code pDataSize} is less than the maximum size that <b>can</b> be retrieved by the validation cache, at most {@code pDataSize} bytes will be written to {@code pData}, and {@code vkGetValidationCacheDataEXT} will return {@link VK10#VK_INCOMPLETE INCOMPLETE} instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all of the validation cache was returned.</p>
+     * <p>If {@code pData} is {@code NULL}, then the maximum size of the data that <b>can</b> be retrieved from the validation cache, in bytes, is returned in {@code pDataSize}. Otherwise, {@code pDataSize} <b>must</b> point to a variable set by the application to the size of the buffer, in bytes, pointed to by {@code pData}, and on return the variable is overwritten with the amount of data actually written to {@code pData}. If {@code pDataSize} is less than the maximum size that <b>can</b> be retrieved by the validation cache, at most {@code pDataSize} bytes will be written to {@code pData}, and {@code vkGetValidationCacheDataEXT} will return {@link VK10#VK_INCOMPLETE INCOMPLETE} instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all of the validation cache was returned.</p>
      * 
      * <p>Any data written to {@code pData} is valid and <b>can</b> be provided as the {@code pInitialData} member of the {@link VkValidationCacheCreateInfoEXT} structure passed to {@code vkCreateValidationCacheEXT}.</p>
      * 

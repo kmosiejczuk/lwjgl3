@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct io_uring_file_index_range")
-public class IOURingFileIndexRange extends Struct implements NativeResource {
+public class IOURingFileIndexRange extends Struct<IOURingFileIndexRange> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -59,6 +59,15 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
         RESV = layout.offsetof(2);
     }
 
+    protected IOURingFileIndexRange(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected IOURingFileIndexRange create(long address, @Nullable ByteBuffer container) {
+        return new IOURingFileIndexRange(address, container);
+    }
+
     /**
      * Creates a {@code IOURingFileIndexRange} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -78,26 +87,19 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
     /** @return the value of the {@code len} field. */
     @NativeType("__u32")
     public int len() { return nlen(address()); }
-    /** @return the value of the {@code resv} field. */
-    @NativeType("__u64")
-    public long resv() { return nresv(address()); }
 
     /** Sets the specified value to the {@code off} field. */
     public IOURingFileIndexRange off(@NativeType("__u32") int value) { noff(address(), value); return this; }
     /** Sets the specified value to the {@code len} field. */
     public IOURingFileIndexRange len(@NativeType("__u32") int value) { nlen(address(), value); return this; }
-    /** Sets the specified value to the {@code resv} field. */
-    public IOURingFileIndexRange resv(@NativeType("__u64") long value) { nresv(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOURingFileIndexRange set(
         int off,
-        int len,
-        long resv
+        int len
     ) {
         off(off);
         len(len);
-        resv(resv);
 
         return this;
     }
@@ -118,29 +120,29 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
 
     /** Returns a new {@code IOURingFileIndexRange} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static IOURingFileIndexRange malloc() {
-        return wrap(IOURingFileIndexRange.class, nmemAllocChecked(SIZEOF));
+        return new IOURingFileIndexRange(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code IOURingFileIndexRange} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static IOURingFileIndexRange calloc() {
-        return wrap(IOURingFileIndexRange.class, nmemCallocChecked(1, SIZEOF));
+        return new IOURingFileIndexRange(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code IOURingFileIndexRange} instance allocated with {@link BufferUtils}. */
     public static IOURingFileIndexRange create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(IOURingFileIndexRange.class, memAddress(container), container);
+        return new IOURingFileIndexRange(memAddress(container), container);
     }
 
     /** Returns a new {@code IOURingFileIndexRange} instance for the specified memory address. */
     public static IOURingFileIndexRange create(long address) {
-        return wrap(IOURingFileIndexRange.class, address);
+        return new IOURingFileIndexRange(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingFileIndexRange createSafe(long address) {
-        return address == NULL ? null : wrap(IOURingFileIndexRange.class, address);
+        return address == NULL ? null : new IOURingFileIndexRange(address, null);
     }
 
     /**
@@ -149,7 +151,7 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingFileIndexRange.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -158,7 +160,7 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingFileIndexRange.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -168,7 +170,7 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
      */
     public static IOURingFileIndexRange.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -178,13 +180,13 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingFileIndexRange.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingFileIndexRange.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -193,7 +195,7 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingFileIndexRange malloc(MemoryStack stack) {
-        return wrap(IOURingFileIndexRange.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new IOURingFileIndexRange(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -202,7 +204,7 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingFileIndexRange calloc(MemoryStack stack) {
-        return wrap(IOURingFileIndexRange.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new IOURingFileIndexRange(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -212,7 +214,7 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingFileIndexRange.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -222,7 +224,7 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingFileIndexRange.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -231,14 +233,12 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
     public static int noff(long struct) { return UNSAFE.getInt(null, struct + IOURingFileIndexRange.OFF); }
     /** Unsafe version of {@link #len}. */
     public static int nlen(long struct) { return UNSAFE.getInt(null, struct + IOURingFileIndexRange.LEN); }
-    /** Unsafe version of {@link #resv}. */
     public static long nresv(long struct) { return UNSAFE.getLong(null, struct + IOURingFileIndexRange.RESV); }
 
     /** Unsafe version of {@link #off(int) off}. */
     public static void noff(long struct, int value) { UNSAFE.putInt(null, struct + IOURingFileIndexRange.OFF, value); }
     /** Unsafe version of {@link #len(int) len}. */
     public static void nlen(long struct, int value) { UNSAFE.putInt(null, struct + IOURingFileIndexRange.LEN, value); }
-    /** Unsafe version of {@link #resv(long) resv}. */
     public static void nresv(long struct, long value) { UNSAFE.putLong(null, struct + IOURingFileIndexRange.RESV, value); }
 
     // -----------------------------------
@@ -251,9 +251,9 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
         /**
          * Creates a new {@code IOURingFileIndexRange.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link IOURingFileIndexRange#SIZEOF}, and its mark will be undefined.
+         * by {@link IOURingFileIndexRange#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -285,16 +285,11 @@ public class IOURingFileIndexRange extends Struct implements NativeResource {
         /** @return the value of the {@code len} field. */
         @NativeType("__u32")
         public int len() { return IOURingFileIndexRange.nlen(address()); }
-        /** @return the value of the {@code resv} field. */
-        @NativeType("__u64")
-        public long resv() { return IOURingFileIndexRange.nresv(address()); }
 
         /** Sets the specified value to the {@code off} field. */
         public IOURingFileIndexRange.Buffer off(@NativeType("__u32") int value) { IOURingFileIndexRange.noff(address(), value); return this; }
         /** Sets the specified value to the {@code len} field. */
         public IOURingFileIndexRange.Buffer len(@NativeType("__u32") int value) { IOURingFileIndexRange.nlen(address(), value); return this; }
-        /** Sets the specified value to the {@code resv} field. */
-        public IOURingFileIndexRange.Buffer resv(@NativeType("__u64") long value) { IOURingFileIndexRange.nresv(address(), value); return this; }
 
     }
 

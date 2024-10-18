@@ -20,9 +20,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If a {@link VkGraphicsPipelineLibraryCreateInfoEXT} structure is included in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}, it specifies the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets">subsets of the graphics pipeline</a> being created, excluding any subsets from linked pipeline libraries. If the pipeline is created with pipeline libraries, state from those libraries is aggregated with said subset.</p>
+ * <p>If a {@link VkGraphicsPipelineLibraryCreateInfoEXT} structure is included in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}, it specifies the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets">subsets of the graphics pipeline</a> being created, excluding any subsets from linked pipeline libraries. If the pipeline is created with pipeline libraries, state from those libraries is aggregated with said subset.</p>
  * 
- * <p>If this structure is omitted, and either {@link VkGraphicsPipelineCreateInfo}{@code ::flags} includes {@link KHRPipelineLibrary#VK_PIPELINE_CREATE_LIBRARY_BIT_KHR PIPELINE_CREATE_LIBRARY_BIT_KHR} or the {@link VkGraphicsPipelineCreateInfo}{@code ::pNext} chain includes a {@link VkPipelineLibraryCreateInfoKHR} structure with a {@code libraryCount} greater than 0, it is as if {@code flags} is 0. Otherwise if this structure is omitted, it is as if {@code flags} includes all possible subsets of the graphics pipeline (i.e. a <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets-complete">complete graphics pipeline</a>).</p>
+ * <p>If this structure is omitted, and either {@link VkGraphicsPipelineCreateInfo}{@code ::flags} includes {@link KHRPipelineLibrary#VK_PIPELINE_CREATE_LIBRARY_BIT_KHR PIPELINE_CREATE_LIBRARY_BIT_KHR} or the {@link VkGraphicsPipelineCreateInfo}{@code ::pNext} chain includes a {@link VkPipelineLibraryCreateInfoKHR} structure with a {@code libraryCount} greater than 0, it is as if {@code flags} is 0. Otherwise if this structure is omitted, it is as if {@code flags} includes all possible subsets of the graphics pipeline (i.e. a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets-complete">complete graphics pipeline</a>).</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -37,11 +37,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * <pre><code>
  * struct VkGraphicsPipelineLibraryCreateInfoEXT {
  *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
+ *     void const * {@link #pNext};
  *     VkGraphicsPipelineLibraryFlagsEXT {@link #flags};
  * }</code></pre>
  */
-public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements NativeResource {
+public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct<VkGraphicsPipelineLibraryCreateInfoEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,6 +70,15 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
         FLAGS = layout.offsetof(2);
     }
 
+    protected VkGraphicsPipelineLibraryCreateInfoEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkGraphicsPipelineLibraryCreateInfoEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkGraphicsPipelineLibraryCreateInfoEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkGraphicsPipelineLibraryCreateInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -83,11 +92,11 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
-    @NativeType("void *")
+    @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** a bitmask of {@code VkGraphicsPipelineLibraryFlagBitsEXT} specifying the subsets of the graphics pipeline that are being compiled. */
     @NativeType("VkGraphicsPipelineLibraryFlagsEXT")
@@ -98,7 +107,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
     /** Sets the {@link EXTGraphicsPipelineLibrary#VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT} value to the {@link #sType} field. */
     public VkGraphicsPipelineLibraryCreateInfoEXT sType$Default() { return sType(EXTGraphicsPipelineLibrary.VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
-    public VkGraphicsPipelineLibraryCreateInfoEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
+    public VkGraphicsPipelineLibraryCreateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #flags} field. */
     public VkGraphicsPipelineLibraryCreateInfoEXT flags(@NativeType("VkGraphicsPipelineLibraryFlagsEXT") int value) { nflags(address(), value); return this; }
 
@@ -131,29 +140,29 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
 
     /** Returns a new {@code VkGraphicsPipelineLibraryCreateInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkGraphicsPipelineLibraryCreateInfoEXT malloc() {
-        return wrap(VkGraphicsPipelineLibraryCreateInfoEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkGraphicsPipelineLibraryCreateInfoEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkGraphicsPipelineLibraryCreateInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkGraphicsPipelineLibraryCreateInfoEXT calloc() {
-        return wrap(VkGraphicsPipelineLibraryCreateInfoEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkGraphicsPipelineLibraryCreateInfoEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkGraphicsPipelineLibraryCreateInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkGraphicsPipelineLibraryCreateInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkGraphicsPipelineLibraryCreateInfoEXT.class, memAddress(container), container);
+        return new VkGraphicsPipelineLibraryCreateInfoEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkGraphicsPipelineLibraryCreateInfoEXT} instance for the specified memory address. */
     public static VkGraphicsPipelineLibraryCreateInfoEXT create(long address) {
-        return wrap(VkGraphicsPipelineLibraryCreateInfoEXT.class, address);
+        return new VkGraphicsPipelineLibraryCreateInfoEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkGraphicsPipelineLibraryCreateInfoEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkGraphicsPipelineLibraryCreateInfoEXT.class, address);
+        return address == NULL ? null : new VkGraphicsPipelineLibraryCreateInfoEXT(address, null);
     }
 
     /**
@@ -162,7 +171,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkGraphicsPipelineLibraryCreateInfoEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -171,7 +180,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkGraphicsPipelineLibraryCreateInfoEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -181,7 +190,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
      */
     public static VkGraphicsPipelineLibraryCreateInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -191,13 +200,13 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkGraphicsPipelineLibraryCreateInfoEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkGraphicsPipelineLibraryCreateInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -206,7 +215,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
      * @param stack the stack from which to allocate
      */
     public static VkGraphicsPipelineLibraryCreateInfoEXT malloc(MemoryStack stack) {
-        return wrap(VkGraphicsPipelineLibraryCreateInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkGraphicsPipelineLibraryCreateInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -215,7 +224,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
      * @param stack the stack from which to allocate
      */
     public static VkGraphicsPipelineLibraryCreateInfoEXT calloc(MemoryStack stack) {
-        return wrap(VkGraphicsPipelineLibraryCreateInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkGraphicsPipelineLibraryCreateInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -225,7 +234,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkGraphicsPipelineLibraryCreateInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -235,7 +244,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkGraphicsPipelineLibraryCreateInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -264,9 +273,9 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
         /**
          * Creates a new {@code VkGraphicsPipelineLibraryCreateInfoEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkGraphicsPipelineLibraryCreateInfoEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkGraphicsPipelineLibraryCreateInfoEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -296,7 +305,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
         @NativeType("VkStructureType")
         public int sType() { return VkGraphicsPipelineLibraryCreateInfoEXT.nsType(address()); }
         /** @return the value of the {@link VkGraphicsPipelineLibraryCreateInfoEXT#pNext} field. */
-        @NativeType("void *")
+        @NativeType("void const *")
         public long pNext() { return VkGraphicsPipelineLibraryCreateInfoEXT.npNext(address()); }
         /** @return the value of the {@link VkGraphicsPipelineLibraryCreateInfoEXT#flags} field. */
         @NativeType("VkGraphicsPipelineLibraryFlagsEXT")
@@ -307,7 +316,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct implements Na
         /** Sets the {@link EXTGraphicsPipelineLibrary#VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT} value to the {@link VkGraphicsPipelineLibraryCreateInfoEXT#sType} field. */
         public VkGraphicsPipelineLibraryCreateInfoEXT.Buffer sType$Default() { return sType(EXTGraphicsPipelineLibrary.VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT); }
         /** Sets the specified value to the {@link VkGraphicsPipelineLibraryCreateInfoEXT#pNext} field. */
-        public VkGraphicsPipelineLibraryCreateInfoEXT.Buffer pNext(@NativeType("void *") long value) { VkGraphicsPipelineLibraryCreateInfoEXT.npNext(address(), value); return this; }
+        public VkGraphicsPipelineLibraryCreateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkGraphicsPipelineLibraryCreateInfoEXT.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkGraphicsPipelineLibraryCreateInfoEXT#flags} field. */
         public VkGraphicsPipelineLibraryCreateInfoEXT.Buffer flags(@NativeType("VkGraphicsPipelineLibraryFlagsEXT") int value) { VkGraphicsPipelineLibraryCreateInfoEXT.nflags(address(), value); return this; }
 

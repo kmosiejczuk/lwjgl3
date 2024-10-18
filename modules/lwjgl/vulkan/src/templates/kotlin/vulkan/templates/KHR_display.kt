@@ -15,10 +15,9 @@ val KHR_display = "KHRDisplay".nativeClassVK("KHR_display", type = "instance", p
 
         <h5>Examples</h5>
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-        The example code for the {@code VK_KHR_display} and {@link KHRDisplaySwapchain VK_KHR_display_swapchain} extensions was removed from the appendix after revision 1.0.43. The display enumeration example code was ported to the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c</a>).
+        The example code for the {@code VK_KHR_display} and {@link KHRDisplaySwapchain VK_KHR_display_swapchain} extensions was removed from the appendix after revision 1.0.43. The display enumeration example code was ported to the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c</a>).
         </div>
 
-        <h5>VK_KHR_display</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_display}</dd>
@@ -37,8 +36,8 @@ val KHR_display = "KHRDisplay".nativeClassVK("KHR_display", type = "instance", p
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_display]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_display%20extension*">cubanismo</a></li>
-                <li>Norbert Nopper <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_display]%20@FslNopper%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_display%20extension*">FslNopper</a></li>
+                <li>James Jones <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_display]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_display%20extension*">cubanismo</a></li>
+                <li>Norbert Nopper <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_display]%20@FslNopper%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_display%20extension*">FslNopper</a></li>
             </ul></dd>
         </dl>
 
@@ -123,7 +122,7 @@ val KHR_display = "KHRDisplay".nativeClassVK("KHR_display", type = "instance", p
 ￿    VkDisplayPropertiesKHR*                     pProperties);</code></pre>
 
         <h5>Description</h5>
-        If {@code pProperties} is {@code NULL}, then the number of display devices available for {@code physicalDevice} is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If the value of {@code pPropertyCount} is less than the number of display devices for {@code physicalDevice}, at most {@code pPropertyCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available properties were returned.
+        If {@code pProperties} is {@code NULL}, then the number of display devices available for {@code physicalDevice} is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If the value of {@code pPropertyCount} is less than the number of display devices for {@code physicalDevice}, at most {@code pPropertyCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available properties were returned.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -162,7 +161,7 @@ val KHR_display = "KHRDisplay".nativeClassVK("KHR_display", type = "instance", p
         Query the plane properties.
 
         <h5>C Specification</h5>
-        Images are presented to individual planes on a display. Devices <b>must</b> support at least one plane on each display. Planes <b>can</b> be stacked and blended to composite multiple images on one display. Devices <b>may</b> support only a fixed stacking order and fixed mapping between planes and displays, or they <b>may</b> allow arbitrary application specified stacking orders and mappings between planes and displays. To query the properties of device display planes, call:
+        Images are presented to individual planes on a display. Devices <b>must</b> support at least one plane on each display. Planes <b>can</b> be stacked and blended to composite multiple images on one display. Devices <b>may</b> support only a fixed stacking order and fixed mapping between planes and displays, or they <b>may</b> allow arbitrary application-specified stacking orders and mappings between planes and displays. To query the properties of device display planes, call:
 
         <pre><code>
 ￿VkResult vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
@@ -171,7 +170,7 @@ val KHR_display = "KHRDisplay".nativeClassVK("KHR_display", type = "instance", p
 ￿    VkDisplayPlanePropertiesKHR*                pProperties);</code></pre>
 
         <h5>Description</h5>
-        If {@code pProperties} is {@code NULL}, then the number of display planes available for {@code physicalDevice} is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If the value of {@code pPropertyCount} is less than the number of display planes for {@code physicalDevice}, at most {@code pPropertyCount} structures will be written.
+        If {@code pProperties} is {@code NULL}, then the number of display planes available for {@code physicalDevice} is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If the value of {@code pPropertyCount} is less than the number of display planes for {@code physicalDevice}, at most {@code pPropertyCount} structures will be written.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -220,7 +219,7 @@ val KHR_display = "KHRDisplay".nativeClassVK("KHR_display", type = "instance", p
 ￿    VkDisplayKHR*                               pDisplays);</code></pre>
 
         <h5>Description</h5>
-        If {@code pDisplays} is {@code NULL}, then the number of displays usable with the specified {@code planeIndex} for {@code physicalDevice} is returned in {@code pDisplayCount}. Otherwise, {@code pDisplayCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pDisplays} array, and on return the variable is overwritten with the number of handles actually written to {@code pDisplays}. If the value of {@code pDisplayCount} is less than the number of usable display-plane pairs for {@code physicalDevice}, at most {@code pDisplayCount} handles will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available pairs were returned.
+        If {@code pDisplays} is {@code NULL}, then the number of displays usable with the specified {@code planeIndex} for {@code physicalDevice} is returned in {@code pDisplayCount}. Otherwise, {@code pDisplayCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pDisplays} array, and on return the variable is overwritten with the number of handles actually written to {@code pDisplays}. If the value of {@code pDisplayCount} is less than the number of usable display-plane pairs for {@code physicalDevice}, at most {@code pDisplayCount} handles will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available pairs were returned.
 
         <h5>Valid Usage</h5>
         <ul>
@@ -272,7 +271,7 @@ val KHR_display = "KHRDisplay".nativeClassVK("KHR_display", type = "instance", p
 ￿    VkDisplayModePropertiesKHR*                 pProperties);</code></pre>
 
         <h5>Description</h5>
-        If {@code pProperties} is {@code NULL}, then the number of display modes available on the specified {@code display} for {@code physicalDevice} is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If the value of {@code pPropertyCount} is less than the number of display modes for {@code physicalDevice}, at most {@code pPropertyCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available display modes were returned.
+        If {@code pProperties} is {@code NULL}, then the number of display modes available on the specified {@code display} for {@code physicalDevice} is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If the value of {@code pPropertyCount} is less than the number of display modes for {@code physicalDevice}, at most {@code pPropertyCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available display modes were returned.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -361,7 +360,7 @@ val KHR_display = "KHRDisplay".nativeClassVK("KHR_display", type = "instance", p
         VkPhysicalDevice("physicalDevice", "the physical device associated with {@code display}."),
         VkDisplayKHR("display", "the display to create an additional mode for."),
         VkDisplayModeCreateInfoKHR.const.p("pCreateInfo", "a pointer to a ##VkDisplayModeCreateInfoKHR structure describing the new mode to create."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the display mode object when there is no more specific allocator available (see <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>)."),
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the display mode object when there is no more specific allocator available (see <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>)."),
         Check(1)..VkDisplayModeKHR.p("pMode", "a pointer to a {@code VkDisplayModeKHR} handle in which the mode created is returned.")
     )
 
@@ -385,6 +384,7 @@ val KHR_display = "KHRDisplay".nativeClassVK("KHR_display", type = "instance", p
             <li>{@code physicalDevice} <b>must</b> be a valid {@code VkPhysicalDevice} handle</li>
             <li>{@code mode} <b>must</b> be a valid {@code VkDisplayModeKHR} handle</li>
             <li>{@code pCapabilities} <b>must</b> be a valid pointer to a ##VkDisplayPlaneCapabilitiesKHR structure</li>
+            <li>{@code mode} <b>must</b> have been created, allocated, or retrieved from {@code physicalDevice}</li>
         </ul>
 
         <h5>Host Synchronization</h5>
@@ -459,7 +459,7 @@ val KHR_display = "KHRDisplay".nativeClassVK("KHR_display", type = "instance", p
 
         VkInstance("instance", "the instance corresponding to the physical device the targeted display is on."),
         VkDisplaySurfaceCreateInfoKHR.const.p("pCreateInfo", "a pointer to a ##VkDisplaySurfaceCreateInfoKHR structure specifying which mode, plane, and other parameters to use, as described below."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>)."),
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>)."),
         Check(1)..VkSurfaceKHR.p("pSurface", "a pointer to a {@code VkSurfaceKHR} handle in which the created surface is returned.")
     )
 }

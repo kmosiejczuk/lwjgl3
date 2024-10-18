@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct io_uring_probe")
-public class IOURingProbe extends Struct implements NativeResource {
+public class IOURingProbe extends Struct<IOURingProbe> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -64,6 +64,15 @@ public class IOURingProbe extends Struct implements NativeResource {
         OPS = layout.offsetof(4);
     }
 
+    protected IOURingProbe(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected IOURingProbe create(long address, @Nullable ByteBuffer container) {
+        return new IOURingProbe(address, container);
+    }
+
     /**
      * Creates a {@code IOURingProbe} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -83,9 +92,6 @@ public class IOURingProbe extends Struct implements NativeResource {
     /** @return the value of the {@code ops_len} field. */
     @NativeType("__u8")
     public byte ops_len() { return nops_len(address()); }
-    /** @return the value of the {@code resv} field. */
-    @NativeType("__u16")
-    public short resv() { return nresv(address()); }
     /** @return a {@link IOURingProbeOp}.Buffer view of the {@code ops} field. */
     @NativeType("struct io_uring_probe_op[0]")
     public IOURingProbeOp.Buffer ops() { return nops(address()); }
@@ -97,8 +103,6 @@ public class IOURingProbe extends Struct implements NativeResource {
     public IOURingProbe last_op(@NativeType("__u8") byte value) { nlast_op(address(), value); return this; }
     /** Sets the specified value to the {@code ops_len} field. */
     public IOURingProbe ops_len(@NativeType("__u8") byte value) { nops_len(address(), value); return this; }
-    /** Sets the specified value to the {@code resv} field. */
-    public IOURingProbe resv(@NativeType("__u16") short value) { nresv(address(), value); return this; }
     /** Copies the specified {@link IOURingProbeOp.Buffer} to the {@code ops} field. */
     public IOURingProbe ops(@NativeType("struct io_uring_probe_op[0]") IOURingProbeOp.Buffer value) { nops(address(), value); return this; }
     /** Copies the specified {@link IOURingProbeOp} at the specified index of the {@code ops} field. */
@@ -112,12 +116,10 @@ public class IOURingProbe extends Struct implements NativeResource {
     public IOURingProbe set(
         byte last_op,
         byte ops_len,
-        short resv,
         IOURingProbeOp.Buffer ops
     ) {
         last_op(last_op);
         ops_len(ops_len);
-        resv(resv);
         ops(ops);
 
         return this;
@@ -139,29 +141,29 @@ public class IOURingProbe extends Struct implements NativeResource {
 
     /** Returns a new {@code IOURingProbe} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static IOURingProbe malloc() {
-        return wrap(IOURingProbe.class, nmemAllocChecked(SIZEOF));
+        return new IOURingProbe(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code IOURingProbe} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static IOURingProbe calloc() {
-        return wrap(IOURingProbe.class, nmemCallocChecked(1, SIZEOF));
+        return new IOURingProbe(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code IOURingProbe} instance allocated with {@link BufferUtils}. */
     public static IOURingProbe create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(IOURingProbe.class, memAddress(container), container);
+        return new IOURingProbe(memAddress(container), container);
     }
 
     /** Returns a new {@code IOURingProbe} instance for the specified memory address. */
     public static IOURingProbe create(long address) {
-        return wrap(IOURingProbe.class, address);
+        return new IOURingProbe(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingProbe createSafe(long address) {
-        return address == NULL ? null : wrap(IOURingProbe.class, address);
+        return address == NULL ? null : new IOURingProbe(address, null);
     }
 
     /**
@@ -170,7 +172,7 @@ public class IOURingProbe extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingProbe.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -179,7 +181,7 @@ public class IOURingProbe extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingProbe.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -189,7 +191,7 @@ public class IOURingProbe extends Struct implements NativeResource {
      */
     public static IOURingProbe.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -199,13 +201,13 @@ public class IOURingProbe extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingProbe.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingProbe.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -214,7 +216,7 @@ public class IOURingProbe extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingProbe malloc(MemoryStack stack) {
-        return wrap(IOURingProbe.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new IOURingProbe(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -223,7 +225,7 @@ public class IOURingProbe extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingProbe calloc(MemoryStack stack) {
-        return wrap(IOURingProbe.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new IOURingProbe(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -233,7 +235,7 @@ public class IOURingProbe extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingProbe.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -243,7 +245,7 @@ public class IOURingProbe extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingProbe.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -252,7 +254,6 @@ public class IOURingProbe extends Struct implements NativeResource {
     public static byte nlast_op(long struct) { return UNSAFE.getByte(null, struct + IOURingProbe.LAST_OP); }
     /** Unsafe version of {@link #ops_len}. */
     public static byte nops_len(long struct) { return UNSAFE.getByte(null, struct + IOURingProbe.OPS_LEN); }
-    /** Unsafe version of {@link #resv}. */
     public static short nresv(long struct) { return UNSAFE.getShort(null, struct + IOURingProbe.RESV); }
     public static IntBuffer nresv2(long struct) { return memIntBuffer(struct + IOURingProbe.RESV2, 3); }
     public static int nresv2(long struct, int index) {
@@ -269,7 +270,6 @@ public class IOURingProbe extends Struct implements NativeResource {
     public static void nlast_op(long struct, byte value) { UNSAFE.putByte(null, struct + IOURingProbe.LAST_OP, value); }
     /** Unsafe version of {@link #ops_len(byte) ops_len}. */
     public static void nops_len(long struct, byte value) { UNSAFE.putByte(null, struct + IOURingProbe.OPS_LEN, value); }
-    /** Unsafe version of {@link #resv(short) resv}. */
     public static void nresv(long struct, short value) { UNSAFE.putShort(null, struct + IOURingProbe.RESV, value); }
     public static void nresv2(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
@@ -298,9 +298,9 @@ public class IOURingProbe extends Struct implements NativeResource {
         /**
          * Creates a new {@code IOURingProbe.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link IOURingProbe#SIZEOF}, and its mark will be undefined.
+         * by {@link IOURingProbe#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -332,9 +332,6 @@ public class IOURingProbe extends Struct implements NativeResource {
         /** @return the value of the {@code ops_len} field. */
         @NativeType("__u8")
         public byte ops_len() { return IOURingProbe.nops_len(address()); }
-        /** @return the value of the {@code resv} field. */
-        @NativeType("__u16")
-        public short resv() { return IOURingProbe.nresv(address()); }
         /** @return a {@link IOURingProbeOp}.Buffer view of the {@code ops} field. */
         @NativeType("struct io_uring_probe_op[0]")
         public IOURingProbeOp.Buffer ops() { return IOURingProbe.nops(address()); }
@@ -346,8 +343,6 @@ public class IOURingProbe extends Struct implements NativeResource {
         public IOURingProbe.Buffer last_op(@NativeType("__u8") byte value) { IOURingProbe.nlast_op(address(), value); return this; }
         /** Sets the specified value to the {@code ops_len} field. */
         public IOURingProbe.Buffer ops_len(@NativeType("__u8") byte value) { IOURingProbe.nops_len(address(), value); return this; }
-        /** Sets the specified value to the {@code resv} field. */
-        public IOURingProbe.Buffer resv(@NativeType("__u16") short value) { IOURingProbe.nresv(address(), value); return this; }
         /** Copies the specified {@link IOURingProbeOp.Buffer} to the {@code ops} field. */
         public IOURingProbe.Buffer ops(@NativeType("struct io_uring_probe_op[0]") IOURingProbeOp.Buffer value) { IOURingProbe.nops(address(), value); return this; }
         /** Copies the specified {@link IOURingProbeOp} at the specified index of the {@code ops} field. */

@@ -12,8 +12,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>This extension also defines the behavior between samplers with an opaque black border color and image views with a non-identity component swizzle, which was previously left undefined.</p>
  * 
- * <h5>VK_EXT_border_color_swizzle</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_border_color_swizzle}</dd>
@@ -27,12 +25,12 @@ package org.lwjgl.vulkan;
  * <dd>{@link EXTCustomBorderColor VK_EXT_custom_border_color}</dd>
  * <dt><b>Special Uses</b></dt>
  * <dd><ul>
- * <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
- * <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">D3D support</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">D3D support</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Piers Daniell <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_border_color_swizzle]%20@pdaniell-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_border_color_swizzle%20extension*">pdaniell-nv</a></li>
+ * <li>Piers Daniell <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_border_color_swizzle]%20@pdaniell-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_border_color_swizzle%20extension*">pdaniell-nv</a></li>
  * </ul></dd>
  * </dl>
  * 

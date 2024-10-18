@@ -15,7 +15,6 @@ val KHR_external_memory_win32 = "KHRExternalMemoryWin32".nativeClassVK("KHR_exte
         """
         An application may wish to reference device memory in multiple Vulkan logical devices or instances, in multiple processes, and/or in multiple APIs. This extension enables an application to export Windows handles from Vulkan memory objects and to import Vulkan memory objects from Windows handles exported from other Vulkan memory objects or from similar resources in other APIs.
 
-        <h5>VK_KHR_external_memory_win32</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_external_memory_win32}</dd>
@@ -30,11 +29,11 @@ val KHR_external_memory_win32 = "KHRExternalMemoryWin32".nativeClassVK("KHR_exte
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRExternalMemory VK_KHR_external_memory}</dd>
+            <dd>{@link KHRExternalMemory VK_KHR_external_memory} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_external_memory_win32]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_external_memory_win32%20extension*">cubanismo</a></li>
+                <li>James Jones <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_external_memory_win32]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_external_memory_win32%20extension*">cubanismo</a></li>
             </ul></dd>
         </dl>
 
@@ -144,7 +143,7 @@ val KHR_external_memory_win32 = "KHRExternalMemoryWin32".nativeClassVK("KHR_exte
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>{@code handle} <b>must</b> be an external memory handle created outside of the Vulkan API</li>
+            <li>{@code handle} <b>must</b> point to a valid Windows memory handle</li>
             <li>{@code handleType} <b>must</b> not be one of the handle types defined as opaque</li>
         </ul>
 

@@ -27,14 +27,23 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code size} is not equal to {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, {@code size} <b>must</b> be less than or equal to the size of the {@code memory} minus {@code offset}</li>
  * <li>{@code memory} <b>must</b> have been created with a memory type that reports {@link VK10#VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT MEMORY_PROPERTY_HOST_VISIBLE_BIT}</li>
  * <li>{@code memory} <b>must</b> not have been allocated with multiple instances</li>
+ * <li>If {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT} is set in {@code flags}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-memoryMapPlaced">{@code memoryMapPlaced}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT} is set in {@code flags}, the {@code pNext} chain <b>must</b> include a {@link VkMemoryMapPlacedInfoEXT} structure and {@link VkMemoryMapPlacedInfoEXT}{@code ::pPlacedAddress} <b>must</b> not be {@code NULL}</li>
+ * <li>If {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT} is set in {@code flags} and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-memoryMapRangePlaced">{@code memoryMapRangePlaced}</a> feature is not enabled, {@code offset} <b>must</b> be zero</li>
+ * <li>If {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT} is set in {@code flags} and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-memoryMapRangePlaced">{@code memoryMapRangePlaced}</a> feature is not enabled, {@code size} <b>must</b> be {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE} or {@link VkMemoryAllocateInfo}{@code ::allocationSize}</li>
+ * <li>If {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT} is set in {@code flags} and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-memoryMapRangePlaced">{@code memoryMapRangePlaced}</a> feature is enabled, {@code offset} <b>must</b> be aligned to an integer multiple of {@link VkPhysicalDeviceMapMemoryPlacedPropertiesEXT}{@code ::minPlacedMemoryMapAlignment}</li>
+ * <li>If {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT} is set in {@code flags} and {@code size} is not {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, {@code size} <b>must</b> be aligned to an integer multiple of {@link VkPhysicalDeviceMapMemoryPlacedPropertiesEXT}{@code ::minPlacedMemoryMapAlignment}</li>
+ * <li>If {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT} is set in {@code flags} and {@code size} is {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, {@link VkMemoryAllocateInfo}{@code ::allocationSize} <b>must</b> be aligned to an integer multiple of {@link VkPhysicalDeviceMapMemoryPlacedPropertiesEXT}{@code ::minPlacedMemoryMapAlignment}</li>
+ * <li>If {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT} is set in {@code flags}, the memory object <b>must</b> not have been imported from a handle type of {@link EXTExternalMemoryHost#VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT} or {@link EXTExternalMemoryHost#VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT EXTERNAL_MEMORY_HANDLE_TYPE_HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRMapMemory2#VK_STRUCTURE_TYPE_MEMORY_MAP_INFO_KHR STRUCTURE_TYPE_MEMORY_MAP_INFO_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code flags} <b>must</b> be 0</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkMemoryMapPlacedInfoEXT}</li>
+ * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
+ * <li>{@code flags} <b>must</b> be a valid combination of {@code VkMemoryMapFlagBits} values</li>
  * <li>{@code memory} <b>must</b> be a valid {@code VkDeviceMemory} handle</li>
  * </ul>
  * 
@@ -60,7 +69,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDeviceSize {@link #size};
  * }</code></pre>
  */
-public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
+public class VkMemoryMapInfoKHR extends Struct<VkMemoryMapInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -98,6 +107,15 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
         SIZE = layout.offsetof(5);
     }
 
+    protected VkMemoryMapInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkMemoryMapInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkMemoryMapInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkMemoryMapInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -111,13 +129,13 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** reserved for future use. */
+    /** a bitmask of {@code VkMemoryMapFlagBits} specifying additional parameters of the memory map operation. */
     @NativeType("VkMemoryMapFlags")
     public int flags() { return nflags(address()); }
     /** the {@code VkDeviceMemory} object to be mapped. */
@@ -136,6 +154,8 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
     public VkMemoryMapInfoKHR sType$Default() { return sType(KHRMapMemory2.VK_STRUCTURE_TYPE_MEMORY_MAP_INFO_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkMemoryMapInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkMemoryMapPlacedInfoEXT} value to the {@code pNext} chain. */
+    public VkMemoryMapInfoKHR pNext(VkMemoryMapPlacedInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #flags} field. */
     public VkMemoryMapInfoKHR flags(@NativeType("VkMemoryMapFlags") int value) { nflags(address(), value); return this; }
     /** Sets the specified value to the {@link #memory} field. */
@@ -180,29 +200,29 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
 
     /** Returns a new {@code VkMemoryMapInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkMemoryMapInfoKHR malloc() {
-        return wrap(VkMemoryMapInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkMemoryMapInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkMemoryMapInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkMemoryMapInfoKHR calloc() {
-        return wrap(VkMemoryMapInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkMemoryMapInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkMemoryMapInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkMemoryMapInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkMemoryMapInfoKHR.class, memAddress(container), container);
+        return new VkMemoryMapInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkMemoryMapInfoKHR} instance for the specified memory address. */
     public static VkMemoryMapInfoKHR create(long address) {
-        return wrap(VkMemoryMapInfoKHR.class, address);
+        return new VkMemoryMapInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryMapInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkMemoryMapInfoKHR.class, address);
+        return address == NULL ? null : new VkMemoryMapInfoKHR(address, null);
     }
 
     /**
@@ -211,7 +231,7 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryMapInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -220,7 +240,7 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryMapInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -230,7 +250,7 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
      */
     public static VkMemoryMapInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -240,13 +260,13 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryMapInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryMapInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -255,7 +275,7 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkMemoryMapInfoKHR malloc(MemoryStack stack) {
-        return wrap(VkMemoryMapInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkMemoryMapInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -264,7 +284,7 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkMemoryMapInfoKHR calloc(MemoryStack stack) {
-        return wrap(VkMemoryMapInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkMemoryMapInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -274,7 +294,7 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryMapInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -284,7 +304,7 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryMapInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -325,9 +345,9 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkMemoryMapInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkMemoryMapInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkMemoryMapInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -378,6 +398,8 @@ public class VkMemoryMapInfoKHR extends Struct implements NativeResource {
         public VkMemoryMapInfoKHR.Buffer sType$Default() { return sType(KHRMapMemory2.VK_STRUCTURE_TYPE_MEMORY_MAP_INFO_KHR); }
         /** Sets the specified value to the {@link VkMemoryMapInfoKHR#pNext} field. */
         public VkMemoryMapInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkMemoryMapInfoKHR.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkMemoryMapPlacedInfoEXT} value to the {@code pNext} chain. */
+        public VkMemoryMapInfoKHR.Buffer pNext(VkMemoryMapPlacedInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkMemoryMapInfoKHR#flags} field. */
         public VkMemoryMapInfoKHR.Buffer flags(@NativeType("VkMemoryMapFlags") int value) { VkMemoryMapInfoKHR.nflags(address(), value); return this; }
         /** Sets the specified value to the {@link VkMemoryMapInfoKHR#memory} field. */

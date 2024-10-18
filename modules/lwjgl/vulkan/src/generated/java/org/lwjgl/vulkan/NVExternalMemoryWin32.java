@@ -153,8 +153,6 @@ import org.lwjgl.system.windows.*;
  *     // Get the external memory opaque FD handle
  *     vkGetMemoryWin32HandleNV(device, memory, &amp;memoryHnd);</code></pre>
  * 
- * <h5>VK_NV_external_memory_win32</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_external_memory_win32}</dd>
@@ -166,13 +164,13 @@ import org.lwjgl.system.windows.*;
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd>{@link NVExternalMemory VK_NV_external_memory}</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Deprecated</em> by {@link KHRExternalMemoryWin32 VK_KHR_external_memory_win32} extension</li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_external_memory_win32]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_external_memory_win32%20extension*">cubanismo</a></li>
+ * <li>James Jones <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_external_memory_win32]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_external_memory_win32%20extension*">cubanismo</a></li>
  * </ul></dd>
  * </dl>
  * 

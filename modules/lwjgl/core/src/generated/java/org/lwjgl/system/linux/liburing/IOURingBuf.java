@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct io_uring_buf")
-public class IOURingBuf extends Struct implements NativeResource {
+public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -59,6 +59,15 @@ public class IOURingBuf extends Struct implements NativeResource {
         RESV = layout.offsetof(3);
     }
 
+    protected IOURingBuf(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected IOURingBuf create(long address, @Nullable ByteBuffer container) {
+        return new IOURingBuf(address, container);
+    }
+
     /**
      * Creates a {@code IOURingBuf} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -81,9 +90,6 @@ public class IOURingBuf extends Struct implements NativeResource {
     /** @return the value of the {@code bid} field. */
     @NativeType("__u16")
     public short bid() { return nbid(address()); }
-    /** @return the value of the {@code resv} field. */
-    @NativeType("__u16")
-    public short resv() { return nresv(address()); }
 
     /** Sets the specified value to the {@code addr} field. */
     public IOURingBuf addr(@NativeType("__u64") long value) { naddr(address(), value); return this; }
@@ -91,20 +97,16 @@ public class IOURingBuf extends Struct implements NativeResource {
     public IOURingBuf len(@NativeType("__u32") int value) { nlen(address(), value); return this; }
     /** Sets the specified value to the {@code bid} field. */
     public IOURingBuf bid(@NativeType("__u16") short value) { nbid(address(), value); return this; }
-    /** Sets the specified value to the {@code resv} field. */
-    public IOURingBuf resv(@NativeType("__u16") short value) { nresv(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOURingBuf set(
         long addr,
         int len,
-        short bid,
-        short resv
+        short bid
     ) {
         addr(addr);
         len(len);
         bid(bid);
-        resv(resv);
 
         return this;
     }
@@ -125,29 +127,29 @@ public class IOURingBuf extends Struct implements NativeResource {
 
     /** Returns a new {@code IOURingBuf} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static IOURingBuf malloc() {
-        return wrap(IOURingBuf.class, nmemAllocChecked(SIZEOF));
+        return new IOURingBuf(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code IOURingBuf} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static IOURingBuf calloc() {
-        return wrap(IOURingBuf.class, nmemCallocChecked(1, SIZEOF));
+        return new IOURingBuf(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code IOURingBuf} instance allocated with {@link BufferUtils}. */
     public static IOURingBuf create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(IOURingBuf.class, memAddress(container), container);
+        return new IOURingBuf(memAddress(container), container);
     }
 
     /** Returns a new {@code IOURingBuf} instance for the specified memory address. */
     public static IOURingBuf create(long address) {
-        return wrap(IOURingBuf.class, address);
+        return new IOURingBuf(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingBuf createSafe(long address) {
-        return address == NULL ? null : wrap(IOURingBuf.class, address);
+        return address == NULL ? null : new IOURingBuf(address, null);
     }
 
     /**
@@ -156,7 +158,7 @@ public class IOURingBuf extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingBuf.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -165,7 +167,7 @@ public class IOURingBuf extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingBuf.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -175,7 +177,7 @@ public class IOURingBuf extends Struct implements NativeResource {
      */
     public static IOURingBuf.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -185,13 +187,13 @@ public class IOURingBuf extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingBuf.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingBuf.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -200,7 +202,7 @@ public class IOURingBuf extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingBuf malloc(MemoryStack stack) {
-        return wrap(IOURingBuf.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new IOURingBuf(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -209,7 +211,7 @@ public class IOURingBuf extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingBuf calloc(MemoryStack stack) {
-        return wrap(IOURingBuf.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new IOURingBuf(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -219,7 +221,7 @@ public class IOURingBuf extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingBuf.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -229,7 +231,7 @@ public class IOURingBuf extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingBuf.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -240,7 +242,6 @@ public class IOURingBuf extends Struct implements NativeResource {
     public static int nlen(long struct) { return UNSAFE.getInt(null, struct + IOURingBuf.LEN); }
     /** Unsafe version of {@link #bid}. */
     public static short nbid(long struct) { return UNSAFE.getShort(null, struct + IOURingBuf.BID); }
-    /** Unsafe version of {@link #resv}. */
     public static short nresv(long struct) { return UNSAFE.getShort(null, struct + IOURingBuf.RESV); }
 
     /** Unsafe version of {@link #addr(long) addr}. */
@@ -249,7 +250,6 @@ public class IOURingBuf extends Struct implements NativeResource {
     public static void nlen(long struct, int value) { UNSAFE.putInt(null, struct + IOURingBuf.LEN, value); }
     /** Unsafe version of {@link #bid(short) bid}. */
     public static void nbid(long struct, short value) { UNSAFE.putShort(null, struct + IOURingBuf.BID, value); }
-    /** Unsafe version of {@link #resv(short) resv}. */
     public static void nresv(long struct, short value) { UNSAFE.putShort(null, struct + IOURingBuf.RESV, value); }
 
     // -----------------------------------
@@ -262,9 +262,9 @@ public class IOURingBuf extends Struct implements NativeResource {
         /**
          * Creates a new {@code IOURingBuf.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link IOURingBuf#SIZEOF}, and its mark will be undefined.
+         * by {@link IOURingBuf#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -299,9 +299,6 @@ public class IOURingBuf extends Struct implements NativeResource {
         /** @return the value of the {@code bid} field. */
         @NativeType("__u16")
         public short bid() { return IOURingBuf.nbid(address()); }
-        /** @return the value of the {@code resv} field. */
-        @NativeType("__u16")
-        public short resv() { return IOURingBuf.nresv(address()); }
 
         /** Sets the specified value to the {@code addr} field. */
         public IOURingBuf.Buffer addr(@NativeType("__u64") long value) { IOURingBuf.naddr(address(), value); return this; }
@@ -309,8 +306,6 @@ public class IOURingBuf extends Struct implements NativeResource {
         public IOURingBuf.Buffer len(@NativeType("__u32") int value) { IOURingBuf.nlen(address(), value); return this; }
         /** Sets the specified value to the {@code bid} field. */
         public IOURingBuf.Buffer bid(@NativeType("__u16") short value) { IOURingBuf.nbid(address(), value); return this; }
-        /** Sets the specified value to the {@code resv} field. */
-        public IOURingBuf.Buffer resv(@NativeType("__u16") short value) { IOURingBuf.nresv(address(), value); return this; }
 
     }
 

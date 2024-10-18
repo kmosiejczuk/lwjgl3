@@ -334,6 +334,7 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
         "LOAD_COLOR".enum("", "1 << 20"),
         "LOAD_COMPUTE_METRICS".enum("", "1 << 21"),
         "LOAD_BITMAP_METRICS_ONLY".enum("", "1 << 22"),
+        "LOAD_NO_SVG".enum("", "1 << 24"),
         "LOAD_ADVANCE_ONLY".enum("", "1 << 8"),
         "LOAD_SVG_ONLY".enum("", "1 << 23"),
     )
@@ -652,7 +653,7 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
 
     IntConstant("", "FREETYPE_MAJOR".."2").noPrefix()
     IntConstant("", "FREETYPE_MINOR".."13").noPrefix()
-    IntConstant("", "FREETYPE_PATCH".."0").noPrefix()
+    IntConstant("", "FREETYPE_PATCH".."2").noPrefix()
 
     void(
         "Library_Version",
@@ -1729,6 +1730,10 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
 
     // ftmm.h
 
+    IntConstant("", "T1_MAX_MM_AXIS".."4").noPrefix()
+    IntConstant("", "T1_MAX_MM_DESIGNS".."16").noPrefix()
+    IntConstant("", "T1_MAX_MM_MAP_POINTS".."20").noPrefix()
+
     FT_Error(
         "Get_Multi_Master",
         "",
@@ -1853,6 +1858,14 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
 
         FT_Face("face", ""),
         FT_UInt("instance_index", "")
+    )
+
+    FT_Error(
+        "Get_Default_Named_Instance",
+        "",
+
+        FT_Face("face", ""),
+        Check(1)..FT_UInt.p("instance_index", "")
     )
 
     // ftmodapi.h
@@ -2489,6 +2502,15 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
     )
 
     void(
+        "GlyphSlot_AdjustWeight",
+        "",
+
+        FT_GlyphSlot("slot", ""),
+        FT_Fixed("xdelta", ""),
+        FT_Fixed("ydelta", "")
+    )
+
+    void(
         "GlyphSlot_Oblique",
         "",
 
@@ -2621,10 +2643,6 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
         "T1_BLEND_FORCE_BOLD".enum,
         "T1_BLEND_MAX".enum
     ).noPrefix()
-
-    IntConstant("", "T1_MAX_MM_DESIGNS".."16").noPrefix()
-    IntConstant("", "T1_MAX_MM_AXIS".."4").noPrefix()
-    IntConstant("", "T1_MAX_MM_MAP_POINTS".."20").noPrefix()
 
     FT_Int(
         "Has_PS_Glyph_Names",

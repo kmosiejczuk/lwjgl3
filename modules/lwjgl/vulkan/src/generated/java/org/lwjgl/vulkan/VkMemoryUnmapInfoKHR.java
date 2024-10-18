@@ -22,6 +22,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code memory} <b>must</b> be currently host mapped</li>
+ * <li>If {@link EXTMapMemoryPlaced#VK_MEMORY_UNMAP_RESERVE_BIT_EXT MEMORY_UNMAP_RESERVE_BIT_EXT} is set in {@code flags}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-memoryUnmapReserve">{@code memoryUnmapReserve}</a> <b>must</b> be enabled</li>
+ * <li>If {@link EXTMapMemoryPlaced#VK_MEMORY_UNMAP_RESERVE_BIT_EXT MEMORY_UNMAP_RESERVE_BIT_EXT} is set in {@code flags}, the memory object <b>must</b> not have been imported from a handle type of {@link EXTExternalMemoryHost#VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT} or {@link EXTExternalMemoryHost#VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT EXTERNAL_MEMORY_HANDLE_TYPE_HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -29,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRMapMemory2#VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO_KHR STRUCTURE_TYPE_MEMORY_UNMAP_INFO_KHR}</li>
  * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code flags} <b>must</b> be 0</li>
+ * <li>{@code flags} <b>must</b> be a valid combination of {@code VkMemoryUnmapFlagBitsKHR} values</li>
  * <li>{@code memory} <b>must</b> be a valid {@code VkDeviceMemory} handle</li>
  * </ul>
  * 
@@ -53,7 +55,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDeviceMemory {@link #memory};
  * }</code></pre>
  */
-public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
+public class VkMemoryUnmapInfoKHR extends Struct<VkMemoryUnmapInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -85,6 +87,15 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
         MEMORY = layout.offsetof(3);
     }
 
+    protected VkMemoryUnmapInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkMemoryUnmapInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkMemoryUnmapInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkMemoryUnmapInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -98,13 +109,13 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** reserved for future use. */
+    /** a bitmask of {@code VkMemoryUnmapFlagBitsKHR} specifying additional parameters of the memory map operation. */
     @NativeType("VkMemoryUnmapFlagsKHR")
     public int flags() { return nflags(address()); }
     /** the {@code VkDeviceMemory} object to be unmapped. */
@@ -153,29 +164,29 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
 
     /** Returns a new {@code VkMemoryUnmapInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkMemoryUnmapInfoKHR malloc() {
-        return wrap(VkMemoryUnmapInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkMemoryUnmapInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkMemoryUnmapInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkMemoryUnmapInfoKHR calloc() {
-        return wrap(VkMemoryUnmapInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkMemoryUnmapInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkMemoryUnmapInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkMemoryUnmapInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkMemoryUnmapInfoKHR.class, memAddress(container), container);
+        return new VkMemoryUnmapInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkMemoryUnmapInfoKHR} instance for the specified memory address. */
     public static VkMemoryUnmapInfoKHR create(long address) {
-        return wrap(VkMemoryUnmapInfoKHR.class, address);
+        return new VkMemoryUnmapInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryUnmapInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkMemoryUnmapInfoKHR.class, address);
+        return address == NULL ? null : new VkMemoryUnmapInfoKHR(address, null);
     }
 
     /**
@@ -184,7 +195,7 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryUnmapInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -193,7 +204,7 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryUnmapInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -203,7 +214,7 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
      */
     public static VkMemoryUnmapInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -213,13 +224,13 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryUnmapInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryUnmapInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -228,7 +239,7 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkMemoryUnmapInfoKHR malloc(MemoryStack stack) {
-        return wrap(VkMemoryUnmapInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkMemoryUnmapInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -237,7 +248,7 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkMemoryUnmapInfoKHR calloc(MemoryStack stack) {
-        return wrap(VkMemoryUnmapInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkMemoryUnmapInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -247,7 +258,7 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryUnmapInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -257,7 +268,7 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryUnmapInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +301,9 @@ public class VkMemoryUnmapInfoKHR extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkMemoryUnmapInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkMemoryUnmapInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkMemoryUnmapInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

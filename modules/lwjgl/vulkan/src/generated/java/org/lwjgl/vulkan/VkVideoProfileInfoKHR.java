@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>The full description of a video profile is specified by an instance of this structure, and the codec-specific and auxiliary structures provided in its {@code pNext} chain.</p>
  * 
- * <p>When this structure is specified as an input parameter to {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR}, or through the {@code pProfiles} member of an {@link VkVideoProfileListInfoKHR} structure in the {@code pNext} chain of the input parameter of a query command such as {@link KHRVideoQueue#vkGetPhysicalDeviceVideoFormatPropertiesKHR GetPhysicalDeviceVideoFormatPropertiesKHR} or {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2}, the following error codes indicate specific causes of the failure of the query operation:</p>
+ * <p>When this structure is specified as an input parameter to {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR}, or through the {@code pProfiles} member of a {@link VkVideoProfileListInfoKHR} structure in the {@code pNext} chain of the input parameter of a query command such as {@link KHRVideoQueue#vkGetPhysicalDeviceVideoFormatPropertiesKHR GetPhysicalDeviceVideoFormatPropertiesKHR} or {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2}, the following error codes indicate specific causes of the failure of the query operation:</p>
  * 
  * <ul>
  * <li>{@link KHRVideoQueue#VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR} indicates that the requested video picture layout (e.g. through the {@code pictureLayout} member of a {@link VkVideoDecodeH264ProfileInfoKHR} structure included in the {@code pNext} chain of {@link VkVideoProfileInfoKHR}) is not supported.</li>
@@ -41,8 +41,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code chromaSubsampling} is not {@link KHRVideoQueue#VK_VIDEO_CHROMA_SUBSAMPLING_MONOCHROME_BIT_KHR VIDEO_CHROMA_SUBSAMPLING_MONOCHROME_BIT_KHR}, then {@code chromaBitDepth} <b>must</b> have a single bit set</li>
  * <li>If {@code videoCodecOperation} is {@link KHRVideoDecodeH264#VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoDecodeH264ProfileInfoKHR} structure</li>
  * <li>If {@code videoCodecOperation} is {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoDecodeH265ProfileInfoKHR} structure</li>
- * <li>If {@code videoCodecOperation} is {@link EXTVideoEncodeH264#VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_EXT VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_EXT}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeH264ProfileInfoEXT} structure</li>
- * <li>If {@code videoCodecOperation} is {@link EXTVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_EXT VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_EXT}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeH265ProfileInfoEXT} structure</li>
+ * <li>If {@code videoCodecOperation} is {@link KHRVideoDecodeAV1#VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoDecodeAV1ProfileInfoKHR} structure</li>
+ * <li>If {@code videoCodecOperation} is {@link KHRVideoEncodeH264#VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeH264ProfileInfoKHR} structure</li>
+ * <li>If {@code videoCodecOperation} is {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeH265ProfileInfoKHR} structure</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -59,7 +60,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkVideoProfileListInfoKHR}, {@link VkVideoSessionCreateInfoKHR}, {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR}</p>
+ * <p>{@link VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR}, {@link VkVideoProfileListInfoKHR}, {@link VkVideoSessionCreateInfoKHR}, {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -73,7 +74,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkVideoComponentBitDepthFlagsKHR {@link #chromaBitDepth};
  * }</code></pre>
  */
-public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
+public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -111,6 +112,15 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
         CHROMABITDEPTH = layout.offsetof(5);
     }
 
+    protected VkVideoProfileInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkVideoProfileInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkVideoProfileInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkVideoProfileInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -124,7 +134,7 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -149,16 +159,18 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
     public VkVideoProfileInfoKHR sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkVideoProfileInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkVideoDecodeAV1ProfileInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoProfileInfoKHR pNext(VkVideoDecodeAV1ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoDecodeH264ProfileInfoKHR} value to the {@code pNext} chain. */
     public VkVideoProfileInfoKHR pNext(VkVideoDecodeH264ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoDecodeH265ProfileInfoKHR} value to the {@code pNext} chain. */
     public VkVideoProfileInfoKHR pNext(VkVideoDecodeH265ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoDecodeUsageInfoKHR} value to the {@code pNext} chain. */
     public VkVideoProfileInfoKHR pNext(VkVideoDecodeUsageInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkVideoEncodeH264ProfileInfoEXT} value to the {@code pNext} chain. */
-    public VkVideoProfileInfoKHR pNext(VkVideoEncodeH264ProfileInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkVideoEncodeH265ProfileInfoEXT} value to the {@code pNext} chain. */
-    public VkVideoProfileInfoKHR pNext(VkVideoEncodeH265ProfileInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH264ProfileInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoProfileInfoKHR pNext(VkVideoEncodeH264ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH265ProfileInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoProfileInfoKHR pNext(VkVideoEncodeH265ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeUsageInfoKHR} value to the {@code pNext} chain. */
     public VkVideoProfileInfoKHR pNext(VkVideoEncodeUsageInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #videoCodecOperation} field. */
@@ -205,29 +217,29 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
 
     /** Returns a new {@code VkVideoProfileInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVideoProfileInfoKHR malloc() {
-        return wrap(VkVideoProfileInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkVideoProfileInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoProfileInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVideoProfileInfoKHR calloc() {
-        return wrap(VkVideoProfileInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkVideoProfileInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoProfileInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkVideoProfileInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkVideoProfileInfoKHR.class, memAddress(container), container);
+        return new VkVideoProfileInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkVideoProfileInfoKHR} instance for the specified memory address. */
     public static VkVideoProfileInfoKHR create(long address) {
-        return wrap(VkVideoProfileInfoKHR.class, address);
+        return new VkVideoProfileInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoProfileInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkVideoProfileInfoKHR.class, address);
+        return address == NULL ? null : new VkVideoProfileInfoKHR(address, null);
     }
 
     /**
@@ -236,7 +248,7 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkVideoProfileInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -245,7 +257,7 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkVideoProfileInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +267,7 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
      */
     public static VkVideoProfileInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -265,13 +277,13 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkVideoProfileInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoProfileInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -280,7 +292,7 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkVideoProfileInfoKHR malloc(MemoryStack stack) {
-        return wrap(VkVideoProfileInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkVideoProfileInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -289,7 +301,7 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkVideoProfileInfoKHR calloc(MemoryStack stack) {
-        return wrap(VkVideoProfileInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkVideoProfileInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -299,7 +311,7 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkVideoProfileInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -309,7 +321,7 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkVideoProfileInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -350,9 +362,9 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkVideoProfileInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVideoProfileInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkVideoProfileInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -403,16 +415,18 @@ public class VkVideoProfileInfoKHR extends Struct implements NativeResource {
         public VkVideoProfileInfoKHR.Buffer sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR); }
         /** Sets the specified value to the {@link VkVideoProfileInfoKHR#pNext} field. */
         public VkVideoProfileInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoProfileInfoKHR.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkVideoDecodeAV1ProfileInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoProfileInfoKHR.Buffer pNext(VkVideoDecodeAV1ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoDecodeH264ProfileInfoKHR} value to the {@code pNext} chain. */
         public VkVideoProfileInfoKHR.Buffer pNext(VkVideoDecodeH264ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoDecodeH265ProfileInfoKHR} value to the {@code pNext} chain. */
         public VkVideoProfileInfoKHR.Buffer pNext(VkVideoDecodeH265ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoDecodeUsageInfoKHR} value to the {@code pNext} chain. */
         public VkVideoProfileInfoKHR.Buffer pNext(VkVideoDecodeUsageInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkVideoEncodeH264ProfileInfoEXT} value to the {@code pNext} chain. */
-        public VkVideoProfileInfoKHR.Buffer pNext(VkVideoEncodeH264ProfileInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkVideoEncodeH265ProfileInfoEXT} value to the {@code pNext} chain. */
-        public VkVideoProfileInfoKHR.Buffer pNext(VkVideoEncodeH265ProfileInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH264ProfileInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoProfileInfoKHR.Buffer pNext(VkVideoEncodeH264ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH265ProfileInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoProfileInfoKHR.Buffer pNext(VkVideoEncodeH265ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeUsageInfoKHR} value to the {@code pNext} chain. */
         public VkVideoProfileInfoKHR.Buffer pNext(VkVideoEncodeUsageInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkVideoProfileInfoKHR#videoCodecOperation} field. */

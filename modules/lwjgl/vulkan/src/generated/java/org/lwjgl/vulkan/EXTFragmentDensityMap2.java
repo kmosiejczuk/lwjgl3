@@ -8,8 +8,6 @@ package org.lwjgl.vulkan;
 /**
  * This extension adds additional features and properties to {@link EXTFragmentDensityMap VK_EXT_fragment_density_map} in order to reduce fragment density map host latency as well as improved queries for subsampled sampler implementation-dependent behavior.
  * 
- * <h5>VK_EXT_fragment_density_map2</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_fragment_density_map2}</dd>
@@ -23,7 +21,7 @@ package org.lwjgl.vulkan;
  * <dd>{@link EXTFragmentDensityMap VK_EXT_fragment_density_map}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Matthew Netsch <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_fragment_density_map2]%20@mnetsch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_fragment_density_map2%20extension*">mnetsch</a></li>
+ * <li>Matthew Netsch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_fragment_density_map2]%20@mnetsch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_fragment_density_map2%20extension*">mnetsch</a></li>
  * </ul></dd>
  * </dl>
  * 

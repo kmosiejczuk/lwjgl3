@@ -43,25 +43,15 @@ typedef enum ffi_abi {
   FFI_SYSV,
   FFI_VFP,
   FFI_LAST_ABI,
-#if defined(__ARM_PCS_VFP) || defined(_M_ARM)
+#if defined(__ARM_PCS_VFP) || defined(_WIN32)
   FFI_DEFAULT_ABI = FFI_VFP,
 #else
   FFI_DEFAULT_ABI = FFI_SYSV,
 #endif
 
   // LWJGL
-  FFI_WIN64 = -1,
-  FFI_GNUW64 = -1,
-  FFI_UNIX64 = -1,
-  FFI_EFI64 = -1,
-  //FFI_SYSV = -1,
-  FFI_STDCALL = -1,
-  FFI_THISCALL = -1,
-  FFI_FASTCALL = -1,
-  FFI_MS_CDECL = -1,
-  FFI_PASCAL = -1,
-  FFI_REGISTER = -1,
-  //FFI_VFP = -1,
+  #define HAS_FFI_SYSV 1
+  #define HAS_FFI_VFP 1
 } ffi_abi;
 #endif
 
@@ -71,7 +61,7 @@ typedef enum ffi_abi {
   signed char vfp_args[16]			\
 
 #define FFI_TARGET_SPECIFIC_VARIADIC
-#ifndef _M_ARM
+#ifndef _WIN32
 #define FFI_TARGET_HAS_COMPLEX_TYPE
 #endif
 
@@ -91,7 +81,7 @@ typedef enum ffi_abi {
 #endif
 
 #else
-#ifdef _MSC_VER
+#ifdef _WIN32
 #define FFI_TRAMPOLINE_SIZE 16
 #define FFI_TRAMPOLINE_CLOSURE_FUNCTION 12
 #else

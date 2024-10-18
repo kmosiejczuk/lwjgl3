@@ -29,11 +29,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link NVCooperativeMatrix#VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_NV STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_NV}</li>
  * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code AType} <b>must</b> be a valid {@code VkComponentTypeNV} value</li>
- * <li>{@code BType} <b>must</b> be a valid {@code VkComponentTypeNV} value</li>
- * <li>{@code CType} <b>must</b> be a valid {@code VkComponentTypeNV} value</li>
- * <li>{@code DType} <b>must</b> be a valid {@code VkComponentTypeNV} value</li>
- * <li>{@code scope} <b>must</b> be a valid {@code VkScopeNV} value</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -56,7 +51,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkScopeNV {@link #scope};
  * }</code></pre>
  */
-public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeResource {
+public class VkCooperativeMatrixPropertiesNV extends Struct<VkCooperativeMatrixPropertiesNV> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -106,6 +101,15 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
         SCOPE = layout.offsetof(9);
     }
 
+    protected VkCooperativeMatrixPropertiesNV(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkCooperativeMatrixPropertiesNV create(long address, @Nullable ByteBuffer container) {
+        return new VkCooperativeMatrixPropertiesNV(address, container);
+    }
+
     /**
      * Creates a {@code VkCooperativeMatrixPropertiesNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -119,7 +123,7 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -156,46 +160,14 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
     public VkCooperativeMatrixPropertiesNV sType$Default() { return sType(NVCooperativeMatrix.VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_NV); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkCooperativeMatrixPropertiesNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #MSize} field. */
-    public VkCooperativeMatrixPropertiesNV MSize(@NativeType("uint32_t") int value) { nMSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #NSize} field. */
-    public VkCooperativeMatrixPropertiesNV NSize(@NativeType("uint32_t") int value) { nNSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #KSize} field. */
-    public VkCooperativeMatrixPropertiesNV KSize(@NativeType("uint32_t") int value) { nKSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #AType} field. */
-    public VkCooperativeMatrixPropertiesNV AType(@NativeType("VkComponentTypeNV") int value) { nAType(address(), value); return this; }
-    /** Sets the specified value to the {@link #BType} field. */
-    public VkCooperativeMatrixPropertiesNV BType(@NativeType("VkComponentTypeNV") int value) { nBType(address(), value); return this; }
-    /** Sets the specified value to the {@link #CType} field. */
-    public VkCooperativeMatrixPropertiesNV CType(@NativeType("VkComponentTypeNV") int value) { nCType(address(), value); return this; }
-    /** Sets the specified value to the {@link #DType} field. */
-    public VkCooperativeMatrixPropertiesNV DType(@NativeType("VkComponentTypeNV") int value) { nDType(address(), value); return this; }
-    /** Sets the specified value to the {@link #scope} field. */
-    public VkCooperativeMatrixPropertiesNV scope(@NativeType("VkScopeNV") int value) { nscope(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkCooperativeMatrixPropertiesNV set(
         int sType,
-        long pNext,
-        int MSize,
-        int NSize,
-        int KSize,
-        int AType,
-        int BType,
-        int CType,
-        int DType,
-        int scope
+        long pNext
     ) {
         sType(sType);
         pNext(pNext);
-        MSize(MSize);
-        NSize(NSize);
-        KSize(KSize);
-        AType(AType);
-        BType(BType);
-        CType(CType);
-        DType(DType);
-        scope(scope);
 
         return this;
     }
@@ -216,29 +188,29 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
 
     /** Returns a new {@code VkCooperativeMatrixPropertiesNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkCooperativeMatrixPropertiesNV malloc() {
-        return wrap(VkCooperativeMatrixPropertiesNV.class, nmemAllocChecked(SIZEOF));
+        return new VkCooperativeMatrixPropertiesNV(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkCooperativeMatrixPropertiesNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkCooperativeMatrixPropertiesNV calloc() {
-        return wrap(VkCooperativeMatrixPropertiesNV.class, nmemCallocChecked(1, SIZEOF));
+        return new VkCooperativeMatrixPropertiesNV(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkCooperativeMatrixPropertiesNV} instance allocated with {@link BufferUtils}. */
     public static VkCooperativeMatrixPropertiesNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkCooperativeMatrixPropertiesNV.class, memAddress(container), container);
+        return new VkCooperativeMatrixPropertiesNV(memAddress(container), container);
     }
 
     /** Returns a new {@code VkCooperativeMatrixPropertiesNV} instance for the specified memory address. */
     public static VkCooperativeMatrixPropertiesNV create(long address) {
-        return wrap(VkCooperativeMatrixPropertiesNV.class, address);
+        return new VkCooperativeMatrixPropertiesNV(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCooperativeMatrixPropertiesNV createSafe(long address) {
-        return address == NULL ? null : wrap(VkCooperativeMatrixPropertiesNV.class, address);
+        return address == NULL ? null : new VkCooperativeMatrixPropertiesNV(address, null);
     }
 
     /**
@@ -247,7 +219,7 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkCooperativeMatrixPropertiesNV.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -256,7 +228,7 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkCooperativeMatrixPropertiesNV.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -266,7 +238,7 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
      */
     public static VkCooperativeMatrixPropertiesNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -276,13 +248,13 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkCooperativeMatrixPropertiesNV.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCooperativeMatrixPropertiesNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -310,7 +282,7 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static VkCooperativeMatrixPropertiesNV malloc(MemoryStack stack) {
-        return wrap(VkCooperativeMatrixPropertiesNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkCooperativeMatrixPropertiesNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -319,7 +291,7 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static VkCooperativeMatrixPropertiesNV calloc(MemoryStack stack) {
-        return wrap(VkCooperativeMatrixPropertiesNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkCooperativeMatrixPropertiesNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -329,7 +301,7 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkCooperativeMatrixPropertiesNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -339,7 +311,7 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkCooperativeMatrixPropertiesNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -369,22 +341,6 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
     public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCooperativeMatrixPropertiesNV.PNEXT, value); }
-    /** Unsafe version of {@link #MSize(int) MSize}. */
-    public static void nMSize(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesNV.MSIZE, value); }
-    /** Unsafe version of {@link #NSize(int) NSize}. */
-    public static void nNSize(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesNV.NSIZE, value); }
-    /** Unsafe version of {@link #KSize(int) KSize}. */
-    public static void nKSize(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesNV.KSIZE, value); }
-    /** Unsafe version of {@link #AType(int) AType}. */
-    public static void nAType(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesNV.ATYPE, value); }
-    /** Unsafe version of {@link #BType(int) BType}. */
-    public static void nBType(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesNV.BTYPE, value); }
-    /** Unsafe version of {@link #CType(int) CType}. */
-    public static void nCType(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesNV.CTYPE, value); }
-    /** Unsafe version of {@link #DType(int) DType}. */
-    public static void nDType(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesNV.DTYPE, value); }
-    /** Unsafe version of {@link #scope(int) scope}. */
-    public static void nscope(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesNV.SCOPE, value); }
 
     // -----------------------------------
 
@@ -396,9 +352,9 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
         /**
          * Creates a new {@code VkCooperativeMatrixPropertiesNV.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkCooperativeMatrixPropertiesNV#SIZEOF}, and its mark will be undefined.
+         * by {@link VkCooperativeMatrixPropertiesNV#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -461,22 +417,6 @@ public class VkCooperativeMatrixPropertiesNV extends Struct implements NativeRes
         public VkCooperativeMatrixPropertiesNV.Buffer sType$Default() { return sType(NVCooperativeMatrix.VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_NV); }
         /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesNV#pNext} field. */
         public VkCooperativeMatrixPropertiesNV.Buffer pNext(@NativeType("void *") long value) { VkCooperativeMatrixPropertiesNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesNV#MSize} field. */
-        public VkCooperativeMatrixPropertiesNV.Buffer MSize(@NativeType("uint32_t") int value) { VkCooperativeMatrixPropertiesNV.nMSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesNV#NSize} field. */
-        public VkCooperativeMatrixPropertiesNV.Buffer NSize(@NativeType("uint32_t") int value) { VkCooperativeMatrixPropertiesNV.nNSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesNV#KSize} field. */
-        public VkCooperativeMatrixPropertiesNV.Buffer KSize(@NativeType("uint32_t") int value) { VkCooperativeMatrixPropertiesNV.nKSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesNV#AType} field. */
-        public VkCooperativeMatrixPropertiesNV.Buffer AType(@NativeType("VkComponentTypeNV") int value) { VkCooperativeMatrixPropertiesNV.nAType(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesNV#BType} field. */
-        public VkCooperativeMatrixPropertiesNV.Buffer BType(@NativeType("VkComponentTypeNV") int value) { VkCooperativeMatrixPropertiesNV.nBType(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesNV#CType} field. */
-        public VkCooperativeMatrixPropertiesNV.Buffer CType(@NativeType("VkComponentTypeNV") int value) { VkCooperativeMatrixPropertiesNV.nCType(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesNV#DType} field. */
-        public VkCooperativeMatrixPropertiesNV.Buffer DType(@NativeType("VkComponentTypeNV") int value) { VkCooperativeMatrixPropertiesNV.nDType(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesNV#scope} field. */
-        public VkCooperativeMatrixPropertiesNV.Buffer scope(@NativeType("VkScopeNV") int value) { VkCooperativeMatrixPropertiesNV.nscope(address(), value); return this; }
 
     }
 

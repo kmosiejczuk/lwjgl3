@@ -41,13 +41,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * <pre><code>
  * struct VkDirectDriverLoadingListLUNARG {
  *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
+ *     void const * {@link #pNext};
  *     VkDirectDriverLoadingModeLUNARG {@link #mode};
  *     uint32_t {@link #driverCount};
  *     {@link VkDirectDriverLoadingInfoLUNARG VkDirectDriverLoadingInfoLUNARG} const * {@link #pDrivers};
  * }</code></pre>
  */
-public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeResource {
+public class VkDirectDriverLoadingListLUNARG extends Struct<VkDirectDriverLoadingListLUNARG> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -82,6 +82,15 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
         PDRIVERS = layout.offsetof(4);
     }
 
+    protected VkDirectDriverLoadingListLUNARG(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkDirectDriverLoadingListLUNARG create(long address, @Nullable ByteBuffer container) {
+        return new VkDirectDriverLoadingListLUNARG(address, container);
+    }
+
     /**
      * Creates a {@code VkDirectDriverLoadingListLUNARG} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -95,11 +104,11 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
-    @NativeType("void *")
+    @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** controls the mode in which to load the provided drivers. */
     @NativeType("VkDirectDriverLoadingModeLUNARG")
@@ -116,7 +125,7 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
     /** Sets the {@link LUNARGDirectDriverLoading#VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG} value to the {@link #sType} field. */
     public VkDirectDriverLoadingListLUNARG sType$Default() { return sType(LUNARGDirectDriverLoading.VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG); }
     /** Sets the specified value to the {@link #pNext} field. */
-    public VkDirectDriverLoadingListLUNARG pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
+    public VkDirectDriverLoadingListLUNARG pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #mode} field. */
     public VkDirectDriverLoadingListLUNARG mode(@NativeType("VkDirectDriverLoadingModeLUNARG") int value) { nmode(address(), value); return this; }
     /** Sets the address of the specified {@link VkDirectDriverLoadingInfoLUNARG.Buffer} to the {@link #pDrivers} field. */
@@ -153,29 +162,29 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
 
     /** Returns a new {@code VkDirectDriverLoadingListLUNARG} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDirectDriverLoadingListLUNARG malloc() {
-        return wrap(VkDirectDriverLoadingListLUNARG.class, nmemAllocChecked(SIZEOF));
+        return new VkDirectDriverLoadingListLUNARG(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkDirectDriverLoadingListLUNARG} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDirectDriverLoadingListLUNARG calloc() {
-        return wrap(VkDirectDriverLoadingListLUNARG.class, nmemCallocChecked(1, SIZEOF));
+        return new VkDirectDriverLoadingListLUNARG(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkDirectDriverLoadingListLUNARG} instance allocated with {@link BufferUtils}. */
     public static VkDirectDriverLoadingListLUNARG create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkDirectDriverLoadingListLUNARG.class, memAddress(container), container);
+        return new VkDirectDriverLoadingListLUNARG(memAddress(container), container);
     }
 
     /** Returns a new {@code VkDirectDriverLoadingListLUNARG} instance for the specified memory address. */
     public static VkDirectDriverLoadingListLUNARG create(long address) {
-        return wrap(VkDirectDriverLoadingListLUNARG.class, address);
+        return new VkDirectDriverLoadingListLUNARG(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDirectDriverLoadingListLUNARG createSafe(long address) {
-        return address == NULL ? null : wrap(VkDirectDriverLoadingListLUNARG.class, address);
+        return address == NULL ? null : new VkDirectDriverLoadingListLUNARG(address, null);
     }
 
     /**
@@ -184,7 +193,7 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkDirectDriverLoadingListLUNARG.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -193,7 +202,7 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkDirectDriverLoadingListLUNARG.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -203,7 +212,7 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
      */
     public static VkDirectDriverLoadingListLUNARG.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -213,13 +222,13 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkDirectDriverLoadingListLUNARG.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDirectDriverLoadingListLUNARG.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -228,7 +237,7 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static VkDirectDriverLoadingListLUNARG malloc(MemoryStack stack) {
-        return wrap(VkDirectDriverLoadingListLUNARG.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkDirectDriverLoadingListLUNARG(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -237,7 +246,7 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static VkDirectDriverLoadingListLUNARG calloc(MemoryStack stack) {
-        return wrap(VkDirectDriverLoadingListLUNARG.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkDirectDriverLoadingListLUNARG(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -247,7 +256,7 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkDirectDriverLoadingListLUNARG.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -257,7 +266,7 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkDirectDriverLoadingListLUNARG.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,7 +299,10 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
      * @param struct the struct to validate
      */
     public static void validate(long struct) {
-        check(memGetAddress(struct + VkDirectDriverLoadingListLUNARG.PDRIVERS));
+        int driverCount = ndriverCount(struct);
+        long pDrivers = memGetAddress(struct + VkDirectDriverLoadingListLUNARG.PDRIVERS);
+        check(pDrivers);
+        validate(pDrivers, driverCount, VkDirectDriverLoadingInfoLUNARG.SIZEOF, VkDirectDriverLoadingInfoLUNARG::validate);
     }
 
     // -----------------------------------
@@ -303,9 +315,9 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
         /**
          * Creates a new {@code VkDirectDriverLoadingListLUNARG.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDirectDriverLoadingListLUNARG#SIZEOF}, and its mark will be undefined.
+         * by {@link VkDirectDriverLoadingListLUNARG#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -335,7 +347,7 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
         @NativeType("VkStructureType")
         public int sType() { return VkDirectDriverLoadingListLUNARG.nsType(address()); }
         /** @return the value of the {@link VkDirectDriverLoadingListLUNARG#pNext} field. */
-        @NativeType("void *")
+        @NativeType("void const *")
         public long pNext() { return VkDirectDriverLoadingListLUNARG.npNext(address()); }
         /** @return the value of the {@link VkDirectDriverLoadingListLUNARG#mode} field. */
         @NativeType("VkDirectDriverLoadingModeLUNARG")
@@ -352,7 +364,7 @@ public class VkDirectDriverLoadingListLUNARG extends Struct implements NativeRes
         /** Sets the {@link LUNARGDirectDriverLoading#VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG} value to the {@link VkDirectDriverLoadingListLUNARG#sType} field. */
         public VkDirectDriverLoadingListLUNARG.Buffer sType$Default() { return sType(LUNARGDirectDriverLoading.VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG); }
         /** Sets the specified value to the {@link VkDirectDriverLoadingListLUNARG#pNext} field. */
-        public VkDirectDriverLoadingListLUNARG.Buffer pNext(@NativeType("void *") long value) { VkDirectDriverLoadingListLUNARG.npNext(address(), value); return this; }
+        public VkDirectDriverLoadingListLUNARG.Buffer pNext(@NativeType("void const *") long value) { VkDirectDriverLoadingListLUNARG.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkDirectDriverLoadingListLUNARG#mode} field. */
         public VkDirectDriverLoadingListLUNARG.Buffer mode(@NativeType("VkDirectDriverLoadingModeLUNARG") int value) { VkDirectDriverLoadingListLUNARG.nmode(address(), value); return this; }
         /** Sets the address of the specified {@link VkDirectDriverLoadingInfoLUNARG.Buffer} to the {@link VkDirectDriverLoadingListLUNARG#pDrivers} field. */

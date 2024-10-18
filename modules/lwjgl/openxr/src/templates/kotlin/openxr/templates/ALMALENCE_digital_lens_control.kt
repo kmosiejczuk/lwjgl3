@@ -11,7 +11,7 @@ import openxr.*
 val ALMALENCE_digital_lens_control = "ALMALENCEDigitalLensControl".nativeClassXR("ALMALENCE_digital_lens_control", type = "instance", postfix = "ALMALENCE") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_ALMALENCE_digital_lens_control">XR_ALMALENCE_digital_lens_control</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_ALMALENCE_digital_lens_control">XR_ALMALENCE_digital_lens_control</a> extension.
 
         Digital Lens for VR (DLVR) is a computational lens aberration correction technology enabling high resolution, visual clarity and fidelity in VR head mounted displays. The Digital Lens allows to overcome two fundamental factors limiting VR picture quality, size constraints and presence of a moving optical element — the eye pupil.
 
@@ -25,7 +25,7 @@ val ALMALENCE_digital_lens_control = "ALMALENCEDigitalLensControl".nativeClassXR
             <li>Enables high quality at wide FoV.</li>
         </ul>
 
-        For OpenXR runtimes DLVR is implemented as implicit API Layer distributed by Almalence Inc. as installable package. DLVR utilize eye tracking data (eye pupil coordinates and gaze direction) to produce corrections of render frames. As long as current core OpenXR API doesn’t expose an eye tracking data, DLVR API Layer relies on 3rd-party eye tracking runtimes.
+        For OpenXR runtimes DLVR is implemented as implicit API Layer distributed by Almalence Inc. as installable package. DLVR utilize eye tracking data (eye pupil coordinates and gaze direction) to produce corrections of render frames. As long as current core OpenXR API does not expose an eye tracking data, DLVR API Layer relies on 3rd-party eye tracking runtimes.
 
         List of supported eye tracking devices:
 

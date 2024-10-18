@@ -15,7 +15,6 @@ val EXT_provoking_vertex = "EXTProvokingVertex".nativeClassVK("EXT_provoking_ver
 
         This extension is intended for use by API-translation layers that implement APIs like OpenGL on top of Vulkan, and need to match the source API’s provoking vertex convention. Applications using Vulkan directly should use Vulkan’s default convention.
 
-        <h5>VK_EXT_provoking_vertex</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_provoking_vertex}</dd>
@@ -30,16 +29,16 @@ val EXT_provoking_vertex = "EXTProvokingVertex".nativeClassVK("EXT_provoking_ver
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Special Use</b></dt>
             <dd><ul>
-                <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jesse Hall <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_provoking_vertex]%20@jessehall%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_provoking_vertex%20extension*">jessehall</a></li>
+                <li>Jesse Hall <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_provoking_vertex]%20@jessehall%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_provoking_vertex%20extension*">jessehall</a></li>
             </ul></dd>
         </dl>
 
@@ -101,7 +100,7 @@ val EXT_provoking_vertex = "EXTProvokingVertex".nativeClassVK("EXT_provoking_ver
             <li>#PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT specifies that the provoking vertex is the last non-adjacency vertex in the list of vertices used by a primitive.</li>
         </ul>
 
-        These modes are described more precisely in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#drawing-primitive-topologies">Primitive Topologies</a>.
+        These modes are described more precisely in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#drawing-primitive-topologies">Primitive Topologies</a>.
 
         <h5>See Also</h5>
         ##VkPipelineRasterizationProvokingVertexStateCreateInfoEXT, #CmdSetProvokingVertexModeEXT()

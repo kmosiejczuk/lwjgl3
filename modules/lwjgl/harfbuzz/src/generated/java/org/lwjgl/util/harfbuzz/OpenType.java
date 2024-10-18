@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import static org.lwjgl.util.harfbuzz.HarfBuzz.*;
 
-/** Native bindings to the OpenType API of the <a target="_blank" href="https://harfbuzz.github.io/">HarfBuzz</a> library. */
+/** Native bindings to the OpenType API of the <a href="https://harfbuzz.github.io/">HarfBuzz</a> library. */
 public class OpenType {
 
     /** Contains the function pointers loaded from {@code HarfBuzz.getLibrary()}. */
@@ -67,6 +67,7 @@ public class OpenType {
             layout_feature_get_lookups                    = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_feature_get_lookups"),
             layout_table_get_lookup_count                 = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_table_get_lookup_count"),
             layout_collect_features                       = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_collect_features"),
+            layout_collect_features_map                   = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_collect_features_map"),
             layout_collect_lookups                        = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_collect_lookups"),
             layout_lookup_collect_glyphs                  = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_lookup_collect_glyphs"),
             layout_table_find_feature_variations          = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_table_find_feature_variations"),
@@ -81,9 +82,13 @@ public class OpenType {
             layout_lookup_get_optical_bound               = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_lookup_get_optical_bound"),
             layout_feature_get_name_ids                   = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_feature_get_name_ids"),
             layout_feature_get_characters                 = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_feature_get_characters"),
+            ot_layout_get_font_extents                    = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_ot_layout_get_font_extents"),
+            ot_layout_get_font_extents2                   = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_ot_layout_get_font_extents2"),
             layout_get_horizontal_baseline_tag_for_script = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_get_horizontal_baseline_tag_for_script"),
             layout_get_baseline                           = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_get_baseline"),
+            ot_layout_get_baseline2                       = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_ot_layout_get_baseline2"),
             layout_get_baseline_with_fallback             = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_get_baseline_with_fallback"),
+            layout_get_baseline_with_fallback2            = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_layout_get_baseline_with_fallback2"),
             math_has_data                                 = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_math_has_data"),
             math_get_constant                             = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_math_get_constant"),
             math_get_glyph_italics_correction             = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_math_get_glyph_italics_correction"),
@@ -136,19 +141,19 @@ public class OpenType {
         HB_OT_COLOR_PALETTE_FLAG_USABLE_WITH_LIGHT_BACKGROUND = 0x1,
         HB_OT_COLOR_PALETTE_FLAG_USABLE_WITH_DARK_BACKGROUND  = 0x2;
 
-    /** OpenType <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/base">Baseline Table</a>. */
+    /** OpenType <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/base">Baseline Table</a>. */
     public static final int HB_OT_TAG_BASE = HB_TAG('B','A','S','E');
 
-    /** OpenType <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/gdef">Glyph Definition Table</a>. */
+    /** OpenType <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/gdef">Glyph Definition Table</a>. */
     public static final int HB_OT_TAG_GDEF = HB_TAG('G','D','E','F');
 
-    /** OpenType <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/gsub">Glyph Substitution Table</a>. */
+    /** OpenType <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/gsub">Glyph Substitution Table</a>. */
     public static final int HB_OT_TAG_GSUB = HB_TAG('G','S','U','B');
 
-    /** OpenType <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/gpos">Glyph Positioning Table</a>. */
+    /** OpenType <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/gpos">Glyph Positioning Table</a>. */
     public static final int HB_OT_TAG_GPOS = HB_TAG('G','P','O','S');
 
-    /** OpenType <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/jstf">Justification Table</a>. */
+    /** OpenType <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/jstf">Justification Table</a>. */
     public static final int HB_OT_TAG_JSTF = HB_TAG('J','S','T','F');
 
     /** OpenType script tag, {@code DFLT}, for features that are not script-specific. */
@@ -196,7 +201,7 @@ public class OpenType {
     public static final int HB_OT_LAYOUT_NO_VARIATIONS_INDEX = 0xFFFFFFFF;
 
     /**
-     * Baseline tags from <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/baselinetags">Baseline Tags</a> registry.
+     * Baseline tags from <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/baselinetags">Baseline Tags</a> registry.
      * 
      * <h5>Enum values:</h5>
      * 
@@ -237,7 +242,7 @@ public class OpenType {
         HB_OT_LAYOUT_BASELINE_TAG_IDEO_EMBOX_CENTRAL        = HB_TAG ('I','d','c','e'),
         HB_OT_LAYOUT_BASELINE_TAG_MATH                      = HB_TAG ('m','a','t','h');
 
-    /** OpenType <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/math">Mathematical Typesetting Table</a>. */
+    /** OpenType <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/math">Mathematical Typesetting Table</a>. */
     public static final int HB_OT_TAG_MATH = HB_TAG('M','A','T','H');
 
     /**
@@ -249,7 +254,7 @@ public class OpenType {
     public static final int HB_OT_TAG_MATH_SCRIPT = HB_TAG('m','a','t','h');
 
     /**
-     * The {@code MATH} table constants, refer to <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/math#mathconstants-table">OpenType documentation</a> for more explanations. ({@code hb_ot_math_constant_t})
+     * The {@code MATH} table constants, refer to <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/math#mathconstants-table">OpenType documentation</a> for more explanations. ({@code hb_ot_math_constant_t})
      * 
      * <h5>Enum values:</h5>
      * 
@@ -400,7 +405,7 @@ public class OpenType {
     public static final int HB_OT_MATH_GLYPH_PART_FLAG_EXTENDER = 0x1;
 
     /**
-     * Known metadata tags from <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/meta">https://docs.microsoft.com/en-us/typography/opentype/spec/meta</a>. ({@code hb_ot_meta_tag_t})
+     * Known metadata tags from <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/meta">https://docs.microsoft.com/en-us/typography/opentype/spec/meta</a>. ({@code hb_ot_meta_tag_t})
      * 
      * <h5>Enum values:</h5>
      * 
@@ -423,7 +428,7 @@ public class OpenType {
         HB_OT_META_TAG_SUPPORTED_LANGUAGES = HB_TAG ('s','l','n','g');
 
     /**
-     * Metric tags corresponding to <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/mvar#value-tags">MVAR Value Tags</a>.
+     * Metric tags corresponding to <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/mvar#value-tags">MVAR Value Tags</a>.
      * 
      * <p>({@code hb_ot_metrics_tag_t})</p>
      * 
@@ -495,7 +500,7 @@ public class OpenType {
      * 
      * <p>There are predefined name IDs, as well as name IDs return from other API. These can be used to fetch name strings from a font face.</p>
      * 
-     * <p>For more information on these fields, see the <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/name#name-ids">OpenType spec</a>.</p>
+     * <p>For more information on these fields, see the <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/name#name-ids">OpenType spec</a>.</p>
      * 
      * <h5>Enum values:</h5>
      * 
@@ -1132,6 +1137,17 @@ public class OpenType {
         nhb_ot_layout_collect_features(face, table_tag, memAddressSafe(scripts), memAddressSafe(languages), memAddressSafe(features), feature_indexes);
     }
 
+    // --- [ hb_ot_layout_collect_features_map ] ---
+
+    public static void hb_ot_layout_collect_features_map(@NativeType("hb_face_t *") long face, @NativeType("hb_tag_t") int table_tag, @NativeType("unsigned") int script_index, @NativeType("unsigned") int language_index, @NativeType("hb_map_t *") long feature_map) {
+        long __functionAddress = Functions.layout_collect_features_map;
+        if (CHECKS) {
+            check(face);
+            check(feature_map);
+        }
+        invokePPV(face, table_tag, script_index, language_index, feature_map, __functionAddress);
+    }
+
     // --- [ hb_ot_layout_collect_lookups ] ---
 
     public static void nhb_ot_layout_collect_lookups(long face, int table_tag, long scripts, long languages, long features, long lookup_indexes) {
@@ -1353,6 +1369,37 @@ public class OpenType {
         return nhb_ot_layout_feature_get_characters(face, table_tag, feature_index, start_offset, memAddressSafe(char_count), memAddressSafe(characters));
     }
 
+    // --- [ hb_ot_ot_layout_get_font_extents ] ---
+
+    public static int nhb_ot_ot_layout_get_font_extents(long font, int direction, int script_tag, int language_tag, long extents) {
+        long __functionAddress = Functions.ot_layout_get_font_extents;
+        if (CHECKS) {
+            check(font);
+        }
+        return invokePPI(font, direction, script_tag, language_tag, extents, __functionAddress);
+    }
+
+    @NativeType("hb_bool_t")
+    public static boolean hb_ot_ot_layout_get_font_extents(@NativeType("hb_font_t *") long font, @NativeType("hb_direction_t") int direction, @NativeType("hb_tag_t") int script_tag, @NativeType("hb_tag_t") int language_tag, @NativeType("hb_font_extents_t *") hb_font_extents_t extents) {
+        return nhb_ot_ot_layout_get_font_extents(font, direction, script_tag, language_tag, extents.address()) != 0;
+    }
+
+    // --- [ hb_ot_ot_layout_get_font_extents2 ] ---
+
+    public static int nhb_ot_ot_layout_get_font_extents2(long font, int direction, int script, long language, long extents) {
+        long __functionAddress = Functions.ot_layout_get_font_extents2;
+        if (CHECKS) {
+            check(font);
+            check(language);
+        }
+        return invokePPPI(font, direction, script, language, extents, __functionAddress);
+    }
+
+    @NativeType("hb_bool_t")
+    public static boolean hb_ot_ot_layout_get_font_extents2(@NativeType("hb_font_t *") long font, @NativeType("hb_direction_t") int direction, @NativeType("hb_script_t") int script, @NativeType("hb_language_t") long language, @NativeType("hb_font_extents_t *") hb_font_extents_t extents) {
+        return nhb_ot_ot_layout_get_font_extents2(font, direction, script, language, extents.address()) != 0;
+    }
+
     // --- [ hb_ot_layout_get_horizontal_baseline_tag_for_script ] ---
 
     @NativeType("hb_ot_layout_baseline_tag_t")
@@ -1379,6 +1426,25 @@ public class OpenType {
         return nhb_ot_layout_get_baseline(font, baseline_tag, direction, script_tag, language_tag, memAddressSafe(coord)) != 0;
     }
 
+    // --- [ hb_ot_ot_layout_get_baseline2 ] ---
+
+    public static int nhb_ot_ot_layout_get_baseline2(long font, int baseline_tag, int direction, int script, long language, long coord) {
+        long __functionAddress = Functions.ot_layout_get_baseline2;
+        if (CHECKS) {
+            check(font);
+            check(language);
+        }
+        return invokePPPI(font, baseline_tag, direction, script, language, coord, __functionAddress);
+    }
+
+    @NativeType("hb_bool_t")
+    public static boolean hb_ot_ot_layout_get_baseline2(@NativeType("hb_font_t *") long font, @NativeType("hb_ot_layout_baseline_tag_t") int baseline_tag, @NativeType("hb_direction_t") int direction, @NativeType("hb_script_t") int script, @NativeType("hb_language_t") long language, @Nullable @NativeType("hb_position_t *") IntBuffer coord) {
+        if (CHECKS) {
+            checkSafe(coord, 1);
+        }
+        return nhb_ot_ot_layout_get_baseline2(font, baseline_tag, direction, script, language, memAddressSafe(coord)) != 0;
+    }
+
     // --- [ hb_ot_layout_get_baseline_with_fallback ] ---
 
     public static void nhb_ot_layout_get_baseline_with_fallback(long font, int baseline_tag, int direction, int script_tag, int language_tag, long coord) {
@@ -1394,6 +1460,24 @@ public class OpenType {
             checkSafe(coord, 1);
         }
         nhb_ot_layout_get_baseline_with_fallback(font, baseline_tag, direction, script_tag, language_tag, memAddressSafe(coord));
+    }
+
+    // --- [ hb_ot_layout_get_baseline_with_fallback2 ] ---
+
+    public static void nhb_ot_layout_get_baseline_with_fallback2(long font, int baseline_tag, int direction, int script, long language, long coord) {
+        long __functionAddress = Functions.layout_get_baseline_with_fallback2;
+        if (CHECKS) {
+            check(font);
+            check(language);
+        }
+        invokePPPV(font, baseline_tag, direction, script, language, coord, __functionAddress);
+    }
+
+    public static void hb_ot_layout_get_baseline_with_fallback2(@NativeType("hb_font_t *") long font, @NativeType("hb_ot_layout_baseline_tag_t") int baseline_tag, @NativeType("hb_direction_t") int direction, @NativeType("hb_script_t") int script, @NativeType("hb_language_t") long language, @Nullable @NativeType("hb_position_t *") IntBuffer coord) {
+        if (CHECKS) {
+            checkSafe(coord, 1);
+        }
+        nhb_ot_layout_get_baseline_with_fallback2(font, baseline_tag, direction, script, language, memAddressSafe(coord));
     }
 
     // --- [ hb_ot_math_has_data ] ---

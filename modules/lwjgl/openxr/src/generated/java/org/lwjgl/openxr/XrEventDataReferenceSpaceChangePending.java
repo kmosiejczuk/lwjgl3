@@ -18,11 +18,17 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Notifies the application that a reference space is changing.
  * 
- * <h5>Valid Usage (Implicit)</h5>
+ * <h5>Description</h5>
+ * 
+ * <p>The {@link XrEventDataReferenceSpaceChangePending} event is sent to the application to notify it that the origin (and perhaps the bounds) of a reference space is changing. This may occur due to the user recentering the space explicitly, or the runtime otherwise switching to a different space definition.</p>
+ * 
+ * <p>The reference space change <b>must</b> only take effect for {@link XR10#xrLocateSpace LocateSpace} or {@link XR10#xrLocateViews LocateViews} calls whose {@code XrTime} parameter is greater than or equal to the {@code changeTime} provided in that event. Runtimes <b>should</b> provide a {@code changeTime} to applications that allows for a deep render pipeline to present frames that are already in flight using the previous definition of the space. Runtimes <b>should</b> choose a {@code changeTime} that is midway between the {@link XrFrameState}{@code ::predictedDisplayTime} of future frames to avoid threshold issues with applications that calculate future frame times using {@link XrFrameState}{@code ::predictedDisplayPeriod}.</p>
+ * 
+ * <p>The {@code poseInPreviousSpace} provided here <b>must</b> only describe the change in the natural origin of the reference space and <b>must</b> not incorporate any origin offsets specified by the application during calls to {@link XR10#xrCreateReferenceSpace CreateReferenceSpace}. If the runtime does not know the location of the space’s new origin relative to its previous origin, {@code poseValid} <b>must</b> be false, and the position and orientation of {@code poseInPreviousSpace} are undefined. .Valid Usage (Implicit)</p>
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_EVENT_DATA_REFERENCE_SPACE_CHANGE_PENDING TYPE_EVENT_DATA_REFERENCE_SPACE_CHANGE_PENDING}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -42,7 +48,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrPosef XrPosef} {@link #poseInPreviousSpace};
  * }</code></pre>
  */
-public class XrEventDataReferenceSpaceChangePending extends Struct implements NativeResource {
+public class XrEventDataReferenceSpaceChangePending extends Struct<XrEventDataReferenceSpaceChangePending> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -83,6 +89,15 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
         POSEINPREVIOUSSPACE = layout.offsetof(6);
     }
 
+    protected XrEventDataReferenceSpaceChangePending(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrEventDataReferenceSpaceChangePending create(long address, @Nullable ByteBuffer container) {
+        return new XrEventDataReferenceSpaceChangePending(address, container);
+    }
+
     /**
      * Creates a {@code XrEventDataReferenceSpaceChangePending} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -111,7 +126,7 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
     /** the target {@code XrTime} after which {@link XR10#xrLocateSpace LocateSpace} or {@link XR10#xrLocateViews LocateViews} will return values that respect this change. */
     @NativeType("XrTime")
     public long changeTime() { return nchangeTime(address()); }
-    /** true if the runtime can determine the {@code pose} of the new space in the previous space before the change. */
+    /** true if the runtime can determine the {@code poseInPreviousSpace} of the new space in the previous space before the change. */
     @NativeType("XrBool32")
     public boolean poseValid() { return nposeValid(address()) != 0; }
     /** an {@link XrPosef} defining the position and orientation of the new reference space’s natural origin within the natural reference frame of its previous space. */
@@ -151,34 +166,34 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
 
     /** Returns a new {@code XrEventDataReferenceSpaceChangePending} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrEventDataReferenceSpaceChangePending malloc() {
-        return wrap(XrEventDataReferenceSpaceChangePending.class, nmemAllocChecked(SIZEOF));
+        return new XrEventDataReferenceSpaceChangePending(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrEventDataReferenceSpaceChangePending} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrEventDataReferenceSpaceChangePending calloc() {
-        return wrap(XrEventDataReferenceSpaceChangePending.class, nmemCallocChecked(1, SIZEOF));
+        return new XrEventDataReferenceSpaceChangePending(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrEventDataReferenceSpaceChangePending} instance allocated with {@link BufferUtils}. */
     public static XrEventDataReferenceSpaceChangePending create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrEventDataReferenceSpaceChangePending.class, memAddress(container), container);
+        return new XrEventDataReferenceSpaceChangePending(memAddress(container), container);
     }
 
     /** Returns a new {@code XrEventDataReferenceSpaceChangePending} instance for the specified memory address. */
     public static XrEventDataReferenceSpaceChangePending create(long address) {
-        return wrap(XrEventDataReferenceSpaceChangePending.class, address);
+        return new XrEventDataReferenceSpaceChangePending(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataReferenceSpaceChangePending createSafe(long address) {
-        return address == NULL ? null : wrap(XrEventDataReferenceSpaceChangePending.class, address);
+        return address == NULL ? null : new XrEventDataReferenceSpaceChangePending(address, null);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader} instance to {@code XrEventDataReferenceSpaceChangePending}. */
     public static XrEventDataReferenceSpaceChangePending create(XrEventDataBaseHeader value) {
-        return wrap(XrEventDataReferenceSpaceChangePending.class, value);
+        return new XrEventDataReferenceSpaceChangePending(value.address(), __getContainer(value));
     }
 
     /**
@@ -187,7 +202,7 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static XrEventDataReferenceSpaceChangePending.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -196,7 +211,7 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static XrEventDataReferenceSpaceChangePending.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -206,7 +221,7 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
      */
     public static XrEventDataReferenceSpaceChangePending.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -216,18 +231,18 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static XrEventDataReferenceSpaceChangePending.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataReferenceSpaceChangePending.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader.Buffer} instance to {@code XrEventDataReferenceSpaceChangePending.Buffer}. */
     public static XrEventDataReferenceSpaceChangePending.Buffer create(XrEventDataBaseHeader.Buffer value) {
-        return wrap(Buffer.class, value);
+        return new XrEventDataReferenceSpaceChangePending.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
     /**
@@ -236,7 +251,7 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
      * @param stack the stack from which to allocate
      */
     public static XrEventDataReferenceSpaceChangePending malloc(MemoryStack stack) {
-        return wrap(XrEventDataReferenceSpaceChangePending.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrEventDataReferenceSpaceChangePending(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -245,7 +260,7 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
      * @param stack the stack from which to allocate
      */
     public static XrEventDataReferenceSpaceChangePending calloc(MemoryStack stack) {
-        return wrap(XrEventDataReferenceSpaceChangePending.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrEventDataReferenceSpaceChangePending(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -255,7 +270,7 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static XrEventDataReferenceSpaceChangePending.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -265,7 +280,7 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static XrEventDataReferenceSpaceChangePending.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -300,9 +315,9 @@ public class XrEventDataReferenceSpaceChangePending extends Struct implements Na
         /**
          * Creates a new {@code XrEventDataReferenceSpaceChangePending.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrEventDataReferenceSpaceChangePending#SIZEOF}, and its mark will be undefined.
+         * by {@link XrEventDataReferenceSpaceChangePending#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

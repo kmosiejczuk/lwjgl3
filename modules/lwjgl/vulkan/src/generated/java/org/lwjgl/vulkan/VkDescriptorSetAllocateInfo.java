@@ -22,10 +22,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled, {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, {@code descriptorSetCount} <b>must</b> not be greater than the number of sets that are currently available for allocation in {@code descriptorPool}</li>
- * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled, {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, {@code descriptorPool} <b>must</b> have enough free descriptor capacity remaining to allocate the descriptor sets of the specified layouts</li>
+ * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled and {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, {@code descriptorSetCount} <b>must</b> not be greater than the number of sets that are currently available for allocation in {@code descriptorPool}</li>
+ * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled and {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, {@code descriptorPool} <b>must</b> have enough free descriptor capacity remaining to allocate the descriptor sets of the specified layouts</li>
  * <li>Each element of {@code pSetLayouts} <b>must</b> not have been created with {@link KHRPushDescriptor#VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR} set</li>
  * <li>If any element of {@code pSetLayouts} was created with the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set, {@code descriptorPool} <b>must</b> have been created with the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} flag set</li>
+ * <li>If {@code pSetLayouts}[i] was created with an element of {@code pBindingFlags} that includes {@link VK12#VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT}, and {@link VkDescriptorSetVariableDescriptorCountAllocateInfo} is included in the {@code pNext} chain, and {@link VkDescriptorSetVariableDescriptorCountAllocateInfo}{@code ::descriptorSetCount} is not zero, then {@link VkDescriptorSetVariableDescriptorCountAllocateInfo}{@code ::pDescriptorCounts}[i] <b>must</b> be less than or equal to {@link VkDescriptorSetLayoutBinding}{@code ::descriptorCount} for the corresponding binding used to create {@code pSetLayouts}[i]</li>
  * <li>If any element of {@code pSetLayouts} was created with the {@link EXTMutableDescriptorType#VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT} bit set, {@code descriptorPool} <b>must</b> have been created with the {@link EXTMutableDescriptorType#VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT} flag set</li>
  * <li>Each element of {@code pSetLayouts} <b>must</b> not have been created with the {@link EXTDescriptorBuffer#VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT} bit set</li>
  * </ul>
@@ -57,7 +58,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDescriptorSetLayout const * {@link #pSetLayouts};
  * }</code></pre>
  */
-public class VkDescriptorSetAllocateInfo extends Struct implements NativeResource {
+public class VkDescriptorSetAllocateInfo extends Struct<VkDescriptorSetAllocateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -92,6 +93,15 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
         PSETLAYOUTS = layout.offsetof(4);
     }
 
+    protected VkDescriptorSetAllocateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkDescriptorSetAllocateInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkDescriptorSetAllocateInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkDescriptorSetAllocateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -105,7 +115,7 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -167,29 +177,29 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
 
     /** Returns a new {@code VkDescriptorSetAllocateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDescriptorSetAllocateInfo malloc() {
-        return wrap(VkDescriptorSetAllocateInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkDescriptorSetAllocateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkDescriptorSetAllocateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDescriptorSetAllocateInfo calloc() {
-        return wrap(VkDescriptorSetAllocateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkDescriptorSetAllocateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkDescriptorSetAllocateInfo} instance allocated with {@link BufferUtils}. */
     public static VkDescriptorSetAllocateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkDescriptorSetAllocateInfo.class, memAddress(container), container);
+        return new VkDescriptorSetAllocateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkDescriptorSetAllocateInfo} instance for the specified memory address. */
     public static VkDescriptorSetAllocateInfo create(long address) {
-        return wrap(VkDescriptorSetAllocateInfo.class, address);
+        return new VkDescriptorSetAllocateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorSetAllocateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkDescriptorSetAllocateInfo.class, address);
+        return address == NULL ? null : new VkDescriptorSetAllocateInfo(address, null);
     }
 
     /**
@@ -198,7 +208,7 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetAllocateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -207,7 +217,7 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetAllocateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -217,7 +227,7 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
      */
     public static VkDescriptorSetAllocateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -227,13 +237,13 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetAllocateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorSetAllocateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -261,7 +271,7 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorSetAllocateInfo malloc(MemoryStack stack) {
-        return wrap(VkDescriptorSetAllocateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkDescriptorSetAllocateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -270,7 +280,7 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorSetAllocateInfo calloc(MemoryStack stack) {
-        return wrap(VkDescriptorSetAllocateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkDescriptorSetAllocateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -280,7 +290,7 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetAllocateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -290,7 +300,7 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetAllocateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -336,9 +346,9 @@ public class VkDescriptorSetAllocateInfo extends Struct implements NativeResourc
         /**
          * Creates a new {@code VkDescriptorSetAllocateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDescriptorSetAllocateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkDescriptorSetAllocateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -12,6 +12,9 @@ val OPENVR_API_BINDING = simpleBinding(
     bundledWithLWJGL = true
 )
 
+val vrshared_uint64_t = typedef(uint64_t, "vrshared_uint64_t")
+val vrshared_double = typedef(double, "vrshared_double")
+
 val EVRApplicationError = "EVRApplicationError".enumType
 val EVRCompositorError = "EVRCompositorError".enumType
 val EVRFirmwareError = "EVRFirmwareError".enumType
@@ -188,20 +191,6 @@ val Texture_t = struct(Module.OPENVR, "Texture", nativeName = "Texture_t") {
     EColorSpace("eColorSpace", "").links("EColorSpace_\\w+")
 }
 
-val TrackedDevicePose_t = struct(Module.OPENVR, "TrackedDevicePose", nativeName = "TrackedDevicePose_t") {
-    documentation = "Describes a single pose for a tracked object."
-
-    HmdMatrix34_t("mDeviceToAbsoluteTracking", "")
-    HmdVector3_t("vVelocity", "velocity in tracker space in m/s")
-    HmdVector3_t("vAngularVelocity", "angular velocity in radians/s")
-    ETrackingResult("eTrackingResult", "").links("ETrackingResult_\\w+")
-    bool("bPoseIsValid", "")
-    bool(
-        "bDeviceIsConnected",
-        "This indicates that there is a device connected for this spot in the pose array. It could go from true to false if the user unplugs the device."
-    )
-}
-
 val VRTextureBounds_t = struct(Module.OPENVR, "VRTextureBounds", nativeName = "VRTextureBounds_t") {
     documentation = "Allows the application to control what part of the provided texture will be used in the frame buffer."
 
@@ -245,6 +234,20 @@ val VRTextureWithPoseAndDepth_t = struct(Module.OPENVR, "VRTextureWithPoseAndDep
     EColorSpace("eColorSpace", "")
     HmdMatrix34_t("mDeviceToAbsoluteTracking", "")
     VRTextureDepthInfo_t("depth", "")
+}
+
+val TrackedDevicePose_t = struct(Module.OPENVR, "TrackedDevicePose", nativeName = "TrackedDevicePose_t") {
+    documentation = "Describes a single pose for a tracked object."
+
+    HmdMatrix34_t("mDeviceToAbsoluteTracking", "")
+    HmdVector3_t("vVelocity", "velocity in tracker space in m/s")
+    HmdVector3_t("vAngularVelocity", "angular velocity in radians/s")
+    ETrackingResult("eTrackingResult", "").links("ETrackingResult_\\w+")
+    bool("bPoseIsValid", "")
+    bool(
+        "bDeviceIsConnected",
+        "This indicates that there is a device connected for this spot in the pose array. It could go from true to false if the user unplugs the device."
+    )
 }
 
 val VRVulkanTextureData_t = struct(Module.OPENVR, "VRVulkanTextureData", nativeName = "VRVulkanTextureData_t") {
@@ -293,6 +296,10 @@ val VREvent_Mouse_t = struct(Module.OPENVR, "VREventMouse", nativeName = "VREven
     float("x", "coords are in GL space, bottom left of the texture is 0,0")
     float("y", "")
     uint32_t("button", "").links("EVRMouseButton_\\w+")
+    uint32_t(
+        "cursorIndex",
+        "if from an event triggered by cursor input on an overlay that supports multiple cursors, this is the index of which tracked cursor the event is for"
+    )
 }
 
 val VREvent_Scroll_t = struct(Module.OPENVR, "VREventScroll", nativeName = "VREvent_Scroll_t", mutable = false) {
@@ -304,6 +311,10 @@ val VREvent_Scroll_t = struct(Module.OPENVR, "VREventScroll", nativeName = "VREv
     float(
         "viewportscale",
         "for scrolling on an overlay with laser mouse, this is the overlay's vertical size relative to the overlay height. Range: {@code [0,1]}"
+    )
+    uint32_t(
+        "cursorIndex",
+        "if from an event triggered by cursor input on an overlay that supports multiple cursors, this is the index of which tracked cursor the event is for"
     )
 }
 
@@ -329,6 +340,10 @@ val VREvent_Overlay_t = struct(Module.OPENVR, "VREventOverlay", nativeName = "VR
     uint64_t("overlayHandle", "").links("EVRState_\\w+")
     uint64_t("devicePath", "")
     uint64_t("memoryBlockId", "")
+    uint32_t(
+        "cursorIndex",
+        "if from an event triggered by cursor input on an overlay that supports multiple cursors, this is the index of which tracked cursor the event is for"
+    )
 }
 
 val VREvent_Status_t = struct(Module.OPENVR, "VREventStatus", nativeName = "VREvent_Status_t", mutable = false) {
@@ -340,8 +355,9 @@ val VREvent_Status_t = struct(Module.OPENVR, "VREventStatus", nativeName = "VREv
 val VREvent_Keyboard_t = struct(Module.OPENVR, "VREventKeyboard", nativeName = "VREvent_Keyboard_t", mutable = false) {
     documentation = "Used for keyboard events."
 
-    char("cNewInput", "up to 8 bytes of new input")[8]
-    uint64_t("uUserValue", "possible flags about the new input")
+    charUTF8("cNewInput", "7 bytes of utf8 + null")[8]
+    uint64_t("uUserValue", "caller specified opaque token")
+    uint64_t("overlayHandle", "{@code VROverlayHandle_t}")
 }
 
 val VREvent_Ipd_t = struct(Module.OPENVR, "VREventIpd", nativeName = "VREvent_Ipd_t", mutable = false) {
@@ -466,6 +482,14 @@ val VREvent_HDCPError_t = struct(Module.OPENVR, "VREventHDCPError", nativeName =
 	EHDCPError("eCode", "")
 }
 
+val VREvent_AudioVolumeControl_t = struct(Module.OPENVR, "VREventAudioVolumeControl", nativeName = "VREvent_AudioVolumeControl_t", mutable = false) {
+    float("fVolumeLevel", "")
+}
+
+val VREvent_AudioMuteControl_t = struct(Module.OPENVR, "VREventAudioMuteControl", nativeName = "VREvent_AudioMuteControl_t", mutable = false) {
+    bool("bMute", "")
+}
+
 val VREvent_Data_t = union(Module.OPENVR, "VREventData", nativeName = "VREvent_Data_t", mutable = false) {
     VREvent_Reserved_t("reserved", "")
     VREvent_Controller_t("controller", "")
@@ -492,6 +516,12 @@ val VREvent_Data_t = union(Module.OPENVR, "VREventData", nativeName = "VREvent_D
     VREvent_InputBindingLoad_t("inputBinding", "")
 	VREvent_InputActionManifestLoad_t("actionManifest", "")
 	VREvent_SpatialAnchor_t("spatialAnchor", "")
+    VREvent_ProgressUpdate_t("progressUpdate", "")
+    VREvent_ShowUI_t("showUi", "")
+    VREvent_ShowDevTools_t("showDevTools", "")
+    VREvent_HDCPError_t("hdcpError", "")
+    VREvent_AudioVolumeControl_t("audioVolumeControl", "")
+    VREvent_AudioMuteControl_t("audioMuteControl", "")
 }
 
 val VREvent_t = struct(Module.OPENVR, "VREvent", nativeName = "VREvent_t", mutable = false) {
@@ -645,6 +675,7 @@ val Compositor_FrameTiming = struct(Module.OPENVR, "CompositorFrameTiming", nati
 
     uint32_t("m_nNumVSyncsReadyForUse", "")
 	uint32_t("m_nNumVSyncsToFirstView", "")
+    float("m_flTransferLatencyMs", "")
 }
 
 val Compositor_CumulativeStats = struct(Module.OPENVR, "CompositorCumulativeStats", nativeName = "Compositor_CumulativeStats", mutable = false) {
@@ -678,6 +709,13 @@ val Compositor_CumulativeStats = struct(Module.OPENVR, "CompositorCumulativeStat
     uint32_t("m_nNumFramePresentsTimedOut", "")
     uint32_t("m_nNumDroppedFramesTimedOut", "")
     uint32_t("m_nNumReprojectedFramesTimedOut", "")
+    uint32_t("m_nNumFrameSubmits", "")
+    vrshared_double("m_flSumCompositorCPUTimeMS", "divide by {@code m_nNumFrameSubmits}")
+    vrshared_double("m_flSumCompositorGPUTimeMS", "divide by {@code m_nNumFrameSubmits}")
+    vrshared_double("m_flSumTargetFrameTimes", "divide by {@code m_nNumFrameSubmits}")
+    vrshared_double("m_flSumApplicationCPUTimeMS", "divide by {@code m_nNumFrameSubmits}")
+    vrshared_double("m_flSumApplicationGPUTimeMS", "divide by {@code m_nNumFrameSubmits}")
+    uint32_t("m_nNumFramesWithDepth", "total frames submitted with depth by the current application")
 }
 
 val Compositor_StageRenderSettings = struct(Module.OPENVR, "CompositorStageRenderSettings", nativeName = "Compositor_StageRenderSettings", mutable = false) {

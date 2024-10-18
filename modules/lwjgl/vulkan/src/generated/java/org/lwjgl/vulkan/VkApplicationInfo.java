@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Vulkan 1.0 implementations were required to return {@link VK10#VK_ERROR_INCOMPATIBLE_DRIVER ERROR_INCOMPATIBLE_DRIVER} if {@code apiVersion} was larger than 1.0. Implementations that support Vulkan 1.1 or later <b>must</b> not return {@link VK10#VK_ERROR_INCOMPATIBLE_DRIVER ERROR_INCOMPATIBLE_DRIVER} for any value of {@code apiVersion}.</p>
+ * <p>Vulkan 1.0 implementations were required to return {@link VK10#VK_ERROR_INCOMPATIBLE_DRIVER ERROR_INCOMPATIBLE_DRIVER} if {@code apiVersion} was larger than 1.0. Implementations that support Vulkan 1.1 or later <b>must</b> not return {@link VK10#VK_ERROR_INCOMPATIBLE_DRIVER ERROR_INCOMPATIBLE_DRIVER} for any value of {@code apiVersion} .</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -82,7 +82,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #apiVersion};
  * }</code></pre>
  */
-public class VkApplicationInfo extends Struct implements NativeResource {
+public class VkApplicationInfo extends Struct<VkApplicationInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -123,6 +123,15 @@ public class VkApplicationInfo extends Struct implements NativeResource {
         APIVERSION = layout.offsetof(6);
     }
 
+    protected VkApplicationInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkApplicationInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkApplicationInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkApplicationInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -136,7 +145,7 @@ public class VkApplicationInfo extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -164,7 +173,7 @@ public class VkApplicationInfo extends Struct implements NativeResource {
     /** an unsigned integer variable containing the developer-supplied version number of the engine used to create the application. */
     @NativeType("uint32_t")
     public int engineVersion() { return nengineVersion(address()); }
-    /** <b>must</b> be the highest version of Vulkan that the application is designed to use, encoded as described in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-coreversions-versionnumbers">Version Numbers</a>. The patch version number specified in {@code apiVersion} is ignored when creating an instance object. Only the major and minor versions of the instance <b>must</b> match those requested in {@code apiVersion}. */
+    /** <b>must</b> be the highest version of Vulkan that the application is designed to use, encoded as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-coreversions-versionnumbers">Version Numbers</a>. The patch version number specified in {@code apiVersion} is ignored when creating an instance object. The variant version of the instance <b>must</b> match that requested in {@code apiVersion}. */
     @NativeType("uint32_t")
     public int apiVersion() { return napiVersion(address()); }
 
@@ -222,29 +231,29 @@ public class VkApplicationInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code VkApplicationInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkApplicationInfo malloc() {
-        return wrap(VkApplicationInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkApplicationInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkApplicationInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkApplicationInfo calloc() {
-        return wrap(VkApplicationInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkApplicationInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkApplicationInfo} instance allocated with {@link BufferUtils}. */
     public static VkApplicationInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkApplicationInfo.class, memAddress(container), container);
+        return new VkApplicationInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkApplicationInfo} instance for the specified memory address. */
     public static VkApplicationInfo create(long address) {
-        return wrap(VkApplicationInfo.class, address);
+        return new VkApplicationInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkApplicationInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkApplicationInfo.class, address);
+        return address == NULL ? null : new VkApplicationInfo(address, null);
     }
 
     /**
@@ -253,7 +262,7 @@ public class VkApplicationInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkApplicationInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -262,7 +271,7 @@ public class VkApplicationInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkApplicationInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -272,7 +281,7 @@ public class VkApplicationInfo extends Struct implements NativeResource {
      */
     public static VkApplicationInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -282,13 +291,13 @@ public class VkApplicationInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkApplicationInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkApplicationInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -316,7 +325,7 @@ public class VkApplicationInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkApplicationInfo malloc(MemoryStack stack) {
-        return wrap(VkApplicationInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkApplicationInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -325,7 +334,7 @@ public class VkApplicationInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkApplicationInfo calloc(MemoryStack stack) {
-        return wrap(VkApplicationInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkApplicationInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -335,7 +344,7 @@ public class VkApplicationInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkApplicationInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -345,7 +354,7 @@ public class VkApplicationInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkApplicationInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -400,9 +409,9 @@ public class VkApplicationInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkApplicationInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkApplicationInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkApplicationInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

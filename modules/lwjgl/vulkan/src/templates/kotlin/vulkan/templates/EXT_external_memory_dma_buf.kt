@@ -13,7 +13,6 @@ val EXT_external_memory_dma_buf = "EXTExternalMemoryDmaBuf".nativeClassVK("EXT_e
         """
         A {@code dma_buf} is a type of file descriptor, defined by the Linux kernel, that allows sharing memory across kernel device drivers and across processes. This extension enables applications to import a {@code dma_buf} as {@code VkDeviceMemory}, to export {@code VkDeviceMemory} as a {@code dma_buf}, and to create {@code VkBuffer} objects that <b>can</b> be bound to that memory.
 
-        <h5>VK_EXT_external_memory_dma_buf</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_external_memory_dma_buf}</dd>
@@ -32,7 +31,7 @@ val EXT_external_memory_dma_buf = "EXTExternalMemoryDmaBuf".nativeClassVK("EXT_e
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Lina Versace <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_external_memory_dma_buf]%20@versalinyaa%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_external_memory_dma_buf%20extension*">versalinyaa</a></li>
+                <li>Lina Versace <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_external_memory_dma_buf]%20@versalinyaa%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_external_memory_dma_buf%20extension*">versalinyaa</a></li>
             </ul></dd>
         </dl>
 

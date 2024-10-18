@@ -11,7 +11,7 @@ import openxr.*
 val EXT_debug_utils = "EXTDebugUtils".nativeClassXR("EXT_debug_utils", type = "instance", postfix = "EXT") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_EXT_debug_utils">XR_EXT_debug_utils</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_EXT_debug_utils">XR_EXT_debug_utils</a> extension.
 
         Due to the nature of the OpenXR interface, there is very little error information available to the developer and application. By using the {@link EXTDebugUtils XR_EXT_debug_utils} extension, developers <b>can</b> obtain more information. When combined with validation layers, even more detailed feedback on the application’s use of OpenXR will be provided.
 
@@ -26,7 +26,7 @@ val EXT_debug_utils = "EXTDebugUtils".nativeClassXR("EXT_debug_utils", type = "i
     IntConstant(
         "The extension specification version.",
 
-        "EXT_debug_utils_SPEC_VERSION".."4"
+        "EXT_debug_utils_SPEC_VERSION".."5"
     )
 
     StringConstant(
@@ -175,7 +175,7 @@ val EXT_debug_utils = "EXTDebugUtils".nativeClassXR("EXT_debug_utils", type = "i
 
         The application <b>must</b> ensure that #CreateDebugUtilsMessengerEXT() is not executed in parallel with any OpenXR function that is also called with {@code instance} or child of {@code instance}.
 
-        When an event of interest occurs a debug messenger calls its {@code createInfo}-&gt;{@code userCallback} with a debug message from the producer of the event. Additionally, the debug messenger <b>must</b> filter out any debug messages that the application’s callback is not interested in based on ##XrDebugUtilsMessengerCreateInfoEXT flags, as described below.
+        When an event of interest occurs a debug messenger calls its ##XrDebugUtilsMessengerCreateInfoEXT{@code ::userCallback} with a debug message from the producer of the event. Additionally, the debug messenger <b>must</b> filter out any debug messages that the application’s callback is not interested in based on ##XrDebugUtilsMessengerCreateInfoEXT flags, as described below.
 
         <h5>See Also</h5>
         ##XrDebugUtilsMessengerCreateInfoEXT, #DestroyDebugUtilsMessengerEXT()
@@ -246,7 +246,7 @@ val EXT_debug_utils = "EXTDebugUtils".nativeClassXR("EXT_debug_utils", type = "i
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>For each structure in {@code objects} found in {@code callbackData}, the value of ##XrDebugUtilsObjectNameInfoEXT{@code ::objectType} <b>must</b> not be #OBJECT_TYPE_UNKNOWN</li>
+            <li>For each structure in ##XrDebugUtilsMessengerCallbackDataEXT{@code ::objects}, the value of ##XrDebugUtilsObjectNameInfoEXT{@code ::objectType} <b>must</b> not be #OBJECT_TYPE_UNKNOWN</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>

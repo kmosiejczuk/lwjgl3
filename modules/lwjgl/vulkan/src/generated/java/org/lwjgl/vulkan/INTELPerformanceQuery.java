@@ -14,11 +14,11 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * This extension allows an application to capture performance data to be interpreted by a external application or library.
+ * This extension allows an application to capture performance data to be interpreted by an external application or library.
  * 
- * <p>Such a library is available at : <a target="_blank" href="https://github.com/intel/metrics-discovery">https://github.com/intel/metrics-discovery</a></p>
+ * <p>Such a library is available at : <a href="https://github.com/intel/metrics-discovery">https://github.com/intel/metrics-discovery</a></p>
  * 
- * <p>Performance analysis tools such as <a target="_blank" href="https://software.intel.com/content/www/us/en/develop/tools/graphics-performance-analyzers.html">Graphics Performance Analyzers</a> make use of this extension and the metrics-discovery library to present the data in a human readable way.</p>
+ * <p>Performance analysis tools such as <a href="https://software.intel.com/content/www/us/en/develop/tools/graphics-performance-analyzers.html">Graphics Performance Analyzers</a> make use of this extension and the metrics-discovery library to present the data in a human readable way.</p>
  * 
  * <h5>Example Code</h5>
  * 
@@ -154,8 +154,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * // The data can then be passed back to metrics-discovery from which
  * // human readable values can be queried.</code></pre>
  * 
- * <h5>VK_INTEL_performance_query</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_INTEL_performance_query}</dd>
@@ -167,11 +165,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>2</dd>
  * <dt><b>Special Use</b></dt>
  * <dd><ul>
- * <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Lionel Landwerlin <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_INTEL_performance_query]%20@llandwerlin%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_INTEL_performance_query%20extension*">llandwerlin</a></li>
+ * <li>Lionel Landwerlin <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_INTEL_performance_query]%20@llandwerlin%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_INTEL_performance_query%20extension*">llandwerlin</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -423,12 +421,16 @@ public class INTELPerformanceQuery {
      *     VkCommandBuffer                             commandBuffer,
      *     const VkPerformanceMarkerInfoINTEL*         pMarkerInfo);</code></pre>
      * 
+     * <h5>Description</h5>
+     * 
+     * <p>The last marker set onto a command buffer before the end of a query will be part of the query result.</p>
+     * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pMarkerInfo} <b>must</b> be a valid pointer to a valid {@link VkPerformanceMarkerInfoINTEL} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, compute, or transfer operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -443,7 +445,7 @@ public class INTELPerformanceQuery {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute Transfer</td><td>Action State</td></tr></tbody>
      * </table>
      * 
@@ -498,7 +500,7 @@ public class INTELPerformanceQuery {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pMarkerInfo} <b>must</b> be a valid pointer to a valid {@link VkPerformanceStreamMarkerInfoINTEL} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, compute, or transfer operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -513,7 +515,7 @@ public class INTELPerformanceQuery {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute Transfer</td><td>Action State</td></tr></tbody>
      * </table>
      * 
@@ -534,6 +536,9 @@ public class INTELPerformanceQuery {
      * <h5>See Also</h5>
      * 
      * <p>{@link VkPerformanceStreamMarkerInfoINTEL}</p>
+     *
+     * @param commandBuffer a {@code VkCommandBuffer} into which a stream marker is added.
+     * @param pMarkerInfo   a pointer to a {@link VkPerformanceStreamMarkerInfoINTEL} structure describing the marker to insert.
      */
     @NativeType("VkResult")
     public static int vkCmdSetPerformanceStreamMarkerINTEL(VkCommandBuffer commandBuffer, @NativeType("VkPerformanceStreamMarkerInfoINTEL const *") VkPerformanceStreamMarkerInfoINTEL pMarkerInfo) {
@@ -574,7 +579,7 @@ public class INTELPerformanceQuery {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pOverrideInfo} <b>must</b> be a valid pointer to a valid {@link VkPerformanceOverrideInfoINTEL} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, compute, or transfer operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -589,7 +594,7 @@ public class INTELPerformanceQuery {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute Transfer</td><td>State</td></tr></tbody>
      * </table>
      * 
@@ -698,7 +703,7 @@ public class INTELPerformanceQuery {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>{@code configuration} <b>must</b> not be released before all command buffers submitted while the configuration was set are in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">pending state</a></li>
+     * <li>{@code configuration} <b>must</b> not be released before all command buffers submitted while the configuration was set are in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">pending state</a></li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -766,7 +771,8 @@ public class INTELPerformanceQuery {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <tbody><tr><td>-</td><td>-</td><td>-</td><td>Any</td><td>-</td></tr></tbody>
      * </table>
      * 
      * <h5>Return Codes</h5>

@@ -228,8 +228,9 @@ private fun paramMultilineAligment(alignment: Int): String {
     val whitespace = " @param ".length + alignment + 1
     return StringBuilder("$t *".length + whitespace).apply {
         append("$t *")
-        for (i in 0 until whitespace)
+        (0 until whitespace).forEach {
             append(' ')
+        }
     }.toString()
 }
 
@@ -238,8 +239,9 @@ private fun StringBuilder.printParam(name: String, documentation: String, indent
     append("@param $name")
 
     // Align
-    for (i in 0..(alignment - name.length))
+    (0..(alignment - name.length)).forEach {
         append(' ')
+    }
 
     append(documentation.cleanup(multilineAligment))
 }
@@ -342,7 +344,7 @@ ${code
 
 fun note(content: String) = "<div style=\"margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;\"><h5>Note</h5>\n$content</div>"
 
-fun url(href: String, innerHTML: String = href) = """<a target="_blank" href="$href">$innerHTML</a>"""
+fun url(href: String, innerHTML: String = href) = """<a href="$href">$innerHTML</a>"""
 
 fun table(vararg rows: String) = StringBuilder(512).run {
     append("<table class=striped>")

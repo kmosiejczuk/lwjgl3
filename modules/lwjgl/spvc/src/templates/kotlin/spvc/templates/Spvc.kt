@@ -33,7 +33,7 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
         """
 
     IntConstant("", "C_API_VERSION_MAJOR".."0")
-    IntConstant("", "C_API_VERSION_MINOR".."51")
+    IntConstant("", "C_API_VERSION_MINOR".."61")
     IntConstant("", "C_API_VERSION_PATCH".."0")
 
     IntConstant("", "COMPILER_OPTION_COMMON_BIT"..0x1000000)
@@ -514,7 +514,16 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
         "COMPILER_OPTION_GLSL_OVR_MULTIVIEW_VIEW_COUNT".enum("", "77 | SPVC_COMPILER_OPTION_GLSL_BIT"),
         "COMPILER_OPTION_RELAX_NAN_CHECKS".enum("", "78 | SPVC_COMPILER_OPTION_COMMON_BIT"),
         "COMPILER_OPTION_MSL_RAW_BUFFER_TESE_INPUT".enum("", "79 | SPVC_COMPILER_OPTION_MSL_BIT"),
-        "COMPILER_OPTION_MSL_SHADER_PATCH_INPUT_BUFFER_INDEX".enum("", "80 | SPVC_COMPILER_OPTION_MSL_BIT")
+        "COMPILER_OPTION_MSL_SHADER_PATCH_INPUT_BUFFER_INDEX".enum("", "80 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_MANUAL_HELPER_INVOCATION_UPDATES".enum("", "81 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_CHECK_DISCARDED_FRAG_STORES".enum("", "82 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_GLSL_ENABLE_ROW_MAJOR_LOAD_WORKAROUND".enum("", "83 | SPVC_COMPILER_OPTION_GLSL_BIT"),
+        "COMPILER_OPTION_MSL_ARGUMENT_BUFFERS_TIER".enum("", "84 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRAD".enum("", "85 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_READWRITE_TEXTURE_FENCES".enum("", "86 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_REPLACE_RECURSIVE_INPUTS".enum("", "87 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_AGX_MANUAL_CUBE_GRAD_FIXUP".enum("", "88 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_FORCE_FRAGMENT_WITH_SIDE_EFFECTS_EXECUTION".enum("", "89 | SPVC_COMPILER_OPTION_MSL_BIT"),
     )
 
     void(
@@ -567,9 +576,20 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
 
     void(
         "msl_resource_binding_init",
-        "Initializes the resource binding struct. The defaults are non-zero.",
+        """
+        Deprecated: Use #msl_resource_binding_init_2().
+
+        Initializes the resource binding struct. The defaults are non-zero.
+        """,
 
         spvc_msl_resource_binding.p("binding", "")
+    )
+
+    void(
+        "msl_resource_binding_init_2",
+        "Initializes the resource binding struct. The defaults are non-zero.",
+
+        spvc_msl_resource_binding_2.p("binding", "")
     )
 
     unsigned_int(
@@ -738,6 +758,21 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
         charUTF8.const.p("ext", "")
     )
 
+    size_t(
+        "compiler_get_num_required_extensions",
+        "",
+
+        spvc_compiler("compiler", "")
+    )
+
+    charUTF8.const.p(
+        "compiler_get_required_extension",
+        "",
+
+        spvc_compiler("compiler", ""),
+        size_t("index", "")
+    )
+
     spvc_result(
         "compiler_flatten_buffer_block",
         "",
@@ -874,10 +909,18 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
 
     spvc_result(
         "compiler_msl_add_resource_binding",
-        "",
+        "Deprecated, use #compiler_msl_add_resource_binding_2().",
 
         spvc_compiler("compiler", ""),
         spvc_msl_resource_binding.const.p("binding", "")
+    )
+
+    spvc_result(
+        "compiler_msl_add_resource_binding_2",
+        "",
+
+        spvc_compiler("compiler", ""),
+        spvc_msl_resource_binding_2.const.p("binding", "")
     )
 
     spvc_result(
@@ -1745,12 +1788,141 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
         Check(1)..size_t.p("count", "")
     )
 
+    unsigned_long_long(
+        "constant_get_scalar_u64",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", "")
+    )
+
+    long_long(
+        "constant_get_scalar_i64",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", "")
+    )
+
     spvc_type_id(
         "constant_get_type",
         "",
 
         spvc_constant("constant", "")
     )
+
+    void(
+        "constant_set_scalar_fp16",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        unsigned_short("value", "")
+    )
+
+    void(
+        "constant_set_scalar_fp32",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        float("value", "")
+    )
+
+    void(
+        "constant_set_scalar_fp64",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        double("value", "")
+    )
+
+    void(
+        "constant_set_scalar_u32",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        unsigned("value", "")
+    )
+
+    void(
+        "constant_set_scalar_i32",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        int("value", "")
+    )
+
+    void(
+        "constant_set_scalar_u64",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        unsigned_long_long("value", "")
+    )
+
+    void(
+        "constant_set_scalar_i64",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        long_long("value", "")
+    )
+
+    void(
+        "constant_set_scalar_u16",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        unsigned_short("value", "")
+    )
+
+    void(
+        "constant_set_scalar_i16",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        short("value", "")
+    )
+
+    void(
+        "constant_set_scalar_u8",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        unsigned_char("value", "")
+    )
+
+    void(
+        "constant_set_scalar_i8",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        char("value", "")
+    )
+
 
     spvc_bool(
         "compiler_get_binary_offset_for_decoration",

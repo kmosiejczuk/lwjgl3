@@ -27,10 +27,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT}, the {@code pInputAttachmentImage→imageView} member of {@code data} <b>must</b> be a {@code VkImageView} created on {@code device}</li>
  * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE}, and if {@code pSampledImage} is not {@code NULL}, the {@code pSampledImage→imageView} member of {@code data} <b>must</b> be a {@code VkImageView} created on {@code device}, or {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE}, and if {@code pStorageImage} is not {@code NULL}, the {@code pStorageImage→imageView} member of {@code data} <b>must</b> be a {@code VkImageView} created on {@code device}, or {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
- * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER}, {@code pUniformTexelBuffer} is not {@code NULL} and {@code pUniformTexelBuffer→address} is not zero, {@code pUniformTexelBuffer→address} must be an address within a {@code VkBuffer} created on {@code device}</li>
- * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}, {@code pStorageTexelBuffer} is not {@code NULL} and {@code pStorageTexelBuffer→address} is not zero, {@code pStorageTexelBuffer→address} must be an address within a {@code VkBuffer} created on {@code device}</li>
- * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER}, {@code pUniformBuffer} is not {@code NULL} and {@code pUniformBuffer→address} is not zero, {@code pUniformBuffer→address} must be an address within a {@code VkBuffer} created on {@code device}</li>
- * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER}, {@code pStorageBuffer} is not {@code NULL} and {@code pStorageBuffer→address} is not zero, {@code pStorageBuffer→address} must be an address within a {@code VkBuffer} created on {@code device}</li>
+ * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER}, {@code pUniformTexelBuffer} is not {@code NULL} and {@code pUniformTexelBuffer→address} is not zero, {@code pUniformTexelBuffer→address} <b>must</b> be an address within a {@code VkBuffer} created on {@code device}</li>
+ * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}, {@code pStorageTexelBuffer} is not {@code NULL} and {@code pStorageTexelBuffer→address} is not zero, {@code pStorageTexelBuffer→address} <b>must</b> be an address within a {@code VkBuffer} created on {@code device}</li>
+ * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER}, {@code pUniformBuffer} is not {@code NULL} and {@code pUniformBuffer→address} is not zero, {@code pUniformBuffer→address} <b>must</b> be an address within a {@code VkBuffer} created on {@code device}</li>
+ * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER}, {@code pStorageBuffer} is not {@code NULL} and {@code pStorageBuffer→address} is not zero, {@code pStorageBuffer→address} <b>must</b> be an address within a {@code VkBuffer} created on {@code device}</li>
+ * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER}, {@code pUniformBuffer} is not {@code NULL} , the number of texel buffer elements given by <code>(⌊pUniformBuffer→range / (texel block size)⌋ × (texels per block))</code> where texel block size and texels per block are as defined in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility">Compatible Formats</a> table for {@code pUniformBuffer→format}, <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxTexelBufferElements}</li>
+ * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}, {@code pStorageBuffer} is not {@code NULL} , the number of texel buffer elements given by <code>(⌊pStorageBuffer→range / (texel block size)⌋ × (texels per block))</code> where texel block size and texels per block are as defined in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility">Compatible Formats</a> table for {@code pStorageBuffer→format}, <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxTexelBufferElements}</li>
  * <li>If {@code type} is {@link KHRAccelerationStructure#VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR} and {@code accelerationStructure} is not 0, {@code accelerationStructure} <b>must</b> contain the address of a {@code VkAccelerationStructureKHR} created on {@code device}</li>
  * <li>If {@code type} is {@link NVRayTracing#VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV} and {@code accelerationStructure} is not 0, {@code accelerationStructure} <b>must</b> contain the handle of a {@code VkAccelerationStructureNV} created on {@code device}, returned by {@link NVRayTracing#vkGetAccelerationStructureHandleNV GetAccelerationStructureHandleNV}</li>
  * </ul>
@@ -66,7 +68,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkDescriptorDataEXT VkDescriptorDataEXT} {@link #data};
  * }</code></pre>
  */
-public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
+public class VkDescriptorGetInfoEXT extends Struct<VkDescriptorGetInfoEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -98,6 +100,15 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
         DATA = layout.offsetof(3);
     }
 
+    protected VkDescriptorGetInfoEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkDescriptorGetInfoEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkDescriptorGetInfoEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkDescriptorGetInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -111,7 +122,7 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -167,29 +178,29 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
 
     /** Returns a new {@code VkDescriptorGetInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDescriptorGetInfoEXT malloc() {
-        return wrap(VkDescriptorGetInfoEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkDescriptorGetInfoEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkDescriptorGetInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDescriptorGetInfoEXT calloc() {
-        return wrap(VkDescriptorGetInfoEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkDescriptorGetInfoEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkDescriptorGetInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkDescriptorGetInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkDescriptorGetInfoEXT.class, memAddress(container), container);
+        return new VkDescriptorGetInfoEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkDescriptorGetInfoEXT} instance for the specified memory address. */
     public static VkDescriptorGetInfoEXT create(long address) {
-        return wrap(VkDescriptorGetInfoEXT.class, address);
+        return new VkDescriptorGetInfoEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorGetInfoEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkDescriptorGetInfoEXT.class, address);
+        return address == NULL ? null : new VkDescriptorGetInfoEXT(address, null);
     }
 
     /**
@@ -198,7 +209,7 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDescriptorGetInfoEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -207,7 +218,7 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDescriptorGetInfoEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -217,7 +228,7 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
      */
     public static VkDescriptorGetInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -227,13 +238,13 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDescriptorGetInfoEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorGetInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -242,7 +253,7 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorGetInfoEXT malloc(MemoryStack stack) {
-        return wrap(VkDescriptorGetInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkDescriptorGetInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -251,7 +262,7 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorGetInfoEXT calloc(MemoryStack stack) {
-        return wrap(VkDescriptorGetInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkDescriptorGetInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -261,7 +272,7 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDescriptorGetInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -271,7 +282,7 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDescriptorGetInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -304,9 +315,9 @@ public class VkDescriptorGetInfoEXT extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkDescriptorGetInfoEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDescriptorGetInfoEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkDescriptorGetInfoEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

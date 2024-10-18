@@ -17,7 +17,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** Native bindings to the libshaderc C API of the <a target="_blank" href="https://github.com/google/shaderc/">shaderc</a> library. */
+/** Native bindings to the libshaderc C API of the <a href="https://github.com/google/shaderc/">shaderc</a> library. */
 public class Shaderc {
 
     private static final SharedLibrary SHADERC = Library.loadNative(Shaderc.class, "org.lwjgl.shaderc", Configuration.SHADERC_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("shaderc")), true);
@@ -57,6 +57,7 @@ public class Shaderc {
             compile_options_set_hlsl_register_set_and_binding           = apiGetFunctionAddress(SHADERC, "shaderc_compile_options_set_hlsl_register_set_and_binding"),
             compile_options_set_hlsl_functionality1                     = apiGetFunctionAddress(SHADERC, "shaderc_compile_options_set_hlsl_functionality1"),
             compile_options_set_hlsl_16bit_types                        = apiGetFunctionAddress(SHADERC, "shaderc_compile_options_set_hlsl_16bit_types"),
+            compile_options_set_vulkan_rules_relaxed                    = apiGetFunctionAddress(SHADERC, "shaderc_compile_options_set_vulkan_rules_relaxed"),
             compile_options_set_invert_y                                = apiGetFunctionAddress(SHADERC, "shaderc_compile_options_set_invert_y"),
             compile_options_set_nan_clamp                               = apiGetFunctionAddress(SHADERC, "shaderc_compile_options_set_nan_clamp"),
             compile_into_spv                                            = apiGetFunctionAddress(SHADERC, "shaderc_compile_into_spv"),
@@ -430,6 +431,25 @@ public class Shaderc {
      * <li>{@link #shaderc_limit_max_cull_distances limit_max_cull_distances}</li>
      * <li>{@link #shaderc_limit_max_combined_clip_and_cull_distances limit_max_combined_clip_and_cull_distances}</li>
      * <li>{@link #shaderc_limit_max_samples limit_max_samples}</li>
+     * <li>{@link #shaderc_limit_max_mesh_output_vertices_nv limit_max_mesh_output_vertices_nv}</li>
+     * <li>{@link #shaderc_limit_max_mesh_output_primitives_nv limit_max_mesh_output_primitives_nv}</li>
+     * <li>{@link #shaderc_limit_max_mesh_work_group_size_x_nv limit_max_mesh_work_group_size_x_nv}</li>
+     * <li>{@link #shaderc_limit_max_mesh_work_group_size_y_nv limit_max_mesh_work_group_size_y_nv}</li>
+     * <li>{@link #shaderc_limit_max_mesh_work_group_size_z_nv limit_max_mesh_work_group_size_z_nv}</li>
+     * <li>{@link #shaderc_limit_max_task_work_group_size_x_nv limit_max_task_work_group_size_x_nv}</li>
+     * <li>{@link #shaderc_limit_max_task_work_group_size_y_nv limit_max_task_work_group_size_y_nv}</li>
+     * <li>{@link #shaderc_limit_max_task_work_group_size_z_nv limit_max_task_work_group_size_z_nv}</li>
+     * <li>{@link #shaderc_limit_max_mesh_view_count_nv limit_max_mesh_view_count_nv}</li>
+     * <li>{@link #shaderc_limit_max_mesh_output_vertices_ext limit_max_mesh_output_vertices_ext}</li>
+     * <li>{@link #shaderc_limit_max_mesh_output_primitives_ext limit_max_mesh_output_primitives_ext}</li>
+     * <li>{@link #shaderc_limit_max_mesh_work_group_size_x_ext limit_max_mesh_work_group_size_x_ext}</li>
+     * <li>{@link #shaderc_limit_max_mesh_work_group_size_y_ext limit_max_mesh_work_group_size_y_ext}</li>
+     * <li>{@link #shaderc_limit_max_mesh_work_group_size_z_ext limit_max_mesh_work_group_size_z_ext}</li>
+     * <li>{@link #shaderc_limit_max_task_work_group_size_x_ext limit_max_task_work_group_size_x_ext}</li>
+     * <li>{@link #shaderc_limit_max_task_work_group_size_y_ext limit_max_task_work_group_size_y_ext}</li>
+     * <li>{@link #shaderc_limit_max_task_work_group_size_z_ext limit_max_task_work_group_size_z_ext}</li>
+     * <li>{@link #shaderc_limit_max_mesh_view_count_ext limit_max_mesh_view_count_ext}</li>
+     * <li>{@link #shaderc_limit_max_dual_source_draw_buffers_ext limit_max_dual_source_draw_buffers_ext}</li>
      * </ul>
      */
     public static final int
@@ -515,7 +535,26 @@ public class Shaderc {
         shaderc_limit_max_transform_feedback_interleaved_components = 79,
         shaderc_limit_max_cull_distances                            = 80,
         shaderc_limit_max_combined_clip_and_cull_distances          = 81,
-        shaderc_limit_max_samples                                   = 82;
+        shaderc_limit_max_samples                                   = 82,
+        shaderc_limit_max_mesh_output_vertices_nv                   = 83,
+        shaderc_limit_max_mesh_output_primitives_nv                 = 84,
+        shaderc_limit_max_mesh_work_group_size_x_nv                 = 85,
+        shaderc_limit_max_mesh_work_group_size_y_nv                 = 86,
+        shaderc_limit_max_mesh_work_group_size_z_nv                 = 87,
+        shaderc_limit_max_task_work_group_size_x_nv                 = 88,
+        shaderc_limit_max_task_work_group_size_y_nv                 = 89,
+        shaderc_limit_max_task_work_group_size_z_nv                 = 90,
+        shaderc_limit_max_mesh_view_count_nv                        = 91,
+        shaderc_limit_max_mesh_output_vertices_ext                  = 92,
+        shaderc_limit_max_mesh_output_primitives_ext                = 93,
+        shaderc_limit_max_mesh_work_group_size_x_ext                = 94,
+        shaderc_limit_max_mesh_work_group_size_y_ext                = 95,
+        shaderc_limit_max_mesh_work_group_size_z_ext                = 96,
+        shaderc_limit_max_task_work_group_size_x_ext                = 97,
+        shaderc_limit_max_task_work_group_size_y_ext                = 98,
+        shaderc_limit_max_task_work_group_size_z_ext                = 99,
+        shaderc_limit_max_mesh_view_count_ext                       = 100,
+        shaderc_limit_max_dual_source_draw_buffers_ext              = 101;
 
     /**
      * Uniform resource kinds. In Vulkan, uniform resources are bound to the pipeline via descriptors with numbered bindings and sets.
@@ -567,7 +606,7 @@ public class Shaderc {
      * Returns a {@code shaderc_compiler_t} that can be used to compile modules.
      * 
      * <p>A return of {@code NULL} indicates that there was an error initializing the compiler. Any function operating on {@code shaderc_compiler_t} must offer the
-     * <a target="_blank" href="http://herbsutter.com/2014/01/13/gotw-95-solution-thread-safety-and-synchronization/">basic thread-safety guarantee</a>. That is: concurrent
+     * <a href="https://herbsutter.com/2014/01/13/gotw-95-solution-thread-safety-and-synchronization/">basic thread-safety guarantee</a>. That is: concurrent
      * invocation of these functions on DIFFERENT objects needs no synchronization; concurrent invocation of these functions on the SAME object requires
      * synchronization IF AND ONLY IF some of them take a non-const argument.</p>
      */
@@ -1029,6 +1068,21 @@ public class Shaderc {
         invokePV(options, enable, __functionAddress);
     }
 
+    // --- [ shaderc_compile_options_set_vulkan_rules_relaxed ] ---
+
+    /**
+     * Enables or disables relaxed Vulkan rules.
+     * 
+     * <p>This allows most OpenGL shaders to compile under Vulkan semantics.</p>
+     */
+    public static void shaderc_compile_options_set_vulkan_rules_relaxed(@NativeType("shaderc_compile_options_t") long options, @NativeType("bool") boolean enable) {
+        long __functionAddress = Functions.compile_options_set_vulkan_rules_relaxed;
+        if (CHECKS) {
+            check(options);
+        }
+        invokePV(options, enable, __functionAddress);
+    }
+
     // --- [ shaderc_compile_options_set_invert_y ] ---
 
     /** Sets whether the compiler should invert {@code position.Y} output in vertex shader. */
@@ -1212,7 +1266,7 @@ public class Shaderc {
     }
 
     /**
-     * Takes an assembly string of the format defined in the <a target="_blank" href="https://github.com/KhronosGroup/SPIRV-Tools/blob/master/syntax.md">SPIRV-Tools project</a>,
+     * Takes an assembly string of the format defined in the <a href="https://github.com/KhronosGroup/SPIRV-Tools/blob/master/syntax.md">SPIRV-Tools project</a>,
      * assembles it into SPIR-V binary and a {@code shaderc_compilation_result_t} will be returned to hold the results. The assembling will pick options
      * suitable for assembling specified in the {@code additional_options} parameter. May be safely called from multiple threads without explicit
      * synchronization. If there was failure in allocating the compiler object, {@code NULL} will be returned.
@@ -1223,7 +1277,7 @@ public class Shaderc {
     }
 
     /**
-     * Takes an assembly string of the format defined in the <a target="_blank" href="https://github.com/KhronosGroup/SPIRV-Tools/blob/master/syntax.md">SPIRV-Tools project</a>,
+     * Takes an assembly string of the format defined in the <a href="https://github.com/KhronosGroup/SPIRV-Tools/blob/master/syntax.md">SPIRV-Tools project</a>,
      * assembles it into SPIR-V binary and a {@code shaderc_compilation_result_t} will be returned to hold the results. The assembling will pick options
      * suitable for assembling specified in the {@code additional_options} parameter. May be safely called from multiple threads without explicit
      * synchronization. If there was failure in allocating the compiler object, {@code NULL} will be returned.

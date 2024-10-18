@@ -33,7 +33,7 @@ final class XRHelper {
     private XRHelper() {
     }
 
-    static <S extends Struct, T extends StructBuffer<S, T>> T fill(T buffer, int offset, int value) {
+    static <S extends Struct<S>, T extends StructBuffer<S, T>> T fill(T buffer, int offset, int value) {
         long ptr    = buffer.address() + offset;
         int  stride = buffer.sizeof();
         for (int i = 0; i < buffer.limit(); i++) {
@@ -160,6 +160,7 @@ final class XRHelper {
             );
         }
         switch (Platform.get()) {
+            case FREEBSD:
             case LINUX:
                 int platform = GLFW_PLATFORM_X11;
                 if (platform == GLFW_PLATFORM_X11) {

@@ -17,7 +17,6 @@ val EXT_pci_bus_info = "EXTPciBusInfo".nativeClassVK("EXT_pci_bus_info", type = 
 
         As a consequence, applications should always check for the presence of the extension string for each individual physical device for which they intend to issue the new query for and should not have any assumptions about the availability of the extension on any given platform.
 
-        <h5>VK_EXT_pci_bus_info</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_pci_bus_info}</dd>
@@ -32,11 +31,11 @@ val EXT_pci_bus_info = "EXTPciBusInfo".nativeClassVK("EXT_pci_bus_info", type = 
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Matthaeus G. Chajdas <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_pci_bus_info]%20@anteru%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_pci_bus_info%20extension*">anteru</a></li>
+                <li>Matthaeus G. Chajdas <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_pci_bus_info]%20@anteru%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_pci_bus_info%20extension*">anteru</a></li>
             </ul></dd>
         </dl>
 

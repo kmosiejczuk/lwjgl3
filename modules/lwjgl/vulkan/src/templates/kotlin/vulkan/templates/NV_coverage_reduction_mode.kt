@@ -22,7 +22,6 @@ val NV_coverage_reduction_mode = "NVCoverageReductionMode".nativeClassVK("NV_cov
 
         The new command #GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV() can be used to query the various raster, color, depth/stencil sample count and reduction mode combinations that are supported by the implementation. This extension would allow an implementation to support the behavior of both {@code VK_NV_framebuffer_mixed_samples} and {@code VK_AMD_mixed_attachment_samples} extensions simultaneously.
 
-        <h5>VK_NV_coverage_reduction_mode</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_coverage_reduction_mode}</dd>
@@ -37,11 +36,11 @@ val NV_coverage_reduction_mode = "NVCoverageReductionMode".nativeClassVK("NV_cov
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Kedarnath Thangudu <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_coverage_reduction_mode]%20@kthangudu%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_coverage_reduction_mode%20extension*">kthangudu</a></li>
+                <li>Kedarnath Thangudu <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_coverage_reduction_mode]%20@kthangudu%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_coverage_reduction_mode%20extension*">kthangudu</a></li>
             </ul></dd>
         </dl>
 
@@ -85,7 +84,7 @@ val NV_coverage_reduction_mode = "NVCoverageReductionMode".nativeClassVK("NV_cov
         <h5>Description</h5>
         <ul>
             <li>#COVERAGE_REDUCTION_MODE_MERGE_NV specifies that each color sample will be associated with an implementation-dependent subset of samples in the pixel coverage. If any of those associated samples are covered, the color sample is covered.</li>
-            <li>#COVERAGE_REDUCTION_MODE_TRUNCATE_NV specifies that for color samples present in the color attachments, a color sample is covered if the pixel coverage sample with the same <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#primsrast-multisampling-coverage-mask">sample index</a> <code>i</code> is covered; other pixel coverage samples are discarded.</li>
+            <li>#COVERAGE_REDUCTION_MODE_TRUNCATE_NV specifies that for color samples present in the color attachments, a color sample is covered if the pixel coverage sample with the same <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#primsrast-multisampling-coverage-mask">sample index</a> <code>i</code> is covered; other pixel coverage samples are discarded.</li>
         </ul>
 
         <h5>See Also</h5>
@@ -111,7 +110,7 @@ val NV_coverage_reduction_mode = "NVCoverageReductionMode".nativeClassVK("NV_cov
 ￿    VkFramebufferMixedSamplesCombinationNV*     pCombinations);</code></pre>
 
         <h5>Description</h5>
-        If {@code pCombinations} is {@code NULL}, then the number of supported combinations for the given {@code physicalDevice} is returned in {@code pCombinationCount}. Otherwise, {@code pCombinationCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pCombinations} array, and on return the variable is overwritten with the number of values actually written to {@code pCombinations}. If the value of {@code pCombinationCount} is less than the number of combinations supported for the given {@code physicalDevice}, at most {@code pCombinationCount} values will be written to {@code pCombinations}, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the supported values were returned.
+        If {@code pCombinations} is {@code NULL}, then the number of supported combinations for the given {@code physicalDevice} is returned in {@code pCombinationCount}. Otherwise, {@code pCombinationCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pCombinations} array, and on return the variable is overwritten with the number of values actually written to {@code pCombinations}. If the value of {@code pCombinationCount} is less than the number of combinations supported for the given {@code physicalDevice}, at most {@code pCombinationCount} values will be written to {@code pCombinations}, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the supported values were returned.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

@@ -95,7 +95,6 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
 ￿
 ￿"submit command buffer"</code></pre>
 
-        <h5>VK_NV_optical_flow</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_optical_flow}</dd>
@@ -110,11 +109,11 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRFormatFeatureFlags2 VK_KHR_format_feature_flags2} and {@link KHRSynchronization2 VK_KHR_synchronization2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRFormatFeatureFlags2 VK_KHR_format_feature_flags2} and {@link KHRSynchronization2 VK_KHR_synchronization2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3">Version 1.3</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Carsten Rohde <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_optical_flow]%20@crohde%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_optical_flow%20extension*">crohde</a></li>
+                <li>Carsten Rohde <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_optical_flow]%20@crohde%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_optical_flow%20extension*">crohde</a></li>
             </ul></dd>
         </dl>
 
@@ -160,6 +159,7 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
     EnumConstant(
         "Extends {@code VkFormat}.",
 
+        "FORMAT_R16G16_SFIXED5_NV".."1000464000",
         "FORMAT_R16G16_S10_5_NV".."1000464000"
     )
 
@@ -268,11 +268,11 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
             <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_INPUT_NV specifies the binding point for the input frame.</li>
             <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_REFERENCE_NV specifies the binding point for the input reference frame.</li>
             <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_HINT_NV specifies the binding point for the optional external hint flow vectors.</li>
-            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_FLOW_VECTOR_NV specifies the binding point for output flow vectors of default forward flow calcution.</li>
-            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_FLOW_VECTOR_NV specifies the binding point for the optional output flow vector map of optional backward flow calcution.</li>
-            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_COST_NV specifies the binding point for the optional output cost map of default forward flow calcution.</li>
-            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_COST_NV specifies the binding point for the optional output cost map of optional backward flow calcution.</li>
-            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_GLOBAL_FLOW_NV specifies the binding point for the optional global flow value of default forward flow calcution.</li>
+            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_FLOW_VECTOR_NV specifies the binding point for output flow vectors of default forward flow calculation.</li>
+            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_FLOW_VECTOR_NV specifies the binding point for the optional output flow vector map of optional backward flow calculation.</li>
+            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_COST_NV specifies the binding point for the optional output cost map of default forward flow calculation.</li>
+            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_COST_NV specifies the binding point for the optional output cost map of optional backward flow calculation.</li>
+            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_GLOBAL_FLOW_NV specifies the binding point for the optional global flow value of default forward flow calculation.</li>
         </ul>
 
         <h5>See Also</h5>
@@ -340,7 +340,11 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
 ￿    VkOpticalFlowImageFormatPropertiesNV*       pImageFormatProperties);</code></pre>
 
         <h5>Description</h5>
-        If {@code pImageFormatProperties} is {@code NULL}, then the number of optical flow properties supported for the given {@code physicalDevice} is returned in {@code pFormatCount}. Otherwise, {@code pFormatCount} must point to a variable set by the user to the number of elements in the {@code pImageFormatProperties} array, and on return the variable is overwritten with the number of values actually written to {@code pImageFormatProperties}. If the value of {@code pFormatCount} is less than the number of optical flow properties supported, at most {@code pFormatCount} values will be written to {@code pImageFormatProperties}, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available values were returned. Before creating an image to be used as a optical flow frame, obtain the supported image creation parameters by querying with #GetPhysicalDeviceFormatProperties2() and #GetPhysicalDeviceImageFormatProperties2() using one of the reported formats and adding ##VkOpticalFlowImageFormatInfoNV to the {@code pNext} chain of ##VkPhysicalDeviceImageFormatInfo2. When querying the parameters with #GetPhysicalDeviceImageFormatProperties2() for images used for optical flow operations, the ##VkOpticalFlowImageFormatInfoNV{@code ::usage} field should contain one or more of the bits defined in {@code VkOpticalFlowUsageFlagBitsNV}.
+        If {@code pImageFormatProperties} is {@code NULL}, then the number of optical flow properties supported for the given {@code physicalDevice} is returned in {@code pFormatCount}. Otherwise, {@code pFormatCount} must point to a variable set by the application to the number of elements in the {@code pImageFormatProperties} array, and on return the variable is overwritten with the number of values actually written to {@code pImageFormatProperties}. If the value of {@code pFormatCount} is less than the number of optical flow properties supported, at most {@code pFormatCount} values will be written to {@code pImageFormatProperties}, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available values were returned.
+
+        Before creating an image to be used as a optical flow frame, obtain the supported image creation parameters by querying with #GetPhysicalDeviceFormatProperties2() and #GetPhysicalDeviceImageFormatProperties2() using one of the reported formats and adding ##VkOpticalFlowImageFormatInfoNV to the {@code pNext} chain of ##VkPhysicalDeviceImageFormatInfo2.
+
+        When querying the parameters with #GetPhysicalDeviceImageFormatProperties2() for images used for optical flow operations, the ##VkOpticalFlowImageFormatInfoNV{@code ::usage} field <b>must</b> contain one or more of the bits defined in {@code VkOpticalFlowUsageFlagBitsNV}.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -367,11 +371,11 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
         </dl>
 
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-        #FORMAT_B8G8R8A8_UNORM, #FORMAT_R8_UNORM and #FORMAT_G8_B8R8_2PLANE_420_UNORM are initially supported for images with <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#opticalflow-usage">optical usage</a> #OPTICAL_FLOW_USAGE_INPUT_BIT_NV.
+        #FORMAT_B8G8R8A8_UNORM, #FORMAT_R8_UNORM and #FORMAT_G8_B8R8_2PLANE_420_UNORM are initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#opticalflow-usage">optical usage</a> #OPTICAL_FLOW_USAGE_INPUT_BIT_NV.
 
-        #FORMAT_R16G16_S10_5_NV is initially supported for images with <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#opticalflow-usage">optical flow usage</a> #OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV, #OPTICAL_FLOW_USAGE_HINT_BIT_NV and #OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV.
+        #FORMAT_R16G16_SFIXED5_NV is initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#opticalflow-usage">optical flow usage</a> #OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV, #OPTICAL_FLOW_USAGE_HINT_BIT_NV and #OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV.
 
-        #FORMAT_R8_UINT and #FORMAT_R32_UINT are initially supported for images with <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#opticalflow-usage">optical flow usage</a> #OPTICAL_FLOW_USAGE_COST_BIT_NV. It is recommended to use #FORMAT_R8_UINT because of the lower bandwidth.
+        #FORMAT_R8_UINT and #FORMAT_R32_UINT are initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#opticalflow-usage">optical flow usage</a> #OPTICAL_FLOW_USAGE_COST_BIT_NV. It is recommended to use #FORMAT_R8_UINT because of the lower bandwidth.
         </div>
 
         <h5>See Also</h5>
@@ -427,7 +431,7 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
 
         VkDevice("device", "the logical device that creates the optical flow session object."),
         VkOpticalFlowSessionCreateInfoNV.const.p("pCreateInfo", "a pointer to a ##VkOpticalFlowSessionCreateInfoNV structure containing parameters specifying the creation of the optical flow session."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
         Check(1)..VkOpticalFlowSessionNV.p("pSession", "a pointer to a {@code VkOpticalFlowSessionNV} handle specifying the optical flow session object which will be created by this function when it returns #SUCCESS")
     )
 
@@ -459,7 +463,7 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
 
         VkDevice("device", "the device that was used for the creation of the optical flow session."),
         VkOpticalFlowSessionNV("session", "the optical flow session to be destroyed."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
     )
 
     VkResult(
@@ -532,8 +536,8 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
             <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
             <li>{@code session} <b>must</b> be a valid {@code VkOpticalFlowSessionNV} handle</li>
             <li>{@code pExecuteInfo} <b>must</b> be a valid pointer to a valid ##VkOpticalFlowExecuteInfoNV structure</li>
-            <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
-            <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support opticalflow operations</li>
+            <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
+            <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support optical flow operations</li>
             <li>This command <b>must</b> only be called outside of a render pass instance</li>
             <li>This command <b>must</b> only be called outside of a video coding scope</li>
             <li>Both of {@code commandBuffer}, and {@code session} <b>must</b> have been created, allocated, or retrieved from the same {@code VkDevice}</li>
@@ -546,7 +550,7 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
 
         <h5>Command Properties</h5>
         <table class="lwjgl">
-            <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+            <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
             <tbody><tr><td>Primary Secondary</td><td>Outside</td><td>Outside</td><td>Opticalflow</td><td>Action</td></tr></tbody>
         </table>
 

@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #formatRgba10x6WithoutYCbCrSampler};
  * }</code></pre>
  */
-public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implements NativeResource {
+public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct<VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,6 +66,15 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
         FORMATRGBA10X6WITHOUTYCBCRSAMPLER = layout.offsetof(2);
     }
 
+    protected VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -79,13 +88,13 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that {@link VK11#VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16 FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16} <b>can</b> be used with a {@code VkImageView} with {@code subresourceRange.aspectMask} equal to {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT} without a <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> enabled. */
+    /** indicates that {@link VK11#VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16 FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16} <b>can</b> be used with a {@code VkImageView} with {@code subresourceRange.aspectMask} equal to {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT} without a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> enabled. */
     @NativeType("VkBool32")
     public boolean formatRgba10x6WithoutYCbCrSampler() { return nformatRgba10x6WithoutYCbCrSampler(address()) != 0; }
 
@@ -127,29 +136,29 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
 
     /** Returns a new {@code VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT malloc() {
-        return wrap(VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT calloc() {
-        return wrap(VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.class, memAddress(container), container);
+        return new VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT} instance for the specified memory address. */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT create(long address) {
-        return wrap(VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.class, address);
+        return new VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.class, address);
+        return address == NULL ? null : new VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT(address, null);
     }
 
     /**
@@ -158,7 +167,7 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -167,7 +176,7 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -177,7 +186,7 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
      */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -187,13 +196,13 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -202,7 +211,7 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -211,7 +220,7 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -221,7 +230,7 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -231,7 +240,7 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -260,9 +269,9 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct implement
         /**
          * Creates a new {@code VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

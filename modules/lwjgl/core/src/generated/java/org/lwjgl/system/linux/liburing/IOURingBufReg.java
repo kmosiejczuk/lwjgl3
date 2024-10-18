@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct io_uring_buf_reg")
-public class IOURingBufReg extends Struct implements NativeResource {
+public class IOURingBufReg extends Struct<IOURingBufReg> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,6 +66,15 @@ public class IOURingBufReg extends Struct implements NativeResource {
         RESV = layout.offsetof(4);
     }
 
+    protected IOURingBufReg(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected IOURingBufReg create(long address, @Nullable ByteBuffer container) {
+        return new IOURingBufReg(address, container);
+    }
+
     /**
      * Creates a {@code IOURingBufReg} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -91,12 +100,6 @@ public class IOURingBufReg extends Struct implements NativeResource {
     /** @return the value of the {@code flags} field. */
     @NativeType("__u16")
     public short flags() { return nflags(address()); }
-    /** @return a {@link LongBuffer} view of the {@code resv} field. */
-    @NativeType("__u64[3]")
-    public LongBuffer resv() { return nresv(address()); }
-    /** @return the value at the specified index of the {@code resv} field. */
-    @NativeType("__u64")
-    public long resv(int index) { return nresv(address(), index); }
 
     /** Sets the specified value to the {@code ring_addr} field. */
     public IOURingBufReg ring_addr(@NativeType("__u64") long value) { nring_addr(address(), value); return this; }
@@ -106,24 +109,18 @@ public class IOURingBufReg extends Struct implements NativeResource {
     public IOURingBufReg bgid(@NativeType("__u16") short value) { nbgid(address(), value); return this; }
     /** Sets the specified value to the {@code flags} field. */
     public IOURingBufReg flags(@NativeType("__u16") short value) { nflags(address(), value); return this; }
-    /** Copies the specified {@link LongBuffer} to the {@code resv} field. */
-    public IOURingBufReg resv(@NativeType("__u64[3]") LongBuffer value) { nresv(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@code resv} field. */
-    public IOURingBufReg resv(int index, @NativeType("__u64") long value) { nresv(address(), index, value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOURingBufReg set(
         long ring_addr,
         int ring_entries,
         short bgid,
-        short flags,
-        LongBuffer resv
+        short flags
     ) {
         ring_addr(ring_addr);
         ring_entries(ring_entries);
         bgid(bgid);
         flags(flags);
-        resv(resv);
 
         return this;
     }
@@ -144,29 +141,29 @@ public class IOURingBufReg extends Struct implements NativeResource {
 
     /** Returns a new {@code IOURingBufReg} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static IOURingBufReg malloc() {
-        return wrap(IOURingBufReg.class, nmemAllocChecked(SIZEOF));
+        return new IOURingBufReg(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code IOURingBufReg} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static IOURingBufReg calloc() {
-        return wrap(IOURingBufReg.class, nmemCallocChecked(1, SIZEOF));
+        return new IOURingBufReg(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code IOURingBufReg} instance allocated with {@link BufferUtils}. */
     public static IOURingBufReg create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(IOURingBufReg.class, memAddress(container), container);
+        return new IOURingBufReg(memAddress(container), container);
     }
 
     /** Returns a new {@code IOURingBufReg} instance for the specified memory address. */
     public static IOURingBufReg create(long address) {
-        return wrap(IOURingBufReg.class, address);
+        return new IOURingBufReg(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingBufReg createSafe(long address) {
-        return address == NULL ? null : wrap(IOURingBufReg.class, address);
+        return address == NULL ? null : new IOURingBufReg(address, null);
     }
 
     /**
@@ -175,7 +172,7 @@ public class IOURingBufReg extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingBufReg.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -184,7 +181,7 @@ public class IOURingBufReg extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingBufReg.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -194,7 +191,7 @@ public class IOURingBufReg extends Struct implements NativeResource {
      */
     public static IOURingBufReg.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -204,13 +201,13 @@ public class IOURingBufReg extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingBufReg.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingBufReg.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -219,7 +216,7 @@ public class IOURingBufReg extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingBufReg malloc(MemoryStack stack) {
-        return wrap(IOURingBufReg.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new IOURingBufReg(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -228,7 +225,7 @@ public class IOURingBufReg extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingBufReg calloc(MemoryStack stack) {
-        return wrap(IOURingBufReg.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new IOURingBufReg(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -238,7 +235,7 @@ public class IOURingBufReg extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingBufReg.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -248,7 +245,7 @@ public class IOURingBufReg extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingBufReg.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -261,9 +258,7 @@ public class IOURingBufReg extends Struct implements NativeResource {
     public static short nbgid(long struct) { return UNSAFE.getShort(null, struct + IOURingBufReg.BGID); }
     /** Unsafe version of {@link #flags}. */
     public static short nflags(long struct) { return UNSAFE.getShort(null, struct + IOURingBufReg.FLAGS); }
-    /** Unsafe version of {@link #resv}. */
     public static LongBuffer nresv(long struct) { return memLongBuffer(struct + IOURingBufReg.RESV, 3); }
-    /** Unsafe version of {@link #resv(int) resv}. */
     public static long nresv(long struct, int index) {
         return UNSAFE.getLong(null, struct + IOURingBufReg.RESV + check(index, 3) * 8);
     }
@@ -276,12 +271,10 @@ public class IOURingBufReg extends Struct implements NativeResource {
     public static void nbgid(long struct, short value) { UNSAFE.putShort(null, struct + IOURingBufReg.BGID, value); }
     /** Unsafe version of {@link #flags(short) flags}. */
     public static void nflags(long struct, short value) { UNSAFE.putShort(null, struct + IOURingBufReg.FLAGS, value); }
-    /** Unsafe version of {@link #resv(LongBuffer) resv}. */
     public static void nresv(long struct, LongBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
         memCopy(memAddress(value), struct + IOURingBufReg.RESV, value.remaining() * 8);
     }
-    /** Unsafe version of {@link #resv(int, long) resv}. */
     public static void nresv(long struct, int index, long value) {
         UNSAFE.putLong(null, struct + IOURingBufReg.RESV + check(index, 3) * 8, value);
     }
@@ -296,9 +289,9 @@ public class IOURingBufReg extends Struct implements NativeResource {
         /**
          * Creates a new {@code IOURingBufReg.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link IOURingBufReg#SIZEOF}, and its mark will be undefined.
+         * by {@link IOURingBufReg#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -336,12 +329,6 @@ public class IOURingBufReg extends Struct implements NativeResource {
         /** @return the value of the {@code flags} field. */
         @NativeType("__u16")
         public short flags() { return IOURingBufReg.nflags(address()); }
-        /** @return a {@link LongBuffer} view of the {@code resv} field. */
-        @NativeType("__u64[3]")
-        public LongBuffer resv() { return IOURingBufReg.nresv(address()); }
-        /** @return the value at the specified index of the {@code resv} field. */
-        @NativeType("__u64")
-        public long resv(int index) { return IOURingBufReg.nresv(address(), index); }
 
         /** Sets the specified value to the {@code ring_addr} field. */
         public IOURingBufReg.Buffer ring_addr(@NativeType("__u64") long value) { IOURingBufReg.nring_addr(address(), value); return this; }
@@ -351,10 +338,6 @@ public class IOURingBufReg extends Struct implements NativeResource {
         public IOURingBufReg.Buffer bgid(@NativeType("__u16") short value) { IOURingBufReg.nbgid(address(), value); return this; }
         /** Sets the specified value to the {@code flags} field. */
         public IOURingBufReg.Buffer flags(@NativeType("__u16") short value) { IOURingBufReg.nflags(address(), value); return this; }
-        /** Copies the specified {@link LongBuffer} to the {@code resv} field. */
-        public IOURingBufReg.Buffer resv(@NativeType("__u64[3]") LongBuffer value) { IOURingBufReg.nresv(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@code resv} field. */
-        public IOURingBufReg.Buffer resv(int index, @NativeType("__u64") long value) { IOURingBufReg.nresv(address(), index, value); return this; }
 
     }
 

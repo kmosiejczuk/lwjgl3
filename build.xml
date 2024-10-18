@@ -148,6 +148,8 @@
         <echo message="Compiling Kotlin generator..." level="info" taskname="Generator" unless:set="generator-uptodate"/>
         <mkdir dir="${bin.generator}"/>
         <kotlinc moduleName="generator" output="${bin.generator}" printVersion="true" unless:set="generator-uptodate">
+            <compilerarg line="-language-version 2.0"/>
+            <compilerarg line="-api-version 2.0"/>
             <compilerarg value="-progressive"/>
             <compilerarg value="-Xno-call-assertions"/>
             <compilerarg value="-Xno-param-assertions"/>
@@ -214,6 +216,8 @@
                 <pathelement location="${bin.generator}"/>
             </classpath>
 
+            <compilerarg line="-language-version 2.0"/>
+            <compilerarg line="-api-version 2.0"/>
             <compilerarg value="-progressive"/>
             <compilerarg value="-Xno-call-assertions"/>
             <compilerarg value="-Xno-param-assertions"/>
@@ -222,6 +226,7 @@
             <compilerarg value="-Xbackend-threads=${backend-threads}" if:set="backend-threads"/>
             <compilerarg line="-jvm-target 1.8"/>
 
+            <!-- OpenBSD 3.3.4 kotlin paths -->
             <src path="${core.kotlin.path}/jni"/>
             <src path="${core.kotlin.path}/libc"/>
             <src path="${core.kotlin.path}/libffi"/>
@@ -466,6 +471,7 @@
 
         <mkdir dir="${bin.lwjgl}/core/META-INF/versions/9" if:set="jdk9"/>
         <mkdir dir="${bin.lwjgl}/core/META-INF/versions/10" if:set="jdk10"/>
+        <mkdir dir="${bin.lwjgl}/core/META-INF/versions/16" if:set="jdk16"/>
         <delete file="${bin.lwjgl}/core/META-INF/versions/9/module-info.class" quiet="true" if:set="jdk9"/>
         <lwjgl.javac9 destdir="${bin.lwjgl}/core/META-INF/versions/9" taskname="javac: Core - Java 9" if:set="jdk9">
             <classpath>
@@ -486,6 +492,15 @@
             </src>
             <include name="**"/>
         </lwjgl.javac10>
+        <lwjgl.javac16 destdir="${bin.lwjgl}/core/META-INF/versions/16" taskname="javac: Core - Java 16" if:set="jdk16">
+            <classpath>
+                <pathelement path="${bin.lwjgl}/core"/>
+            </classpath>
+            <src>
+                <pathelement path="${module.lwjgl}/core/src/main/java16"/>
+            </src>
+            <include name="**"/>
+        </lwjgl.javac16>
 
         <parallel threadsPerProcessor="1">
             <compileBinding binding="assimp"/>
@@ -504,6 +519,7 @@
             <compileBinding binding="lz4"/>
             <compileBinding binding="meow"/>
             <compileBinding binding="meshoptimizer"/>
+            <compileBinding binding="msdfgen"/>
             <compileBinding binding="nanovg"/>
             <compileBinding binding="nfd"/>
             <compileBinding binding="nuklear"/>
@@ -587,9 +603,9 @@
             <classpath>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/9" if:set="core.java9"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/10" if:set="core.java10"/>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/16" if:set="core.java16"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${kotlinc}/lib/kotlin-stdlib.jar"/>
-                <pathelement path="${kotlinc}/lib/kotlin-stdlib-jdk7.jar"/>
             </classpath>
 
             <compilerarg line="-jvm-target 1.8"/>
@@ -614,11 +630,11 @@
             <classpath>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/9" if:set="core.java9"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/10" if:set="core.java10"/>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/16" if:set="core.java16"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${bin.extract}"/>
                 <pathelement path="${test.resources}"/>
                 <pathelement path="${kotlinc}/lib/kotlin-stdlib.jar"/>
-                <pathelement path="${kotlinc}/lib/kotlin-stdlib-jdk7.jar"/>
                 <pathelement path="${lib}/native"/>
             </classpath>
 
@@ -679,6 +695,15 @@
             <and>
                 <istrue value="${binding.jawt}"/>
                 <istrue value="${binding.opengl}"/>
+            </and>
+        </condition>
+
+        <local name="test.msdfgen"/>
+        <condition property="test.msdfgen">
+            <and>
+                <istrue value="${binding.freetype}"/>
+                <istrue value="${binding.msdfgen}"/>
+                <istrue value="${binding.stb}"/>
             </and>
         </condition>
 
@@ -817,6 +842,7 @@
             <include name="org/lwjgl/demo/bgfx/**" if:set="test.bgfx"/>
             <include name="org/lwjgl/demo/cuda/**" if:true="${binding.cuda}"/>
             <include name="org/lwjgl/demo/egl/**" if:set="test.egl"/>
+            <include name="org/lwjgl/demo/fmod/**" if:true="${binding.fmod}"/>
             <include name="org/lwjgl/demo/glfw/**" if:set="test.glfw"/>
             <include name="org/lwjgl/demo/llvm/**" if:true="${binding.llvm}"/>
             <include name="org/lwjgl/demo/nanovg/**" if:set="test.nanovg"/>
@@ -849,6 +875,7 @@
             <include name="org/lwjgl/demo/util/lz4/**" if:true="${binding.lz4}"/>
             <include name="org/lwjgl/demo/util/meow/**" if:true="${binding.meow}"/>
             <include name="org/lwjgl/demo/util/meshoptimizer/**" if:true="${binding.meshoptimizer}"/>
+            <include name="org/lwjgl/demo/util/msdfgen/**" if:set="test.msdfgen"/>
             <include name="org/lwjgl/demo/util/nfd/**" if:set="test.nfd"/>
             <include name="org/lwjgl/demo/util/par/**" if:set="test.par"/>
             <include name="org/lwjgl/demo/util/remotery/**" if:true="${binding.remotery}"/>
@@ -873,6 +900,7 @@
             <classpath>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/9" if:set="core.java9"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/10" if:set="core.java10"/>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/16" if:set="core.java16"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${bin.test}"/>
                 <pathelement path="${lib}/java/jcommander.jar"/>
@@ -883,11 +911,12 @@
             </classpath>
 
             <!--<jvmarg value="-Xcheck:jni"/>--> <!-- SIMD fails with this (see -XX:+RestoreMXCSROnJNICall) -->
+            <jvmarg value="-server"/>
             <jvmarg value="-ea"/>
             <jvmarg value="-Dorg.lwjgl.util.Debug=true"/>
             <jvmarg value="-Dorg.lwjgl.util.DebugAllocator=true"/>
             <jvmarg value="-XstartOnFirstThread" if:set="platform.macos"/>
-            <jvmarg value="-Xss8m" unless:set="build.arch.arm"/> <!-- for StackTest::testSOE -->
+            <jvmarg value="-Xss8m"/> <!-- for StackTest::testSOE -->
             <jvmarg line="${jvmargs}" if:set="jvmargs"/>
 
             <xmlfileset dir="${config}" includes="tests.xml,tests_${platform}.xml"/>
@@ -911,6 +940,7 @@
             <classpath>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/9" if:set="core.java9"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/10" if:set="core.java10"/>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/16" if:set="core.java16"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${bin.test}"/>
                 <pathelement path="${bin.samples}"/>
@@ -923,12 +953,15 @@
                 <pathelement path="${lib}/native"/>
             </classpath>
 
+            <jvmarg value="-server"/>
             <jvmarg value="-XstartOnFirstThread" if:set="platform.macos"/>
             <!--<jvmarg value="-Xcheck:jni"/>-->
 
             <jvmarg line="-XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation" if:set="jitwatch"/>
             <jvmarg line="-XX:+PrintAssembly -XX:PrintAssemblyOptions=intel -XX:-TieredCompilation -XX:-UseCompressedOops" if:set="jitwatch"/>
             <jvmarg line="-XX:LogFile=${jitwatch}" if:set="jitwatch"/>
+
+            <!--<jvmarg line="-agentlib:native-image-agent=config-output-dir=META-INF/native-image"/>-->
 
             <jvmarg line="${jvmargs}" if:set="jvmargs"/>
 
@@ -1019,6 +1052,7 @@
 
     <target name="upload-native" description="Uploads native build artifacts to build.lwjgl.org" depends="compile-native,-check-AWS-credentials">
         <local name="revision"/>
+        <property name="revision" value="liblwjgl.so.git" if:set="platform.freebsd"/>
         <property name="revision" value="liblwjgl.so.git" if:set="platform.linux"/>
         <property name="revision" value="liblwjgl.dylib.git" if:set="platform.macos"/>
         <property name="revision" value="liblwjgl.so.git" if:set="platform.openbsd"/>
@@ -1075,11 +1109,15 @@
 
                 <!-- Online build -->
                 <sequential unless:true="${build.offline}">
+                    <local name="platform.remote.s3"/>
+                    <condition property="platform.remote.s3" value="macosx" else="@{platform}">
+                        <equals arg1="@{platform}" arg2="macos"/>
+                    </condition>
                     <quiet>
                         <mkdir dir="${destination}"/>
                     </quiet>
                     <get
-                        src="https://build.lwjgl.org/${build.type}/${platform.@{platform}.remote}/@{arch}/@{file}"
+                        src="https://build.lwjgl.org/${build.type}/${platform.remote.s3}/@{arch}/@{file}"
                         dest="${destination}"
                         usetimestamp="true"
                     />
@@ -1157,9 +1195,12 @@
         <attribute name="title"/>
         <attribute name="native-library"/>
         <element name="content" optional="true"/>
+        <element name="freebsd-content" optional="true"/>
         <element name="linux-content" optional="true"/>
         <element name="linux-arm64-content" optional="true"/>
         <element name="linux-arm32-content" optional="true"/>
+        <element name="linux-ppc64le-content" optional="true"/>
+        <element name="linux-riscv64-content" optional="true"/>
         <element name="macos-content" optional="true"/>
         <element name="macos-arm64-content" optional="true"/>
         <element name="openbsd-content" optional="true"/>
@@ -1182,6 +1223,9 @@
             </condition>
 
             <parallel threadsPerProcessor="4" failonany="true">
+                <get-release platform="freebsd" arch="x64" file="lib@{native-library}.so" if:set="auto-natives"/>
+                <get-release platform="freebsd" arch="x64" file="lib@{native-library}.so.git" if:set="git-revision"/>
+
                 <get-release platform="linux" arch="x64" file="lib@{native-library}.so" if:set="auto-natives"/>
                 <get-release platform="linux" arch="x64" file="lib@{native-library}.so.git" if:set="git-revision"/>
 
@@ -1190,6 +1234,12 @@
 
                 <get-release platform="linux" arch="arm32" file="lib@{native-library}.so" if:set="auto-natives"/>
                 <get-release platform="linux" arch="arm32" file="lib@{native-library}.so.git" if:set="git-revision"/>
+
+                <get-release platform="linux" arch="ppc64le" file="lib@{native-library}.so" if:set="auto-natives"/>
+                <get-release platform="linux" arch="ppc64le" file="lib@{native-library}.so.git" if:set="git-revision"/>
+
+                <get-release platform="linux" arch="riscv64" file="lib@{native-library}.so" if:set="auto-natives"/>
+                <get-release platform="linux" arch="riscv64" file="lib@{native-library}.so.git" if:set="git-revision"/>
 
                 <get-release platform="macos" arch="x64" file="lib@{native-library}.dylib" if:set="auto-natives"/>
                 <get-release platform="macos" arch="x64" file="lib@{native-library}.dylib.git" if:set="git-revision"/>
@@ -1249,6 +1299,12 @@
 
                 <!-- Create native jar files -->
                 <parallel threadsPerProcessor="1" failonany="true">
+                    <natives-jar name="@{name}" title="@{title}" platform="freebsd" path="freebsd/x64" type="so">
+                        <freebsd-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="openbsd" path="openbsd/x64" type="so">
+                        <openbsd-content/>
+                    </natives-jar>
                     <natives-jar name="@{name}" title="@{title}" platform="linux" path="linux/x64" type="so">
                         <linux-content/>
                     </natives-jar>
@@ -1257,6 +1313,12 @@
                     </natives-jar>
                     <natives-jar name="@{name}" title="@{title}" platform="linux-arm32" path="linux/arm32" type="so">
                         <linux-arm32-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="linux-ppc64le" path="linux/ppc64le" type="so">
+                        <linux-ppc64le-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="linux-riscv64" path="linux/riscv64" type="so">
+                        <linux-riscv64-content/>
                     </natives-jar>
                     <natives-jar name="@{name}" title="@{title}" platform="macos" path="macos/x64" type="dylib">
                         <macos-content/>
@@ -1286,9 +1348,12 @@
         <attribute name="title"/>
         <attribute name="native-library" default=""/>
         <element name="natives" optional="true"/>
+        <element name="freebsd" optional="true"/>
         <element name="linux" optional="true"/>
         <element name="linux-arm64" optional="true"/>
         <element name="linux-arm32" optional="true"/>
+        <element name="linux-ppc64le" optional="true"/>
+        <element name="linux-riscv64" optional="true"/>
         <element name="macos" optional="true"/>
         <element name="macos-arm64" optional="true"/>
         <element name="openbsd" optional="true"/>
@@ -1314,9 +1379,12 @@
             <!-- Bundle natives -->
             <release-natives name="@{name}" title="@{title}" native-library="@{native-library}" unless:set="java-only.binding.@{name}">
                 <content><natives/></content>
+                <freebsd-content><freebsd/></freebsd-content>
                 <linux-content><linux/></linux-content>
                 <linux-arm64-content><linux-arm64/></linux-arm64-content>
                 <linux-arm32-content><linux-arm32/></linux-arm32-content>
+                <linux-ppc64le-content><linux-ppc64le/></linux-ppc64le-content>
+                <linux-riscv64-content><linux-riscv64/></linux-riscv64-content>
                 <macos-content><macos/></macos-content>
                 <macos-arm64-content><macos-arm64/></macos-arm64-content>
                 <openbsd-content><openbsd/></openbsd-content>
@@ -1422,13 +1490,13 @@
 
         <local name="input"/>
         <input
-            message="It is recommended to build LWJGL releases on JDK 10 or higher. Continue with current JDK?"
+            message="It is recommended to build LWJGL releases on JDK 16 or higher. Continue with current JDK?"
             validargs="y,n"
             defaultvalue="n"
             addproperty="input"
-            unless:set="jdk10"
+            unless:set="jdk16"
         />
-        <fail message="Cancelled" unless:set="jdk9">
+        <fail message="Cancelled" unless:set="jdk16">
             <condition>
                 <equals arg1="n" arg2="${input}"/>
             </condition>
@@ -1500,13 +1568,26 @@
                 <copy todir="${module.lwjgl}/core/src/generated/java/META-INF/versions/10" if:set="jdk10">
                     <fileset dir="${module.lwjgl}/core/src/main/java10" includes="**"/>
                 </copy>
+                <copy todir="${module.lwjgl}/core/src/generated/java/META-INF/versions/16" if:set="jdk16">
+                    <fileset dir="${module.lwjgl}/core/src/main/java16" includes="**"/>
+                </copy>
+                <copy todir="${bin.lwjgl}/core/META-INF/native-image/org.lwjgl/lwjgl">
+                    <fileset dir="config/native-image/META-INF/native-image" includes="**" excludes="resource-config.json"/>
+                </copy>
             </quiet>
+
             <release-module name="core" native-library="lwjgl" title="Core"/>
+
+            <delete dir="${bin.lwjgl}/core/META-INF/native-image" quiet="true"/>
         </sequential>
 
         <!-- Assimp -->
         <release-module name="assimp" title="assimp" if:true="${binding.assimp}">
             <natives>
+                <get-release platform="freebsd" arch="x64" file="libassimp.so"/>
+                <get-release platform="freebsd" arch="x64" file="libassimp.so.git"/>
+                <get-release platform="freebsd" arch="x64" file="libdraco.so"/>
+
                 <get-release platform="linux" arch="x64" file="libassimp.so"/>
                 <get-release platform="linux" arch="x64" file="libassimp.so.git"/>
                 <get-release platform="linux" arch="x64" file="libdraco.so"/>
@@ -1518,6 +1599,14 @@
                 <get-release platform="linux" arch="arm32" file="libassimp.so"/>
                 <get-release platform="linux" arch="arm32" file="libassimp.so.git"/>
                 <get-release platform="linux" arch="arm32" file="libdraco.so"/>
+
+                <get-release platform="linux" arch="ppc64le" file="libassimp.so"/>
+                <get-release platform="linux" arch="ppc64le" file="libassimp.so.git"/>
+                <get-release platform="linux" arch="ppc64le" file="libdraco.so"/>
+
+                <get-release platform="linux" arch="riscv64" file="libassimp.so"/>
+                <get-release platform="linux" arch="riscv64" file="libassimp.so.git"/>
+                <get-release platform="linux" arch="riscv64" file="libdraco.so"/>
 
                 <get-release platform="macos" arch="x64" file="libassimp.dylib"/>
                 <get-release platform="macos" arch="x64" file="libassimp.dylib.git"/>
@@ -1544,6 +1633,9 @@
         <!-- bgfx -->
         <release-module name="bgfx" title="bgfx" if:true="${binding.bgfx}">
             <natives>
+                <get-release platform="freebsd" arch="x64" file="libbgfx.so"/>
+                <get-release platform="freebsd" arch="x64" file="libbgfx.so.git"/>
+
                 <get-release platform="linux" arch="x64" file="libbgfx.so"/>
                 <get-release platform="linux" arch="x64" file="libbgfx.so.git"/>
 
@@ -1552,6 +1644,12 @@
 
                 <get-release platform="linux" arch="arm32" file="libbgfx.so"/>
                 <get-release platform="linux" arch="arm32" file="libbgfx.so.git"/>
+
+                <get-release platform="linux" arch="ppc64le" file="libbgfx.so"/>
+                <get-release platform="linux" arch="ppc64le" file="libbgfx.so.git"/>
+
+                <get-release platform="linux" arch="riscv64" file="libbgfx.so"/>
+                <get-release platform="linux" arch="riscv64" file="libbgfx.so.git"/>
 
                 <get-release platform="macos" arch="x64" file="libbgfx.dylib"/>
                 <get-release platform="macos" arch="x64" file="libbgfx.dylib.git"/>
@@ -1582,6 +1680,9 @@
         <!-- GLFW -->
         <release-module name="glfw" title="GLFW" if:true="${binding.glfw}">
             <natives>
+                <get-release platform="freebsd" arch="x64" file="libglfw.so"/>
+                <get-release platform="freebsd" arch="x64" file="libglfw.so.git"/>
+
                 <get-release platform="linux" arch="x64" file="libglfw.so"/>
                 <get-release platform="linux" arch="x64" file="libglfw.so.git"/>
 
@@ -1590,6 +1691,12 @@
 
                 <get-release platform="linux" arch="arm32" file="libglfw.so"/>
                 <get-release platform="linux" arch="arm32" file="libglfw.so.git"/>
+
+                <get-release platform="linux" arch="ppc64le" file="libglfw.so"/>
+                <get-release platform="linux" arch="ppc64le" file="libglfw.so.git"/>
+
+                <get-release platform="linux" arch="riscv64" file="libglfw.so"/>
+                <get-release platform="linux" arch="riscv64" file="libglfw.so.git"/>
 
                 <get-release platform="macos" arch="x64" file="libglfw.dylib"/>
                 <get-release platform="macos" arch="x64" file="libglfw.dylib.git"/>
@@ -1628,7 +1735,23 @@
         <release-module name="jemalloc" native-library="jemalloc" title="jemalloc" if:true="${binding.jemalloc}"/>
 
         <!-- KTX -->
-        <release-module name="ktx" native-library="ktx" title="KTX" if:true="${binding.ktx}"/>
+        <release-module name="ktx" title="KTX" if:true="${binding.ktx}">
+            <natives>
+                <get-release platform="freebsd" arch="x64" file="libktx.so"/>
+
+                <get-release platform="linux" arch="x64" file="libktx.so"/>
+                <get-release platform="linux" arch="arm64" file="libktx.so"/>
+                <get-release platform="linux" arch="arm32" file="libktx.so"/>
+                <get-release platform="linux" arch="ppc64le" file="libktx.so"/>
+                <get-release platform="linux" arch="riscv64" file="libktx.so"/>
+
+                <get-release platform="macos" arch="x64" file="libktx.dylib"/>
+                <get-release platform="macos" arch="arm64" file="libktx.dylib"/>
+
+                <get-release platform="windows" arch="x64" file="ktx.dll"/>
+                <get-release platform="windows" arch="arm64" file="ktx.dll"/>
+            </natives>
+        </release-module>
 
         <!-- libdivide -->
         <release-module name="libdivide" native-library="lwjgl_libdivide" title="libdivide" if:true="${binding.libdivide}"/>
@@ -1645,10 +1768,14 @@
         <!-- Meow hash -->
         <release-module name="meow" title="Meow hash" if:true="${binding.meow}">
             <natives>
+                <get-release platform="freebsd" arch="x64" file="liblwjgl_meow.so"/>
+
                 <get-release platform="linux" arch="x64" file="liblwjgl_meow.so"/>
                 <get-release platform="linux" arch="arm64" file="liblwjgl_meow.so"/>
+
                 <get-release platform="macos" arch="x64" file="liblwjgl_meow.dylib"/>
                 <get-release platform="macos" arch="arm64" file="liblwjgl_meow.dylib"/>
+
                 <get-release platform="windows" arch="x64" file="lwjgl_meow.dll"/>
                 <get-release platform="windows" arch="x86" file="lwjgl_meow.dll"/>
                 <get-release platform="windows" arch="arm64" file="lwjgl_meow.dll"/>
@@ -1658,11 +1785,24 @@
         <!-- meshoptimizer -->
         <release-module name="meshoptimizer" native-library="lwjgl_meshoptimizer" title="meshoptimizer" if:true="${binding.meshoptimizer}"/>
 
+        <!-- msdfgen -->
+        <release-module name="msdfgen" native-library="lwjgl_msdfgen" title="msdfgen" if:true="${binding.msdfgen}"/>
+
         <!-- NanoVG -->
         <release-module name="nanovg" native-library="lwjgl_nanovg" title="NanoVG" if:true="${binding.nanovg}"/>
 
         <!-- Native File Dialog -->
-        <release-module name="nfd" native-library="lwjgl_nfd" title="Native File Dialog" if:true="${binding.nfd}"/>
+        <release-module name="nfd" native-library="lwjgl_nfd" title="Native File Dialog" if:true="${binding.nfd}">
+            <natives>
+                <get-release platform="freebsd" arch="x64" file="liblwjgl_nfd_portal.so"/>
+
+                <get-release platform="linux" arch="x64" file="liblwjgl_nfd_portal.so"/>
+                <get-release platform="linux" arch="arm64" file="liblwjgl_nfd_portal.so"/>
+                <get-release platform="linux" arch="arm32" file="liblwjgl_nfd_portal.so"/>
+                <get-release platform="linux" arch="ppc64le" file="liblwjgl_nfd_portal.so"/>
+                <get-release platform="linux" arch="riscv64" file="liblwjgl_nfd_portal.so"/>
+            </natives>
+        </release-module>
 
         <!-- Nuklear -->
         <release-module name="nuklear" native-library="lwjgl_nuklear" title="Nuklear" if:true="${binding.nuklear}"/>
@@ -1673,6 +1813,9 @@
         <!-- OpenAL -->
         <release-module name="openal" title="OpenAL" if:true="${binding.openal}">
             <natives>
+                <get-release platform="freebsd" arch="x64" file="libopenal.so"/>
+                <get-release platform="freebsd" arch="x64" file="libopenal.so.git"/>
+
                 <get-release platform="linux" arch="x64" file="libopenal.so"/>
                 <get-release platform="linux" arch="x64" file="libopenal.so.git"/>
 
@@ -1681,6 +1824,12 @@
 
                 <get-release platform="linux" arch="arm32" file="libopenal.so"/>
                 <get-release platform="linux" arch="arm32" file="libopenal.so.git"/>
+
+                <get-release platform="linux" arch="ppc64le" file="libopenal.so"/>
+                <get-release platform="linux" arch="ppc64le" file="libopenal.so.git"/>
+
+                <get-release platform="linux" arch="riscv64" file="libopenal.so"/>
+                <get-release platform="linux" arch="riscv64" file="libopenal.so.git"/>
 
                 <get-release platform="macos" arch="x64" file="libopenal.dylib"/>
                 <get-release platform="macos" arch="x64" file="libopenal.dylib.git"/>
@@ -1718,6 +1867,10 @@
                 <get-release platform="linux" arch="x64" file="libopenvr_api.so"/>
                 <get-release platform="linux" arch="x64" file="libopenvr_api.so.git"/>
 
+                <get-release platform="linux" arch="arm64" file="liblwjgl_openvr.so"/>
+                <get-release platform="linux" arch="arm64" file="libopenvr_api.so"/>
+                <get-release platform="linux" arch="arm64" file="libopenvr_api.so.git"/>
+
                 <get-release platform="macos" arch="x64" file="liblwjgl_openvr.dylib"/>
                 <get-release platform="macos" arch="x64" file="libopenvr_api.dylib"/>
                 <get-release platform="macos" arch="x64" file="libopenvr_api.dylib.git"/>
@@ -1735,6 +1888,9 @@
         <!-- OpenXR -->
         <release-module name="openxr" title="OpenXR" if:true="${binding.openxr}">
             <natives>
+                <get-release platform="freebsd" arch="x64" file="libopenxr_loader.so"/>
+                <get-release platform="freebsd" arch="x64" file="libopenxr_loader.so.git"/>
+
                 <get-release platform="linux" arch="x64" file="libopenxr_loader.so"/>
                 <get-release platform="linux" arch="x64" file="libopenxr_loader.so.git"/>
 
@@ -1743,6 +1899,12 @@
 
                 <get-release platform="linux" arch="arm32" file="libopenxr_loader.so"/>
                 <get-release platform="linux" arch="arm32" file="libopenxr_loader.so.git"/>
+
+                <get-release platform="linux" arch="ppc64le" file="libopenxr_loader.so"/>
+                <get-release platform="linux" arch="ppc64le" file="libopenxr_loader.so.git"/>
+
+                <get-release platform="linux" arch="riscv64" file="libopenxr_loader.so"/>
+                <get-release platform="linux" arch="riscv64" file="libopenxr_loader.so.git"/>
 
                 <get-release platform="windows" arch="x64" file="openxr-loader.dll"/>
                 <get-release platform="windows" arch="x64" file="openxr-loader.dll.git"/>
@@ -1772,9 +1934,13 @@
         <!-- Remotery -->
         <release-module name="remotery" title="remotery" if:true="${binding.remotery}">
             <natives>
+                <get-release platform="freebsd" arch="x64" file="liblwjgl_remotery.so"/>
+
                 <get-release platform="linux" arch="x64" file="liblwjgl_remotery.so"/>
                 <get-release platform="linux" arch="arm64" file="liblwjgl_remotery.so"/>
                 <get-release platform="linux" arch="arm32" file="liblwjgl_remotery.so"/>
+                <get-release platform="linux" arch="ppc64le" file="liblwjgl_remotery.so"/>
+                <get-release platform="linux" arch="riscv64" file="liblwjgl_remotery.so"/>
 
                 <get-release platform="macos" arch="x64" file="liblwjgl_remotery.dylib"/>
                 <get-release platform="macos" arch="arm64" file="liblwjgl_remotery.dylib"/>
@@ -1796,8 +1962,13 @@
         <!-- SSE -->
         <release-module name="sse" title="SSE" if:true="${binding.sse}">
             <natives>
+                <get-release platform="freebsd" arch="x64" file="liblwjgl_sse.so"/>
+
                 <get-release platform="linux" arch="x64" file="liblwjgl_sse.so"/>
+
                 <get-release platform="macos" arch="x64" file="liblwjgl_sse.dylib"/>
+
+                <get-release platform="windows" arch="x64" file="lwjgl_sse.dll"/>
                 <get-release platform="windows" arch="x86" file="lwjgl_sse.dll"/>
             </natives>
         </release-module>
@@ -1814,8 +1985,13 @@
         <!-- AMD Tootle -->
         <release-module name="tootle" title="tootle" if:true="${binding.tootle}">
             <natives>
+                <get-release platform="freebsd" arch="x64" file="liblwjgl_tootle.so"/>
+
                 <get-release platform="linux" arch="x64" file="liblwjgl_tootle.so"/>
+
                 <get-release platform="macos" arch="x64" file="liblwjgl_tootle.dylib"/>
+
+                <get-release platform="windows" arch="x64" file="lwjgl_tootle.dll"/>
                 <get-release platform="windows" arch="x86" file="lwjgl_tootle.dll"/>
             </natives>
         </release-module>

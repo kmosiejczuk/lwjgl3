@@ -26,7 +26,7 @@
             <mkdir dir="@{dest}"/>
             <apply dir="@{dest}" executable="${gcc}" dest="@{dest}" skipemptyfilesets="true" failonerror="true" parallel="true" taskname="Compiler">
                 <arg line="-c -std=gnu11" unless:set="cpp"/>
-                <arg line="-c -std=gnu++14" if:set="cpp"/>
+                <arg line="-c -std=gnu++20" if:set="cpp"/>
                 <arg line="-m64" if:set="build.arch.x64"/>
                 <arg line="-m32 -mfpmath=sse -msse -msse2" if:set="build.arch.x86"/>
                 <arg line="-O3 -flto -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_OPENBSD -DLWJGL_${build.arch}"/>
@@ -276,7 +276,8 @@
         </build>
 
         <!-- NativeFileDialog -->
-        <build module="nfd" simple="true" linker="g++" if:true="${binding.nfd}">
+	<!-- precompile c files, do not link in first step -->
+        <build module="nfd" simple="true" dolink="false" if:true="${binding.nfd}">
             <beforeCompile>
                 <local name="gtk3"/>
                 <local name="stderr"/>
@@ -285,6 +286,33 @@
                 </exec>
 
                 <compile>
+                    <arg line="${gtk3}"/>
+                    <arg value="-I/usr/include"/>
+		    <arg value="-I/usr/local/include"/>
+		    <arg value="-I/usr/X11R6/include"/>
+
+                    <arg value="-I${src.main.rel}"/>
+                    <arg value="-I${src.main.rel}/include"/>
+                    <fileset dir="." includes="${src.generated}/*.c"/>
+                </compile>
+            </beforeCompile>
+            <source>
+                <arg value="-I/usr/include"/>
+                <arg value="-I/usr/local/include"/>
+                <arg value="-I/usr/X11R6/include"/>
+
+                <arg value="-I${src.main.rel}/include"/>
+            </source>
+        </build>
+        <build module="nfd" simple="true" linker="c++" if:true="${binding.nfd}">
+            <beforeCompile>
+                <local name="gtk3"/>
+                <local name="stderr"/>
+                <exec outputproperty="gtk3" errorproperty="stderr" executable="pkg-config" failonerror="true" taskname="gtk-3.0">
+                    <arg line="--cflags gtk+-3.0"/>
+                </exec>
+
+                <compile lang="c++">
                     <arg line="${gtk3}"/>
                     <arg value="-I/usr/include"/>
 		    <arg value="-I/usr/local/include"/>
@@ -305,6 +333,8 @@
             <link>
                 <arg value="-L/usr/local/lib"/>
                 <arg value="-lc"/>
+		<arg value="-lc++"/>
+		<arg value="-lc++abi"/>
                 <arg value="-lglib-2.0"/>
                 <arg value="-lgobject-2.0"/>
                 <arg value="-lgtk-3"/>
@@ -355,6 +385,7 @@
             </source>
             <link>
                 <arg value="-lc"/>
+                <arg value="-lm"/>
                 <arg value="-lGL"/>
                 <arg line="-L/usr/X11R6/lib"/>
             </link>
@@ -362,8 +393,14 @@
 
 	<!-- rpmalloc -->
         <build simple="true" module="rpmalloc">
+            <source>
+		<arg value="-I/usr/include"/>
+		<arg value="-I/usr/local/include"/>
+		<arg value="-I/usr/X11R6/include"/>
+	    </source>
 	    <link>
 		<arg value="-lc"/>
+		<arg value="-lm"/>
 	    </link>
 	</build>
 
@@ -380,6 +417,10 @@
         <!-- stb -->
         <build module="stb" if:true="${binding.stb}">
             <source>
+		<arg value="-I/usr/include"/>
+		<arg value="-I/usr/local/include"/>
+		<arg value="-I/usr/X11R6/include"/>
+
                 <arg value="-isystem${src.main.rel}"/>
                 <fileset dir="." includes="${src.generated}/*.c"/>
             </source>
@@ -391,9 +432,8 @@
 
         <!-- tinyexr -->
         <!-- precompile c files, do not link in first step -->
-        <build module="tinyexr" simple="true" dolink="false" if:true="${binding.tinyexr}">
-            <beforeCompile>
-                <compile>
+        <build module="tinyexr" dolink="false" if:true="${binding.tinyexr}">
+            <source>
                     <arg value="-I/usr/include"/>
                     <arg value="-I/usr/local/include"/>
                     <arg value="-I/usr/X11R6/include"/>
@@ -405,20 +445,20 @@
                         <include name="${src.generated}/*.c"/>
                         <include name="${src.generated}/${platform}/*.c"/>
                     </fileset>
-                </compile>
-            </beforeCompile>
+            </source>
         </build>
-        <build module="tinyexr" simple="true" linker="c++" if:true="${binding.tinyexr}">
-            <beforeCompile>
-                <compile lang="c++">
+        <build module="tinyexr" simple="true" lang="c++" if:true="${binding.tinyexr}">
+            <source>
                     <arg value="-I/usr/include"/>
                     <arg value="-I/usr/local/include"/>
                     <arg value="-I/usr/X11R6/include"/>
 
                     <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/*.cc"/>
-                </compile>
-            </beforeCompile>
+                    <fileset dir=".">
+                        <include name="${src.main}/*.cc"/>
+                        <include name="${src.generated}/*.cpp"/>
+                    </fileset>
+            </source>
 	    <link>
 		<arg value="-lc"/>
 		<arg value="-lc++"/>
@@ -440,6 +480,7 @@
             </beforeCompile>
             <link>
                 <arg value="-lc"/>
+                <arg value="-lm"/>
             </link>
         </build>
 

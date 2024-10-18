@@ -10,7 +10,7 @@ package org.lwjgl.vulkan;
  * 
  * <h5>Deprecation</h5>
  * 
- * <p>Functionality in this extension is outside of the scope of Vulkan and is better served by a compiler library such as <a target="_blank" href="https://github.com/KhronosGroup/glslang">glslang</a>. No new implementations will support this extension, so applications <b>should</b> not use it.</p>
+ * <p>Functionality in this extension is outside of the scope of Vulkan and is better served by a compiler library such as <a href="https://github.com/KhronosGroup/glslang">glslang</a>. No new implementations will support this extension, so applications <b>should</b> not use it.</p>
  * 
  * <h5>Examples</h5>
  * 
@@ -36,8 +36,6 @@ package org.lwjgl.vulkan;
  *     VkShaderModule vertexShader;
  *     vkCreateShaderModule(device, &amp;vertexShaderInfo, 0, &amp;vertexShader);</code></pre>
  * 
- * <h5>VK_NV_glsl_shader</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_glsl_shader}</dd>
@@ -47,13 +45,13 @@ package org.lwjgl.vulkan;
  * <dd>13</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Deprecated</em> without replacement</li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Piers Daniell <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_glsl_shader]%20@pdaniell-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_glsl_shader%20extension*">pdaniell-nv</a></li>
+ * <li>Piers Daniell <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_glsl_shader]%20@pdaniell-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_glsl_shader%20extension*">pdaniell-nv</a></li>
  * </ul></dd>
  * </dl>
  * 

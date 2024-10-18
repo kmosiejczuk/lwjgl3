@@ -61,7 +61,7 @@ abstract class BaseType internal constructor(
     override val mapping: TypeMapping
 ): NativeType {
     internal open val javaMethodType
-        get() = if (mapping === PrimitiveMapping.BOOLEAN4) "boolean" else mapping.javaMethodName
+        get() = if (mapping.isPseudoBoolean()) "boolean" else mapping.javaMethodName
 
     override fun toString() =
         "${this::class.java.simpleName}: $name | $jniFunctionType | $nativeMethodType | $javaMethodType"
@@ -102,6 +102,7 @@ open class PrimitiveType(name: String, mapping: PrimitiveMapping) : BaseType(nam
     override val libffiType: String
         get() = when (mapping) {
             PrimitiveMapping.BOOLEAN  -> "ffi_type_uint8"
+            PrimitiveMapping.BOOLEAN2 -> "ffi_type_uint16"
             PrimitiveMapping.BOOLEAN4 -> "ffi_type_uint32"
             PrimitiveMapping.POINTER  -> "ffi_type_pointer"
             PrimitiveMapping.FLOAT    -> "ffi_type_float"
@@ -111,6 +112,7 @@ open class PrimitiveType(name: String, mapping: PrimitiveMapping) : BaseType(nam
     override val abiType: String
         get() = when (mapping) {
             PrimitiveMapping.BOOLEAN  -> "jboolean"
+            PrimitiveMapping.BOOLEAN2 -> "jshort"
             PrimitiveMapping.BOOLEAN4 -> "jint"
             PrimitiveMapping.FLOAT    -> "jfloat"
             PrimitiveMapping.DOUBLE   -> "jdouble"
@@ -119,6 +121,7 @@ open class PrimitiveType(name: String, mapping: PrimitiveMapping) : BaseType(nam
     override val jniSignatureJava: String
         get() = when (mapping) {
             PrimitiveMapping.BOOLEAN,
+            PrimitiveMapping.BOOLEAN2,
             PrimitiveMapping.BOOLEAN4,
             PrimitiveMapping.FLOAT,
             PrimitiveMapping.DOUBLE -> ""
@@ -143,12 +146,13 @@ open class IntegerType(name: String, mapping: PrimitiveMapping, val unsigned: Bo
     override val const by lazy { IntegerType(this.name.const, this.mapping, unsigned) }
     override val libffiType: String
         get() = when (mapping) {
-            PrimitiveMapping.BYTE  -> if (unsigned) "ffi_type_uint8" else "ffi_type_sint8"
-            PrimitiveMapping.SHORT -> if (unsigned) "ffi_type_uint16" else "ffi_type_sint16"
-            PrimitiveMapping.INT   -> if (unsigned) "ffi_type_uint32" else "ffi_type_sint32"
-            PrimitiveMapping.LONG  -> if (unsigned) "ffi_type_uint64" else "ffi_type_sint64"
-            PrimitiveMapping.CLONG -> if (unsigned) "ffi_type_ulong" else "ffi_type_slong"
-            else                   -> throw IllegalStateException(this.toString())
+            PrimitiveMapping.BYTE    -> if (unsigned) "ffi_type_uint8" else "ffi_type_sint8"
+            PrimitiveMapping.SHORT   -> if (unsigned) "ffi_type_uint16" else "ffi_type_sint16"
+            PrimitiveMapping.INT     -> if (unsigned) "ffi_type_uint32" else "ffi_type_sint32"
+            PrimitiveMapping.LONG    -> if (unsigned) "ffi_type_uint64" else "ffi_type_sint64"
+            PrimitiveMapping.CLONG   -> if (unsigned) "ffi_type_ulong" else "ffi_type_slong"
+            PrimitiveMapping.POINTER -> "ffi_type_pointer"
+            else                     -> throw IllegalStateException(this.toString())
         }
     override val abiType: String
         get() = when (mapping) {
@@ -365,7 +369,7 @@ class FunctionType internal constructor(
 }
 
 // typedefs
-fun typedef(@Suppress("UNUSED_PARAMETER") typedef: OpaqueType, name: String) = OpaqueType(name)
+fun typedef(@Suppress("unused") typedef: OpaqueType, name: String) = OpaqueType(name)
 fun typedef(typedef: PrimitiveType, name: String) = PrimitiveType(name, typedef.mapping)
 fun typedef(typedef: CharType, name: String) = CharType(name, typedef.mapping)
 fun typedef(typedef: IntegerType, name: String) = IntegerType(name, typedef.mapping, typedef.unsigned)
@@ -413,6 +417,15 @@ open class TypeMapping(
     internal val nativeMethodName get() = nativeMethodType.javaName
     internal val javaMethodName get() = javaMethodType.javaName
 
+    internal fun isBoolean() =
+        this === PrimitiveMapping.BOOLEAN ||
+        this === PrimitiveMapping.BOOLEAN2 ||
+        this === PrimitiveMapping.BOOLEAN4
+
+    internal fun isPseudoBoolean() =
+        this === PrimitiveMapping.BOOLEAN2 ||
+        this === PrimitiveMapping.BOOLEAN4
+
     override fun toString(): String {
         return "${javaClass.javaName}(jniFunctionType=$jniFunctionType, nativeMethodType=$nativeMethodType, javaMethodType=$javaMethodType)"
     }
@@ -428,6 +441,7 @@ open class PrimitiveMapping internal constructor(
 
     companion object {
         val BOOLEAN = PrimitiveMapping("jboolean", Boolean::class, PointerMapping.DATA_BOOLEAN, 1)
+        val BOOLEAN2 = PrimitiveMapping("jshort", Short::class, PointerMapping.DATA_SHORT, 2)
         val BOOLEAN4 = PrimitiveMapping("jint", Int::class, PointerMapping.DATA_INT, 4)
 
         val BYTE = PrimitiveMapping("jbyte", Byte::class, PointerMapping.DATA_BYTE, 1)
@@ -465,7 +479,7 @@ class CharMapping(
 open class PointerMapping private constructor(
     javaMethodType: KClass<*>,
     val byteShift: String,
-    internal val supportsArrayOverload: Boolean = false
+    val supportsArrayOverload: Boolean = false
 ) : TypeMapping("jlong", Long::class, javaMethodType) {
 
     private constructor(javaMethodType: KClass<*>, byteShift: Int) : this(javaMethodType, byteShift.toString(), byteShift != 0)

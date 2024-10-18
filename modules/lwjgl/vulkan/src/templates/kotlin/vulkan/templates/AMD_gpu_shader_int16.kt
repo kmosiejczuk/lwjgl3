@@ -16,7 +16,6 @@ val AMD_gpu_shader_int16 = "AMDGPUShaderInt16".nativeClassVK("AMD_gpu_shader_int
         <h5>Deprecation by {@code VK_KHR_shader_float16_int8}</h5>
         Functionality in this extension was included in {@link KHRShaderFloat16Int8 VK_KHR_shader_float16_int8} extension, when ##VkPhysicalDeviceFeatures{@code ::shaderInt16} and ##VkPhysicalDeviceShaderFloat16Int8FeaturesKHR{@code ::shaderFloat16} are enabled.
 
-        <h5>VK_AMD_gpu_shader_int16</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_AMD_gpu_shader_int16}</dd>
@@ -30,19 +29,24 @@ val AMD_gpu_shader_int16 = "AMDGPUShaderInt16".nativeClassVK("AMD_gpu_shader_int
             <dt><b>Revision</b></dt>
             <dd>2</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/AMD/SPV_AMD_gpu_shader_int16.html">SPV_AMD_gpu_shader_int16</a></li>
+            </ul></dd>
+
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li>
                     <em>Deprecated</em> by {@link KHRShaderFloat16Int8 VK_KHR_shader_float16_int8} extension
                     <ul>
-                        <li>Which in turn was <em>promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
+                        <li>Which in turn was <em>promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
                     </ul>
                 </li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Qun Lin <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMD_gpu_shader_int16]%20@linqun%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_AMD_gpu_shader_int16%20extension*">linqun</a></li>
+                <li>Qun Lin <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMD_gpu_shader_int16]%20@linqun%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_AMD_gpu_shader_int16%20extension*">linqun</a></li>
             </ul></dd>
         </dl>
 
@@ -56,8 +60,7 @@ val AMD_gpu_shader_int16 = "AMDGPUShaderInt16".nativeClassVK("AMD_gpu_shader_int
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a target="_blank" href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/AMD/SPV_AMD_gpu_shader_int16.html">{@code SPV_AMD_gpu_shader_int16}</a></li>
-                <li>This extension provides API support for <a target="_blank" href="https://registry.khronos.org/OpenGL/extensions/AMD/AMD_gpu_shader_int16.txt">{@code GL_AMD_gpu_shader_int16}</a></li>
+                <li>This extension provides API support for <a href="https://registry.khronos.org/OpenGL/extensions/AMD/AMD_gpu_shader_int16.txt">{@code GL_AMD_gpu_shader_int16}</a></li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>

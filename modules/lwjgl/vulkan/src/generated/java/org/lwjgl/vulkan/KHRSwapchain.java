@@ -22,10 +22,8 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>The example code for the {@link KHRSurface VK_KHR_surface} and {@code VK_KHR_swapchain} extensions was removed from the appendix after revision 1.0.29. This WSI example code was ported to the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c</a>).</p>
+ * <p>The example code for the {@link KHRSurface VK_KHR_surface} and {@code VK_KHR_swapchain} extensions was removed from the appendix after revision 1.0.29. This WSI example code was ported to the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c</a>).</p>
  * </div>
- * 
- * <h5>VK_KHR_swapchain</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -38,10 +36,14 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>70</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd>{@link KHRSurface VK_KHR_surface}</dd>
+ * <dt><b>API Interactions</b></dt>
+ * <dd><ul>
+ * <li>Interacts with VK_VERSION_1_1</li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_swapchain]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_swapchain%20extension*">cubanismo</a></li>
- * <li>Ian Elliott <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_swapchain]%20@ianelliottus%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_swapchain%20extension*">ianelliottus</a></li>
+ * <li>James Jones <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_swapchain]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_swapchain%20extension*">cubanismo</a></li>
+ * <li>Ian Elliott <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_swapchain]%20@ianelliottus%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_swapchain%20extension*">ianelliottus</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -232,7 +234,7 @@ public class KHRSwapchain {
      * 
      * <p>The {@code pCreateInfo→surface} <b>must</b> not be destroyed until after the swapchain is destroyed.</p>
      * 
-     * <p>If {@code pCreateInfo→oldSwapchain} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and the native window referred to by {@code pCreateInfo→surface} is already associated with a Vulkan swapchain, {@link KHRSurface#VK_ERROR_NATIVE_WINDOW_IN_USE_KHR ERROR_NATIVE_WINDOW_IN_USE_KHR} <b>must</b> be returned.</p>
+     * <p>If {@code oldSwapchain} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and the native window referred to by {@code pCreateInfo→surface} is already associated with a Vulkan swapchain, {@link KHRSurface#VK_ERROR_NATIVE_WINDOW_IN_USE_KHR ERROR_NATIVE_WINDOW_IN_USE_KHR} <b>must</b> be returned.</p>
      * 
      * <p>If the native window referred to by {@code pCreateInfo→surface} is already associated with a non-Vulkan graphics API surface, {@link KHRSurface#VK_ERROR_NATIVE_WINDOW_IN_USE_KHR ERROR_NATIVE_WINDOW_IN_USE_KHR} <b>must</b> be returned.</p>
      * 
@@ -251,7 +253,7 @@ public class KHRSwapchain {
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
-     * <p>In particular, it will fail if the {@code imageExtent} member of {@code pCreateInfo} does not match the extents of the monitor. Other reasons for failure may include the app not being set as high-dpi aware, or if the physical device and monitor are not compatible in this mode.</p>
+     * <p>In particular, it will fail if the {@code imageExtent} member of {@code pCreateInfo} does not match the extents of the monitor. Other reasons for failure may include the application not being set as high-dpi aware, or if the physical device and monitor are not compatible in this mode.</p>
      * </div>
      * 
      * <p>If the {@code pNext} chain of {@link VkSwapchainCreateInfoKHR} includes a {@link VkSwapchainPresentBarrierCreateInfoNV} structure, then that structure includes additional swapchain creation parameters specific to the present barrier. Swapchain creation <b>may</b> fail if the state of the current system restricts the usage of the present barrier feature {@link VkSurfaceCapabilitiesPresentBarrierNV}, or a swapchain itself does not satisfy all the required conditions. In this scenario {@link VK10#VK_ERROR_INITIALIZATION_FAILED ERROR_INITIALIZATION_FAILED} is returned.</p>
@@ -299,7 +301,7 @@ public class KHRSwapchain {
      *
      * @param device      the device to create the swapchain for.
      * @param pCreateInfo a pointer to a {@link VkSwapchainCreateInfoKHR} structure specifying the parameters of the created swapchain.
-     * @param pAllocator  the allocator used for host memory allocated for the swapchain object when there is no more specific allocator available (see <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
+     * @param pAllocator  the allocator used for host memory allocated for the swapchain object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
      * @param pSwapchain  a pointer to a {@code VkSwapchainKHR} handle in which the created swapchain object will be returned.
      */
     @NativeType("VkResult")
@@ -371,7 +373,7 @@ public class KHRSwapchain {
      *
      * @param device     the {@code VkDevice} associated with {@code swapchain}.
      * @param swapchain  the swapchain to destroy.
-     * @param pAllocator the allocator used for host memory allocated for the swapchain object when there is no more specific allocator available (see <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
+     * @param pAllocator the allocator used for host memory allocated for the swapchain object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
      */
     public static void vkDestroySwapchainKHR(VkDevice device, @NativeType("VkSwapchainKHR") long swapchain, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
         nvkDestroySwapchainKHR(device, swapchain, memAddressSafe(pAllocator));
@@ -408,7 +410,7 @@ public class KHRSwapchain {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pSwapchainImages} is {@code NULL}, then the number of presentable images for {@code swapchain} is returned in {@code pSwapchainImageCount}. Otherwise, {@code pSwapchainImageCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pSwapchainImages} array, and on return the variable is overwritten with the number of structures actually written to {@code pSwapchainImages}. If the value of {@code pSwapchainImageCount} is less than the number of presentable images for {@code swapchain}, at most {@code pSwapchainImageCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available presentable images were returned.</p>
+     * <p>If {@code pSwapchainImages} is {@code NULL}, then the number of presentable images for {@code swapchain} is returned in {@code pSwapchainImageCount}. Otherwise, {@code pSwapchainImageCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pSwapchainImages} array, and on return the variable is overwritten with the number of structures actually written to {@code pSwapchainImages}. If the value of {@code pSwapchainImageCount} is less than the number of presentable images for {@code swapchain}, at most {@code pSwapchainImageCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available presentable images were returned.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -488,7 +490,7 @@ public class KHRSwapchain {
      * <li>If {@code semaphore} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} it <b>must</b> not have any uncompleted signal or wait operations pending</li>
      * <li>If {@code fence} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} it <b>must</b> be unsignaled and <b>must</b> not be associated with any other queue command that has not yet completed execution on that queue</li>
      * <li>{@code semaphore} and {@code fence} <b>must</b> not both be equal to {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
-     * <li>If <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#swapchain-acquire-forward-progress">forward progress</a> cannot be guaranteed for the {@code surface} used to create the {@code swapchain} member of {@code pAcquireInfo}, the {@code timeout} member of {@code pAcquireInfo} <b>must</b> not be {@code UINT64_MAX}</li>
+     * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#swapchain-acquire-forward-progress">forward progress</a> cannot be guaranteed for the {@code surface} used to create the {@code swapchain} member of {@code pAcquireInfo}, the {@code timeout} member of {@code pAcquireInfo} <b>must</b> not be {@code UINT64_MAX}</li>
      * <li>{@code semaphore} <b>must</b> have a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_BINARY SEMAPHORE_TYPE_BINARY}</li>
      * </ul>
      * 
@@ -580,25 +582,31 @@ public class KHRSwapchain {
      * <p>There is no requirement for an application to present images in the same order that they were acquired - applications can arbitrarily present any image that is currently acquired.</p>
      * </div>
      * 
-     * <h5>Valid Usage</h5>
-     * 
-     * <ul>
-     * <li>Each element of {@code pSwapchains} member of {@code pPresentInfo} <b>must</b> be a swapchain that is created for a surface for which presentation is supported from {@code queue} as determined using a call to {@code vkGetPhysicalDeviceSurfaceSupportKHR}</li>
-     * <li>If more than one member of {@code pSwapchains} was created from a display surface, all display surfaces referenced that refer to the same display <b>must</b> use the same display mode</li>
-     * <li>When a semaphore wait operation referring to a binary semaphore defined by the elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} executes on {@code queue}, there <b>must</b> be no other queues waiting on the same semaphore</li>
-     * <li>All elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} <b>must</b> be semaphores that are signaled, or have <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-semaphores-signaling">semaphore signal operations</a> previously submitted for execution</li>
-     * <li>All elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} <b>must</b> be created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_BINARY SEMAPHORE_TYPE_BINARY}</li>
-     * <li>All elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} <b>must</b> reference a semaphore signal operation that has been submitted for execution and any semaphore signal operations on which it depends (if any) <b>must</b> have also been submitted for execution</li>
-     * </ul>
-     * 
-     * <p>Any writes to memory backing the images referenced by the {@code pImageIndices} and {@code pSwapchains} members of {@code pPresentInfo}, that are available before {@link #vkQueuePresentKHR QueuePresentKHR} is executed, are automatically made visible to the read access performed by the presentation engine. This automatic visibility operation for an image happens-after the semaphore signal operation, and happens-before the presentation engine accesses the image.</p>
-     * 
-     * <p>Queueing an image for presentation defines a set of <em>queue operations</em>, including waiting on the semaphores and submitting a presentation request to the presentation engine. However, the scope of this set of queue operations does not include the actual processing of the image by the presentation engine.</p>
-     * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
      * <p>The origin of the native orientation of the surface coordinate system is not specified in the Vulkan specification; it depends on the platform. For most platforms the origin is by default upper-left, meaning the pixel of the presented {@code VkImage} at coordinates <code>(0,0)</code> would appear at the upper left pixel of the platform surface (assuming {@link KHRSurface#VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR SURFACE_TRANSFORM_IDENTITY_BIT_KHR}, and the display standing the right way up).</p>
      * </div>
+     * 
+     * <p>The result codes {@link #VK_ERROR_OUT_OF_DATE_KHR ERROR_OUT_OF_DATE_KHR} and {@link #VK_SUBOPTIMAL_KHR SUBOPTIMAL_KHR} have the same meaning when returned by {@code vkQueuePresentKHR} as they do when returned by {@code vkAcquireNextImageKHR}. If any {@code swapchain} member of {@code pPresentInfo} was created with {@link EXTFullScreenExclusive#VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT}, {@link EXTFullScreenExclusive#VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT} will be returned if that swapchain does not have exclusive full-screen access, possibly for implementation-specific reasons outside of the application’s control. If multiple swapchains are presented, the result code is determined by applying the following rules in order:</p>
+     * 
+     * <ul>
+     * <li>If the device is lost, {@link VK10#VK_ERROR_DEVICE_LOST ERROR_DEVICE_LOST} is returned.</li>
+     * <li>If any of the target surfaces are no longer available the error {@link KHRSurface#VK_ERROR_SURFACE_LOST_KHR ERROR_SURFACE_LOST_KHR} is returned.</li>
+     * <li>If any of the presents would have a result of {@link #VK_ERROR_OUT_OF_DATE_KHR ERROR_OUT_OF_DATE_KHR} if issued separately then {@link #VK_ERROR_OUT_OF_DATE_KHR ERROR_OUT_OF_DATE_KHR} is returned.</li>
+     * <li>If any of the presents would have a result of {@link EXTFullScreenExclusive#VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT} if issued separately then {@link EXTFullScreenExclusive#VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT} is returned.</li>
+     * <li>If any of the presents would have a result of {@link #VK_SUBOPTIMAL_KHR SUBOPTIMAL_KHR} if issued separately then {@link #VK_SUBOPTIMAL_KHR SUBOPTIMAL_KHR} is returned.</li>
+     * <li>Otherwise {@link VK10#VK_SUCCESS SUCCESS} is returned.</li>
+     * </ul>
+     * 
+     * <p>Any writes to memory backing the images referenced by the {@code pImageIndices} and {@code pSwapchains} members of {@code pPresentInfo}, that are available before {@link #vkQueuePresentKHR QueuePresentKHR} is executed, are automatically made visible to the read access performed by the presentation engine. This automatic visibility operation for an image happens-after the semaphore signal operation, and happens-before the presentation engine accesses the image.</p>
+     * 
+     * <p>Presentation is a read-only operation that will not affect the content of the presentable images. Upon reacquiring the image and transitioning it away from the {@link #VK_IMAGE_LAYOUT_PRESENT_SRC_KHR IMAGE_LAYOUT_PRESENT_SRC_KHR} layout, the contents will be the same as they were prior to transitioning the image to the present source layout and presenting it. However, if a mechanism other than Vulkan is used to modify the platform window associated with the swapchain, the content of all presentable images in the swapchain becomes undefined.</p>
+     * 
+     * <p>Calls to {@code vkQueuePresentKHR} <b>may</b> block, but <b>must</b> return in finite time. The processing of the presentation happens in issue order with other queue operations, but semaphores <b>must</b> be used to ensure that prior rendering and other commands in the specified queue complete before the presentation begins. The presentation command itself does not delay processing of subsequent commands on the queue. However, presentation requests sent to a particular queue are always performed in order. Exact presentation timing is controlled by the semantics of the presentation engine and native platform in use.</p>
+     * 
+     * <p>If an image is presented to a swapchain created from a display surface, the mode of the associated display will be updated, if necessary, to match the mode specified when creating the display surface. The mode switch and presentation of the specified image will be performed as one atomic operation.</p>
+     * 
+     * <p>Queueing an image for presentation defines a set of <em>queue operations</em>, including waiting on the semaphores and submitting a presentation request to the presentation engine. However, the scope of this set of queue operations does not include the actual processing of the image by the presentation engine.</p>
      * 
      * <p>If {@code vkQueuePresentKHR} fails to enqueue the corresponding set of queue operations, it <b>may</b> return {@link VK10#VK_ERROR_OUT_OF_HOST_MEMORY ERROR_OUT_OF_HOST_MEMORY} or {@link VK10#VK_ERROR_OUT_OF_DEVICE_MEMORY ERROR_OUT_OF_DEVICE_MEMORY}. If it does, the implementation <b>must</b> ensure that the state and contents of any resources or synchronization primitives referenced is unaffected by the call or its failure.</p>
      * 
@@ -606,9 +614,22 @@ public class KHRSwapchain {
      * 
      * <p>However, if the presentation request is rejected by the presentation engine with an error {@link #VK_ERROR_OUT_OF_DATE_KHR ERROR_OUT_OF_DATE_KHR}, {@link EXTFullScreenExclusive#VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT}, or {@link KHRSurface#VK_ERROR_SURFACE_LOST_KHR ERROR_SURFACE_LOST_KHR}, the set of queue operations are still considered to be enqueued and thus any semaphore wait operation specified in {@link VkPresentInfoKHR} will execute when the corresponding queue operation is complete.</p>
      * 
-     * <p>Calls to {@code vkQueuePresentKHR} <b>may</b> block, but <b>must</b> return in finite time.</p>
+     * <p>{@code vkQueuePresentKHR} releases the acquisition of the images referenced by {@code imageIndices}. The queue family corresponding to the queue {@code vkQueuePresentKHR} is executed on <b>must</b> have ownership of the presented images as defined in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-sharing">Resource Sharing</a>. {@code vkQueuePresentKHR} does not alter the queue family ownership, but the presented images <b>must</b> not be used again before they have been reacquired using {@code vkAcquireNextImageKHR}.</p>
      * 
-     * <p>If any {@code swapchain} member of {@code pPresentInfo} was created with {@link EXTFullScreenExclusive#VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT}, {@link EXTFullScreenExclusive#VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT} will be returned if that swapchain does not have exclusive full-screen access, possibly for implementation-specific reasons outside of the application’s control.</p>
+     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+     * 
+     * <p>The application <b>can</b> continue to present any acquired images from a retired swapchain as long as the swapchain has not entered a state that causes {@link #vkQueuePresentKHR QueuePresentKHR} to return {@link #VK_ERROR_OUT_OF_DATE_KHR ERROR_OUT_OF_DATE_KHR}.</p>
+     * </div>
+     * 
+     * <h5>Valid Usage</h5>
+     * 
+     * <ul>
+     * <li>Each element of {@code pSwapchains} member of {@code pPresentInfo} <b>must</b> be a swapchain that is created for a surface for which presentation is supported from {@code queue} as determined using a call to {@code vkGetPhysicalDeviceSurfaceSupportKHR}</li>
+     * <li>If more than one member of {@code pSwapchains} was created from a display surface, all display surfaces referenced that refer to the same display <b>must</b> use the same display mode</li>
+     * <li>When a semaphore wait operation referring to a binary semaphore defined by the elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} executes on {@code queue}, there <b>must</b> be no other queues waiting on the same semaphore</li>
+     * <li>All elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} <b>must</b> be created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_BINARY SEMAPHORE_TYPE_BINARY}</li>
+     * <li>All elements of the {@code pWaitSemaphores} member of {@code pPresentInfo} <b>must</b> reference a semaphore signal operation that has been submitted for execution and any <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-semaphores-signaling">semaphore signal operations</a> on which it depends <b>must</b> have also been submitted for execution</li>
+     * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -628,7 +649,8 @@ public class KHRSwapchain {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <tbody><tr><td>-</td><td>-</td><td>-</td><td>Any</td><td>-</td></tr></tbody>
      * </table>
      * 
      * <h5>Return Codes</h5>
@@ -831,7 +853,7 @@ public class KHRSwapchain {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pRects} is {@code NULL}, then the number of rectangles used when presenting the given {@code surface} is returned in {@code pRectCount}. Otherwise, {@code pRectCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pRects} array, and on return the variable is overwritten with the number of structures actually written to {@code pRects}. If the value of {@code pRectCount} is less than the number of rectangles, at most {@code pRectCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available rectangles were returned.</p>
+     * <p>If {@code pRects} is {@code NULL}, then the number of rectangles used when presenting the given {@code surface} is returned in {@code pRectCount}. Otherwise, {@code pRectCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pRects} array, and on return the variable is overwritten with the number of structures actually written to {@code pRects}. If the value of {@code pRectCount} is less than the number of rectangles, at most {@code pRectCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available rectangles were returned.</p>
      * 
      * <p>The values returned by this command are not invariant, and <b>may</b> change in response to the surface being moved, resized, or occluded.</p>
      * 
@@ -924,7 +946,7 @@ public class KHRSwapchain {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>If <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#swapchain-acquire-forward-progress">forward progress</a> cannot be guaranteed for the {@code surface} used to create {@code swapchain}, the {@code timeout} member of {@code pAcquireInfo} <b>must</b> not be {@code UINT64_MAX}</li>
+     * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#swapchain-acquire-forward-progress">forward progress</a> cannot be guaranteed for the {@code surface} used to create {@code swapchain}, the {@code timeout} member of {@code pAcquireInfo} <b>must</b> not be {@code UINT64_MAX}</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>

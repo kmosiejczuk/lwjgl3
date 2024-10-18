@@ -14,7 +14,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_FB_body_tracking">XR_FB_body_tracking</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_FB_body_tracking">XR_FB_body_tracking</a> extension.
  * 
  * <p>This extension enables applications to locate the individual body joints that represent the estimated position of the user of the device. It enables applications to render the upper body in XR experiences.</p>
  */
@@ -50,7 +50,7 @@ public class FBBodyTracking {
         XR_TYPE_BODY_SKELETON_FB                   = 1000076006;
 
     /**
-     * XrBodyJointFB - The name of body joints that can be tracked
+     * XrBodyJointFB - Trackable body joints
      * 
      * <h5>Description</h5>
      * 
@@ -262,7 +262,7 @@ public class FBBodyTracking {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If the system does not support body tracking, the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateBodyTrackerFB CreateBodyTrackerFB}. In this case, the runtime <b>must</b> return {@link XR10#XR_FALSE FALSE} for {@code supportsBodyTracking} in {@link XrSystemBodyTrackingPropertiesFB} when the function {@link XR10#xrGetSystemProperties GetSystemProperties} is called, so that the application <b>can</b> avoid creating a body tracker.</p>
+     * <p>If the system does not support body tracking, the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateBodyTrackerFB CreateBodyTrackerFB}. In this case, the runtime <b>must</b> return {@link XR10#XR_FALSE FALSE} for {@link XrSystemBodyTrackingPropertiesFB}{@code ::supportsBodyTracking} when the function {@link XR10#xrGetSystemProperties GetSystemProperties} is called, so that the application <b>can</b> avoid creating a body tracker.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

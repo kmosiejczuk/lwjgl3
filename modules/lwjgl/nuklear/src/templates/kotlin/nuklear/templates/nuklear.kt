@@ -251,7 +251,8 @@ nk_style_pop_vec2(ctx);""")}
         "Constants.",
 
         "UNDEFINED"..-1.0f,
-        "SCROLLBAR_HIDING_TIMEOUT"..4.0f
+        "SCROLLBAR_HIDING_TIMEOUT"..4.0f,
+        "WIDGET_DISABLED_FACTOR"..0.5f
     )
 
     IntConstant(
@@ -398,6 +399,10 @@ nk_style_pop_vec2(ctx);""")}
         "SYMBOL_TRIANGLE_RIGHT".enum,
         "SYMBOL_PLUS".enum,
         "SYMBOL_MINUS".enum,
+        "SYMBOL_TRIANGLE_UP_OUTLINE".enum,
+        "SYMBOL_TRIANGLE_DOWN_OUTLINE".enum,
+        "SYMBOL_TRIANGLE_LEFT_OUTLINE".enum,
+        "SYMBOL_TRIANGLE_RIGHT_OUTLINE".enum,
         "SYMBOL_MAX".enum
     ).javaDocLinks
 
@@ -503,7 +508,8 @@ nk_style_pop_vec2(ctx);""")}
 
         "WIDGET_INVALID".enum("The widget cannot be seen and is completely out of view"),
         "WIDGET_VALID".enum("The widget is completely inside the window and can be updated and drawn"),
-        "WIDGET_ROM".enum("The widget is partially visible and cannot be updated")
+        "WIDGET_ROM".enum("The widget is partially visible and cannot be updated"),
+        "WIDGET_DISABLED".enum("The widget is manually disabled and acts like {@code NK_WIDGET_ROM}")
     )
 
     EnumConstant(
@@ -590,6 +596,25 @@ nk_style_pop_vec2(ctx);""")}
         "WINDOW_SCALE_LEFT".enum("Puts window scaler in the left-bottom corner instead right-bottom", 9.NK_FLAG),
         "WINDOW_NO_INPUT".enum("Prevents window of scaling, moving or getting focus", 10.NK_FLAG)
     ).javaDocLinks
+
+    EnumConstant(
+        "{@code nk_widget_align}",
+
+        "WIDGET_ALIGN_LEFT".."0x01",
+        "WIDGET_ALIGN_CENTERED".."0x02",
+        "WIDGET_ALIGN_RIGHT".."0x04",
+        "WIDGET_ALIGN_TOP".."0x08",
+        "WIDGET_ALIGN_MIDDLE".."0x10",
+        "WIDGET_ALIGN_BOTTOM".."0x20"
+    )
+
+    EnumConstant(
+        "{@code nk_widget_alignment}",
+
+        "WIDGET_LEFT".."NK_WIDGET_ALIGN_MIDDLE|NK_WIDGET_ALIGN_LEFT",
+        "WIDGET_CENTERED".."NK_WIDGET_ALIGN_MIDDLE|NK_WIDGET_ALIGN_CENTERED",
+        "WIDGET_RIGHT".."NK_WIDGET_ALIGN_MIDDLE|NK_WIDGET_ALIGN_RIGHT"
+    )
 
     EnumConstant(
         "nk_allocation_type",
@@ -801,7 +826,7 @@ nk_style_pop_vec2(ctx);""")}
             """,
 
             ctx,
-            nk_allocator.p("allocator", "must point to a previously allocated memory allocator"),
+            nk_allocator.const.p("allocator", "must point to a previously allocated memory allocator"),
             nullable..nk_user_font.const.p("font", "must point to a previously initialized font handle")
         )
 
@@ -1043,6 +1068,15 @@ nk_style_pop_vec2(ctx);""")}
             charUTF8.const.p("name", ""),
             nk_show_states("s", "", ShowStates),
             nk_bool("cond", "")
+        )
+
+        void(
+            "rule_horizontal",
+            "Line for visual seperation. Draws a line with thickness determined by the current row height.",
+
+            ctx,
+            nk_color("color", "color of the horizontal line"),
+            nk_bool("rounding", "whether or not to make the line round")
         )
 
         void(
@@ -1706,6 +1740,18 @@ nk_style_pop_vec2(ctx);""")}
             nk_bool("active", "")
         )
 
+        nk_bool(
+            "check_text_align",
+            "",
+
+            ctx,
+            charUTF8.const.p("str", ""),
+            AutoSize("str")..int("len", ""),
+            nk_bool("active", ""),
+            nk_flags("widget_alignment", ""),
+            nk_flags("text_alignment", "")
+        )
+
         unsigned_int(
             "check_flags_label",
             "",
@@ -1737,6 +1783,17 @@ nk_style_pop_vec2(ctx);""")}
         )
 
         nk_bool(
+            "checkbox_label_align",
+            "",
+
+            ctx,
+            charUTF8.const.p("str", ""),
+            Check(1)..nk_bool.p("active", ""),
+            nk_flags("widget_alignment", ""),
+            nk_flags("text_alignment", "")
+        )
+
+        nk_bool(
             "checkbox_text",
             "",
 
@@ -1744,6 +1801,18 @@ nk_style_pop_vec2(ctx);""")}
             charUTF8.const.p("str", ""),
             AutoSize("str")..int("len", ""),
             Check(1)..nk_bool.p("active", "")
+        )
+
+        nk_bool(
+            "checkbox_text_align",
+            "",
+
+            ctx,
+            charUTF8.const.p("str", ""),
+            AutoSize("str")..int("len", ""),
+            Check(1)..nk_bool.p("active", ""),
+            nk_flags("widget_alignment", ""),
+            nk_flags("text_alignment", "")
         )
 
         nk_bool(
@@ -1777,6 +1846,17 @@ nk_style_pop_vec2(ctx);""")}
         )
 
         nk_bool(
+            "radio_label_align",
+            "",
+
+            ctx,
+            charUTF8.const.p("str", ""),
+            Check(1)..nk_bool.p("active", ""),
+            nk_flags("widget_alignment", ""),
+            nk_flags("text_alignment", "")
+        )
+
+        nk_bool(
             "radio_text",
             "",
 
@@ -1784,6 +1864,18 @@ nk_style_pop_vec2(ctx);""")}
             charUTF8.const.p("str", ""),
             AutoSize("str")..int("len", ""),
             Check(1)..nk_bool.p("active", "")
+        )
+
+        nk_bool(
+            "radio_text_align",
+            "",
+
+            ctx,
+            charUTF8.const.p("str", ""),
+            AutoSize("str")..int("len", ""),
+            Check(1)..nk_bool.p("active", ""),
+            nk_flags("widget_alignment", ""),
+            nk_flags("text_alignment", "")
         )
 
         nk_bool(
@@ -1796,6 +1888,17 @@ nk_style_pop_vec2(ctx);""")}
         )
 
         nk_bool(
+            "option_label_align",
+            "",
+
+            ctx,
+            charUTF8.const.p("str", ""),
+            nk_bool("active", ""),
+            nk_flags("widget_alignment", ""),
+            nk_flags("text_alignment", "")
+        )
+
+        nk_bool(
             "option_text",
             "",
 
@@ -1803,6 +1906,18 @@ nk_style_pop_vec2(ctx);""")}
             charUTF8.const.p("str", ""),
             AutoSize("str")..int("len", ""),
             nk_bool("active", "")
+        )
+
+        nk_bool(
+            "option_text_align",
+            "",
+
+            ctx,
+            charUTF8.const.p("str", ""),
+            AutoSize("str")..int("len", ""),
+            nk_bool("active", ""),
+            nk_flags("widget_alignment", ""),
+            nk_flags("text_alignment", "")
         )
 
         nk_bool(
@@ -3006,6 +3121,20 @@ nk_style_pop_vec2(ctx);""")}
             int("cols", "")
         )
 
+        void(
+            "widget_disable_begin",
+            "",
+
+            ctx
+        )
+
+        void(
+            "widget_disable_end",
+            "",
+
+            ctx
+        )
+
         nk_widget_layout_states(
             "widget",
             "",
@@ -3074,6 +3203,14 @@ nk_style_pop_vec2(ctx);""")}
             "",
 
             Check(6)..charASCII.const.p("rgb", "")
+        )
+
+        nk_color(
+            "rgb_factor",
+            "",
+
+            nk_color("col", ""),
+            float("factor", "")
         )
 
         nk_color(
@@ -4230,7 +4367,7 @@ nk_style_pop_vec2(ctx);""")}
             "",
 
             nk_text_edit.p("box", ""),
-            nk_allocator.p("allocator", ""),
+            nk_allocator.const.p("allocator", ""),
             nk_size("size", "")
         )
 
@@ -4401,7 +4538,7 @@ nk_style_pop_vec2(ctx);""")}
 
             cmd,
             float.p("points", ""),
-            AutoSize("points")..int("point_count", ""),
+            AutoSizeShr("1", "points")..int("point_count", ""),
             float("line_thickness", ""),
             nk_color("col", "")
         )
@@ -4412,7 +4549,7 @@ nk_style_pop_vec2(ctx);""")}
 
             cmd,
             float.p("points", ""),
-            AutoSize("points")..int("point_count", ""),
+            AutoSizeShr("1", "points")..int("point_count", ""),
             float("line_thickness", ""),
             nk_color("color", "")
         )
@@ -4481,7 +4618,7 @@ nk_style_pop_vec2(ctx);""")}
 
             cmd,
             float.p("points", ""),
-            AutoSize("points")..int("point_count", ""),
+            AutoSizeShr("1", "points")..int("point_count", ""),
             nk_color("color", "")
         )
 
@@ -5056,7 +5193,7 @@ nk_style_pop_vec2(ctx);""")}
             "",
 
             nk_font_atlas.p("atlas", ""),
-            nk_allocator.p("alloc", "")
+            nk_allocator.const.p("alloc", "")
         )
 
         void(
@@ -5064,8 +5201,8 @@ nk_style_pop_vec2(ctx);""")}
             "",
 
             nk_font_atlas.p("atlas", ""),
-            nk_allocator.p("persistent", ""),
-            nk_allocator.p("transient_", "")
+            nk_allocator.const.p("persistent", ""),
+            nk_allocator.const.p("transient_", "")
         )
 
         void(
@@ -5148,7 +5285,7 @@ nk_style_pop_vec2(ctx);""")}
             nk_font_atlas.p("atlas", ""),
             AutoSizeResult..Check(1)..int.p("width", ""),
             AutoSizeResult..Check(1)..int.p("height", ""),
-            nk_font_atlas_format("fmt", "")
+            AutoSizeResult("(fmt == NK_FONT_ATLAS_RGBA32 ? 4 : 1)")..nk_font_atlas_format("fmt", "")
         )
 
         void(

@@ -19,7 +19,7 @@ val IMG_filter_cubic = "IMGFilterCubic".nativeClassVK("IMG_filter_cubic", type =
         <pre><code>
 ￿    VkSamplerCreateInfo createInfo =
 ￿    {
-￿        VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO // sType
+￿        .sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO,
 ￿        // Other members set to application-desired values
 ￿    };
 ￿
@@ -32,7 +32,6 @@ val IMG_filter_cubic = "IMGFilterCubic".nativeClassVK("IMG_filter_cubic", type =
 ￿        &amp;createInfo,
 ￿        &amp;sampler);</code></pre>
 
-        <h5>VK_IMG_filter_cubic</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_IMG_filter_cubic}</dd>
@@ -48,7 +47,7 @@ val IMG_filter_cubic = "IMGFilterCubic".nativeClassVK("IMG_filter_cubic", type =
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Tobias Hector <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_IMG_filter_cubic]%20@tobski%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_IMG_filter_cubic%20extension*">tobski</a></li>
+                <li>Tobias Hector <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_IMG_filter_cubic]%20@tobski%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_IMG_filter_cubic%20extension*">tobski</a></li>
             </ul></dd>
         </dl>
 

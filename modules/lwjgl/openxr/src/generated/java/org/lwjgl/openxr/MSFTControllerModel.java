@@ -16,7 +16,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_MSFT_controller_model">XR_MSFT_controller_model</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_MSFT_controller_model">XR_MSFT_controller_model</a> extension.
  * 
  * <p>This extension provides a mechanism to load a GLTF model for controllers. An application <b>can</b> render the controller model using the real time pose input from controller’s grip action pose and animate controller parts representing the user’s interactions, such as pressing a button, or pulling a trigger.</p>
  * 
@@ -152,7 +152,7 @@ public class MSFTControllerModel {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>The {@link #xrLoadControllerModelMSFT LoadControllerModelMSFT} function loads the controller model as a byte buffer containing a binary form of glTF (a.k.a GLB file format) for the controller. The binary glTF data <b>must</b> conform to glTF 2.0 format defined at {uri-msft-gltf2}.</p>
+     * <p>The {@link #xrLoadControllerModelMSFT LoadControllerModelMSFT} function loads the controller model as a byte buffer containing a binary form of glTF (a.k.a GLB file format) for the controller. The binary glTF data <b>must</b> conform to glTF 2.0 format defined at <a href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html">https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html</a>.</p>
      * 
      * <pre><code>
      * XrResult xrLoadControllerModelMSFT(
@@ -265,6 +265,7 @@ public class MSFTControllerModel {
      * <li>{@link XR10#XR_ERROR_INSTANCE_LOST ERROR_INSTANCE_LOST}</li>
      * <li>{@link XR10#XR_ERROR_SESSION_LOST ERROR_SESSION_LOST}</li>
      * <li>{@link XR10#XR_ERROR_OUT_OF_MEMORY ERROR_OUT_OF_MEMORY}</li>
+     * <li>{@link XR10#XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT}</li>
      * <li>{@link #XR_ERROR_CONTROLLER_MODEL_KEY_INVALID_MSFT ERROR_CONTROLLER_MODEL_KEY_INVALID_MSFT}</li>
      * </ul></dd>
      * </dl>

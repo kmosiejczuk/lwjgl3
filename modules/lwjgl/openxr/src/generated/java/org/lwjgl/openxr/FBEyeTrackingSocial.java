@@ -14,7 +14,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_FB_eye_tracking_social">XR_FB_eye_tracking_social</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_FB_eye_tracking_social">XR_FB_eye_tracking_social</a> extension.
  * 
  * <p>This extension enables applications to obtain position and orientation of the user’s eyes. It enables applications to render eyes in XR experiences.</p>
  * 
@@ -108,7 +108,7 @@ public class FBEyeTrackingSocial {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If the system does not support eye tracking, the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateEyeTrackerFB CreateEyeTrackerFB}. In this case, the runtime <b>must</b> return {@link XR10#XR_FALSE FALSE} for {@code supportsEyeTracking} in {@link XrSystemEyeTrackingPropertiesFB} when the function {@link XR10#xrGetSystemProperties GetSystemProperties} is called, so that the application <b>can</b> avoid creating an eye tracker.</p>
+     * <p>If the system does not support eye tracking, the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateEyeTrackerFB CreateEyeTrackerFB}. In this case, the runtime <b>must</b> return {@link XR10#XR_FALSE FALSE} for {@link XrSystemEyeTrackingPropertiesFB}{@code ::supportsEyeTracking} when the function {@link XR10#xrGetSystemProperties GetSystemProperties} is called, so that the application <b>can</b> avoid creating an eye tracker.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -271,9 +271,8 @@ public class FBEyeTrackingSocial {
      * <p>{@link XrEyeGazesFB}, {@link XrEyeGazesInfoFB}</p>
      *
      * @param eyeTracker an {@code XrEyeTrackerFB} previously created by {@link #xrCreateEyeTrackerFB CreateEyeTrackerFB}.
-     *                   
-     *                   <p>a pointer to {@link XrEyeGazesFB} receiving the returned eye poses and confidence.</p>
      * @param gazeInfo   the information to get eye gaze.
+     * @param eyeGazes   a pointer to {@link XrEyeGazesFB} receiving the returned eye poses and confidence.
      */
     @NativeType("XrResult")
     public static int xrGetEyeGazesFB(XrEyeTrackerFB eyeTracker, @NativeType("XrEyeGazesInfoFB const *") XrEyeGazesInfoFB gazeInfo, @NativeType("XrEyeGazesFB *") XrEyeGazesFB eyeGazes) {

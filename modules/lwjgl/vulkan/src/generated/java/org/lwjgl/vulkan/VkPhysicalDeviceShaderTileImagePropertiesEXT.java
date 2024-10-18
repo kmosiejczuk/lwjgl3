@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #shaderTileImageReadFromHelperInvocation};
  * }</code></pre>
  */
-public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct implements NativeResource {
+public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct<VkPhysicalDeviceShaderTileImagePropertiesEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -76,6 +76,15 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
         SHADERTILEIMAGEREADFROMHELPERINVOCATION = layout.offsetof(4);
     }
 
+    protected VkPhysicalDeviceShaderTileImagePropertiesEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDeviceShaderTileImagePropertiesEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDeviceShaderTileImagePropertiesEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDeviceShaderTileImagePropertiesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -89,7 +98,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -98,7 +107,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
     /** a boolean that will be {@link VK10#VK_TRUE TRUE} if coherent reads of tile image data is accelerated. */
     @NativeType("VkBool32")
     public boolean shaderTileImageCoherentReadAccelerated() { return nshaderTileImageCoherentReadAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if reading from samples from a pixel rate fragment invocation is supported when {@link VkPipelineMultisampleStateCreateInfo}::rasterizationSamples &gt; 1. */
+    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if reading from samples from a pixel rate fragment invocation is supported when {@link VkPipelineMultisampleStateCreateInfo}{@code ::rasterizationSamples} &gt; 1. */
     @NativeType("VkBool32")
     public boolean shaderTileImageReadSampleFromPixelRateInvocation() { return nshaderTileImageReadSampleFromPixelRateInvocation(address()) != 0; }
     /** a boolean that will be {@link VK10#VK_TRUE TRUE} if reads of tile image data from helper fragment invocations result in valid values. */
@@ -139,29 +148,29 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
 
     /** Returns a new {@code VkPhysicalDeviceShaderTileImagePropertiesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT malloc() {
-        return wrap(VkPhysicalDeviceShaderTileImagePropertiesEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDeviceShaderTileImagePropertiesEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderTileImagePropertiesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT calloc() {
-        return wrap(VkPhysicalDeviceShaderTileImagePropertiesEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDeviceShaderTileImagePropertiesEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderTileImagePropertiesEXT} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDeviceShaderTileImagePropertiesEXT.class, memAddress(container), container);
+        return new VkPhysicalDeviceShaderTileImagePropertiesEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderTileImagePropertiesEXT} instance for the specified memory address. */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT create(long address) {
-        return wrap(VkPhysicalDeviceShaderTileImagePropertiesEXT.class, address);
+        return new VkPhysicalDeviceShaderTileImagePropertiesEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDeviceShaderTileImagePropertiesEXT.class, address);
+        return address == NULL ? null : new VkPhysicalDeviceShaderTileImagePropertiesEXT(address, null);
     }
 
     /**
@@ -170,7 +179,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -179,7 +188,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -189,7 +198,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
      */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -199,13 +208,13 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -214,7 +223,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceShaderTileImagePropertiesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDeviceShaderTileImagePropertiesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -223,7 +232,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceShaderTileImagePropertiesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDeviceShaderTileImagePropertiesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -233,7 +242,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -243,7 +252,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderTileImagePropertiesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -274,9 +283,9 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct impleme
         /**
          * Creates a new {@code VkPhysicalDeviceShaderTileImagePropertiesEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceShaderTileImagePropertiesEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDeviceShaderTileImagePropertiesEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

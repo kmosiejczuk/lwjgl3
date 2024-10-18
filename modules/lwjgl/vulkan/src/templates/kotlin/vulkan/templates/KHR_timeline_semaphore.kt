@@ -24,7 +24,6 @@ val KHR_timeline_semaphore = "KHRTimelineSemaphore".nativeClassVK("KHR_timeline_
         <h5>Promotion to Vulkan 1.2</h5>
         All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
 
-        <h5>VK_KHR_timeline_semaphore</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_timeline_semaphore}</dd>
@@ -39,16 +38,16 @@ val KHR_timeline_semaphore = "KHRTimelineSemaphore".nativeClassVK("KHR_timeline_
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Faith Ekstrand <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_timeline_semaphore]%20@gfxstrand%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_timeline_semaphore%20extension*">gfxstrand</a></li>
+                <li>Faith Ekstrand <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_timeline_semaphore]%20@gfxstrand%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_timeline_semaphore%20extension*">gfxstrand</a></li>
             </ul></dd>
         </dl>
 
@@ -65,7 +64,6 @@ val KHR_timeline_semaphore = "KHRTimelineSemaphore".nativeClassVK("KHR_timeline_
                 <li>This extension interacts with {@link KHRExternalSemaphoreCapabilities VK_KHR_external_semaphore_capabilities}</li>
                 <li>This extension interacts with {@link KHRExternalSemaphore VK_KHR_external_semaphore}</li>
                 <li>This extension interacts with {@link KHRExternalSemaphoreWin32 VK_KHR_external_semaphore_win32}</li>
-                <li>Promoted to Vulkan 1.2 Core</li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>

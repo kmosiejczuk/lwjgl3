@@ -13,6 +13,18 @@ import static org.lwjgl.system.APIUtil.*;
 /** The platforms supported by LWJGL. */
 public enum Platform {
 
+    FREEBSD("FreeBSD", "freebsd") {
+        private final Pattern SO = Pattern.compile("(?:^|/)lib\\w+[.]so(?:[.]\\d+)*$");
+
+        @Override
+        String mapLibraryName(String name) {
+            if (SO.matcher(name).find()) {
+                return name;
+            }
+
+            return System.mapLibraryName(name);
+        }
+    },
     LINUX("Linux", "linux") {
         private final Pattern SO = Pattern.compile("(?:^|/)lib\\w+[.]so(?:[.]\\d+)*$");
 
@@ -66,7 +78,9 @@ public enum Platform {
         X64(true),
         X86(false),
         ARM64(true),
-        ARM32(false);
+        ARM32(false),
+        PPC64LE(true),
+        RISCV64(true);
 
         static final Architecture current;
 
@@ -76,9 +90,21 @@ public enum Platform {
             String  osArch  = System.getProperty("os.arch");
             boolean is64Bit = osArch.contains("64") || osArch.startsWith("armv8");
 
-            current = osArch.startsWith("arm") || osArch.startsWith("aarch64")
-                ? (is64Bit ? Architecture.ARM64 : Architecture.ARM32)
-                : (is64Bit ? Architecture.X64 : Architecture.X86);
+            if (osArch.startsWith("arm") || osArch.startsWith("aarch")) {
+                current = is64Bit ? Architecture.ARM64 : Architecture.ARM32;
+            } else if (osArch.startsWith("ppc")) {
+                if (!"ppc64le".equals(osArch)) {
+                    throw new UnsupportedOperationException("Only PowerPC 64 LE is supported.");
+                }
+                current = Architecture.PPC64LE;
+            } else if (osArch.startsWith("riscv")) {
+                if (!"riscv64".equals(osArch)) {
+                    throw new UnsupportedOperationException("Only RISC-V 64 is supported.");
+                }
+                current = Architecture.RISCV64;
+            } else {
+                current = is64Bit ? Architecture.X64 : Architecture.X86;
+            }
         }
 
         Architecture(boolean is64Bit) {
@@ -95,6 +121,8 @@ public enum Platform {
         String osName = System.getProperty("os.name");
         if (osName.startsWith("Windows")) {
             current = WINDOWS;
+        } else if (osName.startsWith("FreeBSD")) {
+            current = FREEBSD;
         } else if (osName.startsWith("Linux") || osName.startsWith("SunOS") || osName.startsWith("Unix")) {
             current = LINUX;
         } else if (osName.startsWith("Mac OS X") || osName.startsWith("Darwin")) {

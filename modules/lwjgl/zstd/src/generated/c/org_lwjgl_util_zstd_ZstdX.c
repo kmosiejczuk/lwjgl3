@@ -29,6 +29,20 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1frameHeaderSize(JN
     return (jlong)ZSTD_frameHeaderSize(src, (size_t)srcSize);
 }
 
+JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1getFrameHeader(JNIEnv *__env, jclass clazz, jlong zfhPtrAddress, jlong srcAddress, jlong srcSize) {
+    ZSTD_frameHeader *zfhPtr = (ZSTD_frameHeader *)(uintptr_t)zfhPtrAddress;
+    void const *src = (void const *)(uintptr_t)srcAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return (jlong)ZSTD_getFrameHeader(zfhPtr, src, (size_t)srcSize);
+}
+
+JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1getFrameHeader_1advanced(JNIEnv *__env, jclass clazz, jlong zfhPtrAddress, jlong srcAddress, jlong srcSize, jint format) {
+    ZSTD_frameHeader *zfhPtr = (ZSTD_frameHeader *)(uintptr_t)zfhPtrAddress;
+    void const *src = (void const *)(uintptr_t)srcAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return (jlong)ZSTD_getFrameHeader_advanced(zfhPtr, src, (size_t)srcSize, (ZSTD_format_e)format);
+}
+
 JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1decompressionMargin(JNIEnv *__env, jclass clazz, jlong srcAddress, jlong srcSize) {
     void const *src = (void const *)(uintptr_t)srcAddress;
     UNUSED_PARAMS(__env, clazz)
@@ -38,14 +52,6 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1decompressionMargi
 JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_ZSTD_1sequenceBound(JNIEnv *__env, jclass clazz, jlong srcSize) {
     UNUSED_PARAMS(__env, clazz)
     return (jlong)ZSTD_sequenceBound((size_t)srcSize);
-}
-
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1generateSequences(JNIEnv *__env, jclass clazz, jlong zcAddress, jlong outSeqsAddress, jlong outSeqsSize, jlong srcAddress, jlong srcSize) {
-    ZSTD_CCtx *zc = (ZSTD_CCtx *)(uintptr_t)zcAddress;
-    ZSTD_Sequence *outSeqs = (ZSTD_Sequence *)(uintptr_t)outSeqsAddress;
-    void const *src = (void const *)(uintptr_t)srcAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_generateSequences(zc, outSeqs, (size_t)outSeqsSize, src, (size_t)srcSize);
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1mergeBlockDelimiters(JNIEnv *__env, jclass clazz, jlong sequencesAddress, jlong seqsSize) {
@@ -84,9 +90,9 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1isSkippableFrame(JN
     return (jint)ZSTD_isSkippableFrame(buffer, (size_t)size);
 }
 
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_ZSTD_1estimateCCtxSize(JNIEnv *__env, jclass clazz, jint compressionLevel) {
+JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_ZSTD_1estimateCCtxSize(JNIEnv *__env, jclass clazz, jint maxCompressionLevel) {
     UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_estimateCCtxSize(compressionLevel);
+    return (jlong)ZSTD_estimateCCtxSize(maxCompressionLevel);
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1estimateCCtxSize_1usingCParams(JNIEnv *__env, jclass clazz, jlong cParamsAddress) {
@@ -106,9 +112,9 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_ZSTD_1estimateDCtxSize(JN
     return (jlong)ZSTD_estimateDCtxSize();
 }
 
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_ZSTD_1estimateCStreamSize(JNIEnv *__env, jclass clazz, jint compressionLevel) {
+JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_ZSTD_1estimateCStreamSize(JNIEnv *__env, jclass clazz, jint maxCompressionLevel) {
     UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_estimateCStreamSize(compressionLevel);
+    return (jlong)ZSTD_estimateCStreamSize(maxCompressionLevel);
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1estimateCStreamSize_1usingCParams(JNIEnv *__env, jclass clazz, jlong cParamsAddress) {
@@ -123,9 +129,9 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1estimateCStreamSiz
     return (jlong)ZSTD_estimateCStreamSize_usingCCtxParams(params);
 }
 
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_ZSTD_1estimateDStreamSize(JNIEnv *__env, jclass clazz, jlong windowSize) {
+JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_ZSTD_1estimateDStreamSize(JNIEnv *__env, jclass clazz, jlong maxWindowSize) {
     UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_estimateDStreamSize((size_t)windowSize);
+    return (jlong)ZSTD_estimateDStreamSize((size_t)maxWindowSize);
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1estimateDStreamSize_1fromFrame(JNIEnv *__env, jclass clazz, jlong srcAddress, jlong srcSize) {
@@ -289,6 +295,20 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1CCtx_1setCParams(J
     return (jlong)ZSTD_CCtx_setCParams(cctx, *cparams);
 }
 
+JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1CCtx_1setFParams(JNIEnv *__env, jclass clazz, jlong cctxAddress, jlong fparamsAddress) {
+    ZSTD_CCtx *cctx = (ZSTD_CCtx *)(uintptr_t)cctxAddress;
+    ZSTD_frameParameters *fparams = (ZSTD_frameParameters *)(uintptr_t)fparamsAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return (jlong)ZSTD_CCtx_setFParams(cctx, *fparams);
+}
+
+JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1CCtx_1setParams(JNIEnv *__env, jclass clazz, jlong cctxAddress, jlong paramsAddress) {
+    ZSTD_CCtx *cctx = (ZSTD_CCtx *)(uintptr_t)cctxAddress;
+    ZSTD_parameters *params = (ZSTD_parameters *)(uintptr_t)paramsAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return (jlong)ZSTD_CCtx_setParams(cctx, *params);
+}
+
 JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1CCtx_1loadDictionary_1byReference(JNIEnv *__env, jclass clazz, jlong cctxAddress, jlong dictAddress, jlong dictSize) {
     ZSTD_CCtx *cctx = (ZSTD_CCtx *)(uintptr_t)cctxAddress;
     void const *dict = (void const *)(uintptr_t)dictAddress;
@@ -445,54 +465,20 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1toFlushNow(JNIEnv 
     return (jlong)ZSTD_toFlushNow(cctx);
 }
 
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1compressBegin(JNIEnv *__env, jclass clazz, jlong cctxAddress, jint compressionLevel) {
+JNIEXPORT void JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1registerSequenceProducer(JNIEnv *__env, jclass clazz, jlong cctxAddress, jlong sequenceProducerStateAddress, jlong sequenceProducerAddress) {
     ZSTD_CCtx *cctx = (ZSTD_CCtx *)(uintptr_t)cctxAddress;
+    void *sequenceProducerState = (void *)(uintptr_t)sequenceProducerStateAddress;
+    ZSTD_sequenceProducer_F sequenceProducer = (ZSTD_sequenceProducer_F)(uintptr_t)sequenceProducerAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_compressBegin(cctx, compressionLevel);
+    ZSTD_registerSequenceProducer(cctx, sequenceProducerState, sequenceProducer);
 }
 
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1compressBegin_1usingDict(JNIEnv *__env, jclass clazz, jlong cctxAddress, jlong dictAddress, jlong dictSize, jint compressionLevel) {
-    ZSTD_CCtx *cctx = (ZSTD_CCtx *)(uintptr_t)cctxAddress;
-    void const *dict = (void const *)(uintptr_t)dictAddress;
+JNIEXPORT void JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1CCtxParams_1registerSequenceProducer(JNIEnv *__env, jclass clazz, jlong paramsAddress, jlong sequenceProducerStateAddress, jlong sequenceProducerAddress) {
+    ZSTD_CCtx_params *params = (ZSTD_CCtx_params *)(uintptr_t)paramsAddress;
+    void *sequenceProducerState = (void *)(uintptr_t)sequenceProducerStateAddress;
+    ZSTD_sequenceProducer_F sequenceProducer = (ZSTD_sequenceProducer_F)(uintptr_t)sequenceProducerAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_compressBegin_usingDict(cctx, dict, (size_t)dictSize, compressionLevel);
-}
-
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1compressBegin_1usingCDict(JNIEnv *__env, jclass clazz, jlong cctxAddress, jlong cdictAddress) {
-    ZSTD_CCtx *cctx = (ZSTD_CCtx *)(uintptr_t)cctxAddress;
-    ZSTD_CDict const *cdict = (ZSTD_CDict const *)(uintptr_t)cdictAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_compressBegin_usingCDict(cctx, cdict);
-}
-
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1compressContinue(JNIEnv *__env, jclass clazz, jlong cctxAddress, jlong dstAddress, jlong dstCapacity, jlong srcAddress, jlong srcSize) {
-    ZSTD_CCtx *cctx = (ZSTD_CCtx *)(uintptr_t)cctxAddress;
-    void *dst = (void *)(uintptr_t)dstAddress;
-    void const *src = (void const *)(uintptr_t)srcAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_compressContinue(cctx, dst, (size_t)dstCapacity, src, (size_t)srcSize);
-}
-
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1compressEnd(JNIEnv *__env, jclass clazz, jlong cctxAddress, jlong dstAddress, jlong dstCapacity, jlong srcAddress, jlong srcSize) {
-    ZSTD_CCtx *cctx = (ZSTD_CCtx *)(uintptr_t)cctxAddress;
-    void *dst = (void *)(uintptr_t)dstAddress;
-    void const *src = (void const *)(uintptr_t)srcAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_compressEnd(cctx, dst, (size_t)dstCapacity, src, (size_t)srcSize);
-}
-
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1getFrameHeader(JNIEnv *__env, jclass clazz, jlong zfhPtrAddress, jlong srcAddress, jlong srcSize) {
-    ZSTD_frameHeader *zfhPtr = (ZSTD_frameHeader *)(uintptr_t)zfhPtrAddress;
-    void const *src = (void const *)(uintptr_t)srcAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_getFrameHeader(zfhPtr, src, (size_t)srcSize);
-}
-
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1getFrameHeader_1advanced(JNIEnv *__env, jclass clazz, jlong zfhPtrAddress, jlong srcAddress, jlong srcSize, jint format) {
-    ZSTD_frameHeader *zfhPtr = (ZSTD_frameHeader *)(uintptr_t)zfhPtrAddress;
-    void const *src = (void const *)(uintptr_t)srcAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_getFrameHeader_advanced(zfhPtr, src, (size_t)srcSize, (ZSTD_format_e)format);
+    ZSTD_CCtxParams_registerSequenceProducer(params, sequenceProducerState, sequenceProducer);
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_ZSTD_1decodingBufferSize_1min(JNIEnv *__env, jclass clazz, jlong windowSize, jlong frameContentSize) {
@@ -538,43 +524,6 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1nextInputType(JNIEn
     ZSTD_DCtx *dctx = (ZSTD_DCtx *)(uintptr_t)dctxAddress;
     UNUSED_PARAMS(__env, clazz)
     return (jint)ZSTD_nextInputType(dctx);
-}
-
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1getBlockSize(JNIEnv *__env, jclass clazz, jlong cctxAddress) {
-    ZSTD_CCtx const *cctx = (ZSTD_CCtx const *)(uintptr_t)cctxAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_getBlockSize(cctx);
-}
-
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1compressBlock(JNIEnv *__env, jclass clazz, jlong cctxAddress, jlong dstAddress, jlong dstCapacity, jlong srcAddress, jlong srcSize) {
-    ZSTD_CCtx *cctx = (ZSTD_CCtx *)(uintptr_t)cctxAddress;
-    void *dst = (void *)(uintptr_t)dstAddress;
-    void const *src = (void const *)(uintptr_t)srcAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_compressBlock(cctx, dst, (size_t)dstCapacity, src, (size_t)srcSize);
-}
-
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1decompressBlock(JNIEnv *__env, jclass clazz, jlong dctxAddress, jlong dstAddress, jlong dstCapacity, jlong srcAddress, jlong srcSize) {
-    ZSTD_DCtx *dctx = (ZSTD_DCtx *)(uintptr_t)dctxAddress;
-    void *dst = (void *)(uintptr_t)dstAddress;
-    void const *src = (void const *)(uintptr_t)srcAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_decompressBlock(dctx, dst, (size_t)dstCapacity, src, (size_t)srcSize);
-}
-
-JNIEXPORT jlong JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1insertBlock(JNIEnv *__env, jclass clazz, jlong dctxAddress, jlong blockStartAddress, jlong blockSize) {
-    ZSTD_DCtx *dctx = (ZSTD_DCtx *)(uintptr_t)dctxAddress;
-    void const *blockStart = (void const *)(uintptr_t)blockStartAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return (jlong)ZSTD_insertBlock(dctx, blockStart, (size_t)blockSize);
-}
-
-JNIEXPORT void JNICALL Java_org_lwjgl_util_zstd_ZstdX_nZSTD_1registerSequenceProducer(JNIEnv *__env, jclass clazz, jlong cctxAddress, jlong sequenceProducerStateAddress, jlong sequenceProducerAddress) {
-    ZSTD_CCtx *cctx = (ZSTD_CCtx *)(uintptr_t)cctxAddress;
-    void *sequenceProducerState = (void *)(uintptr_t)sequenceProducerStateAddress;
-    ZSTD_sequenceProducer_F *sequenceProducer = (ZSTD_sequenceProducer_F *)(uintptr_t)sequenceProducerAddress;
-    UNUSED_PARAMS(__env, clazz)
-    ZSTD_registerSequenceProducer(cctx, sequenceProducerState, sequenceProducer);
 }
 
 EXTERN_C_EXIT

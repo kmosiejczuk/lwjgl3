@@ -58,6 +58,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
  * <li>{@code descriptorSet} <b>must</b> be a valid {@code VkDescriptorSet} handle</li>
  * <li>{@code ppData} <b>must</b> be a valid pointer to a pointer value</li>
+ * <li>{@code descriptorSet} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
  * </ul>
  * 
  * <p>There is currently no specification language written for this type. This section acts only as placeholder and to avoid dead links in the specification and reference pages.</p>
@@ -110,8 +111,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
  * </ul>
  * 
- * <h5>VK_VALVE_descriptor_set_host_mapping</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_VALVE_descriptor_set_host_mapping}</dd>
@@ -122,14 +121,14 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Special Use</b></dt>
  * <dd><ul>
- * <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">D3D support</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">D3D support</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Hans-Kristian Arntzen <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_VALVE_descriptor_set_host_mapping]%20@HansKristian-Work%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_VALVE_descriptor_set_host_mapping%20extension*">HansKristian-Work</a></li>
+ * <li>Hans-Kristian Arntzen <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_VALVE_descriptor_set_host_mapping]%20@HansKristian-Work%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_VALVE_descriptor_set_host_mapping%20extension*">HansKristian-Work</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -244,6 +243,7 @@ public class VALVEDescriptorSetHostMapping {
      * <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
      * <li>{@code descriptorSet} <b>must</b> be a valid {@code VkDescriptorSet} handle</li>
      * <li>{@code ppData} <b>must</b> be a valid pointer to a pointer value</li>
+     * <li>{@code descriptorSet} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
      * </ul>
      */
     public static void vkGetDescriptorSetHostMappingVALVE(VkDevice device, @NativeType("VkDescriptorSet") long descriptorSet, @NativeType("void **") PointerBuffer ppData) {

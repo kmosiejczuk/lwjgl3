@@ -11,12 +11,11 @@ import vulkan.*
 val KHR_shader_integer_dot_product = "KHRShaderIntegerDotProduct".nativeClassVK("KHR_shader_integer_dot_product", type = "device", postfix = "KHR") {
     documentation =
         """
-        This extension adds support for the integer dot product SPIR-V instructions defined in SPV_KHR_integer_dot_product. These instructions are particularly useful for neural network inference and training but find uses in other general purpose compute applications as well.
+        This extension adds support for the integer dot product SPIR-V instructions defined in SPV_KHR_integer_dot_product. These instructions are particularly useful for neural network inference and training but find uses in other general-purpose compute applications as well.
 
         <h5>Promotion to Vulkan 1.3</h5>
         Functionality in this extension is included in core Vulkan 1.3, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
 
-        <h5>VK_KHR_shader_integer_dot_product</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_shader_integer_dot_product}</dd>
@@ -31,20 +30,25 @@ val KHR_shader_integer_dot_product = "KHRShaderIntegerDotProduct".nativeClassVK(
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>SPIR-V Dependencies</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_integer_dot_product.html">SPV_KHR_integer_dot_product</a></li>
+            </ul></dd>
+
+            <dt><b>Deprecation State</b></dt>
+            <dd><ul>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Kevin Petit <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_shader_integer_dot_product]%20@kevinpetit%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_shader_integer_dot_product%20extension*">kevinpetit</a></li>
+                <li>Kevin Petit <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_shader_integer_dot_product]%20@kpet%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_shader_integer_dot_product%20extension*">kpet</a></li>
             </ul></dd>
 
             <dt><b>Extension Proposal</b></dt>
-            <dd><a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_KHR_shader_integer_dot_product.adoc">VK_KHR_shader_integer_dot_product</a></dd>
+            <dd><a href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_KHR_shader_integer_dot_product.adoc">VK_KHR_shader_integer_dot_product</a></dd>
         </dl>
 
         <h5>Other Extension Metadata</h5>
@@ -54,8 +58,6 @@ val KHR_shader_integer_dot_product = "KHRShaderIntegerDotProduct".nativeClassVK(
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>Promoted to Vulkan 1.3 Core</li>
-                <li>This extension requires <a target="_blank" href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_integer_dot_product.html">{@code SPV_KHR_integer_dot_product}</a>.</li>
                 <li>This extension interacts with {@link KHRShaderFloat16Int8 VK_KHR_shader_float16_int8}.</li>
             </ul></dd>
 
