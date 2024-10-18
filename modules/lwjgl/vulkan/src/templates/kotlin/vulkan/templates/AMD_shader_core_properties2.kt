@@ -16,7 +16,6 @@ val AMD_shader_core_properties2 = "AMDShaderCoreProperties2".nativeClassVK("AMD_
         <h5>Examples</h5>
         None.
 
-        <h5>VK_AMD_shader_core_properties2</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_AMD_shader_core_properties2}</dd>
@@ -35,7 +34,7 @@ val AMD_shader_core_properties2 = "AMDShaderCoreProperties2".nativeClassVK("AMD_
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Matthaeus G. Chajdas <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMD_shader_core_properties2]%20@anteru%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_AMD_shader_core_properties2%20extension*">anteru</a></li>
+                <li>Matthaeus G. Chajdas <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMD_shader_core_properties2]%20@anteru%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_AMD_shader_core_properties2%20extension*">anteru</a></li>
             </ul></dd>
         </dl>
 

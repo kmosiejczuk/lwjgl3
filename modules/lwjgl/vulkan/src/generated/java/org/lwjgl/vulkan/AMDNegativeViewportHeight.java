@@ -16,8 +16,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>Functionality in this extension is included in {@code VK_KHR_maintenance1} and subsequently Vulkan 1.1. Due to some slight behavioral differences, this extension <b>must</b> not be enabled alongside {@code VK_KHR_maintenance1}, or in an instance created with version 1.1 or later requested in {@link VkApplicationInfo}{@code ::apiVersion}.</p>
  * 
- * <h5>VK_AMD_negative_viewport_height</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_AMD_negative_viewport_height}</dd>
@@ -27,18 +25,18 @@ package org.lwjgl.vulkan;
  * <dd>36</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Obsoleted</em> by {@link KHRMaintenance1 VK_KHR_maintenance1} extension
  * 
  * <ul>
- * <li>Which in turn was <em>promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
+ * <li>Which in turn was <em>promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
  * </ul>
  * </li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Matthaeus G. Chajdas <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMD_negative_viewport_height]%20@anteru%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_AMD_negative_viewport_height%20extension*">anteru</a></li>
+ * <li>Matthaeus G. Chajdas <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMD_negative_viewport_height]%20@anteru%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_AMD_negative_viewport_height%20extension*">anteru</a></li>
  * </ul></dd>
  * </dl>
  * 

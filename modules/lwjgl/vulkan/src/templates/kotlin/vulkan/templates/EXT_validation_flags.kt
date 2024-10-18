@@ -13,10 +13,9 @@ val EXT_validation_flags = "EXTValidationFlags".nativeClassVK("EXT_validation_fl
         """
         This extension provides the ##VkValidationFlagsEXT struct that can be included in the {@code pNext} chain of the ##VkInstanceCreateInfo structure passed as the {@code pCreateInfo} parameter of #CreateInstance(). The structure contains an array of {@code VkValidationCheckEXT} values that will be disabled by the validation layers.
 
-        <h5>Deprecation by {@code VK_EXT_validation_features}</h5>
-        Functionality in this extension is subsumed into the {@link EXTValidationFeatures VK_EXT_validation_features} extension.
+        <h5>Deprecation by {@code VK_EXT_layer_settings}</h5>
+        Functionality in this extension is subsumed into the {@link EXTLayerSettings VK_EXT_layer_settings} extension.
 
-        <h5>VK_EXT_validation_flags</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_validation_flags}</dd>
@@ -28,21 +27,21 @@ val EXT_validation_flags = "EXTValidationFlags".nativeClassVK("EXT_validation_fl
             <dd>62</dd>
 
             <dt><b>Revision</b></dt>
-            <dd>2</dd>
+            <dd>3</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Deprecated</em> by {@link EXTValidationFeatures VK_EXT_validation_features} extension</li>
+                <li><em>Deprecated</em> by {@link EXTLayerSettings VK_EXT_layer_settings} extension</li>
             </ul></dd>
 
             <dt><b>Special Use</b></dt>
             <dd><ul>
-                <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Debugging tools</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Debugging tools</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Tobin Ehlis <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_validation_flags]%20@tobine%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_validation_flags%20extension*">tobine</a></li>
+                <li>Tobin Ehlis <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_validation_flags]%20@tobine%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_validation_flags%20extension*">tobine</a></li>
             </ul></dd>
         </dl>
 
@@ -65,7 +64,7 @@ val EXT_validation_flags = "EXTValidationFlags".nativeClassVK("EXT_validation_fl
     IntConstant(
         "The extension specification version.",
 
-        "EXT_VALIDATION_FLAGS_SPEC_VERSION".."2"
+        "EXT_VALIDATION_FLAGS_SPEC_VERSION".."3"
     )
 
     StringConstant(

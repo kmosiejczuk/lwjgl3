@@ -11,6 +11,7 @@
 #include <dbus/dbus.h>
 #include <errno.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -77,7 +78,10 @@ struct DBusMessage_Guard {
 DBusConnection* dbus_conn;
 /* current D-Bus error */
 DBusError dbus_err;
-/* current error (may be a pointer to the D-Bus error message above, or a pointer to some string
+/* current non D-Bus error */
+constexpr size_t OWNED_ERR_LEN = 1024;
+char owned_err[OWNED_ERR_LEN]{};
+/* current error (may be a pointer to dbus_err.message, owned_err, or a pointer to some string
  * literal) */
 const char* err_ptr = nullptr;
 /* the unique name of our connection, used for the Request handle; owned by D-Bus so we don't free
@@ -86,6 +90,14 @@ const char* dbus_unique_name;
 
 void NFDi_SetError(const char* msg) {
     err_ptr = msg;
+}
+
+void NFDi_SetFormattedError(const char* format, ...) {
+    va_list args;
+    va_start(args, format);
+    vsnprintf(owned_err, OWNED_ERR_LEN, format, args);
+    va_end(args);
+    err_ptr = owned_err;
 }
 
 template <typename T>
@@ -104,11 +116,47 @@ T* transform(const T* begin, const T* end, T* out, Callback callback) {
     return out;
 }
 
+template <typename T>
+T* reverse_copy(const T* begin, const T* end, T* out) {
+    while (begin != end) {
+        *out++ = *--end;
+    }
+    return out;
+}
+
+// Returns true if ch is in [0-9A-Za-z], false otherwise.
+bool IsHex(char ch) {
+    return ('0' <= ch && ch <= '9') || ('A' <= ch && ch <= 'F') || ('a' <= ch && ch <= 'f');
+}
+
+// Returns the hexadecimal value contained in the char.  Precondition: IsHex(ch)
+char ParseHexUnchecked(char ch) {
+    if ('0' <= ch && ch <= '9') return ch - '0';
+    if ('A' <= ch && ch <= 'F') return ch - ('A' - 10);
+    if ('a' <= ch && ch <= 'f') return ch - ('a' - 10);
+#if defined(__GNUC__)
+    __builtin_unreachable();
+#endif
+}
+
+// Writes val as a hex string to out
+char* FormatUIntToHexString(char* out, uintptr_t val) {
+    char tmp[sizeof(uintptr_t) * 2];
+    char* tmp_end = tmp;
+    do {
+        const uintptr_t digit = val & 15u;
+        *tmp_end++ = digit < 10 ? '0' + digit : 'A' - 10 + digit;
+        val >>= 4;
+    } while (val != 0);
+    return reverse_copy(tmp, tmp_end, out);
+}
+
 constexpr const char* STR_EMPTY = "";
 constexpr const char* STR_OPEN_FILE = "Open File";
 constexpr const char* STR_OPEN_FILES = "Open Files";
 constexpr const char* STR_SAVE_FILE = "Save File";
 constexpr const char* STR_SELECT_FOLDER = "Select Folder";
+constexpr const char* STR_SELECT_FOLDERS = "Select Folders";
 constexpr const char* STR_HANDLE_TOKEN = "handle_token";
 constexpr const char* STR_MULTIPLE = "multiple";
 constexpr const char* STR_DIRECTORY = "directory";
@@ -119,6 +167,35 @@ constexpr const char* STR_CURRENT_FOLDER = "current_folder";
 constexpr const char* STR_CURRENT_FILE = "current_file";
 constexpr const char* STR_ALL_FILES = "All files";
 constexpr const char* STR_ASTERISK = "*";
+constexpr const char* DBUS_DESTINATION = "org.freedesktop.portal.Desktop";
+constexpr const char* DBUS_PATH = "/org/freedesktop/portal/desktop";
+constexpr const char* DBUS_FILECHOOSER_IFACE = "org.freedesktop.portal.FileChooser";
+constexpr const char* DBUS_REQUEST_IFACE = "org.freedesktop.portal.Request";
+
+void AppendOpenFileQueryParentWindow(DBusMessageIter& iter, const nfdwindowhandle_t& parentWindow) {
+    switch (parentWindow.type) {
+        case NFD_WINDOW_HANDLE_TYPE_X11: {
+            constexpr size_t maxX11WindowStrLen =
+                4 + sizeof(uintptr_t) * 2 + 1;  // "x11:" + "<hex>" + "\0"
+            char serializedWindowBuf[maxX11WindowStrLen];
+            char* serializedWindow = serializedWindowBuf;
+            const uintptr_t handle = reinterpret_cast<uintptr_t>(parentWindow.handle);
+            char* out = serializedWindowBuf;
+            *out++ = 'x';
+            *out++ = '1';
+            *out++ = '1';
+            *out++ = ':';
+            out = FormatUIntToHexString(out, handle);
+            *out = '\0';
+            dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &serializedWindow);
+            return;
+        }
+        default: {
+            dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &STR_EMPTY);
+            return;
+        }
+    }
+}
 
 template <bool Multiple, bool Directory>
 void AppendOpenFileQueryTitle(DBusMessageIter&);
@@ -133,6 +210,10 @@ void AppendOpenFileQueryTitle<true, false>(DBusMessageIter& iter) {
 template <>
 void AppendOpenFileQueryTitle<false, true>(DBusMessageIter& iter) {
     dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &STR_SELECT_FOLDER);
+}
+template <>
+void AppendOpenFileQueryTitle<true, true>(DBusMessageIter& iter) {
+    dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &STR_SELECT_FOLDERS);
 }
 
 void AppendSaveFileQueryTitle(DBusMessageIter& iter) {
@@ -469,7 +550,7 @@ void AppendSaveFileQueryDictEntryCurrentName(DBusMessageIter& sub_iter, const ch
     dbus_message_iter_close_container(&sub_iter, &sub_sub_iter);
 }
 
-void AppendSaveFileQueryDictEntryCurrentFolder(DBusMessageIter& sub_iter, const char* path) {
+void AppendOpenFileQueryDictEntryCurrentFolder(DBusMessageIter& sub_iter, const char* path) {
     if (!path) return;
     DBusMessageIter sub_sub_iter;
     DBusMessageIter variant_iter;
@@ -536,12 +617,13 @@ template <bool Multiple, bool Directory>
 void AppendOpenFileQueryParams(DBusMessage* query,
                                const char* handle_token,
                                const nfdnfilteritem_t* filterList,
-                               nfdfiltersize_t filterCount) {
+                               nfdfiltersize_t filterCount,
+                               const nfdnchar_t* defaultPath,
+                               const nfdwindowhandle_t& parentWindow) {
     DBusMessageIter iter;
     dbus_message_iter_init_append(query, &iter);
 
-    dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &STR_EMPTY);
-
+    AppendOpenFileQueryParentWindow(iter, parentWindow);
     AppendOpenFileQueryTitle<Multiple, Directory>(iter);
 
     DBusMessageIter sub_iter;
@@ -550,6 +632,7 @@ void AppendOpenFileQueryParams(DBusMessage* query,
     AppendOpenFileQueryDictEntryMultiple<Multiple>(sub_iter);
     AppendOpenFileQueryDictEntryDirectory<Directory>(sub_iter);
     AppendOpenFileQueryDictEntryFilters<!Directory>(sub_iter, filterList, filterCount);
+    AppendOpenFileQueryDictEntryCurrentFolder(sub_iter, defaultPath);
     dbus_message_iter_close_container(&iter, &sub_iter);
 }
 
@@ -559,12 +642,12 @@ void AppendSaveFileQueryParams(DBusMessage* query,
                                const nfdnfilteritem_t* filterList,
                                nfdfiltersize_t filterCount,
                                const nfdnchar_t* defaultPath,
-                               const nfdnchar_t* defaultName) {
+                               const nfdnchar_t* defaultName,
+                               const nfdwindowhandle_t& parentWindow) {
     DBusMessageIter iter;
     dbus_message_iter_init_append(query, &iter);
 
-    dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &STR_EMPTY);
-
+    AppendOpenFileQueryParentWindow(iter, parentWindow);
     AppendSaveFileQueryTitle(iter);
 
     DBusMessageIter sub_iter;
@@ -572,7 +655,7 @@ void AppendSaveFileQueryParams(DBusMessage* query,
     AppendOpenFileQueryDictEntryHandleToken(sub_iter, handle_token);
     AppendSaveFileQueryDictEntryFilters(sub_iter, filterList, filterCount, defaultName);
     AppendSaveFileQueryDictEntryCurrentName(sub_iter, defaultName);
-    AppendSaveFileQueryDictEntryCurrentFolder(sub_iter, defaultPath);
+    AppendOpenFileQueryDictEntryCurrentFolder(sub_iter, defaultPath);
     AppendSaveFileQueryDictEntryCurrentFile(sub_iter, defaultPath, defaultName);
     dbus_message_iter_close_container(&iter, &sub_iter);
 }
@@ -656,7 +739,9 @@ nfdresult_t ReadResponseResults(DBusMessage* msg, DBusMessageIter& resultsIter) 
             return NFD_CANCEL;
         } else {
             // Some error occurred
-            NFDi_SetError("D-Bus file dialog interaction was ended abruptly.");
+            NFDi_SetFormattedError(
+                "D-Bus file dialog interaction was ended abruptly with response code %u.",
+                resp_code);
             return NFD_ERROR;
         }
     }
@@ -770,47 +855,37 @@ nfdresult_t ReadResponseUrisSingleAndCurrentExtension(DBusMessage* msg,
             [&tmp_extn](DBusMessageIter& current_filter_iter) {
                 // current_filter is best_effort, so if we fail, we still return NFD_OKAY.
                 if (dbus_message_iter_get_arg_type(&current_filter_iter) != DBUS_TYPE_STRUCT) {
-                    // NFDi_SetError("D-Bus response signal current_filter iter is not a struct.");
                     return NFD_OKAY;
                 }
                 DBusMessageIter current_filter_struct_iter;
                 dbus_message_iter_recurse(&current_filter_iter, &current_filter_struct_iter);
                 if (!dbus_message_iter_next(&current_filter_struct_iter)) {
-                    // NFDi_SetError("D-Bus response signal current_filter struct iter ended
-                    // prematurely.");
                     return NFD_OKAY;
                 }
                 if (dbus_message_iter_get_arg_type(&current_filter_struct_iter) !=
                     DBUS_TYPE_ARRAY) {
-                    // NFDi_SetError("D-Bus response signal URI sub iter is not a string.");
                     return NFD_OKAY;
                 }
                 DBusMessageIter current_filter_array_iter;
                 dbus_message_iter_recurse(&current_filter_struct_iter, &current_filter_array_iter);
                 if (dbus_message_iter_get_arg_type(&current_filter_array_iter) !=
                     DBUS_TYPE_STRUCT) {
-                    // NFDi_SetError("D-Bus response signal current_filter iter is not a struct.");
                     return NFD_OKAY;
                 }
                 DBusMessageIter current_filter_extn_iter;
                 dbus_message_iter_recurse(&current_filter_array_iter, &current_filter_extn_iter);
                 if (dbus_message_iter_get_arg_type(&current_filter_extn_iter) != DBUS_TYPE_UINT32) {
-                    // NFDi_SetError("D-Bus response signal URI sub iter is not a string.");
                     return NFD_OKAY;
                 }
                 dbus_uint32_t type;
                 dbus_message_iter_get_basic(&current_filter_extn_iter, &type);
                 if (type != 0) {
-                    // NFDi_SetError("Wrong filter type.");
                     return NFD_OKAY;
                 }
                 if (!dbus_message_iter_next(&current_filter_extn_iter)) {
-                    // NFDi_SetError("D-Bus response signal current_filter struct iter ended
-                    // prematurely.");
                     return NFD_OKAY;
                 }
                 if (dbus_message_iter_get_arg_type(&current_filter_extn_iter) != DBUS_TYPE_STRING) {
-                    // NFDi_SetError("D-Bus response signal URI sub iter is not a string.");
                     return NFD_OKAY;
                 }
                 dbus_message_iter_get_basic(&current_filter_extn_iter, &tmp_extn);
@@ -949,21 +1024,6 @@ class DBusSignalSubscriptionHandler {
     }
 };
 
-// Returns true if ch is in [0-9A-Za-z], false otherwise.
-bool IsHex(char ch) {
-    return ('0' <= ch && ch <= '9') || ('A' <= ch && ch <= 'F') || ('a' <= ch && ch <= 'f');
-}
-
-// Returns the hexadecimal value contained in the char.  Precondition: IsHex(ch)
-char ParseHexUnchecked(char ch) {
-    if ('0' <= ch && ch <= '9') return ch - '0';
-    if ('A' <= ch && ch <= 'F') return ch - ('A' - 10);
-    if ('a' <= ch && ch <= 'f') return ch - ('a' - 10);
-#if defined(__GNUC__)
-    __builtin_unreachable();
-#endif
-}
-
 // Returns true if the given file URI is decodable (i.e. not malformed), and false otherwise.
 // If this function returns true, then `out` will be populated with the length of the decoded URI
 // and `fileUriEnd` will point to the trailing null byte of `fileUri`. Otherwise, `out` and
@@ -1013,22 +1073,25 @@ constexpr size_t FILE_URI_PREFIX_LEN = sizeof(FILE_URI_PREFIX) - 1;
 // buffer, and make outPath point to it, and returns NFD_OKAY. Otherwise, does not modify outPath
 // and returns NFD_ERROR (with the correct error set)
 nfdresult_t AllocAndCopyFilePath(const char* fileUri, char*& outPath) {
+    const char* file_uri_iter = fileUri;
     const char* prefix_begin = FILE_URI_PREFIX;
     const char* const prefix_end = FILE_URI_PREFIX + FILE_URI_PREFIX_LEN;
-    for (; prefix_begin != prefix_end; ++prefix_begin, ++fileUri) {
-        if (*prefix_begin != *fileUri) {
-            NFDi_SetError("D-Bus freedesktop portal returned a URI that is not a file URI.");
+    for (; prefix_begin != prefix_end; ++prefix_begin, ++file_uri_iter) {
+        if (*prefix_begin != *file_uri_iter) {
+            NFDi_SetFormattedError(
+                "D-Bus freedesktop portal returned \"%s\", which is not a file URI.", fileUri);
             return NFD_ERROR;
         }
     }
     size_t decoded_len;
     const char* file_uri_end;
-    if (!TryUriDecodeLen(fileUri, decoded_len, file_uri_end)) {
-        NFDi_SetError("D-Bus freedesktop portal returned a malformed URI.");
+    if (!TryUriDecodeLen(file_uri_iter, decoded_len, file_uri_end)) {
+        NFDi_SetFormattedError("D-Bus freedesktop portal returned a malformed URI \"%s\".",
+                               fileUri);
         return NFD_ERROR;
     }
     char* const path_without_prefix = NFDi_Malloc<char>(decoded_len + 1);
-    char* const out_end = UriDecodeUnchecked(fileUri, file_uri_end, path_without_prefix);
+    char* const out_end = UriDecodeUnchecked(file_uri_iter, file_uri_end, path_without_prefix);
     *out_end = '\0';
     outPath = path_without_prefix;
     return NFD_OKAY;
@@ -1055,19 +1118,22 @@ bool TryGetValidExtension(const char* extn,
 // expected to be either in the form "*.abc" or "*", but this function will check for it, and ignore
 // the extension if it is not in the correct form.
 nfdresult_t AllocAndCopyFilePathWithExtn(const char* fileUri, const char* extn, char*& outPath) {
+    const char* file_uri_iter = fileUri;
     const char* prefix_begin = FILE_URI_PREFIX;
     const char* const prefix_end = FILE_URI_PREFIX + FILE_URI_PREFIX_LEN;
-    for (; prefix_begin != prefix_end; ++prefix_begin, ++fileUri) {
-        if (*prefix_begin != *fileUri) {
-            NFDi_SetError("D-Bus freedesktop portal returned a URI that is not a file URI.");
+    for (; prefix_begin != prefix_end; ++prefix_begin, ++file_uri_iter) {
+        if (*prefix_begin != *file_uri_iter) {
+            NFDi_SetFormattedError(
+                "D-Bus freedesktop portal returned \"%s\", which is not a file URI.", fileUri);
             return NFD_ERROR;
         }
     }
 
     size_t decoded_len;
     const char* file_uri_end;
-    if (!TryUriDecodeLen(fileUri, decoded_len, file_uri_end)) {
-        NFDi_SetError("D-Bus freedesktop portal returned a malformed URI.");
+    if (!TryUriDecodeLen(file_uri_iter, decoded_len, file_uri_end)) {
+        NFDi_SetFormattedError("D-Bus freedesktop portal returned a malformed URI \"%s\".",
+                               fileUri);
         return NFD_ERROR;
     }
 
@@ -1084,14 +1150,14 @@ nfdresult_t AllocAndCopyFilePathWithExtn(const char* fileUri, const char* extn, 
     if (*file_it == '.' || !TryGetValidExtension(extn, trimmed_extn, trimmed_extn_end)) {
         // has file extension already or no valid extension in `extn`
         char* const path_without_prefix = NFDi_Malloc<char>(decoded_len + 1);
-        char* const out_end = UriDecodeUnchecked(fileUri, file_uri_end, path_without_prefix);
+        char* const out_end = UriDecodeUnchecked(file_uri_iter, file_uri_end, path_without_prefix);
         *out_end = '\0';
         outPath = path_without_prefix;
     } else {
         // no file extension and we have a valid extension
         char* const path_without_prefix =
             NFDi_Malloc<char>(decoded_len + (trimmed_extn_end - trimmed_extn));
-        char* const out_mid = UriDecodeUnchecked(fileUri, file_uri_end, path_without_prefix);
+        char* const out_mid = UriDecodeUnchecked(file_uri_iter, file_uri_end, path_without_prefix);
         char* const out_end = copy(trimmed_extn, trimmed_extn_end, out_mid);
         *out_end = '\0';
         outPath = path_without_prefix;
@@ -1107,7 +1173,9 @@ nfdresult_t AllocAndCopyFilePathWithExtn(const char* fileUri, const char* extn, 
 template <bool Multiple, bool Directory>
 nfdresult_t NFD_DBus_OpenFile(DBusMessage*& outMsg,
                               const nfdnfilteritem_t* filterList,
-                              nfdfiltersize_t filterCount) {
+                              nfdfiltersize_t filterCount,
+                              const nfdnchar_t* defaultPath,
+                              const nfdwindowhandle_t& parentWindow) {
     const char* handle_token_ptr;
     char* handle_obj_path = MakeUniqueObjectPath(&handle_token_ptr);
     Free_Guard<char> handle_obj_path_guard(handle_obj_path);
@@ -1124,13 +1192,11 @@ nfdresult_t NFD_DBus_OpenFile(DBusMessage*& outMsg,
     // TODO: use XOpenDisplay()/XGetInputFocus() to find xid of window... but what should one do on
     // Wayland?
 
-    DBusMessage* query = dbus_message_new_method_call("org.freedesktop.portal.Desktop",
-                                                      "/org/freedesktop/portal/desktop",
-                                                      "org.freedesktop.portal.FileChooser",
-                                                      "OpenFile");
+    DBusMessage* query = dbus_message_new_method_call(
+        DBUS_DESTINATION, DBUS_PATH, DBUS_FILECHOOSER_IFACE, "OpenFile");
     DBusMessage_Guard query_guard(query);
     AppendOpenFileQueryParams<Multiple, Directory>(
-        query, handle_token_ptr, filterList, filterCount);
+        query, handle_token_ptr, filterList, filterCount, defaultPath, parentWindow);
 
     DBusMessage* reply =
         dbus_connection_send_with_reply_and_block(dbus_conn, query, DBUS_TIMEOUT_INFINITE, &err);
@@ -1169,7 +1235,7 @@ nfdresult_t NFD_DBus_OpenFile(DBusMessage*& outMsg,
             DBusMessage* msg = dbus_connection_pop_message(dbus_conn);
             if (!msg) break;
 
-            if (dbus_message_is_signal(msg, "org.freedesktop.portal.Request", "Response")) {
+            if (dbus_message_is_signal(msg, DBUS_REQUEST_IFACE, "Response")) {
                 // this is the response we're looking for
                 outMsg = msg;
                 return NFD_OKAY;
@@ -1191,7 +1257,8 @@ nfdresult_t NFD_DBus_SaveFile(DBusMessage*& outMsg,
                               const nfdnfilteritem_t* filterList,
                               nfdfiltersize_t filterCount,
                               const nfdnchar_t* defaultPath,
-                              const nfdnchar_t* defaultName) {
+                              const nfdnchar_t* defaultName,
+                              const nfdwindowhandle_t& parentWindow) {
     const char* handle_token_ptr;
     char* handle_obj_path = MakeUniqueObjectPath(&handle_token_ptr);
     Free_Guard<char> handle_obj_path_guard(handle_obj_path);
@@ -1208,13 +1275,11 @@ nfdresult_t NFD_DBus_SaveFile(DBusMessage*& outMsg,
     // TODO: use XOpenDisplay()/XGetInputFocus() to find xid of window... but what should one do on
     // Wayland?
 
-    DBusMessage* query = dbus_message_new_method_call("org.freedesktop.portal.Desktop",
-                                                      "/org/freedesktop/portal/desktop",
-                                                      "org.freedesktop.portal.FileChooser",
-                                                      "SaveFile");
+    DBusMessage* query = dbus_message_new_method_call(
+        DBUS_DESTINATION, DBUS_PATH, DBUS_FILECHOOSER_IFACE, "SaveFile");
     DBusMessage_Guard query_guard(query);
     AppendSaveFileQueryParams(
-        query, handle_token_ptr, filterList, filterCount, defaultPath, defaultName);
+        query, handle_token_ptr, filterList, filterCount, defaultPath, defaultName, parentWindow);
 
     DBusMessage* reply =
         dbus_connection_send_with_reply_and_block(dbus_conn, query, DBUS_TIMEOUT_INFINITE, &err);
@@ -1253,7 +1318,7 @@ nfdresult_t NFD_DBus_SaveFile(DBusMessage*& outMsg,
             DBusMessage* msg = dbus_connection_pop_message(dbus_conn);
             if (!msg) break;
 
-            if (dbus_message_is_signal(msg, "org.freedesktop.portal.Request", "Response")) {
+            if (dbus_message_is_signal(msg, DBUS_REQUEST_IFACE, "Response")) {
                 // this is the response we're looking for
                 outMsg = msg;
                 return NFD_OKAY;
@@ -1265,6 +1330,57 @@ nfdresult_t NFD_DBus_SaveFile(DBusMessage*& outMsg,
 
     NFDi_SetError("D-Bus freedesktop portal did not give us a reply.");
     return NFD_ERROR;
+}
+
+nfdresult_t NFD_DBus_GetVersion(dbus_uint32_t& outVersion) {
+    DBusError err;  // need a separate error object because we don't want to mess with the old one
+                    // if it's stil set
+    dbus_error_init(&err);
+
+    DBusMessage* query = dbus_message_new_method_call("org.freedesktop.portal.Desktop",
+                                                      "/org/freedesktop/portal/desktop",
+                                                      "org.freedesktop.DBus.Properties",
+                                                      "Get");
+    DBusMessage_Guard query_guard(query);
+    {
+        DBusMessageIter iter;
+        dbus_message_iter_init_append(query, &iter);
+
+        constexpr const char* STR_INTERFACE = "org.freedesktop.portal.FileChooser";
+        dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &STR_INTERFACE);
+        constexpr const char* STR_VERSION = "version";
+        dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &STR_VERSION);
+    }
+
+    DBusMessage* reply =
+        dbus_connection_send_with_reply_and_block(dbus_conn, query, DBUS_TIMEOUT_INFINITE, &err);
+    if (!reply) {
+        dbus_error_free(&dbus_err);
+        dbus_move_error(&err, &dbus_err);
+        NFDi_SetError(dbus_err.message);
+        return NFD_ERROR;
+    }
+    DBusMessage_Guard reply_guard(reply);
+    {
+        DBusMessageIter iter;
+        if (!dbus_message_iter_init(reply, &iter)) {
+            NFDi_SetError("D-Bus reply for version query is missing an argument.");
+            return NFD_ERROR;
+        }
+        if (dbus_message_iter_get_arg_type(&iter) != DBUS_TYPE_VARIANT) {
+            NFDi_SetError("D-Bus reply for version query is not a variant.");
+            return NFD_ERROR;
+        }
+        DBusMessageIter variant_iter;
+        dbus_message_iter_recurse(&iter, &variant_iter);
+        if (dbus_message_iter_get_arg_type(&variant_iter) != DBUS_TYPE_UINT32) {
+            NFDi_SetError("D-Bus reply for version query is not a uint32.");
+            return NFD_ERROR;
+        }
+        dbus_message_iter_get_basic(&variant_iter, &outVersion);
+    }
+
+    return NFD_OKAY;
 }
 
 }  // namespace
@@ -1281,7 +1397,7 @@ void NFD_ClearError(void) {
 }
 
 nfdresult_t NFD_Init(void) {
-    // Initialize dbus_error
+    // Initialize dbus_err
     dbus_error_init(&dbus_err);
     // Get DBus connection
     dbus_conn = dbus_bus_get(DBUS_BUS_SESSION, &dbus_err);
@@ -1308,15 +1424,29 @@ void NFD_FreePathN(nfdnchar_t* filePath) {
     NFDi_Free(filePath);
 }
 
+void NFD_FreePathU8(nfdu8char_t* filePath) __attribute__((alias("NFD_FreePathN")));
+
 nfdresult_t NFD_OpenDialogN(nfdnchar_t** outPath,
                             const nfdnfilteritem_t* filterList,
                             nfdfiltersize_t filterCount,
                             const nfdnchar_t* defaultPath) {
-    (void)defaultPath;  // Default path not supported for portal backend
+    nfdopendialognargs_t args{};
+    args.filterList = filterList;
+    args.filterCount = filterCount;
+    args.defaultPath = defaultPath;
+    return NFD_OpenDialogN_With_Impl(NFD_INTERFACE_VERSION, outPath, &args);
+}
+
+nfdresult_t NFD_OpenDialogN_With_Impl(nfdversion_t version,
+                                      nfdnchar_t** outPath,
+                                      const nfdopendialognargs_t* args) {
+    // We haven't needed to bump the interface version yet.
+    (void)version;
 
     DBusMessage* msg;
     {
-        const nfdresult_t res = NFD_DBus_OpenFile<false, false>(msg, filterList, filterCount);
+        const nfdresult_t res = NFD_DBus_OpenFile<false, false>(
+            msg, args->filterList, args->filterCount, args->defaultPath, args->parentWindow);
         if (res != NFD_OKAY) {
             return res;
         }
@@ -1334,15 +1464,38 @@ nfdresult_t NFD_OpenDialogN(nfdnchar_t** outPath,
     return AllocAndCopyFilePath(uri, *outPath);
 }
 
+nfdresult_t NFD_OpenDialogU8(nfdu8char_t** outPath,
+                             const nfdu8filteritem_t* filterList,
+                             nfdfiltersize_t filterCount,
+                             const nfdu8char_t* defaultPath)
+    __attribute__((alias("NFD_OpenDialogN")));
+
+nfdresult_t NFD_OpenDialogU8_With_Impl(nfdversion_t version,
+                                       nfdu8char_t** outPath,
+                                       const nfdopendialogu8args_t* args)
+    __attribute__((alias("NFD_OpenDialogN_With_Impl")));
+
 nfdresult_t NFD_OpenDialogMultipleN(const nfdpathset_t** outPaths,
                                     const nfdnfilteritem_t* filterList,
                                     nfdfiltersize_t filterCount,
                                     const nfdnchar_t* defaultPath) {
-    (void)defaultPath;  // Default path not supported for portal backend
+    nfdopendialognargs_t args{};
+    args.filterList = filterList;
+    args.filterCount = filterCount;
+    args.defaultPath = defaultPath;
+    return NFD_OpenDialogMultipleN_With_Impl(NFD_INTERFACE_VERSION, outPaths, &args);
+}
+
+nfdresult_t NFD_OpenDialogMultipleN_With_Impl(nfdversion_t version,
+                                              const nfdpathset_t** outPaths,
+                                              const nfdopendialognargs_t* args) {
+    // We haven't needed to bump the interface version yet.
+    (void)version;
 
     DBusMessage* msg;
     {
-        const nfdresult_t res = NFD_DBus_OpenFile<true, false>(msg, filterList, filterCount);
+        const nfdresult_t res = NFD_DBus_OpenFile<true, false>(
+            msg, args->filterList, args->filterCount, args->defaultPath, args->parentWindow);
         if (res != NFD_OKAY) {
             return res;
         }
@@ -1359,15 +1512,44 @@ nfdresult_t NFD_OpenDialogMultipleN(const nfdpathset_t** outPaths,
     return NFD_OKAY;
 }
 
+nfdresult_t NFD_OpenDialogMultipleU8(const nfdpathset_t** outPaths,
+                                     const nfdu8filteritem_t* filterList,
+                                     nfdfiltersize_t filterCount,
+                                     const nfdu8char_t* defaultPath)
+    __attribute__((alias("NFD_OpenDialogMultipleN")));
+
+nfdresult_t NFD_OpenDialogMultipleU8_With_Impl(nfdversion_t version,
+                                               const nfdpathset_t** outPaths,
+                                               const nfdopendialogu8args_t* args)
+    __attribute__((alias("NFD_OpenDialogMultipleN_With_Impl")));
+
 nfdresult_t NFD_SaveDialogN(nfdnchar_t** outPath,
                             const nfdnfilteritem_t* filterList,
                             nfdfiltersize_t filterCount,
                             const nfdnchar_t* defaultPath,
                             const nfdnchar_t* defaultName) {
+    nfdsavedialognargs_t args{};
+    args.filterList = filterList;
+    args.filterCount = filterCount;
+    args.defaultPath = defaultPath;
+    args.defaultName = defaultName;
+    return NFD_SaveDialogN_With_Impl(NFD_INTERFACE_VERSION, outPath, &args);
+}
+
+nfdresult_t NFD_SaveDialogN_With_Impl(nfdversion_t version,
+                                      nfdnchar_t** outPath,
+                                      const nfdsavedialognargs_t* args) {
+    // We haven't needed to bump the interface version yet.
+    (void)version;
+
     DBusMessage* msg;
     {
-        const nfdresult_t res =
-            NFD_DBus_SaveFile(msg, filterList, filterCount, defaultPath, defaultName);
+        const nfdresult_t res = NFD_DBus_SaveFile(msg,
+                                                  args->filterList,
+                                                  args->filterCount,
+                                                  args->defaultPath,
+                                                  args->defaultName,
+                                                  args->parentWindow);
         if (res != NFD_OKAY) {
             return res;
         }
@@ -1398,12 +1580,50 @@ nfdresult_t NFD_SaveDialogN(nfdnchar_t** outPath,
 #endif
 }
 
+nfdresult_t NFD_SaveDialogU8(nfdu8char_t** outPath,
+                             const nfdu8filteritem_t* filterList,
+                             nfdfiltersize_t filterCount,
+                             const nfdu8char_t* defaultPath,
+                             const nfdu8char_t* defaultName)
+    __attribute__((alias("NFD_SaveDialogN")));
+
+nfdresult_t NFD_SaveDialogU8_With_Impl(nfdversion_t version,
+                                       nfdu8char_t** outPath,
+                                       const nfdsavedialogu8args_t* args)
+    __attribute__((alias("NFD_SaveDialogN_With_Impl")));
+
 nfdresult_t NFD_PickFolderN(nfdnchar_t** outPath, const nfdnchar_t* defaultPath) {
-    (void)defaultPath;  // Default path not supported for portal backend
+    nfdpickfoldernargs_t args{};
+    args.defaultPath = defaultPath;
+    return NFD_PickFolderN_With_Impl(NFD_INTERFACE_VERSION, outPath, &args);
+}
+
+nfdresult_t NFD_PickFolderN_With_Impl(nfdversion_t version,
+                                      nfdnchar_t** outPath,
+                                      const nfdpickfoldernargs_t* args) {
+    // We haven't needed to bump the interface version yet.
+    (void)version;
+
+    {
+        dbus_uint32_t version;
+        const nfdresult_t res = NFD_DBus_GetVersion(version);
+        if (res != NFD_OKAY) {
+            return res;
+        }
+        if (version < 3) {
+            NFDi_SetFormattedError(
+                "The xdg-desktop-portal installed on this system does not support a folder picker; "
+                "at least version 3 of the org.freedesktop.portal.FileChooser interface is "
+                "required but the installed interface version is %u.",
+                version);
+            return NFD_ERROR;
+        }
+    }
 
     DBusMessage* msg;
     {
-        const nfdresult_t res = NFD_DBus_OpenFile<false, true>(msg, nullptr, 0);
+        const nfdresult_t res =
+            NFD_DBus_OpenFile<false, true>(msg, nullptr, 0, args->defaultPath, args->parentWindow);
         if (res != NFD_OKAY) {
             return res;
         }
@@ -1421,6 +1641,70 @@ nfdresult_t NFD_PickFolderN(nfdnchar_t** outPath, const nfdnchar_t* defaultPath)
     return AllocAndCopyFilePath(uri, *outPath);
 }
 
+nfdresult_t NFD_PickFolderU8(nfdu8char_t** outPath, const nfdu8char_t* defaultPath)
+    __attribute__((alias("NFD_PickFolderN")));
+
+nfdresult_t NFD_PickFolderU8_With_Impl(nfdversion_t version,
+                                       nfdu8char_t** outPath,
+                                       const nfdpickfolderu8args_t* args)
+    __attribute__((alias("NFD_PickFolderN_With_Impl")));
+
+nfdresult_t NFD_PickFolderMultipleN(const nfdpathset_t** outPaths, const nfdnchar_t* defaultPath) {
+    nfdpickfoldernargs_t args{};
+    args.defaultPath = defaultPath;
+    return NFD_PickFolderMultipleN_With_Impl(NFD_INTERFACE_VERSION, outPaths, &args);
+}
+
+nfdresult_t NFD_PickFolderMultipleN_With_Impl(nfdversion_t version,
+                                              const nfdpathset_t** outPaths,
+                                              const nfdpickfoldernargs_t* args) {
+    // We haven't needed to bump the interface version yet.
+    (void)version;
+
+    {
+        dbus_uint32_t version;
+        const nfdresult_t res = NFD_DBus_GetVersion(version);
+        if (res != NFD_OKAY) {
+            return res;
+        }
+        if (version < 3) {
+            NFDi_SetFormattedError(
+                "The xdg-desktop-portal installed on this system does not support a folder picker; "
+                "at least version 3 of the org.freedesktop.portal.FileChooser interface is "
+                "required but the installed interface version is %u.",
+                version);
+            return NFD_ERROR;
+        }
+    }
+
+    DBusMessage* msg;
+    {
+        const nfdresult_t res =
+            NFD_DBus_OpenFile<true, true>(msg, nullptr, 0, args->defaultPath, args->parentWindow);
+        if (res != NFD_OKAY) {
+            return res;
+        }
+    }
+
+    DBusMessageIter uri_iter;
+    const nfdresult_t res = ReadResponseUris(msg, uri_iter);
+    if (res != NFD_OKAY) {
+        dbus_message_unref(msg);
+        return res;
+    }
+
+    *outPaths = msg;
+    return NFD_OKAY;
+}
+
+nfdresult_t NFD_PickFolderMultipleU8(const nfdpathset_t** outPaths, const nfdu8char_t* defaultPath)
+    __attribute__((alias("NFD_PickFolderMultipleN")));
+
+nfdresult_t NFD_PickFolderMultipleU8_With_Impl(nfdversion_t version,
+                                               const nfdpathset_t** outPaths,
+                                               const nfdpickfolderu8args_t* args)
+    __attribute__((alias("NFD_PickFolderMultipleN_With_Impl")));
+
 nfdresult_t NFD_PathSet_GetCount(const nfdpathset_t* pathSet, nfdpathsetsize_t* count) {
     assert(pathSet);
     DBusMessage* msg = const_cast<DBusMessage*>(static_cast<const DBusMessage*>(pathSet));
@@ -1435,10 +1719,15 @@ nfdresult_t NFD_PathSet_GetPathN(const nfdpathset_t* pathSet,
     DBusMessage* msg = const_cast<DBusMessage*>(static_cast<const DBusMessage*>(pathSet));
     DBusMessageIter uri_iter;
     ReadResponseUrisUnchecked(msg, uri_iter);
-    while (index > 0) {
-        --index;
+    nfdpathsetsize_t rem_index = index;
+    while (rem_index > 0) {
+        --rem_index;
         if (!dbus_message_iter_next(&uri_iter)) {
-            NFDi_SetError("Index out of bounds.");
+            NFDi_SetFormattedError(
+                "Index out of bounds; you asked for index %u but there are only %u file paths "
+                "available.",
+                index,
+                index - rem_index);
             return NFD_ERROR;
         }
     }
@@ -1451,10 +1740,18 @@ nfdresult_t NFD_PathSet_GetPathN(const nfdpathset_t* pathSet,
     return AllocAndCopyFilePath(uri, *outPath);
 }
 
+nfdresult_t NFD_PathSet_GetPathU8(const nfdpathset_t* pathSet,
+                                  nfdpathsetsize_t index,
+                                  nfdu8char_t** outPath)
+    __attribute__((alias("NFD_PathSet_GetPathN")));
+
 void NFD_PathSet_FreePathN(nfdnchar_t* filePath) {
     assert(filePath);
     NFD_FreePathN(filePath);
 }
+
+void NFD_PathSet_FreePathU8(nfdu8char_t* filePath)
+    __attribute__((alias("NFD_PathSet_FreePathN")));
 
 void NFD_PathSet_Free(const nfdpathset_t* pathSet) {
     assert(pathSet);
@@ -1491,3 +1788,6 @@ nfdresult_t NFD_PathSet_EnumNextN(nfdpathsetenum_t* enumerator, nfdnchar_t** out
     dbus_message_iter_next(&uri_iter);
     return NFD_OKAY;
 }
+
+nfdresult_t NFD_PathSet_EnumNextU8(nfdpathsetenum_t* enumerator, nfdu8char_t** outPath)
+    __attribute__((alias("NFD_PathSet_EnumNextN")));

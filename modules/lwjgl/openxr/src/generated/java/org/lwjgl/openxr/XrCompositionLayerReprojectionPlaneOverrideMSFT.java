@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTCompositionLayerReprojection XR_MSFT_composition_layer_reprojection} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerReprojectionPlaneOverrideMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTCompositionLayerReprojection#XR_TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -42,14 +42,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <pre><code>
  * struct XrCompositionLayerReprojectionPlaneOverrideMSFT {
- *     XrStructureType type;
- *     void const * next;
+ *     XrStructureType {@link #type};
+ *     void const * {@link #next};
  *     {@link XrVector3f XrVector3f} {@link #position$ position};
  *     {@link XrVector3f XrVector3f} {@link #normal};
  *     {@link XrVector3f XrVector3f} {@link #velocity};
  * }</code></pre>
  */
-public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct implements NativeResource {
+public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct<XrCompositionLayerReprojectionPlaneOverrideMSFT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -84,6 +84,15 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
         VELOCITY = layout.offsetof(4);
     }
 
+    protected XrCompositionLayerReprojectionPlaneOverrideMSFT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrCompositionLayerReprojectionPlaneOverrideMSFT create(long address, @Nullable ByteBuffer container) {
+        return new XrCompositionLayerReprojectionPlaneOverrideMSFT(address, container);
+    }
+
     /**
      * Creates a {@code XrCompositionLayerReprojectionPlaneOverrideMSFT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -97,10 +106,10 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code type} field. */
+    /** the {@code XrStructureType} of this structure. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** @return the value of the {@code next} field. */
+    /** {@code NULL} or a pointer to the next structure in a structure chain. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
     /** describes the position of the focus plane represented in the corresponding {@link XrCompositionLayerProjection}{@code ::space}. */
@@ -110,11 +119,11 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
     /** a velocity of the position in the corresponding {@link XrCompositionLayerProjection}{@code ::space} measured in meters per second. */
     public XrVector3f velocity() { return nvelocity(address()); }
 
-    /** Sets the specified value to the {@code type} field. */
+    /** Sets the specified value to the {@link #type} field. */
     public XrCompositionLayerReprojectionPlaneOverrideMSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link MSFTCompositionLayerReprojection#XR_TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT} value to the {@code type} field. */
+    /** Sets the {@link MSFTCompositionLayerReprojection#XR_TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT} value to the {@link #type} field. */
     public XrCompositionLayerReprojectionPlaneOverrideMSFT type$Default() { return type(MSFTCompositionLayerReprojection.XR_TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT); }
-    /** Sets the specified value to the {@code next} field. */
+    /** Sets the specified value to the {@link #next} field. */
     public XrCompositionLayerReprojectionPlaneOverrideMSFT next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Copies the specified {@link XrVector3f} to the {@link #position$} field. */
     public XrCompositionLayerReprojectionPlaneOverrideMSFT position$(XrVector3f value) { nposition$(address(), value); return this; }
@@ -162,29 +171,29 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
 
     /** Returns a new {@code XrCompositionLayerReprojectionPlaneOverrideMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT malloc() {
-        return wrap(XrCompositionLayerReprojectionPlaneOverrideMSFT.class, nmemAllocChecked(SIZEOF));
+        return new XrCompositionLayerReprojectionPlaneOverrideMSFT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrCompositionLayerReprojectionPlaneOverrideMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT calloc() {
-        return wrap(XrCompositionLayerReprojectionPlaneOverrideMSFT.class, nmemCallocChecked(1, SIZEOF));
+        return new XrCompositionLayerReprojectionPlaneOverrideMSFT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrCompositionLayerReprojectionPlaneOverrideMSFT} instance allocated with {@link BufferUtils}. */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrCompositionLayerReprojectionPlaneOverrideMSFT.class, memAddress(container), container);
+        return new XrCompositionLayerReprojectionPlaneOverrideMSFT(memAddress(container), container);
     }
 
     /** Returns a new {@code XrCompositionLayerReprojectionPlaneOverrideMSFT} instance for the specified memory address. */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT create(long address) {
-        return wrap(XrCompositionLayerReprojectionPlaneOverrideMSFT.class, address);
+        return new XrCompositionLayerReprojectionPlaneOverrideMSFT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT createSafe(long address) {
-        return address == NULL ? null : wrap(XrCompositionLayerReprojectionPlaneOverrideMSFT.class, address);
+        return address == NULL ? null : new XrCompositionLayerReprojectionPlaneOverrideMSFT(address, null);
     }
 
     /**
@@ -193,7 +202,7 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -202,7 +211,7 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -212,7 +221,7 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
      */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -222,13 +231,13 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -237,7 +246,7 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
      * @param stack the stack from which to allocate
      */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT malloc(MemoryStack stack) {
-        return wrap(XrCompositionLayerReprojectionPlaneOverrideMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrCompositionLayerReprojectionPlaneOverrideMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -246,7 +255,7 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
      * @param stack the stack from which to allocate
      */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT calloc(MemoryStack stack) {
-        return wrap(XrCompositionLayerReprojectionPlaneOverrideMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrCompositionLayerReprojectionPlaneOverrideMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -256,7 +265,7 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -266,7 +275,7 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
      * @param capacity the buffer capacity
      */
     public static XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -303,9 +312,9 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
         /**
          * Creates a new {@code XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrCompositionLayerReprojectionPlaneOverrideMSFT#SIZEOF}, and its mark will be undefined.
+         * by {@link XrCompositionLayerReprojectionPlaneOverrideMSFT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -331,10 +340,10 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code type} field. */
+        /** @return the value of the {@link XrCompositionLayerReprojectionPlaneOverrideMSFT#type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrCompositionLayerReprojectionPlaneOverrideMSFT.ntype(address()); }
-        /** @return the value of the {@code next} field. */
+        /** @return the value of the {@link XrCompositionLayerReprojectionPlaneOverrideMSFT#next} field. */
         @NativeType("void const *")
         public long next() { return XrCompositionLayerReprojectionPlaneOverrideMSFT.nnext(address()); }
         /** @return a {@link XrVector3f} view of the {@link XrCompositionLayerReprojectionPlaneOverrideMSFT#position$} field. */
@@ -344,11 +353,11 @@ public class XrCompositionLayerReprojectionPlaneOverrideMSFT extends Struct impl
         /** @return a {@link XrVector3f} view of the {@link XrCompositionLayerReprojectionPlaneOverrideMSFT#velocity} field. */
         public XrVector3f velocity() { return XrCompositionLayerReprojectionPlaneOverrideMSFT.nvelocity(address()); }
 
-        /** Sets the specified value to the {@code type} field. */
+        /** Sets the specified value to the {@link XrCompositionLayerReprojectionPlaneOverrideMSFT#type} field. */
         public XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer type(@NativeType("XrStructureType") int value) { XrCompositionLayerReprojectionPlaneOverrideMSFT.ntype(address(), value); return this; }
-        /** Sets the {@link MSFTCompositionLayerReprojection#XR_TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT} value to the {@code type} field. */
+        /** Sets the {@link MSFTCompositionLayerReprojection#XR_TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT} value to the {@link XrCompositionLayerReprojectionPlaneOverrideMSFT#type} field. */
         public XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer type$Default() { return type(MSFTCompositionLayerReprojection.XR_TYPE_COMPOSITION_LAYER_REPROJECTION_PLANE_OVERRIDE_MSFT); }
-        /** Sets the specified value to the {@code next} field. */
+        /** Sets the specified value to the {@link XrCompositionLayerReprojectionPlaneOverrideMSFT#next} field. */
         public XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer next(@NativeType("void const *") long value) { XrCompositionLayerReprojectionPlaneOverrideMSFT.nnext(address(), value); return this; }
         /** Copies the specified {@link XrVector3f} to the {@link XrCompositionLayerReprojectionPlaneOverrideMSFT#position$} field. */
         public XrCompositionLayerReprojectionPlaneOverrideMSFT.Buffer position$(XrVector3f value) { XrCompositionLayerReprojectionPlaneOverrideMSFT.nposition$(address(), value); return this; }

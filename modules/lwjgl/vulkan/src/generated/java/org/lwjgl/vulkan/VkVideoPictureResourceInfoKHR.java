@@ -22,11 +22,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>The image subresource referred to by such a structure is defined as the image array layer index specified in {@code baseArrayLayer} relative to the image subresource range the image view specified in {@code imageViewBinding} was created with.</p>
  * 
- * <p>The meaning of the {@code codedOffset} and {@code codedExtent} depends on the command and context the video picture resource is used in, as well as on the used <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a> and corresponding codec-specific semantics, as described later.</p>
+ * <p>The meaning of the {@code codedOffset} and {@code codedExtent} depends on the command and context the video picture resource is used in, as well as on the used <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a> and corresponding codec-specific semantics, as described later.</p>
  * 
  * <p>A video picture resource is uniquely defined by the image subresource referred to by an instance of this structure, together with the {@code codedOffset} and {@code codedExtent} members that identify the image subregion within the image subresource referenced corresponding to the video picture resource according to the particular codec-specific semantics.</p>
  * 
- * <p>Accesses to image data within a video picture resource happen at the granularity indicated by {@link VkVideoCapabilitiesKHR}{@code ::pictureAccessGranularity}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the used <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a>. As a result, given an effective image subregion corresponding to a video picture resource, the actual image subregion accessed <b>may</b> be larger than that as it <b>may</b> include additional padding texels due to the picture access granularity. Any writes performed by video coding operations to such padding texels will result in undefined texel values.</p>
+ * <p>Accesses to image data within a video picture resource happen at the granularity indicated by {@link VkVideoCapabilitiesKHR}{@code ::pictureAccessGranularity}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the used <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a>. As a result, given an effective image subregion corresponding to a video picture resource, the actual image subregion accessed <b>may</b> be larger than that as it <b>may</b> include additional padding texels due to the picture access granularity. Any writes performed by video coding operations to such padding texels will result in undefined texel values.</p>
  * 
  * <p>Two video picture resources match if they refer to the same image subresource and they specify identical {@code codedOffset} and {@code codedExtent} values.</p>
  * 
@@ -60,7 +60,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkImageView {@link #imageViewBinding};
  * }</code></pre>
  */
-public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResource {
+public class VkVideoPictureResourceInfoKHR extends Struct<VkVideoPictureResourceInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -98,6 +98,15 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
         IMAGEVIEWBINDING = layout.offsetof(5);
     }
 
+    protected VkVideoPictureResourceInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkVideoPictureResourceInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkVideoPictureResourceInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkVideoPictureResourceInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -111,7 +120,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -182,29 +191,29 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
 
     /** Returns a new {@code VkVideoPictureResourceInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVideoPictureResourceInfoKHR malloc() {
-        return wrap(VkVideoPictureResourceInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkVideoPictureResourceInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoPictureResourceInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVideoPictureResourceInfoKHR calloc() {
-        return wrap(VkVideoPictureResourceInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkVideoPictureResourceInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoPictureResourceInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkVideoPictureResourceInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkVideoPictureResourceInfoKHR.class, memAddress(container), container);
+        return new VkVideoPictureResourceInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkVideoPictureResourceInfoKHR} instance for the specified memory address. */
     public static VkVideoPictureResourceInfoKHR create(long address) {
-        return wrap(VkVideoPictureResourceInfoKHR.class, address);
+        return new VkVideoPictureResourceInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoPictureResourceInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkVideoPictureResourceInfoKHR.class, address);
+        return address == NULL ? null : new VkVideoPictureResourceInfoKHR(address, null);
     }
 
     /**
@@ -213,7 +222,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static VkVideoPictureResourceInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -222,7 +231,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static VkVideoPictureResourceInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -232,7 +241,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
      */
     public static VkVideoPictureResourceInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -242,13 +251,13 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static VkVideoPictureResourceInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoPictureResourceInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -257,7 +266,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
      * @param stack the stack from which to allocate
      */
     public static VkVideoPictureResourceInfoKHR malloc(MemoryStack stack) {
-        return wrap(VkVideoPictureResourceInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkVideoPictureResourceInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -266,7 +275,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
      * @param stack the stack from which to allocate
      */
     public static VkVideoPictureResourceInfoKHR calloc(MemoryStack stack) {
-        return wrap(VkVideoPictureResourceInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkVideoPictureResourceInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -276,7 +285,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static VkVideoPictureResourceInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -286,7 +295,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static VkVideoPictureResourceInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -327,9 +336,9 @@ public class VkVideoPictureResourceInfoKHR extends Struct implements NativeResou
         /**
          * Creates a new {@code VkVideoPictureResourceInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVideoPictureResourceInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkVideoPictureResourceInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

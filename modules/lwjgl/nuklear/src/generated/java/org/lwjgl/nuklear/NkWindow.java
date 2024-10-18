@@ -33,6 +33,7 @@ import static org.lwjgl.nuklear.Nuklear.*;
  *     {@link NkPopupState struct nk_popup_state} popup;
  *     {@link NkEditState struct nk_edit_state} edit;
  *     unsigned int scrolled;
+ *     nk_bool widgets_disabled;
  *     struct nk_table * tables;
  *     unsigned int table_count;
  *     {@link NkWindow struct nk_window} * next;
@@ -41,7 +42,7 @@ import static org.lwjgl.nuklear.Nuklear.*;
  * }</code></pre>
  */
 @NativeType("struct nk_window")
-public class NkWindow extends Struct {
+public class NkWindow extends Struct<NkWindow> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -64,6 +65,7 @@ public class NkWindow extends Struct {
         POPUP,
         EDIT,
         SCROLLED,
+        WIDGETS_DISABLED,
         TABLES,
         TABLE_COUNT,
         NEXT,
@@ -85,6 +87,7 @@ public class NkWindow extends Struct {
             __member(NkPopupState.SIZEOF, NkPopupState.ALIGNOF),
             __member(NkEditState.SIZEOF, NkEditState.ALIGNOF),
             __member(4),
+            __member(1),
             __member(POINTER_SIZE),
             __member(4),
             __member(POINTER_SIZE),
@@ -108,11 +111,21 @@ public class NkWindow extends Struct {
         POPUP = layout.offsetof(10);
         EDIT = layout.offsetof(11);
         SCROLLED = layout.offsetof(12);
-        TABLES = layout.offsetof(13);
-        TABLE_COUNT = layout.offsetof(14);
-        NEXT = layout.offsetof(15);
-        PREV = layout.offsetof(16);
-        PARENT = layout.offsetof(17);
+        WIDGETS_DISABLED = layout.offsetof(13);
+        TABLES = layout.offsetof(14);
+        TABLE_COUNT = layout.offsetof(15);
+        NEXT = layout.offsetof(16);
+        PREV = layout.offsetof(17);
+        PARENT = layout.offsetof(18);
+    }
+
+    protected NkWindow(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected NkWindow create(long address, @Nullable ByteBuffer container) {
+        return new NkWindow(address, container);
     }
 
     /**
@@ -169,6 +182,9 @@ public class NkWindow extends Struct {
     /** @return the value of the {@code scrolled} field. */
     @NativeType("unsigned int")
     public int scrolled() { return nscrolled(address()); }
+    /** @return the value of the {@code widgets_disabled} field. */
+    @NativeType("nk_bool")
+    public boolean widgets_disabled() { return nwidgets_disabled(address()); }
     /** @return the value of the {@code tables} field. */
     @NativeType("struct nk_table *")
     public long tables() { return ntables(address()); }
@@ -189,13 +205,13 @@ public class NkWindow extends Struct {
 
     /** Returns a new {@code NkWindow} instance for the specified memory address. */
     public static NkWindow create(long address) {
-        return wrap(NkWindow.class, address);
+        return new NkWindow(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkWindow createSafe(long address) {
-        return address == NULL ? null : wrap(NkWindow.class, address);
+        return address == NULL ? null : new NkWindow(address, null);
     }
 
     /**
@@ -205,13 +221,13 @@ public class NkWindow extends Struct {
      * @param capacity the buffer capacity
      */
     public static NkWindow.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkWindow.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -244,6 +260,8 @@ public class NkWindow extends Struct {
     public static NkEditState nedit(long struct) { return NkEditState.create(struct + NkWindow.EDIT); }
     /** Unsafe version of {@link #scrolled}. */
     public static int nscrolled(long struct) { return UNSAFE.getInt(null, struct + NkWindow.SCROLLED); }
+    /** Unsafe version of {@link #widgets_disabled}. */
+    public static boolean nwidgets_disabled(long struct) { return UNSAFE.getByte(null, struct + NkWindow.WIDGETS_DISABLED) != 0; }
     /** Unsafe version of {@link #tables}. */
     public static long ntables(long struct) { return memGetAddress(struct + NkWindow.TABLES); }
     /** Unsafe version of {@link #table_count}. */
@@ -265,9 +283,9 @@ public class NkWindow extends Struct {
         /**
          * Creates a new {@code NkWindow.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkWindow#SIZEOF}, and its mark will be undefined.
+         * by {@link NkWindow#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -334,6 +352,9 @@ public class NkWindow extends Struct {
         /** @return the value of the {@code scrolled} field. */
         @NativeType("unsigned int")
         public int scrolled() { return NkWindow.nscrolled(address()); }
+        /** @return the value of the {@code widgets_disabled} field. */
+        @NativeType("nk_bool")
+        public boolean widgets_disabled() { return NkWindow.nwidgets_disabled(address()); }
         /** @return the value of the {@code tables} field. */
         @NativeType("struct nk_table *")
         public long tables() { return NkWindow.ntables(address()); }

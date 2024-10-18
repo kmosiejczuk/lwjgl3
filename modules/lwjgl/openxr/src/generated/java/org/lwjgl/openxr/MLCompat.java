@@ -14,7 +14,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_ML_compat">XR_ML_compat</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_ML_compat">XR_ML_compat</a> extension.
  * 
  * <p>This extension provides functionality to facilitate transitioning from Magic Leap SDK to OpenXR SDK, most notably interoperability between Coordinate Frame UUIDs and {@code XrSpace}.</p>
  */
@@ -59,7 +59,7 @@ public class MLCompat {
      * 
      * <h5>Description</h5>
      * 
-     * <p>The service that created the underlying {@link XrCoordinateSpaceCreateInfoML}{@code ::cfuid} <b>must</b> remain active for the lifetime of the {@code XrSpace}. If {@link XR10#xrLocateSpace LocateSpace} is called on a space created from a {@code cfuid} from a no-longer-active service, the runtime <b>may</b> set {@link XrSpaceLocation}{@code ::locationFlags} to 0.</p>
+     * <p>The service that created the underlying {@link XrCoordinateSpaceCreateInfoML}{@code ::cfuid} <b>must</b> remain active for the lifetime of the {@code XrSpace}. If {@link XR10#xrLocateSpace LocateSpace} is called on a space created from an {@link XrCoordinateSpaceCreateInfoML}{@code ::cfuid} from a no-longer-active service, the runtime <b>may</b> set {@link XrSpaceLocation}{@code ::locationFlags} to 0.</p>
      * 
      * <p>{@code XrSpace} handles are destroyed using {@link XR10#xrDestroySpace DestroySpace}.</p>
      * 

@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.regex.*;
 
 /**
- * Native bindings to <a target="_blank" href="https://www.open-mpi.org/projects/hwloc/">hwloc</a>, a portable abstraction (across OS, versions, architectures, ...) of the
+ * Native bindings to <a href="https://www.open-mpi.org/projects/hwloc/">hwloc</a>, a portable abstraction (across OS, versions, architectures, ...) of the
  * hierarchical topology of modern architectures, including NUMA memory nodes, sockets, shared caches, cores and simultaneous multithreading.
  * 
  * <p>It also gathers various system attributes such as cache and memory information as well as the locality of I/O devices such as network interfaces,
@@ -117,7 +117,9 @@ public class HWLoc {
             obj_type_snprintf                     = apiGetFunctionAddress(HWLOC, "hwloc_obj_type_snprintf"),
             obj_attr_snprintf                     = apiGetFunctionAddress(HWLOC, "hwloc_obj_attr_snprintf"),
             type_sscanf                           = apiGetFunctionAddress(HWLOC, "hwloc_type_sscanf"),
-            obj_add_info                          = apiGetFunctionAddress(HWLOC, "hwloc_obj_add_info"),
+            modify_infos                          = apiGetFunctionAddress(HWLOC, "hwloc_modify_infos"),
+            topology_get_infos                    = apiGetFunctionAddress(HWLOC, "hwloc_topology_get_infos"),
+            obj_set_subtype                       = apiGetFunctionAddress(HWLOC, "hwloc_obj_set_subtype"),
             set_cpubind                           = apiGetFunctionAddress(HWLOC, "hwloc_set_cpubind"),
             get_cpubind                           = apiGetFunctionAddress(HWLOC, "hwloc_get_cpubind"),
             set_proc_cpubind_pid                  = apiGetFunctionAddress(HWLOC, "hwloc_set_proc_cpubind"),
@@ -165,16 +167,17 @@ public class HWLoc {
             topology_allow                        = apiGetFunctionAddress(HWLOC, "hwloc_topology_allow"),
             topology_insert_misc_object           = apiGetFunctionAddress(HWLOC, "hwloc_topology_insert_misc_object"),
             topology_alloc_group_object           = apiGetFunctionAddress(HWLOC, "hwloc_topology_alloc_group_object"),
+            topology_free_group_object            = apiGetFunctionAddress(HWLOC, "hwloc_topology_free_group_object"),
             topology_insert_group_object          = apiGetFunctionAddress(HWLOC, "hwloc_topology_insert_group_object"),
             obj_add_other_obj_sets                = apiGetFunctionAddress(HWLOC, "hwloc_obj_add_other_obj_sets"),
             topology_refresh                      = apiGetFunctionAddress(HWLOC, "hwloc_topology_refresh"),
-            get_largest_objs_inside_cpuset        = apiGetFunctionAddress(HWLOC, "hwloc_get_largest_objs_inside_cpuset"),
             obj_type_is_normal                    = apiGetFunctionAddress(HWLOC, "hwloc_obj_type_is_normal"),
             obj_type_is_io                        = apiGetFunctionAddress(HWLOC, "hwloc_obj_type_is_io"),
             obj_type_is_memory                    = apiGetFunctionAddress(HWLOC, "hwloc_obj_type_is_memory"),
             obj_type_is_cache                     = apiGetFunctionAddress(HWLOC, "hwloc_obj_type_is_cache"),
             obj_type_is_dcache                    = apiGetFunctionAddress(HWLOC, "hwloc_obj_type_is_dcache"),
             obj_type_is_icache                    = apiGetFunctionAddress(HWLOC, "hwloc_obj_type_is_icache"),
+            get_largest_objs_inside_cpuset        = apiGetFunctionAddress(HWLOC, "hwloc_get_largest_objs_inside_cpuset"),
             bitmap_singlify_per_core              = apiGetFunctionAddress(HWLOC, "hwloc_bitmap_singlify_per_core"),
             get_closest_objs                      = apiGetFunctionAddress(HWLOC, "hwloc_get_closest_objs"),
             get_obj_with_same_locality            = apiGetFunctionAddress(HWLOC, "hwloc_get_obj_with_same_locality"),
@@ -334,22 +337,22 @@ public class HWLoc {
      * 
      * <ul>
      * <li>{@link #HWLOC_OBJ_OSDEV_STORAGE OBJ_OSDEV_STORAGE}</li>
+     * <li>{@link #HWLOC_OBJ_OSDEV_MEMORY OBJ_OSDEV_MEMORY}</li>
      * <li>{@link #HWLOC_OBJ_OSDEV_GPU OBJ_OSDEV_GPU}</li>
+     * <li>{@link #HWLOC_OBJ_OSDEV_COPROC OBJ_OSDEV_COPROC}</li>
      * <li>{@link #HWLOC_OBJ_OSDEV_NETWORK OBJ_OSDEV_NETWORK}</li>
      * <li>{@link #HWLOC_OBJ_OSDEV_OPENFABRICS OBJ_OSDEV_OPENFABRICS}</li>
      * <li>{@link #HWLOC_OBJ_OSDEV_DMA OBJ_OSDEV_DMA}</li>
-     * <li>{@link #HWLOC_OBJ_OSDEV_COPROC OBJ_OSDEV_COPROC}</li>
-     * <li>{@link #HWLOC_OBJ_OSDEV_MEMORY OBJ_OSDEV_MEMORY}</li>
      * </ul>
      */
-    public static final int
-        HWLOC_OBJ_OSDEV_STORAGE     = 0,
-        HWLOC_OBJ_OSDEV_GPU         = 1,
-        HWLOC_OBJ_OSDEV_NETWORK     = 2,
-        HWLOC_OBJ_OSDEV_OPENFABRICS = 3,
-        HWLOC_OBJ_OSDEV_DMA         = 4,
-        HWLOC_OBJ_OSDEV_COPROC      = 5,
-        HWLOC_OBJ_OSDEV_MEMORY      = 6;
+    public static final long
+        HWLOC_OBJ_OSDEV_STORAGE     = 1L << 0,
+        HWLOC_OBJ_OSDEV_MEMORY      = 1L << 1,
+        HWLOC_OBJ_OSDEV_GPU         = 1L << 2,
+        HWLOC_OBJ_OSDEV_COPROC      = 1L << 3,
+        HWLOC_OBJ_OSDEV_NETWORK     = 1L << 4,
+        HWLOC_OBJ_OSDEV_OPENFABRICS = 1L << 5,
+        HWLOC_OBJ_OSDEV_DMA         = 1L << 6;
 
     /**
      * {@code enum hwloc_get_type_depth_e}
@@ -384,6 +387,7 @@ public class HWLoc {
      * 
      * <ul>
      * <li>{@link #HWLOC_OBJ_SNPRINTF_FLAG_LONG_NAMES OBJ_SNPRINTF_FLAG_LONG_NAMES}</li>
+     * <li>{@link #HWLOC_OBJ_SNPRINTF_FLAG_SHORT_NAMES OBJ_SNPRINTF_FLAG_SHORT_NAMES}</li>
      * <li>{@link #HWLOC_OBJ_SNPRINTF_FLAG_MORE_ATTRS OBJ_SNPRINTF_FLAG_MORE_ATTRS}</li>
      * <li>{@link #HWLOC_OBJ_SNPRINTF_FLAG_NO_UNITS OBJ_SNPRINTF_FLAG_NO_UNITS}</li>
      * <li>{@link #HWLOC_OBJ_SNPRINTF_FLAG_UNITS_1000 OBJ_SNPRINTF_FLAG_UNITS_1000}</li>
@@ -392,9 +396,10 @@ public class HWLoc {
      */
     public static final long
         HWLOC_OBJ_SNPRINTF_FLAG_LONG_NAMES  = 1L<<1,
-        HWLOC_OBJ_SNPRINTF_FLAG_MORE_ATTRS  = 1L<<2,
-        HWLOC_OBJ_SNPRINTF_FLAG_NO_UNITS    = 1L<<3,
-        HWLOC_OBJ_SNPRINTF_FLAG_UNITS_1000  = 1L<<4,
+        HWLOC_OBJ_SNPRINTF_FLAG_SHORT_NAMES = 1L<<2,
+        HWLOC_OBJ_SNPRINTF_FLAG_MORE_ATTRS  = 1L<<3,
+        HWLOC_OBJ_SNPRINTF_FLAG_NO_UNITS    = 1L<<4,
+        HWLOC_OBJ_SNPRINTF_FLAG_UNITS_1000  = 1L<<5,
         HWLOC_OBJ_SNPRINTF_FLAG_OLD_VERBOSE = 1L<<0;
 
     /**
@@ -425,17 +430,19 @@ public class HWLoc {
      * <li>{@link #HWLOC_MEMBIND_FIRSTTOUCH MEMBIND_FIRSTTOUCH}</li>
      * <li>{@link #HWLOC_MEMBIND_BIND MEMBIND_BIND}</li>
      * <li>{@link #HWLOC_MEMBIND_INTERLEAVE MEMBIND_INTERLEAVE}</li>
+     * <li>{@link #HWLOC_MEMBIND_WEIGHTED_INTERLEAVE MEMBIND_WEIGHTED_INTERLEAVE}</li>
      * <li>{@link #HWLOC_MEMBIND_NEXTTOUCH MEMBIND_NEXTTOUCH}</li>
      * <li>{@link #HWLOC_MEMBIND_MIXED MEMBIND_MIXED}</li>
      * </ul>
      */
     public static final int
-        HWLOC_MEMBIND_DEFAULT    = 0,
-        HWLOC_MEMBIND_FIRSTTOUCH = 1,
-        HWLOC_MEMBIND_BIND       = 2,
-        HWLOC_MEMBIND_INTERLEAVE = 3,
-        HWLOC_MEMBIND_NEXTTOUCH  = 4,
-        HWLOC_MEMBIND_MIXED      = -1;
+        HWLOC_MEMBIND_DEFAULT             = 0,
+        HWLOC_MEMBIND_FIRSTTOUCH          = 1,
+        HWLOC_MEMBIND_BIND                = 2,
+        HWLOC_MEMBIND_INTERLEAVE          = 3,
+        HWLOC_MEMBIND_WEIGHTED_INTERLEAVE = 5,
+        HWLOC_MEMBIND_NEXTTOUCH           = 4,
+        HWLOC_MEMBIND_MIXED               = -1;
 
     /**
      * {@code hwloc_membind_flags_t}
@@ -546,6 +553,24 @@ public class HWLoc {
         HWLOC_ALLOW_FLAG_LOCAL_RESTRICTIONS = 1L<<1,
         HWLOC_ALLOW_FLAG_CUSTOM             = 1L<<2;
 
+    /**
+     * {@code hwloc_modify_infos_op_e}
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #HWLOC_MODIFY_INFOS_OP_ADD MODIFY_INFOS_OP_ADD}</li>
+     * <li>{@link #HWLOC_MODIFY_INFOS_OP_ADD_UNIQUE MODIFY_INFOS_OP_ADD_UNIQUE}</li>
+     * <li>{@link #HWLOC_MODIFY_INFOS_OP_REPLACE MODIFY_INFOS_OP_REPLACE}</li>
+     * <li>{@link #HWLOC_MODIFY_INFOS_OP_REMOVE MODIFY_INFOS_OP_REMOVE}</li>
+     * </ul>
+     */
+    public static final long
+        HWLOC_MODIFY_INFOS_OP_ADD        = 1L<<0,
+        HWLOC_MODIFY_INFOS_OP_ADD_UNIQUE = 1L<<1,
+        HWLOC_MODIFY_INFOS_OP_REPLACE    = 1L<<2,
+        HWLOC_MODIFY_INFOS_OP_REMOVE     = 1L<<3;
+
     /** {@code enum hwloc_distrib_flags_e} */
     public static final long HWLOC_DISTRIB_FLAG_REVERSE = 1L<<0;
 
@@ -650,16 +675,18 @@ public class HWLoc {
      * <ul>
      * <li>{@link #HWLOC_DISTANCES_KIND_FROM_OS DISTANCES_KIND_FROM_OS}</li>
      * <li>{@link #HWLOC_DISTANCES_KIND_FROM_USER DISTANCES_KIND_FROM_USER}</li>
-     * <li>{@link #HWLOC_DISTANCES_KIND_MEANS_LATENCY DISTANCES_KIND_MEANS_LATENCY}</li>
-     * <li>{@link #HWLOC_DISTANCES_KIND_MEANS_BANDWIDTH DISTANCES_KIND_MEANS_BANDWIDTH}</li>
+     * <li>{@link #HWLOC_DISTANCES_KIND_VALUE_LATENCY DISTANCES_KIND_VALUE_LATENCY}</li>
+     * <li>{@link #HWLOC_DISTANCES_KIND_VALUE_BANDWIDTH DISTANCES_KIND_VALUE_BANDWIDTH}</li>
+     * <li>{@link #HWLOC_DISTANCES_KIND_VALUE_HOPS DISTANCES_KIND_VALUE_HOPS}</li>
      * <li>{@link #HWLOC_DISTANCES_KIND_HETEROGENEOUS_TYPES DISTANCES_KIND_HETEROGENEOUS_TYPES}</li>
      * </ul>
      */
     public static final long
         HWLOC_DISTANCES_KIND_FROM_OS             = 1L<<0,
         HWLOC_DISTANCES_KIND_FROM_USER           = 1L<<1,
-        HWLOC_DISTANCES_KIND_MEANS_LATENCY       = 1L<<2,
-        HWLOC_DISTANCES_KIND_MEANS_BANDWIDTH     = 1L<<3,
+        HWLOC_DISTANCES_KIND_VALUE_LATENCY       = 1L<<2,
+        HWLOC_DISTANCES_KIND_VALUE_BANDWIDTH     = 1L<<3,
+        HWLOC_DISTANCES_KIND_VALUE_HOPS          = 1L<<5,
         HWLOC_DISTANCES_KIND_HETEROGENEOUS_TYPES = 1L<<4;
 
     /**
@@ -1598,29 +1625,73 @@ public class HWLoc {
         }
     }
 
-    // --- [ hwloc_obj_add_info ] ---
+    // --- [ hwloc_modify_infos ] ---
 
-    public static int nhwloc_obj_add_info(long obj, long name, long value) {
-        long __functionAddress = Functions.obj_add_info;
-        return invokePPPI(obj, name, value, __functionAddress);
+    public static int nhwloc_modify_infos(long infos, long operation, long name, long value) {
+        long __functionAddress = Functions.modify_infos;
+        return invokePNPPI(infos, operation, name, value, __functionAddress);
     }
 
-    public static int hwloc_obj_add_info(@NativeType("hwloc_obj_t") hwloc_obj obj, @NativeType("char const *") ByteBuffer name, @NativeType("char const *") ByteBuffer value) {
+    public static int hwloc_modify_infos(@NativeType("struct hwloc_infos_s *") hwloc_infos_s infos, @NativeType("unsigned long") long operation, @NativeType("char const *") ByteBuffer name, @NativeType("char const *") ByteBuffer value) {
         if (CHECKS) {
             checkNT1(name);
             checkNT1(value);
         }
-        return nhwloc_obj_add_info(obj.address(), memAddress(name), memAddress(value));
+        return nhwloc_modify_infos(infos.address(), operation, memAddress(name), memAddress(value));
     }
 
-    public static int hwloc_obj_add_info(@NativeType("hwloc_obj_t") hwloc_obj obj, @NativeType("char const *") CharSequence name, @NativeType("char const *") CharSequence value) {
+    public static int hwloc_modify_infos(@NativeType("struct hwloc_infos_s *") hwloc_infos_s infos, @NativeType("unsigned long") long operation, @NativeType("char const *") CharSequence name, @NativeType("char const *") CharSequence value) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             stack.nASCII(name, true);
             long nameEncoded = stack.getPointerAddress();
             stack.nASCII(value, true);
             long valueEncoded = stack.getPointerAddress();
-            return nhwloc_obj_add_info(obj.address(), nameEncoded, valueEncoded);
+            return nhwloc_modify_infos(infos.address(), operation, nameEncoded, valueEncoded);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ hwloc_topology_get_infos ] ---
+
+    public static long nhwloc_topology_get_infos(long topology) {
+        long __functionAddress = Functions.topology_get_infos;
+        if (CHECKS) {
+            check(topology);
+        }
+        return invokePP(topology, __functionAddress);
+    }
+
+    @NativeType("struct hwloc_infos_s *")
+    public static hwloc_infos_s hwloc_topology_get_infos(@NativeType("hwloc_topology_t") long topology) {
+        long __result = nhwloc_topology_get_infos(topology);
+        return hwloc_infos_s.create(__result);
+    }
+
+    // --- [ hwloc_obj_set_subtype ] ---
+
+    public static int nhwloc_obj_set_subtype(long topology, long obj, long subtype) {
+        long __functionAddress = Functions.obj_set_subtype;
+        if (CHECKS) {
+            check(topology);
+        }
+        return invokePPPI(topology, obj, subtype, __functionAddress);
+    }
+
+    public static int hwloc_obj_set_subtype(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_obj_t") hwloc_obj obj, @Nullable @NativeType("char const *") ByteBuffer subtype) {
+        if (CHECKS) {
+            checkNT1Safe(subtype);
+        }
+        return nhwloc_obj_set_subtype(topology, obj.address(), memAddressSafe(subtype));
+    }
+
+    public static int hwloc_obj_set_subtype(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_obj_t") hwloc_obj obj, @Nullable @NativeType("char const *") CharSequence subtype) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nASCIISafe(subtype, true);
+            long subtypeEncoded = subtype == null ? NULL : stack.getPointerAddress();
+            return nhwloc_obj_set_subtype(topology, obj.address(), subtypeEncoded);
         } finally {
             stack.setPointer(stackPointer);
         }
@@ -2317,6 +2388,20 @@ public class HWLoc {
         return hwloc_obj.createSafe(__result);
     }
 
+    // --- [ hwloc_topology_free_group_object ] ---
+
+    public static int nhwloc_topology_free_group_object(long topology, long group) {
+        long __functionAddress = Functions.topology_free_group_object;
+        if (CHECKS) {
+            check(topology);
+        }
+        return invokePPI(topology, group, __functionAddress);
+    }
+
+    public static int hwloc_topology_free_group_object(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_obj_t") hwloc_obj group) {
+        return nhwloc_topology_free_group_object(topology, group.address());
+    }
+
     // --- [ hwloc_topology_insert_group_object ] ---
 
     public static long nhwloc_topology_insert_group_object(long topology, long group) {
@@ -2353,21 +2438,6 @@ public class HWLoc {
             check(topology);
         }
         return invokePI(topology, __functionAddress);
-    }
-
-    // --- [ hwloc_get_largest_objs_inside_cpuset ] ---
-
-    public static int nhwloc_get_largest_objs_inside_cpuset(long topology, long set, long objs, int max) {
-        long __functionAddress = Functions.get_largest_objs_inside_cpuset;
-        if (CHECKS) {
-            check(topology);
-            check(set);
-        }
-        return invokePPPI(topology, set, objs, max, __functionAddress);
-    }
-
-    public static int hwloc_get_largest_objs_inside_cpuset(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_const_cpuset_t") long set, @NativeType("hwloc_obj_t *") PointerBuffer objs) {
-        return nhwloc_get_largest_objs_inside_cpuset(topology, set, memAddress(objs), objs.remaining());
     }
 
     // --- [ hwloc_obj_type_is_normal ] ---
@@ -2416,6 +2486,21 @@ public class HWLoc {
     public static boolean hwloc_obj_type_is_icache(@NativeType("hwloc_obj_type_t") int type) {
         long __functionAddress = Functions.obj_type_is_icache;
         return invokeI(type, __functionAddress) != 0;
+    }
+
+    // --- [ hwloc_get_largest_objs_inside_cpuset ] ---
+
+    public static int nhwloc_get_largest_objs_inside_cpuset(long topology, long set, long objs, int max) {
+        long __functionAddress = Functions.get_largest_objs_inside_cpuset;
+        if (CHECKS) {
+            check(topology);
+            check(set);
+        }
+        return invokePPPI(topology, set, objs, max, __functionAddress);
+    }
+
+    public static int hwloc_get_largest_objs_inside_cpuset(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_const_cpuset_t") long set, @NativeType("hwloc_obj_t *") PointerBuffer objs) {
+        return nhwloc_get_largest_objs_inside_cpuset(topology, set, memAddress(objs), objs.remaining());
     }
 
     // --- [ hwloc_bitmap_singlify_per_core ] ---
@@ -2791,36 +2876,35 @@ public class HWLoc {
 
     // --- [ hwloc_cpukinds_get_info ] ---
 
-    public static int nhwloc_cpukinds_get_info(long topology, int kind_index, long cpuset, long efficiency, long nr_infos, long infos, long flags) {
+    public static int nhwloc_cpukinds_get_info(long topology, int kind_index, long cpuset, long efficiency, long infosp, long flags) {
         long __functionAddress = Functions.cpukinds_get_info;
         if (CHECKS) {
             check(topology);
         }
-        return invokePPPPPNI(topology, kind_index, cpuset, efficiency, nr_infos, infos, flags, __functionAddress);
+        return invokePPPPNI(topology, kind_index, cpuset, efficiency, infosp, flags, __functionAddress);
     }
 
-    public static int hwloc_cpukinds_get_info(@NativeType("hwloc_topology_t") long topology, @NativeType("unsigned int") int kind_index, @NativeType("hwloc_bitmap_t") long cpuset, @Nullable @NativeType("int *") IntBuffer efficiency, @Nullable @NativeType("unsigned int *") IntBuffer nr_infos, @Nullable @NativeType("struct hwloc_info_s **") PointerBuffer infos, @NativeType("unsigned long") long flags) {
+    public static int hwloc_cpukinds_get_info(@NativeType("hwloc_topology_t") long topology, @NativeType("unsigned int") int kind_index, @NativeType("hwloc_bitmap_t") long cpuset, @Nullable @NativeType("int *") IntBuffer efficiency, @NativeType("struct hwloc_infos_s **") PointerBuffer infosp, @NativeType("unsigned long") long flags) {
         if (CHECKS) {
             checkSafe(efficiency, 1);
-            checkSafe(nr_infos, 1);
-            checkSafe(infos, 1);
+            check(infosp, 1);
         }
-        return nhwloc_cpukinds_get_info(topology, kind_index, cpuset, memAddressSafe(efficiency), memAddressSafe(nr_infos), memAddressSafe(infos), flags);
+        return nhwloc_cpukinds_get_info(topology, kind_index, cpuset, memAddressSafe(efficiency), memAddress(infosp), flags);
     }
 
     // --- [ hwloc_cpukinds_register ] ---
 
-    public static int nhwloc_cpukinds_register(long topology, long cpuset, int forced_efficiency, int nr_infos, long infos, long flags) {
+    public static int nhwloc_cpukinds_register(long topology, long cpuset, int forced_efficiency, long infos, long flags) {
         long __functionAddress = Functions.cpukinds_register;
         if (CHECKS) {
             check(topology);
             check(cpuset);
         }
-        return invokePPPNI(topology, cpuset, forced_efficiency, nr_infos, infos, flags, __functionAddress);
+        return invokePPPNI(topology, cpuset, forced_efficiency, infos, flags, __functionAddress);
     }
 
-    public static int hwloc_cpukinds_register(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_bitmap_t") long cpuset, int forced_efficiency, @Nullable @NativeType("struct hwloc_info_s *") hwloc_info_s.Buffer infos, @NativeType("unsigned long") long flags) {
-        return nhwloc_cpukinds_register(topology, cpuset, forced_efficiency, remainingSafe(infos), memAddressSafe(infos), flags);
+    public static int hwloc_cpukinds_register(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_bitmap_t") long cpuset, int forced_efficiency, @Nullable @NativeType("struct hwloc_infos_s *") hwloc_infos_s infos, @NativeType("unsigned long") long flags) {
+        return nhwloc_cpukinds_register(topology, cpuset, forced_efficiency, memAddressSafe(infos), flags);
     }
 
     // --- [ hwloc_topology_export_xml ] ---
@@ -3449,16 +3533,30 @@ public class HWLoc {
     @Nullable
     @NativeType("char const *")
     public static String hwloc_obj_get_info_by_name(@NativeType("hwloc_obj_t") hwloc_obj obj, String name) {
-        if (obj.infos_count() == 0) {
+        return hwloc_get_info_by_name(obj.infos(), name);
+    }
+
+    @Nullable
+    @NativeType("char const *")
+    public static String hwloc_get_info_by_name(@NativeType("struct hwloc_infos_s") hwloc_infos_s infos, String name) {
+        if (infos.count() == 0) {
             return null;
         }
-        hwloc_info_s.Buffer infos = Objects.requireNonNull(obj.infos());
-        for (hwloc_info_s info : infos) {
+        hwloc_info_s.Buffer array = Objects.requireNonNull(infos.array());
+        for (hwloc_info_s info : array) {
             if (info.nameString().equals(name)) {
                 return info.valueString();
             }
         }
         return null;
+    }
+
+    public static int hwloc_obj_add_info(@NativeType("hwloc_obj_t") hwloc_obj obj, @NativeType("char const *") ByteBuffer name, @NativeType("char const *") ByteBuffer value) {
+        return hwloc_modify_infos(obj.infos(), HWLOC_MODIFY_INFOS_OP_ADD, name, value);
+    }
+
+    public static int hwloc_obj_add_info(@NativeType("hwloc_obj_t") hwloc_obj obj, @NativeType("char const *") CharSequence name, @NativeType("char const *") CharSequence value) {
+        return hwloc_modify_infos(obj.infos(), HWLOC_MODIFY_INFOS_OP_ADD, name, value);
     }
 
     @Nullable
@@ -3712,9 +3810,9 @@ public class HWLoc {
             int type = prev.type();
             if (type == HWLOC_OBJ_MISC) {
                 state = 3;
-            } else if (type == HWLOC_OBJ_BRIDGE || type == HWLOC_OBJ_PCI_DEVICE || type == HWLOC_OBJ_OS_DEVICE) {
+            } else if (hwloc_obj_type_is_io(type)) {
                 state = 2;
-            } else if (type == HWLOC_OBJ_NUMANODE) {
+            } else if (hwloc_obj_type_is_memory(type)) {
                 state = 1;
             }
             obj = prev.next_sibling();

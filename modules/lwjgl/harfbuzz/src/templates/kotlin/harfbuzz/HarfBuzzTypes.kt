@@ -8,8 +8,9 @@ import org.lwjgl.generator.*
 import java.io.*
 
 val HARFBUZZ_BINDING = object : SimpleBinding(Module.HARFBUZZ, "HARFBUZZ") {
-    override fun PrintWriter.generateFunctionSetup(nativeClass: NativeClass) {
-        println(
+    override fun generateFunctionSetup(writer: PrintWriter, nativeClass: NativeClass) {
+        with(writer) {
+            println(
             """
 ${t}private static final SharedLibrary HARFBUZZ;
 ${t}static {
@@ -36,12 +37,13 @@ $t$t}
 
 $t${t}HARFBUZZ = library;
 $t}""")
-        generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from the harfbuzz {@link SharedLibrary}. */")
-        println("""
+            generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from the harfbuzz {@link SharedLibrary}. */")
+            println("""
     /** Returns the harfbuzz {@link SharedLibrary}. */
     public static SharedLibrary getLibrary() {
         return HARFBUZZ;
     }""")
+        }
     }
 }
 val HARFBUZZ_BINDING_DELEGATE = HARFBUZZ_BINDING.delegate("HarfBuzz.getLibrary()")
@@ -753,6 +755,21 @@ val hb_paint_pop_transform_func_t = Module.HARFBUZZ.callback {
         nullable..opaque_p("user_data", ""),
 
         nativeType = "hb_paint_pop_transform_func_t"
+    )
+}
+
+val hb_paint_color_glyph_func_t = Module.HARFBUZZ.callback {
+    void(
+        "hb_paint_color_glyph_func_t",
+        "",
+
+        hb_paint_funcs_t.p("funcs", ""),
+        nullable..opaque_p("paint_data", ""),
+        hb_codepoint_t("glyph", ""),
+        hb_font_t.p("font", ""),
+        nullable..opaque_p("user_data", ""),
+
+        nativeType = "hb_paint_color_glyph_func_t"
     )
 }
 

@@ -24,10 +24,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     float ydelta;
  *     uint32_t unused;
  *     float {@link #viewportscale};
+ *     uint32_t {@link #cursorIndex};
  * }</code></pre>
  */
 @NativeType("struct VREvent_Scroll_t")
-public class VREventScroll extends Struct {
+public class VREventScroll extends Struct<VREventScroll> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -40,10 +41,12 @@ public class VREventScroll extends Struct {
         XDELTA,
         YDELTA,
         UNUSED,
-        VIEWPORTSCALE;
+        VIEWPORTSCALE,
+        CURSORINDEX;
 
     static {
         Layout layout = __struct(
+            __member(4),
             __member(4),
             __member(4),
             __member(4),
@@ -57,6 +60,16 @@ public class VREventScroll extends Struct {
         YDELTA = layout.offsetof(1);
         UNUSED = layout.offsetof(2);
         VIEWPORTSCALE = layout.offsetof(3);
+        CURSORINDEX = layout.offsetof(4);
+    }
+
+    protected VREventScroll(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VREventScroll create(long address, @Nullable ByteBuffer container) {
+        return new VREventScroll(address, container);
     }
 
     /**
@@ -81,18 +94,21 @@ public class VREventScroll extends Struct {
     public int unused() { return nunused(address()); }
     /** for scrolling on an overlay with laser mouse, this is the overlay's vertical size relative to the overlay height. Range: {@code [0,1]} */
     public float viewportscale() { return nviewportscale(address()); }
+    /** if from an event triggered by cursor input on an overlay that supports multiple cursors, this is the index of which tracked cursor the event is for */
+    @NativeType("uint32_t")
+    public int cursorIndex() { return ncursorIndex(address()); }
 
     // -----------------------------------
 
     /** Returns a new {@code VREventScroll} instance for the specified memory address. */
     public static VREventScroll create(long address) {
-        return wrap(VREventScroll.class, address);
+        return new VREventScroll(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventScroll createSafe(long address) {
-        return address == NULL ? null : wrap(VREventScroll.class, address);
+        return address == NULL ? null : new VREventScroll(address, null);
     }
 
     /**
@@ -102,13 +118,13 @@ public class VREventScroll extends Struct {
      * @param capacity the buffer capacity
      */
     public static VREventScroll.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventScroll.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -121,6 +137,8 @@ public class VREventScroll extends Struct {
     public static int nunused(long struct) { return UNSAFE.getInt(null, struct + VREventScroll.UNUSED); }
     /** Unsafe version of {@link #viewportscale}. */
     public static float nviewportscale(long struct) { return UNSAFE.getFloat(null, struct + VREventScroll.VIEWPORTSCALE); }
+    /** Unsafe version of {@link #cursorIndex}. */
+    public static int ncursorIndex(long struct) { return UNSAFE.getInt(null, struct + VREventScroll.CURSORINDEX); }
 
     // -----------------------------------
 
@@ -132,9 +150,9 @@ public class VREventScroll extends Struct {
         /**
          * Creates a new {@code VREventScroll.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VREventScroll#SIZEOF}, and its mark will be undefined.
+         * by {@link VREventScroll#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -169,6 +187,9 @@ public class VREventScroll extends Struct {
         public int unused() { return VREventScroll.nunused(address()); }
         /** @return the value of the {@link VREventScroll#viewportscale} field. */
         public float viewportscale() { return VREventScroll.nviewportscale(address()); }
+        /** @return the value of the {@link VREventScroll#cursorIndex} field. */
+        @NativeType("uint32_t")
+        public int cursorIndex() { return VREventScroll.ncursorIndex(address()); }
 
     }
 

@@ -50,7 +50,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkExtent3D VkExtent3D} {@link #imageExtent};
  * }</code></pre>
  */
-public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements NativeResource {
+public class VkCopyMemoryToImageIndirectCommandNV extends Struct<VkCopyMemoryToImageIndirectCommandNV> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -88,6 +88,15 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
         IMAGEEXTENT = layout.offsetof(5);
     }
 
+    protected VkCopyMemoryToImageIndirectCommandNV(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkCopyMemoryToImageIndirectCommandNV create(long address, @Nullable ByteBuffer container) {
+        return new VkCopyMemoryToImageIndirectCommandNV(address, container);
+    }
+
     /**
      * Creates a {@code VkCopyMemoryToImageIndirectCommandNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -101,7 +110,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the starting address of the source host or device memory to copy from. */
+    /** the starting address of the source device memory to copy from. */
     @NativeType("VkDeviceAddress")
     public long srcAddress() { return nsrcAddress(address()); }
     /** {@code bufferRowLength} and {@code bufferImageHeight} specify in texels a subregion of a larger two- or three-dimensional image in buffer memory, and control the addressing calculations. If either of these values is zero, that aspect of the buffer memory is considered to be tightly packed according to the {@code imageExtent}. */
@@ -171,29 +180,29 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
 
     /** Returns a new {@code VkCopyMemoryToImageIndirectCommandNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkCopyMemoryToImageIndirectCommandNV malloc() {
-        return wrap(VkCopyMemoryToImageIndirectCommandNV.class, nmemAllocChecked(SIZEOF));
+        return new VkCopyMemoryToImageIndirectCommandNV(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkCopyMemoryToImageIndirectCommandNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkCopyMemoryToImageIndirectCommandNV calloc() {
-        return wrap(VkCopyMemoryToImageIndirectCommandNV.class, nmemCallocChecked(1, SIZEOF));
+        return new VkCopyMemoryToImageIndirectCommandNV(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkCopyMemoryToImageIndirectCommandNV} instance allocated with {@link BufferUtils}. */
     public static VkCopyMemoryToImageIndirectCommandNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkCopyMemoryToImageIndirectCommandNV.class, memAddress(container), container);
+        return new VkCopyMemoryToImageIndirectCommandNV(memAddress(container), container);
     }
 
     /** Returns a new {@code VkCopyMemoryToImageIndirectCommandNV} instance for the specified memory address. */
     public static VkCopyMemoryToImageIndirectCommandNV create(long address) {
-        return wrap(VkCopyMemoryToImageIndirectCommandNV.class, address);
+        return new VkCopyMemoryToImageIndirectCommandNV(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCopyMemoryToImageIndirectCommandNV createSafe(long address) {
-        return address == NULL ? null : wrap(VkCopyMemoryToImageIndirectCommandNV.class, address);
+        return address == NULL ? null : new VkCopyMemoryToImageIndirectCommandNV(address, null);
     }
 
     /**
@@ -202,7 +211,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkCopyMemoryToImageIndirectCommandNV.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -211,7 +220,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkCopyMemoryToImageIndirectCommandNV.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -221,7 +230,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
      */
     public static VkCopyMemoryToImageIndirectCommandNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -231,13 +240,13 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkCopyMemoryToImageIndirectCommandNV.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCopyMemoryToImageIndirectCommandNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -246,7 +255,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkCopyMemoryToImageIndirectCommandNV malloc(MemoryStack stack) {
-        return wrap(VkCopyMemoryToImageIndirectCommandNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkCopyMemoryToImageIndirectCommandNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -255,7 +264,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkCopyMemoryToImageIndirectCommandNV calloc(MemoryStack stack) {
-        return wrap(VkCopyMemoryToImageIndirectCommandNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkCopyMemoryToImageIndirectCommandNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -265,7 +274,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkCopyMemoryToImageIndirectCommandNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -275,7 +284,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkCopyMemoryToImageIndirectCommandNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -316,9 +325,9 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct implements Nati
         /**
          * Creates a new {@code VkCopyMemoryToImageIndirectCommandNV.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkCopyMemoryToImageIndirectCommandNV#SIZEOF}, and its mark will be undefined.
+         * by {@link VkCopyMemoryToImageIndirectCommandNV#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

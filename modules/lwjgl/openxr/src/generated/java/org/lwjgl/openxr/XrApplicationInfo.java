@@ -21,6 +21,10 @@ import static org.lwjgl.openxr.XR10.*;
 /**
  * Structure specifying application info.
  * 
+ * <h5>Description</h5>
+ * 
+ * <p>Useful values for {@code apiVersion} include {@link XR10#XR_API_VERSION_1_0 API_VERSION_1_0} and {@link XR11#XR_API_VERSION_1_1 API_VERSION_1_1}.</p>
+ * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
@@ -37,7 +41,7 @@ import static org.lwjgl.openxr.XR10.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link XrInstanceCreateInfo}</p>
+ * <p>{@link XR10#XR_API_VERSION_1_0 API_VERSION_1_0}, {@link XR11#XR_API_VERSION_1_1 API_VERSION_1_1}, {@link XrInstanceCreateInfo}, {@link XR10#xrCreateInstance CreateInstance}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -50,7 +54,7 @@ import static org.lwjgl.openxr.XR10.*;
  *     XrVersion {@link #apiVersion};
  * }</code></pre>
  */
-public class XrApplicationInfo extends Struct implements NativeResource {
+public class XrApplicationInfo extends Struct<XrApplicationInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -85,6 +89,15 @@ public class XrApplicationInfo extends Struct implements NativeResource {
         APIVERSION = layout.offsetof(4);
     }
 
+    protected XrApplicationInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrApplicationInfo create(long address, @Nullable ByteBuffer container) {
+        return new XrApplicationInfo(address, container);
+    }
+
     /**
      * Creates a {@code XrApplicationInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -116,7 +129,7 @@ public class XrApplicationInfo extends Struct implements NativeResource {
     /** an unsigned integer variable containing the developer-supplied version number of the engine used to create the application. May be zero to indicate no specified engine. */
     @NativeType("uint32_t")
     public int engineVersion() { return nengineVersion(address()); }
-    /** the version of this API against which the application will run, encoded as described in the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#api-version-numbers-and-semantics">API Version Numbers and Semantics</a> section. If the runtime does not support the requested {@code apiVersion} it <b>must</b> return {@link XR10#XR_ERROR_API_VERSION_UNSUPPORTED ERROR_API_VERSION_UNSUPPORTED}. */
+    /** the version of this API against which the application will run, encoded as described in the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#fundamentals-api-version-numbers-and-semantics">fundamentals-api-version-numbers-and-semantics</a> section. If the runtime does not support the requested {@code apiVersion} it <b>must</b> return {@link XR10#XR_ERROR_API_VERSION_UNSUPPORTED ERROR_API_VERSION_UNSUPPORTED}. */
     @NativeType("XrVersion")
     public long apiVersion() { return napiVersion(address()); }
 
@@ -164,29 +177,29 @@ public class XrApplicationInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code XrApplicationInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrApplicationInfo malloc() {
-        return wrap(XrApplicationInfo.class, nmemAllocChecked(SIZEOF));
+        return new XrApplicationInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrApplicationInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrApplicationInfo calloc() {
-        return wrap(XrApplicationInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new XrApplicationInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrApplicationInfo} instance allocated with {@link BufferUtils}. */
     public static XrApplicationInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrApplicationInfo.class, memAddress(container), container);
+        return new XrApplicationInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code XrApplicationInfo} instance for the specified memory address. */
     public static XrApplicationInfo create(long address) {
-        return wrap(XrApplicationInfo.class, address);
+        return new XrApplicationInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrApplicationInfo createSafe(long address) {
-        return address == NULL ? null : wrap(XrApplicationInfo.class, address);
+        return address == NULL ? null : new XrApplicationInfo(address, null);
     }
 
     /**
@@ -195,7 +208,7 @@ public class XrApplicationInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrApplicationInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -204,7 +217,7 @@ public class XrApplicationInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrApplicationInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -214,7 +227,7 @@ public class XrApplicationInfo extends Struct implements NativeResource {
      */
     public static XrApplicationInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -224,13 +237,13 @@ public class XrApplicationInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrApplicationInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrApplicationInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -239,7 +252,7 @@ public class XrApplicationInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrApplicationInfo malloc(MemoryStack stack) {
-        return wrap(XrApplicationInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrApplicationInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -248,7 +261,7 @@ public class XrApplicationInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrApplicationInfo calloc(MemoryStack stack) {
-        return wrap(XrApplicationInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrApplicationInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -258,7 +271,7 @@ public class XrApplicationInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrApplicationInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -268,7 +281,7 @@ public class XrApplicationInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrApplicationInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -321,9 +334,9 @@ public class XrApplicationInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrApplicationInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrApplicationInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link XrApplicationInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

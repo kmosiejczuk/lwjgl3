@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>This structure can be included in the {@code pNext} chain of {@link VkRenderingInfo} to define a <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-attachment">fragment shading rate attachment</a>. If {@code imageView} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, or if this structure is not specified, the implementation behaves as if a valid shading rate attachment was specified with all texels specifying a single pixel per fragment.</p>
+ * <p>This structure can be included in the {@code pNext} chain of {@link VkRenderingInfo} to define a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-attachment">fragment shading rate attachment</a>. If {@code imageView} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, or if this structure is not specified, the implementation behaves as if a valid shading rate attachment was specified with all texels specifying a single pixel per fragment.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -28,13 +28,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code layout} <b>must</b> be {@link VK10#VK_IMAGE_LAYOUT_GENERAL IMAGE_LAYOUT_GENERAL} or {@link KHRFragmentShadingRate#VK_IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR}</li>
  * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> have been created with {@link KHRFragmentShadingRate#VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}</li>
  * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code shadingRateAttachmentTexelSize.width} <b>must</b> be a power of two value</li>
- * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code shadingRateAttachmentTexelSize.width} <b>must</b> be less than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFragmentShadingRateAttachmentTexelSize">{@code maxFragmentShadingRateAttachmentTexelSize.width}</a></li>
- * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code shadingRateAttachmentTexelSize.width} <b>must</b> be greater than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-minFragmentShadingRateAttachmentTexelSize">{@code minFragmentShadingRateAttachmentTexelSize.width}</a></li>
+ * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code shadingRateAttachmentTexelSize.width} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFragmentShadingRateAttachmentTexelSize">{@code maxFragmentShadingRateAttachmentTexelSize.width}</a></li>
+ * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code shadingRateAttachmentTexelSize.width} <b>must</b> be greater than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-minFragmentShadingRateAttachmentTexelSize">{@code minFragmentShadingRateAttachmentTexelSize.width}</a></li>
  * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code shadingRateAttachmentTexelSize.height} <b>must</b> be a power of two value</li>
- * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code shadingRateAttachmentTexelSize.height} <b>must</b> be less than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFragmentShadingRateAttachmentTexelSize">{@code maxFragmentShadingRateAttachmentTexelSize.height}</a></li>
- * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code shadingRateAttachmentTexelSize.height} <b>must</b> be greater than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-minFragmentShadingRateAttachmentTexelSize">{@code minFragmentShadingRateAttachmentTexelSize.height}</a></li>
- * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the quotient of {@code shadingRateAttachmentTexelSize.width} and {@code shadingRateAttachmentTexelSize.height} <b>must</b> be less than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFragmentShadingRateAttachmentTexelSizeAspectRatio">{@code maxFragmentShadingRateAttachmentTexelSizeAspectRatio}</a></li>
- * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the quotient of {@code shadingRateAttachmentTexelSize.height} and {@code shadingRateAttachmentTexelSize.width} <b>must</b> be less than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFragmentShadingRateAttachmentTexelSizeAspectRatio">{@code maxFragmentShadingRateAttachmentTexelSizeAspectRatio}</a></li>
+ * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code shadingRateAttachmentTexelSize.height} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFragmentShadingRateAttachmentTexelSize">{@code maxFragmentShadingRateAttachmentTexelSize.height}</a></li>
+ * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code shadingRateAttachmentTexelSize.height} <b>must</b> be greater than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-minFragmentShadingRateAttachmentTexelSize">{@code minFragmentShadingRateAttachmentTexelSize.height}</a></li>
+ * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the quotient of {@code shadingRateAttachmentTexelSize.width} and {@code shadingRateAttachmentTexelSize.height} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFragmentShadingRateAttachmentTexelSizeAspectRatio">{@code maxFragmentShadingRateAttachmentTexelSizeAspectRatio}</a></li>
+ * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the quotient of {@code shadingRateAttachmentTexelSize.height} and {@code shadingRateAttachmentTexelSize.width} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFragmentShadingRateAttachmentTexelSizeAspectRatio">{@code maxFragmentShadingRateAttachmentTexelSizeAspectRatio}</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -60,7 +60,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkExtent2D VkExtent2D} {@link #shadingRateAttachmentTexelSize};
  * }</code></pre>
  */
-public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct implements NativeResource {
+public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct<VkRenderingFragmentShadingRateAttachmentInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -95,6 +95,15 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
         SHADINGRATEATTACHMENTTEXELSIZE = layout.offsetof(4);
     }
 
+    protected VkRenderingFragmentShadingRateAttachmentInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkRenderingFragmentShadingRateAttachmentInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkRenderingFragmentShadingRateAttachmentInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkRenderingFragmentShadingRateAttachmentInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -108,7 +117,7 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -171,29 +180,29 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
 
     /** Returns a new {@code VkRenderingFragmentShadingRateAttachmentInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR malloc() {
-        return wrap(VkRenderingFragmentShadingRateAttachmentInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkRenderingFragmentShadingRateAttachmentInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkRenderingFragmentShadingRateAttachmentInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR calloc() {
-        return wrap(VkRenderingFragmentShadingRateAttachmentInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkRenderingFragmentShadingRateAttachmentInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkRenderingFragmentShadingRateAttachmentInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkRenderingFragmentShadingRateAttachmentInfoKHR.class, memAddress(container), container);
+        return new VkRenderingFragmentShadingRateAttachmentInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkRenderingFragmentShadingRateAttachmentInfoKHR} instance for the specified memory address. */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR create(long address) {
-        return wrap(VkRenderingFragmentShadingRateAttachmentInfoKHR.class, address);
+        return new VkRenderingFragmentShadingRateAttachmentInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkRenderingFragmentShadingRateAttachmentInfoKHR.class, address);
+        return address == NULL ? null : new VkRenderingFragmentShadingRateAttachmentInfoKHR(address, null);
     }
 
     /**
@@ -202,7 +211,7 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
      * @param capacity the buffer capacity
      */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -211,7 +220,7 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
      * @param capacity the buffer capacity
      */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -221,7 +230,7 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
      */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -231,13 +240,13 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
      * @param capacity the buffer capacity
      */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -246,7 +255,7 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
      * @param stack the stack from which to allocate
      */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR malloc(MemoryStack stack) {
-        return wrap(VkRenderingFragmentShadingRateAttachmentInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkRenderingFragmentShadingRateAttachmentInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -255,7 +264,7 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
      * @param stack the stack from which to allocate
      */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR calloc(MemoryStack stack) {
-        return wrap(VkRenderingFragmentShadingRateAttachmentInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkRenderingFragmentShadingRateAttachmentInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -265,7 +274,7 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
      * @param capacity the buffer capacity
      */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -275,7 +284,7 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
      * @param capacity the buffer capacity
      */
     public static VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -312,9 +321,9 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct impl
         /**
          * Creates a new {@code VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkRenderingFragmentShadingRateAttachmentInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkRenderingFragmentShadingRateAttachmentInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

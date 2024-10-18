@@ -26,9 +26,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link EXTSurfaceMaintenance1#VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT}</li>
- * <li>{@code supportedPresentScaling} <b>must</b> be a valid combination of {@code VkPresentScalingFlagBitsEXT} values</li>
- * <li>{@code supportedPresentGravityX} <b>must</b> be a valid combination of {@code VkPresentGravityFlagBitsEXT} values</li>
- * <li>{@code supportedPresentGravityY} <b>must</b> be a valid combination of {@code VkPresentGravityFlagBitsEXT} values</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -48,7 +45,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkExtent2D VkExtent2D} {@link #maxScaledImageExtent};
  * }</code></pre>
  */
-public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements NativeResource {
+public class VkSurfacePresentScalingCapabilitiesEXT extends Struct<VkSurfacePresentScalingCapabilitiesEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -89,6 +86,15 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
         MAXSCALEDIMAGEEXTENT = layout.offsetof(6);
     }
 
+    protected VkSurfacePresentScalingCapabilitiesEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkSurfacePresentScalingCapabilitiesEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkSurfacePresentScalingCapabilitiesEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkSurfacePresentScalingCapabilitiesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -102,7 +108,7 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -128,38 +134,14 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
     public VkSurfacePresentScalingCapabilitiesEXT sType$Default() { return sType(EXTSurfaceMaintenance1.VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkSurfacePresentScalingCapabilitiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #supportedPresentScaling} field. */
-    public VkSurfacePresentScalingCapabilitiesEXT supportedPresentScaling(@NativeType("VkPresentScalingFlagsEXT") int value) { nsupportedPresentScaling(address(), value); return this; }
-    /** Sets the specified value to the {@link #supportedPresentGravityX} field. */
-    public VkSurfacePresentScalingCapabilitiesEXT supportedPresentGravityX(@NativeType("VkPresentGravityFlagsEXT") int value) { nsupportedPresentGravityX(address(), value); return this; }
-    /** Sets the specified value to the {@link #supportedPresentGravityY} field. */
-    public VkSurfacePresentScalingCapabilitiesEXT supportedPresentGravityY(@NativeType("VkPresentGravityFlagsEXT") int value) { nsupportedPresentGravityY(address(), value); return this; }
-    /** Copies the specified {@link VkExtent2D} to the {@link #minScaledImageExtent} field. */
-    public VkSurfacePresentScalingCapabilitiesEXT minScaledImageExtent(VkExtent2D value) { nminScaledImageExtent(address(), value); return this; }
-    /** Passes the {@link #minScaledImageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
-    public VkSurfacePresentScalingCapabilitiesEXT minScaledImageExtent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(minScaledImageExtent()); return this; }
-    /** Copies the specified {@link VkExtent2D} to the {@link #maxScaledImageExtent} field. */
-    public VkSurfacePresentScalingCapabilitiesEXT maxScaledImageExtent(VkExtent2D value) { nmaxScaledImageExtent(address(), value); return this; }
-    /** Passes the {@link #maxScaledImageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
-    public VkSurfacePresentScalingCapabilitiesEXT maxScaledImageExtent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(maxScaledImageExtent()); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkSurfacePresentScalingCapabilitiesEXT set(
         int sType,
-        long pNext,
-        int supportedPresentScaling,
-        int supportedPresentGravityX,
-        int supportedPresentGravityY,
-        VkExtent2D minScaledImageExtent,
-        VkExtent2D maxScaledImageExtent
+        long pNext
     ) {
         sType(sType);
         pNext(pNext);
-        supportedPresentScaling(supportedPresentScaling);
-        supportedPresentGravityX(supportedPresentGravityX);
-        supportedPresentGravityY(supportedPresentGravityY);
-        minScaledImageExtent(minScaledImageExtent);
-        maxScaledImageExtent(maxScaledImageExtent);
 
         return this;
     }
@@ -180,29 +162,29 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
 
     /** Returns a new {@code VkSurfacePresentScalingCapabilitiesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSurfacePresentScalingCapabilitiesEXT malloc() {
-        return wrap(VkSurfacePresentScalingCapabilitiesEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkSurfacePresentScalingCapabilitiesEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkSurfacePresentScalingCapabilitiesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSurfacePresentScalingCapabilitiesEXT calloc() {
-        return wrap(VkSurfacePresentScalingCapabilitiesEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkSurfacePresentScalingCapabilitiesEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkSurfacePresentScalingCapabilitiesEXT} instance allocated with {@link BufferUtils}. */
     public static VkSurfacePresentScalingCapabilitiesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkSurfacePresentScalingCapabilitiesEXT.class, memAddress(container), container);
+        return new VkSurfacePresentScalingCapabilitiesEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkSurfacePresentScalingCapabilitiesEXT} instance for the specified memory address. */
     public static VkSurfacePresentScalingCapabilitiesEXT create(long address) {
-        return wrap(VkSurfacePresentScalingCapabilitiesEXT.class, address);
+        return new VkSurfacePresentScalingCapabilitiesEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfacePresentScalingCapabilitiesEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkSurfacePresentScalingCapabilitiesEXT.class, address);
+        return address == NULL ? null : new VkSurfacePresentScalingCapabilitiesEXT(address, null);
     }
 
     /**
@@ -211,7 +193,7 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkSurfacePresentScalingCapabilitiesEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -220,7 +202,7 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkSurfacePresentScalingCapabilitiesEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -230,7 +212,7 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
      */
     public static VkSurfacePresentScalingCapabilitiesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -240,13 +222,13 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkSurfacePresentScalingCapabilitiesEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfacePresentScalingCapabilitiesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -255,7 +237,7 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
      * @param stack the stack from which to allocate
      */
     public static VkSurfacePresentScalingCapabilitiesEXT malloc(MemoryStack stack) {
-        return wrap(VkSurfacePresentScalingCapabilitiesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkSurfacePresentScalingCapabilitiesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -264,7 +246,7 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
      * @param stack the stack from which to allocate
      */
     public static VkSurfacePresentScalingCapabilitiesEXT calloc(MemoryStack stack) {
-        return wrap(VkSurfacePresentScalingCapabilitiesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkSurfacePresentScalingCapabilitiesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -274,7 +256,7 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkSurfacePresentScalingCapabilitiesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -284,7 +266,7 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkSurfacePresentScalingCapabilitiesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -308,16 +290,6 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
     public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSurfacePresentScalingCapabilitiesEXT.PNEXT, value); }
-    /** Unsafe version of {@link #supportedPresentScaling(int) supportedPresentScaling}. */
-    public static void nsupportedPresentScaling(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTSCALING, value); }
-    /** Unsafe version of {@link #supportedPresentGravityX(int) supportedPresentGravityX}. */
-    public static void nsupportedPresentGravityX(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTGRAVITYX, value); }
-    /** Unsafe version of {@link #supportedPresentGravityY(int) supportedPresentGravityY}. */
-    public static void nsupportedPresentGravityY(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTGRAVITYY, value); }
-    /** Unsafe version of {@link #minScaledImageExtent(VkExtent2D) minScaledImageExtent}. */
-    public static void nminScaledImageExtent(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkSurfacePresentScalingCapabilitiesEXT.MINSCALEDIMAGEEXTENT, VkExtent2D.SIZEOF); }
-    /** Unsafe version of {@link #maxScaledImageExtent(VkExtent2D) maxScaledImageExtent}. */
-    public static void nmaxScaledImageExtent(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkSurfacePresentScalingCapabilitiesEXT.MAXSCALEDIMAGEEXTENT, VkExtent2D.SIZEOF); }
 
     // -----------------------------------
 
@@ -329,9 +301,9 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
         /**
          * Creates a new {@code VkSurfacePresentScalingCapabilitiesEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSurfacePresentScalingCapabilitiesEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkSurfacePresentScalingCapabilitiesEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -383,20 +355,6 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct implements Na
         public VkSurfacePresentScalingCapabilitiesEXT.Buffer sType$Default() { return sType(EXTSurfaceMaintenance1.VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT); }
         /** Sets the specified value to the {@link VkSurfacePresentScalingCapabilitiesEXT#pNext} field. */
         public VkSurfacePresentScalingCapabilitiesEXT.Buffer pNext(@NativeType("void *") long value) { VkSurfacePresentScalingCapabilitiesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSurfacePresentScalingCapabilitiesEXT#supportedPresentScaling} field. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer supportedPresentScaling(@NativeType("VkPresentScalingFlagsEXT") int value) { VkSurfacePresentScalingCapabilitiesEXT.nsupportedPresentScaling(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSurfacePresentScalingCapabilitiesEXT#supportedPresentGravityX} field. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer supportedPresentGravityX(@NativeType("VkPresentGravityFlagsEXT") int value) { VkSurfacePresentScalingCapabilitiesEXT.nsupportedPresentGravityX(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSurfacePresentScalingCapabilitiesEXT#supportedPresentGravityY} field. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer supportedPresentGravityY(@NativeType("VkPresentGravityFlagsEXT") int value) { VkSurfacePresentScalingCapabilitiesEXT.nsupportedPresentGravityY(address(), value); return this; }
-        /** Copies the specified {@link VkExtent2D} to the {@link VkSurfacePresentScalingCapabilitiesEXT#minScaledImageExtent} field. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer minScaledImageExtent(VkExtent2D value) { VkSurfacePresentScalingCapabilitiesEXT.nminScaledImageExtent(address(), value); return this; }
-        /** Passes the {@link VkSurfacePresentScalingCapabilitiesEXT#minScaledImageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer minScaledImageExtent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(minScaledImageExtent()); return this; }
-        /** Copies the specified {@link VkExtent2D} to the {@link VkSurfacePresentScalingCapabilitiesEXT#maxScaledImageExtent} field. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer maxScaledImageExtent(VkExtent2D value) { VkSurfacePresentScalingCapabilitiesEXT.nmaxScaledImageExtent(address(), value); return this; }
-        /** Passes the {@link VkSurfacePresentScalingCapabilitiesEXT#maxScaledImageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer maxScaledImageExtent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(maxScaledImageExtent()); return this; }
 
     }
 

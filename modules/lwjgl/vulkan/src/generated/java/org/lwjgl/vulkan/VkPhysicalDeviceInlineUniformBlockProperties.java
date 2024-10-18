@@ -35,13 +35,13 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkStructureType {@link #sType};
  *     void * {@link #pNext};
  *     uint32_t {@link #maxInlineUniformBlockSize};
- *     uint32_t maxPerStageDescriptorInlineUniformBlocks;
+ *     uint32_t {@link #maxPerStageDescriptorInlineUniformBlocks};
  *     uint32_t {@link #maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks};
  *     uint32_t {@link #maxDescriptorSetInlineUniformBlocks};
  *     uint32_t {@link #maxDescriptorSetUpdateAfterBindInlineUniformBlocks};
  * }</code></pre>
  */
-public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct implements NativeResource {
+public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct<VkPhysicalDeviceInlineUniformBlockProperties> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -82,6 +82,15 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
         MAXDESCRIPTORSETUPDATEAFTERBINDINLINEUNIFORMBLOCKS = layout.offsetof(6);
     }
 
+    protected VkPhysicalDeviceInlineUniformBlockProperties(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDeviceInlineUniformBlockProperties create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDeviceInlineUniformBlockProperties(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDeviceInlineUniformBlockProperties} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -95,16 +104,16 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the maximum size in bytes of an <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-inlineuniformblock">inline uniform block</a> binding. */
+    /** the maximum size in bytes of an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-inlineuniformblock">inline uniform block</a> binding. */
     @NativeType("uint32_t")
     public int maxInlineUniformBlockSize() { return nmaxInlineUniformBlockSize(address()); }
-    /** @return the value of the {@code maxPerStageDescriptorInlineUniformBlocks} field. */
+    /** the maximum number of inline uniform block bindings that <b>can</b> be accessible to a single shader stage in a pipeline layout. Descriptor bindings with a descriptor type of {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} count against this limit. Only descriptor bindings in descriptor set layouts created without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set count against this limit. */
     @NativeType("uint32_t")
     public int maxPerStageDescriptorInlineUniformBlocks() { return nmaxPerStageDescriptorInlineUniformBlocks(address()); }
     /** similar to {@code maxPerStageDescriptorInlineUniformBlocks} but counts descriptor bindings from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
@@ -151,29 +160,29 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
 
     /** Returns a new {@code VkPhysicalDeviceInlineUniformBlockProperties} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceInlineUniformBlockProperties malloc() {
-        return wrap(VkPhysicalDeviceInlineUniformBlockProperties.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDeviceInlineUniformBlockProperties(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceInlineUniformBlockProperties} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceInlineUniformBlockProperties calloc() {
-        return wrap(VkPhysicalDeviceInlineUniformBlockProperties.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDeviceInlineUniformBlockProperties(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceInlineUniformBlockProperties} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceInlineUniformBlockProperties create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDeviceInlineUniformBlockProperties.class, memAddress(container), container);
+        return new VkPhysicalDeviceInlineUniformBlockProperties(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceInlineUniformBlockProperties} instance for the specified memory address. */
     public static VkPhysicalDeviceInlineUniformBlockProperties create(long address) {
-        return wrap(VkPhysicalDeviceInlineUniformBlockProperties.class, address);
+        return new VkPhysicalDeviceInlineUniformBlockProperties(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceInlineUniformBlockProperties createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDeviceInlineUniformBlockProperties.class, address);
+        return address == NULL ? null : new VkPhysicalDeviceInlineUniformBlockProperties(address, null);
     }
 
     /**
@@ -182,7 +191,7 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceInlineUniformBlockProperties.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -191,7 +200,7 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceInlineUniformBlockProperties.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -201,7 +210,7 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
      */
     public static VkPhysicalDeviceInlineUniformBlockProperties.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -211,13 +220,13 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceInlineUniformBlockProperties.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceInlineUniformBlockProperties.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -226,7 +235,7 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceInlineUniformBlockProperties malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceInlineUniformBlockProperties.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDeviceInlineUniformBlockProperties(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -235,7 +244,7 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceInlineUniformBlockProperties calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceInlineUniformBlockProperties.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDeviceInlineUniformBlockProperties(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -245,7 +254,7 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceInlineUniformBlockProperties.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +264,7 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceInlineUniformBlockProperties.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +299,9 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
         /**
          * Creates a new {@code VkPhysicalDeviceInlineUniformBlockProperties.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceInlineUniformBlockProperties#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDeviceInlineUniformBlockProperties#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -327,7 +336,7 @@ public class VkPhysicalDeviceInlineUniformBlockProperties extends Struct impleme
         /** @return the value of the {@link VkPhysicalDeviceInlineUniformBlockProperties#maxInlineUniformBlockSize} field. */
         @NativeType("uint32_t")
         public int maxInlineUniformBlockSize() { return VkPhysicalDeviceInlineUniformBlockProperties.nmaxInlineUniformBlockSize(address()); }
-        /** @return the value of the {@code maxPerStageDescriptorInlineUniformBlocks} field. */
+        /** @return the value of the {@link VkPhysicalDeviceInlineUniformBlockProperties#maxPerStageDescriptorInlineUniformBlocks} field. */
         @NativeType("uint32_t")
         public int maxPerStageDescriptorInlineUniformBlocks() { return VkPhysicalDeviceInlineUniformBlockProperties.nmaxPerStageDescriptorInlineUniformBlocks(address()); }
         /** @return the value of the {@link VkPhysicalDeviceInlineUniformBlockProperties#maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks} field. */

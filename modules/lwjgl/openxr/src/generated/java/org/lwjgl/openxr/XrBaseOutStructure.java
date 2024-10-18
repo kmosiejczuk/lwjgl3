@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>{@link XrBaseOutStructure} can be used to facilitate iterating through a structure pointer chain that returns data back to the application.</p>
+ * <p>{@link XrBaseOutStructure} <b>can</b> be used to facilitate iterating through a structure pointer chain that returns data back to the application.</p>
  * 
  * <h5>See Also</h5>
  * 
@@ -35,7 +35,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrBaseOutStructure XrBaseOutStructure} * {@link #next};
  * }</code></pre>
  */
-public class XrBaseOutStructure extends Struct implements NativeResource {
+public class XrBaseOutStructure extends Struct<XrBaseOutStructure> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -61,6 +61,15 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
         NEXT = layout.offsetof(1);
     }
 
+    protected XrBaseOutStructure(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrBaseOutStructure create(long address, @Nullable ByteBuffer container) {
+        return new XrBaseOutStructure(address, container);
+    }
+
     /**
      * Creates a {@code XrBaseOutStructure} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -77,7 +86,7 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
     /** the {@code XrStructureType} of this structure. This base structure itself has no associated {@code XrStructureType} value. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** {@code NULL} or a pointer to the next structure in a structure chain. */
     @NativeType("XrBaseOutStructure *")
     public XrBaseOutStructure next() { return nnext(address()); }
 
@@ -113,29 +122,29 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
 
     /** Returns a new {@code XrBaseOutStructure} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrBaseOutStructure malloc() {
-        return wrap(XrBaseOutStructure.class, nmemAllocChecked(SIZEOF));
+        return new XrBaseOutStructure(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrBaseOutStructure} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrBaseOutStructure calloc() {
-        return wrap(XrBaseOutStructure.class, nmemCallocChecked(1, SIZEOF));
+        return new XrBaseOutStructure(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrBaseOutStructure} instance allocated with {@link BufferUtils}. */
     public static XrBaseOutStructure create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrBaseOutStructure.class, memAddress(container), container);
+        return new XrBaseOutStructure(memAddress(container), container);
     }
 
     /** Returns a new {@code XrBaseOutStructure} instance for the specified memory address. */
     public static XrBaseOutStructure create(long address) {
-        return wrap(XrBaseOutStructure.class, address);
+        return new XrBaseOutStructure(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrBaseOutStructure createSafe(long address) {
-        return address == NULL ? null : wrap(XrBaseOutStructure.class, address);
+        return address == NULL ? null : new XrBaseOutStructure(address, null);
     }
 
     /**
@@ -144,7 +153,7 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrBaseOutStructure.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -153,7 +162,7 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrBaseOutStructure.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -163,7 +172,7 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
      */
     public static XrBaseOutStructure.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -173,13 +182,13 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrBaseOutStructure.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrBaseOutStructure.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -188,7 +197,7 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrBaseOutStructure malloc(MemoryStack stack) {
-        return wrap(XrBaseOutStructure.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrBaseOutStructure(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -197,7 +206,7 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrBaseOutStructure calloc(MemoryStack stack) {
-        return wrap(XrBaseOutStructure.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrBaseOutStructure(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -207,7 +216,7 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrBaseOutStructure.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -217,7 +226,7 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrBaseOutStructure.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -251,9 +260,9 @@ public class XrBaseOutStructure extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrBaseOutStructure.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrBaseOutStructure#SIZEOF}, and its mark will be undefined.
+         * by {@link XrBaseOutStructure#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

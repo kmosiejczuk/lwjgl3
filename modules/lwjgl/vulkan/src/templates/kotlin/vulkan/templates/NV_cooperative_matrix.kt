@@ -13,11 +13,10 @@ val NV_cooperative_matrix = "NVCooperativeMatrix".nativeClassVK("NV_cooperative_
         """
         This extension adds support for using cooperative matrix types in SPIR-V. Cooperative matrix types are medium-sized matrices that are primarily supported in compute shaders, where the storage for the matrix is spread across all invocations in some scope (usually a subgroup) and those invocations cooperate to efficiently perform matrix multiplies.
 
-        Cooperative matrix types are defined by the <a target="_blank" href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_cooperative_matrix.html">{@code SPV_NV_cooperative_matrix}</a> SPIR-V extension and can be used with the <a target="_blank" href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/nv/GLSL_NV_cooperative_matrix.txt">{@code GL_NV_cooperative_matrix}</a> GLSL extension.
+        Cooperative matrix types are defined by the <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_cooperative_matrix.html">{@code SPV_NV_cooperative_matrix}</a> SPIR-V extension and can be used with the <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/nv/GLSL_NV_cooperative_matrix.txt">{@code GL_NV_cooperative_matrix}</a> GLSL extension.
 
         This extension includes support for enumerating the matrix types and dimensions that are supported by the implementation.
 
-        <h5>VK_NV_cooperative_matrix</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_cooperative_matrix}</dd>
@@ -32,11 +31,16 @@ val NV_cooperative_matrix = "NVCooperativeMatrix".nativeClassVK("NV_cooperative_
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_cooperative_matrix.html">SPV_NV_cooperative_matrix</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jeff Bolz <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_cooperative_matrix]%20@jeffbolznv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_cooperative_matrix%20extension*">jeffbolznv</a></li>
+                <li>Jeff Bolz <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_cooperative_matrix]%20@jeffbolznv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_cooperative_matrix%20extension*">jeffbolznv</a></li>
             </ul></dd>
         </dl>
 
@@ -47,8 +51,7 @@ val NV_cooperative_matrix = "NVCooperativeMatrix".nativeClassVK("NV_cooperative_
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a target="_blank" href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_cooperative_matrix.html">{@code SPV_NV_cooperative_matrix}</a></li>
-                <li>This extension provides API support for <a target="_blank" href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/nv/GLSL_NV_cooperative_matrix.txt">{@code GL_NV_cooperative_matrix}</a></li>
+                <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/nv/GLSL_NV_cooperative_matrix.txt">{@code GL_NV_cooperative_matrix}</a></li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>
@@ -81,27 +84,16 @@ val NV_cooperative_matrix = "NVCooperativeMatrix".nativeClassVK("NV_cooperative_
     )
 
     EnumConstant(
-        """
-        VkComponentTypeNV - Specify SPIR-V cooperative matrix component type
+        "Extends {@code VkScopeKHR}.",
 
-        <h5>Description</h5>
-        <ul>
-            <li>#COMPONENT_TYPE_FLOAT16_NV corresponds to SPIR-V {@code OpTypeFloat} 16.</li>
-            <li>#COMPONENT_TYPE_FLOAT32_NV corresponds to SPIR-V {@code OpTypeFloat} 32.</li>
-            <li>#COMPONENT_TYPE_FLOAT64_NV corresponds to SPIR-V {@code OpTypeFloat} 64.</li>
-            <li>#COMPONENT_TYPE_SINT8_NV corresponds to SPIR-V {@code OpTypeInt} 8 1.</li>
-            <li>#COMPONENT_TYPE_SINT16_NV corresponds to SPIR-V {@code OpTypeInt} 16 1.</li>
-            <li>#COMPONENT_TYPE_SINT32_NV corresponds to SPIR-V {@code OpTypeInt} 32 1.</li>
-            <li>#COMPONENT_TYPE_SINT64_NV corresponds to SPIR-V {@code OpTypeInt} 64 1.</li>
-            <li>#COMPONENT_TYPE_UINT8_NV corresponds to SPIR-V {@code OpTypeInt} 8 0.</li>
-            <li>#COMPONENT_TYPE_UINT16_NV corresponds to SPIR-V {@code OpTypeInt} 16 0.</li>
-            <li>#COMPONENT_TYPE_UINT32_NV corresponds to SPIR-V {@code OpTypeInt} 32 0.</li>
-            <li>#COMPONENT_TYPE_UINT64_NV corresponds to SPIR-V {@code OpTypeInt} 64 0.</li>
-        </ul>
+        "SCOPE_DEVICE_NV".."1",
+        "SCOPE_WORKGROUP_NV".."2",
+        "SCOPE_SUBGROUP_NV".."3",
+        "SCOPE_QUEUE_FAMILY_NV".."5"
+    )
 
-        <h5>See Also</h5>
-        ##VkCooperativeMatrixPropertiesNV
-        """,
+    EnumConstant(
+        "Extends {@code VkComponentTypeKHR}.",
 
         "COMPONENT_TYPE_FLOAT16_NV".."0",
         "COMPONENT_TYPE_FLOAT32_NV".."1",
@@ -114,30 +106,6 @@ val NV_cooperative_matrix = "NVCooperativeMatrix".nativeClassVK("NV_cooperative_
         "COMPONENT_TYPE_UINT16_NV".."8",
         "COMPONENT_TYPE_UINT32_NV".."9",
         "COMPONENT_TYPE_UINT64_NV".."10"
-    )
-
-    EnumConstant(
-        """
-        VkScopeNV - Specify SPIR-V scope
-
-        <h5>Description</h5>
-        <ul>
-            <li>#SCOPE_DEVICE_NV corresponds to SPIR-V {@code Device} scope.</li>
-            <li>#SCOPE_WORKGROUP_NV corresponds to SPIR-V {@code Workgroup} scope.</li>
-            <li>#SCOPE_SUBGROUP_NV corresponds to SPIR-V {@code Subgroup} scope.</li>
-            <li>#SCOPE_QUEUE_FAMILY_NV corresponds to SPIR-V {@code QueueFamily} scope.</li>
-        </ul>
-
-        All enum values match the corresponding SPIR-V value.
-
-        <h5>See Also</h5>
-        ##VkCooperativeMatrixPropertiesNV
-        """,
-
-        "SCOPE_DEVICE_NV".."1",
-        "SCOPE_WORKGROUP_NV".."2",
-        "SCOPE_SUBGROUP_NV".."3",
-        "SCOPE_QUEUE_FAMILY_NV".."5"
     )
 
     VkResult(
@@ -155,7 +123,7 @@ val NV_cooperative_matrix = "NVCooperativeMatrix".nativeClassVK("NV_cooperative_
 ￿    VkCooperativeMatrixPropertiesNV*            pProperties);</code></pre>
 
         <h5>Description</h5>
-        If {@code pProperties} is {@code NULL}, then the number of cooperative matrix properties available is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If {@code pPropertyCount} is less than the number of cooperative matrix properties available, at most {@code pPropertyCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available cooperative matrix properties were returned.
+        If {@code pProperties} is {@code NULL}, then the number of cooperative matrix properties available is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If {@code pPropertyCount} is less than the number of cooperative matrix properties available, at most {@code pPropertyCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available cooperative matrix properties were returned.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

@@ -11,7 +11,7 @@ import openxr.*
 val FB_touch_controller_pro = "FBTouchControllerPro".nativeClassXR("FB_touch_controller_pro", type = "instance", postfix = "FB") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_FB_touch_controller_pro">XR_FB_touch_controller_pro</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_FB_touch_controller_pro">XR_FB_touch_controller_pro</a> extension.
 
         This extension defines a new interaction profile for the Meta Quest Touch Pro Controller.
 
@@ -20,6 +20,9 @@ val FB_touch_controller_pro = "FBTouchControllerPro".nativeClassXR("FB_touch_con
         <ul>
             <li>pathname:/interaction_profiles/facebook/touch_controller_pro</li>
         </ul>
+
+        <h5>Note</h5>
+        The interaction profile path pathname:{legacy-path} defined here does not follow current rules for interaction profile names. If this extension were introduced today, it would be called pathname:{properly-suffixed-path}, to allow for modifications when promoted to a KHR extension or the core specification.
 
         Valid for user paths:
 

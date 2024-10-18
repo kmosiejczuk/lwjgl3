@@ -32,26 +32,26 @@ val KHR_dedicated_allocation = "KHRDedicatedAllocation".nativeClassVK("KHR_dedic
 ￿    VkResult result = vkCreateImage(
 ￿        device,
 ￿        &amp;imageCreateInfo,
-￿        NULL,                               // pAllocator
+￿        NULL,               // pAllocator
 ￿        &amp;image);
 ￿
 ￿    VkMemoryDedicatedRequirementsKHR dedicatedRequirements =
 ￿    {
-￿        VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS_KHR,
-￿        NULL,                               // pNext
+￿        .sType = VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS_KHR,
+￿        .pNext = NULL,
 ￿    };
 ￿
 ￿    VkMemoryRequirements2 memoryRequirements =
 ￿    {
-￿        VK_STRUCTURE_TYPE_MEMORY_REQUIREMENTS_2,
-￿        &amp;dedicatedRequirements,             // pNext
+￿        .sType = VK_STRUCTURE_TYPE_MEMORY_REQUIREMENTS_2,
+￿        .pNext = &amp;dedicatedRequirements,
 ￿    };
 ￿
 ￿    const VkImageMemoryRequirementsInfo2 imageRequirementsInfo =
 ￿    {
-￿        VK_STRUCTURE_TYPE_IMAGE_MEMORY_REQUIREMENTS_INFO_2,
-￿        NULL,                               // pNext
-￿        image
+￿        .sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_REQUIREMENTS_INFO_2,
+￿        .pNext = NULL,
+￿        .image = image
 ￿    };
 ￿
 ￿    vkGetImageMemoryRequirements2(
@@ -65,25 +65,25 @@ val KHR_dedicated_allocation = "KHRDedicatedAllocation".nativeClassVK("KHR_dedic
 ￿
 ￿        VkMemoryDedicatedAllocateInfoKHR dedicatedInfo =
 ￿        {
-￿            VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO_KHR,   // sType
-￿            NULL,                                                   // pNext
-￿            image,                                                  // image
-￿            VK_NULL_HANDLE,                                         // buffer
+￿            .sType = VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO_KHR,
+￿            .pNext = NULL,
+￿            .image = image,
+￿            .buffer = VK_NULL_HANDLE,
 ￿        };
 ￿
 ￿        VkMemoryAllocateInfo memoryAllocateInfo =
 ￿        {
-￿            VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO,                 // sType
-￿            &amp;dedicatedInfo,                                         // pNext
-￿            memoryRequirements.size,                                // allocationSize
-￿            FindMemoryTypeIndex(memoryRequirements.memoryTypeBits), // memoryTypeIndex
+￿            .sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO,
+￿            .pNext = &amp;dedicatedInfo,
+￿            .allocationSize = memoryRequirements.size,
+￿            .memoryTypeIndex = FindMemoryTypeIndex(memoryRequirements.memoryTypeBits),
 ￿        };
 ￿
 ￿        VkDeviceMemory memory;
 ￿        vkAllocateMemory(
 ￿            device,
 ￿            &amp;memoryAllocateInfo,
-￿            NULL,                       // pAllocator
+￿            NULL,               // pAllocator
 ￿            &amp;memory);
 ￿
 ￿        // Bind the image to the memory
@@ -97,7 +97,6 @@ val KHR_dedicated_allocation = "KHRDedicatedAllocation".nativeClassVK("KHR_dedic
 ￿        // Take the normal memory sub-allocation path
 ￿    }</code></pre>
 
-        <h5>VK_KHR_dedicated_allocation</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_dedicated_allocation}</dd>
@@ -112,16 +111,16 @@ val KHR_dedicated_allocation = "KHRDedicatedAllocation".nativeClassVK("KHR_dedic
             <dd>3</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetMemoryRequirements2 VK_KHR_get_memory_requirements2}</dd>
+            <dd>{@link KHRGetMemoryRequirements2 VK_KHR_get_memory_requirements2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_dedicated_allocation]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_dedicated_allocation%20extension*">cubanismo</a></li>
+                <li>James Jones <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_dedicated_allocation]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_dedicated_allocation%20extension*">cubanismo</a></li>
             </ul></dd>
         </dl>
 
@@ -132,11 +131,6 @@ val KHR_dedicated_allocation = "KHRDedicatedAllocation".nativeClassVK("KHR_dedic
 
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.1 Core</li>
-            </ul></dd>
 
             <dt><b>Contributors</b></dt>
             <dd><ul>

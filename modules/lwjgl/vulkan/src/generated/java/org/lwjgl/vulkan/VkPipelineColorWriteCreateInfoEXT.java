@@ -23,9 +23,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>When this structure is included in the {@code pNext} chain of {@link VkPipelineColorBlendStateCreateInfo}, it defines per-attachment color write state. If this structure is not included in the {@code pNext} chain, it is equivalent to specifying this structure with {@code attachmentCount} equal to the {@code attachmentCount} member of {@link VkPipelineColorBlendStateCreateInfo}, and {@code pColorWriteEnables} pointing to an array of as many {@link VK10#VK_TRUE TRUE} values.</p>
  * 
- * <p>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-colorWriteEnable">{@code colorWriteEnable}</a> feature is not enabled on the device, all {@code VkBool32} elements in the {@code pColorWriteEnables} array <b>must</b> be {@link VK10#VK_TRUE TRUE}.</p>
+ * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-colorWriteEnable">{@code colorWriteEnable}</a> feature is not enabled on the device, all {@code VkBool32} elements in the {@code pColorWriteEnables} array <b>must</b> be {@link VK10#VK_TRUE TRUE}.</p>
  * 
- * <p>Color Write Enable interacts with the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-color-write-mask">Color Write Mask</a> as follows:</p>
+ * <p>Color Write Enable interacts with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-color-write-mask">Color Write Mask</a> as follows:</p>
  * 
  * <ul>
  * <li>If {@code colorWriteEnable} is {@link VK10#VK_TRUE TRUE}, writes to the attachment are determined by the {@code colorWriteMask}.</li>
@@ -35,8 +35,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-colorWriteEnable">{@code colorWriteEnable}</a> feature is not enabled, all elements of {@code pColorWriteEnables} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
- * <li>If the pipeline is being created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT}, {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT}, or {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_WRITE_MASK_EXT DYNAMIC_STATE_COLOR_WRITE_MASK_EXT} dynamic states not set, {@code attachmentCount} <b>must</b> be equal to the {@code attachmentCount} member of the {@link VkPipelineColorBlendStateCreateInfo} structure specified during pipeline creation</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-colorWriteEnable">{@code colorWriteEnable}</a> feature is not enabled, all elements of {@code pColorWriteEnables} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
+ * <li>If the pipeline is being created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT}, {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT}, {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT}, or {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_WRITE_MASK_EXT DYNAMIC_STATE_COLOR_WRITE_MASK_EXT} dynamic states not set, {@code attachmentCount} <b>must</b> be equal to the {@code attachmentCount} member of the {@link VkPipelineColorBlendStateCreateInfo} structure specified during pipeline creation</li>
  * <li>{@code attachmentCount} <b>must</b> be less than or equal to the {@code maxColorAttachments} member of {@link VkPhysicalDeviceLimits}</li>
  * </ul>
  * 
@@ -57,7 +57,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 const * {@link #pColorWriteEnables};
  * }</code></pre>
  */
-public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeResource {
+public class VkPipelineColorWriteCreateInfoEXT extends Struct<VkPipelineColorWriteCreateInfoEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -89,6 +89,15 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
         PCOLORWRITEENABLES = layout.offsetof(3);
     }
 
+    protected VkPipelineColorWriteCreateInfoEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPipelineColorWriteCreateInfoEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkPipelineColorWriteCreateInfoEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkPipelineColorWriteCreateInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -102,7 +111,7 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -154,29 +163,29 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
 
     /** Returns a new {@code VkPipelineColorWriteCreateInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineColorWriteCreateInfoEXT malloc() {
-        return wrap(VkPipelineColorWriteCreateInfoEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkPipelineColorWriteCreateInfoEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPipelineColorWriteCreateInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineColorWriteCreateInfoEXT calloc() {
-        return wrap(VkPipelineColorWriteCreateInfoEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPipelineColorWriteCreateInfoEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPipelineColorWriteCreateInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkPipelineColorWriteCreateInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPipelineColorWriteCreateInfoEXT.class, memAddress(container), container);
+        return new VkPipelineColorWriteCreateInfoEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineColorWriteCreateInfoEXT} instance for the specified memory address. */
     public static VkPipelineColorWriteCreateInfoEXT create(long address) {
-        return wrap(VkPipelineColorWriteCreateInfoEXT.class, address);
+        return new VkPipelineColorWriteCreateInfoEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineColorWriteCreateInfoEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkPipelineColorWriteCreateInfoEXT.class, address);
+        return address == NULL ? null : new VkPipelineColorWriteCreateInfoEXT(address, null);
     }
 
     /**
@@ -185,7 +194,7 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPipelineColorWriteCreateInfoEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -194,7 +203,7 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPipelineColorWriteCreateInfoEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -204,7 +213,7 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
      */
     public static VkPipelineColorWriteCreateInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -214,13 +223,13 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPipelineColorWriteCreateInfoEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineColorWriteCreateInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -229,7 +238,7 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
      * @param stack the stack from which to allocate
      */
     public static VkPipelineColorWriteCreateInfoEXT malloc(MemoryStack stack) {
-        return wrap(VkPipelineColorWriteCreateInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPipelineColorWriteCreateInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -238,7 +247,7 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
      * @param stack the stack from which to allocate
      */
     public static VkPipelineColorWriteCreateInfoEXT calloc(MemoryStack stack) {
-        return wrap(VkPipelineColorWriteCreateInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPipelineColorWriteCreateInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -248,7 +257,7 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPipelineColorWriteCreateInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -258,7 +267,7 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPipelineColorWriteCreateInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -302,9 +311,9 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct implements NativeR
         /**
          * Creates a new {@code VkPipelineColorWriteCreateInfoEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineColorWriteCreateInfoEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPipelineColorWriteCreateInfoEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

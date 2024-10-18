@@ -28,6 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link HUAWEISubpassShading#VK_STRUCTURE_TYPE_SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI STRUCTURE_TYPE_SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI}</li>
+ * <li>{@code renderPass} <b>must</b> be a valid {@code VkRenderPass} handle</li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -40,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #subpass};
  * }</code></pre>
  */
-public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements NativeResource {
+public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct<VkSubpassShadingPipelineCreateInfoHUAWEI> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -72,6 +73,15 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
         SUBPASS = layout.offsetof(3);
     }
 
+    protected VkSubpassShadingPipelineCreateInfoHUAWEI(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkSubpassShadingPipelineCreateInfoHUAWEI create(long address, @Nullable ByteBuffer container) {
+        return new VkSubpassShadingPipelineCreateInfoHUAWEI(address, container);
+    }
+
     /**
      * Creates a {@code VkSubpassShadingPipelineCreateInfoHUAWEI} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -85,13 +95,13 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a handle to a render pass object describing the environment in which the pipeline will be used. The pipeline <b>must</b> only be used with a render pass instance compatible with the one provided. See <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-compatibility">Render Pass Compatibility</a> for more information. */
+    /** a handle to a render pass object describing the environment in which the pipeline will be used. The pipeline <b>must</b> only be used with a render pass instance compatible with the one provided. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-compatibility">Render Pass Compatibility</a> for more information. */
     @NativeType("VkRenderPass")
     public long renderPass() { return nrenderPass(address()); }
     /** the index of the subpass in the render pass where this pipeline will be used. */
@@ -104,14 +114,22 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
     public VkSubpassShadingPipelineCreateInfoHUAWEI sType$Default() { return sType(HUAWEISubpassShading.VK_STRUCTURE_TYPE_SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkSubpassShadingPipelineCreateInfoHUAWEI pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
+    /** Sets the specified value to the {@link #renderPass} field. */
+    public VkSubpassShadingPipelineCreateInfoHUAWEI renderPass(@NativeType("VkRenderPass") long value) { nrenderPass(address(), value); return this; }
+    /** Sets the specified value to the {@link #subpass} field. */
+    public VkSubpassShadingPipelineCreateInfoHUAWEI subpass(@NativeType("uint32_t") int value) { nsubpass(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkSubpassShadingPipelineCreateInfoHUAWEI set(
         int sType,
-        long pNext
+        long pNext,
+        long renderPass,
+        int subpass
     ) {
         sType(sType);
         pNext(pNext);
+        renderPass(renderPass);
+        subpass(subpass);
 
         return this;
     }
@@ -132,29 +150,29 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
 
     /** Returns a new {@code VkSubpassShadingPipelineCreateInfoHUAWEI} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI malloc() {
-        return wrap(VkSubpassShadingPipelineCreateInfoHUAWEI.class, nmemAllocChecked(SIZEOF));
+        return new VkSubpassShadingPipelineCreateInfoHUAWEI(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkSubpassShadingPipelineCreateInfoHUAWEI} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI calloc() {
-        return wrap(VkSubpassShadingPipelineCreateInfoHUAWEI.class, nmemCallocChecked(1, SIZEOF));
+        return new VkSubpassShadingPipelineCreateInfoHUAWEI(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkSubpassShadingPipelineCreateInfoHUAWEI} instance allocated with {@link BufferUtils}. */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkSubpassShadingPipelineCreateInfoHUAWEI.class, memAddress(container), container);
+        return new VkSubpassShadingPipelineCreateInfoHUAWEI(memAddress(container), container);
     }
 
     /** Returns a new {@code VkSubpassShadingPipelineCreateInfoHUAWEI} instance for the specified memory address. */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI create(long address) {
-        return wrap(VkSubpassShadingPipelineCreateInfoHUAWEI.class, address);
+        return new VkSubpassShadingPipelineCreateInfoHUAWEI(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSubpassShadingPipelineCreateInfoHUAWEI createSafe(long address) {
-        return address == NULL ? null : wrap(VkSubpassShadingPipelineCreateInfoHUAWEI.class, address);
+        return address == NULL ? null : new VkSubpassShadingPipelineCreateInfoHUAWEI(address, null);
     }
 
     /**
@@ -163,7 +181,7 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
      * @param capacity the buffer capacity
      */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -172,7 +190,7 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
      * @param capacity the buffer capacity
      */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -182,7 +200,7 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
      */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -192,13 +210,13 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
      * @param capacity the buffer capacity
      */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -207,7 +225,7 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
      * @param stack the stack from which to allocate
      */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI malloc(MemoryStack stack) {
-        return wrap(VkSubpassShadingPipelineCreateInfoHUAWEI.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkSubpassShadingPipelineCreateInfoHUAWEI(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -216,7 +234,7 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
      * @param stack the stack from which to allocate
      */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI calloc(MemoryStack stack) {
-        return wrap(VkSubpassShadingPipelineCreateInfoHUAWEI.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkSubpassShadingPipelineCreateInfoHUAWEI(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -226,7 +244,7 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
      * @param capacity the buffer capacity
      */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -236,7 +254,7 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
      * @param capacity the buffer capacity
      */
     public static VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -254,6 +272,10 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
     public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassShadingPipelineCreateInfoHUAWEI.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSubpassShadingPipelineCreateInfoHUAWEI.PNEXT, value); }
+    /** Unsafe version of {@link #renderPass(long) renderPass}. */
+    public static void nrenderPass(long struct, long value) { UNSAFE.putLong(null, struct + VkSubpassShadingPipelineCreateInfoHUAWEI.RENDERPASS, value); }
+    /** Unsafe version of {@link #subpass(int) subpass}. */
+    public static void nsubpass(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassShadingPipelineCreateInfoHUAWEI.SUBPASS, value); }
 
     // -----------------------------------
 
@@ -265,9 +287,9 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
         /**
          * Creates a new {@code VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSubpassShadingPipelineCreateInfoHUAWEI#SIZEOF}, and its mark will be undefined.
+         * by {@link VkSubpassShadingPipelineCreateInfoHUAWEI#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -312,6 +334,10 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct implements 
         public VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer sType$Default() { return sType(HUAWEISubpassShading.VK_STRUCTURE_TYPE_SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI); }
         /** Sets the specified value to the {@link VkSubpassShadingPipelineCreateInfoHUAWEI#pNext} field. */
         public VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer pNext(@NativeType("void *") long value) { VkSubpassShadingPipelineCreateInfoHUAWEI.npNext(address(), value); return this; }
+        /** Sets the specified value to the {@link VkSubpassShadingPipelineCreateInfoHUAWEI#renderPass} field. */
+        public VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer renderPass(@NativeType("VkRenderPass") long value) { VkSubpassShadingPipelineCreateInfoHUAWEI.nrenderPass(address(), value); return this; }
+        /** Sets the specified value to the {@link VkSubpassShadingPipelineCreateInfoHUAWEI#subpass} field. */
+        public VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer subpass(@NativeType("uint32_t") int value) { VkSubpassShadingPipelineCreateInfoHUAWEI.nsubpass(address(), value); return this; }
 
     }
 

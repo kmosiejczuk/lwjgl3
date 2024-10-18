@@ -17,25 +17,25 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure to chain codec-specific structures to.
- * 
- * <h5>Description</h5>
- * 
- * <p>The coded size of the encode operation is specified in {@code codedExtent} of {@code srcPictureResource}.</p>
- * 
- * <p>Multiple {@link KHRVideoEncodeQueue#vkCmdEncodeVideoKHR CmdEncodeVideoKHR} commands <b>may</b> be recorded within a Vulkan Video Encode Context. The execution of each {@link KHRVideoEncodeQueue#vkCmdEncodeVideoKHR CmdEncodeVideoKHR} command will result in generating codec-specific bitstream units. These bitstream units are generated consecutively into the bitstream buffer specified in {@code dstBuffer} of a {@link VkVideoEncodeInfoKHR} structure within the {@link KHRVideoQueue#vkCmdBeginVideoCodingKHR CmdBeginVideoCodingKHR} command. The produced bitstream is the sum of all these bitstream units, including any padding between the bitstream units. Any bitstream padding <b>must</b> be filled with data compliant to the codec standard so as not to cause any syntax errors during decoding of the bitstream units with the padding included. The range of the bitstream buffer written <b>can</b> be queried via <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#queries-video-encode-feedback">video encode feedback queries</a>.</p>
+ * Structure specifying video encode parameters.
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>The bound video session <b>must</b> not be in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-session-uninitialized">uninitialized</a> state at the time the command is executed on the device</li>
+ * <li>{@code dstBuffer} <b>must</b> have been created with {@link KHRVideoEncodeQueue#VK_BUFFER_USAGE_VIDEO_ENCODE_DST_BIT_KHR BUFFER_USAGE_VIDEO_ENCODE_DST_BIT_KHR} set</li>
+ * <li>{@code dstBufferOffset} <b>must</b> be less than the size of {@code dstBuffer}</li>
+ * <li>{@code dstBufferRange} <b>must</b> be less than or equal to the size of {@code dstBuffer} minus {@code dstBufferOffset}</li>
+ * <li>If {@code pSetupReferenceSlot} is not {@code NULL}, then its {@code slotIndex} member <b>must</b> not be negative</li>
+ * <li>If {@code pSetupReferenceSlot} is not {@code NULL}, then its {@code pPictureResource} <b>must</b> not be {@code NULL}</li>
+ * <li>The {@code slotIndex} member of each element of {@code pReferenceSlots} <b>must</b> not be negative</li>
+ * <li>The {@code pPictureResource} member of each element of {@code pReferenceSlots} <b>must</b> not be {@code NULL}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_INFO_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeH264VclFrameInfoEXT} or {@link VkVideoEncodeH265VclFrameInfoEXT}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeH264PictureInfoKHR}, {@link VkVideoEncodeH265PictureInfoKHR}, or {@link VkVideoInlineQueryInfoKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be 0</li>
  * <li>{@code dstBuffer} <b>must</b> be a valid {@code VkBuffer} handle</li>
@@ -55,7 +55,6 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkStructureType {@link #sType};
  *     void const * {@link #pNext};
  *     VkVideoEncodeFlagsKHR {@link #flags};
- *     uint32_t {@link #qualityLevel};
  *     VkBuffer {@link #dstBuffer};
  *     VkDeviceSize {@link #dstBufferOffset};
  *     VkDeviceSize {@link #dstBufferRange};
@@ -66,7 +65,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #precedingExternallyEncodedBytes};
  * }</code></pre>
  */
-public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
+public class VkVideoEncodeInfoKHR extends Struct<VkVideoEncodeInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -79,7 +78,6 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
         STYPE,
         PNEXT,
         FLAGS,
-        QUALITYLEVEL,
         DSTBUFFER,
         DSTBUFFEROFFSET,
         DSTBUFFERRANGE,
@@ -93,7 +91,6 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
         Layout layout = __struct(
             __member(4),
             __member(POINTER_SIZE),
-            __member(4),
             __member(4),
             __member(8),
             __member(8),
@@ -111,15 +108,23 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
         STYPE = layout.offsetof(0);
         PNEXT = layout.offsetof(1);
         FLAGS = layout.offsetof(2);
-        QUALITYLEVEL = layout.offsetof(3);
-        DSTBUFFER = layout.offsetof(4);
-        DSTBUFFEROFFSET = layout.offsetof(5);
-        DSTBUFFERRANGE = layout.offsetof(6);
-        SRCPICTURERESOURCE = layout.offsetof(7);
-        PSETUPREFERENCESLOT = layout.offsetof(8);
-        REFERENCESLOTCOUNT = layout.offsetof(9);
-        PREFERENCESLOTS = layout.offsetof(10);
-        PRECEDINGEXTERNALLYENCODEDBYTES = layout.offsetof(11);
+        DSTBUFFER = layout.offsetof(3);
+        DSTBUFFEROFFSET = layout.offsetof(4);
+        DSTBUFFERRANGE = layout.offsetof(5);
+        SRCPICTURERESOURCE = layout.offsetof(6);
+        PSETUPREFERENCESLOT = layout.offsetof(7);
+        REFERENCESLOTCOUNT = layout.offsetof(8);
+        PREFERENCESLOTS = layout.offsetof(9);
+        PRECEDINGEXTERNALLYENCODEDBYTES = layout.offsetof(10);
+    }
+
+    protected VkVideoEncodeInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkVideoEncodeInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkVideoEncodeInfoKHR(address, container);
     }
 
     /**
@@ -135,41 +140,38 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** a pointer to a structure extending this structure. A codec-specific extension structure <b>must</b> be chained to specify what bitstream unit to generate with this encode operation. */
+    /** a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** reserved for future use. */
     @NativeType("VkVideoEncodeFlagsKHR")
     public int flags() { return nflags(address()); }
-    /** the coding quality level of the encoding. It is defined by the codec-specific extensions. */
-    @NativeType("uint32_t")
-    public int qualityLevel() { return nqualityLevel(address()); }
     /** the destination video bitstream buffer to write the encoded bitstream to. */
     @NativeType("VkBuffer")
     public long dstBuffer() { return ndstBuffer(address()); }
-    /** the starting offset in bytes from the start of {@code dstBuffer} to write the encoded bitstream to. {@code dstBufferOffset}’s value <b>must</b> be aligned to {@link VkVideoCapabilitiesKHR}{@code ::minBitstreamBufferOffsetAlignment}, as reported by the implementation. */
+    /** the starting offset in bytes from the start of {@code dstBuffer} to write the encoded bitstream to. */
     @NativeType("VkDeviceSize")
     public long dstBufferOffset() { return ndstBufferOffset(address()); }
-    /** the maximum size in bytes of the encoded bitstream written to {@code dstBuffer}, starting from {@code dstBufferOffset}. {@code dstBufferRange}’s value <b>must</b> be aligned to {@link VkVideoCapabilitiesKHR}{@code ::minBitstreamBufferSizeAlignment}, as reported by the implementation. */
+    /** the maximum bitstream size in bytes that <b>can</b> be written to {@code dstBuffer}, starting from {@code dstBufferOffset}. */
     @NativeType("VkDeviceSize")
     public long dstBufferRange() { return ndstBufferRange(address()); }
-    /** the Picture Resource of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-input-picture">Input Picture</a> to be encoded by the operation. */
+    /** the video picture resource to use as the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-input-picture">encode input picture</a>. */
     public VkVideoPictureResourceInfoKHR srcPictureResource() { return nsrcPictureResource(address()); }
-    /** a pointer to a {@link VkVideoReferenceSlotInfoKHR} structure used for generating a reconstructed reference slot and Picture Resource. {@code pSetupReferenceSlot→slotIndex} specifies the slot index number to use as a target for producing the Reconstructed (DPB) data. {@code pSetupReferenceSlot} <b>must</b> be one of the entries provided in {@link VkVideoBeginCodingInfoKHR} via the {@code pReferenceSlots} within the {@link KHRVideoQueue#vkCmdBeginVideoCodingKHR CmdBeginVideoCodingKHR} command that established the Vulkan Video Encode Context for this command. */
+    /** {@code NULL} or a pointer to a {@link VkVideoReferenceSlotInfoKHR} structure specifying the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-reconstructed-picture-info">reconstructed picture information</a>. */
     @Nullable
     @NativeType("VkVideoReferenceSlotInfoKHR const *")
     public VkVideoReferenceSlotInfoKHR pSetupReferenceSlot() { return npSetupReferenceSlot(address()); }
-    /** the number of Reconstructed Reference Pictures that will be used when this encoding operation is executing. */
+    /** the number of elements in the {@code pReferenceSlots} array. */
     @NativeType("uint32_t")
     public int referenceSlotCount() { return nreferenceSlotCount(address()); }
-    /** {@code NULL} or a pointer to an array of {@link VkVideoReferenceSlotInfoKHR} structures that will be used when this encoding operation is executing. Each entry in {@code pReferenceSlots} <b>must</b> be one of the entries provided in {@link VkVideoBeginCodingInfoKHR} via the {@code pReferenceSlots} within the {@link KHRVideoQueue#vkCmdBeginVideoCodingKHR CmdBeginVideoCodingKHR} command that established the Vulkan Video Encode Context for this command. */
+    /** {@code NULL} or a pointer to an array of {@link VkVideoReferenceSlotInfoKHR} structures describing the DPB slots and corresponding <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#reference-picture">reference picture</a> resources to use in this video encode operation (the set of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#active-reference-pictures">active reference pictures</a>). */
     @Nullable
     @NativeType("VkVideoReferenceSlotInfoKHR const *")
     public VkVideoReferenceSlotInfoKHR.Buffer pReferenceSlots() { return npReferenceSlots(address()); }
-    /** the number of bytes externally encoded for insertion in the active video encode session overall bitstream prior to the bitstream that will be generated by the implementation for this instance of {@link VkVideoEncodeInfoKHR}. The value provided is used to update the implementation’s rate control algorithm for the rate control layer this instance of {@link VkVideoEncodeInfoKHR} belongs to, by accounting for the bitrate budget consumed by these externally encoded bytes. See {@link VkVideoEncodeRateControlInfoKHR} for additional information about encode rate control. */
+    /** the number of bytes externally encoded by the application to the video bitstream and is used to update the internal state of the implementation’s <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-rate-control">rate control</a> algorithm to account for the bitrate budget consumed by these externally encoded bytes. */
     @NativeType("uint32_t")
     public int precedingExternallyEncodedBytes() { return nprecedingExternallyEncodedBytes(address()); }
 
@@ -179,14 +181,14 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
     public VkVideoEncodeInfoKHR sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_VIDEO_ENCODE_INFO_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkVideoEncodeInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Prepends the specified {@link VkVideoEncodeH264VclFrameInfoEXT} value to the {@code pNext} chain. */
-    public VkVideoEncodeInfoKHR pNext(VkVideoEncodeH264VclFrameInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkVideoEncodeH265VclFrameInfoEXT} value to the {@code pNext} chain. */
-    public VkVideoEncodeInfoKHR pNext(VkVideoEncodeH265VclFrameInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH264PictureInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoEncodeInfoKHR pNext(VkVideoEncodeH264PictureInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH265PictureInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoEncodeInfoKHR pNext(VkVideoEncodeH265PictureInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoInlineQueryInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoEncodeInfoKHR pNext(VkVideoInlineQueryInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #flags} field. */
     public VkVideoEncodeInfoKHR flags(@NativeType("VkVideoEncodeFlagsKHR") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #qualityLevel} field. */
-    public VkVideoEncodeInfoKHR qualityLevel(@NativeType("uint32_t") int value) { nqualityLevel(address(), value); return this; }
     /** Sets the specified value to the {@link #dstBuffer} field. */
     public VkVideoEncodeInfoKHR dstBuffer(@NativeType("VkBuffer") long value) { ndstBuffer(address(), value); return this; }
     /** Sets the specified value to the {@link #dstBufferOffset} field. */
@@ -209,7 +211,6 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
         int sType,
         long pNext,
         int flags,
-        int qualityLevel,
         long dstBuffer,
         long dstBufferOffset,
         long dstBufferRange,
@@ -221,7 +222,6 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
         sType(sType);
         pNext(pNext);
         flags(flags);
-        qualityLevel(qualityLevel);
         dstBuffer(dstBuffer);
         dstBufferOffset(dstBufferOffset);
         dstBufferRange(dstBufferRange);
@@ -249,29 +249,29 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
 
     /** Returns a new {@code VkVideoEncodeInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVideoEncodeInfoKHR malloc() {
-        return wrap(VkVideoEncodeInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkVideoEncodeInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoEncodeInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVideoEncodeInfoKHR calloc() {
-        return wrap(VkVideoEncodeInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkVideoEncodeInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoEncodeInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkVideoEncodeInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkVideoEncodeInfoKHR.class, memAddress(container), container);
+        return new VkVideoEncodeInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkVideoEncodeInfoKHR} instance for the specified memory address. */
     public static VkVideoEncodeInfoKHR create(long address) {
-        return wrap(VkVideoEncodeInfoKHR.class, address);
+        return new VkVideoEncodeInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoEncodeInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkVideoEncodeInfoKHR.class, address);
+        return address == NULL ? null : new VkVideoEncodeInfoKHR(address, null);
     }
 
     /**
@@ -280,7 +280,7 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -289,7 +289,7 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -299,7 +299,7 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
      */
     public static VkVideoEncodeInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -309,13 +309,13 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoEncodeInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -324,7 +324,7 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkVideoEncodeInfoKHR malloc(MemoryStack stack) {
-        return wrap(VkVideoEncodeInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkVideoEncodeInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -333,7 +333,7 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkVideoEncodeInfoKHR calloc(MemoryStack stack) {
-        return wrap(VkVideoEncodeInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkVideoEncodeInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -343,7 +343,7 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -353,7 +353,7 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -364,8 +364,6 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
     public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeInfoKHR.FLAGS); }
-    /** Unsafe version of {@link #qualityLevel}. */
-    public static int nqualityLevel(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeInfoKHR.QUALITYLEVEL); }
     /** Unsafe version of {@link #dstBuffer}. */
     public static long ndstBuffer(long struct) { return UNSAFE.getLong(null, struct + VkVideoEncodeInfoKHR.DSTBUFFER); }
     /** Unsafe version of {@link #dstBufferOffset}. */
@@ -389,8 +387,6 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
     public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeInfoKHR.FLAGS, value); }
-    /** Unsafe version of {@link #qualityLevel(int) qualityLevel}. */
-    public static void nqualityLevel(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeInfoKHR.QUALITYLEVEL, value); }
     /** Unsafe version of {@link #dstBuffer(long) dstBuffer}. */
     public static void ndstBuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoEncodeInfoKHR.DSTBUFFER, value); }
     /** Unsafe version of {@link #dstBufferOffset(long) dstBufferOffset}. */
@@ -429,9 +425,9 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkVideoEncodeInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVideoEncodeInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkVideoEncodeInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -466,9 +462,6 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
         /** @return the value of the {@link VkVideoEncodeInfoKHR#flags} field. */
         @NativeType("VkVideoEncodeFlagsKHR")
         public int flags() { return VkVideoEncodeInfoKHR.nflags(address()); }
-        /** @return the value of the {@link VkVideoEncodeInfoKHR#qualityLevel} field. */
-        @NativeType("uint32_t")
-        public int qualityLevel() { return VkVideoEncodeInfoKHR.nqualityLevel(address()); }
         /** @return the value of the {@link VkVideoEncodeInfoKHR#dstBuffer} field. */
         @NativeType("VkBuffer")
         public long dstBuffer() { return VkVideoEncodeInfoKHR.ndstBuffer(address()); }
@@ -501,14 +494,14 @@ public class VkVideoEncodeInfoKHR extends Struct implements NativeResource {
         public VkVideoEncodeInfoKHR.Buffer sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_VIDEO_ENCODE_INFO_KHR); }
         /** Sets the specified value to the {@link VkVideoEncodeInfoKHR#pNext} field. */
         public VkVideoEncodeInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoEncodeInfoKHR.npNext(address(), value); return this; }
-        /** Prepends the specified {@link VkVideoEncodeH264VclFrameInfoEXT} value to the {@code pNext} chain. */
-        public VkVideoEncodeInfoKHR.Buffer pNext(VkVideoEncodeH264VclFrameInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkVideoEncodeH265VclFrameInfoEXT} value to the {@code pNext} chain. */
-        public VkVideoEncodeInfoKHR.Buffer pNext(VkVideoEncodeH265VclFrameInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH264PictureInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoEncodeInfoKHR.Buffer pNext(VkVideoEncodeH264PictureInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH265PictureInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoEncodeInfoKHR.Buffer pNext(VkVideoEncodeH265PictureInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoInlineQueryInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoEncodeInfoKHR.Buffer pNext(VkVideoInlineQueryInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkVideoEncodeInfoKHR#flags} field. */
         public VkVideoEncodeInfoKHR.Buffer flags(@NativeType("VkVideoEncodeFlagsKHR") int value) { VkVideoEncodeInfoKHR.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link VkVideoEncodeInfoKHR#qualityLevel} field. */
-        public VkVideoEncodeInfoKHR.Buffer qualityLevel(@NativeType("uint32_t") int value) { VkVideoEncodeInfoKHR.nqualityLevel(address(), value); return this; }
         /** Sets the specified value to the {@link VkVideoEncodeInfoKHR#dstBuffer} field. */
         public VkVideoEncodeInfoKHR.Buffer dstBuffer(@NativeType("VkBuffer") long value) { VkVideoEncodeInfoKHR.ndstBuffer(address(), value); return this; }
         /** Sets the specified value to the {@link VkVideoEncodeInfoKHR#dstBufferOffset} field. */

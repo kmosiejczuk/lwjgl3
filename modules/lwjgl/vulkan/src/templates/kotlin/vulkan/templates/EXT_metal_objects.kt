@@ -13,11 +13,10 @@ val EXT_metal_objects = "EXTMetalObjects".nativeClassVK("EXT_metal_objects", typ
         """
         In a Vulkan implementation that is layered on top of Metal on Apple device platforms, this extension provides the ability to import and export the underlying Metal objects associated with specific Vulkan objects.
 
-        As detailed in the <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_EXT_metal_objects.adoc">extension proposal document</a>, this extension adds one new Vulkan command, #ExportMetalObjectsEXT(), to export underlying Metal objects from Vulkan objects, and supports importing the appropriate existing Metal objects when creating Vulkan objects of types {@code VkDeviceMemory}, {@code VkImage}, {@code VkSemaphore}, and {@code VkEvent},
+        As detailed in the <a href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_EXT_metal_objects.adoc">extension proposal document</a>, this extension adds one new Vulkan command, #ExportMetalObjectsEXT(), to export underlying Metal objects from Vulkan objects, and supports importing the appropriate existing Metal objects when creating Vulkan objects of types {@code VkDeviceMemory}, {@code VkImage}, {@code VkSemaphore}, and {@code VkEvent},
 
         The intent is that this extension will be advertised and supported only on implementations that are layered on top of Metal on Apple device platforms.
 
-        <h5>VK_EXT_metal_objects</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_metal_objects}</dd>
@@ -29,21 +28,21 @@ val EXT_metal_objects = "EXTMetalObjects".nativeClassVK("EXT_metal_objects", typ
             <dd>312</dd>
 
             <dt><b>Revision</b></dt>
-            <dd>1</dd>
+            <dd>2</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Bill Hollings <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_metal_objects]%20@billhollings%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_metal_objects%20extension*">billhollings</a></li>
+                <li>Bill Hollings <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_metal_objects]%20@billhollings%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_metal_objects%20extension*">billhollings</a></li>
             </ul></dd>
 
             <dt><b>Extension Proposal</b></dt>
-            <dd><a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_EXT_metal_objects.adoc">VK_EXT_metal_objects</a></dd>
+            <dd><a href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_EXT_metal_objects.adoc">VK_EXT_metal_objects</a></dd>
         </dl>
 
         <h5>Other Extension Metadata</h5>
         <dl>
             <dt><b>Last Modified Date</b></dt>
-            <dd>2022-05-28</dd>
+            <dd>2024-04-04</dd>
 
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>
@@ -59,7 +58,7 @@ val EXT_metal_objects = "EXTMetalObjects".nativeClassVK("EXT_metal_objects", typ
     IntConstant(
         "The extension specification version.",
 
-        "EXT_METAL_OBJECTS_SPEC_VERSION".."1"
+        "EXT_METAL_OBJECTS_SPEC_VERSION".."2"
     )
 
     StringConstant(

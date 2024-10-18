@@ -33,6 +33,8 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float border_cursor;
  *     float rounding_cursor;
  *     {@link NkVec2 struct nk_vec2} padding;
+ *     float color_factor;
+ *     float disabled_factor;
  *     int show_buttons;
  *     {@link NkStyleButton struct nk_style_button} inc_button;
  *     {@link NkStyleButton struct nk_style_button} dec_button;
@@ -44,7 +46,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct nk_style_scrollbar")
-public class NkStyleScrollbar extends Struct implements NativeResource {
+public class NkStyleScrollbar extends Struct<NkStyleScrollbar> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -67,6 +69,8 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
         BORDER_CURSOR,
         ROUNDING_CURSOR,
         PADDING,
+        COLOR_FACTOR,
+        DISABLED_FACTOR,
         SHOW_BUTTONS,
         INC_BUTTON,
         DEC_BUTTON,
@@ -91,6 +95,8 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
             __member(4),
             __member(4),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
+            __member(4),
+            __member(4),
             __member(4),
             __member(NkStyleButton.SIZEOF, NkStyleButton.ALIGNOF),
             __member(NkStyleButton.SIZEOF, NkStyleButton.ALIGNOF),
@@ -117,14 +123,25 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
         BORDER_CURSOR = layout.offsetof(10);
         ROUNDING_CURSOR = layout.offsetof(11);
         PADDING = layout.offsetof(12);
-        SHOW_BUTTONS = layout.offsetof(13);
-        INC_BUTTON = layout.offsetof(14);
-        DEC_BUTTON = layout.offsetof(15);
-        INC_SYMBOL = layout.offsetof(16);
-        DEC_SYMBOL = layout.offsetof(17);
-        USERDATA = layout.offsetof(18);
-        DRAW_BEGIN = layout.offsetof(19);
-        DRAW_END = layout.offsetof(20);
+        COLOR_FACTOR = layout.offsetof(13);
+        DISABLED_FACTOR = layout.offsetof(14);
+        SHOW_BUTTONS = layout.offsetof(15);
+        INC_BUTTON = layout.offsetof(16);
+        DEC_BUTTON = layout.offsetof(17);
+        INC_SYMBOL = layout.offsetof(18);
+        DEC_SYMBOL = layout.offsetof(19);
+        USERDATA = layout.offsetof(20);
+        DRAW_BEGIN = layout.offsetof(21);
+        DRAW_END = layout.offsetof(22);
+    }
+
+    protected NkStyleScrollbar(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected NkStyleScrollbar create(long address, @Nullable ByteBuffer container) {
+        return new NkStyleScrollbar(address, container);
     }
 
     /**
@@ -175,6 +192,10 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
     /** @return a {@link NkVec2} view of the {@code padding} field. */
     @NativeType("struct nk_vec2")
     public NkVec2 padding() { return npadding(address()); }
+    /** @return the value of the {@code color_factor} field. */
+    public float color_factor() { return ncolor_factor(address()); }
+    /** @return the value of the {@code disabled_factor} field. */
+    public float disabled_factor() { return ndisabled_factor(address()); }
     /** @return the value of the {@code show_buttons} field. */
     public int show_buttons() { return nshow_buttons(address()); }
     /** @return a {@link NkStyleButton} view of the {@code inc_button} field. */
@@ -183,7 +204,7 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
     /** @return a {@link NkStyleButton} view of the {@code dec_button} field. */
     @NativeType("struct nk_style_button")
     public NkStyleButton dec_button() { return ndec_button(address()); }
-    /** one of:<br><table><tr><td>{@link Nuklear#NK_SYMBOL_NONE SYMBOL_NONE}</td><td>{@link Nuklear#NK_SYMBOL_X SYMBOL_X}</td><td>{@link Nuklear#NK_SYMBOL_UNDERSCORE SYMBOL_UNDERSCORE}</td><td>{@link Nuklear#NK_SYMBOL_CIRCLE_SOLID SYMBOL_CIRCLE_SOLID}</td><td>{@link Nuklear#NK_SYMBOL_CIRCLE_OUTLINE SYMBOL_CIRCLE_OUTLINE}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_RECT_SOLID SYMBOL_RECT_SOLID}</td><td>{@link Nuklear#NK_SYMBOL_RECT_OUTLINE SYMBOL_RECT_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_UP SYMBOL_TRIANGLE_UP}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_DOWN SYMBOL_TRIANGLE_DOWN}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_LEFT SYMBOL_TRIANGLE_LEFT}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_RIGHT SYMBOL_TRIANGLE_RIGHT}</td><td>{@link Nuklear#NK_SYMBOL_PLUS SYMBOL_PLUS}</td><td>{@link Nuklear#NK_SYMBOL_MINUS SYMBOL_MINUS}</td><td>{@link Nuklear#NK_SYMBOL_MAX SYMBOL_MAX}</td></tr></table> */
+    /** one of:<br><table><tr><td>{@link Nuklear#NK_SYMBOL_NONE SYMBOL_NONE}</td><td>{@link Nuklear#NK_SYMBOL_X SYMBOL_X}</td><td>{@link Nuklear#NK_SYMBOL_UNDERSCORE SYMBOL_UNDERSCORE}</td><td>{@link Nuklear#NK_SYMBOL_CIRCLE_SOLID SYMBOL_CIRCLE_SOLID}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_CIRCLE_OUTLINE SYMBOL_CIRCLE_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_RECT_SOLID SYMBOL_RECT_SOLID}</td><td>{@link Nuklear#NK_SYMBOL_RECT_OUTLINE SYMBOL_RECT_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_UP SYMBOL_TRIANGLE_UP}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_DOWN SYMBOL_TRIANGLE_DOWN}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_LEFT SYMBOL_TRIANGLE_LEFT}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_RIGHT SYMBOL_TRIANGLE_RIGHT}</td><td>{@link Nuklear#NK_SYMBOL_PLUS SYMBOL_PLUS}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_MINUS SYMBOL_MINUS}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_UP_OUTLINE SYMBOL_TRIANGLE_UP_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_DOWN_OUTLINE SYMBOL_TRIANGLE_DOWN_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_LEFT_OUTLINE SYMBOL_TRIANGLE_LEFT_OUTLINE}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_RIGHT_OUTLINE SYMBOL_TRIANGLE_RIGHT_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_MAX SYMBOL_MAX}</td></tr></table> */
     @NativeType("enum nk_symbol_type")
     public int inc_symbol() { return ninc_symbol(address()); }
     /** see {@code inc_symbol} */
@@ -245,6 +266,10 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
     public NkStyleScrollbar padding(@NativeType("struct nk_vec2") NkVec2 value) { npadding(address(), value); return this; }
     /** Passes the {@code padding} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NkStyleScrollbar padding(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(padding()); return this; }
+    /** Sets the specified value to the {@code color_factor} field. */
+    public NkStyleScrollbar color_factor(float value) { ncolor_factor(address(), value); return this; }
+    /** Sets the specified value to the {@code disabled_factor} field. */
+    public NkStyleScrollbar disabled_factor(float value) { ndisabled_factor(address(), value); return this; }
     /** Sets the specified value to the {@code show_buttons} field. */
     public NkStyleScrollbar show_buttons(int value) { nshow_buttons(address(), value); return this; }
     /** Copies the specified {@link NkStyleButton} to the {@code inc_button} field. */
@@ -283,6 +308,8 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
         float border_cursor,
         float rounding_cursor,
         NkVec2 padding,
+        float color_factor,
+        float disabled_factor,
         int show_buttons,
         NkStyleButton inc_button,
         NkStyleButton dec_button,
@@ -305,6 +332,8 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
         border_cursor(border_cursor);
         rounding_cursor(rounding_cursor);
         padding(padding);
+        color_factor(color_factor);
+        disabled_factor(disabled_factor);
         show_buttons(show_buttons);
         inc_button(inc_button);
         dec_button(dec_button);
@@ -333,29 +362,29 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
 
     /** Returns a new {@code NkStyleScrollbar} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static NkStyleScrollbar malloc() {
-        return wrap(NkStyleScrollbar.class, nmemAllocChecked(SIZEOF));
+        return new NkStyleScrollbar(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code NkStyleScrollbar} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static NkStyleScrollbar calloc() {
-        return wrap(NkStyleScrollbar.class, nmemCallocChecked(1, SIZEOF));
+        return new NkStyleScrollbar(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code NkStyleScrollbar} instance allocated with {@link BufferUtils}. */
     public static NkStyleScrollbar create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(NkStyleScrollbar.class, memAddress(container), container);
+        return new NkStyleScrollbar(memAddress(container), container);
     }
 
     /** Returns a new {@code NkStyleScrollbar} instance for the specified memory address. */
     public static NkStyleScrollbar create(long address) {
-        return wrap(NkStyleScrollbar.class, address);
+        return new NkStyleScrollbar(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkStyleScrollbar createSafe(long address) {
-        return address == NULL ? null : wrap(NkStyleScrollbar.class, address);
+        return address == NULL ? null : new NkStyleScrollbar(address, null);
     }
 
     /**
@@ -364,7 +393,7 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleScrollbar.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -373,7 +402,7 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleScrollbar.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -383,7 +412,7 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
      */
     public static NkStyleScrollbar.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -393,13 +422,13 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleScrollbar.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkStyleScrollbar.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -427,7 +456,7 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static NkStyleScrollbar malloc(MemoryStack stack) {
-        return wrap(NkStyleScrollbar.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new NkStyleScrollbar(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -436,7 +465,7 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static NkStyleScrollbar calloc(MemoryStack stack) {
-        return wrap(NkStyleScrollbar.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new NkStyleScrollbar(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -446,7 +475,7 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleScrollbar.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -456,7 +485,7 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleScrollbar.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -487,6 +516,10 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
     public static float nrounding_cursor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleScrollbar.ROUNDING_CURSOR); }
     /** Unsafe version of {@link #padding}. */
     public static NkVec2 npadding(long struct) { return NkVec2.create(struct + NkStyleScrollbar.PADDING); }
+    /** Unsafe version of {@link #color_factor}. */
+    public static float ncolor_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleScrollbar.COLOR_FACTOR); }
+    /** Unsafe version of {@link #disabled_factor}. */
+    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleScrollbar.DISABLED_FACTOR); }
     /** Unsafe version of {@link #show_buttons}. */
     public static int nshow_buttons(long struct) { return UNSAFE.getInt(null, struct + NkStyleScrollbar.SHOW_BUTTONS); }
     /** Unsafe version of {@link #inc_button}. */
@@ -530,6 +563,10 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
     public static void nrounding_cursor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleScrollbar.ROUNDING_CURSOR, value); }
     /** Unsafe version of {@link #padding(NkVec2) padding}. */
     public static void npadding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleScrollbar.PADDING, NkVec2.SIZEOF); }
+    /** Unsafe version of {@link #color_factor(float) color_factor}. */
+    public static void ncolor_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleScrollbar.COLOR_FACTOR, value); }
+    /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
+    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleScrollbar.DISABLED_FACTOR, value); }
     /** Unsafe version of {@link #show_buttons(int) show_buttons}. */
     public static void nshow_buttons(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleScrollbar.SHOW_BUTTONS, value); }
     /** Unsafe version of {@link #inc_button(NkStyleButton) inc_button}. */
@@ -557,9 +594,9 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
         /**
          * Creates a new {@code NkStyleScrollbar.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkStyleScrollbar#SIZEOF}, and its mark will be undefined.
+         * by {@link NkStyleScrollbar#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -620,6 +657,10 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
         /** @return a {@link NkVec2} view of the {@code padding} field. */
         @NativeType("struct nk_vec2")
         public NkVec2 padding() { return NkStyleScrollbar.npadding(address()); }
+        /** @return the value of the {@code color_factor} field. */
+        public float color_factor() { return NkStyleScrollbar.ncolor_factor(address()); }
+        /** @return the value of the {@code disabled_factor} field. */
+        public float disabled_factor() { return NkStyleScrollbar.ndisabled_factor(address()); }
         /** @return the value of the {@code show_buttons} field. */
         public int show_buttons() { return NkStyleScrollbar.nshow_buttons(address()); }
         /** @return a {@link NkStyleButton} view of the {@code inc_button} field. */
@@ -690,6 +731,10 @@ public class NkStyleScrollbar extends Struct implements NativeResource {
         public NkStyleScrollbar.Buffer padding(@NativeType("struct nk_vec2") NkVec2 value) { NkStyleScrollbar.npadding(address(), value); return this; }
         /** Passes the {@code padding} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NkStyleScrollbar.Buffer padding(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(padding()); return this; }
+        /** Sets the specified value to the {@code color_factor} field. */
+        public NkStyleScrollbar.Buffer color_factor(float value) { NkStyleScrollbar.ncolor_factor(address(), value); return this; }
+        /** Sets the specified value to the {@code disabled_factor} field. */
+        public NkStyleScrollbar.Buffer disabled_factor(float value) { NkStyleScrollbar.ndisabled_factor(address(), value); return this; }
         /** Sets the specified value to the {@code show_buttons} field. */
         public NkStyleScrollbar.Buffer show_buttons(int value) { NkStyleScrollbar.nshow_buttons(address(), value); return this; }
         /** Copies the specified {@link NkStyleButton} to the {@code inc_button} field. */

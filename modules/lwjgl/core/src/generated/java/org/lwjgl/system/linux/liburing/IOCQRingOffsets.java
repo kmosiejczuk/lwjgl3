@@ -28,11 +28,11 @@ import static org.lwjgl.system.MemoryStack.*;
  *     __u32 cqes;
  *     __u32 flags;
  *     __u32 resv1;
- *     __u64 resv2;
+ *     __u64 user_addr;
  * }</code></pre>
  */
 @NativeType("struct io_cqring_offsets")
-public class IOCQRingOffsets extends Struct implements NativeResource {
+public class IOCQRingOffsets extends Struct<IOCQRingOffsets> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -50,7 +50,7 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
         CQES,
         FLAGS,
         RESV1,
-        RESV2;
+        USER_ADDR;
 
     static {
         Layout layout = __struct(
@@ -76,7 +76,16 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
         CQES = layout.offsetof(5);
         FLAGS = layout.offsetof(6);
         RESV1 = layout.offsetof(7);
-        RESV2 = layout.offsetof(8);
+        USER_ADDR = layout.offsetof(8);
+    }
+
+    protected IOCQRingOffsets(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected IOCQRingOffsets create(long address, @Nullable ByteBuffer container) {
+        return new IOCQRingOffsets(address, container);
     }
 
     /**
@@ -113,6 +122,9 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
     /** @return the value of the {@code flags} field. */
     @NativeType("__u32")
     public int flags() { return nflags(address()); }
+    /** @return the value of the {@code user_addr} field. */
+    @NativeType("__u64")
+    public long user_addr() { return nuser_addr(address()); }
 
     /** Sets the specified value to the {@code head} field. */
     public IOCQRingOffsets head(@NativeType("__u32") int value) { nhead(address(), value); return this; }
@@ -128,6 +140,8 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
     public IOCQRingOffsets cqes(@NativeType("__u32") int value) { ncqes(address(), value); return this; }
     /** Sets the specified value to the {@code flags} field. */
     public IOCQRingOffsets flags(@NativeType("__u32") int value) { nflags(address(), value); return this; }
+    /** Sets the specified value to the {@code user_addr} field. */
+    public IOCQRingOffsets user_addr(@NativeType("__u64") long value) { nuser_addr(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOCQRingOffsets set(
@@ -137,7 +151,8 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
         int ring_entries,
         int overflow,
         int cqes,
-        int flags
+        int flags,
+        long user_addr
     ) {
         head(head);
         tail(tail);
@@ -146,6 +161,7 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
         overflow(overflow);
         cqes(cqes);
         flags(flags);
+        user_addr(user_addr);
 
         return this;
     }
@@ -166,29 +182,29 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
 
     /** Returns a new {@code IOCQRingOffsets} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static IOCQRingOffsets malloc() {
-        return wrap(IOCQRingOffsets.class, nmemAllocChecked(SIZEOF));
+        return new IOCQRingOffsets(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code IOCQRingOffsets} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static IOCQRingOffsets calloc() {
-        return wrap(IOCQRingOffsets.class, nmemCallocChecked(1, SIZEOF));
+        return new IOCQRingOffsets(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code IOCQRingOffsets} instance allocated with {@link BufferUtils}. */
     public static IOCQRingOffsets create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(IOCQRingOffsets.class, memAddress(container), container);
+        return new IOCQRingOffsets(memAddress(container), container);
     }
 
     /** Returns a new {@code IOCQRingOffsets} instance for the specified memory address. */
     public static IOCQRingOffsets create(long address) {
-        return wrap(IOCQRingOffsets.class, address);
+        return new IOCQRingOffsets(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOCQRingOffsets createSafe(long address) {
-        return address == NULL ? null : wrap(IOCQRingOffsets.class, address);
+        return address == NULL ? null : new IOCQRingOffsets(address, null);
     }
 
     /**
@@ -197,7 +213,7 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOCQRingOffsets.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -206,7 +222,7 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOCQRingOffsets.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -216,7 +232,7 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
      */
     public static IOCQRingOffsets.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -226,13 +242,13 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOCQRingOffsets.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOCQRingOffsets.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -241,7 +257,7 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOCQRingOffsets malloc(MemoryStack stack) {
-        return wrap(IOCQRingOffsets.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new IOCQRingOffsets(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -250,7 +266,7 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOCQRingOffsets calloc(MemoryStack stack) {
-        return wrap(IOCQRingOffsets.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new IOCQRingOffsets(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -260,7 +276,7 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOCQRingOffsets.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -270,7 +286,7 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOCQRingOffsets.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,7 +306,8 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
     /** Unsafe version of {@link #flags}. */
     public static int nflags(long struct) { return UNSAFE.getInt(null, struct + IOCQRingOffsets.FLAGS); }
     public static int nresv1(long struct) { return UNSAFE.getInt(null, struct + IOCQRingOffsets.RESV1); }
-    public static long nresv2(long struct) { return UNSAFE.getLong(null, struct + IOCQRingOffsets.RESV2); }
+    /** Unsafe version of {@link #user_addr}. */
+    public static long nuser_addr(long struct) { return UNSAFE.getLong(null, struct + IOCQRingOffsets.USER_ADDR); }
 
     /** Unsafe version of {@link #head(int) head}. */
     public static void nhead(long struct, int value) { UNSAFE.putInt(null, struct + IOCQRingOffsets.HEAD, value); }
@@ -307,7 +324,8 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
     /** Unsafe version of {@link #flags(int) flags}. */
     public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + IOCQRingOffsets.FLAGS, value); }
     public static void nresv1(long struct, int value) { UNSAFE.putInt(null, struct + IOCQRingOffsets.RESV1, value); }
-    public static void nresv2(long struct, long value) { UNSAFE.putLong(null, struct + IOCQRingOffsets.RESV2, value); }
+    /** Unsafe version of {@link #user_addr(long) user_addr}. */
+    public static void nuser_addr(long struct, long value) { UNSAFE.putLong(null, struct + IOCQRingOffsets.USER_ADDR, value); }
 
     // -----------------------------------
 
@@ -319,9 +337,9 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
         /**
          * Creates a new {@code IOCQRingOffsets.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link IOCQRingOffsets#SIZEOF}, and its mark will be undefined.
+         * by {@link IOCQRingOffsets#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -368,6 +386,9 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
         /** @return the value of the {@code flags} field. */
         @NativeType("__u32")
         public int flags() { return IOCQRingOffsets.nflags(address()); }
+        /** @return the value of the {@code user_addr} field. */
+        @NativeType("__u64")
+        public long user_addr() { return IOCQRingOffsets.nuser_addr(address()); }
 
         /** Sets the specified value to the {@code head} field. */
         public IOCQRingOffsets.Buffer head(@NativeType("__u32") int value) { IOCQRingOffsets.nhead(address(), value); return this; }
@@ -383,6 +404,8 @@ public class IOCQRingOffsets extends Struct implements NativeResource {
         public IOCQRingOffsets.Buffer cqes(@NativeType("__u32") int value) { IOCQRingOffsets.ncqes(address(), value); return this; }
         /** Sets the specified value to the {@code flags} field. */
         public IOCQRingOffsets.Buffer flags(@NativeType("__u32") int value) { IOCQRingOffsets.nflags(address(), value); return this; }
+        /** Sets the specified value to the {@code user_addr} field. */
+        public IOCQRingOffsets.Buffer user_addr(@NativeType("__u64") long value) { IOCQRingOffsets.nuser_addr(address(), value); return this; }
 
     }
 

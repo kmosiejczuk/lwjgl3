@@ -37,6 +37,8 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link NkVec2 struct nk_vec2} padding;
  *     {@link NkVec2 struct nk_vec2} spacing;
  *     {@link NkVec2 struct nk_vec2} cursor_size;
+ *     float color_factor;
+ *     float disabled_factor;
  *     int show_buttons;
  *     {@link NkStyleButton struct nk_style_button} inc_button;
  *     {@link NkStyleButton struct nk_style_button} dec_button;
@@ -48,7 +50,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct nk_style_slider")
-public class NkStyleSlider extends Struct implements NativeResource {
+public class NkStyleSlider extends Struct<NkStyleSlider> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -75,6 +77,8 @@ public class NkStyleSlider extends Struct implements NativeResource {
         PADDING,
         SPACING,
         CURSOR_SIZE,
+        COLOR_FACTOR,
+        DISABLED_FACTOR,
         SHOW_BUTTONS,
         INC_BUTTON,
         DEC_BUTTON,
@@ -103,6 +107,8 @@ public class NkStyleSlider extends Struct implements NativeResource {
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
+            __member(4),
+            __member(4),
             __member(4),
             __member(NkStyleButton.SIZEOF, NkStyleButton.ALIGNOF),
             __member(NkStyleButton.SIZEOF, NkStyleButton.ALIGNOF),
@@ -133,14 +139,25 @@ public class NkStyleSlider extends Struct implements NativeResource {
         PADDING = layout.offsetof(14);
         SPACING = layout.offsetof(15);
         CURSOR_SIZE = layout.offsetof(16);
-        SHOW_BUTTONS = layout.offsetof(17);
-        INC_BUTTON = layout.offsetof(18);
-        DEC_BUTTON = layout.offsetof(19);
-        INC_SYMBOL = layout.offsetof(20);
-        DEC_SYMBOL = layout.offsetof(21);
-        USERDATA = layout.offsetof(22);
-        DRAW_BEGIN = layout.offsetof(23);
-        DRAW_END = layout.offsetof(24);
+        COLOR_FACTOR = layout.offsetof(17);
+        DISABLED_FACTOR = layout.offsetof(18);
+        SHOW_BUTTONS = layout.offsetof(19);
+        INC_BUTTON = layout.offsetof(20);
+        DEC_BUTTON = layout.offsetof(21);
+        INC_SYMBOL = layout.offsetof(22);
+        DEC_SYMBOL = layout.offsetof(23);
+        USERDATA = layout.offsetof(24);
+        DRAW_BEGIN = layout.offsetof(25);
+        DRAW_END = layout.offsetof(26);
+    }
+
+    protected NkStyleSlider(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected NkStyleSlider create(long address, @Nullable ByteBuffer container) {
+        return new NkStyleSlider(address, container);
     }
 
     /**
@@ -204,6 +221,10 @@ public class NkStyleSlider extends Struct implements NativeResource {
     /** @return a {@link NkVec2} view of the {@code cursor_size} field. */
     @NativeType("struct nk_vec2")
     public NkVec2 cursor_size() { return ncursor_size(address()); }
+    /** @return the value of the {@code color_factor} field. */
+    public float color_factor() { return ncolor_factor(address()); }
+    /** @return the value of the {@code disabled_factor} field. */
+    public float disabled_factor() { return ndisabled_factor(address()); }
     /** @return the value of the {@code show_buttons} field. */
     public int show_buttons() { return nshow_buttons(address()); }
     /** @return a {@link NkStyleButton} view of the {@code inc_button} field. */
@@ -212,7 +233,7 @@ public class NkStyleSlider extends Struct implements NativeResource {
     /** @return a {@link NkStyleButton} view of the {@code dec_button} field. */
     @NativeType("struct nk_style_button")
     public NkStyleButton dec_button() { return ndec_button(address()); }
-    /** one of:<br><table><tr><td>{@link Nuklear#NK_SYMBOL_NONE SYMBOL_NONE}</td><td>{@link Nuklear#NK_SYMBOL_X SYMBOL_X}</td><td>{@link Nuklear#NK_SYMBOL_UNDERSCORE SYMBOL_UNDERSCORE}</td><td>{@link Nuklear#NK_SYMBOL_CIRCLE_SOLID SYMBOL_CIRCLE_SOLID}</td><td>{@link Nuklear#NK_SYMBOL_CIRCLE_OUTLINE SYMBOL_CIRCLE_OUTLINE}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_RECT_SOLID SYMBOL_RECT_SOLID}</td><td>{@link Nuklear#NK_SYMBOL_RECT_OUTLINE SYMBOL_RECT_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_UP SYMBOL_TRIANGLE_UP}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_DOWN SYMBOL_TRIANGLE_DOWN}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_LEFT SYMBOL_TRIANGLE_LEFT}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_RIGHT SYMBOL_TRIANGLE_RIGHT}</td><td>{@link Nuklear#NK_SYMBOL_PLUS SYMBOL_PLUS}</td><td>{@link Nuklear#NK_SYMBOL_MINUS SYMBOL_MINUS}</td><td>{@link Nuklear#NK_SYMBOL_MAX SYMBOL_MAX}</td></tr></table> */
+    /** one of:<br><table><tr><td>{@link Nuklear#NK_SYMBOL_NONE SYMBOL_NONE}</td><td>{@link Nuklear#NK_SYMBOL_X SYMBOL_X}</td><td>{@link Nuklear#NK_SYMBOL_UNDERSCORE SYMBOL_UNDERSCORE}</td><td>{@link Nuklear#NK_SYMBOL_CIRCLE_SOLID SYMBOL_CIRCLE_SOLID}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_CIRCLE_OUTLINE SYMBOL_CIRCLE_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_RECT_SOLID SYMBOL_RECT_SOLID}</td><td>{@link Nuklear#NK_SYMBOL_RECT_OUTLINE SYMBOL_RECT_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_UP SYMBOL_TRIANGLE_UP}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_DOWN SYMBOL_TRIANGLE_DOWN}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_LEFT SYMBOL_TRIANGLE_LEFT}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_RIGHT SYMBOL_TRIANGLE_RIGHT}</td><td>{@link Nuklear#NK_SYMBOL_PLUS SYMBOL_PLUS}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_MINUS SYMBOL_MINUS}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_UP_OUTLINE SYMBOL_TRIANGLE_UP_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_DOWN_OUTLINE SYMBOL_TRIANGLE_DOWN_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_LEFT_OUTLINE SYMBOL_TRIANGLE_LEFT_OUTLINE}</td></tr><tr><td>{@link Nuklear#NK_SYMBOL_TRIANGLE_RIGHT_OUTLINE SYMBOL_TRIANGLE_RIGHT_OUTLINE}</td><td>{@link Nuklear#NK_SYMBOL_MAX SYMBOL_MAX}</td></tr></table> */
     @NativeType("enum nk_symbol_type")
     public int inc_symbol() { return ninc_symbol(address()); }
     /** see {@code inc_symbol} */
@@ -292,6 +313,10 @@ public class NkStyleSlider extends Struct implements NativeResource {
     public NkStyleSlider cursor_size(@NativeType("struct nk_vec2") NkVec2 value) { ncursor_size(address(), value); return this; }
     /** Passes the {@code cursor_size} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NkStyleSlider cursor_size(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(cursor_size()); return this; }
+    /** Sets the specified value to the {@code color_factor} field. */
+    public NkStyleSlider color_factor(float value) { ncolor_factor(address(), value); return this; }
+    /** Sets the specified value to the {@code disabled_factor} field. */
+    public NkStyleSlider disabled_factor(float value) { ndisabled_factor(address(), value); return this; }
     /** Sets the specified value to the {@code show_buttons} field. */
     public NkStyleSlider show_buttons(int value) { nshow_buttons(address(), value); return this; }
     /** Copies the specified {@link NkStyleButton} to the {@code inc_button} field. */
@@ -334,6 +359,8 @@ public class NkStyleSlider extends Struct implements NativeResource {
         NkVec2 padding,
         NkVec2 spacing,
         NkVec2 cursor_size,
+        float color_factor,
+        float disabled_factor,
         int show_buttons,
         NkStyleButton inc_button,
         NkStyleButton dec_button,
@@ -360,6 +387,8 @@ public class NkStyleSlider extends Struct implements NativeResource {
         padding(padding);
         spacing(spacing);
         cursor_size(cursor_size);
+        color_factor(color_factor);
+        disabled_factor(disabled_factor);
         show_buttons(show_buttons);
         inc_button(inc_button);
         dec_button(dec_button);
@@ -388,29 +417,29 @@ public class NkStyleSlider extends Struct implements NativeResource {
 
     /** Returns a new {@code NkStyleSlider} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static NkStyleSlider malloc() {
-        return wrap(NkStyleSlider.class, nmemAllocChecked(SIZEOF));
+        return new NkStyleSlider(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code NkStyleSlider} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static NkStyleSlider calloc() {
-        return wrap(NkStyleSlider.class, nmemCallocChecked(1, SIZEOF));
+        return new NkStyleSlider(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code NkStyleSlider} instance allocated with {@link BufferUtils}. */
     public static NkStyleSlider create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(NkStyleSlider.class, memAddress(container), container);
+        return new NkStyleSlider(memAddress(container), container);
     }
 
     /** Returns a new {@code NkStyleSlider} instance for the specified memory address. */
     public static NkStyleSlider create(long address) {
-        return wrap(NkStyleSlider.class, address);
+        return new NkStyleSlider(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkStyleSlider createSafe(long address) {
-        return address == NULL ? null : wrap(NkStyleSlider.class, address);
+        return address == NULL ? null : new NkStyleSlider(address, null);
     }
 
     /**
@@ -419,7 +448,7 @@ public class NkStyleSlider extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleSlider.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -428,7 +457,7 @@ public class NkStyleSlider extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleSlider.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -438,7 +467,7 @@ public class NkStyleSlider extends Struct implements NativeResource {
      */
     public static NkStyleSlider.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -448,13 +477,13 @@ public class NkStyleSlider extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleSlider.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkStyleSlider.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -482,7 +511,7 @@ public class NkStyleSlider extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static NkStyleSlider malloc(MemoryStack stack) {
-        return wrap(NkStyleSlider.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new NkStyleSlider(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -491,7 +520,7 @@ public class NkStyleSlider extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static NkStyleSlider calloc(MemoryStack stack) {
-        return wrap(NkStyleSlider.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new NkStyleSlider(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -501,7 +530,7 @@ public class NkStyleSlider extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleSlider.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -511,7 +540,7 @@ public class NkStyleSlider extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static NkStyleSlider.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -550,6 +579,10 @@ public class NkStyleSlider extends Struct implements NativeResource {
     public static NkVec2 nspacing(long struct) { return NkVec2.create(struct + NkStyleSlider.SPACING); }
     /** Unsafe version of {@link #cursor_size}. */
     public static NkVec2 ncursor_size(long struct) { return NkVec2.create(struct + NkStyleSlider.CURSOR_SIZE); }
+    /** Unsafe version of {@link #color_factor}. */
+    public static float ncolor_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleSlider.COLOR_FACTOR); }
+    /** Unsafe version of {@link #disabled_factor}. */
+    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleSlider.DISABLED_FACTOR); }
     /** Unsafe version of {@link #show_buttons}. */
     public static int nshow_buttons(long struct) { return UNSAFE.getInt(null, struct + NkStyleSlider.SHOW_BUTTONS); }
     /** Unsafe version of {@link #inc_button}. */
@@ -601,6 +634,10 @@ public class NkStyleSlider extends Struct implements NativeResource {
     public static void nspacing(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleSlider.SPACING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #cursor_size(NkVec2) cursor_size}. */
     public static void ncursor_size(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleSlider.CURSOR_SIZE, NkVec2.SIZEOF); }
+    /** Unsafe version of {@link #color_factor(float) color_factor}. */
+    public static void ncolor_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleSlider.COLOR_FACTOR, value); }
+    /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
+    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleSlider.DISABLED_FACTOR, value); }
     /** Unsafe version of {@link #show_buttons(int) show_buttons}. */
     public static void nshow_buttons(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleSlider.SHOW_BUTTONS, value); }
     /** Unsafe version of {@link #inc_button(NkStyleButton) inc_button}. */
@@ -628,9 +665,9 @@ public class NkStyleSlider extends Struct implements NativeResource {
         /**
          * Creates a new {@code NkStyleSlider.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkStyleSlider#SIZEOF}, and its mark will be undefined.
+         * by {@link NkStyleSlider#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -704,6 +741,10 @@ public class NkStyleSlider extends Struct implements NativeResource {
         /** @return a {@link NkVec2} view of the {@code cursor_size} field. */
         @NativeType("struct nk_vec2")
         public NkVec2 cursor_size() { return NkStyleSlider.ncursor_size(address()); }
+        /** @return the value of the {@code color_factor} field. */
+        public float color_factor() { return NkStyleSlider.ncolor_factor(address()); }
+        /** @return the value of the {@code disabled_factor} field. */
+        public float disabled_factor() { return NkStyleSlider.ndisabled_factor(address()); }
         /** @return the value of the {@code show_buttons} field. */
         public int show_buttons() { return NkStyleSlider.nshow_buttons(address()); }
         /** @return a {@link NkStyleButton} view of the {@code inc_button} field. */
@@ -792,6 +833,10 @@ public class NkStyleSlider extends Struct implements NativeResource {
         public NkStyleSlider.Buffer cursor_size(@NativeType("struct nk_vec2") NkVec2 value) { NkStyleSlider.ncursor_size(address(), value); return this; }
         /** Passes the {@code cursor_size} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NkStyleSlider.Buffer cursor_size(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(cursor_size()); return this; }
+        /** Sets the specified value to the {@code color_factor} field. */
+        public NkStyleSlider.Buffer color_factor(float value) { NkStyleSlider.ncolor_factor(address(), value); return this; }
+        /** Sets the specified value to the {@code disabled_factor} field. */
+        public NkStyleSlider.Buffer disabled_factor(float value) { NkStyleSlider.ndisabled_factor(address(), value); return this; }
         /** Sets the specified value to the {@code show_buttons} field. */
         public NkStyleSlider.Buffer show_buttons(int value) { NkStyleSlider.nshow_buttons(address(), value); return this; }
         /** Copies the specified {@link NkStyleButton} to the {@code inc_button} field. */

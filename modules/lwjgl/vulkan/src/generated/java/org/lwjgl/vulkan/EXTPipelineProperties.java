@@ -14,7 +14,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Vulkan SC requires offline compilation of pipelines. In order to support this, the pipeline state is represented in a <a target="_blank" href="https://github.com/KhronosGroup/VulkanSC-Docs/wiki/JSON-schema">JSON schema</a> that is read by an offline tool for compilation.
+ * Vulkan SC requires offline compilation of pipelines. In order to support this, the pipeline state is represented in a <a href="https://github.com/KhronosGroup/VulkanSC-Docs/wiki/JSON-schema">JSON schema</a> that is read by an offline tool for compilation.
  * 
  * <p>One method of developing a Vulkan SC application is to author a Vulkan application and use a layer to record and serialize the pipeline state and shaders for offline compilation. Each pipeline is represented by a separate JSON file, and can be identified with a {@code pipelineIdentifier}.</p>
  * 
@@ -23,8 +23,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <p>This extension allows the Vulkan application to query the {@code pipelineIdentifier} associated with each pipeline so that the application can store this with its pipeline metadata and the Vulkan SC application will then use to map the same state to an entry in the Vulkan SC pipeline cache.</p>
  * 
  * <p>It is expected that this extension will initially be implemented in the json generation layer, although we can envision that there might be future uses for it in native Vulkan drivers as well.</p>
- * 
- * <h5>VK_EXT_pipeline_properties</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -36,10 +34,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Mukund Keshava <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_pipeline_properties]%20@mkeshavanv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_pipeline_properties%20extension*">mkeshavanv</a></li>
+ * <li>Mukund Keshava <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_pipeline_properties]%20@mkeshavanv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_pipeline_properties%20extension*">mkeshavanv</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -117,9 +115,9 @@ public class EXTPipelineProperties {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The {@code pipeline} member of {@code pPipelineInfo} must have been created with {@code device}</li>
+     * <li>The {@code pipeline} member of {@code pPipelineInfo} <b>must</b> have been created with {@code device}</li>
      * <li>{@code pPipelineProperties} <b>must</b> be a valid pointer to a {@link VkPipelinePropertiesIdentifierEXT} structure</li>
-     * <li>The <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelinePropertiesIdentifier">{@code pipelinePropertiesIdentifier}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelinePropertiesIdentifier">{@code pipelinePropertiesIdentifier}</a> feature <b>must</b> be enabled</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>

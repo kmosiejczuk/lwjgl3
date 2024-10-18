@@ -8,8 +8,6 @@ package org.lwjgl.vulkan;
 /**
  * This extension removes the {@link VkViewport} {@code minDepth} and {@code maxDepth} restrictions that the values must be between {@code 0.0} and {@code 1.0}, inclusive. It also removes the same restriction on {@link VkPipelineDepthStencilStateCreateInfo} {@code minDepthBounds} and {@code maxDepthBounds}. Finally it removes the restriction on the {@code depth} value in {@link VkClearDepthStencilValue}.
  * 
- * <h5>VK_EXT_depth_range_unrestricted</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_depth_range_unrestricted}</dd>
@@ -21,7 +19,7 @@ package org.lwjgl.vulkan;
  * <dd>1</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Piers Daniell <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_depth_range_unrestricted]%20@pdaniell-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_depth_range_unrestricted%20extension*">pdaniell-nv</a></li>
+ * <li>Piers Daniell <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_depth_range_unrestricted]%20@pdaniell-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_depth_range_unrestricted%20extension*">pdaniell-nv</a></li>
  * </ul></dd>
  * </dl>
  * 

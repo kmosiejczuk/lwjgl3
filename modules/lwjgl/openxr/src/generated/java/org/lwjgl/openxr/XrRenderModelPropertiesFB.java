@@ -32,7 +32,7 @@ import static org.lwjgl.openxr.FBRenderModel.*;
  * <ul>
  * <li>The {@link FBRenderModel XR_FB_render_model} extension <b>must</b> be enabled prior to using {@link XrRenderModelPropertiesFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBRenderModel#XR_TYPE_RENDER_MODEL_PROPERTIES_FB TYPE_RENDER_MODEL_PROPERTIES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrRenderModelCapabilitiesRequestFB}</li>
  * <li>{@code modelName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link FBRenderModel#XR_MAX_RENDER_MODEL_NAME_SIZE_FB MAX_RENDER_MODEL_NAME_SIZE_FB}</li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code XrRenderModelFlagBitsFB} values</li>
  * <li>{@code flags} <b>must</b> not be 0</li>
@@ -55,7 +55,7 @@ import static org.lwjgl.openxr.FBRenderModel.*;
  *     XrRenderModelFlagsFB {@link #flags};
  * }</code></pre>
  */
-public class XrRenderModelPropertiesFB extends Struct implements NativeResource {
+public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -94,6 +94,15 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
         MODELKEY = layout.offsetof(4);
         MODELVERSION = layout.offsetof(5);
         FLAGS = layout.offsetof(6);
+    }
+
+    protected XrRenderModelPropertiesFB(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrRenderModelPropertiesFB create(long address, @Nullable ByteBuffer container) {
+        return new XrRenderModelPropertiesFB(address, container);
     }
 
     /**
@@ -140,6 +149,8 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
     public XrRenderModelPropertiesFB type$Default() { return type(FBRenderModel.XR_TYPE_RENDER_MODEL_PROPERTIES_FB); }
     /** Sets the specified value to the {@link #next} field. */
     public XrRenderModelPropertiesFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
+    /** Prepends the specified {@link XrRenderModelCapabilitiesRequestFB} value to the {@code next} chain. */
+    public XrRenderModelPropertiesFB next(XrRenderModelCapabilitiesRequestFB value) { return this.next(value.next(this.next()).address()); }
     /** Sets the specified value to the {@link #vendorId} field. */
     public XrRenderModelPropertiesFB vendorId(@NativeType("uint32_t") int value) { nvendorId(address(), value); return this; }
     /** Copies the specified encoded string to the {@link #modelName} field. */
@@ -188,29 +199,29 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
 
     /** Returns a new {@code XrRenderModelPropertiesFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrRenderModelPropertiesFB malloc() {
-        return wrap(XrRenderModelPropertiesFB.class, nmemAllocChecked(SIZEOF));
+        return new XrRenderModelPropertiesFB(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrRenderModelPropertiesFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrRenderModelPropertiesFB calloc() {
-        return wrap(XrRenderModelPropertiesFB.class, nmemCallocChecked(1, SIZEOF));
+        return new XrRenderModelPropertiesFB(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrRenderModelPropertiesFB} instance allocated with {@link BufferUtils}. */
     public static XrRenderModelPropertiesFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrRenderModelPropertiesFB.class, memAddress(container), container);
+        return new XrRenderModelPropertiesFB(memAddress(container), container);
     }
 
     /** Returns a new {@code XrRenderModelPropertiesFB} instance for the specified memory address. */
     public static XrRenderModelPropertiesFB create(long address) {
-        return wrap(XrRenderModelPropertiesFB.class, address);
+        return new XrRenderModelPropertiesFB(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrRenderModelPropertiesFB createSafe(long address) {
-        return address == NULL ? null : wrap(XrRenderModelPropertiesFB.class, address);
+        return address == NULL ? null : new XrRenderModelPropertiesFB(address, null);
     }
 
     /**
@@ -219,7 +230,7 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static XrRenderModelPropertiesFB.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -228,7 +239,7 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static XrRenderModelPropertiesFB.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -238,7 +249,7 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
      */
     public static XrRenderModelPropertiesFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -248,13 +259,13 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static XrRenderModelPropertiesFB.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrRenderModelPropertiesFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -263,7 +274,7 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static XrRenderModelPropertiesFB malloc(MemoryStack stack) {
-        return wrap(XrRenderModelPropertiesFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrRenderModelPropertiesFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -272,7 +283,7 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static XrRenderModelPropertiesFB calloc(MemoryStack stack) {
-        return wrap(XrRenderModelPropertiesFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrRenderModelPropertiesFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -282,7 +293,7 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static XrRenderModelPropertiesFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -292,7 +303,7 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static XrRenderModelPropertiesFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -345,9 +356,9 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
         /**
          * Creates a new {@code XrRenderModelPropertiesFB.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrRenderModelPropertiesFB#SIZEOF}, and its mark will be undefined.
+         * by {@link XrRenderModelPropertiesFB#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -404,6 +415,8 @@ public class XrRenderModelPropertiesFB extends Struct implements NativeResource 
         public XrRenderModelPropertiesFB.Buffer type$Default() { return type(FBRenderModel.XR_TYPE_RENDER_MODEL_PROPERTIES_FB); }
         /** Sets the specified value to the {@link XrRenderModelPropertiesFB#next} field. */
         public XrRenderModelPropertiesFB.Buffer next(@NativeType("void *") long value) { XrRenderModelPropertiesFB.nnext(address(), value); return this; }
+        /** Prepends the specified {@link XrRenderModelCapabilitiesRequestFB} value to the {@code next} chain. */
+        public XrRenderModelPropertiesFB.Buffer next(XrRenderModelCapabilitiesRequestFB value) { return this.next(value.next(this.next()).address()); }
         /** Sets the specified value to the {@link XrRenderModelPropertiesFB#vendorId} field. */
         public XrRenderModelPropertiesFB.Buffer vendorId(@NativeType("uint32_t") int value) { XrRenderModelPropertiesFB.nvendorId(address(), value); return this; }
         /** Copies the specified encoded string to the {@link XrRenderModelPropertiesFB#modelName} field. */

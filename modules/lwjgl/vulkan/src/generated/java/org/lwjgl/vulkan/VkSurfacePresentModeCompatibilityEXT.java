@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If {@code pPresentModes} is {@code NULL}, then the number of present modes that are compatible with the one specified in {@link VkSurfacePresentModeEXT} is returned in {@code presentModeCount}. Otherwise, {@code presentModeCount} must be set by the user to the number of elements in the {@code pPresentModes} array, and on return the variable is overwritten with the number of values actually written to {@code pPresentModes}. If the value of {@code presentModeCount} is less than the number of compatible present modes that are supported, at most {@code presentModeCount} values will be written to {@code pPresentModes}. The implementation <b>must</b> include the present mode passed to {@link VkSurfacePresentModeEXT} in {@code pPresentModes}, unless {@code presentModeCount} is zero.</p>
+ * <p>If {@code pPresentModes} is {@code NULL}, then the number of present modes that are compatible with the one specified in {@link VkSurfacePresentModeEXT} is returned in {@code presentModeCount}. Otherwise, {@code presentModeCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pPresentModes} array, and on return the variable is overwritten with the number of values actually written to {@code pPresentModes}. If the value of {@code presentModeCount} is less than the number of compatible present modes that are supported, at most {@code presentModeCount} values will be written to {@code pPresentModes}. The implementation <b>must</b> include the present mode passed to {@link VkSurfacePresentModeEXT} in {@code pPresentModes}, unless {@code presentModeCount} is zero.</p>
  * 
  * <p>Before creating a swapchain whose present modes <b>can</b> be modified through the use of {@link VkSwapchainPresentModesCreateInfoEXT}, obtain the set of present modes compatible with a given initial present mode by including a {@link VkSurfacePresentModeEXT} structure in the {@code pNext} chain of {@link VkPhysicalDeviceSurfaceInfo2KHR} when calling {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceCapabilities2KHR GetPhysicalDeviceSurfaceCapabilities2KHR}.</p>
  * 
@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkPresentModeKHR * {@link #pPresentModes};
  * }</code></pre>
  */
-public class VkSurfacePresentModeCompatibilityEXT extends Struct implements NativeResource {
+public class VkSurfacePresentModeCompatibilityEXT extends Struct<VkSurfacePresentModeCompatibilityEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -73,6 +73,15 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
         PPRESENTMODES = layout.offsetof(3);
     }
 
+    protected VkSurfacePresentModeCompatibilityEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkSurfacePresentModeCompatibilityEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkSurfacePresentModeCompatibilityEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkSurfacePresentModeCompatibilityEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -86,7 +95,7 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -142,29 +151,29 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
 
     /** Returns a new {@code VkSurfacePresentModeCompatibilityEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSurfacePresentModeCompatibilityEXT malloc() {
-        return wrap(VkSurfacePresentModeCompatibilityEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkSurfacePresentModeCompatibilityEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkSurfacePresentModeCompatibilityEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSurfacePresentModeCompatibilityEXT calloc() {
-        return wrap(VkSurfacePresentModeCompatibilityEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkSurfacePresentModeCompatibilityEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkSurfacePresentModeCompatibilityEXT} instance allocated with {@link BufferUtils}. */
     public static VkSurfacePresentModeCompatibilityEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkSurfacePresentModeCompatibilityEXT.class, memAddress(container), container);
+        return new VkSurfacePresentModeCompatibilityEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkSurfacePresentModeCompatibilityEXT} instance for the specified memory address. */
     public static VkSurfacePresentModeCompatibilityEXT create(long address) {
-        return wrap(VkSurfacePresentModeCompatibilityEXT.class, address);
+        return new VkSurfacePresentModeCompatibilityEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfacePresentModeCompatibilityEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkSurfacePresentModeCompatibilityEXT.class, address);
+        return address == NULL ? null : new VkSurfacePresentModeCompatibilityEXT(address, null);
     }
 
     /**
@@ -173,7 +182,7 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkSurfacePresentModeCompatibilityEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -182,7 +191,7 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkSurfacePresentModeCompatibilityEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -192,7 +201,7 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
      */
     public static VkSurfacePresentModeCompatibilityEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -202,13 +211,13 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkSurfacePresentModeCompatibilityEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfacePresentModeCompatibilityEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -217,7 +226,7 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkSurfacePresentModeCompatibilityEXT malloc(MemoryStack stack) {
-        return wrap(VkSurfacePresentModeCompatibilityEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkSurfacePresentModeCompatibilityEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -226,7 +235,7 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkSurfacePresentModeCompatibilityEXT calloc(MemoryStack stack) {
-        return wrap(VkSurfacePresentModeCompatibilityEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkSurfacePresentModeCompatibilityEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -236,7 +245,7 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkSurfacePresentModeCompatibilityEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -246,7 +255,7 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkSurfacePresentModeCompatibilityEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -279,9 +288,9 @@ public class VkSurfacePresentModeCompatibilityEXT extends Struct implements Nati
         /**
          * Creates a new {@code VkSurfacePresentModeCompatibilityEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSurfacePresentModeCompatibilityEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkSurfacePresentModeCompatibilityEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

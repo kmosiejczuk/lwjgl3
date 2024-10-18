@@ -21,14 +21,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * <pre><code>
  * struct StdVideoEncodeH264ReferenceInfo {
  *     {@link StdVideoEncodeH264ReferenceInfoFlags StdVideoEncodeH264ReferenceInfoFlags} flags;
- *     StdVideoH264PictureType pictureType;
+ *     StdVideoH264PictureType primary_pic_type;
  *     uint32_t FrameNum;
  *     int32_t PicOrderCnt;
  *     uint16_t long_term_pic_num;
  *     uint16_t long_term_frame_idx;
+ *     uint8_t temporal_id;
  * }</code></pre>
  */
-public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeResource {
+public class StdVideoEncodeH264ReferenceInfo extends Struct<StdVideoEncodeH264ReferenceInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -39,11 +40,12 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
     /** The struct member offsets. */
     public static final int
         FLAGS,
-        PICTURETYPE,
+        PRIMARY_PIC_TYPE,
         FRAMENUM,
         PICORDERCNT,
         LONG_TERM_PIC_NUM,
-        LONG_TERM_FRAME_IDX;
+        LONG_TERM_FRAME_IDX,
+        TEMPORAL_ID;
 
     static {
         Layout layout = __struct(
@@ -52,18 +54,29 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
             __member(4),
             __member(4),
             __member(2),
-            __member(2)
+            __member(2),
+            __member(1)
         );
 
         SIZEOF = layout.getSize();
         ALIGNOF = layout.getAlignment();
 
         FLAGS = layout.offsetof(0);
-        PICTURETYPE = layout.offsetof(1);
+        PRIMARY_PIC_TYPE = layout.offsetof(1);
         FRAMENUM = layout.offsetof(2);
         PICORDERCNT = layout.offsetof(3);
         LONG_TERM_PIC_NUM = layout.offsetof(4);
         LONG_TERM_FRAME_IDX = layout.offsetof(5);
+        TEMPORAL_ID = layout.offsetof(6);
+    }
+
+    protected StdVideoEncodeH264ReferenceInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected StdVideoEncodeH264ReferenceInfo create(long address, @Nullable ByteBuffer container) {
+        return new StdVideoEncodeH264ReferenceInfo(address, container);
     }
 
     /**
@@ -81,9 +94,9 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
 
     /** @return a {@link StdVideoEncodeH264ReferenceInfoFlags} view of the {@code flags} field. */
     public StdVideoEncodeH264ReferenceInfoFlags flags() { return nflags(address()); }
-    /** @return the value of the {@code pictureType} field. */
+    /** @return the value of the {@code primary_pic_type} field. */
     @NativeType("StdVideoH264PictureType")
-    public int pictureType() { return npictureType(address()); }
+    public int primary_pic_type() { return nprimary_pic_type(address()); }
     /** @return the value of the {@code FrameNum} field. */
     @NativeType("uint32_t")
     public int FrameNum() { return nFrameNum(address()); }
@@ -96,13 +109,16 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
     /** @return the value of the {@code long_term_frame_idx} field. */
     @NativeType("uint16_t")
     public short long_term_frame_idx() { return nlong_term_frame_idx(address()); }
+    /** @return the value of the {@code temporal_id} field. */
+    @NativeType("uint8_t")
+    public byte temporal_id() { return ntemporal_id(address()); }
 
     /** Copies the specified {@link StdVideoEncodeH264ReferenceInfoFlags} to the {@code flags} field. */
     public StdVideoEncodeH264ReferenceInfo flags(StdVideoEncodeH264ReferenceInfoFlags value) { nflags(address(), value); return this; }
     /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
     public StdVideoEncodeH264ReferenceInfo flags(java.util.function.Consumer<StdVideoEncodeH264ReferenceInfoFlags> consumer) { consumer.accept(flags()); return this; }
-    /** Sets the specified value to the {@code pictureType} field. */
-    public StdVideoEncodeH264ReferenceInfo pictureType(@NativeType("StdVideoH264PictureType") int value) { npictureType(address(), value); return this; }
+    /** Sets the specified value to the {@code primary_pic_type} field. */
+    public StdVideoEncodeH264ReferenceInfo primary_pic_type(@NativeType("StdVideoH264PictureType") int value) { nprimary_pic_type(address(), value); return this; }
     /** Sets the specified value to the {@code FrameNum} field. */
     public StdVideoEncodeH264ReferenceInfo FrameNum(@NativeType("uint32_t") int value) { nFrameNum(address(), value); return this; }
     /** Sets the specified value to the {@code PicOrderCnt} field. */
@@ -111,22 +127,26 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
     public StdVideoEncodeH264ReferenceInfo long_term_pic_num(@NativeType("uint16_t") short value) { nlong_term_pic_num(address(), value); return this; }
     /** Sets the specified value to the {@code long_term_frame_idx} field. */
     public StdVideoEncodeH264ReferenceInfo long_term_frame_idx(@NativeType("uint16_t") short value) { nlong_term_frame_idx(address(), value); return this; }
+    /** Sets the specified value to the {@code temporal_id} field. */
+    public StdVideoEncodeH264ReferenceInfo temporal_id(@NativeType("uint8_t") byte value) { ntemporal_id(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public StdVideoEncodeH264ReferenceInfo set(
         StdVideoEncodeH264ReferenceInfoFlags flags,
-        int pictureType,
+        int primary_pic_type,
         int FrameNum,
         int PicOrderCnt,
         short long_term_pic_num,
-        short long_term_frame_idx
+        short long_term_frame_idx,
+        byte temporal_id
     ) {
         flags(flags);
-        pictureType(pictureType);
+        primary_pic_type(primary_pic_type);
         FrameNum(FrameNum);
         PicOrderCnt(PicOrderCnt);
         long_term_pic_num(long_term_pic_num);
         long_term_frame_idx(long_term_frame_idx);
+        temporal_id(temporal_id);
 
         return this;
     }
@@ -147,29 +167,29 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
 
     /** Returns a new {@code StdVideoEncodeH264ReferenceInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static StdVideoEncodeH264ReferenceInfo malloc() {
-        return wrap(StdVideoEncodeH264ReferenceInfo.class, nmemAllocChecked(SIZEOF));
+        return new StdVideoEncodeH264ReferenceInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code StdVideoEncodeH264ReferenceInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static StdVideoEncodeH264ReferenceInfo calloc() {
-        return wrap(StdVideoEncodeH264ReferenceInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new StdVideoEncodeH264ReferenceInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code StdVideoEncodeH264ReferenceInfo} instance allocated with {@link BufferUtils}. */
     public static StdVideoEncodeH264ReferenceInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(StdVideoEncodeH264ReferenceInfo.class, memAddress(container), container);
+        return new StdVideoEncodeH264ReferenceInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code StdVideoEncodeH264ReferenceInfo} instance for the specified memory address. */
     public static StdVideoEncodeH264ReferenceInfo create(long address) {
-        return wrap(StdVideoEncodeH264ReferenceInfo.class, address);
+        return new StdVideoEncodeH264ReferenceInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoEncodeH264ReferenceInfo createSafe(long address) {
-        return address == NULL ? null : wrap(StdVideoEncodeH264ReferenceInfo.class, address);
+        return address == NULL ? null : new StdVideoEncodeH264ReferenceInfo(address, null);
     }
 
     /**
@@ -178,7 +198,7 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264ReferenceInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -187,7 +207,7 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264ReferenceInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -197,7 +217,7 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
      */
     public static StdVideoEncodeH264ReferenceInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -207,13 +227,13 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264ReferenceInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoEncodeH264ReferenceInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -222,7 +242,7 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static StdVideoEncodeH264ReferenceInfo malloc(MemoryStack stack) {
-        return wrap(StdVideoEncodeH264ReferenceInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new StdVideoEncodeH264ReferenceInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -231,7 +251,7 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static StdVideoEncodeH264ReferenceInfo calloc(MemoryStack stack) {
-        return wrap(StdVideoEncodeH264ReferenceInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new StdVideoEncodeH264ReferenceInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -241,7 +261,7 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264ReferenceInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -251,15 +271,15 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264ReferenceInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #flags}. */
     public static StdVideoEncodeH264ReferenceInfoFlags nflags(long struct) { return StdVideoEncodeH264ReferenceInfoFlags.create(struct + StdVideoEncodeH264ReferenceInfo.FLAGS); }
-    /** Unsafe version of {@link #pictureType}. */
-    public static int npictureType(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH264ReferenceInfo.PICTURETYPE); }
+    /** Unsafe version of {@link #primary_pic_type}. */
+    public static int nprimary_pic_type(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH264ReferenceInfo.PRIMARY_PIC_TYPE); }
     /** Unsafe version of {@link #FrameNum}. */
     public static int nFrameNum(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH264ReferenceInfo.FRAMENUM); }
     /** Unsafe version of {@link #PicOrderCnt}. */
@@ -268,11 +288,13 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
     public static short nlong_term_pic_num(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH264ReferenceInfo.LONG_TERM_PIC_NUM); }
     /** Unsafe version of {@link #long_term_frame_idx}. */
     public static short nlong_term_frame_idx(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH264ReferenceInfo.LONG_TERM_FRAME_IDX); }
+    /** Unsafe version of {@link #temporal_id}. */
+    public static byte ntemporal_id(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH264ReferenceInfo.TEMPORAL_ID); }
 
     /** Unsafe version of {@link #flags(StdVideoEncodeH264ReferenceInfoFlags) flags}. */
     public static void nflags(long struct, StdVideoEncodeH264ReferenceInfoFlags value) { memCopy(value.address(), struct + StdVideoEncodeH264ReferenceInfo.FLAGS, StdVideoEncodeH264ReferenceInfoFlags.SIZEOF); }
-    /** Unsafe version of {@link #pictureType(int) pictureType}. */
-    public static void npictureType(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH264ReferenceInfo.PICTURETYPE, value); }
+    /** Unsafe version of {@link #primary_pic_type(int) primary_pic_type}. */
+    public static void nprimary_pic_type(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH264ReferenceInfo.PRIMARY_PIC_TYPE, value); }
     /** Unsafe version of {@link #FrameNum(int) FrameNum}. */
     public static void nFrameNum(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH264ReferenceInfo.FRAMENUM, value); }
     /** Unsafe version of {@link #PicOrderCnt(int) PicOrderCnt}. */
@@ -281,6 +303,8 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
     public static void nlong_term_pic_num(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH264ReferenceInfo.LONG_TERM_PIC_NUM, value); }
     /** Unsafe version of {@link #long_term_frame_idx(short) long_term_frame_idx}. */
     public static void nlong_term_frame_idx(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH264ReferenceInfo.LONG_TERM_FRAME_IDX, value); }
+    /** Unsafe version of {@link #temporal_id(byte) temporal_id}. */
+    public static void ntemporal_id(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH264ReferenceInfo.TEMPORAL_ID, value); }
 
     // -----------------------------------
 
@@ -292,9 +316,9 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
         /**
          * Creates a new {@code StdVideoEncodeH264ReferenceInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link StdVideoEncodeH264ReferenceInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link StdVideoEncodeH264ReferenceInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -322,9 +346,9 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
 
         /** @return a {@link StdVideoEncodeH264ReferenceInfoFlags} view of the {@code flags} field. */
         public StdVideoEncodeH264ReferenceInfoFlags flags() { return StdVideoEncodeH264ReferenceInfo.nflags(address()); }
-        /** @return the value of the {@code pictureType} field. */
+        /** @return the value of the {@code primary_pic_type} field. */
         @NativeType("StdVideoH264PictureType")
-        public int pictureType() { return StdVideoEncodeH264ReferenceInfo.npictureType(address()); }
+        public int primary_pic_type() { return StdVideoEncodeH264ReferenceInfo.nprimary_pic_type(address()); }
         /** @return the value of the {@code FrameNum} field. */
         @NativeType("uint32_t")
         public int FrameNum() { return StdVideoEncodeH264ReferenceInfo.nFrameNum(address()); }
@@ -337,13 +361,16 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
         /** @return the value of the {@code long_term_frame_idx} field. */
         @NativeType("uint16_t")
         public short long_term_frame_idx() { return StdVideoEncodeH264ReferenceInfo.nlong_term_frame_idx(address()); }
+        /** @return the value of the {@code temporal_id} field. */
+        @NativeType("uint8_t")
+        public byte temporal_id() { return StdVideoEncodeH264ReferenceInfo.ntemporal_id(address()); }
 
         /** Copies the specified {@link StdVideoEncodeH264ReferenceInfoFlags} to the {@code flags} field. */
         public StdVideoEncodeH264ReferenceInfo.Buffer flags(StdVideoEncodeH264ReferenceInfoFlags value) { StdVideoEncodeH264ReferenceInfo.nflags(address(), value); return this; }
         /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
         public StdVideoEncodeH264ReferenceInfo.Buffer flags(java.util.function.Consumer<StdVideoEncodeH264ReferenceInfoFlags> consumer) { consumer.accept(flags()); return this; }
-        /** Sets the specified value to the {@code pictureType} field. */
-        public StdVideoEncodeH264ReferenceInfo.Buffer pictureType(@NativeType("StdVideoH264PictureType") int value) { StdVideoEncodeH264ReferenceInfo.npictureType(address(), value); return this; }
+        /** Sets the specified value to the {@code primary_pic_type} field. */
+        public StdVideoEncodeH264ReferenceInfo.Buffer primary_pic_type(@NativeType("StdVideoH264PictureType") int value) { StdVideoEncodeH264ReferenceInfo.nprimary_pic_type(address(), value); return this; }
         /** Sets the specified value to the {@code FrameNum} field. */
         public StdVideoEncodeH264ReferenceInfo.Buffer FrameNum(@NativeType("uint32_t") int value) { StdVideoEncodeH264ReferenceInfo.nFrameNum(address(), value); return this; }
         /** Sets the specified value to the {@code PicOrderCnt} field. */
@@ -352,6 +379,8 @@ public class StdVideoEncodeH264ReferenceInfo extends Struct implements NativeRes
         public StdVideoEncodeH264ReferenceInfo.Buffer long_term_pic_num(@NativeType("uint16_t") short value) { StdVideoEncodeH264ReferenceInfo.nlong_term_pic_num(address(), value); return this; }
         /** Sets the specified value to the {@code long_term_frame_idx} field. */
         public StdVideoEncodeH264ReferenceInfo.Buffer long_term_frame_idx(@NativeType("uint16_t") short value) { StdVideoEncodeH264ReferenceInfo.nlong_term_frame_idx(address(), value); return this; }
+        /** Sets the specified value to the {@code temporal_id} field. */
+        public StdVideoEncodeH264ReferenceInfo.Buffer temporal_id(@NativeType("uint8_t") byte value) { StdVideoEncodeH264ReferenceInfo.ntemporal_id(address(), value); return this; }
 
     }
 

@@ -11,7 +11,7 @@ import openxr.*
 val HTC_facial_tracking = "HTCFacialTracking".nativeClassXR("HTC_facial_tracking", type = "instance", postfix = "HTC") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_HTC_facial_tracking">XR_HTC_facial_tracking</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_HTC_facial_tracking">XR_HTC_facial_tracking</a> extension.
 
         This extension allows an application to track and integrate users' eye and lip movements, empowering developers to read intention and model facial expressions.
         """
@@ -142,7 +142,7 @@ val HTC_facial_tracking = "HTCFacialTracking".nativeClassXR("HTC_facial_tracking
         <h5>Description</h5>
         An application <b>can</b> create an {@code XrFacialTrackerHTC} handle using #CreateFacialTrackerHTC().
 
-        If the system does not support eye tracking or lip tracking, runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateFacialTrackerHTC() according to the corresponding case. In this case, the runtime <b>must</b> return #FALSE for {@code supportEyeFacialTracking} or {@code supportLipFacialTracking} in ##XrSystemFacialTrackingPropertiesHTC when the function #GetSystemProperties() is called, so that the application <b>may</b> avoid creating a facial tracker.
+        If the system does not support eye tracking or lip tracking, runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateFacialTrackerHTC() according to the corresponding case. In this case, the runtime <b>must</b> return #FALSE for ##XrSystemFacialTrackingPropertiesHTC{@code ::supportEyeFacialTracking} or ##XrSystemFacialTrackingPropertiesHTC{@code ::supportLipFacialTracking} when the function #GetSystemProperties() is called, so that the application <b>may</b> avoid creating a facial tracker.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

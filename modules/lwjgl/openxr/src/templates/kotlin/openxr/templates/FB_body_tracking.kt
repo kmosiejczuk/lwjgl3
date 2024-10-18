@@ -11,7 +11,7 @@ import openxr.*
 val FB_body_tracking = "FBBodyTracking".nativeClassXR("FB_body_tracking", type = "instance", postfix = "FB") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_FB_body_tracking">XR_FB_body_tracking</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_FB_body_tracking">XR_FB_body_tracking</a> extension.
 
         This extension enables applications to locate the individual body joints that represent the estimated position of the user of the device. It enables applications to render the upper body in XR experiences.
         """
@@ -46,7 +46,7 @@ val FB_body_tracking = "FBBodyTracking".nativeClassXR("FB_body_tracking", type =
 
     EnumConstant(
         """
-        XrBodyJointFB - The name of body joints that can be tracked
+        XrBodyJointFB - Trackable body joints
 
         <h5>Description</h5>
         The backward (+Z) direction is parallel to the corresponding bone and points away from the finger tip. The up (+Y) direction is pointing out of the back of and perpendicular to the corresponding finger nail at the fully opened hand pose. The X direction is perpendicular to Y and Z and follows the right hand rule.
@@ -167,7 +167,7 @@ val FB_body_tracking = "FBBodyTracking".nativeClassXR("FB_body_tracking", type =
 ￿    XrBodyTrackerFB*                            bodyTracker);</code></pre>
 
         <h5>Description</h5>
-        If the system does not support body tracking, the runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateBodyTrackerFB(). In this case, the runtime <b>must</b> return #FALSE for {@code supportsBodyTracking} in ##XrSystemBodyTrackingPropertiesFB when the function #GetSystemProperties() is called, so that the application <b>can</b> avoid creating a body tracker.
+        If the system does not support body tracking, the runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateBodyTrackerFB(). In this case, the runtime <b>must</b> return #FALSE for ##XrSystemBodyTrackingPropertiesFB{@code ::supportsBodyTracking} when the function #GetSystemProperties() is called, so that the application <b>can</b> avoid creating a body tracker.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

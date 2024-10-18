@@ -26,8 +26,8 @@ import org.lwjgl.vulkan.video.*;
  * <p>This structure <b>can</b> be specified in the following places:</p>
  * 
  * <ul>
- * <li>In the {@code pParametersAddInfo} member of the {@link VkVideoDecodeH265SessionParametersCreateInfoKHR} structure specified in the {@code pNext} chain of {@link VkVideoSessionParametersCreateInfoKHR} used to create a <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-session-parameters">video session parameters</a> object. In this case, if the video codec operation the video session parameters object is created with is {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then it defines the set of initial parameters to add to the created object (see <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#creating-video-session-parameters">Creating Video Session Parameters</a>).</li>
- * <li>In the {@code pNext} chain of {@link VkVideoSessionParametersUpdateInfoKHR}. In this case, if the video codec operation the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-session-parameters">video session parameters</a> object to be updated was created with is {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then it defines the set of parameters to add to it (see <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-session-parameters-update">Updating Video Session Parameters</a>).</li>
+ * <li>In the {@code pParametersAddInfo} member of the {@link VkVideoDecodeH265SessionParametersCreateInfoKHR} structure specified in the {@code pNext} chain of {@link VkVideoSessionParametersCreateInfoKHR} used to create a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-session-parameters">video session parameters</a> object. In this case, if the video codec operation the video session parameters object is created with is {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then it defines the set of initial parameters to add to the created object (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#creating-video-session-parameters">Creating Video Session Parameters</a>).</li>
+ * <li>In the {@code pNext} chain of {@link VkVideoSessionParametersUpdateInfoKHR}. In this case, if the video codec operation the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-session-parameters">video session parameters</a> object to be updated was created with is {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then it defines the set of parameters to add to it (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-session-parameters-update">Updating Video Session Parameters</a>).</li>
  * </ul>
  * 
  * <h5>Valid Usage</h5>
@@ -65,7 +65,7 @@ import org.lwjgl.vulkan.video.*;
  *     {@link StdVideoH265PictureParameterSet StdVideoH265PictureParameterSet} const * {@link #pStdPPSs};
  * }</code></pre>
  */
-public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct implements NativeResource {
+public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct<VkVideoDecodeH265SessionParametersAddInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -109,6 +109,15 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
         PSTDPPSS = layout.offsetof(7);
     }
 
+    protected VkVideoDecodeH265SessionParametersAddInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkVideoDecodeH265SessionParametersAddInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkVideoDecodeH265SessionParametersAddInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkVideoDecodeH265SessionParametersAddInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -122,7 +131,7 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -131,21 +140,21 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
     /** the number of elements in the {@code pStdVPSs} array. */
     @NativeType("uint32_t")
     public int stdVPSCount() { return nstdVPSCount(address()); }
-    /** a pointer to an array of {@code StdVideoH265VideoParameterSet} structures describing the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h265-vps">H.265 VPS</a> entries to add. */
+    /** a pointer to an array of {@code StdVideoH265VideoParameterSet} structures describing the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h265-vps">H.265 VPS</a> entries to add. */
     @Nullable
     @NativeType("StdVideoH265VideoParameterSet const *")
     public StdVideoH265VideoParameterSet.Buffer pStdVPSs() { return npStdVPSs(address()); }
     /** the number of elements in the {@code pStdSPSs} array. */
     @NativeType("uint32_t")
     public int stdSPSCount() { return nstdSPSCount(address()); }
-    /** a pointer to an array of {@code StdVideoH265SequenceParameterSet} structures describing the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h265-sps">H.265 SPS</a> entries to add. */
+    /** a pointer to an array of {@code StdVideoH265SequenceParameterSet} structures describing the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h265-sps">H.265 SPS</a> entries to add. */
     @Nullable
     @NativeType("StdVideoH265SequenceParameterSet const *")
     public StdVideoH265SequenceParameterSet.Buffer pStdSPSs() { return npStdSPSs(address()); }
     /** the number of elements in the {@code pStdPPSs} array. */
     @NativeType("uint32_t")
     public int stdPPSCount() { return nstdPPSCount(address()); }
-    /** a pointer to an array of {@code StdVideoH265PictureParameterSet} structures describing the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h265-pps">H.265 PPS</a> entries to add. */
+    /** a pointer to an array of {@code StdVideoH265PictureParameterSet} structures describing the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h265-pps">H.265 PPS</a> entries to add. */
     @Nullable
     @NativeType("StdVideoH265PictureParameterSet const *")
     public StdVideoH265PictureParameterSet.Buffer pStdPPSs() { return npStdPPSs(address()); }
@@ -196,29 +205,29 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
 
     /** Returns a new {@code VkVideoDecodeH265SessionParametersAddInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR malloc() {
-        return wrap(VkVideoDecodeH265SessionParametersAddInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkVideoDecodeH265SessionParametersAddInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoDecodeH265SessionParametersAddInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR calloc() {
-        return wrap(VkVideoDecodeH265SessionParametersAddInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkVideoDecodeH265SessionParametersAddInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoDecodeH265SessionParametersAddInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkVideoDecodeH265SessionParametersAddInfoKHR.class, memAddress(container), container);
+        return new VkVideoDecodeH265SessionParametersAddInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkVideoDecodeH265SessionParametersAddInfoKHR} instance for the specified memory address. */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR create(long address) {
-        return wrap(VkVideoDecodeH265SessionParametersAddInfoKHR.class, address);
+        return new VkVideoDecodeH265SessionParametersAddInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoDecodeH265SessionParametersAddInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkVideoDecodeH265SessionParametersAddInfoKHR.class, address);
+        return address == NULL ? null : new VkVideoDecodeH265SessionParametersAddInfoKHR(address, null);
     }
 
     /**
@@ -227,7 +236,7 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -236,7 +245,7 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -246,7 +255,7 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
      */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -256,13 +265,13 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoDecodeH265SessionParametersAddInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -271,7 +280,7 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
      * @param stack the stack from which to allocate
      */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR malloc(MemoryStack stack) {
-        return wrap(VkVideoDecodeH265SessionParametersAddInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkVideoDecodeH265SessionParametersAddInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -280,7 +289,7 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
      * @param stack the stack from which to allocate
      */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR calloc(MemoryStack stack) {
-        return wrap(VkVideoDecodeH265SessionParametersAddInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkVideoDecodeH265SessionParametersAddInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -290,7 +299,7 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -300,7 +309,7 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkVideoDecodeH265SessionParametersAddInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -375,9 +384,9 @@ public class VkVideoDecodeH265SessionParametersAddInfoKHR extends Struct impleme
         /**
          * Creates a new {@code VkVideoDecodeH265SessionParametersAddInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVideoDecodeH265SessionParametersAddInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkVideoDecodeH265SessionParametersAddInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

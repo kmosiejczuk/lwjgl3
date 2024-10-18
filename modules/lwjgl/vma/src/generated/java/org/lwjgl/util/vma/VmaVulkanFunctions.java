@@ -51,11 +51,11 @@ import org.lwjgl.vulkan.*;
  *     PFN_vkBindBufferMemory2KHR {@link #vkBindBufferMemory2KHR};
  *     PFN_vkBindImageMemory2KHR {@link #vkBindImageMemory2KHR};
  *     PFN_vkGetPhysicalDeviceMemoryProperties2KHR vkGetPhysicalDeviceMemoryProperties2KHR;
- *     PFN_vkGetDeviceBufferMemoryRequirements vkGetDeviceBufferMemoryRequirements;
- *     PFN_vkGetDeviceImageMemoryRequirements vkGetDeviceImageMemoryRequirements;
+ *     PFN_vkGetDeviceBufferMemoryRequirementsKHR vkGetDeviceBufferMemoryRequirements;
+ *     PFN_vkGetDeviceImageMemoryRequirementsKHR vkGetDeviceImageMemoryRequirements;
  * }</code></pre>
  */
-public class VmaVulkanFunctions extends Struct implements NativeResource {
+public class VmaVulkanFunctions extends Struct<VmaVulkanFunctions> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -153,6 +153,15 @@ public class VmaVulkanFunctions extends Struct implements NativeResource {
         VKGETDEVICEIMAGEMEMORYREQUIREMENTS = layout.offsetof(25);
     }
 
+    protected VmaVulkanFunctions(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VmaVulkanFunctions create(long address, @Nullable ByteBuffer container) {
+        return new VmaVulkanFunctions(address, container);
+    }
+
     /**
      * Creates a {@code VmaVulkanFunctions} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -245,10 +254,10 @@ public class VmaVulkanFunctions extends Struct implements NativeResource {
     @NativeType("PFN_vkGetPhysicalDeviceMemoryProperties2KHR")
     public long vkGetPhysicalDeviceMemoryProperties2KHR() { return nvkGetPhysicalDeviceMemoryProperties2KHR(address()); }
     /** @return the value of the {@code vkGetDeviceBufferMemoryRequirements} field. */
-    @NativeType("PFN_vkGetDeviceBufferMemoryRequirements")
+    @NativeType("PFN_vkGetDeviceBufferMemoryRequirementsKHR")
     public long vkGetDeviceBufferMemoryRequirements() { return nvkGetDeviceBufferMemoryRequirements(address()); }
     /** @return the value of the {@code vkGetDeviceImageMemoryRequirements} field. */
-    @NativeType("PFN_vkGetDeviceImageMemoryRequirements")
+    @NativeType("PFN_vkGetDeviceImageMemoryRequirementsKHR")
     public long vkGetDeviceImageMemoryRequirements() { return nvkGetDeviceImageMemoryRequirements(address()); }
 
     /** Sets the specified value to the {@code vkGetInstanceProcAddr} field. */
@@ -300,9 +309,9 @@ public class VmaVulkanFunctions extends Struct implements NativeResource {
     /** Sets the specified value to the {@code vkGetPhysicalDeviceMemoryProperties2KHR} field. */
     public VmaVulkanFunctions vkGetPhysicalDeviceMemoryProperties2KHR(@NativeType("PFN_vkGetPhysicalDeviceMemoryProperties2KHR") long value) { nvkGetPhysicalDeviceMemoryProperties2KHR(address(), value); return this; }
     /** Sets the specified value to the {@code vkGetDeviceBufferMemoryRequirements} field. */
-    public VmaVulkanFunctions vkGetDeviceBufferMemoryRequirements(@NativeType("PFN_vkGetDeviceBufferMemoryRequirements") long value) { nvkGetDeviceBufferMemoryRequirements(address(), value); return this; }
+    public VmaVulkanFunctions vkGetDeviceBufferMemoryRequirements(@NativeType("PFN_vkGetDeviceBufferMemoryRequirementsKHR") long value) { nvkGetDeviceBufferMemoryRequirements(address(), value); return this; }
     /** Sets the specified value to the {@code vkGetDeviceImageMemoryRequirements} field. */
-    public VmaVulkanFunctions vkGetDeviceImageMemoryRequirements(@NativeType("PFN_vkGetDeviceImageMemoryRequirements") long value) { nvkGetDeviceImageMemoryRequirements(address(), value); return this; }
+    public VmaVulkanFunctions vkGetDeviceImageMemoryRequirements(@NativeType("PFN_vkGetDeviceImageMemoryRequirementsKHR") long value) { nvkGetDeviceImageMemoryRequirements(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VmaVulkanFunctions set(
@@ -379,29 +388,29 @@ public class VmaVulkanFunctions extends Struct implements NativeResource {
 
     /** Returns a new {@code VmaVulkanFunctions} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VmaVulkanFunctions malloc() {
-        return wrap(VmaVulkanFunctions.class, nmemAllocChecked(SIZEOF));
+        return new VmaVulkanFunctions(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VmaVulkanFunctions} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VmaVulkanFunctions calloc() {
-        return wrap(VmaVulkanFunctions.class, nmemCallocChecked(1, SIZEOF));
+        return new VmaVulkanFunctions(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VmaVulkanFunctions} instance allocated with {@link BufferUtils}. */
     public static VmaVulkanFunctions create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VmaVulkanFunctions.class, memAddress(container), container);
+        return new VmaVulkanFunctions(memAddress(container), container);
     }
 
     /** Returns a new {@code VmaVulkanFunctions} instance for the specified memory address. */
     public static VmaVulkanFunctions create(long address) {
-        return wrap(VmaVulkanFunctions.class, address);
+        return new VmaVulkanFunctions(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VmaVulkanFunctions createSafe(long address) {
-        return address == NULL ? null : wrap(VmaVulkanFunctions.class, address);
+        return address == NULL ? null : new VmaVulkanFunctions(address, null);
     }
 
     // -----------------------------------
@@ -422,7 +431,7 @@ public class VmaVulkanFunctions extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VmaVulkanFunctions malloc(MemoryStack stack) {
-        return wrap(VmaVulkanFunctions.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VmaVulkanFunctions(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -431,7 +440,7 @@ public class VmaVulkanFunctions extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VmaVulkanFunctions calloc(MemoryStack stack) {
-        return wrap(VmaVulkanFunctions.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VmaVulkanFunctions(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     // -----------------------------------

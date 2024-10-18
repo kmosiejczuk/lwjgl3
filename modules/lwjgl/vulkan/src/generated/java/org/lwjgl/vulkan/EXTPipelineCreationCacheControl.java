@@ -28,15 +28,13 @@ package org.lwjgl.vulkan;
  * 
  * <p>By default {@code vkCreate*Pipelines} calls must attempt to create all pipelines before returning. Setting {@link #VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT_EXT PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT_EXT} on stext:Vk*PipelineCreateInfo{@code ::flags} can be used as an escape hatch for batched pipeline creates.</p>
  * 
- * <p>Hidden locks also add to the unpredictability of the cost of pipeline creation. The most common case of locks inside the stext:vkCreate*Pipelines is internal synchronization of the {@code VkPipelineCache} object. {@link #VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT} can be set when calling {@link VK10#vkCreatePipelineCache CreatePipelineCache} to state the cache is <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-threadingbehavior">externally synchronized</a>.</p>
+ * <p>Hidden locks also add to the unpredictability of the cost of pipeline creation. The most common case of locks inside the stext:vkCreate*Pipelines is internal synchronization of the {@code VkPipelineCache} object. {@link #VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT} can be set when calling {@link VK10#vkCreatePipelineCache CreatePipelineCache} to state the cache is <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-threadingbehavior">externally synchronized</a>.</p>
  * 
  * <p>The hope is that armed with this information application and engine developers can leverage existing asset streaming systems to recover from "just-in-time" pipeline creation stalls.</p>
  * 
  * <h5>Promotion to Vulkan 1.3</h5>
  * 
  * <p>Functionality in this extension is included in core Vulkan 1.3, with the EXT suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
- * 
- * <h5>VK_EXT_pipeline_creation_cache_control</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -48,14 +46,14 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>3</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
- * <li><em>Promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
+ * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Gregory Grebe <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_pipeline_creation_cache_control]%20@grgrebe_amd%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_pipeline_creation_cache_control%20extension*">grgrebe_amd</a></li>
+ * <li>Gregory Grebe <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_pipeline_creation_cache_control]%20@grgrebe_amd%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_pipeline_creation_cache_control%20extension*">grgrebe_amd</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -64,10 +62,6 @@ package org.lwjgl.vulkan;
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
  * <dd>2020-03-23</dd>
- * <dt><b>Interactions and External Dependencies</b></dt>
- * <dd><ul>
- * <li>Promoted to Vulkan 1.3 Core</li>
- * </ul></dd>
  * <dt><b>IP Status</b></dt>
  * <dd>No known IP claims.</dd>
  * <dt><b>Contributors</b></dt>

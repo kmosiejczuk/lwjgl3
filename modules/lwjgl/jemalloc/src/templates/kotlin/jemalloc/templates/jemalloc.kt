@@ -14,7 +14,7 @@ val jemalloc = "JEmalloc".nativeClass(Module.JEMALLOC, prefixMethod = "je_", bin
 )) {
     documentation =
         """
-        Native bindings to ${url("http://jemalloc.net/", "jemalloc")}.
+        Native bindings to ${url("https://jemalloc.net/", "jemalloc")}.
 
         jemalloc is a general purpose malloc implementation that emphasizes fragmentation avoidance and scalable concurrency support. jemalloc first came into
         use as the FreeBSD libc allocator in 2005, and since then it has found its way into numerous applications that rely on its predictable behavior. In
@@ -76,7 +76,7 @@ val jemalloc = "JEmalloc".nativeClass(Module.JEMALLOC, prefixMethod = "je_", bin
         // Force jemalloc to initialize before anyone else uses it.
         // This avoids a dangerous race when the first jemalloc functions are called concurrently.
         if (Platform.get() == Platform.WINDOWS) {
-            nje_free(nje_malloc(8));
+            invokePV(invokePP(8L, apiGetFunctionAddress(JEMALLOC, "je_malloc")), apiGetFunctionAddress(JEMALLOC, "je_free"));
         }
     }""")
 
@@ -196,6 +196,29 @@ val jemalloc = "JEmalloc".nativeClass(Module.JEMALLOC, prefixMethod = "je_", bin
         MultiTypeAll..Unsafe..nullable..void.p("ptr", "the allocated memory to free")
     )
 
+    OffHeapOnly..void(
+        "free_sized",
+        """
+        The {@code free_sized()} function is an extension of #free() with a {@code size} parameter to allow the caller to pass in the allocation size as an
+        optimization.
+        """,
+
+        MultiTypeAll..nullable..void.p("ptr", ""),
+        AutoSize("ptr")..size_t("size", "")
+    )
+
+    OffHeapOnly..void(
+        "free_aligned_sized",
+        """
+        The {@code free_aligned_sized()} function accepts a {@code ptr} which was allocated with a requested {@code size} and {@code alignment}, causing the
+        allocated memory referenced by {@code ptr} to be made available for future allocations.
+        """,
+
+        MultiTypeAll..nullable..void.p("ptr", ""),
+        size_t("alignment", ""),
+        AutoSize("ptr")..size_t("size", "")
+    )
+
     // Non-standard API
 
     val flags = int("flags", "a bitfield of zero or more of the {@code MALLOCX} macros")
@@ -280,7 +303,7 @@ val jemalloc = "JEmalloc".nativeClass(Module.JEMALLOC, prefixMethod = "je_", bin
         """
         Provides a general interface for introspecting the memory allocator, as well as setting modifiable parameters and triggering actions. The
         period-separated {@code name} argument specifies a location in a tree-structured namespace; see the
-        ${url("http://jemalloc.net/jemalloc.3.html\\#mallctl_namespace", "MALLCTL NAMESPACE")} section for
+        ${url("https://jemalloc.net/jemalloc.3.html\\#mallctl_namespace", "MALLCTL NAMESPACE")} section for
         documentation on the tree contents. To read a value, pass a pointer via {@code oldp} to adequate space to contain the value, and a pointer to its
         length via {@code oldlenp}; otherwise pass #NULL and #NULL. Similarly, to write a value, pass a pointer to the value via {@code newp}, and its length
         via {@code newlen}; otherwise pass #NULL and {@code 0}.

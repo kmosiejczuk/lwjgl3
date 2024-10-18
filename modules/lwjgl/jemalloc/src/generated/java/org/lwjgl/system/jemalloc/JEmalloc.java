@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Native bindings to <a target="_blank" href="http://jemalloc.net/">jemalloc</a>.
+ * Native bindings to <a href="https://jemalloc.net/">jemalloc</a>.
  * 
  * <p>jemalloc is a general purpose malloc implementation that emphasizes fragmentation avoidance and scalable concurrency support. jemalloc first came into
  * use as the FreeBSD libc allocator in 2005, and since then it has found its way into numerous applications that rely on its predictable behavior. In
@@ -47,6 +47,8 @@ public class JEmalloc {
             aligned_alloc      = apiGetFunctionAddress(JEMALLOC, "je_aligned_alloc"),
             realloc            = apiGetFunctionAddress(JEMALLOC, "je_realloc"),
             free               = apiGetFunctionAddress(JEMALLOC, "je_free"),
+            free_sized         = apiGetFunctionAddress(JEMALLOC, "je_free_sized"),
+            free_aligned_sized = apiGetFunctionAddress(JEMALLOC, "je_free_aligned_sized"),
             mallocx            = apiGetFunctionAddress(JEMALLOC, "je_mallocx"),
             rallocx            = apiGetFunctionAddress(JEMALLOC, "je_rallocx"),
             xallocx            = apiGetFunctionAddress(JEMALLOC, "je_xallocx"),
@@ -107,7 +109,7 @@ public class JEmalloc {
         // Force jemalloc to initialize before anyone else uses it.
         // This avoids a dangerous race when the first jemalloc functions are called concurrently.
         if (Platform.get() == Platform.WINDOWS) {
-            nje_free(nje_malloc(8));
+            invokePV(invokePP(8L, apiGetFunctionAddress(JEMALLOC, "je_malloc")), apiGetFunctionAddress(JEMALLOC, "je_free"));
         }
     }
 
@@ -306,6 +308,134 @@ public class JEmalloc {
      */
     public static void je_free(@Nullable @NativeType("void *") PointerBuffer ptr) {
         nje_free(memAddressSafe(ptr));
+    }
+
+    // --- [ je_free_sized ] ---
+
+    /** Unsafe version of: {@link #je_free_sized free_sized} */
+    public static void nje_free_sized(long ptr, long size) {
+        long __functionAddress = Functions.free_sized;
+        invokePPV(ptr, size, __functionAddress);
+    }
+
+    /**
+     * The {@code free_sized()} function is an extension of {@link #je_free free} with a {@code size} parameter to allow the caller to pass in the allocation size as an
+     * optimization.
+     */
+    public static void je_free_sized(@Nullable @NativeType("void *") ByteBuffer ptr) {
+        nje_free_sized(memAddressSafe(ptr), remainingSafe(ptr));
+    }
+
+    /**
+     * The {@code free_sized()} function is an extension of {@link #je_free free} with a {@code size} parameter to allow the caller to pass in the allocation size as an
+     * optimization.
+     */
+    public static void je_free_sized(@Nullable @NativeType("void *") ShortBuffer ptr) {
+        nje_free_sized(memAddressSafe(ptr), Integer.toUnsignedLong(remainingSafe(ptr)) << 1);
+    }
+
+    /**
+     * The {@code free_sized()} function is an extension of {@link #je_free free} with a {@code size} parameter to allow the caller to pass in the allocation size as an
+     * optimization.
+     */
+    public static void je_free_sized(@Nullable @NativeType("void *") IntBuffer ptr) {
+        nje_free_sized(memAddressSafe(ptr), Integer.toUnsignedLong(remainingSafe(ptr)) << 2);
+    }
+
+    /**
+     * The {@code free_sized()} function is an extension of {@link #je_free free} with a {@code size} parameter to allow the caller to pass in the allocation size as an
+     * optimization.
+     */
+    public static void je_free_sized(@Nullable @NativeType("void *") LongBuffer ptr) {
+        nje_free_sized(memAddressSafe(ptr), Integer.toUnsignedLong(remainingSafe(ptr)) << 3);
+    }
+
+    /**
+     * The {@code free_sized()} function is an extension of {@link #je_free free} with a {@code size} parameter to allow the caller to pass in the allocation size as an
+     * optimization.
+     */
+    public static void je_free_sized(@Nullable @NativeType("void *") FloatBuffer ptr) {
+        nje_free_sized(memAddressSafe(ptr), Integer.toUnsignedLong(remainingSafe(ptr)) << 2);
+    }
+
+    /**
+     * The {@code free_sized()} function is an extension of {@link #je_free free} with a {@code size} parameter to allow the caller to pass in the allocation size as an
+     * optimization.
+     */
+    public static void je_free_sized(@Nullable @NativeType("void *") DoubleBuffer ptr) {
+        nje_free_sized(memAddressSafe(ptr), Integer.toUnsignedLong(remainingSafe(ptr)) << 3);
+    }
+
+    /**
+     * The {@code free_sized()} function is an extension of {@link #je_free free} with a {@code size} parameter to allow the caller to pass in the allocation size as an
+     * optimization.
+     */
+    public static void je_free_sized(@Nullable @NativeType("void *") PointerBuffer ptr) {
+        nje_free_sized(memAddressSafe(ptr), Integer.toUnsignedLong(remainingSafe(ptr)) << POINTER_SHIFT);
+    }
+
+    // --- [ je_free_aligned_sized ] ---
+
+    /** Unsafe version of: {@link #je_free_aligned_sized free_aligned_sized} */
+    public static void nje_free_aligned_sized(long ptr, long alignment, long size) {
+        long __functionAddress = Functions.free_aligned_sized;
+        invokePPPV(ptr, alignment, size, __functionAddress);
+    }
+
+    /**
+     * The {@code free_aligned_sized()} function accepts a {@code ptr} which was allocated with a requested {@code size} and {@code alignment}, causing the
+     * allocated memory referenced by {@code ptr} to be made available for future allocations.
+     */
+    public static void je_free_aligned_sized(@Nullable @NativeType("void *") ByteBuffer ptr, @NativeType("size_t") long alignment) {
+        nje_free_aligned_sized(memAddressSafe(ptr), alignment, remainingSafe(ptr));
+    }
+
+    /**
+     * The {@code free_aligned_sized()} function accepts a {@code ptr} which was allocated with a requested {@code size} and {@code alignment}, causing the
+     * allocated memory referenced by {@code ptr} to be made available for future allocations.
+     */
+    public static void je_free_aligned_sized(@Nullable @NativeType("void *") ShortBuffer ptr, @NativeType("size_t") long alignment) {
+        nje_free_aligned_sized(memAddressSafe(ptr), alignment, Integer.toUnsignedLong(remainingSafe(ptr)) << 1);
+    }
+
+    /**
+     * The {@code free_aligned_sized()} function accepts a {@code ptr} which was allocated with a requested {@code size} and {@code alignment}, causing the
+     * allocated memory referenced by {@code ptr} to be made available for future allocations.
+     */
+    public static void je_free_aligned_sized(@Nullable @NativeType("void *") IntBuffer ptr, @NativeType("size_t") long alignment) {
+        nje_free_aligned_sized(memAddressSafe(ptr), alignment, Integer.toUnsignedLong(remainingSafe(ptr)) << 2);
+    }
+
+    /**
+     * The {@code free_aligned_sized()} function accepts a {@code ptr} which was allocated with a requested {@code size} and {@code alignment}, causing the
+     * allocated memory referenced by {@code ptr} to be made available for future allocations.
+     */
+    public static void je_free_aligned_sized(@Nullable @NativeType("void *") LongBuffer ptr, @NativeType("size_t") long alignment) {
+        nje_free_aligned_sized(memAddressSafe(ptr), alignment, Integer.toUnsignedLong(remainingSafe(ptr)) << 3);
+    }
+
+    /**
+     * The {@code free_aligned_sized()} function accepts a {@code ptr} which was allocated with a requested {@code size} and {@code alignment}, causing the
+     * allocated memory referenced by {@code ptr} to be made available for future allocations.
+     */
+    public static void je_free_aligned_sized(@Nullable @NativeType("void *") FloatBuffer ptr, @NativeType("size_t") long alignment) {
+        nje_free_aligned_sized(memAddressSafe(ptr), alignment, Integer.toUnsignedLong(remainingSafe(ptr)) << 2);
+    }
+
+    /**
+     * The {@code free_aligned_sized()} function accepts a {@code ptr} which was allocated with a requested {@code size} and {@code alignment}, causing the
+     * allocated memory referenced by {@code ptr} to be made available for future allocations.
+     */
+    public static void je_free_aligned_sized(@Nullable @NativeType("void *") DoubleBuffer ptr, @NativeType("size_t") long alignment) {
+        nje_free_aligned_sized(memAddressSafe(ptr), alignment, Integer.toUnsignedLong(remainingSafe(ptr)) << 3);
+    }
+
+    /**
+     * The {@code free_aligned_sized()} function accepts a {@code ptr} which was allocated with a requested {@code size} and {@code alignment}, causing the
+     * allocated memory referenced by {@code ptr} to be made available for future allocations.
+     */
+    public static void je_free_aligned_sized(@Nullable @NativeType("void *") PointerBuffer ptr, @NativeType("size_t") long alignment) {
+        nje_free_aligned_sized(memAddressSafe(ptr), alignment, Integer.toUnsignedLong(remainingSafe(ptr)) << POINTER_SHIFT);
     }
 
     // --- [ je_mallocx ] ---
@@ -594,7 +724,7 @@ public class JEmalloc {
     /**
      * Provides a general interface for introspecting the memory allocator, as well as setting modifiable parameters and triggering actions. The
      * period-separated {@code name} argument specifies a location in a tree-structured namespace; see the
-     * <a target="_blank" href="http://jemalloc.net/jemalloc.3.html#mallctl_namespace">MALLCTL NAMESPACE</a> section for
+     * <a href="https://jemalloc.net/jemalloc.3.html#mallctl_namespace">MALLCTL NAMESPACE</a> section for
      * documentation on the tree contents. To read a value, pass a pointer via {@code oldp} to adequate space to contain the value, and a pointer to its
      * length via {@code oldlenp}; otherwise pass {@code NULL} and {@code NULL}. Similarly, to write a value, pass a pointer to the value via {@code newp}, and its length
      * via {@code newlen}; otherwise pass {@code NULL} and {@code 0}.
@@ -615,7 +745,7 @@ public class JEmalloc {
     /**
      * Provides a general interface for introspecting the memory allocator, as well as setting modifiable parameters and triggering actions. The
      * period-separated {@code name} argument specifies a location in a tree-structured namespace; see the
-     * <a target="_blank" href="http://jemalloc.net/jemalloc.3.html#mallctl_namespace">MALLCTL NAMESPACE</a> section for
+     * <a href="https://jemalloc.net/jemalloc.3.html#mallctl_namespace">MALLCTL NAMESPACE</a> section for
      * documentation on the tree contents. To read a value, pass a pointer via {@code oldp} to adequate space to contain the value, and a pointer to its
      * length via {@code oldlenp}; otherwise pass {@code NULL} and {@code NULL}. Similarly, to write a value, pass a pointer to the value via {@code newp}, and its length
      * via {@code newlen}; otherwise pass {@code NULL} and {@code 0}.

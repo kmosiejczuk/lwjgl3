@@ -15,7 +15,6 @@ val KHR_present_id = "KHRPresentId".nativeClassVK("KHR_present_id", type = "devi
 
         
 
-        <h5>VK_KHR_present_id</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_present_id}</dd>
@@ -30,11 +29,11 @@ val KHR_present_id = "KHRPresentId".nativeClassVK("KHR_present_id", type = "devi
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRSwapchain VK_KHR_swapchain} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRSwapchain VK_KHR_swapchain} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Keith Packard <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_present_id]%20@keithp%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_present_id%20extension*">keithp</a></li>
+                <li>Keith Packard <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_present_id]%20@keithp%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_present_id%20extension*">keithp</a></li>
             </ul></dd>
         </dl>
 

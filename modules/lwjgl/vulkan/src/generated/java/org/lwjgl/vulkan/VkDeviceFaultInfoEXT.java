@@ -12,7 +12,6 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
-import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
@@ -44,8 +43,6 @@ import static org.lwjgl.vulkan.VK10.*;
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link EXTDeviceFault#VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_EXT STRUCTURE_TYPE_DEVICE_FAULT_INFO_EXT}</li>
  * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>If {@code pAddressInfos} is not {@code NULL}, {@code pAddressInfos} <b>must</b> be a valid pointer to a {@link VkDeviceFaultAddressInfoEXT} structure</li>
- * <li>If {@code pVendorInfos} is not {@code NULL}, {@code pVendorInfos} <b>must</b> be a valid pointer to a {@link VkDeviceFaultVendorInfoEXT} structure</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -64,7 +61,7 @@ import static org.lwjgl.vulkan.VK10.*;
  *     void * {@link #pVendorBinaryData};
  * }</code></pre>
  */
-public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
+public class VkDeviceFaultInfoEXT extends Struct<VkDeviceFaultInfoEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -102,6 +99,15 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
         PVENDORBINARYDATA = layout.offsetof(5);
     }
 
+    protected VkDeviceFaultInfoEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkDeviceFaultInfoEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkDeviceFaultInfoEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkDeviceFaultInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -115,7 +121,7 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -135,7 +141,7 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
     @Nullable
     @NativeType("VkDeviceFaultVendorInfoEXT *")
     public VkDeviceFaultVendorInfoEXT pVendorInfos() { return npVendorInfos(address()); }
-    /** {@code NULL} or a pointer to {@code vendorBinarySize} number of bytes of data, which will be populated with a vendor-specific binary crash dump, as described in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vendor-binary-crash-dumps">Vendor Binary Crash Dumps</a>. */
+    /** {@code NULL} or a pointer to {@code vendorBinarySize} number of bytes of data, which will be populated with a vendor-specific binary crash dump, as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vendor-binary-crash-dumps">Vendor Binary Crash Dumps</a>. */
     @NativeType("void *")
     public long pVendorBinaryData() { return npVendorBinaryData(address()); }
 
@@ -145,30 +151,14 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
     public VkDeviceFaultInfoEXT sType$Default() { return sType(EXTDeviceFault.VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkDeviceFaultInfoEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Copies the specified encoded string to the {@link #description} field. */
-    public VkDeviceFaultInfoEXT description(@NativeType("char[VK_MAX_DESCRIPTION_SIZE]") ByteBuffer value) { ndescription(address(), value); return this; }
-    /** Sets the address of the specified {@link VkDeviceFaultAddressInfoEXT} to the {@link #pAddressInfos} field. */
-    public VkDeviceFaultInfoEXT pAddressInfos(@Nullable @NativeType("VkDeviceFaultAddressInfoEXT *") VkDeviceFaultAddressInfoEXT value) { npAddressInfos(address(), value); return this; }
-    /** Sets the address of the specified {@link VkDeviceFaultVendorInfoEXT} to the {@link #pVendorInfos} field. */
-    public VkDeviceFaultInfoEXT pVendorInfos(@Nullable @NativeType("VkDeviceFaultVendorInfoEXT *") VkDeviceFaultVendorInfoEXT value) { npVendorInfos(address(), value); return this; }
-    /** Sets the specified value to the {@link #pVendorBinaryData} field. */
-    public VkDeviceFaultInfoEXT pVendorBinaryData(@NativeType("void *") long value) { npVendorBinaryData(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkDeviceFaultInfoEXT set(
         int sType,
-        long pNext,
-        ByteBuffer description,
-        @Nullable VkDeviceFaultAddressInfoEXT pAddressInfos,
-        @Nullable VkDeviceFaultVendorInfoEXT pVendorInfos,
-        long pVendorBinaryData
+        long pNext
     ) {
         sType(sType);
         pNext(pNext);
-        description(description);
-        pAddressInfos(pAddressInfos);
-        pVendorInfos(pVendorInfos);
-        pVendorBinaryData(pVendorBinaryData);
 
         return this;
     }
@@ -189,29 +179,29 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
 
     /** Returns a new {@code VkDeviceFaultInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDeviceFaultInfoEXT malloc() {
-        return wrap(VkDeviceFaultInfoEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkDeviceFaultInfoEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkDeviceFaultInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDeviceFaultInfoEXT calloc() {
-        return wrap(VkDeviceFaultInfoEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkDeviceFaultInfoEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkDeviceFaultInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkDeviceFaultInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkDeviceFaultInfoEXT.class, memAddress(container), container);
+        return new VkDeviceFaultInfoEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkDeviceFaultInfoEXT} instance for the specified memory address. */
     public static VkDeviceFaultInfoEXT create(long address) {
-        return wrap(VkDeviceFaultInfoEXT.class, address);
+        return new VkDeviceFaultInfoEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceFaultInfoEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkDeviceFaultInfoEXT.class, address);
+        return address == NULL ? null : new VkDeviceFaultInfoEXT(address, null);
     }
 
     /**
@@ -220,7 +210,7 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDeviceFaultInfoEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -229,7 +219,7 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDeviceFaultInfoEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -239,7 +229,7 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
      */
     public static VkDeviceFaultInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -249,13 +239,13 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDeviceFaultInfoEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceFaultInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -264,7 +254,7 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkDeviceFaultInfoEXT malloc(MemoryStack stack) {
-        return wrap(VkDeviceFaultInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkDeviceFaultInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -273,7 +263,7 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkDeviceFaultInfoEXT calloc(MemoryStack stack) {
-        return wrap(VkDeviceFaultInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkDeviceFaultInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -283,7 +273,7 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDeviceFaultInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -293,7 +283,7 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkDeviceFaultInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -317,20 +307,6 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
     public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceFaultInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceFaultInfoEXT.PNEXT, value); }
-    /** Unsafe version of {@link #description(ByteBuffer) description}. */
-    public static void ndescription(long struct, ByteBuffer value) {
-        if (CHECKS) {
-            checkNT1(value);
-            checkGT(value, VK_MAX_DESCRIPTION_SIZE);
-        }
-        memCopy(memAddress(value), struct + VkDeviceFaultInfoEXT.DESCRIPTION, value.remaining());
-    }
-    /** Unsafe version of {@link #pAddressInfos(VkDeviceFaultAddressInfoEXT) pAddressInfos}. */
-    public static void npAddressInfos(long struct, @Nullable VkDeviceFaultAddressInfoEXT value) { memPutAddress(struct + VkDeviceFaultInfoEXT.PADDRESSINFOS, memAddressSafe(value)); }
-    /** Unsafe version of {@link #pVendorInfos(VkDeviceFaultVendorInfoEXT) pVendorInfos}. */
-    public static void npVendorInfos(long struct, @Nullable VkDeviceFaultVendorInfoEXT value) { memPutAddress(struct + VkDeviceFaultInfoEXT.PVENDORINFOS, memAddressSafe(value)); }
-    /** Unsafe version of {@link #pVendorBinaryData(long) pVendorBinaryData}. */
-    public static void npVendorBinaryData(long struct, long value) { memPutAddress(struct + VkDeviceFaultInfoEXT.PVENDORBINARYDATA, value); }
 
     // -----------------------------------
 
@@ -342,9 +318,9 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkDeviceFaultInfoEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDeviceFaultInfoEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkDeviceFaultInfoEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -400,14 +376,6 @@ public class VkDeviceFaultInfoEXT extends Struct implements NativeResource {
         public VkDeviceFaultInfoEXT.Buffer sType$Default() { return sType(EXTDeviceFault.VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_EXT); }
         /** Sets the specified value to the {@link VkDeviceFaultInfoEXT#pNext} field. */
         public VkDeviceFaultInfoEXT.Buffer pNext(@NativeType("void *") long value) { VkDeviceFaultInfoEXT.npNext(address(), value); return this; }
-        /** Copies the specified encoded string to the {@link VkDeviceFaultInfoEXT#description} field. */
-        public VkDeviceFaultInfoEXT.Buffer description(@NativeType("char[VK_MAX_DESCRIPTION_SIZE]") ByteBuffer value) { VkDeviceFaultInfoEXT.ndescription(address(), value); return this; }
-        /** Sets the address of the specified {@link VkDeviceFaultAddressInfoEXT} to the {@link VkDeviceFaultInfoEXT#pAddressInfos} field. */
-        public VkDeviceFaultInfoEXT.Buffer pAddressInfos(@Nullable @NativeType("VkDeviceFaultAddressInfoEXT *") VkDeviceFaultAddressInfoEXT value) { VkDeviceFaultInfoEXT.npAddressInfos(address(), value); return this; }
-        /** Sets the address of the specified {@link VkDeviceFaultVendorInfoEXT} to the {@link VkDeviceFaultInfoEXT#pVendorInfos} field. */
-        public VkDeviceFaultInfoEXT.Buffer pVendorInfos(@Nullable @NativeType("VkDeviceFaultVendorInfoEXT *") VkDeviceFaultVendorInfoEXT value) { VkDeviceFaultInfoEXT.npVendorInfos(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceFaultInfoEXT#pVendorBinaryData} field. */
-        public VkDeviceFaultInfoEXT.Buffer pVendorBinaryData(@NativeType("void *") long value) { VkDeviceFaultInfoEXT.npVendorBinaryData(address(), value); return this; }
 
     }
 

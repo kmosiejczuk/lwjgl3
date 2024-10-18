@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #farDistance};
  * }</code></pre>
  */
-public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
+public class XrSceneFrustumBoundMSFT extends Struct<XrSceneFrustumBoundMSFT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -70,6 +70,15 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
         FARDISTANCE = layout.offsetof(2);
     }
 
+    protected XrSceneFrustumBoundMSFT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrSceneFrustumBoundMSFT create(long address, @Nullable ByteBuffer container) {
+        return new XrSceneFrustumBoundMSFT(address, container);
+    }
+
     /**
      * Creates a {@code XrSceneFrustumBoundMSFT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -85,7 +94,7 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
 
     /** an {@link XrPosef} defining the position and orientation of the tip of the frustum bound within the reference frame of the corresponding {@link XrSceneBoundsMSFT}{@code ::space}. */
     public XrPosef pose() { return npose(address()); }
-    /** an {@link XrFovf} for the four sides of the frustum bound where {@code angleLeft} and {@code angleRight} are along the X axis and {@code angleUp} and {@code angleDown} are along the Y axis of the frustum bound space. */
+    /** an {@link XrFovf} for the four sides of the frustum bound where {@link XrFovf}{@code ::angleLeft} and {@link XrFovf}{@code ::angleRight} are along the X axis and {@link XrFovf}{@code ::angleUp} and {@link XrFovf}{@code ::angleDown} are along the Y axis of the frustum bound space. */
     public XrFovf fov() { return nfov(address()); }
     /** the positive distance of the far plane of the frustum bound along the -Z direction of the frustum bound space. */
     public float farDistance() { return nfarDistance(address()); }
@@ -130,29 +139,29 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
 
     /** Returns a new {@code XrSceneFrustumBoundMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSceneFrustumBoundMSFT malloc() {
-        return wrap(XrSceneFrustumBoundMSFT.class, nmemAllocChecked(SIZEOF));
+        return new XrSceneFrustumBoundMSFT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrSceneFrustumBoundMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSceneFrustumBoundMSFT calloc() {
-        return wrap(XrSceneFrustumBoundMSFT.class, nmemCallocChecked(1, SIZEOF));
+        return new XrSceneFrustumBoundMSFT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrSceneFrustumBoundMSFT} instance allocated with {@link BufferUtils}. */
     public static XrSceneFrustumBoundMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrSceneFrustumBoundMSFT.class, memAddress(container), container);
+        return new XrSceneFrustumBoundMSFT(memAddress(container), container);
     }
 
     /** Returns a new {@code XrSceneFrustumBoundMSFT} instance for the specified memory address. */
     public static XrSceneFrustumBoundMSFT create(long address) {
-        return wrap(XrSceneFrustumBoundMSFT.class, address);
+        return new XrSceneFrustumBoundMSFT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSceneFrustumBoundMSFT createSafe(long address) {
-        return address == NULL ? null : wrap(XrSceneFrustumBoundMSFT.class, address);
+        return address == NULL ? null : new XrSceneFrustumBoundMSFT(address, null);
     }
 
     /**
@@ -161,7 +170,7 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrSceneFrustumBoundMSFT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -170,7 +179,7 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrSceneFrustumBoundMSFT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -180,7 +189,7 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
      */
     public static XrSceneFrustumBoundMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -190,13 +199,13 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrSceneFrustumBoundMSFT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSceneFrustumBoundMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -205,7 +214,7 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrSceneFrustumBoundMSFT malloc(MemoryStack stack) {
-        return wrap(XrSceneFrustumBoundMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrSceneFrustumBoundMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -214,7 +223,7 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrSceneFrustumBoundMSFT calloc(MemoryStack stack) {
-        return wrap(XrSceneFrustumBoundMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrSceneFrustumBoundMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -224,7 +233,7 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrSceneFrustumBoundMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -234,7 +243,7 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrSceneFrustumBoundMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -263,9 +272,9 @@ public class XrSceneFrustumBoundMSFT extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrSceneFrustumBoundMSFT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSceneFrustumBoundMSFT#SIZEOF}, and its mark will be undefined.
+         * by {@link XrSceneFrustumBoundMSFT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

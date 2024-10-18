@@ -222,6 +222,9 @@ typedef struct HmdRect2_t
         Within a category overlays are rendered lowest sort order to highest sort order. Overlays with the same sort order are rendered back to front base on
         distance from the HMD.
 
+        Subview overlays are always drawn immediately on top of their parent overlay, and the sort order is only relative to their peer subviews for that
+        overlay.
+
         Sort order defaults to 0.
         """,
 
@@ -392,24 +395,6 @@ typedef struct HmdRect2_t
     )
 
     EVROverlayError(
-        "GetOverlayTransformOverlayRelative",
-        "",
-
-        VROverlayHandle_t("ulOverlayHandle", ""),
-        Check(1)..VROverlayHandle_t.p("ulOverlayHandleParent", ""),
-        HmdMatrix34_t.p("pmatParentOverlayToOverlayTransform", "")
-    )
-
-    EVROverlayError(
-        "SetOverlayTransformOverlayRelative",
-        "",
-
-        VROverlayHandle_t("ulOverlayHandle", ""),
-        VROverlayHandle_t("ulOverlayHandleParent", ""),
-        HmdMatrix34_t.p("pmatParentOverlayToOverlayTransform", "")
-    )
-
-    EVROverlayError(
         "SetOverlayTransformCursor",
         """
         Sets the hotspot for the specified overlay when that overlay is used as a cursor.
@@ -442,21 +427,25 @@ typedef struct HmdRect2_t
 
     EVROverlayError(
         "ShowOverlay",
-        "Shows the VR overlay. For dashboard overlays, only the Dashboard Manager is allowed to call this.",
+        "Shows the VR overlay. Not applicable for Dashboard Overlays.",
 
         VROverlayHandle_t("ulOverlayHandle", "")
     )
 
     EVROverlayError(
         "HideOverlay",
-        "Hides the VR overlay. For dashboard overlays, only the Dashboard Manager is allowed to call this.",
+        "Hides the VR overlay. Not applicable for Dashboard Overlays.",
 
         VROverlayHandle_t("ulOverlayHandle", "")
     )
 
     bool(
         "IsOverlayVisible",
-        "Returns true if the overlay is visible.",
+        """
+        Returns true if the overlay is currently visible, applicable for all overlay types except Dashboard Thumbnail overlays.
+
+        {@code VREvent_OverlayShown} and {@code VREvent_OverlayHidden} reflect changes to this value.
+        """,
 
         VROverlayHandle_t("ulOverlayHandle", "")
     )
@@ -736,7 +725,7 @@ typedef struct HmdRect2_t
 
     TrackedDeviceIndex_t(
         "GetPrimaryDashboardDevice",
-        "Returns the tracked device that has the laser pointer in the dashboard.",
+        "Returns the tracked device index that has the laser pointer in the dashboard, or the last one that was used.",
         void()
     )
 

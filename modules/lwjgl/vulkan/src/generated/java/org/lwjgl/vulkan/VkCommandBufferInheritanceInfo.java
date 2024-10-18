@@ -25,18 +25,18 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is not enabled, {@code occlusionQueryEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is enabled, {@code queryFlags} <b>must</b> be a valid combination of {@code VkQueryControlFlagBits} values</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is not enabled, {@code queryFlags} <b>must</b> be 0</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is enabled, {@code pipelineStatistics} <b>must</b> be a valid combination of {@code VkQueryPipelineStatisticFlagBits} values</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is not enabled, {@code pipelineStatistics} <b>must</b> be 0</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is not enabled, {@code occlusionQueryEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is enabled, {@code queryFlags} <b>must</b> be a valid combination of {@code VkQueryControlFlagBits} values</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is not enabled, {@code queryFlags} <b>must</b> be 0</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is enabled, {@code pipelineStatistics} <b>must</b> be a valid combination of {@code VkQueryPipelineStatisticFlagBits} values</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is not enabled, {@code pipelineStatistics} <b>must</b> be 0</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkAttachmentSampleCountInfoAMD}, {@link VkCommandBufferInheritanceConditionalRenderingInfoEXT}, {@link VkCommandBufferInheritanceRenderPassTransformInfoQCOM}, {@link VkCommandBufferInheritanceRenderingInfo}, {@link VkCommandBufferInheritanceViewportScissorInfoNV}, or {@link VkMultiviewPerViewAttributesInfoNVX}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkAttachmentSampleCountInfoAMD}, {@link VkCommandBufferInheritanceConditionalRenderingInfoEXT}, {@link VkCommandBufferInheritanceRenderPassTransformInfoQCOM}, {@link VkCommandBufferInheritanceRenderingInfo}, {@link VkCommandBufferInheritanceViewportScissorInfoNV}, {@link VkExternalFormatANDROID}, {@link VkMultiviewPerViewAttributesInfoNVX}, {@link VkRenderingAttachmentLocationInfoKHR}, or {@link VkRenderingInputAttachmentIndexInfoKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>Both of {@code framebuffer}, and {@code renderPass} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkDevice}</li>
  * </ul>
@@ -59,7 +59,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkQueryPipelineStatisticFlags {@link #pipelineStatistics};
  * }</code></pre>
  */
-public class VkCommandBufferInheritanceInfo extends Struct implements NativeResource {
+public class VkCommandBufferInheritanceInfo extends Struct<VkCommandBufferInheritanceInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -103,6 +103,15 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
         PIPELINESTATISTICS = layout.offsetof(7);
     }
 
+    protected VkCommandBufferInheritanceInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkCommandBufferInheritanceInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkCommandBufferInheritanceInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkCommandBufferInheritanceInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -116,13 +125,13 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkRenderPass} object defining which render passes the {@code VkCommandBuffer} will be <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-compatibility">compatible</a> with and <b>can</b> be executed within. */
+    /** a {@code VkRenderPass} object defining which render passes the {@code VkCommandBuffer} will be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-compatibility">compatible</a> with and <b>can</b> be executed within. */
     @NativeType("VkRenderPass")
     public long renderPass() { return nrenderPass(address()); }
     /** the index of the subpass within the render pass instance that the {@code VkCommandBuffer} will be executed within. */
@@ -168,8 +177,14 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
     public VkCommandBufferInheritanceInfo pNext(VkCommandBufferInheritanceRenderingInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkCommandBufferInheritanceViewportScissorInfoNV} value to the {@code pNext} chain. */
     public VkCommandBufferInheritanceInfo pNext(VkCommandBufferInheritanceViewportScissorInfoNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkExternalFormatANDROID} value to the {@code pNext} chain. */
+    public VkCommandBufferInheritanceInfo pNext(VkExternalFormatANDROID value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkMultiviewPerViewAttributesInfoNVX} value to the {@code pNext} chain. */
     public VkCommandBufferInheritanceInfo pNext(VkMultiviewPerViewAttributesInfoNVX value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkRenderingAttachmentLocationInfoKHR} value to the {@code pNext} chain. */
+    public VkCommandBufferInheritanceInfo pNext(VkRenderingAttachmentLocationInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkRenderingInputAttachmentIndexInfoKHR} value to the {@code pNext} chain. */
+    public VkCommandBufferInheritanceInfo pNext(VkRenderingInputAttachmentIndexInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #renderPass} field. */
     public VkCommandBufferInheritanceInfo renderPass(@NativeType("VkRenderPass") long value) { nrenderPass(address(), value); return this; }
     /** Sets the specified value to the {@link #subpass} field. */
@@ -222,29 +237,29 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
 
     /** Returns a new {@code VkCommandBufferInheritanceInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkCommandBufferInheritanceInfo malloc() {
-        return wrap(VkCommandBufferInheritanceInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkCommandBufferInheritanceInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkCommandBufferInheritanceInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkCommandBufferInheritanceInfo calloc() {
-        return wrap(VkCommandBufferInheritanceInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkCommandBufferInheritanceInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkCommandBufferInheritanceInfo} instance allocated with {@link BufferUtils}. */
     public static VkCommandBufferInheritanceInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkCommandBufferInheritanceInfo.class, memAddress(container), container);
+        return new VkCommandBufferInheritanceInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkCommandBufferInheritanceInfo} instance for the specified memory address. */
     public static VkCommandBufferInheritanceInfo create(long address) {
-        return wrap(VkCommandBufferInheritanceInfo.class, address);
+        return new VkCommandBufferInheritanceInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCommandBufferInheritanceInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkCommandBufferInheritanceInfo.class, address);
+        return address == NULL ? null : new VkCommandBufferInheritanceInfo(address, null);
     }
 
     /**
@@ -253,7 +268,7 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
      * @param capacity the buffer capacity
      */
     public static VkCommandBufferInheritanceInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -262,7 +277,7 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
      * @param capacity the buffer capacity
      */
     public static VkCommandBufferInheritanceInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -272,7 +287,7 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
      */
     public static VkCommandBufferInheritanceInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -282,13 +297,13 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
      * @param capacity the buffer capacity
      */
     public static VkCommandBufferInheritanceInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkCommandBufferInheritanceInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -316,7 +331,7 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static VkCommandBufferInheritanceInfo malloc(MemoryStack stack) {
-        return wrap(VkCommandBufferInheritanceInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkCommandBufferInheritanceInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -325,7 +340,7 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static VkCommandBufferInheritanceInfo calloc(MemoryStack stack) {
-        return wrap(VkCommandBufferInheritanceInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkCommandBufferInheritanceInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -335,7 +350,7 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
      * @param capacity the buffer capacity
      */
     public static VkCommandBufferInheritanceInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -345,7 +360,7 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
      * @param capacity the buffer capacity
      */
     public static VkCommandBufferInheritanceInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -394,9 +409,9 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
         /**
          * Creates a new {@code VkCommandBufferInheritanceInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkCommandBufferInheritanceInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkCommandBufferInheritanceInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -467,8 +482,14 @@ public class VkCommandBufferInheritanceInfo extends Struct implements NativeReso
         public VkCommandBufferInheritanceInfo.Buffer pNext(VkCommandBufferInheritanceRenderingInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkCommandBufferInheritanceViewportScissorInfoNV} value to the {@code pNext} chain. */
         public VkCommandBufferInheritanceInfo.Buffer pNext(VkCommandBufferInheritanceViewportScissorInfoNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkExternalFormatANDROID} value to the {@code pNext} chain. */
+        public VkCommandBufferInheritanceInfo.Buffer pNext(VkExternalFormatANDROID value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkMultiviewPerViewAttributesInfoNVX} value to the {@code pNext} chain. */
         public VkCommandBufferInheritanceInfo.Buffer pNext(VkMultiviewPerViewAttributesInfoNVX value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkRenderingAttachmentLocationInfoKHR} value to the {@code pNext} chain. */
+        public VkCommandBufferInheritanceInfo.Buffer pNext(VkRenderingAttachmentLocationInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkRenderingInputAttachmentIndexInfoKHR} value to the {@code pNext} chain. */
+        public VkCommandBufferInheritanceInfo.Buffer pNext(VkRenderingInputAttachmentIndexInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkCommandBufferInheritanceInfo#renderPass} field. */
         public VkCommandBufferInheritanceInfo.Buffer renderPass(@NativeType("VkRenderPass") long value) { VkCommandBufferInheritanceInfo.nrenderPass(address(), value); return this; }
         /** Sets the specified value to the {@link VkCommandBufferInheritanceInfo#subpass} field. */

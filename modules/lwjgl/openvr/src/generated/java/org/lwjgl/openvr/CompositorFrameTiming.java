@@ -48,10 +48,11 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link TrackedDevicePose TrackedDevicePose_t} {@link #m_HmdPose};
  *     uint32_t m_nNumVSyncsReadyForUse;
  *     uint32_t m_nNumVSyncsToFirstView;
+ *     float m_flTransferLatencyMs;
  * }</code></pre>
  */
 @NativeType("struct Compositor_FrameTiming")
-public class CompositorFrameTiming extends Struct implements NativeResource {
+public class CompositorFrameTiming extends Struct<CompositorFrameTiming> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -86,7 +87,8 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
         M_FLCOMPOSITORRENDERSTARTMS,
         M_HMDPOSE,
         M_NNUMVSYNCSREADYFORUSE,
-        M_NNUMVSYNCSTOFIRSTVIEW;
+        M_NNUMVSYNCSTOFIRSTVIEW,
+        M_FLTRANSFERLATENCYMS;
 
     static {
         Layout layout = __struct(
@@ -114,6 +116,7 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
             __member(4),
             __member(4),
             __member(TrackedDevicePose.SIZEOF, TrackedDevicePose.ALIGNOF),
+            __member(4),
             __member(4),
             __member(4)
         );
@@ -147,6 +150,16 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
         M_HMDPOSE = layout.offsetof(23);
         M_NNUMVSYNCSREADYFORUSE = layout.offsetof(24);
         M_NNUMVSYNCSTOFIRSTVIEW = layout.offsetof(25);
+        M_FLTRANSFERLATENCYMS = layout.offsetof(26);
+    }
+
+    protected CompositorFrameTiming(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected CompositorFrameTiming create(long address, @Nullable ByteBuffer container) {
+        return new CompositorFrameTiming(address, container);
     }
 
     /**
@@ -223,34 +236,36 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
     /** @return the value of the {@code m_nNumVSyncsToFirstView} field. */
     @NativeType("uint32_t")
     public int m_nNumVSyncsToFirstView() { return nm_nNumVSyncsToFirstView(address()); }
+    /** @return the value of the {@code m_flTransferLatencyMs} field. */
+    public float m_flTransferLatencyMs() { return nm_flTransferLatencyMs(address()); }
 
     // -----------------------------------
 
     /** Returns a new {@code CompositorFrameTiming} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CompositorFrameTiming malloc() {
-        return wrap(CompositorFrameTiming.class, nmemAllocChecked(SIZEOF));
+        return new CompositorFrameTiming(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code CompositorFrameTiming} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CompositorFrameTiming calloc() {
-        return wrap(CompositorFrameTiming.class, nmemCallocChecked(1, SIZEOF));
+        return new CompositorFrameTiming(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code CompositorFrameTiming} instance allocated with {@link BufferUtils}. */
     public static CompositorFrameTiming create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(CompositorFrameTiming.class, memAddress(container), container);
+        return new CompositorFrameTiming(memAddress(container), container);
     }
 
     /** Returns a new {@code CompositorFrameTiming} instance for the specified memory address. */
     public static CompositorFrameTiming create(long address) {
-        return wrap(CompositorFrameTiming.class, address);
+        return new CompositorFrameTiming(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CompositorFrameTiming createSafe(long address) {
-        return address == NULL ? null : wrap(CompositorFrameTiming.class, address);
+        return address == NULL ? null : new CompositorFrameTiming(address, null);
     }
 
     /**
@@ -259,7 +274,7 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CompositorFrameTiming.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -268,7 +283,7 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CompositorFrameTiming.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -278,7 +293,7 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
      */
     public static CompositorFrameTiming.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -288,13 +303,13 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CompositorFrameTiming.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CompositorFrameTiming.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -322,7 +337,7 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static CompositorFrameTiming malloc(MemoryStack stack) {
-        return wrap(CompositorFrameTiming.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new CompositorFrameTiming(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -331,7 +346,7 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static CompositorFrameTiming calloc(MemoryStack stack) {
-        return wrap(CompositorFrameTiming.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new CompositorFrameTiming(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -341,7 +356,7 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CompositorFrameTiming.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -351,7 +366,7 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CompositorFrameTiming.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -408,6 +423,8 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
     public static int nm_nNumVSyncsReadyForUse(long struct) { return UNSAFE.getInt(null, struct + CompositorFrameTiming.M_NNUMVSYNCSREADYFORUSE); }
     /** Unsafe version of {@link #m_nNumVSyncsToFirstView}. */
     public static int nm_nNumVSyncsToFirstView(long struct) { return UNSAFE.getInt(null, struct + CompositorFrameTiming.M_NNUMVSYNCSTOFIRSTVIEW); }
+    /** Unsafe version of {@link #m_flTransferLatencyMs}. */
+    public static float nm_flTransferLatencyMs(long struct) { return UNSAFE.getFloat(null, struct + CompositorFrameTiming.M_FLTRANSFERLATENCYMS); }
 
     // -----------------------------------
 
@@ -419,9 +436,9 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
         /**
          * Creates a new {@code CompositorFrameTiming.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CompositorFrameTiming#SIZEOF}, and its mark will be undefined.
+         * by {@link CompositorFrameTiming#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -508,6 +525,8 @@ public class CompositorFrameTiming extends Struct implements NativeResource {
         /** @return the value of the {@code m_nNumVSyncsToFirstView} field. */
         @NativeType("uint32_t")
         public int m_nNumVSyncsToFirstView() { return CompositorFrameTiming.nm_nNumVSyncsToFirstView(address()); }
+        /** @return the value of the {@code m_flTransferLatencyMs} field. */
+        public float m_flTransferLatencyMs() { return CompositorFrameTiming.nm_flTransferLatencyMs(address()); }
 
     }
 

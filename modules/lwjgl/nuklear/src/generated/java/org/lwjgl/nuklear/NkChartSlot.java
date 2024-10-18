@@ -27,10 +27,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     int count;
  *     {@link NkVec2 struct nk_vec2} last;
  *     int index;
+ *     nk_bool show_markers;
  * }</code></pre>
  */
 @NativeType("struct nk_chart_slot")
-public class NkChartSlot extends Struct {
+public class NkChartSlot extends Struct<NkChartSlot> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -48,7 +49,8 @@ public class NkChartSlot extends Struct {
         RANGE,
         COUNT,
         LAST,
-        INDEX;
+        INDEX,
+        SHOW_MARKERS;
 
     static {
         Layout layout = __struct(
@@ -60,7 +62,8 @@ public class NkChartSlot extends Struct {
             __member(4),
             __member(4),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
-            __member(4)
+            __member(4),
+            __member(1)
         );
 
         SIZEOF = layout.getSize();
@@ -75,6 +78,16 @@ public class NkChartSlot extends Struct {
         COUNT = layout.offsetof(6);
         LAST = layout.offsetof(7);
         INDEX = layout.offsetof(8);
+        SHOW_MARKERS = layout.offsetof(9);
+    }
+
+    protected NkChartSlot(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected NkChartSlot create(long address, @Nullable ByteBuffer container) {
+        return new NkChartSlot(address, container);
     }
 
     /**
@@ -112,18 +125,21 @@ public class NkChartSlot extends Struct {
     public NkVec2 last() { return nlast(address()); }
     /** @return the value of the {@code index} field. */
     public int index() { return nindex(address()); }
+    /** @return the value of the {@code show_markers} field. */
+    @NativeType("nk_bool")
+    public boolean show_markers() { return nshow_markers(address()); }
 
     // -----------------------------------
 
     /** Returns a new {@code NkChartSlot} instance for the specified memory address. */
     public static NkChartSlot create(long address) {
-        return wrap(NkChartSlot.class, address);
+        return new NkChartSlot(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkChartSlot createSafe(long address) {
-        return address == NULL ? null : wrap(NkChartSlot.class, address);
+        return address == NULL ? null : new NkChartSlot(address, null);
     }
 
     /**
@@ -133,13 +149,13 @@ public class NkChartSlot extends Struct {
      * @param capacity the buffer capacity
      */
     public static NkChartSlot.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkChartSlot.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -162,6 +178,8 @@ public class NkChartSlot extends Struct {
     public static NkVec2 nlast(long struct) { return NkVec2.create(struct + NkChartSlot.LAST); }
     /** Unsafe version of {@link #index}. */
     public static int nindex(long struct) { return UNSAFE.getInt(null, struct + NkChartSlot.INDEX); }
+    /** Unsafe version of {@link #show_markers}. */
+    public static boolean nshow_markers(long struct) { return UNSAFE.getByte(null, struct + NkChartSlot.SHOW_MARKERS) != 0; }
 
     // -----------------------------------
 
@@ -173,9 +191,9 @@ public class NkChartSlot extends Struct {
         /**
          * Creates a new {@code NkChartSlot.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkChartSlot#SIZEOF}, and its mark will be undefined.
+         * by {@link NkChartSlot#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -223,6 +241,9 @@ public class NkChartSlot extends Struct {
         public NkVec2 last() { return NkChartSlot.nlast(address()); }
         /** @return the value of the {@code index} field. */
         public int index() { return NkChartSlot.nindex(address()); }
+        /** @return the value of the {@code show_markers} field. */
+        @NativeType("nk_bool")
+        public boolean show_markers() { return NkChartSlot.nshow_markers(address()); }
 
     }
 

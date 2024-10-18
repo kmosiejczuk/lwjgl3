@@ -16,8 +16,6 @@ package org.lwjgl.vulkan;
  * <li>Allow querying a surface for the set of presentation modes which can be easily switched between without requiring swapchain recreation.</li>
  * </ul>
  * 
- * <h5>VK_EXT_surface_maintenance1</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_surface_maintenance1}</dd>
@@ -31,10 +29,10 @@ package org.lwjgl.vulkan;
  * <dd>{@link KHRSurface VK_KHR_surface} and {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Shahbaz Youssefi <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_surface_maintenance1]%20@syoussefi%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_surface_maintenance1%20extension*">syoussefi</a></li>
+ * <li>Shahbaz Youssefi <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_surface_maintenance1]%20@syoussefi%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_surface_maintenance1%20extension*">syoussefi</a></li>
  * </ul></dd>
  * <dt><b>Extension Proposal</b></dt>
- * <dd><a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_EXT_surface_maintenance1.adoc">VK_EXT_surface_maintenance1</a></dd>
+ * <dd><a href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_EXT_surface_maintenance1.adoc">VK_EXT_surface_maintenance1</a></dd>
  * </dl>
  * 
  * <h5>Other Extension Metadata</h5>

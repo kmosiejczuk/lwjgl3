@@ -14,7 +14,7 @@ val EXT_debug_report = "EXTDebugReport".nativeClassVK("EXT_debug_report", type =
         Due to the nature of the Vulkan interface, there is very little error information available to the developer and application. By enabling optional validation layers and using the {@code VK_EXT_debug_report} extension, developers <b>can</b> obtain much more detailed feedback on the application’s use of Vulkan. This extension defines a way for layers and the implementation to call back to the application for events of interest to the application.
 
         <h5>Examples</h5>
-        {@code VK_EXT_debug_report} allows an application to register multiple callbacks with the validation layers. Some callbacks may log the information to a file, others may cause a debug break point or other application defined behavior. An application <b>can</b> register callbacks even when no validation layers are enabled, but they will only be called for loader and, if implemented, driver events.
+        {@code VK_EXT_debug_report} allows an application to register multiple callbacks with the validation layers. Some callbacks may log the information to a file, others may cause a debug break point or other application-defined behavior. An application <b>can</b> register callbacks even when no validation layers are enabled, but they will only be called for loader and, if implemented, driver events.
 
         To capture events that occur while creating or destroying an instance an application <b>can</b> link a ##VkDebugReportCallbackCreateInfoEXT structure to the {@code pNext} element of the ##VkInstanceCreateInfo structure given to #CreateInstance().
 
@@ -25,12 +25,12 @@ val EXT_debug_report = "EXTDebugReport".nativeClassVK("EXT_debug_report", type =
 ￿    VkDebugReportCallbackEXT cb1, cb2, cb3;
 ￿
 ￿    VkDebugReportCallbackCreateInfoEXT callback1 = {
-￿            VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,    // sType
-￿            NULL,                                                       // pNext
-￿            VK_DEBUG_REPORT_ERROR_BIT_EXT |                             // flags
-￿            VK_DEBUG_REPORT_WARNING_BIT_EXT,
-￿            myOutputDebugString,                                        // pfnCallback
-￿            NULL                                                        // pUserData
+￿        .sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,
+￿        .pNext = NULL,
+￿        .flags = VK_DEBUG_REPORT_ERROR_BIT_EXT |
+￿                 VK_DEBUG_REPORT_WARNING_BIT_EXT,
+￿        .pfnCallback = myOutputDebugString,
+￿        .pUserData = NULL
 ￿    };
 ￿    res = vkCreateDebugReportCallbackEXT(instance, &amp;callback1, &amp;cb1);
 ￿    if (res != VK_SUCCESS)
@@ -44,11 +44,11 @@ val EXT_debug_report = "EXTDebugReport".nativeClassVK("EXT_debug_report", type =
 ￿       // Do error handling for VK_ERROR_OUT_OF_MEMORY 
 ￿
 ￿    VkDebugReportCallbackCreateInfoEXT callback3 = {
-￿            VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,    // sType
-￿            NULL,                                                       // pNext
-￿            VK_DEBUG_REPORT_WARNING_BIT_EXT,                            // flags
-￿            mystdOutLogger,                                             // pfnCallback
-￿            NULL                                                        // pUserData
+￿        .sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,
+￿        .pNext = NULL,
+￿        .flags = VK_DEBUG_REPORT_WARNING_BIT_EXT,
+￿        .pfnCallback = mystdOutLogger,
+￿        .pUserData = NULL
 ￿    };
 ￿    res = vkCreateDebugReportCallbackEXT(instance, &amp;callback3, &amp;cb3);
 ￿    if (res != VK_SUCCESS)
@@ -61,7 +61,6 @@ val EXT_debug_report = "EXTDebugReport".nativeClassVK("EXT_debug_report", type =
 ￿    vkDestroyDebugReportCallbackEXT(instance, cb2);
 ￿    vkDestroyDebugReportCallbackEXT(instance, cb3);</code></pre>
 
-        <h5>VK_EXT_debug_report</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_debug_report}</dd>
@@ -75,19 +74,24 @@ val EXT_debug_report = "EXTDebugReport".nativeClassVK("EXT_debug_report", type =
             <dt><b>Revision</b></dt>
             <dd>10</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>API Interactions</b></dt>
+            <dd><ul>
+                <li>Interacts with VK_VERSION_1_1</li>
+            </ul></dd>
+
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li><em>Deprecated</em> by {@link EXTDebugUtils VK_EXT_debug_utils} extension</li>
             </ul></dd>
 
             <dt><b>Special Use</b></dt>
             <dd><ul>
-                <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Debugging tools</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Debugging tools</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Courtney Goeltzenleuchter <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_debug_report]%20@courtney-g%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_debug_report%20extension*">courtney-g</a></li>
+                <li>Courtney Goeltzenleuchter <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_debug_report]%20@courtney-g%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_debug_report%20extension*">courtney-g</a></li>
             </ul></dd>
         </dl>
 
@@ -154,7 +158,7 @@ val EXT_debug_report = "EXTDebugReport".nativeClassVK("EXT_debug_report", type =
         <h5>Description</h5>
         <ul>
             <li>#DEBUG_REPORT_ERROR_BIT_EXT specifies that the application has violated a valid usage condition of the specification.</li>
-            <li>#DEBUG_REPORT_WARNING_BIT_EXT specifies use of Vulkan that <b>may</b> expose an app bug. Such cases may not be immediately harmful, such as a fragment shader outputting to a location with no attachment. Other cases <b>may</b> point to behavior that is almost certainly bad when unintended such as using an image whose memory has not been filled. In general if you see a warning but you know that the behavior is intended/desired, then simply ignore the warning.</li>
+            <li>#DEBUG_REPORT_WARNING_BIT_EXT specifies use of Vulkan that <b>may</b> expose an application bug. Such cases may not be immediately harmful, such as a fragment shader outputting to a location with no attachment. Other cases <b>may</b> point to behavior that is almost certainly bad when unintended such as using an image whose memory has not been filled. In general if you see a warning but you know that the behavior is intended/desired, then simply ignore the warning.</li>
             <li>#DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT specifies a potentially non-optimal use of Vulkan, e.g. using #CmdClearColorImage() when setting ##VkAttachmentDescription{@code ::loadOp} to #ATTACHMENT_LOAD_OP_CLEAR would have worked.</li>
             <li>#DEBUG_REPORT_INFORMATION_BIT_EXT specifies an informational message such as resource details that may be handy when debugging an application.</li>
             <li>#DEBUG_REPORT_DEBUG_BIT_EXT specifies diagnostic information from the implementation and layers.</li>
@@ -300,7 +304,7 @@ val EXT_debug_report = "EXTDebugReport".nativeClassVK("EXT_debug_report", type =
 
         VkInstance("instance", "the instance the callback will be logged on."),
         VkDebugReportCallbackCreateInfoEXT.const.p("pCreateInfo", "a pointer to a ##VkDebugReportCallbackCreateInfoEXT structure defining the conditions under which this callback will be called."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
         Check(1)..VkDebugReportCallbackEXT.p("pCallback", "a pointer to a {@code VkDebugReportCallbackEXT} handle in which the created object is returned.")
     )
 
@@ -343,7 +347,7 @@ val EXT_debug_report = "EXTDebugReport".nativeClassVK("EXT_debug_report", type =
 
         VkInstance("instance", "the instance where the callback was created."),
         VkDebugReportCallbackEXT("callback", "the {@code VkDebugReportCallbackEXT} object to destroy. {@code callback} is an externally synchronized object and <b>must</b> not be used on more than one thread at a time. This means that {@code vkDestroyDebugReportCallbackEXT} <b>must</b> not be called when a callback is active."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
     )
 
     void(
@@ -371,7 +375,7 @@ val EXT_debug_report = "EXTDebugReport".nativeClassVK("EXT_debug_report", type =
         <h5>Valid Usage</h5>
         <ul>
             <li>{@code object} <b>must</b> be a Vulkan object or #NULL_HANDLE</li>
-            <li>If {@code objectType} is not #DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT and {@code object} is not #NULL_HANDLE, {@code object} <b>must</b> be a Vulkan object of the corresponding type associated with {@code objectType} as defined in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#debug-report-object-types">{@code VkDebugReportObjectTypeEXT} and Vulkan Handle Relationship</a></li>
+            <li>If {@code objectType} is not #DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT and {@code object} is not #NULL_HANDLE, {@code object} <b>must</b> be a Vulkan object of the corresponding type associated with {@code objectType} as defined in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#debug-report-object-types">{@code VkDebugReportObjectTypeEXT} and Vulkan Handle Relationship</a></li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -389,9 +393,9 @@ val EXT_debug_report = "EXTDebugReport".nativeClassVK("EXT_debug_report", type =
         VkDebugReportFlagsEXT("flags", "specifies the {@code VkDebugReportFlagBitsEXT} classification of this event/message."),
         VkDebugReportObjectTypeEXT("objectType", "a {@code VkDebugReportObjectTypeEXT} specifying the type of object being used or created at the time the event was triggered."),
         uint64_t("object", "the object where the issue was detected. {@code object} <b>can</b> be #NULL_HANDLE if there is no object associated with the event."),
-        size_t("location", "an application defined value."),
-        int32_t("messageCode", "an application defined value."),
+        size_t("location", "an application-defined value."),
+        int32_t("messageCode", "an application-defined value."),
         charUTF8.const.p("pLayerPrefix", "the abbreviation of the component making this event/message."),
-        charUTF8.const.p("pMessage", "a null-terminated string detailing the trigger conditions.")
+        charUTF8.const.p("pMessage", "a null-terminated UTF-8 string detailing the trigger conditions.")
     )
 }

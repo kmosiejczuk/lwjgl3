@@ -9,7 +9,7 @@ package org.lwjgl.vulkan;
  * This extension is based on the {@link NVFragmentShaderBarycentric VK_NV_fragment_shader_barycentric} extension, and adds support for the following SPIR-V extension in Vulkan:
  * 
  * <ul>
- * <li><a target="_blank" href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_fragment_shader_barycentric.html">{@code SPV_KHR_fragment_shader_barycentric}</a></li>
+ * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_fragment_shader_barycentric.html">{@code SPV_KHR_fragment_shader_barycentric}</a></li>
  * </ul>
  * 
  * <p>The extension provides access to three additional fragment shader variable decorations in SPIR-V:</p>
@@ -29,8 +29,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>GLSL variables declared using the {@code pervertexEXT} GLSL qualifier are expected to be decorated with {@code PerVertexKHR} in SPIR-V.</p>
  * 
- * <h5>VK_KHR_fragment_shader_barycentric</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_KHR_fragment_shader_barycentric}</dd>
@@ -41,13 +39,17 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>SPIR-V Dependencies</b></dt>
+ * <dd><ul>
+ * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_fragment_shader_barycentric.html">SPV_KHR_fragment_shader_barycentric</a></li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Stu Smith</li>
  * </ul></dd>
  * <dt><b>Extension Proposal</b></dt>
- * <dd><a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_KHR_fragment_shader_barycentric.adoc">VK_KHR_fragment_shader_barycentric</a></dd>
+ * <dd><a href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_KHR_fragment_shader_barycentric.adoc">VK_KHR_fragment_shader_barycentric</a></dd>
  * </dl>
  * 
  * <h5>Other Extension Metadata</h5>
@@ -59,8 +61,7 @@ package org.lwjgl.vulkan;
  * <dd>No known IP claims.</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>This extension requires <a target="_blank" href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_fragment_shader_barycentric.html">{@code SPV_KHR_fragment_shader_barycentric}</a></li>
- * <li>This extension provides API support for <a target="_blank" href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GLSL_EXT_fragment_shader_barycentric.txt">{@code GL_EXT_fragment_shader_barycentric}</a></li>
+ * <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/ext/GLSL_EXT_fragment_shader_barycentric.txt">{@code GL_EXT_fragment_shader_barycentric}</a></li>
  * </ul></dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>

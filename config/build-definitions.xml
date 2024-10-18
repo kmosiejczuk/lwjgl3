@@ -34,15 +34,37 @@ This script is included in /build.xml and /config/update-dependencies.xml.
             <contains string="${os.arch}"    substring="aarch64"/>
         </or>
     </condition>
+    <condition property="build.arch.ppc" value="true">
+        <or>
+            <contains string="${build.arch}" substring="ppc"/>
+            <contains string="${os.arch}"    substring="ppc"/>
+        </or>
+    </condition>
+    <condition property="build.arch.riscv" value="true">
+        <or>
+            <contains string="${build.arch}" substring="riscv"/>
+            <contains string="${os.arch}"    substring="riscv"/>
+        </or>
+    </condition>
+    <condition property="build.arch.x64|x86" value="true">
+        <and>
+            <not><isset property="build.arch.arm"/></not>
+            <not><isset property="build.arch.ppc"/></not>
+            <not><isset property="build.arch.riscv"/></not>
+        </and>
+    </condition>
 
     <!-- Normalize os.arch -->
-    <condition property="build.arch" value="arm64" unless:set="build.arch"><and>     <isset property="build.arch.arm"/>      <istrue  value="${is64Bit}"/></and></condition>
-    <condition property="build.arch" value="arm32" unless:set="build.arch"><and>     <isset property="build.arch.arm"/>      <isfalse value="${is64Bit}"/></and></condition>
-    <condition property="build.arch" value="x64"   unless:set="build.arch"><and><not><isset property="build.arch.arm"/></not><istrue  value="${is64Bit}"/></and></condition>
-    <condition property="build.arch" value="x86"   unless:set="build.arch"><and><not><isset property="build.arch.arm"/></not><isfalse value="${is64Bit}"/></and></condition>
+    <condition property="build.arch" value="arm64"      unless:set="build.arch"><and><isset property="build.arch.arm"/>    <istrue  value="${is64Bit}"/></and></condition>
+    <condition property="build.arch" value="arm32"      unless:set="build.arch"><and><isset property="build.arch.arm"/>    <isfalse value="${is64Bit}"/></and></condition>
+    <condition property="build.arch" value="ppc64le"    unless:set="build.arch"><and><isset property="build.arch.ppc"/>    <istrue  value="${is64Bit}"/></and></condition>
+    <condition property="build.arch" value="riscv64"    unless:set="build.arch"><and><isset property="build.arch.riscv"/>  <istrue  value="${is64Bit}"/></and></condition>
+    <condition property="build.arch" value="x64"        unless:set="build.arch"><and><isset property="build.arch.x64|x86"/><istrue  value="${is64Bit}"/></and></condition>
+    <condition property="build.arch" value="x86"        unless:set="build.arch"><and><isset property="build.arch.x64|x86"/><isfalse value="${is64Bit}"/></and></condition>
+    <property      name="build.arch" value="${os.arch}" unless:set="build.arch"/>
 
-    <fail message="Invalid or unsupported build architecture: ${build.arch}. Supported: x64, x86, arm64, arm32">
-        <condition><not><matches string="${build.arch}" pattern="^(x64|x86|arm64|arm32)$"/></not></condition>
+    <fail message="Invalid or unsupported build architecture: ${build.arch}. Supported: x64, x86, arm64, arm32, ppc64le, riscv64">
+        <condition><not><matches string="${build.arch}" pattern="^(x64|x86|arm64|arm32|ppc64le|riscv64)$"/></not></condition>
     </fail>
 
     <property name="build.arch.${build.arch}" value="true"/>
@@ -111,6 +133,9 @@ This script is included in /build.xml and /config/update-dependencies.xml.
         <isset property="env.LWJGL_BUILD_OFFLINE"/>
     </condition>
 
+    <condition property="platform.freebsd">
+        <os name="FreeBSD"/>
+    </condition>
     <condition property="platform.linux">
         <os name="Linux"/>
     </condition>
@@ -124,14 +149,17 @@ This script is included in /build.xml and /config/update-dependencies.xml.
         <os family="Windows"/>
     </condition>
 
+    <property name="platform" value="freebsd" if:set="platform.freebsd"/>
     <property name="platform" value="linux" if:set="platform.linux"/>
     <property name="platform" value="macos" if:set="platform.macos"/>
     <property name="platform" value="openbsd" if:set="platform.openbsd"/>
     <property name="platform" value="windows" if:set="platform.windows"/>
+    <fail message="Failed to detect a supported platform."><condition><not><isset property="platform"/></not></condition></fail>
 
     <property name="platform.remote" value="macosx" if:set="platform.macos"/>
     <property name="platform.remote" value="${platform}"/>
 
+    <!-- OpenBSD 3.3.4 merge platform defs -->
     <property name="platform.linux.remote" value="linux"/>
     <property name="platform.macos.remote" value="macosx"/>
     <property name="platform.openbsd.remote" value="openbsd"/>
@@ -147,31 +175,31 @@ This script is included in /build.xml and /config/update-dependencies.xml.
     java.version = $VNUM(\-$PRE)?
     -->
     <local name="java.version.regex"/>
-    <property name="java.version.regex" value="[1-9][0-9]+((\.0)*\.[1-9][0-9]*)*(-[a-zA-Z0-9]+)?"/>
+    <property name="java.version.regex" value="((\.0)*\.[1-9][0-9]*)*(-[a-zA-Z0-9]+)?"/> <!-- without the major number -->
 
-    <condition property="jdk19">                             <matches string="${java.version}" pattern="^(?!1[0-8])${java.version.regex}$"/>     </condition>
-    <condition property="jdk18"><or><isset property="jdk19"/><matches string="${java.version}" pattern="^(?!1[0-7])${java.version.regex}$"/></or></condition>
-    <condition property="jdk17"><or><isset property="jdk18"/><matches string="${java.version}" pattern="^(?!1[0-6])${java.version.regex}$"/></or></condition>
-    <condition property="jdk16"><or><isset property="jdk17"/><matches string="${java.version}" pattern="^(?!1[0-5])${java.version.regex}$"/></or></condition>
-    <condition property="jdk15"><or><isset property="jdk16"/><matches string="${java.version}" pattern="^(?!1[0-4])${java.version.regex}$"/></or></condition>
-    <condition property="jdk14"><or><isset property="jdk15"/><matches string="${java.version}" pattern="^(?!1[0-3])${java.version.regex}$"/></or></condition>
-    <condition property="jdk13"><or><isset property="jdk14"/><matches string="${java.version}" pattern="^(?!1[0-2])${java.version.regex}$"/></or></condition>
-    <condition property="jdk12"><or><isset property="jdk13"/><matches string="${java.version}" pattern="^(?!1[0-1])${java.version.regex}$"/></or></condition>
-    <condition property="jdk11"><or><isset property="jdk12"/><matches string="${java.version}" pattern="^(?!1[0-0])${java.version.regex}$"/></or></condition>
-    <condition property="jdk10">
-        <or>
-            <isset property="jdk11"/>
-            <matches string="${java.version}" pattern="^10((\.0)*\.[1-9][0-9]*)*(-[a-zA-Z0-9]+)?$"/>
-        </or>
-    </condition>
-    <condition property="jdk9">
-        <or>
-            <isset property="jdk10"/>
-            <matches string="${java.version}" pattern="^9((\.0)*\.[1-9][0-9]*)*(-[a-zA-Z0-9]+)?$"/>
-        </or>
-    </condition>
+    <condition property="jdk24">                             <matches string="${java.version}" pattern="^24${java.version.regex}$"/>     </condition>
+    <condition property="jdk23"><or><isset property="jdk24"/><matches string="${java.version}" pattern="^23${java.version.regex}$"/></or></condition>
+    <condition property="jdk22"><or><isset property="jdk23"/><matches string="${java.version}" pattern="^22${java.version.regex}$"/></or></condition>
+    <condition property="jdk21"><or><isset property="jdk22"/><matches string="${java.version}" pattern="^21${java.version.regex}$"/></or></condition>
+    <condition property="jdk20"><or><isset property="jdk21"/><matches string="${java.version}" pattern="^20${java.version.regex}$"/></or></condition>
+    <condition property="jdk19"><or><isset property="jdk20"/><matches string="${java.version}" pattern="^19${java.version.regex}$"/></or></condition>
+    <condition property="jdk18"><or><isset property="jdk19"/><matches string="${java.version}" pattern="^18${java.version.regex}$"/></or></condition>
+    <condition property="jdk17"><or><isset property="jdk18"/><matches string="${java.version}" pattern="^17${java.version.regex}$"/></or></condition>
+    <condition property="jdk16"><or><isset property="jdk17"/><matches string="${java.version}" pattern="^16${java.version.regex}$"/></or></condition>
+    <condition property="jdk15"><or><isset property="jdk16"/><matches string="${java.version}" pattern="^15${java.version.regex}$"/></or></condition>
+    <condition property="jdk14"><or><isset property="jdk15"/><matches string="${java.version}" pattern="^14${java.version.regex}$"/></or></condition>
+    <condition property="jdk13"><or><isset property="jdk14"/><matches string="${java.version}" pattern="^13${java.version.regex}$"/></or></condition>
+    <condition property="jdk12"><or><isset property="jdk13"/><matches string="${java.version}" pattern="^12${java.version.regex}$"/></or></condition>
+    <condition property="jdk11"><or><isset property="jdk12"/><matches string="${java.version}" pattern="^11${java.version.regex}$"/></or></condition>
+    <condition property="jdk10"><or><isset property="jdk11"/><matches string="${java.version}" pattern="^10${java.version.regex}$"/></or></condition>
+    <condition property= "jdk9"><or><isset property="jdk10"/><matches string="${java.version}" pattern= "^9${java.version.regex}$"/></or></condition>
 
     <!-- May be set in the ant command line to test multi-release implementations. -->
+    <condition property="core.java23"><isset property="core.java24"/></condition>
+    <condition property="core.java22"><isset property="core.java23"/></condition>
+    <condition property="core.java21"><isset property="core.java22"/></condition>
+    <condition property="core.java20"><isset property="core.java21"/></condition>
+    <condition property="core.java19"><isset property="core.java20"/></condition>
     <condition property="core.java18"><isset property="core.java19"/></condition>
     <condition property="core.java17"><isset property="core.java18"/></condition>
     <condition property="core.java16"><isset property="core.java17"/></condition>
@@ -221,9 +249,9 @@ This script is included in /build.xml and /config/update-dependencies.xml.
         </javac>
     </presetdef>
 
-    <presetdef name="lwjgl.javac11">
+    <presetdef name="lwjgl.javac16">
         <javac sourcepath="" debug="yes" encoding="UTF-8">
-            <compilerarg line="--release 11"/>
+            <compilerarg line="--release 16"/>
             <compilerarg value="-Xlint:all"/>
             <compilerarg value="-XDignore.symbol.file"/>
         </javac>

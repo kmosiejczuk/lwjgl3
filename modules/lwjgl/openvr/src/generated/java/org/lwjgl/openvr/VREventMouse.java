@@ -23,10 +23,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     float {@link #x};
  *     float y;
  *     uint32_t {@link #button};
+ *     uint32_t {@link #cursorIndex};
  * }</code></pre>
  */
 @NativeType("struct VREvent_Mouse_t")
-public class VREventMouse extends Struct {
+public class VREventMouse extends Struct<VREventMouse> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -38,10 +39,12 @@ public class VREventMouse extends Struct {
     public static final int
         X,
         Y,
-        BUTTON;
+        BUTTON,
+        CURSORINDEX;
 
     static {
         Layout layout = __struct(
+            __member(4),
             __member(4),
             __member(4),
             __member(4)
@@ -53,6 +56,16 @@ public class VREventMouse extends Struct {
         X = layout.offsetof(0);
         Y = layout.offsetof(1);
         BUTTON = layout.offsetof(2);
+        CURSORINDEX = layout.offsetof(3);
+    }
+
+    protected VREventMouse(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VREventMouse create(long address, @Nullable ByteBuffer container) {
+        return new VREventMouse(address, container);
     }
 
     /**
@@ -75,18 +88,21 @@ public class VREventMouse extends Struct {
     /** one of:<br><table><tr><td>{@link VR#EVRMouseButton_VRMouseButton_Left}</td><td>{@link VR#EVRMouseButton_VRMouseButton_Right}</td></tr><tr><td>{@link VR#EVRMouseButton_VRMouseButton_Middle}</td></tr></table> */
     @NativeType("uint32_t")
     public int button() { return nbutton(address()); }
+    /** if from an event triggered by cursor input on an overlay that supports multiple cursors, this is the index of which tracked cursor the event is for */
+    @NativeType("uint32_t")
+    public int cursorIndex() { return ncursorIndex(address()); }
 
     // -----------------------------------
 
     /** Returns a new {@code VREventMouse} instance for the specified memory address. */
     public static VREventMouse create(long address) {
-        return wrap(VREventMouse.class, address);
+        return new VREventMouse(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventMouse createSafe(long address) {
-        return address == NULL ? null : wrap(VREventMouse.class, address);
+        return address == NULL ? null : new VREventMouse(address, null);
     }
 
     /**
@@ -96,13 +112,13 @@ public class VREventMouse extends Struct {
      * @param capacity the buffer capacity
      */
     public static VREventMouse.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VREventMouse.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -113,6 +129,8 @@ public class VREventMouse extends Struct {
     public static float ny(long struct) { return UNSAFE.getFloat(null, struct + VREventMouse.Y); }
     /** Unsafe version of {@link #button}. */
     public static int nbutton(long struct) { return UNSAFE.getInt(null, struct + VREventMouse.BUTTON); }
+    /** Unsafe version of {@link #cursorIndex}. */
+    public static int ncursorIndex(long struct) { return UNSAFE.getInt(null, struct + VREventMouse.CURSORINDEX); }
 
     // -----------------------------------
 
@@ -124,9 +142,9 @@ public class VREventMouse extends Struct {
         /**
          * Creates a new {@code VREventMouse.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VREventMouse#SIZEOF}, and its mark will be undefined.
+         * by {@link VREventMouse#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -159,6 +177,9 @@ public class VREventMouse extends Struct {
         /** @return the value of the {@link VREventMouse#button} field. */
         @NativeType("uint32_t")
         public int button() { return VREventMouse.nbutton(address()); }
+        /** @return the value of the {@link VREventMouse#cursorIndex} field. */
+        @NativeType("uint32_t")
+        public int cursorIndex() { return VREventMouse.ncursorIndex(address()); }
 
     }
 

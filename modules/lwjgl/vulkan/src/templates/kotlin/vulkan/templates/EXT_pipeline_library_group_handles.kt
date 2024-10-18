@@ -11,13 +11,12 @@ import vulkan.*
 val EXT_pipeline_library_group_handles = "EXTPipelineLibraryGroupHandles".nativeClassVK("EXT_pipeline_library_group_handles", type = "device", postfix = "EXT") {
     documentation =
         """
-        When using pipeline libraries in ray tracing pipelines, a library might get linked into different pipelines in an incremental way. An application can have a strategy where a ray tracing pipeline is comprised of N pipeline libraries and is later augumented by creating a new pipeline with N + 1 libraries. Without this extension, all group handles must be re-queried as the group handle is tied to the pipeline, not the library. This is problematic for applications which aim to decouple construction of record buffers and the linkage of ray tracing pipelines.
+        When using pipeline libraries in ray tracing pipelines, a library might get linked into different pipelines in an incremental way. An application can have a strategy where a ray tracing pipeline is comprised of N pipeline libraries and is later augmented by creating a new pipeline with N + 1 libraries. Without this extension, all group handles must be re-queried as the group handle is tied to the pipeline, not the library. This is problematic for applications which aim to decouple construction of record buffers and the linkage of ray tracing pipelines.
 
         To aid in this, this extension enables support for querying group handles directly from pipeline libraries. Group handles obtained from a library <b>must</b> remain bitwise identical in any {@code VkPipeline} that links to the library.
 
         With this feature, the extension also improves compatibility with DXR 1.1 AddToStateObject(), which guarantees that group handles returned remain bitwise identical between parent and child pipelines. In addition, querying group handles from COLLECTION objects is also supported with that API.
 
-        <h5>VK_EXT_pipeline_library_group_handles</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_pipeline_library_group_handles}</dd>
@@ -36,11 +35,11 @@ val EXT_pipeline_library_group_handles = "EXTPipelineLibraryGroupHandles".native
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Hans-Kristian Arntzen <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_pipeline_library_group_handles]%20@HansKristian-Work%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_pipeline_library_group_handles%20extension*">HansKristian-Work</a></li>
+                <li>Hans-Kristian Arntzen <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_pipeline_library_group_handles]%20@HansKristian-Work%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_pipeline_library_group_handles%20extension*">HansKristian-Work</a></li>
             </ul></dd>
 
             <dt><b>Extension Proposal</b></dt>
-            <dd><a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_EXT_pipeline_library_group_handles.adoc">VK_EXT_pipeline_library_group_handles</a></dd>
+            <dd><a href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_EXT_pipeline_library_group_handles.adoc">VK_EXT_pipeline_library_group_handles</a></dd>
         </dl>
 
         <h5>Other Extension Metadata</h5>

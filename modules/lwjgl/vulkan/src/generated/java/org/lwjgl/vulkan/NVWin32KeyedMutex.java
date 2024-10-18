@@ -140,8 +140,6 @@ package org.lwjgl.vulkan;
  *     submit_info.pCommandBuffers = &amp;cmd_buf;
  *     vkQueueSubmit(queue, 1, &amp;submit_info, VK_NULL_HANDLE);</code></pre>
  * 
- * <h5>VK_NV_win32_keyed_mutex</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_win32_keyed_mutex}</dd>
@@ -153,13 +151,13 @@ package org.lwjgl.vulkan;
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd>{@link NVExternalMemoryWin32 VK_NV_external_memory_win32}</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to {@link KHRWin32KeyedMutex VK_KHR_win32_keyed_mutex} extension</li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Carsten Rohde <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_win32_keyed_mutex]%20@crohde%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_win32_keyed_mutex%20extension*">crohde</a></li>
+ * <li>Carsten Rohde <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_win32_keyed_mutex]%20@crohde%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_win32_keyed_mutex%20extension*">crohde</a></li>
  * </ul></dd>
  * </dl>
  * 

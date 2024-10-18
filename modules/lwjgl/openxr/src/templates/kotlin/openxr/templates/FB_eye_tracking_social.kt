@@ -11,7 +11,7 @@ import openxr.*
 val FB_eye_tracking_social = "FBEyeTrackingSocial".nativeClassXR("FB_eye_tracking_social", type = "instance", postfix = "FB") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_FB_eye_tracking_social">XR_FB_eye_tracking_social</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_FB_eye_tracking_social">XR_FB_eye_tracking_social</a> extension.
 
         This extension enables applications to obtain position and orientation of the user’s eyes. It enables applications to render eyes in XR experiences.
 
@@ -83,7 +83,7 @@ val FB_eye_tracking_social = "FBEyeTrackingSocial".nativeClassXR("FB_eye_trackin
 ￿    XrEyeTrackerFB*                             eyeTracker);</code></pre>
 
         <h5>Description</h5>
-        If the system does not support eye tracking, the runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateEyeTrackerFB(). In this case, the runtime <b>must</b> return #FALSE for {@code supportsEyeTracking} in ##XrSystemEyeTrackingPropertiesFB when the function #GetSystemProperties() is called, so that the application <b>can</b> avoid creating an eye tracker.
+        If the system does not support eye tracking, the runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateEyeTrackerFB(). In this case, the runtime <b>must</b> return #FALSE for ##XrSystemEyeTrackingPropertiesFB{@code ::supportsEyeTracking} when the function #GetSystemProperties() is called, so that the application <b>can</b> avoid creating an eye tracker.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -214,10 +214,8 @@ val FB_eye_tracking_social = "FBEyeTrackingSocial".nativeClassXR("FB_eye_trackin
         ##XrEyeGazesFB, ##XrEyeGazesInfoFB
         """,
 
-        XrEyeTrackerFB("eyeTracker", """an {@code XrEyeTrackerFB} previously created by #CreateEyeTrackerFB().
-
-        a pointer to ##XrEyeGazesFB receiving the returned eye poses and confidence."""),
+        XrEyeTrackerFB("eyeTracker", "an {@code XrEyeTrackerFB} previously created by #CreateEyeTrackerFB()."),
         XrEyeGazesInfoFB.const.p("gazeInfo", "the information to get eye gaze."),
-        XrEyeGazesFB.p("eyeGazes", "")
+        XrEyeGazesFB.p("eyeGazes", "a pointer to ##XrEyeGazesFB receiving the returned eye poses and confidence.")
     )
 }

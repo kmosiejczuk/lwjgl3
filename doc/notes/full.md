@@ -1,3 +1,146 @@
+### 3.3.4
+
+_Release 2024 Jul 17_
+
+This build includes the following changes:
+
+#### Bindings
+
+- Added [msdfgen](https://github.com/Chlumsky/msdfgen) bindings.
+- Assimp: Updated to 5.4.2 (up from 5.2.5)
+- bgfx: Updated to API version 128 (up from 122)
+  * Windows: support for the Direct3D 9 backend has been dropped.
+- CUDA: Updated to 12.5.1 (up from 12.1.0)
+- FMOD: Updated to 2.02.21 (up from 2.02.16)
+- glfw: Updated to 3.4 (up from 3.3.8)
+  * Added `GLFW_UNLIMITED_MOUSE_BUTTONS`, `GLFW_SCALE_FRAMEBUFFER`, `GLFW_WIN32_SHOWDEFAULT`.
+  * Added `glfwGetWindowTitle`, `glfwGetCocoaView`.
+- glfw: Added experimental support for IME. (#946)
+  * Added `GLFW_SOFT_FULLSCREEN`, `GLFW_IME`, `GLFW_MANAGE_PREEDIT_CANDIDATE` and `GLFW_X11_ONTHESPOT`.
+  * Added `glfwGetPreeditCursorRectangle`, `glfwSetPreeditCursorRectangle`, `glfwResetPreeditText`, `glfwGetPreeditCandidate`.
+  * Added `glfwSetPreeditCallback`, `glfwSetIMEStatusCallback`, `glfwSetPreeditCandidateCallback`.
+- harfbuzz: Updated to 9.0.0 (up from 8.2.0)
+- hwloc: Updated to 2.11.1 (up from 2.9.3)
+- KTX: Updated to 4.3.2 (up from 4.3.0-alpha3)
+- libffi: Updated to 3.4.6 (up from 3.4.4)
+- liburing: Updated to 2.6 (up from 2.4)
+- lmdb: Updated to 0.9.32 (up from 0.9.31)
+- LLVM/Clang: Updated to 18.1.7 (up from 16.0.0)
+- meshoptimizer: Updated to 0.21 (up from 0.19)
+- NativeFileDialog: Update to 1.2.0 (up from 1.1.0)
+- Nuklear: Updated to 4.12.1 (up from 4.10.6)
+- OpenVR: Updated to 2.5.1 (up from 1.26.7)
+  * Added support for Linux ARM64
+- OpenXR: Updated to 1.1.38 (up from 1.0.29)
+- Opus: Updated to 1.5.2 (up from 1.4.0)
+- rpmalloc: Updated to 1.4.5 (up from 1.4.4)
+- Shaderc: Updated to 2024.2 (up from 2023.6)
+- SPIRV-Cross: Updated to 0.61.0 (up from 0.57.0)
+- stb
+  * Updated `stb_image` to 2.30 (up from 2.28)
+  * Updated `stb_image_resize` to 2.09 (up from 0.97)
+- tinyexr: Updated to 1.0.8 (up from 1.0.7)
+- tinyfiledialogs: Updated to 3.18.1 (up from 3.13.3)
+- vma: Updated to 3.1.0 (up from 3.0.1)
+- Vulkan: Updated to 1.3.289 (up from 1.3.264)
+  * Includes MoltenVK 1.2.10 (up from 1.2.5)
+- Yoga: Updated to 3.1.0 (up from 2.0.0)
+- Zstd: Updated to 1.5.6 (up from 1.5.5)
+
+#### Improvements
+
+- FreeBSD: Added support for the FreeBSD operating system, x64 architecture. (#421)
+  * Maven classifier: `freebsd`
+- Linux: Added support for the PowerPC 64 LE architecture. (#495)
+  * Maven classifier: `linux-ppc64le`
+- Linux: Added support for the RISC-V 64 architecture. (#890)
+  * Maven classifier: `linux-riscv64`
+- Linux: ARM/PowerPC/RISC-V shared libraries are now built with GCC 11 (up from GCC 7).
+- Windows: Shared libraries are now built with Clang/LLVM (clang-cl toolset) when possible.
+- Vulkan: Made `VkMemoryRequirements` mutable for the `vmaAllocateMemory(Pages)` functions. (#937)
+
+#### Fixes
+
+- Core: Fixed callback wrapper memory leak with the CHM closure registry. (#927)
+- Core: The `SharedLibraryLoader` will now always test if `System::load` works before choosing the extract path. (#987)
+- bgfx: Fixed `bgfx_is_frame_buffer_valid` to accept `BGFXAttachment.Buffer`. (#993)
+- JAWT: Fixed `JAWT_MACOSX_USE_CALAYER` value.
+- LLVM: Fixed `LLVMGetBufferStart` to return `ByteBuffer` instead of `String`. (#934)
+- LLVM: Fixed `LookupIntrinsicID` to return `unsigned` instead of `void`. (#950)
+- Nuklear: Fixed auto-sizing of `nk_stroke_polyline`, `nk_stroke_polygon`, `nk_fill_polygon` buffers. (#978)
+- tinyfd: The `aDefaultPath` parameter of `tinyfd_selectFolderDialog` is now nullable. (#922)
+
+#### Breaking Changes
+
+- Linux: ARM/PowerPC/RISC-V shared libraries now require GLIBC version 2.35 (up from 2.27)
+- macOS: LWJGL now requires macOS 10.11/El Capitan or later (up from 10.9/Mavericks)
+- meshoptimizer: Fixed autosizing issues. (#981)
+  * For consistency across the API, auto-sizing of some parameters was removed and the corresponding count parameters were made explicit.
+  * Auto-sizing is now always based on input parameters, the destination buffers are only checked for enough capacity.
+- stb: `stb_image_resize2.h` replaced `stb_image_resize.h` with a new API.
+
+### 3.3.3
+
+_Released 2023 Sep 16_
+
+This build includes the following changes:
+
+#### Bindings
+
+- bgfx: Updated to API version 122 (up from 118)
+  * macOS: support for the OpenGL backend has been dropped.
+- EGL: Added latest extensions.
+  * `EGL_EXT_gl_colorspace_bt2020_hlg`
+- FMOD: Updated to 2.02.16 (up from 2.02.13)
+- freetype: Updated to 2.13.2 (up from 2.13.0)
+- harfbuzz: Updated to 8.2.0 (up from 7.1.0)
+- hwloc: Updated to 2.9.3 (up from 2.9.0)
+- KTX: Updated to 4.3.0-alpha3 (up from 4.1.0-rc3)
+- liburing: Updated to 2.4 (up from 2.4-dev)
+- lmdb: Updated to 0.9.31 (up from 0.9.30)
+- meshoptimizer: Updated to 0.19 (up from 0.18)
+- NativeFileDialog: Update to 1.1.0 (up from 1.0.2)
+  * Added `Configuration.NFD_LINUX_PORTAL` which enables the XDG Desktop Portal backend on Linux. (#893)
+- Nuklear: Updated to 4.10.6 (up from 4.10.5)
+- OpenAL Soft: Updated to 1.23.1 (up from 1.23.0)
+  * Added `AL_SOFT_buffer_length_query` extension.
+  * Added `AL_SOFT_source_start_delay` extension.
+  * Added `AL_SOFT_UHJ_ex` extension.
+- OpenCL: Added latest extensions.
+  * `cl_ext_image_from_buffer`
+  * `cl_ext_image_requirements_info`
+  * `cl_intel_bfloat16_conversions`
+  * `cl_intel_split_work_group_barrier`
+  * `cl_intel_subgroup_matrix_multiply_accumulate`
+  * `cl_intel_subgroup_split_matrix_multiply_accumulate`
+- OpenGL: Added latest extensions.
+  * `GL_NV_uniform_buffer_std430_layout`
+- OpenVR: Updated to 1.26.7 (up from 1.23.7)
+- OpenXR: Updated to 1.0.29 (up from 1.0.27)
+- Opus: Updated to 1.4.0 (up from 1.3.1)
+- Shaderc: Updated to 2023.6 (up from 2023.3)
+- SPIRV-Cross: Updated to 0.57.0 (up from 0.51.0)
+- tinyexr: Updated to 1.0.7 (up from 1.0.2)
+- tinyfiledialogs: Updated to 3.13.3 (up from 3.9.0)
+- Vulkan: Updated to 1.3.264 (up from 1.3.246)
+  * Includes MoltenVK 1.2.5 (up from 1.2.3)
+- xxhash: Updated to 0.8.2 (up from 0.8.1)
+- Yoga: Updated to 2.0.0 (up from 1.19.0)
+- Zstd: Updated to 1.5.5 (up from 1.5.4)
+
+#### Improvements
+
+- Core: LWJGL is now compatible with GraalVM Native Image. (#875)
+
+#### Fixes
+
+- Core: Java `memset`/`memcpy` implementations no longer touch memory outside the target range. (#892)
+- CUDA: Fixed library name on Linux. (#884)
+- Nuklear: Fixed the result auto-sizing of `nk_font_atlas_bake`. (#903)
+- OpenGL: Added support for [libglvnd](https://github.com/NVIDIA/libglvnd). (#880)
+  * LWJGL will now try to load `libGLX.so.0` before `libGL.so.1` on Linux, matching GLFW.
+  * Use `Configuration.OPENGL_LIBRARY_NAME` and `GLFWNativeGLX::setPath` to override this behavior.
+
 ### 3.3.2
 
 _Released 2023 Apr 01_
@@ -117,6 +260,12 @@ This build includes the following changes:
 - NanoVG: The `freeData` parameters of `nvgCreateFontMem*` functions are now mapped to Java `boolean`. (S)
 - NativeFileDialog: Now uses the [btzy/nativefiledialog-extended](https://github.com/btzy/nativefiledialog-extended) API. (S)
 - Nuklear: Renamed `NkConvertConfig::null_texture` to `tex_null` to match the change in the native API. (S)
+
+#### Known Issues
+
+- glfw: GLFW added support for libglvnd (https://github.com/NVIDIA/libglvnd) and prioritizes loading `libGLX.so.0` when available over `libGL.so.1`. This may cause failures:
+  * On context creation (`glfwCreateWindow`) if the host system is misconfigured. Workaround: Call `GLFWNativeGLX.setPath(GL.getFunctionProvider())` before `glfwInit` to force GLFW to load `libGL.so.1` instead.
+  * On GL bindings initialization (`GL.createCapabilities`) because of incompatibility with `libGL.so.1`, which is the library that LWJGL loads. Workaround: Set `Configuration.OPENGL_LIBRARY_NAME` to `libGLX.so.0` to force LWJGL to load `libGLX.so.0` instead.
 
 ### 3.3.1
 
@@ -499,7 +648,7 @@ This build includes the following changes:
 - Added [LLVM/Clang](https://llvm.org/) bindings.
     * LLVM binaries are not included in this release. They must be separately downloaded or built for each platform.
 - Added [Meow hash](https://github.com/cmuratori/meow_hash/) bindings.
-- Added [Opus](http://opus-codec.org/) bindings.
+- Added [Opus](https://opus-codec.org/) bindings.
 - bgfx: Updated to API version 90 (up from 76)
 - dyncall: Updated to 1.0 (up from 1.0-RC)
 - glfw: Updated to pre-release 3.3.0 version (up from 3.3.0 pre-release):
@@ -625,7 +774,7 @@ This build includes the following changes:
 - perf(core): Optimized pointer arithmetic by helping the JVM identify unsigned integers.
 - perf(core): The new `java.util.Objects` index check intrinsics are used on Java 9.
 - perf(core): `MemoryUtil` string decoding methods are now faster on both Java 8 and 9+.
-    * The Java 9 implementations are tuned for compact strings ([JEP 254](http://openjdk.java.net/jeps/254)).
+    * The Java 9 implementations are tuned for compact strings ([JEP 254](https://openjdk.org/jeps/254)).
 - perf(generator):  Function pointers in capabilities classes are not sorted by name anymore.
     * This makes it more likely that for functions that are commonly used together, their respective pointers
     will be closer in memory, avoiding unnecessary cache misses.
@@ -714,7 +863,7 @@ This build includes the following changes:
 #### Improvements
 
 - Added [JSR-305](https://jcp.org/en/jsr/detail?id=305) nullability annotations to the core and all bindings. (#344)
-    * Enables static analysis tools ([FindBugs](http://findbugs.sourceforge.net/), IDEs) to detect accesses that could cause `NullPointerException`. Eliminating those improves the quality of LWJGL applications.
+    * Enables static analysis tools ([FindBugs](https://findbugs.sourceforge.net/), IDEs) to detect accesses that could cause `NullPointerException`. Eliminating those improves the quality of LWJGL applications.
     * Enables better interopation with JVM-based languages that feature built-in null-safety. For example, see [Kotlin's JSR-305 support](https://kotlinlang.org/docs/reference/java-interop.html#jsr-305-support).
 - Added `Configuration` setting to disable function lookup checks.
 - lmdb: Databases are now binary compatible across 32 & 64-bit architectures. (#364)
@@ -785,11 +934,11 @@ This build includes the following changes:
 
 #### Bindings
 
-- Added [LZ4](http://lz4.github.io/lz4/) bindings.
+- Added [LZ4](https://lz4.org/) bindings.
 - Added [NanoSVG](https://github.com/memononen/nanosvg) to the existing `NanoVG` bindings.
 - Added [ODBC](https://docs.microsoft.com/en-us/sql/odbc/microsoft-open-database-connectivity-odbc) bindings.
 - Added [Remotery](https://github.com/Celtoys/Remotery) bindings.
-- Added [Zstandard](http://facebook.github.io/zstd/) bindings.
+- Added [Zstandard](https://facebook.github.io/zstd/) bindings.
 - bgfx: Updated to API version 55 (up from 48)
 - glfw: Updated to pre-release 3.3.0 version (up from 3.3.0 pre-release):
     * Support for transparent window framebuffers (`GLFW_TRANSPARENT_FRAMEBUFFER` window hint)
@@ -1004,7 +1153,7 @@ This build includes the following changes:
 
 #### Bindings
 
-- Added [Assimp](http://www.assimp.org/) bindings.
+- Added [Assimp](https://www.assimp.org/) bindings.
 - bgfx: Updated to API version 34 (up from 28)
 - jemalloc: Updated to version 4.4.0 (up from 4.2.1)
 - LibOVR: Updated to version 1.10.0 (up from 1.9.0)
@@ -1108,8 +1257,8 @@ This build includes the following changes:
 - Added [Vulkan](https://www.khronos.org/vulkan/) bindings. (#50)
 - Added [NanoVG](https://github.com/memononen/nanovg) bindings. (#99)
 - Added [NativeFileDialog](https://github.com/mlabbe/nativefiledialog) bindings.
-- Added [par_shapes.h](http://github.prideout.net/shapes) bindings.
-- Added [dyncall](http://www.dyncall.org/) bindings.
+- Added [par_shapes.h](https://prideout.net/shapes) bindings.
+- Added [dyncall](https://www.dyncall.org/) bindings.
 - Added [jawt](https://en.wikipedia.org/wiki/Java_AWT_Native_Interface) bindings for AWT/Swing integration. (#125)
 - Added simple OS-specific **window creation** bindings, for custom window/context creation. (#105)
 - Added missing OpenCL and OpenAL **extensions**.
@@ -1178,7 +1327,7 @@ Changes to bindings:
 
 * Removed obsolete OS-specific bindings.
 * Added bindings to many OpenGL extensions that were missing in 3.0.0a.
-* Added bindings to [jemalloc](http://www.canonware.com/jemalloc/).
+* Added bindings to [jemalloc](https://jemalloc.net/).
 * Added bindings to [EGL](https://www.khronos.org/egl).
 * Added bindings to [OpenGL ES](https://www.khronos.org/opengles/).
 * Added bindings to [xxHash](https://github.com/Cyan4973/xxHash).

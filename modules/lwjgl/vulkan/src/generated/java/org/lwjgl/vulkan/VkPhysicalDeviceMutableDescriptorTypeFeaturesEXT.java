@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #mutableDescriptorType};
  * }</code></pre>
  */
-public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct implements NativeResource {
+public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,6 +66,15 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
         MUTABLEDESCRIPTORTYPE = layout.offsetof(2);
     }
 
+    protected VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -79,7 +88,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -94,12 +103,9 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
      * <li>{@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER}</li>
      * <li>{@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}</li>
      * <li>{@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER}</li>
-     * <li>{@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER}</li>
-     * </ul>
-     * 
-     * <p>Additionally, {@code mutableDescriptorType} indicates that:</p>
-     * 
-     * <ul>
+     * <li>{@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER}
+     * Additionally, {@code mutableDescriptorType} indicates that:
+     * </li>
      * <li>Non-uniform descriptor indexing <b>must</b> be supported if all descriptor types in a {@link VkMutableDescriptorTypeListEXT} for {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} have the corresponding non-uniform indexing features enabled in {@link VkPhysicalDeviceDescriptorIndexingFeatures}.</li>
      * <li>{@link VK12#VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT} with {@code descriptorType} of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} relaxes the list of required descriptor types to the descriptor types which have the corresponding update-after-bind feature enabled in {@link VkPhysicalDeviceDescriptorIndexingFeatures}.</li>
      * <li>Dynamically uniform descriptor indexing <b>must</b> be supported if all descriptor types in a {@link VkMutableDescriptorTypeListEXT} for {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} have the corresponding dynamic indexing features enabled.</li>
@@ -148,29 +154,29 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
 
     /** Returns a new {@code VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT malloc() {
-        return wrap(VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT calloc() {
-        return wrap(VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.class, memAddress(container), container);
+        return new VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT} instance for the specified memory address. */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT create(long address) {
-        return wrap(VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.class, address);
+        return new VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.class, address);
+        return address == NULL ? null : new VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(address, null);
     }
 
     /**
@@ -179,7 +185,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -188,7 +194,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -198,7 +204,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
      */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -208,13 +214,13 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -223,7 +229,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -232,7 +238,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -242,7 +248,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -252,7 +258,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -281,9 +287,9 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct imp
         /**
          * Creates a new {@code VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

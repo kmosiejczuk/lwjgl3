@@ -24,8 +24,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>All functionality in this extension is included in core Vulkan 1.1, with the KHR suffix omitted. However, if Vulkan 1.1 is supported and this extension is not, the {@code samplerYcbcrConversion} capability is optional. The original type, enum and command names are still available as aliases of the core functionality.</p>
  * 
- * <h5>VK_KHR_sampler_ycbcr_conversion</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_KHR_sampler_ycbcr_conversion}</dd>
@@ -36,14 +34,18 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>14</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRMaintenance1 VK_KHR_maintenance1} and {@link KHRBindMemory2 VK_KHR_bind_memory2} and {@link KHRGetMemoryRequirements2 VK_KHR_get_memory_requirements2} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dd>{@link KHRMaintenance1 VK_KHR_maintenance1} and {@link KHRBindMemory2 VK_KHR_bind_memory2} and {@link KHRGetMemoryRequirements2 VK_KHR_get_memory_requirements2} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>API Interactions</b></dt>
  * <dd><ul>
- * <li><em>Promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
+ * <li>Interacts with VK_EXT_debug_report</li>
+ * </ul></dd>
+ * <dt><b>Deprecation State</b></dt>
+ * <dd><ul>
+ * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Andrew Garrard <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_sampler_ycbcr_conversion]%20@fluppeteer%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_sampler_ycbcr_conversion%20extension*">fluppeteer</a></li>
+ * <li>Andrew Garrard <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_sampler_ycbcr_conversion]%20@fluppeteer%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_sampler_ycbcr_conversion%20extension*">fluppeteer</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -54,10 +56,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>2017-08-11</dd>
  * <dt><b>IP Status</b></dt>
  * <dd>No known IP claims.</dd>
- * <dt><b>Interactions and External Dependencies</b></dt>
- * <dd><ul>
- * <li>Promoted to Vulkan 1.1 Core</li>
- * </ul></dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
  * <li>Andrew Garrard, Samsung Electronics</li>
@@ -108,9 +106,6 @@ public class KHRSamplerYcbcrConversion {
         VK_STRUCTURE_TYPE_IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO_KHR              = 1000156003,
         VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES_KHR = 1000156004,
         VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES_KHR  = 1000156005;
-
-    /** Extends {@code VkDebugReportObjectTypeEXT}. */
-    public static final int VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR_EXT = 1000156000;
 
     /** Extends {@code VkObjectType}. */
     public static final int VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR = 1000156000;
@@ -284,8 +279,19 @@ public class KHRSamplerYcbcrConversion {
         VK_CHROMA_LOCATION_COSITED_EVEN_KHR = 0,
         VK_CHROMA_LOCATION_MIDPOINT_KHR     = 1;
 
-    /** Extends {@code VkDebugReportObjectTypeEXT}. */
-    public static final int VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_EXT = 1000156000;
+    /**
+     * Extends {@code VkDebugReportObjectTypeEXT}.
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_EXT DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_EXT}</li>
+     * <li>{@link #VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR_EXT DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR_EXT}</li>
+     * </ul>
+     */
+    public static final int
+        VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_EXT     = 1000156000,
+        VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR_EXT = 1000156000;
 
     protected KHRSamplerYcbcrConversion() {
         throw new UnsupportedOperationException();
@@ -307,7 +313,7 @@ public class KHRSamplerYcbcrConversion {
      *
      * @param device           the logical device that creates the sampler Y′C<sub>B</sub>C<sub>R</sub> conversion.
      * @param pCreateInfo      a pointer to a {@link VkSamplerYcbcrConversionCreateInfo} structure specifying the requested sampler Y′C<sub>B</sub>C<sub>R</sub> conversion.
-     * @param pAllocator       controls host memory allocation as described in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator       controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pYcbcrConversion a pointer to a {@code VkSamplerYcbcrConversion} handle in which the resulting sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is returned.
      */
     @NativeType("VkResult")
@@ -334,7 +340,7 @@ public class KHRSamplerYcbcrConversion {
      *
      * @param device          the logical device that destroys the Y′C<sub>B</sub>C<sub>R</sub> conversion.
      * @param ycbcrConversion the conversion to destroy.
-     * @param pAllocator      controls host memory allocation as described in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator      controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
     public static void vkDestroySamplerYcbcrConversionKHR(VkDevice device, @NativeType("VkSamplerYcbcrConversion") long ycbcrConversion, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
         nvkDestroySamplerYcbcrConversionKHR(device, ycbcrConversion, memAddressSafe(pAllocator));

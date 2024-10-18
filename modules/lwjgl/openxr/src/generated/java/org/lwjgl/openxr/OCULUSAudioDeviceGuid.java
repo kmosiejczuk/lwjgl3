@@ -14,7 +14,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_OCULUS_audio_device_guid">XR_OCULUS_audio_device_guid</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_OCULUS_audio_device_guid">XR_OCULUS_audio_device_guid</a> extension.
  * 
  * <p>This extension enables the querying of audio device information associated with an OpenXR instance.</p>
  * 
@@ -87,7 +87,7 @@ public class OCULUSAudioDeviceGuid {
      * <p>{@link #xrGetAudioInputDeviceGuidOculus GetAudioInputDeviceGuidOculus}</p>
      *
      * @param instance the {@code XrInstance} to query the audio device state in.
-     * @param buffer   a fixed size buffer which will contain the audio device GUID. The format of this data matches the <a target="_blank" href="https://docs.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getid">IMMDevice::GetId</a> API.
+     * @param buffer   a fixed size buffer which will contain the audio device GUID. The format of this data matches the <a href="https://docs.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getid">IMMDevice::GetId</a> API.
      */
     @NativeType("XrResult")
     public static int xrGetAudioOutputDeviceGuidOculus(XrInstance instance, @NativeType("wchar_t *") ByteBuffer buffer) {
@@ -149,7 +149,7 @@ public class OCULUSAudioDeviceGuid {
      * <p>{@link #xrGetAudioOutputDeviceGuidOculus GetAudioOutputDeviceGuidOculus}</p>
      *
      * @param instance the {@code XrInstance} to query the audio device state in.
-     * @param buffer   a fixed size buffer which will contain the audio device GUID. The format of this data matches the <a target="_blank" href="https://docs.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getid">IMMDevice::GetId</a> API.
+     * @param buffer   a fixed size buffer which will contain the audio device GUID. The format of this data matches the <a href="https://docs.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getid">IMMDevice::GetId</a> API.
      */
     @NativeType("XrResult")
     public static int xrGetAudioInputDeviceGuidOculus(XrInstance instance, @NativeType("wchar_t *") ByteBuffer buffer) {

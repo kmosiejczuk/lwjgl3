@@ -22,7 +22,6 @@ val EXT_custom_border_color = "EXTCustomBorderColor".nativeClassVK("EXT_custom_b
 
         When #BORDER_COLOR_FLOAT_CUSTOM_EXT or #BORDER_COLOR_INT_CUSTOM_EXT is used, applications must provide a ##VkSamplerCustomBorderColorCreateInfoEXT in the {@code pNext} chain for ##VkSamplerCreateInfo.
 
-        <h5>VK_EXT_custom_border_color</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_custom_border_color}</dd>
@@ -37,17 +36,17 @@ val EXT_custom_border_color = "EXTCustomBorderColor".nativeClassVK("EXT_custom_b
             <dd>12</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Special Uses</b></dt>
             <dd><ul>
-                <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
-                <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">D3D support</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">D3D support</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Liam Middlebrook <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_custom_border_color]%20@liam-middlebrook%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_custom_border_color%20extension*">liam-middlebrook</a></li>
+                <li>Liam Middlebrook <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_custom_border_color]%20@liam-middlebrook%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_custom_border_color%20extension*">liam-middlebrook</a></li>
             </ul></dd>
         </dl>
 

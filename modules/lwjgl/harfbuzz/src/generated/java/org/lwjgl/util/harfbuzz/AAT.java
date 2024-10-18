@@ -16,7 +16,7 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** Native bindings to the Apple Advanced Typography Layout API of the <a target="_blank" href="https://harfbuzz.github.io/">HarfBuzz</a> library. */
+/** Native bindings to the Apple Advanced Typography Layout API of the <a href="https://harfbuzz.github.io/">HarfBuzz</a> library. */
 public class AAT {
 
     /** Contains the function pointers loaded from {@code HarfBuzz.getLibrary()}. */
@@ -36,7 +36,7 @@ public class AAT {
     }
 
     /**
-     * The possible feature types defined for AAT shaping, from Apple <a target="_blank" href="https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html">Font Feature Registry</a>. ({@code hb_aat_layout_feature_type_t})
+     * The possible feature types defined for AAT shaping, from Apple <a href="https://developer.apple.com/fonts/TrueType-Reference-Manual/RM09/AppendixF.html">Font Feature Registry</a>. ({@code hb_aat_layout_feature_type_t})
      * 
      * <h5>Enum values:</h5>
      * 
@@ -44,7 +44,7 @@ public class AAT {
      * <li>{@link #LAYOUT_FEATURE_TYPE_INVALID LAYOUT_FEATURE_TYPE_INVALID}</li>
      * <li>{@link #LAYOUT_FEATURE_TYPE_ALL_TYPOGRAPHIC LAYOUT_FEATURE_TYPE_ALL_TYPOGRAPHIC}</li>
      * <li>{@link #LAYOUT_FEATURE_TYPE_LIGATURES LAYOUT_FEATURE_TYPE_LIGATURES}</li>
-     * <li>{@link #LAYOUT_FEATURE_TYPE_CURISVE_CONNECTION LAYOUT_FEATURE_TYPE_CURISVE_CONNECTION}</li>
+     * <li>{@link #LAYOUT_FEATURE_TYPE_CURSIVE_CONNECTION LAYOUT_FEATURE_TYPE_CURSIVE_CONNECTION}</li>
      * <li>{@link #LAYOUT_FEATURE_TYPE_LETTER_CASE LAYOUT_FEATURE_TYPE_LETTER_CASE}</li>
      * <li>{@link #LAYOUT_FEATURE_TYPE_VERTICAL_SUBSTITUTION LAYOUT_FEATURE_TYPE_VERTICAL_SUBSTITUTION}</li>
      * <li>{@link #LAYOUT_FEATURE_TYPE_LINGUISTIC_REARRANGEMENT LAYOUT_FEATURE_TYPE_LINGUISTIC_REARRANGEMENT}</li>
@@ -87,7 +87,7 @@ public class AAT {
         LAYOUT_FEATURE_TYPE_INVALID                           = 0xFFFF,
         LAYOUT_FEATURE_TYPE_ALL_TYPOGRAPHIC                   = 0,
         LAYOUT_FEATURE_TYPE_LIGATURES                         = 1,
-        LAYOUT_FEATURE_TYPE_CURISVE_CONNECTION                = 2,
+        LAYOUT_FEATURE_TYPE_CURSIVE_CONNECTION                = 2,
         LAYOUT_FEATURE_TYPE_LETTER_CASE                       = 3,
         LAYOUT_FEATURE_TYPE_VERTICAL_SUBSTITUTION             = 4,
         LAYOUT_FEATURE_TYPE_LINGUISTIC_REARRANGEMENT          = 5,
