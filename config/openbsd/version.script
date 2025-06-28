@@ -3,7 +3,6 @@ LWJGL {
     global:
         *org_lwjgl_*;
         JNI_On*;
-        __wrap_memcpy;
 
     # Hide everything else
     local: *;
