@@ -1798,6 +1798,7 @@
             <natives>
                 <get-release platform="linux" arch="x64" file="liblwjgl_sse.so"/>
                 <get-release platform="macos" arch="x64" file="liblwjgl_sse.dylib"/>
+                <get-release platform="windows" arch="x64" file="lwjgl_sse.dll"/>
                 <get-release platform="windows" arch="x86" file="lwjgl_sse.dll"/>
             </natives>
         </release-module>
@@ -1816,6 +1817,7 @@
             <natives>
                 <get-release platform="linux" arch="x64" file="liblwjgl_tootle.so"/>
                 <get-release platform="macos" arch="x64" file="liblwjgl_tootle.dylib"/>
+                <get-release platform="windows" arch="x64" file="lwjgl_tootle.dll"/>
                 <get-release platform="windows" arch="x86" file="lwjgl_tootle.dll"/>
             </natives>
         </release-module>
