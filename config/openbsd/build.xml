@@ -276,7 +276,7 @@
         </build>
 
         <!-- NativeFileDialog -->
-        <build module="nfd" simple="true" linker="g++" if:true="${binding.nfd}">
+        <build module="nfd" simple="true" linker="c++" if:true="${binding.nfd}">
             <beforeCompile>
                 <local name="gtk3"/>
                 <local name="stderr"/>
