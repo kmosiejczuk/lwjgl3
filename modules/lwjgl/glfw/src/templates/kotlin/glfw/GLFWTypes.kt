@@ -278,6 +278,16 @@ val GLFWerrorfun = Module.GLFW.callback {
     }
 }
 
+val GLFWallocator = struct(Module.GLFW, "GLFWAllocator", nativeName = "GLFWallocator") {
+    documentation = "A custom memory allocator that can be set with #InitAllocator()."
+    since = "version 3.4"
+
+    GLFWallocatefun("allocate", "the memory allocation callback")
+    GLFWreallocatefun("reallocate", "the memory reallocation callback")
+    GLFWdeallocatefun("deallocate", "the memory deallocation callback")
+    nullable..opaque_p("user", "a user-defined pointer that will be passed to the callbacks")
+}
+
 val GLFWmonitorfun = Module.GLFW.callback {
     void(
         "GLFWMonitorCallback",
