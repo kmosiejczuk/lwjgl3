@@ -284,7 +284,7 @@
                     <arg line="--cflags gtk+-3.0"/>
                 </exec>
 
-                <compile>
+                <compile lang="c++">
                     <arg line="${gtk3}"/>
                     <arg value="-I/usr/include"/>
 		    <arg value="-I/usr/local/include"/>
@@ -390,24 +390,6 @@
         </build>
 
         <!-- tinyexr -->
-        <!-- precompile c files, do not link in first step -->
-        <build module="tinyexr" simple="true" dolink="false" if:true="${binding.tinyexr}">
-            <beforeCompile>
-                <compile>
-                    <arg value="-I/usr/include"/>
-                    <arg value="-I/usr/local/include"/>
-                    <arg value="-I/usr/X11R6/include"/>
-
-                    <arg value="-I${src.main.rel}"/>
-
-                    <fileset dir=".">
-                        <include name="${src.main}/*.c"/>
-                        <include name="${src.generated}/*.c"/>
-                        <include name="${src.generated}/${platform}/*.c"/>
-                    </fileset>
-                </compile>
-            </beforeCompile>
-        </build>
         <build module="tinyexr" simple="true" linker="c++" if:true="${binding.tinyexr}">
             <beforeCompile>
                 <compile lang="c++">
