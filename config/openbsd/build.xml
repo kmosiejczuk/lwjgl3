@@ -355,6 +355,7 @@
             </source>
             <link>
                 <arg value="-lc"/>
+                <arg value="-lm"/>
                 <arg value="-lGL"/>
                 <arg line="-L/usr/X11R6/lib"/>
             </link>
