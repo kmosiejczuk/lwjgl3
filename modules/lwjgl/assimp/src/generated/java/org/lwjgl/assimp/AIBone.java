@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -189,8 +189,7 @@ public class AIBone extends Struct<AIBone> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIBone createSafe(long address) {
+    public static @Nullable AIBone createSafe(long address) {
         return address == NULL ? null : new AIBone(address, null);
     }
 
@@ -233,8 +232,7 @@ public class AIBone extends Struct<AIBone> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIBone.Buffer createSafe(long address, int capacity) {
+    public static AIBone.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -300,7 +298,7 @@ public class AIBone extends Struct<AIBone> implements NativeResource {
     /** Unsafe version of {@link #mName}. */
     public static AIString nmName(long struct) { return AIString.create(struct + AIBone.MNAME); }
     /** Unsafe version of {@link #mNumWeights}. */
-    public static int nmNumWeights(long struct) { return UNSAFE.getInt(null, struct + AIBone.MNUMWEIGHTS); }
+    public static int nmNumWeights(long struct) { return memGetInt(struct + AIBone.MNUMWEIGHTS); }
     /** Unsafe version of {@link #mArmature}. */
     public static AINode nmArmature(long struct) { return AINode.create(memGetAddress(struct + AIBone.MARMATURE)); }
     /** Unsafe version of {@link #mNode}. */
@@ -313,7 +311,7 @@ public class AIBone extends Struct<AIBone> implements NativeResource {
     /** Unsafe version of {@link #mName(AIString) mName}. */
     public static void nmName(long struct, AIString value) { memCopy(value.address(), struct + AIBone.MNAME, AIString.SIZEOF); }
     /** Sets the specified value to the {@code mNumWeights} field of the specified {@code struct}. */
-    public static void nmNumWeights(long struct, int value) { UNSAFE.putInt(null, struct + AIBone.MNUMWEIGHTS, value); }
+    public static void nmNumWeights(long struct, int value) { memPutInt(struct + AIBone.MNUMWEIGHTS, value); }
     /** Unsafe version of {@link #mArmature(AINode) mArmature}. */
     public static void nmArmature(long struct, AINode value) { memPutAddress(struct + AIBone.MARMATURE, value.address()); }
     /** Unsafe version of {@link #mNode(AINode) mNode}. */
@@ -369,6 +367,11 @@ public class AIBone extends Struct<AIBone> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

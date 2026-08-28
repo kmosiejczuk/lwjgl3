@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkMemoryRequirements}, {@link VK11#vkGetBufferMemoryRequirements2 GetBufferMemoryRequirements2}, {@link KHRGetMemoryRequirements2#vkGetBufferMemoryRequirements2KHR GetBufferMemoryRequirements2KHR}, {@link VK13#vkGetDeviceBufferMemoryRequirements GetDeviceBufferMemoryRequirements}, {@link KHRMaintenance4#vkGetDeviceBufferMemoryRequirementsKHR GetDeviceBufferMemoryRequirementsKHR}, {@link VK13#vkGetDeviceImageMemoryRequirements GetDeviceImageMemoryRequirements}, {@link KHRMaintenance4#vkGetDeviceImageMemoryRequirementsKHR GetDeviceImageMemoryRequirementsKHR}, {@link NVDeviceGeneratedCommands#vkGetGeneratedCommandsMemoryRequirementsNV GetGeneratedCommandsMemoryRequirementsNV}, {@link VK11#vkGetImageMemoryRequirements2 GetImageMemoryRequirements2}, {@link KHRGetMemoryRequirements2#vkGetImageMemoryRequirements2KHR GetImageMemoryRequirements2KHR}, {@link NVDeviceGeneratedCommandsCompute#vkGetPipelineIndirectMemoryRequirementsNV GetPipelineIndirectMemoryRequirementsNV}</p>
+ * <p>{@link VkMemoryRequirements}, {@link VK11#vkGetBufferMemoryRequirements2 GetBufferMemoryRequirements2}, {@link KHRGetMemoryRequirements2#vkGetBufferMemoryRequirements2KHR GetBufferMemoryRequirements2KHR}, {@link VK13#vkGetDeviceBufferMemoryRequirements GetDeviceBufferMemoryRequirements}, {@link KHRMaintenance4#vkGetDeviceBufferMemoryRequirementsKHR GetDeviceBufferMemoryRequirementsKHR}, {@link VK13#vkGetDeviceImageMemoryRequirements GetDeviceImageMemoryRequirements}, {@link KHRMaintenance4#vkGetDeviceImageMemoryRequirementsKHR GetDeviceImageMemoryRequirementsKHR}, {@link EXTDeviceGeneratedCommands#vkGetGeneratedCommandsMemoryRequirementsEXT GetGeneratedCommandsMemoryRequirementsEXT}, {@link NVDeviceGeneratedCommands#vkGetGeneratedCommandsMemoryRequirementsNV GetGeneratedCommandsMemoryRequirementsNV}, {@link VK11#vkGetImageMemoryRequirements2 GetImageMemoryRequirements2}, {@link KHRGetMemoryRequirements2#vkGetImageMemoryRequirements2KHR GetImageMemoryRequirements2KHR}, {@link NVDeviceGeneratedCommandsCompute#vkGetPipelineIndirectMemoryRequirementsNV GetPipelineIndirectMemoryRequirementsNV}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -157,8 +157,7 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryRequirements2 createSafe(long address) {
+    public static @Nullable VkMemoryRequirements2 createSafe(long address) {
         return address == NULL ? null : new VkMemoryRequirements2(address, null);
     }
 
@@ -201,8 +200,7 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryRequirements2.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryRequirements2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,14 +264,14 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryRequirements2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryRequirements2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryRequirements2.PNEXT); }
     /** Unsafe version of {@link #memoryRequirements}. */
     public static VkMemoryRequirements nmemoryRequirements(long struct) { return VkMemoryRequirements.create(struct + VkMemoryRequirements2.MEMORYREQUIREMENTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryRequirements2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryRequirements2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryRequirements2.PNEXT, value); }
 
@@ -308,6 +306,11 @@ public class VkMemoryRequirements2 extends Struct<VkMemoryRequirements2> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

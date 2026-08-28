@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -91,8 +91,7 @@ public class VkMemoryType extends Struct<VkMemoryType> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryType createSafe(long address) {
+    public static @Nullable VkMemoryType createSafe(long address) {
         return address == NULL ? null : new VkMemoryType(address, null);
     }
 
@@ -107,17 +106,16 @@ public class VkMemoryType extends Struct<VkMemoryType> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryType.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryType.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #propertyFlags}. */
-    public static int npropertyFlags(long struct) { return UNSAFE.getInt(null, struct + VkMemoryType.PROPERTYFLAGS); }
+    public static int npropertyFlags(long struct) { return memGetInt(struct + VkMemoryType.PROPERTYFLAGS); }
     /** Unsafe version of {@link #heapIndex}. */
-    public static int nheapIndex(long struct) { return UNSAFE.getInt(null, struct + VkMemoryType.HEAPINDEX); }
+    public static int nheapIndex(long struct) { return memGetInt(struct + VkMemoryType.HEAPINDEX); }
 
     // -----------------------------------
 
@@ -150,6 +148,11 @@ public class VkMemoryType extends Struct<VkMemoryType> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

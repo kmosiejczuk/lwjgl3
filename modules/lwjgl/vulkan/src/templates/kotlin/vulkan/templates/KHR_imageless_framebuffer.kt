@@ -16,7 +16,7 @@ val KHR_imageless_framebuffer = "KHRImagelessFramebuffer".nativeClassVK("KHR_ima
         Framebuffers are now created with a small amount of additional metadata about the image views that will be used in ##VkFramebufferAttachmentsCreateInfoKHR, and the actual image views are provided at render pass begin time via ##VkRenderPassAttachmentBeginInfoKHR.
 
         <h5>Promotion to Vulkan 1.2</h5>
-        All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
+        All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. The original type, enum, and command names are still available as aliases of the core functionality.
 
         <dl>
             <dt><b>Name String</b></dt>
@@ -32,11 +32,11 @@ val KHR_imageless_framebuffer = "KHRImagelessFramebuffer".nativeClassVK("KHR_ima
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRMaintenance2 VK_KHR_maintenance2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRImageFormatList VK_KHR_image_format_list} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2">Version 1.2</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRMaintenance2 VK_KHR_maintenance2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRImageFormatList VK_KHR_image_format_list} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.2">Version 1.2</a></dd>
 
             <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

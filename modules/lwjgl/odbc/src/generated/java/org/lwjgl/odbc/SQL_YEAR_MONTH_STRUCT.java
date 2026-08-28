@@ -5,7 +5,7 @@
  */
 package org.lwjgl.odbc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -131,8 +131,7 @@ public class SQL_YEAR_MONTH_STRUCT extends Struct<SQL_YEAR_MONTH_STRUCT> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SQL_YEAR_MONTH_STRUCT createSafe(long address) {
+    public static @Nullable SQL_YEAR_MONTH_STRUCT createSafe(long address) {
         return address == NULL ? null : new SQL_YEAR_MONTH_STRUCT(address, null);
     }
 
@@ -175,8 +174,7 @@ public class SQL_YEAR_MONTH_STRUCT extends Struct<SQL_YEAR_MONTH_STRUCT> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SQL_YEAR_MONTH_STRUCT.Buffer createSafe(long address, int capacity) {
+    public static SQL_YEAR_MONTH_STRUCT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,14 +238,14 @@ public class SQL_YEAR_MONTH_STRUCT extends Struct<SQL_YEAR_MONTH_STRUCT> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #year}. */
-    public static int nyear(long struct) { return UNSAFE.getInt(null, struct + SQL_YEAR_MONTH_STRUCT.YEAR); }
+    public static int nyear(long struct) { return memGetInt(struct + SQL_YEAR_MONTH_STRUCT.YEAR); }
     /** Unsafe version of {@link #month}. */
-    public static int nmonth(long struct) { return UNSAFE.getInt(null, struct + SQL_YEAR_MONTH_STRUCT.MONTH); }
+    public static int nmonth(long struct) { return memGetInt(struct + SQL_YEAR_MONTH_STRUCT.MONTH); }
 
     /** Unsafe version of {@link #year(int) year}. */
-    public static void nyear(long struct, int value) { UNSAFE.putInt(null, struct + SQL_YEAR_MONTH_STRUCT.YEAR, value); }
+    public static void nyear(long struct, int value) { memPutInt(struct + SQL_YEAR_MONTH_STRUCT.YEAR, value); }
     /** Unsafe version of {@link #month(int) month}. */
-    public static void nmonth(long struct, int value) { UNSAFE.putInt(null, struct + SQL_YEAR_MONTH_STRUCT.MONTH, value); }
+    public static void nmonth(long struct, int value) { memPutInt(struct + SQL_YEAR_MONTH_STRUCT.MONTH, value); }
 
     // -----------------------------------
 
@@ -280,6 +278,11 @@ public class SQL_YEAR_MONTH_STRUCT extends Struct<SQL_YEAR_MONTH_STRUCT> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

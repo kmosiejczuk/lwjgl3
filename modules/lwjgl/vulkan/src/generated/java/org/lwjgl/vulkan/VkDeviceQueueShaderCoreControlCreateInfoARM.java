@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class VkDeviceQueueShaderCoreControlCreateInfoARM extends Struct<VkDevice
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceQueueShaderCoreControlCreateInfoARM createSafe(long address) {
+    public static @Nullable VkDeviceQueueShaderCoreControlCreateInfoARM createSafe(long address) {
         return address == NULL ? null : new VkDeviceQueueShaderCoreControlCreateInfoARM(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkDeviceQueueShaderCoreControlCreateInfoARM extends Struct<VkDevice
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceQueueShaderCoreControlCreateInfoARM.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceQueueShaderCoreControlCreateInfoARM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class VkDeviceQueueShaderCoreControlCreateInfoARM extends Struct<VkDevice
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceQueueShaderCoreControlCreateInfoARM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceQueueShaderCoreControlCreateInfoARM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceQueueShaderCoreControlCreateInfoARM.PNEXT); }
     /** Unsafe version of {@link #shaderCoreCount}. */
-    public static int nshaderCoreCount(long struct) { return UNSAFE.getInt(null, struct + VkDeviceQueueShaderCoreControlCreateInfoARM.SHADERCORECOUNT); }
+    public static int nshaderCoreCount(long struct) { return memGetInt(struct + VkDeviceQueueShaderCoreControlCreateInfoARM.SHADERCORECOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceQueueShaderCoreControlCreateInfoARM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceQueueShaderCoreControlCreateInfoARM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceQueueShaderCoreControlCreateInfoARM.PNEXT, value); }
     /** Unsafe version of {@link #shaderCoreCount(int) shaderCoreCount}. */
-    public static void nshaderCoreCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceQueueShaderCoreControlCreateInfoARM.SHADERCORECOUNT, value); }
+    public static void nshaderCoreCount(long struct, int value) { memPutInt(struct + VkDeviceQueueShaderCoreControlCreateInfoARM.SHADERCORECOUNT, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class VkDeviceQueueShaderCoreControlCreateInfoARM extends Struct<VkDevice
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

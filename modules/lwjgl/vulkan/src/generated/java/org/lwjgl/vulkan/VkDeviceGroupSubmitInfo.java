@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,23 +132,20 @@ public class VkDeviceGroupSubmitInfo extends Struct<VkDeviceGroupSubmitInfo> imp
     @NativeType("uint32_t")
     public int waitSemaphoreCount() { return nwaitSemaphoreCount(address()); }
     /** a pointer to an array of {@code waitSemaphoreCount} device indices indicating which physical device executes the semaphore wait operation in the corresponding element of {@link VkSubmitInfo}{@code ::pWaitSemaphores}. */
-    @Nullable
     @NativeType("uint32_t const *")
-    public IntBuffer pWaitSemaphoreDeviceIndices() { return npWaitSemaphoreDeviceIndices(address()); }
+    public @Nullable IntBuffer pWaitSemaphoreDeviceIndices() { return npWaitSemaphoreDeviceIndices(address()); }
     /** the number of elements in the {@code pCommandBufferDeviceMasks} array. */
     @NativeType("uint32_t")
     public int commandBufferCount() { return ncommandBufferCount(address()); }
     /** a pointer to an array of {@code commandBufferCount} device masks indicating which physical devices execute the command buffer in the corresponding element of {@link VkSubmitInfo}{@code ::pCommandBuffers}. A physical device executes the command buffer if the corresponding bit is set in the mask. */
-    @Nullable
     @NativeType("uint32_t const *")
-    public IntBuffer pCommandBufferDeviceMasks() { return npCommandBufferDeviceMasks(address()); }
+    public @Nullable IntBuffer pCommandBufferDeviceMasks() { return npCommandBufferDeviceMasks(address()); }
     /** the number of elements in the {@code pSignalSemaphoreDeviceIndices} array. */
     @NativeType("uint32_t")
     public int signalSemaphoreCount() { return nsignalSemaphoreCount(address()); }
     /** a pointer to an array of {@code signalSemaphoreCount} device indices indicating which physical device executes the semaphore signal operation in the corresponding element of {@link VkSubmitInfo}{@code ::pSignalSemaphores}. */
-    @Nullable
     @NativeType("uint32_t const *")
-    public IntBuffer pSignalSemaphoreDeviceIndices() { return npSignalSemaphoreDeviceIndices(address()); }
+    public @Nullable IntBuffer pSignalSemaphoreDeviceIndices() { return npSignalSemaphoreDeviceIndices(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkDeviceGroupSubmitInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -216,8 +213,7 @@ public class VkDeviceGroupSubmitInfo extends Struct<VkDeviceGroupSubmitInfo> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupSubmitInfo createSafe(long address) {
+    public static @Nullable VkDeviceGroupSubmitInfo createSafe(long address) {
         return address == NULL ? null : new VkDeviceGroupSubmitInfo(address, null);
     }
 
@@ -260,8 +256,7 @@ public class VkDeviceGroupSubmitInfo extends Struct<VkDeviceGroupSubmitInfo> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupSubmitInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceGroupSubmitInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -325,36 +320,36 @@ public class VkDeviceGroupSubmitInfo extends Struct<VkDeviceGroupSubmitInfo> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupSubmitInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceGroupSubmitInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceGroupSubmitInfo.PNEXT); }
     /** Unsafe version of {@link #waitSemaphoreCount}. */
-    public static int nwaitSemaphoreCount(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupSubmitInfo.WAITSEMAPHORECOUNT); }
+    public static int nwaitSemaphoreCount(long struct) { return memGetInt(struct + VkDeviceGroupSubmitInfo.WAITSEMAPHORECOUNT); }
     /** Unsafe version of {@link #pWaitSemaphoreDeviceIndices() pWaitSemaphoreDeviceIndices}. */
-    @Nullable public static IntBuffer npWaitSemaphoreDeviceIndices(long struct) { return memIntBufferSafe(memGetAddress(struct + VkDeviceGroupSubmitInfo.PWAITSEMAPHOREDEVICEINDICES), nwaitSemaphoreCount(struct)); }
+    public static @Nullable IntBuffer npWaitSemaphoreDeviceIndices(long struct) { return memIntBufferSafe(memGetAddress(struct + VkDeviceGroupSubmitInfo.PWAITSEMAPHOREDEVICEINDICES), nwaitSemaphoreCount(struct)); }
     /** Unsafe version of {@link #commandBufferCount}. */
-    public static int ncommandBufferCount(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupSubmitInfo.COMMANDBUFFERCOUNT); }
+    public static int ncommandBufferCount(long struct) { return memGetInt(struct + VkDeviceGroupSubmitInfo.COMMANDBUFFERCOUNT); }
     /** Unsafe version of {@link #pCommandBufferDeviceMasks() pCommandBufferDeviceMasks}. */
-    @Nullable public static IntBuffer npCommandBufferDeviceMasks(long struct) { return memIntBufferSafe(memGetAddress(struct + VkDeviceGroupSubmitInfo.PCOMMANDBUFFERDEVICEMASKS), ncommandBufferCount(struct)); }
+    public static @Nullable IntBuffer npCommandBufferDeviceMasks(long struct) { return memIntBufferSafe(memGetAddress(struct + VkDeviceGroupSubmitInfo.PCOMMANDBUFFERDEVICEMASKS), ncommandBufferCount(struct)); }
     /** Unsafe version of {@link #signalSemaphoreCount}. */
-    public static int nsignalSemaphoreCount(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupSubmitInfo.SIGNALSEMAPHORECOUNT); }
+    public static int nsignalSemaphoreCount(long struct) { return memGetInt(struct + VkDeviceGroupSubmitInfo.SIGNALSEMAPHORECOUNT); }
     /** Unsafe version of {@link #pSignalSemaphoreDeviceIndices() pSignalSemaphoreDeviceIndices}. */
-    @Nullable public static IntBuffer npSignalSemaphoreDeviceIndices(long struct) { return memIntBufferSafe(memGetAddress(struct + VkDeviceGroupSubmitInfo.PSIGNALSEMAPHOREDEVICEINDICES), nsignalSemaphoreCount(struct)); }
+    public static @Nullable IntBuffer npSignalSemaphoreDeviceIndices(long struct) { return memIntBufferSafe(memGetAddress(struct + VkDeviceGroupSubmitInfo.PSIGNALSEMAPHOREDEVICEINDICES), nsignalSemaphoreCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupSubmitInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceGroupSubmitInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceGroupSubmitInfo.PNEXT, value); }
     /** Sets the specified value to the {@code waitSemaphoreCount} field of the specified {@code struct}. */
-    public static void nwaitSemaphoreCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupSubmitInfo.WAITSEMAPHORECOUNT, value); }
+    public static void nwaitSemaphoreCount(long struct, int value) { memPutInt(struct + VkDeviceGroupSubmitInfo.WAITSEMAPHORECOUNT, value); }
     /** Unsafe version of {@link #pWaitSemaphoreDeviceIndices(IntBuffer) pWaitSemaphoreDeviceIndices}. */
     public static void npWaitSemaphoreDeviceIndices(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkDeviceGroupSubmitInfo.PWAITSEMAPHOREDEVICEINDICES, memAddressSafe(value)); nwaitSemaphoreCount(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code commandBufferCount} field of the specified {@code struct}. */
-    public static void ncommandBufferCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupSubmitInfo.COMMANDBUFFERCOUNT, value); }
+    public static void ncommandBufferCount(long struct, int value) { memPutInt(struct + VkDeviceGroupSubmitInfo.COMMANDBUFFERCOUNT, value); }
     /** Unsafe version of {@link #pCommandBufferDeviceMasks(IntBuffer) pCommandBufferDeviceMasks}. */
     public static void npCommandBufferDeviceMasks(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkDeviceGroupSubmitInfo.PCOMMANDBUFFERDEVICEMASKS, memAddressSafe(value)); ncommandBufferCount(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code signalSemaphoreCount} field of the specified {@code struct}. */
-    public static void nsignalSemaphoreCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupSubmitInfo.SIGNALSEMAPHORECOUNT, value); }
+    public static void nsignalSemaphoreCount(long struct, int value) { memPutInt(struct + VkDeviceGroupSubmitInfo.SIGNALSEMAPHORECOUNT, value); }
     /** Unsafe version of {@link #pSignalSemaphoreDeviceIndices(IntBuffer) pSignalSemaphoreDeviceIndices}. */
     public static void npSignalSemaphoreDeviceIndices(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkDeviceGroupSubmitInfo.PSIGNALSEMAPHOREDEVICEINDICES, memAddressSafe(value)); nsignalSemaphoreCount(struct, value == null ? 0 : value.remaining()); }
 
@@ -409,6 +404,11 @@ public class VkDeviceGroupSubmitInfo extends Struct<VkDeviceGroupSubmitInfo> imp
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceGroupSubmitInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -423,23 +423,20 @@ public class VkDeviceGroupSubmitInfo extends Struct<VkDeviceGroupSubmitInfo> imp
         @NativeType("uint32_t")
         public int waitSemaphoreCount() { return VkDeviceGroupSubmitInfo.nwaitSemaphoreCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkDeviceGroupSubmitInfo#pWaitSemaphoreDeviceIndices} field. */
-        @Nullable
         @NativeType("uint32_t const *")
-        public IntBuffer pWaitSemaphoreDeviceIndices() { return VkDeviceGroupSubmitInfo.npWaitSemaphoreDeviceIndices(address()); }
+        public @Nullable IntBuffer pWaitSemaphoreDeviceIndices() { return VkDeviceGroupSubmitInfo.npWaitSemaphoreDeviceIndices(address()); }
         /** @return the value of the {@link VkDeviceGroupSubmitInfo#commandBufferCount} field. */
         @NativeType("uint32_t")
         public int commandBufferCount() { return VkDeviceGroupSubmitInfo.ncommandBufferCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkDeviceGroupSubmitInfo#pCommandBufferDeviceMasks} field. */
-        @Nullable
         @NativeType("uint32_t const *")
-        public IntBuffer pCommandBufferDeviceMasks() { return VkDeviceGroupSubmitInfo.npCommandBufferDeviceMasks(address()); }
+        public @Nullable IntBuffer pCommandBufferDeviceMasks() { return VkDeviceGroupSubmitInfo.npCommandBufferDeviceMasks(address()); }
         /** @return the value of the {@link VkDeviceGroupSubmitInfo#signalSemaphoreCount} field. */
         @NativeType("uint32_t")
         public int signalSemaphoreCount() { return VkDeviceGroupSubmitInfo.nsignalSemaphoreCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkDeviceGroupSubmitInfo#pSignalSemaphoreDeviceIndices} field. */
-        @Nullable
         @NativeType("uint32_t const *")
-        public IntBuffer pSignalSemaphoreDeviceIndices() { return VkDeviceGroupSubmitInfo.npSignalSemaphoreDeviceIndices(address()); }
+        public @Nullable IntBuffer pSignalSemaphoreDeviceIndices() { return VkDeviceGroupSubmitInfo.npSignalSemaphoreDeviceIndices(address()); }
 
         /** Sets the specified value to the {@link VkDeviceGroupSubmitInfo#sType} field. */
         public VkDeviceGroupSubmitInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkDeviceGroupSubmitInfo.nsType(address(), value); return this; }

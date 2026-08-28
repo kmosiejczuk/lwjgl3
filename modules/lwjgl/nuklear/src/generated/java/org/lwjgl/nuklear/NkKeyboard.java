@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -101,8 +101,7 @@ public class NkKeyboard extends Struct<NkKeyboard> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkKeyboard createSafe(long address) {
+    public static @Nullable NkKeyboard createSafe(long address) {
         return address == NULL ? null : new NkKeyboard(address, null);
     }
 
@@ -117,8 +116,7 @@ public class NkKeyboard extends Struct<NkKeyboard> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkKeyboard.Buffer createSafe(long address, int capacity) {
+    public static NkKeyboard.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -134,10 +132,10 @@ public class NkKeyboard extends Struct<NkKeyboard> {
     public static ByteBuffer ntext(long struct) { return memByteBuffer(struct + NkKeyboard.TEXT, NK_INPUT_MAX); }
     /** Unsafe version of {@link #text(int) text}. */
     public static byte ntext(long struct, int index) {
-        return UNSAFE.getByte(null, struct + NkKeyboard.TEXT + check(index, NK_INPUT_MAX) * 1);
+        return memGetByte(struct + NkKeyboard.TEXT + check(index, NK_INPUT_MAX) * 1);
     }
     /** Unsafe version of {@link #text_len}. */
-    public static int ntext_len(long struct) { return UNSAFE.getInt(null, struct + NkKeyboard.TEXT_LEN); }
+    public static int ntext_len(long struct) { return memGetInt(struct + NkKeyboard.TEXT_LEN); }
 
     // -----------------------------------
 
@@ -170,6 +168,11 @@ public class NkKeyboard extends Struct<NkKeyboard> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

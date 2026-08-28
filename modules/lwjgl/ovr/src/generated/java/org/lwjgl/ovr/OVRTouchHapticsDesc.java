@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -129,8 +129,7 @@ public class OVRTouchHapticsDesc extends Struct<OVRTouchHapticsDesc> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTouchHapticsDesc createSafe(long address) {
+    public static @Nullable OVRTouchHapticsDesc createSafe(long address) {
         return address == NULL ? null : new OVRTouchHapticsDesc(address, null);
     }
 
@@ -173,8 +172,7 @@ public class OVRTouchHapticsDesc extends Struct<OVRTouchHapticsDesc> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTouchHapticsDesc.Buffer createSafe(long address, int capacity) {
+    public static OVRTouchHapticsDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -238,17 +236,17 @@ public class OVRTouchHapticsDesc extends Struct<OVRTouchHapticsDesc> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #SampleRateHz}. */
-    public static int nSampleRateHz(long struct) { return UNSAFE.getInt(null, struct + OVRTouchHapticsDesc.SAMPLERATEHZ); }
+    public static int nSampleRateHz(long struct) { return memGetInt(struct + OVRTouchHapticsDesc.SAMPLERATEHZ); }
     /** Unsafe version of {@link #SampleSizeInBytes}. */
-    public static int nSampleSizeInBytes(long struct) { return UNSAFE.getInt(null, struct + OVRTouchHapticsDesc.SAMPLESIZEINBYTES); }
+    public static int nSampleSizeInBytes(long struct) { return memGetInt(struct + OVRTouchHapticsDesc.SAMPLESIZEINBYTES); }
     /** Unsafe version of {@link #QueueMinSizeToAvoidStarvation}. */
-    public static int nQueueMinSizeToAvoidStarvation(long struct) { return UNSAFE.getInt(null, struct + OVRTouchHapticsDesc.QUEUEMINSIZETOAVOIDSTARVATION); }
+    public static int nQueueMinSizeToAvoidStarvation(long struct) { return memGetInt(struct + OVRTouchHapticsDesc.QUEUEMINSIZETOAVOIDSTARVATION); }
     /** Unsafe version of {@link #SubmitMinSamples}. */
-    public static int nSubmitMinSamples(long struct) { return UNSAFE.getInt(null, struct + OVRTouchHapticsDesc.SUBMITMINSAMPLES); }
+    public static int nSubmitMinSamples(long struct) { return memGetInt(struct + OVRTouchHapticsDesc.SUBMITMINSAMPLES); }
     /** Unsafe version of {@link #SubmitMaxSamples}. */
-    public static int nSubmitMaxSamples(long struct) { return UNSAFE.getInt(null, struct + OVRTouchHapticsDesc.SUBMITMAXSAMPLES); }
+    public static int nSubmitMaxSamples(long struct) { return memGetInt(struct + OVRTouchHapticsDesc.SUBMITMAXSAMPLES); }
     /** Unsafe version of {@link #SubmitOptimalSamples}. */
-    public static int nSubmitOptimalSamples(long struct) { return UNSAFE.getInt(null, struct + OVRTouchHapticsDesc.SUBMITOPTIMALSAMPLES); }
+    public static int nSubmitOptimalSamples(long struct) { return memGetInt(struct + OVRTouchHapticsDesc.SUBMITOPTIMALSAMPLES); }
 
     // -----------------------------------
 
@@ -281,6 +279,11 @@ public class OVRTouchHapticsDesc extends Struct<OVRTouchHapticsDesc> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

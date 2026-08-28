@@ -29,7 +29,7 @@ val EXT_full_screen_exclusive = "EXTFullScreenExclusive".nativeClassVK("EXT_full
             <dd>4</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRSurface VK_KHR_surface} and {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2} and {@link KHRSwapchain VK_KHR_swapchain}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRSurface VK_KHR_surface} and {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2} and {@link KHRSwapchain VK_KHR_swapchain}</dd>
 
             <dt><b>API Interactions</b></dt>
             <dd><ul>
@@ -110,10 +110,10 @@ val EXT_full_screen_exclusive = "EXTFullScreenExclusive".nativeClassVK("EXT_full
 
         <h5>Description</h5>
         <ul>
-            <li>#FULL_SCREEN_EXCLUSIVE_DEFAULT_EXT indicates the implementation <b>should</b> determine the appropriate full-screen method by whatever means it deems appropriate.</li>
-            <li>#FULL_SCREEN_EXCLUSIVE_ALLOWED_EXT indicates the implementation <b>may</b> use full-screen exclusive mechanisms when available. Such mechanisms <b>may</b> result in better performance and/or the availability of different presentation capabilities, but <b>may</b> require a more disruptive transition during swapchain initialization, first presentation and/or destruction.</li>
-            <li>#FULL_SCREEN_EXCLUSIVE_DISALLOWED_EXT indicates the implementation <b>should</b> avoid using full-screen mechanisms which rely on disruptive transitions.</li>
-            <li>#FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT indicates the application will manage full-screen exclusive mode by using the #AcquireFullScreenExclusiveModeEXT() and #ReleaseFullScreenExclusiveModeEXT() commands.</li>
+            <li>#FULL_SCREEN_EXCLUSIVE_DEFAULT_EXT specifies that the implementation <b>should</b> determine the appropriate full-screen method by whatever means it deems appropriate.</li>
+            <li>#FULL_SCREEN_EXCLUSIVE_ALLOWED_EXT specifies that the implementation <b>may</b> use full-screen exclusive mechanisms when available. Such mechanisms <b>may</b> result in better performance and/or the availability of different presentation capabilities, but <b>may</b> require a more disruptive transition during swapchain initialization, first presentation and/or destruction.</li>
+            <li>#FULL_SCREEN_EXCLUSIVE_DISALLOWED_EXT specifies that the implementation <b>should</b> avoid using full-screen mechanisms which rely on disruptive transitions.</li>
+            <li>#FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT specifies that the application will manage full-screen exclusive mode by using the #AcquireFullScreenExclusiveModeEXT() and #ReleaseFullScreenExclusiveModeEXT() commands.</li>
         </ul>
 
         <h5>See Also</h5>

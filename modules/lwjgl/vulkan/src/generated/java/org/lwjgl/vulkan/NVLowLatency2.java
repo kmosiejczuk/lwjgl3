@@ -33,7 +33,7 @@ import static org.lwjgl.system.JNI.*;
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.2">Version 1.2</a> or {@link KHRTimelineSemaphore VK_KHR_timeline_semaphore}</dd>
+ * <dd><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.2">Version 1.2</a> or {@link KHRTimelineSemaphore VK_KHR_timeline_semaphore}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Charles Hansen <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_low_latency2]%20@cshansen%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_low_latency2%20extension*">cshansen</a></li>
@@ -144,8 +144,8 @@ public class NVLowLatency2 {
      * <p>The members of the {@code VkOutOfBandQueueTypeNV} are used to describe the queue type in {@link VkOutOfBandQueueTypeInfoNV} as described below:</p>
      * 
      * <ul>
-     * <li>{@link #VK_OUT_OF_BAND_QUEUE_TYPE_RENDER_NV OUT_OF_BAND_QUEUE_TYPE_RENDER_NV} indicates that work will be submitted to this queue.</li>
-     * <li>{@link #VK_OUT_OF_BAND_QUEUE_TYPE_PRESENT_NV OUT_OF_BAND_QUEUE_TYPE_PRESENT_NV} indicates that this queue will be presented from.</li>
+     * <li>{@link #VK_OUT_OF_BAND_QUEUE_TYPE_RENDER_NV OUT_OF_BAND_QUEUE_TYPE_RENDER_NV} specifies that work will be submitted to this queue.</li>
+     * <li>{@link #VK_OUT_OF_BAND_QUEUE_TYPE_PRESENT_NV OUT_OF_BAND_QUEUE_TYPE_PRESENT_NV} specifies that this queue will be presented from.</li>
      * </ul>
      * 
      * <h5>See Also</h5>
@@ -249,7 +249,7 @@ public class NVLowLatency2 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>{@code vkLatencySleepNV} returns immediately. Applications <b>should</b> use {@link VK12#vkWaitSemaphores WaitSemaphores} with {@code pSleepInfo→signalSemaphore} to delay host CPU work. CPU work refers to application work done before presenting which includes but is not limited to: input sampling, simulation, command buffer recording, command buffer submission, and present submission. It is recommended to call this function before input sampling. When using this function, it <b>should</b> be called exactly once between presents.</p>
+     * <p>{@code vkLatencySleepNV} returns immediately. Applications <b>should</b> use {@link VK12#vkWaitSemaphores WaitSemaphores} with {@code pSleepInfo→signalSemaphore} to delay host CPU work. CPU work refers to application work done before presenting which includes but is not limited to: input sampling, simulation, command buffer recording, command buffer submission, and present submission. Applications <b>should</b> call this function before input sampling, and exactly once between presents.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -394,7 +394,7 @@ public class NVLowLatency2 {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>An application can mark a queue as Out of Band to indicate that all {@code vkQueueSubmit} calls on this queue are ignored for latency evaluation by calling:</p>
+     * <p>To mark a queue as <em>out of band</em>, so that all {@code vkQueueSubmit} calls on the queue are ignored for latency evaluation, call:</p>
      * 
      * <pre><code>
      * void vkQueueNotifyOutOfBandNV(
@@ -411,7 +411,7 @@ public class NVLowLatency2 {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>-</td><td>-</td><td>-</td><td>Any</td><td>-</td></tr></tbody>
      * </table>
      * 

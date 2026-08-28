@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFrameBoundaryFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFrameBoundaryFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFrameBoundaryFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFrameBoundaryFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFrameBoundaryFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #frameBoundary}. */
-    public static int nframeBoundary(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.FRAMEBOUNDARY); }
+    public static int nframeBoundary(long struct) { return memGetInt(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.FRAMEBOUNDARY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #frameBoundary(boolean) frameBoundary}. */
-    public static void nframeBoundary(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.FRAMEBOUNDARY, value); }
+    public static void nframeBoundary(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.FRAMEBOUNDARY, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends Struct<VkPhysicalD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class XrViewState extends Struct<XrViewState> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewState createSafe(long address) {
+    public static @Nullable XrViewState createSafe(long address) {
         return address == NULL ? null : new XrViewState(address, null);
     }
 
@@ -206,8 +205,7 @@ public class XrViewState extends Struct<XrViewState> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewState.Buffer createSafe(long address, int capacity) {
+    public static XrViewState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class XrViewState extends Struct<XrViewState> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrViewState.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrViewState.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrViewState.NEXT); }
     /** Unsafe version of {@link #viewStateFlags}. */
-    public static long nviewStateFlags(long struct) { return UNSAFE.getLong(null, struct + XrViewState.VIEWSTATEFLAGS); }
+    public static long nviewStateFlags(long struct) { return memGetLong(struct + XrViewState.VIEWSTATEFLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrViewState.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrViewState.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrViewState.NEXT, value); }
     /** Unsafe version of {@link #viewStateFlags(long) viewStateFlags}. */
-    public static void nviewStateFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrViewState.VIEWSTATEFLAGS, value); }
+    public static void nviewStateFlags(long struct, long value) { memPutLong(struct + XrViewState.VIEWSTATEFLAGS, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class XrViewState extends Struct<XrViewState> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

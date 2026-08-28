@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -180,8 +180,7 @@ public class VkPerformanceCounterKHR extends Struct<VkPerformanceCounterKHR> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceCounterKHR createSafe(long address) {
+    public static @Nullable VkPerformanceCounterKHR createSafe(long address) {
         return address == NULL ? null : new VkPerformanceCounterKHR(address, null);
     }
 
@@ -224,8 +223,7 @@ public class VkPerformanceCounterKHR extends Struct<VkPerformanceCounterKHR> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceCounterKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPerformanceCounterKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,24 +268,24 @@ public class VkPerformanceCounterKHR extends Struct<VkPerformanceCounterKHR> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceCounterKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPerformanceCounterKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPerformanceCounterKHR.PNEXT); }
     /** Unsafe version of {@link #unit}. */
-    public static int nunit(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceCounterKHR.UNIT); }
+    public static int nunit(long struct) { return memGetInt(struct + VkPerformanceCounterKHR.UNIT); }
     /** Unsafe version of {@link #scope}. */
-    public static int nscope(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceCounterKHR.SCOPE); }
+    public static int nscope(long struct) { return memGetInt(struct + VkPerformanceCounterKHR.SCOPE); }
     /** Unsafe version of {@link #storage}. */
-    public static int nstorage(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceCounterKHR.STORAGE); }
+    public static int nstorage(long struct) { return memGetInt(struct + VkPerformanceCounterKHR.STORAGE); }
     /** Unsafe version of {@link #uuid}. */
     public static ByteBuffer nuuid(long struct) { return memByteBuffer(struct + VkPerformanceCounterKHR.UUID, VK_UUID_SIZE); }
     /** Unsafe version of {@link #uuid(int) uuid}. */
     public static byte nuuid(long struct, int index) {
-        return UNSAFE.getByte(null, struct + VkPerformanceCounterKHR.UUID + check(index, VK_UUID_SIZE) * 1);
+        return memGetByte(struct + VkPerformanceCounterKHR.UUID + check(index, VK_UUID_SIZE) * 1);
     }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceCounterKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPerformanceCounterKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPerformanceCounterKHR.PNEXT, value); }
 
@@ -322,6 +320,11 @@ public class VkPerformanceCounterKHR extends Struct<VkPerformanceCounterKHR> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

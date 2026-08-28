@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkBlitImageCubicWeightsInfoQCOM extends Struct<VkBlitImageCubicWeig
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBlitImageCubicWeightsInfoQCOM createSafe(long address) {
+    public static @Nullable VkBlitImageCubicWeightsInfoQCOM createSafe(long address) {
         return address == NULL ? null : new VkBlitImageCubicWeightsInfoQCOM(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkBlitImageCubicWeightsInfoQCOM extends Struct<VkBlitImageCubicWeig
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBlitImageCubicWeightsInfoQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkBlitImageCubicWeightsInfoQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,18 +241,18 @@ public class VkBlitImageCubicWeightsInfoQCOM extends Struct<VkBlitImageCubicWeig
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBlitImageCubicWeightsInfoQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBlitImageCubicWeightsInfoQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBlitImageCubicWeightsInfoQCOM.PNEXT); }
     /** Unsafe version of {@link #cubicWeights}. */
-    public static int ncubicWeights(long struct) { return UNSAFE.getInt(null, struct + VkBlitImageCubicWeightsInfoQCOM.CUBICWEIGHTS); }
+    public static int ncubicWeights(long struct) { return memGetInt(struct + VkBlitImageCubicWeightsInfoQCOM.CUBICWEIGHTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBlitImageCubicWeightsInfoQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBlitImageCubicWeightsInfoQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBlitImageCubicWeightsInfoQCOM.PNEXT, value); }
     /** Unsafe version of {@link #cubicWeights(int) cubicWeights}. */
-    public static void ncubicWeights(long struct, int value) { UNSAFE.putInt(null, struct + VkBlitImageCubicWeightsInfoQCOM.CUBICWEIGHTS, value); }
+    public static void ncubicWeights(long struct, int value) { memPutInt(struct + VkBlitImageCubicWeightsInfoQCOM.CUBICWEIGHTS, value); }
 
     // -----------------------------------
 
@@ -287,6 +285,11 @@ public class VkBlitImageCubicWeightsInfoQCOM extends Struct<VkBlitImageCubicWeig
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

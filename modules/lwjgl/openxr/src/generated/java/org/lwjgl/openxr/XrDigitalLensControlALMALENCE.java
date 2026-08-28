@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -160,8 +160,7 @@ public class XrDigitalLensControlALMALENCE extends Struct<XrDigitalLensControlAL
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDigitalLensControlALMALENCE createSafe(long address) {
+    public static @Nullable XrDigitalLensControlALMALENCE createSafe(long address) {
         return address == NULL ? null : new XrDigitalLensControlALMALENCE(address, null);
     }
 
@@ -204,8 +203,7 @@ public class XrDigitalLensControlALMALENCE extends Struct<XrDigitalLensControlAL
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDigitalLensControlALMALENCE.Buffer createSafe(long address, int capacity) {
+    public static XrDigitalLensControlALMALENCE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,18 +248,18 @@ public class XrDigitalLensControlALMALENCE extends Struct<XrDigitalLensControlAL
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrDigitalLensControlALMALENCE.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrDigitalLensControlALMALENCE.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrDigitalLensControlALMALENCE.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrDigitalLensControlALMALENCE.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrDigitalLensControlALMALENCE.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrDigitalLensControlALMALENCE.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrDigitalLensControlALMALENCE.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrDigitalLensControlALMALENCE.NEXT, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrDigitalLensControlALMALENCE.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrDigitalLensControlALMALENCE.FLAGS, value); }
 
     // -----------------------------------
 
@@ -294,6 +292,11 @@ public class XrDigitalLensControlALMALENCE extends Struct<XrDigitalLensControlAL
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

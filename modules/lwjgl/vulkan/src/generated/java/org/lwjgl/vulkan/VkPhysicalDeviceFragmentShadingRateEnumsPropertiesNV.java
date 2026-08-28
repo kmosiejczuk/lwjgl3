@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the {@link VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
  * 
- * <p>These properties are related to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate">fragment shading rates</a>.</p>
+ * <p>These properties are related to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-fragment-shading-rate">fragment shading rates</a>.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -159,8 +159,7 @@ public class VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV extends Struct
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV extends Struct
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +247,18 @@ public class VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV extends Struct
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.PNEXT); }
     /** Unsafe version of {@link #maxFragmentShadingRateInvocationCount}. */
-    public static int nmaxFragmentShadingRateInvocationCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.MAXFRAGMENTSHADINGRATEINVOCATIONCOUNT); }
+    public static int nmaxFragmentShadingRateInvocationCount(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.MAXFRAGMENTSHADINGRATEINVOCATIONCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.PNEXT, value); }
     /** Unsafe version of {@link #maxFragmentShadingRateInvocationCount(int) maxFragmentShadingRateInvocationCount}. */
-    public static void nmaxFragmentShadingRateInvocationCount(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.MAXFRAGMENTSHADINGRATEINVOCATIONCOUNT, value); }
+    public static void nmaxFragmentShadingRateInvocationCount(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.MAXFRAGMENTSHADINGRATEINVOCATIONCOUNT, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV extends Struct
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

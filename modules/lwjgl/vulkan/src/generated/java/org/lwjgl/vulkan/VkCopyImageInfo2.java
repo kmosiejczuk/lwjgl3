@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,24 +23,24 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>The union of all source regions, and the union of all destination regions, specified by the elements of {@code pRegions}, <b>must</b> not overlap in memory</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-format-features">format features</a> of {@code srcImage} <b>must</b> contain {@link VK11#VK_FORMAT_FEATURE_TRANSFER_SRC_BIT FORMAT_FEATURE_TRANSFER_SRC_BIT}</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-image-format-features">format features</a> of {@code srcImage} <b>must</b> contain {@link VK11#VK_FORMAT_FEATURE_TRANSFER_SRC_BIT FORMAT_FEATURE_TRANSFER_SRC_BIT}</li>
  * <li>{@code srcImageLayout} <b>must</b> specify the layout of the image subresources of {@code srcImage} specified in {@code pRegions} at the time this command is executed on a {@code VkDevice}</li>
  * <li>{@code srcImageLayout} <b>must</b> be {@link KHRSharedPresentableImage#VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR IMAGE_LAYOUT_SHARED_PRESENT_KHR}, {@link VK10#VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL}, or {@link VK10#VK_IMAGE_LAYOUT_GENERAL IMAGE_LAYOUT_GENERAL}</li>
  * <li>If {@code srcImage} and {@code dstImage} are the same, and any elements of {@code pRegions} contains the {@code srcSubresource} and {@code dstSubresource} with matching {@code mipLevel} and overlapping array layers, then the {@code srcImageLayout} and {@code dstImageLayout} <b>must</b> be {@link VK10#VK_IMAGE_LAYOUT_GENERAL IMAGE_LAYOUT_GENERAL} or {@link KHRSharedPresentableImage#VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR IMAGE_LAYOUT_SHARED_PRESENT_KHR}</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-format-features">format features</a> of {@code dstImage} <b>must</b> contain {@link VK11#VK_FORMAT_FEATURE_TRANSFER_DST_BIT FORMAT_FEATURE_TRANSFER_DST_BIT}</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-image-format-features">format features</a> of {@code dstImage} <b>must</b> contain {@link VK11#VK_FORMAT_FEATURE_TRANSFER_DST_BIT FORMAT_FEATURE_TRANSFER_DST_BIT}</li>
  * <li>{@code dstImageLayout} <b>must</b> specify the layout of the image subresources of {@code dstImage} specified in {@code pRegions} at the time this command is executed on a {@code VkDevice}</li>
  * <li>{@code dstImageLayout} <b>must</b> be {@link KHRSharedPresentableImage#VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR IMAGE_LAYOUT_SHARED_PRESENT_KHR}, {@link VK10#VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL}, or {@link VK10#VK_IMAGE_LAYOUT_GENERAL IMAGE_LAYOUT_GENERAL}</li>
- * <li>If the {@code VkFormat} of each of {@code srcImage} and {@code dstImage} is not a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion"><em>multi-planar format</em></a>, the {@code VkFormat} of each of {@code srcImage} and {@code dstImage} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-size-compatibility">size-compatible</a></li>
- * <li>In a copy to or from a plane of a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image</a>, the {@code VkFormat} of the image and plane <b>must</b> be compatible according to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatible-planes">the description of compatible planes</a> for the plane being copied</li>
- * <li>If the {@code VkFormat} of each of {@code srcImage} and {@code dstImage} is a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#compressed_image_formats">compressed image format</a>, the formats <b>must</b> have the same texel block extent</li>
+ * <li>If the {@code VkFormat} of each of {@code srcImage} and {@code dstImage} is not a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion"><em>multi-planar format</em></a>, the {@code VkFormat} of each of {@code srcImage} and {@code dstImage} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-size-compatibility">size-compatible</a></li>
+ * <li>In a copy to or from a plane of a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image</a>, the {@code VkFormat} of the image and plane <b>must</b> be compatible according to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatible-planes">the description of compatible planes</a> for the plane being copied</li>
+ * <li>If the {@code VkFormat} of each of {@code srcImage} and {@code dstImage} is a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#compressed_image_formats">compressed image format</a>, the formats <b>must</b> have the same texel block extent</li>
  * <li>The sample count of {@code srcImage} and {@code dstImage} <b>must</b> match</li>
  * <li>The {@code srcOffset} and {@code extent} members of each element of {@code pRegions} <b>must</b> respect the image transfer granularity requirements of {@code commandBuffer}’s command pool’s queue family, as described in {@link VkQueueFamilyProperties}</li>
  * <li>The {@code dstOffset} and {@code extent} members of each element of {@code pRegions} <b>must</b> respect the image transfer granularity requirements of {@code commandBuffer}’s command pool’s queue family, as described in {@link VkQueueFamilyProperties}</li>
- * <li>If neither {@code srcImage} nor {@code dstImage} has a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a> then for each element of {@code pRegions}, {@code srcSubresource.aspectMask} and {@code dstSubresource.aspectMask} <b>must</b> match</li>
- * <li>If {@code srcImage} has a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a>, then for each element of {@code pRegions}, {@code srcSubresource.aspectMask} <b>must</b> be a single valid <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-planes-image-aspect">multi-planar aspect mask</a> bit</li>
- * <li>If {@code dstImage} has a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a>, then for each element of {@code pRegions}, {@code dstSubresource.aspectMask} <b>must</b> be a single valid <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-planes-image-aspect">multi-planar aspect mask</a> bit</li>
- * <li>If {@code srcImage} has a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a> and the {@code dstImage} does not have a multi-planar image format, then for each element of {@code pRegions}, {@code dstSubresource.aspectMask} <b>must</b> be {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}</li>
- * <li>If {@code dstImage} has a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a> and the {@code srcImage} does not have a multi-planar image format, then for each element of {@code pRegions}, {@code srcSubresource.aspectMask} <b>must</b> be {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}</li>
+ * <li>If neither {@code srcImage} nor {@code dstImage} has a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a> then for each element of {@code pRegions}, {@code srcSubresource.aspectMask} and {@code dstSubresource.aspectMask} <b>must</b> match</li>
+ * <li>If {@code srcImage} has a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a>, then for each element of {@code pRegions}, {@code srcSubresource.aspectMask} <b>must</b> be a single valid <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-planes-image-aspect">multi-planar aspect mask</a> bit</li>
+ * <li>If {@code dstImage} has a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a>, then for each element of {@code pRegions}, {@code dstSubresource.aspectMask} <b>must</b> be a single valid <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-planes-image-aspect">multi-planar aspect mask</a> bit</li>
+ * <li>If {@code srcImage} has a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a> and the {@code dstImage} does not have a multi-planar image format, then for each element of {@code pRegions}, {@code dstSubresource.aspectMask} <b>must</b> be {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}</li>
+ * <li>If {@code dstImage} has a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a> and the {@code srcImage} does not have a multi-planar image format, then for each element of {@code pRegions}, {@code srcSubresource.aspectMask} <b>must</b> be {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}</li>
  * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled, or {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, and either {@code srcImage} or {@code dstImage} is of type {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D}, then for each element of {@code pRegions}, {@code srcSubresource.baseArrayLayer} and {@code dstSubresource.baseArrayLayer} <b>must</b> both be 0, and {@code srcSubresource.layerCount} and {@code dstSubresource.layerCount} <b>must</b> both be 1</li>
  * <li>If {@code srcImage} is of type {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D}, then for each element of {@code pRegions}, {@code srcSubresource.baseArrayLayer} <b>must</b> be 0 and {@code srcSubresource.layerCount} <b>must</b> be 1</li>
  * <li>If {@code dstImage} is of type {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D}, then for each element of {@code pRegions}, {@code dstSubresource.baseArrayLayer} <b>must</b> be 0 and {@code dstSubresource.layerCount} <b>must</b> be 1</li>
@@ -56,7 +56,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code dstImage} is of type {@link VK10#VK_IMAGE_TYPE_2D IMAGE_TYPE_2D}, then for each element of {@code pRegions}, {@code dstOffset.z} <b>must</b> be 0</li>
  * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled, and {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, {@code srcImage} and {@code dstImage} <b>must</b> have the same {@code VkImageType}</li>
  * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled, and {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, {@code srcImage} or {@code dstImage} is of type {@link VK10#VK_IMAGE_TYPE_2D IMAGE_TYPE_2D}, then for each element of {@code pRegions}, {@code extent.depth} <b>must</b> be 1</li>
- * <li>If {@code srcImage} and {@code dstImage} have a different {@code VkImageType}, and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-maintenance5">{@code maintenance5}</a> is not enabled, one <b>must</b> be {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D} and the other <b>must</b> be {@link VK10#VK_IMAGE_TYPE_2D IMAGE_TYPE_2D}</li>
+ * <li>If {@code srcImage} and {@code dstImage} have a different {@code VkImageType}, and the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-maintenance5">{@code maintenance5}</a> feature is not enabled, one <b>must</b> be {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D} and the other <b>must</b> be {@link VK10#VK_IMAGE_TYPE_2D IMAGE_TYPE_2D}</li>
  * <li>If {@code srcImage} and {@code dstImage} have the same {@code VkImageType}, for each element of {@code pRegions}, if neither of the {@code layerCount} members of {@code srcSubresource} or {@code dstSubresource} are {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS}, the {@code layerCount} members of {@code srcSubresource} or {@code dstSubresource} <b>must</b> match</li>
  * <li>If {@code srcImage} and {@code dstImage} have the same {@code VkImageType}, and one of the {@code layerCount} members of {@code srcSubresource} or {@code dstSubresource} is {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS}, the other member <b>must</b> be either {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS} or equal to the {@code arrayLayers} member of the {@link VkImageCreateInfo} used to create the image minus {@code baseArrayLayer}</li>
  * <li>If {@code srcImage} and {@code dstImage} are both of type {@link VK10#VK_IMAGE_TYPE_2D IMAGE_TYPE_2D}, then for each element of {@code pRegions}, {@code extent.depth} <b>must</b> be 1</li>
@@ -66,22 +66,22 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>For each element of {@code pRegions}, {@code dstOffset.y} and <code>(extent.height + dstOffset.y)</code> <b>must</b> both be greater than or equal to 0 and less than or equal to the height of the specified {@code dstSubresource} of {@code dstImage}</li>
  * <li>If {@code dstImage} is of type {@link VK10#VK_IMAGE_TYPE_1D IMAGE_TYPE_1D}, then for each element of {@code pRegions}, {@code dstOffset.y} <b>must</b> be 0 and {@code extent.height} <b>must</b> be 1</li>
  * <li>If {@code dstImage} is of type {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D}, then for each element of {@code pRegions}, {@code dstOffset.z} and <code>(extent.depth + dstOffset.z)</code> <b>must</b> both be greater than or equal to 0 and less than or equal to the depth of the specified {@code dstSubresource} of {@code dstImage}</li>
- * <li>For each element of {@code pRegions}, {@code srcOffset.x} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent width</a> of the {@code VkFormat} of {@code srcImage}</li>
- * <li>For each element of {@code pRegions}, {@code srcOffset.y} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent height</a> of the {@code VkFormat} of {@code srcImage}</li>
- * <li>For each element of {@code pRegions}, {@code srcOffset.z} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent depth</a> of the {@code VkFormat} of {@code srcImage}</li>
- * <li>For each element of {@code pRegions}, {@code dstOffset.x} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent width</a> of the {@code VkFormat} of {@code dstImage}</li>
- * <li>For each element of {@code pRegions}, {@code dstOffset.y} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent height</a> of the {@code VkFormat} of {@code dstImage}</li>
- * <li>For each element of {@code pRegions}, {@code dstOffset.z} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent depth</a> of the {@code VkFormat} of {@code dstImage}</li>
- * <li>For each element of {@code pRegions}, if the sum of {@code srcOffset.x} and {@code extent.width} does not equal the width of the subresource specified by {@code srcSubresource}, {@code extent.width} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent width</a> of the {@code VkFormat} of {@code srcImage}</li>
- * <li>For each element of {@code pRegions}, if the sum of {@code srcOffset.y} and {@code extent.height} does not equal the height of the subresource specified by {@code srcSubresource}, {@code extent.height} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent height</a> of the {@code VkFormat} of {@code srcImage}</li>
- * <li>For each element of {@code pRegions}, if the sum of {@code srcOffset.z} and {@code extent.depth} does not equal the depth of the subresource specified by {@code srcSubresource}, {@code extent.depth} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent depth</a> of the {@code VkFormat} of {@code srcImage}</li>
- * <li>For each element of {@code pRegions}, if the sum of {@code dstOffset.x} and {@code extent.width} does not equal the width of the subresource specified by {@code dstSubresource}, {@code extent.width} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent width</a> of the {@code VkFormat} of {@code dstImage}</li>
- * <li>For each element of {@code pRegions}, if the sum of {@code dstOffset.y} and {@code extent.height} does not equal the height of the subresource specified by {@code dstSubresource}, {@code extent.height} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent height</a> of the {@code VkFormat} of {@code dstImage}</li>
- * <li>For each element of {@code pRegions}, if the sum of {@code dstOffset.z} and {@code extent.depth} does not equal the depth of the subresource specified by {@code dstSubresource}, {@code extent.depth} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent depth</a> of the {@code VkFormat} of {@code dstImage}</li>
- * <li>If the {@code aspect} member of any element of {@code pRegions} includes any flag other than {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT} or {@code srcImage} was not created with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkImageStencilUsageCreateInfo">separate stencil usage</a>, {@link VK10#VK_IMAGE_USAGE_TRANSFER_SRC_BIT IMAGE_USAGE_TRANSFER_SRC_BIT} <b>must</b> have been included in the {@link VkImageCreateInfo}{@code ::usage} used to create {@code srcImage}</li>
- * <li>If the {@code aspect} member of any element of {@code pRegions} includes any flag other than {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT} or {@code dstImage} was not created with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkImageStencilUsageCreateInfo">separate stencil usage</a>, {@link VK10#VK_IMAGE_USAGE_TRANSFER_DST_BIT IMAGE_USAGE_TRANSFER_DST_BIT} <b>must</b> have been included in the {@link VkImageCreateInfo}{@code ::usage} used to create {@code dstImage}</li>
- * <li>If the {@code aspect} member of any element of {@code pRegions} includes {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT}, and {@code srcImage} was created with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkImageStencilUsageCreateInfo">separate stencil usage</a>, {@link VK10#VK_IMAGE_USAGE_TRANSFER_SRC_BIT IMAGE_USAGE_TRANSFER_SRC_BIT} <b>must</b> have been included in the {@link VkImageStencilUsageCreateInfo}{@code ::stencilUsage} used to create {@code srcImage}</li>
- * <li>If the {@code aspect} member of any element of {@code pRegions} includes {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT}, and {@code dstImage} was created with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkImageStencilUsageCreateInfo">separate stencil usage</a>, {@link VK10#VK_IMAGE_USAGE_TRANSFER_DST_BIT IMAGE_USAGE_TRANSFER_DST_BIT} <b>must</b> have been included in the {@link VkImageStencilUsageCreateInfo}{@code ::stencilUsage} used to create {@code dstImage}</li>
+ * <li>For each element of {@code pRegions}, {@code srcOffset.x} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent width</a> of the {@code VkFormat} of {@code srcImage}</li>
+ * <li>For each element of {@code pRegions}, {@code srcOffset.y} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent height</a> of the {@code VkFormat} of {@code srcImage}</li>
+ * <li>For each element of {@code pRegions}, {@code srcOffset.z} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent depth</a> of the {@code VkFormat} of {@code srcImage}</li>
+ * <li>For each element of {@code pRegions}, {@code dstOffset.x} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent width</a> of the {@code VkFormat} of {@code dstImage}</li>
+ * <li>For each element of {@code pRegions}, {@code dstOffset.y} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent height</a> of the {@code VkFormat} of {@code dstImage}</li>
+ * <li>For each element of {@code pRegions}, {@code dstOffset.z} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent depth</a> of the {@code VkFormat} of {@code dstImage}</li>
+ * <li>For each element of {@code pRegions}, if the sum of {@code srcOffset.x} and {@code extent.width} does not equal the width of the subresource specified by {@code srcSubresource}, {@code extent.width} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent width</a> of the {@code VkFormat} of {@code srcImage}</li>
+ * <li>For each element of {@code pRegions}, if the sum of {@code srcOffset.y} and {@code extent.height} does not equal the height of the subresource specified by {@code srcSubresource}, {@code extent.height} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent height</a> of the {@code VkFormat} of {@code srcImage}</li>
+ * <li>For each element of {@code pRegions}, if the sum of {@code srcOffset.z} and {@code extent.depth} does not equal the depth of the subresource specified by {@code srcSubresource}, {@code extent.depth} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent depth</a> of the {@code VkFormat} of {@code srcImage}</li>
+ * <li>For each element of {@code pRegions}, if the sum of {@code dstOffset.x} and {@code extent.width} does not equal the width of the subresource specified by {@code dstSubresource}, {@code extent.width} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent width</a> of the {@code VkFormat} of {@code dstImage}</li>
+ * <li>For each element of {@code pRegions}, if the sum of {@code dstOffset.y} and {@code extent.height} does not equal the height of the subresource specified by {@code dstSubresource}, {@code extent.height} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent height</a> of the {@code VkFormat} of {@code dstImage}</li>
+ * <li>For each element of {@code pRegions}, if the sum of {@code dstOffset.z} and {@code extent.depth} does not equal the depth of the subresource specified by {@code dstSubresource}, {@code extent.depth} <b>must</b> be a multiple of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent depth</a> of the {@code VkFormat} of {@code dstImage}</li>
+ * <li>If the {@code aspect} member of any element of {@code pRegions} includes any flag other than {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT} or {@code srcImage} was not created with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkImageStencilUsageCreateInfo">separate stencil usage</a>, {@link VK10#VK_IMAGE_USAGE_TRANSFER_SRC_BIT IMAGE_USAGE_TRANSFER_SRC_BIT} <b>must</b> have been included in the {@link VkImageCreateInfo}{@code ::usage} used to create {@code srcImage}</li>
+ * <li>If the {@code aspect} member of any element of {@code pRegions} includes any flag other than {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT} or {@code dstImage} was not created with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkImageStencilUsageCreateInfo">separate stencil usage</a>, {@link VK10#VK_IMAGE_USAGE_TRANSFER_DST_BIT IMAGE_USAGE_TRANSFER_DST_BIT} <b>must</b> have been included in the {@link VkImageCreateInfo}{@code ::usage} used to create {@code dstImage}</li>
+ * <li>If the {@code aspect} member of any element of {@code pRegions} includes {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT}, and {@code srcImage} was created with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkImageStencilUsageCreateInfo">separate stencil usage</a>, {@link VK10#VK_IMAGE_USAGE_TRANSFER_SRC_BIT IMAGE_USAGE_TRANSFER_SRC_BIT} <b>must</b> have been included in the {@link VkImageStencilUsageCreateInfo}{@code ::stencilUsage} used to create {@code srcImage}</li>
+ * <li>If the {@code aspect} member of any element of {@code pRegions} includes {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT}, and {@code dstImage} was created with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkImageStencilUsageCreateInfo">separate stencil usage</a>, {@link VK10#VK_IMAGE_USAGE_TRANSFER_DST_BIT IMAGE_USAGE_TRANSFER_DST_BIT} <b>must</b> have been included in the {@link VkImageStencilUsageCreateInfo}{@code ::stencilUsage} used to create {@code dstImage}</li>
  * </ul>
  * 
  * <ul>
@@ -295,8 +295,7 @@ public class VkCopyImageInfo2 extends Struct<VkCopyImageInfo2> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyImageInfo2 createSafe(long address) {
+    public static @Nullable VkCopyImageInfo2 createSafe(long address) {
         return address == NULL ? null : new VkCopyImageInfo2(address, null);
     }
 
@@ -339,8 +338,7 @@ public class VkCopyImageInfo2 extends Struct<VkCopyImageInfo2> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyImageInfo2.Buffer createSafe(long address, int capacity) {
+    public static VkCopyImageInfo2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -385,36 +383,36 @@ public class VkCopyImageInfo2 extends Struct<VkCopyImageInfo2> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCopyImageInfo2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCopyImageInfo2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCopyImageInfo2.PNEXT); }
     /** Unsafe version of {@link #srcImage}. */
-    public static long nsrcImage(long struct) { return UNSAFE.getLong(null, struct + VkCopyImageInfo2.SRCIMAGE); }
+    public static long nsrcImage(long struct) { return memGetLong(struct + VkCopyImageInfo2.SRCIMAGE); }
     /** Unsafe version of {@link #srcImageLayout}. */
-    public static int nsrcImageLayout(long struct) { return UNSAFE.getInt(null, struct + VkCopyImageInfo2.SRCIMAGELAYOUT); }
+    public static int nsrcImageLayout(long struct) { return memGetInt(struct + VkCopyImageInfo2.SRCIMAGELAYOUT); }
     /** Unsafe version of {@link #dstImage}. */
-    public static long ndstImage(long struct) { return UNSAFE.getLong(null, struct + VkCopyImageInfo2.DSTIMAGE); }
+    public static long ndstImage(long struct) { return memGetLong(struct + VkCopyImageInfo2.DSTIMAGE); }
     /** Unsafe version of {@link #dstImageLayout}. */
-    public static int ndstImageLayout(long struct) { return UNSAFE.getInt(null, struct + VkCopyImageInfo2.DSTIMAGELAYOUT); }
+    public static int ndstImageLayout(long struct) { return memGetInt(struct + VkCopyImageInfo2.DSTIMAGELAYOUT); }
     /** Unsafe version of {@link #regionCount}. */
-    public static int nregionCount(long struct) { return UNSAFE.getInt(null, struct + VkCopyImageInfo2.REGIONCOUNT); }
+    public static int nregionCount(long struct) { return memGetInt(struct + VkCopyImageInfo2.REGIONCOUNT); }
     /** Unsafe version of {@link #pRegions}. */
     public static VkImageCopy2.Buffer npRegions(long struct) { return VkImageCopy2.create(memGetAddress(struct + VkCopyImageInfo2.PREGIONS), nregionCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyImageInfo2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCopyImageInfo2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCopyImageInfo2.PNEXT, value); }
     /** Unsafe version of {@link #srcImage(long) srcImage}. */
-    public static void nsrcImage(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyImageInfo2.SRCIMAGE, value); }
+    public static void nsrcImage(long struct, long value) { memPutLong(struct + VkCopyImageInfo2.SRCIMAGE, value); }
     /** Unsafe version of {@link #srcImageLayout(int) srcImageLayout}. */
-    public static void nsrcImageLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyImageInfo2.SRCIMAGELAYOUT, value); }
+    public static void nsrcImageLayout(long struct, int value) { memPutInt(struct + VkCopyImageInfo2.SRCIMAGELAYOUT, value); }
     /** Unsafe version of {@link #dstImage(long) dstImage}. */
-    public static void ndstImage(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyImageInfo2.DSTIMAGE, value); }
+    public static void ndstImage(long struct, long value) { memPutLong(struct + VkCopyImageInfo2.DSTIMAGE, value); }
     /** Unsafe version of {@link #dstImageLayout(int) dstImageLayout}. */
-    public static void ndstImageLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyImageInfo2.DSTIMAGELAYOUT, value); }
+    public static void ndstImageLayout(long struct, int value) { memPutInt(struct + VkCopyImageInfo2.DSTIMAGELAYOUT, value); }
     /** Sets the specified value to the {@code regionCount} field of the specified {@code struct}. */
-    public static void nregionCount(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyImageInfo2.REGIONCOUNT, value); }
+    public static void nregionCount(long struct, int value) { memPutInt(struct + VkCopyImageInfo2.REGIONCOUNT, value); }
     /** Unsafe version of {@link #pRegions(VkImageCopy2.Buffer) pRegions}. */
     public static void npRegions(long struct, VkImageCopy2.Buffer value) { memPutAddress(struct + VkCopyImageInfo2.PREGIONS, value.address()); nregionCount(struct, value.remaining()); }
 
@@ -458,6 +456,11 @@ public class VkCopyImageInfo2 extends Struct<VkCopyImageInfo2> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

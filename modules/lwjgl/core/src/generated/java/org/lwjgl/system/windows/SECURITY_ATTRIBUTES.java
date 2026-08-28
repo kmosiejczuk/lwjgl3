@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SECURITY_ATTRIBUTES createSafe(long address) {
+    public static @Nullable SECURITY_ATTRIBUTES createSafe(long address) {
         return address == NULL ? null : new SECURITY_ATTRIBUTES(address, null);
     }
 
@@ -196,8 +195,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SECURITY_ATTRIBUTES.Buffer createSafe(long address, int capacity) {
+    public static SECURITY_ATTRIBUTES.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,18 +259,18 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #nLength}. */
-    public static int nnLength(long struct) { return UNSAFE.getInt(null, struct + SECURITY_ATTRIBUTES.NLENGTH); }
+    public static int nnLength(long struct) { return memGetInt(struct + SECURITY_ATTRIBUTES.NLENGTH); }
     /** Unsafe version of {@link #lpSecurityDescriptor}. */
     public static long nlpSecurityDescriptor(long struct) { return memGetAddress(struct + SECURITY_ATTRIBUTES.LPSECURITYDESCRIPTOR); }
     /** Unsafe version of {@link #bInheritHandle}. */
-    public static int nbInheritHandle(long struct) { return UNSAFE.getInt(null, struct + SECURITY_ATTRIBUTES.BINHERITHANDLE); }
+    public static int nbInheritHandle(long struct) { return memGetInt(struct + SECURITY_ATTRIBUTES.BINHERITHANDLE); }
 
     /** Unsafe version of {@link #nLength(int) nLength}. */
-    public static void nnLength(long struct, int value) { UNSAFE.putInt(null, struct + SECURITY_ATTRIBUTES.NLENGTH, value); }
+    public static void nnLength(long struct, int value) { memPutInt(struct + SECURITY_ATTRIBUTES.NLENGTH, value); }
     /** Unsafe version of {@link #lpSecurityDescriptor(long) lpSecurityDescriptor}. */
     public static void nlpSecurityDescriptor(long struct, long value) { memPutAddress(struct + SECURITY_ATTRIBUTES.LPSECURITYDESCRIPTOR, check(value)); }
     /** Unsafe version of {@link #bInheritHandle(boolean) bInheritHandle}. */
-    public static void nbInheritHandle(long struct, int value) { UNSAFE.putInt(null, struct + SECURITY_ATTRIBUTES.BINHERITHANDLE, value); }
+    public static void nbInheritHandle(long struct, int value) { memPutInt(struct + SECURITY_ATTRIBUTES.BINHERITHANDLE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -314,6 +312,11 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,15 +22,16 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>The ability of the implementation’s rate control algorithm to be able to match the requested average and/or peak bitrates <b>may</b> be limited by the set of other codec-independent and codec-specific rate control parameters specified by the application, the input content, as well as the application conforming to the rate control guidance provided to the implementation, as described <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-rate-control">earlier</a>.</p>
+ * <p>The ability of the implementation’s rate control algorithm to be able to match the requested average and/or peak bitrates <b>may</b> be limited by the set of other codec-independent and codec-specific rate control parameters specified by the application, the input content, as well as the application conforming to the rate control guidance provided to the implementation, as described <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-rate-control">earlier</a>.</p>
  * </div>
  * 
- * <p>Additional structures providing codec-specific rate control parameters <b>can</b> be included in the {@code pNext} chain of {@link VkVideoEncodeRateControlLayerInfoKHR} depending on the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a> the bound video session was created with. For further details see:</p>
+ * <p>Additional structures providing codec-specific rate control parameters <b>can</b> be included in the {@code pNext} chain of {@link VkVideoEncodeRateControlLayerInfoKHR} depending on the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-profiles">video profile</a> the bound video session was created with. For further details see:</p>
  * 
  * <ul>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-coding-control">Video Coding Control</a></li>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-rate-control">H.264 Encode Rate Control</a></li>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-rate-control">H.265 Encode Rate Control</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-coding-control">Video Coding Control</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-rate-control">H.264 Encode Rate Control</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-rate-control">H.265 Encode Rate Control</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-av1-rate-control">AV1 Encode Rate Control</a></li>
  * </ul>
  * 
  * <h5>Valid Usage</h5>
@@ -44,7 +45,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeH264RateControlLayerInfoKHR} or {@link VkVideoEncodeH265RateControlLayerInfoKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeAV1RateControlLayerInfoKHR}, {@link VkVideoEncodeH264RateControlLayerInfoKHR}, or {@link VkVideoEncodeH265RateControlLayerInfoKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * </ul>
  * 
@@ -130,10 +131,10 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
     /** a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the average <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-bitrate">bitrate</a> to be targeted by the implementation’s rate control algorithm. */
+    /** the average <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-bitrate">bitrate</a> to be targeted by the implementation’s rate control algorithm. */
     @NativeType("uint64_t")
     public long averageBitrate() { return naverageBitrate(address()); }
-    /** the peak <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-bitrate">bitrate</a> to be targeted by the implementation’s rate control algorithm. */
+    /** the peak <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-bitrate">bitrate</a> to be targeted by the implementation’s rate control algorithm. */
     @NativeType("uint64_t")
     public long maxBitrate() { return nmaxBitrate(address()); }
     /** the numerator of the frame rate assumed by the implementation’s rate control algorithm. */
@@ -149,6 +150,8 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
     public VkVideoEncodeRateControlLayerInfoKHR sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkVideoEncodeRateControlLayerInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkVideoEncodeAV1RateControlLayerInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoEncodeRateControlLayerInfoKHR pNext(VkVideoEncodeAV1RateControlLayerInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH264RateControlLayerInfoKHR} value to the {@code pNext} chain. */
     public VkVideoEncodeRateControlLayerInfoKHR pNext(VkVideoEncodeH264RateControlLayerInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH265RateControlLayerInfoKHR} value to the {@code pNext} chain. */
@@ -217,8 +220,7 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeRateControlLayerInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeRateControlLayerInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeRateControlLayerInfoKHR(address, null);
     }
 
@@ -261,8 +263,7 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeRateControlLayerInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeRateControlLayerInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -307,30 +308,30 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeRateControlLayerInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeRateControlLayerInfoKHR.PNEXT); }
     /** Unsafe version of {@link #averageBitrate}. */
-    public static long naverageBitrate(long struct) { return UNSAFE.getLong(null, struct + VkVideoEncodeRateControlLayerInfoKHR.AVERAGEBITRATE); }
+    public static long naverageBitrate(long struct) { return memGetLong(struct + VkVideoEncodeRateControlLayerInfoKHR.AVERAGEBITRATE); }
     /** Unsafe version of {@link #maxBitrate}. */
-    public static long nmaxBitrate(long struct) { return UNSAFE.getLong(null, struct + VkVideoEncodeRateControlLayerInfoKHR.MAXBITRATE); }
+    public static long nmaxBitrate(long struct) { return memGetLong(struct + VkVideoEncodeRateControlLayerInfoKHR.MAXBITRATE); }
     /** Unsafe version of {@link #frameRateNumerator}. */
-    public static int nframeRateNumerator(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATENUMERATOR); }
+    public static int nframeRateNumerator(long struct) { return memGetInt(struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATENUMERATOR); }
     /** Unsafe version of {@link #frameRateDenominator}. */
-    public static int nframeRateDenominator(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATEDENOMINATOR); }
+    public static int nframeRateDenominator(long struct) { return memGetInt(struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATEDENOMINATOR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlLayerInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeRateControlLayerInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #averageBitrate(long) averageBitrate}. */
-    public static void naverageBitrate(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoEncodeRateControlLayerInfoKHR.AVERAGEBITRATE, value); }
+    public static void naverageBitrate(long struct, long value) { memPutLong(struct + VkVideoEncodeRateControlLayerInfoKHR.AVERAGEBITRATE, value); }
     /** Unsafe version of {@link #maxBitrate(long) maxBitrate}. */
-    public static void nmaxBitrate(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoEncodeRateControlLayerInfoKHR.MAXBITRATE, value); }
+    public static void nmaxBitrate(long struct, long value) { memPutLong(struct + VkVideoEncodeRateControlLayerInfoKHR.MAXBITRATE, value); }
     /** Unsafe version of {@link #frameRateNumerator(int) frameRateNumerator}. */
-    public static void nframeRateNumerator(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATENUMERATOR, value); }
+    public static void nframeRateNumerator(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATENUMERATOR, value); }
     /** Unsafe version of {@link #frameRateDenominator(int) frameRateDenominator}. */
-    public static void nframeRateDenominator(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATEDENOMINATOR, value); }
+    public static void nframeRateDenominator(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATEDENOMINATOR, value); }
 
     // -----------------------------------
 
@@ -366,6 +367,11 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoEncodeRateControlLayerInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -395,6 +401,8 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
         public VkVideoEncodeRateControlLayerInfoKHR.Buffer sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR); }
         /** Sets the specified value to the {@link VkVideoEncodeRateControlLayerInfoKHR#pNext} field. */
         public VkVideoEncodeRateControlLayerInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoEncodeRateControlLayerInfoKHR.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkVideoEncodeAV1RateControlLayerInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoEncodeRateControlLayerInfoKHR.Buffer pNext(VkVideoEncodeAV1RateControlLayerInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH264RateControlLayerInfoKHR} value to the {@code pNext} chain. */
         public VkVideoEncodeRateControlLayerInfoKHR.Buffer pNext(VkVideoEncodeH264RateControlLayerInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH265RateControlLayerInfoKHR} value to the {@code pNext} chain. */

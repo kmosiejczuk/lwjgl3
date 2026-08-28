@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class VkExportMetalSharedEventInfoEXT extends Struct<VkExportMetalSharedE
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalSharedEventInfoEXT createSafe(long address) {
+    public static @Nullable VkExportMetalSharedEventInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkExportMetalSharedEventInfoEXT(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkExportMetalSharedEventInfoEXT extends Struct<VkExportMetalSharedE
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalSharedEventInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExportMetalSharedEventInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,24 +266,24 @@ public class VkExportMetalSharedEventInfoEXT extends Struct<VkExportMetalSharedE
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalSharedEventInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMetalSharedEventInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMetalSharedEventInfoEXT.PNEXT); }
     /** Unsafe version of {@link #semaphore}. */
-    public static long nsemaphore(long struct) { return UNSAFE.getLong(null, struct + VkExportMetalSharedEventInfoEXT.SEMAPHORE); }
+    public static long nsemaphore(long struct) { return memGetLong(struct + VkExportMetalSharedEventInfoEXT.SEMAPHORE); }
     /** Unsafe version of {@link #event}. */
-    public static long nevent(long struct) { return UNSAFE.getLong(null, struct + VkExportMetalSharedEventInfoEXT.EVENT); }
+    public static long nevent(long struct) { return memGetLong(struct + VkExportMetalSharedEventInfoEXT.EVENT); }
     /** Unsafe version of {@link #mtlSharedEvent}. */
     public static long nmtlSharedEvent(long struct) { return memGetAddress(struct + VkExportMetalSharedEventInfoEXT.MTLSHAREDEVENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalSharedEventInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMetalSharedEventInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMetalSharedEventInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #semaphore(long) semaphore}. */
-    public static void nsemaphore(long struct, long value) { UNSAFE.putLong(null, struct + VkExportMetalSharedEventInfoEXT.SEMAPHORE, value); }
+    public static void nsemaphore(long struct, long value) { memPutLong(struct + VkExportMetalSharedEventInfoEXT.SEMAPHORE, value); }
     /** Unsafe version of {@link #event(long) event}. */
-    public static void nevent(long struct, long value) { UNSAFE.putLong(null, struct + VkExportMetalSharedEventInfoEXT.EVENT, value); }
+    public static void nevent(long struct, long value) { memPutLong(struct + VkExportMetalSharedEventInfoEXT.EVENT, value); }
     /** Unsafe version of {@link #mtlSharedEvent(long) mtlSharedEvent}. */
     public static void nmtlSharedEvent(long struct, long value) { memPutAddress(struct + VkExportMetalSharedEventInfoEXT.MTLSHAREDEVENT, check(value)); }
 
@@ -329,6 +327,11 @@ public class VkExportMetalSharedEventInfoEXT extends Struct<VkExportMetalSharedE
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

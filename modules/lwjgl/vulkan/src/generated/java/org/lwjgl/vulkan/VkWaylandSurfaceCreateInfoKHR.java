@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -189,8 +189,7 @@ public class VkWaylandSurfaceCreateInfoKHR extends Struct<VkWaylandSurfaceCreate
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWaylandSurfaceCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkWaylandSurfaceCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkWaylandSurfaceCreateInfoKHR(address, null);
     }
 
@@ -233,8 +232,7 @@ public class VkWaylandSurfaceCreateInfoKHR extends Struct<VkWaylandSurfaceCreate
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWaylandSurfaceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkWaylandSurfaceCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -298,22 +296,22 @@ public class VkWaylandSurfaceCreateInfoKHR extends Struct<VkWaylandSurfaceCreate
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkWaylandSurfaceCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkWaylandSurfaceCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkWaylandSurfaceCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkWaylandSurfaceCreateInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkWaylandSurfaceCreateInfoKHR.FLAGS); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + VkWaylandSurfaceCreateInfoKHR.DISPLAY); }
     /** Unsafe version of {@link #surface}. */
     public static long nsurface(long struct) { return memGetAddress(struct + VkWaylandSurfaceCreateInfoKHR.SURFACE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkWaylandSurfaceCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkWaylandSurfaceCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkWaylandSurfaceCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkWaylandSurfaceCreateInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkWaylandSurfaceCreateInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + VkWaylandSurfaceCreateInfoKHR.DISPLAY, value); }
     /** Unsafe version of {@link #surface(long) surface}. */
@@ -350,6 +348,11 @@ public class VkWaylandSurfaceCreateInfoKHR extends Struct<VkWaylandSurfaceCreate
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

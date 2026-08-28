@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -170,8 +170,7 @@ public class VkSurfacePresentModeEXT extends Struct<VkSurfacePresentModeEXT> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfacePresentModeEXT createSafe(long address) {
+    public static @Nullable VkSurfacePresentModeEXT createSafe(long address) {
         return address == NULL ? null : new VkSurfacePresentModeEXT(address, null);
     }
 
@@ -214,8 +213,7 @@ public class VkSurfacePresentModeEXT extends Struct<VkSurfacePresentModeEXT> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfacePresentModeEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSurfacePresentModeEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,18 +258,18 @@ public class VkSurfacePresentModeEXT extends Struct<VkSurfacePresentModeEXT> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSurfacePresentModeEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSurfacePresentModeEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSurfacePresentModeEXT.PNEXT); }
     /** Unsafe version of {@link #presentMode}. */
-    public static int npresentMode(long struct) { return UNSAFE.getInt(null, struct + VkSurfacePresentModeEXT.PRESENTMODE); }
+    public static int npresentMode(long struct) { return memGetInt(struct + VkSurfacePresentModeEXT.PRESENTMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfacePresentModeEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSurfacePresentModeEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSurfacePresentModeEXT.PNEXT, value); }
     /** Unsafe version of {@link #presentMode(int) presentMode}. */
-    public static void npresentMode(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfacePresentModeEXT.PRESENTMODE, value); }
+    public static void npresentMode(long struct, int value) { memPutInt(struct + VkSurfacePresentModeEXT.PRESENTMODE, value); }
 
     // -----------------------------------
 
@@ -304,6 +302,11 @@ public class VkSurfacePresentModeEXT extends Struct<VkSurfacePresentModeEXT> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

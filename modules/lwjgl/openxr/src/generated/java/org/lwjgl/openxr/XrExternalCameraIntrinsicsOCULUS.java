@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -176,8 +176,7 @@ public class XrExternalCameraIntrinsicsOCULUS extends Struct<XrExternalCameraInt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExternalCameraIntrinsicsOCULUS createSafe(long address) {
+    public static @Nullable XrExternalCameraIntrinsicsOCULUS createSafe(long address) {
         return address == NULL ? null : new XrExternalCameraIntrinsicsOCULUS(address, null);
     }
 
@@ -220,8 +219,7 @@ public class XrExternalCameraIntrinsicsOCULUS extends Struct<XrExternalCameraInt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExternalCameraIntrinsicsOCULUS.Buffer createSafe(long address, int capacity) {
+    public static XrExternalCameraIntrinsicsOCULUS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,24 +264,24 @@ public class XrExternalCameraIntrinsicsOCULUS extends Struct<XrExternalCameraInt
     // -----------------------------------
 
     /** Unsafe version of {@link #lastChangeTime}. */
-    public static long nlastChangeTime(long struct) { return UNSAFE.getLong(null, struct + XrExternalCameraIntrinsicsOCULUS.LASTCHANGETIME); }
+    public static long nlastChangeTime(long struct) { return memGetLong(struct + XrExternalCameraIntrinsicsOCULUS.LASTCHANGETIME); }
     /** Unsafe version of {@link #fov}. */
     public static XrFovf nfov(long struct) { return XrFovf.create(struct + XrExternalCameraIntrinsicsOCULUS.FOV); }
     /** Unsafe version of {@link #virtualNearPlaneDistance}. */
-    public static float nvirtualNearPlaneDistance(long struct) { return UNSAFE.getFloat(null, struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALNEARPLANEDISTANCE); }
+    public static float nvirtualNearPlaneDistance(long struct) { return memGetFloat(struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALNEARPLANEDISTANCE); }
     /** Unsafe version of {@link #virtualFarPlaneDistance}. */
-    public static float nvirtualFarPlaneDistance(long struct) { return UNSAFE.getFloat(null, struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALFARPLANEDISTANCE); }
+    public static float nvirtualFarPlaneDistance(long struct) { return memGetFloat(struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALFARPLANEDISTANCE); }
     /** Unsafe version of {@link #imageSensorPixelResolution}. */
     public static XrExtent2Di nimageSensorPixelResolution(long struct) { return XrExtent2Di.create(struct + XrExternalCameraIntrinsicsOCULUS.IMAGESENSORPIXELRESOLUTION); }
 
     /** Unsafe version of {@link #lastChangeTime(long) lastChangeTime}. */
-    public static void nlastChangeTime(long struct, long value) { UNSAFE.putLong(null, struct + XrExternalCameraIntrinsicsOCULUS.LASTCHANGETIME, value); }
+    public static void nlastChangeTime(long struct, long value) { memPutLong(struct + XrExternalCameraIntrinsicsOCULUS.LASTCHANGETIME, value); }
     /** Unsafe version of {@link #fov(XrFovf) fov}. */
     public static void nfov(long struct, XrFovf value) { memCopy(value.address(), struct + XrExternalCameraIntrinsicsOCULUS.FOV, XrFovf.SIZEOF); }
     /** Unsafe version of {@link #virtualNearPlaneDistance(float) virtualNearPlaneDistance}. */
-    public static void nvirtualNearPlaneDistance(long struct, float value) { UNSAFE.putFloat(null, struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALNEARPLANEDISTANCE, value); }
+    public static void nvirtualNearPlaneDistance(long struct, float value) { memPutFloat(struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALNEARPLANEDISTANCE, value); }
     /** Unsafe version of {@link #virtualFarPlaneDistance(float) virtualFarPlaneDistance}. */
-    public static void nvirtualFarPlaneDistance(long struct, float value) { UNSAFE.putFloat(null, struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALFARPLANEDISTANCE, value); }
+    public static void nvirtualFarPlaneDistance(long struct, float value) { memPutFloat(struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALFARPLANEDISTANCE, value); }
     /** Unsafe version of {@link #imageSensorPixelResolution(XrExtent2Di) imageSensorPixelResolution}. */
     public static void nimageSensorPixelResolution(long struct, XrExtent2Di value) { memCopy(value.address(), struct + XrExternalCameraIntrinsicsOCULUS.IMAGESENSORPIXELRESOLUTION, XrExtent2Di.SIZEOF); }
 
@@ -318,6 +316,11 @@ public class XrExternalCameraIntrinsicsOCULUS extends Struct<XrExternalCameraInt
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

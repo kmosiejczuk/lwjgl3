@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -122,8 +122,7 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DistortionCoordinates createSafe(long address) {
+    public static @Nullable DistortionCoordinates createSafe(long address) {
         return address == NULL ? null : new DistortionCoordinates(address, null);
     }
 
@@ -166,8 +165,7 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DistortionCoordinates.Buffer createSafe(long address, int capacity) {
+    public static DistortionCoordinates.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -234,19 +232,19 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
     public static FloatBuffer nrfRed(long struct) { return memFloatBuffer(struct + DistortionCoordinates.RFRED, 2); }
     /** Unsafe version of {@link #rfRed(int) rfRed}. */
     public static float nrfRed(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + DistortionCoordinates.RFRED + check(index, 2) * 4);
+        return memGetFloat(struct + DistortionCoordinates.RFRED + check(index, 2) * 4);
     }
     /** Unsafe version of {@link #rfGreen}. */
     public static FloatBuffer nrfGreen(long struct) { return memFloatBuffer(struct + DistortionCoordinates.RFGREEN, 2); }
     /** Unsafe version of {@link #rfGreen(int) rfGreen}. */
     public static float nrfGreen(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + DistortionCoordinates.RFGREEN + check(index, 2) * 4);
+        return memGetFloat(struct + DistortionCoordinates.RFGREEN + check(index, 2) * 4);
     }
     /** Unsafe version of {@link #rfBlue}. */
     public static FloatBuffer nrfBlue(long struct) { return memFloatBuffer(struct + DistortionCoordinates.RFBLUE, 2); }
     /** Unsafe version of {@link #rfBlue(int) rfBlue}. */
     public static float nrfBlue(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + DistortionCoordinates.RFBLUE + check(index, 2) * 4);
+        return memGetFloat(struct + DistortionCoordinates.RFBLUE + check(index, 2) * 4);
     }
 
     // -----------------------------------
@@ -280,6 +278,11 @@ public class DistortionCoordinates extends Struct<DistortionCoordinates> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -146,8 +146,7 @@ public class XrBodyJointLocationFB extends Struct<XrBodyJointLocationFB> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodyJointLocationFB createSafe(long address) {
+    public static @Nullable XrBodyJointLocationFB createSafe(long address) {
         return address == NULL ? null : new XrBodyJointLocationFB(address, null);
     }
 
@@ -190,8 +189,7 @@ public class XrBodyJointLocationFB extends Struct<XrBodyJointLocationFB> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodyJointLocationFB.Buffer createSafe(long address, int capacity) {
+    public static XrBodyJointLocationFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -236,12 +234,12 @@ public class XrBodyJointLocationFB extends Struct<XrBodyJointLocationFB> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #locationFlags}. */
-    public static long nlocationFlags(long struct) { return UNSAFE.getLong(null, struct + XrBodyJointLocationFB.LOCATIONFLAGS); }
+    public static long nlocationFlags(long struct) { return memGetLong(struct + XrBodyJointLocationFB.LOCATIONFLAGS); }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrBodyJointLocationFB.POSE); }
 
     /** Unsafe version of {@link #locationFlags(long) locationFlags}. */
-    public static void nlocationFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrBodyJointLocationFB.LOCATIONFLAGS, value); }
+    public static void nlocationFlags(long struct, long value) { memPutLong(struct + XrBodyJointLocationFB.LOCATIONFLAGS, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrBodyJointLocationFB.POSE, XrPosef.SIZEOF); }
 
@@ -276,6 +274,11 @@ public class XrBodyJointLocationFB extends Struct<XrBodyJointLocationFB> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -188,8 +188,7 @@ public class XrPassthroughBrightnessContrastSaturationFB extends Struct<XrPassth
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughBrightnessContrastSaturationFB createSafe(long address) {
+    public static @Nullable XrPassthroughBrightnessContrastSaturationFB createSafe(long address) {
         return address == NULL ? null : new XrPassthroughBrightnessContrastSaturationFB(address, null);
     }
 
@@ -232,8 +231,7 @@ public class XrPassthroughBrightnessContrastSaturationFB extends Struct<XrPassth
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughBrightnessContrastSaturationFB.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughBrightnessContrastSaturationFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -278,26 +276,26 @@ public class XrPassthroughBrightnessContrastSaturationFB extends Struct<XrPassth
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughBrightnessContrastSaturationFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughBrightnessContrastSaturationFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughBrightnessContrastSaturationFB.NEXT); }
     /** Unsafe version of {@link #brightness}. */
-    public static float nbrightness(long struct) { return UNSAFE.getFloat(null, struct + XrPassthroughBrightnessContrastSaturationFB.BRIGHTNESS); }
+    public static float nbrightness(long struct) { return memGetFloat(struct + XrPassthroughBrightnessContrastSaturationFB.BRIGHTNESS); }
     /** Unsafe version of {@link #contrast}. */
-    public static float ncontrast(long struct) { return UNSAFE.getFloat(null, struct + XrPassthroughBrightnessContrastSaturationFB.CONTRAST); }
+    public static float ncontrast(long struct) { return memGetFloat(struct + XrPassthroughBrightnessContrastSaturationFB.CONTRAST); }
     /** Unsafe version of {@link #saturation}. */
-    public static float nsaturation(long struct) { return UNSAFE.getFloat(null, struct + XrPassthroughBrightnessContrastSaturationFB.SATURATION); }
+    public static float nsaturation(long struct) { return memGetFloat(struct + XrPassthroughBrightnessContrastSaturationFB.SATURATION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughBrightnessContrastSaturationFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughBrightnessContrastSaturationFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughBrightnessContrastSaturationFB.NEXT, value); }
     /** Unsafe version of {@link #brightness(float) brightness}. */
-    public static void nbrightness(long struct, float value) { UNSAFE.putFloat(null, struct + XrPassthroughBrightnessContrastSaturationFB.BRIGHTNESS, value); }
+    public static void nbrightness(long struct, float value) { memPutFloat(struct + XrPassthroughBrightnessContrastSaturationFB.BRIGHTNESS, value); }
     /** Unsafe version of {@link #contrast(float) contrast}. */
-    public static void ncontrast(long struct, float value) { UNSAFE.putFloat(null, struct + XrPassthroughBrightnessContrastSaturationFB.CONTRAST, value); }
+    public static void ncontrast(long struct, float value) { memPutFloat(struct + XrPassthroughBrightnessContrastSaturationFB.CONTRAST, value); }
     /** Unsafe version of {@link #saturation(float) saturation}. */
-    public static void nsaturation(long struct, float value) { UNSAFE.putFloat(null, struct + XrPassthroughBrightnessContrastSaturationFB.SATURATION, value); }
+    public static void nsaturation(long struct, float value) { memPutFloat(struct + XrPassthroughBrightnessContrastSaturationFB.SATURATION, value); }
 
     // -----------------------------------
 
@@ -330,6 +328,11 @@ public class XrPassthroughBrightnessContrastSaturationFB extends Struct<XrPassth
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

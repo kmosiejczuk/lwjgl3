@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkOpaqueCaptureDescriptorDataCreateInfoEXT extends Struct<VkOpaqueC
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOpaqueCaptureDescriptorDataCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkOpaqueCaptureDescriptorDataCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkOpaqueCaptureDescriptorDataCreateInfoEXT(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkOpaqueCaptureDescriptorDataCreateInfoEXT extends Struct<VkOpaqueC
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOpaqueCaptureDescriptorDataCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkOpaqueCaptureDescriptorDataCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +246,14 @@ public class VkOpaqueCaptureDescriptorDataCreateInfoEXT extends Struct<VkOpaqueC
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkOpaqueCaptureDescriptorDataCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkOpaqueCaptureDescriptorDataCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkOpaqueCaptureDescriptorDataCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #opaqueCaptureDescriptorData}. */
     public static long nopaqueCaptureDescriptorData(long struct) { return memGetAddress(struct + VkOpaqueCaptureDescriptorDataCreateInfoEXT.OPAQUECAPTUREDESCRIPTORDATA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkOpaqueCaptureDescriptorDataCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkOpaqueCaptureDescriptorDataCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkOpaqueCaptureDescriptorDataCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #opaqueCaptureDescriptorData(long) opaqueCaptureDescriptorData}. */
@@ -301,6 +299,11 @@ public class VkOpaqueCaptureDescriptorDataCreateInfoEXT extends Struct<VkOpaqueC
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

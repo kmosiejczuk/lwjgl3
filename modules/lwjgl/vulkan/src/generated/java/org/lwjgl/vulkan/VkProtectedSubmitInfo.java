@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkProtectedSubmitInfo extends Struct<VkProtectedSubmitInfo> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkProtectedSubmitInfo createSafe(long address) {
+    public static @Nullable VkProtectedSubmitInfo createSafe(long address) {
         return address == NULL ? null : new VkProtectedSubmitInfo(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkProtectedSubmitInfo extends Struct<VkProtectedSubmitInfo> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkProtectedSubmitInfo.Buffer createSafe(long address, int capacity) {
+    public static VkProtectedSubmitInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,18 +259,18 @@ public class VkProtectedSubmitInfo extends Struct<VkProtectedSubmitInfo> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkProtectedSubmitInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkProtectedSubmitInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkProtectedSubmitInfo.PNEXT); }
     /** Unsafe version of {@link #protectedSubmit}. */
-    public static int nprotectedSubmit(long struct) { return UNSAFE.getInt(null, struct + VkProtectedSubmitInfo.PROTECTEDSUBMIT); }
+    public static int nprotectedSubmit(long struct) { return memGetInt(struct + VkProtectedSubmitInfo.PROTECTEDSUBMIT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkProtectedSubmitInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkProtectedSubmitInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkProtectedSubmitInfo.PNEXT, value); }
     /** Unsafe version of {@link #protectedSubmit(boolean) protectedSubmit}. */
-    public static void nprotectedSubmit(long struct, int value) { UNSAFE.putInt(null, struct + VkProtectedSubmitInfo.PROTECTEDSUBMIT, value); }
+    public static void nprotectedSubmit(long struct, int value) { memPutInt(struct + VkProtectedSubmitInfo.PROTECTEDSUBMIT, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkProtectedSubmitInfo extends Struct<VkProtectedSubmitInfo> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

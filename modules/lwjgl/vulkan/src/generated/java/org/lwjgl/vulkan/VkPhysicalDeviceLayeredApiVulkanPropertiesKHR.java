@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,8 +161,7 @@ public class VkPhysicalDeviceLayeredApiVulkanPropertiesKHR extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLayeredApiVulkanPropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceLayeredApiVulkanPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceLayeredApiVulkanPropertiesKHR(address, null);
     }
 
@@ -205,8 +204,7 @@ public class VkPhysicalDeviceLayeredApiVulkanPropertiesKHR extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,14 +249,14 @@ public class VkPhysicalDeviceLayeredApiVulkanPropertiesKHR extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #properties}. */
     public static VkPhysicalDeviceProperties2 nproperties(long struct) { return VkPhysicalDeviceProperties2.create(struct + VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.PROPERTIES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.PNEXT, value); }
 
@@ -293,6 +291,11 @@ public class VkPhysicalDeviceLayeredApiVulkanPropertiesKHR extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.opus;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -114,8 +114,7 @@ public class OGGPacket extends Struct<OGGPacket> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OGGPacket createSafe(long address) {
+    public static @Nullable OGGPacket createSafe(long address) {
         return address == NULL ? null : new OGGPacket(address, null);
     }
 
@@ -130,8 +129,7 @@ public class OGGPacket extends Struct<OGGPacket> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OGGPacket.Buffer createSafe(long address, int capacity) {
+    public static OGGPacket.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -146,9 +144,9 @@ public class OGGPacket extends Struct<OGGPacket> {
     /** Unsafe version of {@link #e_o_s}. */
     public static long ne_o_s(long struct) { return memGetCLong(struct + OGGPacket.E_O_S); }
     /** Unsafe version of {@link #granulepos}. */
-    public static long ngranulepos(long struct) { return UNSAFE.getLong(null, struct + OGGPacket.GRANULEPOS); }
+    public static long ngranulepos(long struct) { return memGetLong(struct + OGGPacket.GRANULEPOS); }
     /** Unsafe version of {@link #packetno}. */
-    public static long npacketno(long struct) { return UNSAFE.getLong(null, struct + OGGPacket.PACKETNO); }
+    public static long npacketno(long struct) { return memGetLong(struct + OGGPacket.PACKETNO); }
 
     // -----------------------------------
 
@@ -181,6 +179,11 @@ public class OGGPacket extends Struct<OGGPacket> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

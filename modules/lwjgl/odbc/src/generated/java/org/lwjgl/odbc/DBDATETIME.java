@@ -5,7 +5,7 @@
  */
 package org.lwjgl.odbc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -131,8 +131,7 @@ public class DBDATETIME extends Struct<DBDATETIME> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DBDATETIME createSafe(long address) {
+    public static @Nullable DBDATETIME createSafe(long address) {
         return address == NULL ? null : new DBDATETIME(address, null);
     }
 
@@ -175,8 +174,7 @@ public class DBDATETIME extends Struct<DBDATETIME> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DBDATETIME.Buffer createSafe(long address, int capacity) {
+    public static DBDATETIME.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,14 +238,14 @@ public class DBDATETIME extends Struct<DBDATETIME> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #dtdays}. */
-    public static int ndtdays(long struct) { return UNSAFE.getInt(null, struct + DBDATETIME.DTDAYS); }
+    public static int ndtdays(long struct) { return memGetInt(struct + DBDATETIME.DTDAYS); }
     /** Unsafe version of {@link #dttime}. */
-    public static int ndttime(long struct) { return UNSAFE.getInt(null, struct + DBDATETIME.DTTIME); }
+    public static int ndttime(long struct) { return memGetInt(struct + DBDATETIME.DTTIME); }
 
     /** Unsafe version of {@link #dtdays(int) dtdays}. */
-    public static void ndtdays(long struct, int value) { UNSAFE.putInt(null, struct + DBDATETIME.DTDAYS, value); }
+    public static void ndtdays(long struct, int value) { memPutInt(struct + DBDATETIME.DTDAYS, value); }
     /** Unsafe version of {@link #dttime(int) dttime}. */
-    public static void ndttime(long struct, int value) { UNSAFE.putInt(null, struct + DBDATETIME.DTTIME, value); }
+    public static void ndttime(long struct, int value) { memPutInt(struct + DBDATETIME.DTTIME, value); }
 
     // -----------------------------------
 
@@ -280,6 +278,11 @@ public class DBDATETIME extends Struct<DBDATETIME> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -230,8 +230,7 @@ public class VkAccelerationStructureMatrixMotionInstanceNV extends Struct<VkAcce
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMatrixMotionInstanceNV createSafe(long address) {
+    public static @Nullable VkAccelerationStructureMatrixMotionInstanceNV createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureMatrixMotionInstanceNV(address, null);
     }
 
@@ -274,8 +273,7 @@ public class VkAccelerationStructureMatrixMotionInstanceNV extends Struct<VkAcce
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMatrixMotionInstanceNV.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureMatrixMotionInstanceNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -323,35 +321,35 @@ public class VkAccelerationStructureMatrixMotionInstanceNV extends Struct<VkAcce
     public static VkTransformMatrixKHR ntransformT0(long struct) { return VkTransformMatrixKHR.create(struct + VkAccelerationStructureMatrixMotionInstanceNV.TRANSFORMT0); }
     /** Unsafe version of {@link #transformT1}. */
     public static VkTransformMatrixKHR ntransformT1(long struct) { return VkTransformMatrixKHR.create(struct + VkAccelerationStructureMatrixMotionInstanceNV.TRANSFORMT1); }
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMatrixMotionInstanceNV.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + VkAccelerationStructureMatrixMotionInstanceNV.BITFIELD0); }
     /** Unsafe version of {@link #instanceCustomIndex}. */
     public static int ninstanceCustomIndex(long struct) { return nbitfield0(struct) & 0x00_FF_FF_FF; }
     /** Unsafe version of {@link #mask}. */
     public static int nmask(long struct) { return nbitfield0(struct) >>> 24; }
-    public static int nbitfield1(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMatrixMotionInstanceNV.BITFIELD1); }
+    public static int nbitfield1(long struct) { return memGetInt(struct + VkAccelerationStructureMatrixMotionInstanceNV.BITFIELD1); }
     /** Unsafe version of {@link #instanceShaderBindingTableRecordOffset}. */
     public static int ninstanceShaderBindingTableRecordOffset(long struct) { return nbitfield1(struct) & 0x00_FF_FF_FF; }
     /** Unsafe version of {@link #flags}. */
     public static int nflags(long struct) { return nbitfield1(struct) >>> 24; }
     /** Unsafe version of {@link #accelerationStructureReference}. */
-    public static long naccelerationStructureReference(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureMatrixMotionInstanceNV.ACCELERATIONSTRUCTUREREFERENCE); }
+    public static long naccelerationStructureReference(long struct) { return memGetLong(struct + VkAccelerationStructureMatrixMotionInstanceNV.ACCELERATIONSTRUCTUREREFERENCE); }
 
     /** Unsafe version of {@link #transformT0(VkTransformMatrixKHR) transformT0}. */
     public static void ntransformT0(long struct, VkTransformMatrixKHR value) { memCopy(value.address(), struct + VkAccelerationStructureMatrixMotionInstanceNV.TRANSFORMT0, VkTransformMatrixKHR.SIZEOF); }
     /** Unsafe version of {@link #transformT1(VkTransformMatrixKHR) transformT1}. */
     public static void ntransformT1(long struct, VkTransformMatrixKHR value) { memCopy(value.address(), struct + VkAccelerationStructureMatrixMotionInstanceNV.TRANSFORMT1, VkTransformMatrixKHR.SIZEOF); }
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMatrixMotionInstanceNV.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + VkAccelerationStructureMatrixMotionInstanceNV.BITFIELD0, value); }
     /** Unsafe version of {@link #instanceCustomIndex(int) instanceCustomIndex}. */
     public static void ninstanceCustomIndex(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_00_00_00) | (value & 0x00_FF_FF_FF)); }
     /** Unsafe version of {@link #mask(int) mask}. */
     public static void nmask(long struct, int value) { nbitfield0(struct, (value << 24) | (nbitfield0(struct) & 0x00_FF_FF_FF)); }
-    public static void nbitfield1(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMatrixMotionInstanceNV.BITFIELD1, value); }
+    public static void nbitfield1(long struct, int value) { memPutInt(struct + VkAccelerationStructureMatrixMotionInstanceNV.BITFIELD1, value); }
     /** Unsafe version of {@link #instanceShaderBindingTableRecordOffset(int) instanceShaderBindingTableRecordOffset}. */
     public static void ninstanceShaderBindingTableRecordOffset(long struct, int value) { nbitfield1(struct, (nbitfield1(struct) & 0xFF_00_00_00) | (value & 0x00_FF_FF_FF)); }
     /** Unsafe version of {@link #flags(int) flags}. */
     public static void nflags(long struct, int value) { nbitfield1(struct, (value << 24) | (nbitfield1(struct) & 0x00_FF_FF_FF)); }
     /** Unsafe version of {@link #accelerationStructureReference(long) accelerationStructureReference}. */
-    public static void naccelerationStructureReference(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureMatrixMotionInstanceNV.ACCELERATIONSTRUCTUREREFERENCE, value); }
+    public static void naccelerationStructureReference(long struct, long value) { memPutLong(struct + VkAccelerationStructureMatrixMotionInstanceNV.ACCELERATIONSTRUCTUREREFERENCE, value); }
 
     // -----------------------------------
 
@@ -384,6 +382,11 @@ public class VkAccelerationStructureMatrixMotionInstanceNV extends Struct<VkAcce
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

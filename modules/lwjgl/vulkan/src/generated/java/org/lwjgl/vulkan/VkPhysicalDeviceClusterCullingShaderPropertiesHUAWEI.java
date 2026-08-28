@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -107,22 +107,22 @@ public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the maximum number of local workgroups that can be launched by a single command. These three value represent the maximum local workgroup count in the X, Y and Z dimensions, respectively. In the current implementation, the values of Y and Z are both implicitly set as one. groupCountX of DrawCluster command must be less than or equal to maxWorkGroupCount[0]. */
+    /** the maximum number of local workgroups that can be launched by a single command. These three value represent the maximum local workgroup count in the X, Y and Z dimensions, respectively. In the current implementation, the values of Y and Z are both implicitly set as one. groupCountX of DrawCluster command <b>must</b> be less than or equal to maxWorkGroupCount[0]. */
     @NativeType("uint32_t[3]")
     public IntBuffer maxWorkGroupCount() { return nmaxWorkGroupCount(address()); }
-    /** the maximum number of local workgroups that can be launched by a single command. These three value represent the maximum local workgroup count in the X, Y and Z dimensions, respectively. In the current implementation, the values of Y and Z are both implicitly set as one. groupCountX of DrawCluster command must be less than or equal to maxWorkGroupCount[0]. */
+    /** the maximum number of local workgroups that can be launched by a single command. These three value represent the maximum local workgroup count in the X, Y and Z dimensions, respectively. In the current implementation, the values of Y and Z are both implicitly set as one. groupCountX of DrawCluster command <b>must</b> be less than or equal to maxWorkGroupCount[0]. */
     @NativeType("uint32_t")
     public int maxWorkGroupCount(int index) { return nmaxWorkGroupCount(address(), index); }
-    /** the maximum size of a local workgroup. These three value represent the maximum local workgroup size in the X, Y and Z dimensions, respectively. The x, y and z sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode or by the object decorated by the WorkgroupSize decoration in shader modules, must be less than or equal to the corresponding limit. In the current implementation, the maximum workgroup size of the X dimension is 32, the others are 1. */
+    /** the maximum size of a local workgroup. These three value represent the maximum local workgroup size in the X, Y and Z dimensions, respectively. The x, y and z sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode or by the object decorated by the WorkgroupSize decoration in shader modules, <b>must</b> be less than or equal to the corresponding limit. In the current implementation, the maximum workgroup size of the X dimension is 32, the others are 1. */
     @NativeType("uint32_t[3]")
     public IntBuffer maxWorkGroupSize() { return nmaxWorkGroupSize(address()); }
-    /** the maximum size of a local workgroup. These three value represent the maximum local workgroup size in the X, Y and Z dimensions, respectively. The x, y and z sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode or by the object decorated by the WorkgroupSize decoration in shader modules, must be less than or equal to the corresponding limit. In the current implementation, the maximum workgroup size of the X dimension is 32, the others are 1. */
+    /** the maximum size of a local workgroup. These three value represent the maximum local workgroup size in the X, Y and Z dimensions, respectively. The x, y and z sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode or by the object decorated by the WorkgroupSize decoration in shader modules, <b>must</b> be less than or equal to the corresponding limit. In the current implementation, the maximum workgroup size of the X dimension is 32, the others are 1. */
     @NativeType("uint32_t")
     public int maxWorkGroupSize(int index) { return nmaxWorkGroupSize(address(), index); }
     /** the maximum number of output cluster a single cluster culling shader workgroup can emit. */
     @NativeType("uint32_t")
     public int maxOutputClusterCount() { return nmaxOutputClusterCount(address()); }
-    /** indicates the alignment for cluster drawing command buffer stride. {@link HUAWEIClusterCullingShader#vkCmdDrawClusterIndirectHUAWEI CmdDrawClusterIndirectHUAWEI}{@code ::offset} must be a multiple of this value. */
+    /** indicates the alignment for cluster drawing command buffer stride. {@link HUAWEIClusterCullingShader#vkCmdDrawClusterIndirectHUAWEI CmdDrawClusterIndirectHUAWEI}{@code ::offset} <b>must</b> be a multiple of this value. */
     @NativeType("VkDeviceSize")
     public long indirectBufferOffsetAlignment() { return nindirectBufferOffsetAlignment(address()); }
 
@@ -180,8 +180,7 @@ public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI(address, null);
     }
 
@@ -224,8 +223,7 @@ public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,28 +268,28 @@ public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.PNEXT); }
     /** Unsafe version of {@link #maxWorkGroupCount}. */
     public static IntBuffer nmaxWorkGroupCount(long struct) { return memIntBuffer(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPCOUNT, 3); }
     /** Unsafe version of {@link #maxWorkGroupCount(int) maxWorkGroupCount}. */
     public static int nmaxWorkGroupCount(long struct, int index) {
-        return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPCOUNT + check(index, 3) * 4);
+        return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPCOUNT + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #maxWorkGroupSize}. */
     public static IntBuffer nmaxWorkGroupSize(long struct) { return memIntBuffer(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPSIZE, 3); }
     /** Unsafe version of {@link #maxWorkGroupSize(int) maxWorkGroupSize}. */
     public static int nmaxWorkGroupSize(long struct, int index) {
-        return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPSIZE + check(index, 3) * 4);
+        return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPSIZE + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #maxOutputClusterCount}. */
-    public static int nmaxOutputClusterCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXOUTPUTCLUSTERCOUNT); }
+    public static int nmaxOutputClusterCount(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXOUTPUTCLUSTERCOUNT); }
     /** Unsafe version of {@link #indirectBufferOffsetAlignment}. */
-    public static long nindirectBufferOffsetAlignment(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.INDIRECTBUFFEROFFSETALIGNMENT); }
+    public static long nindirectBufferOffsetAlignment(long struct) { return memGetLong(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.INDIRECTBUFFEROFFSETALIGNMENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.PNEXT, value); }
 
@@ -326,6 +324,11 @@ public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

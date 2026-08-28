@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class VkPipelinePropertiesIdentifierEXT extends Struct<VkPipelineProperti
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelinePropertiesIdentifierEXT createSafe(long address) {
+    public static @Nullable VkPipelinePropertiesIdentifierEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelinePropertiesIdentifierEXT(address, null);
     }
 
@@ -199,8 +198,7 @@ public class VkPipelinePropertiesIdentifierEXT extends Struct<VkPipelineProperti
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelinePropertiesIdentifierEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelinePropertiesIdentifierEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,18 +243,18 @@ public class VkPipelinePropertiesIdentifierEXT extends Struct<VkPipelineProperti
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelinePropertiesIdentifierEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelinePropertiesIdentifierEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelinePropertiesIdentifierEXT.PNEXT); }
     /** Unsafe version of {@link #pipelineIdentifier}. */
     public static ByteBuffer npipelineIdentifier(long struct) { return memByteBuffer(struct + VkPipelinePropertiesIdentifierEXT.PIPELINEIDENTIFIER, VK_UUID_SIZE); }
     /** Unsafe version of {@link #pipelineIdentifier(int) pipelineIdentifier}. */
     public static byte npipelineIdentifier(long struct, int index) {
-        return UNSAFE.getByte(null, struct + VkPipelinePropertiesIdentifierEXT.PIPELINEIDENTIFIER + check(index, VK_UUID_SIZE) * 1);
+        return memGetByte(struct + VkPipelinePropertiesIdentifierEXT.PIPELINEIDENTIFIER + check(index, VK_UUID_SIZE) * 1);
     }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelinePropertiesIdentifierEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelinePropertiesIdentifierEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelinePropertiesIdentifierEXT.PNEXT, value); }
 
@@ -291,6 +289,11 @@ public class VkPipelinePropertiesIdentifierEXT extends Struct<VkPipelineProperti
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -180,8 +180,7 @@ public class XrHandTrackingDataSourceStateEXT extends Struct<XrHandTrackingDataS
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingDataSourceStateEXT createSafe(long address) {
+    public static @Nullable XrHandTrackingDataSourceStateEXT createSafe(long address) {
         return address == NULL ? null : new XrHandTrackingDataSourceStateEXT(address, null);
     }
 
@@ -224,8 +223,7 @@ public class XrHandTrackingDataSourceStateEXT extends Struct<XrHandTrackingDataS
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingDataSourceStateEXT.Buffer createSafe(long address, int capacity) {
+    public static XrHandTrackingDataSourceStateEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,22 +268,22 @@ public class XrHandTrackingDataSourceStateEXT extends Struct<XrHandTrackingDataS
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackingDataSourceStateEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandTrackingDataSourceStateEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandTrackingDataSourceStateEXT.NEXT); }
     /** Unsafe version of {@link #isActive}. */
-    public static int nisActive(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackingDataSourceStateEXT.ISACTIVE); }
+    public static int nisActive(long struct) { return memGetInt(struct + XrHandTrackingDataSourceStateEXT.ISACTIVE); }
     /** Unsafe version of {@link #dataSource}. */
-    public static int ndataSource(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackingDataSourceStateEXT.DATASOURCE); }
+    public static int ndataSource(long struct) { return memGetInt(struct + XrHandTrackingDataSourceStateEXT.DATASOURCE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackingDataSourceStateEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandTrackingDataSourceStateEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandTrackingDataSourceStateEXT.NEXT, value); }
     /** Unsafe version of {@link #isActive(boolean) isActive}. */
-    public static void nisActive(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackingDataSourceStateEXT.ISACTIVE, value); }
+    public static void nisActive(long struct, int value) { memPutInt(struct + XrHandTrackingDataSourceStateEXT.ISACTIVE, value); }
     /** Unsafe version of {@link #dataSource(int) dataSource}. */
-    public static void ndataSource(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackingDataSourceStateEXT.DATASOURCE, value); }
+    public static void ndataSource(long struct, int value) { memPutInt(struct + XrHandTrackingDataSourceStateEXT.DATASOURCE, value); }
 
     // -----------------------------------
 
@@ -318,6 +316,11 @@ public class XrHandTrackingDataSourceStateEXT extends Struct<XrHandTrackingDataS
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

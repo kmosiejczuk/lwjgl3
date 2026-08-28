@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -130,8 +130,7 @@ public class VmaBudget extends Struct<VmaBudget> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaBudget createSafe(long address) {
+    public static @Nullable VmaBudget createSafe(long address) {
         return address == NULL ? null : new VmaBudget(address, null);
     }
 
@@ -174,8 +173,7 @@ public class VmaBudget extends Struct<VmaBudget> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaBudget.Buffer createSafe(long address, int capacity) {
+    public static VmaBudget.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -222,9 +220,9 @@ public class VmaBudget extends Struct<VmaBudget> implements NativeResource {
     /** Unsafe version of {@link #statistics}. */
     public static VmaStatistics nstatistics(long struct) { return VmaStatistics.create(struct + VmaBudget.STATISTICS); }
     /** Unsafe version of {@link #usage}. */
-    public static long nusage(long struct) { return UNSAFE.getLong(null, struct + VmaBudget.USAGE); }
+    public static long nusage(long struct) { return memGetLong(struct + VmaBudget.USAGE); }
     /** Unsafe version of {@link #budget}. */
-    public static long nbudget(long struct) { return UNSAFE.getLong(null, struct + VmaBudget.BUDGET); }
+    public static long nbudget(long struct) { return memGetLong(struct + VmaBudget.BUDGET); }
 
     // -----------------------------------
 
@@ -257,6 +255,11 @@ public class VmaBudget extends Struct<VmaBudget> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

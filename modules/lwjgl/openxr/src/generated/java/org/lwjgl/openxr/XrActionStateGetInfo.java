@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class XrActionStateGetInfo extends Struct<XrActionStateGetInfo> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionStateGetInfo createSafe(long address) {
+    public static @Nullable XrActionStateGetInfo createSafe(long address) {
         return address == NULL ? null : new XrActionStateGetInfo(address, null);
     }
 
@@ -218,8 +217,7 @@ public class XrActionStateGetInfo extends Struct<XrActionStateGetInfo> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionStateGetInfo.Buffer createSafe(long address, int capacity) {
+    public static XrActionStateGetInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +262,22 @@ public class XrActionStateGetInfo extends Struct<XrActionStateGetInfo> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrActionStateGetInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrActionStateGetInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrActionStateGetInfo.NEXT); }
     /** Unsafe version of {@link #action}. */
     public static long naction(long struct) { return memGetAddress(struct + XrActionStateGetInfo.ACTION); }
     /** Unsafe version of {@link #subactionPath}. */
-    public static long nsubactionPath(long struct) { return UNSAFE.getLong(null, struct + XrActionStateGetInfo.SUBACTIONPATH); }
+    public static long nsubactionPath(long struct) { return memGetLong(struct + XrActionStateGetInfo.SUBACTIONPATH); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrActionStateGetInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrActionStateGetInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrActionStateGetInfo.NEXT, value); }
     /** Unsafe version of {@link #action(XrAction) action}. */
     public static void naction(long struct, XrAction value) { memPutAddress(struct + XrActionStateGetInfo.ACTION, value.address()); }
     /** Unsafe version of {@link #subactionPath(long) subactionPath}. */
-    public static void nsubactionPath(long struct, long value) { UNSAFE.putLong(null, struct + XrActionStateGetInfo.SUBACTIONPATH, value); }
+    public static void nsubactionPath(long struct, long value) { memPutLong(struct + XrActionStateGetInfo.SUBACTIONPATH, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -321,6 +319,11 @@ public class XrActionStateGetInfo extends Struct<XrActionStateGetInfo> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

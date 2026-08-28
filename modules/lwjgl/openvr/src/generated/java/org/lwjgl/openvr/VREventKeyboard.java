@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -98,8 +98,7 @@ public class VREventKeyboard extends Struct<VREventKeyboard> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventKeyboard createSafe(long address) {
+    public static @Nullable VREventKeyboard createSafe(long address) {
         return address == NULL ? null : new VREventKeyboard(address, null);
     }
 
@@ -114,8 +113,7 @@ public class VREventKeyboard extends Struct<VREventKeyboard> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventKeyboard.Buffer createSafe(long address, int capacity) {
+    public static VREventKeyboard.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -126,9 +124,9 @@ public class VREventKeyboard extends Struct<VREventKeyboard> {
     /** Unsafe version of {@link #cNewInputString}. */
     public static String ncNewInputString(long struct) { return memUTF8(struct + VREventKeyboard.CNEWINPUT); }
     /** Unsafe version of {@link #uUserValue}. */
-    public static long nuUserValue(long struct) { return UNSAFE.getLong(null, struct + VREventKeyboard.UUSERVALUE); }
+    public static long nuUserValue(long struct) { return memGetLong(struct + VREventKeyboard.UUSERVALUE); }
     /** Unsafe version of {@link #overlayHandle}. */
-    public static long noverlayHandle(long struct) { return UNSAFE.getLong(null, struct + VREventKeyboard.OVERLAYHANDLE); }
+    public static long noverlayHandle(long struct) { return memGetLong(struct + VREventKeyboard.OVERLAYHANDLE); }
 
     // -----------------------------------
 
@@ -161,6 +159,11 @@ public class VREventKeyboard extends Struct<VREventKeyboard> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the image’s {@code tiling} is {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR} or {@link VK10#VK_IMAGE_TILING_OPTIMAL IMAGE_TILING_OPTIMAL}, then {@code planeAspect} <b>must</b> be a single valid <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-planes-image-aspect">multi-planar aspect mask</a> bit</li>
+ * <li>If the image’s {@code tiling} is {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR} or {@link VK10#VK_IMAGE_TILING_OPTIMAL IMAGE_TILING_OPTIMAL}, then {@code planeAspect} <b>must</b> be a single valid <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-planes-image-aspect">multi-planar aspect mask</a> bit</li>
  * <li>If the image’s {@code tiling} is {@link EXTImageDrmFormatModifier#VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT}, then {@code planeAspect} <b>must</b> be a single valid <em>memory plane</em> for the image (that is, {@code aspectMask} <b>must</b> specify a plane index that is less than the {@link VkDrmFormatModifierPropertiesEXT}{@code ::drmFormatModifierPlaneCount} associated with the image’s {@code format} and {@link VkImageDrmFormatModifierPropertiesEXT}{@code ::drmFormatModifier})</li>
  * </ul>
  * 
@@ -160,8 +160,7 @@ public class VkBindImagePlaneMemoryInfo extends Struct<VkBindImagePlaneMemoryInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindImagePlaneMemoryInfo createSafe(long address) {
+    public static @Nullable VkBindImagePlaneMemoryInfo createSafe(long address) {
         return address == NULL ? null : new VkBindImagePlaneMemoryInfo(address, null);
     }
 
@@ -204,8 +203,7 @@ public class VkBindImagePlaneMemoryInfo extends Struct<VkBindImagePlaneMemoryInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindImagePlaneMemoryInfo.Buffer createSafe(long address, int capacity) {
+    public static VkBindImagePlaneMemoryInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,18 +267,18 @@ public class VkBindImagePlaneMemoryInfo extends Struct<VkBindImagePlaneMemoryInf
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBindImagePlaneMemoryInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBindImagePlaneMemoryInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBindImagePlaneMemoryInfo.PNEXT); }
     /** Unsafe version of {@link #planeAspect}. */
-    public static int nplaneAspect(long struct) { return UNSAFE.getInt(null, struct + VkBindImagePlaneMemoryInfo.PLANEASPECT); }
+    public static int nplaneAspect(long struct) { return memGetInt(struct + VkBindImagePlaneMemoryInfo.PLANEASPECT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBindImagePlaneMemoryInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBindImagePlaneMemoryInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBindImagePlaneMemoryInfo.PNEXT, value); }
     /** Unsafe version of {@link #planeAspect(int) planeAspect}. */
-    public static void nplaneAspect(long struct, int value) { UNSAFE.putInt(null, struct + VkBindImagePlaneMemoryInfo.PLANEASPECT, value); }
+    public static void nplaneAspect(long struct, int value) { memPutInt(struct + VkBindImagePlaneMemoryInfo.PLANEASPECT, value); }
 
     // -----------------------------------
 
@@ -313,6 +311,11 @@ public class VkBindImagePlaneMemoryInfo extends Struct<VkBindImagePlaneMemoryInf
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

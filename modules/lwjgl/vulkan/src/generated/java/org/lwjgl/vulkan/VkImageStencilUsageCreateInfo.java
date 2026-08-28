@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageStencilUsageCreateInfo createSafe(long address) {
+    public static @Nullable VkImageStencilUsageCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkImageStencilUsageCreateInfo(address, null);
     }
 
@@ -212,8 +211,7 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageStencilUsageCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkImageStencilUsageCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,18 +256,18 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageStencilUsageCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageStencilUsageCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageStencilUsageCreateInfo.PNEXT); }
     /** Unsafe version of {@link #stencilUsage}. */
-    public static int nstencilUsage(long struct) { return UNSAFE.getInt(null, struct + VkImageStencilUsageCreateInfo.STENCILUSAGE); }
+    public static int nstencilUsage(long struct) { return memGetInt(struct + VkImageStencilUsageCreateInfo.STENCILUSAGE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageStencilUsageCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageStencilUsageCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageStencilUsageCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #stencilUsage(int) stencilUsage}. */
-    public static void nstencilUsage(long struct, int value) { UNSAFE.putInt(null, struct + VkImageStencilUsageCreateInfo.STENCILUSAGE, value); }
+    public static void nstencilUsage(long struct, int value) { memPutInt(struct + VkImageStencilUsageCreateInfo.STENCILUSAGE, value); }
 
     // -----------------------------------
 
@@ -302,6 +300,11 @@ public class VkImageStencilUsageCreateInfo extends Struct<VkImageStencilUsageCre
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

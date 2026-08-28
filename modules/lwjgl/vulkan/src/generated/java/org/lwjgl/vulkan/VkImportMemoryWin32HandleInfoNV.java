@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class VkImportMemoryWin32HandleInfoNV extends Struct<VkImportMemoryWin32H
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportMemoryWin32HandleInfoNV createSafe(long address) {
+    public static @Nullable VkImportMemoryWin32HandleInfoNV createSafe(long address) {
         return address == NULL ? null : new VkImportMemoryWin32HandleInfoNV(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkImportMemoryWin32HandleInfoNV extends Struct<VkImportMemoryWin32H
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportMemoryWin32HandleInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkImportMemoryWin32HandleInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -287,20 +285,20 @@ public class VkImportMemoryWin32HandleInfoNV extends Struct<VkImportMemoryWin32H
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImportMemoryWin32HandleInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImportMemoryWin32HandleInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImportMemoryWin32HandleInfoNV.PNEXT); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkImportMemoryWin32HandleInfoNV.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkImportMemoryWin32HandleInfoNV.HANDLETYPE); }
     /** Unsafe version of {@link #handle}. */
     public static long nhandle(long struct) { return memGetAddress(struct + VkImportMemoryWin32HandleInfoNV.HANDLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportMemoryWin32HandleInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImportMemoryWin32HandleInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImportMemoryWin32HandleInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportMemoryWin32HandleInfoNV.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkImportMemoryWin32HandleInfoNV.HANDLETYPE, value); }
     /** Unsafe version of {@link #handle(long) handle}. */
     public static void nhandle(long struct, long value) { memPutAddress(struct + VkImportMemoryWin32HandleInfoNV.HANDLE, check(value)); }
 
@@ -344,6 +342,11 @@ public class VkImportMemoryWin32HandleInfoNV extends Struct<VkImportMemoryWin32H
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

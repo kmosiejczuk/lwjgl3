@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,10 +21,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dualSrcBlend">{@code dualSrcBlend}</a> feature is not enabled, {@code srcColorBlendFactor} <b>must</b> not be {@link VK10#VK_BLEND_FACTOR_SRC1_COLOR BLEND_FACTOR_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR BLEND_FACTOR_ONE_MINUS_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_SRC1_ALPHA BLEND_FACTOR_SRC1_ALPHA}, or {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dualSrcBlend">{@code dualSrcBlend}</a> feature is not enabled, {@code dstColorBlendFactor} <b>must</b> not be {@link VK10#VK_BLEND_FACTOR_SRC1_COLOR BLEND_FACTOR_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR BLEND_FACTOR_ONE_MINUS_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_SRC1_ALPHA BLEND_FACTOR_SRC1_ALPHA}, or {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dualSrcBlend">{@code dualSrcBlend}</a> feature is not enabled, {@code srcAlphaBlendFactor} <b>must</b> not be {@link VK10#VK_BLEND_FACTOR_SRC1_COLOR BLEND_FACTOR_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR BLEND_FACTOR_ONE_MINUS_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_SRC1_ALPHA BLEND_FACTOR_SRC1_ALPHA}, or {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dualSrcBlend">{@code dualSrcBlend}</a> feature is not enabled, {@code dstAlphaBlendFactor} <b>must</b> not be {@link VK10#VK_BLEND_FACTOR_SRC1_COLOR BLEND_FACTOR_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR BLEND_FACTOR_ONE_MINUS_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_SRC1_ALPHA BLEND_FACTOR_SRC1_ALPHA}, or {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dualSrcBlend">{@code dualSrcBlend}</a> feature is not enabled, {@code srcColorBlendFactor} <b>must</b> not be {@link VK10#VK_BLEND_FACTOR_SRC1_COLOR BLEND_FACTOR_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR BLEND_FACTOR_ONE_MINUS_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_SRC1_ALPHA BLEND_FACTOR_SRC1_ALPHA}, or {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dualSrcBlend">{@code dualSrcBlend}</a> feature is not enabled, {@code dstColorBlendFactor} <b>must</b> not be {@link VK10#VK_BLEND_FACTOR_SRC1_COLOR BLEND_FACTOR_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR BLEND_FACTOR_ONE_MINUS_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_SRC1_ALPHA BLEND_FACTOR_SRC1_ALPHA}, or {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dualSrcBlend">{@code dualSrcBlend}</a> feature is not enabled, {@code srcAlphaBlendFactor} <b>must</b> not be {@link VK10#VK_BLEND_FACTOR_SRC1_COLOR BLEND_FACTOR_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR BLEND_FACTOR_ONE_MINUS_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_SRC1_ALPHA BLEND_FACTOR_SRC1_ALPHA}, or {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dualSrcBlend">{@code dualSrcBlend}</a> feature is not enabled, {@code dstAlphaBlendFactor} <b>must</b> not be {@link VK10#VK_BLEND_FACTOR_SRC1_COLOR BLEND_FACTOR_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR BLEND_FACTOR_ONE_MINUS_SRC1_COLOR}, {@link VK10#VK_BLEND_FACTOR_SRC1_ALPHA BLEND_FACTOR_SRC1_ALPHA}, or {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA}</li>
  * <li>{@code colorBlendOp} and {@code alphaBlendOp} <b>must</b> not be {@link EXTBlendOperationAdvanced#VK_BLEND_OP_ZERO_EXT BLEND_OP_ZERO_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_SRC_EXT BLEND_OP_SRC_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_DST_EXT BLEND_OP_DST_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_SRC_OVER_EXT BLEND_OP_SRC_OVER_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_DST_OVER_EXT BLEND_OP_DST_OVER_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_SRC_IN_EXT BLEND_OP_SRC_IN_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_DST_IN_EXT BLEND_OP_DST_IN_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_SRC_OUT_EXT BLEND_OP_SRC_OUT_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_DST_OUT_EXT BLEND_OP_DST_OUT_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_SRC_ATOP_EXT BLEND_OP_SRC_ATOP_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_DST_ATOP_EXT BLEND_OP_DST_ATOP_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_XOR_EXT BLEND_OP_XOR_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_MULTIPLY_EXT BLEND_OP_MULTIPLY_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_SCREEN_EXT BLEND_OP_SCREEN_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_OVERLAY_EXT BLEND_OP_OVERLAY_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_DARKEN_EXT BLEND_OP_DARKEN_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_LIGHTEN_EXT BLEND_OP_LIGHTEN_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_COLORDODGE_EXT BLEND_OP_COLORDODGE_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_COLORBURN_EXT BLEND_OP_COLORBURN_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_HARDLIGHT_EXT BLEND_OP_HARDLIGHT_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_SOFTLIGHT_EXT BLEND_OP_SOFTLIGHT_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_DIFFERENCE_EXT BLEND_OP_DIFFERENCE_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_EXCLUSION_EXT BLEND_OP_EXCLUSION_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_INVERT_EXT BLEND_OP_INVERT_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_INVERT_RGB_EXT BLEND_OP_INVERT_RGB_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_LINEARDODGE_EXT BLEND_OP_LINEARDODGE_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_LINEARBURN_EXT BLEND_OP_LINEARBURN_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_VIVIDLIGHT_EXT BLEND_OP_VIVIDLIGHT_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_LINEARLIGHT_EXT BLEND_OP_LINEARLIGHT_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_PINLIGHT_EXT BLEND_OP_PINLIGHT_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_HARDMIX_EXT BLEND_OP_HARDMIX_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_HSL_HUE_EXT BLEND_OP_HSL_HUE_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_HSL_SATURATION_EXT BLEND_OP_HSL_SATURATION_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_HSL_COLOR_EXT BLEND_OP_HSL_COLOR_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_HSL_LUMINOSITY_EXT BLEND_OP_HSL_LUMINOSITY_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_PLUS_EXT BLEND_OP_PLUS_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_PLUS_CLAMPED_EXT BLEND_OP_PLUS_CLAMPED_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_PLUS_CLAMPED_ALPHA_EXT BLEND_OP_PLUS_CLAMPED_ALPHA_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_PLUS_DARKER_EXT BLEND_OP_PLUS_DARKER_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_MINUS_EXT BLEND_OP_MINUS_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_MINUS_CLAMPED_EXT BLEND_OP_MINUS_CLAMPED_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_CONTRAST_EXT BLEND_OP_CONTRAST_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_INVERT_OVG_EXT BLEND_OP_INVERT_OVG_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_RED_EXT BLEND_OP_RED_EXT}, {@link EXTBlendOperationAdvanced#VK_BLEND_OP_GREEN_EXT BLEND_OP_GREEN_EXT}, or {@link EXTBlendOperationAdvanced#VK_BLEND_OP_BLUE_EXT BLEND_OP_BLUE_EXT}</li>
  * <li>If the {@link KHRPortabilitySubset VK_KHR_portability_subset} extension is enabled, and {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR}{@code ::constantAlphaColorBlendFactors} is {@link VK10#VK_FALSE FALSE}, {@code srcColorBlendFactor} <b>must</b> not be {@link VK10#VK_BLEND_FACTOR_CONSTANT_ALPHA BLEND_FACTOR_CONSTANT_ALPHA} or {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_ALPHA BLEND_FACTOR_ONE_MINUS_CONSTANT_ALPHA}</li>
  * <li>If the {@link KHRPortabilitySubset VK_KHR_portability_subset} extension is enabled, and {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR}{@code ::constantAlphaColorBlendFactors} is {@link VK10#VK_FALSE FALSE}, {@code dstColorBlendFactor} <b>must</b> not be {@link VK10#VK_BLEND_FACTOR_CONSTANT_ALPHA BLEND_FACTOR_CONSTANT_ALPHA} or {@link VK10#VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_ALPHA BLEND_FACTOR_ONE_MINUS_CONSTANT_ALPHA}</li>
@@ -204,8 +204,7 @@ public class VkColorBlendEquationEXT extends Struct<VkColorBlendEquationEXT> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkColorBlendEquationEXT createSafe(long address) {
+    public static @Nullable VkColorBlendEquationEXT createSafe(long address) {
         return address == NULL ? null : new VkColorBlendEquationEXT(address, null);
     }
 
@@ -248,8 +247,7 @@ public class VkColorBlendEquationEXT extends Struct<VkColorBlendEquationEXT> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkColorBlendEquationEXT.Buffer createSafe(long address, int capacity) {
+    public static VkColorBlendEquationEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,30 +292,30 @@ public class VkColorBlendEquationEXT extends Struct<VkColorBlendEquationEXT> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #srcColorBlendFactor}. */
-    public static int nsrcColorBlendFactor(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendEquationEXT.SRCCOLORBLENDFACTOR); }
+    public static int nsrcColorBlendFactor(long struct) { return memGetInt(struct + VkColorBlendEquationEXT.SRCCOLORBLENDFACTOR); }
     /** Unsafe version of {@link #dstColorBlendFactor}. */
-    public static int ndstColorBlendFactor(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendEquationEXT.DSTCOLORBLENDFACTOR); }
+    public static int ndstColorBlendFactor(long struct) { return memGetInt(struct + VkColorBlendEquationEXT.DSTCOLORBLENDFACTOR); }
     /** Unsafe version of {@link #colorBlendOp}. */
-    public static int ncolorBlendOp(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendEquationEXT.COLORBLENDOP); }
+    public static int ncolorBlendOp(long struct) { return memGetInt(struct + VkColorBlendEquationEXT.COLORBLENDOP); }
     /** Unsafe version of {@link #srcAlphaBlendFactor}. */
-    public static int nsrcAlphaBlendFactor(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendEquationEXT.SRCALPHABLENDFACTOR); }
+    public static int nsrcAlphaBlendFactor(long struct) { return memGetInt(struct + VkColorBlendEquationEXT.SRCALPHABLENDFACTOR); }
     /** Unsafe version of {@link #dstAlphaBlendFactor}. */
-    public static int ndstAlphaBlendFactor(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendEquationEXT.DSTALPHABLENDFACTOR); }
+    public static int ndstAlphaBlendFactor(long struct) { return memGetInt(struct + VkColorBlendEquationEXT.DSTALPHABLENDFACTOR); }
     /** Unsafe version of {@link #alphaBlendOp}. */
-    public static int nalphaBlendOp(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendEquationEXT.ALPHABLENDOP); }
+    public static int nalphaBlendOp(long struct) { return memGetInt(struct + VkColorBlendEquationEXT.ALPHABLENDOP); }
 
     /** Unsafe version of {@link #srcColorBlendFactor(int) srcColorBlendFactor}. */
-    public static void nsrcColorBlendFactor(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendEquationEXT.SRCCOLORBLENDFACTOR, value); }
+    public static void nsrcColorBlendFactor(long struct, int value) { memPutInt(struct + VkColorBlendEquationEXT.SRCCOLORBLENDFACTOR, value); }
     /** Unsafe version of {@link #dstColorBlendFactor(int) dstColorBlendFactor}. */
-    public static void ndstColorBlendFactor(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendEquationEXT.DSTCOLORBLENDFACTOR, value); }
+    public static void ndstColorBlendFactor(long struct, int value) { memPutInt(struct + VkColorBlendEquationEXT.DSTCOLORBLENDFACTOR, value); }
     /** Unsafe version of {@link #colorBlendOp(int) colorBlendOp}. */
-    public static void ncolorBlendOp(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendEquationEXT.COLORBLENDOP, value); }
+    public static void ncolorBlendOp(long struct, int value) { memPutInt(struct + VkColorBlendEquationEXT.COLORBLENDOP, value); }
     /** Unsafe version of {@link #srcAlphaBlendFactor(int) srcAlphaBlendFactor}. */
-    public static void nsrcAlphaBlendFactor(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendEquationEXT.SRCALPHABLENDFACTOR, value); }
+    public static void nsrcAlphaBlendFactor(long struct, int value) { memPutInt(struct + VkColorBlendEquationEXT.SRCALPHABLENDFACTOR, value); }
     /** Unsafe version of {@link #dstAlphaBlendFactor(int) dstAlphaBlendFactor}. */
-    public static void ndstAlphaBlendFactor(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendEquationEXT.DSTALPHABLENDFACTOR, value); }
+    public static void ndstAlphaBlendFactor(long struct, int value) { memPutInt(struct + VkColorBlendEquationEXT.DSTALPHABLENDFACTOR, value); }
     /** Unsafe version of {@link #alphaBlendOp(int) alphaBlendOp}. */
-    public static void nalphaBlendOp(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendEquationEXT.ALPHABLENDOP, value); }
+    public static void nalphaBlendOp(long struct, int value) { memPutInt(struct + VkColorBlendEquationEXT.ALPHABLENDOP, value); }
 
     // -----------------------------------
 
@@ -350,6 +348,11 @@ public class VkColorBlendEquationEXT extends Struct<VkColorBlendEquationEXT> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

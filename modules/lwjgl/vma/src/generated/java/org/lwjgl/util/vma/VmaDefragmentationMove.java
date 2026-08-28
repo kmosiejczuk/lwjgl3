@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class VmaDefragmentationMove extends Struct<VmaDefragmentationMove> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaDefragmentationMove createSafe(long address) {
+    public static @Nullable VmaDefragmentationMove createSafe(long address) {
         return address == NULL ? null : new VmaDefragmentationMove(address, null);
     }
 
@@ -199,8 +198,7 @@ public class VmaDefragmentationMove extends Struct<VmaDefragmentationMove> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaDefragmentationMove.Buffer createSafe(long address, int capacity) {
+    public static VmaDefragmentationMove.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,14 +243,14 @@ public class VmaDefragmentationMove extends Struct<VmaDefragmentationMove> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #operation}. */
-    public static int noperation(long struct) { return UNSAFE.getInt(null, struct + VmaDefragmentationMove.OPERATION); }
+    public static int noperation(long struct) { return memGetInt(struct + VmaDefragmentationMove.OPERATION); }
     /** Unsafe version of {@link #srcAllocation}. */
     public static long nsrcAllocation(long struct) { return memGetAddress(struct + VmaDefragmentationMove.SRCALLOCATION); }
     /** Unsafe version of {@link #dstTmpAllocation}. */
     public static long ndstTmpAllocation(long struct) { return memGetAddress(struct + VmaDefragmentationMove.DSTTMPALLOCATION); }
 
     /** Unsafe version of {@link #operation(int) operation}. */
-    public static void noperation(long struct, int value) { UNSAFE.putInt(null, struct + VmaDefragmentationMove.OPERATION, value); }
+    public static void noperation(long struct, int value) { memPutInt(struct + VmaDefragmentationMove.OPERATION, value); }
     /** Unsafe version of {@link #srcAllocation(long) srcAllocation}. */
     public static void nsrcAllocation(long struct, long value) { memPutAddress(struct + VmaDefragmentationMove.SRCALLOCATION, check(value)); }
     /** Unsafe version of {@link #dstTmpAllocation(long) dstTmpAllocation}. */
@@ -299,6 +297,11 @@ public class VmaDefragmentationMove extends Struct<VmaDefragmentationMove> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

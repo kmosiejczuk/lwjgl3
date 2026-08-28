@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI extends Struct<FMOD_DSP_PARAM
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI(address, null);
     }
 
@@ -210,8 +209,7 @@ public class FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI extends Struct<FMOD_DSP_PARAM
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,7 +254,7 @@ public class FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI extends Struct<FMOD_DSP_PARAM
     // -----------------------------------
 
     /** Unsafe version of {@link #numlisteners}. */
-    public static int nnumlisteners(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.NUMLISTENERS); }
+    public static int nnumlisteners(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.NUMLISTENERS); }
     /** Unsafe version of {@link #relative}. */
     public static FMOD_3D_ATTRIBUTES.Buffer nrelative(long struct) { return FMOD_3D_ATTRIBUTES.create(struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.RELATIVE, 8); }
     /** Unsafe version of {@link #relative(int) relative}. */
@@ -267,13 +265,13 @@ public class FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI extends Struct<FMOD_DSP_PARAM
     public static FloatBuffer nweight(long struct) { return memFloatBuffer(struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.WEIGHT, 8); }
     /** Unsafe version of {@link #weight(int) weight}. */
     public static float nweight(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.WEIGHT + check(index, 8) * 4);
+        return memGetFloat(struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.WEIGHT + check(index, 8) * 4);
     }
     /** Unsafe version of {@link #absolute}. */
     public static FMOD_3D_ATTRIBUTES nabsolute(long struct) { return FMOD_3D_ATTRIBUTES.create(struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.ABSOLUTE); }
 
     /** Unsafe version of {@link #numlisteners(int) numlisteners}. */
-    public static void nnumlisteners(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.NUMLISTENERS, value); }
+    public static void nnumlisteners(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.NUMLISTENERS, value); }
     /** Unsafe version of {@link #relative(FMOD_3D_ATTRIBUTES.Buffer) relative}. */
     public static void nrelative(long struct, FMOD_3D_ATTRIBUTES.Buffer value) {
         if (CHECKS) { checkGT(value, 8); }
@@ -290,7 +288,7 @@ public class FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI extends Struct<FMOD_DSP_PARAM
     }
     /** Unsafe version of {@link #weight(int, float) weight}. */
     public static void nweight(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.WEIGHT + check(index, 8) * 4, value);
+        memPutFloat(struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.WEIGHT + check(index, 8) * 4, value);
     }
     /** Unsafe version of {@link #absolute(FMOD_3D_ATTRIBUTES) absolute}. */
     public static void nabsolute(long struct, FMOD_3D_ATTRIBUTES value) { memCopy(value.address(), struct + FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI.ABSOLUTE, FMOD_3D_ATTRIBUTES.SIZEOF); }
@@ -326,6 +324,11 @@ public class FMOD_DSP_PARAMETER_3DATTRIBUTES_MULTI extends Struct<FMOD_DSP_PARAM
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

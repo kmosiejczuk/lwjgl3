@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -221,8 +221,7 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsBindingVulkanKHR createSafe(long address) {
+    public static @Nullable XrGraphicsBindingVulkanKHR createSafe(long address) {
         return address == NULL ? null : new XrGraphicsBindingVulkanKHR(address, null);
     }
 
@@ -265,8 +264,7 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsBindingVulkanKHR.Buffer createSafe(long address, int capacity) {
+    public static XrGraphicsBindingVulkanKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -311,7 +309,7 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrGraphicsBindingVulkanKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrGraphicsBindingVulkanKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrGraphicsBindingVulkanKHR.NEXT); }
     /** Unsafe version of {@link #instance}. */
@@ -321,12 +319,12 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
     /** Unsafe version of {@link #device}. */
     public static long ndevice(long struct) { return memGetAddress(struct + XrGraphicsBindingVulkanKHR.DEVICE); }
     /** Unsafe version of {@link #queueFamilyIndex}. */
-    public static int nqueueFamilyIndex(long struct) { return UNSAFE.getInt(null, struct + XrGraphicsBindingVulkanKHR.QUEUEFAMILYINDEX); }
+    public static int nqueueFamilyIndex(long struct) { return memGetInt(struct + XrGraphicsBindingVulkanKHR.QUEUEFAMILYINDEX); }
     /** Unsafe version of {@link #queueIndex}. */
-    public static int nqueueIndex(long struct) { return UNSAFE.getInt(null, struct + XrGraphicsBindingVulkanKHR.QUEUEINDEX); }
+    public static int nqueueIndex(long struct) { return memGetInt(struct + XrGraphicsBindingVulkanKHR.QUEUEINDEX); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrGraphicsBindingVulkanKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrGraphicsBindingVulkanKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrGraphicsBindingVulkanKHR.NEXT, value); }
     /** Unsafe version of {@link #instance(VkInstance) instance}. */
@@ -336,9 +334,9 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
     /** Unsafe version of {@link #device(VkDevice) device}. */
     public static void ndevice(long struct, VkDevice value) { memPutAddress(struct + XrGraphicsBindingVulkanKHR.DEVICE, value.address()); }
     /** Unsafe version of {@link #queueFamilyIndex(int) queueFamilyIndex}. */
-    public static void nqueueFamilyIndex(long struct, int value) { UNSAFE.putInt(null, struct + XrGraphicsBindingVulkanKHR.QUEUEFAMILYINDEX, value); }
+    public static void nqueueFamilyIndex(long struct, int value) { memPutInt(struct + XrGraphicsBindingVulkanKHR.QUEUEFAMILYINDEX, value); }
     /** Unsafe version of {@link #queueIndex(int) queueIndex}. */
-    public static void nqueueIndex(long struct, int value) { UNSAFE.putInt(null, struct + XrGraphicsBindingVulkanKHR.QUEUEINDEX, value); }
+    public static void nqueueIndex(long struct, int value) { memPutInt(struct + XrGraphicsBindingVulkanKHR.QUEUEINDEX, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -382,6 +380,11 @@ public class XrGraphicsBindingVulkanKHR extends Struct<XrGraphicsBindingVulkanKH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

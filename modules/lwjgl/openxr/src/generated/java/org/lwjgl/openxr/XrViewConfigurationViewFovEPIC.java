@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -171,8 +171,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewConfigurationViewFovEPIC createSafe(long address) {
+    public static @Nullable XrViewConfigurationViewFovEPIC createSafe(long address) {
         return address == NULL ? null : new XrViewConfigurationViewFovEPIC(address, null);
     }
 
@@ -215,8 +214,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewConfigurationViewFovEPIC.Buffer createSafe(long address, int capacity) {
+    public static XrViewConfigurationViewFovEPIC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,7 +259,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrViewConfigurationViewFovEPIC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrViewConfigurationViewFovEPIC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrViewConfigurationViewFovEPIC.NEXT); }
     /** Unsafe version of {@link #recommendedFov}. */
@@ -270,7 +268,7 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
     public static XrFovf nmaxMutableFov(long struct) { return XrFovf.create(struct + XrViewConfigurationViewFovEPIC.MAXMUTABLEFOV); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrViewConfigurationViewFovEPIC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrViewConfigurationViewFovEPIC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrViewConfigurationViewFovEPIC.NEXT, value); }
     /** Unsafe version of {@link #recommendedFov(XrFovf) recommendedFov}. */
@@ -309,6 +307,11 @@ public class XrViewConfigurationViewFovEPIC extends Struct<XrViewConfigurationVi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

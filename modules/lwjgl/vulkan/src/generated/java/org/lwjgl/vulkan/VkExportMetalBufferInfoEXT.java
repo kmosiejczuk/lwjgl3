@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class VkExportMetalBufferInfoEXT extends Struct<VkExportMetalBufferInfoEX
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalBufferInfoEXT createSafe(long address) {
+    public static @Nullable VkExportMetalBufferInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkExportMetalBufferInfoEXT(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkExportMetalBufferInfoEXT extends Struct<VkExportMetalBufferInfoEX
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalBufferInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExportMetalBufferInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,20 +253,20 @@ public class VkExportMetalBufferInfoEXT extends Struct<VkExportMetalBufferInfoEX
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalBufferInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMetalBufferInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMetalBufferInfoEXT.PNEXT); }
     /** Unsafe version of {@link #memory}. */
-    public static long nmemory(long struct) { return UNSAFE.getLong(null, struct + VkExportMetalBufferInfoEXT.MEMORY); }
+    public static long nmemory(long struct) { return memGetLong(struct + VkExportMetalBufferInfoEXT.MEMORY); }
     /** Unsafe version of {@link #mtlBuffer}. */
     public static long nmtlBuffer(long struct) { return memGetAddress(struct + VkExportMetalBufferInfoEXT.MTLBUFFER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalBufferInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMetalBufferInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMetalBufferInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #memory(long) memory}. */
-    public static void nmemory(long struct, long value) { UNSAFE.putLong(null, struct + VkExportMetalBufferInfoEXT.MEMORY, value); }
+    public static void nmemory(long struct, long value) { memPutLong(struct + VkExportMetalBufferInfoEXT.MEMORY, value); }
     /** Unsafe version of {@link #mtlBuffer(long) mtlBuffer}. */
     public static void nmtlBuffer(long struct, long value) { memPutAddress(struct + VkExportMetalBufferInfoEXT.MTLBUFFER, check(value)); }
 
@@ -312,6 +310,11 @@ public class VkExportMetalBufferInfoEXT extends Struct<VkExportMetalBufferInfoEX
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

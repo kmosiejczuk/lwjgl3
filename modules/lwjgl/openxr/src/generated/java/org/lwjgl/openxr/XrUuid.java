@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,6 +24,10 @@ import static org.lwjgl.openxr.XR10.*;
  * <h5>Description</h5>
  * 
  * <p>The structure is composed of 16 octets, with the size and order of the fields defined in <a href="https://www.rfc-editor.org/rfc/rfc4122.html#section-4.1.2">RFC 4122 section 4.1.2</a>.</p>
+ * 
+ * <h5>See Also</h5>
+ * 
+ * <p>{@link XrEventDataColocationDiscoveryResultMETA}, {@link XrEventDataStartColocationAdvertisementCompleteMETA}, {@link XrShareSpacesRecipientGroupsMETA}, {@link XrSpaceGroupUuidFilterInfoMETA}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -125,8 +129,7 @@ public class XrUuid extends Struct<XrUuid> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrUuid createSafe(long address) {
+    public static @Nullable XrUuid createSafe(long address) {
         return address == NULL ? null : new XrUuid(address, null);
     }
 
@@ -169,8 +172,7 @@ public class XrUuid extends Struct<XrUuid> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrUuid.Buffer createSafe(long address, int capacity) {
+    public static XrUuid.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -218,7 +220,7 @@ public class XrUuid extends Struct<XrUuid> implements NativeResource {
     public static ByteBuffer ndata(long struct) { return memByteBuffer(struct + XrUuid.DATA, XR_UUID_SIZE); }
     /** Unsafe version of {@link #data(int) data}. */
     public static byte ndata(long struct, int index) {
-        return UNSAFE.getByte(null, struct + XrUuid.DATA + check(index, XR_UUID_SIZE) * 1);
+        return memGetByte(struct + XrUuid.DATA + check(index, XR_UUID_SIZE) * 1);
     }
 
     /** Unsafe version of {@link #data(ByteBuffer) data}. */
@@ -228,7 +230,7 @@ public class XrUuid extends Struct<XrUuid> implements NativeResource {
     }
     /** Unsafe version of {@link #data(int, byte) data}. */
     public static void ndata(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + XrUuid.DATA + check(index, XR_UUID_SIZE) * 1, value);
+        memPutByte(struct + XrUuid.DATA + check(index, XR_UUID_SIZE) * 1, value);
     }
 
     // -----------------------------------
@@ -262,6 +264,11 @@ public class XrUuid extends Struct<XrUuid> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

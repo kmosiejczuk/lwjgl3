@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -125,10 +125,10 @@ public class VkPhysicalDeviceMeshShaderFeaturesEXT extends Struct<VkPhysicalDevi
     /** specifies whether mesh shaders are supported. If this feature is not enabled, the {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT} and {@link EXTMeshShader#VK_PIPELINE_STAGE_MESH_SHADER_BIT_EXT PIPELINE_STAGE_MESH_SHADER_BIT_EXT} enum values <b>must</b> not be used. */
     @NativeType("VkBool32")
     public boolean meshShader() { return nmeshShader(address()) != 0; }
-    /** specifies whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> rendering within a render pass, with mesh shaders. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include a mesh shader. */
+    /** specifies whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-multiview">{@code multiview}</a> rendering within a render pass, with mesh shaders. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include a mesh shader. */
     @NativeType("VkBool32")
     public boolean multiviewMeshShader() { return nmultiviewMeshShader(address()) != 0; }
-    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-primitive">primitive fragment shading rate</a> in mesh shaders. */
+    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-fragment-shading-rate-primitive">primitive fragment shading rate</a> in mesh shaders. */
     @NativeType("VkBool32")
     public boolean primitiveFragmentShadingRateMeshShader() { return nprimitiveFragmentShadingRateMeshShader(address()) != 0; }
     /** indicates that the implementation supports creating query pools using the {@link EXTMeshShader#VK_QUERY_TYPE_MESH_PRIMITIVES_GENERATED_EXT QUERY_TYPE_MESH_PRIMITIVES_GENERATED_EXT} query type and statistic queries containing the {@link EXTMeshShader#VK_QUERY_PIPELINE_STATISTIC_TASK_SHADER_INVOCATIONS_BIT_EXT QUERY_PIPELINE_STATISTIC_TASK_SHADER_INVOCATIONS_BIT_EXT} and {@link EXTMeshShader#VK_QUERY_PIPELINE_STATISTIC_MESH_SHADER_INVOCATIONS_BIT_EXT QUERY_PIPELINE_STATISTIC_MESH_SHADER_INVOCATIONS_BIT_EXT} flags */
@@ -209,8 +209,7 @@ public class VkPhysicalDeviceMeshShaderFeaturesEXT extends Struct<VkPhysicalDevi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMeshShaderFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMeshShaderFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMeshShaderFeaturesEXT(address, null);
     }
 
@@ -253,8 +252,7 @@ public class VkPhysicalDeviceMeshShaderFeaturesEXT extends Struct<VkPhysicalDevi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMeshShaderFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMeshShaderFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -299,34 +297,34 @@ public class VkPhysicalDeviceMeshShaderFeaturesEXT extends Struct<VkPhysicalDevi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #taskShader}. */
-    public static int ntaskShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.TASKSHADER); }
+    public static int ntaskShader(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.TASKSHADER); }
     /** Unsafe version of {@link #meshShader}. */
-    public static int nmeshShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MESHSHADER); }
+    public static int nmeshShader(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MESHSHADER); }
     /** Unsafe version of {@link #multiviewMeshShader}. */
-    public static int nmultiviewMeshShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MULTIVIEWMESHSHADER); }
+    public static int nmultiviewMeshShader(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MULTIVIEWMESHSHADER); }
     /** Unsafe version of {@link #primitiveFragmentShadingRateMeshShader}. */
-    public static int nprimitiveFragmentShadingRateMeshShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.PRIMITIVEFRAGMENTSHADINGRATEMESHSHADER); }
+    public static int nprimitiveFragmentShadingRateMeshShader(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.PRIMITIVEFRAGMENTSHADINGRATEMESHSHADER); }
     /** Unsafe version of {@link #meshShaderQueries}. */
-    public static int nmeshShaderQueries(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MESHSHADERQUERIES); }
+    public static int nmeshShaderQueries(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MESHSHADERQUERIES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #taskShader(boolean) taskShader}. */
-    public static void ntaskShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.TASKSHADER, value); }
+    public static void ntaskShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.TASKSHADER, value); }
     /** Unsafe version of {@link #meshShader(boolean) meshShader}. */
-    public static void nmeshShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MESHSHADER, value); }
+    public static void nmeshShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MESHSHADER, value); }
     /** Unsafe version of {@link #multiviewMeshShader(boolean) multiviewMeshShader}. */
-    public static void nmultiviewMeshShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MULTIVIEWMESHSHADER, value); }
+    public static void nmultiviewMeshShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MULTIVIEWMESHSHADER, value); }
     /** Unsafe version of {@link #primitiveFragmentShadingRateMeshShader(boolean) primitiveFragmentShadingRateMeshShader}. */
-    public static void nprimitiveFragmentShadingRateMeshShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.PRIMITIVEFRAGMENTSHADINGRATEMESHSHADER, value); }
+    public static void nprimitiveFragmentShadingRateMeshShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.PRIMITIVEFRAGMENTSHADINGRATEMESHSHADER, value); }
     /** Unsafe version of {@link #meshShaderQueries(boolean) meshShaderQueries}. */
-    public static void nmeshShaderQueries(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MESHSHADERQUERIES, value); }
+    public static void nmeshShaderQueries(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMeshShaderFeaturesEXT.MESHSHADERQUERIES, value); }
 
     // -----------------------------------
 
@@ -359,6 +357,11 @@ public class VkPhysicalDeviceMeshShaderFeaturesEXT extends Struct<VkPhysicalDevi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

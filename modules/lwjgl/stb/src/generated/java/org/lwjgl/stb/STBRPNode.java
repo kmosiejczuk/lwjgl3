@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -86,9 +86,8 @@ public class STBRPNode extends Struct<STBRPNode> implements NativeResource {
     @NativeType("stbrp_coord")
     public int y() { return ny(address()); }
     /** @return a {@link STBRPNode} view of the struct pointed to by the {@code next} field. */
-    @Nullable
     @NativeType("stbrp_node *")
-    public STBRPNode next() { return nnext(address()); }
+    public @Nullable STBRPNode next() { return nnext(address()); }
 
     // -----------------------------------
 
@@ -114,8 +113,7 @@ public class STBRPNode extends Struct<STBRPNode> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBRPNode createSafe(long address) {
+    public static @Nullable STBRPNode createSafe(long address) {
         return address == NULL ? null : new STBRPNode(address, null);
     }
 
@@ -158,8 +156,7 @@ public class STBRPNode extends Struct<STBRPNode> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBRPNode.Buffer createSafe(long address, int capacity) {
+    public static STBRPNode.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,11 +220,11 @@ public class STBRPNode extends Struct<STBRPNode> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + STBRPNode.X); }
+    public static int nx(long struct) { return memGetInt(struct + STBRPNode.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + STBRPNode.Y); }
+    public static int ny(long struct) { return memGetInt(struct + STBRPNode.Y); }
     /** Unsafe version of {@link #next}. */
-    @Nullable public static STBRPNode nnext(long struct) { return STBRPNode.createSafe(memGetAddress(struct + STBRPNode.NEXT)); }
+    public static @Nullable STBRPNode nnext(long struct) { return STBRPNode.createSafe(memGetAddress(struct + STBRPNode.NEXT)); }
 
     // -----------------------------------
 
@@ -263,6 +260,11 @@ public class STBRPNode extends Struct<STBRPNode> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected STBRPNode getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -274,9 +276,8 @@ public class STBRPNode extends Struct<STBRPNode> implements NativeResource {
         @NativeType("stbrp_coord")
         public int y() { return STBRPNode.ny(address()); }
         /** @return a {@link STBRPNode} view of the struct pointed to by the {@code next} field. */
-        @Nullable
         @NativeType("stbrp_node *")
-        public STBRPNode next() { return STBRPNode.nnext(address()); }
+        public @Nullable STBRPNode next() { return STBRPNode.nnext(address()); }
 
     }
 

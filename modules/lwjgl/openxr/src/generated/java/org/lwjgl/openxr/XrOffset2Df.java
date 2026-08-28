@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -141,8 +141,7 @@ public class XrOffset2Df extends Struct<XrOffset2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrOffset2Df createSafe(long address) {
+    public static @Nullable XrOffset2Df createSafe(long address) {
         return address == NULL ? null : new XrOffset2Df(address, null);
     }
 
@@ -185,8 +184,7 @@ public class XrOffset2Df extends Struct<XrOffset2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrOffset2Df.Buffer createSafe(long address, int capacity) {
+    public static XrOffset2Df.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -231,14 +229,14 @@ public class XrOffset2Df extends Struct<XrOffset2Df> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + XrOffset2Df.X); }
+    public static float nx(long struct) { return memGetFloat(struct + XrOffset2Df.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + XrOffset2Df.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + XrOffset2Df.Y); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + XrOffset2Df.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + XrOffset2Df.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + XrOffset2Df.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + XrOffset2Df.Y, value); }
 
     // -----------------------------------
 
@@ -271,6 +269,11 @@ public class XrOffset2Df extends Struct<XrOffset2Df> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

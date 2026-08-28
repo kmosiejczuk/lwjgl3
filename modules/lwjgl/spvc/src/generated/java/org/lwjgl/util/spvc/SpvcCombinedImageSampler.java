@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -143,8 +143,7 @@ public class SpvcCombinedImageSampler extends Struct<SpvcCombinedImageSampler> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcCombinedImageSampler createSafe(long address) {
+    public static @Nullable SpvcCombinedImageSampler createSafe(long address) {
         return address == NULL ? null : new SpvcCombinedImageSampler(address, null);
     }
 
@@ -187,8 +186,7 @@ public class SpvcCombinedImageSampler extends Struct<SpvcCombinedImageSampler> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcCombinedImageSampler.Buffer createSafe(long address, int capacity) {
+    public static SpvcCombinedImageSampler.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,18 +231,18 @@ public class SpvcCombinedImageSampler extends Struct<SpvcCombinedImageSampler> i
     // -----------------------------------
 
     /** Unsafe version of {@link #combined_id}. */
-    public static int ncombined_id(long struct) { return UNSAFE.getInt(null, struct + SpvcCombinedImageSampler.COMBINED_ID); }
+    public static int ncombined_id(long struct) { return memGetInt(struct + SpvcCombinedImageSampler.COMBINED_ID); }
     /** Unsafe version of {@link #image_id}. */
-    public static int nimage_id(long struct) { return UNSAFE.getInt(null, struct + SpvcCombinedImageSampler.IMAGE_ID); }
+    public static int nimage_id(long struct) { return memGetInt(struct + SpvcCombinedImageSampler.IMAGE_ID); }
     /** Unsafe version of {@link #sampler_id}. */
-    public static int nsampler_id(long struct) { return UNSAFE.getInt(null, struct + SpvcCombinedImageSampler.SAMPLER_ID); }
+    public static int nsampler_id(long struct) { return memGetInt(struct + SpvcCombinedImageSampler.SAMPLER_ID); }
 
     /** Unsafe version of {@link #combined_id(int) combined_id}. */
-    public static void ncombined_id(long struct, int value) { UNSAFE.putInt(null, struct + SpvcCombinedImageSampler.COMBINED_ID, value); }
+    public static void ncombined_id(long struct, int value) { memPutInt(struct + SpvcCombinedImageSampler.COMBINED_ID, value); }
     /** Unsafe version of {@link #image_id(int) image_id}. */
-    public static void nimage_id(long struct, int value) { UNSAFE.putInt(null, struct + SpvcCombinedImageSampler.IMAGE_ID, value); }
+    public static void nimage_id(long struct, int value) { memPutInt(struct + SpvcCombinedImageSampler.IMAGE_ID, value); }
     /** Unsafe version of {@link #sampler_id(int) sampler_id}. */
-    public static void nsampler_id(long struct, int value) { UNSAFE.putInt(null, struct + SpvcCombinedImageSampler.SAMPLER_ID, value); }
+    public static void nsampler_id(long struct, int value) { memPutInt(struct + SpvcCombinedImageSampler.SAMPLER_ID, value); }
 
     // -----------------------------------
 
@@ -277,6 +275,11 @@ public class SpvcCombinedImageSampler extends Struct<SpvcCombinedImageSampler> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -6,7 +6,7 @@
 package org.lwjgl.vulkan;
 
 /**
- * This extension adds a new way to write shaders to be used with multiview subpasses, where the attributes for all views are written out by a single invocation of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader stages</a>. Related SPIR-V and GLSL extensions {@code SPV_NVX_multiview_per_view_attributes} and {@code GL_NVX_multiview_per_view_attributes} introduce per-view position and viewport mask attributes arrays, and this extension defines how those per-view attribute arrays are interpreted by Vulkan. Pipelines using per-view attributes <b>may</b> only execute the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader stages</a> once for all views rather than once per-view, which reduces redundant shading work.
+ * This extension adds a new way to write shaders to be used with multiview subpasses, where the attributes for all views are written out by a single invocation of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader stages</a>. Related SPIR-V and GLSL extensions {@code SPV_NVX_multiview_per_view_attributes} and {@code GL_NVX_multiview_per_view_attributes} introduce per-view position and viewport mask attributes arrays, and this extension defines how those per-view attribute arrays are interpreted by Vulkan. Pipelines using per-view attributes <b>may</b> only execute the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader stages</a> once for all views rather than once per-view, which reduces redundant shading work.
  * 
  * <p>A subpass creation flag controls whether the subpass uses this extension. A subpass <b>must</b> either exclusively use this extension or not use it at all.</p>
  * 
@@ -14,7 +14,7 @@ package org.lwjgl.vulkan;
  * 
  * <p>Shaders that use the new per-view outputs (e.g. {@code gl_PositionPerViewNV}) <b>must</b> also write the non-per-view output ({@code gl_Position}), and the values written <b>must</b> be such that {@code gl_Position = gl_PositionPerViewNV[gl_ViewIndex]} for all views in the subpass. Implementations are free to either use the per-view outputs or the non-per-view outputs, whichever would be more efficient.</p>
  * 
- * <p>If {@link NVViewportArray2 VK_NV_viewport_array2} is not also supported and enabled, the per-view viewport mask <b>must</b> not be used.</p>
+ * <p>If the {@link NVViewportArray2 VK_NV_viewport_array2} extension is not also supported and enabled, the per-view viewport mask <b>must</b> not be used.</p>
  * 
  * <h5>Examples</h5>
  * 
@@ -46,7 +46,12 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRMultiview VK_KHR_multiview} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dd>{@link KHRMultiview VK_KHR_multiview} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>API Interactions</b></dt>
+ * <dd><ul>
+ * <li>Interacts with VK_VERSION_1_3</li>
+ * <li>Interacts with VK_KHR_dynamic_rendering</li>
+ * </ul></dd>
  * <dt><b>SPIR-V Dependencies</b></dt>
  * <dd><ul>
  * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NVX/SPV_NVX_multiview_per_view_attributes.html">SPV_NVX_multiview_per_view_attributes</a></li>
@@ -100,6 +105,9 @@ public final class NVXMultiviewPerViewAttributes {
     public static final int
         VK_SUBPASS_DESCRIPTION_PER_VIEW_ATTRIBUTES_BIT_NVX      = 0x1,
         VK_SUBPASS_DESCRIPTION_PER_VIEW_POSITION_X_ONLY_BIT_NVX = 0x2;
+
+    /** Extends {@code VkStructureType}. */
+    public static final int VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX = 1000044009;
 
     private NVXMultiviewPerViewAttributes() {}
 

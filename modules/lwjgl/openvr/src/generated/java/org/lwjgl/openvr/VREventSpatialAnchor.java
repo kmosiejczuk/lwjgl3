@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -79,8 +79,7 @@ public class VREventSpatialAnchor extends Struct<VREventSpatialAnchor> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventSpatialAnchor createSafe(long address) {
+    public static @Nullable VREventSpatialAnchor createSafe(long address) {
         return address == NULL ? null : new VREventSpatialAnchor(address, null);
     }
 
@@ -95,15 +94,14 @@ public class VREventSpatialAnchor extends Struct<VREventSpatialAnchor> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventSpatialAnchor.Buffer createSafe(long address, int capacity) {
+    public static VREventSpatialAnchor.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #unHandle}. */
-    public static int nunHandle(long struct) { return UNSAFE.getInt(null, struct + VREventSpatialAnchor.UNHANDLE); }
+    public static int nunHandle(long struct) { return memGetInt(struct + VREventSpatialAnchor.UNHANDLE); }
 
     // -----------------------------------
 
@@ -136,6 +134,11 @@ public class VREventSpatialAnchor extends Struct<VREventSpatialAnchor> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

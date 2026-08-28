@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -45,7 +45,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>If Vulkan 1.1 and {@link KHRSwapchain VK_KHR_swapchain} are supported, these are included by {@code VK_KHR_swapchain}.</p>
  * 
- * <p>The base functionality in this extension is included in core Vulkan 1.1, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
+ * <p>The base functionality in this extension is included in core Vulkan 1.1, with the KHR suffix omitted. The original type, enum, and command names are still available as aliases of the core functionality.</p>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -70,7 +70,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * </ul></dd>
  * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
- * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
+ * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
@@ -492,7 +492,7 @@ public class KHRDeviceGroup {
      * @param pRects         either {@code NULL} or a pointer to an array of {@link VkRect2D} structures.
      */
     @NativeType("VkResult")
-    public static int vkGetPhysicalDevicePresentRectanglesKHR(VkPhysicalDevice physicalDevice, @NativeType("VkSurfaceKHR") long surface, @NativeType("uint32_t *") IntBuffer pRectCount, @Nullable @NativeType("VkRect2D *") VkRect2D.Buffer pRects) {
+    public static int vkGetPhysicalDevicePresentRectanglesKHR(VkPhysicalDevice physicalDevice, @NativeType("VkSurfaceKHR") long surface, @NativeType("uint32_t *") IntBuffer pRectCount, @NativeType("VkRect2D *") VkRect2D.@Nullable Buffer pRects) {
         if (CHECKS) {
             check(pRectCount, 1);
             checkSafe(pRects, pRectCount.get(pRectCount.position()));
@@ -531,7 +531,7 @@ public class KHRDeviceGroup {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#swapchain-acquire-forward-progress">forward progress</a> cannot be guaranteed for the {@code surface} used to create {@code swapchain}, the {@code timeout} member of {@code pAcquireInfo} <b>must</b> not be {@code UINT64_MAX}</li>
+     * <li>If <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#swapchain-acquire-forward-progress">forward progress</a> cannot be guaranteed for the {@code surface} used to create {@code swapchain}, the {@code timeout} member of {@code pAcquireInfo} <b>must</b> not be {@code UINT64_MAX}</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -569,7 +569,7 @@ public class KHRDeviceGroup {
      *
      * @param device       the device associated with {@code swapchain}.
      * @param pAcquireInfo a pointer to a {@link VkAcquireNextImageInfoKHR} structure containing parameters of the acquire.
-     * @param pImageIndex  a pointer to a {@code uint32_t} that is set to the index of the next image to use.
+     * @param pImageIndex  a pointer to a {@code uint32_t} value specifying the index of the next image to use.
      */
     @NativeType("VkResult")
     public static int vkAcquireNextImage2KHR(VkDevice device, @NativeType("VkAcquireNextImageInfoKHR const *") VkAcquireNextImageInfoKHR pAcquireInfo, @NativeType("uint32_t *") IntBuffer pImageIndex) {
@@ -602,7 +602,7 @@ public class KHRDeviceGroup {
 
     /** Array version of: {@link #vkGetPhysicalDevicePresentRectanglesKHR GetPhysicalDevicePresentRectanglesKHR} */
     @NativeType("VkResult")
-    public static int vkGetPhysicalDevicePresentRectanglesKHR(VkPhysicalDevice physicalDevice, @NativeType("VkSurfaceKHR") long surface, @NativeType("uint32_t *") int[] pRectCount, @Nullable @NativeType("VkRect2D *") VkRect2D.Buffer pRects) {
+    public static int vkGetPhysicalDevicePresentRectanglesKHR(VkPhysicalDevice physicalDevice, @NativeType("VkSurfaceKHR") long surface, @NativeType("uint32_t *") int[] pRectCount, @NativeType("VkRect2D *") VkRect2D.@Nullable Buffer pRects) {
         long __functionAddress = physicalDevice.getCapabilities().vkGetPhysicalDevicePresentRectanglesKHR;
         if (CHECKS) {
             check(__functionAddress);

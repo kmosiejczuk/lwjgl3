@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -144,8 +144,7 @@ public class StdVideoAV1Segmentation extends Struct<StdVideoAV1Segmentation> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1Segmentation createSafe(long address) {
+    public static @Nullable StdVideoAV1Segmentation createSafe(long address) {
         return address == NULL ? null : new StdVideoAV1Segmentation(address, null);
     }
 
@@ -188,8 +187,7 @@ public class StdVideoAV1Segmentation extends Struct<StdVideoAV1Segmentation> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1Segmentation.Buffer createSafe(long address, int capacity) {
+    public static StdVideoAV1Segmentation.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,13 +235,13 @@ public class StdVideoAV1Segmentation extends Struct<StdVideoAV1Segmentation> imp
     public static ByteBuffer nFeatureEnabled(long struct) { return memByteBuffer(struct + StdVideoAV1Segmentation.FEATUREENABLED, STD_VIDEO_AV1_MAX_SEGMENTS); }
     /** Unsafe version of {@link #FeatureEnabled(int) FeatureEnabled}. */
     public static byte nFeatureEnabled(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoAV1Segmentation.FEATUREENABLED + check(index, STD_VIDEO_AV1_MAX_SEGMENTS) * 1);
+        return memGetByte(struct + StdVideoAV1Segmentation.FEATUREENABLED + check(index, STD_VIDEO_AV1_MAX_SEGMENTS) * 1);
     }
     /** Unsafe version of {@link #FeatureData}. */
     public static ShortBuffer nFeatureData(long struct) { return memShortBuffer(struct + StdVideoAV1Segmentation.FEATUREDATA, STD_VIDEO_AV1_SEG_LVL_MAX); }
     /** Unsafe version of {@link #FeatureData(int) FeatureData}. */
     public static short nFeatureData(long struct, int index) {
-        return UNSAFE.getShort(null, struct + StdVideoAV1Segmentation.FEATUREDATA + check(index, STD_VIDEO_AV1_SEG_LVL_MAX) * 2);
+        return memGetShort(struct + StdVideoAV1Segmentation.FEATUREDATA + check(index, STD_VIDEO_AV1_SEG_LVL_MAX) * 2);
     }
 
     /** Unsafe version of {@link #FeatureEnabled(ByteBuffer) FeatureEnabled}. */
@@ -253,7 +251,7 @@ public class StdVideoAV1Segmentation extends Struct<StdVideoAV1Segmentation> imp
     }
     /** Unsafe version of {@link #FeatureEnabled(int, byte) FeatureEnabled}. */
     public static void nFeatureEnabled(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoAV1Segmentation.FEATUREENABLED + check(index, STD_VIDEO_AV1_MAX_SEGMENTS) * 1, value);
+        memPutByte(struct + StdVideoAV1Segmentation.FEATUREENABLED + check(index, STD_VIDEO_AV1_MAX_SEGMENTS) * 1, value);
     }
     /** Unsafe version of {@link #FeatureData(ShortBuffer) FeatureData}. */
     public static void nFeatureData(long struct, ShortBuffer value) {
@@ -262,7 +260,7 @@ public class StdVideoAV1Segmentation extends Struct<StdVideoAV1Segmentation> imp
     }
     /** Unsafe version of {@link #FeatureData(int, short) FeatureData}. */
     public static void nFeatureData(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + StdVideoAV1Segmentation.FEATUREDATA + check(index, STD_VIDEO_AV1_SEG_LVL_MAX) * 2, value);
+        memPutShort(struct + StdVideoAV1Segmentation.FEATUREDATA + check(index, STD_VIDEO_AV1_SEG_LVL_MAX) * 2, value);
     }
 
     // -----------------------------------
@@ -296,6 +294,11 @@ public class StdVideoAV1Segmentation extends Struct<StdVideoAV1Segmentation> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

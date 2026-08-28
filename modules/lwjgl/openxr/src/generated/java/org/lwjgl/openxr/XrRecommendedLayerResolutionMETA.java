@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class XrRecommendedLayerResolutionMETA extends Struct<XrRecommendedLayerR
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRecommendedLayerResolutionMETA createSafe(long address) {
+    public static @Nullable XrRecommendedLayerResolutionMETA createSafe(long address) {
         return address == NULL ? null : new XrRecommendedLayerResolutionMETA(address, null);
     }
 
@@ -208,8 +207,7 @@ public class XrRecommendedLayerResolutionMETA extends Struct<XrRecommendedLayerR
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRecommendedLayerResolutionMETA.Buffer createSafe(long address, int capacity) {
+    public static XrRecommendedLayerResolutionMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,16 +252,16 @@ public class XrRecommendedLayerResolutionMETA extends Struct<XrRecommendedLayerR
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrRecommendedLayerResolutionMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrRecommendedLayerResolutionMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrRecommendedLayerResolutionMETA.NEXT); }
     /** Unsafe version of {@link #recommendedImageDimensions}. */
     public static XrExtent2Di nrecommendedImageDimensions(long struct) { return XrExtent2Di.create(struct + XrRecommendedLayerResolutionMETA.RECOMMENDEDIMAGEDIMENSIONS); }
     /** Unsafe version of {@link #isValid}. */
-    public static int nisValid(long struct) { return UNSAFE.getInt(null, struct + XrRecommendedLayerResolutionMETA.ISVALID); }
+    public static int nisValid(long struct) { return memGetInt(struct + XrRecommendedLayerResolutionMETA.ISVALID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrRecommendedLayerResolutionMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrRecommendedLayerResolutionMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrRecommendedLayerResolutionMETA.NEXT, value); }
 
@@ -298,6 +296,11 @@ public class XrRecommendedLayerResolutionMETA extends Struct<XrRecommendedLayerR
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opengl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -841,7 +841,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferData">Reference Page</a>
      */
-    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") ByteBuffer data) {
+    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") @Nullable ByteBuffer data) {
         GL45C.glClearNamedBufferData(buffer, internalformat, format, type, data);
     }
 
@@ -858,7 +858,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferData">Reference Page</a>
      */
-    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") ShortBuffer data) {
+    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") @Nullable ShortBuffer data) {
         GL45C.glClearNamedBufferData(buffer, internalformat, format, type, data);
     }
 
@@ -875,7 +875,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferData">Reference Page</a>
      */
-    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") IntBuffer data) {
+    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") @Nullable IntBuffer data) {
         GL45C.glClearNamedBufferData(buffer, internalformat, format, type, data);
     }
 
@@ -892,7 +892,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferData">Reference Page</a>
      */
-    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") FloatBuffer data) {
+    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") @Nullable FloatBuffer data) {
         GL45C.glClearNamedBufferData(buffer, internalformat, format, type, data);
     }
 
@@ -918,7 +918,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferSubData">Reference Page</a>
      */
-    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") ByteBuffer data) {
+    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") @Nullable ByteBuffer data) {
         GL45C.glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, data);
     }
 
@@ -937,7 +937,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferSubData">Reference Page</a>
      */
-    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") ShortBuffer data) {
+    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") @Nullable ShortBuffer data) {
         GL45C.glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, data);
     }
 
@@ -956,7 +956,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferSubData">Reference Page</a>
      */
-    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") IntBuffer data) {
+    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") @Nullable IntBuffer data) {
         GL45C.glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, data);
     }
 
@@ -975,7 +975,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferSubData">Reference Page</a>
      */
-    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") FloatBuffer data) {
+    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") @Nullable FloatBuffer data) {
         GL45C.glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, data);
     }
 
@@ -994,9 +994,8 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glMapBuffer">Reference Page</a>
      */
-    @Nullable
     @NativeType("void *")
-    public static ByteBuffer glMapNamedBuffer(@NativeType("GLuint") int buffer, @NativeType("GLenum") int access) {
+    public static @Nullable ByteBuffer glMapNamedBuffer(@NativeType("GLuint") int buffer, @NativeType("GLenum") int access) {
         return GL45C.glMapNamedBuffer(buffer, access);
     }
 
@@ -1008,9 +1007,8 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glMapBuffer">Reference Page</a>
      */
-    @Nullable
     @NativeType("void *")
-    public static ByteBuffer glMapNamedBuffer(@NativeType("GLuint") int buffer, @NativeType("GLenum") int access, @Nullable ByteBuffer old_buffer) {
+    public static @Nullable ByteBuffer glMapNamedBuffer(@NativeType("GLuint") int buffer, @NativeType("GLenum") int access, @Nullable ByteBuffer old_buffer) {
         return GL45C.glMapNamedBuffer(buffer, access, old_buffer);
     }
 
@@ -1022,9 +1020,8 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glMapBuffer">Reference Page</a>
      */
-    @Nullable
     @NativeType("void *")
-    public static ByteBuffer glMapNamedBuffer(@NativeType("GLuint") int buffer, @NativeType("GLenum") int access, long length, @Nullable ByteBuffer old_buffer) {
+    public static @Nullable ByteBuffer glMapNamedBuffer(@NativeType("GLuint") int buffer, @NativeType("GLenum") int access, long length, @Nullable ByteBuffer old_buffer) {
         return GL45C.glMapNamedBuffer(buffer, access, length, old_buffer);
     }
 
@@ -1045,9 +1042,8 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glMapBufferRange">Reference Page</a>
      */
-    @Nullable
     @NativeType("void *")
-    public static ByteBuffer glMapNamedBufferRange(@NativeType("GLuint") int buffer, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long length, @NativeType("GLbitfield") int access) {
+    public static @Nullable ByteBuffer glMapNamedBufferRange(@NativeType("GLuint") int buffer, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long length, @NativeType("GLbitfield") int access) {
         return GL45C.glMapNamedBufferRange(buffer, offset, length, access);
     }
 
@@ -1061,9 +1057,8 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glMapBufferRange">Reference Page</a>
      */
-    @Nullable
     @NativeType("void *")
-    public static ByteBuffer glMapNamedBufferRange(@NativeType("GLuint") int buffer, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long length, @NativeType("GLbitfield") int access, @Nullable ByteBuffer old_buffer) {
+    public static @Nullable ByteBuffer glMapNamedBufferRange(@NativeType("GLuint") int buffer, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long length, @NativeType("GLbitfield") int access, @Nullable ByteBuffer old_buffer) {
         return GL45C.glMapNamedBufferRange(buffer, offset, length, access, old_buffer);
     }
 
@@ -1341,7 +1336,7 @@ public class GL45 extends GL44 {
      * @param pname       a token indicating the parameter to be modified. One of:<br><table><tr><td>{@link GL43#GL_FRAMEBUFFER_DEFAULT_WIDTH FRAMEBUFFER_DEFAULT_WIDTH}</td><td>{@link GL43#GL_FRAMEBUFFER_DEFAULT_HEIGHT FRAMEBUFFER_DEFAULT_HEIGHT}</td></tr><tr><td>{@link GL43#GL_FRAMEBUFFER_DEFAULT_LAYERS FRAMEBUFFER_DEFAULT_LAYERS}</td><td>{@link GL43#GL_FRAMEBUFFER_DEFAULT_SAMPLES FRAMEBUFFER_DEFAULT_SAMPLES}</td></tr><tr><td>{@link GL43#GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS}</td></tr></table>
      * @param param       the new value for the parameter named {@code pname}
      * 
-     * @see <a href="https://docs.gl/gl4/glFramebufferParameteri">Reference Page</a>
+     * @see <a href="https://docs.gl/gl4/glFramebufferParameter">Reference Page</a>
      */
     public static void glNamedFramebufferParameteri(@NativeType("GLuint") int framebuffer, @NativeType("GLenum") int pname, @NativeType("GLint") int param) {
         GL45C.glNamedFramebufferParameteri(framebuffer, pname, param);
@@ -2533,7 +2528,7 @@ public class GL45 extends GL44 {
      * @param pname   the parameter to set
      * @param param   the parameter value
      * 
-     * @see <a href="https://docs.gl/gl4/glTextureParameterf">Reference Page</a>
+     * @see <a href="https://docs.gl/gl4/glTextureParameter">Reference Page</a>
      */
     public static void glTextureParameterf(@NativeType("GLuint") int texture, @NativeType("GLenum") int pname, @NativeType("GLfloat") float param) {
         GL45C.glTextureParameterf(texture, pname, param);
@@ -2568,7 +2563,7 @@ public class GL45 extends GL44 {
      * @param pname   the parameter to set. One of:<br><table><tr><td>{@link GL12#GL_TEXTURE_BASE_LEVEL TEXTURE_BASE_LEVEL}</td><td>{@link GL11#GL_TEXTURE_BORDER_COLOR TEXTURE_BORDER_COLOR}</td><td>{@link GL14#GL_TEXTURE_COMPARE_MODE TEXTURE_COMPARE_MODE}</td><td>{@link GL14#GL_TEXTURE_COMPARE_FUNC TEXTURE_COMPARE_FUNC}</td></tr><tr><td>{@link GL14#GL_TEXTURE_LOD_BIAS TEXTURE_LOD_BIAS}</td><td>{@link GL11#GL_TEXTURE_MAG_FILTER TEXTURE_MAG_FILTER}</td><td>{@link GL12#GL_TEXTURE_MAX_LEVEL TEXTURE_MAX_LEVEL}</td><td>{@link GL12#GL_TEXTURE_MAX_LOD TEXTURE_MAX_LOD}</td></tr><tr><td>{@link GL11#GL_TEXTURE_MIN_FILTER TEXTURE_MIN_FILTER}</td><td>{@link GL12#GL_TEXTURE_MIN_LOD TEXTURE_MIN_LOD}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_R TEXTURE_SWIZZLE_R}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_G TEXTURE_SWIZZLE_G}</td></tr><tr><td>{@link GL33#GL_TEXTURE_SWIZZLE_B TEXTURE_SWIZZLE_B}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_A TEXTURE_SWIZZLE_A}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_RGBA TEXTURE_SWIZZLE_RGBA}</td><td>{@link GL11#GL_TEXTURE_WRAP_S TEXTURE_WRAP_S}</td></tr><tr><td>{@link GL11#GL_TEXTURE_WRAP_T TEXTURE_WRAP_T}</td><td>{@link GL12#GL_TEXTURE_WRAP_R TEXTURE_WRAP_R}</td><td>{@link GL14#GL_DEPTH_TEXTURE_MODE DEPTH_TEXTURE_MODE}</td><td>{@link GL14#GL_GENERATE_MIPMAP GENERATE_MIPMAP}</td></tr></table>
      * @param param   the parameter value
      * 
-     * @see <a href="https://docs.gl/gl4/glTextureParameteri">Reference Page</a>
+     * @see <a href="https://docs.gl/gl4/glTexParameter">Reference Page</a>
      */
     public static void glTextureParameteri(@NativeType("GLuint") int texture, @NativeType("GLenum") int pname, @NativeType("GLint") int param) {
         GL45C.glTextureParameteri(texture, pname, param);
@@ -3144,7 +3139,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glVertexArrayVertexBuffers">Reference Page</a>
      */
-    public static void glVertexArrayVertexBuffers(@NativeType("GLuint") int vaobj, @NativeType("GLuint") int first, @Nullable @NativeType("GLuint const *") IntBuffer buffers, @Nullable @NativeType("GLintptr const *") PointerBuffer offsets, @Nullable @NativeType("GLsizei const *") IntBuffer strides) {
+    public static void glVertexArrayVertexBuffers(@NativeType("GLuint") int vaobj, @NativeType("GLuint") int first, @NativeType("GLuint const *") @Nullable IntBuffer buffers, @NativeType("GLintptr const *") @Nullable PointerBuffer offsets, @NativeType("GLsizei const *") @Nullable IntBuffer strides) {
         GL45C.glVertexArrayVertexBuffers(vaobj, first, buffers, offsets, strides);
     }
 
@@ -4402,7 +4397,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetnSeparableFilter">Reference Page</a>
      */
-    public static void glGetnSeparableFilter(@NativeType("GLenum") int target, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("GLsizei") int rowBufSize, @NativeType("void *") long row, @NativeType("GLsizei") int columnBufSize, @NativeType("void *") long column, @Nullable @NativeType("void *") ByteBuffer span) {
+    public static void glGetnSeparableFilter(@NativeType("GLenum") int target, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("GLsizei") int rowBufSize, @NativeType("void *") long row, @NativeType("GLsizei") int columnBufSize, @NativeType("void *") long column, @NativeType("void *") @Nullable ByteBuffer span) {
         nglGetnSeparableFilter(target, format, type, rowBufSize, row, columnBufSize, column, memAddressSafe(span));
     }
 
@@ -4417,7 +4412,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetnSeparableFilter">Reference Page</a>
      */
-    public static void glGetnSeparableFilter(@NativeType("GLenum") int target, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void *") ByteBuffer row, @NativeType("void *") ByteBuffer column, @Nullable @NativeType("void *") ByteBuffer span) {
+    public static void glGetnSeparableFilter(@NativeType("GLenum") int target, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void *") ByteBuffer row, @NativeType("void *") ByteBuffer column, @NativeType("void *") @Nullable ByteBuffer span) {
         nglGetnSeparableFilter(target, format, type, row.remaining(), memAddress(row), column.remaining(), memAddress(column), memAddressSafe(span));
     }
 
@@ -4865,7 +4860,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferData">Reference Page</a>
      */
-    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") short[] data) {
+    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") short @Nullable [] data) {
         GL45C.glClearNamedBufferData(buffer, internalformat, format, type, data);
     }
 
@@ -4874,7 +4869,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferData">Reference Page</a>
      */
-    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") int[] data) {
+    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") int @Nullable [] data) {
         GL45C.glClearNamedBufferData(buffer, internalformat, format, type, data);
     }
 
@@ -4883,7 +4878,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferData">Reference Page</a>
      */
-    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") float[] data) {
+    public static void glClearNamedBufferData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") float @Nullable [] data) {
         GL45C.glClearNamedBufferData(buffer, internalformat, format, type, data);
     }
 
@@ -4892,7 +4887,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferSubData">Reference Page</a>
      */
-    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") short[] data) {
+    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") short @Nullable [] data) {
         GL45C.glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, data);
     }
 
@@ -4901,7 +4896,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferSubData">Reference Page</a>
      */
-    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") int[] data) {
+    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") int @Nullable [] data) {
         GL45C.glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, data);
     }
 
@@ -4910,7 +4905,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glClearBufferSubData">Reference Page</a>
      */
-    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @Nullable @NativeType("void const *") float[] data) {
+    public static void glClearNamedBufferSubData(@NativeType("GLuint") int buffer, @NativeType("GLenum") int internalformat, @NativeType("GLintptr") long offset, @NativeType("GLsizeiptr") long size, @NativeType("GLenum") int format, @NativeType("GLenum") int type, @NativeType("void const *") float @Nullable [] data) {
         GL45C.glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, data);
     }
 
@@ -5333,7 +5328,7 @@ public class GL45 extends GL44 {
      * 
      * @see <a href="https://docs.gl/gl4/glVertexArrayVertexBuffers">Reference Page</a>
      */
-    public static void glVertexArrayVertexBuffers(@NativeType("GLuint") int vaobj, @NativeType("GLuint") int first, @Nullable @NativeType("GLuint const *") int[] buffers, @Nullable @NativeType("GLintptr const *") PointerBuffer offsets, @Nullable @NativeType("GLsizei const *") int[] strides) {
+    public static void glVertexArrayVertexBuffers(@NativeType("GLuint") int vaobj, @NativeType("GLuint") int first, @NativeType("GLuint const *") int @Nullable [] buffers, @NativeType("GLintptr const *") @Nullable PointerBuffer offsets, @NativeType("GLsizei const *") int @Nullable [] strides) {
         GL45C.glVertexArrayVertexBuffers(vaobj, first, buffers, offsets, strides);
     }
 

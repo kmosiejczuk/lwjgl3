@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -203,8 +203,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct<VkGenera
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGeneratedCommandsMemoryRequirementsInfoNV createSafe(long address) {
+    public static @Nullable VkGeneratedCommandsMemoryRequirementsInfoNV createSafe(long address) {
         return address == NULL ? null : new VkGeneratedCommandsMemoryRequirementsInfoNV(address, null);
     }
 
@@ -247,8 +246,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct<VkGenera
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGeneratedCommandsMemoryRequirementsInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkGeneratedCommandsMemoryRequirementsInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,30 +291,30 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct<VkGenera
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.PNEXT); }
     /** Unsafe version of {@link #pipelineBindPoint}. */
-    public static int npipelineBindPoint(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoNV.PIPELINEBINDPOINT); }
+    public static int npipelineBindPoint(long struct) { return memGetInt(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.PIPELINEBINDPOINT); }
     /** Unsafe version of {@link #pipeline}. */
-    public static long npipeline(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsMemoryRequirementsInfoNV.PIPELINE); }
+    public static long npipeline(long struct) { return memGetLong(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.PIPELINE); }
     /** Unsafe version of {@link #indirectCommandsLayout}. */
-    public static long nindirectCommandsLayout(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsMemoryRequirementsInfoNV.INDIRECTCOMMANDSLAYOUT); }
+    public static long nindirectCommandsLayout(long struct) { return memGetLong(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.INDIRECTCOMMANDSLAYOUT); }
     /** Unsafe version of {@link #maxSequencesCount}. */
-    public static int nmaxSequencesCount(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoNV.MAXSEQUENCESCOUNT); }
+    public static int nmaxSequencesCount(long struct) { return memGetInt(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.MAXSEQUENCESCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #pipelineBindPoint(int) pipelineBindPoint}. */
-    public static void npipelineBindPoint(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoNV.PIPELINEBINDPOINT, value); }
+    public static void npipelineBindPoint(long struct, int value) { memPutInt(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.PIPELINEBINDPOINT, value); }
     /** Unsafe version of {@link #pipeline(long) pipeline}. */
-    public static void npipeline(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsMemoryRequirementsInfoNV.PIPELINE, value); }
+    public static void npipeline(long struct, long value) { memPutLong(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.PIPELINE, value); }
     /** Unsafe version of {@link #indirectCommandsLayout(long) indirectCommandsLayout}. */
-    public static void nindirectCommandsLayout(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsMemoryRequirementsInfoNV.INDIRECTCOMMANDSLAYOUT, value); }
+    public static void nindirectCommandsLayout(long struct, long value) { memPutLong(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.INDIRECTCOMMANDSLAYOUT, value); }
     /** Unsafe version of {@link #maxSequencesCount(int) maxSequencesCount}. */
-    public static void nmaxSequencesCount(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoNV.MAXSEQUENCESCOUNT, value); }
+    public static void nmaxSequencesCount(long struct, int value) { memPutInt(struct + VkGeneratedCommandsMemoryRequirementsInfoNV.MAXSEQUENCESCOUNT, value); }
 
     // -----------------------------------
 
@@ -349,6 +347,11 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct<VkGenera
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

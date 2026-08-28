@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -107,10 +107,10 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     /** a pointer to a null-terminated UTF-8 string containing the name of the label. */
     @NativeType("char const *")
     public String pLabelNameString() { return npLabelNameString(address()); }
-    /** an optional RGBA color value that can be associated with the label. A particular implementation <b>may</b> choose to ignore this color value. The values contain RGBA values in order, in the range 0.0 to 1.0. If all elements in {@code color} are set to 0.0 then it is ignored. */
+    /** an optional RGBA color value that can be associated with the label. A particular implementation <b>may</b> choose to ignore this color value. The values contain RGBA values in order, in the range 0.0 to 1.0. If all elements in {@code color} are 0.0, then it is ignored. */
     @NativeType("float[4]")
     public FloatBuffer color() { return ncolor(address()); }
-    /** an optional RGBA color value that can be associated with the label. A particular implementation <b>may</b> choose to ignore this color value. The values contain RGBA values in order, in the range 0.0 to 1.0. If all elements in {@code color} are set to 0.0 then it is ignored. */
+    /** an optional RGBA color value that can be associated with the label. A particular implementation <b>may</b> choose to ignore this color value. The values contain RGBA values in order, in the range 0.0 to 1.0. If all elements in {@code color} are 0.0, then it is ignored. */
     public float color(int index) { return ncolor(address(), index); }
 
     /** Sets the specified value to the {@link #sType} field. */
@@ -177,8 +177,7 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDebugUtilsLabelEXT createSafe(long address) {
+    public static @Nullable VkDebugUtilsLabelEXT createSafe(long address) {
         return address == NULL ? null : new VkDebugUtilsLabelEXT(address, null);
     }
 
@@ -221,8 +220,7 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDebugUtilsLabelEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDebugUtilsLabelEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,7 +284,7 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDebugUtilsLabelEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDebugUtilsLabelEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDebugUtilsLabelEXT.PNEXT); }
     /** Unsafe version of {@link #pLabelName}. */
@@ -297,11 +295,11 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     public static FloatBuffer ncolor(long struct) { return memFloatBuffer(struct + VkDebugUtilsLabelEXT.COLOR, 4); }
     /** Unsafe version of {@link #color(int) color}. */
     public static float ncolor(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + VkDebugUtilsLabelEXT.COLOR + check(index, 4) * 4);
+        return memGetFloat(struct + VkDebugUtilsLabelEXT.COLOR + check(index, 4) * 4);
     }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDebugUtilsLabelEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDebugUtilsLabelEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDebugUtilsLabelEXT.PNEXT, value); }
     /** Unsafe version of {@link #pLabelName(ByteBuffer) pLabelName}. */
@@ -316,7 +314,7 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     }
     /** Unsafe version of {@link #color(int, float) color}. */
     public static void ncolor(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + VkDebugUtilsLabelEXT.COLOR + check(index, 4) * 4, value);
+        memPutFloat(struct + VkDebugUtilsLabelEXT.COLOR + check(index, 4) * 4, value);
     }
 
     /**
@@ -359,6 +357,11 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

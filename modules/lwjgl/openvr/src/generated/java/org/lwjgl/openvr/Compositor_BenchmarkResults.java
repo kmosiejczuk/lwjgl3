@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -103,8 +103,7 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static Compositor_BenchmarkResults createSafe(long address) {
+    public static @Nullable Compositor_BenchmarkResults createSafe(long address) {
         return address == NULL ? null : new Compositor_BenchmarkResults(address, null);
     }
 
@@ -147,8 +146,7 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static Compositor_BenchmarkResults.Buffer createSafe(long address, int capacity) {
+    public static Compositor_BenchmarkResults.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -193,9 +191,9 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
     // -----------------------------------
 
     /** Unsafe version of {@link #m_flMegaPixelsPerSecond}. */
-    public static float nm_flMegaPixelsPerSecond(long struct) { return UNSAFE.getFloat(null, struct + Compositor_BenchmarkResults.M_FLMEGAPIXELSPERSECOND); }
+    public static float nm_flMegaPixelsPerSecond(long struct) { return memGetFloat(struct + Compositor_BenchmarkResults.M_FLMEGAPIXELSPERSECOND); }
     /** Unsafe version of {@link #m_flHmdRecommendedMegaPixelsPerSecond}. */
-    public static float nm_flHmdRecommendedMegaPixelsPerSecond(long struct) { return UNSAFE.getFloat(null, struct + Compositor_BenchmarkResults.M_FLHMDRECOMMENDEDMEGAPIXELSPERSECOND); }
+    public static float nm_flHmdRecommendedMegaPixelsPerSecond(long struct) { return memGetFloat(struct + Compositor_BenchmarkResults.M_FLHMDRECOMMENDEDMEGAPIXELSPERSECOND); }
 
     // -----------------------------------
 
@@ -228,6 +226,11 @@ public class Compositor_BenchmarkResults extends Struct<Compositor_BenchmarkResu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

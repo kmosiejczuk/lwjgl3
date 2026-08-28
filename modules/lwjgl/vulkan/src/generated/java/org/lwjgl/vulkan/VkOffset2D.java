@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,8 +137,7 @@ public class VkOffset2D extends Struct<VkOffset2D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOffset2D createSafe(long address) {
+    public static @Nullable VkOffset2D createSafe(long address) {
         return address == NULL ? null : new VkOffset2D(address, null);
     }
 
@@ -181,8 +180,7 @@ public class VkOffset2D extends Struct<VkOffset2D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOffset2D.Buffer createSafe(long address, int capacity) {
+    public static VkOffset2D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,14 +244,14 @@ public class VkOffset2D extends Struct<VkOffset2D> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + VkOffset2D.X); }
+    public static int nx(long struct) { return memGetInt(struct + VkOffset2D.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + VkOffset2D.Y); }
+    public static int ny(long struct) { return memGetInt(struct + VkOffset2D.Y); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + VkOffset2D.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + VkOffset2D.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + VkOffset2D.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + VkOffset2D.Y, value); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class VkOffset2D extends Struct<VkOffset2D> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

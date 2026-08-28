@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -102,8 +102,7 @@ public class AIVector2D extends Struct<AIVector2D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIVector2D createSafe(long address) {
+    public static @Nullable AIVector2D createSafe(long address) {
         return address == NULL ? null : new AIVector2D(address, null);
     }
 
@@ -146,8 +145,7 @@ public class AIVector2D extends Struct<AIVector2D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIVector2D.Buffer createSafe(long address, int capacity) {
+    public static AIVector2D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -211,9 +209,9 @@ public class AIVector2D extends Struct<AIVector2D> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + AIVector2D.X); }
+    public static float nx(long struct) { return memGetFloat(struct + AIVector2D.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + AIVector2D.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + AIVector2D.Y); }
 
     // -----------------------------------
 
@@ -246,6 +244,11 @@ public class AIVector2D extends Struct<AIVector2D> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

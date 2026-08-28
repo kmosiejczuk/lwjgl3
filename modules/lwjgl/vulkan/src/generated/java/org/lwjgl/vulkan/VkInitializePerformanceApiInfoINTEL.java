@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -157,8 +157,7 @@ public class VkInitializePerformanceApiInfoINTEL extends Struct<VkInitializePerf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkInitializePerformanceApiInfoINTEL createSafe(long address) {
+    public static @Nullable VkInitializePerformanceApiInfoINTEL createSafe(long address) {
         return address == NULL ? null : new VkInitializePerformanceApiInfoINTEL(address, null);
     }
 
@@ -201,8 +200,7 @@ public class VkInitializePerformanceApiInfoINTEL extends Struct<VkInitializePerf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkInitializePerformanceApiInfoINTEL.Buffer createSafe(long address, int capacity) {
+    public static VkInitializePerformanceApiInfoINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,14 +264,14 @@ public class VkInitializePerformanceApiInfoINTEL extends Struct<VkInitializePerf
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkInitializePerformanceApiInfoINTEL.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkInitializePerformanceApiInfoINTEL.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkInitializePerformanceApiInfoINTEL.PNEXT); }
     /** Unsafe version of {@link #pUserData}. */
     public static long npUserData(long struct) { return memGetAddress(struct + VkInitializePerformanceApiInfoINTEL.PUSERDATA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkInitializePerformanceApiInfoINTEL.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkInitializePerformanceApiInfoINTEL.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkInitializePerformanceApiInfoINTEL.PNEXT, value); }
     /** Unsafe version of {@link #pUserData(long) pUserData}. */
@@ -310,6 +308,11 @@ public class VkInitializePerformanceApiInfoINTEL extends Struct<VkInitializePerf
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

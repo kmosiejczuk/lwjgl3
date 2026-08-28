@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.lmdb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -134,8 +134,7 @@ public class MDBEnvInfo extends Struct<MDBEnvInfo> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MDBEnvInfo createSafe(long address) {
+    public static @Nullable MDBEnvInfo createSafe(long address) {
         return address == NULL ? null : new MDBEnvInfo(address, null);
     }
 
@@ -178,8 +177,7 @@ public class MDBEnvInfo extends Struct<MDBEnvInfo> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MDBEnvInfo.Buffer createSafe(long address, int capacity) {
+    public static MDBEnvInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,9 +249,9 @@ public class MDBEnvInfo extends Struct<MDBEnvInfo> implements NativeResource {
     /** Unsafe version of {@link #me_last_txnid}. */
     public static long nme_last_txnid(long struct) { return memGetAddress(struct + MDBEnvInfo.ME_LAST_TXNID); }
     /** Unsafe version of {@link #me_maxreaders}. */
-    public static int nme_maxreaders(long struct) { return UNSAFE.getInt(null, struct + MDBEnvInfo.ME_MAXREADERS); }
+    public static int nme_maxreaders(long struct) { return memGetInt(struct + MDBEnvInfo.ME_MAXREADERS); }
     /** Unsafe version of {@link #me_numreaders}. */
-    public static int nme_numreaders(long struct) { return UNSAFE.getInt(null, struct + MDBEnvInfo.ME_NUMREADERS); }
+    public static int nme_numreaders(long struct) { return memGetInt(struct + MDBEnvInfo.ME_NUMREADERS); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class MDBEnvInfo extends Struct<MDBEnvInfo> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -4,9 +4,9 @@
  */
 package org.lwjgl.system;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.system.libffi.*;
 
-import javax.annotation.*;
 import java.util.*;
 import java.util.Map.*;
 import java.util.concurrent.*;
@@ -44,7 +44,7 @@ final class MemoryManage {
                 Class<?> allocatorClass = Class.forName(className);
                 return (MemoryAllocator)allocatorClass.getConstructor().newInstance();
             } catch (Throwable t) {
-                if (Checks.DEBUG && allocator != null) {
+                if (Checks.DEBUG && (allocator != null || !(t instanceof ClassNotFoundException))) {
                     t.printStackTrace(DEBUG_STREAM);
                 }
                 apiLog(String.format("Warning: Failed to instantiate memory allocator: %s. Using the system default.", className));
@@ -333,18 +333,16 @@ final class MemoryManage {
             final long size;
             final long threadId;
 
-            @Nullable
-            private final Object[] stacktrace;
+            private final Object @Nullable [] stacktrace;
 
-            Allocation(long address, long size, long threadId, @Nullable Object[] stacktrace) {
+            Allocation(long address, long size, long threadId, Object @Nullable [] stacktrace) {
                 this.address = address;
                 this.size = size;
                 this.threadId = threadId;
                 this.stacktrace = stacktrace;
             }
 
-            @Nullable
-            private StackTraceElement[] getElements() {
+            private StackTraceElement @Nullable [] getElements() {
                 return stacktrace == null ? null : stackWalkArray(stacktrace);
             }
 

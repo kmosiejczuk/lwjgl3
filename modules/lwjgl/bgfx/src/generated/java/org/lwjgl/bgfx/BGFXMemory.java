@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -124,8 +124,7 @@ public class BGFXMemory extends Struct<BGFXMemory> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXMemory createSafe(long address) {
+    public static @Nullable BGFXMemory createSafe(long address) {
         return address == NULL ? null : new BGFXMemory(address, null);
     }
 
@@ -168,8 +167,7 @@ public class BGFXMemory extends Struct<BGFXMemory> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXMemory.Buffer createSafe(long address, int capacity) {
+    public static BGFXMemory.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -235,12 +233,12 @@ public class BGFXMemory extends Struct<BGFXMemory> implements NativeResource {
     /** Unsafe version of {@link #data() data}. */
     public static ByteBuffer ndata(long struct) { return memByteBuffer(memGetAddress(struct + BGFXMemory.DATA), nsize(struct)); }
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + BGFXMemory.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + BGFXMemory.SIZE); }
 
     /** Unsafe version of {@link #data(ByteBuffer) data}. */
     public static void ndata(long struct, ByteBuffer value) { memPutAddress(struct + BGFXMemory.DATA, memAddress(value)); nsize(struct, value.remaining()); }
     /** Sets the specified value to the {@code size} field of the specified {@code struct}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + BGFXMemory.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + BGFXMemory.SIZE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -282,6 +280,11 @@ public class BGFXMemory extends Struct<BGFXMemory> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

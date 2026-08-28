@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkDevicePrivateDataCreateInfo extends Struct<VkDevicePrivateDataCre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDevicePrivateDataCreateInfo createSafe(long address) {
+    public static @Nullable VkDevicePrivateDataCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkDevicePrivateDataCreateInfo(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkDevicePrivateDataCreateInfo extends Struct<VkDevicePrivateDataCre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDevicePrivateDataCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDevicePrivateDataCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,18 +240,18 @@ public class VkDevicePrivateDataCreateInfo extends Struct<VkDevicePrivateDataCre
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDevicePrivateDataCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDevicePrivateDataCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDevicePrivateDataCreateInfo.PNEXT); }
     /** Unsafe version of {@link #privateDataSlotRequestCount}. */
-    public static int nprivateDataSlotRequestCount(long struct) { return UNSAFE.getInt(null, struct + VkDevicePrivateDataCreateInfo.PRIVATEDATASLOTREQUESTCOUNT); }
+    public static int nprivateDataSlotRequestCount(long struct) { return memGetInt(struct + VkDevicePrivateDataCreateInfo.PRIVATEDATASLOTREQUESTCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDevicePrivateDataCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDevicePrivateDataCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDevicePrivateDataCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #privateDataSlotRequestCount(int) privateDataSlotRequestCount}. */
-    public static void nprivateDataSlotRequestCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDevicePrivateDataCreateInfo.PRIVATEDATASLOTREQUESTCOUNT, value); }
+    public static void nprivateDataSlotRequestCount(long struct, int value) { memPutInt(struct + VkDevicePrivateDataCreateInfo.PRIVATEDATASLOTREQUESTCOUNT, value); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class VkDevicePrivateDataCreateInfo extends Struct<VkDevicePrivateDataCre
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,8 +161,7 @@ public class XrEventDataHeadsetFitChangedML extends Struct<XrEventDataHeadsetFit
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataHeadsetFitChangedML createSafe(long address) {
+    public static @Nullable XrEventDataHeadsetFitChangedML createSafe(long address) {
         return address == NULL ? null : new XrEventDataHeadsetFitChangedML(address, null);
     }
 
@@ -210,8 +209,7 @@ public class XrEventDataHeadsetFitChangedML extends Struct<XrEventDataHeadsetFit
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataHeadsetFitChangedML.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataHeadsetFitChangedML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,16 +259,16 @@ public class XrEventDataHeadsetFitChangedML extends Struct<XrEventDataHeadsetFit
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataHeadsetFitChangedML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataHeadsetFitChangedML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataHeadsetFitChangedML.NEXT); }
     /** Unsafe version of {@link #status}. */
-    public static int nstatus(long struct) { return UNSAFE.getInt(null, struct + XrEventDataHeadsetFitChangedML.STATUS); }
+    public static int nstatus(long struct) { return memGetInt(struct + XrEventDataHeadsetFitChangedML.STATUS); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrEventDataHeadsetFitChangedML.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrEventDataHeadsetFitChangedML.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataHeadsetFitChangedML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataHeadsetFitChangedML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataHeadsetFitChangedML.NEXT, value); }
 
@@ -305,6 +303,11 @@ public class XrEventDataHeadsetFitChangedML extends Struct<XrEventDataHeadsetFit
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

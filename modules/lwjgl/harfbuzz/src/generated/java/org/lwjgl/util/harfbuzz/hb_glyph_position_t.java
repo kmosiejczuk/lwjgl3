@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,8 +161,7 @@ public class hb_glyph_position_t extends Struct<hb_glyph_position_t> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_glyph_position_t createSafe(long address) {
+    public static @Nullable hb_glyph_position_t createSafe(long address) {
         return address == NULL ? null : new hb_glyph_position_t(address, null);
     }
 
@@ -205,8 +204,7 @@ public class hb_glyph_position_t extends Struct<hb_glyph_position_t> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_glyph_position_t.Buffer createSafe(long address, int capacity) {
+    public static hb_glyph_position_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,23 +249,23 @@ public class hb_glyph_position_t extends Struct<hb_glyph_position_t> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #x_advance}. */
-    public static int nx_advance(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_position_t.X_ADVANCE); }
+    public static int nx_advance(long struct) { return memGetInt(struct + hb_glyph_position_t.X_ADVANCE); }
     /** Unsafe version of {@link #y_advance}. */
-    public static int ny_advance(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_position_t.Y_ADVANCE); }
+    public static int ny_advance(long struct) { return memGetInt(struct + hb_glyph_position_t.Y_ADVANCE); }
     /** Unsafe version of {@link #x_offset}. */
-    public static int nx_offset(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_position_t.X_OFFSET); }
+    public static int nx_offset(long struct) { return memGetInt(struct + hb_glyph_position_t.X_OFFSET); }
     /** Unsafe version of {@link #y_offset}. */
-    public static int ny_offset(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_position_t.Y_OFFSET); }
+    public static int ny_offset(long struct) { return memGetInt(struct + hb_glyph_position_t.Y_OFFSET); }
     public static hb_var_int_t nvar(long struct) { return hb_var_int_t.create(struct + hb_glyph_position_t.VAR); }
 
     /** Unsafe version of {@link #x_advance(int) x_advance}. */
-    public static void nx_advance(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_position_t.X_ADVANCE, value); }
+    public static void nx_advance(long struct, int value) { memPutInt(struct + hb_glyph_position_t.X_ADVANCE, value); }
     /** Unsafe version of {@link #y_advance(int) y_advance}. */
-    public static void ny_advance(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_position_t.Y_ADVANCE, value); }
+    public static void ny_advance(long struct, int value) { memPutInt(struct + hb_glyph_position_t.Y_ADVANCE, value); }
     /** Unsafe version of {@link #x_offset(int) x_offset}. */
-    public static void nx_offset(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_position_t.X_OFFSET, value); }
+    public static void nx_offset(long struct, int value) { memPutInt(struct + hb_glyph_position_t.X_OFFSET, value); }
     /** Unsafe version of {@link #y_offset(int) y_offset}. */
-    public static void ny_offset(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_position_t.Y_OFFSET, value); }
+    public static void ny_offset(long struct, int value) { memPutInt(struct + hb_glyph_position_t.Y_OFFSET, value); }
     public static void nvar(long struct, hb_var_int_t value) { memCopy(value.address(), struct + hb_glyph_position_t.VAR, hb_var_int_t.SIZEOF); }
 
     // -----------------------------------
@@ -301,6 +299,11 @@ public class hb_glyph_position_t extends Struct<hb_glyph_position_t> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

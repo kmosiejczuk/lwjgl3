@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,7 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkVertexInputBindingDivisorDescriptionKHR}.
+ * See {@link VkVertexInputBindingDivisorDescription}.
  * 
  * <h3>Layout</h3>
  * 
@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t divisor;
  * }</code></pre>
  */
-public class VkVertexInputBindingDivisorDescriptionEXT extends VkVertexInputBindingDivisorDescriptionKHR {
+public class VkVertexInputBindingDivisorDescriptionEXT extends VkVertexInputBindingDivisorDescription {
 
     protected VkVertexInputBindingDivisorDescriptionEXT(long address, @Nullable ByteBuffer container) {
         super(address, container);
@@ -102,8 +102,7 @@ public class VkVertexInputBindingDivisorDescriptionEXT extends VkVertexInputBind
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVertexInputBindingDivisorDescriptionEXT createSafe(long address) {
+    public static @Nullable VkVertexInputBindingDivisorDescriptionEXT createSafe(long address) {
         return address == NULL ? null : new VkVertexInputBindingDivisorDescriptionEXT(address, null);
     }
 
@@ -146,8 +145,7 @@ public class VkVertexInputBindingDivisorDescriptionEXT extends VkVertexInputBind
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVertexInputBindingDivisorDescriptionEXT.Buffer createSafe(long address, int capacity) {
+    public static VkVertexInputBindingDivisorDescriptionEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -211,7 +209,7 @@ public class VkVertexInputBindingDivisorDescriptionEXT extends VkVertexInputBind
     // -----------------------------------
 
     /** An array of {@link VkVertexInputBindingDivisorDescriptionEXT} structs. */
-    public static class Buffer extends VkVertexInputBindingDivisorDescriptionKHR.Buffer {
+    public static class Buffer extends VkVertexInputBindingDivisorDescription.Buffer {
 
         private static final VkVertexInputBindingDivisorDescriptionEXT ELEMENT_FACTORY = VkVertexInputBindingDivisorDescriptionEXT.create(-1L);
 
@@ -239,6 +237,11 @@ public class VkVertexInputBindingDivisorDescriptionEXT extends VkVertexInputBind
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

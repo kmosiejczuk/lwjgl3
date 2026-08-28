@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <h5>Promotion to Vulkan 1.1</h5>
  * 
- * <p>All functionality in this extension is included in core Vulkan 1.1, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
+ * <p>All functionality in this extension is included in core Vulkan 1.1, with the KHR suffix omitted. The original type, enum, and command names are still available as aliases of the core functionality.</p>
  * 
  * <h5>Examples</h5>
  * 
@@ -64,7 +64,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>1</dd>
  * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
- * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
+ * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
@@ -140,7 +140,7 @@ public class KHRDeviceGroupCreation {
      * @param pPhysicalDeviceGroupProperties either {@code NULL} or a pointer to an array of {@link VkPhysicalDeviceGroupProperties} structures.
      */
     @NativeType("VkResult")
-    public static int vkEnumeratePhysicalDeviceGroupsKHR(VkInstance instance, @NativeType("uint32_t *") IntBuffer pPhysicalDeviceGroupCount, @Nullable @NativeType("VkPhysicalDeviceGroupProperties *") VkPhysicalDeviceGroupProperties.Buffer pPhysicalDeviceGroupProperties) {
+    public static int vkEnumeratePhysicalDeviceGroupsKHR(VkInstance instance, @NativeType("uint32_t *") IntBuffer pPhysicalDeviceGroupCount, @NativeType("VkPhysicalDeviceGroupProperties *") VkPhysicalDeviceGroupProperties.@Nullable Buffer pPhysicalDeviceGroupProperties) {
         if (CHECKS) {
             check(pPhysicalDeviceGroupCount, 1);
             checkSafe(pPhysicalDeviceGroupProperties, pPhysicalDeviceGroupCount.get(pPhysicalDeviceGroupCount.position()));
@@ -150,7 +150,7 @@ public class KHRDeviceGroupCreation {
 
     /** Array version of: {@link #vkEnumeratePhysicalDeviceGroupsKHR EnumeratePhysicalDeviceGroupsKHR} */
     @NativeType("VkResult")
-    public static int vkEnumeratePhysicalDeviceGroupsKHR(VkInstance instance, @NativeType("uint32_t *") int[] pPhysicalDeviceGroupCount, @Nullable @NativeType("VkPhysicalDeviceGroupProperties *") VkPhysicalDeviceGroupProperties.Buffer pPhysicalDeviceGroupProperties) {
+    public static int vkEnumeratePhysicalDeviceGroupsKHR(VkInstance instance, @NativeType("uint32_t *") int[] pPhysicalDeviceGroupCount, @NativeType("VkPhysicalDeviceGroupProperties *") VkPhysicalDeviceGroupProperties.@Nullable Buffer pPhysicalDeviceGroupProperties) {
         long __functionAddress = instance.getCapabilities().vkEnumeratePhysicalDeviceGroupsKHR;
         if (CHECKS) {
             check(__functionAddress);

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceMemoryDecompressionFeaturesNV extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMemoryDecompressionFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMemoryDecompressionFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMemoryDecompressionFeaturesNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceMemoryDecompressionFeaturesNV extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMemoryDecompressionFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMemoryDecompressionFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceMemoryDecompressionFeaturesNV extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMemoryDecompressionFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMemoryDecompressionFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMemoryDecompressionFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #memoryDecompression}. */
-    public static int nmemoryDecompression(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMemoryDecompressionFeaturesNV.MEMORYDECOMPRESSION); }
+    public static int nmemoryDecompression(long struct) { return memGetInt(struct + VkPhysicalDeviceMemoryDecompressionFeaturesNV.MEMORYDECOMPRESSION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMemoryDecompressionFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMemoryDecompressionFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMemoryDecompressionFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #memoryDecompression(boolean) memoryDecompression}. */
-    public static void nmemoryDecompression(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMemoryDecompressionFeaturesNV.MEMORYDECOMPRESSION, value); }
+    public static void nmemoryDecompression(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMemoryDecompressionFeaturesNV.MEMORYDECOMPRESSION, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceMemoryDecompressionFeaturesNV extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class BGFXTransientIndexBuffer extends Struct<BGFXTransientIndexBuffer> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXTransientIndexBuffer createSafe(long address) {
+    public static @Nullable BGFXTransientIndexBuffer createSafe(long address) {
         return address == NULL ? null : new BGFXTransientIndexBuffer(address, null);
     }
 
@@ -208,8 +207,7 @@ public class BGFXTransientIndexBuffer extends Struct<BGFXTransientIndexBuffer> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXTransientIndexBuffer.Buffer createSafe(long address, int capacity) {
+    public static BGFXTransientIndexBuffer.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,24 +273,24 @@ public class BGFXTransientIndexBuffer extends Struct<BGFXTransientIndexBuffer> i
     /** Unsafe version of {@link #data() data}. */
     public static ByteBuffer ndata(long struct) { return memByteBuffer(memGetAddress(struct + BGFXTransientIndexBuffer.DATA), nsize(struct)); }
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + BGFXTransientIndexBuffer.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + BGFXTransientIndexBuffer.SIZE); }
     /** Unsafe version of {@link #startIndex}. */
-    public static int nstartIndex(long struct) { return UNSAFE.getInt(null, struct + BGFXTransientIndexBuffer.STARTINDEX); }
+    public static int nstartIndex(long struct) { return memGetInt(struct + BGFXTransientIndexBuffer.STARTINDEX); }
     /** Unsafe version of {@link #handle}. */
-    public static short nhandle(long struct) { return UNSAFE.getShort(null, struct + BGFXTransientIndexBuffer.HANDLE); }
+    public static short nhandle(long struct) { return memGetShort(struct + BGFXTransientIndexBuffer.HANDLE); }
     /** Unsafe version of {@link #isIndex16}. */
-    public static boolean nisIndex16(long struct) { return UNSAFE.getByte(null, struct + BGFXTransientIndexBuffer.ISINDEX16) != 0; }
+    public static boolean nisIndex16(long struct) { return memGetByte(struct + BGFXTransientIndexBuffer.ISINDEX16) != 0; }
 
     /** Unsafe version of {@link #data(ByteBuffer) data}. */
     public static void ndata(long struct, ByteBuffer value) { memPutAddress(struct + BGFXTransientIndexBuffer.DATA, memAddress(value)); nsize(struct, value.remaining()); }
     /** Sets the specified value to the {@code size} field of the specified {@code struct}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + BGFXTransientIndexBuffer.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + BGFXTransientIndexBuffer.SIZE, value); }
     /** Unsafe version of {@link #startIndex(int) startIndex}. */
-    public static void nstartIndex(long struct, int value) { UNSAFE.putInt(null, struct + BGFXTransientIndexBuffer.STARTINDEX, value); }
+    public static void nstartIndex(long struct, int value) { memPutInt(struct + BGFXTransientIndexBuffer.STARTINDEX, value); }
     /** Unsafe version of {@link #handle(short) handle}. */
-    public static void nhandle(long struct, short value) { UNSAFE.putShort(null, struct + BGFXTransientIndexBuffer.HANDLE, value); }
+    public static void nhandle(long struct, short value) { memPutShort(struct + BGFXTransientIndexBuffer.HANDLE, value); }
     /** Unsafe version of {@link #isIndex16(boolean) isIndex16}. */
-    public static void nisIndex16(long struct, boolean value) { UNSAFE.putByte(null, struct + BGFXTransientIndexBuffer.ISINDEX16, value ? (byte)1 : (byte)0); }
+    public static void nisIndex16(long struct, boolean value) { memPutByte(struct + BGFXTransientIndexBuffer.ISINDEX16, value ? (byte)1 : (byte)0); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -334,6 +332,11 @@ public class BGFXTransientIndexBuffer extends Struct<BGFXTransientIndexBuffer> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

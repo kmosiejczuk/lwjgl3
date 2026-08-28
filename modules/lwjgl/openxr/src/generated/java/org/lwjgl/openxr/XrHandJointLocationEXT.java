@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,8 +161,7 @@ public class XrHandJointLocationEXT extends Struct<XrHandJointLocationEXT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandJointLocationEXT createSafe(long address) {
+    public static @Nullable XrHandJointLocationEXT createSafe(long address) {
         return address == NULL ? null : new XrHandJointLocationEXT(address, null);
     }
 
@@ -205,8 +204,7 @@ public class XrHandJointLocationEXT extends Struct<XrHandJointLocationEXT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandJointLocationEXT.Buffer createSafe(long address, int capacity) {
+    public static XrHandJointLocationEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,18 +249,18 @@ public class XrHandJointLocationEXT extends Struct<XrHandJointLocationEXT> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #locationFlags}. */
-    public static long nlocationFlags(long struct) { return UNSAFE.getLong(null, struct + XrHandJointLocationEXT.LOCATIONFLAGS); }
+    public static long nlocationFlags(long struct) { return memGetLong(struct + XrHandJointLocationEXT.LOCATIONFLAGS); }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrHandJointLocationEXT.POSE); }
     /** Unsafe version of {@link #radius}. */
-    public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + XrHandJointLocationEXT.RADIUS); }
+    public static float nradius(long struct) { return memGetFloat(struct + XrHandJointLocationEXT.RADIUS); }
 
     /** Unsafe version of {@link #locationFlags(long) locationFlags}. */
-    public static void nlocationFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrHandJointLocationEXT.LOCATIONFLAGS, value); }
+    public static void nlocationFlags(long struct, long value) { memPutLong(struct + XrHandJointLocationEXT.LOCATIONFLAGS, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrHandJointLocationEXT.POSE, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #radius(float) radius}. */
-    public static void nradius(long struct, float value) { UNSAFE.putFloat(null, struct + XrHandJointLocationEXT.RADIUS, value); }
+    public static void nradius(long struct, float value) { memPutFloat(struct + XrHandJointLocationEXT.RADIUS, value); }
 
     // -----------------------------------
 
@@ -295,6 +293,11 @@ public class XrHandJointLocationEXT extends Struct<XrHandJointLocationEXT> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

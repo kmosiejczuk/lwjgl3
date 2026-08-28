@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -26,25 +26,27 @@ import static org.lwjgl.system.MemoryStack.*;
  * <p>This structure <b>can</b> be specified in the following places:</p>
  * 
  * <ul>
- * <li>In the {@code pNext} chain of {@link VkVideoBeginCodingInfoKHR} to specify the current rate control state expected to be configured when beginning a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-coding-scope">video coding scope</a>.</li>
+ * <li>In the {@code pNext} chain of {@link VkVideoBeginCodingInfoKHR} to specify the current rate control state expected to be configured when beginning a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-coding-scope">video coding scope</a>.</li>
  * <li>In the {@code pNext} chain of {@link VkVideoCodingControlInfoKHR} to change the rate control configuration of the bound video session.</li>
  * </ul>
  * 
  * <p>Including this structure in the {@code pNext} chain of {@link VkVideoCodingControlInfoKHR} and including {@link KHRVideoEncodeQueue#VK_VIDEO_CODING_CONTROL_ENCODE_RATE_CONTROL_BIT_KHR VIDEO_CODING_CONTROL_ENCODE_RATE_CONTROL_BIT_KHR} in {@link VkVideoCodingControlInfoKHR}{@code ::flags} enables updating the rate control configuration of the bound video session. This replaces the entire rate control configuration of the bound video session and <b>may</b> reset the state of all enabled rate control layers to an initial state according to the codec-specific rate control semantics defined in the corresponding sections listed below.</p>
  * 
- * <p>When {@code layerCount} is greater than one, multiple <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-rate-control-layers">rate control layers</a> are configured, and each rate control layer is applied to the corresponding video coding layer identified by the index of the corresponding element of {@code pLayer}.</p>
+ * <p>When {@code layerCount} is greater than one, multiple <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-rate-control-layers">rate control layers</a> are configured, and each rate control layer is applied to the corresponding video coding layer identified by the index of the corresponding element of {@code pLayer}.</p>
  * 
  * <ul>
  * <li>If the video session was created with the video codec operation {@link KHRVideoEncodeH264#VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR}, then this index specifies the H.264 temporal layer ID of the video coding layer the rate control layer is applied to.</li>
  * <li>If the video session was created with the video codec operation {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then this index specifies the H.265 temporal ID of the video coding layer the rate control layer is applied to.</li>
+ * <li>If the video session was created with the video codec operation {@link KHRVideoEncodeAV1#VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR}, then this index specifies the AV1 temporal ID of the temporal layer the rate control layer is applied to.</li>
  * </ul>
  * 
- * <p>Additional structures providing codec-specific rate control parameters <b>can</b> be included in the {@code pNext} chain of {@link VkVideoCodingControlInfoKHR} depending on the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a> the bound video session was created. For further details see:</p>
+ * <p>Additional structures providing codec-specific rate control parameters <b>can</b> be included in the {@code pNext} chain of {@link VkVideoCodingControlInfoKHR} depending on the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-profiles">video profile</a> the bound video session was created. For further details see:</p>
  * 
  * <ul>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-coding-control">Video Coding Control</a></li>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-rate-control">H.264 Encode Rate Control</a></li>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-rate-control">H.265 Encode Rate Control</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-coding-control">Video Coding Control</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-rate-control">H.264 Encode Rate Control</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-rate-control">H.265 Encode Rate Control</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-av1-rate-control">AV1 Encode Rate Control</a></li>
  * </ul>
  * 
  * <p>The new rate control configuration takes effect when the corresponding {@link KHRVideoQueue#vkCmdControlVideoCodingKHR CmdControlVideoCodingKHR} is executed on the device, and only impacts video encode operations that follow in execution order.</p>
@@ -61,9 +63,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code rateControlMode} is {@link KHRVideoEncodeQueue#VK_VIDEO_ENCODE_RATE_CONTROL_MODE_CBR_BIT_KHR VIDEO_ENCODE_RATE_CONTROL_MODE_CBR_BIT_KHR}, then for each element of {@code pLayers}, its {@code averageBitrate} member <b>must</b> equal its {@code maxBitrate} member</li>
  * <li>If {@code rateControlMode} is {@link KHRVideoEncodeQueue#VK_VIDEO_ENCODE_RATE_CONTROL_MODE_VBR_BIT_KHR VIDEO_ENCODE_RATE_CONTROL_MODE_VBR_BIT_KHR}, then for each element of {@code pLayers}, its {@code averageBitrate} member <b>must</b> be less than or equal to its {@code maxBitrate} member</li>
  * <li>If {@code layerCount} is not zero, then {@code virtualBufferSizeInMs} <b>must</b> be greater than zero</li>
- * <li>If {@code layerCount} is not zero, then {@code initialVirtualBufferSizeInMs} <b>must</b> be less than {@code virtualBufferSizeInMs}</li>
+ * <li>If {@code layerCount} is not zero, then {@code initialVirtualBufferSizeInMs} <b>must</b> be less than or equal to {@code virtualBufferSizeInMs}</li>
  * <li>If the {@code videoCodecOperation} of the used video profile is {@link KHRVideoEncodeH264#VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR}, the {@code pNext} chain this structure is included in also includes an instance of the {@link VkVideoEncodeH264RateControlInfoKHR} structure, and {@code layerCount} is greater than 1, then {@code layerCount} <b>must</b> equal {@link VkVideoEncodeH264RateControlInfoKHR}{@code ::temporalLayerCount}</li>
  * <li>If the {@code videoCodecOperation} of the used video profile is {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, the {@code pNext} chain this structure is included in also includes an instance of the {@link VkVideoEncodeH265RateControlInfoKHR} structure, and {@code layerCount} is greater than 1, then {@code layerCount} <b>must</b> equal {@link VkVideoEncodeH265RateControlInfoKHR}{@code ::subLayerCount}</li>
+ * <li>If the {@code videoCodecOperation} of the used video profile is {@link KHRVideoEncodeAV1#VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR}, the {@code pNext} chain this structure is included in also includes an instance of the {@link VkVideoEncodeAV1RateControlInfoKHR} structure, and {@code layerCount} is greater than 1, then {@code layerCount} <b>must</b> equal {@link VkVideoEncodeAV1RateControlInfoKHR}{@code ::temporalLayerCount}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -168,20 +171,19 @@ public class VkVideoEncodeRateControlInfoKHR extends Struct<VkVideoEncodeRateCon
     /** reserved for future use. */
     @NativeType("VkVideoEncodeRateControlFlagsKHR")
     public int flags() { return nflags(address()); }
-    /** a {@code VkVideoEncodeRateControlModeFlagBitsKHR} value specifying the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-rate-control-modes">rate control mode</a>. */
+    /** a {@code VkVideoEncodeRateControlModeFlagBitsKHR} value specifying the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-rate-control-modes">rate control mode</a>. */
     @NativeType("VkVideoEncodeRateControlModeFlagBitsKHR")
     public int rateControlMode() { return nrateControlMode(address()); }
-    /** specifies the number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-rate-control-layers">rate control layers</a> to use. */
+    /** specifies the number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-rate-control-layers">rate control layers</a> to use. */
     @NativeType("uint32_t")
     public int layerCount() { return nlayerCount(address()); }
     /** a pointer to an array of {@code layerCount} {@link VkVideoEncodeRateControlLayerInfoKHR} structures, each specifying the rate control configuration of the corresponding rate control layer. */
-    @Nullable
     @NativeType("VkVideoEncodeRateControlLayerInfoKHR const *")
-    public VkVideoEncodeRateControlLayerInfoKHR.Buffer pLayers() { return npLayers(address()); }
-    /** the size in milliseconds of the virtual buffer used by the implementation’s rate control algorithm for the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-leaky-bucket-model">leaky bucket model</a>, with respect to the average bitrate of the stream calculated by summing the values of the {@code averageBitrate} members of the elements of the {@code pLayers} array. */
+    public VkVideoEncodeRateControlLayerInfoKHR.@Nullable Buffer pLayers() { return npLayers(address()); }
+    /** the size in milliseconds of the virtual buffer used by the implementation’s rate control algorithm for the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-leaky-bucket-model">leaky bucket model</a>, with respect to the average bitrate of the stream calculated by summing the values of the {@code averageBitrate} members of the elements of the {@code pLayers} array. */
     @NativeType("uint32_t")
     public int virtualBufferSizeInMs() { return nvirtualBufferSizeInMs(address()); }
-    /** the initial occupancy in milliseconds of the virtual buffer used by the implementation’s rate control algorithm for the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-leaky-bucket-model">leaky bucket model</a>. */
+    /** the initial occupancy in milliseconds of the virtual buffer used by the implementation’s rate control algorithm for the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-leaky-bucket-model">leaky bucket model</a>. */
     @NativeType("uint32_t")
     public int initialVirtualBufferSizeInMs() { return ninitialVirtualBufferSizeInMs(address()); }
 
@@ -196,7 +198,7 @@ public class VkVideoEncodeRateControlInfoKHR extends Struct<VkVideoEncodeRateCon
     /** Sets the specified value to the {@link #rateControlMode} field. */
     public VkVideoEncodeRateControlInfoKHR rateControlMode(@NativeType("VkVideoEncodeRateControlModeFlagBitsKHR") int value) { nrateControlMode(address(), value); return this; }
     /** Sets the address of the specified {@link VkVideoEncodeRateControlLayerInfoKHR.Buffer} to the {@link #pLayers} field. */
-    public VkVideoEncodeRateControlInfoKHR pLayers(@Nullable @NativeType("VkVideoEncodeRateControlLayerInfoKHR const *") VkVideoEncodeRateControlLayerInfoKHR.Buffer value) { npLayers(address(), value); return this; }
+    public VkVideoEncodeRateControlInfoKHR pLayers(@NativeType("VkVideoEncodeRateControlLayerInfoKHR const *") VkVideoEncodeRateControlLayerInfoKHR.@Nullable Buffer value) { npLayers(address(), value); return this; }
     /** Sets the specified value to the {@link #virtualBufferSizeInMs} field. */
     public VkVideoEncodeRateControlInfoKHR virtualBufferSizeInMs(@NativeType("uint32_t") int value) { nvirtualBufferSizeInMs(address(), value); return this; }
     /** Sets the specified value to the {@link #initialVirtualBufferSizeInMs} field. */
@@ -208,7 +210,7 @@ public class VkVideoEncodeRateControlInfoKHR extends Struct<VkVideoEncodeRateCon
         long pNext,
         int flags,
         int rateControlMode,
-        @Nullable VkVideoEncodeRateControlLayerInfoKHR.Buffer pLayers,
+        VkVideoEncodeRateControlLayerInfoKHR.@Nullable Buffer pLayers,
         int virtualBufferSizeInMs,
         int initialVirtualBufferSizeInMs
     ) {
@@ -259,8 +261,7 @@ public class VkVideoEncodeRateControlInfoKHR extends Struct<VkVideoEncodeRateCon
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeRateControlInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeRateControlInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeRateControlInfoKHR(address, null);
     }
 
@@ -303,8 +304,7 @@ public class VkVideoEncodeRateControlInfoKHR extends Struct<VkVideoEncodeRateCon
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeRateControlInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeRateControlInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -349,38 +349,38 @@ public class VkVideoEncodeRateControlInfoKHR extends Struct<VkVideoEncodeRateCon
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeRateControlInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeRateControlInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkVideoEncodeRateControlInfoKHR.FLAGS); }
     /** Unsafe version of {@link #rateControlMode}. */
-    public static int nrateControlMode(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlInfoKHR.RATECONTROLMODE); }
+    public static int nrateControlMode(long struct) { return memGetInt(struct + VkVideoEncodeRateControlInfoKHR.RATECONTROLMODE); }
     /** Unsafe version of {@link #layerCount}. */
-    public static int nlayerCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlInfoKHR.LAYERCOUNT); }
+    public static int nlayerCount(long struct) { return memGetInt(struct + VkVideoEncodeRateControlInfoKHR.LAYERCOUNT); }
     /** Unsafe version of {@link #pLayers}. */
-    @Nullable public static VkVideoEncodeRateControlLayerInfoKHR.Buffer npLayers(long struct) { return VkVideoEncodeRateControlLayerInfoKHR.createSafe(memGetAddress(struct + VkVideoEncodeRateControlInfoKHR.PLAYERS), nlayerCount(struct)); }
+    public static VkVideoEncodeRateControlLayerInfoKHR.@Nullable Buffer npLayers(long struct) { return VkVideoEncodeRateControlLayerInfoKHR.createSafe(memGetAddress(struct + VkVideoEncodeRateControlInfoKHR.PLAYERS), nlayerCount(struct)); }
     /** Unsafe version of {@link #virtualBufferSizeInMs}. */
-    public static int nvirtualBufferSizeInMs(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlInfoKHR.VIRTUALBUFFERSIZEINMS); }
+    public static int nvirtualBufferSizeInMs(long struct) { return memGetInt(struct + VkVideoEncodeRateControlInfoKHR.VIRTUALBUFFERSIZEINMS); }
     /** Unsafe version of {@link #initialVirtualBufferSizeInMs}. */
-    public static int ninitialVirtualBufferSizeInMs(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlInfoKHR.INITIALVIRTUALBUFFERSIZEINMS); }
+    public static int ninitialVirtualBufferSizeInMs(long struct) { return memGetInt(struct + VkVideoEncodeRateControlInfoKHR.INITIALVIRTUALBUFFERSIZEINMS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeRateControlInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #rateControlMode(int) rateControlMode}. */
-    public static void nrateControlMode(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlInfoKHR.RATECONTROLMODE, value); }
+    public static void nrateControlMode(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlInfoKHR.RATECONTROLMODE, value); }
     /** Sets the specified value to the {@code layerCount} field of the specified {@code struct}. */
-    public static void nlayerCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlInfoKHR.LAYERCOUNT, value); }
+    public static void nlayerCount(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlInfoKHR.LAYERCOUNT, value); }
     /** Unsafe version of {@link #pLayers(VkVideoEncodeRateControlLayerInfoKHR.Buffer) pLayers}. */
-    public static void npLayers(long struct, @Nullable VkVideoEncodeRateControlLayerInfoKHR.Buffer value) { memPutAddress(struct + VkVideoEncodeRateControlInfoKHR.PLAYERS, memAddressSafe(value)); nlayerCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npLayers(long struct, VkVideoEncodeRateControlLayerInfoKHR.@Nullable Buffer value) { memPutAddress(struct + VkVideoEncodeRateControlInfoKHR.PLAYERS, memAddressSafe(value)); nlayerCount(struct, value == null ? 0 : value.remaining()); }
     /** Unsafe version of {@link #virtualBufferSizeInMs(int) virtualBufferSizeInMs}. */
-    public static void nvirtualBufferSizeInMs(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlInfoKHR.VIRTUALBUFFERSIZEINMS, value); }
+    public static void nvirtualBufferSizeInMs(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlInfoKHR.VIRTUALBUFFERSIZEINMS, value); }
     /** Unsafe version of {@link #initialVirtualBufferSizeInMs(int) initialVirtualBufferSizeInMs}. */
-    public static void ninitialVirtualBufferSizeInMs(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlInfoKHR.INITIALVIRTUALBUFFERSIZEINMS, value); }
+    public static void ninitialVirtualBufferSizeInMs(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlInfoKHR.INITIALVIRTUALBUFFERSIZEINMS, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -427,6 +427,11 @@ public class VkVideoEncodeRateControlInfoKHR extends Struct<VkVideoEncodeRateCon
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoEncodeRateControlInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -447,9 +452,8 @@ public class VkVideoEncodeRateControlInfoKHR extends Struct<VkVideoEncodeRateCon
         @NativeType("uint32_t")
         public int layerCount() { return VkVideoEncodeRateControlInfoKHR.nlayerCount(address()); }
         /** @return a {@link VkVideoEncodeRateControlLayerInfoKHR.Buffer} view of the struct array pointed to by the {@link VkVideoEncodeRateControlInfoKHR#pLayers} field. */
-        @Nullable
         @NativeType("VkVideoEncodeRateControlLayerInfoKHR const *")
-        public VkVideoEncodeRateControlLayerInfoKHR.Buffer pLayers() { return VkVideoEncodeRateControlInfoKHR.npLayers(address()); }
+        public VkVideoEncodeRateControlLayerInfoKHR.@Nullable Buffer pLayers() { return VkVideoEncodeRateControlInfoKHR.npLayers(address()); }
         /** @return the value of the {@link VkVideoEncodeRateControlInfoKHR#virtualBufferSizeInMs} field. */
         @NativeType("uint32_t")
         public int virtualBufferSizeInMs() { return VkVideoEncodeRateControlInfoKHR.nvirtualBufferSizeInMs(address()); }
@@ -468,7 +472,7 @@ public class VkVideoEncodeRateControlInfoKHR extends Struct<VkVideoEncodeRateCon
         /** Sets the specified value to the {@link VkVideoEncodeRateControlInfoKHR#rateControlMode} field. */
         public VkVideoEncodeRateControlInfoKHR.Buffer rateControlMode(@NativeType("VkVideoEncodeRateControlModeFlagBitsKHR") int value) { VkVideoEncodeRateControlInfoKHR.nrateControlMode(address(), value); return this; }
         /** Sets the address of the specified {@link VkVideoEncodeRateControlLayerInfoKHR.Buffer} to the {@link VkVideoEncodeRateControlInfoKHR#pLayers} field. */
-        public VkVideoEncodeRateControlInfoKHR.Buffer pLayers(@Nullable @NativeType("VkVideoEncodeRateControlLayerInfoKHR const *") VkVideoEncodeRateControlLayerInfoKHR.Buffer value) { VkVideoEncodeRateControlInfoKHR.npLayers(address(), value); return this; }
+        public VkVideoEncodeRateControlInfoKHR.Buffer pLayers(@NativeType("VkVideoEncodeRateControlLayerInfoKHR const *") VkVideoEncodeRateControlLayerInfoKHR.@Nullable Buffer value) { VkVideoEncodeRateControlInfoKHR.npLayers(address(), value); return this; }
         /** Sets the specified value to the {@link VkVideoEncodeRateControlInfoKHR#virtualBufferSizeInMs} field. */
         public VkVideoEncodeRateControlInfoKHR.Buffer virtualBufferSizeInMs(@NativeType("uint32_t") int value) { VkVideoEncodeRateControlInfoKHR.nvirtualBufferSizeInMs(address(), value); return this; }
         /** Sets the specified value to the {@link VkVideoEncodeRateControlInfoKHR#initialVirtualBufferSizeInMs} field. */

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -214,13 +214,11 @@ public class NkStyleScrollbar extends Struct<NkStyleScrollbar> implements Native
     @NativeType("nk_handle")
     public NkHandle userdata() { return nuserdata(address()); }
     /** @return the value of the {@code draw_begin} field. */
-    @Nullable
     @NativeType("nk_draw_begin")
-    public NkDrawBeginCallback draw_begin() { return ndraw_begin(address()); }
+    public @Nullable NkDrawBeginCallback draw_begin() { return ndraw_begin(address()); }
     /** @return the value of the {@code draw_end} field. */
-    @Nullable
     @NativeType("nk_draw_end")
-    public NkDrawEndCallback draw_end() { return ndraw_end(address()); }
+    public @Nullable NkDrawEndCallback draw_end() { return ndraw_end(address()); }
 
     /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
     public NkStyleScrollbar normal(@NativeType("struct nk_style_item") NkStyleItem value) { nnormal(address(), value); return this; }
@@ -382,8 +380,7 @@ public class NkStyleScrollbar extends Struct<NkStyleScrollbar> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleScrollbar createSafe(long address) {
+    public static @Nullable NkStyleScrollbar createSafe(long address) {
         return address == NULL ? null : new NkStyleScrollbar(address, null);
     }
 
@@ -426,8 +423,7 @@ public class NkStyleScrollbar extends Struct<NkStyleScrollbar> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleScrollbar.Buffer createSafe(long address, int capacity) {
+    public static NkStyleScrollbar.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -507,35 +503,35 @@ public class NkStyleScrollbar extends Struct<NkStyleScrollbar> implements Native
     /** Unsafe version of {@link #cursor_border_color}. */
     public static NkColor ncursor_border_color(long struct) { return NkColor.create(struct + NkStyleScrollbar.CURSOR_BORDER_COLOR); }
     /** Unsafe version of {@link #border}. */
-    public static float nborder(long struct) { return UNSAFE.getFloat(null, struct + NkStyleScrollbar.BORDER); }
+    public static float nborder(long struct) { return memGetFloat(struct + NkStyleScrollbar.BORDER); }
     /** Unsafe version of {@link #rounding}. */
-    public static float nrounding(long struct) { return UNSAFE.getFloat(null, struct + NkStyleScrollbar.ROUNDING); }
+    public static float nrounding(long struct) { return memGetFloat(struct + NkStyleScrollbar.ROUNDING); }
     /** Unsafe version of {@link #border_cursor}. */
-    public static float nborder_cursor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleScrollbar.BORDER_CURSOR); }
+    public static float nborder_cursor(long struct) { return memGetFloat(struct + NkStyleScrollbar.BORDER_CURSOR); }
     /** Unsafe version of {@link #rounding_cursor}. */
-    public static float nrounding_cursor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleScrollbar.ROUNDING_CURSOR); }
+    public static float nrounding_cursor(long struct) { return memGetFloat(struct + NkStyleScrollbar.ROUNDING_CURSOR); }
     /** Unsafe version of {@link #padding}. */
     public static NkVec2 npadding(long struct) { return NkVec2.create(struct + NkStyleScrollbar.PADDING); }
     /** Unsafe version of {@link #color_factor}. */
-    public static float ncolor_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleScrollbar.COLOR_FACTOR); }
+    public static float ncolor_factor(long struct) { return memGetFloat(struct + NkStyleScrollbar.COLOR_FACTOR); }
     /** Unsafe version of {@link #disabled_factor}. */
-    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleScrollbar.DISABLED_FACTOR); }
+    public static float ndisabled_factor(long struct) { return memGetFloat(struct + NkStyleScrollbar.DISABLED_FACTOR); }
     /** Unsafe version of {@link #show_buttons}. */
-    public static int nshow_buttons(long struct) { return UNSAFE.getInt(null, struct + NkStyleScrollbar.SHOW_BUTTONS); }
+    public static int nshow_buttons(long struct) { return memGetInt(struct + NkStyleScrollbar.SHOW_BUTTONS); }
     /** Unsafe version of {@link #inc_button}. */
     public static NkStyleButton ninc_button(long struct) { return NkStyleButton.create(struct + NkStyleScrollbar.INC_BUTTON); }
     /** Unsafe version of {@link #dec_button}. */
     public static NkStyleButton ndec_button(long struct) { return NkStyleButton.create(struct + NkStyleScrollbar.DEC_BUTTON); }
     /** Unsafe version of {@link #inc_symbol}. */
-    public static int ninc_symbol(long struct) { return UNSAFE.getInt(null, struct + NkStyleScrollbar.INC_SYMBOL); }
+    public static int ninc_symbol(long struct) { return memGetInt(struct + NkStyleScrollbar.INC_SYMBOL); }
     /** Unsafe version of {@link #dec_symbol}. */
-    public static int ndec_symbol(long struct) { return UNSAFE.getInt(null, struct + NkStyleScrollbar.DEC_SYMBOL); }
+    public static int ndec_symbol(long struct) { return memGetInt(struct + NkStyleScrollbar.DEC_SYMBOL); }
     /** Unsafe version of {@link #userdata}. */
     public static NkHandle nuserdata(long struct) { return NkHandle.create(struct + NkStyleScrollbar.USERDATA); }
     /** Unsafe version of {@link #draw_begin}. */
-    @Nullable public static NkDrawBeginCallback ndraw_begin(long struct) { return NkDrawBeginCallback.createSafe(memGetAddress(struct + NkStyleScrollbar.DRAW_BEGIN)); }
+    public static @Nullable NkDrawBeginCallback ndraw_begin(long struct) { return NkDrawBeginCallback.createSafe(memGetAddress(struct + NkStyleScrollbar.DRAW_BEGIN)); }
     /** Unsafe version of {@link #draw_end}. */
-    @Nullable public static NkDrawEndCallback ndraw_end(long struct) { return NkDrawEndCallback.createSafe(memGetAddress(struct + NkStyleScrollbar.DRAW_END)); }
+    public static @Nullable NkDrawEndCallback ndraw_end(long struct) { return NkDrawEndCallback.createSafe(memGetAddress(struct + NkStyleScrollbar.DRAW_END)); }
 
     /** Unsafe version of {@link #normal(NkStyleItem) normal}. */
     public static void nnormal(long struct, NkStyleItem value) { memCopy(value.address(), struct + NkStyleScrollbar.NORMAL, NkStyleItem.SIZEOF); }
@@ -554,29 +550,29 @@ public class NkStyleScrollbar extends Struct<NkStyleScrollbar> implements Native
     /** Unsafe version of {@link #cursor_border_color(NkColor) cursor_border_color}. */
     public static void ncursor_border_color(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleScrollbar.CURSOR_BORDER_COLOR, NkColor.SIZEOF); }
     /** Unsafe version of {@link #border(float) border}. */
-    public static void nborder(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleScrollbar.BORDER, value); }
+    public static void nborder(long struct, float value) { memPutFloat(struct + NkStyleScrollbar.BORDER, value); }
     /** Unsafe version of {@link #rounding(float) rounding}. */
-    public static void nrounding(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleScrollbar.ROUNDING, value); }
+    public static void nrounding(long struct, float value) { memPutFloat(struct + NkStyleScrollbar.ROUNDING, value); }
     /** Unsafe version of {@link #border_cursor(float) border_cursor}. */
-    public static void nborder_cursor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleScrollbar.BORDER_CURSOR, value); }
+    public static void nborder_cursor(long struct, float value) { memPutFloat(struct + NkStyleScrollbar.BORDER_CURSOR, value); }
     /** Unsafe version of {@link #rounding_cursor(float) rounding_cursor}. */
-    public static void nrounding_cursor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleScrollbar.ROUNDING_CURSOR, value); }
+    public static void nrounding_cursor(long struct, float value) { memPutFloat(struct + NkStyleScrollbar.ROUNDING_CURSOR, value); }
     /** Unsafe version of {@link #padding(NkVec2) padding}. */
     public static void npadding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleScrollbar.PADDING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #color_factor(float) color_factor}. */
-    public static void ncolor_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleScrollbar.COLOR_FACTOR, value); }
+    public static void ncolor_factor(long struct, float value) { memPutFloat(struct + NkStyleScrollbar.COLOR_FACTOR, value); }
     /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
-    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleScrollbar.DISABLED_FACTOR, value); }
+    public static void ndisabled_factor(long struct, float value) { memPutFloat(struct + NkStyleScrollbar.DISABLED_FACTOR, value); }
     /** Unsafe version of {@link #show_buttons(int) show_buttons}. */
-    public static void nshow_buttons(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleScrollbar.SHOW_BUTTONS, value); }
+    public static void nshow_buttons(long struct, int value) { memPutInt(struct + NkStyleScrollbar.SHOW_BUTTONS, value); }
     /** Unsafe version of {@link #inc_button(NkStyleButton) inc_button}. */
     public static void ninc_button(long struct, NkStyleButton value) { memCopy(value.address(), struct + NkStyleScrollbar.INC_BUTTON, NkStyleButton.SIZEOF); }
     /** Unsafe version of {@link #dec_button(NkStyleButton) dec_button}. */
     public static void ndec_button(long struct, NkStyleButton value) { memCopy(value.address(), struct + NkStyleScrollbar.DEC_BUTTON, NkStyleButton.SIZEOF); }
     /** Unsafe version of {@link #inc_symbol(int) inc_symbol}. */
-    public static void ninc_symbol(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleScrollbar.INC_SYMBOL, value); }
+    public static void ninc_symbol(long struct, int value) { memPutInt(struct + NkStyleScrollbar.INC_SYMBOL, value); }
     /** Unsafe version of {@link #dec_symbol(int) dec_symbol}. */
-    public static void ndec_symbol(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleScrollbar.DEC_SYMBOL, value); }
+    public static void ndec_symbol(long struct, int value) { memPutInt(struct + NkStyleScrollbar.DEC_SYMBOL, value); }
     /** Unsafe version of {@link #userdata(NkHandle) userdata}. */
     public static void nuserdata(long struct, NkHandle value) { memCopy(value.address(), struct + NkStyleScrollbar.USERDATA, NkHandle.SIZEOF); }
     /** Unsafe version of {@link #draw_begin(NkDrawBeginCallbackI) draw_begin}. */
@@ -615,6 +611,11 @@ public class NkStyleScrollbar extends Struct<NkStyleScrollbar> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -679,13 +680,11 @@ public class NkStyleScrollbar extends Struct<NkStyleScrollbar> implements Native
         @NativeType("nk_handle")
         public NkHandle userdata() { return NkStyleScrollbar.nuserdata(address()); }
         /** @return the value of the {@code draw_begin} field. */
-        @Nullable
         @NativeType("nk_draw_begin")
-        public NkDrawBeginCallback draw_begin() { return NkStyleScrollbar.ndraw_begin(address()); }
+        public @Nullable NkDrawBeginCallback draw_begin() { return NkStyleScrollbar.ndraw_begin(address()); }
         /** @return the value of the {@code draw_end} field. */
-        @Nullable
         @NativeType("nk_draw_end")
-        public NkDrawEndCallback draw_end() { return NkStyleScrollbar.ndraw_end(address()); }
+        public @Nullable NkDrawEndCallback draw_end() { return NkStyleScrollbar.ndraw_end(address()); }
 
         /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
         public NkStyleScrollbar.Buffer normal(@NativeType("struct nk_style_item") NkStyleItem value) { NkStyleScrollbar.nnormal(address(), value); return this; }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkSwapchainCounterCreateInfoEXT extends Struct<VkSwapchainCounterCr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSwapchainCounterCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkSwapchainCounterCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkSwapchainCounterCreateInfoEXT(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkSwapchainCounterCreateInfoEXT extends Struct<VkSwapchainCounterCr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSwapchainCounterCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSwapchainCounterCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,18 +266,18 @@ public class VkSwapchainCounterCreateInfoEXT extends Struct<VkSwapchainCounterCr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCounterCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSwapchainCounterCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSwapchainCounterCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #surfaceCounters}. */
-    public static int nsurfaceCounters(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCounterCreateInfoEXT.SURFACECOUNTERS); }
+    public static int nsurfaceCounters(long struct) { return memGetInt(struct + VkSwapchainCounterCreateInfoEXT.SURFACECOUNTERS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCounterCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSwapchainCounterCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSwapchainCounterCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #surfaceCounters(int) surfaceCounters}. */
-    public static void nsurfaceCounters(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCounterCreateInfoEXT.SURFACECOUNTERS, value); }
+    public static void nsurfaceCounters(long struct, int value) { memPutInt(struct + VkSwapchainCounterCreateInfoEXT.SURFACECOUNTERS, value); }
 
     // -----------------------------------
 
@@ -312,6 +310,11 @@ public class VkSwapchainCounterCreateInfoEXT extends Struct<VkSwapchainCounterCr
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

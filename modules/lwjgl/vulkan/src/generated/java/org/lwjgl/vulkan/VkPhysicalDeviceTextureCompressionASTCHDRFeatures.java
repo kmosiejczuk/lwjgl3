@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -177,8 +177,7 @@ public class VkPhysicalDeviceTextureCompressionASTCHDRFeatures extends Struct<Vk
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTextureCompressionASTCHDRFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceTextureCompressionASTCHDRFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceTextureCompressionASTCHDRFeatures(address, null);
     }
 
@@ -221,8 +220,7 @@ public class VkPhysicalDeviceTextureCompressionASTCHDRFeatures extends Struct<Vk
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTextureCompressionASTCHDRFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceTextureCompressionASTCHDRFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +265,18 @@ public class VkPhysicalDeviceTextureCompressionASTCHDRFeatures extends Struct<Vk
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTextureCompressionASTCHDRFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceTextureCompressionASTCHDRFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceTextureCompressionASTCHDRFeatures.PNEXT); }
     /** Unsafe version of {@link #textureCompressionASTC_HDR}. */
-    public static int ntextureCompressionASTC_HDR(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTextureCompressionASTCHDRFeatures.TEXTURECOMPRESSIONASTC_HDR); }
+    public static int ntextureCompressionASTC_HDR(long struct) { return memGetInt(struct + VkPhysicalDeviceTextureCompressionASTCHDRFeatures.TEXTURECOMPRESSIONASTC_HDR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTextureCompressionASTCHDRFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTextureCompressionASTCHDRFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceTextureCompressionASTCHDRFeatures.PNEXT, value); }
     /** Unsafe version of {@link #textureCompressionASTC_HDR(boolean) textureCompressionASTC_HDR}. */
-    public static void ntextureCompressionASTC_HDR(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTextureCompressionASTCHDRFeatures.TEXTURECOMPRESSIONASTC_HDR, value); }
+    public static void ntextureCompressionASTC_HDR(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTextureCompressionASTCHDRFeatures.TEXTURECOMPRESSIONASTC_HDR, value); }
 
     // -----------------------------------
 
@@ -311,6 +309,11 @@ public class VkPhysicalDeviceTextureCompressionASTCHDRFeatures extends Struct<Vk
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

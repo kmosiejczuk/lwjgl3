@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code offset} <b>must</b> be less than the size of {@code buffer}</li>
  * <li>If {@code range} is not equal to {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, {@code range} <b>must</b> be greater than 0</li>
  * <li>If {@code range} is not equal to {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, {@code range} <b>must</b> be less than or equal to the size of {@code buffer} minus {@code offset}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is not enabled, {@code buffer} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is not enabled, {@code buffer} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>If {@code buffer} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code offset} <b>must</b> be zero and {@code range} <b>must</b> be {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}</li>
  * </ul>
  * 
@@ -115,7 +115,7 @@ public class VkDescriptorBufferInfo extends Struct<VkDescriptorBufferInfo> imple
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
-     * <p>When setting {@code range} to {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#buffer-info-effective-range">effective range</a> <b>must</b> not be larger than the maximum range for the descriptor type (<a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxUniformBufferRange">{@code maxUniformBufferRange}</a> or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxStorageBufferRange">{@code maxStorageBufferRange}</a>). This means that {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE} is not typically useful in the common case where uniform buffer descriptors are suballocated from a buffer that is much larger than {@code maxUniformBufferRange}.</p>
+     * <p>When setting {@code range} to {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#buffer-info-effective-range">effective range</a> <b>must</b> not be larger than the maximum range for the descriptor type (<a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxUniformBufferRange">{@code maxUniformBufferRange}</a> or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxStorageBufferRange">{@code maxStorageBufferRange}</a>). This means that {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE} is not typically useful in the common case where uniform buffer descriptors are suballocated from a buffer that is much larger than {@code maxUniformBufferRange}.</p>
      * </div>
      */
     @NativeType("VkDeviceSize")
@@ -177,8 +177,7 @@ public class VkDescriptorBufferInfo extends Struct<VkDescriptorBufferInfo> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorBufferInfo createSafe(long address) {
+    public static @Nullable VkDescriptorBufferInfo createSafe(long address) {
         return address == NULL ? null : new VkDescriptorBufferInfo(address, null);
     }
 
@@ -221,8 +220,7 @@ public class VkDescriptorBufferInfo extends Struct<VkDescriptorBufferInfo> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorBufferInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorBufferInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,18 +284,18 @@ public class VkDescriptorBufferInfo extends Struct<VkDescriptorBufferInfo> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorBufferInfo.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkDescriptorBufferInfo.BUFFER); }
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorBufferInfo.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VkDescriptorBufferInfo.OFFSET); }
     /** Unsafe version of {@link #range}. */
-    public static long nrange(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorBufferInfo.RANGE); }
+    public static long nrange(long struct) { return memGetLong(struct + VkDescriptorBufferInfo.RANGE); }
 
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorBufferInfo.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkDescriptorBufferInfo.BUFFER, value); }
     /** Unsafe version of {@link #offset(long) offset}. */
-    public static void noffset(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorBufferInfo.OFFSET, value); }
+    public static void noffset(long struct, long value) { memPutLong(struct + VkDescriptorBufferInfo.OFFSET, value); }
     /** Unsafe version of {@link #range(long) range}. */
-    public static void nrange(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorBufferInfo.RANGE, value); }
+    public static void nrange(long struct, long value) { memPutLong(struct + VkDescriptorBufferInfo.RANGE, value); }
 
     // -----------------------------------
 
@@ -330,6 +328,11 @@ public class VkDescriptorBufferInfo extends Struct<VkDescriptorBufferInfo> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

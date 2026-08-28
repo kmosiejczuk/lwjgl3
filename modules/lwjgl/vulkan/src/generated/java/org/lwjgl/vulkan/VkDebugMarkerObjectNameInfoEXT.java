@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,14 +21,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Applications <b>may</b> change the name associated with an object simply by calling {@code vkDebugMarkerSetObjectNameEXT} again with a new string. To remove a previously set name, {@code pObjectName} <b>should</b> be set to an empty string.</p>
+ * <p>Applications <b>may</b> change the name associated with an object simply by calling {@code vkDebugMarkerSetObjectNameEXT} again with a new string. To remove a previously set name, {@code pObjectName} <b>should</b> be an empty string.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
  * <li>{@code objectType} <b>must</b> not be {@link EXTDebugReport#VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT}</li>
  * <li>{@code object} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
- * <li>{@code object} <b>must</b> be a Vulkan object of the type associated with {@code objectType} as defined in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#debug-report-object-types">{@code VkDebugReportObjectTypeEXT} and Vulkan Handle Relationship</a></li>
+ * <li>{@code object} <b>must</b> be a Vulkan object of the type associated with {@code objectType} as defined in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#debug-report-object-types">{@code VkDebugReportObjectTypeEXT} and Vulkan Handle Relationship</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -197,8 +197,7 @@ public class VkDebugMarkerObjectNameInfoEXT extends Struct<VkDebugMarkerObjectNa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDebugMarkerObjectNameInfoEXT createSafe(long address) {
+    public static @Nullable VkDebugMarkerObjectNameInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDebugMarkerObjectNameInfoEXT(address, null);
     }
 
@@ -241,8 +240,7 @@ public class VkDebugMarkerObjectNameInfoEXT extends Struct<VkDebugMarkerObjectNa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDebugMarkerObjectNameInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDebugMarkerObjectNameInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -306,26 +304,26 @@ public class VkDebugMarkerObjectNameInfoEXT extends Struct<VkDebugMarkerObjectNa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDebugMarkerObjectNameInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDebugMarkerObjectNameInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDebugMarkerObjectNameInfoEXT.PNEXT); }
     /** Unsafe version of {@link #objectType}. */
-    public static int nobjectType(long struct) { return UNSAFE.getInt(null, struct + VkDebugMarkerObjectNameInfoEXT.OBJECTTYPE); }
+    public static int nobjectType(long struct) { return memGetInt(struct + VkDebugMarkerObjectNameInfoEXT.OBJECTTYPE); }
     /** Unsafe version of {@link #object}. */
-    public static long nobject(long struct) { return UNSAFE.getLong(null, struct + VkDebugMarkerObjectNameInfoEXT.OBJECT); }
+    public static long nobject(long struct) { return memGetLong(struct + VkDebugMarkerObjectNameInfoEXT.OBJECT); }
     /** Unsafe version of {@link #pObjectName}. */
     public static ByteBuffer npObjectName(long struct) { return memByteBufferNT1(memGetAddress(struct + VkDebugMarkerObjectNameInfoEXT.POBJECTNAME)); }
     /** Unsafe version of {@link #pObjectNameString}. */
     public static String npObjectNameString(long struct) { return memUTF8(memGetAddress(struct + VkDebugMarkerObjectNameInfoEXT.POBJECTNAME)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDebugMarkerObjectNameInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDebugMarkerObjectNameInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDebugMarkerObjectNameInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #objectType(int) objectType}. */
-    public static void nobjectType(long struct, int value) { UNSAFE.putInt(null, struct + VkDebugMarkerObjectNameInfoEXT.OBJECTTYPE, value); }
+    public static void nobjectType(long struct, int value) { memPutInt(struct + VkDebugMarkerObjectNameInfoEXT.OBJECTTYPE, value); }
     /** Unsafe version of {@link #object(long) object}. */
-    public static void nobject(long struct, long value) { UNSAFE.putLong(null, struct + VkDebugMarkerObjectNameInfoEXT.OBJECT, value); }
+    public static void nobject(long struct, long value) { memPutLong(struct + VkDebugMarkerObjectNameInfoEXT.OBJECT, value); }
     /** Unsafe version of {@link #pObjectName(ByteBuffer) pObjectName}. */
     public static void npObjectName(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT1(value); }
@@ -372,6 +370,11 @@ public class VkDebugMarkerObjectNameInfoEXT extends Struct<VkDebugMarkerObjectNa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

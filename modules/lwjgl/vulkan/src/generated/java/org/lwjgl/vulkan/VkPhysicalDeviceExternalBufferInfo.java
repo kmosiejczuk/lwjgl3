@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,20 +20,20 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Only usage flags representable in {@code VkBufferUsageFlagBits} are returned in this structure’s {@code usage}. If a {@link VkBufferUsageFlags2CreateInfoKHR} structure is present in the {@code pNext} chain, all usage flags of the buffer are returned in {@link VkBufferUsageFlags2CreateInfoKHR}{@code ::usage}.</p>
+ * <p>Only usage flags representable in {@code VkBufferUsageFlagBits} are returned in this structure’s {@code usage}. If the {@code pNext} chain includes a {@link VkBufferUsageFlags2CreateInfo} structure, all usage flags of the buffer are returned in {@link VkBufferUsageFlags2CreateInfo}{@code ::usage}.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the {@code pNext} chain does not include a {@link VkBufferUsageFlags2CreateInfoKHR} structure, {@code usage} must be a valid combination of {@code VkBufferUsageFlagBits} values</li>
- * <li>If the {@code pNext} chain does not include a {@link VkBufferUsageFlags2CreateInfoKHR} structure, {@code usage} must not be 0</li>
+ * <li>If the {@code pNext} chain does not include a {@link VkBufferUsageFlags2CreateInfo} structure, {@code usage} <b>must</b> be a valid combination of {@code VkBufferUsageFlagBits} values</li>
+ * <li>If the {@code pNext} chain does not include a {@link VkBufferUsageFlags2CreateInfo} structure, {@code usage} <b>must</b> not be 0</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkBufferUsageFlags2CreateInfoKHR}</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkBufferUsageFlags2CreateInfo}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code VkBufferCreateFlagBits} values</li>
  * <li>{@code handleType} <b>must</b> be a valid {@code VkExternalMemoryHandleTypeFlagBits} value</li>
@@ -133,6 +133,8 @@ public class VkPhysicalDeviceExternalBufferInfo extends Struct<VkPhysicalDeviceE
     public VkPhysicalDeviceExternalBufferInfo sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkPhysicalDeviceExternalBufferInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkBufferUsageFlags2CreateInfo} value to the {@code pNext} chain. */
+    public VkPhysicalDeviceExternalBufferInfo pNext(VkBufferUsageFlags2CreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkBufferUsageFlags2CreateInfoKHR} value to the {@code pNext} chain. */
     public VkPhysicalDeviceExternalBufferInfo pNext(VkBufferUsageFlags2CreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #flags} field. */
@@ -195,8 +197,7 @@ public class VkPhysicalDeviceExternalBufferInfo extends Struct<VkPhysicalDeviceE
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExternalBufferInfo createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceExternalBufferInfo createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceExternalBufferInfo(address, null);
     }
 
@@ -239,8 +240,7 @@ public class VkPhysicalDeviceExternalBufferInfo extends Struct<VkPhysicalDeviceE
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExternalBufferInfo.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceExternalBufferInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -304,26 +304,26 @@ public class VkPhysicalDeviceExternalBufferInfo extends Struct<VkPhysicalDeviceE
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalBufferInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalBufferInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceExternalBufferInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalBufferInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalBufferInfo.FLAGS); }
     /** Unsafe version of {@link #usage}. */
-    public static int nusage(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalBufferInfo.USAGE); }
+    public static int nusage(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalBufferInfo.USAGE); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalBufferInfo.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalBufferInfo.HANDLETYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalBufferInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalBufferInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceExternalBufferInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalBufferInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalBufferInfo.FLAGS, value); }
     /** Unsafe version of {@link #usage(int) usage}. */
-    public static void nusage(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalBufferInfo.USAGE, value); }
+    public static void nusage(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalBufferInfo.USAGE, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalBufferInfo.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalBufferInfo.HANDLETYPE, value); }
 
     // -----------------------------------
 
@@ -359,6 +359,11 @@ public class VkPhysicalDeviceExternalBufferInfo extends Struct<VkPhysicalDeviceE
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceExternalBufferInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -385,6 +390,8 @@ public class VkPhysicalDeviceExternalBufferInfo extends Struct<VkPhysicalDeviceE
         public VkPhysicalDeviceExternalBufferInfo.Buffer sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO); }
         /** Sets the specified value to the {@link VkPhysicalDeviceExternalBufferInfo#pNext} field. */
         public VkPhysicalDeviceExternalBufferInfo.Buffer pNext(@NativeType("void const *") long value) { VkPhysicalDeviceExternalBufferInfo.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkBufferUsageFlags2CreateInfo} value to the {@code pNext} chain. */
+        public VkPhysicalDeviceExternalBufferInfo.Buffer pNext(VkBufferUsageFlags2CreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkBufferUsageFlags2CreateInfoKHR} value to the {@code pNext} chain. */
         public VkPhysicalDeviceExternalBufferInfo.Buffer pNext(VkBufferUsageFlags2CreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkPhysicalDeviceExternalBufferInfo#flags} field. */

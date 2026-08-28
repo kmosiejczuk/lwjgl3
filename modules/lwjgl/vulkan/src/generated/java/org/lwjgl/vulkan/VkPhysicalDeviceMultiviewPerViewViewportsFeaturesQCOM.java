@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM extends Struc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM extends Struc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM extends Struc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.PNEXT); }
     /** Unsafe version of {@link #multiviewPerViewViewports}. */
-    public static int nmultiviewPerViewViewports(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.MULTIVIEWPERVIEWVIEWPORTS); }
+    public static int nmultiviewPerViewViewports(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.MULTIVIEWPERVIEWVIEWPORTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #multiviewPerViewViewports(boolean) multiviewPerViewViewports}. */
-    public static void nmultiviewPerViewViewports(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.MULTIVIEWPERVIEWVIEWPORTS, value); }
+    public static void nmultiviewPerViewViewports(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM.MULTIVIEWPERVIEWVIEWPORTS, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM extends Struc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

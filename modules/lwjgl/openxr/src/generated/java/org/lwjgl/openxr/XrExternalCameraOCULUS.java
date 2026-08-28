@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -171,8 +171,7 @@ public class XrExternalCameraOCULUS extends Struct<XrExternalCameraOCULUS> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExternalCameraOCULUS createSafe(long address) {
+    public static @Nullable XrExternalCameraOCULUS createSafe(long address) {
         return address == NULL ? null : new XrExternalCameraOCULUS(address, null);
     }
 
@@ -215,8 +214,7 @@ public class XrExternalCameraOCULUS extends Struct<XrExternalCameraOCULUS> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExternalCameraOCULUS.Buffer createSafe(long address, int capacity) {
+    public static XrExternalCameraOCULUS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,7 +259,7 @@ public class XrExternalCameraOCULUS extends Struct<XrExternalCameraOCULUS> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrExternalCameraOCULUS.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrExternalCameraOCULUS.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrExternalCameraOCULUS.NEXT); }
     /** Unsafe version of {@link #name}. */
@@ -274,7 +272,7 @@ public class XrExternalCameraOCULUS extends Struct<XrExternalCameraOCULUS> imple
     public static XrExternalCameraExtrinsicsOCULUS nextrinsics(long struct) { return XrExternalCameraExtrinsicsOCULUS.create(struct + XrExternalCameraOCULUS.EXTRINSICS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrExternalCameraOCULUS.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrExternalCameraOCULUS.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrExternalCameraOCULUS.NEXT, value); }
 
@@ -309,6 +307,11 @@ public class XrExternalCameraOCULUS extends Struct<XrExternalCameraOCULUS> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

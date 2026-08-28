@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -112,8 +112,7 @@ public class CXString extends Struct<CXString> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXString createSafe(long address) {
+    public static @Nullable CXString createSafe(long address) {
         return address == NULL ? null : new CXString(address, null);
     }
 
@@ -156,8 +155,7 @@ public class CXString extends Struct<CXString> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXString.Buffer createSafe(long address, int capacity) {
+    public static CXString.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,7 +221,7 @@ public class CXString extends Struct<CXString> implements NativeResource {
     /** Unsafe version of {@link #data(int) data}. */
     public static ByteBuffer ndata(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + CXString.DATA), capacity); }
     /** Unsafe version of {@link #private_flags}. */
-    public static int nprivate_flags(long struct) { return UNSAFE.getInt(null, struct + CXString.PRIVATE_FLAGS); }
+    public static int nprivate_flags(long struct) { return memGetInt(struct + CXString.PRIVATE_FLAGS); }
 
     // -----------------------------------
 
@@ -256,6 +254,11 @@ public class CXString extends Struct<CXString> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

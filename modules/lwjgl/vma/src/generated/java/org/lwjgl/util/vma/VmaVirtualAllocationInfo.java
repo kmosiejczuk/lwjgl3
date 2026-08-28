@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -124,8 +124,7 @@ public class VmaVirtualAllocationInfo extends Struct<VmaVirtualAllocationInfo> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaVirtualAllocationInfo createSafe(long address) {
+    public static @Nullable VmaVirtualAllocationInfo createSafe(long address) {
         return address == NULL ? null : new VmaVirtualAllocationInfo(address, null);
     }
 
@@ -168,8 +167,7 @@ public class VmaVirtualAllocationInfo extends Struct<VmaVirtualAllocationInfo> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaVirtualAllocationInfo.Buffer createSafe(long address, int capacity) {
+    public static VmaVirtualAllocationInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -214,9 +212,9 @@ public class VmaVirtualAllocationInfo extends Struct<VmaVirtualAllocationInfo> i
     // -----------------------------------
 
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VmaVirtualAllocationInfo.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VmaVirtualAllocationInfo.OFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VmaVirtualAllocationInfo.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VmaVirtualAllocationInfo.SIZE); }
     /** Unsafe version of {@link #pUserData}. */
     public static long npUserData(long struct) { return memGetAddress(struct + VmaVirtualAllocationInfo.PUSERDATA); }
 
@@ -251,6 +249,11 @@ public class VmaVirtualAllocationInfo extends Struct<VmaVirtualAllocationInfo> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

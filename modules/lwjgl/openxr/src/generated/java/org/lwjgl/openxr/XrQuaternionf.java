@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class XrQuaternionf extends Struct<XrQuaternionf> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrQuaternionf createSafe(long address) {
+    public static @Nullable XrQuaternionf createSafe(long address) {
         return address == NULL ? null : new XrQuaternionf(address, null);
     }
 
@@ -199,8 +198,7 @@ public class XrQuaternionf extends Struct<XrQuaternionf> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrQuaternionf.Buffer createSafe(long address, int capacity) {
+    public static XrQuaternionf.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,22 +243,22 @@ public class XrQuaternionf extends Struct<XrQuaternionf> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + XrQuaternionf.X); }
+    public static float nx(long struct) { return memGetFloat(struct + XrQuaternionf.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + XrQuaternionf.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + XrQuaternionf.Y); }
     /** Unsafe version of {@link #z}. */
-    public static float nz(long struct) { return UNSAFE.getFloat(null, struct + XrQuaternionf.Z); }
+    public static float nz(long struct) { return memGetFloat(struct + XrQuaternionf.Z); }
     /** Unsafe version of {@link #w}. */
-    public static float nw(long struct) { return UNSAFE.getFloat(null, struct + XrQuaternionf.W); }
+    public static float nw(long struct) { return memGetFloat(struct + XrQuaternionf.W); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + XrQuaternionf.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + XrQuaternionf.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + XrQuaternionf.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + XrQuaternionf.Y, value); }
     /** Unsafe version of {@link #z(float) z}. */
-    public static void nz(long struct, float value) { UNSAFE.putFloat(null, struct + XrQuaternionf.Z, value); }
+    public static void nz(long struct, float value) { memPutFloat(struct + XrQuaternionf.Z, value); }
     /** Unsafe version of {@link #w(float) w}. */
-    public static void nw(long struct, float value) { UNSAFE.putFloat(null, struct + XrQuaternionf.W, value); }
+    public static void nw(long struct, float value) { memPutFloat(struct + XrQuaternionf.W, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class XrQuaternionf extends Struct<XrQuaternionf> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

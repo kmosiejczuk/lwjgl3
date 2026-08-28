@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,8 +135,7 @@ public class hb_variation_t extends Struct<hb_variation_t> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_variation_t createSafe(long address) {
+    public static @Nullable hb_variation_t createSafe(long address) {
         return address == NULL ? null : new hb_variation_t(address, null);
     }
 
@@ -179,8 +178,7 @@ public class hb_variation_t extends Struct<hb_variation_t> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_variation_t.Buffer createSafe(long address, int capacity) {
+    public static hb_variation_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -225,14 +223,14 @@ public class hb_variation_t extends Struct<hb_variation_t> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #tag}. */
-    public static int ntag(long struct) { return UNSAFE.getInt(null, struct + hb_variation_t.TAG); }
+    public static int ntag(long struct) { return memGetInt(struct + hb_variation_t.TAG); }
     /** Unsafe version of {@link #value}. */
-    public static float nvalue(long struct) { return UNSAFE.getFloat(null, struct + hb_variation_t.VALUE); }
+    public static float nvalue(long struct) { return memGetFloat(struct + hb_variation_t.VALUE); }
 
     /** Unsafe version of {@link #tag(int) tag}. */
-    public static void ntag(long struct, int value) { UNSAFE.putInt(null, struct + hb_variation_t.TAG, value); }
+    public static void ntag(long struct, int value) { memPutInt(struct + hb_variation_t.TAG, value); }
     /** Unsafe version of {@link #value(float) value}. */
-    public static void nvalue(long struct, float value) { UNSAFE.putFloat(null, struct + hb_variation_t.VALUE, value); }
+    public static void nvalue(long struct, float value) { memPutFloat(struct + hb_variation_t.VALUE, value); }
 
     // -----------------------------------
 
@@ -265,6 +263,11 @@ public class hb_variation_t extends Struct<hb_variation_t> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

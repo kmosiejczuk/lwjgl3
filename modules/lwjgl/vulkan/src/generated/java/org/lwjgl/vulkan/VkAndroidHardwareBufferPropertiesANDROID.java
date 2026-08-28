@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkAndroidHardwareBufferPropertiesANDROID extends Struct<VkAndroidHa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidHardwareBufferPropertiesANDROID createSafe(long address) {
+    public static @Nullable VkAndroidHardwareBufferPropertiesANDROID createSafe(long address) {
         return address == NULL ? null : new VkAndroidHardwareBufferPropertiesANDROID(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkAndroidHardwareBufferPropertiesANDROID extends Struct<VkAndroidHa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidHardwareBufferPropertiesANDROID.Buffer createSafe(long address, int capacity) {
+    public static VkAndroidHardwareBufferPropertiesANDROID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,16 +255,16 @@ public class VkAndroidHardwareBufferPropertiesANDROID extends Struct<VkAndroidHa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferPropertiesANDROID.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAndroidHardwareBufferPropertiesANDROID.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAndroidHardwareBufferPropertiesANDROID.PNEXT); }
     /** Unsafe version of {@link #allocationSize}. */
-    public static long nallocationSize(long struct) { return UNSAFE.getLong(null, struct + VkAndroidHardwareBufferPropertiesANDROID.ALLOCATIONSIZE); }
+    public static long nallocationSize(long struct) { return memGetLong(struct + VkAndroidHardwareBufferPropertiesANDROID.ALLOCATIONSIZE); }
     /** Unsafe version of {@link #memoryTypeBits}. */
-    public static int nmemoryTypeBits(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferPropertiesANDROID.MEMORYTYPEBITS); }
+    public static int nmemoryTypeBits(long struct) { return memGetInt(struct + VkAndroidHardwareBufferPropertiesANDROID.MEMORYTYPEBITS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAndroidHardwareBufferPropertiesANDROID.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAndroidHardwareBufferPropertiesANDROID.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAndroidHardwareBufferPropertiesANDROID.PNEXT, value); }
 
@@ -301,6 +299,11 @@ public class VkAndroidHardwareBufferPropertiesANDROID extends Struct<VkAndroidHa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,18 +253,18 @@ public class VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #shaderModuleIdentifierAlgorithmUUID}. */
     public static ByteBuffer nshaderModuleIdentifierAlgorithmUUID(long struct) { return memByteBuffer(struct + VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.SHADERMODULEIDENTIFIERALGORITHMUUID, VK_UUID_SIZE); }
     /** Unsafe version of {@link #shaderModuleIdentifierAlgorithmUUID(int) shaderModuleIdentifierAlgorithmUUID}. */
     public static byte nshaderModuleIdentifierAlgorithmUUID(long struct, int index) {
-        return UNSAFE.getByte(null, struct + VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.SHADERMODULEIDENTIFIERALGORITHMUUID + check(index, VK_UUID_SIZE) * 1);
+        return memGetByte(struct + VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.SHADERMODULEIDENTIFIERALGORITHMUUID + check(index, VK_UUID_SIZE) * 1);
     }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.PNEXT, value); }
 
@@ -301,6 +299,11 @@ public class VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

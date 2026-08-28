@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.meshoptimizer;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -110,8 +110,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptOverdrawStatistics createSafe(long address) {
+    public static @Nullable MeshoptOverdrawStatistics createSafe(long address) {
         return address == NULL ? null : new MeshoptOverdrawStatistics(address, null);
     }
 
@@ -154,8 +153,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptOverdrawStatistics.Buffer createSafe(long address, int capacity) {
+    public static MeshoptOverdrawStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -200,11 +198,11 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
     // -----------------------------------
 
     /** Unsafe version of {@link #pixels_covered}. */
-    public static int npixels_covered(long struct) { return UNSAFE.getInt(null, struct + MeshoptOverdrawStatistics.PIXELS_COVERED); }
+    public static int npixels_covered(long struct) { return memGetInt(struct + MeshoptOverdrawStatistics.PIXELS_COVERED); }
     /** Unsafe version of {@link #pixels_shaded}. */
-    public static int npixels_shaded(long struct) { return UNSAFE.getInt(null, struct + MeshoptOverdrawStatistics.PIXELS_SHADED); }
+    public static int npixels_shaded(long struct) { return memGetInt(struct + MeshoptOverdrawStatistics.PIXELS_SHADED); }
     /** Unsafe version of {@link #overdraw}. */
-    public static float noverdraw(long struct) { return UNSAFE.getFloat(null, struct + MeshoptOverdrawStatistics.OVERDRAW); }
+    public static float noverdraw(long struct) { return memGetFloat(struct + MeshoptOverdrawStatistics.OVERDRAW); }
 
     // -----------------------------------
 
@@ -237,6 +235,11 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

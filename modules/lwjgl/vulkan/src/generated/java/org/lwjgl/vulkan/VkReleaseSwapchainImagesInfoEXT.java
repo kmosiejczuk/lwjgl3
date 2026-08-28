@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -192,8 +192,7 @@ public class VkReleaseSwapchainImagesInfoEXT extends Struct<VkReleaseSwapchainIm
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkReleaseSwapchainImagesInfoEXT createSafe(long address) {
+    public static @Nullable VkReleaseSwapchainImagesInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkReleaseSwapchainImagesInfoEXT(address, null);
     }
 
@@ -236,8 +235,7 @@ public class VkReleaseSwapchainImagesInfoEXT extends Struct<VkReleaseSwapchainIm
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkReleaseSwapchainImagesInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkReleaseSwapchainImagesInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -282,24 +280,24 @@ public class VkReleaseSwapchainImagesInfoEXT extends Struct<VkReleaseSwapchainIm
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkReleaseSwapchainImagesInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkReleaseSwapchainImagesInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkReleaseSwapchainImagesInfoEXT.PNEXT); }
     /** Unsafe version of {@link #swapchain}. */
-    public static long nswapchain(long struct) { return UNSAFE.getLong(null, struct + VkReleaseSwapchainImagesInfoEXT.SWAPCHAIN); }
+    public static long nswapchain(long struct) { return memGetLong(struct + VkReleaseSwapchainImagesInfoEXT.SWAPCHAIN); }
     /** Unsafe version of {@link #imageIndexCount}. */
-    public static int nimageIndexCount(long struct) { return UNSAFE.getInt(null, struct + VkReleaseSwapchainImagesInfoEXT.IMAGEINDEXCOUNT); }
+    public static int nimageIndexCount(long struct) { return memGetInt(struct + VkReleaseSwapchainImagesInfoEXT.IMAGEINDEXCOUNT); }
     /** Unsafe version of {@link #pImageIndices() pImageIndices}. */
     public static IntBuffer npImageIndices(long struct) { return memIntBuffer(memGetAddress(struct + VkReleaseSwapchainImagesInfoEXT.PIMAGEINDICES), nimageIndexCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkReleaseSwapchainImagesInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkReleaseSwapchainImagesInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkReleaseSwapchainImagesInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #swapchain(long) swapchain}. */
-    public static void nswapchain(long struct, long value) { UNSAFE.putLong(null, struct + VkReleaseSwapchainImagesInfoEXT.SWAPCHAIN, value); }
+    public static void nswapchain(long struct, long value) { memPutLong(struct + VkReleaseSwapchainImagesInfoEXT.SWAPCHAIN, value); }
     /** Sets the specified value to the {@code imageIndexCount} field of the specified {@code struct}. */
-    public static void nimageIndexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkReleaseSwapchainImagesInfoEXT.IMAGEINDEXCOUNT, value); }
+    public static void nimageIndexCount(long struct, int value) { memPutInt(struct + VkReleaseSwapchainImagesInfoEXT.IMAGEINDEXCOUNT, value); }
     /** Unsafe version of {@link #pImageIndices(IntBuffer) pImageIndices}. */
     public static void npImageIndices(long struct, IntBuffer value) { memPutAddress(struct + VkReleaseSwapchainImagesInfoEXT.PIMAGEINDICES, memAddress(value)); nimageIndexCount(struct, value.remaining()); }
 
@@ -343,6 +341,11 @@ public class VkReleaseSwapchainImagesInfoEXT extends Struct<VkReleaseSwapchainIm
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

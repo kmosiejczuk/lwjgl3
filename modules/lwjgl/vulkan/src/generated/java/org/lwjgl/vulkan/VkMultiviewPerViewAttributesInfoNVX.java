@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX}</li>
+ * <li>{@code sType} <b>must</b> be {@link NVXMultiviewPerViewAttributes#VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX}</li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -107,8 +107,8 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkMultiviewPerViewAttributesInfoNVX sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX} value to the {@link #sType} field. */
-    public VkMultiviewPerViewAttributesInfoNVX sType$Default() { return sType(KHRDynamicRendering.VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX); }
+    /** Sets the {@link NVXMultiviewPerViewAttributes#VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX} value to the {@link #sType} field. */
+    public VkMultiviewPerViewAttributesInfoNVX sType$Default() { return sType(NVXMultiviewPerViewAttributes.VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkMultiviewPerViewAttributesInfoNVX pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #perViewAttributes} field. */
@@ -167,8 +167,7 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMultiviewPerViewAttributesInfoNVX createSafe(long address) {
+    public static @Nullable VkMultiviewPerViewAttributesInfoNVX createSafe(long address) {
         return address == NULL ? null : new VkMultiviewPerViewAttributesInfoNVX(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMultiviewPerViewAttributesInfoNVX.Buffer createSafe(long address, int capacity) {
+    public static VkMultiviewPerViewAttributesInfoNVX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMultiviewPerViewAttributesInfoNVX.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMultiviewPerViewAttributesInfoNVX.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMultiviewPerViewAttributesInfoNVX.PNEXT); }
     /** Unsafe version of {@link #perViewAttributes}. */
-    public static int nperViewAttributes(long struct) { return UNSAFE.getInt(null, struct + VkMultiviewPerViewAttributesInfoNVX.PERVIEWATTRIBUTES); }
+    public static int nperViewAttributes(long struct) { return memGetInt(struct + VkMultiviewPerViewAttributesInfoNVX.PERVIEWATTRIBUTES); }
     /** Unsafe version of {@link #perViewAttributesPositionXOnly}. */
-    public static int nperViewAttributesPositionXOnly(long struct) { return UNSAFE.getInt(null, struct + VkMultiviewPerViewAttributesInfoNVX.PERVIEWATTRIBUTESPOSITIONXONLY); }
+    public static int nperViewAttributesPositionXOnly(long struct) { return memGetInt(struct + VkMultiviewPerViewAttributesInfoNVX.PERVIEWATTRIBUTESPOSITIONXONLY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMultiviewPerViewAttributesInfoNVX.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMultiviewPerViewAttributesInfoNVX.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMultiviewPerViewAttributesInfoNVX.PNEXT, value); }
     /** Unsafe version of {@link #perViewAttributes(boolean) perViewAttributes}. */
-    public static void nperViewAttributes(long struct, int value) { UNSAFE.putInt(null, struct + VkMultiviewPerViewAttributesInfoNVX.PERVIEWATTRIBUTES, value); }
+    public static void nperViewAttributes(long struct, int value) { memPutInt(struct + VkMultiviewPerViewAttributesInfoNVX.PERVIEWATTRIBUTES, value); }
     /** Unsafe version of {@link #perViewAttributesPositionXOnly(boolean) perViewAttributesPositionXOnly}. */
-    public static void nperViewAttributesPositionXOnly(long struct, int value) { UNSAFE.putInt(null, struct + VkMultiviewPerViewAttributesInfoNVX.PERVIEWATTRIBUTESPOSITIONXONLY, value); }
+    public static void nperViewAttributesPositionXOnly(long struct, int value) { memPutInt(struct + VkMultiviewPerViewAttributesInfoNVX.PERVIEWATTRIBUTESPOSITIONXONLY, value); }
 
     // -----------------------------------
 
@@ -308,6 +306,11 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMultiviewPerViewAttributesInfoNVX getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -327,8 +330,8 @@ public class VkMultiviewPerViewAttributesInfoNVX extends Struct<VkMultiviewPerVi
 
         /** Sets the specified value to the {@link VkMultiviewPerViewAttributesInfoNVX#sType} field. */
         public VkMultiviewPerViewAttributesInfoNVX.Buffer sType(@NativeType("VkStructureType") int value) { VkMultiviewPerViewAttributesInfoNVX.nsType(address(), value); return this; }
-        /** Sets the {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX} value to the {@link VkMultiviewPerViewAttributesInfoNVX#sType} field. */
-        public VkMultiviewPerViewAttributesInfoNVX.Buffer sType$Default() { return sType(KHRDynamicRendering.VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX); }
+        /** Sets the {@link NVXMultiviewPerViewAttributes#VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX} value to the {@link VkMultiviewPerViewAttributesInfoNVX#sType} field. */
+        public VkMultiviewPerViewAttributesInfoNVX.Buffer sType$Default() { return sType(NVXMultiviewPerViewAttributes.VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX); }
         /** Sets the specified value to the {@link VkMultiviewPerViewAttributesInfoNVX#pNext} field. */
         public VkMultiviewPerViewAttributesInfoNVX.Buffer pNext(@NativeType("void const *") long value) { VkMultiviewPerViewAttributesInfoNVX.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkMultiviewPerViewAttributesInfoNVX#perViewAttributes} field. */

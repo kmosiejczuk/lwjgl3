@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RenderModelTextureMap createSafe(long address) {
+    public static @Nullable RenderModelTextureMap createSafe(long address) {
         return address == NULL ? null : new RenderModelTextureMap(address, null);
     }
 
@@ -176,8 +175,7 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RenderModelTextureMap.Buffer createSafe(long address, int capacity) {
+    public static RenderModelTextureMap.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,15 +239,15 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #unWidth}. */
-    public static short nunWidth(long struct) { return UNSAFE.getShort(null, struct + RenderModelTextureMap.UNWIDTH); }
+    public static short nunWidth(long struct) { return memGetShort(struct + RenderModelTextureMap.UNWIDTH); }
     /** Unsafe version of {@link #unHeight}. */
-    public static short nunHeight(long struct) { return UNSAFE.getShort(null, struct + RenderModelTextureMap.UNHEIGHT); }
+    public static short nunHeight(long struct) { return memGetShort(struct + RenderModelTextureMap.UNHEIGHT); }
     /** Unsafe version of {@link #rubTextureMapData(int) rubTextureMapData}. */
     public static ByteBuffer nrubTextureMapData(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + RenderModelTextureMap.RUBTEXTUREMAPDATA), capacity); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + RenderModelTextureMap.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + RenderModelTextureMap.FORMAT); }
     /** Unsafe version of {@link #unMipLevels}. */
-    public static short nunMipLevels(long struct) { return UNSAFE.getShort(null, struct + RenderModelTextureMap.UNMIPLEVELS); }
+    public static short nunMipLevels(long struct) { return memGetShort(struct + RenderModelTextureMap.UNMIPLEVELS); }
 
     // -----------------------------------
 
@@ -282,6 +280,11 @@ public class RenderModelTextureMap extends Struct<RenderModelTextureMap> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

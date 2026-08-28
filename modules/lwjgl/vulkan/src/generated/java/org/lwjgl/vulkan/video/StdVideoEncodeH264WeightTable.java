@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -274,8 +274,7 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH264WeightTable createSafe(long address) {
+    public static @Nullable StdVideoEncodeH264WeightTable createSafe(long address) {
         return address == NULL ? null : new StdVideoEncodeH264WeightTable(address, null);
     }
 
@@ -318,8 +317,7 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH264WeightTable.Buffer createSafe(long address, int capacity) {
+    public static StdVideoEncodeH264WeightTable.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -366,64 +364,64 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     /** Unsafe version of {@link #flags}. */
     public static StdVideoEncodeH264WeightTableFlags nflags(long struct) { return StdVideoEncodeH264WeightTableFlags.create(struct + StdVideoEncodeH264WeightTable.FLAGS); }
     /** Unsafe version of {@link #luma_log2_weight_denom}. */
-    public static byte nluma_log2_weight_denom(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH264WeightTable.LUMA_LOG2_WEIGHT_DENOM); }
+    public static byte nluma_log2_weight_denom(long struct) { return memGetByte(struct + StdVideoEncodeH264WeightTable.LUMA_LOG2_WEIGHT_DENOM); }
     /** Unsafe version of {@link #chroma_log2_weight_denom}. */
-    public static byte nchroma_log2_weight_denom(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH264WeightTable.CHROMA_LOG2_WEIGHT_DENOM); }
+    public static byte nchroma_log2_weight_denom(long struct) { return memGetByte(struct + StdVideoEncodeH264WeightTable.CHROMA_LOG2_WEIGHT_DENOM); }
     /** Unsafe version of {@link #luma_weight_l0}. */
     public static ByteBuffer nluma_weight_l0(long struct) { return memByteBuffer(struct + StdVideoEncodeH264WeightTable.LUMA_WEIGHT_L0, STD_VIDEO_H264_MAX_NUM_LIST_REF); }
     /** Unsafe version of {@link #luma_weight_l0(int) luma_weight_l0}. */
     public static byte nluma_weight_l0(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoEncodeH264WeightTable.LUMA_WEIGHT_L0 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1);
+        return memGetByte(struct + StdVideoEncodeH264WeightTable.LUMA_WEIGHT_L0 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1);
     }
     /** Unsafe version of {@link #luma_offset_l0}. */
     public static ByteBuffer nluma_offset_l0(long struct) { return memByteBuffer(struct + StdVideoEncodeH264WeightTable.LUMA_OFFSET_L0, STD_VIDEO_H264_MAX_NUM_LIST_REF); }
     /** Unsafe version of {@link #luma_offset_l0(int) luma_offset_l0}. */
     public static byte nluma_offset_l0(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoEncodeH264WeightTable.LUMA_OFFSET_L0 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1);
+        return memGetByte(struct + StdVideoEncodeH264WeightTable.LUMA_OFFSET_L0 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1);
     }
     /** Unsafe version of {@link #chroma_weight_l0}. */
     public static ByteBuffer nchroma_weight_l0(long struct) { return memByteBuffer(struct + StdVideoEncodeH264WeightTable.CHROMA_WEIGHT_L0, STD_VIDEO_H264_MAX_CHROMA_PLANES); }
     /** Unsafe version of {@link #chroma_weight_l0(int) chroma_weight_l0}. */
     public static byte nchroma_weight_l0(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoEncodeH264WeightTable.CHROMA_WEIGHT_L0 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1);
+        return memGetByte(struct + StdVideoEncodeH264WeightTable.CHROMA_WEIGHT_L0 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1);
     }
     /** Unsafe version of {@link #chroma_offset_l0}. */
     public static ByteBuffer nchroma_offset_l0(long struct) { return memByteBuffer(struct + StdVideoEncodeH264WeightTable.CHROMA_OFFSET_L0, STD_VIDEO_H264_MAX_CHROMA_PLANES); }
     /** Unsafe version of {@link #chroma_offset_l0(int) chroma_offset_l0}. */
     public static byte nchroma_offset_l0(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoEncodeH264WeightTable.CHROMA_OFFSET_L0 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1);
+        return memGetByte(struct + StdVideoEncodeH264WeightTable.CHROMA_OFFSET_L0 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1);
     }
     /** Unsafe version of {@link #luma_weight_l1}. */
     public static ByteBuffer nluma_weight_l1(long struct) { return memByteBuffer(struct + StdVideoEncodeH264WeightTable.LUMA_WEIGHT_L1, STD_VIDEO_H264_MAX_NUM_LIST_REF); }
     /** Unsafe version of {@link #luma_weight_l1(int) luma_weight_l1}. */
     public static byte nluma_weight_l1(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoEncodeH264WeightTable.LUMA_WEIGHT_L1 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1);
+        return memGetByte(struct + StdVideoEncodeH264WeightTable.LUMA_WEIGHT_L1 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1);
     }
     /** Unsafe version of {@link #luma_offset_l1}. */
     public static ByteBuffer nluma_offset_l1(long struct) { return memByteBuffer(struct + StdVideoEncodeH264WeightTable.LUMA_OFFSET_L1, STD_VIDEO_H264_MAX_NUM_LIST_REF); }
     /** Unsafe version of {@link #luma_offset_l1(int) luma_offset_l1}. */
     public static byte nluma_offset_l1(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoEncodeH264WeightTable.LUMA_OFFSET_L1 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1);
+        return memGetByte(struct + StdVideoEncodeH264WeightTable.LUMA_OFFSET_L1 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1);
     }
     /** Unsafe version of {@link #chroma_weight_l1}. */
     public static ByteBuffer nchroma_weight_l1(long struct) { return memByteBuffer(struct + StdVideoEncodeH264WeightTable.CHROMA_WEIGHT_L1, STD_VIDEO_H264_MAX_CHROMA_PLANES); }
     /** Unsafe version of {@link #chroma_weight_l1(int) chroma_weight_l1}. */
     public static byte nchroma_weight_l1(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoEncodeH264WeightTable.CHROMA_WEIGHT_L1 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1);
+        return memGetByte(struct + StdVideoEncodeH264WeightTable.CHROMA_WEIGHT_L1 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1);
     }
     /** Unsafe version of {@link #chroma_offset_l1}. */
     public static ByteBuffer nchroma_offset_l1(long struct) { return memByteBuffer(struct + StdVideoEncodeH264WeightTable.CHROMA_OFFSET_L1, STD_VIDEO_H264_MAX_CHROMA_PLANES); }
     /** Unsafe version of {@link #chroma_offset_l1(int) chroma_offset_l1}. */
     public static byte nchroma_offset_l1(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoEncodeH264WeightTable.CHROMA_OFFSET_L1 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1);
+        return memGetByte(struct + StdVideoEncodeH264WeightTable.CHROMA_OFFSET_L1 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1);
     }
 
     /** Unsafe version of {@link #flags(StdVideoEncodeH264WeightTableFlags) flags}. */
     public static void nflags(long struct, StdVideoEncodeH264WeightTableFlags value) { memCopy(value.address(), struct + StdVideoEncodeH264WeightTable.FLAGS, StdVideoEncodeH264WeightTableFlags.SIZEOF); }
     /** Unsafe version of {@link #luma_log2_weight_denom(byte) luma_log2_weight_denom}. */
-    public static void nluma_log2_weight_denom(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH264WeightTable.LUMA_LOG2_WEIGHT_DENOM, value); }
+    public static void nluma_log2_weight_denom(long struct, byte value) { memPutByte(struct + StdVideoEncodeH264WeightTable.LUMA_LOG2_WEIGHT_DENOM, value); }
     /** Unsafe version of {@link #chroma_log2_weight_denom(byte) chroma_log2_weight_denom}. */
-    public static void nchroma_log2_weight_denom(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH264WeightTable.CHROMA_LOG2_WEIGHT_DENOM, value); }
+    public static void nchroma_log2_weight_denom(long struct, byte value) { memPutByte(struct + StdVideoEncodeH264WeightTable.CHROMA_LOG2_WEIGHT_DENOM, value); }
     /** Unsafe version of {@link #luma_weight_l0(ByteBuffer) luma_weight_l0}. */
     public static void nluma_weight_l0(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, STD_VIDEO_H264_MAX_NUM_LIST_REF); }
@@ -431,7 +429,7 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     }
     /** Unsafe version of {@link #luma_weight_l0(int, byte) luma_weight_l0}. */
     public static void nluma_weight_l0(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoEncodeH264WeightTable.LUMA_WEIGHT_L0 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1, value);
+        memPutByte(struct + StdVideoEncodeH264WeightTable.LUMA_WEIGHT_L0 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1, value);
     }
     /** Unsafe version of {@link #luma_offset_l0(ByteBuffer) luma_offset_l0}. */
     public static void nluma_offset_l0(long struct, ByteBuffer value) {
@@ -440,7 +438,7 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     }
     /** Unsafe version of {@link #luma_offset_l0(int, byte) luma_offset_l0}. */
     public static void nluma_offset_l0(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoEncodeH264WeightTable.LUMA_OFFSET_L0 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1, value);
+        memPutByte(struct + StdVideoEncodeH264WeightTable.LUMA_OFFSET_L0 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1, value);
     }
     /** Unsafe version of {@link #chroma_weight_l0(ByteBuffer) chroma_weight_l0}. */
     public static void nchroma_weight_l0(long struct, ByteBuffer value) {
@@ -449,7 +447,7 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     }
     /** Unsafe version of {@link #chroma_weight_l0(int, byte) chroma_weight_l0}. */
     public static void nchroma_weight_l0(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoEncodeH264WeightTable.CHROMA_WEIGHT_L0 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1, value);
+        memPutByte(struct + StdVideoEncodeH264WeightTable.CHROMA_WEIGHT_L0 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1, value);
     }
     /** Unsafe version of {@link #chroma_offset_l0(ByteBuffer) chroma_offset_l0}. */
     public static void nchroma_offset_l0(long struct, ByteBuffer value) {
@@ -458,7 +456,7 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     }
     /** Unsafe version of {@link #chroma_offset_l0(int, byte) chroma_offset_l0}. */
     public static void nchroma_offset_l0(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoEncodeH264WeightTable.CHROMA_OFFSET_L0 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1, value);
+        memPutByte(struct + StdVideoEncodeH264WeightTable.CHROMA_OFFSET_L0 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1, value);
     }
     /** Unsafe version of {@link #luma_weight_l1(ByteBuffer) luma_weight_l1}. */
     public static void nluma_weight_l1(long struct, ByteBuffer value) {
@@ -467,7 +465,7 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     }
     /** Unsafe version of {@link #luma_weight_l1(int, byte) luma_weight_l1}. */
     public static void nluma_weight_l1(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoEncodeH264WeightTable.LUMA_WEIGHT_L1 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1, value);
+        memPutByte(struct + StdVideoEncodeH264WeightTable.LUMA_WEIGHT_L1 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1, value);
     }
     /** Unsafe version of {@link #luma_offset_l1(ByteBuffer) luma_offset_l1}. */
     public static void nluma_offset_l1(long struct, ByteBuffer value) {
@@ -476,7 +474,7 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     }
     /** Unsafe version of {@link #luma_offset_l1(int, byte) luma_offset_l1}. */
     public static void nluma_offset_l1(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoEncodeH264WeightTable.LUMA_OFFSET_L1 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1, value);
+        memPutByte(struct + StdVideoEncodeH264WeightTable.LUMA_OFFSET_L1 + check(index, STD_VIDEO_H264_MAX_NUM_LIST_REF) * 1, value);
     }
     /** Unsafe version of {@link #chroma_weight_l1(ByteBuffer) chroma_weight_l1}. */
     public static void nchroma_weight_l1(long struct, ByteBuffer value) {
@@ -485,7 +483,7 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     }
     /** Unsafe version of {@link #chroma_weight_l1(int, byte) chroma_weight_l1}. */
     public static void nchroma_weight_l1(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoEncodeH264WeightTable.CHROMA_WEIGHT_L1 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1, value);
+        memPutByte(struct + StdVideoEncodeH264WeightTable.CHROMA_WEIGHT_L1 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1, value);
     }
     /** Unsafe version of {@link #chroma_offset_l1(ByteBuffer) chroma_offset_l1}. */
     public static void nchroma_offset_l1(long struct, ByteBuffer value) {
@@ -494,7 +492,7 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
     }
     /** Unsafe version of {@link #chroma_offset_l1(int, byte) chroma_offset_l1}. */
     public static void nchroma_offset_l1(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoEncodeH264WeightTable.CHROMA_OFFSET_L1 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1, value);
+        memPutByte(struct + StdVideoEncodeH264WeightTable.CHROMA_OFFSET_L1 + check(index, STD_VIDEO_H264_MAX_CHROMA_PLANES) * 1, value);
     }
 
     // -----------------------------------
@@ -528,6 +526,11 @@ public class StdVideoEncodeH264WeightTable extends Struct<StdVideoEncodeH264Weig
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

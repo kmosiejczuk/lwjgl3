@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -109,8 +109,7 @@ public class CLNameVersionKHR extends Struct<CLNameVersionKHR> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLNameVersionKHR createSafe(long address) {
+    public static @Nullable CLNameVersionKHR createSafe(long address) {
         return address == NULL ? null : new CLNameVersionKHR(address, null);
     }
 
@@ -153,8 +152,7 @@ public class CLNameVersionKHR extends Struct<CLNameVersionKHR> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLNameVersionKHR.Buffer createSafe(long address, int capacity) {
+    public static CLNameVersionKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -199,7 +197,7 @@ public class CLNameVersionKHR extends Struct<CLNameVersionKHR> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #version}. */
-    public static int nversion(long struct) { return UNSAFE.getInt(null, struct + CLNameVersionKHR.VERSION); }
+    public static int nversion(long struct) { return memGetInt(struct + CLNameVersionKHR.VERSION); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBuffer(struct + CLNameVersionKHR.NAME, 64); }
     /** Unsafe version of {@link #nameString}. */
@@ -236,6 +234,11 @@ public class CLNameVersionKHR extends Struct<CLNameVersionKHR> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

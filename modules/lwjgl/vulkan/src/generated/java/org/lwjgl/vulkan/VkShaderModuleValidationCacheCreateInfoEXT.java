@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkShaderModuleValidationCacheCreateInfoEXT extends Struct<VkShaderM
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderModuleValidationCacheCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkShaderModuleValidationCacheCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkShaderModuleValidationCacheCreateInfoEXT(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkShaderModuleValidationCacheCreateInfoEXT extends Struct<VkShaderM
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderModuleValidationCacheCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkShaderModuleValidationCacheCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,18 +260,18 @@ public class VkShaderModuleValidationCacheCreateInfoEXT extends Struct<VkShaderM
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkShaderModuleValidationCacheCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkShaderModuleValidationCacheCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkShaderModuleValidationCacheCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #validationCache}. */
-    public static long nvalidationCache(long struct) { return UNSAFE.getLong(null, struct + VkShaderModuleValidationCacheCreateInfoEXT.VALIDATIONCACHE); }
+    public static long nvalidationCache(long struct) { return memGetLong(struct + VkShaderModuleValidationCacheCreateInfoEXT.VALIDATIONCACHE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkShaderModuleValidationCacheCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkShaderModuleValidationCacheCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkShaderModuleValidationCacheCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #validationCache(long) validationCache}. */
-    public static void nvalidationCache(long struct, long value) { UNSAFE.putLong(null, struct + VkShaderModuleValidationCacheCreateInfoEXT.VALIDATIONCACHE, value); }
+    public static void nvalidationCache(long struct, long value) { memPutLong(struct + VkShaderModuleValidationCacheCreateInfoEXT.VALIDATIONCACHE, value); }
 
     // -----------------------------------
 
@@ -306,6 +304,11 @@ public class VkShaderModuleValidationCacheCreateInfoEXT extends Struct<VkShaderM
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -205,8 +205,7 @@ public class XrEnvironmentDepthImageMETA extends Struct<XrEnvironmentDepthImageM
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEnvironmentDepthImageMETA createSafe(long address) {
+    public static @Nullable XrEnvironmentDepthImageMETA createSafe(long address) {
         return address == NULL ? null : new XrEnvironmentDepthImageMETA(address, null);
     }
 
@@ -249,8 +248,7 @@ public class XrEnvironmentDepthImageMETA extends Struct<XrEnvironmentDepthImageM
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEnvironmentDepthImageMETA.Buffer createSafe(long address, int capacity) {
+    public static XrEnvironmentDepthImageMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -295,15 +293,15 @@ public class XrEnvironmentDepthImageMETA extends Struct<XrEnvironmentDepthImageM
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEnvironmentDepthImageMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEnvironmentDepthImageMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEnvironmentDepthImageMETA.NEXT); }
     /** Unsafe version of {@link #swapchainIndex}. */
-    public static int nswapchainIndex(long struct) { return UNSAFE.getInt(null, struct + XrEnvironmentDepthImageMETA.SWAPCHAININDEX); }
+    public static int nswapchainIndex(long struct) { return memGetInt(struct + XrEnvironmentDepthImageMETA.SWAPCHAININDEX); }
     /** Unsafe version of {@link #nearZ}. */
-    public static float nnearZ(long struct) { return UNSAFE.getFloat(null, struct + XrEnvironmentDepthImageMETA.NEARZ); }
+    public static float nnearZ(long struct) { return memGetFloat(struct + XrEnvironmentDepthImageMETA.NEARZ); }
     /** Unsafe version of {@link #farZ}. */
-    public static float nfarZ(long struct) { return UNSAFE.getFloat(null, struct + XrEnvironmentDepthImageMETA.FARZ); }
+    public static float nfarZ(long struct) { return memGetFloat(struct + XrEnvironmentDepthImageMETA.FARZ); }
     /** Unsafe version of {@link #views}. */
     public static XrEnvironmentDepthImageViewMETA.Buffer nviews(long struct) { return XrEnvironmentDepthImageViewMETA.create(struct + XrEnvironmentDepthImageMETA.VIEWS, 2); }
     /** Unsafe version of {@link #views(int) views}. */
@@ -312,15 +310,15 @@ public class XrEnvironmentDepthImageMETA extends Struct<XrEnvironmentDepthImageM
     }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEnvironmentDepthImageMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEnvironmentDepthImageMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEnvironmentDepthImageMETA.NEXT, value); }
     /** Unsafe version of {@link #swapchainIndex(int) swapchainIndex}. */
-    public static void nswapchainIndex(long struct, int value) { UNSAFE.putInt(null, struct + XrEnvironmentDepthImageMETA.SWAPCHAININDEX, value); }
+    public static void nswapchainIndex(long struct, int value) { memPutInt(struct + XrEnvironmentDepthImageMETA.SWAPCHAININDEX, value); }
     /** Unsafe version of {@link #nearZ(float) nearZ}. */
-    public static void nnearZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrEnvironmentDepthImageMETA.NEARZ, value); }
+    public static void nnearZ(long struct, float value) { memPutFloat(struct + XrEnvironmentDepthImageMETA.NEARZ, value); }
     /** Unsafe version of {@link #farZ(float) farZ}. */
-    public static void nfarZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrEnvironmentDepthImageMETA.FARZ, value); }
+    public static void nfarZ(long struct, float value) { memPutFloat(struct + XrEnvironmentDepthImageMETA.FARZ, value); }
     /** Unsafe version of {@link #views(XrEnvironmentDepthImageViewMETA.Buffer) views}. */
     public static void nviews(long struct, XrEnvironmentDepthImageViewMETA.Buffer value) {
         if (CHECKS) { checkGT(value, 2); }
@@ -362,6 +360,11 @@ public class XrEnvironmentDepthImageMETA extends Struct<XrEnvironmentDepthImageM
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

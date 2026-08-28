@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT extends Str
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT extends Str
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT extends Str
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #primitiveTopologyListRestart}. */
-    public static int nprimitiveTopologyListRestart(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.PRIMITIVETOPOLOGYLISTRESTART); }
+    public static int nprimitiveTopologyListRestart(long struct) { return memGetInt(struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.PRIMITIVETOPOLOGYLISTRESTART); }
     /** Unsafe version of {@link #primitiveTopologyPatchListRestart}. */
-    public static int nprimitiveTopologyPatchListRestart(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.PRIMITIVETOPOLOGYPATCHLISTRESTART); }
+    public static int nprimitiveTopologyPatchListRestart(long struct) { return memGetInt(struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.PRIMITIVETOPOLOGYPATCHLISTRESTART); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #primitiveTopologyListRestart(boolean) primitiveTopologyListRestart}. */
-    public static void nprimitiveTopologyListRestart(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.PRIMITIVETOPOLOGYLISTRESTART, value); }
+    public static void nprimitiveTopologyListRestart(long struct, int value) { memPutInt(struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.PRIMITIVETOPOLOGYLISTRESTART, value); }
     /** Unsafe version of {@link #primitiveTopologyPatchListRestart(boolean) primitiveTopologyPatchListRestart}. */
-    public static void nprimitiveTopologyPatchListRestart(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.PRIMITIVETOPOLOGYPATCHLISTRESTART, value); }
+    public static void nprimitiveTopologyPatchListRestart(long struct, int value) { memPutInt(struct + VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.PRIMITIVETOPOLOGYPATCHLISTRESTART, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT extends Str
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

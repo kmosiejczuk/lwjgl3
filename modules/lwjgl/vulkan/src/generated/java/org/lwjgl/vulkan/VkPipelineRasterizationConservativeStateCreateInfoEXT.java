@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-conservativePointAndLineRasterization">{@code conservativePointAndLineRasterization}</a> is supported, conservative rasterization can be applied to line and point primitives, otherwise it must be disabled.</p>
+ * <p>If <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-conservativePointAndLineRasterization">{@code conservativePointAndLineRasterization}</a> is supported, conservative rasterization can be applied to line and point primitives, otherwise it must be disabled.</p>
  * </div>
  * 
  * <h5>Valid Usage</h5>
@@ -192,8 +192,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationConservativeStateCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineRasterizationConservativeStateCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineRasterizationConservativeStateCreateInfoEXT(address, null);
     }
 
@@ -236,8 +235,7 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationConservativeStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineRasterizationConservativeStateCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -301,26 +299,26 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.FLAGS); }
     /** Unsafe version of {@link #conservativeRasterizationMode}. */
-    public static int nconservativeRasterizationMode(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.CONSERVATIVERASTERIZATIONMODE); }
+    public static int nconservativeRasterizationMode(long struct) { return memGetInt(struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.CONSERVATIVERASTERIZATIONMODE); }
     /** Unsafe version of {@link #extraPrimitiveOverestimationSize}. */
-    public static float nextraPrimitiveOverestimationSize(long struct) { return UNSAFE.getFloat(null, struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.EXTRAPRIMITIVEOVERESTIMATIONSIZE); }
+    public static float nextraPrimitiveOverestimationSize(long struct) { return memGetFloat(struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.EXTRAPRIMITIVEOVERESTIMATIONSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.FLAGS, value); }
     /** Unsafe version of {@link #conservativeRasterizationMode(int) conservativeRasterizationMode}. */
-    public static void nconservativeRasterizationMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.CONSERVATIVERASTERIZATIONMODE, value); }
+    public static void nconservativeRasterizationMode(long struct, int value) { memPutInt(struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.CONSERVATIVERASTERIZATIONMODE, value); }
     /** Unsafe version of {@link #extraPrimitiveOverestimationSize(float) extraPrimitiveOverestimationSize}. */
-    public static void nextraPrimitiveOverestimationSize(long struct, float value) { UNSAFE.putFloat(null, struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.EXTRAPRIMITIVEOVERESTIMATIONSIZE, value); }
+    public static void nextraPrimitiveOverestimationSize(long struct, float value) { memPutFloat(struct + VkPipelineRasterizationConservativeStateCreateInfoEXT.EXTRAPRIMITIVEOVERESTIMATIONSIZE, value); }
 
     // -----------------------------------
 
@@ -353,6 +351,11 @@ public class VkPipelineRasterizationConservativeStateCreateInfoEXT extends Struc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

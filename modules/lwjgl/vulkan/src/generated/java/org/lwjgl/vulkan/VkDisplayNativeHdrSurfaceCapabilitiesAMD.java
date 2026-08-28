@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -148,8 +148,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayNativeHdrSurfaceCapabilitiesAMD createSafe(long address) {
+    public static @Nullable VkDisplayNativeHdrSurfaceCapabilitiesAMD createSafe(long address) {
         return address == NULL ? null : new VkDisplayNativeHdrSurfaceCapabilitiesAMD(address, null);
     }
 
@@ -192,8 +191,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,14 +255,14 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.PNEXT); }
     /** Unsafe version of {@link #localDimmingSupport}. */
-    public static int nlocalDimmingSupport(long struct) { return UNSAFE.getInt(null, struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.LOCALDIMMINGSUPPORT); }
+    public static int nlocalDimmingSupport(long struct) { return memGetInt(struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.LOCALDIMMINGSUPPORT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.PNEXT, value); }
 
@@ -299,6 +297,11 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

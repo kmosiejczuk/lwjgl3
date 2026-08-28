@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -87,8 +87,7 @@ public class FT_PaintGlyph extends Struct<FT_PaintGlyph> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintGlyph createSafe(long address) {
+    public static @Nullable FT_PaintGlyph createSafe(long address) {
         return address == NULL ? null : new FT_PaintGlyph(address, null);
     }
 
@@ -103,8 +102,7 @@ public class FT_PaintGlyph extends Struct<FT_PaintGlyph> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintGlyph.Buffer createSafe(long address, int capacity) {
+    public static FT_PaintGlyph.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -113,7 +111,7 @@ public class FT_PaintGlyph extends Struct<FT_PaintGlyph> {
     /** Unsafe version of {@link #paint}. */
     public static FT_OpaquePaint npaint(long struct) { return FT_OpaquePaint.create(struct + FT_PaintGlyph.PAINT); }
     /** Unsafe version of {@link #glyphID}. */
-    public static int nglyphID(long struct) { return UNSAFE.getInt(null, struct + FT_PaintGlyph.GLYPHID); }
+    public static int nglyphID(long struct) { return memGetInt(struct + FT_PaintGlyph.GLYPHID); }
 
     // -----------------------------------
 
@@ -146,6 +144,11 @@ public class FT_PaintGlyph extends Struct<FT_PaintGlyph> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -88,13 +88,13 @@ public class VkPhysicalDeviceSparseProperties extends Struct<VkPhysicalDeviceSpa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** {@link VK10#VK_TRUE TRUE} if the physical device will access all single-sample 2D sparse resources using the standard sparse image block shapes (based on image format), as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#sparsememory-sparseblockshapessingle">Standard Sparse Image Block Shapes (Single Sample)</a> table. If this property is not supported the value returned in the {@code imageGranularity} member of the {@link VkSparseImageFormatProperties} structure for single-sample 2D images is not <b>required</b> to match the standard sparse image block dimensions listed in the table. */
+    /** {@link VK10#VK_TRUE TRUE} if the physical device will access all single-sample 2D sparse resources using the standard sparse image block shapes (based on image format), as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#sparsememory-sparseblockshapessingle">Standard Sparse Image Block Shapes (Single Sample)</a> table. If this property is not supported the value returned in the {@code imageGranularity} member of the {@link VkSparseImageFormatProperties} structure for single-sample 2D images is not <b>required</b> to match the standard sparse image block dimensions listed in the table. */
     @NativeType("VkBool32")
     public boolean residencyStandard2DBlockShape() { return nresidencyStandard2DBlockShape(address()) != 0; }
-    /** {@link VK10#VK_TRUE TRUE} if the physical device will access all multisample 2D sparse resources using the standard sparse image block shapes (based on image format), as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#sparsememory-sparseblockshapesmsaa">Standard Sparse Image Block Shapes (MSAA)</a> table. If this property is not supported, the value returned in the {@code imageGranularity} member of the {@link VkSparseImageFormatProperties} structure for multisample 2D images is not <b>required</b> to match the standard sparse image block dimensions listed in the table. */
+    /** {@link VK10#VK_TRUE TRUE} if the physical device will access all multisample 2D sparse resources using the standard sparse image block shapes (based on image format), as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#sparsememory-sparseblockshapesmsaa">Standard Sparse Image Block Shapes (MSAA)</a> table. If this property is not supported, the value returned in the {@code imageGranularity} member of the {@link VkSparseImageFormatProperties} structure for multisample 2D images is not <b>required</b> to match the standard sparse image block dimensions listed in the table. */
     @NativeType("VkBool32")
     public boolean residencyStandard2DMultisampleBlockShape() { return nresidencyStandard2DMultisampleBlockShape(address()) != 0; }
-    /** {@link VK10#VK_TRUE TRUE} if the physical device will access all 3D sparse resources using the standard sparse image block shapes (based on image format), as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#sparsememory-sparseblockshapessingle">Standard Sparse Image Block Shapes (Single Sample)</a> table. If this property is not supported, the value returned in the {@code imageGranularity} member of the {@link VkSparseImageFormatProperties} structure for 3D images is not <b>required</b> to match the standard sparse image block dimensions listed in the table. */
+    /** {@link VK10#VK_TRUE TRUE} if the physical device will access all 3D sparse resources using the standard sparse image block shapes (based on image format), as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#sparsememory-sparseblockshapessingle">Standard Sparse Image Block Shapes (Single Sample)</a> table. If this property is not supported, the value returned in the {@code imageGranularity} member of the {@link VkSparseImageFormatProperties} structure for 3D images is not <b>required</b> to match the standard sparse image block dimensions listed in the table. */
     @NativeType("VkBool32")
     public boolean residencyStandard3DBlockShape() { return nresidencyStandard3DBlockShape(address()) != 0; }
     /** {@link VK10#VK_TRUE TRUE} if images with mip level dimensions that are not integer multiples of the corresponding dimensions of the sparse image block <b>may</b> be placed in the mip tail. If this property is not reported, only mip levels with dimensions smaller than the {@code imageGranularity} member of the {@link VkSparseImageFormatProperties} structure will be placed in the mip tail. If this property is reported the implementation is allowed to return {@link VK10#VK_SPARSE_IMAGE_FORMAT_ALIGNED_MIP_SIZE_BIT SPARSE_IMAGE_FORMAT_ALIGNED_MIP_SIZE_BIT} in the {@code flags} member of {@link VkSparseImageFormatProperties}, indicating that mip level dimensions that are not integer multiples of the corresponding dimensions of the sparse image block will be placed in the mip tail. */
@@ -112,8 +112,7 @@ public class VkPhysicalDeviceSparseProperties extends Struct<VkPhysicalDeviceSpa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSparseProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSparseProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSparseProperties(address, null);
     }
 
@@ -128,23 +127,22 @@ public class VkPhysicalDeviceSparseProperties extends Struct<VkPhysicalDeviceSpa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSparseProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSparseProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #residencyStandard2DBlockShape}. */
-    public static int nresidencyStandard2DBlockShape(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSparseProperties.RESIDENCYSTANDARD2DBLOCKSHAPE); }
+    public static int nresidencyStandard2DBlockShape(long struct) { return memGetInt(struct + VkPhysicalDeviceSparseProperties.RESIDENCYSTANDARD2DBLOCKSHAPE); }
     /** Unsafe version of {@link #residencyStandard2DMultisampleBlockShape}. */
-    public static int nresidencyStandard2DMultisampleBlockShape(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSparseProperties.RESIDENCYSTANDARD2DMULTISAMPLEBLOCKSHAPE); }
+    public static int nresidencyStandard2DMultisampleBlockShape(long struct) { return memGetInt(struct + VkPhysicalDeviceSparseProperties.RESIDENCYSTANDARD2DMULTISAMPLEBLOCKSHAPE); }
     /** Unsafe version of {@link #residencyStandard3DBlockShape}. */
-    public static int nresidencyStandard3DBlockShape(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSparseProperties.RESIDENCYSTANDARD3DBLOCKSHAPE); }
+    public static int nresidencyStandard3DBlockShape(long struct) { return memGetInt(struct + VkPhysicalDeviceSparseProperties.RESIDENCYSTANDARD3DBLOCKSHAPE); }
     /** Unsafe version of {@link #residencyAlignedMipSize}. */
-    public static int nresidencyAlignedMipSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSparseProperties.RESIDENCYALIGNEDMIPSIZE); }
+    public static int nresidencyAlignedMipSize(long struct) { return memGetInt(struct + VkPhysicalDeviceSparseProperties.RESIDENCYALIGNEDMIPSIZE); }
     /** Unsafe version of {@link #residencyNonResidentStrict}. */
-    public static int nresidencyNonResidentStrict(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSparseProperties.RESIDENCYNONRESIDENTSTRICT); }
+    public static int nresidencyNonResidentStrict(long struct) { return memGetInt(struct + VkPhysicalDeviceSparseProperties.RESIDENCYNONRESIDENTSTRICT); }
 
     // -----------------------------------
 
@@ -177,6 +175,11 @@ public class VkPhysicalDeviceSparseProperties extends Struct<VkPhysicalDeviceSpa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

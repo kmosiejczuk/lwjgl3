@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code robustBufferAccess2} is enabled then <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> <b>must</b> also be enabled</li>
+ * <li>If {@code robustBufferAccess2} is enabled then <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> <b>must</b> also be enabled</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -108,10 +108,10 @@ public class VkPhysicalDeviceRobustness2FeaturesEXT extends Struct<VkPhysicalDev
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether buffer accesses are tightly bounds-checked against the range of the descriptor. Uniform buffers <b>must</b> be bounds-checked to the range of the descriptor, where the range is rounded up to a multiple of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-robustUniformBufferAccessSizeAlignment">{@code robustUniformBufferAccessSizeAlignment}</a>. Storage buffers <b>must</b> be bounds-checked to the range of the descriptor, where the range is rounded up to a multiple of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-robustStorageBufferAccessSizeAlignment">{@code robustStorageBufferAccessSizeAlignment}</a>. Out of bounds buffer loads will return zero values, and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures">image load, sample, and atomic operations</a> from texel buffers will have <code>(0,0,1)</code> values <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-conversion-to-rgba">inserted for missing G, B, or A components</a> based on the format. */
+    /** indicates whether buffer accesses are tightly bounds-checked against the range of the descriptor. Uniform buffers <b>must</b> be bounds-checked to the range of the descriptor, where the range is rounded up to a multiple of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-robustUniformBufferAccessSizeAlignment">{@code robustUniformBufferAccessSizeAlignment}</a>. Storage buffers <b>must</b> be bounds-checked to the range of the descriptor, where the range is rounded up to a multiple of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-robustStorageBufferAccessSizeAlignment">{@code robustStorageBufferAccessSizeAlignment}</a>. Out of bounds buffer loads will return zero values, and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures">image load, sample, and atomic operations</a> from texel buffers will have <code>(0,0,1)</code> values <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-conversion-to-rgba">inserted for missing G, B, or A components</a> based on the format. */
     @NativeType("VkBool32")
     public boolean robustBufferAccess2() { return nrobustBufferAccess2(address()) != 0; }
-    /** indicates whether image accesses are tightly bounds-checked against the dimensions of the image view. Out of bounds <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures">image load, sample, and atomic operations</a> from images will return zero values, with <code>(0,0,1)</code> values <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-conversion-to-rgba">inserted for missing G, B, or A components</a> based on the format. */
+    /** indicates whether image accesses are tightly bounds-checked against the dimensions of the image view. Out of bounds <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures">image load, sample, and atomic operations</a> from images will return zero values, with <code>(0,0,1)</code> values <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-conversion-to-rgba">inserted for missing G, B, or A components</a> based on the format. */
     @NativeType("VkBool32")
     public boolean robustImageAccess2() { return nrobustImageAccess2(address()) != 0; }
     /** @return the value of the {@code nullDescriptor} field. */
@@ -184,8 +184,7 @@ public class VkPhysicalDeviceRobustness2FeaturesEXT extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRobustness2FeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRobustness2FeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRobustness2FeaturesEXT(address, null);
     }
 
@@ -228,8 +227,7 @@ public class VkPhysicalDeviceRobustness2FeaturesEXT extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRobustness2FeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRobustness2FeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,26 +272,26 @@ public class VkPhysicalDeviceRobustness2FeaturesEXT extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRobustness2FeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRobustness2FeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRobustness2FeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #robustBufferAccess2}. */
-    public static int nrobustBufferAccess2(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRobustness2FeaturesEXT.ROBUSTBUFFERACCESS2); }
+    public static int nrobustBufferAccess2(long struct) { return memGetInt(struct + VkPhysicalDeviceRobustness2FeaturesEXT.ROBUSTBUFFERACCESS2); }
     /** Unsafe version of {@link #robustImageAccess2}. */
-    public static int nrobustImageAccess2(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRobustness2FeaturesEXT.ROBUSTIMAGEACCESS2); }
+    public static int nrobustImageAccess2(long struct) { return memGetInt(struct + VkPhysicalDeviceRobustness2FeaturesEXT.ROBUSTIMAGEACCESS2); }
     /** Unsafe version of {@link #nullDescriptor}. */
-    public static int nnullDescriptor(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRobustness2FeaturesEXT.NULLDESCRIPTOR); }
+    public static int nnullDescriptor(long struct) { return memGetInt(struct + VkPhysicalDeviceRobustness2FeaturesEXT.NULLDESCRIPTOR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRobustness2FeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRobustness2FeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRobustness2FeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #robustBufferAccess2(boolean) robustBufferAccess2}. */
-    public static void nrobustBufferAccess2(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRobustness2FeaturesEXT.ROBUSTBUFFERACCESS2, value); }
+    public static void nrobustBufferAccess2(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRobustness2FeaturesEXT.ROBUSTBUFFERACCESS2, value); }
     /** Unsafe version of {@link #robustImageAccess2(boolean) robustImageAccess2}. */
-    public static void nrobustImageAccess2(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRobustness2FeaturesEXT.ROBUSTIMAGEACCESS2, value); }
+    public static void nrobustImageAccess2(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRobustness2FeaturesEXT.ROBUSTIMAGEACCESS2, value); }
     /** Unsafe version of {@link #nullDescriptor(boolean) nullDescriptor}. */
-    public static void nnullDescriptor(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRobustness2FeaturesEXT.NULLDESCRIPTOR, value); }
+    public static void nnullDescriptor(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRobustness2FeaturesEXT.NULLDESCRIPTOR, value); }
 
     // -----------------------------------
 
@@ -326,6 +324,11 @@ public class VkPhysicalDeviceRobustness2FeaturesEXT extends Struct<VkPhysicalDev
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

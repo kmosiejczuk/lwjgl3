@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -93,8 +93,7 @@ public class FT_Span extends Struct<FT_Span> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Span createSafe(long address) {
+    public static @Nullable FT_Span createSafe(long address) {
         return address == NULL ? null : new FT_Span(address, null);
     }
 
@@ -109,19 +108,18 @@ public class FT_Span extends Struct<FT_Span> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Span.Buffer createSafe(long address, int capacity) {
+    public static FT_Span.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static short nx(long struct) { return UNSAFE.getShort(null, struct + FT_Span.X); }
+    public static short nx(long struct) { return memGetShort(struct + FT_Span.X); }
     /** Unsafe version of {@link #len}. */
-    public static short nlen(long struct) { return UNSAFE.getShort(null, struct + FT_Span.LEN); }
+    public static short nlen(long struct) { return memGetShort(struct + FT_Span.LEN); }
     /** Unsafe version of {@link #coverage}. */
-    public static byte ncoverage(long struct) { return UNSAFE.getByte(null, struct + FT_Span.COVERAGE); }
+    public static byte ncoverage(long struct) { return memGetByte(struct + FT_Span.COVERAGE); }
 
     // -----------------------------------
 
@@ -154,6 +152,11 @@ public class FT_Span extends Struct<FT_Span> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

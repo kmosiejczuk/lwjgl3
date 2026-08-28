@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -187,8 +187,7 @@ public class StdVideoH265SubLayerHrdParameters extends Struct<StdVideoH265SubLay
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265SubLayerHrdParameters createSafe(long address) {
+    public static @Nullable StdVideoH265SubLayerHrdParameters createSafe(long address) {
         return address == NULL ? null : new StdVideoH265SubLayerHrdParameters(address, null);
     }
 
@@ -231,8 +230,7 @@ public class StdVideoH265SubLayerHrdParameters extends Struct<StdVideoH265SubLay
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265SubLayerHrdParameters.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265SubLayerHrdParameters.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,28 +278,28 @@ public class StdVideoH265SubLayerHrdParameters extends Struct<StdVideoH265SubLay
     public static IntBuffer nbit_rate_value_minus1(long struct) { return memIntBuffer(struct + StdVideoH265SubLayerHrdParameters.BIT_RATE_VALUE_MINUS1, STD_VIDEO_H265_CPB_CNT_LIST_SIZE); }
     /** Unsafe version of {@link #bit_rate_value_minus1(int) bit_rate_value_minus1}. */
     public static int nbit_rate_value_minus1(long struct, int index) {
-        return UNSAFE.getInt(null, struct + StdVideoH265SubLayerHrdParameters.BIT_RATE_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4);
+        return memGetInt(struct + StdVideoH265SubLayerHrdParameters.BIT_RATE_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4);
     }
     /** Unsafe version of {@link #cpb_size_value_minus1}. */
     public static IntBuffer ncpb_size_value_minus1(long struct) { return memIntBuffer(struct + StdVideoH265SubLayerHrdParameters.CPB_SIZE_VALUE_MINUS1, STD_VIDEO_H265_CPB_CNT_LIST_SIZE); }
     /** Unsafe version of {@link #cpb_size_value_minus1(int) cpb_size_value_minus1}. */
     public static int ncpb_size_value_minus1(long struct, int index) {
-        return UNSAFE.getInt(null, struct + StdVideoH265SubLayerHrdParameters.CPB_SIZE_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4);
+        return memGetInt(struct + StdVideoH265SubLayerHrdParameters.CPB_SIZE_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4);
     }
     /** Unsafe version of {@link #cpb_size_du_value_minus1}. */
     public static IntBuffer ncpb_size_du_value_minus1(long struct) { return memIntBuffer(struct + StdVideoH265SubLayerHrdParameters.CPB_SIZE_DU_VALUE_MINUS1, STD_VIDEO_H265_CPB_CNT_LIST_SIZE); }
     /** Unsafe version of {@link #cpb_size_du_value_minus1(int) cpb_size_du_value_minus1}. */
     public static int ncpb_size_du_value_minus1(long struct, int index) {
-        return UNSAFE.getInt(null, struct + StdVideoH265SubLayerHrdParameters.CPB_SIZE_DU_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4);
+        return memGetInt(struct + StdVideoH265SubLayerHrdParameters.CPB_SIZE_DU_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4);
     }
     /** Unsafe version of {@link #bit_rate_du_value_minus1}. */
     public static IntBuffer nbit_rate_du_value_minus1(long struct) { return memIntBuffer(struct + StdVideoH265SubLayerHrdParameters.BIT_RATE_DU_VALUE_MINUS1, STD_VIDEO_H265_CPB_CNT_LIST_SIZE); }
     /** Unsafe version of {@link #bit_rate_du_value_minus1(int) bit_rate_du_value_minus1}. */
     public static int nbit_rate_du_value_minus1(long struct, int index) {
-        return UNSAFE.getInt(null, struct + StdVideoH265SubLayerHrdParameters.BIT_RATE_DU_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4);
+        return memGetInt(struct + StdVideoH265SubLayerHrdParameters.BIT_RATE_DU_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4);
     }
     /** Unsafe version of {@link #cbr_flag}. */
-    public static int ncbr_flag(long struct) { return UNSAFE.getInt(null, struct + StdVideoH265SubLayerHrdParameters.CBR_FLAG); }
+    public static int ncbr_flag(long struct) { return memGetInt(struct + StdVideoH265SubLayerHrdParameters.CBR_FLAG); }
 
     /** Unsafe version of {@link #bit_rate_value_minus1(IntBuffer) bit_rate_value_minus1}. */
     public static void nbit_rate_value_minus1(long struct, IntBuffer value) {
@@ -310,7 +308,7 @@ public class StdVideoH265SubLayerHrdParameters extends Struct<StdVideoH265SubLay
     }
     /** Unsafe version of {@link #bit_rate_value_minus1(int, int) bit_rate_value_minus1}. */
     public static void nbit_rate_value_minus1(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + StdVideoH265SubLayerHrdParameters.BIT_RATE_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4, value);
+        memPutInt(struct + StdVideoH265SubLayerHrdParameters.BIT_RATE_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4, value);
     }
     /** Unsafe version of {@link #cpb_size_value_minus1(IntBuffer) cpb_size_value_minus1}. */
     public static void ncpb_size_value_minus1(long struct, IntBuffer value) {
@@ -319,7 +317,7 @@ public class StdVideoH265SubLayerHrdParameters extends Struct<StdVideoH265SubLay
     }
     /** Unsafe version of {@link #cpb_size_value_minus1(int, int) cpb_size_value_minus1}. */
     public static void ncpb_size_value_minus1(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + StdVideoH265SubLayerHrdParameters.CPB_SIZE_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4, value);
+        memPutInt(struct + StdVideoH265SubLayerHrdParameters.CPB_SIZE_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4, value);
     }
     /** Unsafe version of {@link #cpb_size_du_value_minus1(IntBuffer) cpb_size_du_value_minus1}. */
     public static void ncpb_size_du_value_minus1(long struct, IntBuffer value) {
@@ -328,7 +326,7 @@ public class StdVideoH265SubLayerHrdParameters extends Struct<StdVideoH265SubLay
     }
     /** Unsafe version of {@link #cpb_size_du_value_minus1(int, int) cpb_size_du_value_minus1}. */
     public static void ncpb_size_du_value_minus1(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + StdVideoH265SubLayerHrdParameters.CPB_SIZE_DU_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4, value);
+        memPutInt(struct + StdVideoH265SubLayerHrdParameters.CPB_SIZE_DU_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4, value);
     }
     /** Unsafe version of {@link #bit_rate_du_value_minus1(IntBuffer) bit_rate_du_value_minus1}. */
     public static void nbit_rate_du_value_minus1(long struct, IntBuffer value) {
@@ -337,10 +335,10 @@ public class StdVideoH265SubLayerHrdParameters extends Struct<StdVideoH265SubLay
     }
     /** Unsafe version of {@link #bit_rate_du_value_minus1(int, int) bit_rate_du_value_minus1}. */
     public static void nbit_rate_du_value_minus1(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + StdVideoH265SubLayerHrdParameters.BIT_RATE_DU_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4, value);
+        memPutInt(struct + StdVideoH265SubLayerHrdParameters.BIT_RATE_DU_VALUE_MINUS1 + check(index, STD_VIDEO_H265_CPB_CNT_LIST_SIZE) * 4, value);
     }
     /** Unsafe version of {@link #cbr_flag(int) cbr_flag}. */
-    public static void ncbr_flag(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH265SubLayerHrdParameters.CBR_FLAG, value); }
+    public static void ncbr_flag(long struct, int value) { memPutInt(struct + StdVideoH265SubLayerHrdParameters.CBR_FLAG, value); }
 
     // -----------------------------------
 
@@ -373,6 +371,11 @@ public class StdVideoH265SubLayerHrdParameters extends Struct<StdVideoH265SubLay
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

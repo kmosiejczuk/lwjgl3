@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -176,8 +176,7 @@ public class VkDeviceGroupBindSparseInfo extends Struct<VkDeviceGroupBindSparseI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupBindSparseInfo createSafe(long address) {
+    public static @Nullable VkDeviceGroupBindSparseInfo createSafe(long address) {
         return address == NULL ? null : new VkDeviceGroupBindSparseInfo(address, null);
     }
 
@@ -220,8 +219,7 @@ public class VkDeviceGroupBindSparseInfo extends Struct<VkDeviceGroupBindSparseI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupBindSparseInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceGroupBindSparseInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,22 +283,22 @@ public class VkDeviceGroupBindSparseInfo extends Struct<VkDeviceGroupBindSparseI
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupBindSparseInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceGroupBindSparseInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceGroupBindSparseInfo.PNEXT); }
     /** Unsafe version of {@link #resourceDeviceIndex}. */
-    public static int nresourceDeviceIndex(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupBindSparseInfo.RESOURCEDEVICEINDEX); }
+    public static int nresourceDeviceIndex(long struct) { return memGetInt(struct + VkDeviceGroupBindSparseInfo.RESOURCEDEVICEINDEX); }
     /** Unsafe version of {@link #memoryDeviceIndex}. */
-    public static int nmemoryDeviceIndex(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupBindSparseInfo.MEMORYDEVICEINDEX); }
+    public static int nmemoryDeviceIndex(long struct) { return memGetInt(struct + VkDeviceGroupBindSparseInfo.MEMORYDEVICEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupBindSparseInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceGroupBindSparseInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceGroupBindSparseInfo.PNEXT, value); }
     /** Unsafe version of {@link #resourceDeviceIndex(int) resourceDeviceIndex}. */
-    public static void nresourceDeviceIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupBindSparseInfo.RESOURCEDEVICEINDEX, value); }
+    public static void nresourceDeviceIndex(long struct, int value) { memPutInt(struct + VkDeviceGroupBindSparseInfo.RESOURCEDEVICEINDEX, value); }
     /** Unsafe version of {@link #memoryDeviceIndex(int) memoryDeviceIndex}. */
-    public static void nmemoryDeviceIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupBindSparseInfo.MEMORYDEVICEINDEX, value); }
+    public static void nmemoryDeviceIndex(long struct, int value) { memPutInt(struct + VkDeviceGroupBindSparseInfo.MEMORYDEVICEINDEX, value); }
 
     // -----------------------------------
 
@@ -333,6 +331,11 @@ public class VkDeviceGroupBindSparseInfo extends Struct<VkDeviceGroupBindSparseI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

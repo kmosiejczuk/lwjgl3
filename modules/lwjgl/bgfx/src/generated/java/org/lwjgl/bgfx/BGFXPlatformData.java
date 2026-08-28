@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class BGFXPlatformData extends Struct<BGFXPlatformData> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXPlatformData createSafe(long address) {
+    public static @Nullable BGFXPlatformData createSafe(long address) {
         return address == NULL ? null : new BGFXPlatformData(address, null);
     }
 
@@ -226,7 +225,7 @@ public class BGFXPlatformData extends Struct<BGFXPlatformData> implements Native
     /** Unsafe version of {@link #backBufferDS}. */
     public static long nbackBufferDS(long struct) { return memGetAddress(struct + BGFXPlatformData.BACKBUFFERDS); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + BGFXPlatformData.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + BGFXPlatformData.TYPE); }
 
     /** Unsafe version of {@link #ndt(long) ndt}. */
     public static void nndt(long struct, long value) { memPutAddress(struct + BGFXPlatformData.NDT, value); }
@@ -239,6 +238,6 @@ public class BGFXPlatformData extends Struct<BGFXPlatformData> implements Native
     /** Unsafe version of {@link #backBufferDS(long) backBufferDS}. */
     public static void nbackBufferDS(long struct, long value) { memPutAddress(struct + BGFXPlatformData.BACKBUFFERDS, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + BGFXPlatformData.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + BGFXPlatformData.TYPE, value); }
 
 }

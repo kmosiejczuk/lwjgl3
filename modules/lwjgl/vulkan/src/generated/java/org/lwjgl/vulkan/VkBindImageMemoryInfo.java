@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,8 +25,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code image} <b>must</b> not have been created with any sparse memory binding flags</li>
  * <li>{@code memoryOffset} <b>must</b> be less than the size of {@code memory}</li>
  * <li>If {@code image} requires a dedicated allocation (as reported by {@link VK11#vkGetImageMemoryRequirements2 GetImageMemoryRequirements2} in {@link VkMemoryDedicatedRequirements}{@code ::requiresDedicatedAllocation} for {@code image}), {@code memory} <b>must</b> have been created with {@link VkMemoryDedicatedAllocateInfo}{@code ::image} equal to {@code image}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dedicatedAllocationImageAliasing">{@code dedicatedAllocationImageAliasing}</a> feature is not enabled, and the {@link VkMemoryAllocateInfo} provided when {@code memory} was allocated included a {@link VkMemoryDedicatedAllocateInfo} structure in its {@code pNext} chain, and {@link VkMemoryDedicatedAllocateInfo}{@code ::image} was not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then {@code image} <b>must</b> equal {@link VkMemoryDedicatedAllocateInfo}{@code ::image} and {@code memoryOffset} <b>must</b> be zero</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dedicatedAllocationImageAliasing">{@code dedicatedAllocationImageAliasing}</a> feature is enabled, and the {@link VkMemoryAllocateInfo} provided when {@code memory} was allocated included a {@link VkMemoryDedicatedAllocateInfo} structure in its {@code pNext} chain, and {@link VkMemoryDedicatedAllocateInfo}{@code ::image} was not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then {@code memoryOffset} <b>must</b> be zero, and {@code image} <b>must</b> be either equal to {@link VkMemoryDedicatedAllocateInfo}{@code ::image} or an image that was created using the same parameters in {@link VkImageCreateInfo}, with the exception that {@code extent} and {@code arrayLayers} <b>may</b> differ subject to the following restrictions: every dimension in the {@code extent} parameter of the image being bound <b>must</b> be equal to or smaller than the original image for which the allocation was created; and the {@code arrayLayers} parameter of the image being bound <b>must</b> be equal to or smaller than the original image for which the allocation was created</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dedicatedAllocationImageAliasing">{@code dedicatedAllocationImageAliasing}</a> feature is not enabled, and the {@link VkMemoryAllocateInfo} provided when {@code memory} was allocated included a {@link VkMemoryDedicatedAllocateInfo} structure in its {@code pNext} chain, and {@link VkMemoryDedicatedAllocateInfo}{@code ::image} was not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then {@code image} <b>must</b> equal {@link VkMemoryDedicatedAllocateInfo}{@code ::image} and {@code memoryOffset} <b>must</b> be zero</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dedicatedAllocationImageAliasing">{@code dedicatedAllocationImageAliasing}</a> feature is enabled, and the {@link VkMemoryAllocateInfo} provided when {@code memory} was allocated included a {@link VkMemoryDedicatedAllocateInfo} structure in its {@code pNext} chain, and {@link VkMemoryDedicatedAllocateInfo}{@code ::image} was not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then {@code memoryOffset} <b>must</b> be zero, and {@code image} <b>must</b> be either equal to {@link VkMemoryDedicatedAllocateInfo}{@code ::image} or an image that was created using the same parameters in {@link VkImageCreateInfo}, with the exception that {@code extent} and {@code arrayLayers} <b>may</b> differ subject to the following restrictions: every dimension in the {@code extent} parameter of the image being bound <b>must</b> be equal to or smaller than the original image for which the allocation was created; and the {@code arrayLayers} parameter of the image being bound <b>must</b> be equal to or smaller than the original image for which the allocation was created</li>
  * <li>If image was created with the {@link VK11#VK_IMAGE_CREATE_PROTECTED_BIT IMAGE_CREATE_PROTECTED_BIT} bit set, the image <b>must</b> be bound to a memory object allocated with a memory type that reports {@link VK11#VK_MEMORY_PROPERTY_PROTECTED_BIT MEMORY_PROPERTY_PROTECTED_BIT}</li>
  * <li>If image was created with the {@link VK11#VK_IMAGE_CREATE_PROTECTED_BIT IMAGE_CREATE_PROTECTED_BIT} bit not set, the image <b>must</b> not be bound to a memory object created with a memory type that reports {@link VK11#VK_MEMORY_PROPERTY_PROTECTED_BIT MEMORY_PROPERTY_PROTECTED_BIT}</li>
  * <li>If {@code image} was created with {@link VkDedicatedAllocationImageCreateInfoNV}{@code ::dedicatedAllocation} equal to {@link VK10#VK_TRUE TRUE}, {@code memory} <b>must</b> have been created with {@link VkDedicatedAllocationMemoryAllocateInfoNV}{@code ::image} equal to an image handle created with identical creation parameters to {@code image} and {@code memoryOffset} <b>must</b> be zero</li>
@@ -57,7 +57,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_INFO STRUCTURE_TYPE_BIND_IMAGE_MEMORY_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkBindImageMemoryDeviceGroupInfo}, {@link VkBindImageMemorySwapchainInfoKHR}, {@link VkBindImagePlaneMemoryInfo}, or {@link VkBindMemoryStatusKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkBindImageMemoryDeviceGroupInfo}, {@link VkBindImageMemorySwapchainInfoKHR}, {@link VkBindImagePlaneMemoryInfo}, or {@link VkBindMemoryStatus}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code image} <b>must</b> be a valid {@code VkImage} handle</li>
  * <li>Both of {@code image}, and {@code memory} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkDevice}</li>
@@ -167,6 +167,8 @@ public class VkBindImageMemoryInfo extends Struct<VkBindImageMemoryInfo> impleme
     public VkBindImageMemoryInfo pNext(VkBindImagePlaneMemoryInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkBindImagePlaneMemoryInfoKHR} value to the {@code pNext} chain. */
     public VkBindImageMemoryInfo pNext(VkBindImagePlaneMemoryInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkBindMemoryStatus} value to the {@code pNext} chain. */
+    public VkBindImageMemoryInfo pNext(VkBindMemoryStatus value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkBindMemoryStatusKHR} value to the {@code pNext} chain. */
     public VkBindImageMemoryInfo pNext(VkBindMemoryStatusKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #image} field. */
@@ -229,8 +231,7 @@ public class VkBindImageMemoryInfo extends Struct<VkBindImageMemoryInfo> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindImageMemoryInfo createSafe(long address) {
+    public static @Nullable VkBindImageMemoryInfo createSafe(long address) {
         return address == NULL ? null : new VkBindImageMemoryInfo(address, null);
     }
 
@@ -273,8 +274,7 @@ public class VkBindImageMemoryInfo extends Struct<VkBindImageMemoryInfo> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindImageMemoryInfo.Buffer createSafe(long address, int capacity) {
+    public static VkBindImageMemoryInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -338,26 +338,26 @@ public class VkBindImageMemoryInfo extends Struct<VkBindImageMemoryInfo> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBindImageMemoryInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBindImageMemoryInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBindImageMemoryInfo.PNEXT); }
     /** Unsafe version of {@link #image}. */
-    public static long nimage(long struct) { return UNSAFE.getLong(null, struct + VkBindImageMemoryInfo.IMAGE); }
+    public static long nimage(long struct) { return memGetLong(struct + VkBindImageMemoryInfo.IMAGE); }
     /** Unsafe version of {@link #memory}. */
-    public static long nmemory(long struct) { return UNSAFE.getLong(null, struct + VkBindImageMemoryInfo.MEMORY); }
+    public static long nmemory(long struct) { return memGetLong(struct + VkBindImageMemoryInfo.MEMORY); }
     /** Unsafe version of {@link #memoryOffset}. */
-    public static long nmemoryOffset(long struct) { return UNSAFE.getLong(null, struct + VkBindImageMemoryInfo.MEMORYOFFSET); }
+    public static long nmemoryOffset(long struct) { return memGetLong(struct + VkBindImageMemoryInfo.MEMORYOFFSET); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBindImageMemoryInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBindImageMemoryInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBindImageMemoryInfo.PNEXT, value); }
     /** Unsafe version of {@link #image(long) image}. */
-    public static void nimage(long struct, long value) { UNSAFE.putLong(null, struct + VkBindImageMemoryInfo.IMAGE, value); }
+    public static void nimage(long struct, long value) { memPutLong(struct + VkBindImageMemoryInfo.IMAGE, value); }
     /** Unsafe version of {@link #memory(long) memory}. */
-    public static void nmemory(long struct, long value) { UNSAFE.putLong(null, struct + VkBindImageMemoryInfo.MEMORY, value); }
+    public static void nmemory(long struct, long value) { memPutLong(struct + VkBindImageMemoryInfo.MEMORY, value); }
     /** Unsafe version of {@link #memoryOffset(long) memoryOffset}. */
-    public static void nmemoryOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkBindImageMemoryInfo.MEMORYOFFSET, value); }
+    public static void nmemoryOffset(long struct, long value) { memPutLong(struct + VkBindImageMemoryInfo.MEMORYOFFSET, value); }
 
     // -----------------------------------
 
@@ -390,6 +390,11 @@ public class VkBindImageMemoryInfo extends Struct<VkBindImageMemoryInfo> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -429,6 +434,8 @@ public class VkBindImageMemoryInfo extends Struct<VkBindImageMemoryInfo> impleme
         public VkBindImageMemoryInfo.Buffer pNext(VkBindImagePlaneMemoryInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkBindImagePlaneMemoryInfoKHR} value to the {@code pNext} chain. */
         public VkBindImageMemoryInfo.Buffer pNext(VkBindImagePlaneMemoryInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkBindMemoryStatus} value to the {@code pNext} chain. */
+        public VkBindImageMemoryInfo.Buffer pNext(VkBindMemoryStatus value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkBindMemoryStatusKHR} value to the {@code pNext} chain. */
         public VkBindImageMemoryInfo.Buffer pNext(VkBindMemoryStatusKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkBindImageMemoryInfo#image} field. */

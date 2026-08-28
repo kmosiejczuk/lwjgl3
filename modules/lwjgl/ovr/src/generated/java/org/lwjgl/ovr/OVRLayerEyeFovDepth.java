@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -264,8 +264,7 @@ public class OVRLayerEyeFovDepth extends Struct<OVRLayerEyeFovDepth> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRLayerEyeFovDepth createSafe(long address) {
+    public static @Nullable OVRLayerEyeFovDepth createSafe(long address) {
         return address == NULL ? null : new OVRLayerEyeFovDepth(address, null);
     }
 
@@ -308,8 +307,7 @@ public class OVRLayerEyeFovDepth extends Struct<OVRLayerEyeFovDepth> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRLayerEyeFovDepth.Buffer createSafe(long address, int capacity) {
+    public static OVRLayerEyeFovDepth.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -399,7 +397,7 @@ public class OVRLayerEyeFovDepth extends Struct<OVRLayerEyeFovDepth> implements 
         return OVRPosef.create(struct + OVRLayerEyeFovDepth.RENDERPOSE + check(index, ovrEye_Count) * OVRPosef.SIZEOF);
     }
     /** Unsafe version of {@link #SensorSampleTime}. */
-    public static double nSensorSampleTime(long struct) { return UNSAFE.getDouble(null, struct + OVRLayerEyeFovDepth.SENSORSAMPLETIME); }
+    public static double nSensorSampleTime(long struct) { return memGetDouble(struct + OVRLayerEyeFovDepth.SENSORSAMPLETIME); }
     /** Unsafe version of {@link #DepthTexture}. */
     public static PointerBuffer nDepthTexture(long struct) { return memPointerBuffer(struct + OVRLayerEyeFovDepth.DEPTHTEXTURE, ovrEye_Count); }
     /** Unsafe version of {@link #DepthTexture(int) DepthTexture}. */
@@ -448,7 +446,7 @@ public class OVRLayerEyeFovDepth extends Struct<OVRLayerEyeFovDepth> implements 
         memCopy(value.address(), struct + OVRLayerEyeFovDepth.RENDERPOSE + check(index, ovrEye_Count) * OVRPosef.SIZEOF, OVRPosef.SIZEOF);
     }
     /** Unsafe version of {@link #SensorSampleTime(double) SensorSampleTime}. */
-    public static void nSensorSampleTime(long struct, double value) { UNSAFE.putDouble(null, struct + OVRLayerEyeFovDepth.SENSORSAMPLETIME, value); }
+    public static void nSensorSampleTime(long struct, double value) { memPutDouble(struct + OVRLayerEyeFovDepth.SENSORSAMPLETIME, value); }
     /** Unsafe version of {@link #DepthTexture(PointerBuffer) DepthTexture}. */
     public static void nDepthTexture(long struct, PointerBuffer value) {
         if (CHECKS) { checkGT(value, ovrEye_Count); }
@@ -502,6 +500,11 @@ public class OVRLayerEyeFovDepth extends Struct<OVRLayerEyeFovDepth> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

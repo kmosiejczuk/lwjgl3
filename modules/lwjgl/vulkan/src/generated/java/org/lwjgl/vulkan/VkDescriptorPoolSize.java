@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>When creating a descriptor pool that will contain descriptors for combined image samplers of multi-planar formats, an application needs to account for non-trivial descriptor consumption when choosing the {@code descriptorCount} value, as indicated by {@link VkSamplerYcbcrConversionImageFormatProperties}{@code ::combinedImageSamplerDescriptorCount}.</p>
  * 
- * <p>For simplicity the application <b>can</b> use the {@link VkPhysicalDeviceMaintenance6PropertiesKHR}{@code ::maxCombinedImageSamplerDescriptorCount} property, which is sized to accommodate any and all <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</p>
+ * <p>For simplicity the application <b>can</b> use the {@link VkPhysicalDeviceMaintenance6Properties}{@code ::maxCombinedImageSamplerDescriptorCount} property, which is sized to accommodate any and all <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</p>
  * </div>
  * 
  * <h5>Valid Usage</h5>
@@ -159,8 +159,7 @@ public class VkDescriptorPoolSize extends Struct<VkDescriptorPoolSize> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorPoolSize createSafe(long address) {
+    public static @Nullable VkDescriptorPoolSize createSafe(long address) {
         return address == NULL ? null : new VkDescriptorPoolSize(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkDescriptorPoolSize extends Struct<VkDescriptorPoolSize> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorPoolSize.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorPoolSize.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,14 +266,14 @@ public class VkDescriptorPoolSize extends Struct<VkDescriptorPoolSize> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorPoolSize.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkDescriptorPoolSize.TYPE); }
     /** Unsafe version of {@link #descriptorCount}. */
-    public static int ndescriptorCount(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorPoolSize.DESCRIPTORCOUNT); }
+    public static int ndescriptorCount(long struct) { return memGetInt(struct + VkDescriptorPoolSize.DESCRIPTORCOUNT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorPoolSize.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkDescriptorPoolSize.TYPE, value); }
     /** Unsafe version of {@link #descriptorCount(int) descriptorCount}. */
-    public static void ndescriptorCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorPoolSize.DESCRIPTORCOUNT, value); }
+    public static void ndescriptorCount(long struct, int value) { memPutInt(struct + VkDescriptorPoolSize.DESCRIPTORCOUNT, value); }
 
     // -----------------------------------
 
@@ -308,6 +306,11 @@ public class VkDescriptorPoolSize extends Struct<VkDescriptorPoolSize> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

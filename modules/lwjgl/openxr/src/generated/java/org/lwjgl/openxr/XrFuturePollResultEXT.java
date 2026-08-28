@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class XrFuturePollResultEXT extends Struct<XrFuturePollResultEXT> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFuturePollResultEXT createSafe(long address) {
+    public static @Nullable XrFuturePollResultEXT createSafe(long address) {
         return address == NULL ? null : new XrFuturePollResultEXT(address, null);
     }
 
@@ -202,8 +201,7 @@ public class XrFuturePollResultEXT extends Struct<XrFuturePollResultEXT> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFuturePollResultEXT.Buffer createSafe(long address, int capacity) {
+    public static XrFuturePollResultEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +246,14 @@ public class XrFuturePollResultEXT extends Struct<XrFuturePollResultEXT> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFuturePollResultEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFuturePollResultEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFuturePollResultEXT.NEXT); }
     /** Unsafe version of {@link #state}. */
-    public static int nstate(long struct) { return UNSAFE.getInt(null, struct + XrFuturePollResultEXT.STATE); }
+    public static int nstate(long struct) { return memGetInt(struct + XrFuturePollResultEXT.STATE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFuturePollResultEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFuturePollResultEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFuturePollResultEXT.NEXT, value); }
 
@@ -290,6 +288,11 @@ public class XrFuturePollResultEXT extends Struct<XrFuturePollResultEXT> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

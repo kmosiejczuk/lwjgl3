@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -157,8 +157,7 @@ public class VkSurfaceFullScreenExclusiveInfoEXT extends Struct<VkSurfaceFullScr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceFullScreenExclusiveInfoEXT createSafe(long address) {
+    public static @Nullable VkSurfaceFullScreenExclusiveInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkSurfaceFullScreenExclusiveInfoEXT(address, null);
     }
 
@@ -201,8 +200,7 @@ public class VkSurfaceFullScreenExclusiveInfoEXT extends Struct<VkSurfaceFullScr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceFullScreenExclusiveInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSurfaceFullScreenExclusiveInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,18 +264,18 @@ public class VkSurfaceFullScreenExclusiveInfoEXT extends Struct<VkSurfaceFullScr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceFullScreenExclusiveInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSurfaceFullScreenExclusiveInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSurfaceFullScreenExclusiveInfoEXT.PNEXT); }
     /** Unsafe version of {@link #fullScreenExclusive}. */
-    public static int nfullScreenExclusive(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceFullScreenExclusiveInfoEXT.FULLSCREENEXCLUSIVE); }
+    public static int nfullScreenExclusive(long struct) { return memGetInt(struct + VkSurfaceFullScreenExclusiveInfoEXT.FULLSCREENEXCLUSIVE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceFullScreenExclusiveInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSurfaceFullScreenExclusiveInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSurfaceFullScreenExclusiveInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #fullScreenExclusive(int) fullScreenExclusive}. */
-    public static void nfullScreenExclusive(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceFullScreenExclusiveInfoEXT.FULLSCREENEXCLUSIVE, value); }
+    public static void nfullScreenExclusive(long struct, int value) { memPutInt(struct + VkSurfaceFullScreenExclusiveInfoEXT.FULLSCREENEXCLUSIVE, value); }
 
     // -----------------------------------
 
@@ -310,6 +308,11 @@ public class VkSurfaceFullScreenExclusiveInfoEXT extends Struct<VkSurfaceFullScr
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT extends Struct<Vk
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** specifies whether blending using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-blend-advanced">advanced blend operations</a> is guaranteed to execute atomically and in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#drawing-primitive-order">primitive order</a>. If this is {@link VK10#VK_TRUE TRUE}, {@link EXTBlendOperationAdvanced#VK_ACCESS_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT ACCESS_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT} is treated the same as {@link VK10#VK_ACCESS_COLOR_ATTACHMENT_READ_BIT ACCESS_COLOR_ATTACHMENT_READ_BIT}, and advanced blending needs no additional synchronization over basic blending. If this is {@link VK10#VK_FALSE FALSE}, then memory dependencies are required to guarantee order between two advanced blending operations that occur on the same sample. */
+    /** specifies whether blending using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#framebuffer-blend-advanced">advanced blend operations</a> is guaranteed to execute atomically and in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#drawing-primitive-order">primitive order</a>. If this is {@link VK10#VK_TRUE TRUE}, {@link EXTBlendOperationAdvanced#VK_ACCESS_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT ACCESS_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT} is treated the same as {@link VK10#VK_ACCESS_COLOR_ATTACHMENT_READ_BIT ACCESS_COLOR_ATTACHMENT_READ_BIT}, and advanced blending needs no additional synchronization over basic blending. If this is {@link VK10#VK_FALSE FALSE}, then memory dependencies are required to guarantee order between two advanced blending operations that occur on the same sample. */
     @NativeType("VkBool32")
     public boolean advancedBlendCoherentOperations() { return nadvancedBlendCoherentOperations(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT extends Struct<Vk
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT extends Struct<Vk
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT extends Struct<Vk
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #advancedBlendCoherentOperations}. */
-    public static int nadvancedBlendCoherentOperations(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.ADVANCEDBLENDCOHERENTOPERATIONS); }
+    public static int nadvancedBlendCoherentOperations(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.ADVANCEDBLENDCOHERENTOPERATIONS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #advancedBlendCoherentOperations(boolean) advancedBlendCoherentOperations}. */
-    public static void nadvancedBlendCoherentOperations(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.ADVANCEDBLENDCOHERENTOPERATIONS, value); }
+    public static void nadvancedBlendCoherentOperations(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.ADVANCEDBLENDCOHERENTOPERATIONS, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT extends Struct<Vk
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

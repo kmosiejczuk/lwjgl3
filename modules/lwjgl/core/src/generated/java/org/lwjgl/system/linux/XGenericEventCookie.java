@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -201,8 +201,7 @@ public class XGenericEventCookie extends Struct<XGenericEventCookie> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XGenericEventCookie createSafe(long address) {
+    public static @Nullable XGenericEventCookie createSafe(long address) {
         return address == NULL ? null : new XGenericEventCookie(address, null);
     }
 
@@ -245,8 +244,7 @@ public class XGenericEventCookie extends Struct<XGenericEventCookie> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XGenericEventCookie.Buffer createSafe(long address, int capacity) {
+    public static XGenericEventCookie.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -310,36 +308,36 @@ public class XGenericEventCookie extends Struct<XGenericEventCookie> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XGenericEventCookie.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XGenericEventCookie.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XGenericEventCookie.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XGenericEventCookie.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XGenericEventCookie.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XGenericEventCookie.DISPLAY); }
     /** Unsafe version of {@link #extension}. */
-    public static int nextension(long struct) { return UNSAFE.getInt(null, struct + XGenericEventCookie.EXTENSION); }
+    public static int nextension(long struct) { return memGetInt(struct + XGenericEventCookie.EXTENSION); }
     /** Unsafe version of {@link #evtype}. */
-    public static int nevtype(long struct) { return UNSAFE.getInt(null, struct + XGenericEventCookie.EVTYPE); }
+    public static int nevtype(long struct) { return memGetInt(struct + XGenericEventCookie.EVTYPE); }
     /** Unsafe version of {@link #cookie}. */
-    public static int ncookie(long struct) { return UNSAFE.getInt(null, struct + XGenericEventCookie.COOKIE); }
+    public static int ncookie(long struct) { return memGetInt(struct + XGenericEventCookie.COOKIE); }
     /** Unsafe version of {@link #data(int) data}. */
     public static ByteBuffer ndata(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + XGenericEventCookie.DATA), capacity); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XGenericEventCookie.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XGenericEventCookie.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XGenericEventCookie.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XGenericEventCookie.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XGenericEventCookie.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XGenericEventCookie.DISPLAY, check(value)); }
     /** Unsafe version of {@link #extension(int) extension}. */
-    public static void nextension(long struct, int value) { UNSAFE.putInt(null, struct + XGenericEventCookie.EXTENSION, value); }
+    public static void nextension(long struct, int value) { memPutInt(struct + XGenericEventCookie.EXTENSION, value); }
     /** Unsafe version of {@link #evtype(int) evtype}. */
-    public static void nevtype(long struct, int value) { UNSAFE.putInt(null, struct + XGenericEventCookie.EVTYPE, value); }
+    public static void nevtype(long struct, int value) { memPutInt(struct + XGenericEventCookie.EVTYPE, value); }
     /** Unsafe version of {@link #cookie(int) cookie}. */
-    public static void ncookie(long struct, int value) { UNSAFE.putInt(null, struct + XGenericEventCookie.COOKIE, value); }
+    public static void ncookie(long struct, int value) { memPutInt(struct + XGenericEventCookie.COOKIE, value); }
     /** Unsafe version of {@link #data(ByteBuffer) data}. */
     public static void ndata(long struct, ByteBuffer value) { memPutAddress(struct + XGenericEventCookie.DATA, memAddress(value)); }
 
@@ -384,6 +382,11 @@ public class XGenericEventCookie extends Struct<XGenericEventCookie> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

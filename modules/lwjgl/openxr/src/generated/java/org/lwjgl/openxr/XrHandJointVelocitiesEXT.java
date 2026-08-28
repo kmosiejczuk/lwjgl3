@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -180,8 +180,7 @@ public class XrHandJointVelocitiesEXT extends Struct<XrHandJointVelocitiesEXT> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandJointVelocitiesEXT createSafe(long address) {
+    public static @Nullable XrHandJointVelocitiesEXT createSafe(long address) {
         return address == NULL ? null : new XrHandJointVelocitiesEXT(address, null);
     }
 
@@ -224,8 +223,7 @@ public class XrHandJointVelocitiesEXT extends Struct<XrHandJointVelocitiesEXT> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandJointVelocitiesEXT.Buffer createSafe(long address, int capacity) {
+    public static XrHandJointVelocitiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,20 +268,20 @@ public class XrHandJointVelocitiesEXT extends Struct<XrHandJointVelocitiesEXT> i
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandJointVelocitiesEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandJointVelocitiesEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandJointVelocitiesEXT.NEXT); }
     /** Unsafe version of {@link #jointCount}. */
-    public static int njointCount(long struct) { return UNSAFE.getInt(null, struct + XrHandJointVelocitiesEXT.JOINTCOUNT); }
+    public static int njointCount(long struct) { return memGetInt(struct + XrHandJointVelocitiesEXT.JOINTCOUNT); }
     /** Unsafe version of {@link #jointVelocities}. */
     public static XrHandJointVelocityEXT.Buffer njointVelocities(long struct) { return XrHandJointVelocityEXT.create(memGetAddress(struct + XrHandJointVelocitiesEXT.JOINTVELOCITIES), njointCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandJointVelocitiesEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandJointVelocitiesEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandJointVelocitiesEXT.NEXT, value); }
     /** Sets the specified value to the {@code jointCount} field of the specified {@code struct}. */
-    public static void njointCount(long struct, int value) { UNSAFE.putInt(null, struct + XrHandJointVelocitiesEXT.JOINTCOUNT, value); }
+    public static void njointCount(long struct, int value) { memPutInt(struct + XrHandJointVelocitiesEXT.JOINTCOUNT, value); }
     /** Unsafe version of {@link #jointVelocities(XrHandJointVelocityEXT.Buffer) jointVelocities}. */
     public static void njointVelocities(long struct, XrHandJointVelocityEXT.Buffer value) { memPutAddress(struct + XrHandJointVelocitiesEXT.JOINTVELOCITIES, value.address()); njointCount(struct, value.remaining()); }
 
@@ -327,6 +325,11 @@ public class XrHandJointVelocitiesEXT extends Struct<XrHandJointVelocitiesEXT> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

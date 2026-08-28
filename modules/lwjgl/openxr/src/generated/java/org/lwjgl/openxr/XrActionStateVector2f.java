@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -195,8 +195,7 @@ public class XrActionStateVector2f extends Struct<XrActionStateVector2f> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionStateVector2f createSafe(long address) {
+    public static @Nullable XrActionStateVector2f createSafe(long address) {
         return address == NULL ? null : new XrActionStateVector2f(address, null);
     }
 
@@ -239,8 +238,7 @@ public class XrActionStateVector2f extends Struct<XrActionStateVector2f> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionStateVector2f.Buffer createSafe(long address, int capacity) {
+    public static XrActionStateVector2f.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,30 +283,30 @@ public class XrActionStateVector2f extends Struct<XrActionStateVector2f> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrActionStateVector2f.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrActionStateVector2f.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrActionStateVector2f.NEXT); }
     /** Unsafe version of {@link #currentState}. */
     public static XrVector2f ncurrentState(long struct) { return XrVector2f.create(struct + XrActionStateVector2f.CURRENTSTATE); }
     /** Unsafe version of {@link #changedSinceLastSync}. */
-    public static int nchangedSinceLastSync(long struct) { return UNSAFE.getInt(null, struct + XrActionStateVector2f.CHANGEDSINCELASTSYNC); }
+    public static int nchangedSinceLastSync(long struct) { return memGetInt(struct + XrActionStateVector2f.CHANGEDSINCELASTSYNC); }
     /** Unsafe version of {@link #lastChangeTime}. */
-    public static long nlastChangeTime(long struct) { return UNSAFE.getLong(null, struct + XrActionStateVector2f.LASTCHANGETIME); }
+    public static long nlastChangeTime(long struct) { return memGetLong(struct + XrActionStateVector2f.LASTCHANGETIME); }
     /** Unsafe version of {@link #isActive}. */
-    public static int nisActive(long struct) { return UNSAFE.getInt(null, struct + XrActionStateVector2f.ISACTIVE); }
+    public static int nisActive(long struct) { return memGetInt(struct + XrActionStateVector2f.ISACTIVE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrActionStateVector2f.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrActionStateVector2f.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrActionStateVector2f.NEXT, value); }
     /** Unsafe version of {@link #currentState(XrVector2f) currentState}. */
     public static void ncurrentState(long struct, XrVector2f value) { memCopy(value.address(), struct + XrActionStateVector2f.CURRENTSTATE, XrVector2f.SIZEOF); }
     /** Unsafe version of {@link #changedSinceLastSync(boolean) changedSinceLastSync}. */
-    public static void nchangedSinceLastSync(long struct, int value) { UNSAFE.putInt(null, struct + XrActionStateVector2f.CHANGEDSINCELASTSYNC, value); }
+    public static void nchangedSinceLastSync(long struct, int value) { memPutInt(struct + XrActionStateVector2f.CHANGEDSINCELASTSYNC, value); }
     /** Unsafe version of {@link #lastChangeTime(long) lastChangeTime}. */
-    public static void nlastChangeTime(long struct, long value) { UNSAFE.putLong(null, struct + XrActionStateVector2f.LASTCHANGETIME, value); }
+    public static void nlastChangeTime(long struct, long value) { memPutLong(struct + XrActionStateVector2f.LASTCHANGETIME, value); }
     /** Unsafe version of {@link #isActive(boolean) isActive}. */
-    public static void nisActive(long struct, int value) { UNSAFE.putInt(null, struct + XrActionStateVector2f.ISACTIVE, value); }
+    public static void nisActive(long struct, int value) { memPutInt(struct + XrActionStateVector2f.ISACTIVE, value); }
 
     // -----------------------------------
 
@@ -341,6 +339,11 @@ public class XrActionStateVector2f extends Struct<XrActionStateVector2f> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

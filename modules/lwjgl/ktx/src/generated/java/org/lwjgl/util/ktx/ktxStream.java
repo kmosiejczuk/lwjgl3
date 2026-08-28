@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -250,8 +250,7 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxStream createSafe(long address) {
+    public static @Nullable ktxStream createSafe(long address) {
         return address == NULL ? null : new ktxStream(address, null);
     }
 
@@ -294,8 +293,7 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxStream.Buffer createSafe(long address, int capacity) {
+    public static ktxStream.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -354,7 +352,7 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     /** Unsafe version of {@link #destruct}. */
     public static ktxStream_destruct ndestruct(long struct) { return ktxStream_destruct.create(memGetAddress(struct + ktxStream.DESTRUCT)); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + ktxStream.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + ktxStream.TYPE); }
     /** Unsafe version of {@link #data_file}. */
     public static long ndata_file(long struct) { return memGetAddress(struct + ktxStream.DATA_FILE); }
     /** Unsafe version of {@link #data_mem}. */
@@ -366,9 +364,9 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     /** Unsafe version of {@link #data_custom_ptr_size}. */
     public static long ndata_custom_ptr_size(long struct) { return memGetAddress(struct + ktxStream.DATA_CUSTOM_PTR_SIZE); }
     /** Unsafe version of {@link #readpos}. */
-    public static long nreadpos(long struct) { return UNSAFE.getLong(null, struct + ktxStream.READPOS); }
+    public static long nreadpos(long struct) { return memGetLong(struct + ktxStream.READPOS); }
     /** Unsafe version of {@link #closeOnDestruct}. */
-    public static boolean ncloseOnDestruct(long struct) { return UNSAFE.getByte(null, struct + ktxStream.CLOSEONDESTRUCT) != 0; }
+    public static boolean ncloseOnDestruct(long struct) { return memGetByte(struct + ktxStream.CLOSEONDESTRUCT) != 0; }
 
     /** Unsafe version of {@link #read(ktxStream_readI) read}. */
     public static void nread(long struct, ktxStream_readI value) { memPutAddress(struct + ktxStream.READ, value.address()); }
@@ -385,7 +383,7 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     /** Unsafe version of {@link #destruct(ktxStream_destructI) destruct}. */
     public static void ndestruct(long struct, ktxStream_destructI value) { memPutAddress(struct + ktxStream.DESTRUCT, value.address()); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + ktxStream.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + ktxStream.TYPE, value); }
     /** Unsafe version of {@link #data_file(long) data_file}. */
     public static void ndata_file(long struct, long value) { memPutAddress(struct + ktxStream.DATA_FILE, check(value)); }
     /** Unsafe version of {@link #data_mem(long) data_mem}. */
@@ -397,9 +395,9 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     /** Sets the specified value to the {@code size} field of the specified {@code struct}. */
     public static void ndata_custom_ptr_size(long struct, long value) { memPutAddress(struct + ktxStream.DATA_CUSTOM_PTR_SIZE, value); }
     /** Unsafe version of {@link #readpos(long) readpos}. */
-    public static void nreadpos(long struct, long value) { UNSAFE.putLong(null, struct + ktxStream.READPOS, value); }
+    public static void nreadpos(long struct, long value) { memPutLong(struct + ktxStream.READPOS, value); }
     /** Unsafe version of {@link #closeOnDestruct(boolean) closeOnDestruct}. */
-    public static void ncloseOnDestruct(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxStream.CLOSEONDESTRUCT, value ? (byte)1 : (byte)0); }
+    public static void ncloseOnDestruct(long struct, boolean value) { memPutByte(struct + ktxStream.CLOSEONDESTRUCT, value ? (byte)1 : (byte)0); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -447,6 +445,11 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

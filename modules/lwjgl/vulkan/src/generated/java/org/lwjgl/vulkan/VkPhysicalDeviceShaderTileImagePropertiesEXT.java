@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderTileImagePropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderTileImagePropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderTileImagePropertiesEXT(address, null);
     }
 
@@ -212,8 +211,7 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderTileImagePropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderTileImagePropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,18 +256,18 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #shaderTileImageCoherentReadAccelerated}. */
-    public static int nshaderTileImageCoherentReadAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.SHADERTILEIMAGECOHERENTREADACCELERATED); }
+    public static int nshaderTileImageCoherentReadAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.SHADERTILEIMAGECOHERENTREADACCELERATED); }
     /** Unsafe version of {@link #shaderTileImageReadSampleFromPixelRateInvocation}. */
-    public static int nshaderTileImageReadSampleFromPixelRateInvocation(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.SHADERTILEIMAGEREADSAMPLEFROMPIXELRATEINVOCATION); }
+    public static int nshaderTileImageReadSampleFromPixelRateInvocation(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.SHADERTILEIMAGEREADSAMPLEFROMPIXELRATEINVOCATION); }
     /** Unsafe version of {@link #shaderTileImageReadFromHelperInvocation}. */
-    public static int nshaderTileImageReadFromHelperInvocation(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.SHADERTILEIMAGEREADFROMHELPERINVOCATION); }
+    public static int nshaderTileImageReadFromHelperInvocation(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.SHADERTILEIMAGEREADFROMHELPERINVOCATION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderTileImagePropertiesEXT.PNEXT, value); }
 
@@ -304,6 +302,11 @@ public class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Struct<VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

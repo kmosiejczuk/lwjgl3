@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -149,8 +149,7 @@ public class hwloc_topology_cpubind_support extends Struct<hwloc_topology_cpubin
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_cpubind_support createSafe(long address) {
+    public static @Nullable hwloc_topology_cpubind_support createSafe(long address) {
         return address == NULL ? null : new hwloc_topology_cpubind_support(address, null);
     }
 
@@ -165,35 +164,34 @@ public class hwloc_topology_cpubind_support extends Struct<hwloc_topology_cpubin
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_cpubind_support.Buffer createSafe(long address, int capacity) {
+    public static hwloc_topology_cpubind_support.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #set_thisproc_cpubind}. */
-    public static boolean nset_thisproc_cpubind(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.SET_THISPROC_CPUBIND) != 0; }
+    public static boolean nset_thisproc_cpubind(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.SET_THISPROC_CPUBIND) != 0; }
     /** Unsafe version of {@link #get_thisproc_cpubind}. */
-    public static boolean nget_thisproc_cpubind(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.GET_THISPROC_CPUBIND) != 0; }
+    public static boolean nget_thisproc_cpubind(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.GET_THISPROC_CPUBIND) != 0; }
     /** Unsafe version of {@link #set_proc_cpubind}. */
-    public static boolean nset_proc_cpubind(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.SET_PROC_CPUBIND) != 0; }
+    public static boolean nset_proc_cpubind(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.SET_PROC_CPUBIND) != 0; }
     /** Unsafe version of {@link #get_proc_cpubind}. */
-    public static boolean nget_proc_cpubind(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.GET_PROC_CPUBIND) != 0; }
+    public static boolean nget_proc_cpubind(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.GET_PROC_CPUBIND) != 0; }
     /** Unsafe version of {@link #set_thisthread_cpubind}. */
-    public static boolean nset_thisthread_cpubind(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.SET_THISTHREAD_CPUBIND) != 0; }
+    public static boolean nset_thisthread_cpubind(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.SET_THISTHREAD_CPUBIND) != 0; }
     /** Unsafe version of {@link #get_thisthread_cpubind}. */
-    public static boolean nget_thisthread_cpubind(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.GET_THISTHREAD_CPUBIND) != 0; }
+    public static boolean nget_thisthread_cpubind(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.GET_THISTHREAD_CPUBIND) != 0; }
     /** Unsafe version of {@link #set_thread_cpubind}. */
-    public static boolean nset_thread_cpubind(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.SET_THREAD_CPUBIND) != 0; }
+    public static boolean nset_thread_cpubind(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.SET_THREAD_CPUBIND) != 0; }
     /** Unsafe version of {@link #get_thread_cpubind}. */
-    public static boolean nget_thread_cpubind(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.GET_THREAD_CPUBIND) != 0; }
+    public static boolean nget_thread_cpubind(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.GET_THREAD_CPUBIND) != 0; }
     /** Unsafe version of {@link #get_thisproc_last_cpu_location}. */
-    public static boolean nget_thisproc_last_cpu_location(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.GET_THISPROC_LAST_CPU_LOCATION) != 0; }
+    public static boolean nget_thisproc_last_cpu_location(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.GET_THISPROC_LAST_CPU_LOCATION) != 0; }
     /** Unsafe version of {@link #get_proc_last_cpu_location}. */
-    public static boolean nget_proc_last_cpu_location(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.GET_PROC_LAST_CPU_LOCATION) != 0; }
+    public static boolean nget_proc_last_cpu_location(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.GET_PROC_LAST_CPU_LOCATION) != 0; }
     /** Unsafe version of {@link #get_thisthread_last_cpu_location}. */
-    public static boolean nget_thisthread_last_cpu_location(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_cpubind_support.GET_THISTHREAD_LAST_CPU_LOCATION) != 0; }
+    public static boolean nget_thisthread_last_cpu_location(long struct) { return memGetByte(struct + hwloc_topology_cpubind_support.GET_THISTHREAD_LAST_CPU_LOCATION) != 0; }
 
     // -----------------------------------
 
@@ -226,6 +224,11 @@ public class hwloc_topology_cpubind_support extends Struct<hwloc_topology_cpubin
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

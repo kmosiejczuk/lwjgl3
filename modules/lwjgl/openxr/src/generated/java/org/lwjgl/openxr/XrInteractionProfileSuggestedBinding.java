@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -180,8 +180,7 @@ public class XrInteractionProfileSuggestedBinding extends Struct<XrInteractionPr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrInteractionProfileSuggestedBinding createSafe(long address) {
+    public static @Nullable XrInteractionProfileSuggestedBinding createSafe(long address) {
         return address == NULL ? null : new XrInteractionProfileSuggestedBinding(address, null);
     }
 
@@ -224,8 +223,7 @@ public class XrInteractionProfileSuggestedBinding extends Struct<XrInteractionPr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrInteractionProfileSuggestedBinding.Buffer createSafe(long address, int capacity) {
+    public static XrInteractionProfileSuggestedBinding.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,24 +268,24 @@ public class XrInteractionProfileSuggestedBinding extends Struct<XrInteractionPr
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrInteractionProfileSuggestedBinding.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrInteractionProfileSuggestedBinding.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrInteractionProfileSuggestedBinding.NEXT); }
     /** Unsafe version of {@link #interactionProfile}. */
-    public static long ninteractionProfile(long struct) { return UNSAFE.getLong(null, struct + XrInteractionProfileSuggestedBinding.INTERACTIONPROFILE); }
+    public static long ninteractionProfile(long struct) { return memGetLong(struct + XrInteractionProfileSuggestedBinding.INTERACTIONPROFILE); }
     /** Unsafe version of {@link #countSuggestedBindings}. */
-    public static int ncountSuggestedBindings(long struct) { return UNSAFE.getInt(null, struct + XrInteractionProfileSuggestedBinding.COUNTSUGGESTEDBINDINGS); }
+    public static int ncountSuggestedBindings(long struct) { return memGetInt(struct + XrInteractionProfileSuggestedBinding.COUNTSUGGESTEDBINDINGS); }
     /** Unsafe version of {@link #suggestedBindings}. */
     public static XrActionSuggestedBinding.Buffer nsuggestedBindings(long struct) { return XrActionSuggestedBinding.create(memGetAddress(struct + XrInteractionProfileSuggestedBinding.SUGGESTEDBINDINGS), ncountSuggestedBindings(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrInteractionProfileSuggestedBinding.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrInteractionProfileSuggestedBinding.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrInteractionProfileSuggestedBinding.NEXT, value); }
     /** Unsafe version of {@link #interactionProfile(long) interactionProfile}. */
-    public static void ninteractionProfile(long struct, long value) { UNSAFE.putLong(null, struct + XrInteractionProfileSuggestedBinding.INTERACTIONPROFILE, value); }
+    public static void ninteractionProfile(long struct, long value) { memPutLong(struct + XrInteractionProfileSuggestedBinding.INTERACTIONPROFILE, value); }
     /** Sets the specified value to the {@code countSuggestedBindings} field of the specified {@code struct}. */
-    public static void ncountSuggestedBindings(long struct, int value) { UNSAFE.putInt(null, struct + XrInteractionProfileSuggestedBinding.COUNTSUGGESTEDBINDINGS, value); }
+    public static void ncountSuggestedBindings(long struct, int value) { memPutInt(struct + XrInteractionProfileSuggestedBinding.COUNTSUGGESTEDBINDINGS, value); }
     /** Unsafe version of {@link #suggestedBindings(XrActionSuggestedBinding.Buffer) suggestedBindings}. */
     public static void nsuggestedBindings(long struct, XrActionSuggestedBinding.Buffer value) { memPutAddress(struct + XrInteractionProfileSuggestedBinding.SUGGESTEDBINDINGS, value.address()); ncountSuggestedBindings(struct, value.remaining()); }
 
@@ -334,6 +332,11 @@ public class XrInteractionProfileSuggestedBinding extends Struct<XrInteractionPr
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class XrVirtualKeyboardAnimationStateMETA extends Struct<XrVirtualKeyboar
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardAnimationStateMETA createSafe(long address) {
+    public static @Nullable XrVirtualKeyboardAnimationStateMETA createSafe(long address) {
         return address == NULL ? null : new XrVirtualKeyboardAnimationStateMETA(address, null);
     }
 
@@ -212,8 +211,7 @@ public class XrVirtualKeyboardAnimationStateMETA extends Struct<XrVirtualKeyboar
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardAnimationStateMETA.Buffer createSafe(long address, int capacity) {
+    public static XrVirtualKeyboardAnimationStateMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,22 +256,22 @@ public class XrVirtualKeyboardAnimationStateMETA extends Struct<XrVirtualKeyboar
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardAnimationStateMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVirtualKeyboardAnimationStateMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVirtualKeyboardAnimationStateMETA.NEXT); }
     /** Unsafe version of {@link #animationIndex}. */
-    public static int nanimationIndex(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardAnimationStateMETA.ANIMATIONINDEX); }
+    public static int nanimationIndex(long struct) { return memGetInt(struct + XrVirtualKeyboardAnimationStateMETA.ANIMATIONINDEX); }
     /** Unsafe version of {@link #fraction}. */
-    public static float nfraction(long struct) { return UNSAFE.getFloat(null, struct + XrVirtualKeyboardAnimationStateMETA.FRACTION); }
+    public static float nfraction(long struct) { return memGetFloat(struct + XrVirtualKeyboardAnimationStateMETA.FRACTION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardAnimationStateMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVirtualKeyboardAnimationStateMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVirtualKeyboardAnimationStateMETA.NEXT, value); }
     /** Unsafe version of {@link #animationIndex(int) animationIndex}. */
-    public static void nanimationIndex(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardAnimationStateMETA.ANIMATIONINDEX, value); }
+    public static void nanimationIndex(long struct, int value) { memPutInt(struct + XrVirtualKeyboardAnimationStateMETA.ANIMATIONINDEX, value); }
     /** Unsafe version of {@link #fraction(float) fraction}. */
-    public static void nfraction(long struct, float value) { UNSAFE.putFloat(null, struct + XrVirtualKeyboardAnimationStateMETA.FRACTION, value); }
+    public static void nfraction(long struct, float value) { memPutFloat(struct + XrVirtualKeyboardAnimationStateMETA.FRACTION, value); }
 
     // -----------------------------------
 
@@ -306,6 +304,11 @@ public class XrVirtualKeyboardAnimationStateMETA extends Struct<XrVirtualKeyboar
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

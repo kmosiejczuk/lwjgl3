@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class XrLocalizationMapImportInfoML extends Struct<XrLocalizationMapImpor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrLocalizationMapImportInfoML createSafe(long address) {
+    public static @Nullable XrLocalizationMapImportInfoML createSafe(long address) {
         return address == NULL ? null : new XrLocalizationMapImportInfoML(address, null);
     }
 
@@ -212,8 +211,7 @@ public class XrLocalizationMapImportInfoML extends Struct<XrLocalizationMapImpor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrLocalizationMapImportInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrLocalizationMapImportInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,20 +256,20 @@ public class XrLocalizationMapImportInfoML extends Struct<XrLocalizationMapImpor
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrLocalizationMapImportInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrLocalizationMapImportInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrLocalizationMapImportInfoML.NEXT); }
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + XrLocalizationMapImportInfoML.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + XrLocalizationMapImportInfoML.SIZE); }
     /** Unsafe version of {@link #data() data}. */
     public static ByteBuffer ndata(long struct) { return memByteBuffer(memGetAddress(struct + XrLocalizationMapImportInfoML.DATA), nsize(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrLocalizationMapImportInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrLocalizationMapImportInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrLocalizationMapImportInfoML.NEXT, value); }
     /** Sets the specified value to the {@code size} field of the specified {@code struct}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + XrLocalizationMapImportInfoML.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + XrLocalizationMapImportInfoML.SIZE, value); }
     /** Unsafe version of {@link #data(ByteBuffer) data}. */
     public static void ndata(long struct, ByteBuffer value) { memPutAddress(struct + XrLocalizationMapImportInfoML.DATA, memAddress(value)); nsize(struct, value.remaining()); }
 
@@ -315,6 +313,11 @@ public class XrLocalizationMapImportInfoML extends Struct<XrLocalizationMapImpor
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

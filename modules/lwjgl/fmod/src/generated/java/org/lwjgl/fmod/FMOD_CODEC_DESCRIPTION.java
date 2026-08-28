@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -249,8 +249,7 @@ public class FMOD_CODEC_DESCRIPTION extends Struct<FMOD_CODEC_DESCRIPTION> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_CODEC_DESCRIPTION createSafe(long address) {
+    public static @Nullable FMOD_CODEC_DESCRIPTION createSafe(long address) {
         return address == NULL ? null : new FMOD_CODEC_DESCRIPTION(address, null);
     }
 
@@ -293,8 +292,7 @@ public class FMOD_CODEC_DESCRIPTION extends Struct<FMOD_CODEC_DESCRIPTION> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_CODEC_DESCRIPTION.Buffer createSafe(long address, int capacity) {
+    public static FMOD_CODEC_DESCRIPTION.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -339,17 +337,17 @@ public class FMOD_CODEC_DESCRIPTION extends Struct<FMOD_CODEC_DESCRIPTION> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #apiversion}. */
-    public static int napiversion(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_DESCRIPTION.APIVERSION); }
+    public static int napiversion(long struct) { return memGetInt(struct + FMOD_CODEC_DESCRIPTION.APIVERSION); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBufferNT1(memGetAddress(struct + FMOD_CODEC_DESCRIPTION.NAME)); }
     /** Unsafe version of {@link #nameString}. */
     public static String nnameString(long struct) { return memUTF8(memGetAddress(struct + FMOD_CODEC_DESCRIPTION.NAME)); }
     /** Unsafe version of {@link #version}. */
-    public static int nversion(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_DESCRIPTION.VERSION); }
+    public static int nversion(long struct) { return memGetInt(struct + FMOD_CODEC_DESCRIPTION.VERSION); }
     /** Unsafe version of {@link #defaultasstream}. */
-    public static int ndefaultasstream(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_DESCRIPTION.DEFAULTASSTREAM); }
+    public static int ndefaultasstream(long struct) { return memGetInt(struct + FMOD_CODEC_DESCRIPTION.DEFAULTASSTREAM); }
     /** Unsafe version of {@link #timeunits}. */
-    public static int ntimeunits(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_DESCRIPTION.TIMEUNITS); }
+    public static int ntimeunits(long struct) { return memGetInt(struct + FMOD_CODEC_DESCRIPTION.TIMEUNITS); }
     /** Unsafe version of {@link #open}. */
     public static FMOD_CODEC_OPEN_CALLBACK nopen(long struct) { return FMOD_CODEC_OPEN_CALLBACK.create(memGetAddress(struct + FMOD_CODEC_DESCRIPTION.OPEN)); }
     /** Unsafe version of {@link #close$}. */
@@ -368,18 +366,18 @@ public class FMOD_CODEC_DESCRIPTION extends Struct<FMOD_CODEC_DESCRIPTION> imple
     public static FMOD_CODEC_GETWAVEFORMAT_CALLBACK ngetwaveformat(long struct) { return FMOD_CODEC_GETWAVEFORMAT_CALLBACK.create(memGetAddress(struct + FMOD_CODEC_DESCRIPTION.GETWAVEFORMAT)); }
 
     /** Unsafe version of {@link #apiversion(int) apiversion}. */
-    public static void napiversion(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_DESCRIPTION.APIVERSION, value); }
+    public static void napiversion(long struct, int value) { memPutInt(struct + FMOD_CODEC_DESCRIPTION.APIVERSION, value); }
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT1(value); }
         memPutAddress(struct + FMOD_CODEC_DESCRIPTION.NAME, memAddress(value));
     }
     /** Unsafe version of {@link #version(int) version}. */
-    public static void nversion(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_DESCRIPTION.VERSION, value); }
+    public static void nversion(long struct, int value) { memPutInt(struct + FMOD_CODEC_DESCRIPTION.VERSION, value); }
     /** Unsafe version of {@link #defaultasstream(int) defaultasstream}. */
-    public static void ndefaultasstream(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_DESCRIPTION.DEFAULTASSTREAM, value); }
+    public static void ndefaultasstream(long struct, int value) { memPutInt(struct + FMOD_CODEC_DESCRIPTION.DEFAULTASSTREAM, value); }
     /** Unsafe version of {@link #timeunits(int) timeunits}. */
-    public static void ntimeunits(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_DESCRIPTION.TIMEUNITS, value); }
+    public static void ntimeunits(long struct, int value) { memPutInt(struct + FMOD_CODEC_DESCRIPTION.TIMEUNITS, value); }
     /** Unsafe version of {@link #open(FMOD_CODEC_OPEN_CALLBACKI) open}. */
     public static void nopen(long struct, FMOD_CODEC_OPEN_CALLBACKI value) { memPutAddress(struct + FMOD_CODEC_DESCRIPTION.OPEN, value.address()); }
     /** Unsafe version of {@link #close$(FMOD_CODEC_CLOSE_CALLBACKI) close$}. */
@@ -445,6 +443,11 @@ public class FMOD_CODEC_DESCRIPTION extends Struct<FMOD_CODEC_DESCRIPTION> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

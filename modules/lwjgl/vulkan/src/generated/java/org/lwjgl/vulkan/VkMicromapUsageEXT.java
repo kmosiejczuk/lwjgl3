@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -160,8 +160,7 @@ public class VkMicromapUsageEXT extends Struct<VkMicromapUsageEXT> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapUsageEXT createSafe(long address) {
+    public static @Nullable VkMicromapUsageEXT createSafe(long address) {
         return address == NULL ? null : new VkMicromapUsageEXT(address, null);
     }
 
@@ -204,8 +203,7 @@ public class VkMicromapUsageEXT extends Struct<VkMicromapUsageEXT> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapUsageEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMicromapUsageEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,18 +248,18 @@ public class VkMicromapUsageEXT extends Struct<VkMicromapUsageEXT> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #count}. */
-    public static int ncount(long struct) { return UNSAFE.getInt(null, struct + VkMicromapUsageEXT.COUNT); }
+    public static int ncount(long struct) { return memGetInt(struct + VkMicromapUsageEXT.COUNT); }
     /** Unsafe version of {@link #subdivisionLevel}. */
-    public static int nsubdivisionLevel(long struct) { return UNSAFE.getInt(null, struct + VkMicromapUsageEXT.SUBDIVISIONLEVEL); }
+    public static int nsubdivisionLevel(long struct) { return memGetInt(struct + VkMicromapUsageEXT.SUBDIVISIONLEVEL); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + VkMicromapUsageEXT.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + VkMicromapUsageEXT.FORMAT); }
 
     /** Unsafe version of {@link #count(int) count}. */
-    public static void ncount(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapUsageEXT.COUNT, value); }
+    public static void ncount(long struct, int value) { memPutInt(struct + VkMicromapUsageEXT.COUNT, value); }
     /** Unsafe version of {@link #subdivisionLevel(int) subdivisionLevel}. */
-    public static void nsubdivisionLevel(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapUsageEXT.SUBDIVISIONLEVEL, value); }
+    public static void nsubdivisionLevel(long struct, int value) { memPutInt(struct + VkMicromapUsageEXT.SUBDIVISIONLEVEL, value); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapUsageEXT.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + VkMicromapUsageEXT.FORMAT, value); }
 
     // -----------------------------------
 
@@ -294,6 +292,11 @@ public class VkMicromapUsageEXT extends Struct<VkMicromapUsageEXT> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

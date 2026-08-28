@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class CUmemPoolPtrExportData extends Struct<CUmemPoolPtrExportData> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUmemPoolPtrExportData createSafe(long address) {
+    public static @Nullable CUmemPoolPtrExportData createSafe(long address) {
         return address == NULL ? null : new CUmemPoolPtrExportData(address, null);
     }
 
@@ -161,8 +160,7 @@ public class CUmemPoolPtrExportData extends Struct<CUmemPoolPtrExportData> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUmemPoolPtrExportData.Buffer createSafe(long address, int capacity) {
+    public static CUmemPoolPtrExportData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -210,7 +208,7 @@ public class CUmemPoolPtrExportData extends Struct<CUmemPoolPtrExportData> imple
     public static ByteBuffer nreserved(long struct) { return memByteBuffer(struct + CUmemPoolPtrExportData.RESERVED, 64); }
     /** Unsafe version of {@link #reserved(int) reserved}. */
     public static byte nreserved(long struct, int index) {
-        return UNSAFE.getByte(null, struct + CUmemPoolPtrExportData.RESERVED + check(index, 64) * 1);
+        return memGetByte(struct + CUmemPoolPtrExportData.RESERVED + check(index, 64) * 1);
     }
 
     /** Unsafe version of {@link #reserved(ByteBuffer) reserved}. */
@@ -220,7 +218,7 @@ public class CUmemPoolPtrExportData extends Struct<CUmemPoolPtrExportData> imple
     }
     /** Unsafe version of {@link #reserved(int, byte) reserved}. */
     public static void nreserved(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + CUmemPoolPtrExportData.RESERVED + check(index, 64) * 1, value);
+        memPutByte(struct + CUmemPoolPtrExportData.RESERVED + check(index, 64) * 1, value);
     }
 
     // -----------------------------------
@@ -254,6 +252,11 @@ public class CUmemPoolPtrExportData extends Struct<CUmemPoolPtrExportData> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

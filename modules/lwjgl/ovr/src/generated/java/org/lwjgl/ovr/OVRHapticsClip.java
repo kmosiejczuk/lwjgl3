@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -109,8 +109,7 @@ public class OVRHapticsClip extends Struct<OVRHapticsClip> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRHapticsClip createSafe(long address) {
+    public static @Nullable OVRHapticsClip createSafe(long address) {
         return address == NULL ? null : new OVRHapticsClip(address, null);
     }
 
@@ -153,8 +152,7 @@ public class OVRHapticsClip extends Struct<OVRHapticsClip> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRHapticsClip.Buffer createSafe(long address, int capacity) {
+    public static OVRHapticsClip.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -220,7 +218,7 @@ public class OVRHapticsClip extends Struct<OVRHapticsClip> implements NativeReso
     /** Unsafe version of {@link #Samples(int) Samples}. */
     public static ByteBuffer nSamples(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + OVRHapticsClip.SAMPLES), capacity); }
     /** Unsafe version of {@link #SamplesCount}. */
-    public static int nSamplesCount(long struct) { return UNSAFE.getInt(null, struct + OVRHapticsClip.SAMPLESCOUNT); }
+    public static int nSamplesCount(long struct) { return memGetInt(struct + OVRHapticsClip.SAMPLESCOUNT); }
 
     // -----------------------------------
 
@@ -253,6 +251,11 @@ public class OVRHapticsClip extends Struct<OVRHapticsClip> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

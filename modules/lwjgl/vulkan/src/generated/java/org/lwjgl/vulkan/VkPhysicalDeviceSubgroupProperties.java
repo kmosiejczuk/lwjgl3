@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,15 +22,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the {@link VkPhysicalDeviceSubgroupProperties} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
  * 
- * <p>If {@code supportedOperations} includes <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-subgroup-quad">{@link VK11#VK_SUBGROUP_FEATURE_QUAD_BIT SUBGROUP_FEATURE_QUAD_BIT}</a>, or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderSubgroupUniformControlFlow">{@code shaderSubgroupUniformControlFlow}</a> is enabled, {@code subgroupSize} <b>must</b> be greater than or equal to 4.</p>
+ * <p>If {@code supportedOperations} includes <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-subgroup-quad">{@link VK11#VK_SUBGROUP_FEATURE_QUAD_BIT SUBGROUP_FEATURE_QUAD_BIT}</a>, or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderSubgroupUniformControlFlow">{@code shaderSubgroupUniformControlFlow}</a> feature is enabled, {@code subgroupSize} <b>must</b> be greater than or equal to 4.</p>
  * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderQuadControl">{@code shaderQuadControl}</a> feature is supported, {@code supportedOperations} <b>must</b> include <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-subgroup-quad">{@link VK11#VK_SUBGROUP_FEATURE_QUAD_BIT SUBGROUP_FEATURE_QUAD_BIT}</a>.</p>
+ * <p>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderQuadControl">{@code shaderQuadControl}</a> feature is supported, {@code supportedOperations} <b>must</b> include <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-subgroup-quad">{@link VK11#VK_SUBGROUP_FEATURE_QUAD_BIT SUBGROUP_FEATURE_QUAD_BIT}</a>.</p>
  * 
- * <p>If {@link KHRShaderSubgroupRotate VK_KHR_shader_subgroup_rotate} is supported, and the implementation advertises support with a {@link VkExtensionProperties}{@code ::specVersion} greater than or equal to 2, and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderSubgroupRotate">{@code shaderSubgroupRotate}</a> is supported, {@link KHRShaderSubgroupRotate#VK_SUBGROUP_FEATURE_ROTATE_BIT_KHR SUBGROUP_FEATURE_ROTATE_BIT_KHR} <b>must</b> be returned in {@code supportedOperations}. If {@link KHRShaderSubgroupRotate VK_KHR_shader_subgroup_rotate} is supported, and the implementation advertises support with a {@link VkExtensionProperties}{@code ::specVersion} greater than or equal to 2, and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderSubgroupRotateClustered">{@code shaderSubgroupRotateClustered}</a> is supported, {@link KHRShaderSubgroupRotate#VK_SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT_KHR SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT_KHR} <b>must</b> be returned in {@code supportedOperations}.</p>
+ * <p>If {@link KHRShaderSubgroupRotate VK_KHR_shader_subgroup_rotate} is supported, and the implementation advertises support with a {@link VkExtensionProperties}{@code ::specVersion} greater than or equal to 2, and the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderSubgroupRotate">{@code shaderSubgroupRotate}</a> feature is supported, {@link VK14#VK_SUBGROUP_FEATURE_ROTATE_BIT SUBGROUP_FEATURE_ROTATE_BIT} <b>must</b> be returned in {@link VkPhysicalDeviceVulkan11Properties}{@code ::subgroupSupportedOperations} and {@link VkPhysicalDeviceSubgroupProperties}{@code ::supportedOperations}. If {@link KHRShaderSubgroupRotate VK_KHR_shader_subgroup_rotate} is supported, and the implementation advertises support with a {@link VkExtensionProperties}{@code ::specVersion} greater than or equal to 2, and the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderSubgroupRotateClustered">{@code shaderSubgroupRotateClustered}</a> feature is supported, {@link VK14#VK_SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT} <b>must</b> be returned in {@link VkPhysicalDeviceVulkan11Properties}{@code ::subgroupSupportedOperations} and {@link VkPhysicalDeviceSubgroupProperties}{@code ::supportedOperations}.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>{@link KHRShaderSubgroupRotate#VK_SUBGROUP_FEATURE_ROTATE_BIT_KHR SUBGROUP_FEATURE_ROTATE_BIT_KHR} and {@link KHRShaderSubgroupRotate#VK_SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT_KHR SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT_KHR} were added in version 2 of the {@link KHRShaderSubgroupRotate VK_KHR_shader_subgroup_rotate} extension, after the initial release, so there are implementations that do not advertise these bits. Applications should use the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderSubgroupRotate">{@code shaderSubgroupRotate}</a> and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderSubgroupRotateClustered">{@code shaderSubgroupRotateClustered}</a> features to determine and enable support. These bits are advertised here for consistency and for future dependencies.</p>
+ * <p>{@link VK14#VK_SUBGROUP_FEATURE_ROTATE_BIT SUBGROUP_FEATURE_ROTATE_BIT} and {@link VK14#VK_SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT} were added in version 2 of the {@link KHRShaderSubgroupRotate VK_KHR_shader_subgroup_rotate} extension, after the initial release, so there are implementations that do not advertise these bits. Applications should use the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderSubgroupRotate">{@code shaderSubgroupRotate}</a> and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderSubgroupRotateClustered">{@code shaderSubgroupRotateClustered}</a> features to determine and enable support. These bits are advertised here for consistency and for future dependencies.</p>
  * </div>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -120,13 +120,13 @@ public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceS
     /** the default number of invocations in each subgroup. {@code subgroupSize} is at least 1 if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. {@code subgroupSize} is a power-of-two. */
     @NativeType("uint32_t")
     public int subgroupSize() { return nsubgroupSize(address()); }
-    /** a bitfield of {@code VkShaderStageFlagBits} describing the shader stages that <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-group-operations">group operations</a> with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-scope-subgroup">subgroup scope</a> are supported in. {@code supportedStages} will have the {@link VK10#VK_SHADER_STAGE_COMPUTE_BIT SHADER_STAGE_COMPUTE_BIT} bit set if any of the physical device’s queues support {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. */
+    /** a bitfield of {@code VkShaderStageFlagBits} describing the shader stages that <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-group-operations">group operations</a> with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-scope-subgroup">subgroup scope</a> are supported in. {@code supportedStages} will have the {@link VK10#VK_SHADER_STAGE_COMPUTE_BIT SHADER_STAGE_COMPUTE_BIT} bit set if any of the physical device’s queues support {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. */
     @NativeType("VkShaderStageFlags")
     public int supportedStages() { return nsupportedStages(address()); }
-    /** a bitmask of {@code VkSubgroupFeatureFlagBits} specifying the sets of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-group-operations">group operations</a> with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-scope-subgroup">subgroup scope</a> supported on this device. {@code supportedOperations} will have the {@link VK11#VK_SUBGROUP_FEATURE_BASIC_BIT SUBGROUP_FEATURE_BASIC_BIT} bit set if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. */
+    /** a bitmask of {@code VkSubgroupFeatureFlagBits} specifying the sets of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-group-operations">group operations</a> with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-scope-subgroup">subgroup scope</a> supported on this device. {@code supportedOperations} will have the {@link VK11#VK_SUBGROUP_FEATURE_BASIC_BIT SUBGROUP_FEATURE_BASIC_BIT} bit set if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. */
     @NativeType("VkSubgroupFeatureFlags")
     public int supportedOperations() { return nsupportedOperations(address()); }
-    /** a boolean specifying whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-quad-operations">quad group operations</a> are available in all stages, or are restricted to fragment and compute stages. */
+    /** a boolean specifying whether <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-quad-operations">quad group operations</a> are available in all stages, or are restricted to fragment and compute stages. */
     @NativeType("VkBool32")
     public boolean quadOperationsInAllStages() { return nquadOperationsInAllStages(address()) != 0; }
 
@@ -184,8 +184,7 @@ public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceS
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSubgroupProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSubgroupProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSubgroupProperties(address, null);
     }
 
@@ -228,8 +227,7 @@ public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceS
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSubgroupProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSubgroupProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,20 +291,20 @@ public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceS
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSubgroupProperties.PNEXT); }
     /** Unsafe version of {@link #subgroupSize}. */
-    public static int nsubgroupSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupProperties.SUBGROUPSIZE); }
+    public static int nsubgroupSize(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupProperties.SUBGROUPSIZE); }
     /** Unsafe version of {@link #supportedStages}. */
-    public static int nsupportedStages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupProperties.SUPPORTEDSTAGES); }
+    public static int nsupportedStages(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupProperties.SUPPORTEDSTAGES); }
     /** Unsafe version of {@link #supportedOperations}. */
-    public static int nsupportedOperations(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupProperties.SUPPORTEDOPERATIONS); }
+    public static int nsupportedOperations(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupProperties.SUPPORTEDOPERATIONS); }
     /** Unsafe version of {@link #quadOperationsInAllStages}. */
-    public static int nquadOperationsInAllStages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupProperties.QUADOPERATIONSINALLSTAGES); }
+    public static int nquadOperationsInAllStages(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupProperties.QUADOPERATIONSINALLSTAGES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSubgroupProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSubgroupProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSubgroupProperties.PNEXT, value); }
 
@@ -341,6 +339,11 @@ public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceS
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

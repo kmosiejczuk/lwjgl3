@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code queueFamilyIndex} <b>must</b> be less than {@code pQueueFamilyPropertyCount} returned by {@code vkGetPhysicalDeviceQueueFamilyProperties}</li>
  * <li>{@code queueCount} <b>must</b> be less than or equal to the {@code queueCount} member of the {@link VkQueueFamilyProperties} structure, as returned by {@code vkGetPhysicalDeviceQueueFamilyProperties} in the {@code pQueueFamilyProperties}[queueFamilyIndex]</li>
  * <li>Each element of {@code pQueuePriorities} <b>must</b> be between {@code 0.0} and {@code 1.0} inclusive</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled, the {@link VK11#VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT DEVICE_QUEUE_CREATE_PROTECTED_BIT} bit of {@code flags} <b>must</b> not be set</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled, the {@link VK11#VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT DEVICE_QUEUE_CREATE_PROTECTED_BIT} bit of {@code flags} <b>must</b> not be set</li>
  * <li>If {@code flags} includes {@link VK11#VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT DEVICE_QUEUE_CREATE_PROTECTED_BIT}, {@code queueFamilyIndex} <b>must</b> be the index of a queue family that includes the {@link VK11#VK_QUEUE_PROTECTED_BIT QUEUE_PROTECTED_BIT} capability</li>
  * <li>If the {@code pNext} chain includes a {@link VkDeviceQueueShaderCoreControlCreateInfoARM} structure then {@link VkPhysicalDeviceSchedulingControlsPropertiesARM}{@code ::schedulingControlsFlags} <b>must</b> contain {@link ARMSchedulingControls#VK_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_SHADER_CORE_COUNT_ARM PHYSICAL_DEVICE_SCHEDULING_CONTROLS_SHADER_CORE_COUNT_ARM}</li>
  * </ul>
@@ -34,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDeviceQueueGlobalPriorityCreateInfoKHR} or {@link VkDeviceQueueShaderCoreControlCreateInfoARM}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDeviceQueueGlobalPriorityCreateInfo} or {@link VkDeviceQueueShaderCoreControlCreateInfoARM}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code VkDeviceQueueCreateFlagBits} values</li>
  * <li>{@code pQueuePriorities} <b>must</b> be a valid pointer to an array of {@code queueCount} {@code float} values</li>
@@ -132,7 +132,7 @@ public class VkDeviceQueueCreateInfo extends Struct<VkDeviceQueueCreateInfo> imp
     /** an unsigned integer specifying the number of queues to create in the queue family indicated by {@code queueFamilyIndex}, and with the behavior specified by {@code flags}. */
     @NativeType("uint32_t")
     public int queueCount() { return nqueueCount(address()); }
-    /** a pointer to an array of {@code queueCount} normalized floating-point values, specifying priorities of work that will be submitted to each created queue. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-priority">Queue Priority</a> for more information. */
+    /** a pointer to an array of {@code queueCount} normalized floating-point values, specifying priorities of work that will be submitted to each created queue. See <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#devsandqueues-priority">Queue Priority</a> for more information. */
     @NativeType("float const *")
     public FloatBuffer pQueuePriorities() { return npQueuePriorities(address()); }
 
@@ -142,6 +142,8 @@ public class VkDeviceQueueCreateInfo extends Struct<VkDeviceQueueCreateInfo> imp
     public VkDeviceQueueCreateInfo sType$Default() { return sType(VK10.VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkDeviceQueueCreateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkDeviceQueueGlobalPriorityCreateInfo} value to the {@code pNext} chain. */
+    public VkDeviceQueueCreateInfo pNext(VkDeviceQueueGlobalPriorityCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkDeviceQueueGlobalPriorityCreateInfoEXT} value to the {@code pNext} chain. */
     public VkDeviceQueueCreateInfo pNext(VkDeviceQueueGlobalPriorityCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkDeviceQueueGlobalPriorityCreateInfoKHR} value to the {@code pNext} chain. */
@@ -208,8 +210,7 @@ public class VkDeviceQueueCreateInfo extends Struct<VkDeviceQueueCreateInfo> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceQueueCreateInfo createSafe(long address) {
+    public static @Nullable VkDeviceQueueCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkDeviceQueueCreateInfo(address, null);
     }
 
@@ -252,8 +253,7 @@ public class VkDeviceQueueCreateInfo extends Struct<VkDeviceQueueCreateInfo> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceQueueCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceQueueCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -317,28 +317,28 @@ public class VkDeviceQueueCreateInfo extends Struct<VkDeviceQueueCreateInfo> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceQueueCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceQueueCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceQueueCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDeviceQueueCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkDeviceQueueCreateInfo.FLAGS); }
     /** Unsafe version of {@link #queueFamilyIndex}. */
-    public static int nqueueFamilyIndex(long struct) { return UNSAFE.getInt(null, struct + VkDeviceQueueCreateInfo.QUEUEFAMILYINDEX); }
+    public static int nqueueFamilyIndex(long struct) { return memGetInt(struct + VkDeviceQueueCreateInfo.QUEUEFAMILYINDEX); }
     /** Unsafe version of {@link #queueCount}. */
-    public static int nqueueCount(long struct) { return UNSAFE.getInt(null, struct + VkDeviceQueueCreateInfo.QUEUECOUNT); }
+    public static int nqueueCount(long struct) { return memGetInt(struct + VkDeviceQueueCreateInfo.QUEUECOUNT); }
     /** Unsafe version of {@link #pQueuePriorities() pQueuePriorities}. */
     public static FloatBuffer npQueuePriorities(long struct) { return memFloatBuffer(memGetAddress(struct + VkDeviceQueueCreateInfo.PQUEUEPRIORITIES), nqueueCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceQueueCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceQueueCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceQueueCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceQueueCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkDeviceQueueCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #queueFamilyIndex(int) queueFamilyIndex}. */
-    public static void nqueueFamilyIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceQueueCreateInfo.QUEUEFAMILYINDEX, value); }
+    public static void nqueueFamilyIndex(long struct, int value) { memPutInt(struct + VkDeviceQueueCreateInfo.QUEUEFAMILYINDEX, value); }
     /** Sets the specified value to the {@code queueCount} field of the specified {@code struct}. */
-    public static void nqueueCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceQueueCreateInfo.QUEUECOUNT, value); }
+    public static void nqueueCount(long struct, int value) { memPutInt(struct + VkDeviceQueueCreateInfo.QUEUECOUNT, value); }
     /** Unsafe version of {@link #pQueuePriorities(FloatBuffer) pQueuePriorities}. */
     public static void npQueuePriorities(long struct, FloatBuffer value) { memPutAddress(struct + VkDeviceQueueCreateInfo.PQUEUEPRIORITIES, memAddress(value)); nqueueCount(struct, value.remaining()); }
 
@@ -385,6 +385,11 @@ public class VkDeviceQueueCreateInfo extends Struct<VkDeviceQueueCreateInfo> imp
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceQueueCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -414,6 +419,8 @@ public class VkDeviceQueueCreateInfo extends Struct<VkDeviceQueueCreateInfo> imp
         public VkDeviceQueueCreateInfo.Buffer sType$Default() { return sType(VK10.VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO); }
         /** Sets the specified value to the {@link VkDeviceQueueCreateInfo#pNext} field. */
         public VkDeviceQueueCreateInfo.Buffer pNext(@NativeType("void const *") long value) { VkDeviceQueueCreateInfo.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkDeviceQueueGlobalPriorityCreateInfo} value to the {@code pNext} chain. */
+        public VkDeviceQueueCreateInfo.Buffer pNext(VkDeviceQueueGlobalPriorityCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkDeviceQueueGlobalPriorityCreateInfoEXT} value to the {@code pNext} chain. */
         public VkDeviceQueueCreateInfo.Buffer pNext(VkDeviceQueueGlobalPriorityCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkDeviceQueueGlobalPriorityCreateInfoKHR} value to the {@code pNext} chain. */

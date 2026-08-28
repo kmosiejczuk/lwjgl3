@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class XrEventDataMainSessionVisibilityChangedEXTX extends Struct<XrEventD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataMainSessionVisibilityChangedEXTX createSafe(long address) {
+    public static @Nullable XrEventDataMainSessionVisibilityChangedEXTX createSafe(long address) {
         return address == NULL ? null : new XrEventDataMainSessionVisibilityChangedEXTX(address, null);
     }
 
@@ -215,8 +214,7 @@ public class XrEventDataMainSessionVisibilityChangedEXTX extends Struct<XrEventD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataMainSessionVisibilityChangedEXTX.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataMainSessionVisibilityChangedEXTX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,16 +264,16 @@ public class XrEventDataMainSessionVisibilityChangedEXTX extends Struct<XrEventD
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataMainSessionVisibilityChangedEXTX.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataMainSessionVisibilityChangedEXTX.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataMainSessionVisibilityChangedEXTX.NEXT); }
     /** Unsafe version of {@link #visible}. */
-    public static int nvisible(long struct) { return UNSAFE.getInt(null, struct + XrEventDataMainSessionVisibilityChangedEXTX.VISIBLE); }
+    public static int nvisible(long struct) { return memGetInt(struct + XrEventDataMainSessionVisibilityChangedEXTX.VISIBLE); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrEventDataMainSessionVisibilityChangedEXTX.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrEventDataMainSessionVisibilityChangedEXTX.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataMainSessionVisibilityChangedEXTX.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataMainSessionVisibilityChangedEXTX.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataMainSessionVisibilityChangedEXTX.NEXT, value); }
 
@@ -310,6 +308,11 @@ public class XrEventDataMainSessionVisibilityChangedEXTX extends Struct<XrEventD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

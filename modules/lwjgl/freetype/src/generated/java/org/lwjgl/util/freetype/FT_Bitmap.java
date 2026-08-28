@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -111,9 +111,8 @@ public class FT_Bitmap extends Struct<FT_Bitmap> implements NativeResource {
      *
      * @param capacity the number of elements in the returned buffer
      */
-    @Nullable
     @NativeType("unsigned char *")
-    public ByteBuffer buffer(int capacity) { return nbuffer(address(), capacity); }
+    public @Nullable ByteBuffer buffer(int capacity) { return nbuffer(address(), capacity); }
     /** @return the value of the {@code num_grays} field. */
     @NativeType("unsigned short")
     public short num_grays() { return nnum_grays(address()); }
@@ -151,8 +150,7 @@ public class FT_Bitmap extends Struct<FT_Bitmap> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Bitmap createSafe(long address) {
+    public static @Nullable FT_Bitmap createSafe(long address) {
         return address == NULL ? null : new FT_Bitmap(address, null);
     }
 
@@ -195,8 +193,7 @@ public class FT_Bitmap extends Struct<FT_Bitmap> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Bitmap.Buffer createSafe(long address, int capacity) {
+    public static FT_Bitmap.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,19 +238,19 @@ public class FT_Bitmap extends Struct<FT_Bitmap> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #rows}. */
-    public static int nrows(long struct) { return UNSAFE.getInt(null, struct + FT_Bitmap.ROWS); }
+    public static int nrows(long struct) { return memGetInt(struct + FT_Bitmap.ROWS); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + FT_Bitmap.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + FT_Bitmap.WIDTH); }
     /** Unsafe version of {@link #pitch}. */
-    public static int npitch(long struct) { return UNSAFE.getInt(null, struct + FT_Bitmap.PITCH); }
+    public static int npitch(long struct) { return memGetInt(struct + FT_Bitmap.PITCH); }
     /** Unsafe version of {@link #buffer(int) buffer}. */
-    @Nullable public static ByteBuffer nbuffer(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + FT_Bitmap.BUFFER), capacity); }
+    public static @Nullable ByteBuffer nbuffer(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + FT_Bitmap.BUFFER), capacity); }
     /** Unsafe version of {@link #num_grays}. */
-    public static short nnum_grays(long struct) { return UNSAFE.getShort(null, struct + FT_Bitmap.NUM_GRAYS); }
+    public static short nnum_grays(long struct) { return memGetShort(struct + FT_Bitmap.NUM_GRAYS); }
     /** Unsafe version of {@link #pixel_mode}. */
-    public static byte npixel_mode(long struct) { return UNSAFE.getByte(null, struct + FT_Bitmap.PIXEL_MODE); }
+    public static byte npixel_mode(long struct) { return memGetByte(struct + FT_Bitmap.PIXEL_MODE); }
     /** Unsafe version of {@link #palette_mode}. */
-    public static byte npalette_mode(long struct) { return UNSAFE.getByte(null, struct + FT_Bitmap.PALETTE_MODE); }
+    public static byte npalette_mode(long struct) { return memGetByte(struct + FT_Bitmap.PALETTE_MODE); }
     /** Unsafe version of {@link #palette}. */
     public static long npalette(long struct) { return memGetAddress(struct + FT_Bitmap.PALETTE); }
 
@@ -291,6 +288,11 @@ public class FT_Bitmap extends Struct<FT_Bitmap> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FT_Bitmap getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -308,9 +310,8 @@ public class FT_Bitmap extends Struct<FT_Bitmap> implements NativeResource {
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("unsigned char *")
-        public ByteBuffer buffer(int capacity) { return FT_Bitmap.nbuffer(address(), capacity); }
+        public @Nullable ByteBuffer buffer(int capacity) { return FT_Bitmap.nbuffer(address(), capacity); }
         /** @return the value of the {@code num_grays} field. */
         @NativeType("unsigned short")
         public short num_grays() { return FT_Bitmap.nnum_grays(address()); }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -103,10 +103,10 @@ public class VkVideoDecodeAV1ProfileInfoKHR extends Struct<VkVideoDecodeAV1Profi
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code StdVideoAV1Profile} value specifying the AV1 codec profile, as defined in section A.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#aomedia-av1">AV1 Specification</a>. */
+    /** a {@code StdVideoAV1Profile} value specifying the AV1 codec profile, as defined in section A.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#aomedia-av1">AV1 Specification</a>. */
     @NativeType("StdVideoAV1Profile")
     public int stdProfile() { return nstdProfile(address()); }
-    /** specifies whether AV1 film grain, as defined in section 7.8.3 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#aomedia-av1">AV1 Specification</a>, <b>can</b> be used with the video profile. When this member is set to {@link VK10#VK_TRUE TRUE}, video session objects created against the video profile will be able to decode pictures that have <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-av1-film-grain">film grain</a> enabled. */
+    /** specifies whether AV1 film grain, as defined in section 7.8.3 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#aomedia-av1">AV1 Specification</a>, <b>can</b> be used with the video profile. When this member is {@link VK10#VK_TRUE TRUE}, video session objects created against the video profile will be able to decode pictures that have <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-av1-film-grain">film grain</a> enabled. */
     @NativeType("VkBool32")
     public boolean filmGrainSupport() { return nfilmGrainSupport(address()) != 0; }
 
@@ -172,8 +172,7 @@ public class VkVideoDecodeAV1ProfileInfoKHR extends Struct<VkVideoDecodeAV1Profi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeAV1ProfileInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeAV1ProfileInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeAV1ProfileInfoKHR(address, null);
     }
 
@@ -216,8 +215,7 @@ public class VkVideoDecodeAV1ProfileInfoKHR extends Struct<VkVideoDecodeAV1Profi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeAV1ProfileInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeAV1ProfileInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,22 +260,22 @@ public class VkVideoDecodeAV1ProfileInfoKHR extends Struct<VkVideoDecodeAV1Profi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeAV1ProfileInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeAV1ProfileInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeAV1ProfileInfoKHR.PNEXT); }
     /** Unsafe version of {@link #stdProfile}. */
-    public static int nstdProfile(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeAV1ProfileInfoKHR.STDPROFILE); }
+    public static int nstdProfile(long struct) { return memGetInt(struct + VkVideoDecodeAV1ProfileInfoKHR.STDPROFILE); }
     /** Unsafe version of {@link #filmGrainSupport}. */
-    public static int nfilmGrainSupport(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeAV1ProfileInfoKHR.FILMGRAINSUPPORT); }
+    public static int nfilmGrainSupport(long struct) { return memGetInt(struct + VkVideoDecodeAV1ProfileInfoKHR.FILMGRAINSUPPORT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeAV1ProfileInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeAV1ProfileInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeAV1ProfileInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #stdProfile(int) stdProfile}. */
-    public static void nstdProfile(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeAV1ProfileInfoKHR.STDPROFILE, value); }
+    public static void nstdProfile(long struct, int value) { memPutInt(struct + VkVideoDecodeAV1ProfileInfoKHR.STDPROFILE, value); }
     /** Unsafe version of {@link #filmGrainSupport(boolean) filmGrainSupport}. */
-    public static void nfilmGrainSupport(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeAV1ProfileInfoKHR.FILMGRAINSUPPORT, value); }
+    public static void nfilmGrainSupport(long struct, int value) { memPutInt(struct + VkVideoDecodeAV1ProfileInfoKHR.FILMGRAINSUPPORT, value); }
 
     // -----------------------------------
 
@@ -310,6 +308,11 @@ public class VkVideoDecodeAV1ProfileInfoKHR extends Struct<VkVideoDecodeAV1Profi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

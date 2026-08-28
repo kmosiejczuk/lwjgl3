@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports coverage reduction modes. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-coverage-reduction">Coverage Reduction</a>. */
+    /** indicates whether the implementation supports coverage reduction modes. See <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-coverage-reduction">Coverage Reduction</a>. */
     @NativeType("VkBool32")
     public boolean coverageReductionMode() { return ncoverageReductionMode(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCoverageReductionModeFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCoverageReductionModeFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCoverageReductionModeFeaturesNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCoverageReductionModeFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCoverageReductionModeFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCoverageReductionModeFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCoverageReductionModeFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCoverageReductionModeFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #coverageReductionMode}. */
-    public static int ncoverageReductionMode(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCoverageReductionModeFeaturesNV.COVERAGEREDUCTIONMODE); }
+    public static int ncoverageReductionMode(long struct) { return memGetInt(struct + VkPhysicalDeviceCoverageReductionModeFeaturesNV.COVERAGEREDUCTIONMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCoverageReductionModeFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCoverageReductionModeFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCoverageReductionModeFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #coverageReductionMode(boolean) coverageReductionMode}. */
-    public static void ncoverageReductionMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCoverageReductionModeFeaturesNV.COVERAGEREDUCTIONMODE, value); }
+    public static void ncoverageReductionMode(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCoverageReductionModeFeaturesNV.COVERAGEREDUCTIONMODE, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends Struct<VkPh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

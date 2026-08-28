@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code swapchain} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the fields of {@link VkImageCreateInfo} <b>must</b> match the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#swapchain-wsi-image-create-info">implied image creation parameters</a> of the swapchain</li>
+ * <li>If {@code swapchain} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the fields of {@link VkImageCreateInfo} <b>must</b> match the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#swapchain-wsi-image-create-info">implied image creation parameters</a> of the swapchain</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -159,8 +159,7 @@ public class VkImageSwapchainCreateInfoKHR extends Struct<VkImageSwapchainCreate
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageSwapchainCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkImageSwapchainCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkImageSwapchainCreateInfoKHR(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkImageSwapchainCreateInfoKHR extends Struct<VkImageSwapchainCreate
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageSwapchainCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkImageSwapchainCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,18 +266,18 @@ public class VkImageSwapchainCreateInfoKHR extends Struct<VkImageSwapchainCreate
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageSwapchainCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageSwapchainCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageSwapchainCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #swapchain}. */
-    public static long nswapchain(long struct) { return UNSAFE.getLong(null, struct + VkImageSwapchainCreateInfoKHR.SWAPCHAIN); }
+    public static long nswapchain(long struct) { return memGetLong(struct + VkImageSwapchainCreateInfoKHR.SWAPCHAIN); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageSwapchainCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageSwapchainCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageSwapchainCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #swapchain(long) swapchain}. */
-    public static void nswapchain(long struct, long value) { UNSAFE.putLong(null, struct + VkImageSwapchainCreateInfoKHR.SWAPCHAIN, value); }
+    public static void nswapchain(long struct, long value) { memPutLong(struct + VkImageSwapchainCreateInfoKHR.SWAPCHAIN, value); }
 
     // -----------------------------------
 
@@ -312,6 +310,11 @@ public class VkImageSwapchainCreateInfoKHR extends Struct<VkImageSwapchainCreate
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

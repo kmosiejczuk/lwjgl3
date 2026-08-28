@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class CRYPTPROTECT_PROMPTSTRUCT extends Struct<CRYPTPROTECT_PROMPTSTRUCT>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CRYPTPROTECT_PROMPTSTRUCT createSafe(long address) {
+    public static @Nullable CRYPTPROTECT_PROMPTSTRUCT createSafe(long address) {
         return address == NULL ? null : new CRYPTPROTECT_PROMPTSTRUCT(address, null);
     }
 
@@ -188,9 +187,9 @@ public class CRYPTPROTECT_PROMPTSTRUCT extends Struct<CRYPTPROTECT_PROMPTSTRUCT>
     // -----------------------------------
 
     /** Unsafe version of {@link #cbSize}. */
-    public static int ncbSize(long struct) { return UNSAFE.getInt(null, struct + CRYPTPROTECT_PROMPTSTRUCT.CBSIZE); }
+    public static int ncbSize(long struct) { return memGetInt(struct + CRYPTPROTECT_PROMPTSTRUCT.CBSIZE); }
     /** Unsafe version of {@link #dwPromptFlags}. */
-    public static int ndwPromptFlags(long struct) { return UNSAFE.getInt(null, struct + CRYPTPROTECT_PROMPTSTRUCT.DWPROMPTFLAGS); }
+    public static int ndwPromptFlags(long struct) { return memGetInt(struct + CRYPTPROTECT_PROMPTSTRUCT.DWPROMPTFLAGS); }
     /** Unsafe version of {@link #hwndApp}. */
     public static long nhwndApp(long struct) { return memGetAddress(struct + CRYPTPROTECT_PROMPTSTRUCT.HWNDAPP); }
     /** Unsafe version of {@link #szPrompt}. */
@@ -199,9 +198,9 @@ public class CRYPTPROTECT_PROMPTSTRUCT extends Struct<CRYPTPROTECT_PROMPTSTRUCT>
     public static String nszPromptString(long struct) { return memUTF16(memGetAddress(struct + CRYPTPROTECT_PROMPTSTRUCT.SZPROMPT)); }
 
     /** Unsafe version of {@link #cbSize(int) cbSize}. */
-    public static void ncbSize(long struct, int value) { UNSAFE.putInt(null, struct + CRYPTPROTECT_PROMPTSTRUCT.CBSIZE, value); }
+    public static void ncbSize(long struct, int value) { memPutInt(struct + CRYPTPROTECT_PROMPTSTRUCT.CBSIZE, value); }
     /** Unsafe version of {@link #dwPromptFlags(int) dwPromptFlags}. */
-    public static void ndwPromptFlags(long struct, int value) { UNSAFE.putInt(null, struct + CRYPTPROTECT_PROMPTSTRUCT.DWPROMPTFLAGS, value); }
+    public static void ndwPromptFlags(long struct, int value) { memPutInt(struct + CRYPTPROTECT_PROMPTSTRUCT.DWPROMPTFLAGS, value); }
     /** Unsafe version of {@link #hwndApp(long) hwndApp}. */
     public static void nhwndApp(long struct, long value) { memPutAddress(struct + CRYPTPROTECT_PROMPTSTRUCT.HWNDAPP, check(value)); }
     /** Unsafe version of {@link #szPrompt(ByteBuffer) szPrompt}. */

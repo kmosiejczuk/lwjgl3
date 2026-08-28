@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.PNEXT); }
     /** Unsafe version of {@link #separateDepthStencilLayouts}. */
-    public static int nseparateDepthStencilLayouts(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.SEPARATEDEPTHSTENCILLAYOUTS); }
+    public static int nseparateDepthStencilLayouts(long struct) { return memGetInt(struct + VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.SEPARATEDEPTHSTENCILLAYOUTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.PNEXT, value); }
     /** Unsafe version of {@link #separateDepthStencilLayouts(boolean) separateDepthStencilLayouts}. */
-    public static void nseparateDepthStencilLayouts(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.SEPARATEDEPTHSTENCILLAYOUTS, value); }
+    public static void nseparateDepthStencilLayouts(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.SEPARATEDEPTHSTENCILLAYOUTS, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

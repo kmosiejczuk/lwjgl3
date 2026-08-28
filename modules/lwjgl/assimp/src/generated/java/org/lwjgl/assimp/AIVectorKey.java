@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,6 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct aiVectorKey {
  *     double {@link #mTime};
  *     {@link AIVector3D struct aiVector3D} {@link #mValue};
+ *     aiAnimInterpolation {@link #mInterpolation};
  * }</code></pre>
  */
 @NativeType("struct aiVectorKey")
@@ -38,12 +39,14 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
     /** The struct member offsets. */
     public static final int
         MTIME,
-        MVALUE;
+        MVALUE,
+        MINTERPOLATION;
 
     static {
         Layout layout = __struct(
             __member(8),
-            __member(AIVector3D.SIZEOF, AIVector3D.ALIGNOF)
+            __member(AIVector3D.SIZEOF, AIVector3D.ALIGNOF),
+            __member(4)
         );
 
         SIZEOF = layout.getSize();
@@ -51,6 +54,7 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
 
         MTIME = layout.offsetof(0);
         MVALUE = layout.offsetof(1);
+        MINTERPOLATION = layout.offsetof(2);
     }
 
     protected AIVectorKey(long address, @Nullable ByteBuffer container) {
@@ -80,6 +84,9 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
     /** The value of this key */
     @NativeType("struct aiVector3D")
     public AIVector3D mValue() { return nmValue(address()); }
+    /** The interpolation setting of this key */
+    @NativeType("aiAnimInterpolation")
+    public int mInterpolation() { return nmInterpolation(address()); }
 
     /** Sets the specified value to the {@link #mTime} field. */
     public AIVectorKey mTime(double value) { nmTime(address(), value); return this; }
@@ -87,14 +94,18 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
     public AIVectorKey mValue(@NativeType("struct aiVector3D") AIVector3D value) { nmValue(address(), value); return this; }
     /** Passes the {@link #mValue} field to the specified {@link java.util.function.Consumer Consumer}. */
     public AIVectorKey mValue(java.util.function.Consumer<AIVector3D> consumer) { consumer.accept(mValue()); return this; }
+    /** Sets the specified value to the {@link #mInterpolation} field. */
+    public AIVectorKey mInterpolation(@NativeType("aiAnimInterpolation") int value) { nmInterpolation(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public AIVectorKey set(
         double mTime,
-        AIVector3D mValue
+        AIVector3D mValue,
+        int mInterpolation
     ) {
         mTime(mTime);
         mValue(mValue);
+        mInterpolation(mInterpolation);
 
         return this;
     }
@@ -135,8 +146,7 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIVectorKey createSafe(long address) {
+    public static @Nullable AIVectorKey createSafe(long address) {
         return address == NULL ? null : new AIVectorKey(address, null);
     }
 
@@ -179,8 +189,7 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIVectorKey.Buffer createSafe(long address, int capacity) {
+    public static AIVectorKey.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,14 +253,18 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #mTime}. */
-    public static double nmTime(long struct) { return UNSAFE.getDouble(null, struct + AIVectorKey.MTIME); }
+    public static double nmTime(long struct) { return memGetDouble(struct + AIVectorKey.MTIME); }
     /** Unsafe version of {@link #mValue}. */
     public static AIVector3D nmValue(long struct) { return AIVector3D.create(struct + AIVectorKey.MVALUE); }
+    /** Unsafe version of {@link #mInterpolation}. */
+    public static int nmInterpolation(long struct) { return memGetInt(struct + AIVectorKey.MINTERPOLATION); }
 
     /** Unsafe version of {@link #mTime(double) mTime}. */
-    public static void nmTime(long struct, double value) { UNSAFE.putDouble(null, struct + AIVectorKey.MTIME, value); }
+    public static void nmTime(long struct, double value) { memPutDouble(struct + AIVectorKey.MTIME, value); }
     /** Unsafe version of {@link #mValue(AIVector3D) mValue}. */
     public static void nmValue(long struct, AIVector3D value) { memCopy(value.address(), struct + AIVectorKey.MVALUE, AIVector3D.SIZEOF); }
+    /** Unsafe version of {@link #mInterpolation(int) mInterpolation}. */
+    public static void nmInterpolation(long struct, int value) { memPutInt(struct + AIVectorKey.MINTERPOLATION, value); }
 
     // -----------------------------------
 
@@ -287,6 +300,11 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIVectorKey getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -296,6 +314,9 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
         /** @return a {@link AIVector3D} view of the {@link AIVectorKey#mValue} field. */
         @NativeType("struct aiVector3D")
         public AIVector3D mValue() { return AIVectorKey.nmValue(address()); }
+        /** @return the value of the {@link AIVectorKey#mInterpolation} field. */
+        @NativeType("aiAnimInterpolation")
+        public int mInterpolation() { return AIVectorKey.nmInterpolation(address()); }
 
         /** Sets the specified value to the {@link AIVectorKey#mTime} field. */
         public AIVectorKey.Buffer mTime(double value) { AIVectorKey.nmTime(address(), value); return this; }
@@ -303,6 +324,8 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
         public AIVectorKey.Buffer mValue(@NativeType("struct aiVector3D") AIVector3D value) { AIVectorKey.nmValue(address(), value); return this; }
         /** Passes the {@link AIVectorKey#mValue} field to the specified {@link java.util.function.Consumer Consumer}. */
         public AIVectorKey.Buffer mValue(java.util.function.Consumer<AIVector3D> consumer) { consumer.accept(mValue()); return this; }
+        /** Sets the specified value to the {@link AIVectorKey#mInterpolation} field. */
+        public AIVectorKey.Buffer mInterpolation(@NativeType("aiAnimInterpolation") int value) { AIVectorKey.nmInterpolation(address(), value); return this; }
 
     }
 

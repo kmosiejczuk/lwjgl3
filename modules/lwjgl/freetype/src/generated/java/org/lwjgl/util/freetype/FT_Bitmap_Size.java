@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -119,8 +119,7 @@ public class FT_Bitmap_Size extends Struct<FT_Bitmap_Size> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Bitmap_Size createSafe(long address) {
+    public static @Nullable FT_Bitmap_Size createSafe(long address) {
         return address == NULL ? null : new FT_Bitmap_Size(address, null);
     }
 
@@ -135,17 +134,16 @@ public class FT_Bitmap_Size extends Struct<FT_Bitmap_Size> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Bitmap_Size.Buffer createSafe(long address, int capacity) {
+    public static FT_Bitmap_Size.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #height}. */
-    public static short nheight(long struct) { return UNSAFE.getShort(null, struct + FT_Bitmap_Size.HEIGHT); }
+    public static short nheight(long struct) { return memGetShort(struct + FT_Bitmap_Size.HEIGHT); }
     /** Unsafe version of {@link #width}. */
-    public static short nwidth(long struct) { return UNSAFE.getShort(null, struct + FT_Bitmap_Size.WIDTH); }
+    public static short nwidth(long struct) { return memGetShort(struct + FT_Bitmap_Size.WIDTH); }
     /** Unsafe version of {@link #size}. */
     public static long nsize(long struct) { return memGetCLong(struct + FT_Bitmap_Size.SIZE); }
     /** Unsafe version of {@link #x_ppem}. */
@@ -184,6 +182,11 @@ public class FT_Bitmap_Size extends Struct<FT_Bitmap_Size> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

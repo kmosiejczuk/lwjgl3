@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -184,8 +184,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingAimStateFB createSafe(long address) {
+    public static @Nullable XrHandTrackingAimStateFB createSafe(long address) {
         return address == NULL ? null : new XrHandTrackingAimStateFB(address, null);
     }
 
@@ -228,8 +227,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingAimStateFB.Buffer createSafe(long address, int capacity) {
+    public static XrHandTrackingAimStateFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,24 +272,24 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackingAimStateFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandTrackingAimStateFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandTrackingAimStateFB.NEXT); }
     /** Unsafe version of {@link #status}. */
-    public static long nstatus(long struct) { return UNSAFE.getLong(null, struct + XrHandTrackingAimStateFB.STATUS); }
+    public static long nstatus(long struct) { return memGetLong(struct + XrHandTrackingAimStateFB.STATUS); }
     /** Unsafe version of {@link #aimPose}. */
     public static XrPosef naimPose(long struct) { return XrPosef.create(struct + XrHandTrackingAimStateFB.AIMPOSE); }
     /** Unsafe version of {@link #pinchStrengthIndex}. */
-    public static float npinchStrengthIndex(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingAimStateFB.PINCHSTRENGTHINDEX); }
+    public static float npinchStrengthIndex(long struct) { return memGetFloat(struct + XrHandTrackingAimStateFB.PINCHSTRENGTHINDEX); }
     /** Unsafe version of {@link #pinchStrengthMiddle}. */
-    public static float npinchStrengthMiddle(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingAimStateFB.PINCHSTRENGTHMIDDLE); }
+    public static float npinchStrengthMiddle(long struct) { return memGetFloat(struct + XrHandTrackingAimStateFB.PINCHSTRENGTHMIDDLE); }
     /** Unsafe version of {@link #pinchStrengthRing}. */
-    public static float npinchStrengthRing(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingAimStateFB.PINCHSTRENGTHRING); }
+    public static float npinchStrengthRing(long struct) { return memGetFloat(struct + XrHandTrackingAimStateFB.PINCHSTRENGTHRING); }
     /** Unsafe version of {@link #pinchStrengthLittle}. */
-    public static float npinchStrengthLittle(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingAimStateFB.PINCHSTRENGTHLITTLE); }
+    public static float npinchStrengthLittle(long struct) { return memGetFloat(struct + XrHandTrackingAimStateFB.PINCHSTRENGTHLITTLE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackingAimStateFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandTrackingAimStateFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandTrackingAimStateFB.NEXT, value); }
 
@@ -326,6 +324,11 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

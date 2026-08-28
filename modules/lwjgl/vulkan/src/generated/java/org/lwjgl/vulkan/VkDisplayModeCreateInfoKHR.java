@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -171,8 +171,7 @@ public class VkDisplayModeCreateInfoKHR extends Struct<VkDisplayModeCreateInfoKH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModeCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkDisplayModeCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayModeCreateInfoKHR(address, null);
     }
 
@@ -215,8 +214,7 @@ public class VkDisplayModeCreateInfoKHR extends Struct<VkDisplayModeCreateInfoKH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModeCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayModeCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,20 +278,20 @@ public class VkDisplayModeCreateInfoKHR extends Struct<VkDisplayModeCreateInfoKH
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDisplayModeCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDisplayModeCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDisplayModeCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDisplayModeCreateInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkDisplayModeCreateInfoKHR.FLAGS); }
     /** Unsafe version of {@link #parameters}. */
     public static VkDisplayModeParametersKHR nparameters(long struct) { return VkDisplayModeParametersKHR.create(struct + VkDisplayModeCreateInfoKHR.PARAMETERS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayModeCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDisplayModeCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDisplayModeCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayModeCreateInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkDisplayModeCreateInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #parameters(VkDisplayModeParametersKHR) parameters}. */
     public static void nparameters(long struct, VkDisplayModeParametersKHR value) { memCopy(value.address(), struct + VkDisplayModeCreateInfoKHR.PARAMETERS, VkDisplayModeParametersKHR.SIZEOF); }
 
@@ -328,6 +326,11 @@ public class VkDisplayModeCreateInfoKHR extends Struct<VkDisplayModeCreateInfoKH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

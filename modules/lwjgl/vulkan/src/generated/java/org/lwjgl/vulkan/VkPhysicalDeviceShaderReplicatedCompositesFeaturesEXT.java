@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT extends Struc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT extends Struc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT extends Struc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #shaderReplicatedComposites}. */
-    public static int nshaderReplicatedComposites(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.SHADERREPLICATEDCOMPOSITES); }
+    public static int nshaderReplicatedComposites(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.SHADERREPLICATEDCOMPOSITES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #shaderReplicatedComposites(boolean) shaderReplicatedComposites}. */
-    public static void nshaderReplicatedComposites(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.SHADERREPLICATEDCOMPOSITES, value); }
+    public static void nshaderReplicatedComposites(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT.SHADERREPLICATEDCOMPOSITES, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT extends Struc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

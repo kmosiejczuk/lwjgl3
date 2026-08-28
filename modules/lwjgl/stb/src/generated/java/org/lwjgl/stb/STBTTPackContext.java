@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -173,8 +173,7 @@ public class STBTTPackContext extends Struct<STBTTPackContext> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTPackContext createSafe(long address) {
+    public static @Nullable STBTTPackContext createSafe(long address) {
         return address == NULL ? null : new STBTTPackContext(address, null);
     }
 
@@ -217,8 +216,7 @@ public class STBTTPackContext extends Struct<STBTTPackContext> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTPackContext.Buffer createSafe(long address, int capacity) {
+    public static STBTTPackContext.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,19 +284,19 @@ public class STBTTPackContext extends Struct<STBTTPackContext> implements Native
     /** Unsafe version of {@link #pack_info}. */
     public static STBRPContext npack_info(long struct) { return STBRPContext.create(memGetAddress(struct + STBTTPackContext.PACK_INFO)); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + STBTTPackContext.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + STBTTPackContext.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + STBTTPackContext.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + STBTTPackContext.HEIGHT); }
     /** Unsafe version of {@link #stride_in_bytes}. */
-    public static int nstride_in_bytes(long struct) { return UNSAFE.getInt(null, struct + STBTTPackContext.STRIDE_IN_BYTES); }
+    public static int nstride_in_bytes(long struct) { return memGetInt(struct + STBTTPackContext.STRIDE_IN_BYTES); }
     /** Unsafe version of {@link #padding}. */
-    public static int npadding(long struct) { return UNSAFE.getInt(null, struct + STBTTPackContext.PADDING); }
+    public static int npadding(long struct) { return memGetInt(struct + STBTTPackContext.PADDING); }
     /** Unsafe version of {@link #skip_missing}. */
-    public static int nskip_missing(long struct) { return UNSAFE.getInt(null, struct + STBTTPackContext.SKIP_MISSING); }
+    public static int nskip_missing(long struct) { return memGetInt(struct + STBTTPackContext.SKIP_MISSING); }
     /** Unsafe version of {@link #h_oversample}. */
-    public static int nh_oversample(long struct) { return UNSAFE.getInt(null, struct + STBTTPackContext.H_OVERSAMPLE); }
+    public static int nh_oversample(long struct) { return memGetInt(struct + STBTTPackContext.H_OVERSAMPLE); }
     /** Unsafe version of {@link #v_oversample}. */
-    public static int nv_oversample(long struct) { return UNSAFE.getInt(null, struct + STBTTPackContext.V_OVERSAMPLE); }
+    public static int nv_oversample(long struct) { return memGetInt(struct + STBTTPackContext.V_OVERSAMPLE); }
     /** Unsafe version of {@link #pixels(int) pixels}. */
     public static ByteBuffer npixels(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + STBTTPackContext.PIXELS), capacity); }
     /** Unsafe version of {@link #nodes}. */
@@ -335,6 +333,11 @@ public class STBTTPackContext extends Struct<STBTTPackContext> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

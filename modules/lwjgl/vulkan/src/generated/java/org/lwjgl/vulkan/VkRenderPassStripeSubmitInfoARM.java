@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -180,8 +180,7 @@ public class VkRenderPassStripeSubmitInfoARM extends Struct<VkRenderPassStripeSu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassStripeSubmitInfoARM createSafe(long address) {
+    public static @Nullable VkRenderPassStripeSubmitInfoARM createSafe(long address) {
         return address == NULL ? null : new VkRenderPassStripeSubmitInfoARM(address, null);
     }
 
@@ -224,8 +223,7 @@ public class VkRenderPassStripeSubmitInfoARM extends Struct<VkRenderPassStripeSu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassStripeSubmitInfoARM.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassStripeSubmitInfoARM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,20 +268,20 @@ public class VkRenderPassStripeSubmitInfoARM extends Struct<VkRenderPassStripeSu
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassStripeSubmitInfoARM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderPassStripeSubmitInfoARM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderPassStripeSubmitInfoARM.PNEXT); }
     /** Unsafe version of {@link #stripeSemaphoreInfoCount}. */
-    public static int nstripeSemaphoreInfoCount(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassStripeSubmitInfoARM.STRIPESEMAPHOREINFOCOUNT); }
+    public static int nstripeSemaphoreInfoCount(long struct) { return memGetInt(struct + VkRenderPassStripeSubmitInfoARM.STRIPESEMAPHOREINFOCOUNT); }
     /** Unsafe version of {@link #pStripeSemaphoreInfos}. */
     public static VkSemaphoreSubmitInfo.Buffer npStripeSemaphoreInfos(long struct) { return VkSemaphoreSubmitInfo.create(memGetAddress(struct + VkRenderPassStripeSubmitInfoARM.PSTRIPESEMAPHOREINFOS), nstripeSemaphoreInfoCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderPassStripeSubmitInfoARM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderPassStripeSubmitInfoARM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderPassStripeSubmitInfoARM.PNEXT, value); }
     /** Sets the specified value to the {@code stripeSemaphoreInfoCount} field of the specified {@code struct}. */
-    public static void nstripeSemaphoreInfoCount(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderPassStripeSubmitInfoARM.STRIPESEMAPHOREINFOCOUNT, value); }
+    public static void nstripeSemaphoreInfoCount(long struct, int value) { memPutInt(struct + VkRenderPassStripeSubmitInfoARM.STRIPESEMAPHOREINFOCOUNT, value); }
     /** Unsafe version of {@link #pStripeSemaphoreInfos(VkSemaphoreSubmitInfo.Buffer) pStripeSemaphoreInfos}. */
     public static void npStripeSemaphoreInfos(long struct, VkSemaphoreSubmitInfo.Buffer value) { memPutAddress(struct + VkRenderPassStripeSubmitInfoARM.PSTRIPESEMAPHOREINFOS, value.address()); nstripeSemaphoreInfoCount(struct, value.remaining()); }
 
@@ -327,6 +325,11 @@ public class VkRenderPassStripeSubmitInfoARM extends Struct<VkRenderPassStripeSu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

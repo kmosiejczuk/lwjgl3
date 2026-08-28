@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>. */
+    /** indicates whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>. */
     @NativeType("VkBool32")
     public boolean shaderObject() { return nshaderObject(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderObjectFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderObjectFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderObjectFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderObjectFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderObjectFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderObjectFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #shaderObject}. */
-    public static int nshaderObject(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderObjectFeaturesEXT.SHADEROBJECT); }
+    public static int nshaderObject(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.SHADEROBJECT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderObjectFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #shaderObject(boolean) shaderObject}. */
-    public static void nshaderObject(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderObjectFeaturesEXT.SHADEROBJECT, value); }
+    public static void nshaderObject(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.SHADEROBJECT, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

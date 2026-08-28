@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class HmdVector3d extends Struct<HmdVector3d> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static HmdVector3d createSafe(long address) {
+    public static @Nullable HmdVector3d createSafe(long address) {
         return address == NULL ? null : new HmdVector3d(address, null);
     }
 
@@ -161,8 +160,7 @@ public class HmdVector3d extends Struct<HmdVector3d> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static HmdVector3d.Buffer createSafe(long address, int capacity) {
+    public static HmdVector3d.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,7 +227,7 @@ public class HmdVector3d extends Struct<HmdVector3d> implements NativeResource {
     public static DoubleBuffer nv(long struct) { return memDoubleBuffer(struct + HmdVector3d.V, 3); }
     /** Unsafe version of {@link #v(int) v}. */
     public static double nv(long struct, int index) {
-        return UNSAFE.getDouble(null, struct + HmdVector3d.V + check(index, 3) * 8);
+        return memGetDouble(struct + HmdVector3d.V + check(index, 3) * 8);
     }
 
     /** Unsafe version of {@link #v(DoubleBuffer) v}. */
@@ -239,7 +237,7 @@ public class HmdVector3d extends Struct<HmdVector3d> implements NativeResource {
     }
     /** Unsafe version of {@link #v(int, double) v}. */
     public static void nv(long struct, int index, double value) {
-        UNSAFE.putDouble(null, struct + HmdVector3d.V + check(index, 3) * 8, value);
+        memPutDouble(struct + HmdVector3d.V + check(index, 3) * 8, value);
     }
 
     // -----------------------------------
@@ -273,6 +271,11 @@ public class HmdVector3d extends Struct<HmdVector3d> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

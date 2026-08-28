@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -133,8 +133,7 @@ public class VRNativeDevice extends Struct<VRNativeDevice> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRNativeDevice createSafe(long address) {
+    public static @Nullable VRNativeDevice createSafe(long address) {
         return address == NULL ? null : new VRNativeDevice(address, null);
     }
 
@@ -177,8 +176,7 @@ public class VRNativeDevice extends Struct<VRNativeDevice> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRNativeDevice.Buffer createSafe(long address, int capacity) {
+    public static VRNativeDevice.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -225,12 +223,12 @@ public class VRNativeDevice extends Struct<VRNativeDevice> implements NativeReso
     /** Unsafe version of {@link #handle}. */
     public static long nhandle(long struct) { return memGetAddress(struct + VRNativeDevice.HANDLE); }
     /** Unsafe version of {@link #eType}. */
-    public static int neType(long struct) { return UNSAFE.getInt(null, struct + VRNativeDevice.ETYPE); }
+    public static int neType(long struct) { return memGetInt(struct + VRNativeDevice.ETYPE); }
 
     /** Unsafe version of {@link #handle(long) handle}. */
     public static void nhandle(long struct, long value) { memPutAddress(struct + VRNativeDevice.HANDLE, check(value)); }
     /** Unsafe version of {@link #eType(int) eType}. */
-    public static void neType(long struct, int value) { UNSAFE.putInt(null, struct + VRNativeDevice.ETYPE, value); }
+    public static void neType(long struct, int value) { memPutInt(struct + VRNativeDevice.ETYPE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -272,6 +270,11 @@ public class VRNativeDevice extends Struct<VRNativeDevice> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -81,8 +81,7 @@ public class VREventStatus extends Struct<VREventStatus> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventStatus createSafe(long address) {
+    public static @Nullable VREventStatus createSafe(long address) {
         return address == NULL ? null : new VREventStatus(address, null);
     }
 
@@ -97,15 +96,14 @@ public class VREventStatus extends Struct<VREventStatus> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventStatus.Buffer createSafe(long address, int capacity) {
+    public static VREventStatus.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #statusState}. */
-    public static int nstatusState(long struct) { return UNSAFE.getInt(null, struct + VREventStatus.STATUSSTATE); }
+    public static int nstatusState(long struct) { return memGetInt(struct + VREventStatus.STATUSSTATE); }
 
     // -----------------------------------
 
@@ -138,6 +136,11 @@ public class VREventStatus extends Struct<VREventStatus> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

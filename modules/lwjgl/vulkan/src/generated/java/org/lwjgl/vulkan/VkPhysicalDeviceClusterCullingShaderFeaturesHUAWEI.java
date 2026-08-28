@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -169,8 +169,7 @@ public class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI(address, null);
     }
 
@@ -213,8 +212,7 @@ public class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,22 +257,22 @@ public class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.PNEXT); }
     /** Unsafe version of {@link #clustercullingShader}. */
-    public static int nclustercullingShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.CLUSTERCULLINGSHADER); }
+    public static int nclustercullingShader(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.CLUSTERCULLINGSHADER); }
     /** Unsafe version of {@link #multiviewClusterCullingShader}. */
-    public static int nmultiviewClusterCullingShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.MULTIVIEWCLUSTERCULLINGSHADER); }
+    public static int nmultiviewClusterCullingShader(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.MULTIVIEWCLUSTERCULLINGSHADER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.PNEXT, value); }
     /** Unsafe version of {@link #clustercullingShader(boolean) clustercullingShader}. */
-    public static void nclustercullingShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.CLUSTERCULLINGSHADER, value); }
+    public static void nclustercullingShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.CLUSTERCULLINGSHADER, value); }
     /** Unsafe version of {@link #multiviewClusterCullingShader(boolean) multiviewClusterCullingShader}. */
-    public static void nmultiviewClusterCullingShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.MULTIVIEWCLUSTERCULLINGSHADER, value); }
+    public static void nmultiviewClusterCullingShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.MULTIVIEWCLUSTERCULLINGSHADER, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends Struct<V
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class XrBoundSourcesForActionEnumerateInfo extends Struct<XrBoundSourcesF
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBoundSourcesForActionEnumerateInfo createSafe(long address) {
+    public static @Nullable XrBoundSourcesForActionEnumerateInfo createSafe(long address) {
         return address == NULL ? null : new XrBoundSourcesForActionEnumerateInfo(address, null);
     }
 
@@ -203,8 +202,7 @@ public class XrBoundSourcesForActionEnumerateInfo extends Struct<XrBoundSourcesF
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBoundSourcesForActionEnumerateInfo.Buffer createSafe(long address, int capacity) {
+    public static XrBoundSourcesForActionEnumerateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,14 +247,14 @@ public class XrBoundSourcesForActionEnumerateInfo extends Struct<XrBoundSourcesF
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrBoundSourcesForActionEnumerateInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrBoundSourcesForActionEnumerateInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrBoundSourcesForActionEnumerateInfo.NEXT); }
     /** Unsafe version of {@link #action}. */
     public static long naction(long struct) { return memGetAddress(struct + XrBoundSourcesForActionEnumerateInfo.ACTION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrBoundSourcesForActionEnumerateInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrBoundSourcesForActionEnumerateInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrBoundSourcesForActionEnumerateInfo.NEXT, value); }
     /** Unsafe version of {@link #action(XrAction) action}. */
@@ -302,6 +300,11 @@ public class XrBoundSourcesForActionEnumerateInfo extends Struct<XrBoundSourcesF
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,8 +94,7 @@ public class CXVersion extends Struct<CXVersion> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXVersion createSafe(long address) {
+    public static @Nullable CXVersion createSafe(long address) {
         return address == NULL ? null : new CXVersion(address, null);
     }
 
@@ -110,19 +109,18 @@ public class CXVersion extends Struct<CXVersion> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXVersion.Buffer createSafe(long address, int capacity) {
+    public static CXVersion.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #Major}. */
-    public static int nMajor(long struct) { return UNSAFE.getInt(null, struct + CXVersion.MAJOR); }
+    public static int nMajor(long struct) { return memGetInt(struct + CXVersion.MAJOR); }
     /** Unsafe version of {@link #Minor}. */
-    public static int nMinor(long struct) { return UNSAFE.getInt(null, struct + CXVersion.MINOR); }
+    public static int nMinor(long struct) { return memGetInt(struct + CXVersion.MINOR); }
     /** Unsafe version of {@link #Subminor}. */
-    public static int nSubminor(long struct) { return UNSAFE.getInt(null, struct + CXVersion.SUBMINOR); }
+    public static int nSubminor(long struct) { return memGetInt(struct + CXVersion.SUBMINOR); }
 
     // -----------------------------------
 
@@ -155,6 +153,11 @@ public class CXVersion extends Struct<CXVersion> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

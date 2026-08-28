@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class FMOD_DSP_BUFFER_ARRAY extends Struct<FMOD_DSP_BUFFER_ARRAY> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_BUFFER_ARRAY createSafe(long address) {
+    public static @Nullable FMOD_DSP_BUFFER_ARRAY createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_BUFFER_ARRAY(address, null);
     }
 
@@ -211,8 +210,7 @@ public class FMOD_DSP_BUFFER_ARRAY extends Struct<FMOD_DSP_BUFFER_ARRAY> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_BUFFER_ARRAY.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_BUFFER_ARRAY.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,7 +255,7 @@ public class FMOD_DSP_BUFFER_ARRAY extends Struct<FMOD_DSP_BUFFER_ARRAY> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #numbuffers}. */
-    public static int nnumbuffers(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_BUFFER_ARRAY.NUMBUFFERS); }
+    public static int nnumbuffers(long struct) { return memGetInt(struct + FMOD_DSP_BUFFER_ARRAY.NUMBUFFERS); }
     /** Unsafe version of {@link #buffernumchannels() buffernumchannels}. */
     public static IntBuffer nbuffernumchannels(long struct) { return memIntBuffer(memGetAddress(struct + FMOD_DSP_BUFFER_ARRAY.BUFFERNUMCHANNELS), nnumbuffers(struct)); }
     /** Unsafe version of {@link #bufferchannelmask() bufferchannelmask}. */
@@ -265,10 +263,10 @@ public class FMOD_DSP_BUFFER_ARRAY extends Struct<FMOD_DSP_BUFFER_ARRAY> impleme
     /** Unsafe version of {@link #buffers() buffers}. */
     public static PointerBuffer nbuffers(long struct) { return memPointerBuffer(memGetAddress(struct + FMOD_DSP_BUFFER_ARRAY.BUFFERS), nnumbuffers(struct)); }
     /** Unsafe version of {@link #speakermode}. */
-    public static int nspeakermode(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_BUFFER_ARRAY.SPEAKERMODE); }
+    public static int nspeakermode(long struct) { return memGetInt(struct + FMOD_DSP_BUFFER_ARRAY.SPEAKERMODE); }
 
     /** Sets the specified value to the {@code numbuffers} field of the specified {@code struct}. */
-    public static void nnumbuffers(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_BUFFER_ARRAY.NUMBUFFERS, value); }
+    public static void nnumbuffers(long struct, int value) { memPutInt(struct + FMOD_DSP_BUFFER_ARRAY.NUMBUFFERS, value); }
     /** Unsafe version of {@link #buffernumchannels(IntBuffer) buffernumchannels}. */
     public static void nbuffernumchannels(long struct, IntBuffer value) { memPutAddress(struct + FMOD_DSP_BUFFER_ARRAY.BUFFERNUMCHANNELS, memAddress(value)); }
     /** Unsafe version of {@link #bufferchannelmask(IntBuffer) bufferchannelmask}. */
@@ -276,7 +274,7 @@ public class FMOD_DSP_BUFFER_ARRAY extends Struct<FMOD_DSP_BUFFER_ARRAY> impleme
     /** Unsafe version of {@link #buffers(PointerBuffer) buffers}. */
     public static void nbuffers(long struct, PointerBuffer value) { memPutAddress(struct + FMOD_DSP_BUFFER_ARRAY.BUFFERS, memAddress(value)); }
     /** Unsafe version of {@link #speakermode(int) speakermode}. */
-    public static void nspeakermode(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_BUFFER_ARRAY.SPEAKERMODE, value); }
+    public static void nspeakermode(long struct, int value) { memPutInt(struct + FMOD_DSP_BUFFER_ARRAY.SPEAKERMODE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -320,6 +318,11 @@ public class FMOD_DSP_BUFFER_ARRAY extends Struct<FMOD_DSP_BUFFER_ARRAY> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

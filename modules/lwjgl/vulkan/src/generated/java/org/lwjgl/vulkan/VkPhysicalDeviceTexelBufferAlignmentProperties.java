@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the single texel alignment property is {@link VK10#VK_FALSE FALSE}, then the buffer view’s offset <b>must</b> be aligned to the corresponding byte alignment value. If the single texel alignment property is {@link VK10#VK_TRUE TRUE}, then the buffer view’s offset <b>must</b> be aligned to the lesser of the corresponding byte alignment value or the size of a single texel, based on {@link VkBufferViewCreateInfo}{@code ::format}. If the size of a single texel is a multiple of three bytes, then the size of a single component of the format is used instead.</p>
  * 
- * <p>These limits <b>must</b> not advertise a larger alignment than the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-required">required</a> maximum minimum value of {@link VkPhysicalDeviceLimits}{@code ::minTexelBufferOffsetAlignment}, for any format that supports use as a texel buffer.</p>
+ * <p>These limits <b>must</b> not advertise a larger alignment than the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-required">required</a> maximum minimum value of {@link VkPhysicalDeviceLimits}{@code ::minTexelBufferOffsetAlignment}, for any format that supports use as a texel buffer.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -177,8 +177,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTexelBufferAlignmentProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceTexelBufferAlignmentProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceTexelBufferAlignmentProperties(address, null);
     }
 
@@ -221,8 +220,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTexelBufferAlignmentProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceTexelBufferAlignmentProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,20 +265,20 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTexelBufferAlignmentProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceTexelBufferAlignmentProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceTexelBufferAlignmentProperties.PNEXT); }
     /** Unsafe version of {@link #storageTexelBufferOffsetAlignmentBytes}. */
-    public static long nstorageTexelBufferOffsetAlignmentBytes(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceTexelBufferAlignmentProperties.STORAGETEXELBUFFEROFFSETALIGNMENTBYTES); }
+    public static long nstorageTexelBufferOffsetAlignmentBytes(long struct) { return memGetLong(struct + VkPhysicalDeviceTexelBufferAlignmentProperties.STORAGETEXELBUFFEROFFSETALIGNMENTBYTES); }
     /** Unsafe version of {@link #storageTexelBufferOffsetSingleTexelAlignment}. */
-    public static int nstorageTexelBufferOffsetSingleTexelAlignment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTexelBufferAlignmentProperties.STORAGETEXELBUFFEROFFSETSINGLETEXELALIGNMENT); }
+    public static int nstorageTexelBufferOffsetSingleTexelAlignment(long struct) { return memGetInt(struct + VkPhysicalDeviceTexelBufferAlignmentProperties.STORAGETEXELBUFFEROFFSETSINGLETEXELALIGNMENT); }
     /** Unsafe version of {@link #uniformTexelBufferOffsetAlignmentBytes}. */
-    public static long nuniformTexelBufferOffsetAlignmentBytes(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceTexelBufferAlignmentProperties.UNIFORMTEXELBUFFEROFFSETALIGNMENTBYTES); }
+    public static long nuniformTexelBufferOffsetAlignmentBytes(long struct) { return memGetLong(struct + VkPhysicalDeviceTexelBufferAlignmentProperties.UNIFORMTEXELBUFFEROFFSETALIGNMENTBYTES); }
     /** Unsafe version of {@link #uniformTexelBufferOffsetSingleTexelAlignment}. */
-    public static int nuniformTexelBufferOffsetSingleTexelAlignment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTexelBufferAlignmentProperties.UNIFORMTEXELBUFFEROFFSETSINGLETEXELALIGNMENT); }
+    public static int nuniformTexelBufferOffsetSingleTexelAlignment(long struct) { return memGetInt(struct + VkPhysicalDeviceTexelBufferAlignmentProperties.UNIFORMTEXELBUFFEROFFSETSINGLETEXELALIGNMENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTexelBufferAlignmentProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTexelBufferAlignmentProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceTexelBufferAlignmentProperties.PNEXT, value); }
 
@@ -315,6 +313,11 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

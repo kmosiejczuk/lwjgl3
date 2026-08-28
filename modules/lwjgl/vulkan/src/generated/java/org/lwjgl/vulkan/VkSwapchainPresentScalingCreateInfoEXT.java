@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -30,12 +30,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code scalingBehavior} <b>must</b> not have more than one bit set</li>
  * <li>{@code presentGravityX} <b>must</b> not have more than one bit set</li>
  * <li>{@code presentGravityY} <b>must</b> not have more than one bit set</li>
- * <li>{@code scalingBehavior} <b>must</b> be a valid scaling method for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentScaling}, given {@link VkSwapchainCreateInfoKHR}{@code ::presentMode} in {@link VkSurfacePresentModeEXT}</li>
- * <li>If the swapchain is created with {@link VkSwapchainPresentModesCreateInfoEXT}, {@code scalingBehavior} <b>must</b> be a valid scaling method for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentScaling}, given each present mode in {@link VkSwapchainPresentModesCreateInfoEXT}{@code ::pPresentModes} in {@link VkSurfacePresentModeEXT}</li>
- * <li>{@code presentGravityX} <b>must</b> be a valid x-axis present gravity for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentGravityX}, given {@link VkSwapchainCreateInfoKHR}{@code ::presentMode} in {@link VkSurfacePresentModeEXT}</li>
- * <li>If the swapchain is created with {@link VkSwapchainPresentModesCreateInfoEXT}, {@code presentGravityX} <b>must</b> be a valid x-axis present gravity for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentGravityX}, given each present mode in {@link VkSwapchainPresentModesCreateInfoEXT}{@code ::pPresentModes} in {@link VkSurfacePresentModeEXT}</li>
- * <li>{@code presentGravityY} <b>must</b> be a valid y-axis present gravity for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentGravityY}, given {@link VkSwapchainCreateInfoKHR}{@code ::presentMode} in {@link VkSurfacePresentModeEXT}</li>
- * <li>If the swapchain is created with {@link VkSwapchainPresentModesCreateInfoEXT}, {@code presentGravityY} <b>must</b> be a valid y-axis present gravity for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentGravityY}, given each present mode in {@link VkSwapchainPresentModesCreateInfoEXT}{@code ::pPresentModes} in {@link VkSurfacePresentModeEXT}</li>
+ * <li>{@code scalingBehavior} <b>must</b> be 0 or a valid scaling method for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentScaling}, given {@link VkSwapchainCreateInfoKHR}{@code ::presentMode} in {@link VkSurfacePresentModeEXT}</li>
+ * <li>If the swapchain is created with {@link VkSwapchainPresentModesCreateInfoEXT}, {@code scalingBehavior} <b>must</b> be 0 or a valid scaling method for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentScaling}, given each present mode in {@link VkSwapchainPresentModesCreateInfoEXT}{@code ::pPresentModes} in {@link VkSurfacePresentModeEXT}</li>
+ * <li>{@code presentGravityX} <b>must</b> be 0 or a valid x-axis present gravity for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentGravityX}, given {@link VkSwapchainCreateInfoKHR}{@code ::presentMode} in {@link VkSurfacePresentModeEXT}</li>
+ * <li>If the swapchain is created with {@link VkSwapchainPresentModesCreateInfoEXT}, {@code presentGravityX} <b>must</b> be 0 or a valid x-axis present gravity for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentGravityX}, given each present mode in {@link VkSwapchainPresentModesCreateInfoEXT}{@code ::pPresentModes} in {@link VkSurfacePresentModeEXT}</li>
+ * <li>{@code presentGravityY} <b>must</b> be 0 or a valid y-axis present gravity for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentGravityY}, given {@link VkSwapchainCreateInfoKHR}{@code ::presentMode} in {@link VkSurfacePresentModeEXT}</li>
+ * <li>If the swapchain is created with {@link VkSwapchainPresentModesCreateInfoEXT}, {@code presentGravityY} <b>must</b> be 0 or a valid y-axis present gravity for the surface as returned in {@link VkSurfacePresentScalingCapabilitiesEXT}{@code ::supportedPresentGravityY}, given each present mode in {@link VkSwapchainPresentModesCreateInfoEXT}{@code ::pPresentModes} in {@link VkSurfacePresentModeEXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-swapchainMaintenance1">{@code swapchainMaintenance1}</a> feature is not enabled, then {@code presentScaling}, {@code presentGravityX}, and {@code presentGravityY} <b>must</b> be 0</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -197,8 +198,7 @@ public class VkSwapchainPresentScalingCreateInfoEXT extends Struct<VkSwapchainPr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSwapchainPresentScalingCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkSwapchainPresentScalingCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkSwapchainPresentScalingCreateInfoEXT(address, null);
     }
 
@@ -241,8 +241,7 @@ public class VkSwapchainPresentScalingCreateInfoEXT extends Struct<VkSwapchainPr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSwapchainPresentScalingCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSwapchainPresentScalingCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -287,26 +286,26 @@ public class VkSwapchainPresentScalingCreateInfoEXT extends Struct<VkSwapchainPr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainPresentScalingCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSwapchainPresentScalingCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSwapchainPresentScalingCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #scalingBehavior}. */
-    public static int nscalingBehavior(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainPresentScalingCreateInfoEXT.SCALINGBEHAVIOR); }
+    public static int nscalingBehavior(long struct) { return memGetInt(struct + VkSwapchainPresentScalingCreateInfoEXT.SCALINGBEHAVIOR); }
     /** Unsafe version of {@link #presentGravityX}. */
-    public static int npresentGravityX(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainPresentScalingCreateInfoEXT.PRESENTGRAVITYX); }
+    public static int npresentGravityX(long struct) { return memGetInt(struct + VkSwapchainPresentScalingCreateInfoEXT.PRESENTGRAVITYX); }
     /** Unsafe version of {@link #presentGravityY}. */
-    public static int npresentGravityY(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainPresentScalingCreateInfoEXT.PRESENTGRAVITYY); }
+    public static int npresentGravityY(long struct) { return memGetInt(struct + VkSwapchainPresentScalingCreateInfoEXT.PRESENTGRAVITYY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainPresentScalingCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSwapchainPresentScalingCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSwapchainPresentScalingCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #scalingBehavior(int) scalingBehavior}. */
-    public static void nscalingBehavior(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainPresentScalingCreateInfoEXT.SCALINGBEHAVIOR, value); }
+    public static void nscalingBehavior(long struct, int value) { memPutInt(struct + VkSwapchainPresentScalingCreateInfoEXT.SCALINGBEHAVIOR, value); }
     /** Unsafe version of {@link #presentGravityX(int) presentGravityX}. */
-    public static void npresentGravityX(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainPresentScalingCreateInfoEXT.PRESENTGRAVITYX, value); }
+    public static void npresentGravityX(long struct, int value) { memPutInt(struct + VkSwapchainPresentScalingCreateInfoEXT.PRESENTGRAVITYX, value); }
     /** Unsafe version of {@link #presentGravityY(int) presentGravityY}. */
-    public static void npresentGravityY(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainPresentScalingCreateInfoEXT.PRESENTGRAVITYY, value); }
+    public static void npresentGravityY(long struct, int value) { memPutInt(struct + VkSwapchainPresentScalingCreateInfoEXT.PRESENTGRAVITYY, value); }
 
     // -----------------------------------
 
@@ -339,6 +338,11 @@ public class VkSwapchainPresentScalingCreateInfoEXT extends Struct<VkSwapchainPr
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

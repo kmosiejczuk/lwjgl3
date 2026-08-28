@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -89,8 +89,7 @@ class NkConfigStackColor extends Struct<NkConfigStackColor> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackColor createSafe(long address) {
+    public static @Nullable NkConfigStackColor createSafe(long address) {
         return address == NULL ? null : new NkConfigStackColor(address, null);
     }
 
@@ -105,15 +104,14 @@ class NkConfigStackColor extends Struct<NkConfigStackColor> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackColor.Buffer createSafe(long address, int capacity) {
+    public static NkConfigStackColor.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #head}. */
-    public static int nhead(long struct) { return UNSAFE.getInt(null, struct + NkConfigStackColor.HEAD); }
+    public static int nhead(long struct) { return memGetInt(struct + NkConfigStackColor.HEAD); }
     /** Unsafe version of {@link #elements}. */
     public static NkConfigStackColorElement.Buffer nelements(long struct) { return NkConfigStackColorElement.create(struct + NkConfigStackColor.ELEMENTS, 32); }
     /** Unsafe version of {@link #elements(int) elements}. */
@@ -152,6 +150,11 @@ class NkConfigStackColor extends Struct<NkConfigStackColor> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

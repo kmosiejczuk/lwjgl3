@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class VkSubpassSampleLocationsEXT extends Struct<VkSubpassSampleLocations
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassSampleLocationsEXT createSafe(long address) {
+    public static @Nullable VkSubpassSampleLocationsEXT createSafe(long address) {
         return address == NULL ? null : new VkSubpassSampleLocationsEXT(address, null);
     }
 
@@ -198,8 +197,7 @@ public class VkSubpassSampleLocationsEXT extends Struct<VkSubpassSampleLocations
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassSampleLocationsEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSubpassSampleLocationsEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,12 +261,12 @@ public class VkSubpassSampleLocationsEXT extends Struct<VkSubpassSampleLocations
     // -----------------------------------
 
     /** Unsafe version of {@link #subpassIndex}. */
-    public static int nsubpassIndex(long struct) { return UNSAFE.getInt(null, struct + VkSubpassSampleLocationsEXT.SUBPASSINDEX); }
+    public static int nsubpassIndex(long struct) { return memGetInt(struct + VkSubpassSampleLocationsEXT.SUBPASSINDEX); }
     /** Unsafe version of {@link #sampleLocationsInfo}. */
     public static VkSampleLocationsInfoEXT nsampleLocationsInfo(long struct) { return VkSampleLocationsInfoEXT.create(struct + VkSubpassSampleLocationsEXT.SAMPLELOCATIONSINFO); }
 
     /** Unsafe version of {@link #subpassIndex(int) subpassIndex}. */
-    public static void nsubpassIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassSampleLocationsEXT.SUBPASSINDEX, value); }
+    public static void nsubpassIndex(long struct, int value) { memPutInt(struct + VkSubpassSampleLocationsEXT.SUBPASSINDEX, value); }
     /** Unsafe version of {@link #sampleLocationsInfo(VkSampleLocationsInfoEXT) sampleLocationsInfo}. */
     public static void nsampleLocationsInfo(long struct, VkSampleLocationsInfoEXT value) { memCopy(value.address(), struct + VkSubpassSampleLocationsEXT.SAMPLELOCATIONSINFO, VkSampleLocationsInfoEXT.SIZEOF); }
 
@@ -312,6 +310,11 @@ public class VkSubpassSampleLocationsEXT extends Struct<VkSubpassSampleLocations
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

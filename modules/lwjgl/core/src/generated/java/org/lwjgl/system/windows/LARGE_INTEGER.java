@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,8 +135,7 @@ public class LARGE_INTEGER extends Struct<LARGE_INTEGER> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LARGE_INTEGER createSafe(long address) {
+    public static @Nullable LARGE_INTEGER createSafe(long address) {
         return address == NULL ? null : new LARGE_INTEGER(address, null);
     }
 
@@ -179,8 +178,7 @@ public class LARGE_INTEGER extends Struct<LARGE_INTEGER> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LARGE_INTEGER.Buffer createSafe(long address, int capacity) {
+    public static LARGE_INTEGER.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -225,18 +223,18 @@ public class LARGE_INTEGER extends Struct<LARGE_INTEGER> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #u_LowPart}. */
-    public static int nu_LowPart(long struct) { return UNSAFE.getInt(null, struct + LARGE_INTEGER.U_LOWPART); }
+    public static int nu_LowPart(long struct) { return memGetInt(struct + LARGE_INTEGER.U_LOWPART); }
     /** Unsafe version of {@link #u_HighPart}. */
-    public static int nu_HighPart(long struct) { return UNSAFE.getInt(null, struct + LARGE_INTEGER.U_HIGHPART); }
+    public static int nu_HighPart(long struct) { return memGetInt(struct + LARGE_INTEGER.U_HIGHPART); }
     /** Unsafe version of {@link #QuadPart}. */
-    public static long nQuadPart(long struct) { return UNSAFE.getLong(null, struct + LARGE_INTEGER.QUADPART); }
+    public static long nQuadPart(long struct) { return memGetLong(struct + LARGE_INTEGER.QUADPART); }
 
     /** Unsafe version of {@link #u_LowPart(int) u_LowPart}. */
-    public static void nu_LowPart(long struct, int value) { UNSAFE.putInt(null, struct + LARGE_INTEGER.U_LOWPART, value); }
+    public static void nu_LowPart(long struct, int value) { memPutInt(struct + LARGE_INTEGER.U_LOWPART, value); }
     /** Unsafe version of {@link #u_HighPart(int) u_HighPart}. */
-    public static void nu_HighPart(long struct, int value) { UNSAFE.putInt(null, struct + LARGE_INTEGER.U_HIGHPART, value); }
+    public static void nu_HighPart(long struct, int value) { memPutInt(struct + LARGE_INTEGER.U_HIGHPART, value); }
     /** Unsafe version of {@link #QuadPart(long) QuadPart}. */
-    public static void nQuadPart(long struct, long value) { UNSAFE.putLong(null, struct + LARGE_INTEGER.QUADPART, value); }
+    public static void nQuadPart(long struct, long value) { memPutLong(struct + LARGE_INTEGER.QUADPART, value); }
 
     // -----------------------------------
 
@@ -269,6 +267,11 @@ public class LARGE_INTEGER extends Struct<LARGE_INTEGER> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

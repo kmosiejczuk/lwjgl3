@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -29,37 +29,37 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT PIPELINE_STAGE_GEOMETRY_SHADER_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT} or {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-conditionalRendering">{@code conditionalRendering}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link EXTConditionalRendering#VK_PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-fragmentDensityMap">{@code fragmentDensityMap}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link EXTFragmentDensityMap#VK_PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link EXTTransformFeedback#VK_PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_MESH_SHADER_BIT_EXT PIPELINE_STAGE_MESH_SHADER_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_TASK_SHADER_BIT_EXT PIPELINE_STAGE_TASK_SHADER_BIT_EXT}</li>
- * <li>If neither the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shadingRateImage">{@code shadingRateImage}</a> or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> are enabled, {@code srcStageMask} <b>must</b> not contain {@link KHRFragmentShadingRate#VK_PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-synchronization2">{@code synchronization2}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not be 0</li>
- * <li>If neither the {@link NVRayTracing VK_NV_ray_tracing} extension or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rayTracingPipeline">{@code rayTracingPipeline} feature</a> are enabled, {@code srcStageMask} <b>must</b> not contain {@link KHRRayTracingPipeline#VK_PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT PIPELINE_STAGE_GEOMETRY_SHADER_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT} or {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-conditionalRendering">{@code conditionalRendering}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link EXTConditionalRendering#VK_PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-fragmentDensityMap">{@code fragmentDensityMap}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link EXTFragmentDensityMap#VK_PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link EXTTransformFeedback#VK_PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_MESH_SHADER_BIT_EXT PIPELINE_STAGE_MESH_SHADER_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_TASK_SHADER_BIT_EXT PIPELINE_STAGE_TASK_SHADER_BIT_EXT}</li>
+ * <li>If neither of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shadingRateImage">{@code shadingRateImage}</a> or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> features are enabled, {@code srcStageMask} <b>must</b> not contain {@link KHRFragmentShadingRate#VK_PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-synchronization2">{@code synchronization2}</a> feature is not enabled, {@code srcStageMask} <b>must</b> not be 0</li>
+ * <li>If neither the {@link NVRayTracing VK_NV_ray_tracing} extension or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-rayTracingPipeline">{@code rayTracingPipeline}</a> feature are enabled, {@code srcStageMask} <b>must</b> not contain {@link KHRRayTracingPipeline#VK_PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR}</li>
  * </ul>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT PIPELINE_STAGE_GEOMETRY_SHADER_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT} or {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-conditionalRendering">{@code conditionalRendering}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link EXTConditionalRendering#VK_PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-fragmentDensityMap">{@code fragmentDensityMap}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link EXTFragmentDensityMap#VK_PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link EXTTransformFeedback#VK_PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_MESH_SHADER_BIT_EXT PIPELINE_STAGE_MESH_SHADER_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_TASK_SHADER_BIT_EXT PIPELINE_STAGE_TASK_SHADER_BIT_EXT}</li>
- * <li>If neither the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shadingRateImage">{@code shadingRateImage}</a> or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> are enabled, {@code dstStageMask} <b>must</b> not contain {@link KHRFragmentShadingRate#VK_PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-synchronization2">{@code synchronization2}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not be 0</li>
- * <li>If neither the {@link NVRayTracing VK_NV_ray_tracing} extension or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rayTracingPipeline">{@code rayTracingPipeline} feature</a> are enabled, {@code dstStageMask} <b>must</b> not contain {@link KHRRayTracingPipeline#VK_PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT PIPELINE_STAGE_GEOMETRY_SHADER_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT} or {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-conditionalRendering">{@code conditionalRendering}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link EXTConditionalRendering#VK_PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-fragmentDensityMap">{@code fragmentDensityMap}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link EXTFragmentDensityMap#VK_PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link EXTTransformFeedback#VK_PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_MESH_SHADER_BIT_EXT PIPELINE_STAGE_MESH_SHADER_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_TASK_SHADER_BIT_EXT PIPELINE_STAGE_TASK_SHADER_BIT_EXT}</li>
+ * <li>If neither of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shadingRateImage">{@code shadingRateImage}</a> or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> features are enabled, {@code dstStageMask} <b>must</b> not contain {@link KHRFragmentShadingRate#VK_PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-synchronization2">{@code synchronization2}</a> feature is not enabled, {@code dstStageMask} <b>must</b> not be 0</li>
+ * <li>If neither the {@link NVRayTracing VK_NV_ray_tracing} extension or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-rayTracingPipeline">{@code rayTracingPipeline}</a> feature are enabled, {@code dstStageMask} <b>must</b> not contain {@link KHRRayTracingPipeline#VK_PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR}</li>
  * <li>{@code srcSubpass} <b>must</b> be less than or equal to {@code dstSubpass}, unless one of them is {@link VK10#VK_SUBPASS_EXTERNAL SUBPASS_EXTERNAL}, to avoid cyclic dependencies and ensure a valid execution order</li>
  * <li>{@code srcSubpass} and {@code dstSubpass} <b>must</b> not both be equal to {@link VK10#VK_SUBPASS_EXTERNAL SUBPASS_EXTERNAL}</li>
- * <li>If {@code srcSubpass} is equal to {@code dstSubpass} and {@code srcStageMask} includes a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-framebuffer-regions">framebuffer-space stage</a>, {@code dstStageMask} <b>must</b> only contain <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-framebuffer-regions">framebuffer-space stages</a></li>
- * <li>Any access flag included in {@code srcAccessMask} <b>must</b> be supported by one of the pipeline stages in {@code srcStageMask}, as specified in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-types-supported">table of supported access types</a></li>
- * <li>Any access flag included in {@code dstAccessMask} <b>must</b> be supported by one of the pipeline stages in {@code dstStageMask}, as specified in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-types-supported">table of supported access types</a></li>
+ * <li>If {@code srcSubpass} is equal to {@code dstSubpass} and {@code srcStageMask} includes a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-framebuffer-regions">framebuffer-space stage</a>, {@code dstStageMask} <b>must</b> only contain <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-framebuffer-regions">framebuffer-space stages</a></li>
+ * <li>Any access flag included in {@code srcAccessMask} <b>must</b> be supported by one of the pipeline stages in {@code srcStageMask}, as specified in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-types-supported">table of supported access types</a></li>
+ * <li>Any access flag included in {@code dstAccessMask} <b>must</b> be supported by one of the pipeline stages in {@code dstStageMask}, as specified in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-types-supported">table of supported access types</a></li>
  * <li>If {@code dependencyFlags} includes {@link VK11#VK_DEPENDENCY_VIEW_LOCAL_BIT DEPENDENCY_VIEW_LOCAL_BIT}, {@code srcSubpass} <b>must</b> not be equal to {@link VK10#VK_SUBPASS_EXTERNAL SUBPASS_EXTERNAL}</li>
  * <li>If {@code dependencyFlags} includes {@link VK11#VK_DEPENDENCY_VIEW_LOCAL_BIT DEPENDENCY_VIEW_LOCAL_BIT}, {@code dstSubpass} <b>must</b> not be equal to {@link VK10#VK_SUBPASS_EXTERNAL SUBPASS_EXTERNAL}</li>
- * <li>If {@code srcSubpass} equals {@code dstSubpass}, and {@code srcStageMask} and {@code dstStageMask} both include a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-framebuffer-regions">framebuffer-space stage</a>, then {@code dependencyFlags} <b>must</b> include {@link VK10#VK_DEPENDENCY_BY_REGION_BIT DEPENDENCY_BY_REGION_BIT}</li>
+ * <li>If {@code srcSubpass} equals {@code dstSubpass}, and {@code srcStageMask} and {@code dstStageMask} both include a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-framebuffer-regions">framebuffer-space stage</a>, then {@code dependencyFlags} <b>must</b> include {@link VK10#VK_DEPENDENCY_BY_REGION_BIT DEPENDENCY_BY_REGION_BIT}</li>
  * <li>If {@code viewOffset} is not equal to 0, {@code srcSubpass} <b>must</b> not be equal to {@code dstSubpass}</li>
  * <li>If {@code dependencyFlags} does not include {@link VK11#VK_DEPENDENCY_VIEW_LOCAL_BIT DEPENDENCY_VIEW_LOCAL_BIT}, {@code viewOffset} <b>must</b> be 0</li>
  * </ul>
@@ -181,16 +181,16 @@ public class VkSubpassDependency2 extends Struct<VkSubpassDependency2> implement
     /** the subpass index of the second subpass in the dependency, or {@link VK10#VK_SUBPASS_EXTERNAL SUBPASS_EXTERNAL}. */
     @NativeType("uint32_t")
     public int dstSubpass() { return ndstSubpass(address()); }
-    /** a bitmask of {@code VkPipelineStageFlagBits} specifying the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-pipeline-stages-masks">source stage mask</a>. */
+    /** a bitmask of {@code VkPipelineStageFlagBits} specifying the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-pipeline-stages-masks">source stage mask</a>. */
     @NativeType("VkPipelineStageFlags")
     public int srcStageMask() { return nsrcStageMask(address()); }
-    /** a bitmask of {@code VkPipelineStageFlagBits} specifying the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-pipeline-stages-masks">destination stage mask</a> */
+    /** a bitmask of {@code VkPipelineStageFlagBits} specifying the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-pipeline-stages-masks">destination stage mask</a> */
     @NativeType("VkPipelineStageFlags")
     public int dstStageMask() { return ndstStageMask(address()); }
-    /** a bitmask of {@code VkAccessFlagBits} specifying a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-masks">source access mask</a>. */
+    /** a bitmask of {@code VkAccessFlagBits} specifying a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-masks">source access mask</a>. */
     @NativeType("VkAccessFlags")
     public int srcAccessMask() { return nsrcAccessMask(address()); }
-    /** a bitmask of {@code VkAccessFlagBits} specifying a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-masks">destination access mask</a>. */
+    /** a bitmask of {@code VkAccessFlagBits} specifying a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-masks">destination access mask</a>. */
     @NativeType("VkAccessFlags")
     public int dstAccessMask() { return ndstAccessMask(address()); }
     /** a bitmask of {@code VkDependencyFlagBits}. */
@@ -290,8 +290,7 @@ public class VkSubpassDependency2 extends Struct<VkSubpassDependency2> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassDependency2 createSafe(long address) {
+    public static @Nullable VkSubpassDependency2 createSafe(long address) {
         return address == NULL ? null : new VkSubpassDependency2(address, null);
     }
 
@@ -334,8 +333,7 @@ public class VkSubpassDependency2 extends Struct<VkSubpassDependency2> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassDependency2.Buffer createSafe(long address, int capacity) {
+    public static VkSubpassDependency2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -380,46 +378,46 @@ public class VkSubpassDependency2 extends Struct<VkSubpassDependency2> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDependency2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSubpassDependency2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSubpassDependency2.PNEXT); }
     /** Unsafe version of {@link #srcSubpass}. */
-    public static int nsrcSubpass(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDependency2.SRCSUBPASS); }
+    public static int nsrcSubpass(long struct) { return memGetInt(struct + VkSubpassDependency2.SRCSUBPASS); }
     /** Unsafe version of {@link #dstSubpass}. */
-    public static int ndstSubpass(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDependency2.DSTSUBPASS); }
+    public static int ndstSubpass(long struct) { return memGetInt(struct + VkSubpassDependency2.DSTSUBPASS); }
     /** Unsafe version of {@link #srcStageMask}. */
-    public static int nsrcStageMask(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDependency2.SRCSTAGEMASK); }
+    public static int nsrcStageMask(long struct) { return memGetInt(struct + VkSubpassDependency2.SRCSTAGEMASK); }
     /** Unsafe version of {@link #dstStageMask}. */
-    public static int ndstStageMask(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDependency2.DSTSTAGEMASK); }
+    public static int ndstStageMask(long struct) { return memGetInt(struct + VkSubpassDependency2.DSTSTAGEMASK); }
     /** Unsafe version of {@link #srcAccessMask}. */
-    public static int nsrcAccessMask(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDependency2.SRCACCESSMASK); }
+    public static int nsrcAccessMask(long struct) { return memGetInt(struct + VkSubpassDependency2.SRCACCESSMASK); }
     /** Unsafe version of {@link #dstAccessMask}. */
-    public static int ndstAccessMask(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDependency2.DSTACCESSMASK); }
+    public static int ndstAccessMask(long struct) { return memGetInt(struct + VkSubpassDependency2.DSTACCESSMASK); }
     /** Unsafe version of {@link #dependencyFlags}. */
-    public static int ndependencyFlags(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDependency2.DEPENDENCYFLAGS); }
+    public static int ndependencyFlags(long struct) { return memGetInt(struct + VkSubpassDependency2.DEPENDENCYFLAGS); }
     /** Unsafe version of {@link #viewOffset}. */
-    public static int nviewOffset(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDependency2.VIEWOFFSET); }
+    public static int nviewOffset(long struct) { return memGetInt(struct + VkSubpassDependency2.VIEWOFFSET); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDependency2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSubpassDependency2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSubpassDependency2.PNEXT, value); }
     /** Unsafe version of {@link #srcSubpass(int) srcSubpass}. */
-    public static void nsrcSubpass(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDependency2.SRCSUBPASS, value); }
+    public static void nsrcSubpass(long struct, int value) { memPutInt(struct + VkSubpassDependency2.SRCSUBPASS, value); }
     /** Unsafe version of {@link #dstSubpass(int) dstSubpass}. */
-    public static void ndstSubpass(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDependency2.DSTSUBPASS, value); }
+    public static void ndstSubpass(long struct, int value) { memPutInt(struct + VkSubpassDependency2.DSTSUBPASS, value); }
     /** Unsafe version of {@link #srcStageMask(int) srcStageMask}. */
-    public static void nsrcStageMask(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDependency2.SRCSTAGEMASK, value); }
+    public static void nsrcStageMask(long struct, int value) { memPutInt(struct + VkSubpassDependency2.SRCSTAGEMASK, value); }
     /** Unsafe version of {@link #dstStageMask(int) dstStageMask}. */
-    public static void ndstStageMask(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDependency2.DSTSTAGEMASK, value); }
+    public static void ndstStageMask(long struct, int value) { memPutInt(struct + VkSubpassDependency2.DSTSTAGEMASK, value); }
     /** Unsafe version of {@link #srcAccessMask(int) srcAccessMask}. */
-    public static void nsrcAccessMask(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDependency2.SRCACCESSMASK, value); }
+    public static void nsrcAccessMask(long struct, int value) { memPutInt(struct + VkSubpassDependency2.SRCACCESSMASK, value); }
     /** Unsafe version of {@link #dstAccessMask(int) dstAccessMask}. */
-    public static void ndstAccessMask(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDependency2.DSTACCESSMASK, value); }
+    public static void ndstAccessMask(long struct, int value) { memPutInt(struct + VkSubpassDependency2.DSTACCESSMASK, value); }
     /** Unsafe version of {@link #dependencyFlags(int) dependencyFlags}. */
-    public static void ndependencyFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDependency2.DEPENDENCYFLAGS, value); }
+    public static void ndependencyFlags(long struct, int value) { memPutInt(struct + VkSubpassDependency2.DEPENDENCYFLAGS, value); }
     /** Unsafe version of {@link #viewOffset(int) viewOffset}. */
-    public static void nviewOffset(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDependency2.VIEWOFFSET, value); }
+    public static void nviewOffset(long struct, int value) { memPutInt(struct + VkSubpassDependency2.VIEWOFFSET, value); }
 
     // -----------------------------------
 
@@ -452,6 +450,11 @@ public class VkSubpassDependency2 extends Struct<VkSubpassDependency2> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

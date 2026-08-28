@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -133,8 +133,7 @@ public class LLVMJITSymbolFlags extends Struct<LLVMJITSymbolFlags> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMJITSymbolFlags createSafe(long address) {
+    public static @Nullable LLVMJITSymbolFlags createSafe(long address) {
         return address == NULL ? null : new LLVMJITSymbolFlags(address, null);
     }
 
@@ -177,8 +176,7 @@ public class LLVMJITSymbolFlags extends Struct<LLVMJITSymbolFlags> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMJITSymbolFlags.Buffer createSafe(long address, int capacity) {
+    public static LLVMJITSymbolFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,14 +221,14 @@ public class LLVMJITSymbolFlags extends Struct<LLVMJITSymbolFlags> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #GenericFlags}. */
-    public static byte nGenericFlags(long struct) { return UNSAFE.getByte(null, struct + LLVMJITSymbolFlags.GENERICFLAGS); }
+    public static byte nGenericFlags(long struct) { return memGetByte(struct + LLVMJITSymbolFlags.GENERICFLAGS); }
     /** Unsafe version of {@link #TargetFlags}. */
-    public static byte nTargetFlags(long struct) { return UNSAFE.getByte(null, struct + LLVMJITSymbolFlags.TARGETFLAGS); }
+    public static byte nTargetFlags(long struct) { return memGetByte(struct + LLVMJITSymbolFlags.TARGETFLAGS); }
 
     /** Unsafe version of {@link #GenericFlags(byte) GenericFlags}. */
-    public static void nGenericFlags(long struct, byte value) { UNSAFE.putByte(null, struct + LLVMJITSymbolFlags.GENERICFLAGS, value); }
+    public static void nGenericFlags(long struct, byte value) { memPutByte(struct + LLVMJITSymbolFlags.GENERICFLAGS, value); }
     /** Unsafe version of {@link #TargetFlags(byte) TargetFlags}. */
-    public static void nTargetFlags(long struct, byte value) { UNSAFE.putByte(null, struct + LLVMJITSymbolFlags.TARGETFLAGS, value); }
+    public static void nTargetFlags(long struct, byte value) { memPutByte(struct + LLVMJITSymbolFlags.TARGETFLAGS, value); }
 
     // -----------------------------------
 
@@ -263,6 +261,11 @@ public class LLVMJITSymbolFlags extends Struct<LLVMJITSymbolFlags> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

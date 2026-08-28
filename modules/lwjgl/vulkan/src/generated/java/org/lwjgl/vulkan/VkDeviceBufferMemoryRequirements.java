@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkDeviceBufferMemoryRequirements extends Struct<VkDeviceBufferMemor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceBufferMemoryRequirements createSafe(long address) {
+    public static @Nullable VkDeviceBufferMemoryRequirements createSafe(long address) {
         return address == NULL ? null : new VkDeviceBufferMemoryRequirements(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkDeviceBufferMemoryRequirements extends Struct<VkDeviceBufferMemor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceBufferMemoryRequirements.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceBufferMemoryRequirements.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,14 +247,14 @@ public class VkDeviceBufferMemoryRequirements extends Struct<VkDeviceBufferMemor
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceBufferMemoryRequirements.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceBufferMemoryRequirements.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceBufferMemoryRequirements.PNEXT); }
     /** Unsafe version of {@link #pCreateInfo}. */
     public static VkBufferCreateInfo npCreateInfo(long struct) { return VkBufferCreateInfo.create(memGetAddress(struct + VkDeviceBufferMemoryRequirements.PCREATEINFO)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceBufferMemoryRequirements.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceBufferMemoryRequirements.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceBufferMemoryRequirements.PNEXT, value); }
     /** Unsafe version of {@link #pCreateInfo(VkBufferCreateInfo) pCreateInfo}. */
@@ -302,6 +300,11 @@ public class VkDeviceBufferMemoryRequirements extends Struct<VkDeviceBufferMemor
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

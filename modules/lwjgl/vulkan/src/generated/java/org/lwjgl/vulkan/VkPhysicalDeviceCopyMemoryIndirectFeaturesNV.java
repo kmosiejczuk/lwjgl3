@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceCopyMemoryIndirectFeaturesNV extends Struct<VkPhysi
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#indirect-copies">indirect copies</a> are supported. */
+    /** indicates whether <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#indirect-copies">indirect copies</a> are supported. */
     @NativeType("VkBool32")
     public boolean indirectCopy() { return nindirectCopy(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceCopyMemoryIndirectFeaturesNV extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCopyMemoryIndirectFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCopyMemoryIndirectFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCopyMemoryIndirectFeaturesNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceCopyMemoryIndirectFeaturesNV extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceCopyMemoryIndirectFeaturesNV extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #indirectCopy}. */
-    public static int nindirectCopy(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.INDIRECTCOPY); }
+    public static int nindirectCopy(long struct) { return memGetInt(struct + VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.INDIRECTCOPY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #indirectCopy(boolean) indirectCopy}. */
-    public static void nindirectCopy(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.INDIRECTCOPY, value); }
+    public static void nindirectCopy(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.INDIRECTCOPY, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceCopyMemoryIndirectFeaturesNV extends Struct<VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

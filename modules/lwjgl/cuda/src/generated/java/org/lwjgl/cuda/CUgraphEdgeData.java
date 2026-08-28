@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -147,8 +147,7 @@ public class CUgraphEdgeData extends Struct<CUgraphEdgeData> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUgraphEdgeData createSafe(long address) {
+    public static @Nullable CUgraphEdgeData createSafe(long address) {
         return address == NULL ? null : new CUgraphEdgeData(address, null);
     }
 
@@ -191,8 +190,7 @@ public class CUgraphEdgeData extends Struct<CUgraphEdgeData> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUgraphEdgeData.Buffer createSafe(long address, int capacity) {
+    public static CUgraphEdgeData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,28 +235,28 @@ public class CUgraphEdgeData extends Struct<CUgraphEdgeData> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #from_port}. */
-    public static byte nfrom_port(long struct) { return UNSAFE.getByte(null, struct + CUgraphEdgeData.FROM_PORT); }
+    public static byte nfrom_port(long struct) { return memGetByte(struct + CUgraphEdgeData.FROM_PORT); }
     /** Unsafe version of {@link #to_port}. */
-    public static byte nto_port(long struct) { return UNSAFE.getByte(null, struct + CUgraphEdgeData.TO_PORT); }
+    public static byte nto_port(long struct) { return memGetByte(struct + CUgraphEdgeData.TO_PORT); }
     /** Unsafe version of {@link #type}. */
-    public static byte ntype(long struct) { return UNSAFE.getByte(null, struct + CUgraphEdgeData.TYPE); }
+    public static byte ntype(long struct) { return memGetByte(struct + CUgraphEdgeData.TYPE); }
     public static ByteBuffer nreserved(long struct) { return memByteBuffer(struct + CUgraphEdgeData.RESERVED, 5); }
     public static byte nreserved(long struct, int index) {
-        return UNSAFE.getByte(null, struct + CUgraphEdgeData.RESERVED + check(index, 5) * 1);
+        return memGetByte(struct + CUgraphEdgeData.RESERVED + check(index, 5) * 1);
     }
 
     /** Unsafe version of {@link #from_port(byte) from_port}. */
-    public static void nfrom_port(long struct, byte value) { UNSAFE.putByte(null, struct + CUgraphEdgeData.FROM_PORT, value); }
+    public static void nfrom_port(long struct, byte value) { memPutByte(struct + CUgraphEdgeData.FROM_PORT, value); }
     /** Unsafe version of {@link #to_port(byte) to_port}. */
-    public static void nto_port(long struct, byte value) { UNSAFE.putByte(null, struct + CUgraphEdgeData.TO_PORT, value); }
+    public static void nto_port(long struct, byte value) { memPutByte(struct + CUgraphEdgeData.TO_PORT, value); }
     /** Unsafe version of {@link #type(byte) type}. */
-    public static void ntype(long struct, byte value) { UNSAFE.putByte(null, struct + CUgraphEdgeData.TYPE, value); }
+    public static void ntype(long struct, byte value) { memPutByte(struct + CUgraphEdgeData.TYPE, value); }
     public static void nreserved(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 5); }
         memCopy(memAddress(value), struct + CUgraphEdgeData.RESERVED, value.remaining() * 1);
     }
     public static void nreserved(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + CUgraphEdgeData.RESERVED + check(index, 5) * 1, value);
+        memPutByte(struct + CUgraphEdgeData.RESERVED + check(index, 5) * 1, value);
     }
 
     // -----------------------------------
@@ -292,6 +290,11 @@ public class CUgraphEdgeData extends Struct<CUgraphEdgeData> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

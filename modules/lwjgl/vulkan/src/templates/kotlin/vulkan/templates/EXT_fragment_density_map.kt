@@ -29,11 +29,12 @@ val EXT_fragment_density_map = "EXTFragmentDensityMap".nativeClassVK("EXT_fragme
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>API Interactions</b></dt>
             <dd><ul>
                 <li>Interacts with VK_VERSION_1_3</li>
+                <li>Interacts with VK_KHR_dynamic_rendering</li>
                 <li>Interacts with VK_KHR_format_feature_flags2</li>
             </ul></dd>
 
@@ -148,5 +149,18 @@ val EXT_fragment_density_map = "EXTFragmentDensityMap".nativeClassVK("EXT_fragme
         "Extends {@code VkFormatFeatureFlagBits2}.",
 
         "FORMAT_FEATURE_2_FRAGMENT_DENSITY_MAP_BIT_EXT".enum(0x01000000L)
+    )
+
+    EnumConstant(
+        "Extends {@code VkPipelineCreateFlagBits}.",
+
+        "PIPELINE_CREATE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT".enum(0x00400000),
+        "PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT".enum(0x00400000)
+    )
+
+    EnumConstant(
+        "Extends {@code VkStructureType}.",
+
+        "STRUCTURE_TYPE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT".."1000044007"
     )
 }

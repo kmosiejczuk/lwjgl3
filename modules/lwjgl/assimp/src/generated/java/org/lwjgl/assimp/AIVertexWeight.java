@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -133,8 +133,7 @@ public class AIVertexWeight extends Struct<AIVertexWeight> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIVertexWeight createSafe(long address) {
+    public static @Nullable AIVertexWeight createSafe(long address) {
         return address == NULL ? null : new AIVertexWeight(address, null);
     }
 
@@ -177,8 +176,7 @@ public class AIVertexWeight extends Struct<AIVertexWeight> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIVertexWeight.Buffer createSafe(long address, int capacity) {
+    public static AIVertexWeight.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class AIVertexWeight extends Struct<AIVertexWeight> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #mVertexId}. */
-    public static int nmVertexId(long struct) { return UNSAFE.getInt(null, struct + AIVertexWeight.MVERTEXID); }
+    public static int nmVertexId(long struct) { return memGetInt(struct + AIVertexWeight.MVERTEXID); }
     /** Unsafe version of {@link #mWeight}. */
-    public static float nmWeight(long struct) { return UNSAFE.getFloat(null, struct + AIVertexWeight.MWEIGHT); }
+    public static float nmWeight(long struct) { return memGetFloat(struct + AIVertexWeight.MWEIGHT); }
 
     /** Unsafe version of {@link #mVertexId(int) mVertexId}. */
-    public static void nmVertexId(long struct, int value) { UNSAFE.putInt(null, struct + AIVertexWeight.MVERTEXID, value); }
+    public static void nmVertexId(long struct, int value) { memPutInt(struct + AIVertexWeight.MVERTEXID, value); }
     /** Unsafe version of {@link #mWeight(float) mWeight}. */
-    public static void nmWeight(long struct, float value) { UNSAFE.putFloat(null, struct + AIVertexWeight.MWEIGHT, value); }
+    public static void nmWeight(long struct, float value) { memPutFloat(struct + AIVertexWeight.MWEIGHT, value); }
 
     // -----------------------------------
 
@@ -282,6 +280,11 @@ public class AIVertexWeight extends Struct<AIVertexWeight> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

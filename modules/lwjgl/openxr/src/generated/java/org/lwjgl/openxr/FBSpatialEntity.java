@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>We use OpenXR {@code XrSpace} handles to give applications access to spatial entities such as Spatial Anchors. In other words, any operation which involves spatial entities uses {@code XrSpace} handles to identify the affected spatial entities.</p>
  * 
- * <p>In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into {@link XR10#xrCreateInstance CreateInstance} via the {@link XrInstanceCreateInfo}{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#fundamentals-extensions">fundamentals-extensions</a> section.</p>
+ * <p>In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into {@link XR10#xrCreateInstance CreateInstance} via the {@link XrInstanceCreateInfo}{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#fundamentals-extensions">extension</a> section.</p>
  * 
  * <p>This extension allows:</p>
  * 
@@ -332,7 +332,7 @@ public class FBSpatialEntity {
      * @param componentTypes           a pointer to an array of {@code XrSpaceComponentTypeFB} values, but <b>can</b> be {@code NULL} if {@code componentTypeCapacityInput} is 0.
      */
     @NativeType("XrResult")
-    public static int xrEnumerateSpaceSupportedComponentsFB(XrSpace space, @NativeType("uint32_t *") IntBuffer componentTypeCountOutput, @Nullable @NativeType("XrSpaceComponentTypeFB *") IntBuffer componentTypes) {
+    public static int xrEnumerateSpaceSupportedComponentsFB(XrSpace space, @NativeType("uint32_t *") IntBuffer componentTypeCountOutput, @NativeType("XrSpaceComponentTypeFB *") @Nullable IntBuffer componentTypes) {
         if (CHECKS) {
             check(componentTypeCountOutput, 1);
         }

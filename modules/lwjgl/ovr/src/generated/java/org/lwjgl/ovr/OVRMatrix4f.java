@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -119,8 +119,7 @@ public class OVRMatrix4f extends Struct<OVRMatrix4f> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRMatrix4f createSafe(long address) {
+    public static @Nullable OVRMatrix4f createSafe(long address) {
         return address == NULL ? null : new OVRMatrix4f(address, null);
     }
 
@@ -163,8 +162,7 @@ public class OVRMatrix4f extends Struct<OVRMatrix4f> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRMatrix4f.Buffer createSafe(long address, int capacity) {
+    public static OVRMatrix4f.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -231,7 +229,7 @@ public class OVRMatrix4f extends Struct<OVRMatrix4f> implements NativeResource {
     public static FloatBuffer nM(long struct) { return memFloatBuffer(struct + OVRMatrix4f.M, 16); }
     /** Unsafe version of {@link #M(int) M}. */
     public static float nM(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + OVRMatrix4f.M + check(index, 16) * 4);
+        return memGetFloat(struct + OVRMatrix4f.M + check(index, 16) * 4);
     }
 
     /** Unsafe version of {@link #M(FloatBuffer) M}. */
@@ -241,7 +239,7 @@ public class OVRMatrix4f extends Struct<OVRMatrix4f> implements NativeResource {
     }
     /** Unsafe version of {@link #M(int, float) M}. */
     public static void nM(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + OVRMatrix4f.M + check(index, 16) * 4, value);
+        memPutFloat(struct + OVRMatrix4f.M + check(index, 16) * 4, value);
     }
 
     // -----------------------------------
@@ -275,6 +273,11 @@ public class OVRMatrix4f extends Struct<OVRMatrix4f> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -184,8 +184,7 @@ public class TrackedDevicePose extends Struct<TrackedDevicePose> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static TrackedDevicePose createSafe(long address) {
+    public static @Nullable TrackedDevicePose createSafe(long address) {
         return address == NULL ? null : new TrackedDevicePose(address, null);
     }
 
@@ -228,8 +227,7 @@ public class TrackedDevicePose extends Struct<TrackedDevicePose> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static TrackedDevicePose.Buffer createSafe(long address, int capacity) {
+    public static TrackedDevicePose.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -299,11 +297,11 @@ public class TrackedDevicePose extends Struct<TrackedDevicePose> implements Nati
     /** Unsafe version of {@link #vAngularVelocity}. */
     public static HmdVector3 nvAngularVelocity(long struct) { return HmdVector3.create(struct + TrackedDevicePose.VANGULARVELOCITY); }
     /** Unsafe version of {@link #eTrackingResult}. */
-    public static int neTrackingResult(long struct) { return UNSAFE.getInt(null, struct + TrackedDevicePose.ETRACKINGRESULT); }
+    public static int neTrackingResult(long struct) { return memGetInt(struct + TrackedDevicePose.ETRACKINGRESULT); }
     /** Unsafe version of {@link #bPoseIsValid}. */
-    public static boolean nbPoseIsValid(long struct) { return UNSAFE.getByte(null, struct + TrackedDevicePose.BPOSEISVALID) != 0; }
+    public static boolean nbPoseIsValid(long struct) { return memGetByte(struct + TrackedDevicePose.BPOSEISVALID) != 0; }
     /** Unsafe version of {@link #bDeviceIsConnected}. */
-    public static boolean nbDeviceIsConnected(long struct) { return UNSAFE.getByte(null, struct + TrackedDevicePose.BDEVICEISCONNECTED) != 0; }
+    public static boolean nbDeviceIsConnected(long struct) { return memGetByte(struct + TrackedDevicePose.BDEVICEISCONNECTED) != 0; }
 
     /** Unsafe version of {@link #mDeviceToAbsoluteTracking(HmdMatrix34) mDeviceToAbsoluteTracking}. */
     public static void nmDeviceToAbsoluteTracking(long struct, HmdMatrix34 value) { memCopy(value.address(), struct + TrackedDevicePose.MDEVICETOABSOLUTETRACKING, HmdMatrix34.SIZEOF); }
@@ -312,11 +310,11 @@ public class TrackedDevicePose extends Struct<TrackedDevicePose> implements Nati
     /** Unsafe version of {@link #vAngularVelocity(HmdVector3) vAngularVelocity}. */
     public static void nvAngularVelocity(long struct, HmdVector3 value) { memCopy(value.address(), struct + TrackedDevicePose.VANGULARVELOCITY, HmdVector3.SIZEOF); }
     /** Unsafe version of {@link #eTrackingResult(int) eTrackingResult}. */
-    public static void neTrackingResult(long struct, int value) { UNSAFE.putInt(null, struct + TrackedDevicePose.ETRACKINGRESULT, value); }
+    public static void neTrackingResult(long struct, int value) { memPutInt(struct + TrackedDevicePose.ETRACKINGRESULT, value); }
     /** Unsafe version of {@link #bPoseIsValid(boolean) bPoseIsValid}. */
-    public static void nbPoseIsValid(long struct, boolean value) { UNSAFE.putByte(null, struct + TrackedDevicePose.BPOSEISVALID, value ? (byte)1 : (byte)0); }
+    public static void nbPoseIsValid(long struct, boolean value) { memPutByte(struct + TrackedDevicePose.BPOSEISVALID, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #bDeviceIsConnected(boolean) bDeviceIsConnected}. */
-    public static void nbDeviceIsConnected(long struct, boolean value) { UNSAFE.putByte(null, struct + TrackedDevicePose.BDEVICEISCONNECTED, value ? (byte)1 : (byte)0); }
+    public static void nbDeviceIsConnected(long struct, boolean value) { memPutByte(struct + TrackedDevicePose.BDEVICEISCONNECTED, value ? (byte)1 : (byte)0); }
 
     // -----------------------------------
 
@@ -349,6 +347,11 @@ public class TrackedDevicePose extends Struct<TrackedDevicePose> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

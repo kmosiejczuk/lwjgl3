@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -146,8 +146,7 @@ public class ZSTDSequence extends Struct<ZSTDSequence> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDSequence createSafe(long address) {
+    public static @Nullable ZSTDSequence createSafe(long address) {
         return address == NULL ? null : new ZSTDSequence(address, null);
     }
 
@@ -190,8 +189,7 @@ public class ZSTDSequence extends Struct<ZSTDSequence> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDSequence.Buffer createSafe(long address, int capacity) {
+    public static ZSTDSequence.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -236,13 +234,13 @@ public class ZSTDSequence extends Struct<ZSTDSequence> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #offset}. */
-    public static int noffset(long struct) { return UNSAFE.getInt(null, struct + ZSTDSequence.OFFSET); }
+    public static int noffset(long struct) { return memGetInt(struct + ZSTDSequence.OFFSET); }
     /** Unsafe version of {@link #litLength}. */
-    public static int nlitLength(long struct) { return UNSAFE.getInt(null, struct + ZSTDSequence.LITLENGTH); }
+    public static int nlitLength(long struct) { return memGetInt(struct + ZSTDSequence.LITLENGTH); }
     /** Unsafe version of {@link #matchLength}. */
-    public static int nmatchLength(long struct) { return UNSAFE.getInt(null, struct + ZSTDSequence.MATCHLENGTH); }
+    public static int nmatchLength(long struct) { return memGetInt(struct + ZSTDSequence.MATCHLENGTH); }
     /** Unsafe version of {@link #rep}. */
-    public static int nrep(long struct) { return UNSAFE.getInt(null, struct + ZSTDSequence.REP); }
+    public static int nrep(long struct) { return memGetInt(struct + ZSTDSequence.REP); }
 
     // -----------------------------------
 
@@ -275,6 +273,11 @@ public class ZSTDSequence extends Struct<ZSTDSequence> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

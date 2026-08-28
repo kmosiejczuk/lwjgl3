@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -95,8 +95,7 @@ public class VkPipelineCreationFeedback extends Struct<VkPipelineCreationFeedbac
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCreationFeedback createSafe(long address) {
+    public static @Nullable VkPipelineCreationFeedback createSafe(long address) {
         return address == NULL ? null : new VkPipelineCreationFeedback(address, null);
     }
 
@@ -111,17 +110,16 @@ public class VkPipelineCreationFeedback extends Struct<VkPipelineCreationFeedbac
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCreationFeedback.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineCreationFeedback.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCreationFeedback.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPipelineCreationFeedback.FLAGS); }
     /** Unsafe version of {@link #duration}. */
-    public static long nduration(long struct) { return UNSAFE.getLong(null, struct + VkPipelineCreationFeedback.DURATION); }
+    public static long nduration(long struct) { return memGetLong(struct + VkPipelineCreationFeedback.DURATION); }
 
     // -----------------------------------
 
@@ -154,6 +152,11 @@ public class VkPipelineCreationFeedback extends Struct<VkPipelineCreationFeedbac
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

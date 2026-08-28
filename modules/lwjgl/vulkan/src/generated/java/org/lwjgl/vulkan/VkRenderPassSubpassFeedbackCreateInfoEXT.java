@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkRenderPassSubpassFeedbackCreateInfoEXT extends Struct<VkRenderPas
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassSubpassFeedbackCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkRenderPassSubpassFeedbackCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkRenderPassSubpassFeedbackCreateInfoEXT(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkRenderPassSubpassFeedbackCreateInfoEXT extends Struct<VkRenderPas
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassSubpassFeedbackCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassSubpassFeedbackCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +246,14 @@ public class VkRenderPassSubpassFeedbackCreateInfoEXT extends Struct<VkRenderPas
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassSubpassFeedbackCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderPassSubpassFeedbackCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderPassSubpassFeedbackCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #pSubpassFeedback}. */
     public static VkRenderPassSubpassFeedbackInfoEXT npSubpassFeedback(long struct) { return VkRenderPassSubpassFeedbackInfoEXT.create(memGetAddress(struct + VkRenderPassSubpassFeedbackCreateInfoEXT.PSUBPASSFEEDBACK)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderPassSubpassFeedbackCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderPassSubpassFeedbackCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderPassSubpassFeedbackCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #pSubpassFeedback(VkRenderPassSubpassFeedbackInfoEXT) pSubpassFeedback}. */
@@ -301,6 +299,11 @@ public class VkRenderPassSubpassFeedbackCreateInfoEXT extends Struct<VkRenderPas
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

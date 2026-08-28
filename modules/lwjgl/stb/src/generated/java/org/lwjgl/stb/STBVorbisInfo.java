@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class STBVorbisInfo extends Struct<STBVorbisInfo> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBVorbisInfo createSafe(long address) {
+    public static @Nullable STBVorbisInfo createSafe(long address) {
         return address == NULL ? null : new STBVorbisInfo(address, null);
     }
 
@@ -176,8 +175,7 @@ public class STBVorbisInfo extends Struct<STBVorbisInfo> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBVorbisInfo.Buffer createSafe(long address, int capacity) {
+    public static STBVorbisInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,17 +239,17 @@ public class STBVorbisInfo extends Struct<STBVorbisInfo> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #sample_rate}. */
-    public static int nsample_rate(long struct) { return UNSAFE.getInt(null, struct + STBVorbisInfo.SAMPLE_RATE); }
+    public static int nsample_rate(long struct) { return memGetInt(struct + STBVorbisInfo.SAMPLE_RATE); }
     /** Unsafe version of {@link #channels}. */
-    public static int nchannels(long struct) { return UNSAFE.getInt(null, struct + STBVorbisInfo.CHANNELS); }
+    public static int nchannels(long struct) { return memGetInt(struct + STBVorbisInfo.CHANNELS); }
     /** Unsafe version of {@link #setup_memory_required}. */
-    public static int nsetup_memory_required(long struct) { return UNSAFE.getInt(null, struct + STBVorbisInfo.SETUP_MEMORY_REQUIRED); }
+    public static int nsetup_memory_required(long struct) { return memGetInt(struct + STBVorbisInfo.SETUP_MEMORY_REQUIRED); }
     /** Unsafe version of {@link #setup_temp_memory_required}. */
-    public static int nsetup_temp_memory_required(long struct) { return UNSAFE.getInt(null, struct + STBVorbisInfo.SETUP_TEMP_MEMORY_REQUIRED); }
+    public static int nsetup_temp_memory_required(long struct) { return memGetInt(struct + STBVorbisInfo.SETUP_TEMP_MEMORY_REQUIRED); }
     /** Unsafe version of {@link #temp_memory_required}. */
-    public static int ntemp_memory_required(long struct) { return UNSAFE.getInt(null, struct + STBVorbisInfo.TEMP_MEMORY_REQUIRED); }
+    public static int ntemp_memory_required(long struct) { return memGetInt(struct + STBVorbisInfo.TEMP_MEMORY_REQUIRED); }
     /** Unsafe version of {@link #max_frame_size}. */
-    public static int nmax_frame_size(long struct) { return UNSAFE.getInt(null, struct + STBVorbisInfo.MAX_FRAME_SIZE); }
+    public static int nmax_frame_size(long struct) { return memGetInt(struct + STBVorbisInfo.MAX_FRAME_SIZE); }
 
     // -----------------------------------
 
@@ -284,6 +282,11 @@ public class STBVorbisInfo extends Struct<STBVorbisInfo> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

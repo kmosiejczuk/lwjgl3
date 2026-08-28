@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -139,8 +139,7 @@ public class EpollData extends Struct<EpollData> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EpollData createSafe(long address) {
+    public static @Nullable EpollData createSafe(long address) {
         return address == NULL ? null : new EpollData(address, null);
     }
 
@@ -183,8 +182,7 @@ public class EpollData extends Struct<EpollData> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EpollData.Buffer createSafe(long address, int capacity) {
+    public static EpollData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -231,20 +229,20 @@ public class EpollData extends Struct<EpollData> implements NativeResource {
     /** Unsafe version of {@link #ptr}. */
     public static long nptr(long struct) { return memGetAddress(struct + EpollData.PTR); }
     /** Unsafe version of {@link #fd}. */
-    public static int nfd(long struct) { return UNSAFE.getInt(null, struct + EpollData.FD); }
+    public static int nfd(long struct) { return memGetInt(struct + EpollData.FD); }
     /** Unsafe version of {@link #u32}. */
-    public static int nu32(long struct) { return UNSAFE.getInt(null, struct + EpollData.U32); }
+    public static int nu32(long struct) { return memGetInt(struct + EpollData.U32); }
     /** Unsafe version of {@link #u64}. */
-    public static long nu64(long struct) { return UNSAFE.getLong(null, struct + EpollData.U64); }
+    public static long nu64(long struct) { return memGetLong(struct + EpollData.U64); }
 
     /** Unsafe version of {@link #ptr(long) ptr}. */
     public static void nptr(long struct, long value) { memPutAddress(struct + EpollData.PTR, check(value)); }
     /** Unsafe version of {@link #fd(int) fd}. */
-    public static void nfd(long struct, int value) { UNSAFE.putInt(null, struct + EpollData.FD, value); }
+    public static void nfd(long struct, int value) { memPutInt(struct + EpollData.FD, value); }
     /** Unsafe version of {@link #u32(int) u32}. */
-    public static void nu32(long struct, int value) { UNSAFE.putInt(null, struct + EpollData.U32, value); }
+    public static void nu32(long struct, int value) { memPutInt(struct + EpollData.U32, value); }
     /** Unsafe version of {@link #u64(long) u64}. */
-    public static void nu64(long struct, long value) { UNSAFE.putLong(null, struct + EpollData.U64, value); }
+    public static void nu64(long struct, long value) { memPutLong(struct + EpollData.U64, value); }
 
     // -----------------------------------
 
@@ -277,6 +275,11 @@ public class EpollData extends Struct<EpollData> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

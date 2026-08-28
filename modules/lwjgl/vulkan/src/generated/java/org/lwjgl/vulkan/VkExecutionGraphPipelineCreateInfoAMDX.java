@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,23 +20,24 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The parameters {@code basePipelineHandle} and {@code basePipelineIndex} are described in more detail in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-pipeline-derivatives">Pipeline Derivatives</a>.</p>
+ * <p>The parameters {@code basePipelineHandle} and {@code basePipelineIndex} are described in more detail in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-pipeline-derivatives">Pipeline Derivatives</a>.</p>
  * 
- * <p>Each shader stage provided when creating an execution graph pipeline (including those in libraries) is associated with a name and an index, determined by the inclusion or omission of a {@link VkPipelineShaderStageNodeCreateInfoAMDX} structure in its {@code pNext} chain.</p>
+ * <p>Each shader stage provided when creating an execution graph pipeline (including those in libraries) is associated with a name and an index, determined by the inclusion or omission of a {@link VkPipelineShaderStageNodeCreateInfoAMDX} structure in its {@code pNext} chain. For any graphics pipeline libraries, only the name and index of the vertex or mesh shader stage is linked directly to the graph as a node - other shader stages in the pipeline will be executed after those shader stages as normal. Task shaders cannot be included in a graphics pipeline used for a draw node.</p>
  * 
  * <p>In addition to the shader name and index, an internal "node index" is also generated for each node, which can be queried with {@link AMDXShaderEnqueue#vkGetExecutionGraphPipelineNodeIndexAMDX GetExecutionGraphPipelineNodeIndexAMDX}, and is used exclusively for initial dispatch of an execution graph.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the {@code pNext} chain does not include a {@link VkPipelineCreateFlags2CreateInfoKHR} structure, {@code flags} must be a valid combination of {@code VkPipelineCreateFlagBits} values</li>
+ * <li>If the {@code pNext} chain does not include a {@link VkPipelineCreateFlags2CreateInfo} structure, {@code flags} <b>must</b> be a valid combination of {@code VkPipelineCreateFlagBits} values</li>
  * <li>If {@code flags} contains the {@link VK10#VK_PIPELINE_CREATE_DERIVATIVE_BIT PIPELINE_CREATE_DERIVATIVE_BIT} flag, and {@code basePipelineIndex} is -1, {@code basePipelineHandle} <b>must</b> be a valid execution graph {@code VkPipeline} handle</li>
  * <li>If {@code flags} contains the {@link VK10#VK_PIPELINE_CREATE_DERIVATIVE_BIT PIPELINE_CREATE_DERIVATIVE_BIT} flag, and {@code basePipelineHandle} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code basePipelineIndex} <b>must</b> be a valid index into the calling command’s {@code pCreateInfos} parameter</li>
  * <li>If {@code flags} contains the {@link VK10#VK_PIPELINE_CREATE_DERIVATIVE_BIT PIPELINE_CREATE_DERIVATIVE_BIT} flag, {@code basePipelineIndex} <b>must</b> be -1 or {@code basePipelineHandle} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
- * <li>If a push constant block is declared in a shader, a push constant range in {@code layout} <b>must</b> match both the shader stage and range</li>
- * <li>If a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-resources">resource variables</a> is declared in a shader, a descriptor slot in {@code layout} <b>must</b> match the shader stage</li>
- * <li>If a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-resources">resource variables</a> is declared in a shader, and the descriptor type is not {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, a descriptor slot in {@code layout} <b>must</b> match the descriptor type</li>
- * <li>If a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-resources">resource variables</a> is declared in a shader as an array, a descriptor slot in {@code layout} <b>must</b> match the descriptor count</li>
+ * <li>If a push constant block is declared in a shader, a push constant range in {@code layout} <b>must</b> match the shader stage</li>
+ * <li>If a push constant block is declared in a shader, the block must be contained inside the push constant range in {@code layout} that matches the stage</li>
+ * <li>If a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces-resources">resource variables</a> is declared in a shader, a descriptor slot in {@code layout} <b>must</b> match the shader stage</li>
+ * <li>If a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces-resources">resource variables</a> is declared in a shader, and the descriptor type is not {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, a descriptor slot in {@code layout} <b>must</b> match the descriptor type</li>
+ * <li>If a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces-resources">resource variables</a> is declared in a shader as an array, a descriptor slot in {@code layout} <b>must</b> match the descriptor count</li>
  * </ul>
  * 
  * <ul>
@@ -48,21 +49,26 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code flags} <b>must</b> not include {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SKIP_AABBS_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SKIP_AABBS_BIT_KHR}</li>
  * <li>{@code flags} <b>must</b> not include {@link KHRRayTracingPipeline#VK_PIPELINE_CREATE_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR PIPELINE_CREATE_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR}</li>
  * <li>{@code flags} <b>must</b> not include {@link NVRayTracingMotionBlur#VK_PIPELINE_CREATE_RAY_TRACING_ALLOW_MOTION_BIT_NV PIPELINE_CREATE_RAY_TRACING_ALLOW_MOTION_BIT_NV}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputePipelines}</a> is not enabled, {@code flags} <b>must</b> not include {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputePipelines}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV}</li>
  * <li>If {@code flags} includes {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV}, then the {@code pNext} chain <b>must</b> include a pointer to a valid instance of {@link VkComputePipelineIndirectBufferInfoNV} specifying the address where the pipeline’s metadata will be saved</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineCreationCacheControl">{@code pipelineCreationCacheControl}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link VK13#VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT} or {@link VK13#VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT}</li>
+ * <li>If {@code flags} includes {@link EXTDeviceGeneratedCommands#VK_PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_EXT PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceGeneratedCommands">{@link VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT}{@code ::deviceGeneratedCommands}</a> feature <b>must</b> be enabled</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-pipelineCreationCacheControl">{@code pipelineCreationCacheControl}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link VK13#VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT} or {@link VK13#VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT}</li>
  * <li>The {@code stage} member of any element of {@code pStages} <b>must</b> be {@link VK10#VK_SHADER_STAGE_COMPUTE_BIT SHADER_STAGE_COMPUTE_BIT}</li>
- * <li>The shader code for the entry point identified by each element of {@code pStages} and the rest of the state identified by this structure <b>must</b> adhere to the pipeline linking rules described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces">Shader Interfaces</a> chapter</li>
- * <li>{@code layout} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-pipelinelayout-consistency">consistent</a> with the layout of the shaders specified in {@code pStages}</li>
+ * <li>The shader code for the entry point identified by each element of {@code pStages} and the rest of the state identified by this structure <b>must</b> adhere to the pipeline linking rules described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces">Shader Interfaces</a> chapter</li>
+ * <li>{@code layout} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-pipelinelayout-consistency">consistent</a> with the layout of the shaders specified in {@code pStages}</li>
  * <li>If {@code pLibraryInfo} is not {@code NULL}, each element of its {@code pLibraries} member <b>must</b> have been created with a {@code layout} that is compatible with the {@code layout} in this pipeline</li>
  * <li>The number of resources in {@code layout} accessible to each shader stage that is used by the pipeline <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxPerStageResources}</li>
- * <li>If {@code pLibraryInfo} is not {@code NULL}, each element of {@code pLibraryInfo→libraries} <b>must</b> be either a compute pipeline or an execution graph pipeline</li>
+ * <li>If {@code pLibraryInfo} is not {@code NULL}, each element of {@code pLibraryInfo→pLibraries} <b>must</b> be either a compute pipeline, an execution graph pipeline, or a graphics pipeline</li>
+ * <li>If {@code pLibraryInfo} is not {@code NULL}, each element of {@code pLibraryInfo→pLibraries} that is a compute pipeline or a graphics pipeline <b>must</b> have been created with {@link AMDXShaderEnqueue#VK_PIPELINE_CREATE_2_EXECUTION_GRAPH_BIT_AMDX PIPELINE_CREATE_2_EXECUTION_GRAPH_BIT_AMDX} set</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderMeshEnqueue">{@code shaderMeshEnqueue}</a> feature is not enabled, and {@code pLibraryInfo→pLibraries} is not {@code NULL}, {@code pLibraryInfo→pLibraries} <b>must</b> not contain any graphics pipelines</li>
+ * <li>Any element of {@code pLibraryInfo→pLibraries} identifying a graphics pipeline <b>must</b> have been created with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-graphics-subsets-complete">all possible state subsets</a></li>
  * <li>There <b>must</b> be no two nodes in the pipeline that share both the same shader name and index, as specified by {@link VkPipelineShaderStageNodeCreateInfoAMDX}</li>
  * <li>There <b>must</b> be no two nodes in the pipeline that share the same shader name and have input payload declarations with different sizes</li>
  * <li>There <b>must</b> be no two nodes in the pipeline that share the same name but have different execution models</li>
  * <li>There <b>must</b> be no two nodes in the pipeline that share the same name where one includes {@code CoalescedInputCountAMDX} and the other does not</li>
  * <li>There <b>must</b> be no two nodes in the pipeline that share the same name where one includes {@code StaticNumWorkgroupsAMDX} and the other does not</li>
  * <li>If an output payload declared in any shader in the pipeline has a {@code PayloadNodeNameAMDX} decoration with a {@code Node} {@code Name} that matches the shader name of any other node in the graph, the size of the output payload <b>must</b> match the size of the input payload in the matching node</li>
+ * <li>If {@code flags} does not include {@link KHRPipelineLibrary#VK_PIPELINE_CREATE_LIBRARY_BIT_KHR PIPELINE_CREATE_LIBRARY_BIT_KHR}, and an output payload declared in any shader in the pipeline does not have a {@code PayloadNodeSparseArrayAMDX} decoration, there <b>must</b> be a node in the graph corresponding to every index from 0 to its {@code PayloadNodeArraySizeAMDX} decoration</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -178,13 +184,11 @@ public class VkExecutionGraphPipelineCreateInfoAMDX extends Struct<VkExecutionGr
     @NativeType("uint32_t")
     public int stageCount() { return nstageCount(address()); }
     /** a pointer to an array of {@code stageCount} {@link VkPipelineShaderStageCreateInfo} structures describing the set of the shader stages to be included in the execution graph pipeline. */
-    @Nullable
     @NativeType("VkPipelineShaderStageCreateInfo const *")
-    public VkPipelineShaderStageCreateInfo.Buffer pStages() { return npStages(address()); }
+    public VkPipelineShaderStageCreateInfo.@Nullable Buffer pStages() { return npStages(address()); }
     /** a pointer to a {@link VkPipelineLibraryCreateInfoKHR} structure defining pipeline libraries to include. */
-    @Nullable
     @NativeType("VkPipelineLibraryCreateInfoKHR const *")
-    public VkPipelineLibraryCreateInfoKHR pLibraryInfo() { return npLibraryInfo(address()); }
+    public @Nullable VkPipelineLibraryCreateInfoKHR pLibraryInfo() { return npLibraryInfo(address()); }
     /** the description of binding locations used by both the pipeline and descriptor sets used with the pipeline. */
     @NativeType("VkPipelineLayout")
     public long layout() { return nlayout(address()); }
@@ -212,7 +216,7 @@ public class VkExecutionGraphPipelineCreateInfoAMDX extends Struct<VkExecutionGr
     /** Sets the specified value to the {@link #stageCount} field. */
     public VkExecutionGraphPipelineCreateInfoAMDX stageCount(@NativeType("uint32_t") int value) { nstageCount(address(), value); return this; }
     /** Sets the address of the specified {@link VkPipelineShaderStageCreateInfo.Buffer} to the {@link #pStages} field. */
-    public VkExecutionGraphPipelineCreateInfoAMDX pStages(@Nullable @NativeType("VkPipelineShaderStageCreateInfo const *") VkPipelineShaderStageCreateInfo.Buffer value) { npStages(address(), value); return this; }
+    public VkExecutionGraphPipelineCreateInfoAMDX pStages(@NativeType("VkPipelineShaderStageCreateInfo const *") VkPipelineShaderStageCreateInfo.@Nullable Buffer value) { npStages(address(), value); return this; }
     /** Sets the address of the specified {@link VkPipelineLibraryCreateInfoKHR} to the {@link #pLibraryInfo} field. */
     public VkExecutionGraphPipelineCreateInfoAMDX pLibraryInfo(@Nullable @NativeType("VkPipelineLibraryCreateInfoKHR const *") VkPipelineLibraryCreateInfoKHR value) { npLibraryInfo(address(), value); return this; }
     /** Sets the specified value to the {@link #layout} field. */
@@ -228,7 +232,7 @@ public class VkExecutionGraphPipelineCreateInfoAMDX extends Struct<VkExecutionGr
         long pNext,
         int flags,
         int stageCount,
-        @Nullable VkPipelineShaderStageCreateInfo.Buffer pStages,
+        VkPipelineShaderStageCreateInfo.@Nullable Buffer pStages,
         @Nullable VkPipelineLibraryCreateInfoKHR pLibraryInfo,
         long layout,
         long basePipelineHandle,
@@ -283,8 +287,7 @@ public class VkExecutionGraphPipelineCreateInfoAMDX extends Struct<VkExecutionGr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExecutionGraphPipelineCreateInfoAMDX createSafe(long address) {
+    public static @Nullable VkExecutionGraphPipelineCreateInfoAMDX createSafe(long address) {
         return address == NULL ? null : new VkExecutionGraphPipelineCreateInfoAMDX(address, null);
     }
 
@@ -327,8 +330,7 @@ public class VkExecutionGraphPipelineCreateInfoAMDX extends Struct<VkExecutionGr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExecutionGraphPipelineCreateInfoAMDX.Buffer createSafe(long address, int capacity) {
+    public static VkExecutionGraphPipelineCreateInfoAMDX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -373,42 +375,42 @@ public class VkExecutionGraphPipelineCreateInfoAMDX extends Struct<VkExecutionGr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExecutionGraphPipelineCreateInfoAMDX.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExecutionGraphPipelineCreateInfoAMDX.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkExecutionGraphPipelineCreateInfoAMDX.FLAGS); }
     /** Unsafe version of {@link #stageCount}. */
-    public static int nstageCount(long struct) { return UNSAFE.getInt(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.STAGECOUNT); }
+    public static int nstageCount(long struct) { return memGetInt(struct + VkExecutionGraphPipelineCreateInfoAMDX.STAGECOUNT); }
     /** Unsafe version of {@link #pStages}. */
-    @Nullable public static VkPipelineShaderStageCreateInfo.Buffer npStages(long struct) { return VkPipelineShaderStageCreateInfo.createSafe(memGetAddress(struct + VkExecutionGraphPipelineCreateInfoAMDX.PSTAGES), nstageCount(struct)); }
+    public static VkPipelineShaderStageCreateInfo.@Nullable Buffer npStages(long struct) { return VkPipelineShaderStageCreateInfo.createSafe(memGetAddress(struct + VkExecutionGraphPipelineCreateInfoAMDX.PSTAGES), nstageCount(struct)); }
     /** Unsafe version of {@link #pLibraryInfo}. */
-    @Nullable public static VkPipelineLibraryCreateInfoKHR npLibraryInfo(long struct) { return VkPipelineLibraryCreateInfoKHR.createSafe(memGetAddress(struct + VkExecutionGraphPipelineCreateInfoAMDX.PLIBRARYINFO)); }
+    public static @Nullable VkPipelineLibraryCreateInfoKHR npLibraryInfo(long struct) { return VkPipelineLibraryCreateInfoKHR.createSafe(memGetAddress(struct + VkExecutionGraphPipelineCreateInfoAMDX.PLIBRARYINFO)); }
     /** Unsafe version of {@link #layout}. */
-    public static long nlayout(long struct) { return UNSAFE.getLong(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.LAYOUT); }
+    public static long nlayout(long struct) { return memGetLong(struct + VkExecutionGraphPipelineCreateInfoAMDX.LAYOUT); }
     /** Unsafe version of {@link #basePipelineHandle}. */
-    public static long nbasePipelineHandle(long struct) { return UNSAFE.getLong(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.BASEPIPELINEHANDLE); }
+    public static long nbasePipelineHandle(long struct) { return memGetLong(struct + VkExecutionGraphPipelineCreateInfoAMDX.BASEPIPELINEHANDLE); }
     /** Unsafe version of {@link #basePipelineIndex}. */
-    public static int nbasePipelineIndex(long struct) { return UNSAFE.getInt(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.BASEPIPELINEINDEX); }
+    public static int nbasePipelineIndex(long struct) { return memGetInt(struct + VkExecutionGraphPipelineCreateInfoAMDX.BASEPIPELINEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExecutionGraphPipelineCreateInfoAMDX.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExecutionGraphPipelineCreateInfoAMDX.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkExecutionGraphPipelineCreateInfoAMDX.FLAGS, value); }
     /** Sets the specified value to the {@code stageCount} field of the specified {@code struct}. */
-    public static void nstageCount(long struct, int value) { UNSAFE.putInt(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.STAGECOUNT, value); }
+    public static void nstageCount(long struct, int value) { memPutInt(struct + VkExecutionGraphPipelineCreateInfoAMDX.STAGECOUNT, value); }
     /** Unsafe version of {@link #pStages(VkPipelineShaderStageCreateInfo.Buffer) pStages}. */
-    public static void npStages(long struct, @Nullable VkPipelineShaderStageCreateInfo.Buffer value) { memPutAddress(struct + VkExecutionGraphPipelineCreateInfoAMDX.PSTAGES, memAddressSafe(value)); if (value != null) { nstageCount(struct, value.remaining()); } }
+    public static void npStages(long struct, VkPipelineShaderStageCreateInfo.@Nullable Buffer value) { memPutAddress(struct + VkExecutionGraphPipelineCreateInfoAMDX.PSTAGES, memAddressSafe(value)); if (value != null) { nstageCount(struct, value.remaining()); } }
     /** Unsafe version of {@link #pLibraryInfo(VkPipelineLibraryCreateInfoKHR) pLibraryInfo}. */
     public static void npLibraryInfo(long struct, @Nullable VkPipelineLibraryCreateInfoKHR value) { memPutAddress(struct + VkExecutionGraphPipelineCreateInfoAMDX.PLIBRARYINFO, memAddressSafe(value)); }
     /** Unsafe version of {@link #layout(long) layout}. */
-    public static void nlayout(long struct, long value) { UNSAFE.putLong(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.LAYOUT, value); }
+    public static void nlayout(long struct, long value) { memPutLong(struct + VkExecutionGraphPipelineCreateInfoAMDX.LAYOUT, value); }
     /** Unsafe version of {@link #basePipelineHandle(long) basePipelineHandle}. */
-    public static void nbasePipelineHandle(long struct, long value) { UNSAFE.putLong(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.BASEPIPELINEHANDLE, value); }
+    public static void nbasePipelineHandle(long struct, long value) { memPutLong(struct + VkExecutionGraphPipelineCreateInfoAMDX.BASEPIPELINEHANDLE, value); }
     /** Unsafe version of {@link #basePipelineIndex(int) basePipelineIndex}. */
-    public static void nbasePipelineIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkExecutionGraphPipelineCreateInfoAMDX.BASEPIPELINEINDEX, value); }
+    public static void nbasePipelineIndex(long struct, int value) { memPutInt(struct + VkExecutionGraphPipelineCreateInfoAMDX.BASEPIPELINEINDEX, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -456,6 +458,11 @@ public class VkExecutionGraphPipelineCreateInfoAMDX extends Struct<VkExecutionGr
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExecutionGraphPipelineCreateInfoAMDX getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -473,13 +480,11 @@ public class VkExecutionGraphPipelineCreateInfoAMDX extends Struct<VkExecutionGr
         @NativeType("uint32_t")
         public int stageCount() { return VkExecutionGraphPipelineCreateInfoAMDX.nstageCount(address()); }
         /** @return a {@link VkPipelineShaderStageCreateInfo.Buffer} view of the struct array pointed to by the {@link VkExecutionGraphPipelineCreateInfoAMDX#pStages} field. */
-        @Nullable
         @NativeType("VkPipelineShaderStageCreateInfo const *")
-        public VkPipelineShaderStageCreateInfo.Buffer pStages() { return VkExecutionGraphPipelineCreateInfoAMDX.npStages(address()); }
+        public VkPipelineShaderStageCreateInfo.@Nullable Buffer pStages() { return VkExecutionGraphPipelineCreateInfoAMDX.npStages(address()); }
         /** @return a {@link VkPipelineLibraryCreateInfoKHR} view of the struct pointed to by the {@link VkExecutionGraphPipelineCreateInfoAMDX#pLibraryInfo} field. */
-        @Nullable
         @NativeType("VkPipelineLibraryCreateInfoKHR const *")
-        public VkPipelineLibraryCreateInfoKHR pLibraryInfo() { return VkExecutionGraphPipelineCreateInfoAMDX.npLibraryInfo(address()); }
+        public @Nullable VkPipelineLibraryCreateInfoKHR pLibraryInfo() { return VkExecutionGraphPipelineCreateInfoAMDX.npLibraryInfo(address()); }
         /** @return the value of the {@link VkExecutionGraphPipelineCreateInfoAMDX#layout} field. */
         @NativeType("VkPipelineLayout")
         public long layout() { return VkExecutionGraphPipelineCreateInfoAMDX.nlayout(address()); }
@@ -507,7 +512,7 @@ public class VkExecutionGraphPipelineCreateInfoAMDX extends Struct<VkExecutionGr
         /** Sets the specified value to the {@link VkExecutionGraphPipelineCreateInfoAMDX#stageCount} field. */
         public VkExecutionGraphPipelineCreateInfoAMDX.Buffer stageCount(@NativeType("uint32_t") int value) { VkExecutionGraphPipelineCreateInfoAMDX.nstageCount(address(), value); return this; }
         /** Sets the address of the specified {@link VkPipelineShaderStageCreateInfo.Buffer} to the {@link VkExecutionGraphPipelineCreateInfoAMDX#pStages} field. */
-        public VkExecutionGraphPipelineCreateInfoAMDX.Buffer pStages(@Nullable @NativeType("VkPipelineShaderStageCreateInfo const *") VkPipelineShaderStageCreateInfo.Buffer value) { VkExecutionGraphPipelineCreateInfoAMDX.npStages(address(), value); return this; }
+        public VkExecutionGraphPipelineCreateInfoAMDX.Buffer pStages(@NativeType("VkPipelineShaderStageCreateInfo const *") VkPipelineShaderStageCreateInfo.@Nullable Buffer value) { VkExecutionGraphPipelineCreateInfoAMDX.npStages(address(), value); return this; }
         /** Sets the address of the specified {@link VkPipelineLibraryCreateInfoKHR} to the {@link VkExecutionGraphPipelineCreateInfoAMDX#pLibraryInfo} field. */
         public VkExecutionGraphPipelineCreateInfoAMDX.Buffer pLibraryInfo(@Nullable @NativeType("VkPipelineLibraryCreateInfoKHR const *") VkPipelineLibraryCreateInfoKHR value) { VkExecutionGraphPipelineCreateInfoAMDX.npLibraryInfo(address(), value); return this; }
         /** Sets the specified value to the {@link VkExecutionGraphPipelineCreateInfoAMDX#layout} field. */

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -199,8 +199,7 @@ public class BNDnodeTheme extends Struct<BNDnodeTheme> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BNDnodeTheme createSafe(long address) {
+    public static @Nullable BNDnodeTheme createSafe(long address) {
         return address == NULL ? null : new BNDnodeTheme(address, null);
     }
 
@@ -243,8 +242,7 @@ public class BNDnodeTheme extends Struct<BNDnodeTheme> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BNDnodeTheme.Buffer createSafe(long address, int capacity) {
+    public static BNDnodeTheme.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -320,7 +318,7 @@ public class BNDnodeTheme extends Struct<BNDnodeTheme> implements NativeResource
     /** Unsafe version of {@link #nodeBackdropColor}. */
     public static NVGColor nnodeBackdropColor(long struct) { return NVGColor.create(struct + BNDnodeTheme.NODEBACKDROPCOLOR); }
     /** Unsafe version of {@link #noodleCurving}. */
-    public static int nnoodleCurving(long struct) { return UNSAFE.getInt(null, struct + BNDnodeTheme.NOODLECURVING); }
+    public static int nnoodleCurving(long struct) { return memGetInt(struct + BNDnodeTheme.NOODLECURVING); }
 
     /** Unsafe version of {@link #nodeSelectedColor(NVGColor) nodeSelectedColor}. */
     public static void nnodeSelectedColor(long struct, NVGColor value) { memCopy(value.address(), struct + BNDnodeTheme.NODESELECTEDCOLOR, NVGColor.SIZEOF); }
@@ -335,7 +333,7 @@ public class BNDnodeTheme extends Struct<BNDnodeTheme> implements NativeResource
     /** Unsafe version of {@link #nodeBackdropColor(NVGColor) nodeBackdropColor}. */
     public static void nnodeBackdropColor(long struct, NVGColor value) { memCopy(value.address(), struct + BNDnodeTheme.NODEBACKDROPCOLOR, NVGColor.SIZEOF); }
     /** Unsafe version of {@link #noodleCurving(int) noodleCurving}. */
-    public static void nnoodleCurving(long struct, int value) { UNSAFE.putInt(null, struct + BNDnodeTheme.NOODLECURVING, value); }
+    public static void nnoodleCurving(long struct, int value) { memPutInt(struct + BNDnodeTheme.NOODLECURVING, value); }
 
     // -----------------------------------
 
@@ -368,6 +366,11 @@ public class BNDnodeTheme extends Struct<BNDnodeTheme> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

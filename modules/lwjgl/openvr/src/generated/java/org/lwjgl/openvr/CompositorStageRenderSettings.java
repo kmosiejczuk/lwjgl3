@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -151,8 +151,7 @@ public class CompositorStageRenderSettings extends Struct<CompositorStageRenderS
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CompositorStageRenderSettings createSafe(long address) {
+    public static @Nullable CompositorStageRenderSettings createSafe(long address) {
         return address == NULL ? null : new CompositorStageRenderSettings(address, null);
     }
 
@@ -195,8 +194,7 @@ public class CompositorStageRenderSettings extends Struct<CompositorStageRenderS
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CompositorStageRenderSettings.Buffer createSafe(long address, int capacity) {
+    public static CompositorStageRenderSettings.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,17 +243,17 @@ public class CompositorStageRenderSettings extends Struct<CompositorStageRenderS
     /** Unsafe version of {@link #m_SecondaryColor}. */
     public static HmdColor nm_SecondaryColor(long struct) { return HmdColor.create(struct + CompositorStageRenderSettings.M_SECONDARYCOLOR); }
     /** Unsafe version of {@link #m_flVignetteInnerRadius}. */
-    public static float nm_flVignetteInnerRadius(long struct) { return UNSAFE.getFloat(null, struct + CompositorStageRenderSettings.M_FLVIGNETTEINNERRADIUS); }
+    public static float nm_flVignetteInnerRadius(long struct) { return memGetFloat(struct + CompositorStageRenderSettings.M_FLVIGNETTEINNERRADIUS); }
     /** Unsafe version of {@link #m_flVignetteOuterRadius}. */
-    public static float nm_flVignetteOuterRadius(long struct) { return UNSAFE.getFloat(null, struct + CompositorStageRenderSettings.M_FLVIGNETTEOUTERRADIUS); }
+    public static float nm_flVignetteOuterRadius(long struct) { return memGetFloat(struct + CompositorStageRenderSettings.M_FLVIGNETTEOUTERRADIUS); }
     /** Unsafe version of {@link #m_flFresnelStrength}. */
-    public static float nm_flFresnelStrength(long struct) { return UNSAFE.getFloat(null, struct + CompositorStageRenderSettings.M_FLFRESNELSTRENGTH); }
+    public static float nm_flFresnelStrength(long struct) { return memGetFloat(struct + CompositorStageRenderSettings.M_FLFRESNELSTRENGTH); }
     /** Unsafe version of {@link #m_bBackfaceCulling}. */
-    public static boolean nm_bBackfaceCulling(long struct) { return UNSAFE.getByte(null, struct + CompositorStageRenderSettings.M_BBACKFACECULLING) != 0; }
+    public static boolean nm_bBackfaceCulling(long struct) { return memGetByte(struct + CompositorStageRenderSettings.M_BBACKFACECULLING) != 0; }
     /** Unsafe version of {@link #m_bGreyscale}. */
-    public static boolean nm_bGreyscale(long struct) { return UNSAFE.getByte(null, struct + CompositorStageRenderSettings.M_BGREYSCALE) != 0; }
+    public static boolean nm_bGreyscale(long struct) { return memGetByte(struct + CompositorStageRenderSettings.M_BGREYSCALE) != 0; }
     /** Unsafe version of {@link #m_bWireframe}. */
-    public static boolean nm_bWireframe(long struct) { return UNSAFE.getByte(null, struct + CompositorStageRenderSettings.M_BWIREFRAME) != 0; }
+    public static boolean nm_bWireframe(long struct) { return memGetByte(struct + CompositorStageRenderSettings.M_BWIREFRAME) != 0; }
 
     // -----------------------------------
 
@@ -288,6 +286,11 @@ public class CompositorStageRenderSettings extends Struct<CompositorStageRenderS
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

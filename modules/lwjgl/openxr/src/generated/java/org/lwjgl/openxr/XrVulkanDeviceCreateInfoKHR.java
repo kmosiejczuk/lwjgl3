@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -144,9 +144,8 @@ public class XrVulkanDeviceCreateInfoKHR extends Struct<XrVulkanDeviceCreateInfo
     @NativeType("VkDeviceCreateInfo const *")
     public VkDeviceCreateInfo vulkanCreateInfo() { return nvulkanCreateInfo(address()); }
     /** the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAllocationCallbacks.html">{@code VkAllocationCallbacks} as specified by Vulkan</a>. */
-    @Nullable
     @NativeType("VkAllocationCallbacks const *")
-    public VkAllocationCallbacks vulkanAllocator() { return nvulkanAllocator(address()); }
+    public @Nullable VkAllocationCallbacks vulkanAllocator() { return nvulkanAllocator(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
     public XrVulkanDeviceCreateInfoKHR type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
@@ -226,8 +225,7 @@ public class XrVulkanDeviceCreateInfoKHR extends Struct<XrVulkanDeviceCreateInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVulkanDeviceCreateInfoKHR createSafe(long address) {
+    public static @Nullable XrVulkanDeviceCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new XrVulkanDeviceCreateInfoKHR(address, null);
     }
 
@@ -270,8 +268,7 @@ public class XrVulkanDeviceCreateInfoKHR extends Struct<XrVulkanDeviceCreateInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVulkanDeviceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static XrVulkanDeviceCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -316,13 +313,13 @@ public class XrVulkanDeviceCreateInfoKHR extends Struct<XrVulkanDeviceCreateInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVulkanDeviceCreateInfoKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVulkanDeviceCreateInfoKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVulkanDeviceCreateInfoKHR.NEXT); }
     /** Unsafe version of {@link #systemId}. */
-    public static long nsystemId(long struct) { return UNSAFE.getLong(null, struct + XrVulkanDeviceCreateInfoKHR.SYSTEMID); }
+    public static long nsystemId(long struct) { return memGetLong(struct + XrVulkanDeviceCreateInfoKHR.SYSTEMID); }
     /** Unsafe version of {@link #createFlags}. */
-    public static long ncreateFlags(long struct) { return UNSAFE.getLong(null, struct + XrVulkanDeviceCreateInfoKHR.CREATEFLAGS); }
+    public static long ncreateFlags(long struct) { return memGetLong(struct + XrVulkanDeviceCreateInfoKHR.CREATEFLAGS); }
     /** Unsafe version of {@link #pfnGetInstanceProcAddr}. */
     public static long npfnGetInstanceProcAddr(long struct) { return memGetAddress(struct + XrVulkanDeviceCreateInfoKHR.PFNGETINSTANCEPROCADDR); }
     /** Unsafe version of {@link #vulkanPhysicalDevice}. */
@@ -330,16 +327,16 @@ public class XrVulkanDeviceCreateInfoKHR extends Struct<XrVulkanDeviceCreateInfo
     /** Unsafe version of {@link #vulkanCreateInfo}. */
     public static VkDeviceCreateInfo nvulkanCreateInfo(long struct) { return VkDeviceCreateInfo.create(memGetAddress(struct + XrVulkanDeviceCreateInfoKHR.VULKANCREATEINFO)); }
     /** Unsafe version of {@link #vulkanAllocator}. */
-    @Nullable public static VkAllocationCallbacks nvulkanAllocator(long struct) { return VkAllocationCallbacks.createSafe(memGetAddress(struct + XrVulkanDeviceCreateInfoKHR.VULKANALLOCATOR)); }
+    public static @Nullable VkAllocationCallbacks nvulkanAllocator(long struct) { return VkAllocationCallbacks.createSafe(memGetAddress(struct + XrVulkanDeviceCreateInfoKHR.VULKANALLOCATOR)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVulkanDeviceCreateInfoKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVulkanDeviceCreateInfoKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVulkanDeviceCreateInfoKHR.NEXT, value); }
     /** Unsafe version of {@link #systemId(long) systemId}. */
-    public static void nsystemId(long struct, long value) { UNSAFE.putLong(null, struct + XrVulkanDeviceCreateInfoKHR.SYSTEMID, value); }
+    public static void nsystemId(long struct, long value) { memPutLong(struct + XrVulkanDeviceCreateInfoKHR.SYSTEMID, value); }
     /** Unsafe version of {@link #createFlags(long) createFlags}. */
-    public static void ncreateFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrVulkanDeviceCreateInfoKHR.CREATEFLAGS, value); }
+    public static void ncreateFlags(long struct, long value) { memPutLong(struct + XrVulkanDeviceCreateInfoKHR.CREATEFLAGS, value); }
     /** Unsafe version of {@link #pfnGetInstanceProcAddr(long) pfnGetInstanceProcAddr}. */
     public static void npfnGetInstanceProcAddr(long struct, long value) { memPutAddress(struct + XrVulkanDeviceCreateInfoKHR.PFNGETINSTANCEPROCADDR, check(value)); }
     /** Unsafe version of {@link #vulkanPhysicalDevice(VkPhysicalDevice) vulkanPhysicalDevice}. */
@@ -396,6 +393,11 @@ public class XrVulkanDeviceCreateInfoKHR extends Struct<XrVulkanDeviceCreateInfo
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVulkanDeviceCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -422,9 +424,8 @@ public class XrVulkanDeviceCreateInfoKHR extends Struct<XrVulkanDeviceCreateInfo
         @NativeType("VkDeviceCreateInfo const *")
         public VkDeviceCreateInfo vulkanCreateInfo() { return XrVulkanDeviceCreateInfoKHR.nvulkanCreateInfo(address()); }
         /** @return a {@link VkAllocationCallbacks} view of the struct pointed to by the {@link XrVulkanDeviceCreateInfoKHR#vulkanAllocator} field. */
-        @Nullable
         @NativeType("VkAllocationCallbacks const *")
-        public VkAllocationCallbacks vulkanAllocator() { return XrVulkanDeviceCreateInfoKHR.nvulkanAllocator(address()); }
+        public @Nullable VkAllocationCallbacks vulkanAllocator() { return XrVulkanDeviceCreateInfoKHR.nvulkanAllocator(address()); }
 
         /** Sets the specified value to the {@link XrVulkanDeviceCreateInfoKHR#type} field. */
         public XrVulkanDeviceCreateInfoKHR.Buffer type(@NativeType("XrStructureType") int value) { XrVulkanDeviceCreateInfoKHR.ntype(address(), value); return this; }

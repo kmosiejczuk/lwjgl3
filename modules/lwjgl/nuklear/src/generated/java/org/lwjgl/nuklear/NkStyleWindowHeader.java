@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -297,8 +297,7 @@ public class NkStyleWindowHeader extends Struct<NkStyleWindowHeader> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleWindowHeader createSafe(long address) {
+    public static @Nullable NkStyleWindowHeader createSafe(long address) {
         return address == NULL ? null : new NkStyleWindowHeader(address, null);
     }
 
@@ -341,8 +340,7 @@ public class NkStyleWindowHeader extends Struct<NkStyleWindowHeader> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleWindowHeader.Buffer createSafe(long address, int capacity) {
+    public static NkStyleWindowHeader.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -416,11 +414,11 @@ public class NkStyleWindowHeader extends Struct<NkStyleWindowHeader> implements 
     /** Unsafe version of {@link #minimize_button}. */
     public static NkStyleButton nminimize_button(long struct) { return NkStyleButton.create(struct + NkStyleWindowHeader.MINIMIZE_BUTTON); }
     /** Unsafe version of {@link #close_symbol}. */
-    public static int nclose_symbol(long struct) { return UNSAFE.getInt(null, struct + NkStyleWindowHeader.CLOSE_SYMBOL); }
+    public static int nclose_symbol(long struct) { return memGetInt(struct + NkStyleWindowHeader.CLOSE_SYMBOL); }
     /** Unsafe version of {@link #minimize_symbol}. */
-    public static int nminimize_symbol(long struct) { return UNSAFE.getInt(null, struct + NkStyleWindowHeader.MINIMIZE_SYMBOL); }
+    public static int nminimize_symbol(long struct) { return memGetInt(struct + NkStyleWindowHeader.MINIMIZE_SYMBOL); }
     /** Unsafe version of {@link #maximize_symbol}. */
-    public static int nmaximize_symbol(long struct) { return UNSAFE.getInt(null, struct + NkStyleWindowHeader.MAXIMIZE_SYMBOL); }
+    public static int nmaximize_symbol(long struct) { return memGetInt(struct + NkStyleWindowHeader.MAXIMIZE_SYMBOL); }
     /** Unsafe version of {@link #label_normal}. */
     public static NkColor nlabel_normal(long struct) { return NkColor.create(struct + NkStyleWindowHeader.LABEL_NORMAL); }
     /** Unsafe version of {@link #label_hover}. */
@@ -428,7 +426,7 @@ public class NkStyleWindowHeader extends Struct<NkStyleWindowHeader> implements 
     /** Unsafe version of {@link #label_active}. */
     public static NkColor nlabel_active(long struct) { return NkColor.create(struct + NkStyleWindowHeader.LABEL_ACTIVE); }
     /** Unsafe version of {@link #align}. */
-    public static int nalign(long struct) { return UNSAFE.getInt(null, struct + NkStyleWindowHeader.ALIGN); }
+    public static int nalign(long struct) { return memGetInt(struct + NkStyleWindowHeader.ALIGN); }
     /** Unsafe version of {@link #padding}. */
     public static NkVec2 npadding(long struct) { return NkVec2.create(struct + NkStyleWindowHeader.PADDING); }
     /** Unsafe version of {@link #label_padding}. */
@@ -447,11 +445,11 @@ public class NkStyleWindowHeader extends Struct<NkStyleWindowHeader> implements 
     /** Unsafe version of {@link #minimize_button(NkStyleButton) minimize_button}. */
     public static void nminimize_button(long struct, NkStyleButton value) { memCopy(value.address(), struct + NkStyleWindowHeader.MINIMIZE_BUTTON, NkStyleButton.SIZEOF); }
     /** Unsafe version of {@link #close_symbol(int) close_symbol}. */
-    public static void nclose_symbol(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleWindowHeader.CLOSE_SYMBOL, value); }
+    public static void nclose_symbol(long struct, int value) { memPutInt(struct + NkStyleWindowHeader.CLOSE_SYMBOL, value); }
     /** Unsafe version of {@link #minimize_symbol(int) minimize_symbol}. */
-    public static void nminimize_symbol(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleWindowHeader.MINIMIZE_SYMBOL, value); }
+    public static void nminimize_symbol(long struct, int value) { memPutInt(struct + NkStyleWindowHeader.MINIMIZE_SYMBOL, value); }
     /** Unsafe version of {@link #maximize_symbol(int) maximize_symbol}. */
-    public static void nmaximize_symbol(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleWindowHeader.MAXIMIZE_SYMBOL, value); }
+    public static void nmaximize_symbol(long struct, int value) { memPutInt(struct + NkStyleWindowHeader.MAXIMIZE_SYMBOL, value); }
     /** Unsafe version of {@link #label_normal(NkColor) label_normal}. */
     public static void nlabel_normal(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleWindowHeader.LABEL_NORMAL, NkColor.SIZEOF); }
     /** Unsafe version of {@link #label_hover(NkColor) label_hover}. */
@@ -459,7 +457,7 @@ public class NkStyleWindowHeader extends Struct<NkStyleWindowHeader> implements 
     /** Unsafe version of {@link #label_active(NkColor) label_active}. */
     public static void nlabel_active(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleWindowHeader.LABEL_ACTIVE, NkColor.SIZEOF); }
     /** Unsafe version of {@link #align(int) align}. */
-    public static void nalign(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleWindowHeader.ALIGN, value); }
+    public static void nalign(long struct, int value) { memPutInt(struct + NkStyleWindowHeader.ALIGN, value); }
     /** Unsafe version of {@link #padding(NkVec2) padding}. */
     public static void npadding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleWindowHeader.PADDING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #label_padding(NkVec2) label_padding}. */
@@ -498,6 +496,11 @@ public class NkStyleWindowHeader extends Struct<NkStyleWindowHeader> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

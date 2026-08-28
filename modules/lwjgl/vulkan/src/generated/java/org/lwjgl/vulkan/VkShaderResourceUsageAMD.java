@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -112,8 +112,7 @@ public class VkShaderResourceUsageAMD extends Struct<VkShaderResourceUsageAMD> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderResourceUsageAMD createSafe(long address) {
+    public static @Nullable VkShaderResourceUsageAMD createSafe(long address) {
         return address == NULL ? null : new VkShaderResourceUsageAMD(address, null);
     }
 
@@ -128,19 +127,18 @@ public class VkShaderResourceUsageAMD extends Struct<VkShaderResourceUsageAMD> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderResourceUsageAMD.Buffer createSafe(long address, int capacity) {
+    public static VkShaderResourceUsageAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #numUsedVgprs}. */
-    public static int nnumUsedVgprs(long struct) { return UNSAFE.getInt(null, struct + VkShaderResourceUsageAMD.NUMUSEDVGPRS); }
+    public static int nnumUsedVgprs(long struct) { return memGetInt(struct + VkShaderResourceUsageAMD.NUMUSEDVGPRS); }
     /** Unsafe version of {@link #numUsedSgprs}. */
-    public static int nnumUsedSgprs(long struct) { return UNSAFE.getInt(null, struct + VkShaderResourceUsageAMD.NUMUSEDSGPRS); }
+    public static int nnumUsedSgprs(long struct) { return memGetInt(struct + VkShaderResourceUsageAMD.NUMUSEDSGPRS); }
     /** Unsafe version of {@link #ldsSizePerLocalWorkGroup}. */
-    public static int nldsSizePerLocalWorkGroup(long struct) { return UNSAFE.getInt(null, struct + VkShaderResourceUsageAMD.LDSSIZEPERLOCALWORKGROUP); }
+    public static int nldsSizePerLocalWorkGroup(long struct) { return memGetInt(struct + VkShaderResourceUsageAMD.LDSSIZEPERLOCALWORKGROUP); }
     /** Unsafe version of {@link #ldsUsageSizeInBytes}. */
     public static long nldsUsageSizeInBytes(long struct) { return memGetAddress(struct + VkShaderResourceUsageAMD.LDSUSAGESIZEINBYTES); }
     /** Unsafe version of {@link #scratchMemUsageInBytes}. */
@@ -177,6 +175,11 @@ public class VkShaderResourceUsageAMD extends Struct<VkShaderResourceUsageAMD> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

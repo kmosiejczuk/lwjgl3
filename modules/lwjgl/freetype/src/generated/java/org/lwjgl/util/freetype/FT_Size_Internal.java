@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -91,8 +91,7 @@ public class FT_Size_Internal extends Struct<FT_Size_Internal> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Size_Internal createSafe(long address) {
+    public static @Nullable FT_Size_Internal createSafe(long address) {
         return address == NULL ? null : new FT_Size_Internal(address, null);
     }
 
@@ -107,8 +106,7 @@ public class FT_Size_Internal extends Struct<FT_Size_Internal> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Size_Internal.Buffer createSafe(long address, int capacity) {
+    public static FT_Size_Internal.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -117,7 +115,7 @@ public class FT_Size_Internal extends Struct<FT_Size_Internal> {
     /** Unsafe version of {@link #module_data}. */
     public static long nmodule_data(long struct) { return memGetAddress(struct + FT_Size_Internal.MODULE_DATA); }
     /** Unsafe version of {@link #autohint_mode}. */
-    public static int nautohint_mode(long struct) { return UNSAFE.getInt(null, struct + FT_Size_Internal.AUTOHINT_MODE); }
+    public static int nautohint_mode(long struct) { return memGetInt(struct + FT_Size_Internal.AUTOHINT_MODE); }
     /** Unsafe version of {@link #autohint_metrics}. */
     public static FT_Size_Metrics nautohint_metrics(long struct) { return FT_Size_Metrics.create(struct + FT_Size_Internal.AUTOHINT_METRICS); }
 
@@ -152,6 +150,11 @@ public class FT_Size_Internal extends Struct<FT_Size_Internal> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

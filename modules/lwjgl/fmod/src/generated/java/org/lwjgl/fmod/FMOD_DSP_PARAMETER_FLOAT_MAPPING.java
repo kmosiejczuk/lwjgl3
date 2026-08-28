@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class FMOD_DSP_PARAMETER_FLOAT_MAPPING extends Struct<FMOD_DSP_PARAMETER_
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_FLOAT_MAPPING createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_FLOAT_MAPPING createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_FLOAT_MAPPING(address, null);
     }
 
@@ -176,8 +175,7 @@ public class FMOD_DSP_PARAMETER_FLOAT_MAPPING extends Struct<FMOD_DSP_PARAMETER_
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_FLOAT_MAPPING.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_FLOAT_MAPPING.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -222,12 +220,12 @@ public class FMOD_DSP_PARAMETER_FLOAT_MAPPING extends Struct<FMOD_DSP_PARAMETER_
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING.TYPE); }
     /** Unsafe version of {@link #piecewiselinearmapping}. */
     public static FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR npiecewiselinearmapping(long struct) { return FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.create(struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING.PIECEWISELINEARMAPPING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING.TYPE, value); }
     /** Unsafe version of {@link #piecewiselinearmapping(FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR) piecewiselinearmapping}. */
     public static void npiecewiselinearmapping(long struct, FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR value) { memCopy(value.address(), struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING.PIECEWISELINEARMAPPING, FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.SIZEOF); }
 
@@ -271,6 +269,11 @@ public class FMOD_DSP_PARAMETER_FLOAT_MAPPING extends Struct<FMOD_DSP_PARAMETER_
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

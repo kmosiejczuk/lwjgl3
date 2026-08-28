@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class StdVideoDecodeH265ReferenceInfo extends Struct<StdVideoDecodeH265Re
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoDecodeH265ReferenceInfo createSafe(long address) {
+    public static @Nullable StdVideoDecodeH265ReferenceInfo createSafe(long address) {
         return address == NULL ? null : new StdVideoDecodeH265ReferenceInfo(address, null);
     }
 
@@ -176,8 +175,7 @@ public class StdVideoDecodeH265ReferenceInfo extends Struct<StdVideoDecodeH265Re
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoDecodeH265ReferenceInfo.Buffer createSafe(long address, int capacity) {
+    public static StdVideoDecodeH265ReferenceInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -224,12 +222,12 @@ public class StdVideoDecodeH265ReferenceInfo extends Struct<StdVideoDecodeH265Re
     /** Unsafe version of {@link #flags}. */
     public static StdVideoDecodeH265ReferenceInfoFlags nflags(long struct) { return StdVideoDecodeH265ReferenceInfoFlags.create(struct + StdVideoDecodeH265ReferenceInfo.FLAGS); }
     /** Unsafe version of {@link #PicOrderCntVal}. */
-    public static int nPicOrderCntVal(long struct) { return UNSAFE.getInt(null, struct + StdVideoDecodeH265ReferenceInfo.PICORDERCNTVAL); }
+    public static int nPicOrderCntVal(long struct) { return memGetInt(struct + StdVideoDecodeH265ReferenceInfo.PICORDERCNTVAL); }
 
     /** Unsafe version of {@link #flags(StdVideoDecodeH265ReferenceInfoFlags) flags}. */
     public static void nflags(long struct, StdVideoDecodeH265ReferenceInfoFlags value) { memCopy(value.address(), struct + StdVideoDecodeH265ReferenceInfo.FLAGS, StdVideoDecodeH265ReferenceInfoFlags.SIZEOF); }
     /** Unsafe version of {@link #PicOrderCntVal(int) PicOrderCntVal}. */
-    public static void nPicOrderCntVal(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoDecodeH265ReferenceInfo.PICORDERCNTVAL, value); }
+    public static void nPicOrderCntVal(long struct, int value) { memPutInt(struct + StdVideoDecodeH265ReferenceInfo.PICORDERCNTVAL, value); }
 
     // -----------------------------------
 
@@ -262,6 +260,11 @@ public class StdVideoDecodeH265ReferenceInfo extends Struct<StdVideoDecodeH265Re
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

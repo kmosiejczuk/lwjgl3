@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -79,8 +79,7 @@ public class VREventSeatedZeroPoseReset extends Struct<VREventSeatedZeroPoseRese
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventSeatedZeroPoseReset createSafe(long address) {
+    public static @Nullable VREventSeatedZeroPoseReset createSafe(long address) {
         return address == NULL ? null : new VREventSeatedZeroPoseReset(address, null);
     }
 
@@ -95,15 +94,14 @@ public class VREventSeatedZeroPoseReset extends Struct<VREventSeatedZeroPoseRese
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventSeatedZeroPoseReset.Buffer createSafe(long address, int capacity) {
+    public static VREventSeatedZeroPoseReset.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #bResetBySystemMenu}. */
-    public static boolean nbResetBySystemMenu(long struct) { return UNSAFE.getByte(null, struct + VREventSeatedZeroPoseReset.BRESETBYSYSTEMMENU) != 0; }
+    public static boolean nbResetBySystemMenu(long struct) { return memGetByte(struct + VREventSeatedZeroPoseReset.BRESETBYSYSTEMMENU) != 0; }
 
     // -----------------------------------
 
@@ -136,6 +134,11 @@ public class VREventSeatedZeroPoseReset extends Struct<VREventSeatedZeroPoseRese
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

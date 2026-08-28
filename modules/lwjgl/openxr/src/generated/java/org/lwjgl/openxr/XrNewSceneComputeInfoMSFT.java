@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -195,8 +195,7 @@ public class XrNewSceneComputeInfoMSFT extends Struct<XrNewSceneComputeInfoMSFT>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrNewSceneComputeInfoMSFT createSafe(long address) {
+    public static @Nullable XrNewSceneComputeInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrNewSceneComputeInfoMSFT(address, null);
     }
 
@@ -239,8 +238,7 @@ public class XrNewSceneComputeInfoMSFT extends Struct<XrNewSceneComputeInfoMSFT>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrNewSceneComputeInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrNewSceneComputeInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,28 +283,28 @@ public class XrNewSceneComputeInfoMSFT extends Struct<XrNewSceneComputeInfoMSFT>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrNewSceneComputeInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrNewSceneComputeInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrNewSceneComputeInfoMSFT.NEXT); }
     /** Unsafe version of {@link #requestedFeatureCount}. */
-    public static int nrequestedFeatureCount(long struct) { return UNSAFE.getInt(null, struct + XrNewSceneComputeInfoMSFT.REQUESTEDFEATURECOUNT); }
+    public static int nrequestedFeatureCount(long struct) { return memGetInt(struct + XrNewSceneComputeInfoMSFT.REQUESTEDFEATURECOUNT); }
     /** Unsafe version of {@link #requestedFeatures() requestedFeatures}. */
     public static IntBuffer nrequestedFeatures(long struct) { return memIntBuffer(memGetAddress(struct + XrNewSceneComputeInfoMSFT.REQUESTEDFEATURES), nrequestedFeatureCount(struct)); }
     /** Unsafe version of {@link #consistency}. */
-    public static int nconsistency(long struct) { return UNSAFE.getInt(null, struct + XrNewSceneComputeInfoMSFT.CONSISTENCY); }
+    public static int nconsistency(long struct) { return memGetInt(struct + XrNewSceneComputeInfoMSFT.CONSISTENCY); }
     /** Unsafe version of {@link #bounds}. */
     public static XrSceneBoundsMSFT nbounds(long struct) { return XrSceneBoundsMSFT.create(struct + XrNewSceneComputeInfoMSFT.BOUNDS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrNewSceneComputeInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrNewSceneComputeInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrNewSceneComputeInfoMSFT.NEXT, value); }
     /** Sets the specified value to the {@code requestedFeatureCount} field of the specified {@code struct}. */
-    public static void nrequestedFeatureCount(long struct, int value) { UNSAFE.putInt(null, struct + XrNewSceneComputeInfoMSFT.REQUESTEDFEATURECOUNT, value); }
+    public static void nrequestedFeatureCount(long struct, int value) { memPutInt(struct + XrNewSceneComputeInfoMSFT.REQUESTEDFEATURECOUNT, value); }
     /** Unsafe version of {@link #requestedFeatures(IntBuffer) requestedFeatures}. */
     public static void nrequestedFeatures(long struct, IntBuffer value) { memPutAddress(struct + XrNewSceneComputeInfoMSFT.REQUESTEDFEATURES, memAddress(value)); nrequestedFeatureCount(struct, value.remaining()); }
     /** Unsafe version of {@link #consistency(int) consistency}. */
-    public static void nconsistency(long struct, int value) { UNSAFE.putInt(null, struct + XrNewSceneComputeInfoMSFT.CONSISTENCY, value); }
+    public static void nconsistency(long struct, int value) { memPutInt(struct + XrNewSceneComputeInfoMSFT.CONSISTENCY, value); }
     /** Unsafe version of {@link #bounds(XrSceneBoundsMSFT) bounds}. */
     public static void nbounds(long struct, XrSceneBoundsMSFT value) { memCopy(value.address(), struct + XrNewSceneComputeInfoMSFT.BOUNDS, XrSceneBoundsMSFT.SIZEOF); }
 
@@ -351,6 +349,11 @@ public class XrNewSceneComputeInfoMSFT extends Struct<XrNewSceneComputeInfoMSFT>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

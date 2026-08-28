@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -38,6 +38,9 @@ public class BGFX {
             vertex_layout_has                                    = apiGetFunctionAddress(BGFX, "bgfx_vertex_layout_has"),
             vertex_layout_skip                                   = apiGetFunctionAddress(BGFX, "bgfx_vertex_layout_skip"),
             vertex_layout_end                                    = apiGetFunctionAddress(BGFX, "bgfx_vertex_layout_end"),
+            vertex_layout_get_offset                             = apiGetFunctionAddress(BGFX, "bgfx_vertex_layout_get_offset"),
+            vertex_layout_get_stride                             = apiGetFunctionAddress(BGFX, "bgfx_vertex_layout_get_stride"),
+            vertex_layout_get_size                               = apiGetFunctionAddress(BGFX, "bgfx_vertex_layout_get_size"),
             vertex_pack                                          = apiGetFunctionAddress(BGFX, "bgfx_vertex_pack"),
             vertex_unpack                                        = apiGetFunctionAddress(BGFX, "bgfx_vertex_unpack"),
             vertex_convert                                       = apiGetFunctionAddress(BGFX, "bgfx_vertex_convert"),
@@ -125,6 +128,7 @@ public class BGFX {
             get_result                                           = apiGetFunctionAddress(BGFX, "bgfx_get_result"),
             destroy_occlusion_query                              = apiGetFunctionAddress(BGFX, "bgfx_destroy_occlusion_query"),
             set_palette_color                                    = apiGetFunctionAddress(BGFX, "bgfx_set_palette_color"),
+            set_palette_color_rgba32f                            = apiGetFunctionAddress(BGFX, "bgfx_set_palette_color_rgba32f"),
             set_palette_color_rgba8                              = apiGetFunctionAddress(BGFX, "bgfx_set_palette_color_rgba8"),
             set_view_name                                        = apiGetFunctionAddress(BGFX, "bgfx_set_view_name"),
             set_view_rect                                        = apiGetFunctionAddress(BGFX, "bgfx_set_view_rect"),
@@ -229,7 +233,7 @@ public class BGFX {
     }
 
     /** API version */
-    public static final int BGFX_API_VERSION = 128;
+    public static final int BGFX_API_VERSION = 129;
 
     /** Invalid handle */
     public static final short BGFX_INVALID_HANDLE = (short)0xFFFF;
@@ -1261,9 +1265,8 @@ public class BGFX {
      *
      * @return itself
      */
-    @Nullable
     @NativeType("bgfx_vertex_layout_t *")
-    public static BGFXVertexLayout bgfx_vertex_layout_begin(@NativeType("bgfx_vertex_layout_t *") BGFXVertexLayout _this, @NativeType("bgfx_renderer_type_t") int _renderer) {
+    public static @Nullable BGFXVertexLayout bgfx_vertex_layout_begin(@NativeType("bgfx_vertex_layout_t *") BGFXVertexLayout _this, @NativeType("bgfx_renderer_type_t") int _renderer) {
         long __result = nbgfx_vertex_layout_begin(_this.address(), _renderer);
         return BGFXVertexLayout.createSafe(__result);
     }
@@ -1292,9 +1295,8 @@ public class BGFX {
      *
      * @return itself
      */
-    @Nullable
     @NativeType("bgfx_vertex_layout_t *")
-    public static BGFXVertexLayout bgfx_vertex_layout_add(@NativeType("bgfx_vertex_layout_t *") BGFXVertexLayout _this, @NativeType("bgfx_attrib_t") int _attrib, @NativeType("uint8_t") int _num, @NativeType("bgfx_attrib_type_t") int _type, @NativeType("bool") boolean _normalized, @NativeType("bool") boolean _asInt) {
+    public static @Nullable BGFXVertexLayout bgfx_vertex_layout_add(@NativeType("bgfx_vertex_layout_t *") BGFXVertexLayout _this, @NativeType("bgfx_attrib_t") int _attrib, @NativeType("uint8_t") int _num, @NativeType("bgfx_attrib_type_t") int _type, @NativeType("bool") boolean _normalized, @NativeType("bool") boolean _asInt) {
         long __result = nbgfx_vertex_layout_add(_this.address(), _attrib, (byte)_num, _type, _normalized, _asInt);
         return BGFXVertexLayout.createSafe(__result);
     }
@@ -1364,9 +1366,8 @@ public class BGFX {
      *
      * @return itself
      */
-    @Nullable
     @NativeType("bgfx_vertex_layout_t *")
-    public static BGFXVertexLayout bgfx_vertex_layout_skip(@NativeType("bgfx_vertex_layout_t *") BGFXVertexLayout _this, @NativeType("uint8_t") int _num) {
+    public static @Nullable BGFXVertexLayout bgfx_vertex_layout_skip(@NativeType("bgfx_vertex_layout_t *") BGFXVertexLayout _this, @NativeType("uint8_t") int _num) {
         long __result = nbgfx_vertex_layout_skip(_this.address(), (byte)_num);
         return BGFXVertexLayout.createSafe(__result);
     }
@@ -1386,6 +1387,52 @@ public class BGFX {
      */
     public static void bgfx_vertex_layout_end(@NativeType("bgfx_vertex_layout_t *") BGFXVertexLayout _this) {
         nbgfx_vertex_layout_end(_this.address());
+    }
+
+    // --- [ bgfx_vertex_layout_get_offset ] ---
+
+    /** Unsafe version of: {@link #bgfx_vertex_layout_get_offset vertex_layout_get_offset} */
+    public static short nbgfx_vertex_layout_get_offset(long _this, int _attrib) {
+        long __functionAddress = Functions.vertex_layout_get_offset;
+        return invokePC(_this, _attrib, __functionAddress);
+    }
+
+    /** Returns relative attribute offset from the vertex. */
+    @NativeType("uint16_t")
+    public static short bgfx_vertex_layout_get_offset(@NativeType("bgfx_vertex_layout_t const *") BGFXVertexLayout _this, @NativeType("bgfx_attrib_t") int _attrib) {
+        return nbgfx_vertex_layout_get_offset(_this.address(), _attrib);
+    }
+
+    // --- [ bgfx_vertex_layout_get_stride ] ---
+
+    /** Unsafe version of: {@link #bgfx_vertex_layout_get_stride vertex_layout_get_stride} */
+    public static short nbgfx_vertex_layout_get_stride(long _this) {
+        long __functionAddress = Functions.vertex_layout_get_stride;
+        return invokePC(_this, __functionAddress);
+    }
+
+    /** Returns vertex stride. */
+    @NativeType("uint16_t")
+    public static short bgfx_vertex_layout_get_stride(@NativeType("bgfx_vertex_layout_t const *") BGFXVertexLayout _this) {
+        return nbgfx_vertex_layout_get_stride(_this.address());
+    }
+
+    // --- [ bgfx_vertex_layout_get_size ] ---
+
+    /** Unsafe version of: {@link #bgfx_vertex_layout_get_size vertex_layout_get_size} */
+    public static int nbgfx_vertex_layout_get_size(long _this, int _num) {
+        long __functionAddress = Functions.vertex_layout_get_size;
+        return invokePI(_this, _num, __functionAddress);
+    }
+
+    /**
+     * Returns size of vertex buffer for number of vertices.
+     *
+     * @param _num number of vertices
+     */
+    @NativeType("uint32_t")
+    public static int bgfx_vertex_layout_get_size(@NativeType("bgfx_vertex_layout_t const *") BGFXVertexLayout _this, @NativeType("uint32_t") int _num) {
+        return nbgfx_vertex_layout_get_size(_this.address(), _num);
     }
 
     // --- [ bgfx_vertex_pack ] ---
@@ -1543,7 +1590,7 @@ public class BGFX {
      * @return number of output indices after conversion
      */
     @NativeType("uint32_t")
-    public static int bgfx_topology_convert(@NativeType("bgfx_topology_convert_t") int _conversion, @Nullable @NativeType("void *") ByteBuffer _dst, @NativeType("void const *") ByteBuffer _indices, @NativeType("bool") boolean _index32) {
+    public static int bgfx_topology_convert(@NativeType("bgfx_topology_convert_t") int _conversion, @NativeType("void *") @Nullable ByteBuffer _dst, @NativeType("void const *") ByteBuffer _indices, @NativeType("bool") boolean _index32) {
         return nbgfx_topology_convert(_conversion, memAddressSafe(_dst), remainingSafe(_dst), memAddress(_indices), _indices.remaining() >> (_index32 ? 2 : 1), _index32);
     }
 
@@ -1558,7 +1605,7 @@ public class BGFX {
      * @return number of output indices after conversion
      */
     @NativeType("uint32_t")
-    public static int bgfx_topology_convert(@NativeType("bgfx_topology_convert_t") int _conversion, @Nullable @NativeType("void *") ShortBuffer _dst, @NativeType("void const *") ShortBuffer _indices, @NativeType("bool") boolean _index32) {
+    public static int bgfx_topology_convert(@NativeType("bgfx_topology_convert_t") int _conversion, @NativeType("void *") @Nullable ShortBuffer _dst, @NativeType("void const *") ShortBuffer _indices, @NativeType("bool") boolean _index32) {
         return nbgfx_topology_convert(_conversion, memAddressSafe(_dst), remainingSafe(_dst) << 1, memAddress(_indices), (int)(((long)_indices.remaining() << 1) >> (_index32 ? 2 : 1)), _index32);
     }
 
@@ -1573,7 +1620,7 @@ public class BGFX {
      * @return number of output indices after conversion
      */
     @NativeType("uint32_t")
-    public static int bgfx_topology_convert(@NativeType("bgfx_topology_convert_t") int _conversion, @Nullable @NativeType("void *") IntBuffer _dst, @NativeType("void const *") IntBuffer _indices, @NativeType("bool") boolean _index32) {
+    public static int bgfx_topology_convert(@NativeType("bgfx_topology_convert_t") int _conversion, @NativeType("void *") @Nullable IntBuffer _dst, @NativeType("void const *") IntBuffer _indices, @NativeType("bool") boolean _index32) {
         return nbgfx_topology_convert(_conversion, memAddressSafe(_dst), remainingSafe(_dst) << 2, memAddress(_indices), (int)(((long)_indices.remaining() << 2) >> (_index32 ? 2 : 1)), _index32);
     }
 
@@ -1688,9 +1735,8 @@ public class BGFX {
      *
      * @param _type the renderer type. One of:<br><table><tr><td>{@link #BGFX_RENDERER_TYPE_NOOP RENDERER_TYPE_NOOP}</td><td>{@link #BGFX_RENDERER_TYPE_AGC RENDERER_TYPE_AGC}</td><td>{@link #BGFX_RENDERER_TYPE_DIRECT3D11 RENDERER_TYPE_DIRECT3D11}</td><td>{@link #BGFX_RENDERER_TYPE_DIRECT3D12 RENDERER_TYPE_DIRECT3D12}</td></tr><tr><td>{@link #BGFX_RENDERER_TYPE_GNM RENDERER_TYPE_GNM}</td><td>{@link #BGFX_RENDERER_TYPE_METAL RENDERER_TYPE_METAL}</td><td>{@link #BGFX_RENDERER_TYPE_NVN RENDERER_TYPE_NVN}</td><td>{@link #BGFX_RENDERER_TYPE_OPENGLES RENDERER_TYPE_OPENGLES}</td></tr><tr><td>{@link #BGFX_RENDERER_TYPE_OPENGL RENDERER_TYPE_OPENGL}</td><td>{@link #BGFX_RENDERER_TYPE_VULKAN RENDERER_TYPE_VULKAN}</td><td>{@link #BGFX_RENDERER_TYPE_COUNT RENDERER_TYPE_COUNT}</td></tr></table>
      */
-    @Nullable
     @NativeType("char const *")
-    public static String bgfx_get_renderer_name(@NativeType("bgfx_renderer_type_t") int _type) {
+    public static @Nullable String bgfx_get_renderer_name(@NativeType("bgfx_renderer_type_t") int _type) {
         long __result = nbgfx_get_renderer_name(_type);
         return memASCIISafe(__result);
     }
@@ -1795,9 +1841,8 @@ public class BGFX {
     }
 
     /** Returns renderer capabilities. */
-    @Nullable
     @NativeType("bgfx_caps_t const *")
-    public static BGFXCaps bgfx_get_caps() {
+    public static @Nullable BGFXCaps bgfx_get_caps() {
         long __result = nbgfx_get_caps();
         return BGFXCaps.createSafe(__result);
     }
@@ -1815,9 +1860,8 @@ public class BGFX {
      * 
      * <p>The pointer returned is valid until {@link #bgfx_frame frame} is called.</p>
      */
-    @Nullable
     @NativeType("bgfx_stats_t const *")
-    public static BGFXStats bgfx_get_stats() {
+    public static @Nullable BGFXStats bgfx_get_stats() {
         long __result = nbgfx_get_stats();
         return BGFXStats.createSafe(__result);
     }
@@ -1835,9 +1879,8 @@ public class BGFX {
      *
      * @param _size the number of bytes to allocate
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_alloc(@NativeType("uint32_t") int _size) {
+    public static @Nullable BGFXMemory bgfx_alloc(@NativeType("uint32_t") int _size) {
         long __result = nbgfx_alloc(_size);
         return BGFXMemory.createSafe(__result);
     }
@@ -1859,9 +1902,8 @@ public class BGFX {
      *
      * @param _data pointer to data to be copied
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") ByteBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") ByteBuffer _data) {
         long __result = nbgfx_copy(memAddress(_data), _data.remaining());
         return BGFXMemory.createSafe(__result);
     }
@@ -1871,9 +1913,8 @@ public class BGFX {
      *
      * @param _data pointer to data to be copied
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") ShortBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") ShortBuffer _data) {
         long __result = nbgfx_copy(memAddress(_data), _data.remaining() << 1);
         return BGFXMemory.createSafe(__result);
     }
@@ -1883,9 +1924,8 @@ public class BGFX {
      *
      * @param _data pointer to data to be copied
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") IntBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") IntBuffer _data) {
         long __result = nbgfx_copy(memAddress(_data), _data.remaining() << 2);
         return BGFXMemory.createSafe(__result);
     }
@@ -1895,9 +1935,8 @@ public class BGFX {
      *
      * @param _data pointer to data to be copied
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") LongBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") LongBuffer _data) {
         long __result = nbgfx_copy(memAddress(_data), _data.remaining() << 3);
         return BGFXMemory.createSafe(__result);
     }
@@ -1907,9 +1946,8 @@ public class BGFX {
      *
      * @param _data pointer to data to be copied
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") FloatBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") FloatBuffer _data) {
         long __result = nbgfx_copy(memAddress(_data), _data.remaining() << 2);
         return BGFXMemory.createSafe(__result);
     }
@@ -1919,9 +1957,8 @@ public class BGFX {
      *
      * @param _data pointer to data to be copied
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") DoubleBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") DoubleBuffer _data) {
         long __result = nbgfx_copy(memAddress(_data), _data.remaining() << 3);
         return BGFXMemory.createSafe(__result);
     }
@@ -1931,9 +1968,8 @@ public class BGFX {
      *
      * @param _data pointer to data to be copied
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") PointerBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") PointerBuffer _data) {
         long __result = nbgfx_copy(memAddress(_data), _data.remaining() << POINTER_SHIFT);
         return BGFXMemory.createSafe(__result);
     }
@@ -1957,9 +1993,8 @@ public class BGFX {
      *
      * @param _data the data to reference
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref(@NativeType("void const *") ByteBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_make_ref(@NativeType("void const *") ByteBuffer _data) {
         long __result = nbgfx_make_ref(memAddress(_data), _data.remaining());
         return BGFXMemory.createSafe(__result);
     }
@@ -1971,9 +2006,8 @@ public class BGFX {
      *
      * @param _data the data to reference
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref(@NativeType("void const *") ShortBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_make_ref(@NativeType("void const *") ShortBuffer _data) {
         long __result = nbgfx_make_ref(memAddress(_data), _data.remaining() << 1);
         return BGFXMemory.createSafe(__result);
     }
@@ -1985,9 +2019,8 @@ public class BGFX {
      *
      * @param _data the data to reference
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref(@NativeType("void const *") IntBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_make_ref(@NativeType("void const *") IntBuffer _data) {
         long __result = nbgfx_make_ref(memAddress(_data), _data.remaining() << 2);
         return BGFXMemory.createSafe(__result);
     }
@@ -1999,9 +2032,8 @@ public class BGFX {
      *
      * @param _data the data to reference
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref(@NativeType("void const *") LongBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_make_ref(@NativeType("void const *") LongBuffer _data) {
         long __result = nbgfx_make_ref(memAddress(_data), _data.remaining() << 3);
         return BGFXMemory.createSafe(__result);
     }
@@ -2013,9 +2045,8 @@ public class BGFX {
      *
      * @param _data the data to reference
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref(@NativeType("void const *") FloatBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_make_ref(@NativeType("void const *") FloatBuffer _data) {
         long __result = nbgfx_make_ref(memAddress(_data), _data.remaining() << 2);
         return BGFXMemory.createSafe(__result);
     }
@@ -2027,9 +2058,8 @@ public class BGFX {
      *
      * @param _data the data to reference
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref(@NativeType("void const *") DoubleBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_make_ref(@NativeType("void const *") DoubleBuffer _data) {
         long __result = nbgfx_make_ref(memAddress(_data), _data.remaining() << 3);
         return BGFXMemory.createSafe(__result);
     }
@@ -2041,9 +2071,8 @@ public class BGFX {
      *
      * @param _data the data to reference
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref(@NativeType("void const *") PointerBuffer _data) {
+    public static @Nullable BGFXMemory bgfx_make_ref(@NativeType("void const *") PointerBuffer _data) {
         long __result = nbgfx_make_ref(memAddress(_data), _data.remaining() << POINTER_SHIFT);
         return BGFXMemory.createSafe(__result);
     }
@@ -2070,9 +2099,8 @@ public class BGFX {
      * @param _releaseFn callback function to release memory after use
      * @param _userData  user data to be passed to callback function
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref_release(@NativeType("void const *") ByteBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
+    public static @Nullable BGFXMemory bgfx_make_ref_release(@NativeType("void const *") ByteBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
         long __result = nbgfx_make_ref_release(memAddress(_data), _data.remaining(), _releaseFn.address(), _userData);
         return BGFXMemory.createSafe(__result);
     }
@@ -2087,9 +2115,8 @@ public class BGFX {
      * @param _releaseFn callback function to release memory after use
      * @param _userData  user data to be passed to callback function
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref_release(@NativeType("void const *") ShortBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
+    public static @Nullable BGFXMemory bgfx_make_ref_release(@NativeType("void const *") ShortBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
         long __result = nbgfx_make_ref_release(memAddress(_data), _data.remaining() << 1, _releaseFn.address(), _userData);
         return BGFXMemory.createSafe(__result);
     }
@@ -2104,9 +2131,8 @@ public class BGFX {
      * @param _releaseFn callback function to release memory after use
      * @param _userData  user data to be passed to callback function
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref_release(@NativeType("void const *") IntBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
+    public static @Nullable BGFXMemory bgfx_make_ref_release(@NativeType("void const *") IntBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
         long __result = nbgfx_make_ref_release(memAddress(_data), _data.remaining() << 2, _releaseFn.address(), _userData);
         return BGFXMemory.createSafe(__result);
     }
@@ -2121,9 +2147,8 @@ public class BGFX {
      * @param _releaseFn callback function to release memory after use
      * @param _userData  user data to be passed to callback function
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref_release(@NativeType("void const *") LongBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
+    public static @Nullable BGFXMemory bgfx_make_ref_release(@NativeType("void const *") LongBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
         long __result = nbgfx_make_ref_release(memAddress(_data), _data.remaining() << 3, _releaseFn.address(), _userData);
         return BGFXMemory.createSafe(__result);
     }
@@ -2138,9 +2163,8 @@ public class BGFX {
      * @param _releaseFn callback function to release memory after use
      * @param _userData  user data to be passed to callback function
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref_release(@NativeType("void const *") FloatBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
+    public static @Nullable BGFXMemory bgfx_make_ref_release(@NativeType("void const *") FloatBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
         long __result = nbgfx_make_ref_release(memAddress(_data), _data.remaining() << 2, _releaseFn.address(), _userData);
         return BGFXMemory.createSafe(__result);
     }
@@ -2155,9 +2179,8 @@ public class BGFX {
      * @param _releaseFn callback function to release memory after use
      * @param _userData  user data to be passed to callback function
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref_release(@NativeType("void const *") DoubleBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
+    public static @Nullable BGFXMemory bgfx_make_ref_release(@NativeType("void const *") DoubleBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
         long __result = nbgfx_make_ref_release(memAddress(_data), _data.remaining() << 3, _releaseFn.address(), _userData);
         return BGFXMemory.createSafe(__result);
     }
@@ -2172,9 +2195,8 @@ public class BGFX {
      * @param _releaseFn callback function to release memory after use
      * @param _userData  user data to be passed to callback function
      */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_make_ref_release(@NativeType("void const *") PointerBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
+    public static @Nullable BGFXMemory bgfx_make_ref_release(@NativeType("void const *") PointerBuffer _data, @NativeType("bgfx_release_fn_t") BGFXReleaseFunctionCallbackI _releaseFn, @NativeType("void *") long _userData) {
         long __result = nbgfx_make_ref_release(memAddress(_data), _data.remaining() << POINTER_SHIFT, _releaseFn.address(), _userData);
         return BGFXMemory.createSafe(__result);
     }
@@ -3051,7 +3073,7 @@ public class BGFX {
      * @param _info  when non-{@code NULL} is specified it returns parsed texture information
      */
     @NativeType("bgfx_texture_handle_t")
-    public static short bgfx_create_texture(@NativeType("bgfx_memory_t const *") BGFXMemory _mem, @NativeType("uint64_t") long _flags, @NativeType("uint8_t") int _skip, @Nullable @NativeType("bgfx_texture_info_t *") BGFXTextureInfo _info) {
+    public static short bgfx_create_texture(@NativeType("bgfx_memory_t const *") BGFXMemory _mem, @NativeType("uint64_t") long _flags, @NativeType("uint8_t") int _skip, @NativeType("bgfx_texture_info_t *") @Nullable BGFXTextureInfo _info) {
         return nbgfx_create_texture(_mem.address(), _flags, (byte)_skip, memAddressSafe(_info));
     }
 
@@ -3079,7 +3101,7 @@ public class BGFX {
      *                   texture and all mips together for each array element.
      */
     @NativeType("bgfx_texture_handle_t")
-    public static short bgfx_create_texture_2d(@NativeType("uint16_t") int _width, @NativeType("uint16_t") int _height, @NativeType("bool") boolean _hasMips, @NativeType("uint16_t") int _numLayers, @NativeType("bgfx_texture_format_t") int _format, @NativeType("uint64_t") long _flags, @Nullable @NativeType("bgfx_memory_t const *") BGFXMemory _mem) {
+    public static short bgfx_create_texture_2d(@NativeType("uint16_t") int _width, @NativeType("uint16_t") int _height, @NativeType("bool") boolean _hasMips, @NativeType("uint16_t") int _numLayers, @NativeType("bgfx_texture_format_t") int _format, @NativeType("uint64_t") long _flags, @NativeType("bgfx_memory_t const *") @Nullable BGFXMemory _mem) {
         return nbgfx_create_texture_2d((short)_width, (short)_height, _hasMips, (short)_numLayers, _format, _flags, memAddressSafe(_mem));
     }
 
@@ -3128,7 +3150,7 @@ public class BGFX {
      * @param _mem     texture data. If {@code _mem} is non-{@code NULL}, created texture will be immutable.
      */
     @NativeType("bgfx_texture_handle_t")
-    public static short bgfx_create_texture_3d(@NativeType("uint16_t") int _width, @NativeType("uint16_t") int _height, @NativeType("uint16_t") int _depth, @NativeType("bool") boolean _hasMips, @NativeType("bgfx_texture_format_t") int _format, @NativeType("uint64_t") long _flags, @Nullable @NativeType("bgfx_memory_t const *") BGFXMemory _mem) {
+    public static short bgfx_create_texture_3d(@NativeType("uint16_t") int _width, @NativeType("uint16_t") int _height, @NativeType("uint16_t") int _depth, @NativeType("bool") boolean _hasMips, @NativeType("bgfx_texture_format_t") int _format, @NativeType("uint64_t") long _flags, @NativeType("bgfx_memory_t const *") @Nullable BGFXMemory _mem) {
         return nbgfx_create_texture_3d((short)_width, (short)_height, (short)_depth, _hasMips, _format, _flags, memAddressSafe(_mem));
     }
 
@@ -3155,7 +3177,7 @@ public class BGFX {
      *                   cubemap texture and all mips together for each array element.
      */
     @NativeType("bgfx_texture_handle_t")
-    public static short bgfx_create_texture_cube(@NativeType("uint16_t") int _size, @NativeType("bool") boolean _hasMips, @NativeType("uint16_t") int _numLayers, @NativeType("bgfx_texture_format_t") int _format, @NativeType("uint64_t") long _flags, @Nullable @NativeType("bgfx_memory_t const *") BGFXMemory _mem) {
+    public static short bgfx_create_texture_cube(@NativeType("uint16_t") int _size, @NativeType("bool") boolean _hasMips, @NativeType("uint16_t") int _numLayers, @NativeType("bgfx_texture_format_t") int _format, @NativeType("uint64_t") long _flags, @NativeType("bgfx_memory_t const *") @Nullable BGFXMemory _mem) {
         return nbgfx_create_texture_cube((short)_size, _hasMips, (short)_numLayers, _format, _flags, memAddressSafe(_mem));
     }
 
@@ -3754,7 +3776,7 @@ public class BGFX {
      * @return occlusion query result
      */
     @NativeType("bgfx_occlusion_query_result_t")
-    public static int bgfx_get_result(@NativeType("bgfx_occlusion_query_handle_t") short _handle, @Nullable @NativeType("int32_t *") IntBuffer _result) {
+    public static int bgfx_get_result(@NativeType("bgfx_occlusion_query_handle_t") short _handle, @NativeType("int32_t *") @Nullable IntBuffer _result) {
         if (CHECKS) {
             checkSafe(_result, 1);
         }
@@ -3792,6 +3814,27 @@ public class BGFX {
             check(_rgba, 4);
         }
         nbgfx_set_palette_color((byte)_index, memAddress(_rgba));
+    }
+
+    // --- [ bgfx_set_palette_color_rgba32f ] ---
+
+    /** Unsafe version of: {@link #bgfx_set_palette_color_rgba32f set_palette_color_rgba32f} */
+    public static void nbgfx_set_palette_color_rgba32f(byte _index, float _r, float _g, float _b, float _a) {
+        long __functionAddress = Functions.set_palette_color_rgba32f;
+        invokeUV(_index, _r, _g, _b, _a, __functionAddress);
+    }
+
+    /**
+     * Sets palette color value.
+     *
+     * @param _index index into palette
+     * @param _r     red value
+     * @param _g     green value
+     * @param _b     blue value
+     * @param _a     alpha value
+     */
+    public static void bgfx_set_palette_color_rgba32f(@NativeType("uint8_t") int _index, float _r, float _g, float _b, float _a) {
+        nbgfx_set_palette_color_rgba32f((byte)_index, _r, _g, _b, _a);
     }
 
     // --- [ bgfx_set_palette_color_rgba8 ] ---
@@ -4034,7 +4077,7 @@ public class BGFX {
      * @param _view view matrix
      * @param _proj projection matrix
      */
-    public static void bgfx_set_view_transform(@NativeType("bgfx_view_id_t") int _id, @Nullable @NativeType("void const *") ByteBuffer _view, @Nullable @NativeType("void const *") ByteBuffer _proj) {
+    public static void bgfx_set_view_transform(@NativeType("bgfx_view_id_t") int _id, @NativeType("void const *") @Nullable ByteBuffer _view, @NativeType("void const *") @Nullable ByteBuffer _proj) {
         if (CHECKS) {
             checkSafe(_view, 64);
             checkSafe(_proj, 64);
@@ -4049,7 +4092,7 @@ public class BGFX {
      * @param _view view matrix
      * @param _proj projection matrix
      */
-    public static void bgfx_set_view_transform(@NativeType("bgfx_view_id_t") int _id, @Nullable @NativeType("void const *") FloatBuffer _view, @Nullable @NativeType("void const *") FloatBuffer _proj) {
+    public static void bgfx_set_view_transform(@NativeType("bgfx_view_id_t") int _id, @NativeType("void const *") @Nullable FloatBuffer _view, @NativeType("void const *") @Nullable FloatBuffer _proj) {
         if (CHECKS) {
             checkSafe(_view, 64 >> 2);
             checkSafe(_proj, 64 >> 2);
@@ -4072,7 +4115,7 @@ public class BGFX {
      * @param _num   number of views to remap
      * @param _order view remap id table. Passing {@code NULL} will reset view ids to default state
      */
-    public static void bgfx_set_view_order(@NativeType("bgfx_view_id_t") int _id, @NativeType("uint16_t") int _num, @Nullable @NativeType("bgfx_view_id_t const *") ShortBuffer _order) {
+    public static void bgfx_set_view_order(@NativeType("bgfx_view_id_t") int _id, @NativeType("uint16_t") int _num, @NativeType("bgfx_view_id_t const *") @Nullable ShortBuffer _order) {
         if (CHECKS) {
             checkSafe(_order, _num);
         }
@@ -6270,14 +6313,14 @@ public class BGFX {
 
     /** Array version of: {@link #bgfx_topology_convert topology_convert} */
     @NativeType("uint32_t")
-    public static int bgfx_topology_convert(@NativeType("bgfx_topology_convert_t") int _conversion, @Nullable @NativeType("void *") short[] _dst, @NativeType("void const *") short[] _indices, @NativeType("bool") boolean _index32) {
+    public static int bgfx_topology_convert(@NativeType("bgfx_topology_convert_t") int _conversion, @NativeType("void *") short @Nullable [] _dst, @NativeType("void const *") short[] _indices, @NativeType("bool") boolean _index32) {
         long __functionAddress = Functions.topology_convert;
         return invokePPI(_conversion, _dst, lengthSafe(_dst) << 1, _indices, _indices.length, _index32, __functionAddress);
     }
 
     /** Array version of: {@link #bgfx_topology_convert topology_convert} */
     @NativeType("uint32_t")
-    public static int bgfx_topology_convert(@NativeType("bgfx_topology_convert_t") int _conversion, @Nullable @NativeType("void *") int[] _dst, @NativeType("void const *") int[] _indices, @NativeType("bool") boolean _index32) {
+    public static int bgfx_topology_convert(@NativeType("bgfx_topology_convert_t") int _conversion, @NativeType("void *") int @Nullable [] _dst, @NativeType("void const *") int[] _indices, @NativeType("bool") boolean _index32) {
         long __functionAddress = Functions.topology_convert;
         return invokePPI(_conversion, _dst, lengthSafe(_dst) << 2, _indices, _indices.length, _index32, __functionAddress);
     }
@@ -6320,45 +6363,40 @@ public class BGFX {
     }
 
     /** Array version of: {@link #bgfx_copy copy} */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") short[] _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") short[] _data) {
         long __functionAddress = Functions.copy;
         long __result = invokePP(_data, _data.length << 1, __functionAddress);
         return BGFXMemory.createSafe(__result);
     }
 
     /** Array version of: {@link #bgfx_copy copy} */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") int[] _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") int[] _data) {
         long __functionAddress = Functions.copy;
         long __result = invokePP(_data, _data.length << 2, __functionAddress);
         return BGFXMemory.createSafe(__result);
     }
 
     /** Array version of: {@link #bgfx_copy copy} */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") long[] _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") long[] _data) {
         long __functionAddress = Functions.copy;
         long __result = invokePP(_data, _data.length << 3, __functionAddress);
         return BGFXMemory.createSafe(__result);
     }
 
     /** Array version of: {@link #bgfx_copy copy} */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") float[] _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") float[] _data) {
         long __functionAddress = Functions.copy;
         long __result = invokePP(_data, _data.length << 2, __functionAddress);
         return BGFXMemory.createSafe(__result);
     }
 
     /** Array version of: {@link #bgfx_copy copy} */
-    @Nullable
     @NativeType("bgfx_memory_t const *")
-    public static BGFXMemory bgfx_copy(@NativeType("void const *") double[] _data) {
+    public static @Nullable BGFXMemory bgfx_copy(@NativeType("void const *") double[] _data) {
         long __functionAddress = Functions.copy;
         long __result = invokePP(_data, _data.length << 3, __functionAddress);
         return BGFXMemory.createSafe(__result);
@@ -6401,7 +6439,7 @@ public class BGFX {
 
     /** Array version of: {@link #bgfx_get_result get_result} */
     @NativeType("bgfx_occlusion_query_result_t")
-    public static int bgfx_get_result(@NativeType("bgfx_occlusion_query_handle_t") short _handle, @Nullable @NativeType("int32_t *") int[] _result) {
+    public static int bgfx_get_result(@NativeType("bgfx_occlusion_query_handle_t") short _handle, @NativeType("int32_t *") int @Nullable [] _result) {
         long __functionAddress = Functions.get_result;
         if (CHECKS) {
             checkSafe(_result, 1);
@@ -6419,7 +6457,7 @@ public class BGFX {
     }
 
     /** Array version of: {@link #bgfx_set_view_transform set_view_transform} */
-    public static void bgfx_set_view_transform(@NativeType("bgfx_view_id_t") int _id, @Nullable @NativeType("void const *") float[] _view, @Nullable @NativeType("void const *") float[] _proj) {
+    public static void bgfx_set_view_transform(@NativeType("bgfx_view_id_t") int _id, @NativeType("void const *") float @Nullable [] _view, @NativeType("void const *") float @Nullable [] _proj) {
         long __functionAddress = Functions.set_view_transform;
         if (CHECKS) {
             checkSafe(_view, 64 >> 2);
@@ -6429,7 +6467,7 @@ public class BGFX {
     }
 
     /** Array version of: {@link #bgfx_set_view_order set_view_order} */
-    public static void bgfx_set_view_order(@NativeType("bgfx_view_id_t") int _id, @NativeType("uint16_t") int _num, @Nullable @NativeType("bgfx_view_id_t const *") short[] _order) {
+    public static void bgfx_set_view_order(@NativeType("bgfx_view_id_t") int _id, @NativeType("uint16_t") int _num, @NativeType("bgfx_view_id_t const *") short @Nullable [] _order) {
         long __functionAddress = Functions.set_view_order;
         if (CHECKS) {
             checkSafe(_order, _num);

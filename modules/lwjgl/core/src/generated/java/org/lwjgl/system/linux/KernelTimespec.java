@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static KernelTimespec createSafe(long address) {
+    public static @Nullable KernelTimespec createSafe(long address) {
         return address == NULL ? null : new KernelTimespec(address, null);
     }
 
@@ -176,8 +175,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static KernelTimespec.Buffer createSafe(long address, int capacity) {
+    public static KernelTimespec.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -222,14 +220,14 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #tv_sec}. */
-    public static long ntv_sec(long struct) { return UNSAFE.getLong(null, struct + KernelTimespec.TV_SEC); }
+    public static long ntv_sec(long struct) { return memGetLong(struct + KernelTimespec.TV_SEC); }
     /** Unsafe version of {@link #tv_nsec}. */
-    public static long ntv_nsec(long struct) { return UNSAFE.getLong(null, struct + KernelTimespec.TV_NSEC); }
+    public static long ntv_nsec(long struct) { return memGetLong(struct + KernelTimespec.TV_NSEC); }
 
     /** Unsafe version of {@link #tv_sec(long) tv_sec}. */
-    public static void ntv_sec(long struct, long value) { UNSAFE.putLong(null, struct + KernelTimespec.TV_SEC, value); }
+    public static void ntv_sec(long struct, long value) { memPutLong(struct + KernelTimespec.TV_SEC, value); }
     /** Unsafe version of {@link #tv_nsec(long) tv_nsec}. */
-    public static void ntv_nsec(long struct, long value) { UNSAFE.putLong(null, struct + KernelTimespec.TV_NSEC, value); }
+    public static void ntv_nsec(long struct, long value) { memPutLong(struct + KernelTimespec.TV_NSEC, value); }
 
     // -----------------------------------
 
@@ -262,6 +260,11 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

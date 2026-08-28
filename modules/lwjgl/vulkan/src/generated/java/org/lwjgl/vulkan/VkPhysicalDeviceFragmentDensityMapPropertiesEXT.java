@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -106,7 +106,7 @@ public class VkPhysicalDeviceFragmentDensityMapPropertiesEXT extends Struct<VkPh
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the minimum <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary-fragment-density-texel-size">fragment density texel size</a>. */
+    /** the minimum <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary-fragment-density-texel-size">fragment density texel size</a>. */
     public VkExtent2D minFragmentDensityTexelSize() { return nminFragmentDensityTexelSize(address()); }
     /** the maximum fragment density texel size. */
     public VkExtent2D maxFragmentDensityTexelSize() { return nmaxFragmentDensityTexelSize(address()); }
@@ -168,8 +168,7 @@ public class VkPhysicalDeviceFragmentDensityMapPropertiesEXT extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFragmentDensityMapPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFragmentDensityMapPropertiesEXT(address, null);
     }
 
@@ -212,8 +211,7 @@ public class VkPhysicalDeviceFragmentDensityMapPropertiesEXT extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,7 +275,7 @@ public class VkPhysicalDeviceFragmentDensityMapPropertiesEXT extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentDensityMapPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentDensityMapPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFragmentDensityMapPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #minFragmentDensityTexelSize}. */
@@ -285,10 +283,10 @@ public class VkPhysicalDeviceFragmentDensityMapPropertiesEXT extends Struct<VkPh
     /** Unsafe version of {@link #maxFragmentDensityTexelSize}. */
     public static VkExtent2D nmaxFragmentDensityTexelSize(long struct) { return VkExtent2D.create(struct + VkPhysicalDeviceFragmentDensityMapPropertiesEXT.MAXFRAGMENTDENSITYTEXELSIZE); }
     /** Unsafe version of {@link #fragmentDensityInvocations}. */
-    public static int nfragmentDensityInvocations(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentDensityMapPropertiesEXT.FRAGMENTDENSITYINVOCATIONS); }
+    public static int nfragmentDensityInvocations(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentDensityMapPropertiesEXT.FRAGMENTDENSITYINVOCATIONS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentDensityMapPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentDensityMapPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFragmentDensityMapPropertiesEXT.PNEXT, value); }
 
@@ -323,6 +321,11 @@ public class VkPhysicalDeviceFragmentDensityMapPropertiesEXT extends Struct<VkPh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

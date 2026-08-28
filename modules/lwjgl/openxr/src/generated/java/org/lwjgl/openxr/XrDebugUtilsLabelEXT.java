@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDebugUtilsLabelEXT createSafe(long address) {
+    public static @Nullable XrDebugUtilsLabelEXT createSafe(long address) {
         return address == NULL ? null : new XrDebugUtilsLabelEXT(address, null);
     }
 
@@ -207,8 +206,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDebugUtilsLabelEXT.Buffer createSafe(long address, int capacity) {
+    public static XrDebugUtilsLabelEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,7 +251,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrDebugUtilsLabelEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrDebugUtilsLabelEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrDebugUtilsLabelEXT.NEXT); }
     /** Unsafe version of {@link #labelName}. */
@@ -262,7 +260,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
     public static String nlabelNameString(long struct) { return memUTF8(memGetAddress(struct + XrDebugUtilsLabelEXT.LABELNAME)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrDebugUtilsLabelEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrDebugUtilsLabelEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrDebugUtilsLabelEXT.NEXT, value); }
     /** Unsafe version of {@link #labelName(ByteBuffer) labelName}. */
@@ -311,6 +309,11 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

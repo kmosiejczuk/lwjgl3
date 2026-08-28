@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceProtectedCapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkSurfaceProtectedCapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkSurfaceProtectedCapabilitiesKHR(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceProtectedCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkSurfaceProtectedCapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,14 +259,14 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceProtectedCapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSurfaceProtectedCapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSurfaceProtectedCapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #supportsProtected}. */
-    public static int nsupportsProtected(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceProtectedCapabilitiesKHR.SUPPORTSPROTECTED); }
+    public static int nsupportsProtected(long struct) { return memGetInt(struct + VkSurfaceProtectedCapabilitiesKHR.SUPPORTSPROTECTED); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceProtectedCapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSurfaceProtectedCapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSurfaceProtectedCapabilitiesKHR.PNEXT, value); }
 
@@ -303,6 +301,11 @@ public class VkSurfaceProtectedCapabilitiesKHR extends Struct<VkSurfaceProtected
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

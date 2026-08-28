@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -126,8 +126,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceOrHostAddressConstKHR createSafe(long address) {
+    public static @Nullable VkDeviceOrHostAddressConstKHR createSafe(long address) {
         return address == NULL ? null : new VkDeviceOrHostAddressConstKHR(address, null);
     }
 
@@ -170,8 +169,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceOrHostAddressConstKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceOrHostAddressConstKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -216,12 +214,12 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
     // -----------------------------------
 
     /** Unsafe version of {@link #deviceAddress}. */
-    public static long ndeviceAddress(long struct) { return UNSAFE.getLong(null, struct + VkDeviceOrHostAddressConstKHR.DEVICEADDRESS); }
+    public static long ndeviceAddress(long struct) { return memGetLong(struct + VkDeviceOrHostAddressConstKHR.DEVICEADDRESS); }
     /** Unsafe version of {@link #hostAddress}. */
     public static long nhostAddress(long struct) { return memGetAddress(struct + VkDeviceOrHostAddressConstKHR.HOSTADDRESS); }
 
     /** Unsafe version of {@link #deviceAddress(long) deviceAddress}. */
-    public static void ndeviceAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkDeviceOrHostAddressConstKHR.DEVICEADDRESS, value); }
+    public static void ndeviceAddress(long struct, long value) { memPutLong(struct + VkDeviceOrHostAddressConstKHR.DEVICEADDRESS, value); }
     /** Unsafe version of {@link #hostAddress(long) hostAddress}. */
     public static void nhostAddress(long struct, long value) { memPutAddress(struct + VkDeviceOrHostAddressConstKHR.HOSTADDRESS, value); }
 
@@ -256,6 +254,11 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

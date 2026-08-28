@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -85,8 +85,7 @@ public class NSVGGradientStop extends Struct<NSVGGradientStop> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGGradientStop createSafe(long address) {
+    public static @Nullable NSVGGradientStop createSafe(long address) {
         return address == NULL ? null : new NSVGGradientStop(address, null);
     }
 
@@ -101,17 +100,16 @@ public class NSVGGradientStop extends Struct<NSVGGradientStop> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGGradientStop.Buffer createSafe(long address, int capacity) {
+    public static NSVGGradientStop.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #color}. */
-    public static int ncolor(long struct) { return UNSAFE.getInt(null, struct + NSVGGradientStop.COLOR); }
+    public static int ncolor(long struct) { return memGetInt(struct + NSVGGradientStop.COLOR); }
     /** Unsafe version of {@link #offset}. */
-    public static float noffset(long struct) { return UNSAFE.getFloat(null, struct + NSVGGradientStop.OFFSET); }
+    public static float noffset(long struct) { return memGetFloat(struct + NSVGGradientStop.OFFSET); }
 
     // -----------------------------------
 
@@ -144,6 +142,11 @@ public class NSVGGradientStop extends Struct<NSVGGradientStop> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

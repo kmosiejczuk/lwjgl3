@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -220,8 +220,7 @@ public class XrCompositionLayerDepthInfoKHR extends Struct<XrCompositionLayerDep
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerDepthInfoKHR createSafe(long address) {
+    public static @Nullable XrCompositionLayerDepthInfoKHR createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerDepthInfoKHR(address, null);
     }
 
@@ -264,8 +263,7 @@ public class XrCompositionLayerDepthInfoKHR extends Struct<XrCompositionLayerDep
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerDepthInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerDepthInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -310,34 +308,34 @@ public class XrCompositionLayerDepthInfoKHR extends Struct<XrCompositionLayerDep
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerDepthInfoKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerDepthInfoKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerDepthInfoKHR.NEXT); }
     /** Unsafe version of {@link #subImage}. */
     public static XrSwapchainSubImage nsubImage(long struct) { return XrSwapchainSubImage.create(struct + XrCompositionLayerDepthInfoKHR.SUBIMAGE); }
     /** Unsafe version of {@link #minDepth}. */
-    public static float nminDepth(long struct) { return UNSAFE.getFloat(null, struct + XrCompositionLayerDepthInfoKHR.MINDEPTH); }
+    public static float nminDepth(long struct) { return memGetFloat(struct + XrCompositionLayerDepthInfoKHR.MINDEPTH); }
     /** Unsafe version of {@link #maxDepth}. */
-    public static float nmaxDepth(long struct) { return UNSAFE.getFloat(null, struct + XrCompositionLayerDepthInfoKHR.MAXDEPTH); }
+    public static float nmaxDepth(long struct) { return memGetFloat(struct + XrCompositionLayerDepthInfoKHR.MAXDEPTH); }
     /** Unsafe version of {@link #nearZ}. */
-    public static float nnearZ(long struct) { return UNSAFE.getFloat(null, struct + XrCompositionLayerDepthInfoKHR.NEARZ); }
+    public static float nnearZ(long struct) { return memGetFloat(struct + XrCompositionLayerDepthInfoKHR.NEARZ); }
     /** Unsafe version of {@link #farZ}. */
-    public static float nfarZ(long struct) { return UNSAFE.getFloat(null, struct + XrCompositionLayerDepthInfoKHR.FARZ); }
+    public static float nfarZ(long struct) { return memGetFloat(struct + XrCompositionLayerDepthInfoKHR.FARZ); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerDepthInfoKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerDepthInfoKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerDepthInfoKHR.NEXT, value); }
     /** Unsafe version of {@link #subImage(XrSwapchainSubImage) subImage}. */
     public static void nsubImage(long struct, XrSwapchainSubImage value) { memCopy(value.address(), struct + XrCompositionLayerDepthInfoKHR.SUBIMAGE, XrSwapchainSubImage.SIZEOF); }
     /** Unsafe version of {@link #minDepth(float) minDepth}. */
-    public static void nminDepth(long struct, float value) { UNSAFE.putFloat(null, struct + XrCompositionLayerDepthInfoKHR.MINDEPTH, value); }
+    public static void nminDepth(long struct, float value) { memPutFloat(struct + XrCompositionLayerDepthInfoKHR.MINDEPTH, value); }
     /** Unsafe version of {@link #maxDepth(float) maxDepth}. */
-    public static void nmaxDepth(long struct, float value) { UNSAFE.putFloat(null, struct + XrCompositionLayerDepthInfoKHR.MAXDEPTH, value); }
+    public static void nmaxDepth(long struct, float value) { memPutFloat(struct + XrCompositionLayerDepthInfoKHR.MAXDEPTH, value); }
     /** Unsafe version of {@link #nearZ(float) nearZ}. */
-    public static void nnearZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrCompositionLayerDepthInfoKHR.NEARZ, value); }
+    public static void nnearZ(long struct, float value) { memPutFloat(struct + XrCompositionLayerDepthInfoKHR.NEARZ, value); }
     /** Unsafe version of {@link #farZ(float) farZ}. */
-    public static void nfarZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrCompositionLayerDepthInfoKHR.FARZ, value); }
+    public static void nfarZ(long struct, float value) { memPutFloat(struct + XrCompositionLayerDepthInfoKHR.FARZ, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -379,6 +377,11 @@ public class XrCompositionLayerDepthInfoKHR extends Struct<XrCompositionLayerDep
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

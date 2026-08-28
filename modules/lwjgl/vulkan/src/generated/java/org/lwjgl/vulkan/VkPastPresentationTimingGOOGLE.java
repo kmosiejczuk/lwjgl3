@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -136,8 +136,7 @@ public class VkPastPresentationTimingGOOGLE extends Struct<VkPastPresentationTim
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPastPresentationTimingGOOGLE createSafe(long address) {
+    public static @Nullable VkPastPresentationTimingGOOGLE createSafe(long address) {
         return address == NULL ? null : new VkPastPresentationTimingGOOGLE(address, null);
     }
 
@@ -180,8 +179,7 @@ public class VkPastPresentationTimingGOOGLE extends Struct<VkPastPresentationTim
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPastPresentationTimingGOOGLE.Buffer createSafe(long address, int capacity) {
+    public static VkPastPresentationTimingGOOGLE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,15 +243,15 @@ public class VkPastPresentationTimingGOOGLE extends Struct<VkPastPresentationTim
     // -----------------------------------
 
     /** Unsafe version of {@link #presentID}. */
-    public static int npresentID(long struct) { return UNSAFE.getInt(null, struct + VkPastPresentationTimingGOOGLE.PRESENTID); }
+    public static int npresentID(long struct) { return memGetInt(struct + VkPastPresentationTimingGOOGLE.PRESENTID); }
     /** Unsafe version of {@link #desiredPresentTime}. */
-    public static long ndesiredPresentTime(long struct) { return UNSAFE.getLong(null, struct + VkPastPresentationTimingGOOGLE.DESIREDPRESENTTIME); }
+    public static long ndesiredPresentTime(long struct) { return memGetLong(struct + VkPastPresentationTimingGOOGLE.DESIREDPRESENTTIME); }
     /** Unsafe version of {@link #actualPresentTime}. */
-    public static long nactualPresentTime(long struct) { return UNSAFE.getLong(null, struct + VkPastPresentationTimingGOOGLE.ACTUALPRESENTTIME); }
+    public static long nactualPresentTime(long struct) { return memGetLong(struct + VkPastPresentationTimingGOOGLE.ACTUALPRESENTTIME); }
     /** Unsafe version of {@link #earliestPresentTime}. */
-    public static long nearliestPresentTime(long struct) { return UNSAFE.getLong(null, struct + VkPastPresentationTimingGOOGLE.EARLIESTPRESENTTIME); }
+    public static long nearliestPresentTime(long struct) { return memGetLong(struct + VkPastPresentationTimingGOOGLE.EARLIESTPRESENTTIME); }
     /** Unsafe version of {@link #presentMargin}. */
-    public static long npresentMargin(long struct) { return UNSAFE.getLong(null, struct + VkPastPresentationTimingGOOGLE.PRESENTMARGIN); }
+    public static long npresentMargin(long struct) { return memGetLong(struct + VkPastPresentationTimingGOOGLE.PRESENTMARGIN); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class VkPastPresentationTimingGOOGLE extends Struct<VkPastPresentationTim
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

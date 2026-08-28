@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,8 +135,7 @@ public class VkShaderStatisticsInfoAMD extends Struct<VkShaderStatisticsInfoAMD>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderStatisticsInfoAMD createSafe(long address) {
+    public static @Nullable VkShaderStatisticsInfoAMD createSafe(long address) {
         return address == NULL ? null : new VkShaderStatisticsInfoAMD(address, null);
     }
 
@@ -151,30 +150,29 @@ public class VkShaderStatisticsInfoAMD extends Struct<VkShaderStatisticsInfoAMD>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderStatisticsInfoAMD.Buffer createSafe(long address, int capacity) {
+    public static VkShaderStatisticsInfoAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #shaderStageMask}. */
-    public static int nshaderStageMask(long struct) { return UNSAFE.getInt(null, struct + VkShaderStatisticsInfoAMD.SHADERSTAGEMASK); }
+    public static int nshaderStageMask(long struct) { return memGetInt(struct + VkShaderStatisticsInfoAMD.SHADERSTAGEMASK); }
     /** Unsafe version of {@link #resourceUsage}. */
     public static VkShaderResourceUsageAMD nresourceUsage(long struct) { return VkShaderResourceUsageAMD.create(struct + VkShaderStatisticsInfoAMD.RESOURCEUSAGE); }
     /** Unsafe version of {@link #numPhysicalVgprs}. */
-    public static int nnumPhysicalVgprs(long struct) { return UNSAFE.getInt(null, struct + VkShaderStatisticsInfoAMD.NUMPHYSICALVGPRS); }
+    public static int nnumPhysicalVgprs(long struct) { return memGetInt(struct + VkShaderStatisticsInfoAMD.NUMPHYSICALVGPRS); }
     /** Unsafe version of {@link #numPhysicalSgprs}. */
-    public static int nnumPhysicalSgprs(long struct) { return UNSAFE.getInt(null, struct + VkShaderStatisticsInfoAMD.NUMPHYSICALSGPRS); }
+    public static int nnumPhysicalSgprs(long struct) { return memGetInt(struct + VkShaderStatisticsInfoAMD.NUMPHYSICALSGPRS); }
     /** Unsafe version of {@link #numAvailableVgprs}. */
-    public static int nnumAvailableVgprs(long struct) { return UNSAFE.getInt(null, struct + VkShaderStatisticsInfoAMD.NUMAVAILABLEVGPRS); }
+    public static int nnumAvailableVgprs(long struct) { return memGetInt(struct + VkShaderStatisticsInfoAMD.NUMAVAILABLEVGPRS); }
     /** Unsafe version of {@link #numAvailableSgprs}. */
-    public static int nnumAvailableSgprs(long struct) { return UNSAFE.getInt(null, struct + VkShaderStatisticsInfoAMD.NUMAVAILABLESGPRS); }
+    public static int nnumAvailableSgprs(long struct) { return memGetInt(struct + VkShaderStatisticsInfoAMD.NUMAVAILABLESGPRS); }
     /** Unsafe version of {@link #computeWorkGroupSize}. */
     public static IntBuffer ncomputeWorkGroupSize(long struct) { return memIntBuffer(struct + VkShaderStatisticsInfoAMD.COMPUTEWORKGROUPSIZE, 3); }
     /** Unsafe version of {@link #computeWorkGroupSize(int) computeWorkGroupSize}. */
     public static int ncomputeWorkGroupSize(long struct, int index) {
-        return UNSAFE.getInt(null, struct + VkShaderStatisticsInfoAMD.COMPUTEWORKGROUPSIZE + check(index, 3) * 4);
+        return memGetInt(struct + VkShaderStatisticsInfoAMD.COMPUTEWORKGROUPSIZE + check(index, 3) * 4);
     }
 
     // -----------------------------------
@@ -208,6 +206,11 @@ public class VkShaderStatisticsInfoAMD extends Struct<VkShaderStatisticsInfoAMD>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

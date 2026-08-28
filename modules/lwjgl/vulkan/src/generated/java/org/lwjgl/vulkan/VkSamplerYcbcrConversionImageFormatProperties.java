@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -148,8 +148,7 @@ public class VkSamplerYcbcrConversionImageFormatProperties extends Struct<VkSamp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerYcbcrConversionImageFormatProperties createSafe(long address) {
+    public static @Nullable VkSamplerYcbcrConversionImageFormatProperties createSafe(long address) {
         return address == NULL ? null : new VkSamplerYcbcrConversionImageFormatProperties(address, null);
     }
 
@@ -192,8 +191,7 @@ public class VkSamplerYcbcrConversionImageFormatProperties extends Struct<VkSamp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerYcbcrConversionImageFormatProperties.Buffer createSafe(long address, int capacity) {
+    public static VkSamplerYcbcrConversionImageFormatProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,14 +255,14 @@ public class VkSamplerYcbcrConversionImageFormatProperties extends Struct<VkSamp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSamplerYcbcrConversionImageFormatProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSamplerYcbcrConversionImageFormatProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSamplerYcbcrConversionImageFormatProperties.PNEXT); }
     /** Unsafe version of {@link #combinedImageSamplerDescriptorCount}. */
-    public static int ncombinedImageSamplerDescriptorCount(long struct) { return UNSAFE.getInt(null, struct + VkSamplerYcbcrConversionImageFormatProperties.COMBINEDIMAGESAMPLERDESCRIPTORCOUNT); }
+    public static int ncombinedImageSamplerDescriptorCount(long struct) { return memGetInt(struct + VkSamplerYcbcrConversionImageFormatProperties.COMBINEDIMAGESAMPLERDESCRIPTORCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerYcbcrConversionImageFormatProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSamplerYcbcrConversionImageFormatProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSamplerYcbcrConversionImageFormatProperties.PNEXT, value); }
 
@@ -299,6 +297,11 @@ public class VkSamplerYcbcrConversionImageFormatProperties extends Struct<VkSamp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

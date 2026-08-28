@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -126,9 +126,8 @@ public class XrVirtualKeyboardTextureDataMETA extends Struct<XrVirtualKeyboardTe
     @NativeType("uint32_t")
     public int bufferCountOutput() { return nbufferCountOutput(address()); }
     /** the pixel data in linear color space, RGBA 8-bit unsigned normalized integer format (i.e. GL_RGBA8 in OpenGL, VK_FORMAT_R8G8B8A8_UNORM in Vulkan). */
-    @Nullable
     @NativeType("uint8_t *")
-    public ByteBuffer buffer() { return nbuffer(address()); }
+    public @Nullable ByteBuffer buffer() { return nbuffer(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
     public XrVirtualKeyboardTextureDataMETA type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
@@ -204,8 +203,7 @@ public class XrVirtualKeyboardTextureDataMETA extends Struct<XrVirtualKeyboardTe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardTextureDataMETA createSafe(long address) {
+    public static @Nullable XrVirtualKeyboardTextureDataMETA createSafe(long address) {
         return address == NULL ? null : new XrVirtualKeyboardTextureDataMETA(address, null);
     }
 
@@ -248,8 +246,7 @@ public class XrVirtualKeyboardTextureDataMETA extends Struct<XrVirtualKeyboardTe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardTextureDataMETA.Buffer createSafe(long address, int capacity) {
+    public static XrVirtualKeyboardTextureDataMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,32 +291,32 @@ public class XrVirtualKeyboardTextureDataMETA extends Struct<XrVirtualKeyboardTe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardTextureDataMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVirtualKeyboardTextureDataMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVirtualKeyboardTextureDataMETA.NEXT); }
     /** Unsafe version of {@link #textureWidth}. */
-    public static int ntextureWidth(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardTextureDataMETA.TEXTUREWIDTH); }
+    public static int ntextureWidth(long struct) { return memGetInt(struct + XrVirtualKeyboardTextureDataMETA.TEXTUREWIDTH); }
     /** Unsafe version of {@link #textureHeight}. */
-    public static int ntextureHeight(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardTextureDataMETA.TEXTUREHEIGHT); }
+    public static int ntextureHeight(long struct) { return memGetInt(struct + XrVirtualKeyboardTextureDataMETA.TEXTUREHEIGHT); }
     /** Unsafe version of {@link #bufferCapacityInput}. */
-    public static int nbufferCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardTextureDataMETA.BUFFERCAPACITYINPUT); }
+    public static int nbufferCapacityInput(long struct) { return memGetInt(struct + XrVirtualKeyboardTextureDataMETA.BUFFERCAPACITYINPUT); }
     /** Unsafe version of {@link #bufferCountOutput}. */
-    public static int nbufferCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardTextureDataMETA.BUFFERCOUNTOUTPUT); }
+    public static int nbufferCountOutput(long struct) { return memGetInt(struct + XrVirtualKeyboardTextureDataMETA.BUFFERCOUNTOUTPUT); }
     /** Unsafe version of {@link #buffer() buffer}. */
-    @Nullable public static ByteBuffer nbuffer(long struct) { return memByteBufferSafe(memGetAddress(struct + XrVirtualKeyboardTextureDataMETA.BUFFER), nbufferCapacityInput(struct)); }
+    public static @Nullable ByteBuffer nbuffer(long struct) { return memByteBufferSafe(memGetAddress(struct + XrVirtualKeyboardTextureDataMETA.BUFFER), nbufferCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardTextureDataMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVirtualKeyboardTextureDataMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVirtualKeyboardTextureDataMETA.NEXT, value); }
     /** Unsafe version of {@link #textureWidth(int) textureWidth}. */
-    public static void ntextureWidth(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardTextureDataMETA.TEXTUREWIDTH, value); }
+    public static void ntextureWidth(long struct, int value) { memPutInt(struct + XrVirtualKeyboardTextureDataMETA.TEXTUREWIDTH, value); }
     /** Unsafe version of {@link #textureHeight(int) textureHeight}. */
-    public static void ntextureHeight(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardTextureDataMETA.TEXTUREHEIGHT, value); }
+    public static void ntextureHeight(long struct, int value) { memPutInt(struct + XrVirtualKeyboardTextureDataMETA.TEXTUREHEIGHT, value); }
     /** Sets the specified value to the {@code bufferCapacityInput} field of the specified {@code struct}. */
-    public static void nbufferCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardTextureDataMETA.BUFFERCAPACITYINPUT, value); }
+    public static void nbufferCapacityInput(long struct, int value) { memPutInt(struct + XrVirtualKeyboardTextureDataMETA.BUFFERCAPACITYINPUT, value); }
     /** Unsafe version of {@link #bufferCountOutput(int) bufferCountOutput}. */
-    public static void nbufferCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardTextureDataMETA.BUFFERCOUNTOUTPUT, value); }
+    public static void nbufferCountOutput(long struct, int value) { memPutInt(struct + XrVirtualKeyboardTextureDataMETA.BUFFERCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #buffer(ByteBuffer) buffer}. */
     public static void nbuffer(long struct, @Nullable ByteBuffer value) { memPutAddress(struct + XrVirtualKeyboardTextureDataMETA.BUFFER, memAddressSafe(value)); if (value != null) { nbufferCapacityInput(struct, value.remaining()); } }
 
@@ -357,6 +354,11 @@ public class XrVirtualKeyboardTextureDataMETA extends Struct<XrVirtualKeyboardTe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVirtualKeyboardTextureDataMETA getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -380,9 +382,8 @@ public class XrVirtualKeyboardTextureDataMETA extends Struct<XrVirtualKeyboardTe
         @NativeType("uint32_t")
         public int bufferCountOutput() { return XrVirtualKeyboardTextureDataMETA.nbufferCountOutput(address()); }
         /** @return a {@link ByteBuffer} view of the data pointed to by the {@link XrVirtualKeyboardTextureDataMETA#buffer} field. */
-        @Nullable
         @NativeType("uint8_t *")
-        public ByteBuffer buffer() { return XrVirtualKeyboardTextureDataMETA.nbuffer(address()); }
+        public @Nullable ByteBuffer buffer() { return XrVirtualKeyboardTextureDataMETA.nbuffer(address()); }
 
         /** Sets the specified value to the {@link XrVirtualKeyboardTextureDataMETA#type} field. */
         public XrVirtualKeyboardTextureDataMETA.Buffer type(@NativeType("XrStructureType") int value) { XrVirtualKeyboardTextureDataMETA.ntype(address(), value); return this; }

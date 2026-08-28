@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -175,8 +175,7 @@ public class XGenericEvent extends Struct<XGenericEvent> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XGenericEvent createSafe(long address) {
+    public static @Nullable XGenericEvent createSafe(long address) {
         return address == NULL ? null : new XGenericEvent(address, null);
     }
 
@@ -219,8 +218,7 @@ public class XGenericEvent extends Struct<XGenericEvent> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XGenericEvent.Buffer createSafe(long address, int capacity) {
+    public static XGenericEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,30 +282,30 @@ public class XGenericEvent extends Struct<XGenericEvent> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XGenericEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XGenericEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XGenericEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XGenericEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XGenericEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XGenericEvent.DISPLAY); }
     /** Unsafe version of {@link #extension}. */
-    public static int nextension(long struct) { return UNSAFE.getInt(null, struct + XGenericEvent.EXTENSION); }
+    public static int nextension(long struct) { return memGetInt(struct + XGenericEvent.EXTENSION); }
     /** Unsafe version of {@link #evtype}. */
-    public static int nevtype(long struct) { return UNSAFE.getInt(null, struct + XGenericEvent.EVTYPE); }
+    public static int nevtype(long struct) { return memGetInt(struct + XGenericEvent.EVTYPE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XGenericEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XGenericEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XGenericEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XGenericEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XGenericEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XGenericEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #extension(int) extension}. */
-    public static void nextension(long struct, int value) { UNSAFE.putInt(null, struct + XGenericEvent.EXTENSION, value); }
+    public static void nextension(long struct, int value) { memPutInt(struct + XGenericEvent.EXTENSION, value); }
     /** Unsafe version of {@link #evtype(int) evtype}. */
-    public static void nevtype(long struct, int value) { UNSAFE.putInt(null, struct + XGenericEvent.EVTYPE, value); }
+    public static void nevtype(long struct, int value) { memPutInt(struct + XGenericEvent.EVTYPE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -349,6 +347,11 @@ public class XGenericEvent extends Struct<XGenericEvent> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

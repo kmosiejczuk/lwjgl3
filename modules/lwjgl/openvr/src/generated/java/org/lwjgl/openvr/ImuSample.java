@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -99,8 +99,7 @@ public class ImuSample extends Struct<ImuSample> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ImuSample createSafe(long address) {
+    public static @Nullable ImuSample createSafe(long address) {
         return address == NULL ? null : new ImuSample(address, null);
     }
 
@@ -115,21 +114,20 @@ public class ImuSample extends Struct<ImuSample> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ImuSample.Buffer createSafe(long address, int capacity) {
+    public static ImuSample.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #fSampleTime}. */
-    public static double nfSampleTime(long struct) { return UNSAFE.getDouble(null, struct + ImuSample.FSAMPLETIME); }
+    public static double nfSampleTime(long struct) { return memGetDouble(struct + ImuSample.FSAMPLETIME); }
     /** Unsafe version of {@link #vAccel}. */
     public static HmdVector3d nvAccel(long struct) { return HmdVector3d.create(struct + ImuSample.VACCEL); }
     /** Unsafe version of {@link #vGyro}. */
     public static HmdVector3d nvGyro(long struct) { return HmdVector3d.create(struct + ImuSample.VGYRO); }
     /** Unsafe version of {@link #unOffScaleFlags}. */
-    public static int nunOffScaleFlags(long struct) { return UNSAFE.getInt(null, struct + ImuSample.UNOFFSCALEFLAGS); }
+    public static int nunOffScaleFlags(long struct) { return memGetInt(struct + ImuSample.UNOFFSCALEFLAGS); }
 
     // -----------------------------------
 
@@ -162,6 +160,11 @@ public class ImuSample extends Struct<ImuSample> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

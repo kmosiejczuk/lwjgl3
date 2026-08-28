@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If {@code optimal} is {@link VK10#VK_FALSE FALSE} for a {@code VkFormat}, using a subpass resolve operation on a multisampled attachment with this format can incur additional costs, including additional memory bandwidth usage and a higher memory footprint. If an attachment with such a format is used in a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#subpass-multisampledrendertosinglesampled">multisampled-render-to-single-sampled</a> subpass, the additional memory and memory bandwidth usage can nullify the benefits of using the {@link EXTMultisampledRenderToSingleSampled VK_EXT_multisampled_render_to_single_sampled} extension.</p>
+ * <p>If {@code optimal} is {@link VK10#VK_FALSE FALSE} for a {@code VkFormat}, using a subpass resolve operation on a multisampled attachment with this format can incur additional costs, including additional memory bandwidth usage and a higher memory footprint. If an attachment with such a format is used in a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#subpass-multisampledrendertosinglesampled">multisampled-render-to-single-sampled</a> subpass, the additional memory and memory bandwidth usage can nullify the benefits of using the {@link EXTMultisampledRenderToSingleSampled VK_EXT_multisampled_render_to_single_sampled} extension.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -152,8 +152,7 @@ public class VkSubpassResolvePerformanceQueryEXT extends Struct<VkSubpassResolve
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassResolvePerformanceQueryEXT createSafe(long address) {
+    public static @Nullable VkSubpassResolvePerformanceQueryEXT createSafe(long address) {
         return address == NULL ? null : new VkSubpassResolvePerformanceQueryEXT(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkSubpassResolvePerformanceQueryEXT extends Struct<VkSubpassResolve
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassResolvePerformanceQueryEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSubpassResolvePerformanceQueryEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkSubpassResolvePerformanceQueryEXT extends Struct<VkSubpassResolve
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSubpassResolvePerformanceQueryEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSubpassResolvePerformanceQueryEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSubpassResolvePerformanceQueryEXT.PNEXT); }
     /** Unsafe version of {@link #optimal}. */
-    public static int noptimal(long struct) { return UNSAFE.getInt(null, struct + VkSubpassResolvePerformanceQueryEXT.OPTIMAL); }
+    public static int noptimal(long struct) { return memGetInt(struct + VkSubpassResolvePerformanceQueryEXT.OPTIMAL); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassResolvePerformanceQueryEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSubpassResolvePerformanceQueryEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSubpassResolvePerformanceQueryEXT.PNEXT, value); }
 
@@ -284,6 +282,11 @@ public class VkSubpassResolvePerformanceQueryEXT extends Struct<VkSubpassResolve
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

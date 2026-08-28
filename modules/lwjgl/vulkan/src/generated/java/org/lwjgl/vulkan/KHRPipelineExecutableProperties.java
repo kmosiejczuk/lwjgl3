@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -28,10 +28,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Special Use</b></dt>
  * <dd><ul>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
@@ -169,7 +169,7 @@ public class KHRPipelineExecutableProperties {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> feature <b>must</b> be enabled</li>
      * <li>The {@code pipeline} member of {@code pPipelineInfo} <b>must</b> have been created with {@code device}</li>
      * </ul>
      * 
@@ -207,7 +207,7 @@ public class KHRPipelineExecutableProperties {
      * @param pProperties      either {@code NULL} or a pointer to an array of {@link VkPipelineExecutablePropertiesKHR} structures.
      */
     @NativeType("VkResult")
-    public static int vkGetPipelineExecutablePropertiesKHR(VkDevice device, @NativeType("VkPipelineInfoKHR const *") VkPipelineInfoKHR pPipelineInfo, @NativeType("uint32_t *") IntBuffer pExecutableCount, @Nullable @NativeType("VkPipelineExecutablePropertiesKHR *") VkPipelineExecutablePropertiesKHR.Buffer pProperties) {
+    public static int vkGetPipelineExecutablePropertiesKHR(VkDevice device, @NativeType("VkPipelineInfoKHR const *") VkPipelineInfoKHR pPipelineInfo, @NativeType("uint32_t *") IntBuffer pExecutableCount, @NativeType("VkPipelineExecutablePropertiesKHR *") VkPipelineExecutablePropertiesKHR.@Nullable Buffer pProperties) {
         if (CHECKS) {
             check(pExecutableCount, 1);
             checkSafe(pProperties, pExecutableCount.get(pExecutableCount.position()));
@@ -251,7 +251,7 @@ public class KHRPipelineExecutableProperties {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> feature <b>must</b> be enabled</li>
      * <li>The {@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with {@code device}</li>
      * <li>The {@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with {@link #VK_PIPELINE_CREATE_CAPTURE_STATISTICS_BIT_KHR PIPELINE_CREATE_CAPTURE_STATISTICS_BIT_KHR}</li>
      * </ul>
@@ -290,7 +290,7 @@ public class KHRPipelineExecutableProperties {
      * @param pStatistics     either {@code NULL} or a pointer to an array of {@link VkPipelineExecutableStatisticKHR} structures.
      */
     @NativeType("VkResult")
-    public static int vkGetPipelineExecutableStatisticsKHR(VkDevice device, @NativeType("VkPipelineExecutableInfoKHR const *") VkPipelineExecutableInfoKHR pExecutableInfo, @NativeType("uint32_t *") IntBuffer pStatisticCount, @Nullable @NativeType("VkPipelineExecutableStatisticKHR *") VkPipelineExecutableStatisticKHR.Buffer pStatistics) {
+    public static int vkGetPipelineExecutableStatisticsKHR(VkDevice device, @NativeType("VkPipelineExecutableInfoKHR const *") VkPipelineExecutableInfoKHR pExecutableInfo, @NativeType("uint32_t *") IntBuffer pStatisticCount, @NativeType("VkPipelineExecutableStatisticKHR *") VkPipelineExecutableStatisticKHR.@Nullable Buffer pStatistics) {
         if (CHECKS) {
             check(pStatisticCount, 1);
             checkSafe(pStatistics, pStatisticCount.get(pStatisticCount.position()));
@@ -336,7 +336,7 @@ public class KHRPipelineExecutableProperties {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> feature <b>must</b> be enabled</li>
      * <li>The {@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with {@code device}</li>
      * <li>The {@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with {@link #VK_PIPELINE_CREATE_CAPTURE_INTERNAL_REPRESENTATIONS_BIT_KHR PIPELINE_CREATE_CAPTURE_INTERNAL_REPRESENTATIONS_BIT_KHR}</li>
      * </ul>
@@ -375,7 +375,7 @@ public class KHRPipelineExecutableProperties {
      * @param pInternalRepresentations     either {@code NULL} or a pointer to an array of {@link VkPipelineExecutableInternalRepresentationKHR} structures.
      */
     @NativeType("VkResult")
-    public static int vkGetPipelineExecutableInternalRepresentationsKHR(VkDevice device, @NativeType("VkPipelineExecutableInfoKHR const *") VkPipelineExecutableInfoKHR pExecutableInfo, @NativeType("uint32_t *") IntBuffer pInternalRepresentationCount, @Nullable @NativeType("VkPipelineExecutableInternalRepresentationKHR *") VkPipelineExecutableInternalRepresentationKHR.Buffer pInternalRepresentations) {
+    public static int vkGetPipelineExecutableInternalRepresentationsKHR(VkDevice device, @NativeType("VkPipelineExecutableInfoKHR const *") VkPipelineExecutableInfoKHR pExecutableInfo, @NativeType("uint32_t *") IntBuffer pInternalRepresentationCount, @NativeType("VkPipelineExecutableInternalRepresentationKHR *") VkPipelineExecutableInternalRepresentationKHR.@Nullable Buffer pInternalRepresentations) {
         if (CHECKS) {
             check(pInternalRepresentationCount, 1);
             checkSafe(pInternalRepresentations, pInternalRepresentationCount.get(pInternalRepresentationCount.position()));
@@ -385,7 +385,7 @@ public class KHRPipelineExecutableProperties {
 
     /** Array version of: {@link #vkGetPipelineExecutablePropertiesKHR GetPipelineExecutablePropertiesKHR} */
     @NativeType("VkResult")
-    public static int vkGetPipelineExecutablePropertiesKHR(VkDevice device, @NativeType("VkPipelineInfoKHR const *") VkPipelineInfoKHR pPipelineInfo, @NativeType("uint32_t *") int[] pExecutableCount, @Nullable @NativeType("VkPipelineExecutablePropertiesKHR *") VkPipelineExecutablePropertiesKHR.Buffer pProperties) {
+    public static int vkGetPipelineExecutablePropertiesKHR(VkDevice device, @NativeType("VkPipelineInfoKHR const *") VkPipelineInfoKHR pPipelineInfo, @NativeType("uint32_t *") int[] pExecutableCount, @NativeType("VkPipelineExecutablePropertiesKHR *") VkPipelineExecutablePropertiesKHR.@Nullable Buffer pProperties) {
         long __functionAddress = device.getCapabilities().vkGetPipelineExecutablePropertiesKHR;
         if (CHECKS) {
             check(__functionAddress);
@@ -397,7 +397,7 @@ public class KHRPipelineExecutableProperties {
 
     /** Array version of: {@link #vkGetPipelineExecutableStatisticsKHR GetPipelineExecutableStatisticsKHR} */
     @NativeType("VkResult")
-    public static int vkGetPipelineExecutableStatisticsKHR(VkDevice device, @NativeType("VkPipelineExecutableInfoKHR const *") VkPipelineExecutableInfoKHR pExecutableInfo, @NativeType("uint32_t *") int[] pStatisticCount, @Nullable @NativeType("VkPipelineExecutableStatisticKHR *") VkPipelineExecutableStatisticKHR.Buffer pStatistics) {
+    public static int vkGetPipelineExecutableStatisticsKHR(VkDevice device, @NativeType("VkPipelineExecutableInfoKHR const *") VkPipelineExecutableInfoKHR pExecutableInfo, @NativeType("uint32_t *") int[] pStatisticCount, @NativeType("VkPipelineExecutableStatisticKHR *") VkPipelineExecutableStatisticKHR.@Nullable Buffer pStatistics) {
         long __functionAddress = device.getCapabilities().vkGetPipelineExecutableStatisticsKHR;
         if (CHECKS) {
             check(__functionAddress);
@@ -409,7 +409,7 @@ public class KHRPipelineExecutableProperties {
 
     /** Array version of: {@link #vkGetPipelineExecutableInternalRepresentationsKHR GetPipelineExecutableInternalRepresentationsKHR} */
     @NativeType("VkResult")
-    public static int vkGetPipelineExecutableInternalRepresentationsKHR(VkDevice device, @NativeType("VkPipelineExecutableInfoKHR const *") VkPipelineExecutableInfoKHR pExecutableInfo, @NativeType("uint32_t *") int[] pInternalRepresentationCount, @Nullable @NativeType("VkPipelineExecutableInternalRepresentationKHR *") VkPipelineExecutableInternalRepresentationKHR.Buffer pInternalRepresentations) {
+    public static int vkGetPipelineExecutableInternalRepresentationsKHR(VkDevice device, @NativeType("VkPipelineExecutableInfoKHR const *") VkPipelineExecutableInfoKHR pExecutableInfo, @NativeType("uint32_t *") int[] pInternalRepresentationCount, @NativeType("VkPipelineExecutableInternalRepresentationKHR *") VkPipelineExecutableInternalRepresentationKHR.@Nullable Buffer pInternalRepresentations) {
         long __functionAddress = device.getCapabilities().vkGetPipelineExecutableInternalRepresentationsKHR;
         if (CHECKS) {
             check(__functionAddress);

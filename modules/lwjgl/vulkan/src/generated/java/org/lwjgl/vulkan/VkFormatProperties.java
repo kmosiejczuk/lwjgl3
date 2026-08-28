@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -127,8 +127,7 @@ public class VkFormatProperties extends Struct<VkFormatProperties> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFormatProperties createSafe(long address) {
+    public static @Nullable VkFormatProperties createSafe(long address) {
         return address == NULL ? null : new VkFormatProperties(address, null);
     }
 
@@ -171,8 +170,7 @@ public class VkFormatProperties extends Struct<VkFormatProperties> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFormatProperties.Buffer createSafe(long address, int capacity) {
+    public static VkFormatProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -236,11 +234,11 @@ public class VkFormatProperties extends Struct<VkFormatProperties> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #linearTilingFeatures}. */
-    public static int nlinearTilingFeatures(long struct) { return UNSAFE.getInt(null, struct + VkFormatProperties.LINEARTILINGFEATURES); }
+    public static int nlinearTilingFeatures(long struct) { return memGetInt(struct + VkFormatProperties.LINEARTILINGFEATURES); }
     /** Unsafe version of {@link #optimalTilingFeatures}. */
-    public static int noptimalTilingFeatures(long struct) { return UNSAFE.getInt(null, struct + VkFormatProperties.OPTIMALTILINGFEATURES); }
+    public static int noptimalTilingFeatures(long struct) { return memGetInt(struct + VkFormatProperties.OPTIMALTILINGFEATURES); }
     /** Unsafe version of {@link #bufferFeatures}. */
-    public static int nbufferFeatures(long struct) { return UNSAFE.getInt(null, struct + VkFormatProperties.BUFFERFEATURES); }
+    public static int nbufferFeatures(long struct) { return memGetInt(struct + VkFormatProperties.BUFFERFEATURES); }
 
     // -----------------------------------
 
@@ -273,6 +271,11 @@ public class VkFormatProperties extends Struct<VkFormatProperties> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

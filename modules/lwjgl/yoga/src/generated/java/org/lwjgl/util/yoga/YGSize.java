@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.yoga;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -129,8 +129,7 @@ public class YGSize extends Struct<YGSize> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static YGSize createSafe(long address) {
+    public static @Nullable YGSize createSafe(long address) {
         return address == NULL ? null : new YGSize(address, null);
     }
 
@@ -173,8 +172,7 @@ public class YGSize extends Struct<YGSize> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static YGSize.Buffer createSafe(long address, int capacity) {
+    public static YGSize.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -238,14 +236,14 @@ public class YGSize extends Struct<YGSize> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + YGSize.WIDTH); }
+    public static float nwidth(long struct) { return memGetFloat(struct + YGSize.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + YGSize.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + YGSize.HEIGHT); }
 
     /** Unsafe version of {@link #width(float) width}. */
-    public static void nwidth(long struct, float value) { UNSAFE.putFloat(null, struct + YGSize.WIDTH, value); }
+    public static void nwidth(long struct, float value) { memPutFloat(struct + YGSize.WIDTH, value); }
     /** Unsafe version of {@link #height(float) height}. */
-    public static void nheight(long struct, float value) { UNSAFE.putFloat(null, struct + YGSize.HEIGHT, value); }
+    public static void nheight(long struct, float value) { memPutFloat(struct + YGSize.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -278,6 +276,11 @@ public class YGSize extends Struct<YGSize> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.rpmalloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RPmallocThreadStatistics createSafe(long address) {
+    public static @Nullable RPmallocThreadStatistics createSafe(long address) {
         return address == NULL ? null : new RPmallocThreadStatistics(address, null);
     }
 
@@ -202,8 +201,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RPmallocThreadStatistics.Buffer createSafe(long address, int capacity) {
+    public static RPmallocThreadStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -318,6 +316,11 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -474,8 +477,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
         }
     
         /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-        @Nullable
-        public static span_use createSafe(long address) {
+        public static @Nullable span_use createSafe(long address) {
             return address == NULL ? null : new span_use(address, null);
         }
     
@@ -490,8 +492,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
         }
     
         /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-        @Nullable
-        public static span_use.Buffer createSafe(long address, int capacity) {
+        public static span_use.@Nullable Buffer createSafe(long address, int capacity) {
             return address == NULL ? null : new Buffer(address, capacity);
         }
     
@@ -547,6 +548,11 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
             @Override
             protected Buffer self() {
                 return this;
+            }
+    
+            @Override
+            protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+                return new Buffer(address, container, mark, position, limit, capacity);
             }
     
             @Override
@@ -701,8 +707,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
         }
     
         /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-        @Nullable
-        public static size_use createSafe(long address) {
+        public static @Nullable size_use createSafe(long address) {
             return address == NULL ? null : new size_use(address, null);
         }
     
@@ -717,8 +722,7 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
         }
     
         /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-        @Nullable
-        public static size_use.Buffer createSafe(long address, int capacity) {
+        public static size_use.@Nullable Buffer createSafe(long address, int capacity) {
             return address == NULL ? null : new Buffer(address, capacity);
         }
     
@@ -772,6 +776,11 @@ public class RPmallocThreadStatistics extends Struct<RPmallocThreadStatistics> i
             @Override
             protected Buffer self() {
                 return this;
+            }
+    
+            @Override
+            protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+                return new Buffer(address, container, mark, position, limit, capacity);
             }
     
             @Override

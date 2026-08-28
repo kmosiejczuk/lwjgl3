@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkPhysicalDeviceMaintenance4Properties extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance4Properties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMaintenance4Properties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMaintenance4Properties(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkPhysicalDeviceMaintenance4Properties extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance4Properties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMaintenance4Properties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkPhysicalDeviceMaintenance4Properties extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance4Properties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance4Properties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMaintenance4Properties.PNEXT); }
     /** Unsafe version of {@link #maxBufferSize}. */
-    public static long nmaxBufferSize(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceMaintenance4Properties.MAXBUFFERSIZE); }
+    public static long nmaxBufferSize(long struct) { return memGetLong(struct + VkPhysicalDeviceMaintenance4Properties.MAXBUFFERSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMaintenance4Properties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMaintenance4Properties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMaintenance4Properties.PNEXT, value); }
 
@@ -284,6 +282,11 @@ public class VkPhysicalDeviceMaintenance4Properties extends Struct<VkPhysicalDev
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

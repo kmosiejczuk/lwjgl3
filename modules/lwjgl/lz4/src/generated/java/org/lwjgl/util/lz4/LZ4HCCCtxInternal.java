@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.lz4;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,7 +150,7 @@ public class LZ4HCCCtxInternal extends Struct<LZ4HCCCtxInternal> {
     /** below that point, need {@code extDict} */
     @NativeType("LZ4_u32")
     public int dictLimit() { return ndictLimit(address()); }
-    /** below that point, no more {@code dict} */
+    /** below that point, no more history */
     @NativeType("LZ4_u32")
     public int lowLimit() { return nlowLimit(address()); }
     /** index from which to continue dictionary update */
@@ -176,8 +176,7 @@ public class LZ4HCCCtxInternal extends Struct<LZ4HCCCtxInternal> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4HCCCtxInternal createSafe(long address) {
+    public static @Nullable LZ4HCCCtxInternal createSafe(long address) {
         return address == NULL ? null : new LZ4HCCCtxInternal(address, null);
     }
 
@@ -192,8 +191,7 @@ public class LZ4HCCCtxInternal extends Struct<LZ4HCCCtxInternal> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4HCCCtxInternal.Buffer createSafe(long address, int capacity) {
+    public static LZ4HCCCtxInternal.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -203,13 +201,13 @@ public class LZ4HCCCtxInternal extends Struct<LZ4HCCCtxInternal> {
     public static IntBuffer nhashTable(long struct) { return memIntBuffer(struct + LZ4HCCCtxInternal.HASHTABLE, LZ4HC_HASHTABLESIZE); }
     /** Unsafe version of {@link #hashTable(int) hashTable}. */
     public static int nhashTable(long struct, int index) {
-        return UNSAFE.getInt(null, struct + LZ4HCCCtxInternal.HASHTABLE + check(index, LZ4HC_HASHTABLESIZE) * 4);
+        return memGetInt(struct + LZ4HCCCtxInternal.HASHTABLE + check(index, LZ4HC_HASHTABLESIZE) * 4);
     }
     /** Unsafe version of {@link #chainTable}. */
     public static ShortBuffer nchainTable(long struct) { return memShortBuffer(struct + LZ4HCCCtxInternal.CHAINTABLE, LZ4HC_MAXD); }
     /** Unsafe version of {@link #chainTable(int) chainTable}. */
     public static short nchainTable(long struct, int index) {
-        return UNSAFE.getShort(null, struct + LZ4HCCCtxInternal.CHAINTABLE + check(index, LZ4HC_MAXD) * 2);
+        return memGetShort(struct + LZ4HCCCtxInternal.CHAINTABLE + check(index, LZ4HC_MAXD) * 2);
     }
     /** Unsafe version of {@link #end(int) end}. */
     public static ByteBuffer nend(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + LZ4HCCCtxInternal.END), capacity); }
@@ -218,17 +216,17 @@ public class LZ4HCCCtxInternal extends Struct<LZ4HCCCtxInternal> {
     /** Unsafe version of {@link #dictStart(int) dictStart}. */
     public static ByteBuffer ndictStart(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + LZ4HCCCtxInternal.DICTSTART), capacity); }
     /** Unsafe version of {@link #dictLimit}. */
-    public static int ndictLimit(long struct) { return UNSAFE.getInt(null, struct + LZ4HCCCtxInternal.DICTLIMIT); }
+    public static int ndictLimit(long struct) { return memGetInt(struct + LZ4HCCCtxInternal.DICTLIMIT); }
     /** Unsafe version of {@link #lowLimit}. */
-    public static int nlowLimit(long struct) { return UNSAFE.getInt(null, struct + LZ4HCCCtxInternal.LOWLIMIT); }
+    public static int nlowLimit(long struct) { return memGetInt(struct + LZ4HCCCtxInternal.LOWLIMIT); }
     /** Unsafe version of {@link #nextToUpdate}. */
-    public static int nnextToUpdate(long struct) { return UNSAFE.getInt(null, struct + LZ4HCCCtxInternal.NEXTTOUPDATE); }
+    public static int nnextToUpdate(long struct) { return memGetInt(struct + LZ4HCCCtxInternal.NEXTTOUPDATE); }
     /** Unsafe version of {@link #compressionLevel}. */
-    public static short ncompressionLevel(long struct) { return UNSAFE.getShort(null, struct + LZ4HCCCtxInternal.COMPRESSIONLEVEL); }
+    public static short ncompressionLevel(long struct) { return memGetShort(struct + LZ4HCCCtxInternal.COMPRESSIONLEVEL); }
     /** Unsafe version of {@link #favorDecSpeed}. */
-    public static byte nfavorDecSpeed(long struct) { return UNSAFE.getByte(null, struct + LZ4HCCCtxInternal.FAVORDECSPEED); }
+    public static byte nfavorDecSpeed(long struct) { return memGetByte(struct + LZ4HCCCtxInternal.FAVORDECSPEED); }
     /** Unsafe version of {@link #dirty}. */
-    public static byte ndirty(long struct) { return UNSAFE.getByte(null, struct + LZ4HCCCtxInternal.DIRTY); }
+    public static byte ndirty(long struct) { return memGetByte(struct + LZ4HCCCtxInternal.DIRTY); }
     /** Unsafe version of {@link #dictCtx}. */
     public static LZ4HCCCtxInternal ndictCtx(long struct) { return LZ4HCCCtxInternal.create(memGetAddress(struct + LZ4HCCCtxInternal.DICTCTX)); }
 
@@ -263,6 +261,11 @@ public class LZ4HCCCtxInternal extends Struct<LZ4HCCCtxInternal> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

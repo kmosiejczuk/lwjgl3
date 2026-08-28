@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceTilePropertiesFeaturesQCOM extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTilePropertiesFeaturesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceTilePropertiesFeaturesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceTilePropertiesFeaturesQCOM(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceTilePropertiesFeaturesQCOM extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTilePropertiesFeaturesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceTilePropertiesFeaturesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceTilePropertiesFeaturesQCOM extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTilePropertiesFeaturesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceTilePropertiesFeaturesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceTilePropertiesFeaturesQCOM.PNEXT); }
     /** Unsafe version of {@link #tileProperties}. */
-    public static int ntileProperties(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTilePropertiesFeaturesQCOM.TILEPROPERTIES); }
+    public static int ntileProperties(long struct) { return memGetInt(struct + VkPhysicalDeviceTilePropertiesFeaturesQCOM.TILEPROPERTIES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTilePropertiesFeaturesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTilePropertiesFeaturesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceTilePropertiesFeaturesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #tileProperties(boolean) tileProperties}. */
-    public static void ntileProperties(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTilePropertiesFeaturesQCOM.TILEPROPERTIES, value); }
+    public static void ntileProperties(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTilePropertiesFeaturesQCOM.TILEPROPERTIES, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceTilePropertiesFeaturesQCOM extends Struct<VkPhysica
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

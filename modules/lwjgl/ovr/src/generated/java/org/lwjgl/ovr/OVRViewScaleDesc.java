@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class OVRViewScaleDesc extends Struct<OVRViewScaleDesc> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRViewScaleDesc createSafe(long address) {
+    public static @Nullable OVRViewScaleDesc createSafe(long address) {
         return address == NULL ? null : new OVRViewScaleDesc(address, null);
     }
 
@@ -199,8 +198,7 @@ public class OVRViewScaleDesc extends Struct<OVRViewScaleDesc> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRViewScaleDesc.Buffer createSafe(long address, int capacity) {
+    public static OVRViewScaleDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,7 +268,7 @@ public class OVRViewScaleDesc extends Struct<OVRViewScaleDesc> implements Native
         return OVRPosef.create(struct + OVRViewScaleDesc.HMDTOEYEPOSE + check(index, ovrEye_Count) * OVRPosef.SIZEOF);
     }
     /** Unsafe version of {@link #HmdSpaceToWorldScaleInMeters}. */
-    public static float nHmdSpaceToWorldScaleInMeters(long struct) { return UNSAFE.getFloat(null, struct + OVRViewScaleDesc.HMDSPACETOWORLDSCALEINMETERS); }
+    public static float nHmdSpaceToWorldScaleInMeters(long struct) { return memGetFloat(struct + OVRViewScaleDesc.HMDSPACETOWORLDSCALEINMETERS); }
 
     /** Unsafe version of {@link #HmdToEyePose(OVRPosef.Buffer) HmdToEyePose}. */
     public static void nHmdToEyePose(long struct, OVRPosef.Buffer value) {
@@ -282,7 +280,7 @@ public class OVRViewScaleDesc extends Struct<OVRViewScaleDesc> implements Native
         memCopy(value.address(), struct + OVRViewScaleDesc.HMDTOEYEPOSE + check(index, ovrEye_Count) * OVRPosef.SIZEOF, OVRPosef.SIZEOF);
     }
     /** Unsafe version of {@link #HmdSpaceToWorldScaleInMeters(float) HmdSpaceToWorldScaleInMeters}. */
-    public static void nHmdSpaceToWorldScaleInMeters(long struct, float value) { UNSAFE.putFloat(null, struct + OVRViewScaleDesc.HMDSPACETOWORLDSCALEINMETERS, value); }
+    public static void nHmdSpaceToWorldScaleInMeters(long struct, float value) { memPutFloat(struct + OVRViewScaleDesc.HMDSPACETOWORLDSCALEINMETERS, value); }
 
     // -----------------------------------
 
@@ -315,6 +313,11 @@ public class OVRViewScaleDesc extends Struct<OVRViewScaleDesc> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

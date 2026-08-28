@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -33,7 +33,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkPipelineVertexInputDivisorStateCreateInfoKHR}</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkPipelineVertexInputDivisorStateCreateInfo}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be 0</li>
  * <li>If {@code vertexBindingDescriptionCount} is not 0, {@code pVertexBindingDescriptions} <b>must</b> be a valid pointer to an array of {@code vertexBindingDescriptionCount} valid {@link VkVertexInputBindingDescription} structures</li>
@@ -133,16 +133,14 @@ public class VkPipelineVertexInputStateCreateInfo extends Struct<VkPipelineVerte
     @NativeType("uint32_t")
     public int vertexBindingDescriptionCount() { return nvertexBindingDescriptionCount(address()); }
     /** a pointer to an array of {@link VkVertexInputBindingDescription} structures. */
-    @Nullable
     @NativeType("VkVertexInputBindingDescription const *")
-    public VkVertexInputBindingDescription.Buffer pVertexBindingDescriptions() { return npVertexBindingDescriptions(address()); }
+    public VkVertexInputBindingDescription.@Nullable Buffer pVertexBindingDescriptions() { return npVertexBindingDescriptions(address()); }
     /** the number of vertex attribute descriptions provided in {@code pVertexAttributeDescriptions}. */
     @NativeType("uint32_t")
     public int vertexAttributeDescriptionCount() { return nvertexAttributeDescriptionCount(address()); }
     /** a pointer to an array of {@link VkVertexInputAttributeDescription} structures. */
-    @Nullable
     @NativeType("VkVertexInputAttributeDescription const *")
-    public VkVertexInputAttributeDescription.Buffer pVertexAttributeDescriptions() { return npVertexAttributeDescriptions(address()); }
+    public VkVertexInputAttributeDescription.@Nullable Buffer pVertexAttributeDescriptions() { return npVertexAttributeDescriptions(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkPipelineVertexInputStateCreateInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -150,6 +148,8 @@ public class VkPipelineVertexInputStateCreateInfo extends Struct<VkPipelineVerte
     public VkPipelineVertexInputStateCreateInfo sType$Default() { return sType(VK10.VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkPipelineVertexInputStateCreateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkPipelineVertexInputDivisorStateCreateInfo} value to the {@code pNext} chain. */
+    public VkPipelineVertexInputStateCreateInfo pNext(VkPipelineVertexInputDivisorStateCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPipelineVertexInputDivisorStateCreateInfoEXT} value to the {@code pNext} chain. */
     public VkPipelineVertexInputStateCreateInfo pNext(VkPipelineVertexInputDivisorStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPipelineVertexInputDivisorStateCreateInfoKHR} value to the {@code pNext} chain. */
@@ -157,17 +157,17 @@ public class VkPipelineVertexInputStateCreateInfo extends Struct<VkPipelineVerte
     /** Sets the specified value to the {@link #flags} field. */
     public VkPipelineVertexInputStateCreateInfo flags(@NativeType("VkPipelineVertexInputStateCreateFlags") int value) { nflags(address(), value); return this; }
     /** Sets the address of the specified {@link VkVertexInputBindingDescription.Buffer} to the {@link #pVertexBindingDescriptions} field. */
-    public VkPipelineVertexInputStateCreateInfo pVertexBindingDescriptions(@Nullable @NativeType("VkVertexInputBindingDescription const *") VkVertexInputBindingDescription.Buffer value) { npVertexBindingDescriptions(address(), value); return this; }
+    public VkPipelineVertexInputStateCreateInfo pVertexBindingDescriptions(@NativeType("VkVertexInputBindingDescription const *") VkVertexInputBindingDescription.@Nullable Buffer value) { npVertexBindingDescriptions(address(), value); return this; }
     /** Sets the address of the specified {@link VkVertexInputAttributeDescription.Buffer} to the {@link #pVertexAttributeDescriptions} field. */
-    public VkPipelineVertexInputStateCreateInfo pVertexAttributeDescriptions(@Nullable @NativeType("VkVertexInputAttributeDescription const *") VkVertexInputAttributeDescription.Buffer value) { npVertexAttributeDescriptions(address(), value); return this; }
+    public VkPipelineVertexInputStateCreateInfo pVertexAttributeDescriptions(@NativeType("VkVertexInputAttributeDescription const *") VkVertexInputAttributeDescription.@Nullable Buffer value) { npVertexAttributeDescriptions(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkPipelineVertexInputStateCreateInfo set(
         int sType,
         long pNext,
         int flags,
-        @Nullable VkVertexInputBindingDescription.Buffer pVertexBindingDescriptions,
-        @Nullable VkVertexInputAttributeDescription.Buffer pVertexAttributeDescriptions
+        VkVertexInputBindingDescription.@Nullable Buffer pVertexBindingDescriptions,
+        VkVertexInputAttributeDescription.@Nullable Buffer pVertexAttributeDescriptions
     ) {
         sType(sType);
         pNext(pNext);
@@ -214,8 +214,7 @@ public class VkPipelineVertexInputStateCreateInfo extends Struct<VkPipelineVerte
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineVertexInputStateCreateInfo createSafe(long address) {
+    public static @Nullable VkPipelineVertexInputStateCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkPipelineVertexInputStateCreateInfo(address, null);
     }
 
@@ -258,8 +257,7 @@ public class VkPipelineVertexInputStateCreateInfo extends Struct<VkPipelineVerte
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineVertexInputStateCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineVertexInputStateCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -323,34 +321,34 @@ public class VkPipelineVertexInputStateCreateInfo extends Struct<VkPipelineVerte
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineVertexInputStateCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineVertexInputStateCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineVertexInputStateCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineVertexInputStateCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPipelineVertexInputStateCreateInfo.FLAGS); }
     /** Unsafe version of {@link #vertexBindingDescriptionCount}. */
-    public static int nvertexBindingDescriptionCount(long struct) { return UNSAFE.getInt(null, struct + VkPipelineVertexInputStateCreateInfo.VERTEXBINDINGDESCRIPTIONCOUNT); }
+    public static int nvertexBindingDescriptionCount(long struct) { return memGetInt(struct + VkPipelineVertexInputStateCreateInfo.VERTEXBINDINGDESCRIPTIONCOUNT); }
     /** Unsafe version of {@link #pVertexBindingDescriptions}. */
-    @Nullable public static VkVertexInputBindingDescription.Buffer npVertexBindingDescriptions(long struct) { return VkVertexInputBindingDescription.createSafe(memGetAddress(struct + VkPipelineVertexInputStateCreateInfo.PVERTEXBINDINGDESCRIPTIONS), nvertexBindingDescriptionCount(struct)); }
+    public static VkVertexInputBindingDescription.@Nullable Buffer npVertexBindingDescriptions(long struct) { return VkVertexInputBindingDescription.createSafe(memGetAddress(struct + VkPipelineVertexInputStateCreateInfo.PVERTEXBINDINGDESCRIPTIONS), nvertexBindingDescriptionCount(struct)); }
     /** Unsafe version of {@link #vertexAttributeDescriptionCount}. */
-    public static int nvertexAttributeDescriptionCount(long struct) { return UNSAFE.getInt(null, struct + VkPipelineVertexInputStateCreateInfo.VERTEXATTRIBUTEDESCRIPTIONCOUNT); }
+    public static int nvertexAttributeDescriptionCount(long struct) { return memGetInt(struct + VkPipelineVertexInputStateCreateInfo.VERTEXATTRIBUTEDESCRIPTIONCOUNT); }
     /** Unsafe version of {@link #pVertexAttributeDescriptions}. */
-    @Nullable public static VkVertexInputAttributeDescription.Buffer npVertexAttributeDescriptions(long struct) { return VkVertexInputAttributeDescription.createSafe(memGetAddress(struct + VkPipelineVertexInputStateCreateInfo.PVERTEXATTRIBUTEDESCRIPTIONS), nvertexAttributeDescriptionCount(struct)); }
+    public static VkVertexInputAttributeDescription.@Nullable Buffer npVertexAttributeDescriptions(long struct) { return VkVertexInputAttributeDescription.createSafe(memGetAddress(struct + VkPipelineVertexInputStateCreateInfo.PVERTEXATTRIBUTEDESCRIPTIONS), nvertexAttributeDescriptionCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineVertexInputStateCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineVertexInputStateCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineVertexInputStateCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineVertexInputStateCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPipelineVertexInputStateCreateInfo.FLAGS, value); }
     /** Sets the specified value to the {@code vertexBindingDescriptionCount} field of the specified {@code struct}. */
-    public static void nvertexBindingDescriptionCount(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineVertexInputStateCreateInfo.VERTEXBINDINGDESCRIPTIONCOUNT, value); }
+    public static void nvertexBindingDescriptionCount(long struct, int value) { memPutInt(struct + VkPipelineVertexInputStateCreateInfo.VERTEXBINDINGDESCRIPTIONCOUNT, value); }
     /** Unsafe version of {@link #pVertexBindingDescriptions(VkVertexInputBindingDescription.Buffer) pVertexBindingDescriptions}. */
-    public static void npVertexBindingDescriptions(long struct, @Nullable VkVertexInputBindingDescription.Buffer value) { memPutAddress(struct + VkPipelineVertexInputStateCreateInfo.PVERTEXBINDINGDESCRIPTIONS, memAddressSafe(value)); nvertexBindingDescriptionCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npVertexBindingDescriptions(long struct, VkVertexInputBindingDescription.@Nullable Buffer value) { memPutAddress(struct + VkPipelineVertexInputStateCreateInfo.PVERTEXBINDINGDESCRIPTIONS, memAddressSafe(value)); nvertexBindingDescriptionCount(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code vertexAttributeDescriptionCount} field of the specified {@code struct}. */
-    public static void nvertexAttributeDescriptionCount(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineVertexInputStateCreateInfo.VERTEXATTRIBUTEDESCRIPTIONCOUNT, value); }
+    public static void nvertexAttributeDescriptionCount(long struct, int value) { memPutInt(struct + VkPipelineVertexInputStateCreateInfo.VERTEXATTRIBUTEDESCRIPTIONCOUNT, value); }
     /** Unsafe version of {@link #pVertexAttributeDescriptions(VkVertexInputAttributeDescription.Buffer) pVertexAttributeDescriptions}. */
-    public static void npVertexAttributeDescriptions(long struct, @Nullable VkVertexInputAttributeDescription.Buffer value) { memPutAddress(struct + VkPipelineVertexInputStateCreateInfo.PVERTEXATTRIBUTEDESCRIPTIONS, memAddressSafe(value)); nvertexAttributeDescriptionCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npVertexAttributeDescriptions(long struct, VkVertexInputAttributeDescription.@Nullable Buffer value) { memPutAddress(struct + VkPipelineVertexInputStateCreateInfo.PVERTEXATTRIBUTEDESCRIPTIONS, memAddressSafe(value)); nvertexAttributeDescriptionCount(struct, value == null ? 0 : value.remaining()); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -400,6 +398,11 @@ public class VkPipelineVertexInputStateCreateInfo extends Struct<VkPipelineVerte
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineVertexInputStateCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -417,16 +420,14 @@ public class VkPipelineVertexInputStateCreateInfo extends Struct<VkPipelineVerte
         @NativeType("uint32_t")
         public int vertexBindingDescriptionCount() { return VkPipelineVertexInputStateCreateInfo.nvertexBindingDescriptionCount(address()); }
         /** @return a {@link VkVertexInputBindingDescription.Buffer} view of the struct array pointed to by the {@link VkPipelineVertexInputStateCreateInfo#pVertexBindingDescriptions} field. */
-        @Nullable
         @NativeType("VkVertexInputBindingDescription const *")
-        public VkVertexInputBindingDescription.Buffer pVertexBindingDescriptions() { return VkPipelineVertexInputStateCreateInfo.npVertexBindingDescriptions(address()); }
+        public VkVertexInputBindingDescription.@Nullable Buffer pVertexBindingDescriptions() { return VkPipelineVertexInputStateCreateInfo.npVertexBindingDescriptions(address()); }
         /** @return the value of the {@link VkPipelineVertexInputStateCreateInfo#vertexAttributeDescriptionCount} field. */
         @NativeType("uint32_t")
         public int vertexAttributeDescriptionCount() { return VkPipelineVertexInputStateCreateInfo.nvertexAttributeDescriptionCount(address()); }
         /** @return a {@link VkVertexInputAttributeDescription.Buffer} view of the struct array pointed to by the {@link VkPipelineVertexInputStateCreateInfo#pVertexAttributeDescriptions} field. */
-        @Nullable
         @NativeType("VkVertexInputAttributeDescription const *")
-        public VkVertexInputAttributeDescription.Buffer pVertexAttributeDescriptions() { return VkPipelineVertexInputStateCreateInfo.npVertexAttributeDescriptions(address()); }
+        public VkVertexInputAttributeDescription.@Nullable Buffer pVertexAttributeDescriptions() { return VkPipelineVertexInputStateCreateInfo.npVertexAttributeDescriptions(address()); }
 
         /** Sets the specified value to the {@link VkPipelineVertexInputStateCreateInfo#sType} field. */
         public VkPipelineVertexInputStateCreateInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineVertexInputStateCreateInfo.nsType(address(), value); return this; }
@@ -434,6 +435,8 @@ public class VkPipelineVertexInputStateCreateInfo extends Struct<VkPipelineVerte
         public VkPipelineVertexInputStateCreateInfo.Buffer sType$Default() { return sType(VK10.VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO); }
         /** Sets the specified value to the {@link VkPipelineVertexInputStateCreateInfo#pNext} field. */
         public VkPipelineVertexInputStateCreateInfo.Buffer pNext(@NativeType("void const *") long value) { VkPipelineVertexInputStateCreateInfo.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkPipelineVertexInputDivisorStateCreateInfo} value to the {@code pNext} chain. */
+        public VkPipelineVertexInputStateCreateInfo.Buffer pNext(VkPipelineVertexInputDivisorStateCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPipelineVertexInputDivisorStateCreateInfoEXT} value to the {@code pNext} chain. */
         public VkPipelineVertexInputStateCreateInfo.Buffer pNext(VkPipelineVertexInputDivisorStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPipelineVertexInputDivisorStateCreateInfoKHR} value to the {@code pNext} chain. */
@@ -441,9 +444,9 @@ public class VkPipelineVertexInputStateCreateInfo extends Struct<VkPipelineVerte
         /** Sets the specified value to the {@link VkPipelineVertexInputStateCreateInfo#flags} field. */
         public VkPipelineVertexInputStateCreateInfo.Buffer flags(@NativeType("VkPipelineVertexInputStateCreateFlags") int value) { VkPipelineVertexInputStateCreateInfo.nflags(address(), value); return this; }
         /** Sets the address of the specified {@link VkVertexInputBindingDescription.Buffer} to the {@link VkPipelineVertexInputStateCreateInfo#pVertexBindingDescriptions} field. */
-        public VkPipelineVertexInputStateCreateInfo.Buffer pVertexBindingDescriptions(@Nullable @NativeType("VkVertexInputBindingDescription const *") VkVertexInputBindingDescription.Buffer value) { VkPipelineVertexInputStateCreateInfo.npVertexBindingDescriptions(address(), value); return this; }
+        public VkPipelineVertexInputStateCreateInfo.Buffer pVertexBindingDescriptions(@NativeType("VkVertexInputBindingDescription const *") VkVertexInputBindingDescription.@Nullable Buffer value) { VkPipelineVertexInputStateCreateInfo.npVertexBindingDescriptions(address(), value); return this; }
         /** Sets the address of the specified {@link VkVertexInputAttributeDescription.Buffer} to the {@link VkPipelineVertexInputStateCreateInfo#pVertexAttributeDescriptions} field. */
-        public VkPipelineVertexInputStateCreateInfo.Buffer pVertexAttributeDescriptions(@Nullable @NativeType("VkVertexInputAttributeDescription const *") VkVertexInputAttributeDescription.Buffer value) { VkPipelineVertexInputStateCreateInfo.npVertexAttributeDescriptions(address(), value); return this; }
+        public VkPipelineVertexInputStateCreateInfo.Buffer pVertexAttributeDescriptions(@NativeType("VkVertexInputAttributeDescription const *") VkVertexInputAttributeDescription.@Nullable Buffer value) { VkPipelineVertexInputStateCreateInfo.npVertexAttributeDescriptions(address(), value); return this; }
 
     }
 

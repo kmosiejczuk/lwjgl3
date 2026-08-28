@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -142,8 +142,7 @@ public class FT_Glyph_Metrics extends Struct<FT_Glyph_Metrics> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Glyph_Metrics createSafe(long address) {
+    public static @Nullable FT_Glyph_Metrics createSafe(long address) {
         return address == NULL ? null : new FT_Glyph_Metrics(address, null);
     }
 
@@ -158,8 +157,7 @@ public class FT_Glyph_Metrics extends Struct<FT_Glyph_Metrics> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Glyph_Metrics.Buffer createSafe(long address, int capacity) {
+    public static FT_Glyph_Metrics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -213,6 +211,11 @@ public class FT_Glyph_Metrics extends Struct<FT_Glyph_Metrics> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -118,8 +118,7 @@ public class CLDevicePCIBusInfoKHR extends Struct<CLDevicePCIBusInfoKHR> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLDevicePCIBusInfoKHR createSafe(long address) {
+    public static @Nullable CLDevicePCIBusInfoKHR createSafe(long address) {
         return address == NULL ? null : new CLDevicePCIBusInfoKHR(address, null);
     }
 
@@ -162,8 +161,7 @@ public class CLDevicePCIBusInfoKHR extends Struct<CLDevicePCIBusInfoKHR> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLDevicePCIBusInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static CLDevicePCIBusInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -208,13 +206,13 @@ public class CLDevicePCIBusInfoKHR extends Struct<CLDevicePCIBusInfoKHR> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #pci_domain}. */
-    public static int npci_domain(long struct) { return UNSAFE.getInt(null, struct + CLDevicePCIBusInfoKHR.PCI_DOMAIN); }
+    public static int npci_domain(long struct) { return memGetInt(struct + CLDevicePCIBusInfoKHR.PCI_DOMAIN); }
     /** Unsafe version of {@link #pci_bus}. */
-    public static int npci_bus(long struct) { return UNSAFE.getInt(null, struct + CLDevicePCIBusInfoKHR.PCI_BUS); }
+    public static int npci_bus(long struct) { return memGetInt(struct + CLDevicePCIBusInfoKHR.PCI_BUS); }
     /** Unsafe version of {@link #pci_device}. */
-    public static int npci_device(long struct) { return UNSAFE.getInt(null, struct + CLDevicePCIBusInfoKHR.PCI_DEVICE); }
+    public static int npci_device(long struct) { return memGetInt(struct + CLDevicePCIBusInfoKHR.PCI_DEVICE); }
     /** Unsafe version of {@link #pci_function}. */
-    public static int npci_function(long struct) { return UNSAFE.getInt(null, struct + CLDevicePCIBusInfoKHR.PCI_FUNCTION); }
+    public static int npci_function(long struct) { return memGetInt(struct + CLDevicePCIBusInfoKHR.PCI_FUNCTION); }
 
     // -----------------------------------
 
@@ -247,6 +245,11 @@ public class CLDevicePCIBusInfoKHR extends Struct<CLDevicePCIBusInfoKHR> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

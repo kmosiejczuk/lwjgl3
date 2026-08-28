@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -109,9 +109,8 @@ public class XrSceneObjectTypesFilterInfoMSFT extends Struct<XrSceneObjectTypesF
     @NativeType("uint32_t")
     public int objectTypeCount() { return nobjectTypeCount(address()); }
     /** an array of {@code XrSceneObjectTypeMSFT} to filter by. */
-    @Nullable
     @NativeType("XrSceneObjectTypeMSFT const *")
-    public IntBuffer objectTypes() { return nobjectTypes(address()); }
+    public @Nullable IntBuffer objectTypes() { return nobjectTypes(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
     public XrSceneObjectTypesFilterInfoMSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
@@ -175,8 +174,7 @@ public class XrSceneObjectTypesFilterInfoMSFT extends Struct<XrSceneObjectTypesF
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneObjectTypesFilterInfoMSFT createSafe(long address) {
+    public static @Nullable XrSceneObjectTypesFilterInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneObjectTypesFilterInfoMSFT(address, null);
     }
 
@@ -219,8 +217,7 @@ public class XrSceneObjectTypesFilterInfoMSFT extends Struct<XrSceneObjectTypesF
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneObjectTypesFilterInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneObjectTypesFilterInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,20 +262,20 @@ public class XrSceneObjectTypesFilterInfoMSFT extends Struct<XrSceneObjectTypesF
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSceneObjectTypesFilterInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSceneObjectTypesFilterInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSceneObjectTypesFilterInfoMSFT.NEXT); }
     /** Unsafe version of {@link #objectTypeCount}. */
-    public static int nobjectTypeCount(long struct) { return UNSAFE.getInt(null, struct + XrSceneObjectTypesFilterInfoMSFT.OBJECTTYPECOUNT); }
+    public static int nobjectTypeCount(long struct) { return memGetInt(struct + XrSceneObjectTypesFilterInfoMSFT.OBJECTTYPECOUNT); }
     /** Unsafe version of {@link #objectTypes() objectTypes}. */
-    @Nullable public static IntBuffer nobjectTypes(long struct) { return memIntBufferSafe(memGetAddress(struct + XrSceneObjectTypesFilterInfoMSFT.OBJECTTYPES), nobjectTypeCount(struct)); }
+    public static @Nullable IntBuffer nobjectTypes(long struct) { return memIntBufferSafe(memGetAddress(struct + XrSceneObjectTypesFilterInfoMSFT.OBJECTTYPES), nobjectTypeCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneObjectTypesFilterInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSceneObjectTypesFilterInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSceneObjectTypesFilterInfoMSFT.NEXT, value); }
     /** Sets the specified value to the {@code objectTypeCount} field of the specified {@code struct}. */
-    public static void nobjectTypeCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneObjectTypesFilterInfoMSFT.OBJECTTYPECOUNT, value); }
+    public static void nobjectTypeCount(long struct, int value) { memPutInt(struct + XrSceneObjectTypesFilterInfoMSFT.OBJECTTYPECOUNT, value); }
     /** Unsafe version of {@link #objectTypes(IntBuffer) objectTypes}. */
     public static void nobjectTypes(long struct, @Nullable IntBuffer value) { memPutAddress(struct + XrSceneObjectTypesFilterInfoMSFT.OBJECTTYPES, memAddressSafe(value)); if (value != null) { nobjectTypeCount(struct, value.remaining()); } }
 
@@ -316,6 +313,11 @@ public class XrSceneObjectTypesFilterInfoMSFT extends Struct<XrSceneObjectTypesF
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSceneObjectTypesFilterInfoMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -330,9 +332,8 @@ public class XrSceneObjectTypesFilterInfoMSFT extends Struct<XrSceneObjectTypesF
         @NativeType("uint32_t")
         public int objectTypeCount() { return XrSceneObjectTypesFilterInfoMSFT.nobjectTypeCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link XrSceneObjectTypesFilterInfoMSFT#objectTypes} field. */
-        @Nullable
         @NativeType("XrSceneObjectTypeMSFT const *")
-        public IntBuffer objectTypes() { return XrSceneObjectTypesFilterInfoMSFT.nobjectTypes(address()); }
+        public @Nullable IntBuffer objectTypes() { return XrSceneObjectTypesFilterInfoMSFT.nobjectTypes(address()); }
 
         /** Sets the specified value to the {@link XrSceneObjectTypesFilterInfoMSFT#type} field. */
         public XrSceneObjectTypesFilterInfoMSFT.Buffer type(@NativeType("XrStructureType") int value) { XrSceneObjectTypesFilterInfoMSFT.ntype(address(), value); return this; }

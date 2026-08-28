@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -194,8 +194,7 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSessionCreateInfo createSafe(long address) {
+    public static @Nullable XrSessionCreateInfo createSafe(long address) {
         return address == NULL ? null : new XrSessionCreateInfo(address, null);
     }
 
@@ -238,8 +237,7 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSessionCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static XrSessionCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,22 +282,22 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSessionCreateInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSessionCreateInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSessionCreateInfo.NEXT); }
     /** Unsafe version of {@link #createFlags}. */
-    public static long ncreateFlags(long struct) { return UNSAFE.getLong(null, struct + XrSessionCreateInfo.CREATEFLAGS); }
+    public static long ncreateFlags(long struct) { return memGetLong(struct + XrSessionCreateInfo.CREATEFLAGS); }
     /** Unsafe version of {@link #systemId}. */
-    public static long nsystemId(long struct) { return UNSAFE.getLong(null, struct + XrSessionCreateInfo.SYSTEMID); }
+    public static long nsystemId(long struct) { return memGetLong(struct + XrSessionCreateInfo.SYSTEMID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSessionCreateInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSessionCreateInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSessionCreateInfo.NEXT, value); }
     /** Unsafe version of {@link #createFlags(long) createFlags}. */
-    public static void ncreateFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrSessionCreateInfo.CREATEFLAGS, value); }
+    public static void ncreateFlags(long struct, long value) { memPutLong(struct + XrSessionCreateInfo.CREATEFLAGS, value); }
     /** Unsafe version of {@link #systemId(long) systemId}. */
-    public static void nsystemId(long struct, long value) { UNSAFE.putLong(null, struct + XrSessionCreateInfo.SYSTEMID, value); }
+    public static void nsystemId(long struct, long value) { memPutLong(struct + XrSessionCreateInfo.SYSTEMID, value); }
 
     // -----------------------------------
 
@@ -332,6 +330,11 @@ public class XrSessionCreateInfo extends Struct<XrSessionCreateInfo> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

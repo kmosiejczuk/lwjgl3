@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.remotery;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class RMTPropertyValue extends Struct<RMTPropertyValue> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RMTPropertyValue createSafe(long address) {
+    public static @Nullable RMTPropertyValue createSafe(long address) {
         return address == NULL ? null : new RMTPropertyValue(address, null);
     }
 
@@ -212,8 +211,7 @@ public class RMTPropertyValue extends Struct<RMTPropertyValue> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RMTPropertyValue.Buffer createSafe(long address, int capacity) {
+    public static RMTPropertyValue.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,34 +256,34 @@ public class RMTPropertyValue extends Struct<RMTPropertyValue> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #Bool}. */
-    public static int nBool(long struct) { return UNSAFE.getInt(null, struct + RMTPropertyValue.BOOL); }
+    public static int nBool(long struct) { return memGetInt(struct + RMTPropertyValue.BOOL); }
     /** Unsafe version of {@link #S32}. */
-    public static int nS32(long struct) { return UNSAFE.getInt(null, struct + RMTPropertyValue.S32); }
+    public static int nS32(long struct) { return memGetInt(struct + RMTPropertyValue.S32); }
     /** Unsafe version of {@link #U32}. */
-    public static int nU32(long struct) { return UNSAFE.getInt(null, struct + RMTPropertyValue.U32); }
+    public static int nU32(long struct) { return memGetInt(struct + RMTPropertyValue.U32); }
     /** Unsafe version of {@link #F32}. */
-    public static float nF32(long struct) { return UNSAFE.getFloat(null, struct + RMTPropertyValue.F32); }
+    public static float nF32(long struct) { return memGetFloat(struct + RMTPropertyValue.F32); }
     /** Unsafe version of {@link #S64}. */
-    public static long nS64(long struct) { return UNSAFE.getLong(null, struct + RMTPropertyValue.S64); }
+    public static long nS64(long struct) { return memGetLong(struct + RMTPropertyValue.S64); }
     /** Unsafe version of {@link #U64}. */
-    public static long nU64(long struct) { return UNSAFE.getLong(null, struct + RMTPropertyValue.U64); }
+    public static long nU64(long struct) { return memGetLong(struct + RMTPropertyValue.U64); }
     /** Unsafe version of {@link #F64}. */
-    public static double nF64(long struct) { return UNSAFE.getDouble(null, struct + RMTPropertyValue.F64); }
+    public static double nF64(long struct) { return memGetDouble(struct + RMTPropertyValue.F64); }
 
     /** Unsafe version of {@link #Bool(boolean) Bool}. */
-    public static void nBool(long struct, int value) { UNSAFE.putInt(null, struct + RMTPropertyValue.BOOL, value); }
+    public static void nBool(long struct, int value) { memPutInt(struct + RMTPropertyValue.BOOL, value); }
     /** Unsafe version of {@link #S32(int) S32}. */
-    public static void nS32(long struct, int value) { UNSAFE.putInt(null, struct + RMTPropertyValue.S32, value); }
+    public static void nS32(long struct, int value) { memPutInt(struct + RMTPropertyValue.S32, value); }
     /** Unsafe version of {@link #U32(int) U32}. */
-    public static void nU32(long struct, int value) { UNSAFE.putInt(null, struct + RMTPropertyValue.U32, value); }
+    public static void nU32(long struct, int value) { memPutInt(struct + RMTPropertyValue.U32, value); }
     /** Unsafe version of {@link #F32(float) F32}. */
-    public static void nF32(long struct, float value) { UNSAFE.putFloat(null, struct + RMTPropertyValue.F32, value); }
+    public static void nF32(long struct, float value) { memPutFloat(struct + RMTPropertyValue.F32, value); }
     /** Unsafe version of {@link #S64(long) S64}. */
-    public static void nS64(long struct, long value) { UNSAFE.putLong(null, struct + RMTPropertyValue.S64, value); }
+    public static void nS64(long struct, long value) { memPutLong(struct + RMTPropertyValue.S64, value); }
     /** Unsafe version of {@link #U64(long) U64}. */
-    public static void nU64(long struct, long value) { UNSAFE.putLong(null, struct + RMTPropertyValue.U64, value); }
+    public static void nU64(long struct, long value) { memPutLong(struct + RMTPropertyValue.U64, value); }
     /** Unsafe version of {@link #F64(double) F64}. */
-    public static void nF64(long struct, double value) { UNSAFE.putDouble(null, struct + RMTPropertyValue.F64, value); }
+    public static void nF64(long struct, double value) { memPutDouble(struct + RMTPropertyValue.F64, value); }
 
     // -----------------------------------
 
@@ -318,6 +316,11 @@ public class RMTPropertyValue extends Struct<RMTPropertyValue> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

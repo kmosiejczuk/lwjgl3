@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceRawAccessChainsFeaturesNV extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRawAccessChainsFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRawAccessChainsFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRawAccessChainsFeaturesNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceRawAccessChainsFeaturesNV extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRawAccessChainsFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRawAccessChainsFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceRawAccessChainsFeaturesNV extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRawAccessChainsFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRawAccessChainsFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRawAccessChainsFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #shaderRawAccessChains}. */
-    public static int nshaderRawAccessChains(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRawAccessChainsFeaturesNV.SHADERRAWACCESSCHAINS); }
+    public static int nshaderRawAccessChains(long struct) { return memGetInt(struct + VkPhysicalDeviceRawAccessChainsFeaturesNV.SHADERRAWACCESSCHAINS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRawAccessChainsFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRawAccessChainsFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRawAccessChainsFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #shaderRawAccessChains(boolean) shaderRawAccessChains}. */
-    public static void nshaderRawAccessChains(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRawAccessChainsFeaturesNV.SHADERRAWACCESSCHAINS, value); }
+    public static void nshaderRawAccessChains(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRawAccessChainsFeaturesNV.SHADERRAWACCESSCHAINS, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceRawAccessChainsFeaturesNV extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

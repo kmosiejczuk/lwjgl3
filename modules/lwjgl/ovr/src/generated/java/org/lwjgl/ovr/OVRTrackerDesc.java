@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class OVRTrackerDesc extends Struct<OVRTrackerDesc> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTrackerDesc createSafe(long address) {
+    public static @Nullable OVRTrackerDesc createSafe(long address) {
         return address == NULL ? null : new OVRTrackerDesc(address, null);
     }
 
@@ -161,8 +160,7 @@ public class OVRTrackerDesc extends Struct<OVRTrackerDesc> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTrackerDesc.Buffer createSafe(long address, int capacity) {
+    public static OVRTrackerDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -226,13 +224,13 @@ public class OVRTrackerDesc extends Struct<OVRTrackerDesc> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #FrustumHFovInRadians}. */
-    public static float nFrustumHFovInRadians(long struct) { return UNSAFE.getFloat(null, struct + OVRTrackerDesc.FRUSTUMHFOVINRADIANS); }
+    public static float nFrustumHFovInRadians(long struct) { return memGetFloat(struct + OVRTrackerDesc.FRUSTUMHFOVINRADIANS); }
     /** Unsafe version of {@link #FrustumVFovInRadians}. */
-    public static float nFrustumVFovInRadians(long struct) { return UNSAFE.getFloat(null, struct + OVRTrackerDesc.FRUSTUMVFOVINRADIANS); }
+    public static float nFrustumVFovInRadians(long struct) { return memGetFloat(struct + OVRTrackerDesc.FRUSTUMVFOVINRADIANS); }
     /** Unsafe version of {@link #FrustumNearZInMeters}. */
-    public static float nFrustumNearZInMeters(long struct) { return UNSAFE.getFloat(null, struct + OVRTrackerDesc.FRUSTUMNEARZINMETERS); }
+    public static float nFrustumNearZInMeters(long struct) { return memGetFloat(struct + OVRTrackerDesc.FRUSTUMNEARZINMETERS); }
     /** Unsafe version of {@link #FrustumFarZInMeters}. */
-    public static float nFrustumFarZInMeters(long struct) { return UNSAFE.getFloat(null, struct + OVRTrackerDesc.FRUSTUMFARZINMETERS); }
+    public static float nFrustumFarZInMeters(long struct) { return memGetFloat(struct + OVRTrackerDesc.FRUSTUMFARZINMETERS); }
 
     // -----------------------------------
 
@@ -265,6 +263,11 @@ public class OVRTrackerDesc extends Struct<OVRTrackerDesc> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

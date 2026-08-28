@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class VkBufferCopy extends Struct<VkBufferCopy> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCopy createSafe(long address) {
+    public static @Nullable VkBufferCopy createSafe(long address) {
         return address == NULL ? null : new VkBufferCopy(address, null);
     }
 
@@ -198,8 +197,7 @@ public class VkBufferCopy extends Struct<VkBufferCopy> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCopy.Buffer createSafe(long address, int capacity) {
+    public static VkBufferCopy.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,18 +261,18 @@ public class VkBufferCopy extends Struct<VkBufferCopy> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #srcOffset}. */
-    public static long nsrcOffset(long struct) { return UNSAFE.getLong(null, struct + VkBufferCopy.SRCOFFSET); }
+    public static long nsrcOffset(long struct) { return memGetLong(struct + VkBufferCopy.SRCOFFSET); }
     /** Unsafe version of {@link #dstOffset}. */
-    public static long ndstOffset(long struct) { return UNSAFE.getLong(null, struct + VkBufferCopy.DSTOFFSET); }
+    public static long ndstOffset(long struct) { return memGetLong(struct + VkBufferCopy.DSTOFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkBufferCopy.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkBufferCopy.SIZE); }
 
     /** Unsafe version of {@link #srcOffset(long) srcOffset}. */
-    public static void nsrcOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCopy.SRCOFFSET, value); }
+    public static void nsrcOffset(long struct, long value) { memPutLong(struct + VkBufferCopy.SRCOFFSET, value); }
     /** Unsafe version of {@link #dstOffset(long) dstOffset}. */
-    public static void ndstOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCopy.DSTOFFSET, value); }
+    public static void ndstOffset(long struct, long value) { memPutLong(struct + VkBufferCopy.DSTOFFSET, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCopy.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkBufferCopy.SIZE, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class VkBufferCopy extends Struct<VkBufferCopy> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

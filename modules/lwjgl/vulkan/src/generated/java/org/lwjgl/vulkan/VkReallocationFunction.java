@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>If this function fails and {@code pOriginal} is non-{@code NULL} the application <b>must</b> not free the old allocation.</p>
  * 
- * <p>{@code pfnReallocation} <b>must</b> follow the same <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkAllocationFunction_return_rules">rules for return values as {@code PFN_vkAllocationFunction}</a>.</p>
+ * <p>{@code pfnReallocation} <b>must</b> follow the same <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkAllocationFunction_return_rules">rules for return values as {@code PFN_vkAllocationFunction}</a>.</p>
  * 
  * <h5>See Also</h5>
  * 
@@ -59,8 +59,7 @@ public abstract class VkReallocationFunction extends Callback implements VkReall
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static VkReallocationFunction createSafe(long functionPointer) {
+    public static @Nullable VkReallocationFunction createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

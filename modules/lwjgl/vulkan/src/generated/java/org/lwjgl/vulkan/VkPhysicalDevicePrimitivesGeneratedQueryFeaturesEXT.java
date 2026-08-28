@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -105,7 +105,7 @@ public class VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT extends Struct<
     /** indicates whether the implementation supports the {@link EXTPrimitivesGeneratedQuery#VK_QUERY_TYPE_PRIMITIVES_GENERATED_EXT QUERY_TYPE_PRIMITIVES_GENERATED_EXT} query type. */
     @NativeType("VkBool32")
     public boolean primitivesGeneratedQuery() { return nprimitivesGeneratedQuery(address()) != 0; }
-    /** indicates whether the implementation supports this query when <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-discard">rasterization discard</a> is enabled. */
+    /** indicates whether the implementation supports this query when <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-discard">rasterization discard</a> is enabled. */
     @NativeType("VkBool32")
     public boolean primitivesGeneratedQueryWithRasterizerDiscard() { return nprimitivesGeneratedQueryWithRasterizerDiscard(address()) != 0; }
     /** indicates whether the implementation supports this query with a non-zero index in {@link EXTTransformFeedback#vkCmdBeginQueryIndexedEXT CmdBeginQueryIndexedEXT}. */
@@ -178,8 +178,7 @@ public class VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +266,26 @@ public class VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #primitivesGeneratedQuery}. */
-    public static int nprimitivesGeneratedQuery(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERY); }
+    public static int nprimitivesGeneratedQuery(long struct) { return memGetInt(struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERY); }
     /** Unsafe version of {@link #primitivesGeneratedQueryWithRasterizerDiscard}. */
-    public static int nprimitivesGeneratedQueryWithRasterizerDiscard(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERYWITHRASTERIZERDISCARD); }
+    public static int nprimitivesGeneratedQueryWithRasterizerDiscard(long struct) { return memGetInt(struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERYWITHRASTERIZERDISCARD); }
     /** Unsafe version of {@link #primitivesGeneratedQueryWithNonZeroStreams}. */
-    public static int nprimitivesGeneratedQueryWithNonZeroStreams(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERYWITHNONZEROSTREAMS); }
+    public static int nprimitivesGeneratedQueryWithNonZeroStreams(long struct) { return memGetInt(struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERYWITHNONZEROSTREAMS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #primitivesGeneratedQuery(boolean) primitivesGeneratedQuery}. */
-    public static void nprimitivesGeneratedQuery(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERY, value); }
+    public static void nprimitivesGeneratedQuery(long struct, int value) { memPutInt(struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERY, value); }
     /** Unsafe version of {@link #primitivesGeneratedQueryWithRasterizerDiscard(boolean) primitivesGeneratedQueryWithRasterizerDiscard}. */
-    public static void nprimitivesGeneratedQueryWithRasterizerDiscard(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERYWITHRASTERIZERDISCARD, value); }
+    public static void nprimitivesGeneratedQueryWithRasterizerDiscard(long struct, int value) { memPutInt(struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERYWITHRASTERIZERDISCARD, value); }
     /** Unsafe version of {@link #primitivesGeneratedQueryWithNonZeroStreams(boolean) primitivesGeneratedQueryWithNonZeroStreams}. */
-    public static void nprimitivesGeneratedQueryWithNonZeroStreams(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERYWITHNONZEROSTREAMS, value); }
+    public static void nprimitivesGeneratedQueryWithNonZeroStreams(long struct, int value) { memPutInt(struct + VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.PRIMITIVESGENERATEDQUERYWITHNONZEROSTREAMS, value); }
 
     // -----------------------------------
 
@@ -320,6 +318,11 @@ public class VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

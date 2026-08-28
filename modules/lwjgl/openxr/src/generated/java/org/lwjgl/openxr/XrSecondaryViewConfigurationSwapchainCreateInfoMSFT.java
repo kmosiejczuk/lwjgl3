@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class XrSecondaryViewConfigurationSwapchainCreateInfoMSFT extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationSwapchainCreateInfoMSFT createSafe(long address) {
+    public static @Nullable XrSecondaryViewConfigurationSwapchainCreateInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrSecondaryViewConfigurationSwapchainCreateInfoMSFT(address, null);
     }
 
@@ -209,8 +208,7 @@ public class XrSecondaryViewConfigurationSwapchainCreateInfoMSFT extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,18 +253,18 @@ public class XrSecondaryViewConfigurationSwapchainCreateInfoMSFT extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.NEXT); }
     /** Unsafe version of {@link #viewConfigurationType}. */
-    public static int nviewConfigurationType(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.VIEWCONFIGURATIONTYPE); }
+    public static int nviewConfigurationType(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.VIEWCONFIGURATIONTYPE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.NEXT, value); }
     /** Unsafe version of {@link #viewConfigurationType(int) viewConfigurationType}. */
-    public static void nviewConfigurationType(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.VIEWCONFIGURATIONTYPE, value); }
+    public static void nviewConfigurationType(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationSwapchainCreateInfoMSFT.VIEWCONFIGURATIONTYPE, value); }
 
     // -----------------------------------
 
@@ -299,6 +297,11 @@ public class XrSecondaryViewConfigurationSwapchainCreateInfoMSFT extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.PNEXT); }
     /** Unsafe version of {@link #shaderIntegerFunctions2}. */
-    public static int nshaderIntegerFunctions2(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.SHADERINTEGERFUNCTIONS2); }
+    public static int nshaderIntegerFunctions2(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.SHADERINTEGERFUNCTIONS2); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.PNEXT, value); }
     /** Unsafe version of {@link #shaderIntegerFunctions2(boolean) shaderIntegerFunctions2}. */
-    public static void nshaderIntegerFunctions2(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.SHADERINTEGERFUNCTIONS2, value); }
+    public static void nshaderIntegerFunctions2(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.SHADERINTEGERFUNCTIONS2, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends Struct
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

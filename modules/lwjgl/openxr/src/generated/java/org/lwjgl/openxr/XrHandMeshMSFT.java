@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -214,8 +214,7 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandMeshMSFT createSafe(long address) {
+    public static @Nullable XrHandMeshMSFT createSafe(long address) {
         return address == NULL ? null : new XrHandMeshMSFT(address, null);
     }
 
@@ -258,8 +257,7 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandMeshMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrHandMeshMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -304,30 +302,30 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandMeshMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandMeshMSFT.NEXT); }
     /** Unsafe version of {@link #isActive}. */
-    public static int nisActive(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshMSFT.ISACTIVE); }
+    public static int nisActive(long struct) { return memGetInt(struct + XrHandMeshMSFT.ISACTIVE); }
     /** Unsafe version of {@link #indexBufferChanged}. */
-    public static int nindexBufferChanged(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshMSFT.INDEXBUFFERCHANGED); }
+    public static int nindexBufferChanged(long struct) { return memGetInt(struct + XrHandMeshMSFT.INDEXBUFFERCHANGED); }
     /** Unsafe version of {@link #vertexBufferChanged}. */
-    public static int nvertexBufferChanged(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshMSFT.VERTEXBUFFERCHANGED); }
+    public static int nvertexBufferChanged(long struct) { return memGetInt(struct + XrHandMeshMSFT.VERTEXBUFFERCHANGED); }
     /** Unsafe version of {@link #indexBuffer}. */
     public static XrHandMeshIndexBufferMSFT nindexBuffer(long struct) { return XrHandMeshIndexBufferMSFT.create(struct + XrHandMeshMSFT.INDEXBUFFER); }
     /** Unsafe version of {@link #vertexBuffer}. */
     public static XrHandMeshVertexBufferMSFT nvertexBuffer(long struct) { return XrHandMeshVertexBufferMSFT.create(struct + XrHandMeshMSFT.VERTEXBUFFER); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandMeshMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandMeshMSFT.NEXT, value); }
     /** Unsafe version of {@link #isActive(boolean) isActive}. */
-    public static void nisActive(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshMSFT.ISACTIVE, value); }
+    public static void nisActive(long struct, int value) { memPutInt(struct + XrHandMeshMSFT.ISACTIVE, value); }
     /** Unsafe version of {@link #indexBufferChanged(boolean) indexBufferChanged}. */
-    public static void nindexBufferChanged(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshMSFT.INDEXBUFFERCHANGED, value); }
+    public static void nindexBufferChanged(long struct, int value) { memPutInt(struct + XrHandMeshMSFT.INDEXBUFFERCHANGED, value); }
     /** Unsafe version of {@link #vertexBufferChanged(boolean) vertexBufferChanged}. */
-    public static void nvertexBufferChanged(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshMSFT.VERTEXBUFFERCHANGED, value); }
+    public static void nvertexBufferChanged(long struct, int value) { memPutInt(struct + XrHandMeshMSFT.VERTEXBUFFERCHANGED, value); }
     /** Unsafe version of {@link #indexBuffer(XrHandMeshIndexBufferMSFT) indexBuffer}. */
     public static void nindexBuffer(long struct, XrHandMeshIndexBufferMSFT value) { memCopy(value.address(), struct + XrHandMeshMSFT.INDEXBUFFER, XrHandMeshIndexBufferMSFT.SIZEOF); }
     /** Unsafe version of {@link #vertexBuffer(XrHandMeshVertexBufferMSFT) vertexBuffer}. */
@@ -364,6 +362,11 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

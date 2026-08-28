@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,17 +25,17 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link VK13#VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link VK13#VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT} or {@link VK13#VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-conditionalRendering">{@code conditionalRendering}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-fragmentDensityMap">{@code fragmentDensityMap}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_FRAGMENT_DENSITY_PROCESS_BIT_EXT PIPELINE_STAGE_2_FRAGMENT_DENSITY_PROCESS_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT}</li>
- * <li>If neither the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shadingRateImage">{@code shadingRateImage}</a> or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> are enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-subpassShading">{@code subpassShading}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link HUAWEISubpassShading#VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-invocationMask">{@code invocationMask}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link HUAWEIInvocationMask#VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI}</li>
- * <li>If neither the {@link NVRayTracing VK_NV_ray_tracing} extension or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rayTracingPipeline">{@code rayTracingPipeline} feature</a> are enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link VK13#VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link VK13#VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT} or {@link VK13#VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-conditionalRendering">{@code conditionalRendering}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-fragmentDensityMap">{@code fragmentDensityMap}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_FRAGMENT_DENSITY_PROCESS_BIT_EXT PIPELINE_STAGE_2_FRAGMENT_DENSITY_PROCESS_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT}</li>
+ * <li>If neither of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shadingRateImage">{@code shadingRateImage}</a> or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> features are enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-subpassShading">{@code subpassShading}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link HUAWEISubpassShading#VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-invocationMask">{@code invocationMask}</a> feature is not enabled, {@code stageMask} <b>must</b> not contain {@link HUAWEIInvocationMask#VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI}</li>
+ * <li>If neither the {@link NVRayTracing VK_NV_ray_tracing} extension or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-rayTracingPipeline">{@code rayTracingPipeline}</a> feature are enabled, {@code stageMask} <b>must</b> not contain {@link KHRSynchronization2#VK_PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR}</li>
  * <li>If the {@code device} that {@code semaphore} was created on is not a device group, {@code deviceIndex} <b>must</b> be 0</li>
  * <li>If the {@code device} that {@code semaphore} was created on is a device group, {@code deviceIndex} <b>must</b> be a valid device index</li>
  * </ul>
@@ -137,7 +137,7 @@ public class VkSemaphoreSubmitInfo extends Struct<VkSemaphoreSubmitInfo> impleme
     /** either the value used to signal {@code semaphore} or the value waited on by {@code semaphore}, if {@code semaphore} is a timeline semaphore. Otherwise it is ignored. */
     @NativeType("uint64_t")
     public long value() { return nvalue(address()); }
-    /** a {@code VkPipelineStageFlags2} mask of pipeline stages which limit the first synchronization scope of a semaphore signal operation, or second synchronization scope of a semaphore wait operation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-semaphores-waiting">semaphore wait operation</a> and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-semaphores-signaling">semaphore signal operation</a> sections of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization">the synchronization chapter</a>. */
+    /** a {@code VkPipelineStageFlags2} mask of pipeline stages which limit the first synchronization scope of a semaphore signal operation, or second synchronization scope of a semaphore wait operation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-semaphores-waiting">semaphore wait operation</a> and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-semaphores-signaling">semaphore signal operation</a> sections of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization">the synchronization chapter</a>. */
     @NativeType("VkPipelineStageFlags2")
     public long stageMask() { return nstageMask(address()); }
     /** the index of the device within a device group that executes the semaphore wait or signal operation. */
@@ -214,8 +214,7 @@ public class VkSemaphoreSubmitInfo extends Struct<VkSemaphoreSubmitInfo> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreSubmitInfo createSafe(long address) {
+    public static @Nullable VkSemaphoreSubmitInfo createSafe(long address) {
         return address == NULL ? null : new VkSemaphoreSubmitInfo(address, null);
     }
 
@@ -258,8 +257,7 @@ public class VkSemaphoreSubmitInfo extends Struct<VkSemaphoreSubmitInfo> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreSubmitInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSemaphoreSubmitInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -304,30 +302,30 @@ public class VkSemaphoreSubmitInfo extends Struct<VkSemaphoreSubmitInfo> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSemaphoreSubmitInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSemaphoreSubmitInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSemaphoreSubmitInfo.PNEXT); }
     /** Unsafe version of {@link #semaphore}. */
-    public static long nsemaphore(long struct) { return UNSAFE.getLong(null, struct + VkSemaphoreSubmitInfo.SEMAPHORE); }
+    public static long nsemaphore(long struct) { return memGetLong(struct + VkSemaphoreSubmitInfo.SEMAPHORE); }
     /** Unsafe version of {@link #value}. */
-    public static long nvalue(long struct) { return UNSAFE.getLong(null, struct + VkSemaphoreSubmitInfo.VALUE); }
+    public static long nvalue(long struct) { return memGetLong(struct + VkSemaphoreSubmitInfo.VALUE); }
     /** Unsafe version of {@link #stageMask}. */
-    public static long nstageMask(long struct) { return UNSAFE.getLong(null, struct + VkSemaphoreSubmitInfo.STAGEMASK); }
+    public static long nstageMask(long struct) { return memGetLong(struct + VkSemaphoreSubmitInfo.STAGEMASK); }
     /** Unsafe version of {@link #deviceIndex}. */
-    public static int ndeviceIndex(long struct) { return UNSAFE.getInt(null, struct + VkSemaphoreSubmitInfo.DEVICEINDEX); }
+    public static int ndeviceIndex(long struct) { return memGetInt(struct + VkSemaphoreSubmitInfo.DEVICEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSemaphoreSubmitInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSemaphoreSubmitInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSemaphoreSubmitInfo.PNEXT, value); }
     /** Unsafe version of {@link #semaphore(long) semaphore}. */
-    public static void nsemaphore(long struct, long value) { UNSAFE.putLong(null, struct + VkSemaphoreSubmitInfo.SEMAPHORE, value); }
+    public static void nsemaphore(long struct, long value) { memPutLong(struct + VkSemaphoreSubmitInfo.SEMAPHORE, value); }
     /** Unsafe version of {@link #value(long) value}. */
-    public static void nvalue(long struct, long value) { UNSAFE.putLong(null, struct + VkSemaphoreSubmitInfo.VALUE, value); }
+    public static void nvalue(long struct, long value) { memPutLong(struct + VkSemaphoreSubmitInfo.VALUE, value); }
     /** Unsafe version of {@link #stageMask(long) stageMask}. */
-    public static void nstageMask(long struct, long value) { UNSAFE.putLong(null, struct + VkSemaphoreSubmitInfo.STAGEMASK, value); }
+    public static void nstageMask(long struct, long value) { memPutLong(struct + VkSemaphoreSubmitInfo.STAGEMASK, value); }
     /** Unsafe version of {@link #deviceIndex(int) deviceIndex}. */
-    public static void ndeviceIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkSemaphoreSubmitInfo.DEVICEINDEX, value); }
+    public static void ndeviceIndex(long struct, int value) { memPutInt(struct + VkSemaphoreSubmitInfo.DEVICEINDEX, value); }
 
     // -----------------------------------
 
@@ -360,6 +358,11 @@ public class VkSemaphoreSubmitInfo extends Struct<VkSemaphoreSubmitInfo> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class VkDescriptorSetLayoutHostMappingInfoVALVE extends Struct<VkDescript
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorSetLayoutHostMappingInfoVALVE createSafe(long address) {
+    public static @Nullable VkDescriptorSetLayoutHostMappingInfoVALVE createSafe(long address) {
         return address == NULL ? null : new VkDescriptorSetLayoutHostMappingInfoVALVE(address, null);
     }
 
@@ -212,8 +211,7 @@ public class VkDescriptorSetLayoutHostMappingInfoVALVE extends Struct<VkDescript
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorSetLayoutHostMappingInfoVALVE.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorSetLayoutHostMappingInfoVALVE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,22 +256,22 @@ public class VkDescriptorSetLayoutHostMappingInfoVALVE extends Struct<VkDescript
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetLayoutHostMappingInfoVALVE.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorSetLayoutHostMappingInfoVALVE.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorSetLayoutHostMappingInfoVALVE.PNEXT); }
     /** Unsafe version of {@link #descriptorOffset}. */
     public static long ndescriptorOffset(long struct) { return memGetAddress(struct + VkDescriptorSetLayoutHostMappingInfoVALVE.DESCRIPTOROFFSET); }
     /** Unsafe version of {@link #descriptorSize}. */
-    public static int ndescriptorSize(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetLayoutHostMappingInfoVALVE.DESCRIPTORSIZE); }
+    public static int ndescriptorSize(long struct) { return memGetInt(struct + VkDescriptorSetLayoutHostMappingInfoVALVE.DESCRIPTORSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetLayoutHostMappingInfoVALVE.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorSetLayoutHostMappingInfoVALVE.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorSetLayoutHostMappingInfoVALVE.PNEXT, value); }
     /** Unsafe version of {@link #descriptorOffset(long) descriptorOffset}. */
     public static void ndescriptorOffset(long struct, long value) { memPutAddress(struct + VkDescriptorSetLayoutHostMappingInfoVALVE.DESCRIPTOROFFSET, value); }
     /** Unsafe version of {@link #descriptorSize(int) descriptorSize}. */
-    public static void ndescriptorSize(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetLayoutHostMappingInfoVALVE.DESCRIPTORSIZE, value); }
+    public static void ndescriptorSize(long struct, int value) { memPutInt(struct + VkDescriptorSetLayoutHostMappingInfoVALVE.DESCRIPTORSIZE, value); }
 
     // -----------------------------------
 
@@ -306,6 +304,11 @@ public class VkDescriptorSetLayoutHostMappingInfoVALVE extends Struct<VkDescript
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

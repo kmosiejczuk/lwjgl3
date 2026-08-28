@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -190,8 +190,7 @@ public class XrViewLocateInfo extends Struct<XrViewLocateInfo> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewLocateInfo createSafe(long address) {
+    public static @Nullable XrViewLocateInfo createSafe(long address) {
         return address == NULL ? null : new XrViewLocateInfo(address, null);
     }
 
@@ -234,8 +233,7 @@ public class XrViewLocateInfo extends Struct<XrViewLocateInfo> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewLocateInfo.Buffer createSafe(long address, int capacity) {
+    public static XrViewLocateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,24 +278,24 @@ public class XrViewLocateInfo extends Struct<XrViewLocateInfo> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrViewLocateInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrViewLocateInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrViewLocateInfo.NEXT); }
     /** Unsafe version of {@link #viewConfigurationType}. */
-    public static int nviewConfigurationType(long struct) { return UNSAFE.getInt(null, struct + XrViewLocateInfo.VIEWCONFIGURATIONTYPE); }
+    public static int nviewConfigurationType(long struct) { return memGetInt(struct + XrViewLocateInfo.VIEWCONFIGURATIONTYPE); }
     /** Unsafe version of {@link #displayTime}. */
-    public static long ndisplayTime(long struct) { return UNSAFE.getLong(null, struct + XrViewLocateInfo.DISPLAYTIME); }
+    public static long ndisplayTime(long struct) { return memGetLong(struct + XrViewLocateInfo.DISPLAYTIME); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrViewLocateInfo.SPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrViewLocateInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrViewLocateInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrViewLocateInfo.NEXT, value); }
     /** Unsafe version of {@link #viewConfigurationType(int) viewConfigurationType}. */
-    public static void nviewConfigurationType(long struct, int value) { UNSAFE.putInt(null, struct + XrViewLocateInfo.VIEWCONFIGURATIONTYPE, value); }
+    public static void nviewConfigurationType(long struct, int value) { memPutInt(struct + XrViewLocateInfo.VIEWCONFIGURATIONTYPE, value); }
     /** Unsafe version of {@link #displayTime(long) displayTime}. */
-    public static void ndisplayTime(long struct, long value) { UNSAFE.putLong(null, struct + XrViewLocateInfo.DISPLAYTIME, value); }
+    public static void ndisplayTime(long struct, long value) { memPutLong(struct + XrViewLocateInfo.DISPLAYTIME, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
     public static void nspace(long struct, XrSpace value) { memPutAddress(struct + XrViewLocateInfo.SPACE, value.address()); }
 
@@ -341,6 +339,11 @@ public class XrViewLocateInfo extends Struct<XrViewLocateInfo> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

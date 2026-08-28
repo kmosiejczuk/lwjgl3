@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -41,8 +41,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorPoolOverallocation">{@code descriptorPoolOverallocation}</a> feature is not enabled, or {@code flags} does not have {@link NVDescriptorPoolOverallocation#VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV} set, {@code maxSets} <b>must</b> be greater than 0</li>
- * <li>If {@code flags} has the {@link NVDescriptorPoolOverallocation#VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV} or {@link NVDescriptorPoolOverallocation#VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_POOLS_BIT_NV DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_POOLS_BIT_NV} bits set, then <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorPoolOverallocation">{@code descriptorPoolOverallocation}</a> <b>must</b> be enabled</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-descriptorPoolOverallocation">{@code descriptorPoolOverallocation}</a> feature is not enabled, or {@code flags} does not have {@link NVDescriptorPoolOverallocation#VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV} set, {@code maxSets} <b>must</b> be greater than 0</li>
+ * <li>If {@code flags} has the {@link NVDescriptorPoolOverallocation#VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV} or {@link NVDescriptorPoolOverallocation#VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_POOLS_BIT_NV DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_POOLS_BIT_NV} bits set, then <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-descriptorPoolOverallocation">{@code descriptorPoolOverallocation}</a> <b>must</b> be enabled</li>
  * <li>If {@code flags} has the {@link EXTMutableDescriptorType#VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT} bit set, then the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} bit <b>must</b> not be set</li>
  * <li>If {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT}{@code ::mutableDescriptorType} is not enabled, {@code pPoolSizes} <b>must</b> not contain a {@code descriptorType} of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}</li>
  * <li>If {@code flags} has the {@link EXTMutableDescriptorType#VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT} bit set, {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT}{@code ::mutableDescriptorType} <b>must</b> be enabled</li>
@@ -152,9 +152,8 @@ public class VkDescriptorPoolCreateInfo extends Struct<VkDescriptorPoolCreateInf
     @NativeType("uint32_t")
     public int poolSizeCount() { return npoolSizeCount(address()); }
     /** a pointer to an array of {@link VkDescriptorPoolSize} structures, each containing a descriptor type and number of descriptors of that type to be allocated in the pool. */
-    @Nullable
     @NativeType("VkDescriptorPoolSize const *")
-    public VkDescriptorPoolSize.Buffer pPoolSizes() { return npPoolSizes(address()); }
+    public VkDescriptorPoolSize.@Nullable Buffer pPoolSizes() { return npPoolSizes(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkDescriptorPoolCreateInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -175,7 +174,7 @@ public class VkDescriptorPoolCreateInfo extends Struct<VkDescriptorPoolCreateInf
     /** Sets the specified value to the {@link #maxSets} field. */
     public VkDescriptorPoolCreateInfo maxSets(@NativeType("uint32_t") int value) { nmaxSets(address(), value); return this; }
     /** Sets the address of the specified {@link VkDescriptorPoolSize.Buffer} to the {@link #pPoolSizes} field. */
-    public VkDescriptorPoolCreateInfo pPoolSizes(@Nullable @NativeType("VkDescriptorPoolSize const *") VkDescriptorPoolSize.Buffer value) { npPoolSizes(address(), value); return this; }
+    public VkDescriptorPoolCreateInfo pPoolSizes(@NativeType("VkDescriptorPoolSize const *") VkDescriptorPoolSize.@Nullable Buffer value) { npPoolSizes(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkDescriptorPoolCreateInfo set(
@@ -183,7 +182,7 @@ public class VkDescriptorPoolCreateInfo extends Struct<VkDescriptorPoolCreateInf
         long pNext,
         int flags,
         int maxSets,
-        @Nullable VkDescriptorPoolSize.Buffer pPoolSizes
+        VkDescriptorPoolSize.@Nullable Buffer pPoolSizes
     ) {
         sType(sType);
         pNext(pNext);
@@ -230,8 +229,7 @@ public class VkDescriptorPoolCreateInfo extends Struct<VkDescriptorPoolCreateInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorPoolCreateInfo createSafe(long address) {
+    public static @Nullable VkDescriptorPoolCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkDescriptorPoolCreateInfo(address, null);
     }
 
@@ -274,8 +272,7 @@ public class VkDescriptorPoolCreateInfo extends Struct<VkDescriptorPoolCreateInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorPoolCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorPoolCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -339,30 +336,30 @@ public class VkDescriptorPoolCreateInfo extends Struct<VkDescriptorPoolCreateInf
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorPoolCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorPoolCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorPoolCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorPoolCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkDescriptorPoolCreateInfo.FLAGS); }
     /** Unsafe version of {@link #maxSets}. */
-    public static int nmaxSets(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorPoolCreateInfo.MAXSETS); }
+    public static int nmaxSets(long struct) { return memGetInt(struct + VkDescriptorPoolCreateInfo.MAXSETS); }
     /** Unsafe version of {@link #poolSizeCount}. */
-    public static int npoolSizeCount(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorPoolCreateInfo.POOLSIZECOUNT); }
+    public static int npoolSizeCount(long struct) { return memGetInt(struct + VkDescriptorPoolCreateInfo.POOLSIZECOUNT); }
     /** Unsafe version of {@link #pPoolSizes}. */
-    @Nullable public static VkDescriptorPoolSize.Buffer npPoolSizes(long struct) { return VkDescriptorPoolSize.createSafe(memGetAddress(struct + VkDescriptorPoolCreateInfo.PPOOLSIZES), npoolSizeCount(struct)); }
+    public static VkDescriptorPoolSize.@Nullable Buffer npPoolSizes(long struct) { return VkDescriptorPoolSize.createSafe(memGetAddress(struct + VkDescriptorPoolCreateInfo.PPOOLSIZES), npoolSizeCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorPoolCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorPoolCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorPoolCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorPoolCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkDescriptorPoolCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #maxSets(int) maxSets}. */
-    public static void nmaxSets(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorPoolCreateInfo.MAXSETS, value); }
+    public static void nmaxSets(long struct, int value) { memPutInt(struct + VkDescriptorPoolCreateInfo.MAXSETS, value); }
     /** Sets the specified value to the {@code poolSizeCount} field of the specified {@code struct}. */
-    public static void npoolSizeCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorPoolCreateInfo.POOLSIZECOUNT, value); }
+    public static void npoolSizeCount(long struct, int value) { memPutInt(struct + VkDescriptorPoolCreateInfo.POOLSIZECOUNT, value); }
     /** Unsafe version of {@link #pPoolSizes(VkDescriptorPoolSize.Buffer) pPoolSizes}. */
-    public static void npPoolSizes(long struct, @Nullable VkDescriptorPoolSize.Buffer value) { memPutAddress(struct + VkDescriptorPoolCreateInfo.PPOOLSIZES, memAddressSafe(value)); npoolSizeCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npPoolSizes(long struct, VkDescriptorPoolSize.@Nullable Buffer value) { memPutAddress(struct + VkDescriptorPoolCreateInfo.PPOOLSIZES, memAddressSafe(value)); npoolSizeCount(struct, value == null ? 0 : value.remaining()); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -409,6 +406,11 @@ public class VkDescriptorPoolCreateInfo extends Struct<VkDescriptorPoolCreateInf
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDescriptorPoolCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -429,9 +431,8 @@ public class VkDescriptorPoolCreateInfo extends Struct<VkDescriptorPoolCreateInf
         @NativeType("uint32_t")
         public int poolSizeCount() { return VkDescriptorPoolCreateInfo.npoolSizeCount(address()); }
         /** @return a {@link VkDescriptorPoolSize.Buffer} view of the struct array pointed to by the {@link VkDescriptorPoolCreateInfo#pPoolSizes} field. */
-        @Nullable
         @NativeType("VkDescriptorPoolSize const *")
-        public VkDescriptorPoolSize.Buffer pPoolSizes() { return VkDescriptorPoolCreateInfo.npPoolSizes(address()); }
+        public VkDescriptorPoolSize.@Nullable Buffer pPoolSizes() { return VkDescriptorPoolCreateInfo.npPoolSizes(address()); }
 
         /** Sets the specified value to the {@link VkDescriptorPoolCreateInfo#sType} field. */
         public VkDescriptorPoolCreateInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkDescriptorPoolCreateInfo.nsType(address(), value); return this; }
@@ -452,7 +453,7 @@ public class VkDescriptorPoolCreateInfo extends Struct<VkDescriptorPoolCreateInf
         /** Sets the specified value to the {@link VkDescriptorPoolCreateInfo#maxSets} field. */
         public VkDescriptorPoolCreateInfo.Buffer maxSets(@NativeType("uint32_t") int value) { VkDescriptorPoolCreateInfo.nmaxSets(address(), value); return this; }
         /** Sets the address of the specified {@link VkDescriptorPoolSize.Buffer} to the {@link VkDescriptorPoolCreateInfo#pPoolSizes} field. */
-        public VkDescriptorPoolCreateInfo.Buffer pPoolSizes(@Nullable @NativeType("VkDescriptorPoolSize const *") VkDescriptorPoolSize.Buffer value) { VkDescriptorPoolCreateInfo.npPoolSizes(address(), value); return this; }
+        public VkDescriptorPoolCreateInfo.Buffer pPoolSizes(@NativeType("VkDescriptorPoolSize const *") VkDescriptorPoolSize.@Nullable Buffer value) { VkDescriptorPoolCreateInfo.npPoolSizes(address(), value); return this; }
 
     }
 

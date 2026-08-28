@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -87,8 +87,7 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXSourceRangeList createSafe(long address) {
+    public static @Nullable CXSourceRangeList createSafe(long address) {
         return address == NULL ? null : new CXSourceRangeList(address, null);
     }
 
@@ -103,15 +102,14 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXSourceRangeList.Buffer createSafe(long address, int capacity) {
+    public static CXSourceRangeList.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #count}. */
-    public static int ncount(long struct) { return UNSAFE.getInt(null, struct + CXSourceRangeList.COUNT); }
+    public static int ncount(long struct) { return memGetInt(struct + CXSourceRangeList.COUNT); }
     /** Unsafe version of {@link #ranges}. */
     public static CXSourceRange.Buffer nranges(long struct) { return CXSourceRange.create(memGetAddress(struct + CXSourceRangeList.RANGES), ncount(struct)); }
 
@@ -146,6 +144,11 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

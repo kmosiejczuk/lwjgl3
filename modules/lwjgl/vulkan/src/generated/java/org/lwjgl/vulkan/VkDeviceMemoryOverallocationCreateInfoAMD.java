@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkDeviceMemoryOverallocationCreateInfoAMD extends Struct<VkDeviceMe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceMemoryOverallocationCreateInfoAMD createSafe(long address) {
+    public static @Nullable VkDeviceMemoryOverallocationCreateInfoAMD createSafe(long address) {
         return address == NULL ? null : new VkDeviceMemoryOverallocationCreateInfoAMD(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkDeviceMemoryOverallocationCreateInfoAMD extends Struct<VkDeviceMe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceMemoryOverallocationCreateInfoAMD.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceMemoryOverallocationCreateInfoAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,18 +260,18 @@ public class VkDeviceMemoryOverallocationCreateInfoAMD extends Struct<VkDeviceMe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceMemoryOverallocationCreateInfoAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceMemoryOverallocationCreateInfoAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceMemoryOverallocationCreateInfoAMD.PNEXT); }
     /** Unsafe version of {@link #overallocationBehavior}. */
-    public static int noverallocationBehavior(long struct) { return UNSAFE.getInt(null, struct + VkDeviceMemoryOverallocationCreateInfoAMD.OVERALLOCATIONBEHAVIOR); }
+    public static int noverallocationBehavior(long struct) { return memGetInt(struct + VkDeviceMemoryOverallocationCreateInfoAMD.OVERALLOCATIONBEHAVIOR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceMemoryOverallocationCreateInfoAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceMemoryOverallocationCreateInfoAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceMemoryOverallocationCreateInfoAMD.PNEXT, value); }
     /** Unsafe version of {@link #overallocationBehavior(int) overallocationBehavior}. */
-    public static void noverallocationBehavior(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceMemoryOverallocationCreateInfoAMD.OVERALLOCATIONBEHAVIOR, value); }
+    public static void noverallocationBehavior(long struct, int value) { memPutInt(struct + VkDeviceMemoryOverallocationCreateInfoAMD.OVERALLOCATIONBEHAVIOR, value); }
 
     // -----------------------------------
 
@@ -306,6 +304,11 @@ public class VkDeviceMemoryOverallocationCreateInfoAMD extends Struct<VkDeviceMe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

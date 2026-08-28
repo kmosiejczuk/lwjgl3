@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>The {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure was added in version 2 of the {@link EXTSubgroupSizeControl VK_EXT_subgroup_size_control} extension. Version 1 implementations of this extension will not fill out the features structure but applications may assume that both {@code subgroupSizeControl} and {@code computeFullSubgroups} are supported if the extension is supported. (See also the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-requirements">Feature Requirements</a> section.) Applications are advised to add a {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure to the {@code pNext} chain of {@link VkDeviceCreateInfo} to enable the features regardless of the version of the extension supported by the implementation. If the implementation only supports version 1, it will safely ignore the {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure.</p>
+ * <p>The {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure was added in version 2 of the {@link EXTSubgroupSizeControl VK_EXT_subgroup_size_control} extension. Version 1 implementations of this extension will not fill out the features structure but applications may assume that both {@code subgroupSizeControl} and {@code computeFullSubgroups} are supported if the extension is supported. (See also the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-requirements">Feature Requirements</a> section.) Applications are advised to add a {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure to the {@code pNext} chain of {@link VkDeviceCreateInfo} to enable the features regardless of the version of the extension supported by the implementation. If the implementation only supports version 1, it will safely ignore the {@link VkPhysicalDeviceSubgroupSizeControlFeaturesEXT} structure.</p>
  * 
  * <p>Vulkan 1.3 implementations always support the features structure.</p>
  * </div>
@@ -174,8 +174,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSubgroupSizeControlFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSubgroupSizeControlFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSubgroupSizeControlFeatures(address, null);
     }
 
@@ -218,8 +217,7 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSubgroupSizeControlFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSubgroupSizeControlFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +262,22 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupSizeControlFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupSizeControlFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSubgroupSizeControlFeatures.PNEXT); }
     /** Unsafe version of {@link #subgroupSizeControl}. */
-    public static int nsubgroupSizeControl(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupSizeControlFeatures.SUBGROUPSIZECONTROL); }
+    public static int nsubgroupSizeControl(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupSizeControlFeatures.SUBGROUPSIZECONTROL); }
     /** Unsafe version of {@link #computeFullSubgroups}. */
-    public static int ncomputeFullSubgroups(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupSizeControlFeatures.COMPUTEFULLSUBGROUPS); }
+    public static int ncomputeFullSubgroups(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupSizeControlFeatures.COMPUTEFULLSUBGROUPS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSubgroupSizeControlFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSubgroupSizeControlFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSubgroupSizeControlFeatures.PNEXT, value); }
     /** Unsafe version of {@link #subgroupSizeControl(boolean) subgroupSizeControl}. */
-    public static void nsubgroupSizeControl(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSubgroupSizeControlFeatures.SUBGROUPSIZECONTROL, value); }
+    public static void nsubgroupSizeControl(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSubgroupSizeControlFeatures.SUBGROUPSIZECONTROL, value); }
     /** Unsafe version of {@link #computeFullSubgroups(boolean) computeFullSubgroups}. */
-    public static void ncomputeFullSubgroups(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSubgroupSizeControlFeatures.COMPUTEFULLSUBGROUPS, value); }
+    public static void ncomputeFullSubgroups(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSubgroupSizeControlFeatures.COMPUTEFULLSUBGROUPS, value); }
 
     // -----------------------------------
 
@@ -312,6 +310,11 @@ public class VkPhysicalDeviceSubgroupSizeControlFeatures extends Struct<VkPhysic
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

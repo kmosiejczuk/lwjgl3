@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceRayQueryFeaturesKHR extends Struct<VkPhysicalDevice
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayQueryFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRayQueryFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRayQueryFeaturesKHR(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceRayQueryFeaturesKHR extends Struct<VkPhysicalDevice
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayQueryFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRayQueryFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceRayQueryFeaturesKHR extends Struct<VkPhysicalDevice
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayQueryFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRayQueryFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRayQueryFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #rayQuery}. */
-    public static int nrayQuery(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayQueryFeaturesKHR.RAYQUERY); }
+    public static int nrayQuery(long struct) { return memGetInt(struct + VkPhysicalDeviceRayQueryFeaturesKHR.RAYQUERY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayQueryFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayQueryFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRayQueryFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #rayQuery(boolean) rayQuery}. */
-    public static void nrayQuery(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayQueryFeaturesKHR.RAYQUERY, value); }
+    public static void nrayQuery(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayQueryFeaturesKHR.RAYQUERY, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceRayQueryFeaturesKHR extends Struct<VkPhysicalDevice
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -148,8 +148,7 @@ public class hb_aat_layout_feature_selector_info_t extends Struct<hb_aat_layout_
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_aat_layout_feature_selector_info_t createSafe(long address) {
+    public static @Nullable hb_aat_layout_feature_selector_info_t createSafe(long address) {
         return address == NULL ? null : new hb_aat_layout_feature_selector_info_t(address, null);
     }
 
@@ -192,8 +191,7 @@ public class hb_aat_layout_feature_selector_info_t extends Struct<hb_aat_layout_
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_aat_layout_feature_selector_info_t.Buffer createSafe(long address, int capacity) {
+    public static hb_aat_layout_feature_selector_info_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -238,20 +236,20 @@ public class hb_aat_layout_feature_selector_info_t extends Struct<hb_aat_layout_
     // -----------------------------------
 
     /** Unsafe version of {@link #name_id}. */
-    public static int nname_id(long struct) { return UNSAFE.getInt(null, struct + hb_aat_layout_feature_selector_info_t.NAME_ID); }
+    public static int nname_id(long struct) { return memGetInt(struct + hb_aat_layout_feature_selector_info_t.NAME_ID); }
     /** Unsafe version of {@link #enable}. */
-    public static int nenable(long struct) { return UNSAFE.getInt(null, struct + hb_aat_layout_feature_selector_info_t.ENABLE); }
+    public static int nenable(long struct) { return memGetInt(struct + hb_aat_layout_feature_selector_info_t.ENABLE); }
     /** Unsafe version of {@link #disable}. */
-    public static int ndisable(long struct) { return UNSAFE.getInt(null, struct + hb_aat_layout_feature_selector_info_t.DISABLE); }
-    public static int nreserved(long struct) { return UNSAFE.getInt(null, struct + hb_aat_layout_feature_selector_info_t.RESERVED); }
+    public static int ndisable(long struct) { return memGetInt(struct + hb_aat_layout_feature_selector_info_t.DISABLE); }
+    public static int nreserved(long struct) { return memGetInt(struct + hb_aat_layout_feature_selector_info_t.RESERVED); }
 
     /** Unsafe version of {@link #name_id(int) name_id}. */
-    public static void nname_id(long struct, int value) { UNSAFE.putInt(null, struct + hb_aat_layout_feature_selector_info_t.NAME_ID, value); }
+    public static void nname_id(long struct, int value) { memPutInt(struct + hb_aat_layout_feature_selector_info_t.NAME_ID, value); }
     /** Unsafe version of {@link #enable(int) enable}. */
-    public static void nenable(long struct, int value) { UNSAFE.putInt(null, struct + hb_aat_layout_feature_selector_info_t.ENABLE, value); }
+    public static void nenable(long struct, int value) { memPutInt(struct + hb_aat_layout_feature_selector_info_t.ENABLE, value); }
     /** Unsafe version of {@link #disable(int) disable}. */
-    public static void ndisable(long struct, int value) { UNSAFE.putInt(null, struct + hb_aat_layout_feature_selector_info_t.DISABLE, value); }
-    public static void nreserved(long struct, int value) { UNSAFE.putInt(null, struct + hb_aat_layout_feature_selector_info_t.RESERVED, value); }
+    public static void ndisable(long struct, int value) { memPutInt(struct + hb_aat_layout_feature_selector_info_t.DISABLE, value); }
+    public static void nreserved(long struct, int value) { memPutInt(struct + hb_aat_layout_feature_selector_info_t.RESERVED, value); }
 
     // -----------------------------------
 
@@ -284,6 +282,11 @@ public class hb_aat_layout_feature_selector_info_t extends Struct<hb_aat_layout_
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

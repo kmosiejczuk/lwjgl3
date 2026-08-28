@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -169,8 +169,7 @@ public class OVRPerfStats extends Struct<OVRPerfStats> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRPerfStats createSafe(long address) {
+    public static @Nullable OVRPerfStats createSafe(long address) {
         return address == NULL ? null : new OVRPerfStats(address, null);
     }
 
@@ -213,8 +212,7 @@ public class OVRPerfStats extends Struct<OVRPerfStats> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRPerfStats.Buffer createSafe(long address, int capacity) {
+    public static OVRPerfStats.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,15 +282,15 @@ public class OVRPerfStats extends Struct<OVRPerfStats> implements NativeResource
         return OVRPerfStatsPerCompositorFrame.create(struct + OVRPerfStats.FRAMESTATS + check(index, nFrameStatsCount(struct)) * OVRPerfStatsPerCompositorFrame.SIZEOF);
     }
     /** Unsafe version of {@link #FrameStatsCount}. */
-    public static int nFrameStatsCount(long struct) { return UNSAFE.getInt(null, struct + OVRPerfStats.FRAMESTATSCOUNT); }
+    public static int nFrameStatsCount(long struct) { return memGetInt(struct + OVRPerfStats.FRAMESTATSCOUNT); }
     /** Unsafe version of {@link #AnyFrameStatsDropped}. */
-    public static boolean nAnyFrameStatsDropped(long struct) { return UNSAFE.getByte(null, struct + OVRPerfStats.ANYFRAMESTATSDROPPED) != 0; }
+    public static boolean nAnyFrameStatsDropped(long struct) { return memGetByte(struct + OVRPerfStats.ANYFRAMESTATSDROPPED) != 0; }
     /** Unsafe version of {@link #AdaptiveGpuPerformanceScale}. */
-    public static float nAdaptiveGpuPerformanceScale(long struct) { return UNSAFE.getFloat(null, struct + OVRPerfStats.ADAPTIVEGPUPERFORMANCESCALE); }
+    public static float nAdaptiveGpuPerformanceScale(long struct) { return memGetFloat(struct + OVRPerfStats.ADAPTIVEGPUPERFORMANCESCALE); }
     /** Unsafe version of {@link #AswIsAvailable}. */
-    public static boolean nAswIsAvailable(long struct) { return UNSAFE.getByte(null, struct + OVRPerfStats.ASWISAVAILABLE) != 0; }
+    public static boolean nAswIsAvailable(long struct) { return memGetByte(struct + OVRPerfStats.ASWISAVAILABLE) != 0; }
     /** Unsafe version of {@link #VisibleProcessId}. */
-    public static int nVisibleProcessId(long struct) { return UNSAFE.getInt(null, struct + OVRPerfStats.VISIBLEPROCESSID); }
+    public static int nVisibleProcessId(long struct) { return memGetInt(struct + OVRPerfStats.VISIBLEPROCESSID); }
 
     // -----------------------------------
 
@@ -325,6 +323,11 @@ public class OVRPerfStats extends Struct<OVRPerfStats> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

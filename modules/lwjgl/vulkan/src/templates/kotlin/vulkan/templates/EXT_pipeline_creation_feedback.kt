@@ -14,7 +14,7 @@ val EXT_pipeline_creation_feedback = "EXTPipelineCreationFeedback".nativeClassVK
         This extension adds a mechanism to provide feedback to an application about pipeline creation, with the specific goal of allowing a feedback loop between build systems and in-the-field application executions to ensure effective pipeline caches are shipped to customers.
 
         <h5>Promotion to Vulkan 1.3</h5>
-        Functionality in this extension is included in core Vulkan 1.3, with the EXT suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
+        Vulkan APIs in this extension are included in core Vulkan 1.3, with the EXT suffix omitted. External interactions defined by this extension, such as SPIR-V token names, retain their original names. The original Vulkan API names are still available as aliases of the core functionality.
 
         <dl>
             <dt><b>Name String</b></dt>
@@ -31,12 +31,12 @@ val EXT_pipeline_creation_feedback = "EXTPipelineCreationFeedback".nativeClassVK
 
             <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
 
             <dt><b>Special Use</b></dt>
             <dd><ul>
-                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,8 +135,7 @@ public class VkViewportWScalingNV extends Struct<VkViewportWScalingNV> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkViewportWScalingNV createSafe(long address) {
+    public static @Nullable VkViewportWScalingNV createSafe(long address) {
         return address == NULL ? null : new VkViewportWScalingNV(address, null);
     }
 
@@ -179,8 +178,7 @@ public class VkViewportWScalingNV extends Struct<VkViewportWScalingNV> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkViewportWScalingNV.Buffer createSafe(long address, int capacity) {
+    public static VkViewportWScalingNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,14 +242,14 @@ public class VkViewportWScalingNV extends Struct<VkViewportWScalingNV> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #xcoeff}. */
-    public static float nxcoeff(long struct) { return UNSAFE.getFloat(null, struct + VkViewportWScalingNV.XCOEFF); }
+    public static float nxcoeff(long struct) { return memGetFloat(struct + VkViewportWScalingNV.XCOEFF); }
     /** Unsafe version of {@link #ycoeff}. */
-    public static float nycoeff(long struct) { return UNSAFE.getFloat(null, struct + VkViewportWScalingNV.YCOEFF); }
+    public static float nycoeff(long struct) { return memGetFloat(struct + VkViewportWScalingNV.YCOEFF); }
 
     /** Unsafe version of {@link #xcoeff(float) xcoeff}. */
-    public static void nxcoeff(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewportWScalingNV.XCOEFF, value); }
+    public static void nxcoeff(long struct, float value) { memPutFloat(struct + VkViewportWScalingNV.XCOEFF, value); }
     /** Unsafe version of {@link #ycoeff(float) ycoeff}. */
-    public static void nycoeff(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewportWScalingNV.YCOEFF, value); }
+    public static void nycoeff(long struct, float value) { memPutFloat(struct + VkViewportWScalingNV.YCOEFF, value); }
 
     // -----------------------------------
 
@@ -284,6 +282,11 @@ public class VkViewportWScalingNV extends Struct<VkViewportWScalingNV> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

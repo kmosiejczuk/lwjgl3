@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.meow;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -118,8 +118,7 @@ public class MeowHash extends Struct<MeowHash> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeowHash createSafe(long address) {
+    public static @Nullable MeowHash createSafe(long address) {
         return address == NULL ? null : new MeowHash(address, null);
     }
 
@@ -162,8 +161,7 @@ public class MeowHash extends Struct<MeowHash> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeowHash.Buffer createSafe(long address, int capacity) {
+    public static MeowHash.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -232,13 +230,13 @@ public class MeowHash extends Struct<MeowHash> implements NativeResource {
     public static LongBuffer nu64(long struct) { return memLongBuffer(struct + MeowHash.U64, 2); }
     /** Unsafe version of {@link #u64(int) u64}. */
     public static long nu64(long struct, int index) {
-        return UNSAFE.getLong(null, struct + MeowHash.U64 + check(index, 2) * 8);
+        return memGetLong(struct + MeowHash.U64 + check(index, 2) * 8);
     }
     /** Unsafe version of {@link #u32}. */
     public static IntBuffer nu32(long struct) { return memIntBuffer(struct + MeowHash.U32, 4); }
     /** Unsafe version of {@link #u32(int) u32}. */
     public static int nu32(long struct, int index) {
-        return UNSAFE.getInt(null, struct + MeowHash.U32 + check(index, 4) * 4);
+        return memGetInt(struct + MeowHash.U32 + check(index, 4) * 4);
     }
 
     // -----------------------------------
@@ -272,6 +270,11 @@ public class MeowHash extends Struct<MeowHash> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

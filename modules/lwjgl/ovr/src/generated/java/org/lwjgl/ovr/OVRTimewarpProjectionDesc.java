@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -112,8 +112,7 @@ public class OVRTimewarpProjectionDesc extends Struct<OVRTimewarpProjectionDesc>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTimewarpProjectionDesc createSafe(long address) {
+    public static @Nullable OVRTimewarpProjectionDesc createSafe(long address) {
         return address == NULL ? null : new OVRTimewarpProjectionDesc(address, null);
     }
 
@@ -156,8 +155,7 @@ public class OVRTimewarpProjectionDesc extends Struct<OVRTimewarpProjectionDesc>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTimewarpProjectionDesc.Buffer createSafe(long address, int capacity) {
+    public static OVRTimewarpProjectionDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -221,11 +219,11 @@ public class OVRTimewarpProjectionDesc extends Struct<OVRTimewarpProjectionDesc>
     // -----------------------------------
 
     /** Unsafe version of {@link #Projection22}. */
-    public static float nProjection22(long struct) { return UNSAFE.getFloat(null, struct + OVRTimewarpProjectionDesc.PROJECTION22); }
+    public static float nProjection22(long struct) { return memGetFloat(struct + OVRTimewarpProjectionDesc.PROJECTION22); }
     /** Unsafe version of {@link #Projection23}. */
-    public static float nProjection23(long struct) { return UNSAFE.getFloat(null, struct + OVRTimewarpProjectionDesc.PROJECTION23); }
+    public static float nProjection23(long struct) { return memGetFloat(struct + OVRTimewarpProjectionDesc.PROJECTION23); }
     /** Unsafe version of {@link #Projection32}. */
-    public static float nProjection32(long struct) { return UNSAFE.getFloat(null, struct + OVRTimewarpProjectionDesc.PROJECTION32); }
+    public static float nProjection32(long struct) { return memGetFloat(struct + OVRTimewarpProjectionDesc.PROJECTION32); }
 
     // -----------------------------------
 
@@ -258,6 +256,11 @@ public class OVRTimewarpProjectionDesc extends Struct<OVRTimewarpProjectionDesc>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

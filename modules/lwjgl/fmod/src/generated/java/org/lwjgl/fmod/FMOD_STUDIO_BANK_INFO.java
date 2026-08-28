@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -96,9 +96,8 @@ public class FMOD_STUDIO_BANK_INFO extends Struct<FMOD_STUDIO_BANK_INFO> impleme
     /** @return the value of the {@code size} field. */
     public int size() { return nsize(address()); }
     /** @return a {@link ByteBuffer} view of the data pointed to by the {@code userdata} field. */
-    @Nullable
     @NativeType("void *")
-    public ByteBuffer userdata() { return nuserdata(address()); }
+    public @Nullable ByteBuffer userdata() { return nuserdata(address()); }
     /** @return the value of the {@code userdatalength} field. */
     public int userdatalength() { return nuserdatalength(address()); }
     /** @return the value of the {@code opencallback} field. */
@@ -182,8 +181,7 @@ public class FMOD_STUDIO_BANK_INFO extends Struct<FMOD_STUDIO_BANK_INFO> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_BANK_INFO createSafe(long address) {
+    public static @Nullable FMOD_STUDIO_BANK_INFO createSafe(long address) {
         return address == NULL ? null : new FMOD_STUDIO_BANK_INFO(address, null);
     }
 
@@ -226,8 +224,7 @@ public class FMOD_STUDIO_BANK_INFO extends Struct<FMOD_STUDIO_BANK_INFO> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_BANK_INFO.Buffer createSafe(long address, int capacity) {
+    public static FMOD_STUDIO_BANK_INFO.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,11 +269,11 @@ public class FMOD_STUDIO_BANK_INFO extends Struct<FMOD_STUDIO_BANK_INFO> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_BANK_INFO.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + FMOD_STUDIO_BANK_INFO.SIZE); }
     /** Unsafe version of {@link #userdata() userdata}. */
-    @Nullable public static ByteBuffer nuserdata(long struct) { return memByteBufferSafe(memGetAddress(struct + FMOD_STUDIO_BANK_INFO.USERDATA), nuserdatalength(struct)); }
+    public static @Nullable ByteBuffer nuserdata(long struct) { return memByteBufferSafe(memGetAddress(struct + FMOD_STUDIO_BANK_INFO.USERDATA), nuserdatalength(struct)); }
     /** Unsafe version of {@link #userdatalength}. */
-    public static int nuserdatalength(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_BANK_INFO.USERDATALENGTH); }
+    public static int nuserdatalength(long struct) { return memGetInt(struct + FMOD_STUDIO_BANK_INFO.USERDATALENGTH); }
     /** Unsafe version of {@link #opencallback}. */
     public static FMOD_FILE_OPEN_CALLBACK nopencallback(long struct) { return FMOD_FILE_OPEN_CALLBACK.create(memGetAddress(struct + FMOD_STUDIO_BANK_INFO.OPENCALLBACK)); }
     /** Unsafe version of {@link #closecallback}. */
@@ -287,11 +284,11 @@ public class FMOD_STUDIO_BANK_INFO extends Struct<FMOD_STUDIO_BANK_INFO> impleme
     public static FMOD_FILE_SEEK_CALLBACK nseekcallback(long struct) { return FMOD_FILE_SEEK_CALLBACK.create(memGetAddress(struct + FMOD_STUDIO_BANK_INFO.SEEKCALLBACK)); }
 
     /** Unsafe version of {@link #size(int) size}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_BANK_INFO.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + FMOD_STUDIO_BANK_INFO.SIZE, value); }
     /** Unsafe version of {@link #userdata(ByteBuffer) userdata}. */
     public static void nuserdata(long struct, @Nullable ByteBuffer value) { memPutAddress(struct + FMOD_STUDIO_BANK_INFO.USERDATA, memAddressSafe(value)); nuserdatalength(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code userdatalength} field of the specified {@code struct}. */
-    public static void nuserdatalength(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_BANK_INFO.USERDATALENGTH, value); }
+    public static void nuserdatalength(long struct, int value) { memPutInt(struct + FMOD_STUDIO_BANK_INFO.USERDATALENGTH, value); }
     /** Unsafe version of {@link #opencallback(FMOD_FILE_OPEN_CALLBACKI) opencallback}. */
     public static void nopencallback(long struct, FMOD_FILE_OPEN_CALLBACKI value) { memPutAddress(struct + FMOD_STUDIO_BANK_INFO.OPENCALLBACK, value.address()); }
     /** Unsafe version of {@link #closecallback(FMOD_FILE_CLOSE_CALLBACKI) closecallback}. */
@@ -347,6 +344,11 @@ public class FMOD_STUDIO_BANK_INFO extends Struct<FMOD_STUDIO_BANK_INFO> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FMOD_STUDIO_BANK_INFO getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -354,9 +356,8 @@ public class FMOD_STUDIO_BANK_INFO extends Struct<FMOD_STUDIO_BANK_INFO> impleme
         /** @return the value of the {@code size} field. */
         public int size() { return FMOD_STUDIO_BANK_INFO.nsize(address()); }
         /** @return a {@link ByteBuffer} view of the data pointed to by the {@code userdata} field. */
-        @Nullable
         @NativeType("void *")
-        public ByteBuffer userdata() { return FMOD_STUDIO_BANK_INFO.nuserdata(address()); }
+        public @Nullable ByteBuffer userdata() { return FMOD_STUDIO_BANK_INFO.nuserdata(address()); }
         /** @return the value of the {@code userdatalength} field. */
         public int userdatalength() { return FMOD_STUDIO_BANK_INFO.nuserdatalength(address()); }
         /** @return the value of the {@code opencallback} field. */

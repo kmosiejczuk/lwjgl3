@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkSparseImageFormatProperties2 extends Struct<VkSparseImageFormatPr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageFormatProperties2 createSafe(long address) {
+    public static @Nullable VkSparseImageFormatProperties2 createSafe(long address) {
         return address == NULL ? null : new VkSparseImageFormatProperties2(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkSparseImageFormatProperties2 extends Struct<VkSparseImageFormatPr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageFormatProperties2.Buffer createSafe(long address, int capacity) {
+    public static VkSparseImageFormatProperties2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,14 +259,14 @@ public class VkSparseImageFormatProperties2 extends Struct<VkSparseImageFormatPr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSparseImageFormatProperties2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSparseImageFormatProperties2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSparseImageFormatProperties2.PNEXT); }
     /** Unsafe version of {@link #properties}. */
     public static VkSparseImageFormatProperties nproperties(long struct) { return VkSparseImageFormatProperties.create(struct + VkSparseImageFormatProperties2.PROPERTIES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSparseImageFormatProperties2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSparseImageFormatProperties2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSparseImageFormatProperties2.PNEXT, value); }
 
@@ -303,6 +301,11 @@ public class VkSparseImageFormatProperties2 extends Struct<VkSparseImageFormatPr
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

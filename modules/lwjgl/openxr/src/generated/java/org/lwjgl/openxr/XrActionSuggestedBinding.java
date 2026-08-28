@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -88,7 +88,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
     /** the {@code XrAction} handle for an action */
     @NativeType("XrAction")
     public long action() { return naction(address()); }
-    /** the {@code XrPath} of a binding for the action specified in {@code action}. This path is any top level user path plus input source path, for example pathname:/user/hand/right/input/trigger/click. See <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#input-suggested-bindings">suggested bindings</a> for more details. */
+    /** the {@code XrPath} of a binding for the action specified in {@code action}. This "binding path" is any top level pathname:/user path plus an applicable <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#semantic-paths-input">input subpath</a>, for example pathname:/user/hand/right/input/trigger/click. See <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#input-suggested-bindings">input-suggested-bindings</a> for more details. */
     @NativeType("XrPath")
     public long binding() { return nbinding(address()); }
 
@@ -144,8 +144,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionSuggestedBinding createSafe(long address) {
+    public static @Nullable XrActionSuggestedBinding createSafe(long address) {
         return address == NULL ? null : new XrActionSuggestedBinding(address, null);
     }
 
@@ -188,8 +187,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionSuggestedBinding.Buffer createSafe(long address, int capacity) {
+    public static XrActionSuggestedBinding.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -236,12 +234,12 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
     /** Unsafe version of {@link #action}. */
     public static long naction(long struct) { return memGetAddress(struct + XrActionSuggestedBinding.ACTION); }
     /** Unsafe version of {@link #binding}. */
-    public static long nbinding(long struct) { return UNSAFE.getLong(null, struct + XrActionSuggestedBinding.BINDING); }
+    public static long nbinding(long struct) { return memGetLong(struct + XrActionSuggestedBinding.BINDING); }
 
     /** Unsafe version of {@link #action(XrAction) action}. */
     public static void naction(long struct, XrAction value) { memPutAddress(struct + XrActionSuggestedBinding.ACTION, value.address()); }
     /** Unsafe version of {@link #binding(long) binding}. */
-    public static void nbinding(long struct, long value) { UNSAFE.putLong(null, struct + XrActionSuggestedBinding.BINDING, value); }
+    public static void nbinding(long struct, long value) { memPutLong(struct + XrActionSuggestedBinding.BINDING, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -283,6 +281,11 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

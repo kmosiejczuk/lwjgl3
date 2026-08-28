@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class XrExternalCameraExtrinsicsOCULUS extends Struct<XrExternalCameraExt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExternalCameraExtrinsicsOCULUS createSafe(long address) {
+    public static @Nullable XrExternalCameraExtrinsicsOCULUS createSafe(long address) {
         return address == NULL ? null : new XrExternalCameraExtrinsicsOCULUS(address, null);
     }
 
@@ -212,8 +211,7 @@ public class XrExternalCameraExtrinsicsOCULUS extends Struct<XrExternalCameraExt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExternalCameraExtrinsicsOCULUS.Buffer createSafe(long address, int capacity) {
+    public static XrExternalCameraExtrinsicsOCULUS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,20 +256,20 @@ public class XrExternalCameraExtrinsicsOCULUS extends Struct<XrExternalCameraExt
     // -----------------------------------
 
     /** Unsafe version of {@link #lastChangeTime}. */
-    public static long nlastChangeTime(long struct) { return UNSAFE.getLong(null, struct + XrExternalCameraExtrinsicsOCULUS.LASTCHANGETIME); }
+    public static long nlastChangeTime(long struct) { return memGetLong(struct + XrExternalCameraExtrinsicsOCULUS.LASTCHANGETIME); }
     /** Unsafe version of {@link #cameraStatusFlags}. */
-    public static long ncameraStatusFlags(long struct) { return UNSAFE.getLong(null, struct + XrExternalCameraExtrinsicsOCULUS.CAMERASTATUSFLAGS); }
+    public static long ncameraStatusFlags(long struct) { return memGetLong(struct + XrExternalCameraExtrinsicsOCULUS.CAMERASTATUSFLAGS); }
     /** Unsafe version of {@link #attachedToDevice}. */
-    public static int nattachedToDevice(long struct) { return UNSAFE.getInt(null, struct + XrExternalCameraExtrinsicsOCULUS.ATTACHEDTODEVICE); }
+    public static int nattachedToDevice(long struct) { return memGetInt(struct + XrExternalCameraExtrinsicsOCULUS.ATTACHEDTODEVICE); }
     /** Unsafe version of {@link #relativePose}. */
     public static XrPosef nrelativePose(long struct) { return XrPosef.create(struct + XrExternalCameraExtrinsicsOCULUS.RELATIVEPOSE); }
 
     /** Unsafe version of {@link #lastChangeTime(long) lastChangeTime}. */
-    public static void nlastChangeTime(long struct, long value) { UNSAFE.putLong(null, struct + XrExternalCameraExtrinsicsOCULUS.LASTCHANGETIME, value); }
+    public static void nlastChangeTime(long struct, long value) { memPutLong(struct + XrExternalCameraExtrinsicsOCULUS.LASTCHANGETIME, value); }
     /** Unsafe version of {@link #cameraStatusFlags(long) cameraStatusFlags}. */
-    public static void ncameraStatusFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrExternalCameraExtrinsicsOCULUS.CAMERASTATUSFLAGS, value); }
+    public static void ncameraStatusFlags(long struct, long value) { memPutLong(struct + XrExternalCameraExtrinsicsOCULUS.CAMERASTATUSFLAGS, value); }
     /** Unsafe version of {@link #attachedToDevice(int) attachedToDevice}. */
-    public static void nattachedToDevice(long struct, int value) { UNSAFE.putInt(null, struct + XrExternalCameraExtrinsicsOCULUS.ATTACHEDTODEVICE, value); }
+    public static void nattachedToDevice(long struct, int value) { memPutInt(struct + XrExternalCameraExtrinsicsOCULUS.ATTACHEDTODEVICE, value); }
     /** Unsafe version of {@link #relativePose(XrPosef) relativePose}. */
     public static void nrelativePose(long struct, XrPosef value) { memCopy(value.address(), struct + XrExternalCameraExtrinsicsOCULUS.RELATIVEPOSE, XrPosef.SIZEOF); }
 
@@ -306,6 +304,11 @@ public class XrExternalCameraExtrinsicsOCULUS extends Struct<XrExternalCameraExt
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

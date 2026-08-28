@@ -5,6 +5,7 @@
 package org.lwjgl.demo.util.tootle;
 
 import org.joml.*;
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.assimp.*;
 import org.lwjgl.glfw.*;
@@ -13,7 +14,6 @@ import org.lwjgl.system.*;
 import org.lwjgl.util.nfd.*;
 import org.lwjgl.util.par.*;
 
-import javax.annotation.*;
 import java.io.*;
 import java.nio.*;
 import java.nio.file.*;
@@ -142,7 +142,7 @@ public final class HelloTootle {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-        if (Platform.get() == Platform.MACOSX) {
+        if (glfwGetPlatform() == GLFW_PLATFORM_COCOA) {
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -1017,8 +1017,7 @@ public final class HelloTootle {
         }
     }
 
-    @Nullable
-    private AIScene importScene(MemoryStack stack, String filePath) {
+    private @Nullable AIScene importScene(MemoryStack stack, String filePath) {
         // buffer cache (AIFileIO's OpenProc/CloseProc may be called multiple times per file)
         Map<String, ByteBuffer> dataMap = new HashMap<>();
 
@@ -1463,7 +1462,7 @@ public final class HelloTootle {
 
             int n = 0;
             try (MemoryStack stack = stackPush()) {
-                IntBuffer available = stack.ints(1);
+                IntBuffer  available   = stack.ints(1);
                 LongBuffer timeElapsed = stack.mallocLong(1);
                 while (available.get(0) != 0 && ret <= cur) {
                     // check for results if there are any

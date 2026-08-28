@@ -18,7 +18,7 @@ val KHR_buffer_device_address = "KHRBufferDeviceAddress".nativeClassVK("KHR_buff
         #GetBufferOpaqueCaptureAddress() and #GetDeviceMemoryOpaqueCaptureAddress() allow opaque addresses for buffers and memory objects to be queried for the current process. A trace capture and replay tool can then supply these addresses to be used at replay time to match the addresses used when the trace was captured. To enable tools to insert these queries, new memory allocation flags must be specified for memory objects that will be bound to buffers accessed via the {@code PhysicalStorageBuffer} storage class. <b>Note that this mechanism is intended only to support capture/replay tools, and is not recommended for use in other applications.</b>
 
         <h5>Promotion to Vulkan 1.2</h5>
-        All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. However, if Vulkan 1.2 is supported and this extension is not, the {@code bufferDeviceAddress} feature is optional. The original type, enum and command names are still available as aliases of the core functionality.
+        All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. However, if Vulkan 1.2 is supported and this extension is not, the {@code bufferDeviceAddress} feature is optional. The original type, enum, and command names are still available as aliases of the core functionality.
 
         <h5>Promotion to Vulkan 1.3</h5>
         Support for the {@code bufferDeviceAddress} feature is mandatory in Vulkan 1.3, regardless of whether this extension is supported.
@@ -37,7 +37,7 @@ val KHR_buffer_device_address = "KHRBufferDeviceAddress".nativeClassVK("KHR_buff
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRDeviceGroup VK_KHR_device_group} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRDeviceGroup VK_KHR_device_group} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>SPIR-V Dependencies</b></dt>
             <dd><ul>
@@ -46,7 +46,7 @@ val KHR_buffer_device_address = "KHRBufferDeviceAddress".nativeClassVK("KHR_buff
 
             <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceMaintenance7FeaturesKHR extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance7FeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMaintenance7FeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMaintenance7FeaturesKHR(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceMaintenance7FeaturesKHR extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance7FeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMaintenance7FeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,18 +255,18 @@ public class VkPhysicalDeviceMaintenance7FeaturesKHR extends Struct<VkPhysicalDe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7FeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7FeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMaintenance7FeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #maintenance7}. */
-    public static int nmaintenance7(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7FeaturesKHR.MAINTENANCE7); }
+    public static int nmaintenance7(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7FeaturesKHR.MAINTENANCE7); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMaintenance7FeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMaintenance7FeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMaintenance7FeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #maintenance7(boolean) maintenance7}. */
-    public static void nmaintenance7(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMaintenance7FeaturesKHR.MAINTENANCE7, value); }
+    public static void nmaintenance7(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMaintenance7FeaturesKHR.MAINTENANCE7, value); }
 
     // -----------------------------------
 
@@ -301,6 +299,11 @@ public class VkPhysicalDeviceMaintenance7FeaturesKHR extends Struct<VkPhysicalDe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -85,8 +85,7 @@ public class hwloc_memory_page_type_s extends Struct<hwloc_memory_page_type_s> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_memory_page_type_s createSafe(long address) {
+    public static @Nullable hwloc_memory_page_type_s createSafe(long address) {
         return address == NULL ? null : new hwloc_memory_page_type_s(address, null);
     }
 
@@ -101,17 +100,16 @@ public class hwloc_memory_page_type_s extends Struct<hwloc_memory_page_type_s> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_memory_page_type_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_memory_page_type_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + hwloc_memory_page_type_s.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + hwloc_memory_page_type_s.SIZE); }
     /** Unsafe version of {@link #count}. */
-    public static long ncount(long struct) { return UNSAFE.getLong(null, struct + hwloc_memory_page_type_s.COUNT); }
+    public static long ncount(long struct) { return memGetLong(struct + hwloc_memory_page_type_s.COUNT); }
 
     // -----------------------------------
 
@@ -144,6 +142,11 @@ public class hwloc_memory_page_type_s extends Struct<hwloc_memory_page_type_s> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

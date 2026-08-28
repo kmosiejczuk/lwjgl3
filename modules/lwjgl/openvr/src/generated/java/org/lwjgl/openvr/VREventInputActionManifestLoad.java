@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -100,8 +100,7 @@ public class VREventInputActionManifestLoad extends Struct<VREventInputActionMan
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventInputActionManifestLoad createSafe(long address) {
+    public static @Nullable VREventInputActionManifestLoad createSafe(long address) {
         return address == NULL ? null : new VREventInputActionManifestLoad(address, null);
     }
 
@@ -116,21 +115,20 @@ public class VREventInputActionManifestLoad extends Struct<VREventInputActionMan
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventInputActionManifestLoad.Buffer createSafe(long address, int capacity) {
+    public static VREventInputActionManifestLoad.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #pathAppKey}. */
-    public static long npathAppKey(long struct) { return UNSAFE.getLong(null, struct + VREventInputActionManifestLoad.PATHAPPKEY); }
+    public static long npathAppKey(long struct) { return memGetLong(struct + VREventInputActionManifestLoad.PATHAPPKEY); }
     /** Unsafe version of {@link #pathMessage}. */
-    public static long npathMessage(long struct) { return UNSAFE.getLong(null, struct + VREventInputActionManifestLoad.PATHMESSAGE); }
+    public static long npathMessage(long struct) { return memGetLong(struct + VREventInputActionManifestLoad.PATHMESSAGE); }
     /** Unsafe version of {@link #pathMessageParam}. */
-    public static long npathMessageParam(long struct) { return UNSAFE.getLong(null, struct + VREventInputActionManifestLoad.PATHMESSAGEPARAM); }
+    public static long npathMessageParam(long struct) { return memGetLong(struct + VREventInputActionManifestLoad.PATHMESSAGEPARAM); }
     /** Unsafe version of {@link #pathManifestPath}. */
-    public static long npathManifestPath(long struct) { return UNSAFE.getLong(null, struct + VREventInputActionManifestLoad.PATHMANIFESTPATH); }
+    public static long npathManifestPath(long struct) { return memGetLong(struct + VREventInputActionManifestLoad.PATHMANIFESTPATH); }
 
     // -----------------------------------
 
@@ -163,6 +161,11 @@ public class VREventInputActionManifestLoad extends Struct<VREventInputActionMan
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

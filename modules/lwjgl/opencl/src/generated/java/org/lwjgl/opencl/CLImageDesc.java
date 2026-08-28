@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -240,8 +240,7 @@ public class CLImageDesc extends Struct<CLImageDesc> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLImageDesc createSafe(long address) {
+    public static @Nullable CLImageDesc createSafe(long address) {
         return address == NULL ? null : new CLImageDesc(address, null);
     }
 
@@ -284,8 +283,7 @@ public class CLImageDesc extends Struct<CLImageDesc> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLImageDesc.Buffer createSafe(long address, int capacity) {
+    public static CLImageDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -349,7 +347,7 @@ public class CLImageDesc extends Struct<CLImageDesc> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #image_type}. */
-    public static int nimage_type(long struct) { return UNSAFE.getInt(null, struct + CLImageDesc.IMAGE_TYPE); }
+    public static int nimage_type(long struct) { return memGetInt(struct + CLImageDesc.IMAGE_TYPE); }
     /** Unsafe version of {@link #image_width}. */
     public static long nimage_width(long struct) { return memGetAddress(struct + CLImageDesc.IMAGE_WIDTH); }
     /** Unsafe version of {@link #image_height}. */
@@ -363,16 +361,16 @@ public class CLImageDesc extends Struct<CLImageDesc> implements NativeResource {
     /** Unsafe version of {@link #image_slice_pitch}. */
     public static long nimage_slice_pitch(long struct) { return memGetAddress(struct + CLImageDesc.IMAGE_SLICE_PITCH); }
     /** Unsafe version of {@link #num_mip_levels}. */
-    public static int nnum_mip_levels(long struct) { return UNSAFE.getInt(null, struct + CLImageDesc.NUM_MIP_LEVELS); }
+    public static int nnum_mip_levels(long struct) { return memGetInt(struct + CLImageDesc.NUM_MIP_LEVELS); }
     /** Unsafe version of {@link #num_samples}. */
-    public static int nnum_samples(long struct) { return UNSAFE.getInt(null, struct + CLImageDesc.NUM_SAMPLES); }
+    public static int nnum_samples(long struct) { return memGetInt(struct + CLImageDesc.NUM_SAMPLES); }
     /** Unsafe version of {@link #buffer}. */
     public static long nbuffer(long struct) { return memGetAddress(struct + CLImageDesc.BUFFER); }
     /** Unsafe version of {@link #mem_object}. */
     public static long nmem_object(long struct) { return memGetAddress(struct + CLImageDesc.MEM_OBJECT); }
 
     /** Unsafe version of {@link #image_type(int) image_type}. */
-    public static void nimage_type(long struct, int value) { UNSAFE.putInt(null, struct + CLImageDesc.IMAGE_TYPE, value); }
+    public static void nimage_type(long struct, int value) { memPutInt(struct + CLImageDesc.IMAGE_TYPE, value); }
     /** Unsafe version of {@link #image_width(long) image_width}. */
     public static void nimage_width(long struct, long value) { memPutAddress(struct + CLImageDesc.IMAGE_WIDTH, value); }
     /** Unsafe version of {@link #image_height(long) image_height}. */
@@ -386,9 +384,9 @@ public class CLImageDesc extends Struct<CLImageDesc> implements NativeResource {
     /** Unsafe version of {@link #image_slice_pitch(long) image_slice_pitch}. */
     public static void nimage_slice_pitch(long struct, long value) { memPutAddress(struct + CLImageDesc.IMAGE_SLICE_PITCH, value); }
     /** Unsafe version of {@link #num_mip_levels(int) num_mip_levels}. */
-    public static void nnum_mip_levels(long struct, int value) { UNSAFE.putInt(null, struct + CLImageDesc.NUM_MIP_LEVELS, value); }
+    public static void nnum_mip_levels(long struct, int value) { memPutInt(struct + CLImageDesc.NUM_MIP_LEVELS, value); }
     /** Unsafe version of {@link #num_samples(int) num_samples}. */
-    public static void nnum_samples(long struct, int value) { UNSAFE.putInt(null, struct + CLImageDesc.NUM_SAMPLES, value); }
+    public static void nnum_samples(long struct, int value) { memPutInt(struct + CLImageDesc.NUM_SAMPLES, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
     public static void nbuffer(long struct, long value) { memPutAddress(struct + CLImageDesc.BUFFER, value); }
     /** Unsafe version of {@link #mem_object(long) mem_object}. */
@@ -425,6 +423,11 @@ public class CLImageDesc extends Struct<CLImageDesc> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

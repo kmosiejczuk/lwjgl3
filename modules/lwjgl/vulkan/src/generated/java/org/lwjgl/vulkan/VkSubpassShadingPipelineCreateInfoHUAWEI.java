@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -101,7 +101,7 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct<VkSubpassSh
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a handle to a render pass object describing the environment in which the pipeline will be used. The pipeline <b>must</b> only be used with a render pass instance compatible with the one provided. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-compatibility">Render Pass Compatibility</a> for more information. */
+    /** a handle to a render pass object describing the environment in which the pipeline will be used. The pipeline <b>must</b> only be used with a render pass instance compatible with the one provided. See <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-compatibility">Render Pass Compatibility</a> for more information. */
     @NativeType("VkRenderPass")
     public long renderPass() { return nrenderPass(address()); }
     /** the index of the subpass in the render pass where this pipeline will be used. */
@@ -170,8 +170,7 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct<VkSubpassSh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassShadingPipelineCreateInfoHUAWEI createSafe(long address) {
+    public static @Nullable VkSubpassShadingPipelineCreateInfoHUAWEI createSafe(long address) {
         return address == NULL ? null : new VkSubpassShadingPipelineCreateInfoHUAWEI(address, null);
     }
 
@@ -214,8 +213,7 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct<VkSubpassSh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassShadingPipelineCreateInfoHUAWEI.Buffer createSafe(long address, int capacity) {
+    public static VkSubpassShadingPipelineCreateInfoHUAWEI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,22 +258,22 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct<VkSubpassSh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSubpassShadingPipelineCreateInfoHUAWEI.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSubpassShadingPipelineCreateInfoHUAWEI.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSubpassShadingPipelineCreateInfoHUAWEI.PNEXT); }
     /** Unsafe version of {@link #renderPass}. */
-    public static long nrenderPass(long struct) { return UNSAFE.getLong(null, struct + VkSubpassShadingPipelineCreateInfoHUAWEI.RENDERPASS); }
+    public static long nrenderPass(long struct) { return memGetLong(struct + VkSubpassShadingPipelineCreateInfoHUAWEI.RENDERPASS); }
     /** Unsafe version of {@link #subpass}. */
-    public static int nsubpass(long struct) { return UNSAFE.getInt(null, struct + VkSubpassShadingPipelineCreateInfoHUAWEI.SUBPASS); }
+    public static int nsubpass(long struct) { return memGetInt(struct + VkSubpassShadingPipelineCreateInfoHUAWEI.SUBPASS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassShadingPipelineCreateInfoHUAWEI.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSubpassShadingPipelineCreateInfoHUAWEI.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSubpassShadingPipelineCreateInfoHUAWEI.PNEXT, value); }
     /** Unsafe version of {@link #renderPass(long) renderPass}. */
-    public static void nrenderPass(long struct, long value) { UNSAFE.putLong(null, struct + VkSubpassShadingPipelineCreateInfoHUAWEI.RENDERPASS, value); }
+    public static void nrenderPass(long struct, long value) { memPutLong(struct + VkSubpassShadingPipelineCreateInfoHUAWEI.RENDERPASS, value); }
     /** Unsafe version of {@link #subpass(int) subpass}. */
-    public static void nsubpass(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassShadingPipelineCreateInfoHUAWEI.SUBPASS, value); }
+    public static void nsubpass(long struct, int value) { memPutInt(struct + VkSubpassShadingPipelineCreateInfoHUAWEI.SUBPASS, value); }
 
     // -----------------------------------
 
@@ -308,6 +306,11 @@ public class VkSubpassShadingPipelineCreateInfoHUAWEI extends Struct<VkSubpassSh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

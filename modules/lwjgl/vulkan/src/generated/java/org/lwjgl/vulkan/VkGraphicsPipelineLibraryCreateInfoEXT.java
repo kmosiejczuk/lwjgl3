@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,9 +20,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If a {@link VkGraphicsPipelineLibraryCreateInfoEXT} structure is included in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}, it specifies the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets">subsets of the graphics pipeline</a> being created, excluding any subsets from linked pipeline libraries. If the pipeline is created with pipeline libraries, state from those libraries is aggregated with said subset.</p>
+ * <p>If a {@link VkGraphicsPipelineLibraryCreateInfoEXT} structure is included in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}, it specifies the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-graphics-subsets">subsets of the graphics pipeline</a> being created, excluding any subsets from linked pipeline libraries. If the pipeline is created with pipeline libraries, state from those libraries is aggregated with said subset.</p>
  * 
- * <p>If this structure is omitted, and either {@link VkGraphicsPipelineCreateInfo}{@code ::flags} includes {@link KHRPipelineLibrary#VK_PIPELINE_CREATE_LIBRARY_BIT_KHR PIPELINE_CREATE_LIBRARY_BIT_KHR} or the {@link VkGraphicsPipelineCreateInfo}{@code ::pNext} chain includes a {@link VkPipelineLibraryCreateInfoKHR} structure with a {@code libraryCount} greater than 0, it is as if {@code flags} is 0. Otherwise if this structure is omitted, it is as if {@code flags} includes all possible subsets of the graphics pipeline (i.e. a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets-complete">complete graphics pipeline</a>).</p>
+ * <p>If this structure is omitted, and either {@link VkGraphicsPipelineCreateInfo}{@code ::flags} includes {@link KHRPipelineLibrary#VK_PIPELINE_CREATE_LIBRARY_BIT_KHR PIPELINE_CREATE_LIBRARY_BIT_KHR} or the {@link VkGraphicsPipelineCreateInfo}{@code ::pNext} chain includes a {@link VkPipelineLibraryCreateInfoKHR} structure with a {@code libraryCount} greater than 0, it is as if {@code flags} is 0. Otherwise if this structure is omitted, it is as if {@code flags} includes all possible subsets of the graphics pipeline (i.e. a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-graphics-subsets-complete">complete graphics pipeline</a>).</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -160,8 +160,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct<VkGraphicsPip
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGraphicsPipelineLibraryCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkGraphicsPipelineLibraryCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkGraphicsPipelineLibraryCreateInfoEXT(address, null);
     }
 
@@ -204,8 +203,7 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct<VkGraphicsPip
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGraphicsPipelineLibraryCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkGraphicsPipelineLibraryCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,18 +248,18 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct<VkGraphicsPip
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkGraphicsPipelineLibraryCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkGraphicsPipelineLibraryCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkGraphicsPipelineLibraryCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkGraphicsPipelineLibraryCreateInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkGraphicsPipelineLibraryCreateInfoEXT.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkGraphicsPipelineLibraryCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkGraphicsPipelineLibraryCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkGraphicsPipelineLibraryCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkGraphicsPipelineLibraryCreateInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkGraphicsPipelineLibraryCreateInfoEXT.FLAGS, value); }
 
     // -----------------------------------
 
@@ -294,6 +292,11 @@ public class VkGraphicsPipelineLibraryCreateInfoEXT extends Struct<VkGraphicsPip
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

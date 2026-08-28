@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -102,13 +102,13 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-pipeline">pipeline fragment shading rate</a>. */
+    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-fragment-shading-rate-pipeline">pipeline fragment shading rate</a>. */
     @NativeType("VkBool32")
     public boolean pipelineFragmentShadingRate() { return npipelineFragmentShadingRate(address()) != 0; }
-    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-primitive">primitive fragment shading rate</a>. */
+    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-fragment-shading-rate-primitive">primitive fragment shading rate</a>. */
     @NativeType("VkBool32")
     public boolean primitiveFragmentShadingRate() { return nprimitiveFragmentShadingRate(address()) != 0; }
-    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-fragment-shading-rate-attachment">attachment fragment shading rate</a>. */
+    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-fragment-shading-rate-attachment">attachment fragment shading rate</a>. */
     @NativeType("VkBool32")
     public boolean attachmentFragmentShadingRate() { return nattachmentFragmentShadingRate(address()) != 0; }
 
@@ -178,8 +178,7 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFragmentShadingRateFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFragmentShadingRateFeaturesKHR(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFragmentShadingRateFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +266,26 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #pipelineFragmentShadingRate}. */
-    public static int npipelineFragmentShadingRate(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.PIPELINEFRAGMENTSHADINGRATE); }
+    public static int npipelineFragmentShadingRate(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.PIPELINEFRAGMENTSHADINGRATE); }
     /** Unsafe version of {@link #primitiveFragmentShadingRate}. */
-    public static int nprimitiveFragmentShadingRate(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.PRIMITIVEFRAGMENTSHADINGRATE); }
+    public static int nprimitiveFragmentShadingRate(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.PRIMITIVEFRAGMENTSHADINGRATE); }
     /** Unsafe version of {@link #attachmentFragmentShadingRate}. */
-    public static int nattachmentFragmentShadingRate(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.ATTACHMENTFRAGMENTSHADINGRATE); }
+    public static int nattachmentFragmentShadingRate(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.ATTACHMENTFRAGMENTSHADINGRATE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #pipelineFragmentShadingRate(boolean) pipelineFragmentShadingRate}. */
-    public static void npipelineFragmentShadingRate(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.PIPELINEFRAGMENTSHADINGRATE, value); }
+    public static void npipelineFragmentShadingRate(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.PIPELINEFRAGMENTSHADINGRATE, value); }
     /** Unsafe version of {@link #primitiveFragmentShadingRate(boolean) primitiveFragmentShadingRate}. */
-    public static void nprimitiveFragmentShadingRate(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.PRIMITIVEFRAGMENTSHADINGRATE, value); }
+    public static void nprimitiveFragmentShadingRate(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.PRIMITIVEFRAGMENTSHADINGRATE, value); }
     /** Unsafe version of {@link #attachmentFragmentShadingRate(boolean) attachmentFragmentShadingRate}. */
-    public static void nattachmentFragmentShadingRate(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.ATTACHMENTFRAGMENTSHADINGRATE, value); }
+    public static void nattachmentFragmentShadingRate(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShadingRateFeaturesKHR.ATTACHMENTFRAGMENTSHADINGRATE, value); }
 
     // -----------------------------------
 
@@ -320,6 +318,11 @@ public class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

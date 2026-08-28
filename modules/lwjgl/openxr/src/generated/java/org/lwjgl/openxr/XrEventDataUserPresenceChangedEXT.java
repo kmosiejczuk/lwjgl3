@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -186,8 +186,7 @@ public class XrEventDataUserPresenceChangedEXT extends Struct<XrEventDataUserPre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataUserPresenceChangedEXT createSafe(long address) {
+    public static @Nullable XrEventDataUserPresenceChangedEXT createSafe(long address) {
         return address == NULL ? null : new XrEventDataUserPresenceChangedEXT(address, null);
     }
 
@@ -230,8 +229,7 @@ public class XrEventDataUserPresenceChangedEXT extends Struct<XrEventDataUserPre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataUserPresenceChangedEXT.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataUserPresenceChangedEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -276,22 +274,22 @@ public class XrEventDataUserPresenceChangedEXT extends Struct<XrEventDataUserPre
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataUserPresenceChangedEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataUserPresenceChangedEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataUserPresenceChangedEXT.NEXT); }
     /** Unsafe version of {@link #session}. */
     public static long nsession(long struct) { return memGetAddress(struct + XrEventDataUserPresenceChangedEXT.SESSION); }
     /** Unsafe version of {@link #isUserPresent}. */
-    public static int nisUserPresent(long struct) { return UNSAFE.getInt(null, struct + XrEventDataUserPresenceChangedEXT.ISUSERPRESENT); }
+    public static int nisUserPresent(long struct) { return memGetInt(struct + XrEventDataUserPresenceChangedEXT.ISUSERPRESENT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataUserPresenceChangedEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataUserPresenceChangedEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataUserPresenceChangedEXT.NEXT, value); }
     /** Unsafe version of {@link #session(XrSession) session}. */
     public static void nsession(long struct, XrSession value) { memPutAddress(struct + XrEventDataUserPresenceChangedEXT.SESSION, value.address()); }
     /** Unsafe version of {@link #isUserPresent(boolean) isUserPresent}. */
-    public static void nisUserPresent(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataUserPresenceChangedEXT.ISUSERPRESENT, value); }
+    public static void nisUserPresent(long struct, int value) { memPutInt(struct + XrEventDataUserPresenceChangedEXT.ISUSERPRESENT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -333,6 +331,11 @@ public class XrEventDataUserPresenceChangedEXT extends Struct<XrEventDataUserPre
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

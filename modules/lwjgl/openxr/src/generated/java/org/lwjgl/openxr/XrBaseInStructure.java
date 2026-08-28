@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -142,8 +142,7 @@ public class XrBaseInStructure extends Struct<XrBaseInStructure> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBaseInStructure createSafe(long address) {
+    public static @Nullable XrBaseInStructure createSafe(long address) {
         return address == NULL ? null : new XrBaseInStructure(address, null);
     }
 
@@ -186,8 +185,7 @@ public class XrBaseInStructure extends Struct<XrBaseInStructure> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBaseInStructure.Buffer createSafe(long address, int capacity) {
+    public static XrBaseInStructure.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -232,12 +230,12 @@ public class XrBaseInStructure extends Struct<XrBaseInStructure> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrBaseInStructure.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrBaseInStructure.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static XrBaseInStructure nnext(long struct) { return XrBaseInStructure.create(memGetAddress(struct + XrBaseInStructure.NEXT)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrBaseInStructure.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrBaseInStructure.TYPE, value); }
     /** Unsafe version of {@link #next(XrBaseInStructure) next}. */
     public static void nnext(long struct, XrBaseInStructure value) { memPutAddress(struct + XrBaseInStructure.NEXT, value.address()); }
 
@@ -281,6 +279,11 @@ public class XrBaseInStructure extends Struct<XrBaseInStructure> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

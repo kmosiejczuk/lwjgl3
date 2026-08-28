@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -203,8 +203,7 @@ public class VkPhysicalDeviceRayTracingPipelinePropertiesKHR extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingPipelinePropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRayTracingPipelinePropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRayTracingPipelinePropertiesKHR(address, null);
     }
 
@@ -247,8 +246,7 @@ public class VkPhysicalDeviceRayTracingPipelinePropertiesKHR extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingPipelinePropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRayTracingPipelinePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,28 +291,28 @@ public class VkPhysicalDeviceRayTracingPipelinePropertiesKHR extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #shaderGroupHandleSize}. */
-    public static int nshaderGroupHandleSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLESIZE); }
+    public static int nshaderGroupHandleSize(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLESIZE); }
     /** Unsafe version of {@link #maxRayRecursionDepth}. */
-    public static int nmaxRayRecursionDepth(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYRECURSIONDEPTH); }
+    public static int nmaxRayRecursionDepth(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYRECURSIONDEPTH); }
     /** Unsafe version of {@link #maxShaderGroupStride}. */
-    public static int nmaxShaderGroupStride(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXSHADERGROUPSTRIDE); }
+    public static int nmaxShaderGroupStride(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXSHADERGROUPSTRIDE); }
     /** Unsafe version of {@link #shaderGroupBaseAlignment}. */
-    public static int nshaderGroupBaseAlignment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPBASEALIGNMENT); }
+    public static int nshaderGroupBaseAlignment(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPBASEALIGNMENT); }
     /** Unsafe version of {@link #shaderGroupHandleCaptureReplaySize}. */
-    public static int nshaderGroupHandleCaptureReplaySize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLECAPTUREREPLAYSIZE); }
+    public static int nshaderGroupHandleCaptureReplaySize(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLECAPTUREREPLAYSIZE); }
     /** Unsafe version of {@link #maxRayDispatchInvocationCount}. */
-    public static int nmaxRayDispatchInvocationCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYDISPATCHINVOCATIONCOUNT); }
+    public static int nmaxRayDispatchInvocationCount(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYDISPATCHINVOCATIONCOUNT); }
     /** Unsafe version of {@link #shaderGroupHandleAlignment}. */
-    public static int nshaderGroupHandleAlignment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLEALIGNMENT); }
+    public static int nshaderGroupHandleAlignment(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLEALIGNMENT); }
     /** Unsafe version of {@link #maxRayHitAttributeSize}. */
-    public static int nmaxRayHitAttributeSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYHITATTRIBUTESIZE); }
+    public static int nmaxRayHitAttributeSize(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYHITATTRIBUTESIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.PNEXT, value); }
 
@@ -349,6 +347,11 @@ public class VkPhysicalDeviceRayTracingPipelinePropertiesKHR extends Struct<VkPh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

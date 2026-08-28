@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct<VkPhysica
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that {@link VK11#VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16 FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16} <b>can</b> be used with a {@code VkImageView} with {@code subresourceRange.aspectMask} equal to {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT} without a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> enabled. */
+    /** indicates that {@link VK11#VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16 FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16} <b>can</b> be used with a {@code VkImageView} with {@code subresourceRange.aspectMask} equal to {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT} without a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> enabled. */
     @NativeType("VkBool32")
     public boolean formatRgba10x6WithoutYCbCrSampler() { return nformatRgba10x6WithoutYCbCrSampler(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #formatRgba10x6WithoutYCbCrSampler}. */
-    public static int nformatRgba10x6WithoutYCbCrSampler(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.FORMATRGBA10X6WITHOUTYCBCRSAMPLER); }
+    public static int nformatRgba10x6WithoutYCbCrSampler(long struct) { return memGetInt(struct + VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.FORMATRGBA10X6WITHOUTYCBCRSAMPLER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #formatRgba10x6WithoutYCbCrSampler(boolean) formatRgba10x6WithoutYCbCrSampler}. */
-    public static void nformatRgba10x6WithoutYCbCrSampler(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.FORMATRGBA10X6WITHOUTYCBCRSAMPLER, value); }
+    public static void nformatRgba10x6WithoutYCbCrSampler(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.FORMATRGBA10X6WITHOUTYCBCRSAMPLER, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends Struct<VkPhysica
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

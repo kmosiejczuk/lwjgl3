@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -109,8 +109,7 @@ public class DriverDirectModeFrameTiming extends Struct<DriverDirectModeFrameTim
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DriverDirectModeFrameTiming createSafe(long address) {
+    public static @Nullable DriverDirectModeFrameTiming createSafe(long address) {
         return address == NULL ? null : new DriverDirectModeFrameTiming(address, null);
     }
 
@@ -125,23 +124,22 @@ public class DriverDirectModeFrameTiming extends Struct<DriverDirectModeFrameTim
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DriverDirectModeFrameTiming.Buffer createSafe(long address, int capacity) {
+    public static DriverDirectModeFrameTiming.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #m_nSize}. */
-    public static int nm_nSize(long struct) { return UNSAFE.getInt(null, struct + DriverDirectModeFrameTiming.M_NSIZE); }
+    public static int nm_nSize(long struct) { return memGetInt(struct + DriverDirectModeFrameTiming.M_NSIZE); }
     /** Unsafe version of {@link #m_nNumFramePresents}. */
-    public static int nm_nNumFramePresents(long struct) { return UNSAFE.getInt(null, struct + DriverDirectModeFrameTiming.M_NNUMFRAMEPRESENTS); }
+    public static int nm_nNumFramePresents(long struct) { return memGetInt(struct + DriverDirectModeFrameTiming.M_NNUMFRAMEPRESENTS); }
     /** Unsafe version of {@link #m_nNumMisPresented}. */
-    public static int nm_nNumMisPresented(long struct) { return UNSAFE.getInt(null, struct + DriverDirectModeFrameTiming.M_NNUMMISPRESENTED); }
+    public static int nm_nNumMisPresented(long struct) { return memGetInt(struct + DriverDirectModeFrameTiming.M_NNUMMISPRESENTED); }
     /** Unsafe version of {@link #m_nNumDroppedFrames}. */
-    public static int nm_nNumDroppedFrames(long struct) { return UNSAFE.getInt(null, struct + DriverDirectModeFrameTiming.M_NNUMDROPPEDFRAMES); }
+    public static int nm_nNumDroppedFrames(long struct) { return memGetInt(struct + DriverDirectModeFrameTiming.M_NNUMDROPPEDFRAMES); }
     /** Unsafe version of {@link #m_nReprojectionFlags}. */
-    public static int nm_nReprojectionFlags(long struct) { return UNSAFE.getInt(null, struct + DriverDirectModeFrameTiming.M_NREPROJECTIONFLAGS); }
+    public static int nm_nReprojectionFlags(long struct) { return memGetInt(struct + DriverDirectModeFrameTiming.M_NREPROJECTIONFLAGS); }
 
     // -----------------------------------
 
@@ -174,6 +172,11 @@ public class DriverDirectModeFrameTiming extends Struct<DriverDirectModeFrameTim
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

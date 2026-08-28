@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceImageProcessing2FeaturesQCOM extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageProcessing2FeaturesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImageProcessing2FeaturesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImageProcessing2FeaturesQCOM(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceImageProcessing2FeaturesQCOM extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageProcessing2FeaturesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImageProcessing2FeaturesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceImageProcessing2FeaturesQCOM extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessing2FeaturesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessing2FeaturesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImageProcessing2FeaturesQCOM.PNEXT); }
     /** Unsafe version of {@link #textureBlockMatch2}. */
-    public static int ntextureBlockMatch2(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessing2FeaturesQCOM.TEXTUREBLOCKMATCH2); }
+    public static int ntextureBlockMatch2(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessing2FeaturesQCOM.TEXTUREBLOCKMATCH2); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessing2FeaturesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessing2FeaturesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImageProcessing2FeaturesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #textureBlockMatch2(boolean) textureBlockMatch2}. */
-    public static void ntextureBlockMatch2(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessing2FeaturesQCOM.TEXTUREBLOCKMATCH2, value); }
+    public static void ntextureBlockMatch2(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessing2FeaturesQCOM.TEXTUREBLOCKMATCH2, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceImageProcessing2FeaturesQCOM extends Struct<VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.opus;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -199,8 +199,7 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OpusPictureTag createSafe(long address) {
+    public static @Nullable OpusPictureTag createSafe(long address) {
         return address == NULL ? null : new OpusPictureTag(address, null);
     }
 
@@ -243,8 +242,7 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OpusPictureTag.Buffer createSafe(long address, int capacity) {
+    public static OpusPictureTag.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,7 +287,7 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + OpusPictureTag.TYPE); }
     /** Unsafe version of {@link #mime_type(int) mime_type}. */
     public static ByteBuffer nmime_type(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + OpusPictureTag.MIME_TYPE), capacity); }
     /** Unsafe version of {@link #description}. */
@@ -297,19 +295,19 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
     /** Unsafe version of {@link #descriptionString}. */
     public static String ndescriptionString(long struct) { return memUTF8(memGetAddress(struct + OpusPictureTag.DESCRIPTION)); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + OpusPictureTag.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + OpusPictureTag.HEIGHT); }
     /** Unsafe version of {@link #depth}. */
-    public static int ndepth(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.DEPTH); }
+    public static int ndepth(long struct) { return memGetInt(struct + OpusPictureTag.DEPTH); }
     /** Unsafe version of {@link #colors}. */
-    public static int ncolors(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.COLORS); }
+    public static int ncolors(long struct) { return memGetInt(struct + OpusPictureTag.COLORS); }
     /** Unsafe version of {@link #data_length}. */
-    public static int ndata_length(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.DATA_LENGTH); }
+    public static int ndata_length(long struct) { return memGetInt(struct + OpusPictureTag.DATA_LENGTH); }
     /** Unsafe version of {@link #data() data}. */
     public static ByteBuffer ndata(long struct) { return memByteBuffer(memGetAddress(struct + OpusPictureTag.DATA), ndata_length(struct)); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + OpusPictureTag.FORMAT); }
 
     // -----------------------------------
 
@@ -342,6 +340,11 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

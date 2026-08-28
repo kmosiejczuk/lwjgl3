@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -56,7 +56,7 @@ import static org.lwjgl.vulkan.VK10.*;
  * <li>{@link VK10#VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT MEMORY_PROPERTY_DEVICE_LOCAL_BIT} | {@link NVExternalMemoryRdma#VK_MEMORY_PROPERTY_RDMA_CAPABLE_BIT_NV MEMORY_PROPERTY_RDMA_CAPABLE_BIT_NV}</li>
  * </ul>
  * 
- * <p>There <b>must</b> be at least one memory type with both the {@link VK10#VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT MEMORY_PROPERTY_HOST_VISIBLE_BIT} and {@link VK10#VK_MEMORY_PROPERTY_HOST_COHERENT_BIT MEMORY_PROPERTY_HOST_COHERENT_BIT} bits set in its {@code propertyFlags}. There <b>must</b> be at least one memory type with the {@link VK10#VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT MEMORY_PROPERTY_DEVICE_LOCAL_BIT} bit set in its {@code propertyFlags}. If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceCoherentMemory">{@code deviceCoherentMemory}</a> feature is enabled, there <b>must</b> be at least one memory type with the {@link AMDDeviceCoherentMemory#VK_MEMORY_PROPERTY_DEVICE_COHERENT_BIT_AMD MEMORY_PROPERTY_DEVICE_COHERENT_BIT_AMD} bit set in its {@code propertyFlags}.</p>
+ * <p>There <b>must</b> be at least one memory type with both the {@link VK10#VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT MEMORY_PROPERTY_HOST_VISIBLE_BIT} and {@link VK10#VK_MEMORY_PROPERTY_HOST_COHERENT_BIT MEMORY_PROPERTY_HOST_COHERENT_BIT} bits set in its {@code propertyFlags}. There <b>must</b> be at least one memory type with the {@link VK10#VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT MEMORY_PROPERTY_DEVICE_LOCAL_BIT} bit set in its {@code propertyFlags}. If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceCoherentMemory">{@code deviceCoherentMemory}</a> feature is enabled, there <b>must</b> be at least one memory type with the {@link AMDDeviceCoherentMemory#VK_MEMORY_PROPERTY_DEVICE_COHERENT_BIT_AMD MEMORY_PROPERTY_DEVICE_COHERENT_BIT_AMD} bit set in its {@code propertyFlags}.</p>
  * 
  * <p>For each pair of elements <b>X</b> and <b>Y</b> returned in {@code memoryTypes}, <b>X</b> <b>must</b> be placed at a lower index position than <b>Y</b> if:</p>
  * 
@@ -68,7 +68,7 @@ import static org.lwjgl.vulkan.VK10.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>There is no ordering requirement between <b>X</b> and <b>Y</b> elements for the case their {@code propertyFlags} members are not in a subset relation. That potentially allows more than one possible way to order the same set of memory types. Notice that the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-device-bitmask-list">list of all allowed memory property flag combinations</a> is written in a valid order. But if instead {@link VK10#VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT MEMORY_PROPERTY_DEVICE_LOCAL_BIT} was before {@link VK10#VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT MEMORY_PROPERTY_HOST_VISIBLE_BIT} | {@link VK10#VK_MEMORY_PROPERTY_HOST_COHERENT_BIT MEMORY_PROPERTY_HOST_COHERENT_BIT}, the list would still be in a valid order.</p>
+ * <p>There is no ordering requirement between <b>X</b> and <b>Y</b> elements for the case their {@code propertyFlags} members are not in a subset relation. That potentially allows more than one possible way to order the same set of memory types. Notice that the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-device-bitmask-list">list of all allowed memory property flag combinations</a> is written in a valid order. But if instead {@link VK10#VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT MEMORY_PROPERTY_DEVICE_LOCAL_BIT} was before {@link VK10#VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT MEMORY_PROPERTY_HOST_VISIBLE_BIT} | {@link VK10#VK_MEMORY_PROPERTY_HOST_COHERENT_BIT MEMORY_PROPERTY_HOST_COHERENT_BIT}, the list would still be in a valid order.</p>
  * 
  * <p>There may be a performance penalty for using device coherent or uncached device memory types, and using these accidentally is undesirable. In order to avoid this, memory types with these properties always appear at the end of the list; but are subject to the same rules otherwise.</p>
  * </div>
@@ -221,8 +221,7 @@ public class VkPhysicalDeviceMemoryProperties extends Struct<VkPhysicalDeviceMem
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMemoryProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMemoryProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMemoryProperties(address, null);
     }
 
@@ -265,8 +264,7 @@ public class VkPhysicalDeviceMemoryProperties extends Struct<VkPhysicalDeviceMem
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMemoryProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMemoryProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -330,7 +328,7 @@ public class VkPhysicalDeviceMemoryProperties extends Struct<VkPhysicalDeviceMem
     // -----------------------------------
 
     /** Unsafe version of {@link #memoryTypeCount}. */
-    public static int nmemoryTypeCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMemoryProperties.MEMORYTYPECOUNT); }
+    public static int nmemoryTypeCount(long struct) { return memGetInt(struct + VkPhysicalDeviceMemoryProperties.MEMORYTYPECOUNT); }
     /** Unsafe version of {@link #memoryTypes}. */
     public static VkMemoryType.Buffer nmemoryTypes(long struct) { return VkMemoryType.create(struct + VkPhysicalDeviceMemoryProperties.MEMORYTYPES, nmemoryTypeCount(struct)); }
     /** Unsafe version of {@link #memoryTypes(int) memoryTypes}. */
@@ -338,7 +336,7 @@ public class VkPhysicalDeviceMemoryProperties extends Struct<VkPhysicalDeviceMem
         return VkMemoryType.create(struct + VkPhysicalDeviceMemoryProperties.MEMORYTYPES + check(index, nmemoryTypeCount(struct)) * VkMemoryType.SIZEOF);
     }
     /** Unsafe version of {@link #memoryHeapCount}. */
-    public static int nmemoryHeapCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMemoryProperties.MEMORYHEAPCOUNT); }
+    public static int nmemoryHeapCount(long struct) { return memGetInt(struct + VkPhysicalDeviceMemoryProperties.MEMORYHEAPCOUNT); }
     /** Unsafe version of {@link #memoryHeaps}. */
     public static VkMemoryHeap.Buffer nmemoryHeaps(long struct) { return VkMemoryHeap.create(struct + VkPhysicalDeviceMemoryProperties.MEMORYHEAPS, nmemoryHeapCount(struct)); }
     /** Unsafe version of {@link #memoryHeaps(int) memoryHeaps}. */
@@ -377,6 +375,11 @@ public class VkPhysicalDeviceMemoryProperties extends Struct<VkPhysicalDeviceMem
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

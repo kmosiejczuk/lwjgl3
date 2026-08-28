@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,8 +23,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code binding} <b>must</b> be less than {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputBindings}</li>
  * <li>{@code stride} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputBindingStride}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateZeroDivisor">{@code vertexAttributeInstanceRateZeroDivisor}</a> feature is not enabled, {@code divisor} <b>must</b> not be 0</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateDivisor">{@code vertexAttributeInstanceRateDivisor}</a> feature is not enabled, {@code divisor} <b>must</b> be 1</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-vertexAttributeInstanceRateZeroDivisor">{@code vertexAttributeInstanceRateZeroDivisor}</a> feature is not enabled, {@code divisor} <b>must</b> not be 0</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-vertexAttributeInstanceRateDivisor">{@code vertexAttributeInstanceRateDivisor}</a> feature is not enabled, {@code divisor} <b>must</b> be 1</li>
  * <li>{@code divisor} <b>must</b> be a value between 0 and {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT}{@code ::maxVertexAttribDivisor}, inclusive</li>
  * <li>If {@code divisor} is not 1 then {@code inputRate} <b>must</b> be of type {@link VK10#VK_VERTEX_INPUT_RATE_INSTANCE VERTEX_INPUT_RATE_INSTANCE}</li>
  * </ul>
@@ -127,7 +127,7 @@ public class VkVertexInputBindingDescription2EXT extends Struct<VkVertexInputBin
     /** a {@code VkVertexInputRate} value specifying whether vertex attribute addressing is a function of the vertex index or of the instance index. */
     @NativeType("VkVertexInputRate")
     public int inputRate() { return ninputRate(address()); }
-    /** the number of successive instances that will use the same value of the vertex attribute when instanced rendering is enabled. This member <b>can</b> be set to a value other than 1 if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateDivisor">{@code vertexAttributeInstanceRateDivisor}</a> feature is enabled. For example, if the divisor is N, the same vertex attribute will be applied to N successive instances before moving on to the next vertex attribute. The maximum value of {@code divisor} is implementation-dependent and can be queried using {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT}{@code ::maxVertexAttribDivisor}. A value of 0 <b>can</b> be used for the divisor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexAttributeInstanceRateZeroDivisor">{@code vertexAttributeInstanceRateZeroDivisor}</a> feature is enabled. In this case, the same vertex attribute will be applied to all instances. */
+    /** the number of successive instances that will use the same value of the vertex attribute when instanced rendering is enabled. This member <b>can</b> be a value other than 1 if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-vertexAttributeInstanceRateDivisor">{@code vertexAttributeInstanceRateDivisor}</a> feature is enabled. For example, if the divisor is N, the same vertex attribute will be applied to N successive instances before moving on to the next vertex attribute. The maximum value of {@code divisor} is implementation-dependent and can be queried using {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT}{@code ::maxVertexAttribDivisor}. A value of 0 <b>can</b> be used for the divisor if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-vertexAttributeInstanceRateZeroDivisor">{@code vertexAttributeInstanceRateZeroDivisor}</a> feature is enabled. In this case, the same vertex attribute will be applied to all instances. */
     @NativeType("uint32_t")
     public int divisor() { return ndivisor(address()); }
 
@@ -201,8 +201,7 @@ public class VkVertexInputBindingDescription2EXT extends Struct<VkVertexInputBin
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVertexInputBindingDescription2EXT createSafe(long address) {
+    public static @Nullable VkVertexInputBindingDescription2EXT createSafe(long address) {
         return address == NULL ? null : new VkVertexInputBindingDescription2EXT(address, null);
     }
 
@@ -245,8 +244,7 @@ public class VkVertexInputBindingDescription2EXT extends Struct<VkVertexInputBin
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVertexInputBindingDescription2EXT.Buffer createSafe(long address, int capacity) {
+    public static VkVertexInputBindingDescription2EXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -291,30 +289,30 @@ public class VkVertexInputBindingDescription2EXT extends Struct<VkVertexInputBin
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputBindingDescription2EXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVertexInputBindingDescription2EXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVertexInputBindingDescription2EXT.PNEXT); }
     /** Unsafe version of {@link #binding}. */
-    public static int nbinding(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputBindingDescription2EXT.BINDING); }
+    public static int nbinding(long struct) { return memGetInt(struct + VkVertexInputBindingDescription2EXT.BINDING); }
     /** Unsafe version of {@link #stride}. */
-    public static int nstride(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputBindingDescription2EXT.STRIDE); }
+    public static int nstride(long struct) { return memGetInt(struct + VkVertexInputBindingDescription2EXT.STRIDE); }
     /** Unsafe version of {@link #inputRate}. */
-    public static int ninputRate(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputBindingDescription2EXT.INPUTRATE); }
+    public static int ninputRate(long struct) { return memGetInt(struct + VkVertexInputBindingDescription2EXT.INPUTRATE); }
     /** Unsafe version of {@link #divisor}. */
-    public static int ndivisor(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputBindingDescription2EXT.DIVISOR); }
+    public static int ndivisor(long struct) { return memGetInt(struct + VkVertexInputBindingDescription2EXT.DIVISOR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputBindingDescription2EXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVertexInputBindingDescription2EXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVertexInputBindingDescription2EXT.PNEXT, value); }
     /** Unsafe version of {@link #binding(int) binding}. */
-    public static void nbinding(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputBindingDescription2EXT.BINDING, value); }
+    public static void nbinding(long struct, int value) { memPutInt(struct + VkVertexInputBindingDescription2EXT.BINDING, value); }
     /** Unsafe version of {@link #stride(int) stride}. */
-    public static void nstride(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputBindingDescription2EXT.STRIDE, value); }
+    public static void nstride(long struct, int value) { memPutInt(struct + VkVertexInputBindingDescription2EXT.STRIDE, value); }
     /** Unsafe version of {@link #inputRate(int) inputRate}. */
-    public static void ninputRate(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputBindingDescription2EXT.INPUTRATE, value); }
+    public static void ninputRate(long struct, int value) { memPutInt(struct + VkVertexInputBindingDescription2EXT.INPUTRATE, value); }
     /** Unsafe version of {@link #divisor(int) divisor}. */
-    public static void ndivisor(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputBindingDescription2EXT.DIVISOR, value); }
+    public static void ndivisor(long struct, int value) { memPutInt(struct + VkVertexInputBindingDescription2EXT.DIVISOR, value); }
 
     // -----------------------------------
 
@@ -347,6 +345,11 @@ public class VkVertexInputBindingDescription2EXT extends Struct<VkVertexInputBin
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

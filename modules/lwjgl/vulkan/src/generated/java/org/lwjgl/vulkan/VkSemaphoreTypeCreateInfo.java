@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-timelineSemaphore">{@code timelineSemaphore}</a> feature is not enabled, {@code semaphoreType} <b>must</b> not equal {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-timelineSemaphore">{@code timelineSemaphore}</a> feature is not enabled, {@code semaphoreType} <b>must</b> not equal {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE}</li>
  * <li>If {@code semaphoreType} is {@link VK12#VK_SEMAPHORE_TYPE_BINARY SEMAPHORE_TYPE_BINARY}, {@code initialValue} <b>must</b> be zero</li>
  * </ul>
  * 
@@ -177,8 +177,7 @@ public class VkSemaphoreTypeCreateInfo extends Struct<VkSemaphoreTypeCreateInfo>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreTypeCreateInfo createSafe(long address) {
+    public static @Nullable VkSemaphoreTypeCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkSemaphoreTypeCreateInfo(address, null);
     }
 
@@ -221,8 +220,7 @@ public class VkSemaphoreTypeCreateInfo extends Struct<VkSemaphoreTypeCreateInfo>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreTypeCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSemaphoreTypeCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,22 +265,22 @@ public class VkSemaphoreTypeCreateInfo extends Struct<VkSemaphoreTypeCreateInfo>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSemaphoreTypeCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSemaphoreTypeCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSemaphoreTypeCreateInfo.PNEXT); }
     /** Unsafe version of {@link #semaphoreType}. */
-    public static int nsemaphoreType(long struct) { return UNSAFE.getInt(null, struct + VkSemaphoreTypeCreateInfo.SEMAPHORETYPE); }
+    public static int nsemaphoreType(long struct) { return memGetInt(struct + VkSemaphoreTypeCreateInfo.SEMAPHORETYPE); }
     /** Unsafe version of {@link #initialValue}. */
-    public static long ninitialValue(long struct) { return UNSAFE.getLong(null, struct + VkSemaphoreTypeCreateInfo.INITIALVALUE); }
+    public static long ninitialValue(long struct) { return memGetLong(struct + VkSemaphoreTypeCreateInfo.INITIALVALUE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSemaphoreTypeCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSemaphoreTypeCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSemaphoreTypeCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #semaphoreType(int) semaphoreType}. */
-    public static void nsemaphoreType(long struct, int value) { UNSAFE.putInt(null, struct + VkSemaphoreTypeCreateInfo.SEMAPHORETYPE, value); }
+    public static void nsemaphoreType(long struct, int value) { memPutInt(struct + VkSemaphoreTypeCreateInfo.SEMAPHORETYPE, value); }
     /** Unsafe version of {@link #initialValue(long) initialValue}. */
-    public static void ninitialValue(long struct, long value) { UNSAFE.putLong(null, struct + VkSemaphoreTypeCreateInfo.INITIALVALUE, value); }
+    public static void ninitialValue(long struct, long value) { memPutLong(struct + VkSemaphoreTypeCreateInfo.INITIALVALUE, value); }
 
     // -----------------------------------
 
@@ -315,6 +313,11 @@ public class VkSemaphoreTypeCreateInfo extends Struct<VkSemaphoreTypeCreateInfo>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

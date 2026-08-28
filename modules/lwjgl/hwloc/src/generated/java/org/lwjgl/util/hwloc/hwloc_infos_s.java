@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -78,9 +78,8 @@ public class hwloc_infos_s extends Struct<hwloc_infos_s> implements NativeResour
     public int sizeof() { return SIZEOF; }
 
     /** @return a {@link hwloc_info_s.Buffer} view of the struct array pointed to by the {@code array} field. */
-    @Nullable
     @NativeType("struct hwloc_info_s *")
-    public hwloc_info_s.Buffer array() { return narray(address()); }
+    public hwloc_info_s.@Nullable Buffer array() { return narray(address()); }
     /** @return the value of the {@code count} field. */
     @NativeType("unsigned")
     public int count() { return ncount(address()); }
@@ -109,8 +108,7 @@ public class hwloc_infos_s extends Struct<hwloc_infos_s> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_infos_s createSafe(long address) {
+    public static @Nullable hwloc_infos_s createSafe(long address) {
         return address == NULL ? null : new hwloc_infos_s(address, null);
     }
 
@@ -153,8 +151,7 @@ public class hwloc_infos_s extends Struct<hwloc_infos_s> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_infos_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_infos_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -199,10 +196,10 @@ public class hwloc_infos_s extends Struct<hwloc_infos_s> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #array}. */
-    @Nullable public static hwloc_info_s.Buffer narray(long struct) { return hwloc_info_s.createSafe(memGetAddress(struct + hwloc_infos_s.ARRAY), ncount(struct)); }
+    public static hwloc_info_s.@Nullable Buffer narray(long struct) { return hwloc_info_s.createSafe(memGetAddress(struct + hwloc_infos_s.ARRAY), ncount(struct)); }
     /** Unsafe version of {@link #count}. */
-    public static int ncount(long struct) { return UNSAFE.getInt(null, struct + hwloc_infos_s.COUNT); }
-    public static int nallocated(long struct) { return UNSAFE.getInt(null, struct + hwloc_infos_s.ALLOCATED); }
+    public static int ncount(long struct) { return memGetInt(struct + hwloc_infos_s.COUNT); }
+    public static int nallocated(long struct) { return memGetInt(struct + hwloc_infos_s.ALLOCATED); }
 
     // -----------------------------------
 
@@ -238,14 +235,18 @@ public class hwloc_infos_s extends Struct<hwloc_infos_s> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected hwloc_infos_s getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return a {@link hwloc_info_s.Buffer} view of the struct array pointed to by the {@code array} field. */
-        @Nullable
         @NativeType("struct hwloc_info_s *")
-        public hwloc_info_s.Buffer array() { return hwloc_infos_s.narray(address()); }
+        public hwloc_info_s.@Nullable Buffer array() { return hwloc_infos_s.narray(address()); }
         /** @return the value of the {@code count} field. */
         @NativeType("unsigned")
         public int count() { return hwloc_infos_s.ncount(address()); }

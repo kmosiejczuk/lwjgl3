@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -187,8 +187,7 @@ public class VkDirectFBSurfaceCreateInfoEXT extends Struct<VkDirectFBSurfaceCrea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDirectFBSurfaceCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkDirectFBSurfaceCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDirectFBSurfaceCreateInfoEXT(address, null);
     }
 
@@ -231,8 +230,7 @@ public class VkDirectFBSurfaceCreateInfoEXT extends Struct<VkDirectFBSurfaceCrea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDirectFBSurfaceCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDirectFBSurfaceCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,22 +275,22 @@ public class VkDirectFBSurfaceCreateInfoEXT extends Struct<VkDirectFBSurfaceCrea
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDirectFBSurfaceCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDirectFBSurfaceCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDirectFBSurfaceCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDirectFBSurfaceCreateInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkDirectFBSurfaceCreateInfoEXT.FLAGS); }
     /** Unsafe version of {@link #dfb}. */
     public static long ndfb(long struct) { return memGetAddress(struct + VkDirectFBSurfaceCreateInfoEXT.DFB); }
     /** Unsafe version of {@link #surface}. */
     public static long nsurface(long struct) { return memGetAddress(struct + VkDirectFBSurfaceCreateInfoEXT.SURFACE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDirectFBSurfaceCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDirectFBSurfaceCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDirectFBSurfaceCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkDirectFBSurfaceCreateInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkDirectFBSurfaceCreateInfoEXT.FLAGS, value); }
     /** Unsafe version of {@link #dfb(long) dfb}. */
     public static void ndfb(long struct, long value) { memPutAddress(struct + VkDirectFBSurfaceCreateInfoEXT.DFB, value); }
     /** Unsafe version of {@link #surface(long) surface}. */
@@ -329,6 +327,11 @@ public class VkDirectFBSurfaceCreateInfoEXT extends Struct<VkDirectFBSurfaceCrea
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

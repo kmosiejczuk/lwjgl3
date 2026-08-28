@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>The expected usage for this is that a trace capture/replay tool will add the {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT} flag to all buffers that use {@link VK12#VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT}, and will add {@link VK12#VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT} to all buffers used as storage for a micromap where {@code deviceAddress} is not zero. This also means that the tool will need to add {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT} to memory allocations to allow the flag to be set where the application may not have otherwise required it. During capture the tool will save the queried opaque device addresses in the trace. During replay, the buffers will be created specifying the original address so any address values stored in the trace data will remain valid.</p>
  * 
- * <p>Implementations are expected to separate such buffers in the GPU address space so normal allocations will avoid using these addresses. Apps/tools should avoid mixing app-provided and implementation-provided addresses for buffers created with {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, to avoid address space allocation conflicts.</p>
+ * <p>Implementations are expected to separate such buffers in the GPU address space so normal allocations will avoid using these addresses. Applications and tools should avoid mixing application-provided and implementation-provided addresses for buffers created with {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, to avoid address space allocation conflicts.</p>
  * </div>
  * 
  * <p>If the micromap will be the target of a build operation, the required size for a micromap <b>can</b> be queried with {@link EXTOpacityMicromap#vkGetMicromapBuildSizesEXT GetMicromapBuildSizesEXT}.</p>
@@ -161,7 +161,7 @@ public class VkMicromapCreateInfoEXT extends Struct<VkMicromapCreateInfoEXT> imp
     /** a {@code VkMicromapTypeEXT} value specifying the type of micromap that will be created. */
     @NativeType("VkMicromapTypeEXT")
     public int type() { return ntype(address()); }
-    /** the device address requested for the micromap if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-micromapCaptureReplay">{@code micromapCaptureReplay}</a> feature is being used. */
+    /** the device address requested for the micromap if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromapCaptureReplay">{@code micromapCaptureReplay}</a> feature is being used. */
     @NativeType("VkDeviceAddress")
     public long deviceAddress() { return ndeviceAddress(address()); }
 
@@ -243,8 +243,7 @@ public class VkMicromapCreateInfoEXT extends Struct<VkMicromapCreateInfoEXT> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkMicromapCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMicromapCreateInfoEXT(address, null);
     }
 
@@ -287,8 +286,7 @@ public class VkMicromapCreateInfoEXT extends Struct<VkMicromapCreateInfoEXT> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMicromapCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -333,38 +331,38 @@ public class VkMicromapCreateInfoEXT extends Struct<VkMicromapCreateInfoEXT> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMicromapCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMicromapCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMicromapCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #createFlags}. */
-    public static int ncreateFlags(long struct) { return UNSAFE.getInt(null, struct + VkMicromapCreateInfoEXT.CREATEFLAGS); }
+    public static int ncreateFlags(long struct) { return memGetInt(struct + VkMicromapCreateInfoEXT.CREATEFLAGS); }
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkMicromapCreateInfoEXT.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkMicromapCreateInfoEXT.BUFFER); }
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VkMicromapCreateInfoEXT.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VkMicromapCreateInfoEXT.OFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkMicromapCreateInfoEXT.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkMicromapCreateInfoEXT.SIZE); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkMicromapCreateInfoEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkMicromapCreateInfoEXT.TYPE); }
     /** Unsafe version of {@link #deviceAddress}. */
-    public static long ndeviceAddress(long struct) { return UNSAFE.getLong(null, struct + VkMicromapCreateInfoEXT.DEVICEADDRESS); }
+    public static long ndeviceAddress(long struct) { return memGetLong(struct + VkMicromapCreateInfoEXT.DEVICEADDRESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMicromapCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMicromapCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #createFlags(int) createFlags}. */
-    public static void ncreateFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapCreateInfoEXT.CREATEFLAGS, value); }
+    public static void ncreateFlags(long struct, int value) { memPutInt(struct + VkMicromapCreateInfoEXT.CREATEFLAGS, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapCreateInfoEXT.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkMicromapCreateInfoEXT.BUFFER, value); }
     /** Unsafe version of {@link #offset(long) offset}. */
-    public static void noffset(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapCreateInfoEXT.OFFSET, value); }
+    public static void noffset(long struct, long value) { memPutLong(struct + VkMicromapCreateInfoEXT.OFFSET, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapCreateInfoEXT.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkMicromapCreateInfoEXT.SIZE, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapCreateInfoEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkMicromapCreateInfoEXT.TYPE, value); }
     /** Unsafe version of {@link #deviceAddress(long) deviceAddress}. */
-    public static void ndeviceAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapCreateInfoEXT.DEVICEADDRESS, value); }
+    public static void ndeviceAddress(long struct, long value) { memPutLong(struct + VkMicromapCreateInfoEXT.DEVICEADDRESS, value); }
 
     // -----------------------------------
 
@@ -397,6 +395,11 @@ public class VkMicromapCreateInfoEXT extends Struct<VkMicromapCreateInfoEXT> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -149,8 +149,7 @@ public class OVRHapticsBuffer extends Struct<OVRHapticsBuffer> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRHapticsBuffer createSafe(long address) {
+    public static @Nullable OVRHapticsBuffer createSafe(long address) {
         return address == NULL ? null : new OVRHapticsBuffer(address, null);
     }
 
@@ -193,8 +192,7 @@ public class OVRHapticsBuffer extends Struct<OVRHapticsBuffer> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRHapticsBuffer.Buffer createSafe(long address, int capacity) {
+    public static OVRHapticsBuffer.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,16 +258,16 @@ public class OVRHapticsBuffer extends Struct<OVRHapticsBuffer> implements Native
     /** Unsafe version of {@link #Samples(int) Samples}. */
     public static ByteBuffer nSamples(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + OVRHapticsBuffer.SAMPLES), capacity); }
     /** Unsafe version of {@link #SamplesCount}. */
-    public static int nSamplesCount(long struct) { return UNSAFE.getInt(null, struct + OVRHapticsBuffer.SAMPLESCOUNT); }
+    public static int nSamplesCount(long struct) { return memGetInt(struct + OVRHapticsBuffer.SAMPLESCOUNT); }
     /** Unsafe version of {@link #SubmitMode}. */
-    public static int nSubmitMode(long struct) { return UNSAFE.getInt(null, struct + OVRHapticsBuffer.SUBMITMODE); }
+    public static int nSubmitMode(long struct) { return memGetInt(struct + OVRHapticsBuffer.SUBMITMODE); }
 
     /** Unsafe version of {@link #Samples(ByteBuffer) Samples}. */
     public static void nSamples(long struct, ByteBuffer value) { memPutAddress(struct + OVRHapticsBuffer.SAMPLES, memAddress(value)); }
     /** Unsafe version of {@link #SamplesCount(int) SamplesCount}. */
-    public static void nSamplesCount(long struct, int value) { UNSAFE.putInt(null, struct + OVRHapticsBuffer.SAMPLESCOUNT, value); }
+    public static void nSamplesCount(long struct, int value) { memPutInt(struct + OVRHapticsBuffer.SAMPLESCOUNT, value); }
     /** Unsafe version of {@link #SubmitMode(int) SubmitMode}. */
-    public static void nSubmitMode(long struct, int value) { UNSAFE.putInt(null, struct + OVRHapticsBuffer.SUBMITMODE, value); }
+    public static void nSubmitMode(long struct, int value) { memPutInt(struct + OVRHapticsBuffer.SUBMITMODE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -311,6 +309,11 @@ public class OVRHapticsBuffer extends Struct<OVRHapticsBuffer> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

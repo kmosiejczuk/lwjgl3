@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT extends Struct<V
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-library">graphics pipeline libraries</a>. */
+    /** indicates that the implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-library">graphics pipeline libraries</a>. */
     @NativeType("VkBool32")
     public boolean graphicsPipelineLibrary() { return ngraphicsPipelineLibrary(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #graphicsPipelineLibrary}. */
-    public static int ngraphicsPipelineLibrary(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.GRAPHICSPIPELINELIBRARY); }
+    public static int ngraphicsPipelineLibrary(long struct) { return memGetInt(struct + VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.GRAPHICSPIPELINELIBRARY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #graphicsPipelineLibrary(boolean) graphicsPipelineLibrary}. */
-    public static void ngraphicsPipelineLibrary(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.GRAPHICSPIPELINELIBRARY, value); }
+    public static void ngraphicsPipelineLibrary(long struct, int value) { memPutInt(struct + VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.GRAPHICSPIPELINELIBRARY, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT extends Struct<V
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

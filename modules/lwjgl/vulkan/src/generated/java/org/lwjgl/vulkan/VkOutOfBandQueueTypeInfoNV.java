@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -157,8 +157,7 @@ public class VkOutOfBandQueueTypeInfoNV extends Struct<VkOutOfBandQueueTypeInfoN
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOutOfBandQueueTypeInfoNV createSafe(long address) {
+    public static @Nullable VkOutOfBandQueueTypeInfoNV createSafe(long address) {
         return address == NULL ? null : new VkOutOfBandQueueTypeInfoNV(address, null);
     }
 
@@ -201,8 +200,7 @@ public class VkOutOfBandQueueTypeInfoNV extends Struct<VkOutOfBandQueueTypeInfoN
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOutOfBandQueueTypeInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkOutOfBandQueueTypeInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,18 +245,18 @@ public class VkOutOfBandQueueTypeInfoNV extends Struct<VkOutOfBandQueueTypeInfoN
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkOutOfBandQueueTypeInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkOutOfBandQueueTypeInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkOutOfBandQueueTypeInfoNV.PNEXT); }
     /** Unsafe version of {@link #queueType}. */
-    public static int nqueueType(long struct) { return UNSAFE.getInt(null, struct + VkOutOfBandQueueTypeInfoNV.QUEUETYPE); }
+    public static int nqueueType(long struct) { return memGetInt(struct + VkOutOfBandQueueTypeInfoNV.QUEUETYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkOutOfBandQueueTypeInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkOutOfBandQueueTypeInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkOutOfBandQueueTypeInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #queueType(int) queueType}. */
-    public static void nqueueType(long struct, int value) { UNSAFE.putInt(null, struct + VkOutOfBandQueueTypeInfoNV.QUEUETYPE, value); }
+    public static void nqueueType(long struct, int value) { memPutInt(struct + VkOutOfBandQueueTypeInfoNV.QUEUETYPE, value); }
 
     // -----------------------------------
 
@@ -291,6 +289,11 @@ public class VkOutOfBandQueueTypeInfoNV extends Struct<VkOutOfBandQueueTypeInfoN
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

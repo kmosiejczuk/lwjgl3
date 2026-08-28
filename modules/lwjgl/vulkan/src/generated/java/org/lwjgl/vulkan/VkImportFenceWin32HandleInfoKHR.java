@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -38,13 +38,13 @@ import org.lwjgl.system.windows.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code handleType} <b>must</b> be a value included in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-fence-handletypes-win32">Handle Types Supported by {@link VkImportFenceWin32HandleInfoKHR}</a> table</li>
+ * <li>{@code handleType} <b>must</b> be a value included in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-fence-handletypes-win32">Handle Types Supported by {@link VkImportFenceWin32HandleInfoKHR}</a> table</li>
  * <li>If {@code handleType} is not {@link VK11#VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_BIT EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_BIT}, {@code name} <b>must</b> be {@code NULL}</li>
  * <li>If {@code handle} is {@code NULL}, {@code name} <b>must</b> name a valid synchronization primitive of the type specified by {@code handleType}</li>
  * <li>If {@code name} is {@code NULL}, {@code handle} <b>must</b> be a valid handle of the type specified by {@code handleType}</li>
  * <li>If {@code handle} is not {@code NULL}, {@code name} <b>must</b> be {@code NULL}</li>
- * <li>If {@code handle} is not {@code NULL}, it <b>must</b> obey any requirements listed for {@code handleType} in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#external-fence-handle-types-compatibility">external fence handle types compatibility</a></li>
- * <li>If {@code name} is not {@code NULL}, it <b>must</b> obey any requirements listed for {@code handleType} in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#external-fence-handle-types-compatibility">external fence handle types compatibility</a></li>
+ * <li>If {@code handle} is not {@code NULL}, it <b>must</b> obey any requirements listed for {@code handleType} in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#external-fence-handle-types-compatibility">external fence handle types compatibility</a></li>
+ * <li>If {@code name} is not {@code NULL}, it <b>must</b> obey any requirements listed for {@code handleType} in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#external-fence-handle-types-compatibility">external fence handle types compatibility</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -241,8 +241,7 @@ public class VkImportFenceWin32HandleInfoKHR extends Struct<VkImportFenceWin32Ha
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportFenceWin32HandleInfoKHR createSafe(long address) {
+    public static @Nullable VkImportFenceWin32HandleInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkImportFenceWin32HandleInfoKHR(address, null);
     }
 
@@ -285,8 +284,7 @@ public class VkImportFenceWin32HandleInfoKHR extends Struct<VkImportFenceWin32Ha
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportFenceWin32HandleInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkImportFenceWin32HandleInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -350,15 +348,15 @@ public class VkImportFenceWin32HandleInfoKHR extends Struct<VkImportFenceWin32Ha
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImportFenceWin32HandleInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImportFenceWin32HandleInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImportFenceWin32HandleInfoKHR.PNEXT); }
     /** Unsafe version of {@link #fence}. */
-    public static long nfence(long struct) { return UNSAFE.getLong(null, struct + VkImportFenceWin32HandleInfoKHR.FENCE); }
+    public static long nfence(long struct) { return memGetLong(struct + VkImportFenceWin32HandleInfoKHR.FENCE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkImportFenceWin32HandleInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkImportFenceWin32HandleInfoKHR.FLAGS); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkImportFenceWin32HandleInfoKHR.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkImportFenceWin32HandleInfoKHR.HANDLETYPE); }
     /** Unsafe version of {@link #handle}. */
     public static long nhandle(long struct) { return memGetAddress(struct + VkImportFenceWin32HandleInfoKHR.HANDLE); }
     /** Unsafe version of {@link #name}. */
@@ -367,15 +365,15 @@ public class VkImportFenceWin32HandleInfoKHR extends Struct<VkImportFenceWin32Ha
     public static String nnameString(long struct) { return memUTF16(memGetAddress(struct + VkImportFenceWin32HandleInfoKHR.NAME)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportFenceWin32HandleInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImportFenceWin32HandleInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImportFenceWin32HandleInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #fence(long) fence}. */
-    public static void nfence(long struct, long value) { UNSAFE.putLong(null, struct + VkImportFenceWin32HandleInfoKHR.FENCE, value); }
+    public static void nfence(long struct, long value) { memPutLong(struct + VkImportFenceWin32HandleInfoKHR.FENCE, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkImportFenceWin32HandleInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkImportFenceWin32HandleInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportFenceWin32HandleInfoKHR.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkImportFenceWin32HandleInfoKHR.HANDLETYPE, value); }
     /** Unsafe version of {@link #handle(long) handle}. */
     public static void nhandle(long struct, long value) { memPutAddress(struct + VkImportFenceWin32HandleInfoKHR.HANDLE, check(value)); }
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
@@ -425,6 +423,11 @@ public class VkImportFenceWin32HandleInfoKHR extends Struct<VkImportFenceWin32Ha
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

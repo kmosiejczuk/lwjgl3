@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -170,8 +170,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMemoryRequirementsInfoNV createSafe(long address) {
+    public static @Nullable VkAccelerationStructureMemoryRequirementsInfoNV createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureMemoryRequirementsInfoNV(address, null);
     }
 
@@ -214,8 +213,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMemoryRequirementsInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureMemoryRequirementsInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,22 +277,22 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureMemoryRequirementsInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureMemoryRequirementsInfoNV.PNEXT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkAccelerationStructureMemoryRequirementsInfoNV.TYPE); }
     /** Unsafe version of {@link #accelerationStructure}. */
-    public static long naccelerationStructure(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.ACCELERATIONSTRUCTURE); }
+    public static long naccelerationStructure(long struct) { return memGetLong(struct + VkAccelerationStructureMemoryRequirementsInfoNV.ACCELERATIONSTRUCTURE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureMemoryRequirementsInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureMemoryRequirementsInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkAccelerationStructureMemoryRequirementsInfoNV.TYPE, value); }
     /** Unsafe version of {@link #accelerationStructure(long) accelerationStructure}. */
-    public static void naccelerationStructure(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.ACCELERATIONSTRUCTURE, value); }
+    public static void naccelerationStructure(long struct, long value) { memPutLong(struct + VkAccelerationStructureMemoryRequirementsInfoNV.ACCELERATIONSTRUCTURE, value); }
 
     // -----------------------------------
 
@@ -327,6 +325,11 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

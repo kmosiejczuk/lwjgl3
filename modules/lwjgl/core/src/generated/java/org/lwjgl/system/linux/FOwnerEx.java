@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -131,8 +131,7 @@ public class FOwnerEx extends Struct<FOwnerEx> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FOwnerEx createSafe(long address) {
+    public static @Nullable FOwnerEx createSafe(long address) {
         return address == NULL ? null : new FOwnerEx(address, null);
     }
 
@@ -175,8 +174,7 @@ public class FOwnerEx extends Struct<FOwnerEx> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FOwnerEx.Buffer createSafe(long address, int capacity) {
+    public static FOwnerEx.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -221,14 +219,14 @@ public class FOwnerEx extends Struct<FOwnerEx> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + FOwnerEx.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + FOwnerEx.TYPE); }
     /** Unsafe version of {@link #pid}. */
-    public static int npid(long struct) { return UNSAFE.getInt(null, struct + FOwnerEx.PID); }
+    public static int npid(long struct) { return memGetInt(struct + FOwnerEx.PID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + FOwnerEx.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + FOwnerEx.TYPE, value); }
     /** Unsafe version of {@link #pid(int) pid}. */
-    public static void npid(long struct, int value) { UNSAFE.putInt(null, struct + FOwnerEx.PID, value); }
+    public static void npid(long struct, int value) { memPutInt(struct + FOwnerEx.PID, value); }
 
     // -----------------------------------
 
@@ -261,6 +259,11 @@ public class FOwnerEx extends Struct<FOwnerEx> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

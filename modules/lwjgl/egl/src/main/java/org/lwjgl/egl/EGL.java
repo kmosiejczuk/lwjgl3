@@ -4,9 +4,9 @@
  */
 package org.lwjgl.egl;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.system.*;
 
-import javax.annotation.*;
 import java.nio.*;
 import java.util.*;
 
@@ -37,11 +37,9 @@ import static org.lwjgl.system.MemoryUtil.*;
  */
 public final class EGL {
 
-    @Nullable
-    private static FunctionProvider functionProvider;
+    private static @Nullable FunctionProvider functionProvider;
 
-    @Nullable
-    private static EGLCapabilities caps;
+    private static @Nullable EGLCapabilities caps;
 
     static {
         if (!Configuration.EGL_EXPLICIT_INIT.get(false)) {
@@ -53,22 +51,7 @@ public final class EGL {
 
     /** Loads the EGL native library, using the default library name. */
     public static void create() {
-        SharedLibrary EGL;
-        switch (Platform.get()) {
-            case FREEBSD:
-            case LINUX:
-                EGL = Library.loadNative(EGL.class, "org.lwjgl.egl", Configuration.EGL_LIBRARY_NAME, "libEGL.so.1");
-                break;
-            case MACOSX:
-                EGL = Library.loadNative(EGL.class, "org.lwjgl.egl", Configuration.EGL_LIBRARY_NAME, "EGL");
-                break;
-            case WINDOWS:
-                EGL = Library.loadNative(EGL.class, "org.lwjgl.egl", Configuration.EGL_LIBRARY_NAME, "libEGL", "EGL");
-                break;
-            default:
-                throw new IllegalStateException();
-        }
-        create(EGL);
+        create(Library.loadNative(EGL.class, "org.lwjgl.egl", Configuration.EGL_LIBRARY_NAME, Configuration.EGL_LIBRARY_NAME_DEFAULTS()));
     }
 
     /**

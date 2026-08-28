@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,15 +22,15 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>The implementation <b>must</b> not return {@code DRM_FORMAT_MOD_INVALID} in {@code drmFormatModifier}.</p>
  * 
- * <p>An image’s <em>memory planecount</em> (as returned by {@code drmFormatModifierPlaneCount}) is distinct from its <em>format planecount</em> (in the sense of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar</a> Y′C<sub>B</sub>C<sub>R</sub> formats). In {@code VkImageAspectFlags}, each <code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> represents a <em>memory plane</em> and each <code>VK_IMAGE_ASPECT_PLANE<em>_i_</em>BIT</code> a <em>format plane</em>.</p>
+ * <p>An image’s <em>memory planecount</em> (as returned by {@code drmFormatModifierPlaneCount}) is distinct from its <em>format planecount</em> (in the sense of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar</a> Y′C<sub>B</sub>C<sub>R</sub> formats). In {@code VkImageAspectFlags}, each <code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> represents a <em>memory plane</em> and each <code>VK_IMAGE_ASPECT_PLANE<em>_i_</em>BIT</code> a <em>format plane</em>.</p>
  * 
  * <p>An image’s set of <em>format planes</em> is an ordered partition of the image’s <b>content</b> into separable groups of format components. The ordered partition is encoded in the name of each {@code VkFormat}. For example, {@link VK11#VK_FORMAT_G8_B8R8_2PLANE_420_UNORM FORMAT_G8_B8R8_2PLANE_420_UNORM} contains two <em>format planes</em>; the first plane contains the green component and the second plane contains the blue component and red component. If the format name does not contain {@code PLANE}, then the format contains a single plane; for example, {@link VK10#VK_FORMAT_R8G8B8A8_UNORM FORMAT_R8G8B8A8_UNORM}. Some commands, such as {@link VK10#vkCmdCopyBufferToImage CmdCopyBufferToImage}, do not operate on all format components in the image, but instead operate only on the <em>format planes</em> explicitly chosen by the application and operate on each <em>format plane</em> independently.</p>
  * 
  * <p>An image’s set of <em>memory planes</em> is an ordered partition of the image’s <b>memory</b> rather than the image’s <b>content</b>. Each <em>memory plane</em> is a contiguous range of memory. The union of an image’s <em>memory planes</em> is not necessarily contiguous.</p>
  * 
- * <p>If an image is <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary-linear-resource">linear</a>, then the partition is the same for <em>memory planes</em> and for <em>format planes</em>. Therefore, if the returned {@code drmFormatModifier} is {@code DRM_FORMAT_MOD_LINEAR}, then {@code drmFormatModifierPlaneCount} <b>must</b> equal the <em>format planecount</em>, and {@code drmFormatModifierTilingFeatures} <b>must</b> be identical to the {@link VkFormatProperties2}{@code ::linearTilingFeatures} returned in the same {@code pNext} chain.</p>
+ * <p>If an image is <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary-linear-resource">linear</a>, then the partition is the same for <em>memory planes</em> and for <em>format planes</em>. Therefore, if the returned {@code drmFormatModifier} is {@code DRM_FORMAT_MOD_LINEAR}, then {@code drmFormatModifierPlaneCount} <b>must</b> equal the <em>format planecount</em>, and {@code drmFormatModifierTilingFeatures} <b>must</b> be identical to the {@link VkFormatProperties2}{@code ::linearTilingFeatures} returned in the same {@code pNext} chain.</p>
  * 
- * <p>If an image is <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary-linear-resource">non-linear</a>, then the partition of the image’s <b>memory</b> into <em>memory planes</em> is implementation-specific and <b>may</b> be unrelated to the partition of the image’s <b>content</b> into <em>format planes</em>. For example, consider an image whose {@code format} is {@link VK11#VK_FORMAT_G8_B8_R8_3PLANE_420_UNORM FORMAT_G8_B8_R8_3PLANE_420_UNORM}, {@code tiling} is {@link EXTImageDrmFormatModifier#VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT}, whose {@code drmFormatModifier} is not {@code DRM_FORMAT_MOD_LINEAR}, and {@code flags} lacks {@link VK11#VK_IMAGE_CREATE_DISJOINT_BIT IMAGE_CREATE_DISJOINT_BIT}. The image has 3 <em>format planes</em>, and commands such {@link VK10#vkCmdCopyBufferToImage CmdCopyBufferToImage} act on each <em>format plane</em> independently as if the data of each <em>format plane</em> were separable from the data of the other planes. In a straightforward implementation, the implementation <b>may</b> store the image’s content in 3 adjacent <em>memory planes</em> where each <em>memory plane</em> corresponds exactly to a <em>format plane</em>. However, the implementation <b>may</b> also store the image’s content in a single <em>memory plane</em> where all format components are combined using an implementation-private block-compressed format; or the implementation <b>may</b> store the image’s content in a collection of 7 adjacent <em>memory planes</em> using an implementation-private sharding technique. Because the image is non-linear and non-disjoint, the implementation has much freedom when choosing the image’s placement in memory.</p>
+ * <p>If an image is <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary-linear-resource">non-linear</a>, then the partition of the image’s <b>memory</b> into <em>memory planes</em> is implementation-specific and <b>may</b> be unrelated to the partition of the image’s <b>content</b> into <em>format planes</em>. For example, consider an image whose {@code format} is {@link VK11#VK_FORMAT_G8_B8_R8_3PLANE_420_UNORM FORMAT_G8_B8_R8_3PLANE_420_UNORM}, {@code tiling} is {@link EXTImageDrmFormatModifier#VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT}, whose {@code drmFormatModifier} is not {@code DRM_FORMAT_MOD_LINEAR}, and {@code flags} lacks {@link VK11#VK_IMAGE_CREATE_DISJOINT_BIT IMAGE_CREATE_DISJOINT_BIT}. The image has 3 <em>format planes</em>, and commands such {@link VK10#vkCmdCopyBufferToImage CmdCopyBufferToImage} act on each <em>format plane</em> independently as if the data of each <em>format plane</em> were separable from the data of the other planes. In a straightforward implementation, the implementation <b>may</b> store the image’s content in 3 adjacent <em>memory planes</em> where each <em>memory plane</em> corresponds exactly to a <em>format plane</em>. However, the implementation <b>may</b> also store the image’s content in a single <em>memory plane</em> where all format components are combined using an implementation-private block-compressed format; or the implementation <b>may</b> store the image’s content in a collection of 7 adjacent <em>memory planes</em> using an implementation-private sharding technique. Because the image is non-linear and non-disjoint, the implementation has much freedom when choosing the image’s placement in memory.</p>
  * 
  * <p>The <em>memory planecount</em> applies to function parameters and structures only when the API specifies an explicit requirement on {@code drmFormatModifierPlaneCount}. In all other cases, the <em>memory planecount</em> is ignored.</p>
  * 
@@ -116,8 +116,7 @@ public class VkDrmFormatModifierPropertiesEXT extends Struct<VkDrmFormatModifier
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrmFormatModifierPropertiesEXT createSafe(long address) {
+    public static @Nullable VkDrmFormatModifierPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkDrmFormatModifierPropertiesEXT(address, null);
     }
 
@@ -132,19 +131,18 @@ public class VkDrmFormatModifierPropertiesEXT extends Struct<VkDrmFormatModifier
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrmFormatModifierPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDrmFormatModifierPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #drmFormatModifier}. */
-    public static long ndrmFormatModifier(long struct) { return UNSAFE.getLong(null, struct + VkDrmFormatModifierPropertiesEXT.DRMFORMATMODIFIER); }
+    public static long ndrmFormatModifier(long struct) { return memGetLong(struct + VkDrmFormatModifierPropertiesEXT.DRMFORMATMODIFIER); }
     /** Unsafe version of {@link #drmFormatModifierPlaneCount}. */
-    public static int ndrmFormatModifierPlaneCount(long struct) { return UNSAFE.getInt(null, struct + VkDrmFormatModifierPropertiesEXT.DRMFORMATMODIFIERPLANECOUNT); }
+    public static int ndrmFormatModifierPlaneCount(long struct) { return memGetInt(struct + VkDrmFormatModifierPropertiesEXT.DRMFORMATMODIFIERPLANECOUNT); }
     /** Unsafe version of {@link #drmFormatModifierTilingFeatures}. */
-    public static int ndrmFormatModifierTilingFeatures(long struct) { return UNSAFE.getInt(null, struct + VkDrmFormatModifierPropertiesEXT.DRMFORMATMODIFIERTILINGFEATURES); }
+    public static int ndrmFormatModifierTilingFeatures(long struct) { return memGetInt(struct + VkDrmFormatModifierPropertiesEXT.DRMFORMATMODIFIERTILINGFEATURES); }
 
     // -----------------------------------
 
@@ -177,6 +175,11 @@ public class VkDrmFormatModifierPropertiesEXT extends Struct<VkDrmFormatModifier
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

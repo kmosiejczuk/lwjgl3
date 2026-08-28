@@ -51,6 +51,7 @@ public final class HelloNFD {
         int  handleType;
         long handleWindow;
         switch (Platform.get()) {
+            case FREEBSD:
             case LINUX:
                 handleType = NFD_WINDOW_HANDLE_TYPE_X11;
                 handleWindow = glfwGetX11Window(window);

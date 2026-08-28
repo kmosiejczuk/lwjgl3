@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -170,8 +170,7 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerSettingsFB createSafe(long address) {
+    public static @Nullable XrCompositionLayerSettingsFB createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerSettingsFB(address, null);
     }
 
@@ -214,8 +213,7 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerSettingsFB.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerSettingsFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,18 +258,18 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerSettingsFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerSettingsFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerSettingsFB.NEXT); }
     /** Unsafe version of {@link #layerFlags}. */
-    public static long nlayerFlags(long struct) { return UNSAFE.getLong(null, struct + XrCompositionLayerSettingsFB.LAYERFLAGS); }
+    public static long nlayerFlags(long struct) { return memGetLong(struct + XrCompositionLayerSettingsFB.LAYERFLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerSettingsFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerSettingsFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerSettingsFB.NEXT, value); }
     /** Unsafe version of {@link #layerFlags(long) layerFlags}. */
-    public static void nlayerFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrCompositionLayerSettingsFB.LAYERFLAGS, value); }
+    public static void nlayerFlags(long struct, long value) { memPutLong(struct + XrCompositionLayerSettingsFB.LAYERFLAGS, value); }
 
     // -----------------------------------
 
@@ -304,6 +302,11 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

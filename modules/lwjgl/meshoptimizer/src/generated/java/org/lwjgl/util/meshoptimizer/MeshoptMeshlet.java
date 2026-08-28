@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.meshoptimizer;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,7 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Experimental: Meshlet
+ * Meshlet is a small mesh cluster (subset) that consists of:
+ * 
+ * <ul>
+ * <li>triangles, an 8-bit micro triangle (index) buffer, that for each triangle specifies three local vertices to use;</li>
+ * <li>vertices, a 32-bit vertex indirection buffer, that for each local vertex specifies which mesh vertex to fetch vertex attributes from.</li>
+ * </ul>
+ * 
+ * <p>For efficiency, meshlet triangles and vertices are packed into two large arrays; this structure contains offsets and counts to access the data.</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -120,8 +127,7 @@ public class MeshoptMeshlet extends Struct<MeshoptMeshlet> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptMeshlet createSafe(long address) {
+    public static @Nullable MeshoptMeshlet createSafe(long address) {
         return address == NULL ? null : new MeshoptMeshlet(address, null);
     }
 
@@ -164,8 +170,7 @@ public class MeshoptMeshlet extends Struct<MeshoptMeshlet> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptMeshlet.Buffer createSafe(long address, int capacity) {
+    public static MeshoptMeshlet.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -210,13 +215,13 @@ public class MeshoptMeshlet extends Struct<MeshoptMeshlet> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #vertex_offset}. */
-    public static int nvertex_offset(long struct) { return UNSAFE.getInt(null, struct + MeshoptMeshlet.VERTEX_OFFSET); }
+    public static int nvertex_offset(long struct) { return memGetInt(struct + MeshoptMeshlet.VERTEX_OFFSET); }
     /** Unsafe version of {@link #triangle_offset}. */
-    public static int ntriangle_offset(long struct) { return UNSAFE.getInt(null, struct + MeshoptMeshlet.TRIANGLE_OFFSET); }
+    public static int ntriangle_offset(long struct) { return memGetInt(struct + MeshoptMeshlet.TRIANGLE_OFFSET); }
     /** Unsafe version of {@link #vertex_count}. */
-    public static int nvertex_count(long struct) { return UNSAFE.getInt(null, struct + MeshoptMeshlet.VERTEX_COUNT); }
+    public static int nvertex_count(long struct) { return memGetInt(struct + MeshoptMeshlet.VERTEX_COUNT); }
     /** Unsafe version of {@link #triangle_count}. */
-    public static int ntriangle_count(long struct) { return UNSAFE.getInt(null, struct + MeshoptMeshlet.TRIANGLE_COUNT); }
+    public static int ntriangle_count(long struct) { return memGetInt(struct + MeshoptMeshlet.TRIANGLE_COUNT); }
 
     // -----------------------------------
 
@@ -249,6 +254,11 @@ public class MeshoptMeshlet extends Struct<MeshoptMeshlet> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

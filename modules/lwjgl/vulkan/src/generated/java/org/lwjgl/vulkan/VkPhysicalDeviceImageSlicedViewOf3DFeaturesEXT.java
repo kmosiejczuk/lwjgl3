@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #imageSlicedViewOf3D}. */
-    public static int nimageSlicedViewOf3D(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.IMAGESLICEDVIEWOF3D); }
+    public static int nimageSlicedViewOf3D(long struct) { return memGetInt(struct + VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.IMAGESLICEDVIEWOF3D); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #imageSlicedViewOf3D(boolean) imageSlicedViewOf3D}. */
-    public static void nimageSlicedViewOf3D(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.IMAGESLICEDVIEWOF3D, value); }
+    public static void nimageSlicedViewOf3D(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT.IMAGESLICEDVIEWOF3D, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

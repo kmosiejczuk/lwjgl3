@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceShaderClockFeaturesKHR extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderClockFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderClockFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderClockFeaturesKHR(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceShaderClockFeaturesKHR extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderClockFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderClockFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkPhysicalDeviceShaderClockFeaturesKHR extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderClockFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #shaderSubgroupClock}. */
-    public static int nshaderSubgroupClock(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERSUBGROUPCLOCK); }
+    public static int nshaderSubgroupClock(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERSUBGROUPCLOCK); }
     /** Unsafe version of {@link #shaderDeviceClock}. */
-    public static int nshaderDeviceClock(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERDEVICECLOCK); }
+    public static int nshaderDeviceClock(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERDEVICECLOCK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderClockFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #shaderSubgroupClock(boolean) shaderSubgroupClock}. */
-    public static void nshaderSubgroupClock(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERSUBGROUPCLOCK, value); }
+    public static void nshaderSubgroupClock(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERSUBGROUPCLOCK, value); }
     /** Unsafe version of {@link #shaderDeviceClock(boolean) shaderDeviceClock}. */
-    public static void nshaderDeviceClock(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERDEVICECLOCK, value); }
+    public static void nshaderDeviceClock(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERDEVICECLOCK, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkPhysicalDeviceShaderClockFeaturesKHR extends Struct<VkPhysicalDev
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

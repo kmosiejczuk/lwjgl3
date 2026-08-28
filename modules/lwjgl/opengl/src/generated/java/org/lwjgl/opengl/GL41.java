@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opengl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -222,7 +222,7 @@ public class GL41 extends GL40 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetProgramBinary">Reference Page</a>
      */
-    public static void glGetProgramBinary(@NativeType("GLuint") int program, @Nullable @NativeType("GLsizei *") IntBuffer length, @NativeType("GLenum *") IntBuffer binaryFormat, @NativeType("void *") ByteBuffer binary) {
+    public static void glGetProgramBinary(@NativeType("GLuint") int program, @NativeType("GLsizei *") @Nullable IntBuffer length, @NativeType("GLenum *") IntBuffer binaryFormat, @NativeType("void *") ByteBuffer binary) {
         GL41C.glGetProgramBinary(program, length, binaryFormat, binary);
     }
 
@@ -259,7 +259,7 @@ public class GL41 extends GL40 {
      * @param pname   the name of the parameter to modify. One of:<br><table><tr><td>{@link GL41C#GL_PROGRAM_BINARY_RETRIEVABLE_HINT PROGRAM_BINARY_RETRIEVABLE_HINT}</td><td>{@link GL41C#GL_PROGRAM_SEPARABLE PROGRAM_SEPARABLE}</td></tr></table>
      * @param value   the new value of the parameter specified by {@code pname} for {@code program}
      * 
-     * @see <a href="https://docs.gl/gl4/glProgramParameteri">Reference Page</a>
+     * @see <a href="https://docs.gl/gl4/glProgramParameter">Reference Page</a>
      */
     public static void glProgramParameteri(@NativeType("GLuint") int program, @NativeType("GLenum") int pname, @NativeType("GLint") int value) {
         GL41C.glProgramParameteri(program, pname, value);
@@ -1678,7 +1678,7 @@ public class GL41 extends GL40 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetProgramPipelineInfoLog">Reference Page</a>
      */
-    public static void glGetProgramPipelineInfoLog(@NativeType("GLuint") int pipeline, @Nullable @NativeType("GLsizei *") IntBuffer length, @NativeType("GLchar *") ByteBuffer infoLog) {
+    public static void glGetProgramPipelineInfoLog(@NativeType("GLuint") int pipeline, @NativeType("GLsizei *") @Nullable IntBuffer length, @NativeType("GLchar *") ByteBuffer infoLog) {
         GL41C.glGetProgramPipelineInfoLog(pipeline, length, infoLog);
     }
 
@@ -2171,7 +2171,7 @@ public class GL41 extends GL40 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetProgramBinary">Reference Page</a>
      */
-    public static void glGetProgramBinary(@NativeType("GLuint") int program, @Nullable @NativeType("GLsizei *") int[] length, @NativeType("GLenum *") int[] binaryFormat, @NativeType("void *") ByteBuffer binary) {
+    public static void glGetProgramBinary(@NativeType("GLuint") int program, @NativeType("GLsizei *") int @Nullable [] length, @NativeType("GLenum *") int[] binaryFormat, @NativeType("void *") ByteBuffer binary) {
         GL41C.glGetProgramBinary(program, length, binaryFormat, binary);
     }
 
@@ -2513,7 +2513,7 @@ public class GL41 extends GL40 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetProgramPipelineInfoLog">Reference Page</a>
      */
-    public static void glGetProgramPipelineInfoLog(@NativeType("GLuint") int pipeline, @Nullable @NativeType("GLsizei *") int[] length, @NativeType("GLchar *") ByteBuffer infoLog) {
+    public static void glGetProgramPipelineInfoLog(@NativeType("GLuint") int pipeline, @NativeType("GLsizei *") int @Nullable [] length, @NativeType("GLchar *") ByteBuffer infoLog) {
         GL41C.glGetProgramPipelineInfoLog(pipeline, length, infoLog);
     }
 

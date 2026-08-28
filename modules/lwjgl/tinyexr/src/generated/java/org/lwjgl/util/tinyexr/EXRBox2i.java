@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.tinyexr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -149,8 +149,7 @@ public class EXRBox2i extends Struct<EXRBox2i> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRBox2i createSafe(long address) {
+    public static @Nullable EXRBox2i createSafe(long address) {
         return address == NULL ? null : new EXRBox2i(address, null);
     }
 
@@ -193,8 +192,7 @@ public class EXRBox2i extends Struct<EXRBox2i> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRBox2i.Buffer createSafe(long address, int capacity) {
+    public static EXRBox2i.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -239,22 +237,22 @@ public class EXRBox2i extends Struct<EXRBox2i> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #min_x}. */
-    public static int nmin_x(long struct) { return UNSAFE.getInt(null, struct + EXRBox2i.MIN_X); }
+    public static int nmin_x(long struct) { return memGetInt(struct + EXRBox2i.MIN_X); }
     /** Unsafe version of {@link #min_y}. */
-    public static int nmin_y(long struct) { return UNSAFE.getInt(null, struct + EXRBox2i.MIN_Y); }
+    public static int nmin_y(long struct) { return memGetInt(struct + EXRBox2i.MIN_Y); }
     /** Unsafe version of {@link #max_x}. */
-    public static int nmax_x(long struct) { return UNSAFE.getInt(null, struct + EXRBox2i.MAX_X); }
+    public static int nmax_x(long struct) { return memGetInt(struct + EXRBox2i.MAX_X); }
     /** Unsafe version of {@link #max_y}. */
-    public static int nmax_y(long struct) { return UNSAFE.getInt(null, struct + EXRBox2i.MAX_Y); }
+    public static int nmax_y(long struct) { return memGetInt(struct + EXRBox2i.MAX_Y); }
 
     /** Unsafe version of {@link #min_x(int) min_x}. */
-    public static void nmin_x(long struct, int value) { UNSAFE.putInt(null, struct + EXRBox2i.MIN_X, value); }
+    public static void nmin_x(long struct, int value) { memPutInt(struct + EXRBox2i.MIN_X, value); }
     /** Unsafe version of {@link #min_y(int) min_y}. */
-    public static void nmin_y(long struct, int value) { UNSAFE.putInt(null, struct + EXRBox2i.MIN_Y, value); }
+    public static void nmin_y(long struct, int value) { memPutInt(struct + EXRBox2i.MIN_Y, value); }
     /** Unsafe version of {@link #max_x(int) max_x}. */
-    public static void nmax_x(long struct, int value) { UNSAFE.putInt(null, struct + EXRBox2i.MAX_X, value); }
+    public static void nmax_x(long struct, int value) { memPutInt(struct + EXRBox2i.MAX_X, value); }
     /** Unsafe version of {@link #max_y(int) max_y}. */
-    public static void nmax_y(long struct, int value) { UNSAFE.putInt(null, struct + EXRBox2i.MAX_Y, value); }
+    public static void nmax_y(long struct, int value) { memPutInt(struct + EXRBox2i.MAX_Y, value); }
 
     // -----------------------------------
 
@@ -287,6 +285,11 @@ public class EXRBox2i extends Struct<EXRBox2i> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

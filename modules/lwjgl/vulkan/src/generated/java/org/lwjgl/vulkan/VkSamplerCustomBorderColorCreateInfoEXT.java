@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -30,9 +30,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code format} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} and {@code format} is not a depth/stencil format then the {@link VkSamplerCreateInfo}{@code ::borderColor} type <b>must</b> match the sampled type of the provided {@code format}, as shown in the <em>SPIR-V Type</em> column of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-numericformat">Interpretation of Numeric Format</a> table</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-customBorderColorWithoutFormat">{@code customBorderColorWithoutFormat}</a> feature is not enabled then {@code format} <b>must</b> not be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}</li>
- * <li>If the sampler is used to sample an image view of {@link VK10#VK_FORMAT_B4G4R4A4_UNORM_PACK16 FORMAT_B4G4R4A4_UNORM_PACK16}, {@link VK10#VK_FORMAT_B5G6R5_UNORM_PACK16 FORMAT_B5G6R5_UNORM_PACK16}, {@link KHRMaintenance5#VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR FORMAT_A1B5G5R5_UNORM_PACK16_KHR}, or {@link VK10#VK_FORMAT_B5G5R5A1_UNORM_PACK16 FORMAT_B5G5R5A1_UNORM_PACK16} format then {@code format} <b>must</b> not be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}</li>
+ * <li>If {@code format} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} and {@code format} is not a depth/stencil format then the {@link VkSamplerCreateInfo}{@code ::borderColor} type <b>must</b> match the sampled type of the provided {@code format}, as shown in the <em>SPIR-V Type</em> column of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-numericformat">Interpretation of Numeric Format</a> table</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-customBorderColorWithoutFormat">{@code customBorderColorWithoutFormat}</a> feature is not enabled then {@code format} <b>must</b> not be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}</li>
+ * <li>If the sampler is used to sample an image view of {@link VK10#VK_FORMAT_B4G4R4A4_UNORM_PACK16 FORMAT_B4G4R4A4_UNORM_PACK16}, {@link VK10#VK_FORMAT_B5G6R5_UNORM_PACK16 FORMAT_B5G6R5_UNORM_PACK16}, {@link VK14#VK_FORMAT_A1B5G5R5_UNORM_PACK16 FORMAT_A1B5G5R5_UNORM_PACK16}, or {@link VK10#VK_FORMAT_B5G5R5A1_UNORM_PACK16 FORMAT_B5G5R5A1_UNORM_PACK16} format then {@code format} <b>must</b> not be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -118,7 +118,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct<VkSamplerCus
     public long pNext() { return npNext(address()); }
     /** a {@link VkClearColorValue} representing the desired custom sampler border color. */
     public VkClearColorValue customBorderColor() { return ncustomBorderColor(address()); }
-    /** a {@code VkFormat} representing the format of the sampled image view(s). This field may be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-customBorderColorWithoutFormat">{@code customBorderColorWithoutFormat}</a> feature is enabled. */
+    /** a {@code VkFormat} representing the format of the sampled image view(s). This field may be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-customBorderColorWithoutFormat">{@code customBorderColorWithoutFormat}</a> feature is enabled. */
     @NativeType("VkFormat")
     public int format() { return nformat(address()); }
 
@@ -186,8 +186,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct<VkSamplerCus
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerCustomBorderColorCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkSamplerCustomBorderColorCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkSamplerCustomBorderColorCreateInfoEXT(address, null);
     }
 
@@ -230,8 +229,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct<VkSamplerCus
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerCustomBorderColorCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSamplerCustomBorderColorCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -276,22 +274,22 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct<VkSamplerCus
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCustomBorderColorCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSamplerCustomBorderColorCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSamplerCustomBorderColorCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #customBorderColor}. */
     public static VkClearColorValue ncustomBorderColor(long struct) { return VkClearColorValue.create(struct + VkSamplerCustomBorderColorCreateInfoEXT.CUSTOMBORDERCOLOR); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCustomBorderColorCreateInfoEXT.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + VkSamplerCustomBorderColorCreateInfoEXT.FORMAT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCustomBorderColorCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSamplerCustomBorderColorCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSamplerCustomBorderColorCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #customBorderColor(VkClearColorValue) customBorderColor}. */
     public static void ncustomBorderColor(long struct, VkClearColorValue value) { memCopy(value.address(), struct + VkSamplerCustomBorderColorCreateInfoEXT.CUSTOMBORDERCOLOR, VkClearColorValue.SIZEOF); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCustomBorderColorCreateInfoEXT.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + VkSamplerCustomBorderColorCreateInfoEXT.FORMAT, value); }
 
     // -----------------------------------
 
@@ -324,6 +322,11 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct<VkSamplerCus
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

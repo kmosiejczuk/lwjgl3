@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class XrSpaceComponentFilterInfoFB extends Struct<XrSpaceComponentFilterI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceComponentFilterInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceComponentFilterInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceComponentFilterInfoFB(address, null);
     }
 
@@ -212,8 +211,7 @@ public class XrSpaceComponentFilterInfoFB extends Struct<XrSpaceComponentFilterI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceComponentFilterInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceComponentFilterInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,18 +261,18 @@ public class XrSpaceComponentFilterInfoFB extends Struct<XrSpaceComponentFilterI
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentFilterInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceComponentFilterInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceComponentFilterInfoFB.NEXT); }
     /** Unsafe version of {@link #componentType}. */
-    public static int ncomponentType(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentFilterInfoFB.COMPONENTTYPE); }
+    public static int ncomponentType(long struct) { return memGetInt(struct + XrSpaceComponentFilterInfoFB.COMPONENTTYPE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentFilterInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceComponentFilterInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceComponentFilterInfoFB.NEXT, value); }
     /** Unsafe version of {@link #componentType(int) componentType}. */
-    public static void ncomponentType(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentFilterInfoFB.COMPONENTTYPE, value); }
+    public static void ncomponentType(long struct, int value) { memPutInt(struct + XrSpaceComponentFilterInfoFB.COMPONENTTYPE, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class XrSpaceComponentFilterInfoFB extends Struct<XrSpaceComponentFilterI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

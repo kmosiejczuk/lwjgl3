@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -189,8 +189,7 @@ public class VkGeometryNV extends Struct<VkGeometryNV> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGeometryNV createSafe(long address) {
+    public static @Nullable VkGeometryNV createSafe(long address) {
         return address == NULL ? null : new VkGeometryNV(address, null);
     }
 
@@ -233,8 +232,7 @@ public class VkGeometryNV extends Struct<VkGeometryNV> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGeometryNV.Buffer createSafe(long address, int capacity) {
+    public static VkGeometryNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -298,26 +296,26 @@ public class VkGeometryNV extends Struct<VkGeometryNV> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkGeometryNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkGeometryNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkGeometryNV.PNEXT); }
     /** Unsafe version of {@link #geometryType}. */
-    public static int ngeometryType(long struct) { return UNSAFE.getInt(null, struct + VkGeometryNV.GEOMETRYTYPE); }
+    public static int ngeometryType(long struct) { return memGetInt(struct + VkGeometryNV.GEOMETRYTYPE); }
     /** Unsafe version of {@link #geometry}. */
     public static VkGeometryDataNV ngeometry(long struct) { return VkGeometryDataNV.create(struct + VkGeometryNV.GEOMETRY); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkGeometryNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkGeometryNV.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkGeometryNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkGeometryNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkGeometryNV.PNEXT, value); }
     /** Unsafe version of {@link #geometryType(int) geometryType}. */
-    public static void ngeometryType(long struct, int value) { UNSAFE.putInt(null, struct + VkGeometryNV.GEOMETRYTYPE, value); }
+    public static void ngeometryType(long struct, int value) { memPutInt(struct + VkGeometryNV.GEOMETRYTYPE, value); }
     /** Unsafe version of {@link #geometry(VkGeometryDataNV) geometry}. */
     public static void ngeometry(long struct, VkGeometryDataNV value) { memCopy(value.address(), struct + VkGeometryNV.GEOMETRY, VkGeometryDataNV.SIZEOF); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkGeometryNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkGeometryNV.FLAGS, value); }
 
     // -----------------------------------
 
@@ -350,6 +348,11 @@ public class VkGeometryNV extends Struct<VkGeometryNV> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

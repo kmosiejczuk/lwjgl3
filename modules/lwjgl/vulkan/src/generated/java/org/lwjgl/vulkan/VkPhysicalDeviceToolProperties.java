@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -195,8 +195,7 @@ public class VkPhysicalDeviceToolProperties extends Struct<VkPhysicalDeviceToolP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceToolProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceToolProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceToolProperties(address, null);
     }
 
@@ -239,8 +238,7 @@ public class VkPhysicalDeviceToolProperties extends Struct<VkPhysicalDeviceToolP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceToolProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceToolProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,7 +283,7 @@ public class VkPhysicalDeviceToolProperties extends Struct<VkPhysicalDeviceToolP
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceToolProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceToolProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceToolProperties.PNEXT); }
     /** Unsafe version of {@link #name}. */
@@ -297,7 +295,7 @@ public class VkPhysicalDeviceToolProperties extends Struct<VkPhysicalDeviceToolP
     /** Unsafe version of {@link #versionString}. */
     public static String nversionString(long struct) { return memUTF8(struct + VkPhysicalDeviceToolProperties.VERSION); }
     /** Unsafe version of {@link #purposes}. */
-    public static int npurposes(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceToolProperties.PURPOSES); }
+    public static int npurposes(long struct) { return memGetInt(struct + VkPhysicalDeviceToolProperties.PURPOSES); }
     /** Unsafe version of {@link #description}. */
     public static ByteBuffer ndescription(long struct) { return memByteBuffer(struct + VkPhysicalDeviceToolProperties.DESCRIPTION, VK_MAX_DESCRIPTION_SIZE); }
     /** Unsafe version of {@link #descriptionString}. */
@@ -308,7 +306,7 @@ public class VkPhysicalDeviceToolProperties extends Struct<VkPhysicalDeviceToolP
     public static String nlayerString(long struct) { return memUTF8(struct + VkPhysicalDeviceToolProperties.LAYER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceToolProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceToolProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceToolProperties.PNEXT, value); }
 
@@ -343,6 +341,11 @@ public class VkPhysicalDeviceToolProperties extends Struct<VkPhysicalDeviceToolP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

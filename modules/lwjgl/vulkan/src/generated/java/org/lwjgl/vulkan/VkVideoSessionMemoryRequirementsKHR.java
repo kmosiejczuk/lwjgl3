@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkVideoSessionMemoryRequirementsKHR extends Struct<VkVideoSessionMe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoSessionMemoryRequirementsKHR createSafe(long address) {
+    public static @Nullable VkVideoSessionMemoryRequirementsKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoSessionMemoryRequirementsKHR(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkVideoSessionMemoryRequirementsKHR extends Struct<VkVideoSessionMe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoSessionMemoryRequirementsKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoSessionMemoryRequirementsKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,16 +247,16 @@ public class VkVideoSessionMemoryRequirementsKHR extends Struct<VkVideoSessionMe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionMemoryRequirementsKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoSessionMemoryRequirementsKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoSessionMemoryRequirementsKHR.PNEXT); }
     /** Unsafe version of {@link #memoryBindIndex}. */
-    public static int nmemoryBindIndex(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionMemoryRequirementsKHR.MEMORYBINDINDEX); }
+    public static int nmemoryBindIndex(long struct) { return memGetInt(struct + VkVideoSessionMemoryRequirementsKHR.MEMORYBINDINDEX); }
     /** Unsafe version of {@link #memoryRequirements}. */
     public static VkMemoryRequirements nmemoryRequirements(long struct) { return VkMemoryRequirements.create(struct + VkVideoSessionMemoryRequirementsKHR.MEMORYREQUIREMENTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoSessionMemoryRequirementsKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoSessionMemoryRequirementsKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoSessionMemoryRequirementsKHR.PNEXT, value); }
 
@@ -293,6 +291,11 @@ public class VkVideoSessionMemoryRequirementsKHR extends Struct<VkVideoSessionMe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceEventInfoEXT createSafe(long address) {
+    public static @Nullable VkDeviceEventInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDeviceEventInfoEXT(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceEventInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceEventInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +265,18 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceEventInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceEventInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceEventInfoEXT.PNEXT); }
     /** Unsafe version of {@link #deviceEvent}. */
-    public static int ndeviceEvent(long struct) { return UNSAFE.getInt(null, struct + VkDeviceEventInfoEXT.DEVICEEVENT); }
+    public static int ndeviceEvent(long struct) { return memGetInt(struct + VkDeviceEventInfoEXT.DEVICEEVENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceEventInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceEventInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceEventInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #deviceEvent(int) deviceEvent}. */
-    public static void ndeviceEvent(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceEventInfoEXT.DEVICEEVENT, value); }
+    public static void ndeviceEvent(long struct, int value) { memPutInt(struct + VkDeviceEventInfoEXT.DEVICEEVENT, value); }
 
     // -----------------------------------
 
@@ -311,6 +309,11 @@ public class VkDeviceEventInfoEXT extends Struct<VkDeviceEventInfoEXT> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryPriorityAllocateInfoEXT createSafe(long address) {
+    public static @Nullable VkMemoryPriorityAllocateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMemoryPriorityAllocateInfoEXT(address, null);
     }
 
@@ -207,8 +206,7 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryPriorityAllocateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryPriorityAllocateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,18 +270,18 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryPriorityAllocateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryPriorityAllocateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryPriorityAllocateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #priority}. */
-    public static float npriority(long struct) { return UNSAFE.getFloat(null, struct + VkMemoryPriorityAllocateInfoEXT.PRIORITY); }
+    public static float npriority(long struct) { return memGetFloat(struct + VkMemoryPriorityAllocateInfoEXT.PRIORITY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryPriorityAllocateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryPriorityAllocateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryPriorityAllocateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #priority(float) priority}. */
-    public static void npriority(long struct, float value) { UNSAFE.putFloat(null, struct + VkMemoryPriorityAllocateInfoEXT.PRIORITY, value); }
+    public static void npriority(long struct, float value) { memPutFloat(struct + VkMemoryPriorityAllocateInfoEXT.PRIORITY, value); }
 
     // -----------------------------------
 
@@ -316,6 +314,11 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

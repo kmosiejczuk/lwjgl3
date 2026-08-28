@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -176,8 +176,7 @@ public class VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR extends Struct<Vk
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR(address, null);
     }
 
@@ -220,8 +219,7 @@ public class VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR extends Struct<Vk
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,22 +264,22 @@ public class VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR extends Struct<Vk
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #rayTracingMaintenance1}. */
-    public static int nrayTracingMaintenance1(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.RAYTRACINGMAINTENANCE1); }
+    public static int nrayTracingMaintenance1(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.RAYTRACINGMAINTENANCE1); }
     /** Unsafe version of {@link #rayTracingPipelineTraceRaysIndirect2}. */
-    public static int nrayTracingPipelineTraceRaysIndirect2(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.RAYTRACINGPIPELINETRACERAYSINDIRECT2); }
+    public static int nrayTracingPipelineTraceRaysIndirect2(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.RAYTRACINGPIPELINETRACERAYSINDIRECT2); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #rayTracingMaintenance1(boolean) rayTracingMaintenance1}. */
-    public static void nrayTracingMaintenance1(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.RAYTRACINGMAINTENANCE1, value); }
+    public static void nrayTracingMaintenance1(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.RAYTRACINGMAINTENANCE1, value); }
     /** Unsafe version of {@link #rayTracingPipelineTraceRaysIndirect2(boolean) rayTracingPipelineTraceRaysIndirect2}. */
-    public static void nrayTracingPipelineTraceRaysIndirect2(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.RAYTRACINGPIPELINETRACERAYSINDIRECT2, value); }
+    public static void nrayTracingPipelineTraceRaysIndirect2(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.RAYTRACINGPIPELINETRACERAYSINDIRECT2, value); }
 
     // -----------------------------------
 
@@ -314,6 +312,11 @@ public class VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR extends Struct<Vk
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

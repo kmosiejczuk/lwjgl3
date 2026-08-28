@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -226,8 +226,7 @@ public class NkStyleChart extends Struct<NkStyleChart> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleChart createSafe(long address) {
+    public static @Nullable NkStyleChart createSafe(long address) {
         return address == NULL ? null : new NkStyleChart(address, null);
     }
 
@@ -270,8 +269,7 @@ public class NkStyleChart extends Struct<NkStyleChart> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleChart.Buffer createSafe(long address, int capacity) {
+    public static NkStyleChart.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -343,17 +341,17 @@ public class NkStyleChart extends Struct<NkStyleChart> implements NativeResource
     /** Unsafe version of {@link #color}. */
     public static NkColor ncolor(long struct) { return NkColor.create(struct + NkStyleChart.COLOR); }
     /** Unsafe version of {@link #border}. */
-    public static float nborder(long struct) { return UNSAFE.getFloat(null, struct + NkStyleChart.BORDER); }
+    public static float nborder(long struct) { return memGetFloat(struct + NkStyleChart.BORDER); }
     /** Unsafe version of {@link #rounding}. */
-    public static float nrounding(long struct) { return UNSAFE.getFloat(null, struct + NkStyleChart.ROUNDING); }
+    public static float nrounding(long struct) { return memGetFloat(struct + NkStyleChart.ROUNDING); }
     /** Unsafe version of {@link #padding}. */
     public static NkVec2 npadding(long struct) { return NkVec2.create(struct + NkStyleChart.PADDING); }
     /** Unsafe version of {@link #color_factor}. */
-    public static float ncolor_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleChart.COLOR_FACTOR); }
+    public static float ncolor_factor(long struct) { return memGetFloat(struct + NkStyleChart.COLOR_FACTOR); }
     /** Unsafe version of {@link #disabled_factor}. */
-    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleChart.DISABLED_FACTOR); }
+    public static float ndisabled_factor(long struct) { return memGetFloat(struct + NkStyleChart.DISABLED_FACTOR); }
     /** Unsafe version of {@link #show_markers}. */
-    public static boolean nshow_markers(long struct) { return UNSAFE.getByte(null, struct + NkStyleChart.SHOW_MARKERS) != 0; }
+    public static boolean nshow_markers(long struct) { return memGetByte(struct + NkStyleChart.SHOW_MARKERS) != 0; }
 
     /** Unsafe version of {@link #background(NkStyleItem) background}. */
     public static void nbackground(long struct, NkStyleItem value) { memCopy(value.address(), struct + NkStyleChart.BACKGROUND, NkStyleItem.SIZEOF); }
@@ -364,17 +362,17 @@ public class NkStyleChart extends Struct<NkStyleChart> implements NativeResource
     /** Unsafe version of {@link #color(NkColor) color}. */
     public static void ncolor(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleChart.COLOR, NkColor.SIZEOF); }
     /** Unsafe version of {@link #border(float) border}. */
-    public static void nborder(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleChart.BORDER, value); }
+    public static void nborder(long struct, float value) { memPutFloat(struct + NkStyleChart.BORDER, value); }
     /** Unsafe version of {@link #rounding(float) rounding}. */
-    public static void nrounding(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleChart.ROUNDING, value); }
+    public static void nrounding(long struct, float value) { memPutFloat(struct + NkStyleChart.ROUNDING, value); }
     /** Unsafe version of {@link #padding(NkVec2) padding}. */
     public static void npadding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleChart.PADDING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #color_factor(float) color_factor}. */
-    public static void ncolor_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleChart.COLOR_FACTOR, value); }
+    public static void ncolor_factor(long struct, float value) { memPutFloat(struct + NkStyleChart.COLOR_FACTOR, value); }
     /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
-    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleChart.DISABLED_FACTOR, value); }
+    public static void ndisabled_factor(long struct, float value) { memPutFloat(struct + NkStyleChart.DISABLED_FACTOR, value); }
     /** Unsafe version of {@link #show_markers(boolean) show_markers}. */
-    public static void nshow_markers(long struct, boolean value) { UNSAFE.putByte(null, struct + NkStyleChart.SHOW_MARKERS, value ? (byte)1 : (byte)0); }
+    public static void nshow_markers(long struct, boolean value) { memPutByte(struct + NkStyleChart.SHOW_MARKERS, value ? (byte)1 : (byte)0); }
 
     // -----------------------------------
 
@@ -407,6 +405,11 @@ public class NkStyleChart extends Struct<NkStyleChart> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

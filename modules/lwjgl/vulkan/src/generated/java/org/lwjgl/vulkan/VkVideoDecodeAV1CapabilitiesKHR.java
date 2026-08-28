@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -92,7 +92,7 @@ public class VkVideoDecodeAV1CapabilitiesKHR extends Struct<VkVideoDecodeAV1Capa
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@code StdVideoAV1Level} value specifying the maximum AV1 level supported by the profile, as defined in section A.3 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#aomedia-av1">AV1 Specification</a>. */
+    /** a {@code StdVideoAV1Level} value specifying the maximum AV1 level supported by the profile, as defined in section A.3 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#aomedia-av1">AV1 Specification</a>. */
     @NativeType("StdVideoAV1Level")
     public int maxLevel() { return nmaxLevel(address()); }
 
@@ -150,8 +150,7 @@ public class VkVideoDecodeAV1CapabilitiesKHR extends Struct<VkVideoDecodeAV1Capa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeAV1CapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeAV1CapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeAV1CapabilitiesKHR(address, null);
     }
 
@@ -194,8 +193,7 @@ public class VkVideoDecodeAV1CapabilitiesKHR extends Struct<VkVideoDecodeAV1Capa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeAV1CapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeAV1CapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,14 +238,14 @@ public class VkVideoDecodeAV1CapabilitiesKHR extends Struct<VkVideoDecodeAV1Capa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeAV1CapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeAV1CapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeAV1CapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #maxLevel}. */
-    public static int nmaxLevel(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeAV1CapabilitiesKHR.MAXLEVEL); }
+    public static int nmaxLevel(long struct) { return memGetInt(struct + VkVideoDecodeAV1CapabilitiesKHR.MAXLEVEL); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeAV1CapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeAV1CapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeAV1CapabilitiesKHR.PNEXT, value); }
 
@@ -282,6 +280,11 @@ public class VkVideoDecodeAV1CapabilitiesKHR extends Struct<VkVideoDecodeAV1Capa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -116,8 +116,7 @@ public class FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE extends Struct<FMOD_DSP_LOUD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE createSafe(long address) {
+    public static @Nullable FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE(address, null);
     }
 
@@ -160,8 +159,7 @@ public class FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE extends Struct<FMOD_DSP_LOUD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -209,7 +207,7 @@ public class FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE extends Struct<FMOD_DSP_LOUD
     public static FloatBuffer nchannelweight(long struct) { return memFloatBuffer(struct + FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE.CHANNELWEIGHT, 32); }
     /** Unsafe version of {@link #channelweight(int) channelweight}. */
     public static float nchannelweight(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE.CHANNELWEIGHT + check(index, 32) * 4);
+        return memGetFloat(struct + FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE.CHANNELWEIGHT + check(index, 32) * 4);
     }
 
     /** Unsafe version of {@link #channelweight(FloatBuffer) channelweight}. */
@@ -219,7 +217,7 @@ public class FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE extends Struct<FMOD_DSP_LOUD
     }
     /** Unsafe version of {@link #channelweight(int, float) channelweight}. */
     public static void nchannelweight(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE.CHANNELWEIGHT + check(index, 32) * 4, value);
+        memPutFloat(struct + FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE.CHANNELWEIGHT + check(index, 32) * 4, value);
     }
 
     // -----------------------------------
@@ -253,6 +251,11 @@ public class FMOD_DSP_LOUDNESS_METER_WEIGHTING_TYPE extends Struct<FMOD_DSP_LOUD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

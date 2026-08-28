@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelLoadInfoFB createSafe(long address) {
+    public static @Nullable XrRenderModelLoadInfoFB createSafe(long address) {
         return address == NULL ? null : new XrRenderModelLoadInfoFB(address, null);
     }
 
@@ -206,8 +205,7 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelLoadInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrRenderModelLoadInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrRenderModelLoadInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrRenderModelLoadInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrRenderModelLoadInfoFB.NEXT); }
     /** Unsafe version of {@link #modelKey}. */
-    public static long nmodelKey(long struct) { return UNSAFE.getLong(null, struct + XrRenderModelLoadInfoFB.MODELKEY); }
+    public static long nmodelKey(long struct) { return memGetLong(struct + XrRenderModelLoadInfoFB.MODELKEY); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrRenderModelLoadInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrRenderModelLoadInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrRenderModelLoadInfoFB.NEXT, value); }
     /** Unsafe version of {@link #modelKey(long) modelKey}. */
-    public static void nmodelKey(long struct, long value) { UNSAFE.putLong(null, struct + XrRenderModelLoadInfoFB.MODELKEY, value); }
+    public static void nmodelKey(long struct, long value) { memPutLong(struct + XrRenderModelLoadInfoFB.MODELKEY, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class XrRenderModelLoadInfoFB extends Struct<XrRenderModelLoadInfoFB> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

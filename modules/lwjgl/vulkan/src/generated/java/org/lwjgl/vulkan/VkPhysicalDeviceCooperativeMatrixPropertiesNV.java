@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkPhysicalDeviceCooperativeMatrixPropertiesNV extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCooperativeMatrixPropertiesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCooperativeMatrixPropertiesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCooperativeMatrixPropertiesNV(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkPhysicalDeviceCooperativeMatrixPropertiesNV extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCooperativeMatrixPropertiesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCooperativeMatrixPropertiesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,14 +259,14 @@ public class VkPhysicalDeviceCooperativeMatrixPropertiesNV extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCooperativeMatrixPropertiesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCooperativeMatrixPropertiesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCooperativeMatrixPropertiesNV.PNEXT); }
     /** Unsafe version of {@link #cooperativeMatrixSupportedStages}. */
-    public static int ncooperativeMatrixSupportedStages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCooperativeMatrixPropertiesNV.COOPERATIVEMATRIXSUPPORTEDSTAGES); }
+    public static int ncooperativeMatrixSupportedStages(long struct) { return memGetInt(struct + VkPhysicalDeviceCooperativeMatrixPropertiesNV.COOPERATIVEMATRIXSUPPORTEDSTAGES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCooperativeMatrixPropertiesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCooperativeMatrixPropertiesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCooperativeMatrixPropertiesNV.PNEXT, value); }
 
@@ -303,6 +301,11 @@ public class VkPhysicalDeviceCooperativeMatrixPropertiesNV extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceDiagnosticsConfigCreateInfoNV createSafe(long address) {
+    public static @Nullable VkDeviceDiagnosticsConfigCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkDeviceDiagnosticsConfigCreateInfoNV(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceDiagnosticsConfigCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceDiagnosticsConfigCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,18 +241,18 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceDiagnosticsConfigCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceDiagnosticsConfigCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceDiagnosticsConfigCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDeviceDiagnosticsConfigCreateInfoNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkDeviceDiagnosticsConfigCreateInfoNV.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceDiagnosticsConfigCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceDiagnosticsConfigCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceDiagnosticsConfigCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceDiagnosticsConfigCreateInfoNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkDeviceDiagnosticsConfigCreateInfoNV.FLAGS, value); }
 
     // -----------------------------------
 
@@ -287,6 +285,11 @@ public class VkDeviceDiagnosticsConfigCreateInfoNV extends Struct<VkDeviceDiagno
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

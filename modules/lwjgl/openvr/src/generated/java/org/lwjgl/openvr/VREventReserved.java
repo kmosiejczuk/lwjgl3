@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -116,8 +116,7 @@ public class VREventReserved extends Struct<VREventReserved> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventReserved createSafe(long address) {
+    public static @Nullable VREventReserved createSafe(long address) {
         return address == NULL ? null : new VREventReserved(address, null);
     }
 
@@ -132,25 +131,24 @@ public class VREventReserved extends Struct<VREventReserved> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventReserved.Buffer createSafe(long address, int capacity) {
+    public static VREventReserved.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #reserved0}. */
-    public static long nreserved0(long struct) { return UNSAFE.getLong(null, struct + VREventReserved.RESERVED0); }
+    public static long nreserved0(long struct) { return memGetLong(struct + VREventReserved.RESERVED0); }
     /** Unsafe version of {@link #reserved1}. */
-    public static long nreserved1(long struct) { return UNSAFE.getLong(null, struct + VREventReserved.RESERVED1); }
+    public static long nreserved1(long struct) { return memGetLong(struct + VREventReserved.RESERVED1); }
     /** Unsafe version of {@link #reserved2}. */
-    public static long nreserved2(long struct) { return UNSAFE.getLong(null, struct + VREventReserved.RESERVED2); }
+    public static long nreserved2(long struct) { return memGetLong(struct + VREventReserved.RESERVED2); }
     /** Unsafe version of {@link #reserved3}. */
-    public static long nreserved3(long struct) { return UNSAFE.getLong(null, struct + VREventReserved.RESERVED3); }
+    public static long nreserved3(long struct) { return memGetLong(struct + VREventReserved.RESERVED3); }
     /** Unsafe version of {@link #reserved4}. */
-    public static long nreserved4(long struct) { return UNSAFE.getLong(null, struct + VREventReserved.RESERVED4); }
+    public static long nreserved4(long struct) { return memGetLong(struct + VREventReserved.RESERVED4); }
     /** Unsafe version of {@link #reserved5}. */
-    public static long nreserved5(long struct) { return UNSAFE.getLong(null, struct + VREventReserved.RESERVED5); }
+    public static long nreserved5(long struct) { return memGetLong(struct + VREventReserved.RESERVED5); }
 
     // -----------------------------------
 
@@ -183,6 +181,11 @@ public class VREventReserved extends Struct<VREventReserved> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

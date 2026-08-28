@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import org.lwjgl.system.windows.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If this structure is not present, or if {@code pAttributes} is set to {@code NULL}, default security descriptor values will be used, and child processes created by the application will not inherit the handle, as described in the MSDN documentation for “{@code Synchronization Object Security and Access Rights}”<sup>1</sup>. Further, if the structure is not present, the access rights will be</p>
+ * <p>If this structure is not present, or if {@code pAttributes} is {@code NULL}, default security descriptor values will be used, and child processes created by the application will not inherit the handle, as described in the MSDN documentation for “{@code Synchronization Object Security and Access Rights}”<sup>1</sup>. Further, if the structure is not present, the access rights will be</p>
  * 
  * <p>{@code DXGI_SHARED_RESOURCE_READ} | {@code DXGI_SHARED_RESOURCE_WRITE}</p>
  * 
@@ -109,9 +109,8 @@ public class VkExportMemoryWin32HandleInfoNV extends Struct<VkExportMemoryWin32H
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** a pointer to a Windows {@code SECURITY_ATTRIBUTES} structure specifying security attributes of the handle. */
-    @Nullable
     @NativeType("SECURITY_ATTRIBUTES const *")
-    public SECURITY_ATTRIBUTES pAttributes() { return npAttributes(address()); }
+    public @Nullable SECURITY_ATTRIBUTES pAttributes() { return npAttributes(address()); }
     /** a {@code DWORD} specifying access rights of the handle. */
     @NativeType("DWORD")
     public int dwAccess() { return ndwAccess(address()); }
@@ -178,8 +177,7 @@ public class VkExportMemoryWin32HandleInfoNV extends Struct<VkExportMemoryWin32H
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMemoryWin32HandleInfoNV createSafe(long address) {
+    public static @Nullable VkExportMemoryWin32HandleInfoNV createSafe(long address) {
         return address == NULL ? null : new VkExportMemoryWin32HandleInfoNV(address, null);
     }
 
@@ -222,8 +220,7 @@ public class VkExportMemoryWin32HandleInfoNV extends Struct<VkExportMemoryWin32H
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMemoryWin32HandleInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkExportMemoryWin32HandleInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -287,22 +284,22 @@ public class VkExportMemoryWin32HandleInfoNV extends Struct<VkExportMemoryWin32H
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMemoryWin32HandleInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMemoryWin32HandleInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMemoryWin32HandleInfoNV.PNEXT); }
     /** Unsafe version of {@link #pAttributes}. */
-    @Nullable public static SECURITY_ATTRIBUTES npAttributes(long struct) { return SECURITY_ATTRIBUTES.createSafe(memGetAddress(struct + VkExportMemoryWin32HandleInfoNV.PATTRIBUTES)); }
+    public static @Nullable SECURITY_ATTRIBUTES npAttributes(long struct) { return SECURITY_ATTRIBUTES.createSafe(memGetAddress(struct + VkExportMemoryWin32HandleInfoNV.PATTRIBUTES)); }
     /** Unsafe version of {@link #dwAccess}. */
-    public static int ndwAccess(long struct) { return UNSAFE.getInt(null, struct + VkExportMemoryWin32HandleInfoNV.DWACCESS); }
+    public static int ndwAccess(long struct) { return memGetInt(struct + VkExportMemoryWin32HandleInfoNV.DWACCESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMemoryWin32HandleInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMemoryWin32HandleInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMemoryWin32HandleInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #pAttributes(SECURITY_ATTRIBUTES) pAttributes}. */
     public static void npAttributes(long struct, @Nullable SECURITY_ATTRIBUTES value) { memPutAddress(struct + VkExportMemoryWin32HandleInfoNV.PATTRIBUTES, memAddressSafe(value)); }
     /** Unsafe version of {@link #dwAccess(int) dwAccess}. */
-    public static void ndwAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMemoryWin32HandleInfoNV.DWACCESS, value); }
+    public static void ndwAccess(long struct, int value) { memPutInt(struct + VkExportMemoryWin32HandleInfoNV.DWACCESS, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -350,6 +347,11 @@ public class VkExportMemoryWin32HandleInfoNV extends Struct<VkExportMemoryWin32H
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExportMemoryWin32HandleInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -361,9 +363,8 @@ public class VkExportMemoryWin32HandleInfoNV extends Struct<VkExportMemoryWin32H
         @NativeType("void const *")
         public long pNext() { return VkExportMemoryWin32HandleInfoNV.npNext(address()); }
         /** @return a {@link SECURITY_ATTRIBUTES} view of the struct pointed to by the {@link VkExportMemoryWin32HandleInfoNV#pAttributes} field. */
-        @Nullable
         @NativeType("SECURITY_ATTRIBUTES const *")
-        public SECURITY_ATTRIBUTES pAttributes() { return VkExportMemoryWin32HandleInfoNV.npAttributes(address()); }
+        public @Nullable SECURITY_ATTRIBUTES pAttributes() { return VkExportMemoryWin32HandleInfoNV.npAttributes(address()); }
         /** @return the value of the {@link VkExportMemoryWin32HandleInfoNV#dwAccess} field. */
         @NativeType("DWORD")
         public int dwAccess() { return VkExportMemoryWin32HandleInfoNV.ndwAccess(address()); }

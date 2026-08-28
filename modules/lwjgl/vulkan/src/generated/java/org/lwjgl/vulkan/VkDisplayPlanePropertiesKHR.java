@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -109,8 +109,7 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPlanePropertiesKHR createSafe(long address) {
+    public static @Nullable VkDisplayPlanePropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayPlanePropertiesKHR(address, null);
     }
 
@@ -153,8 +152,7 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPlanePropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayPlanePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -218,9 +216,9 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
     // -----------------------------------
 
     /** Unsafe version of {@link #currentDisplay}. */
-    public static long ncurrentDisplay(long struct) { return UNSAFE.getLong(null, struct + VkDisplayPlanePropertiesKHR.CURRENTDISPLAY); }
+    public static long ncurrentDisplay(long struct) { return memGetLong(struct + VkDisplayPlanePropertiesKHR.CURRENTDISPLAY); }
     /** Unsafe version of {@link #currentStackIndex}. */
-    public static int ncurrentStackIndex(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPlanePropertiesKHR.CURRENTSTACKINDEX); }
+    public static int ncurrentStackIndex(long struct) { return memGetInt(struct + VkDisplayPlanePropertiesKHR.CURRENTSTACKINDEX); }
 
     // -----------------------------------
 
@@ -253,6 +251,11 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

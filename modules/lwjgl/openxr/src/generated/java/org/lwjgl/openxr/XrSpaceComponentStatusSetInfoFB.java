@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -115,7 +115,7 @@ public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStat
     /** the value to set the component to. */
     @NativeType("XrBool32")
     public boolean enabled() { return nenabled(address()) != 0; }
-    /** the number of nanoseconds before the operation should be cancelled. A value of {@link XR10#XR_INFINITE_DURATION INFINITE_DURATION} indicates to never time out. See <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#fundamentals-duration">fundamentals-duration</a> for more details. */
+    /** the number of nanoseconds before the operation should be cancelled. A value of {@link XR10#XR_INFINITE_DURATION INFINITE_DURATION} indicates to never time out. See <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#fundamentals-duration">duration</a> for more details. */
     @NativeType("XrDuration")
     public long timeout() { return ntimeout(address()); }
 
@@ -185,8 +185,7 @@ public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStat
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceComponentStatusSetInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceComponentStatusSetInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceComponentStatusSetInfoFB(address, null);
     }
 
@@ -229,8 +228,7 @@ public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStat
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceComponentStatusSetInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceComponentStatusSetInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,26 +273,26 @@ public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStat
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentStatusSetInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceComponentStatusSetInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceComponentStatusSetInfoFB.NEXT); }
     /** Unsafe version of {@link #componentType}. */
-    public static int ncomponentType(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentStatusSetInfoFB.COMPONENTTYPE); }
+    public static int ncomponentType(long struct) { return memGetInt(struct + XrSpaceComponentStatusSetInfoFB.COMPONENTTYPE); }
     /** Unsafe version of {@link #enabled}. */
-    public static int nenabled(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentStatusSetInfoFB.ENABLED); }
+    public static int nenabled(long struct) { return memGetInt(struct + XrSpaceComponentStatusSetInfoFB.ENABLED); }
     /** Unsafe version of {@link #timeout}. */
-    public static long ntimeout(long struct) { return UNSAFE.getLong(null, struct + XrSpaceComponentStatusSetInfoFB.TIMEOUT); }
+    public static long ntimeout(long struct) { return memGetLong(struct + XrSpaceComponentStatusSetInfoFB.TIMEOUT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentStatusSetInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceComponentStatusSetInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceComponentStatusSetInfoFB.NEXT, value); }
     /** Unsafe version of {@link #componentType(int) componentType}. */
-    public static void ncomponentType(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentStatusSetInfoFB.COMPONENTTYPE, value); }
+    public static void ncomponentType(long struct, int value) { memPutInt(struct + XrSpaceComponentStatusSetInfoFB.COMPONENTTYPE, value); }
     /** Unsafe version of {@link #enabled(boolean) enabled}. */
-    public static void nenabled(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentStatusSetInfoFB.ENABLED, value); }
+    public static void nenabled(long struct, int value) { memPutInt(struct + XrSpaceComponentStatusSetInfoFB.ENABLED, value); }
     /** Unsafe version of {@link #timeout(long) timeout}. */
-    public static void ntimeout(long struct, long value) { UNSAFE.putLong(null, struct + XrSpaceComponentStatusSetInfoFB.TIMEOUT, value); }
+    public static void ntimeout(long struct, long value) { memPutLong(struct + XrSpaceComponentStatusSetInfoFB.TIMEOUT, value); }
 
     // -----------------------------------
 
@@ -327,6 +325,11 @@ public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStat
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

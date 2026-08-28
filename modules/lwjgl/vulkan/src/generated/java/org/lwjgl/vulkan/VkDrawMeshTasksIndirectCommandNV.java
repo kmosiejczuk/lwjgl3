@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -147,8 +147,7 @@ public class VkDrawMeshTasksIndirectCommandNV extends Struct<VkDrawMeshTasksIndi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawMeshTasksIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkDrawMeshTasksIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkDrawMeshTasksIndirectCommandNV(address, null);
     }
 
@@ -191,8 +190,7 @@ public class VkDrawMeshTasksIndirectCommandNV extends Struct<VkDrawMeshTasksIndi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawMeshTasksIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkDrawMeshTasksIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,14 +254,14 @@ public class VkDrawMeshTasksIndirectCommandNV extends Struct<VkDrawMeshTasksIndi
     // -----------------------------------
 
     /** Unsafe version of {@link #taskCount}. */
-    public static int ntaskCount(long struct) { return UNSAFE.getInt(null, struct + VkDrawMeshTasksIndirectCommandNV.TASKCOUNT); }
+    public static int ntaskCount(long struct) { return memGetInt(struct + VkDrawMeshTasksIndirectCommandNV.TASKCOUNT); }
     /** Unsafe version of {@link #firstTask}. */
-    public static int nfirstTask(long struct) { return UNSAFE.getInt(null, struct + VkDrawMeshTasksIndirectCommandNV.FIRSTTASK); }
+    public static int nfirstTask(long struct) { return memGetInt(struct + VkDrawMeshTasksIndirectCommandNV.FIRSTTASK); }
 
     /** Unsafe version of {@link #taskCount(int) taskCount}. */
-    public static void ntaskCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawMeshTasksIndirectCommandNV.TASKCOUNT, value); }
+    public static void ntaskCount(long struct, int value) { memPutInt(struct + VkDrawMeshTasksIndirectCommandNV.TASKCOUNT, value); }
     /** Unsafe version of {@link #firstTask(int) firstTask}. */
-    public static void nfirstTask(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawMeshTasksIndirectCommandNV.FIRSTTASK, value); }
+    public static void nfirstTask(long struct, int value) { memPutInt(struct + VkDrawMeshTasksIndirectCommandNV.FIRSTTASK, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class VkDrawMeshTasksIndirectCommandNV extends Struct<VkDrawMeshTasksIndi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

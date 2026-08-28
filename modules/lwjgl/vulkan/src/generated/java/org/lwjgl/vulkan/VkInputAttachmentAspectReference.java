@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -171,8 +171,7 @@ public class VkInputAttachmentAspectReference extends Struct<VkInputAttachmentAs
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkInputAttachmentAspectReference createSafe(long address) {
+    public static @Nullable VkInputAttachmentAspectReference createSafe(long address) {
         return address == NULL ? null : new VkInputAttachmentAspectReference(address, null);
     }
 
@@ -215,8 +214,7 @@ public class VkInputAttachmentAspectReference extends Struct<VkInputAttachmentAs
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkInputAttachmentAspectReference.Buffer createSafe(long address, int capacity) {
+    public static VkInputAttachmentAspectReference.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,18 +278,18 @@ public class VkInputAttachmentAspectReference extends Struct<VkInputAttachmentAs
     // -----------------------------------
 
     /** Unsafe version of {@link #subpass}. */
-    public static int nsubpass(long struct) { return UNSAFE.getInt(null, struct + VkInputAttachmentAspectReference.SUBPASS); }
+    public static int nsubpass(long struct) { return memGetInt(struct + VkInputAttachmentAspectReference.SUBPASS); }
     /** Unsafe version of {@link #inputAttachmentIndex}. */
-    public static int ninputAttachmentIndex(long struct) { return UNSAFE.getInt(null, struct + VkInputAttachmentAspectReference.INPUTATTACHMENTINDEX); }
+    public static int ninputAttachmentIndex(long struct) { return memGetInt(struct + VkInputAttachmentAspectReference.INPUTATTACHMENTINDEX); }
     /** Unsafe version of {@link #aspectMask}. */
-    public static int naspectMask(long struct) { return UNSAFE.getInt(null, struct + VkInputAttachmentAspectReference.ASPECTMASK); }
+    public static int naspectMask(long struct) { return memGetInt(struct + VkInputAttachmentAspectReference.ASPECTMASK); }
 
     /** Unsafe version of {@link #subpass(int) subpass}. */
-    public static void nsubpass(long struct, int value) { UNSAFE.putInt(null, struct + VkInputAttachmentAspectReference.SUBPASS, value); }
+    public static void nsubpass(long struct, int value) { memPutInt(struct + VkInputAttachmentAspectReference.SUBPASS, value); }
     /** Unsafe version of {@link #inputAttachmentIndex(int) inputAttachmentIndex}. */
-    public static void ninputAttachmentIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkInputAttachmentAspectReference.INPUTATTACHMENTINDEX, value); }
+    public static void ninputAttachmentIndex(long struct, int value) { memPutInt(struct + VkInputAttachmentAspectReference.INPUTATTACHMENTINDEX, value); }
     /** Unsafe version of {@link #aspectMask(int) aspectMask}. */
-    public static void naspectMask(long struct, int value) { UNSAFE.putInt(null, struct + VkInputAttachmentAspectReference.ASPECTMASK, value); }
+    public static void naspectMask(long struct, int value) { memPutInt(struct + VkInputAttachmentAspectReference.ASPECTMASK, value); }
 
     // -----------------------------------
 
@@ -324,6 +322,11 @@ public class VkInputAttachmentAspectReference extends Struct<VkInputAttachmentAs
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

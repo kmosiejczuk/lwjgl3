@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -207,8 +207,7 @@ public class XrCompositionLayerPassthroughHTC extends Struct<XrCompositionLayerP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerPassthroughHTC createSafe(long address) {
+    public static @Nullable XrCompositionLayerPassthroughHTC createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerPassthroughHTC(address, null);
     }
 
@@ -256,8 +255,7 @@ public class XrCompositionLayerPassthroughHTC extends Struct<XrCompositionLayerP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerPassthroughHTC.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerPassthroughHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -307,11 +305,11 @@ public class XrCompositionLayerPassthroughHTC extends Struct<XrCompositionLayerP
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerPassthroughHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerPassthroughHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerPassthroughHTC.NEXT); }
     /** Unsafe version of {@link #layerFlags}. */
-    public static long nlayerFlags(long struct) { return UNSAFE.getLong(null, struct + XrCompositionLayerPassthroughHTC.LAYERFLAGS); }
+    public static long nlayerFlags(long struct) { return memGetLong(struct + XrCompositionLayerPassthroughHTC.LAYERFLAGS); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrCompositionLayerPassthroughHTC.SPACE); }
     /** Unsafe version of {@link #passthrough}. */
@@ -320,11 +318,11 @@ public class XrCompositionLayerPassthroughHTC extends Struct<XrCompositionLayerP
     public static XrPassthroughColorHTC ncolor(long struct) { return XrPassthroughColorHTC.create(struct + XrCompositionLayerPassthroughHTC.COLOR); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerPassthroughHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerPassthroughHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerPassthroughHTC.NEXT, value); }
     /** Unsafe version of {@link #layerFlags(long) layerFlags}. */
-    public static void nlayerFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrCompositionLayerPassthroughHTC.LAYERFLAGS, value); }
+    public static void nlayerFlags(long struct, long value) { memPutLong(struct + XrCompositionLayerPassthroughHTC.LAYERFLAGS, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
     public static void nspace(long struct, XrSpace value) { memPutAddress(struct + XrCompositionLayerPassthroughHTC.SPACE, value.address()); }
     /** Unsafe version of {@link #passthrough(XrPassthroughHTC) passthrough}. */
@@ -373,6 +371,11 @@ public class XrCompositionLayerPassthroughHTC extends Struct<XrCompositionLayerP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

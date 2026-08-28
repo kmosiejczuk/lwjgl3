@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,8 +137,7 @@ public class CLImageFormat extends Struct<CLImageFormat> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLImageFormat createSafe(long address) {
+    public static @Nullable CLImageFormat createSafe(long address) {
         return address == NULL ? null : new CLImageFormat(address, null);
     }
 
@@ -181,8 +180,7 @@ public class CLImageFormat extends Struct<CLImageFormat> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLImageFormat.Buffer createSafe(long address, int capacity) {
+    public static CLImageFormat.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,14 +244,14 @@ public class CLImageFormat extends Struct<CLImageFormat> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #image_channel_order}. */
-    public static int nimage_channel_order(long struct) { return UNSAFE.getInt(null, struct + CLImageFormat.IMAGE_CHANNEL_ORDER); }
+    public static int nimage_channel_order(long struct) { return memGetInt(struct + CLImageFormat.IMAGE_CHANNEL_ORDER); }
     /** Unsafe version of {@link #image_channel_data_type}. */
-    public static int nimage_channel_data_type(long struct) { return UNSAFE.getInt(null, struct + CLImageFormat.IMAGE_CHANNEL_DATA_TYPE); }
+    public static int nimage_channel_data_type(long struct) { return memGetInt(struct + CLImageFormat.IMAGE_CHANNEL_DATA_TYPE); }
 
     /** Unsafe version of {@link #image_channel_order(int) image_channel_order}. */
-    public static void nimage_channel_order(long struct, int value) { UNSAFE.putInt(null, struct + CLImageFormat.IMAGE_CHANNEL_ORDER, value); }
+    public static void nimage_channel_order(long struct, int value) { memPutInt(struct + CLImageFormat.IMAGE_CHANNEL_ORDER, value); }
     /** Unsafe version of {@link #image_channel_data_type(int) image_channel_data_type}. */
-    public static void nimage_channel_data_type(long struct, int value) { UNSAFE.putInt(null, struct + CLImageFormat.IMAGE_CHANNEL_DATA_TYPE, value); }
+    public static void nimage_channel_data_type(long struct, int value) { memPutInt(struct + CLImageFormat.IMAGE_CHANNEL_DATA_TYPE, value); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class CLImageFormat extends Struct<CLImageFormat> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -180,8 +180,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHolographicWindowAttachmentMSFT createSafe(long address) {
+    public static @Nullable XrHolographicWindowAttachmentMSFT createSafe(long address) {
         return address == NULL ? null : new XrHolographicWindowAttachmentMSFT(address, null);
     }
 
@@ -224,8 +223,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHolographicWindowAttachmentMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrHolographicWindowAttachmentMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,7 +268,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHolographicWindowAttachmentMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHolographicWindowAttachmentMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHolographicWindowAttachmentMSFT.NEXT); }
     /** Unsafe version of {@link #holographicSpace}. */
@@ -279,7 +277,7 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
     public static long ncoreWindow(long struct) { return memGetAddress(struct + XrHolographicWindowAttachmentMSFT.COREWINDOW); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHolographicWindowAttachmentMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHolographicWindowAttachmentMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHolographicWindowAttachmentMSFT.NEXT, value); }
     /** Unsafe version of {@link #holographicSpace(long) holographicSpace}. */
@@ -328,6 +326,11 @@ public class XrHolographicWindowAttachmentMSFT extends Struct<XrHolographicWindo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

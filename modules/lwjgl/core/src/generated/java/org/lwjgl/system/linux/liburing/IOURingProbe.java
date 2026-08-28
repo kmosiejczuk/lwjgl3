@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,8 +161,7 @@ public class IOURingProbe extends Struct<IOURingProbe> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingProbe createSafe(long address) {
+    public static @Nullable IOURingProbe createSafe(long address) {
         return address == NULL ? null : new IOURingProbe(address, null);
     }
 
@@ -205,8 +204,7 @@ public class IOURingProbe extends Struct<IOURingProbe> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingProbe.Buffer createSafe(long address, int capacity) {
+    public static IOURingProbe.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,13 +249,13 @@ public class IOURingProbe extends Struct<IOURingProbe> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #last_op}. */
-    public static byte nlast_op(long struct) { return UNSAFE.getByte(null, struct + IOURingProbe.LAST_OP); }
+    public static byte nlast_op(long struct) { return memGetByte(struct + IOURingProbe.LAST_OP); }
     /** Unsafe version of {@link #ops_len}. */
-    public static byte nops_len(long struct) { return UNSAFE.getByte(null, struct + IOURingProbe.OPS_LEN); }
-    public static short nresv(long struct) { return UNSAFE.getShort(null, struct + IOURingProbe.RESV); }
+    public static byte nops_len(long struct) { return memGetByte(struct + IOURingProbe.OPS_LEN); }
+    public static short nresv(long struct) { return memGetShort(struct + IOURingProbe.RESV); }
     public static IntBuffer nresv2(long struct) { return memIntBuffer(struct + IOURingProbe.RESV2, 3); }
     public static int nresv2(long struct, int index) {
-        return UNSAFE.getInt(null, struct + IOURingProbe.RESV2 + check(index, 3) * 4);
+        return memGetInt(struct + IOURingProbe.RESV2 + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #ops}. */
     public static IOURingProbeOp.Buffer nops(long struct) { return IOURingProbeOp.create(struct + IOURingProbe.OPS, 0); }
@@ -267,16 +265,16 @@ public class IOURingProbe extends Struct<IOURingProbe> implements NativeResource
     }
 
     /** Unsafe version of {@link #last_op(byte) last_op}. */
-    public static void nlast_op(long struct, byte value) { UNSAFE.putByte(null, struct + IOURingProbe.LAST_OP, value); }
+    public static void nlast_op(long struct, byte value) { memPutByte(struct + IOURingProbe.LAST_OP, value); }
     /** Unsafe version of {@link #ops_len(byte) ops_len}. */
-    public static void nops_len(long struct, byte value) { UNSAFE.putByte(null, struct + IOURingProbe.OPS_LEN, value); }
-    public static void nresv(long struct, short value) { UNSAFE.putShort(null, struct + IOURingProbe.RESV, value); }
+    public static void nops_len(long struct, byte value) { memPutByte(struct + IOURingProbe.OPS_LEN, value); }
+    public static void nresv(long struct, short value) { memPutShort(struct + IOURingProbe.RESV, value); }
     public static void nresv2(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
         memCopy(memAddress(value), struct + IOURingProbe.RESV2, value.remaining() * 4);
     }
     public static void nresv2(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + IOURingProbe.RESV2 + check(index, 3) * 4, value);
+        memPutInt(struct + IOURingProbe.RESV2 + check(index, 3) * 4, value);
     }
     /** Unsafe version of {@link #ops(IOURingProbeOp.Buffer) ops}. */
     public static void nops(long struct, IOURingProbeOp.Buffer value) {
@@ -319,6 +317,11 @@ public class IOURingProbe extends Struct<IOURingProbe> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

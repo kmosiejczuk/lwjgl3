@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,11 +22,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>The image subresource referred to by such a structure is defined as the image array layer index specified in {@code baseArrayLayer} relative to the image subresource range the image view specified in {@code imageViewBinding} was created with.</p>
  * 
- * <p>The meaning of the {@code codedOffset} and {@code codedExtent} depends on the command and context the video picture resource is used in, as well as on the used <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a> and corresponding codec-specific semantics, as described later.</p>
+ * <p>The meaning of the {@code codedOffset} and {@code codedExtent} depends on the command and context the video picture resource is used in, as well as on the used <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-profiles">video profile</a> and corresponding codec-specific semantics, as described later.</p>
  * 
  * <p>A video picture resource is uniquely defined by the image subresource referred to by an instance of this structure, together with the {@code codedOffset} and {@code codedExtent} members that identify the image subregion within the image subresource referenced corresponding to the video picture resource according to the particular codec-specific semantics.</p>
  * 
- * <p>Accesses to image data within a video picture resource happen at the granularity indicated by {@link VkVideoCapabilitiesKHR}{@code ::pictureAccessGranularity}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the used <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a>. As a result, given an effective image subregion corresponding to a video picture resource, the actual image subregion accessed <b>may</b> be larger than that as it <b>may</b> include additional padding texels due to the picture access granularity. Any writes performed by video coding operations to such padding texels will result in undefined texel values.</p>
+ * <p>Accesses to image data within a video picture resource happen at the granularity indicated by {@link VkVideoCapabilitiesKHR}{@code ::pictureAccessGranularity}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the used <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-profiles">video profile</a>. As a result, given an effective image subregion corresponding to a video picture resource, the actual image subregion accessed <b>may</b> be larger than that as it <b>may</b> include additional padding texels due to the picture access granularity. Any writes performed by video coding operations to such padding texels will result in undefined texel values.</p>
  * 
  * <p>Two video picture resources match if they refer to the same image subresource and they specify identical {@code codedOffset} and {@code codedExtent} values.</p>
  * 
@@ -211,8 +211,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct<VkVideoPictureResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoPictureResourceInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoPictureResourceInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoPictureResourceInfoKHR(address, null);
     }
 
@@ -255,8 +254,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct<VkVideoPictureResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoPictureResourceInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoPictureResourceInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -301,7 +299,7 @@ public class VkVideoPictureResourceInfoKHR extends Struct<VkVideoPictureResource
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoPictureResourceInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoPictureResourceInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoPictureResourceInfoKHR.PNEXT); }
     /** Unsafe version of {@link #codedOffset}. */
@@ -309,12 +307,12 @@ public class VkVideoPictureResourceInfoKHR extends Struct<VkVideoPictureResource
     /** Unsafe version of {@link #codedExtent}. */
     public static VkExtent2D ncodedExtent(long struct) { return VkExtent2D.create(struct + VkVideoPictureResourceInfoKHR.CODEDEXTENT); }
     /** Unsafe version of {@link #baseArrayLayer}. */
-    public static int nbaseArrayLayer(long struct) { return UNSAFE.getInt(null, struct + VkVideoPictureResourceInfoKHR.BASEARRAYLAYER); }
+    public static int nbaseArrayLayer(long struct) { return memGetInt(struct + VkVideoPictureResourceInfoKHR.BASEARRAYLAYER); }
     /** Unsafe version of {@link #imageViewBinding}. */
-    public static long nimageViewBinding(long struct) { return UNSAFE.getLong(null, struct + VkVideoPictureResourceInfoKHR.IMAGEVIEWBINDING); }
+    public static long nimageViewBinding(long struct) { return memGetLong(struct + VkVideoPictureResourceInfoKHR.IMAGEVIEWBINDING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoPictureResourceInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoPictureResourceInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoPictureResourceInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #codedOffset(VkOffset2D) codedOffset}. */
@@ -322,9 +320,9 @@ public class VkVideoPictureResourceInfoKHR extends Struct<VkVideoPictureResource
     /** Unsafe version of {@link #codedExtent(VkExtent2D) codedExtent}. */
     public static void ncodedExtent(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkVideoPictureResourceInfoKHR.CODEDEXTENT, VkExtent2D.SIZEOF); }
     /** Unsafe version of {@link #baseArrayLayer(int) baseArrayLayer}. */
-    public static void nbaseArrayLayer(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoPictureResourceInfoKHR.BASEARRAYLAYER, value); }
+    public static void nbaseArrayLayer(long struct, int value) { memPutInt(struct + VkVideoPictureResourceInfoKHR.BASEARRAYLAYER, value); }
     /** Unsafe version of {@link #imageViewBinding(long) imageViewBinding}. */
-    public static void nimageViewBinding(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoPictureResourceInfoKHR.IMAGEVIEWBINDING, value); }
+    public static void nimageViewBinding(long struct, long value) { memPutLong(struct + VkVideoPictureResourceInfoKHR.IMAGEVIEWBINDING, value); }
 
     // -----------------------------------
 
@@ -357,6 +355,11 @@ public class VkVideoPictureResourceInfoKHR extends Struct<VkVideoPictureResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

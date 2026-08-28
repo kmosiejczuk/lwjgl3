@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,23 +23,23 @@ import org.lwjgl.vulkan.video.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>This structure is specified in the {@code pNext} chain of {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot}, if not {@code NULL}, and the {@code pNext} chain of the elements of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots} to specify the codec-specific reference picture information for an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-av1">AV1 decode operation</a>.</p>
+ * <p>This structure is specified in the {@code pNext} chain of {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot}, if not {@code NULL}, and the {@code pNext} chain of the elements of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots} to specify the codec-specific reference picture information for an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-av1">AV1 decode operation</a>.</p>
  * 
  * <dl>
  * <dt>Active Reference Picture Information</dt>
  * <dd><ul>
- * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-av1-picture-data-access">AV1 Decode Picture Data Access</a> section.</li>
- * <li>The reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> index specified in the {@code slotIndex} member of the corresponding element of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots}.</li>
- * <li>The reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-av1-reference-info">AV1 reference information</a> provided in {@code pStdReferenceInfo}.</li>
+ * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-av1-picture-data-access">AV1 Decode Picture Data Access</a> section.</li>
+ * <li>The reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot">DPB slot</a> index specified in the {@code slotIndex} member of the corresponding element of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots}.</li>
+ * <li>The reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-av1-reference-info">AV1 reference information</a> provided in {@code pStdReferenceInfo}.</li>
  * </ul></dd>
  * </dl>
  * 
  * <dl>
  * <dt>Reconstructed Picture Information</dt>
  * <dd><ul>
- * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-av1-picture-data-access">AV1 Decode Picture Data Access</a> section.</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-av1-ref-pic-setup">reference picture setup</a> is requested, then the reconstructed picture is used to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot-states">activate</a> the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> with the index specified in {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot→slotIndex}.</li>
- * <li>The reconstructed picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-av1-reference-info">AV1 reference information</a> provided in {@code pStdReferenceInfo}.</li>
+ * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-av1-picture-data-access">AV1 Decode Picture Data Access</a> section.</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-av1-ref-pic-setup">reference picture setup</a> is requested, then the reconstructed picture is used to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot-states">activate</a> the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot">DPB slot</a> with the index specified in {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot→slotIndex}.</li>
+ * <li>The reconstructed picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-av1-reference-info">AV1 reference information</a> provided in {@code pStdReferenceInfo}.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -47,22 +47,22 @@ import org.lwjgl.vulkan.video.*;
  * <dt>Std Reference Information</dt>
  * <dd><ul>
  * <li>{@code flags.reserved} and {@code reserved1} are used only for padding purposes and are otherwise ignored;</li>
- * <li>{@code flags.disable_frame_end_update_cdf} is interpreted as defined in section 6.8.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#aomedia-av1">AV1 Specification</a>;</li>
- * <li>{@code flags.segmentation_enabled} is interpreted as defined in section 6.8.13 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#aomedia-av1">AV1 Specification</a>;</li>
- * <li>{@code frame_type} is interpreted as defined in section 6.8.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#aomedia-av1">AV1 Specification</a>;
+ * <li>{@code flags.disable_frame_end_update_cdf} is interpreted as defined in section 6.8.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#aomedia-av1">AV1 Specification</a>;</li>
+ * <li>{@code flags.segmentation_enabled} is interpreted as defined in section 6.8.13 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#aomedia-av1">AV1 Specification</a>;</li>
+ * <li>{@code frame_type} is interpreted as defined in section 6.8.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#aomedia-av1">AV1 Specification</a>;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
  * <p>The {@code frame_type} member is defined with the type {@code uint8_t}, but it takes the same values defined in the {@code StdVideoAV1FrameType} enumeration type as {@code StdVideoDecodeAV1PictureInfo}{@code ::frame_type}.</p>
  * </div>
  * </li>
- * <li>{@code RefFrameSignBias} is a bitmask where bit index <code>i</code> corresponds to {@code RefFrameSignBias[i]} as defined in section 6.8.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#aomedia-av1">AV1 Specification</a>;</li>
- * <li>{@code OrderHint} is interpreted as defined in section 6.8.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#aomedia-av1">AV1 Specification</a>;</li>
- * <li>{@code SavedOrderHints} is interpreted as defined in section 7.20 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#aomedia-av1">AV1 Specification</a>.
+ * <li>{@code RefFrameSignBias} is a bitmask where bit index <code>i</code> corresponds to {@code RefFrameSignBias[i]} as defined in section 6.8.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#aomedia-av1">AV1 Specification</a>;</li>
+ * <li>{@code OrderHint} is interpreted as defined in section 6.8.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#aomedia-av1">AV1 Specification</a>;</li>
+ * <li>{@code SavedOrderHints} is interpreted as defined in section 7.20 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#aomedia-av1">AV1 Specification</a>.
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>When the AV1 reference information is provided for the reconstructed picture, certain parameters (e.g. {@code frame_type}) are specified both in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-av1-picture-info">AV1 picture information</a> and in the AV1 reference information. This is necessary because unlike the AV1 picture information, which is only used for the purposes of the video decode operation in question, the AV1 reference information specified for the reconstructed picture <b>may</b> be associated with the activated DPB slot, meaning that some implementations <b>may</b> maintain it as part of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#reference-metadata">reference picture metadata</a> corresponding to the video picture resource associated with the DPB slot. When the AV1 reference information is provided for an active reference picture, the specified parameters correspond to the parameters specified when the DPB slot was activated (set up) with the reference picture, as usual, in order to communicate these parameters for implementations that do not maintain any subset of these parameters as part of the DPB slot’s <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#reference-metadata">reference picture metadata</a>.</p>
+ * <p>When the AV1 reference information is provided for the reconstructed picture, certain parameters (e.g. {@code frame_type}) are specified both in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-av1-picture-info">AV1 picture information</a> and in the AV1 reference information. This is necessary because unlike the AV1 picture information, which is only used for the purposes of the video decode operation in question, the AV1 reference information specified for the reconstructed picture <b>may</b> be associated with the activated DPB slot, meaning that some implementations <b>may</b> maintain it as part of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#reference-metadata">reference picture metadata</a> corresponding to the video picture resource associated with the DPB slot. When the AV1 reference information is provided for an active reference picture, the specified parameters correspond to the parameters specified when the DPB slot was activated (set up) with the reference picture, as usual, in order to communicate these parameters for implementations that do not maintain any subset of these parameters as part of the DPB slot’s <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#reference-metadata">reference picture metadata</a>.</p>
  * </div>
  * </li>
  * </ul></dd>
@@ -141,7 +141,7 @@ public class VkVideoDecodeAV1DpbSlotInfoKHR extends Struct<VkVideoDecodeAV1DpbSl
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a pointer to a {@code StdVideoDecodeAV1ReferenceInfo} structure specifying <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-av1-reference-info">AV1 reference information</a>. */
+    /** a pointer to a {@code StdVideoDecodeAV1ReferenceInfo} structure specifying <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-av1-reference-info">AV1 reference information</a>. */
     @NativeType("StdVideoDecodeAV1ReferenceInfo const *")
     public StdVideoDecodeAV1ReferenceInfo pStdReferenceInfo() { return npStdReferenceInfo(address()); }
 
@@ -203,8 +203,7 @@ public class VkVideoDecodeAV1DpbSlotInfoKHR extends Struct<VkVideoDecodeAV1DpbSl
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeAV1DpbSlotInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeAV1DpbSlotInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeAV1DpbSlotInfoKHR(address, null);
     }
 
@@ -247,8 +246,7 @@ public class VkVideoDecodeAV1DpbSlotInfoKHR extends Struct<VkVideoDecodeAV1DpbSl
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeAV1DpbSlotInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeAV1DpbSlotInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,14 +291,14 @@ public class VkVideoDecodeAV1DpbSlotInfoKHR extends Struct<VkVideoDecodeAV1DpbSl
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeAV1DpbSlotInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeAV1DpbSlotInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeAV1DpbSlotInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pStdReferenceInfo}. */
     public static StdVideoDecodeAV1ReferenceInfo npStdReferenceInfo(long struct) { return StdVideoDecodeAV1ReferenceInfo.create(memGetAddress(struct + VkVideoDecodeAV1DpbSlotInfoKHR.PSTDREFERENCEINFO)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeAV1DpbSlotInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeAV1DpbSlotInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeAV1DpbSlotInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pStdReferenceInfo(StdVideoDecodeAV1ReferenceInfo) pStdReferenceInfo}. */
@@ -346,6 +344,11 @@ public class VkVideoDecodeAV1DpbSlotInfoKHR extends Struct<VkVideoDecodeAV1DpbSl
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

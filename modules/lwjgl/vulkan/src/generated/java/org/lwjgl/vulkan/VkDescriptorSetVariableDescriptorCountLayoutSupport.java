@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the {@link VkDescriptorSetLayoutCreateInfo} structure specified in {@link VK11#vkGetDescriptorSetLayoutSupport GetDescriptorSetLayoutSupport}{@code ::pCreateInfo} includes a variable-sized descriptor, then {@code supported} is determined assuming the requested size of the variable-sized descriptor, and {@code maxVariableDescriptorCount} is set to the maximum size of that descriptor that <b>can</b> be successfully created (which is greater than or equal to the requested size passed in). If the {@link VkDescriptorSetLayoutCreateInfo} structure does not include a variable-sized descriptor, or if the {@link VkPhysicalDeviceDescriptorIndexingFeatures}{@code ::descriptorBindingVariableDescriptorCount} feature is not enabled, then {@code maxVariableDescriptorCount} is set to zero. For the purposes of this command, a variable-sized descriptor binding with a {@code descriptorCount} of zero is treated as having a {@code descriptorCount} of four if {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, or one otherwise, and thus the binding is not ignored and the maximum descriptor count will be returned. If the layout is not supported, then the value written to {@code maxVariableDescriptorCount} is undefined.</p>
+ * <p>If the {@link VkDescriptorSetLayoutCreateInfo} structure specified in {@link VK11#vkGetDescriptorSetLayoutSupport GetDescriptorSetLayoutSupport}{@code ::pCreateInfo} includes a variable-sized descriptor, then {@code supported} is determined assuming the requested size of the variable-sized descriptor, and {@code maxVariableDescriptorCount} is the maximum size of that descriptor that <b>can</b> be successfully created (which is greater than or equal to the requested size passed in). If the {@link VkDescriptorSetLayoutCreateInfo} structure does not include a variable-sized descriptor, or if the {@link VkPhysicalDeviceDescriptorIndexingFeatures}{@code ::descriptorBindingVariableDescriptorCount} feature is not enabled, then {@code maxVariableDescriptorCount} is zero. For the purposes of this command, a variable-sized descriptor binding with a {@code descriptorCount} of zero is treated as having a {@code descriptorCount} of four if {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, or one otherwise, and thus the binding is not ignored and the maximum descriptor count will be returned. If the layout is not supported, then the value written to {@code maxVariableDescriptorCount} is undefined.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -152,8 +152,7 @@ public class VkDescriptorSetVariableDescriptorCountLayoutSupport extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorSetVariableDescriptorCountLayoutSupport createSafe(long address) {
+    public static @Nullable VkDescriptorSetVariableDescriptorCountLayoutSupport createSafe(long address) {
         return address == NULL ? null : new VkDescriptorSetVariableDescriptorCountLayoutSupport(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkDescriptorSetVariableDescriptorCountLayoutSupport extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorSetVariableDescriptorCountLayoutSupport.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorSetVariableDescriptorCountLayoutSupport.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkDescriptorSetVariableDescriptorCountLayoutSupport extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetVariableDescriptorCountLayoutSupport.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorSetVariableDescriptorCountLayoutSupport.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorSetVariableDescriptorCountLayoutSupport.PNEXT); }
     /** Unsafe version of {@link #maxVariableDescriptorCount}. */
-    public static int nmaxVariableDescriptorCount(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetVariableDescriptorCountLayoutSupport.MAXVARIABLEDESCRIPTORCOUNT); }
+    public static int nmaxVariableDescriptorCount(long struct) { return memGetInt(struct + VkDescriptorSetVariableDescriptorCountLayoutSupport.MAXVARIABLEDESCRIPTORCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetVariableDescriptorCountLayoutSupport.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorSetVariableDescriptorCountLayoutSupport.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorSetVariableDescriptorCountLayoutSupport.PNEXT, value); }
 
@@ -284,6 +282,11 @@ public class VkDescriptorSetVariableDescriptorCountLayoutSupport extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -171,8 +171,7 @@ public class VkRenderPassStripeInfoARM extends Struct<VkRenderPassStripeInfoARM>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassStripeInfoARM createSafe(long address) {
+    public static @Nullable VkRenderPassStripeInfoARM createSafe(long address) {
         return address == NULL ? null : new VkRenderPassStripeInfoARM(address, null);
     }
 
@@ -215,8 +214,7 @@ public class VkRenderPassStripeInfoARM extends Struct<VkRenderPassStripeInfoARM>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassStripeInfoARM.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassStripeInfoARM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,14 +259,14 @@ public class VkRenderPassStripeInfoARM extends Struct<VkRenderPassStripeInfoARM>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassStripeInfoARM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderPassStripeInfoARM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderPassStripeInfoARM.PNEXT); }
     /** Unsafe version of {@link #stripeArea}. */
     public static VkRect2D nstripeArea(long struct) { return VkRect2D.create(struct + VkRenderPassStripeInfoARM.STRIPEAREA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderPassStripeInfoARM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderPassStripeInfoARM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderPassStripeInfoARM.PNEXT, value); }
     /** Unsafe version of {@link #stripeArea(VkRect2D) stripeArea}. */
@@ -305,6 +303,11 @@ public class VkRenderPassStripeInfoARM extends Struct<VkRenderPassStripeInfoARM>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class XrSpaceUserCreateInfoFB extends Struct<XrSpaceUserCreateInfoFB> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceUserCreateInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceUserCreateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceUserCreateInfoFB(address, null);
     }
 
@@ -206,8 +205,7 @@ public class XrSpaceUserCreateInfoFB extends Struct<XrSpaceUserCreateInfoFB> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceUserCreateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceUserCreateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class XrSpaceUserCreateInfoFB extends Struct<XrSpaceUserCreateInfoFB> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceUserCreateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceUserCreateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceUserCreateInfoFB.NEXT); }
     /** Unsafe version of {@link #userId}. */
-    public static long nuserId(long struct) { return UNSAFE.getLong(null, struct + XrSpaceUserCreateInfoFB.USERID); }
+    public static long nuserId(long struct) { return memGetLong(struct + XrSpaceUserCreateInfoFB.USERID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceUserCreateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceUserCreateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceUserCreateInfoFB.NEXT, value); }
     /** Unsafe version of {@link #userId(long) userId}. */
-    public static void nuserId(long struct, long value) { UNSAFE.putLong(null, struct + XrSpaceUserCreateInfoFB.USERID, value); }
+    public static void nuserId(long struct, long value) { memPutLong(struct + XrSpaceUserCreateInfoFB.USERID, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class XrSpaceUserCreateInfoFB extends Struct<XrSpaceUserCreateInfoFB> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

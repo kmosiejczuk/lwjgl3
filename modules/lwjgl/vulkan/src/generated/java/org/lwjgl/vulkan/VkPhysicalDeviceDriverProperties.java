@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -188,8 +188,7 @@ public class VkPhysicalDeviceDriverProperties extends Struct<VkPhysicalDeviceDri
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDriverProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDriverProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDriverProperties(address, null);
     }
 
@@ -232,8 +231,7 @@ public class VkPhysicalDeviceDriverProperties extends Struct<VkPhysicalDeviceDri
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDriverProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDriverProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -278,11 +276,11 @@ public class VkPhysicalDeviceDriverProperties extends Struct<VkPhysicalDeviceDri
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDriverProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDriverProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDriverProperties.PNEXT); }
     /** Unsafe version of {@link #driverID}. */
-    public static int ndriverID(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDriverProperties.DRIVERID); }
+    public static int ndriverID(long struct) { return memGetInt(struct + VkPhysicalDeviceDriverProperties.DRIVERID); }
     /** Unsafe version of {@link #driverName}. */
     public static ByteBuffer ndriverName(long struct) { return memByteBuffer(struct + VkPhysicalDeviceDriverProperties.DRIVERNAME, VK_MAX_DRIVER_NAME_SIZE); }
     /** Unsafe version of {@link #driverNameString}. */
@@ -295,7 +293,7 @@ public class VkPhysicalDeviceDriverProperties extends Struct<VkPhysicalDeviceDri
     public static VkConformanceVersion nconformanceVersion(long struct) { return VkConformanceVersion.create(struct + VkPhysicalDeviceDriverProperties.CONFORMANCEVERSION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDriverProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDriverProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDriverProperties.PNEXT, value); }
 
@@ -330,6 +328,11 @@ public class VkPhysicalDeviceDriverProperties extends Struct<VkPhysicalDeviceDri
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

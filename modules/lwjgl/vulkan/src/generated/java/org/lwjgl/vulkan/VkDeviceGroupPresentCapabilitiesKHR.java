@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupPresentCapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkDeviceGroupPresentCapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkDeviceGroupPresentCapabilitiesKHR(address, null);
     }
 
@@ -218,8 +217,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupPresentCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceGroupPresentCapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,20 +281,20 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupPresentCapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceGroupPresentCapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceGroupPresentCapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #presentMask}. */
     public static IntBuffer npresentMask(long struct) { return memIntBuffer(struct + VkDeviceGroupPresentCapabilitiesKHR.PRESENTMASK, VK_MAX_DEVICE_GROUP_SIZE); }
     /** Unsafe version of {@link #presentMask(int) presentMask}. */
     public static int npresentMask(long struct, int index) {
-        return UNSAFE.getInt(null, struct + VkDeviceGroupPresentCapabilitiesKHR.PRESENTMASK + check(index, VK_MAX_DEVICE_GROUP_SIZE) * 4);
+        return memGetInt(struct + VkDeviceGroupPresentCapabilitiesKHR.PRESENTMASK + check(index, VK_MAX_DEVICE_GROUP_SIZE) * 4);
     }
     /** Unsafe version of {@link #modes}. */
-    public static int nmodes(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupPresentCapabilitiesKHR.MODES); }
+    public static int nmodes(long struct) { return memGetInt(struct + VkDeviceGroupPresentCapabilitiesKHR.MODES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupPresentCapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceGroupPresentCapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceGroupPresentCapabilitiesKHR.PNEXT, value); }
 
@@ -331,6 +329,11 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

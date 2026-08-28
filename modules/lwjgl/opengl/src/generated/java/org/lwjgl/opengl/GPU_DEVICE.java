@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opengl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -148,8 +148,7 @@ public class GPU_DEVICE extends Struct<GPU_DEVICE> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static GPU_DEVICE createSafe(long address) {
+    public static @Nullable GPU_DEVICE createSafe(long address) {
         return address == NULL ? null : new GPU_DEVICE(address, null);
     }
 
@@ -192,8 +191,7 @@ public class GPU_DEVICE extends Struct<GPU_DEVICE> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static GPU_DEVICE.Buffer createSafe(long address, int capacity) {
+    public static GPU_DEVICE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,7 +255,7 @@ public class GPU_DEVICE extends Struct<GPU_DEVICE> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #cb}. */
-    public static int ncb(long struct) { return UNSAFE.getInt(null, struct + GPU_DEVICE.CB); }
+    public static int ncb(long struct) { return memGetInt(struct + GPU_DEVICE.CB); }
     /** Unsafe version of {@link #DeviceName}. */
     public static ByteBuffer nDeviceName(long struct) { return memByteBuffer(struct + GPU_DEVICE.DEVICENAME, 32); }
     /** Unsafe version of {@link #DeviceNameString}. */
@@ -267,7 +265,7 @@ public class GPU_DEVICE extends Struct<GPU_DEVICE> implements NativeResource {
     /** Unsafe version of {@link #DeviceStringString}. */
     public static String nDeviceStringString(long struct) { return memASCII(struct + GPU_DEVICE.DEVICESTRING); }
     /** Unsafe version of {@link #Flags}. */
-    public static int nFlags(long struct) { return UNSAFE.getInt(null, struct + GPU_DEVICE.FLAGS); }
+    public static int nFlags(long struct) { return memGetInt(struct + GPU_DEVICE.FLAGS); }
     /** Unsafe version of {@link #rcVirtualScreen}. */
     public static RECT nrcVirtualScreen(long struct) { return RECT.create(struct + GPU_DEVICE.RCVIRTUALSCREEN); }
 
@@ -302,6 +300,11 @@ public class GPU_DEVICE extends Struct<GPU_DEVICE> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

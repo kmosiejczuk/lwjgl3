@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -179,8 +179,7 @@ public class VkMicromapBuildSizesInfoEXT extends Struct<VkMicromapBuildSizesInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapBuildSizesInfoEXT createSafe(long address) {
+    public static @Nullable VkMicromapBuildSizesInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMicromapBuildSizesInfoEXT(address, null);
     }
 
@@ -223,8 +222,7 @@ public class VkMicromapBuildSizesInfoEXT extends Struct<VkMicromapBuildSizesInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapBuildSizesInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMicromapBuildSizesInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,26 +267,26 @@ public class VkMicromapBuildSizesInfoEXT extends Struct<VkMicromapBuildSizesInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildSizesInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMicromapBuildSizesInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMicromapBuildSizesInfoEXT.PNEXT); }
     /** Unsafe version of {@link #micromapSize}. */
-    public static long nmicromapSize(long struct) { return UNSAFE.getLong(null, struct + VkMicromapBuildSizesInfoEXT.MICROMAPSIZE); }
+    public static long nmicromapSize(long struct) { return memGetLong(struct + VkMicromapBuildSizesInfoEXT.MICROMAPSIZE); }
     /** Unsafe version of {@link #buildScratchSize}. */
-    public static long nbuildScratchSize(long struct) { return UNSAFE.getLong(null, struct + VkMicromapBuildSizesInfoEXT.BUILDSCRATCHSIZE); }
+    public static long nbuildScratchSize(long struct) { return memGetLong(struct + VkMicromapBuildSizesInfoEXT.BUILDSCRATCHSIZE); }
     /** Unsafe version of {@link #discardable}. */
-    public static int ndiscardable(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildSizesInfoEXT.DISCARDABLE); }
+    public static int ndiscardable(long struct) { return memGetInt(struct + VkMicromapBuildSizesInfoEXT.DISCARDABLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildSizesInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMicromapBuildSizesInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMicromapBuildSizesInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #micromapSize(long) micromapSize}. */
-    public static void nmicromapSize(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapBuildSizesInfoEXT.MICROMAPSIZE, value); }
+    public static void nmicromapSize(long struct, long value) { memPutLong(struct + VkMicromapBuildSizesInfoEXT.MICROMAPSIZE, value); }
     /** Unsafe version of {@link #buildScratchSize(long) buildScratchSize}. */
-    public static void nbuildScratchSize(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapBuildSizesInfoEXT.BUILDSCRATCHSIZE, value); }
+    public static void nbuildScratchSize(long struct, long value) { memPutLong(struct + VkMicromapBuildSizesInfoEXT.BUILDSCRATCHSIZE, value); }
     /** Unsafe version of {@link #discardable(boolean) discardable}. */
-    public static void ndiscardable(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildSizesInfoEXT.DISCARDABLE, value); }
+    public static void ndiscardable(long struct, int value) { memPutInt(struct + VkMicromapBuildSizesInfoEXT.DISCARDABLE, value); }
 
     // -----------------------------------
 
@@ -321,6 +319,11 @@ public class VkMicromapBuildSizesInfoEXT extends Struct<VkMicromapBuildSizesInfo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

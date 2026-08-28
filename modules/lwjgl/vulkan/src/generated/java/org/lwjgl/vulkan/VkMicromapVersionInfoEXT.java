@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -170,8 +170,7 @@ public class VkMicromapVersionInfoEXT extends Struct<VkMicromapVersionInfoEXT> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapVersionInfoEXT createSafe(long address) {
+    public static @Nullable VkMicromapVersionInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMicromapVersionInfoEXT(address, null);
     }
 
@@ -214,8 +213,7 @@ public class VkMicromapVersionInfoEXT extends Struct<VkMicromapVersionInfoEXT> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapVersionInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMicromapVersionInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,14 +258,14 @@ public class VkMicromapVersionInfoEXT extends Struct<VkMicromapVersionInfoEXT> i
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMicromapVersionInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMicromapVersionInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMicromapVersionInfoEXT.PNEXT); }
     /** Unsafe version of {@link #pVersionData(int) pVersionData}. */
     public static ByteBuffer npVersionData(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + VkMicromapVersionInfoEXT.PVERSIONDATA), capacity); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapVersionInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMicromapVersionInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMicromapVersionInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #pVersionData(ByteBuffer) pVersionData}. */
@@ -313,6 +311,11 @@ public class VkMicromapVersionInfoEXT extends Struct<VkMicromapVersionInfoEXT> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-bufferlessPushDescriptors">{@link VkPhysicalDeviceDescriptorBufferPropertiesEXT}{@code ::bufferlessPushDescriptors}</a> <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-bufferlessPushDescriptors">{@link VkPhysicalDeviceDescriptorBufferPropertiesEXT}{@code ::bufferlessPushDescriptors}</a> <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <pre><code>
  * struct VkDescriptorBufferBindingPushDescriptorBufferHandleEXT {
  *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
+ *     void const * {@link #pNext};
  *     VkBuffer {@link #buffer};
  * }</code></pre>
  */
@@ -95,7 +95,7 @@ public class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT extends Stru
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
-    @NativeType("void *")
+    @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** the {@code VkBuffer} handle of the buffer for push descriptors. */
     @NativeType("VkBuffer")
@@ -106,7 +106,7 @@ public class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT extends Stru
     /** Sets the {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT} value to the {@link #sType} field. */
     public VkDescriptorBufferBindingPushDescriptorBufferHandleEXT sType$Default() { return sType(EXTDescriptorBuffer.VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
-    public VkDescriptorBufferBindingPushDescriptorBufferHandleEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
+    public VkDescriptorBufferBindingPushDescriptorBufferHandleEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #buffer} field. */
     public VkDescriptorBufferBindingPushDescriptorBufferHandleEXT buffer(@NativeType("VkBuffer") long value) { nbuffer(address(), value); return this; }
 
@@ -159,8 +159,7 @@ public class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT extends Stru
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorBufferBindingPushDescriptorBufferHandleEXT createSafe(long address) {
+    public static @Nullable VkDescriptorBufferBindingPushDescriptorBufferHandleEXT createSafe(long address) {
         return address == NULL ? null : new VkDescriptorBufferBindingPushDescriptorBufferHandleEXT(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT extends Stru
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +247,18 @@ public class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT extends Stru
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.PNEXT); }
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.BUFFER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.PNEXT, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.BUFFER, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT extends Stru
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDescriptorBufferBindingPushDescriptorBufferHandleEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -304,7 +307,7 @@ public class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT extends Stru
         @NativeType("VkStructureType")
         public int sType() { return VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.nsType(address()); }
         /** @return the value of the {@link VkDescriptorBufferBindingPushDescriptorBufferHandleEXT#pNext} field. */
-        @NativeType("void *")
+        @NativeType("void const *")
         public long pNext() { return VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.npNext(address()); }
         /** @return the value of the {@link VkDescriptorBufferBindingPushDescriptorBufferHandleEXT#buffer} field. */
         @NativeType("VkBuffer")
@@ -315,7 +318,7 @@ public class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT extends Stru
         /** Sets the {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT} value to the {@link VkDescriptorBufferBindingPushDescriptorBufferHandleEXT#sType} field. */
         public VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.Buffer sType$Default() { return sType(EXTDescriptorBuffer.VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT); }
         /** Sets the specified value to the {@link VkDescriptorBufferBindingPushDescriptorBufferHandleEXT#pNext} field. */
-        public VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.Buffer pNext(@NativeType("void *") long value) { VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.npNext(address(), value); return this; }
+        public VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.Buffer pNext(@NativeType("void const *") long value) { VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkDescriptorBufferBindingPushDescriptorBufferHandleEXT#buffer} field. */
         public VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.Buffer buffer(@NativeType("VkBuffer") long value) { VkDescriptorBufferBindingPushDescriptorBufferHandleEXT.nbuffer(address(), value); return this; }
 

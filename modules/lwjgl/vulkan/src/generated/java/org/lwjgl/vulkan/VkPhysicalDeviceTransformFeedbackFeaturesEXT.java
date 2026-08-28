@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceTransformFeedbackFeaturesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTransformFeedbackFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceTransformFeedbackFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceTransformFeedbackFeaturesEXT(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceTransformFeedbackFeaturesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTransformFeedbackFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceTransformFeedbackFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -276,22 +274,22 @@ public class VkPhysicalDeviceTransformFeedbackFeaturesEXT extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #transformFeedback}. */
-    public static int ntransformFeedback(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.TRANSFORMFEEDBACK); }
+    public static int ntransformFeedback(long struct) { return memGetInt(struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.TRANSFORMFEEDBACK); }
     /** Unsafe version of {@link #geometryStreams}. */
-    public static int ngeometryStreams(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.GEOMETRYSTREAMS); }
+    public static int ngeometryStreams(long struct) { return memGetInt(struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.GEOMETRYSTREAMS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #transformFeedback(boolean) transformFeedback}. */
-    public static void ntransformFeedback(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.TRANSFORMFEEDBACK, value); }
+    public static void ntransformFeedback(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.TRANSFORMFEEDBACK, value); }
     /** Unsafe version of {@link #geometryStreams(boolean) geometryStreams}. */
-    public static void ngeometryStreams(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.GEOMETRYSTREAMS, value); }
+    public static void ngeometryStreams(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTransformFeedbackFeaturesEXT.GEOMETRYSTREAMS, value); }
 
     // -----------------------------------
 
@@ -324,6 +322,11 @@ public class VkPhysicalDeviceTransformFeedbackFeaturesEXT extends Struct<VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

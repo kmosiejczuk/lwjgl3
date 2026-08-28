@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class CUDA_MEMCPY_NODE_PARAMS extends Struct<CUDA_MEMCPY_NODE_PARAMS> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_MEMCPY_NODE_PARAMS createSafe(long address) {
+    public static @Nullable CUDA_MEMCPY_NODE_PARAMS createSafe(long address) {
         return address == NULL ? null : new CUDA_MEMCPY_NODE_PARAMS(address, null);
     }
 
@@ -197,8 +196,7 @@ public class CUDA_MEMCPY_NODE_PARAMS extends Struct<CUDA_MEMCPY_NODE_PARAMS> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_MEMCPY_NODE_PARAMS.Buffer createSafe(long address, int capacity) {
+    public static CUDA_MEMCPY_NODE_PARAMS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,18 +241,18 @@ public class CUDA_MEMCPY_NODE_PARAMS extends Struct<CUDA_MEMCPY_NODE_PARAMS> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + CUDA_MEMCPY_NODE_PARAMS.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + CUDA_MEMCPY_NODE_PARAMS.FLAGS); }
     /** Unsafe version of {@link #reserved}. */
-    public static int nreserved(long struct) { return UNSAFE.getInt(null, struct + CUDA_MEMCPY_NODE_PARAMS.RESERVED); }
+    public static int nreserved(long struct) { return memGetInt(struct + CUDA_MEMCPY_NODE_PARAMS.RESERVED); }
     /** Unsafe version of {@link #copyCtx}. */
     public static long ncopyCtx(long struct) { return memGetAddress(struct + CUDA_MEMCPY_NODE_PARAMS.COPYCTX); }
     /** Unsafe version of {@link #copyParams}. */
     public static CUDA_MEMCPY3D ncopyParams(long struct) { return CUDA_MEMCPY3D.create(struct + CUDA_MEMCPY_NODE_PARAMS.COPYPARAMS); }
 
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_MEMCPY_NODE_PARAMS.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + CUDA_MEMCPY_NODE_PARAMS.FLAGS, value); }
     /** Unsafe version of {@link #reserved(int) reserved}. */
-    public static void nreserved(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_MEMCPY_NODE_PARAMS.RESERVED, value); }
+    public static void nreserved(long struct, int value) { memPutInt(struct + CUDA_MEMCPY_NODE_PARAMS.RESERVED, value); }
     /** Unsafe version of {@link #copyCtx(long) copyCtx}. */
     public static void ncopyCtx(long struct, long value) { memPutAddress(struct + CUDA_MEMCPY_NODE_PARAMS.COPYCTX, check(value)); }
     /** Unsafe version of {@link #copyParams(CUDA_MEMCPY3D) copyParams}. */
@@ -300,6 +298,11 @@ public class CUDA_MEMCPY_NODE_PARAMS extends Struct<CUDA_MEMCPY_NODE_PARAMS> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

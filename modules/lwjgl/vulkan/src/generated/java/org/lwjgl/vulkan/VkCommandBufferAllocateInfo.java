@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -181,8 +181,7 @@ public class VkCommandBufferAllocateInfo extends Struct<VkCommandBufferAllocateI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferAllocateInfo createSafe(long address) {
+    public static @Nullable VkCommandBufferAllocateInfo createSafe(long address) {
         return address == NULL ? null : new VkCommandBufferAllocateInfo(address, null);
     }
 
@@ -225,8 +224,7 @@ public class VkCommandBufferAllocateInfo extends Struct<VkCommandBufferAllocateI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferAllocateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkCommandBufferAllocateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,26 +288,26 @@ public class VkCommandBufferAllocateInfo extends Struct<VkCommandBufferAllocateI
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferAllocateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCommandBufferAllocateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCommandBufferAllocateInfo.PNEXT); }
     /** Unsafe version of {@link #commandPool}. */
-    public static long ncommandPool(long struct) { return UNSAFE.getLong(null, struct + VkCommandBufferAllocateInfo.COMMANDPOOL); }
+    public static long ncommandPool(long struct) { return memGetLong(struct + VkCommandBufferAllocateInfo.COMMANDPOOL); }
     /** Unsafe version of {@link #level}. */
-    public static int nlevel(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferAllocateInfo.LEVEL); }
+    public static int nlevel(long struct) { return memGetInt(struct + VkCommandBufferAllocateInfo.LEVEL); }
     /** Unsafe version of {@link #commandBufferCount}. */
-    public static int ncommandBufferCount(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferAllocateInfo.COMMANDBUFFERCOUNT); }
+    public static int ncommandBufferCount(long struct) { return memGetInt(struct + VkCommandBufferAllocateInfo.COMMANDBUFFERCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferAllocateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCommandBufferAllocateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCommandBufferAllocateInfo.PNEXT, value); }
     /** Unsafe version of {@link #commandPool(long) commandPool}. */
-    public static void ncommandPool(long struct, long value) { UNSAFE.putLong(null, struct + VkCommandBufferAllocateInfo.COMMANDPOOL, value); }
+    public static void ncommandPool(long struct, long value) { memPutLong(struct + VkCommandBufferAllocateInfo.COMMANDPOOL, value); }
     /** Unsafe version of {@link #level(int) level}. */
-    public static void nlevel(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferAllocateInfo.LEVEL, value); }
+    public static void nlevel(long struct, int value) { memPutInt(struct + VkCommandBufferAllocateInfo.LEVEL, value); }
     /** Unsafe version of {@link #commandBufferCount(int) commandBufferCount}. */
-    public static void ncommandBufferCount(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferAllocateInfo.COMMANDBUFFERCOUNT, value); }
+    public static void ncommandBufferCount(long struct, int value) { memPutInt(struct + VkCommandBufferAllocateInfo.COMMANDBUFFERCOUNT, value); }
 
     // -----------------------------------
 
@@ -342,6 +340,11 @@ public class VkCommandBufferAllocateInfo extends Struct<VkCommandBufferAllocateI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -112,8 +112,7 @@ public class RenderModelControllerModeState extends Struct<RenderModelController
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RenderModelControllerModeState createSafe(long address) {
+    public static @Nullable RenderModelControllerModeState createSafe(long address) {
         return address == NULL ? null : new RenderModelControllerModeState(address, null);
     }
 
@@ -156,8 +155,7 @@ public class RenderModelControllerModeState extends Struct<RenderModelController
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RenderModelControllerModeState.Buffer createSafe(long address, int capacity) {
+    public static RenderModelControllerModeState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -221,10 +219,10 @@ public class RenderModelControllerModeState extends Struct<RenderModelController
     // -----------------------------------
 
     /** Unsafe version of {@link #bScrollWheelVisible}. */
-    public static boolean nbScrollWheelVisible(long struct) { return UNSAFE.getByte(null, struct + RenderModelControllerModeState.BSCROLLWHEELVISIBLE) != 0; }
+    public static boolean nbScrollWheelVisible(long struct) { return memGetByte(struct + RenderModelControllerModeState.BSCROLLWHEELVISIBLE) != 0; }
 
     /** Unsafe version of {@link #bScrollWheelVisible(boolean) bScrollWheelVisible}. */
-    public static void nbScrollWheelVisible(long struct, boolean value) { UNSAFE.putByte(null, struct + RenderModelControllerModeState.BSCROLLWHEELVISIBLE, value ? (byte)1 : (byte)0); }
+    public static void nbScrollWheelVisible(long struct, boolean value) { memPutByte(struct + RenderModelControllerModeState.BSCROLLWHEELVISIBLE, value ? (byte)1 : (byte)0); }
 
     // -----------------------------------
 
@@ -257,6 +255,11 @@ public class RenderModelControllerModeState extends Struct<RenderModelController
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

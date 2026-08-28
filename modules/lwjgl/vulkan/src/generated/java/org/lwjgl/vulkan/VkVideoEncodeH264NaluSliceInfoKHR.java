@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -31,10 +31,10 @@ import org.lwjgl.vulkan.video.*;
  * 
  * <ul>
  * <li>{@code flags.reserved} is used only for padding purposes and is otherwise ignored;</li>
- * <li>all other members of {@code StdVideoEncodeH264WeightTable} are interpreted as defined in section 7.4.3.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
+ * <li>all other members of {@code StdVideoEncodeH264WeightTable} are interpreted as defined in section 7.4.3.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
  * </ul>
  * </li>
- * <li>all other members are interpreted as defined in section 7.4.3 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>.</li>
+ * <li>all other members are interpreted as defined in section 7.4.3 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -120,10 +120,10 @@ public class VkVideoEncodeH264NaluSliceInfoKHR extends Struct<VkVideoEncodeH264N
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the QP to use for the slice if the current <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-rate-control-modes">rate control mode</a> configured for the video session is {@link KHRVideoEncodeQueue#VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR}. */
+    /** the QP to use for the slice if the current <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-rate-control-modes">rate control mode</a> configured for the video session is {@link KHRVideoEncodeQueue#VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR}. */
     @NativeType("int32_t")
     public int constantQp() { return nconstantQp(address()); }
-    /** a pointer to a {@code StdVideoEncodeH264SliceHeader} structure specifying <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-slice-header-params">H.264 slice header parameters</a> for the slice. */
+    /** a pointer to a {@code StdVideoEncodeH264SliceHeader} structure specifying <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-slice-header-params">H.264 slice header parameters</a> for the slice. */
     @NativeType("StdVideoEncodeH264SliceHeader const *")
     public StdVideoEncodeH264SliceHeader pStdSliceHeader() { return npStdSliceHeader(address()); }
 
@@ -189,8 +189,7 @@ public class VkVideoEncodeH264NaluSliceInfoKHR extends Struct<VkVideoEncodeH264N
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264NaluSliceInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264NaluSliceInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264NaluSliceInfoKHR(address, null);
     }
 
@@ -233,8 +232,7 @@ public class VkVideoEncodeH264NaluSliceInfoKHR extends Struct<VkVideoEncodeH264N
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264NaluSliceInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264NaluSliceInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,20 +277,20 @@ public class VkVideoEncodeH264NaluSliceInfoKHR extends Struct<VkVideoEncodeH264N
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264NaluSliceInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH264NaluSliceInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH264NaluSliceInfoKHR.PNEXT); }
     /** Unsafe version of {@link #constantQp}. */
-    public static int nconstantQp(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264NaluSliceInfoKHR.CONSTANTQP); }
+    public static int nconstantQp(long struct) { return memGetInt(struct + VkVideoEncodeH264NaluSliceInfoKHR.CONSTANTQP); }
     /** Unsafe version of {@link #pStdSliceHeader}. */
     public static StdVideoEncodeH264SliceHeader npStdSliceHeader(long struct) { return StdVideoEncodeH264SliceHeader.create(memGetAddress(struct + VkVideoEncodeH264NaluSliceInfoKHR.PSTDSLICEHEADER)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264NaluSliceInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH264NaluSliceInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH264NaluSliceInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #constantQp(int) constantQp}. */
-    public static void nconstantQp(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264NaluSliceInfoKHR.CONSTANTQP, value); }
+    public static void nconstantQp(long struct, int value) { memPutInt(struct + VkVideoEncodeH264NaluSliceInfoKHR.CONSTANTQP, value); }
     /** Unsafe version of {@link #pStdSliceHeader(StdVideoEncodeH264SliceHeader) pStdSliceHeader}. */
     public static void npStdSliceHeader(long struct, StdVideoEncodeH264SliceHeader value) { memPutAddress(struct + VkVideoEncodeH264NaluSliceInfoKHR.PSTDSLICEHEADER, value.address()); }
 
@@ -338,6 +336,11 @@ public class VkVideoEncodeH264NaluSliceInfoKHR extends Struct<VkVideoEncodeH264N
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

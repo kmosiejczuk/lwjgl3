@@ -4,6 +4,7 @@
  */
 package org.lwjgl.system;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.freebsd.*;
 import org.lwjgl.system.libffi.*;
@@ -12,7 +13,6 @@ import org.lwjgl.system.macosx.*;
 import org.lwjgl.system.openbsd.*;
 import org.lwjgl.system.windows.*;
 
-import javax.annotation.*;
 import java.io.*;
 import java.lang.reflect.*;
 import java.nio.*;
@@ -164,12 +164,11 @@ public final class APIUtil {
         }
     }
 
-    @Nullable
-    public static ByteBuffer apiGetMappedBuffer(@Nullable ByteBuffer buffer, long mappedAddress, int capacity) {
+    public static @Nullable ByteBuffer apiGetMappedBuffer(@Nullable ByteBuffer buffer, long mappedAddress, int capacity) {
         if (buffer != null && memAddress(buffer) == mappedAddress && buffer.capacity() == capacity) {
             return buffer;
         }
-        return mappedAddress == NULL ? null : wrap(BUFFER_BYTE, mappedAddress, capacity).order(NATIVE_ORDER);
+        return mappedAddress == NULL ? null : wrapBufferByte(mappedAddress, capacity);
     }
 
     public static long apiGetBytes(int elements, int elementShift) {
@@ -197,11 +196,9 @@ public final class APIUtil {
         public final int minor;
 
         /** Returns the API revision. May be null. */
-        @Nullable
-        public final String revision;
+        public final @Nullable String revision;
         /** Returns the API implementation-specific versioning information. May be null. */
-        @Nullable
-        public final String implementation;
+        public final @Nullable String implementation;
 
         public APIVersion(int major, int minor) {
             this(major, minor, null, null);
@@ -272,8 +269,7 @@ public final class APIUtil {
      *
      * @param option the option to query
      */
-    @Nullable
-    public static APIVersion apiParseVersion(Configuration<?> option) {
+    public static @Nullable APIVersion apiParseVersion(Configuration<?> option) {
         APIVersion version;
 
         Object state = option.get();
@@ -373,10 +369,6 @@ public final class APIUtil {
         int TOKEN_MODIFIERS = Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL;
 
         for (Class<?> tokenClass : tokenClasses) {
-            if (tokenClass == null) {
-                continue;
-            }
-
             for (Field field : tokenClass.getDeclaredFields()) {
                 // Get only <public static final int> fields.
                 if ((field.getModifiers() & TOKEN_MODIFIERS) == TOKEN_MODIFIERS && field.getType() == int.class) {

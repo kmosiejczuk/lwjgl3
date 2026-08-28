@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -124,8 +124,7 @@ public class NkListView extends Struct<NkListView> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkListView createSafe(long address) {
+    public static @Nullable NkListView createSafe(long address) {
         return address == NULL ? null : new NkListView(address, null);
     }
 
@@ -168,8 +167,7 @@ public class NkListView extends Struct<NkListView> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkListView.Buffer createSafe(long address, int capacity) {
+    public static NkListView.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,15 +231,15 @@ public class NkListView extends Struct<NkListView> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #begin}. */
-    public static int nbegin(long struct) { return UNSAFE.getInt(null, struct + NkListView.BEGIN); }
+    public static int nbegin(long struct) { return memGetInt(struct + NkListView.BEGIN); }
     /** Unsafe version of {@link #end}. */
-    public static int nend(long struct) { return UNSAFE.getInt(null, struct + NkListView.END); }
+    public static int nend(long struct) { return memGetInt(struct + NkListView.END); }
     /** Unsafe version of {@link #count}. */
-    public static int ncount(long struct) { return UNSAFE.getInt(null, struct + NkListView.COUNT); }
-    public static int ntotal_height(long struct) { return UNSAFE.getInt(null, struct + NkListView.TOTAL_HEIGHT); }
+    public static int ncount(long struct) { return memGetInt(struct + NkListView.COUNT); }
+    public static int ntotal_height(long struct) { return memGetInt(struct + NkListView.TOTAL_HEIGHT); }
     public static NkContext nctx(long struct) { return NkContext.create(memGetAddress(struct + NkListView.CTX)); }
     public static IntBuffer nscroll_pointer(long struct, int capacity) { return memIntBuffer(memGetAddress(struct + NkListView.SCROLL_POINTER), capacity); }
-    public static int nscroll_value(long struct) { return UNSAFE.getInt(null, struct + NkListView.SCROLL_VALUE); }
+    public static int nscroll_value(long struct) { return memGetInt(struct + NkListView.SCROLL_VALUE); }
 
     // -----------------------------------
 
@@ -274,6 +272,11 @@ public class NkListView extends Struct<NkListView> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

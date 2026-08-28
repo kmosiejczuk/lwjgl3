@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.msdfgen;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -130,8 +130,7 @@ public class MSDFGenVector2 extends Struct<MSDFGenVector2> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MSDFGenVector2 createSafe(long address) {
+    public static @Nullable MSDFGenVector2 createSafe(long address) {
         return address == NULL ? null : new MSDFGenVector2(address, null);
     }
 
@@ -174,8 +173,7 @@ public class MSDFGenVector2 extends Struct<MSDFGenVector2> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MSDFGenVector2.Buffer createSafe(long address, int capacity) {
+    public static MSDFGenVector2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -220,14 +218,14 @@ public class MSDFGenVector2 extends Struct<MSDFGenVector2> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static double nx(long struct) { return UNSAFE.getDouble(null, struct + MSDFGenVector2.X); }
+    public static double nx(long struct) { return memGetDouble(struct + MSDFGenVector2.X); }
     /** Unsafe version of {@link #y}. */
-    public static double ny(long struct) { return UNSAFE.getDouble(null, struct + MSDFGenVector2.Y); }
+    public static double ny(long struct) { return memGetDouble(struct + MSDFGenVector2.Y); }
 
     /** Unsafe version of {@link #x(double) x}. */
-    public static void nx(long struct, double value) { UNSAFE.putDouble(null, struct + MSDFGenVector2.X, value); }
+    public static void nx(long struct, double value) { memPutDouble(struct + MSDFGenVector2.X, value); }
     /** Unsafe version of {@link #y(double) y}. */
-    public static void ny(long struct, double value) { UNSAFE.putDouble(null, struct + MSDFGenVector2.Y, value); }
+    public static void ny(long struct, double value) { memPutDouble(struct + MSDFGenVector2.Y, value); }
 
     // -----------------------------------
 
@@ -260,6 +258,11 @@ public class MSDFGenVector2 extends Struct<MSDFGenVector2> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

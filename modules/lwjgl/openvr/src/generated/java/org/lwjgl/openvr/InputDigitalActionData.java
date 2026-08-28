@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -124,8 +124,7 @@ public class InputDigitalActionData extends Struct<InputDigitalActionData> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static InputDigitalActionData createSafe(long address) {
+    public static @Nullable InputDigitalActionData createSafe(long address) {
         return address == NULL ? null : new InputDigitalActionData(address, null);
     }
 
@@ -168,8 +167,7 @@ public class InputDigitalActionData extends Struct<InputDigitalActionData> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static InputDigitalActionData.Buffer createSafe(long address, int capacity) {
+    public static InputDigitalActionData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,15 +231,15 @@ public class InputDigitalActionData extends Struct<InputDigitalActionData> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #bActive}. */
-    public static boolean nbActive(long struct) { return UNSAFE.getByte(null, struct + InputDigitalActionData.BACTIVE) != 0; }
+    public static boolean nbActive(long struct) { return memGetByte(struct + InputDigitalActionData.BACTIVE) != 0; }
     /** Unsafe version of {@link #activeOrigin}. */
-    public static long nactiveOrigin(long struct) { return UNSAFE.getLong(null, struct + InputDigitalActionData.ACTIVEORIGIN); }
+    public static long nactiveOrigin(long struct) { return memGetLong(struct + InputDigitalActionData.ACTIVEORIGIN); }
     /** Unsafe version of {@link #bState}. */
-    public static boolean nbState(long struct) { return UNSAFE.getByte(null, struct + InputDigitalActionData.BSTATE) != 0; }
+    public static boolean nbState(long struct) { return memGetByte(struct + InputDigitalActionData.BSTATE) != 0; }
     /** Unsafe version of {@link #bChanged}. */
-    public static boolean nbChanged(long struct) { return UNSAFE.getByte(null, struct + InputDigitalActionData.BCHANGED) != 0; }
+    public static boolean nbChanged(long struct) { return memGetByte(struct + InputDigitalActionData.BCHANGED) != 0; }
     /** Unsafe version of {@link #fUpdateTime}. */
-    public static float nfUpdateTime(long struct) { return UNSAFE.getFloat(null, struct + InputDigitalActionData.FUPDATETIME); }
+    public static float nfUpdateTime(long struct) { return memGetFloat(struct + InputDigitalActionData.FUPDATETIME); }
 
     // -----------------------------------
 
@@ -274,6 +272,11 @@ public class InputDigitalActionData extends Struct<InputDigitalActionData> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

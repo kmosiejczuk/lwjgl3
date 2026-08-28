@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -172,8 +172,7 @@ public class XrSpaceUuidFilterInfoFB extends Struct<XrSpaceUuidFilterInfoFB> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceUuidFilterInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceUuidFilterInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceUuidFilterInfoFB(address, null);
     }
 
@@ -221,8 +220,7 @@ public class XrSpaceUuidFilterInfoFB extends Struct<XrSpaceUuidFilterInfoFB> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceUuidFilterInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceUuidFilterInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,20 +270,20 @@ public class XrSpaceUuidFilterInfoFB extends Struct<XrSpaceUuidFilterInfoFB> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceUuidFilterInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceUuidFilterInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceUuidFilterInfoFB.NEXT); }
     /** Unsafe version of {@link #uuidCount}. */
-    public static int nuuidCount(long struct) { return UNSAFE.getInt(null, struct + XrSpaceUuidFilterInfoFB.UUIDCOUNT); }
+    public static int nuuidCount(long struct) { return memGetInt(struct + XrSpaceUuidFilterInfoFB.UUIDCOUNT); }
     /** Unsafe version of {@link #uuids}. */
     public static XrUuidEXT.Buffer nuuids(long struct) { return XrUuidEXT.create(memGetAddress(struct + XrSpaceUuidFilterInfoFB.UUIDS), nuuidCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceUuidFilterInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceUuidFilterInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceUuidFilterInfoFB.NEXT, value); }
     /** Sets the specified value to the {@code uuidCount} field of the specified {@code struct}. */
-    public static void nuuidCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceUuidFilterInfoFB.UUIDCOUNT, value); }
+    public static void nuuidCount(long struct, int value) { memPutInt(struct + XrSpaceUuidFilterInfoFB.UUIDCOUNT, value); }
     /** Unsafe version of {@link #uuids(XrUuidEXT.Buffer) uuids}. */
     public static void nuuids(long struct, XrUuidEXT.Buffer value) { memPutAddress(struct + XrSpaceUuidFilterInfoFB.UUIDS, value.address()); nuuidCount(struct, value.remaining()); }
 
@@ -329,6 +327,11 @@ public class XrSpaceUuidFilterInfoFB extends Struct<XrSpaceUuidFilterInfoFB> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

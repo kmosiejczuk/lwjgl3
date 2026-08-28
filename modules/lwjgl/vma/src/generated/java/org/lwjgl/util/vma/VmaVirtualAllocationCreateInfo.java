@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaVirtualAllocationCreateInfo createSafe(long address) {
+    public static @Nullable VmaVirtualAllocationCreateInfo createSafe(long address) {
         return address == NULL ? null : new VmaVirtualAllocationCreateInfo(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaVirtualAllocationCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VmaVirtualAllocationCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,20 +255,20 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
     // -----------------------------------
 
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VmaVirtualAllocationCreateInfo.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VmaVirtualAllocationCreateInfo.SIZE); }
     /** Unsafe version of {@link #alignment}. */
-    public static long nalignment(long struct) { return UNSAFE.getLong(null, struct + VmaVirtualAllocationCreateInfo.ALIGNMENT); }
+    public static long nalignment(long struct) { return memGetLong(struct + VmaVirtualAllocationCreateInfo.ALIGNMENT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VmaVirtualAllocationCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VmaVirtualAllocationCreateInfo.FLAGS); }
     /** Unsafe version of {@link #pUserData}. */
     public static long npUserData(long struct) { return memGetAddress(struct + VmaVirtualAllocationCreateInfo.PUSERDATA); }
 
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VmaVirtualAllocationCreateInfo.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VmaVirtualAllocationCreateInfo.SIZE, value); }
     /** Unsafe version of {@link #alignment(long) alignment}. */
-    public static void nalignment(long struct, long value) { UNSAFE.putLong(null, struct + VmaVirtualAllocationCreateInfo.ALIGNMENT, value); }
+    public static void nalignment(long struct, long value) { memPutLong(struct + VmaVirtualAllocationCreateInfo.ALIGNMENT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VmaVirtualAllocationCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VmaVirtualAllocationCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #pUserData(long) pUserData}. */
     public static void npUserData(long struct, long value) { memPutAddress(struct + VmaVirtualAllocationCreateInfo.PUSERDATA, value); }
 
@@ -305,6 +303,11 @@ public class VmaVirtualAllocationCreateInfo extends Struct<VmaVirtualAllocationC
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

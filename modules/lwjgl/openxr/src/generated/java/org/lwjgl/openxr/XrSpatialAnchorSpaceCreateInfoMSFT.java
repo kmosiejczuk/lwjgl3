@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -172,8 +172,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorSpaceCreateInfoMSFT createSafe(long address) {
+    public static @Nullable XrSpatialAnchorSpaceCreateInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrSpatialAnchorSpaceCreateInfoMSFT(address, null);
     }
 
@@ -216,8 +215,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorSpaceCreateInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialAnchorSpaceCreateInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,7 +260,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorSpaceCreateInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpatialAnchorSpaceCreateInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpatialAnchorSpaceCreateInfoMSFT.NEXT); }
     /** Unsafe version of {@link #anchor}. */
@@ -271,7 +269,7 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
     public static XrPosef nposeInAnchorSpace(long struct) { return XrPosef.create(struct + XrSpatialAnchorSpaceCreateInfoMSFT.POSEINANCHORSPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorSpaceCreateInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpatialAnchorSpaceCreateInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpatialAnchorSpaceCreateInfoMSFT.NEXT, value); }
     /** Unsafe version of {@link #anchor(XrSpatialAnchorMSFT) anchor}. */
@@ -319,6 +317,11 @@ public class XrSpatialAnchorSpaceCreateInfoMSFT extends Struct<XrSpatialAnchorSp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -32,11 +32,16 @@ val NV_compute_shader_derivatives = "NVComputeShaderDerivatives".nativeClassVK("
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>SPIR-V Dependencies</b></dt>
             <dd><ul>
                 <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_compute_shader_derivatives.html">SPV_NV_compute_shader_derivatives</a></li>
+            </ul></dd>
+
+            <dt><b>Deprecation State</b></dt>
+            <dd><ul>
+                <li><em>Promoted</em> to {@link KHRComputeShaderDerivatives VK_KHR_compute_shader_derivatives} extension</li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

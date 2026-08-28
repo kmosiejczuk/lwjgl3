@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -175,8 +175,7 @@ public class FMOD_TAG extends Struct<FMOD_TAG> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_TAG createSafe(long address) {
+    public static @Nullable FMOD_TAG createSafe(long address) {
         return address == NULL ? null : new FMOD_TAG(address, null);
     }
 
@@ -219,8 +218,7 @@ public class FMOD_TAG extends Struct<FMOD_TAG> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_TAG.Buffer createSafe(long address, int capacity) {
+    public static FMOD_TAG.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,9 +263,9 @@ public class FMOD_TAG extends Struct<FMOD_TAG> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + FMOD_TAG.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + FMOD_TAG.TYPE); }
     /** Unsafe version of {@link #datatype}. */
-    public static int ndatatype(long struct) { return UNSAFE.getInt(null, struct + FMOD_TAG.DATATYPE); }
+    public static int ndatatype(long struct) { return memGetInt(struct + FMOD_TAG.DATATYPE); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBufferNT1(memGetAddress(struct + FMOD_TAG.NAME)); }
     /** Unsafe version of {@link #nameString}. */
@@ -275,14 +273,14 @@ public class FMOD_TAG extends Struct<FMOD_TAG> implements NativeResource {
     /** Unsafe version of {@link #data() data}. */
     public static ByteBuffer ndata(long struct) { return memByteBuffer(memGetAddress(struct + FMOD_TAG.DATA), ndatalen(struct)); }
     /** Unsafe version of {@link #datalen}. */
-    public static int ndatalen(long struct) { return UNSAFE.getInt(null, struct + FMOD_TAG.DATALEN); }
+    public static int ndatalen(long struct) { return memGetInt(struct + FMOD_TAG.DATALEN); }
     /** Unsafe version of {@link #updated}. */
-    public static int nupdated(long struct) { return UNSAFE.getInt(null, struct + FMOD_TAG.UPDATED); }
+    public static int nupdated(long struct) { return memGetInt(struct + FMOD_TAG.UPDATED); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_TAG.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + FMOD_TAG.TYPE, value); }
     /** Unsafe version of {@link #datatype(int) datatype}. */
-    public static void ndatatype(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_TAG.DATATYPE, value); }
+    public static void ndatatype(long struct, int value) { memPutInt(struct + FMOD_TAG.DATATYPE, value); }
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT1(value); }
@@ -291,9 +289,9 @@ public class FMOD_TAG extends Struct<FMOD_TAG> implements NativeResource {
     /** Unsafe version of {@link #data(ByteBuffer) data}. */
     public static void ndata(long struct, ByteBuffer value) { memPutAddress(struct + FMOD_TAG.DATA, memAddress(value)); ndatalen(struct, value.remaining()); }
     /** Sets the specified value to the {@code datalen} field of the specified {@code struct}. */
-    public static void ndatalen(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_TAG.DATALEN, value); }
+    public static void ndatalen(long struct, int value) { memPutInt(struct + FMOD_TAG.DATALEN, value); }
     /** Unsafe version of {@link #updated(int) updated}. */
-    public static void nupdated(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_TAG.UPDATED, value); }
+    public static void nupdated(long struct, int value) { memPutInt(struct + FMOD_TAG.UPDATED, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -336,6 +334,11 @@ public class FMOD_TAG extends Struct<FMOD_TAG> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

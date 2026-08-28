@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -157,8 +157,7 @@ public class VkPipelineTessellationDomainOriginStateCreateInfo extends Struct<Vk
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineTessellationDomainOriginStateCreateInfo createSafe(long address) {
+    public static @Nullable VkPipelineTessellationDomainOriginStateCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkPipelineTessellationDomainOriginStateCreateInfo(address, null);
     }
 
@@ -201,8 +200,7 @@ public class VkPipelineTessellationDomainOriginStateCreateInfo extends Struct<Vk
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineTessellationDomainOriginStateCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineTessellationDomainOriginStateCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,18 +264,18 @@ public class VkPipelineTessellationDomainOriginStateCreateInfo extends Struct<Vk
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineTessellationDomainOriginStateCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineTessellationDomainOriginStateCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineTessellationDomainOriginStateCreateInfo.PNEXT); }
     /** Unsafe version of {@link #domainOrigin}. */
-    public static int ndomainOrigin(long struct) { return UNSAFE.getInt(null, struct + VkPipelineTessellationDomainOriginStateCreateInfo.DOMAINORIGIN); }
+    public static int ndomainOrigin(long struct) { return memGetInt(struct + VkPipelineTessellationDomainOriginStateCreateInfo.DOMAINORIGIN); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineTessellationDomainOriginStateCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineTessellationDomainOriginStateCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineTessellationDomainOriginStateCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #domainOrigin(int) domainOrigin}. */
-    public static void ndomainOrigin(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineTessellationDomainOriginStateCreateInfo.DOMAINORIGIN, value); }
+    public static void ndomainOrigin(long struct, int value) { memPutInt(struct + VkPipelineTessellationDomainOriginStateCreateInfo.DOMAINORIGIN, value); }
 
     // -----------------------------------
 
@@ -310,6 +308,11 @@ public class VkPipelineTessellationDomainOriginStateCreateInfo extends Struct<Vk
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

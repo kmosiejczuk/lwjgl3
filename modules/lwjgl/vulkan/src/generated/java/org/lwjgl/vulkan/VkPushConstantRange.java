@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkPipelineLayoutCreateInfo}, {@link VkShaderCreateInfoEXT}</p>
+ * <p>{@link VkIndirectCommandsPushConstantTokenEXT}, {@link VkIndirectExecutionSetShaderInfoEXT}, {@link VkPipelineLayoutCreateInfo}, {@link VkShaderCreateInfoEXT}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -165,8 +165,7 @@ public class VkPushConstantRange extends Struct<VkPushConstantRange> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPushConstantRange createSafe(long address) {
+    public static @Nullable VkPushConstantRange createSafe(long address) {
         return address == NULL ? null : new VkPushConstantRange(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkPushConstantRange extends Struct<VkPushConstantRange> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPushConstantRange.Buffer createSafe(long address, int capacity) {
+    public static VkPushConstantRange.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,18 +272,18 @@ public class VkPushConstantRange extends Struct<VkPushConstantRange> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #stageFlags}. */
-    public static int nstageFlags(long struct) { return UNSAFE.getInt(null, struct + VkPushConstantRange.STAGEFLAGS); }
+    public static int nstageFlags(long struct) { return memGetInt(struct + VkPushConstantRange.STAGEFLAGS); }
     /** Unsafe version of {@link #offset}. */
-    public static int noffset(long struct) { return UNSAFE.getInt(null, struct + VkPushConstantRange.OFFSET); }
+    public static int noffset(long struct) { return memGetInt(struct + VkPushConstantRange.OFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + VkPushConstantRange.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + VkPushConstantRange.SIZE); }
 
     /** Unsafe version of {@link #stageFlags(int) stageFlags}. */
-    public static void nstageFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkPushConstantRange.STAGEFLAGS, value); }
+    public static void nstageFlags(long struct, int value) { memPutInt(struct + VkPushConstantRange.STAGEFLAGS, value); }
     /** Unsafe version of {@link #offset(int) offset}. */
-    public static void noffset(long struct, int value) { UNSAFE.putInt(null, struct + VkPushConstantRange.OFFSET, value); }
+    public static void noffset(long struct, int value) { memPutInt(struct + VkPushConstantRange.OFFSET, value); }
     /** Unsafe version of {@link #size(int) size}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + VkPushConstantRange.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + VkPushConstantRange.SIZE, value); }
 
     // -----------------------------------
 
@@ -318,6 +316,11 @@ public class VkPushConstantRange extends Struct<VkPushConstantRange> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

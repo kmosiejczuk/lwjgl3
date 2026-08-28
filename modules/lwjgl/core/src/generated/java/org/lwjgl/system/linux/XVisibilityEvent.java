@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class XVisibilityEvent extends Struct<XVisibilityEvent> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XVisibilityEvent createSafe(long address) {
+    public static @Nullable XVisibilityEvent createSafe(long address) {
         return address == NULL ? null : new XVisibilityEvent(address, null);
     }
 
@@ -218,8 +217,7 @@ public class XVisibilityEvent extends Struct<XVisibilityEvent> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XVisibilityEvent.Buffer createSafe(long address, int capacity) {
+    public static XVisibilityEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,30 +281,30 @@ public class XVisibilityEvent extends Struct<XVisibilityEvent> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XVisibilityEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XVisibilityEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XVisibilityEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XVisibilityEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XVisibilityEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XVisibilityEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetCLong(struct + XVisibilityEvent.WINDOW); }
     /** Unsafe version of {@link #state}. */
-    public static int nstate(long struct) { return UNSAFE.getInt(null, struct + XVisibilityEvent.STATE); }
+    public static int nstate(long struct) { return memGetInt(struct + XVisibilityEvent.STATE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XVisibilityEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XVisibilityEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XVisibilityEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XVisibilityEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XVisibilityEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XVisibilityEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
     public static void nwindow(long struct, long value) { memPutCLong(struct + XVisibilityEvent.WINDOW, value); }
     /** Unsafe version of {@link #state(int) state}. */
-    public static void nstate(long struct, int value) { UNSAFE.putInt(null, struct + XVisibilityEvent.STATE, value); }
+    public static void nstate(long struct, int value) { memPutInt(struct + XVisibilityEvent.STATE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -348,6 +346,11 @@ public class XVisibilityEvent extends Struct<XVisibilityEvent> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

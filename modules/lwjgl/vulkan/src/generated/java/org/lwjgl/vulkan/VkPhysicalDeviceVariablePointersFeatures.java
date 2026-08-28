@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -173,8 +173,7 @@ public class VkPhysicalDeviceVariablePointersFeatures extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVariablePointersFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceVariablePointersFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceVariablePointersFeatures(address, null);
     }
 
@@ -217,8 +216,7 @@ public class VkPhysicalDeviceVariablePointersFeatures extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVariablePointersFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceVariablePointersFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -282,22 +280,22 @@ public class VkPhysicalDeviceVariablePointersFeatures extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVariablePointersFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceVariablePointersFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceVariablePointersFeatures.PNEXT); }
     /** Unsafe version of {@link #variablePointersStorageBuffer}. */
-    public static int nvariablePointersStorageBuffer(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVariablePointersFeatures.VARIABLEPOINTERSSTORAGEBUFFER); }
+    public static int nvariablePointersStorageBuffer(long struct) { return memGetInt(struct + VkPhysicalDeviceVariablePointersFeatures.VARIABLEPOINTERSSTORAGEBUFFER); }
     /** Unsafe version of {@link #variablePointers}. */
-    public static int nvariablePointers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVariablePointersFeatures.VARIABLEPOINTERS); }
+    public static int nvariablePointers(long struct) { return memGetInt(struct + VkPhysicalDeviceVariablePointersFeatures.VARIABLEPOINTERS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVariablePointersFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVariablePointersFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceVariablePointersFeatures.PNEXT, value); }
     /** Unsafe version of {@link #variablePointersStorageBuffer(boolean) variablePointersStorageBuffer}. */
-    public static void nvariablePointersStorageBuffer(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVariablePointersFeatures.VARIABLEPOINTERSSTORAGEBUFFER, value); }
+    public static void nvariablePointersStorageBuffer(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVariablePointersFeatures.VARIABLEPOINTERSSTORAGEBUFFER, value); }
     /** Unsafe version of {@link #variablePointers(boolean) variablePointers}. */
-    public static void nvariablePointers(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVariablePointersFeatures.VARIABLEPOINTERS, value); }
+    public static void nvariablePointers(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVariablePointersFeatures.VARIABLEPOINTERS, value); }
 
     // -----------------------------------
 
@@ -330,6 +328,11 @@ public class VkPhysicalDeviceVariablePointersFeatures extends Struct<VkPhysicalD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class VkPhysicalDeviceExternalFenceInfo extends Struct<VkPhysicalDeviceEx
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExternalFenceInfo createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceExternalFenceInfo createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceExternalFenceInfo(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkPhysicalDeviceExternalFenceInfo extends Struct<VkPhysicalDeviceEx
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExternalFenceInfo.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceExternalFenceInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,18 +272,18 @@ public class VkPhysicalDeviceExternalFenceInfo extends Struct<VkPhysicalDeviceEx
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalFenceInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalFenceInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceExternalFenceInfo.PNEXT); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalFenceInfo.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalFenceInfo.HANDLETYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalFenceInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalFenceInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceExternalFenceInfo.PNEXT, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalFenceInfo.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalFenceInfo.HANDLETYPE, value); }
 
     // -----------------------------------
 
@@ -318,6 +316,11 @@ public class VkPhysicalDeviceExternalFenceInfo extends Struct<VkPhysicalDeviceEx
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

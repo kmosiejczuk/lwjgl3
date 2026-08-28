@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -182,8 +182,7 @@ public class FMOD_OUTPUT_STATE extends Struct<FMOD_OUTPUT_STATE> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_OUTPUT_STATE createSafe(long address) {
+    public static @Nullable FMOD_OUTPUT_STATE createSafe(long address) {
         return address == NULL ? null : new FMOD_OUTPUT_STATE(address, null);
     }
 
@@ -226,8 +225,7 @@ public class FMOD_OUTPUT_STATE extends Struct<FMOD_OUTPUT_STATE> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_OUTPUT_STATE.Buffer createSafe(long address, int capacity) {
+    public static FMOD_OUTPUT_STATE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -347,6 +345,11 @@ public class FMOD_OUTPUT_STATE extends Struct<FMOD_OUTPUT_STATE> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

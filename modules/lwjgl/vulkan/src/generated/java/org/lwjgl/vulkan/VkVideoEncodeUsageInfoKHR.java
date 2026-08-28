@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -177,8 +177,7 @@ public class VkVideoEncodeUsageInfoKHR extends Struct<VkVideoEncodeUsageInfoKHR>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeUsageInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeUsageInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeUsageInfoKHR(address, null);
     }
 
@@ -221,8 +220,7 @@ public class VkVideoEncodeUsageInfoKHR extends Struct<VkVideoEncodeUsageInfoKHR>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeUsageInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeUsageInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,26 +265,26 @@ public class VkVideoEncodeUsageInfoKHR extends Struct<VkVideoEncodeUsageInfoKHR>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeUsageInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeUsageInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeUsageInfoKHR.PNEXT); }
     /** Unsafe version of {@link #videoUsageHints}. */
-    public static int nvideoUsageHints(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeUsageInfoKHR.VIDEOUSAGEHINTS); }
+    public static int nvideoUsageHints(long struct) { return memGetInt(struct + VkVideoEncodeUsageInfoKHR.VIDEOUSAGEHINTS); }
     /** Unsafe version of {@link #videoContentHints}. */
-    public static int nvideoContentHints(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeUsageInfoKHR.VIDEOCONTENTHINTS); }
+    public static int nvideoContentHints(long struct) { return memGetInt(struct + VkVideoEncodeUsageInfoKHR.VIDEOCONTENTHINTS); }
     /** Unsafe version of {@link #tuningMode}. */
-    public static int ntuningMode(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeUsageInfoKHR.TUNINGMODE); }
+    public static int ntuningMode(long struct) { return memGetInt(struct + VkVideoEncodeUsageInfoKHR.TUNINGMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeUsageInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeUsageInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeUsageInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #videoUsageHints(int) videoUsageHints}. */
-    public static void nvideoUsageHints(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeUsageInfoKHR.VIDEOUSAGEHINTS, value); }
+    public static void nvideoUsageHints(long struct, int value) { memPutInt(struct + VkVideoEncodeUsageInfoKHR.VIDEOUSAGEHINTS, value); }
     /** Unsafe version of {@link #videoContentHints(int) videoContentHints}. */
-    public static void nvideoContentHints(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeUsageInfoKHR.VIDEOCONTENTHINTS, value); }
+    public static void nvideoContentHints(long struct, int value) { memPutInt(struct + VkVideoEncodeUsageInfoKHR.VIDEOCONTENTHINTS, value); }
     /** Unsafe version of {@link #tuningMode(int) tuningMode}. */
-    public static void ntuningMode(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeUsageInfoKHR.TUNINGMODE, value); }
+    public static void ntuningMode(long struct, int value) { memPutInt(struct + VkVideoEncodeUsageInfoKHR.TUNINGMODE, value); }
 
     // -----------------------------------
 
@@ -319,6 +317,11 @@ public class VkVideoEncodeUsageInfoKHR extends Struct<VkVideoEncodeUsageInfoKHR>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,14 @@
  */
 package org.lwjgl.system.linux.liburing;
 
+import org.jspecify.annotations.*;
+
+import java.nio.*;
+
 import org.lwjgl.system.*;
+
+import static org.lwjgl.system.Checks.*;
+import static org.lwjgl.system.MemoryUtil.*;
 
 /**
  * Native bindings to <a href="https://github.com/axboe/liburing">io_uring</a>, a Linux-specific API for asynchronous I/O.
@@ -198,7 +205,7 @@ public class LibIOURing {
     public static final int IORING_MAX_ENTRIES = 4096;
 
     /**
-     * {@code io_uring_sqe->flags} bits
+     * {@code io_uring_sqe_flags_bit}
      * 
      * <h5>Enum values:</h5>
      * 
@@ -450,7 +457,7 @@ public class LibIOURing {
      * 
      * <p>Available since 6.1.</p>
      * </li>
-     * <li>{@link #IORING_SETUP_NO_MMAP SETUP_NO_MMAP} - Application provides ring memory</li>
+     * <li>{@link #IORING_SETUP_NO_MMAP SETUP_NO_MMAP} - Application provides the memory for the rings.</li>
      * <li>{@link #IORING_SETUP_REGISTERED_FD_ONLY SETUP_REGISTERED_FD_ONLY} - Register the ring fd in itself for use with {@link #IORING_REGISTER_USE_REGISTERED_RING REGISTER_USE_REGISTERED_RING}; return a registered fd index rather than an fd.</li>
      * <li>{@link #IORING_SETUP_NO_SQARRAY SETUP_NO_SQARRAY} - Removes indirection through the SQ index array.</li>
      * </ul>
@@ -886,6 +893,8 @@ public class LibIOURing {
      * <li>{@link #IORING_OP_FUTEX_WAITV OP_FUTEX_WAITV}</li>
      * <li>{@link #IORING_OP_FIXED_FD_INSTALL OP_FIXED_FD_INSTALL}</li>
      * <li>{@link #IORING_OP_FTRUNCATE OP_FTRUNCATE}</li>
+     * <li>{@link #IORING_OP_BIND OP_BIND}</li>
+     * <li>{@link #IORING_OP_LISTEN OP_LISTEN}</li>
      * <li>{@link #IORING_OP_LAST OP_LAST}</li>
      * </ul>
      */
@@ -946,9 +955,14 @@ public class LibIOURing {
         IORING_OP_FUTEX_WAITV      = 53,
         IORING_OP_FIXED_FD_INSTALL = 54,
         IORING_OP_FTRUNCATE        = 55,
-        IORING_OP_LAST             = 56;
+        IORING_OP_BIND             = 56,
+        IORING_OP_LISTEN           = 57,
+        IORING_OP_LAST             = 58;
 
+    /** Use registered buffer; pass this flag along with setting {@code sqe->buf_index}. */
     public static final int IORING_URING_CMD_FIXED = 1 << 0;
+
+    public static final int IORING_URING_CMD_MASK = IORING_URING_CMD_FIXED;
 
     /** {@code sqe->fsync_flags} */
     public static final int IORING_FSYNC_DATASYNC = 1 << 0;
@@ -1033,13 +1047,17 @@ public class LibIOURing {
      * <p>Available since 5.19.</p>
      * </li>
      * <li>{@link #IORING_ASYNC_CANCEL_FD_FIXED ASYNC_CANCEL_FD_FIXED} - {@code fd} passed in is a fixed descriptor</li>
+     * <li>{@link #IORING_ASYNC_CANCEL_USERDATA ASYNC_CANCEL_USERDATA} - Match on {@code user_data}, default for no other key</li>
+     * <li>{@link #IORING_ASYNC_CANCEL_OP ASYNC_CANCEL_OP} - Match request based on {@code opcode}</li>
      * </ul>
      */
     public static final int
         IORING_ASYNC_CANCEL_ALL      = 1 << 0,
         IORING_ASYNC_CANCEL_FD       = 1 << 1,
         IORING_ASYNC_CANCEL_ANY      = 1 << 2,
-        IORING_ASYNC_CANCEL_FD_FIXED = 1 << 3;
+        IORING_ASYNC_CANCEL_FD_FIXED = 1 << 3,
+        IORING_ASYNC_CANCEL_USERDATA = 1 << 4,
+        IORING_ASYNC_CANCEL_OP       = 1 << 5;
 
     /**
      * {@code send/sendmsg} and {@code recv/recvmsg} flags ({@code sqe->ioprio})
@@ -1065,22 +1083,47 @@ public class LibIOURing {
      * <p>Sets {@link #IORING_CQE_F_MORE CQE_F_MORE} if the handler will continue to report CQEs on behalf of the same SQE.</p>
      * </li>
      * <li>{@link #IORING_RECVSEND_FIXED_BUF RECVSEND_FIXED_BUF} - Use registered buffers, the index is stored in the {@code buf_index} field.</li>
-     * <li>{@link #IORING_SEND_ZC_REPORT_USAGE SEND_ZC_REPORT_USAGE}</li>
+     * <li>{@link #IORING_SEND_ZC_REPORT_USAGE SEND_ZC_REPORT_USAGE} - 
+     * If set, {@code SEND[MSG]_ZC} should report the zerocopy usage in {@code cqe.res} for the {@link #IORING_CQE_F_NOTIF CQE_F_NOTIF} cqe.
+     * 
+     * <p>0 is reported if zerocopy was actually possible. {@link #IORING_NOTIF_USAGE_ZC_COPIED NOTIF_USAGE_ZC_COPIED} if data was copied (at least partially).</p>
+     * </li>
+     * <li>{@link #IORING_RECVSEND_BUNDLE RECVSEND_BUNDLE} - 
+     * Used with {@link #IOSQE_BUFFER_SELECT}.
+     * 
+     * <p>If set, {@code send} or {@code recv} will grab as many buffers from the buffer group ID given and send them all. The completion result will be the
+     * number of buffers send, with the starting buffer ID in {@code cqe->flags} as per usual for provided buffer usage. The buffers will be contiguous
+     * from the starting buffer ID.</p>
+     * </li>
      * </ul>
      */
     public static final int
         IORING_RECVSEND_POLL_FIRST  = 1 << 0,
         IORING_RECV_MULTISHOT       = 1 << 1,
         IORING_RECVSEND_FIXED_BUF   = 1 << 2,
-        IORING_SEND_ZC_REPORT_USAGE = 1 << 3;
+        IORING_SEND_ZC_REPORT_USAGE = 1 << 3,
+        IORING_RECVSEND_BUNDLE      = 1 << 4;
 
     public static final int IORING_NOTIF_USAGE_ZC_COPIED = 1 << 31;
 
-    /** Accept flags stored in {@code sqe->ioprio} */
-    public static final int IORING_ACCEPT_MULTISHOT = 1 << 0;
+    /**
+     * Accept flags stored in {@code sqe->ioprio}
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #IORING_ACCEPT_MULTISHOT ACCEPT_MULTISHOT}</li>
+     * <li>{@link #IORING_ACCEPT_DONTWAIT ACCEPT_DONTWAIT}</li>
+     * <li>{@link #IORING_ACCEPT_POLL_FIRST ACCEPT_POLL_FIRST}</li>
+     * </ul>
+     */
+    public static final int
+        IORING_ACCEPT_MULTISHOT  = 1 << 0,
+        IORING_ACCEPT_DONTWAIT   = 1 << 1,
+        IORING_ACCEPT_POLL_FIRST = 1 << 2;
 
     /**
-     * {@link #IORING_OP_MSG_RING OP_MSG_RING} command types, stored in {@code sqe->addr}
+     * {@code io_uring_msg_ring_flags}
      * 
      * <h5>Enum values:</h5>
      * 
@@ -1119,6 +1162,17 @@ public class LibIOURing {
     public static final int IORING_FIXED_FD_NO_CLOEXEC = 1 << 0;
 
     /**
+     * {@link #IORING_OP_NOP OP_NOP} flags ({@code sqe->nop_flags})
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #IORING_NOP_INJECT_RESULT NOP_INJECT_RESULT} - Inject result from {@code sqe->result}.</li>
+     * </ul>
+     */
+    public static final int IORING_NOP_INJECT_RESULT = 1 << 0;
+
+    /**
      * {@code cqe->flags}
      * 
      * <h5>Enum values:</h5>
@@ -1128,13 +1182,21 @@ public class LibIOURing {
      * <li>{@link #IORING_CQE_F_MORE CQE_F_MORE} - If set, parent SQE will generate more CQE entries</li>
      * <li>{@link #IORING_CQE_F_SOCK_NONEMPTY CQE_F_SOCK_NONEMPTY} - If set, more data to read after socket {@code recv}.</li>
      * <li>{@link #IORING_CQE_F_NOTIF CQE_F_NOTIF} - Set for notification CQEs. Can be used to distinct them from sends.</li>
+     * <li>{@link #IORING_CQE_F_BUF_MORE CQE_F_BUF_MORE} - 
+     * If set, the buffer ID set in the completion will get more completions.
+     * 
+     * <p>In other words, the buffer is being partially consumed, and will be used by the kernel for more completions. This is only set for buffers used via
+     * the incremental buffer consumption, as provided by a ring buffer setup with {@code IOU_PBUF_RING_INC}. For any other provided buffer type, all
+     * completions with a buffer passed back is automatically returned to the application.</p>
+     * </li>
      * </ul>
      */
     public static final int
         IORING_CQE_F_BUFFER        = 1 << 0,
         IORING_CQE_F_MORE          = 1 << 1,
         IORING_CQE_F_SOCK_NONEMPTY = 1 << 2,
-        IORING_CQE_F_NOTIF         = 1 << 3;
+        IORING_CQE_F_NOTIF         = 1 << 3,
+        IORING_CQE_F_BUF_MORE      = 1 << 4;
 
     public static final int IORING_CQE_BUFFER_SHIFT = 16;
 
@@ -1212,6 +1274,7 @@ public class LibIOURing {
      * If the ring file descriptor has been registered through use of {@link #IORING_REGISTER_RING_FDS REGISTER_RING_FDS}, then setting this flag will tell the kernel that the
      * {@code ring_fd} passed in is the registered ring offset rather than a normal file descriptor.
      * </li>
+     * <li>{@link #IORING_ENTER_ABS_TIMER ENTER_ABS_TIMER}</li>
      * </ul>
      */
     public static final int
@@ -1219,7 +1282,8 @@ public class LibIOURing {
         IORING_ENTER_SQ_WAKEUP       = 1 << 1,
         IORING_ENTER_SQ_WAIT         = 1 << 2,
         IORING_ENTER_EXT_ARG         = 1 << 3,
-        IORING_ENTER_REGISTERED_RING = 1 << 4;
+        IORING_ENTER_REGISTERED_RING = 1 << 4,
+        IORING_ENTER_ABS_TIMER       = 1 << 5;
 
     /**
      * {@code io_uring_params->features} flags
@@ -1331,6 +1395,8 @@ public class LibIOURing {
      * <p>Available since kernel 5.17.</p>
      * </li>
      * <li>{@link #IORING_FEAT_REG_REG_RING FEAT_REG_REG_RING}</li>
+     * <li>{@link #IORING_FEAT_RECVSEND_BUNDLE FEAT_RECVSEND_BUNDLE}</li>
+     * <li>{@link #IORING_FEAT_MIN_TIMEOUT FEAT_MIN_TIMEOUT}</li>
      * </ul>
      */
     public static final int
@@ -1347,10 +1413,12 @@ public class LibIOURing {
         IORING_FEAT_RSRC_TAGS       = 1 << 10,
         IORING_FEAT_CQE_SKIP        = 1 << 11,
         IORING_FEAT_LINKED_FILE     = 1 << 12,
-        IORING_FEAT_REG_REG_RING    = 1 << 13;
+        IORING_FEAT_REG_REG_RING    = 1 << 13,
+        IORING_FEAT_RECVSEND_BUNDLE = 1 << 14,
+        IORING_FEAT_MIN_TIMEOUT     = 1 << 15;
 
     /**
-     * {@link #io_uring_register register} {@code opcodes} and arguments
+     * {@code io_uring_register_op}
      * 
      * <h5>Enum values:</h5>
      * 
@@ -1624,6 +1692,8 @@ public class LibIOURing {
      * <li>{@link #IORING_REGISTER_PBUF_STATUS REGISTER_PBUF_STATUS} - return status information for a buffer group</li>
      * <li>{@link #IORING_REGISTER_NAPI REGISTER_NAPI} - set busy poll settings</li>
      * <li>{@link #IORING_UNREGISTER_NAPI UNREGISTER_NAPI} - clear busy poll settings</li>
+     * <li>{@link #IORING_REGISTER_CLOCK REGISTER_CLOCK}</li>
+     * <li>{@link #IORING_REGISTER_CLONE_BUFFERS REGISTER_CLONE_BUFFERS} - clone registered buffers from source ring to current ring</li>
      * <li>{@link #IORING_REGISTER_LAST REGISTER_LAST}</li>
      * <li>{@link #IORING_REGISTER_USE_REGISTERED_RING REGISTER_USE_REGISTERED_RING}</li>
      * </ul>
@@ -1658,14 +1728,16 @@ public class LibIOURing {
         IORING_REGISTER_PBUF_STATUS         = 26,
         IORING_REGISTER_NAPI                = 27,
         IORING_UNREGISTER_NAPI              = 28,
-        IORING_REGISTER_LAST                = 29,
+        IORING_REGISTER_CLOCK               = 29,
+        IORING_REGISTER_CLONE_BUFFERS       = 30,
+        IORING_REGISTER_LAST                = 31,
         IORING_REGISTER_USE_REGISTERED_RING = 1 << 31;
 
     /** Register a fully sparse file space, rather than pass in an array of all -1 file descriptors. */
     public static final int IORING_RSRC_REGISTER_SPARSE = 1 << 0;
 
     /**
-     * {@code io-wq} worker categories
+     * {@code io_wq_type}
      * 
      * <h5>Enum values:</h5>
      * 
@@ -1683,10 +1755,34 @@ public class LibIOURing {
 
     public static final int IO_URING_OP_SUPPORTED = 1 << 0;
 
-    public static final int IOU_PBUF_RING_MMAP = 1;
+    public static final int IORING_REGISTER_SRC_REGISTERED = 1;
 
     /**
-     * {@code io_uring_restriction->opcode} values
+     * Flags for {@link #IORING_REGISTER_PBUF_RING REGISTER_PBUF_RING}.
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #IOU_PBUF_RING_MMAP IOU_PBUF_RING_MMAP} - 
+     * If set, kernel will allocate the memory for the ring.
+     * 
+     * <p>The application must not set a {@code ring_addr} in struct {@code io_uring_buf_reg}, instead it must subsequently call {@code mmap(2)} with the
+     * offset set as: {@code IORING_OFF_PBUF_RING | (bgid << IORING_OFF_PBUF_SHIFT)} to get a virtual mapping for the ring.</p>
+     * </li>
+     * <li>{@link #IOU_PBUF_RING_INC IOU_PBUF_RING_INC} - 
+     * If set, buffers consumed from this buffer ring can be consumed incrementally.
+     * 
+     * <p>Normally one (or more) buffers are fully consumed. With incremental consumptions, it's feasible to register big ranges of buffers, and each use of
+     * it will consume only as much as it needs. This requires that both the kernel and application keep track of where the current read/recv index is at.</p>
+     * </li>
+     * </ul>
+     */
+    public static final int
+        IOU_PBUF_RING_MMAP = 1,
+        IOU_PBUF_RING_INC  = 2;
+
+    /**
+     * {@code io_uring_register_restriction_op}
      * 
      * <h5>Enum values:</h5>
      * 
@@ -1706,7 +1802,7 @@ public class LibIOURing {
         IORING_RESTRICTION_LAST               = 4;
 
     /**
-     * Argument for {@link #IORING_OP_URING_CMD OP_URING_CMD} when file is a socket.
+     * {@code io_uring_socket_op}}
      * 
      * <h5>Enum values:</h5>
      * 
@@ -1730,7 +1826,7 @@ public class LibIOURing {
     // --- [ io_uring_setup ] ---
 
     /** Unsafe version of: {@link #io_uring_setup setup} */
-    public static native int nio_uring_setup(int entries, long p);
+    public static native int nio_uring_setup(long _errno, int entries, long p);
 
     /**
      * The {@code io_uring_setup()} system call sets up a submission queue (SQ) and completion queue (CQ) with at least {@code entries} entries, and returns a
@@ -1741,7 +1837,8 @@ public class LibIOURing {
      * 
      * <p>Closing the file descriptor returned by {@code io_uring_setup(2)} will free all resources associated with the {@code io_uring} context.</p>
      *
-     * @param p used by the application to pass options to the kernel, and by the kernel to convey information about the ring buffers
+     * @param _errno optionally returns the {@code errno} value after this function is called
+     * @param p      used by the application to pass options to the kernel, and by the kernel to convey information about the ring buffers
      *
      * @return a new file descriptor on success.
      *         
@@ -1750,14 +1847,17 @@ public class LibIOURing {
      *         
      *         <p>On error, {@code -1} is returned and {@code errno} is set appropriately.</p>
      */
-    public static int io_uring_setup(@NativeType("unsigned") int entries, @NativeType("struct io_uring_params *") IOURingParams p) {
-        return nio_uring_setup(entries, p.address());
+    public static int io_uring_setup(@NativeType("int *") @Nullable IntBuffer _errno, @NativeType("unsigned") int entries, @NativeType("struct io_uring_params *") IOURingParams p) {
+        if (CHECKS) {
+            checkSafe(_errno, 1);
+        }
+        return nio_uring_setup(memAddressSafe(_errno), entries, p.address());
     }
 
     // --- [ io_uring_register ] ---
 
     /** Unsafe version of: {@link #io_uring_register register} */
-    public static native int nio_uring_register(int fd, int opcode, long arg, int nr_args);
+    public static native int nio_uring_register(long _errno, int fd, int opcode, long arg, int nr_args);
 
     /**
      * The {@code io_uring_register()} system call registers resources (e.g. user buffers, files, eventfd, personality, restrictions) for use in an
@@ -1766,27 +1866,36 @@ public class LibIOURing {
      * <p>Registering files or user buffers allows the kernel to take long term references to internal data structures or create long term mappings of
      * application memory, greatly reducing per-I/O overhead.</p>
      *
+     * @param _errno optionally returns the {@code errno} value after this function is called
      * @param fd     the file descriptor returned by a call to {@link #io_uring_setup setup}
-     * @param opcode one of:<br><table><tr><td>{@link #IORING_REGISTER_BUFFERS REGISTER_BUFFERS}</td><td>{@link #IORING_REGISTER_FILES REGISTER_FILES}</td><td>{@link #IORING_REGISTER_EVENTFD REGISTER_EVENTFD}</td><td>{@link #IORING_REGISTER_FILES_UPDATE REGISTER_FILES_UPDATE}</td></tr><tr><td>{@link #IORING_REGISTER_EVENTFD_ASYNC REGISTER_EVENTFD_ASYNC}</td><td>{@link #IORING_REGISTER_PROBE REGISTER_PROBE}</td><td>{@link #IORING_REGISTER_PERSONALITY REGISTER_PERSONALITY}</td><td>{@link #IORING_REGISTER_RESTRICTIONS REGISTER_RESTRICTIONS}</td></tr><tr><td>{@link #IORING_REGISTER_ENABLE_RINGS REGISTER_ENABLE_RINGS}</td><td>{@link #IORING_REGISTER_FILES2 REGISTER_FILES2}</td><td>{@link #IORING_REGISTER_FILES_UPDATE2 REGISTER_FILES_UPDATE2}</td><td>{@link #IORING_REGISTER_BUFFERS2 REGISTER_BUFFERS2}</td></tr><tr><td>{@link #IORING_REGISTER_BUFFERS_UPDATE REGISTER_BUFFERS_UPDATE}</td><td>{@link #IORING_REGISTER_IOWQ_AFF REGISTER_IOWQ_AFF}</td><td>{@link #IORING_REGISTER_IOWQ_MAX_WORKERS REGISTER_IOWQ_MAX_WORKERS}</td><td>{@link #IORING_REGISTER_RING_FDS REGISTER_RING_FDS}</td></tr><tr><td>{@link #IORING_REGISTER_PBUF_RING REGISTER_PBUF_RING}</td><td>{@link #IORING_REGISTER_SYNC_CANCEL REGISTER_SYNC_CANCEL}</td><td>{@link #IORING_REGISTER_FILE_ALLOC_RANGE REGISTER_FILE_ALLOC_RANGE}</td><td>{@link #IORING_REGISTER_PBUF_STATUS REGISTER_PBUF_STATUS}</td></tr><tr><td>{@link #IORING_REGISTER_NAPI REGISTER_NAPI}</td><td>{@link #IORING_REGISTER_LAST REGISTER_LAST}</td><td>{@link #IORING_REGISTER_USE_REGISTERED_RING REGISTER_USE_REGISTERED_RING}</td><td>{@link #IORING_REGISTER_FILES_SKIP REGISTER_FILES_SKIP}</td></tr></table>
+     * @param opcode one of:<br><table><tr><td>{@link #IORING_REGISTER_BUFFERS REGISTER_BUFFERS}</td><td>{@link #IORING_REGISTER_FILES REGISTER_FILES}</td><td>{@link #IORING_REGISTER_EVENTFD REGISTER_EVENTFD}</td><td>{@link #IORING_REGISTER_FILES_UPDATE REGISTER_FILES_UPDATE}</td></tr><tr><td>{@link #IORING_REGISTER_EVENTFD_ASYNC REGISTER_EVENTFD_ASYNC}</td><td>{@link #IORING_REGISTER_PROBE REGISTER_PROBE}</td><td>{@link #IORING_REGISTER_PERSONALITY REGISTER_PERSONALITY}</td><td>{@link #IORING_REGISTER_RESTRICTIONS REGISTER_RESTRICTIONS}</td></tr><tr><td>{@link #IORING_REGISTER_ENABLE_RINGS REGISTER_ENABLE_RINGS}</td><td>{@link #IORING_REGISTER_FILES2 REGISTER_FILES2}</td><td>{@link #IORING_REGISTER_FILES_UPDATE2 REGISTER_FILES_UPDATE2}</td><td>{@link #IORING_REGISTER_BUFFERS2 REGISTER_BUFFERS2}</td></tr><tr><td>{@link #IORING_REGISTER_BUFFERS_UPDATE REGISTER_BUFFERS_UPDATE}</td><td>{@link #IORING_REGISTER_IOWQ_AFF REGISTER_IOWQ_AFF}</td><td>{@link #IORING_REGISTER_IOWQ_MAX_WORKERS REGISTER_IOWQ_MAX_WORKERS}</td><td>{@link #IORING_REGISTER_RING_FDS REGISTER_RING_FDS}</td></tr><tr><td>{@link #IORING_REGISTER_PBUF_RING REGISTER_PBUF_RING}</td><td>{@link #IORING_REGISTER_SYNC_CANCEL REGISTER_SYNC_CANCEL}</td><td>{@link #IORING_REGISTER_FILE_ALLOC_RANGE REGISTER_FILE_ALLOC_RANGE}</td><td>{@link #IORING_REGISTER_PBUF_STATUS REGISTER_PBUF_STATUS}</td></tr><tr><td>{@link #IORING_REGISTER_NAPI REGISTER_NAPI}</td><td>{@link #IORING_REGISTER_CLOCK REGISTER_CLOCK}</td><td>{@link #IORING_REGISTER_CLONE_BUFFERS REGISTER_CLONE_BUFFERS}</td><td>{@link #IORING_REGISTER_LAST REGISTER_LAST}</td></tr><tr><td>{@link #IORING_REGISTER_USE_REGISTERED_RING REGISTER_USE_REGISTERED_RING}</td><td>{@link #IORING_REGISTER_FILES_SKIP REGISTER_FILES_SKIP}</td><td>{@link #IORING_REGISTER_SRC_REGISTERED REGISTER_SRC_REGISTERED}</td></tr></table>
      *
      * @return on success, returns 0. On error, -1 is returned, and {@code errno} is set accordingly.
      */
-    public static int io_uring_register(int fd, @NativeType("unsigned") int opcode, @NativeType("void *") long arg, @NativeType("unsigned") int nr_args) {
-        return nio_uring_register(fd, opcode, arg, nr_args);
+    public static int io_uring_register(@NativeType("int *") @Nullable IntBuffer _errno, int fd, @NativeType("unsigned") int opcode, @NativeType("void *") long arg, @NativeType("unsigned") int nr_args) {
+        if (CHECKS) {
+            checkSafe(_errno, 1);
+        }
+        return nio_uring_register(memAddressSafe(_errno), fd, opcode, arg, nr_args);
     }
 
     // --- [ io_uring_enter2 ] ---
 
-    public static native int nio_uring_enter2(int fd, int to_submit, int min_complete, int flags, long sig, int sz);
+    /** Unsafe version of: {@link #io_uring_enter2 enter2} */
+    public static native int nio_uring_enter2(long _errno, int fd, int to_submit, int min_complete, int flags, long sig, int sz);
 
-    public static int io_uring_enter2(int fd, @NativeType("unsigned") int to_submit, @NativeType("unsigned") int min_complete, @NativeType("unsigned") int flags, @NativeType("sigset_t *") long sig, int sz) {
-        return nio_uring_enter2(fd, to_submit, min_complete, flags, sig, sz);
+    /** @param _errno optionally returns the {@code errno} value after this function is called */
+    public static int io_uring_enter2(@NativeType("int *") @Nullable IntBuffer _errno, int fd, @NativeType("unsigned") int to_submit, @NativeType("unsigned") int min_complete, @NativeType("unsigned") int flags, @NativeType("sigset_t *") long sig, int sz) {
+        if (CHECKS) {
+            checkSafe(_errno, 1);
+        }
+        return nio_uring_enter2(memAddressSafe(_errno), fd, to_submit, min_complete, flags, sig, sz);
     }
 
     // --- [ io_uring_enter ] ---
 
     /** Unsafe version of: {@link #io_uring_enter enter} */
-    public static native int nio_uring_enter(int fd, int to_submit, int min_complete, int flags, long sig);
+    public static native int nio_uring_enter(long _errno, int fd, int to_submit, int min_complete, int flags, long sig);
 
     /**
      * {@code io_uring_enter()} is used to initiate and complete I/O using the shared submission and completion queues setup by a call to {@link #io_uring_setup setup}.
@@ -1806,9 +1915,10 @@ public class LibIOURing {
      * even if the actual IO submission had to be punted to async context, which means that the SQE may in fact not have been submitted yet. If the kernel
      * requires later use of a particular SQE entry, it will have made a private copy of it.</p>
      *
+     * @param _errno    optionally returns the {@code errno} value after this function is called
      * @param fd        the file descriptor returned by {@link #io_uring_setup setup}
      * @param to_submit the number of I/Os to submit from the submission queue
-     * @param flags     one or more of:<br><table><tr><td>{@link #IORING_ENTER_GETEVENTS ENTER_GETEVENTS}</td><td>{@link #IORING_ENTER_SQ_WAKEUP ENTER_SQ_WAKEUP}</td><td>{@link #IORING_ENTER_SQ_WAIT ENTER_SQ_WAIT}</td><td>{@link #IORING_ENTER_EXT_ARG ENTER_EXT_ARG}</td><td>{@link #IORING_ENTER_REGISTERED_RING ENTER_REGISTERED_RING}</td></tr></table>
+     * @param flags     one or more of:<br><table><tr><td>{@link #IORING_ENTER_GETEVENTS ENTER_GETEVENTS}</td><td>{@link #IORING_ENTER_SQ_WAKEUP ENTER_SQ_WAKEUP}</td><td>{@link #IORING_ENTER_SQ_WAIT ENTER_SQ_WAIT}</td><td>{@link #IORING_ENTER_EXT_ARG ENTER_EXT_ARG}</td><td>{@link #IORING_ENTER_REGISTERED_RING ENTER_REGISTERED_RING}</td></tr><tr><td>{@link #IORING_ENTER_ABS_TIMER ENTER_ABS_TIMER}</td></tr></table>
      * @param sig       a pointer to a signal mask (see {@code sigprocmask(2)}); if {@code sig} is not {@code NULL}, {@code io_uring_enter()} first replaces the current signal
      *                  mask by the one pointed to by sig, then waits for events to become available in the completion queue, and then restores the original signal mask.
      *                  The following {@code io_uring_enter()} call:
@@ -1835,8 +1945,11 @@ public class LibIOURing {
      *         <p>Errors that occur not on behalf of a submission queue entry are returned via the system call directly. On such an error, -1 is returned and
      *         {@code errno} is set appropriately.</p>
      */
-    public static int io_uring_enter(int fd, @NativeType("unsigned") int to_submit, @NativeType("unsigned") int min_complete, @NativeType("unsigned") int flags, @NativeType("sigset_t *") long sig) {
-        return nio_uring_enter(fd, to_submit, min_complete, flags, sig);
+    public static int io_uring_enter(@NativeType("int *") @Nullable IntBuffer _errno, int fd, @NativeType("unsigned") int to_submit, @NativeType("unsigned") int min_complete, @NativeType("unsigned") int flags, @NativeType("sigset_t *") long sig) {
+        if (CHECKS) {
+            checkSafe(_errno, 1);
+        }
+        return nio_uring_enter(memAddressSafe(_errno), fd, to_submit, min_complete, flags, sig);
     }
 
 }

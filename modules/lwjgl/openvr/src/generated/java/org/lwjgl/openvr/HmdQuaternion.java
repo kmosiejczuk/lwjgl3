@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,8 +150,7 @@ public class HmdQuaternion extends Struct<HmdQuaternion> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static HmdQuaternion createSafe(long address) {
+    public static @Nullable HmdQuaternion createSafe(long address) {
         return address == NULL ? null : new HmdQuaternion(address, null);
     }
 
@@ -194,8 +193,7 @@ public class HmdQuaternion extends Struct<HmdQuaternion> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static HmdQuaternion.Buffer createSafe(long address, int capacity) {
+    public static HmdQuaternion.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,22 +257,22 @@ public class HmdQuaternion extends Struct<HmdQuaternion> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #w}. */
-    public static double nw(long struct) { return UNSAFE.getDouble(null, struct + HmdQuaternion.W); }
+    public static double nw(long struct) { return memGetDouble(struct + HmdQuaternion.W); }
     /** Unsafe version of {@link #x}. */
-    public static double nx(long struct) { return UNSAFE.getDouble(null, struct + HmdQuaternion.X); }
+    public static double nx(long struct) { return memGetDouble(struct + HmdQuaternion.X); }
     /** Unsafe version of {@link #y}. */
-    public static double ny(long struct) { return UNSAFE.getDouble(null, struct + HmdQuaternion.Y); }
+    public static double ny(long struct) { return memGetDouble(struct + HmdQuaternion.Y); }
     /** Unsafe version of {@link #z}. */
-    public static double nz(long struct) { return UNSAFE.getDouble(null, struct + HmdQuaternion.Z); }
+    public static double nz(long struct) { return memGetDouble(struct + HmdQuaternion.Z); }
 
     /** Unsafe version of {@link #w(double) w}. */
-    public static void nw(long struct, double value) { UNSAFE.putDouble(null, struct + HmdQuaternion.W, value); }
+    public static void nw(long struct, double value) { memPutDouble(struct + HmdQuaternion.W, value); }
     /** Unsafe version of {@link #x(double) x}. */
-    public static void nx(long struct, double value) { UNSAFE.putDouble(null, struct + HmdQuaternion.X, value); }
+    public static void nx(long struct, double value) { memPutDouble(struct + HmdQuaternion.X, value); }
     /** Unsafe version of {@link #y(double) y}. */
-    public static void ny(long struct, double value) { UNSAFE.putDouble(null, struct + HmdQuaternion.Y, value); }
+    public static void ny(long struct, double value) { memPutDouble(struct + HmdQuaternion.Y, value); }
     /** Unsafe version of {@link #z(double) z}. */
-    public static void nz(long struct, double value) { UNSAFE.putDouble(null, struct + HmdQuaternion.Z, value); }
+    public static void nz(long struct, double value) { memPutDouble(struct + HmdQuaternion.Z, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class HmdQuaternion extends Struct<HmdQuaternion> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

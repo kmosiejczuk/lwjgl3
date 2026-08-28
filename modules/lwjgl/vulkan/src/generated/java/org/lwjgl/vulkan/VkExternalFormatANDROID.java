@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>When included in the {@code pNext} chain of another structure, it indicates <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-external-android-hardware-buffer-external-formats">additional format information</a> beyond what is provided by {@code VkFormat} values for an Android hardware buffer. If {@code externalFormat} is zero, it indicates that no external format is used, and implementations should rely only on other format information. If this structure is not present, it is equivalent to setting {@code externalFormat} to zero.</p>
+ * <p>When included in the {@code pNext} chain of another structure, it indicates <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-external-android-hardware-buffer-external-formats">additional format information</a> beyond what is provided by {@code VkFormat} values for an Android hardware buffer. If {@code externalFormat} is zero, it indicates that no external format is used, and implementations should rely only on other format information. If this structure is not present, it is equivalent to setting {@code externalFormat} to zero.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -162,8 +162,7 @@ public class VkExternalFormatANDROID extends Struct<VkExternalFormatANDROID> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalFormatANDROID createSafe(long address) {
+    public static @Nullable VkExternalFormatANDROID createSafe(long address) {
         return address == NULL ? null : new VkExternalFormatANDROID(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkExternalFormatANDROID extends Struct<VkExternalFormatANDROID> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalFormatANDROID.Buffer createSafe(long address, int capacity) {
+    public static VkExternalFormatANDROID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class VkExternalFormatANDROID extends Struct<VkExternalFormatANDROID> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExternalFormatANDROID.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExternalFormatANDROID.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExternalFormatANDROID.PNEXT); }
     /** Unsafe version of {@link #externalFormat}. */
-    public static long nexternalFormat(long struct) { return UNSAFE.getLong(null, struct + VkExternalFormatANDROID.EXTERNALFORMAT); }
+    public static long nexternalFormat(long struct) { return memGetLong(struct + VkExternalFormatANDROID.EXTERNALFORMAT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExternalFormatANDROID.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExternalFormatANDROID.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExternalFormatANDROID.PNEXT, value); }
     /** Unsafe version of {@link #externalFormat(long) externalFormat}. */
-    public static void nexternalFormat(long struct, long value) { UNSAFE.putLong(null, struct + VkExternalFormatANDROID.EXTERNALFORMAT, value); }
+    public static void nexternalFormat(long struct, long value) { memPutLong(struct + VkExternalFormatANDROID.EXTERNALFORMAT, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class VkExternalFormatANDROID extends Struct<VkExternalFormatANDROID> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

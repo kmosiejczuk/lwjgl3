@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class VkImageCaptureDescriptorDataInfoEXT extends Struct<VkImageCaptureDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageCaptureDescriptorDataInfoEXT createSafe(long address) {
+    public static @Nullable VkImageCaptureDescriptorDataInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkImageCaptureDescriptorDataInfoEXT(address, null);
     }
 
@@ -208,8 +207,7 @@ public class VkImageCaptureDescriptorDataInfoEXT extends Struct<VkImageCaptureDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageCaptureDescriptorDataInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImageCaptureDescriptorDataInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,18 +252,18 @@ public class VkImageCaptureDescriptorDataInfoEXT extends Struct<VkImageCaptureDe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageCaptureDescriptorDataInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageCaptureDescriptorDataInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageCaptureDescriptorDataInfoEXT.PNEXT); }
     /** Unsafe version of {@link #image}. */
-    public static long nimage(long struct) { return UNSAFE.getLong(null, struct + VkImageCaptureDescriptorDataInfoEXT.IMAGE); }
+    public static long nimage(long struct) { return memGetLong(struct + VkImageCaptureDescriptorDataInfoEXT.IMAGE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageCaptureDescriptorDataInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageCaptureDescriptorDataInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageCaptureDescriptorDataInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #image(long) image}. */
-    public static void nimage(long struct, long value) { UNSAFE.putLong(null, struct + VkImageCaptureDescriptorDataInfoEXT.IMAGE, value); }
+    public static void nimage(long struct, long value) { memPutLong(struct + VkImageCaptureDescriptorDataInfoEXT.IMAGE, value); }
 
     // -----------------------------------
 
@@ -298,6 +296,11 @@ public class VkImageCaptureDescriptorDataInfoEXT extends Struct<VkImageCaptureDe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

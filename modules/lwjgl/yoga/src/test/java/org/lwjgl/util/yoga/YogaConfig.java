@@ -4,7 +4,7 @@
  */
 package org.lwjgl.util.yoga;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import static org.lwjgl.util.yoga.Yoga.*;
 
@@ -12,8 +12,7 @@ public class YogaConfig {
 
     final long handle;
 
-    @Nullable
-    private YGCloneNodeFunc cloneNodeFunc;
+    private @Nullable YGCloneNodeFunc cloneNodeFunc;
 
     public YogaConfig() {
         this.handle = YGConfigNew();
@@ -53,7 +52,7 @@ public class YogaConfig {
     enum YogaErrata implements EnumWrapper {
         NONE(YGErrataNone),
         STRETCH_FLEX_BASIS(YGErrataStretchFlexBasis),
-        ABSOLUTE_POSITIONING_INCORRECT(YGErrataAbsolutePositioningIncorrect),
+        ABSOLUTE_POSITION_WITHOUT_INSETS_EXCLUDES_PADDING(YGErrataAbsolutePositionWithoutInsetsExcludesPadding),
         ABSOLUTE_PERCENT_AGAINST_INNER_SIZE(YGErrataAbsolutePercentAgainstInnerSize),
         CLASSIC(YGErrataClassic),
         ALL(YGErrataAll);

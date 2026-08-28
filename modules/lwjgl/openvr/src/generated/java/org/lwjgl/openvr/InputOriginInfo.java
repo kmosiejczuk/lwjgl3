@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -114,8 +114,7 @@ public class InputOriginInfo extends Struct<InputOriginInfo> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static InputOriginInfo createSafe(long address) {
+    public static @Nullable InputOriginInfo createSafe(long address) {
         return address == NULL ? null : new InputOriginInfo(address, null);
     }
 
@@ -158,8 +157,7 @@ public class InputOriginInfo extends Struct<InputOriginInfo> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static InputOriginInfo.Buffer createSafe(long address, int capacity) {
+    public static InputOriginInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,9 +221,9 @@ public class InputOriginInfo extends Struct<InputOriginInfo> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #devicePath}. */
-    public static long ndevicePath(long struct) { return UNSAFE.getLong(null, struct + InputOriginInfo.DEVICEPATH); }
+    public static long ndevicePath(long struct) { return memGetLong(struct + InputOriginInfo.DEVICEPATH); }
     /** Unsafe version of {@link #trackedDeviceIndex}. */
-    public static int ntrackedDeviceIndex(long struct) { return UNSAFE.getInt(null, struct + InputOriginInfo.TRACKEDDEVICEINDEX); }
+    public static int ntrackedDeviceIndex(long struct) { return memGetInt(struct + InputOriginInfo.TRACKEDDEVICEINDEX); }
     /** Unsafe version of {@link #rchRenderModelComponentName}. */
     public static ByteBuffer nrchRenderModelComponentName(long struct) { return memByteBuffer(struct + InputOriginInfo.RCHRENDERMODELCOMPONENTNAME, 128); }
     /** Unsafe version of {@link #rchRenderModelComponentNameString}. */
@@ -262,6 +260,11 @@ public class InputOriginInfo extends Struct<InputOriginInfo> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

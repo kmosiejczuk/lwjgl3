@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,9 +94,8 @@ public class FMOD_DSP_PARAMETER_DESC_INT extends Struct<FMOD_DSP_PARAMETER_DESC_
     @NativeType("FMOD_BOOL")
     public int goestoinf() { return ngoestoinf(address()); }
     /** @return a {@link PointerBuffer} view of the data pointed to by the {@code valuenames} field. */
-    @Nullable
     @NativeType("char const * const *")
-    public PointerBuffer valuenames() { return nvaluenames(address()); }
+    public @Nullable PointerBuffer valuenames() { return nvaluenames(address()); }
 
     /** Sets the specified value to the {@code min} field. */
     public FMOD_DSP_PARAMETER_DESC_INT min(int value) { nmin(address(), value); return this; }
@@ -162,8 +161,7 @@ public class FMOD_DSP_PARAMETER_DESC_INT extends Struct<FMOD_DSP_PARAMETER_DESC_
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_DESC_INT createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_DESC_INT createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_DESC_INT(address, null);
     }
 
@@ -206,8 +204,7 @@ public class FMOD_DSP_PARAMETER_DESC_INT extends Struct<FMOD_DSP_PARAMETER_DESC_
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_DESC_INT.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_DESC_INT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,24 +249,24 @@ public class FMOD_DSP_PARAMETER_DESC_INT extends Struct<FMOD_DSP_PARAMETER_DESC_
     // -----------------------------------
 
     /** Unsafe version of {@link #min}. */
-    public static int nmin(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_DESC_INT.MIN); }
+    public static int nmin(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_DESC_INT.MIN); }
     /** Unsafe version of {@link #max}. */
-    public static int nmax(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_DESC_INT.MAX); }
+    public static int nmax(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_DESC_INT.MAX); }
     /** Unsafe version of {@link #defaultval}. */
-    public static int ndefaultval(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_DESC_INT.DEFAULTVAL); }
+    public static int ndefaultval(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_DESC_INT.DEFAULTVAL); }
     /** Unsafe version of {@link #goestoinf}. */
-    public static int ngoestoinf(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_DESC_INT.GOESTOINF); }
+    public static int ngoestoinf(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_DESC_INT.GOESTOINF); }
     /** Unsafe version of {@link #valuenames() valuenames}. */
-    @Nullable public static PointerBuffer nvaluenames(long struct) { return memPointerBufferSafe(memGetAddress(struct + FMOD_DSP_PARAMETER_DESC_INT.VALUENAMES), nmax(struct) - nmin(struct) + 1); }
+    public static @Nullable PointerBuffer nvaluenames(long struct) { return memPointerBufferSafe(memGetAddress(struct + FMOD_DSP_PARAMETER_DESC_INT.VALUENAMES), nmax(struct) - nmin(struct) + 1); }
 
     /** Unsafe version of {@link #min(int) min}. */
-    public static void nmin(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_DESC_INT.MIN, value); }
+    public static void nmin(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_DESC_INT.MIN, value); }
     /** Unsafe version of {@link #max(int) max}. */
-    public static void nmax(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_DESC_INT.MAX, value); }
+    public static void nmax(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_DESC_INT.MAX, value); }
     /** Unsafe version of {@link #defaultval(int) defaultval}. */
-    public static void ndefaultval(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_DESC_INT.DEFAULTVAL, value); }
+    public static void ndefaultval(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_DESC_INT.DEFAULTVAL, value); }
     /** Unsafe version of {@link #goestoinf(int) goestoinf}. */
-    public static void ngoestoinf(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_DESC_INT.GOESTOINF, value); }
+    public static void ngoestoinf(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_DESC_INT.GOESTOINF, value); }
     /** Unsafe version of {@link #valuenames(PointerBuffer) valuenames}. */
     public static void nvaluenames(long struct, @Nullable PointerBuffer value) { memPutAddress(struct + FMOD_DSP_PARAMETER_DESC_INT.VALUENAMES, memAddressSafe(value)); }
 
@@ -307,6 +304,11 @@ public class FMOD_DSP_PARAMETER_DESC_INT extends Struct<FMOD_DSP_PARAMETER_DESC_
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FMOD_DSP_PARAMETER_DESC_INT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -321,9 +323,8 @@ public class FMOD_DSP_PARAMETER_DESC_INT extends Struct<FMOD_DSP_PARAMETER_DESC_
         @NativeType("FMOD_BOOL")
         public int goestoinf() { return FMOD_DSP_PARAMETER_DESC_INT.ngoestoinf(address()); }
         /** @return a {@link PointerBuffer} view of the data pointed to by the {@code valuenames} field. */
-        @Nullable
         @NativeType("char const * const *")
-        public PointerBuffer valuenames() { return FMOD_DSP_PARAMETER_DESC_INT.nvaluenames(address()); }
+        public @Nullable PointerBuffer valuenames() { return FMOD_DSP_PARAMETER_DESC_INT.nvaluenames(address()); }
 
         /** Sets the specified value to the {@code min} field. */
         public FMOD_DSP_PARAMETER_DESC_INT.Buffer min(int value) { FMOD_DSP_PARAMETER_DESC_INT.nmin(address(), value); return this; }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -89,8 +89,7 @@ class NkConfigStackButtonBehavior extends Struct<NkConfigStackButtonBehavior> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackButtonBehavior createSafe(long address) {
+    public static @Nullable NkConfigStackButtonBehavior createSafe(long address) {
         return address == NULL ? null : new NkConfigStackButtonBehavior(address, null);
     }
 
@@ -105,15 +104,14 @@ class NkConfigStackButtonBehavior extends Struct<NkConfigStackButtonBehavior> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackButtonBehavior.Buffer createSafe(long address, int capacity) {
+    public static NkConfigStackButtonBehavior.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #head}. */
-    public static int nhead(long struct) { return UNSAFE.getInt(null, struct + NkConfigStackButtonBehavior.HEAD); }
+    public static int nhead(long struct) { return memGetInt(struct + NkConfigStackButtonBehavior.HEAD); }
     /** Unsafe version of {@link #elements}. */
     public static NkConfigStackButtonBehaviorElement.Buffer nelements(long struct) { return NkConfigStackButtonBehaviorElement.create(struct + NkConfigStackButtonBehavior.ELEMENTS, 8); }
     /** Unsafe version of {@link #elements(int) elements}. */
@@ -152,6 +150,11 @@ class NkConfigStackButtonBehavior extends Struct<NkConfigStackButtonBehavior> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

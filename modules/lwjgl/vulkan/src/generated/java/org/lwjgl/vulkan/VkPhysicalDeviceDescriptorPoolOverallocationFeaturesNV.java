@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV extends Stru
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV extends Stru
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV extends Stru
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #descriptorPoolOverallocation}. */
-    public static int ndescriptorPoolOverallocation(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.DESCRIPTORPOOLOVERALLOCATION); }
+    public static int ndescriptorPoolOverallocation(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.DESCRIPTORPOOLOVERALLOCATION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #descriptorPoolOverallocation(boolean) descriptorPoolOverallocation}. */
-    public static void ndescriptorPoolOverallocation(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.DESCRIPTORPOOLOVERALLOCATION, value); }
+    public static void ndescriptorPoolOverallocation(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.DESCRIPTORPOOLOVERALLOCATION, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV extends Stru
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

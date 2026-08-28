@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,9 +22,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code decodeMode} <b>must</b> be one of {@link VK10#VK_FORMAT_R16G16B16A16_SFLOAT FORMAT_R16G16B16A16_SFLOAT}, {@link VK10#VK_FORMAT_R8G8B8A8_UNORM FORMAT_R8G8B8A8_UNORM}, or {@link VK10#VK_FORMAT_E5B9G9R9_UFLOAT_PACK32 FORMAT_E5B9G9R9_UFLOAT_PACK32}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-astc-decodeModeSharedExponent">{@code decodeModeSharedExponent}</a> feature is not enabled, {@code decodeMode} <b>must</b> not be {@link VK10#VK_FORMAT_E5B9G9R9_UFLOAT_PACK32 FORMAT_E5B9G9R9_UFLOAT_PACK32}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-astc-decodeModeSharedExponent">{@code decodeModeSharedExponent}</a> feature is not enabled, {@code decodeMode} <b>must</b> not be {@link VK10#VK_FORMAT_E5B9G9R9_UFLOAT_PACK32 FORMAT_E5B9G9R9_UFLOAT_PACK32}</li>
  * <li>If {@code decodeMode} is {@link VK10#VK_FORMAT_R8G8B8A8_UNORM FORMAT_R8G8B8A8_UNORM} the image view <b>must</b> not include blocks using any of the ASTC HDR modes</li>
- * <li>{@code format} of the image view <b>must</b> be one of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#appendix-compressedtex-astc">ASTC Compressed Image Formats</a></li>
+ * <li>{@code format} of the image view <b>must</b> be one of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#appendix-compressedtex-astc">ASTC Compressed Image Formats</a></li>
  * </ul>
  * 
  * <p>If {@code format} uses sRGB encoding then the {@code decodeMode} has no effect.</p>
@@ -164,8 +164,7 @@ public class VkImageViewASTCDecodeModeEXT extends Struct<VkImageViewASTCDecodeMo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewASTCDecodeModeEXT createSafe(long address) {
+    public static @Nullable VkImageViewASTCDecodeModeEXT createSafe(long address) {
         return address == NULL ? null : new VkImageViewASTCDecodeModeEXT(address, null);
     }
 
@@ -208,8 +207,7 @@ public class VkImageViewASTCDecodeModeEXT extends Struct<VkImageViewASTCDecodeMo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewASTCDecodeModeEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImageViewASTCDecodeModeEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,18 +271,18 @@ public class VkImageViewASTCDecodeModeEXT extends Struct<VkImageViewASTCDecodeMo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageViewASTCDecodeModeEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageViewASTCDecodeModeEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageViewASTCDecodeModeEXT.PNEXT); }
     /** Unsafe version of {@link #decodeMode}. */
-    public static int ndecodeMode(long struct) { return UNSAFE.getInt(null, struct + VkImageViewASTCDecodeModeEXT.DECODEMODE); }
+    public static int ndecodeMode(long struct) { return memGetInt(struct + VkImageViewASTCDecodeModeEXT.DECODEMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewASTCDecodeModeEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageViewASTCDecodeModeEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageViewASTCDecodeModeEXT.PNEXT, value); }
     /** Unsafe version of {@link #decodeMode(int) decodeMode}. */
-    public static void ndecodeMode(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewASTCDecodeModeEXT.DECODEMODE, value); }
+    public static void ndecodeMode(long struct, int value) { memPutInt(struct + VkImageViewASTCDecodeModeEXT.DECODEMODE, value); }
 
     // -----------------------------------
 
@@ -317,6 +315,11 @@ public class VkImageViewASTCDecodeModeEXT extends Struct<VkImageViewASTCDecodeMo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

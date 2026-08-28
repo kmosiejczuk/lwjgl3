@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkConformanceVersion extends Struct<VkConformanceVersion> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkConformanceVersion createSafe(long address) {
+    public static @Nullable VkConformanceVersion createSafe(long address) {
         return address == NULL ? null : new VkConformanceVersion(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkConformanceVersion extends Struct<VkConformanceVersion> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkConformanceVersion.Buffer createSafe(long address, int capacity) {
+    public static VkConformanceVersion.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,22 +247,22 @@ public class VkConformanceVersion extends Struct<VkConformanceVersion> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #major}. */
-    public static byte nmajor(long struct) { return UNSAFE.getByte(null, struct + VkConformanceVersion.MAJOR); }
+    public static byte nmajor(long struct) { return memGetByte(struct + VkConformanceVersion.MAJOR); }
     /** Unsafe version of {@link #minor}. */
-    public static byte nminor(long struct) { return UNSAFE.getByte(null, struct + VkConformanceVersion.MINOR); }
+    public static byte nminor(long struct) { return memGetByte(struct + VkConformanceVersion.MINOR); }
     /** Unsafe version of {@link #subminor}. */
-    public static byte nsubminor(long struct) { return UNSAFE.getByte(null, struct + VkConformanceVersion.SUBMINOR); }
+    public static byte nsubminor(long struct) { return memGetByte(struct + VkConformanceVersion.SUBMINOR); }
     /** Unsafe version of {@link #patch}. */
-    public static byte npatch(long struct) { return UNSAFE.getByte(null, struct + VkConformanceVersion.PATCH); }
+    public static byte npatch(long struct) { return memGetByte(struct + VkConformanceVersion.PATCH); }
 
     /** Unsafe version of {@link #major(byte) major}. */
-    public static void nmajor(long struct, byte value) { UNSAFE.putByte(null, struct + VkConformanceVersion.MAJOR, value); }
+    public static void nmajor(long struct, byte value) { memPutByte(struct + VkConformanceVersion.MAJOR, value); }
     /** Unsafe version of {@link #minor(byte) minor}. */
-    public static void nminor(long struct, byte value) { UNSAFE.putByte(null, struct + VkConformanceVersion.MINOR, value); }
+    public static void nminor(long struct, byte value) { memPutByte(struct + VkConformanceVersion.MINOR, value); }
     /** Unsafe version of {@link #subminor(byte) subminor}. */
-    public static void nsubminor(long struct, byte value) { UNSAFE.putByte(null, struct + VkConformanceVersion.SUBMINOR, value); }
+    public static void nsubminor(long struct, byte value) { memPutByte(struct + VkConformanceVersion.SUBMINOR, value); }
     /** Unsafe version of {@link #patch(byte) patch}. */
-    public static void npatch(long struct, byte value) { UNSAFE.putByte(null, struct + VkConformanceVersion.PATCH, value); }
+    public static void npatch(long struct, byte value) { memPutByte(struct + VkConformanceVersion.PATCH, value); }
 
     // -----------------------------------
 
@@ -297,6 +295,11 @@ public class VkConformanceVersion extends Struct<VkConformanceVersion> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

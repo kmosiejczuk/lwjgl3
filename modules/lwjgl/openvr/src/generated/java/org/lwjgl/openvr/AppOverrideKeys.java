@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -140,8 +140,7 @@ public class AppOverrideKeys extends Struct<AppOverrideKeys> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AppOverrideKeys createSafe(long address) {
+    public static @Nullable AppOverrideKeys createSafe(long address) {
         return address == NULL ? null : new AppOverrideKeys(address, null);
     }
 
@@ -184,8 +183,7 @@ public class AppOverrideKeys extends Struct<AppOverrideKeys> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AppOverrideKeys.Buffer createSafe(long address, int capacity) {
+    public static AppOverrideKeys.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -304,6 +302,11 @@ public class AppOverrideKeys extends Struct<AppOverrideKeys> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

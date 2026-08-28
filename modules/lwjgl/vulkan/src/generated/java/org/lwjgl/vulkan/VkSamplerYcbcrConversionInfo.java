@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkSamplerYcbcrConversionInfo extends Struct<VkSamplerYcbcrConversio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerYcbcrConversionInfo createSafe(long address) {
+    public static @Nullable VkSamplerYcbcrConversionInfo createSafe(long address) {
         return address == NULL ? null : new VkSamplerYcbcrConversionInfo(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkSamplerYcbcrConversionInfo extends Struct<VkSamplerYcbcrConversio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerYcbcrConversionInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSamplerYcbcrConversionInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,18 +260,18 @@ public class VkSamplerYcbcrConversionInfo extends Struct<VkSamplerYcbcrConversio
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSamplerYcbcrConversionInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSamplerYcbcrConversionInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSamplerYcbcrConversionInfo.PNEXT); }
     /** Unsafe version of {@link #conversion}. */
-    public static long nconversion(long struct) { return UNSAFE.getLong(null, struct + VkSamplerYcbcrConversionInfo.CONVERSION); }
+    public static long nconversion(long struct) { return memGetLong(struct + VkSamplerYcbcrConversionInfo.CONVERSION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerYcbcrConversionInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSamplerYcbcrConversionInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSamplerYcbcrConversionInfo.PNEXT, value); }
     /** Unsafe version of {@link #conversion(long) conversion}. */
-    public static void nconversion(long struct, long value) { UNSAFE.putLong(null, struct + VkSamplerYcbcrConversionInfo.CONVERSION, value); }
+    public static void nconversion(long struct, long value) { memPutLong(struct + VkSamplerYcbcrConversionInfo.CONVERSION, value); }
 
     // -----------------------------------
 
@@ -306,6 +304,11 @@ public class VkSamplerYcbcrConversionInfo extends Struct<VkSamplerYcbcrConversio
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

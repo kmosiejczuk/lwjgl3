@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -96,9 +96,8 @@ public class VmaVirtualBlockCreateInfo extends Struct<VmaVirtualBlockCreateInfo>
      * 
      * <p>Optional, can be null. When specified, they will be used for all CPU-side memory allocations.</p>
      */
-    @Nullable
     @NativeType("VkAllocationCallbacks const *")
-    public VkAllocationCallbacks pAllocationCallbacks() { return npAllocationCallbacks(address()); }
+    public @Nullable VkAllocationCallbacks pAllocationCallbacks() { return npAllocationCallbacks(address()); }
 
     /** Sets the specified value to the {@link #size} field. */
     public VmaVirtualBlockCreateInfo size(@NativeType("VkDeviceSize") long value) { nsize(address(), value); return this; }
@@ -156,8 +155,7 @@ public class VmaVirtualBlockCreateInfo extends Struct<VmaVirtualBlockCreateInfo>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaVirtualBlockCreateInfo createSafe(long address) {
+    public static @Nullable VmaVirtualBlockCreateInfo createSafe(long address) {
         return address == NULL ? null : new VmaVirtualBlockCreateInfo(address, null);
     }
 
@@ -200,8 +198,7 @@ public class VmaVirtualBlockCreateInfo extends Struct<VmaVirtualBlockCreateInfo>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaVirtualBlockCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VmaVirtualBlockCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,16 +243,16 @@ public class VmaVirtualBlockCreateInfo extends Struct<VmaVirtualBlockCreateInfo>
     // -----------------------------------
 
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VmaVirtualBlockCreateInfo.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VmaVirtualBlockCreateInfo.SIZE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VmaVirtualBlockCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VmaVirtualBlockCreateInfo.FLAGS); }
     /** Unsafe version of {@link #pAllocationCallbacks}. */
-    @Nullable public static VkAllocationCallbacks npAllocationCallbacks(long struct) { return VkAllocationCallbacks.createSafe(memGetAddress(struct + VmaVirtualBlockCreateInfo.PALLOCATIONCALLBACKS)); }
+    public static @Nullable VkAllocationCallbacks npAllocationCallbacks(long struct) { return VkAllocationCallbacks.createSafe(memGetAddress(struct + VmaVirtualBlockCreateInfo.PALLOCATIONCALLBACKS)); }
 
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VmaVirtualBlockCreateInfo.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VmaVirtualBlockCreateInfo.SIZE, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VmaVirtualBlockCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VmaVirtualBlockCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #pAllocationCallbacks(VkAllocationCallbacks) pAllocationCallbacks}. */
     public static void npAllocationCallbacks(long struct, @Nullable VkAllocationCallbacks value) { memPutAddress(struct + VmaVirtualBlockCreateInfo.PALLOCATIONCALLBACKS, memAddressSafe(value)); }
 
@@ -293,6 +290,11 @@ public class VmaVirtualBlockCreateInfo extends Struct<VmaVirtualBlockCreateInfo>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VmaVirtualBlockCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -304,9 +306,8 @@ public class VmaVirtualBlockCreateInfo extends Struct<VmaVirtualBlockCreateInfo>
         @NativeType("VmaVirtualBlockCreateFlagBits")
         public int flags() { return VmaVirtualBlockCreateInfo.nflags(address()); }
         /** @return a {@link VkAllocationCallbacks} view of the struct pointed to by the {@link VmaVirtualBlockCreateInfo#pAllocationCallbacks} field. */
-        @Nullable
         @NativeType("VkAllocationCallbacks const *")
-        public VkAllocationCallbacks pAllocationCallbacks() { return VmaVirtualBlockCreateInfo.npAllocationCallbacks(address()); }
+        public @Nullable VkAllocationCallbacks pAllocationCallbacks() { return VmaVirtualBlockCreateInfo.npAllocationCallbacks(address()); }
 
         /** Sets the specified value to the {@link VmaVirtualBlockCreateInfo#size} field. */
         public VmaVirtualBlockCreateInfo.Buffer size(@NativeType("VkDeviceSize") long value) { VmaVirtualBlockCreateInfo.nsize(address(), value); return this; }

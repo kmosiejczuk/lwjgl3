@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class CUDA_GRAPH_INSTANTIATE_PARAMS extends Struct<CUDA_GRAPH_INSTANTIATE
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_GRAPH_INSTANTIATE_PARAMS createSafe(long address) {
+    public static @Nullable CUDA_GRAPH_INSTANTIATE_PARAMS createSafe(long address) {
         return address == NULL ? null : new CUDA_GRAPH_INSTANTIATE_PARAMS(address, null);
     }
 
@@ -161,8 +160,7 @@ public class CUDA_GRAPH_INSTANTIATE_PARAMS extends Struct<CUDA_GRAPH_INSTANTIATE
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_GRAPH_INSTANTIATE_PARAMS.Buffer createSafe(long address, int capacity) {
+    public static CUDA_GRAPH_INSTANTIATE_PARAMS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -207,13 +205,13 @@ public class CUDA_GRAPH_INSTANTIATE_PARAMS extends Struct<CUDA_GRAPH_INSTANTIATE
     // -----------------------------------
 
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + CUDA_GRAPH_INSTANTIATE_PARAMS.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + CUDA_GRAPH_INSTANTIATE_PARAMS.FLAGS); }
     /** Unsafe version of {@link #hUploadStream}. */
     public static long nhUploadStream(long struct) { return memGetAddress(struct + CUDA_GRAPH_INSTANTIATE_PARAMS.HUPLOADSTREAM); }
     /** Unsafe version of {@link #hErrNode_out}. */
     public static long nhErrNode_out(long struct) { return memGetAddress(struct + CUDA_GRAPH_INSTANTIATE_PARAMS.HERRNODE_OUT); }
     /** Unsafe version of {@link #result_out}. */
-    public static int nresult_out(long struct) { return UNSAFE.getInt(null, struct + CUDA_GRAPH_INSTANTIATE_PARAMS.RESULT_OUT); }
+    public static int nresult_out(long struct) { return memGetInt(struct + CUDA_GRAPH_INSTANTIATE_PARAMS.RESULT_OUT); }
 
     // -----------------------------------
 
@@ -246,6 +244,11 @@ public class CUDA_GRAPH_INSTANTIATE_PARAMS extends Struct<CUDA_GRAPH_INSTANTIATE
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.lz4;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -124,8 +124,7 @@ public class LZ4StreamInternal extends Struct<LZ4StreamInternal> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4StreamInternal createSafe(long address) {
+    public static @Nullable LZ4StreamInternal createSafe(long address) {
         return address == NULL ? null : new LZ4StreamInternal(address, null);
     }
 
@@ -140,8 +139,7 @@ public class LZ4StreamInternal extends Struct<LZ4StreamInternal> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4StreamInternal.Buffer createSafe(long address, int capacity) {
+    public static LZ4StreamInternal.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -151,18 +149,18 @@ public class LZ4StreamInternal extends Struct<LZ4StreamInternal> {
     public static IntBuffer nhashTable(long struct) { return memIntBuffer(struct + LZ4StreamInternal.HASHTABLE, LZ4_HASH_SIZE_U32); }
     /** Unsafe version of {@link #hashTable(int) hashTable}. */
     public static int nhashTable(long struct, int index) {
-        return UNSAFE.getInt(null, struct + LZ4StreamInternal.HASHTABLE + check(index, LZ4_HASH_SIZE_U32) * 4);
+        return memGetInt(struct + LZ4StreamInternal.HASHTABLE + check(index, LZ4_HASH_SIZE_U32) * 4);
     }
     /** Unsafe version of {@link #dictionary(int) dictionary}. */
     public static ByteBuffer ndictionary(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + LZ4StreamInternal.DICTIONARY), capacity); }
     /** Unsafe version of {@link #dictCtx}. */
     public static LZ4StreamInternal ndictCtx(long struct) { return LZ4StreamInternal.create(memGetAddress(struct + LZ4StreamInternal.DICTCTX)); }
     /** Unsafe version of {@link #currentOffset}. */
-    public static int ncurrentOffset(long struct) { return UNSAFE.getInt(null, struct + LZ4StreamInternal.CURRENTOFFSET); }
+    public static int ncurrentOffset(long struct) { return memGetInt(struct + LZ4StreamInternal.CURRENTOFFSET); }
     /** Unsafe version of {@link #tableType}. */
-    public static int ntableType(long struct) { return UNSAFE.getInt(null, struct + LZ4StreamInternal.TABLETYPE); }
+    public static int ntableType(long struct) { return memGetInt(struct + LZ4StreamInternal.TABLETYPE); }
     /** Unsafe version of {@link #dictSize}. */
-    public static int ndictSize(long struct) { return UNSAFE.getInt(null, struct + LZ4StreamInternal.DICTSIZE); }
+    public static int ndictSize(long struct) { return memGetInt(struct + LZ4StreamInternal.DICTSIZE); }
 
     // -----------------------------------
 
@@ -195,6 +193,11 @@ public class LZ4StreamInternal extends Struct<LZ4StreamInternal> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

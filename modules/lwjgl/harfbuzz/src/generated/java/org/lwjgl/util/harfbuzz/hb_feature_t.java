@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class hb_feature_t extends Struct<hb_feature_t> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_feature_t createSafe(long address) {
+    public static @Nullable hb_feature_t createSafe(long address) {
         return address == NULL ? null : new hb_feature_t(address, null);
     }
 
@@ -207,8 +206,7 @@ public class hb_feature_t extends Struct<hb_feature_t> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_feature_t.Buffer createSafe(long address, int capacity) {
+    public static hb_feature_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,22 +251,22 @@ public class hb_feature_t extends Struct<hb_feature_t> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #tag}. */
-    public static int ntag(long struct) { return UNSAFE.getInt(null, struct + hb_feature_t.TAG); }
+    public static int ntag(long struct) { return memGetInt(struct + hb_feature_t.TAG); }
     /** Unsafe version of {@link #value}. */
-    public static int nvalue(long struct) { return UNSAFE.getInt(null, struct + hb_feature_t.VALUE); }
+    public static int nvalue(long struct) { return memGetInt(struct + hb_feature_t.VALUE); }
     /** Unsafe version of {@link #start}. */
-    public static int nstart(long struct) { return UNSAFE.getInt(null, struct + hb_feature_t.START); }
+    public static int nstart(long struct) { return memGetInt(struct + hb_feature_t.START); }
     /** Unsafe version of {@link #end}. */
-    public static int nend(long struct) { return UNSAFE.getInt(null, struct + hb_feature_t.END); }
+    public static int nend(long struct) { return memGetInt(struct + hb_feature_t.END); }
 
     /** Unsafe version of {@link #tag(int) tag}. */
-    public static void ntag(long struct, int value) { UNSAFE.putInt(null, struct + hb_feature_t.TAG, value); }
+    public static void ntag(long struct, int value) { memPutInt(struct + hb_feature_t.TAG, value); }
     /** Unsafe version of {@link #value(int) value}. */
-    public static void nvalue(long struct, int value) { UNSAFE.putInt(null, struct + hb_feature_t.VALUE, value); }
+    public static void nvalue(long struct, int value) { memPutInt(struct + hb_feature_t.VALUE, value); }
     /** Unsafe version of {@link #start(int) start}. */
-    public static void nstart(long struct, int value) { UNSAFE.putInt(null, struct + hb_feature_t.START, value); }
+    public static void nstart(long struct, int value) { memPutInt(struct + hb_feature_t.START, value); }
     /** Unsafe version of {@link #end(int) end}. */
-    public static void nend(long struct, int value) { UNSAFE.putInt(null, struct + hb_feature_t.END, value); }
+    public static void nend(long struct, int value) { memPutInt(struct + hb_feature_t.END, value); }
 
     // -----------------------------------
 
@@ -301,6 +299,11 @@ public class hb_feature_t extends Struct<hb_feature_t> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -134,8 +134,7 @@ public class LLVMJITEvaluatedSymbol extends Struct<LLVMJITEvaluatedSymbol> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMJITEvaluatedSymbol createSafe(long address) {
+    public static @Nullable LLVMJITEvaluatedSymbol createSafe(long address) {
         return address == NULL ? null : new LLVMJITEvaluatedSymbol(address, null);
     }
 
@@ -178,8 +177,7 @@ public class LLVMJITEvaluatedSymbol extends Struct<LLVMJITEvaluatedSymbol> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMJITEvaluatedSymbol.Buffer createSafe(long address, int capacity) {
+    public static LLVMJITEvaluatedSymbol.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -224,12 +222,12 @@ public class LLVMJITEvaluatedSymbol extends Struct<LLVMJITEvaluatedSymbol> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #Address}. */
-    public static long nAddress(long struct) { return UNSAFE.getLong(null, struct + LLVMJITEvaluatedSymbol.ADDRESS); }
+    public static long nAddress(long struct) { return memGetLong(struct + LLVMJITEvaluatedSymbol.ADDRESS); }
     /** Unsafe version of {@link #Flags}. */
     public static LLVMJITSymbolFlags nFlags(long struct) { return LLVMJITSymbolFlags.create(struct + LLVMJITEvaluatedSymbol.FLAGS); }
 
     /** Unsafe version of {@link #Address(long) Address}. */
-    public static void nAddress(long struct, long value) { UNSAFE.putLong(null, struct + LLVMJITEvaluatedSymbol.ADDRESS, value); }
+    public static void nAddress(long struct, long value) { memPutLong(struct + LLVMJITEvaluatedSymbol.ADDRESS, value); }
     /** Unsafe version of {@link #Flags(LLVMJITSymbolFlags) Flags}. */
     public static void nFlags(long struct, LLVMJITSymbolFlags value) { memCopy(value.address(), struct + LLVMJITEvaluatedSymbol.FLAGS, LLVMJITSymbolFlags.SIZEOF); }
 
@@ -264,6 +262,11 @@ public class LLVMJITEvaluatedSymbol extends Struct<LLVMJITEvaluatedSymbol> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

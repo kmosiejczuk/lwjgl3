@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -110,13 +110,11 @@ public class FMOD_STUDIO_USER_PROPERTY extends Struct<FMOD_STUDIO_USER_PROPERTY>
     /** @return the value of the {@code floatvalue} field. */
     public float floatvalue() { return nfloatvalue(address()); }
     /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code stringvalue} field. */
-    @Nullable
     @NativeType("char const *")
-    public ByteBuffer stringvalue() { return nstringvalue(address()); }
+    public @Nullable ByteBuffer stringvalue() { return nstringvalue(address()); }
     /** @return the null-terminated string pointed to by the {@code stringvalue} field. */
-    @Nullable
     @NativeType("char const *")
-    public String stringvalueString() { return nstringvalueString(address()); }
+    public @Nullable String stringvalueString() { return nstringvalueString(address()); }
 
     /** Sets the address of the specified encoded string to the {@code name} field. */
     public FMOD_STUDIO_USER_PROPERTY name(@NativeType("char const *") ByteBuffer value) { nname(address(), value); return this; }
@@ -167,8 +165,7 @@ public class FMOD_STUDIO_USER_PROPERTY extends Struct<FMOD_STUDIO_USER_PROPERTY>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_USER_PROPERTY createSafe(long address) {
+    public static @Nullable FMOD_STUDIO_USER_PROPERTY createSafe(long address) {
         return address == NULL ? null : new FMOD_STUDIO_USER_PROPERTY(address, null);
     }
 
@@ -211,8 +208,7 @@ public class FMOD_STUDIO_USER_PROPERTY extends Struct<FMOD_STUDIO_USER_PROPERTY>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_USER_PROPERTY.Buffer createSafe(long address, int capacity) {
+    public static FMOD_STUDIO_USER_PROPERTY.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,17 +257,17 @@ public class FMOD_STUDIO_USER_PROPERTY extends Struct<FMOD_STUDIO_USER_PROPERTY>
     /** Unsafe version of {@link #nameString}. */
     public static String nnameString(long struct) { return memUTF8(memGetAddress(struct + FMOD_STUDIO_USER_PROPERTY.NAME)); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_USER_PROPERTY.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + FMOD_STUDIO_USER_PROPERTY.TYPE); }
     /** Unsafe version of {@link #intvalue}. */
-    public static int nintvalue(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_USER_PROPERTY.INTVALUE); }
+    public static int nintvalue(long struct) { return memGetInt(struct + FMOD_STUDIO_USER_PROPERTY.INTVALUE); }
     /** Unsafe version of {@link #boolvalue}. */
-    public static int nboolvalue(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_USER_PROPERTY.BOOLVALUE); }
+    public static int nboolvalue(long struct) { return memGetInt(struct + FMOD_STUDIO_USER_PROPERTY.BOOLVALUE); }
     /** Unsafe version of {@link #floatvalue}. */
-    public static float nfloatvalue(long struct) { return UNSAFE.getFloat(null, struct + FMOD_STUDIO_USER_PROPERTY.FLOATVALUE); }
+    public static float nfloatvalue(long struct) { return memGetFloat(struct + FMOD_STUDIO_USER_PROPERTY.FLOATVALUE); }
     /** Unsafe version of {@link #stringvalue}. */
-    @Nullable public static ByteBuffer nstringvalue(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + FMOD_STUDIO_USER_PROPERTY.STRINGVALUE)); }
+    public static @Nullable ByteBuffer nstringvalue(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + FMOD_STUDIO_USER_PROPERTY.STRINGVALUE)); }
     /** Unsafe version of {@link #stringvalueString}. */
-    @Nullable public static String nstringvalueString(long struct) { return memUTF8Safe(memGetAddress(struct + FMOD_STUDIO_USER_PROPERTY.STRINGVALUE)); }
+    public static @Nullable String nstringvalueString(long struct) { return memUTF8Safe(memGetAddress(struct + FMOD_STUDIO_USER_PROPERTY.STRINGVALUE)); }
 
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
@@ -279,13 +275,13 @@ public class FMOD_STUDIO_USER_PROPERTY extends Struct<FMOD_STUDIO_USER_PROPERTY>
         memPutAddress(struct + FMOD_STUDIO_USER_PROPERTY.NAME, memAddress(value));
     }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_USER_PROPERTY.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + FMOD_STUDIO_USER_PROPERTY.TYPE, value); }
     /** Unsafe version of {@link #intvalue(int) intvalue}. */
-    public static void nintvalue(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_USER_PROPERTY.INTVALUE, value); }
+    public static void nintvalue(long struct, int value) { memPutInt(struct + FMOD_STUDIO_USER_PROPERTY.INTVALUE, value); }
     /** Unsafe version of {@link #boolvalue(int) boolvalue}. */
-    public static void nboolvalue(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_USER_PROPERTY.BOOLVALUE, value); }
+    public static void nboolvalue(long struct, int value) { memPutInt(struct + FMOD_STUDIO_USER_PROPERTY.BOOLVALUE, value); }
     /** Unsafe version of {@link #floatvalue(float) floatvalue}. */
-    public static void nfloatvalue(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_STUDIO_USER_PROPERTY.FLOATVALUE, value); }
+    public static void nfloatvalue(long struct, float value) { memPutFloat(struct + FMOD_STUDIO_USER_PROPERTY.FLOATVALUE, value); }
     /** Unsafe version of {@link #stringvalue(ByteBuffer) stringvalue}. */
     public static void nstringvalue(long struct, @Nullable ByteBuffer value) {
         if (CHECKS) { checkNT1Safe(value); }
@@ -335,6 +331,11 @@ public class FMOD_STUDIO_USER_PROPERTY extends Struct<FMOD_STUDIO_USER_PROPERTY>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FMOD_STUDIO_USER_PROPERTY getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -356,13 +357,11 @@ public class FMOD_STUDIO_USER_PROPERTY extends Struct<FMOD_STUDIO_USER_PROPERTY>
         /** @return the value of the {@code floatvalue} field. */
         public float floatvalue() { return FMOD_STUDIO_USER_PROPERTY.nfloatvalue(address()); }
         /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code stringvalue} field. */
-        @Nullable
         @NativeType("char const *")
-        public ByteBuffer stringvalue() { return FMOD_STUDIO_USER_PROPERTY.nstringvalue(address()); }
+        public @Nullable ByteBuffer stringvalue() { return FMOD_STUDIO_USER_PROPERTY.nstringvalue(address()); }
         /** @return the null-terminated string pointed to by the {@code stringvalue} field. */
-        @Nullable
         @NativeType("char const *")
-        public String stringvalueString() { return FMOD_STUDIO_USER_PROPERTY.nstringvalueString(address()); }
+        public @Nullable String stringvalueString() { return FMOD_STUDIO_USER_PROPERTY.nstringvalueString(address()); }
 
         /** Sets the address of the specified encoded string to the {@code name} field. */
         public FMOD_STUDIO_USER_PROPERTY.Buffer name(@NativeType("char const *") ByteBuffer value) { FMOD_STUDIO_USER_PROPERTY.nname(address(), value); return this; }

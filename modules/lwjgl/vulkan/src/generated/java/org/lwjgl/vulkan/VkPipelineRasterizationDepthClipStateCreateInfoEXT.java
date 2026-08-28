@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -98,7 +98,7 @@ public class VkPipelineRasterizationDepthClipStateCreateInfoEXT extends Struct<V
     /** reserved for future use. */
     @NativeType("VkPipelineRasterizationDepthClipStateCreateFlagsEXT")
     public int flags() { return nflags(address()); }
-    /** controls whether depth clipping is enabled as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vertexpostproc-clipping">Primitive Clipping</a>. */
+    /** controls whether depth clipping is enabled as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vertexpostproc-clipping">Primitive Clipping</a>. */
     @NativeType("VkBool32")
     public boolean depthClipEnable() { return ndepthClipEnable(address()) != 0; }
 
@@ -164,8 +164,7 @@ public class VkPipelineRasterizationDepthClipStateCreateInfoEXT extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationDepthClipStateCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineRasterizationDepthClipStateCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineRasterizationDepthClipStateCreateInfoEXT(address, null);
     }
 
@@ -208,8 +207,7 @@ public class VkPipelineRasterizationDepthClipStateCreateInfoEXT extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationDepthClipStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineRasterizationDepthClipStateCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,22 +271,22 @@ public class VkPipelineRasterizationDepthClipStateCreateInfoEXT extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.FLAGS); }
     /** Unsafe version of {@link #depthClipEnable}. */
-    public static int ndepthClipEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.DEPTHCLIPENABLE); }
+    public static int ndepthClipEnable(long struct) { return memGetInt(struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.DEPTHCLIPENABLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.FLAGS, value); }
     /** Unsafe version of {@link #depthClipEnable(boolean) depthClipEnable}. */
-    public static void ndepthClipEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.DEPTHCLIPENABLE, value); }
+    public static void ndepthClipEnable(long struct, int value) { memPutInt(struct + VkPipelineRasterizationDepthClipStateCreateInfoEXT.DEPTHCLIPENABLE, value); }
 
     // -----------------------------------
 
@@ -321,6 +319,11 @@ public class VkPipelineRasterizationDepthClipStateCreateInfoEXT extends Struct<V
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

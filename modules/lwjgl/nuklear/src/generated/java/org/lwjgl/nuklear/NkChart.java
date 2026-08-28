@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -115,8 +115,7 @@ public class NkChart extends Struct<NkChart> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkChart createSafe(long address) {
+    public static @Nullable NkChart createSafe(long address) {
         return address == NULL ? null : new NkChart(address, null);
     }
 
@@ -131,23 +130,22 @@ public class NkChart extends Struct<NkChart> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkChart.Buffer createSafe(long address, int capacity) {
+    public static NkChart.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #slot}. */
-    public static int nslot(long struct) { return UNSAFE.getInt(null, struct + NkChart.SLOT); }
+    public static int nslot(long struct) { return memGetInt(struct + NkChart.SLOT); }
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + NkChart.X); }
+    public static float nx(long struct) { return memGetFloat(struct + NkChart.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + NkChart.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + NkChart.Y); }
     /** Unsafe version of {@link #w}. */
-    public static float nw(long struct) { return UNSAFE.getFloat(null, struct + NkChart.W); }
+    public static float nw(long struct) { return memGetFloat(struct + NkChart.W); }
     /** Unsafe version of {@link #h}. */
-    public static float nh(long struct) { return UNSAFE.getFloat(null, struct + NkChart.H); }
+    public static float nh(long struct) { return memGetFloat(struct + NkChart.H); }
     /** Unsafe version of {@link #slots}. */
     public static NkChartSlot.Buffer nslots(long struct) { return NkChartSlot.create(struct + NkChart.SLOTS, NK_CHART_MAX_SLOT); }
     /** Unsafe version of {@link #slots(int) slots}. */
@@ -186,6 +184,11 @@ public class NkChart extends Struct<NkChart> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

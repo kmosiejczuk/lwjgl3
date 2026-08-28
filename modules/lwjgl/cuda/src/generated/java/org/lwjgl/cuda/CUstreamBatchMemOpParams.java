@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -302,8 +302,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUstreamBatchMemOpParams createSafe(long address) {
+    public static @Nullable CUstreamBatchMemOpParams createSafe(long address) {
         return address == NULL ? null : new CUstreamBatchMemOpParams(address, null);
     }
 
@@ -346,8 +345,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUstreamBatchMemOpParams.Buffer createSafe(long address, int capacity) {
+    public static CUstreamBatchMemOpParams.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -411,80 +409,80 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     // -----------------------------------
 
     /** Unsafe version of {@link #operation}. */
-    public static int noperation(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.OPERATION); }
+    public static int noperation(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.OPERATION); }
     /** Unsafe version of {@link #waitValue_operation}. */
-    public static int nwaitValue_operation(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.WAITVALUE_OPERATION); }
+    public static int nwaitValue_operation(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.WAITVALUE_OPERATION); }
     /** Unsafe version of {@link #waitValue_address}. */
     public static long nwaitValue_address(long struct) { return memGetAddress(struct + CUstreamBatchMemOpParams.WAITVALUE_ADDRESS); }
     /** Unsafe version of {@link #waitValue_value}. */
-    public static int nwaitValue_value(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.WAITVALUE_VALUE); }
+    public static int nwaitValue_value(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.WAITVALUE_VALUE); }
     /** Unsafe version of {@link #waitValue_value64}. */
-    public static long nwaitValue_value64(long struct) { return UNSAFE.getLong(null, struct + CUstreamBatchMemOpParams.WAITVALUE_VALUE64); }
+    public static long nwaitValue_value64(long struct) { return memGetLong(struct + CUstreamBatchMemOpParams.WAITVALUE_VALUE64); }
     /** Unsafe version of {@link #waitValue_flags}. */
-    public static int nwaitValue_flags(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.WAITVALUE_FLAGS); }
+    public static int nwaitValue_flags(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.WAITVALUE_FLAGS); }
     /** Unsafe version of {@link #waitValue_alias}. */
     public static long nwaitValue_alias(long struct) { return memGetAddress(struct + CUstreamBatchMemOpParams.WAITVALUE_ALIAS); }
     /** Unsafe version of {@link #writeValue_operation}. */
-    public static int nwriteValue_operation(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.WRITEVALUE_OPERATION); }
+    public static int nwriteValue_operation(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.WRITEVALUE_OPERATION); }
     /** Unsafe version of {@link #writeValue_address}. */
     public static long nwriteValue_address(long struct) { return memGetAddress(struct + CUstreamBatchMemOpParams.WRITEVALUE_ADDRESS); }
     /** Unsafe version of {@link #writeValue_value}. */
-    public static int nwriteValue_value(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.WRITEVALUE_VALUE); }
+    public static int nwriteValue_value(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.WRITEVALUE_VALUE); }
     /** Unsafe version of {@link #writeValue_value64}. */
-    public static long nwriteValue_value64(long struct) { return UNSAFE.getLong(null, struct + CUstreamBatchMemOpParams.WRITEVALUE_VALUE64); }
+    public static long nwriteValue_value64(long struct) { return memGetLong(struct + CUstreamBatchMemOpParams.WRITEVALUE_VALUE64); }
     /** Unsafe version of {@link #writeValue_flags}. */
-    public static int nwriteValue_flags(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.WRITEVALUE_FLAGS); }
+    public static int nwriteValue_flags(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.WRITEVALUE_FLAGS); }
     /** Unsafe version of {@link #writeValue_alias}. */
     public static long nwriteValue_alias(long struct) { return memGetAddress(struct + CUstreamBatchMemOpParams.WRITEVALUE_ALIAS); }
     /** Unsafe version of {@link #flushRemoteWrites_operation}. */
-    public static int nflushRemoteWrites_operation(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_OPERATION); }
+    public static int nflushRemoteWrites_operation(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_OPERATION); }
     /** Unsafe version of {@link #flushRemoteWrites_flags}. */
-    public static int nflushRemoteWrites_flags(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_FLAGS); }
+    public static int nflushRemoteWrites_flags(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_FLAGS); }
     /** Unsafe version of {@link #memoryBarrier_operation}. */
-    public static int nmemoryBarrier_operation(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.MEMORYBARRIER_OPERATION); }
+    public static int nmemoryBarrier_operation(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.MEMORYBARRIER_OPERATION); }
     /** Unsafe version of {@link #memoryBarrier_flags}. */
-    public static int nmemoryBarrier_flags(long struct) { return UNSAFE.getInt(null, struct + CUstreamBatchMemOpParams.MEMORYBARRIER_FLAGS); }
+    public static int nmemoryBarrier_flags(long struct) { return memGetInt(struct + CUstreamBatchMemOpParams.MEMORYBARRIER_FLAGS); }
     /** Unsafe version of {@link #pad}. */
     public static LongBuffer npad(long struct) { return memLongBuffer(struct + CUstreamBatchMemOpParams.PAD, 6); }
     /** Unsafe version of {@link #pad(int) pad}. */
     public static long npad(long struct, int index) {
-        return UNSAFE.getLong(null, struct + CUstreamBatchMemOpParams.PAD + check(index, 6) * 8);
+        return memGetLong(struct + CUstreamBatchMemOpParams.PAD + check(index, 6) * 8);
     }
 
     /** Unsafe version of {@link #operation(int) operation}. */
-    public static void noperation(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.OPERATION, value); }
+    public static void noperation(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.OPERATION, value); }
     /** Unsafe version of {@link #waitValue_operation(int) waitValue_operation}. */
-    public static void nwaitValue_operation(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.WAITVALUE_OPERATION, value); }
+    public static void nwaitValue_operation(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.WAITVALUE_OPERATION, value); }
     /** Unsafe version of {@link #waitValue_address(long) waitValue_address}. */
     public static void nwaitValue_address(long struct, long value) { memPutAddress(struct + CUstreamBatchMemOpParams.WAITVALUE_ADDRESS, value); }
     /** Unsafe version of {@link #waitValue_value(int) waitValue_value}. */
-    public static void nwaitValue_value(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.WAITVALUE_VALUE, value); }
+    public static void nwaitValue_value(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.WAITVALUE_VALUE, value); }
     /** Unsafe version of {@link #waitValue_value64(long) waitValue_value64}. */
-    public static void nwaitValue_value64(long struct, long value) { UNSAFE.putLong(null, struct + CUstreamBatchMemOpParams.WAITVALUE_VALUE64, value); }
+    public static void nwaitValue_value64(long struct, long value) { memPutLong(struct + CUstreamBatchMemOpParams.WAITVALUE_VALUE64, value); }
     /** Unsafe version of {@link #waitValue_flags(int) waitValue_flags}. */
-    public static void nwaitValue_flags(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.WAITVALUE_FLAGS, value); }
+    public static void nwaitValue_flags(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.WAITVALUE_FLAGS, value); }
     /** Unsafe version of {@link #waitValue_alias(long) waitValue_alias}. */
     public static void nwaitValue_alias(long struct, long value) { memPutAddress(struct + CUstreamBatchMemOpParams.WAITVALUE_ALIAS, value); }
     /** Unsafe version of {@link #writeValue_operation(int) writeValue_operation}. */
-    public static void nwriteValue_operation(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.WRITEVALUE_OPERATION, value); }
+    public static void nwriteValue_operation(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.WRITEVALUE_OPERATION, value); }
     /** Unsafe version of {@link #writeValue_address(long) writeValue_address}. */
     public static void nwriteValue_address(long struct, long value) { memPutAddress(struct + CUstreamBatchMemOpParams.WRITEVALUE_ADDRESS, value); }
     /** Unsafe version of {@link #writeValue_value(int) writeValue_value}. */
-    public static void nwriteValue_value(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.WRITEVALUE_VALUE, value); }
+    public static void nwriteValue_value(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.WRITEVALUE_VALUE, value); }
     /** Unsafe version of {@link #writeValue_value64(long) writeValue_value64}. */
-    public static void nwriteValue_value64(long struct, long value) { UNSAFE.putLong(null, struct + CUstreamBatchMemOpParams.WRITEVALUE_VALUE64, value); }
+    public static void nwriteValue_value64(long struct, long value) { memPutLong(struct + CUstreamBatchMemOpParams.WRITEVALUE_VALUE64, value); }
     /** Unsafe version of {@link #writeValue_flags(int) writeValue_flags}. */
-    public static void nwriteValue_flags(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.WRITEVALUE_FLAGS, value); }
+    public static void nwriteValue_flags(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.WRITEVALUE_FLAGS, value); }
     /** Unsafe version of {@link #writeValue_alias(long) writeValue_alias}. */
     public static void nwriteValue_alias(long struct, long value) { memPutAddress(struct + CUstreamBatchMemOpParams.WRITEVALUE_ALIAS, value); }
     /** Unsafe version of {@link #flushRemoteWrites_operation(int) flushRemoteWrites_operation}. */
-    public static void nflushRemoteWrites_operation(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_OPERATION, value); }
+    public static void nflushRemoteWrites_operation(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_OPERATION, value); }
     /** Unsafe version of {@link #flushRemoteWrites_flags(int) flushRemoteWrites_flags}. */
-    public static void nflushRemoteWrites_flags(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_FLAGS, value); }
+    public static void nflushRemoteWrites_flags(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.FLUSHREMOTEWRITES_FLAGS, value); }
     /** Unsafe version of {@link #memoryBarrier_operation(int) memoryBarrier_operation}. */
-    public static void nmemoryBarrier_operation(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.MEMORYBARRIER_OPERATION, value); }
+    public static void nmemoryBarrier_operation(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.MEMORYBARRIER_OPERATION, value); }
     /** Unsafe version of {@link #memoryBarrier_flags(int) memoryBarrier_flags}. */
-    public static void nmemoryBarrier_flags(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamBatchMemOpParams.MEMORYBARRIER_FLAGS, value); }
+    public static void nmemoryBarrier_flags(long struct, int value) { memPutInt(struct + CUstreamBatchMemOpParams.MEMORYBARRIER_FLAGS, value); }
     /** Unsafe version of {@link #pad(LongBuffer) pad}. */
     public static void npad(long struct, LongBuffer value) {
         if (CHECKS) { checkGT(value, 6); }
@@ -492,7 +490,7 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
     }
     /** Unsafe version of {@link #pad(int, long) pad}. */
     public static void npad(long struct, int index, long value) {
-        UNSAFE.putLong(null, struct + CUstreamBatchMemOpParams.PAD + check(index, 6) * 8, value);
+        memPutLong(struct + CUstreamBatchMemOpParams.PAD + check(index, 6) * 8, value);
     }
 
     // -----------------------------------
@@ -526,6 +524,11 @@ public class CUstreamBatchMemOpParams extends Struct<CUstreamBatchMemOpParams> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

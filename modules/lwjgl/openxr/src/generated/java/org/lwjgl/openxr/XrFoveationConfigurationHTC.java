@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class XrFoveationConfigurationHTC extends Struct<XrFoveationConfiguration
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationConfigurationHTC createSafe(long address) {
+    public static @Nullable XrFoveationConfigurationHTC createSafe(long address) {
         return address == NULL ? null : new XrFoveationConfigurationHTC(address, null);
     }
 
@@ -199,8 +198,7 @@ public class XrFoveationConfigurationHTC extends Struct<XrFoveationConfiguration
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationConfigurationHTC.Buffer createSafe(long address, int capacity) {
+    public static XrFoveationConfigurationHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,16 +243,16 @@ public class XrFoveationConfigurationHTC extends Struct<XrFoveationConfiguration
     // -----------------------------------
 
     /** Unsafe version of {@link #level}. */
-    public static int nlevel(long struct) { return UNSAFE.getInt(null, struct + XrFoveationConfigurationHTC.LEVEL); }
+    public static int nlevel(long struct) { return memGetInt(struct + XrFoveationConfigurationHTC.LEVEL); }
     /** Unsafe version of {@link #clearFovDegree}. */
-    public static float nclearFovDegree(long struct) { return UNSAFE.getFloat(null, struct + XrFoveationConfigurationHTC.CLEARFOVDEGREE); }
+    public static float nclearFovDegree(long struct) { return memGetFloat(struct + XrFoveationConfigurationHTC.CLEARFOVDEGREE); }
     /** Unsafe version of {@link #focalCenterOffset}. */
     public static XrVector2f nfocalCenterOffset(long struct) { return XrVector2f.create(struct + XrFoveationConfigurationHTC.FOCALCENTEROFFSET); }
 
     /** Unsafe version of {@link #level(int) level}. */
-    public static void nlevel(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationConfigurationHTC.LEVEL, value); }
+    public static void nlevel(long struct, int value) { memPutInt(struct + XrFoveationConfigurationHTC.LEVEL, value); }
     /** Unsafe version of {@link #clearFovDegree(float) clearFovDegree}. */
-    public static void nclearFovDegree(long struct, float value) { UNSAFE.putFloat(null, struct + XrFoveationConfigurationHTC.CLEARFOVDEGREE, value); }
+    public static void nclearFovDegree(long struct, float value) { memPutFloat(struct + XrFoveationConfigurationHTC.CLEARFOVDEGREE, value); }
     /** Unsafe version of {@link #focalCenterOffset(XrVector2f) focalCenterOffset}. */
     public static void nfocalCenterOffset(long struct, XrVector2f value) { memCopy(value.address(), struct + XrFoveationConfigurationHTC.FOCALCENTEROFFSET, XrVector2f.SIZEOF); }
 
@@ -289,6 +287,11 @@ public class XrFoveationConfigurationHTC extends Struct<XrFoveationConfiguration
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

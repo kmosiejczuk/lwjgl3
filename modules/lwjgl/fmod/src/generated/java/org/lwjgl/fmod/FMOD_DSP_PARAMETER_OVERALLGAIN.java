@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -129,8 +129,7 @@ public class FMOD_DSP_PARAMETER_OVERALLGAIN extends Struct<FMOD_DSP_PARAMETER_OV
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_OVERALLGAIN createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_OVERALLGAIN createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_OVERALLGAIN(address, null);
     }
 
@@ -173,8 +172,7 @@ public class FMOD_DSP_PARAMETER_OVERALLGAIN extends Struct<FMOD_DSP_PARAMETER_OV
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_OVERALLGAIN.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_OVERALLGAIN.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -219,14 +217,14 @@ public class FMOD_DSP_PARAMETER_OVERALLGAIN extends Struct<FMOD_DSP_PARAMETER_OV
     // -----------------------------------
 
     /** Unsafe version of {@link #linear_gain}. */
-    public static float nlinear_gain(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_PARAMETER_OVERALLGAIN.LINEAR_GAIN); }
+    public static float nlinear_gain(long struct) { return memGetFloat(struct + FMOD_DSP_PARAMETER_OVERALLGAIN.LINEAR_GAIN); }
     /** Unsafe version of {@link #linear_gain_additive}. */
-    public static float nlinear_gain_additive(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_PARAMETER_OVERALLGAIN.LINEAR_GAIN_ADDITIVE); }
+    public static float nlinear_gain_additive(long struct) { return memGetFloat(struct + FMOD_DSP_PARAMETER_OVERALLGAIN.LINEAR_GAIN_ADDITIVE); }
 
     /** Unsafe version of {@link #linear_gain(float) linear_gain}. */
-    public static void nlinear_gain(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_PARAMETER_OVERALLGAIN.LINEAR_GAIN, value); }
+    public static void nlinear_gain(long struct, float value) { memPutFloat(struct + FMOD_DSP_PARAMETER_OVERALLGAIN.LINEAR_GAIN, value); }
     /** Unsafe version of {@link #linear_gain_additive(float) linear_gain_additive}. */
-    public static void nlinear_gain_additive(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_PARAMETER_OVERALLGAIN.LINEAR_GAIN_ADDITIVE, value); }
+    public static void nlinear_gain_additive(long struct, float value) { memPutFloat(struct + FMOD_DSP_PARAMETER_OVERALLGAIN.LINEAR_GAIN_ADDITIVE, value); }
 
     // -----------------------------------
 
@@ -259,6 +257,11 @@ public class FMOD_DSP_PARAMETER_OVERALLGAIN extends Struct<FMOD_DSP_PARAMETER_OV
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -110,8 +110,7 @@ public class CUgraphExecUpdateResultInfo extends Struct<CUgraphExecUpdateResultI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUgraphExecUpdateResultInfo createSafe(long address) {
+    public static @Nullable CUgraphExecUpdateResultInfo createSafe(long address) {
         return address == NULL ? null : new CUgraphExecUpdateResultInfo(address, null);
     }
 
@@ -154,8 +153,7 @@ public class CUgraphExecUpdateResultInfo extends Struct<CUgraphExecUpdateResultI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUgraphExecUpdateResultInfo.Buffer createSafe(long address, int capacity) {
+    public static CUgraphExecUpdateResultInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -200,7 +198,7 @@ public class CUgraphExecUpdateResultInfo extends Struct<CUgraphExecUpdateResultI
     // -----------------------------------
 
     /** Unsafe version of {@link #result}. */
-    public static int nresult(long struct) { return UNSAFE.getInt(null, struct + CUgraphExecUpdateResultInfo.RESULT); }
+    public static int nresult(long struct) { return memGetInt(struct + CUgraphExecUpdateResultInfo.RESULT); }
     /** Unsafe version of {@link #errorNode}. */
     public static long nerrorNode(long struct) { return memGetAddress(struct + CUgraphExecUpdateResultInfo.ERRORNODE); }
     /** Unsafe version of {@link #errorFromNode}. */
@@ -237,6 +235,11 @@ public class CUgraphExecUpdateResultInfo extends Struct<CUgraphExecUpdateResultI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

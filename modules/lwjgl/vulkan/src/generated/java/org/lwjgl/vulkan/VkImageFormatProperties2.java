@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_IMAGE_FORMAT_PROPERTIES_2 STRUCTURE_TYPE_IMAGE_FORMAT_PROPERTIES_2}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkAndroidHardwareBufferUsageANDROID}, {@link VkExternalImageFormatProperties}, {@link VkFilterCubicImageViewImageFormatPropertiesEXT}, {@link VkHostImageCopyDevicePerformanceQueryEXT}, {@link VkImageCompressionPropertiesEXT}, {@link VkSamplerYcbcrConversionImageFormatProperties}, or {@link VkTextureLODGatherFormatPropertiesAMD}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkAndroidHardwareBufferUsageANDROID}, {@link VkExternalImageFormatProperties}, {@link VkFilterCubicImageViewImageFormatPropertiesEXT}, {@link VkHostImageCopyDevicePerformanceQuery}, {@link VkImageCompressionPropertiesEXT}, {@link VkSamplerYcbcrConversionImageFormatProperties}, or {@link VkTextureLODGatherFormatPropertiesAMD}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * </ul>
  * 
@@ -122,6 +122,8 @@ public class VkImageFormatProperties2 extends Struct<VkImageFormatProperties2> i
     public VkImageFormatProperties2 pNext(VkExternalImageFormatPropertiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkFilterCubicImageViewImageFormatPropertiesEXT} value to the {@code pNext} chain. */
     public VkImageFormatProperties2 pNext(VkFilterCubicImageViewImageFormatPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkHostImageCopyDevicePerformanceQuery} value to the {@code pNext} chain. */
+    public VkImageFormatProperties2 pNext(VkHostImageCopyDevicePerformanceQuery value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkHostImageCopyDevicePerformanceQueryEXT} value to the {@code pNext} chain. */
     public VkImageFormatProperties2 pNext(VkHostImageCopyDevicePerformanceQueryEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkImageCompressionPropertiesEXT} value to the {@code pNext} chain. */
@@ -180,8 +182,7 @@ public class VkImageFormatProperties2 extends Struct<VkImageFormatProperties2> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageFormatProperties2 createSafe(long address) {
+    public static @Nullable VkImageFormatProperties2 createSafe(long address) {
         return address == NULL ? null : new VkImageFormatProperties2(address, null);
     }
 
@@ -224,8 +225,7 @@ public class VkImageFormatProperties2 extends Struct<VkImageFormatProperties2> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageFormatProperties2.Buffer createSafe(long address, int capacity) {
+    public static VkImageFormatProperties2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,14 +289,14 @@ public class VkImageFormatProperties2 extends Struct<VkImageFormatProperties2> i
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageFormatProperties2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageFormatProperties2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageFormatProperties2.PNEXT); }
     /** Unsafe version of {@link #imageFormatProperties}. */
     public static VkImageFormatProperties nimageFormatProperties(long struct) { return VkImageFormatProperties.create(struct + VkImageFormatProperties2.IMAGEFORMATPROPERTIES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageFormatProperties2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageFormatProperties2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageFormatProperties2.PNEXT, value); }
 
@@ -334,6 +334,11 @@ public class VkImageFormatProperties2 extends Struct<VkImageFormatProperties2> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkImageFormatProperties2 getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -361,6 +366,8 @@ public class VkImageFormatProperties2 extends Struct<VkImageFormatProperties2> i
         public VkImageFormatProperties2.Buffer pNext(VkExternalImageFormatPropertiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkFilterCubicImageViewImageFormatPropertiesEXT} value to the {@code pNext} chain. */
         public VkImageFormatProperties2.Buffer pNext(VkFilterCubicImageViewImageFormatPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkHostImageCopyDevicePerformanceQuery} value to the {@code pNext} chain. */
+        public VkImageFormatProperties2.Buffer pNext(VkHostImageCopyDevicePerformanceQuery value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkHostImageCopyDevicePerformanceQueryEXT} value to the {@code pNext} chain. */
         public VkImageFormatProperties2.Buffer pNext(VkHostImageCopyDevicePerformanceQueryEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkImageCompressionPropertiesEXT} value to the {@code pNext} chain. */

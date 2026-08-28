@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,8 +137,7 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMetaDataEntry createSafe(long address) {
+    public static @Nullable AIMetaDataEntry createSafe(long address) {
         return address == NULL ? null : new AIMetaDataEntry(address, null);
     }
 
@@ -181,8 +180,7 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMetaDataEntry.Buffer createSafe(long address, int capacity) {
+    public static AIMetaDataEntry.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,12 +244,12 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #mType}. */
-    public static int nmType(long struct) { return UNSAFE.getInt(null, struct + AIMetaDataEntry.MTYPE); }
+    public static int nmType(long struct) { return memGetInt(struct + AIMetaDataEntry.MTYPE); }
     /** Unsafe version of {@link #mData(int) mData}. */
     public static ByteBuffer nmData(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + AIMetaDataEntry.MDATA), capacity); }
 
     /** Unsafe version of {@link #mType(int) mType}. */
-    public static void nmType(long struct, int value) { UNSAFE.putInt(null, struct + AIMetaDataEntry.MTYPE, value); }
+    public static void nmType(long struct, int value) { memPutInt(struct + AIMetaDataEntry.MTYPE, value); }
     /** Unsafe version of {@link #mData(ByteBuffer) mData}. */
     public static void nmData(long struct, ByteBuffer value) { memPutAddress(struct + AIMetaDataEntry.MDATA, memAddress(value)); }
 
@@ -295,6 +293,11 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

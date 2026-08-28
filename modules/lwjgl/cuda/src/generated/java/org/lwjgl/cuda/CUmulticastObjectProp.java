@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class CUmulticastObjectProp extends Struct<CUmulticastObjectProp> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUmulticastObjectProp createSafe(long address) {
+    public static @Nullable CUmulticastObjectProp createSafe(long address) {
         return address == NULL ? null : new CUmulticastObjectProp(address, null);
     }
 
@@ -197,8 +196,7 @@ public class CUmulticastObjectProp extends Struct<CUmulticastObjectProp> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUmulticastObjectProp.Buffer createSafe(long address, int capacity) {
+    public static CUmulticastObjectProp.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,22 +241,22 @@ public class CUmulticastObjectProp extends Struct<CUmulticastObjectProp> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #numDevices}. */
-    public static int nnumDevices(long struct) { return UNSAFE.getInt(null, struct + CUmulticastObjectProp.NUMDEVICES); }
+    public static int nnumDevices(long struct) { return memGetInt(struct + CUmulticastObjectProp.NUMDEVICES); }
     /** Unsafe version of {@link #size}. */
     public static long nsize(long struct) { return memGetAddress(struct + CUmulticastObjectProp.SIZE); }
     /** Unsafe version of {@link #handleTypes}. */
-    public static long nhandleTypes(long struct) { return UNSAFE.getLong(null, struct + CUmulticastObjectProp.HANDLETYPES); }
+    public static long nhandleTypes(long struct) { return memGetLong(struct + CUmulticastObjectProp.HANDLETYPES); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + CUmulticastObjectProp.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + CUmulticastObjectProp.FLAGS); }
 
     /** Unsafe version of {@link #numDevices(int) numDevices}. */
-    public static void nnumDevices(long struct, int value) { UNSAFE.putInt(null, struct + CUmulticastObjectProp.NUMDEVICES, value); }
+    public static void nnumDevices(long struct, int value) { memPutInt(struct + CUmulticastObjectProp.NUMDEVICES, value); }
     /** Unsafe version of {@link #size(long) size}. */
     public static void nsize(long struct, long value) { memPutAddress(struct + CUmulticastObjectProp.SIZE, value); }
     /** Unsafe version of {@link #handleTypes(long) handleTypes}. */
-    public static void nhandleTypes(long struct, long value) { UNSAFE.putLong(null, struct + CUmulticastObjectProp.HANDLETYPES, value); }
+    public static void nhandleTypes(long struct, long value) { memPutLong(struct + CUmulticastObjectProp.HANDLETYPES, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + CUmulticastObjectProp.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + CUmulticastObjectProp.FLAGS, value); }
 
     // -----------------------------------
 
@@ -291,6 +289,11 @@ public class CUmulticastObjectProp extends Struct<CUmulticastObjectProp> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

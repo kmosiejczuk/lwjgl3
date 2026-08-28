@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUmemAccessDesc createSafe(long address) {
+    public static @Nullable CUmemAccessDesc createSafe(long address) {
         return address == NULL ? null : new CUmemAccessDesc(address, null);
     }
 
@@ -176,8 +175,7 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUmemAccessDesc.Buffer createSafe(long address, int capacity) {
+    public static CUmemAccessDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -224,12 +222,12 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
     /** Unsafe version of {@link #location}. */
     public static CUmemLocation nlocation(long struct) { return CUmemLocation.create(struct + CUmemAccessDesc.LOCATION); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + CUmemAccessDesc.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + CUmemAccessDesc.FLAGS); }
 
     /** Unsafe version of {@link #location(CUmemLocation) location}. */
     public static void nlocation(long struct, CUmemLocation value) { memCopy(value.address(), struct + CUmemAccessDesc.LOCATION, CUmemLocation.SIZEOF); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + CUmemAccessDesc.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + CUmemAccessDesc.FLAGS, value); }
 
     // -----------------------------------
 
@@ -262,6 +260,11 @@ public class CUmemAccessDesc extends Struct<CUmemAccessDesc> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

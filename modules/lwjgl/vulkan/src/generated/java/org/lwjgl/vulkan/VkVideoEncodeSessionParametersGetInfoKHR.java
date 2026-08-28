@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkVideoEncodeSessionParametersGetInfoKHR extends Struct<VkVideoEnco
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeSessionParametersGetInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeSessionParametersGetInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeSessionParametersGetInfoKHR(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkVideoEncodeSessionParametersGetInfoKHR extends Struct<VkVideoEnco
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeSessionParametersGetInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeSessionParametersGetInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,18 +255,18 @@ public class VkVideoEncodeSessionParametersGetInfoKHR extends Struct<VkVideoEnco
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeSessionParametersGetInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeSessionParametersGetInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeSessionParametersGetInfoKHR.PNEXT); }
     /** Unsafe version of {@link #videoSessionParameters}. */
-    public static long nvideoSessionParameters(long struct) { return UNSAFE.getLong(null, struct + VkVideoEncodeSessionParametersGetInfoKHR.VIDEOSESSIONPARAMETERS); }
+    public static long nvideoSessionParameters(long struct) { return memGetLong(struct + VkVideoEncodeSessionParametersGetInfoKHR.VIDEOSESSIONPARAMETERS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeSessionParametersGetInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeSessionParametersGetInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeSessionParametersGetInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #videoSessionParameters(long) videoSessionParameters}. */
-    public static void nvideoSessionParameters(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoEncodeSessionParametersGetInfoKHR.VIDEOSESSIONPARAMETERS, value); }
+    public static void nvideoSessionParameters(long struct, long value) { memPutLong(struct + VkVideoEncodeSessionParametersGetInfoKHR.VIDEOSESSIONPARAMETERS, value); }
 
     // -----------------------------------
 
@@ -301,6 +299,11 @@ public class VkVideoEncodeSessionParametersGetInfoKHR extends Struct<VkVideoEnco
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

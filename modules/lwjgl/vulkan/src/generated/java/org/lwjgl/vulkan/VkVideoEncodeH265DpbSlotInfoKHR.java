@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,23 +23,23 @@ import org.lwjgl.vulkan.video.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>This structure is specified in the {@code pNext} chain of {@link VkVideoEncodeInfoKHR}{@code ::pSetupReferenceSlot}, if not {@code NULL}, and the {@code pNext} chain of the elements of {@link VkVideoEncodeInfoKHR}{@code ::pReferenceSlots} to specify the codec-specific reference picture information for an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265">H.265 encode operation</a>.</p>
+ * <p>This structure is specified in the {@code pNext} chain of {@link VkVideoEncodeInfoKHR}{@code ::pSetupReferenceSlot}, if not {@code NULL}, and the {@code pNext} chain of the elements of {@link VkVideoEncodeInfoKHR}{@code ::pReferenceSlots} to specify the codec-specific reference picture information for an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265">H.265 encode operation</a>.</p>
  * 
  * <dl>
  * <dt>Active Reference Picture Information</dt>
  * <dd><ul>
- * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-picture-data-access">H.265 Encode Picture Data Access</a> section.</li>
- * <li>The reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> index specified in the {@code slotIndex} member of the corresponding element of {@link VkVideoEncodeInfoKHR}{@code ::pReferenceSlots}.</li>
- * <li>The reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-reference-info">H.265 reference information</a> provided in {@code pStdReferenceInfo}.</li>
+ * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-picture-data-access">H.265 Encode Picture Data Access</a> section.</li>
+ * <li>The reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot">DPB slot</a> index specified in the {@code slotIndex} member of the corresponding element of {@link VkVideoEncodeInfoKHR}{@code ::pReferenceSlots}.</li>
+ * <li>The reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-reference-info">H.265 reference information</a> provided in {@code pStdReferenceInfo}.</li>
  * </ul></dd>
  * </dl>
  * 
  * <dl>
  * <dt>Reconstructed Picture Information</dt>
  * <dd><ul>
- * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-picture-data-access">H.265 Encode Picture Data Access</a> section.</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-ref-pic-setup">reference picture setup</a> is requested, then the reconstructed picture is used to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot-states">activate</a> the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> with the index specified in {@link VkVideoEncodeInfoKHR}{@code ::pSetupReferenceSlot→slotIndex}.</li>
- * <li>The reconstructed picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-reference-info">H.265 reference information</a> provided in {@code pStdReferenceInfo}.</li>
+ * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-picture-data-access">H.265 Encode Picture Data Access</a> section.</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-ref-pic-setup">reference picture setup</a> is requested, then the reconstructed picture is used to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot-states">activate</a> the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot">DPB slot</a> with the index specified in {@link VkVideoEncodeInfoKHR}{@code ::pSetupReferenceSlot→slotIndex}.</li>
+ * <li>The reconstructed picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-reference-info">H.265 reference information</a> provided in {@code pStdReferenceInfo}.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -47,11 +47,11 @@ import org.lwjgl.vulkan.video.*;
  * <dt>Std Reference Information</dt>
  * <dd><ul>
  * <li>{@code flags.reserved} is used only for padding purposes and is otherwise ignored;</li>
- * <li>{@code flags.used_for_long_term_reference} is used to indicate whether the picture is marked as “used for long-term reference” as defined in section 8.3.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>;</li>
- * <li>{@code flags.unused_for_reference} is used to indicate whether the picture is marked as “unused for reference” as defined in section 8.3.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>;</li>
- * <li>{@code pic_type} as defined in section 7.4.3.5 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>;</li>
- * <li>{@code PicOrderCntVal} as defined in section 8.3.1 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>;</li>
- * <li>{@code TemporalId} as defined in section 7.4.2.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>.</li>
+ * <li>{@code flags.used_for_long_term_reference} is used to indicate whether the picture is marked as “used for long-term reference” as defined in section 8.3.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>;</li>
+ * <li>{@code flags.unused_for_reference} is used to indicate whether the picture is marked as “unused for reference” as defined in section 8.3.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>;</li>
+ * <li>{@code pic_type} as defined in section 7.4.3.5 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>;</li>
+ * <li>{@code PicOrderCntVal} as defined in section 8.3.1 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>;</li>
+ * <li>{@code TemporalId} as defined in section 7.4.2.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -128,7 +128,7 @@ public class VkVideoEncodeH265DpbSlotInfoKHR extends Struct<VkVideoEncodeH265Dpb
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a pointer to a {@code StdVideoEncodeH265ReferenceInfo} structure specifying <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-reference-info">H.265 reference information</a>. */
+    /** a pointer to a {@code StdVideoEncodeH265ReferenceInfo} structure specifying <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-reference-info">H.265 reference information</a>. */
     @NativeType("StdVideoEncodeH265ReferenceInfo const *")
     public StdVideoEncodeH265ReferenceInfo pStdReferenceInfo() { return npStdReferenceInfo(address()); }
 
@@ -190,8 +190,7 @@ public class VkVideoEncodeH265DpbSlotInfoKHR extends Struct<VkVideoEncodeH265Dpb
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH265DpbSlotInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH265DpbSlotInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH265DpbSlotInfoKHR(address, null);
     }
 
@@ -234,8 +233,7 @@ public class VkVideoEncodeH265DpbSlotInfoKHR extends Struct<VkVideoEncodeH265Dpb
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH265DpbSlotInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH265DpbSlotInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,14 +278,14 @@ public class VkVideoEncodeH265DpbSlotInfoKHR extends Struct<VkVideoEncodeH265Dpb
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265DpbSlotInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH265DpbSlotInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH265DpbSlotInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pStdReferenceInfo}. */
     public static StdVideoEncodeH265ReferenceInfo npStdReferenceInfo(long struct) { return StdVideoEncodeH265ReferenceInfo.create(memGetAddress(struct + VkVideoEncodeH265DpbSlotInfoKHR.PSTDREFERENCEINFO)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265DpbSlotInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH265DpbSlotInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH265DpbSlotInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pStdReferenceInfo(StdVideoEncodeH265ReferenceInfo) pStdReferenceInfo}. */
@@ -333,6 +331,11 @@ public class VkVideoEncodeH265DpbSlotInfoKHR extends Struct<VkVideoEncodeH265Dpb
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -18,6 +18,7 @@ import static org.lwjgl.demo.opencl.CLGLInteropDemo.*;
 import static org.lwjgl.demo.opencl.InfoUtil.*;
 import static org.lwjgl.demo.util.IOUtil.*;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFWNativeEGL.*;
 import static org.lwjgl.glfw.GLFWNativeGLX.*;
 import static org.lwjgl.glfw.GLFWNativeWGL.*;
 import static org.lwjgl.glfw.GLFWNativeX11.*;
@@ -196,11 +197,20 @@ public class Mandelbrot {
                     break;
                 case FREEBSD:
                 case LINUX:
-                    ctxProps
-                        .put(CL_GL_CONTEXT_KHR)
-                        .put(glfwGetGLXContext(window.handle))
-                        .put(CL_GLX_DISPLAY_KHR)
-                        .put(glfwGetX11Display());
+                    if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
+                        ctxProps
+                            .put(CL_GL_CONTEXT_KHR)
+                            .put(glfwGetEGLContext(window.handle))
+                            .put(CL_EGL_DISPLAY_KHR)
+                            .put(glfwGetEGLDisplay());
+                    } else {
+                        ctxProps
+                            .put(CL_GL_CONTEXT_KHR)
+                            .put(glfwGetGLXContext(window.handle))
+                            .put(CL_GLX_DISPLAY_KHR)
+                            .put(glfwGetX11Display());
+                    }
+
                     break;
                 case MACOSX:
                     ctxProps

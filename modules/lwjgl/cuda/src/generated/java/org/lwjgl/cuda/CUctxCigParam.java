@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -131,8 +131,7 @@ public class CUctxCigParam extends Struct<CUctxCigParam> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUctxCigParam createSafe(long address) {
+    public static @Nullable CUctxCigParam createSafe(long address) {
         return address == NULL ? null : new CUctxCigParam(address, null);
     }
 
@@ -175,8 +174,7 @@ public class CUctxCigParam extends Struct<CUctxCigParam> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUctxCigParam.Buffer createSafe(long address, int capacity) {
+    public static CUctxCigParam.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -221,12 +219,12 @@ public class CUctxCigParam extends Struct<CUctxCigParam> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #sharedDataType}. */
-    public static int nsharedDataType(long struct) { return UNSAFE.getInt(null, struct + CUctxCigParam.SHAREDDATATYPE); }
+    public static int nsharedDataType(long struct) { return memGetInt(struct + CUctxCigParam.SHAREDDATATYPE); }
     /** Unsafe version of {@link #sharedData}. */
     public static long nsharedData(long struct) { return memGetAddress(struct + CUctxCigParam.SHAREDDATA); }
 
     /** Unsafe version of {@link #sharedDataType(int) sharedDataType}. */
-    public static void nsharedDataType(long struct, int value) { UNSAFE.putInt(null, struct + CUctxCigParam.SHAREDDATATYPE, value); }
+    public static void nsharedDataType(long struct, int value) { memPutInt(struct + CUctxCigParam.SHAREDDATATYPE, value); }
     /** Unsafe version of {@link #sharedData(long) sharedData}. */
     public static void nsharedData(long struct, long value) { memPutAddress(struct + CUctxCigParam.SHAREDDATA, value); }
 
@@ -261,6 +259,11 @@ public class CUctxCigParam extends Struct<CUctxCigParam> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

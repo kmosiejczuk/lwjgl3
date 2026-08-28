@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,17 +20,17 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The {@code filterCenter} specifies the origin or center of the filter kernel, as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-weightimage-filteroperation">Weight Sampling Operation</a>. The {@code numPhases} describes the number of sub-pixel filter phases as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-weightimage-filterphases">Weight Sampling Phases</a>.</p>
+ * <p>The {@code filterCenter} specifies the origin or center of the filter kernel, as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-weightimage-filteroperation">Weight Sampling Operation</a>. The {@code numPhases} describes the number of sub-pixel filter phases as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-weightimage-filterphases">Weight Sampling Phases</a>.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code filterSize.width} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-weightfilter-maxdimension">{@link VkPhysicalDeviceImageProcessingPropertiesQCOM}{@code ::maxWeightFilterDimension.width}</a></li>
- * <li>{@code filterSize.height} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-weightfilter-maxdimension">{@link VkPhysicalDeviceImageProcessingPropertiesQCOM}{@code ::maxWeightFilterDimension.height}</a></li>
+ * <li>{@code filterSize.width} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-weightfilter-maxdimension">{@link VkPhysicalDeviceImageProcessingPropertiesQCOM}{@code ::maxWeightFilterDimension.width}</a></li>
+ * <li>{@code filterSize.height} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-weightfilter-maxdimension">{@link VkPhysicalDeviceImageProcessingPropertiesQCOM}{@code ::maxWeightFilterDimension.height}</a></li>
  * <li>{@code filterCenter.x} <b>must</b> be less than or equal to <code>(filterSize.width - 1)</code></li>
  * <li>{@code filterCenter.y} <b>must</b> be less than or equal to <code>(filterSize.height - 1)</code></li>
  * <li>{@code numPhases} <b>must</b> be a power of two squared value (i.e., 1, 4, 16, 64, 256, etc.)</li>
- * <li>{@code numPhases} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-weightfilter-phases">{@link VkPhysicalDeviceImageProcessingPropertiesQCOM}{@code ::maxWeightFilterPhases}</a></li>
+ * <li>{@code numPhases} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-weightfilter-phases">{@link VkPhysicalDeviceImageProcessingPropertiesQCOM}{@code ::maxWeightFilterPhases}</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -195,8 +195,7 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewSampleWeightCreateInfoQCOM createSafe(long address) {
+    public static @Nullable VkImageViewSampleWeightCreateInfoQCOM createSafe(long address) {
         return address == NULL ? null : new VkImageViewSampleWeightCreateInfoQCOM(address, null);
     }
 
@@ -239,8 +238,7 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewSampleWeightCreateInfoQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkImageViewSampleWeightCreateInfoQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,7 +283,7 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageViewSampleWeightCreateInfoQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageViewSampleWeightCreateInfoQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageViewSampleWeightCreateInfoQCOM.PNEXT); }
     /** Unsafe version of {@link #filterCenter}. */
@@ -293,10 +291,10 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     /** Unsafe version of {@link #filterSize}. */
     public static VkExtent2D nfilterSize(long struct) { return VkExtent2D.create(struct + VkImageViewSampleWeightCreateInfoQCOM.FILTERSIZE); }
     /** Unsafe version of {@link #numPhases}. */
-    public static int nnumPhases(long struct) { return UNSAFE.getInt(null, struct + VkImageViewSampleWeightCreateInfoQCOM.NUMPHASES); }
+    public static int nnumPhases(long struct) { return memGetInt(struct + VkImageViewSampleWeightCreateInfoQCOM.NUMPHASES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewSampleWeightCreateInfoQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageViewSampleWeightCreateInfoQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageViewSampleWeightCreateInfoQCOM.PNEXT, value); }
     /** Unsafe version of {@link #filterCenter(VkOffset2D) filterCenter}. */
@@ -304,7 +302,7 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     /** Unsafe version of {@link #filterSize(VkExtent2D) filterSize}. */
     public static void nfilterSize(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkImageViewSampleWeightCreateInfoQCOM.FILTERSIZE, VkExtent2D.SIZEOF); }
     /** Unsafe version of {@link #numPhases(int) numPhases}. */
-    public static void nnumPhases(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewSampleWeightCreateInfoQCOM.NUMPHASES, value); }
+    public static void nnumPhases(long struct, int value) { memPutInt(struct + VkImageViewSampleWeightCreateInfoQCOM.NUMPHASES, value); }
 
     // -----------------------------------
 
@@ -337,6 +335,11 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

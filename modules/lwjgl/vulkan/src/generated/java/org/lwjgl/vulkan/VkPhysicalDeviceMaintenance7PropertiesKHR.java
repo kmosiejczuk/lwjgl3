@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -122,16 +122,16 @@ public class VkPhysicalDeviceMaintenance7PropertiesKHR extends Struct<VkPhysical
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the scaled size of a fragment shading rate attachment <b>can</b> be less than the size of the render area. If {@code robustFragmentShadingRateAttachmentAccess} is {@link VK10#VK_FALSE FALSE}, the size of the attachment multiplied by the texel size <b>must</b> be greater than or equal to the size of the render area. If it is {@link VK10#VK_TRUE TRUE} and the fragment shading rate attachment was created with {@link VkImageSubresourceRange}{@code ::baseMipLevel} equal to 0, the scaled size <b>can</b> be smaller than the render area, and shading rates for missing texels are defined by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-texel-replacement">texel replacement for invalid texels</a>. */
+    /** indicates whether the scaled size of a fragment shading rate attachment <b>can</b> be less than the size of the render area. If {@code robustFragmentShadingRateAttachmentAccess} is {@link VK10#VK_FALSE FALSE}, the size of the attachment multiplied by the texel size <b>must</b> be greater than or equal to the size of the render area. If it is {@link VK10#VK_TRUE TRUE} and the fragment shading rate attachment was created with {@link VkImageSubresourceRange}{@code ::baseMipLevel} equal to 0, the scaled size <b>can</b> be smaller than the render area, and shading rates for missing texels are defined by <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-texel-replacement">texel replacement for invalid texels</a>. */
     @NativeType("VkBool32")
     public boolean robustFragmentShadingRateAttachmentAccess() { return nrobustFragmentShadingRateAttachmentAccess(address()) != 0; }
-    /** indicates support for writing to one aspect of a depth/stencil attachment without performing read-modify-write operations on the other aspect. If this property is {@link VK10#VK_TRUE TRUE}, writes to one aspect <b>must</b> not result in read-modify-write operations on the other aspect. If {@link VK10#VK_FALSE FALSE}, writes to one aspect <b>may</b> result in writes to the other aspect as defined by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-load-operations">render pass load operations</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-store-operations">render pass store operations</a> and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">render pass resolve operations</a>. */
+    /** indicates support for writing to one aspect of a depth/stencil attachment without performing read-modify-write operations on the other aspect. If this property is {@link VK10#VK_TRUE TRUE}, writes to one aspect <b>must</b> not result in read-modify-write operations on the other aspect. If {@link VK10#VK_FALSE FALSE}, writes to one aspect <b>may</b> result in writes to the other aspect as defined by <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-load-operations">render pass load operations</a>, <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-store-operations">render pass store operations</a> and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-resolve-operations">render pass resolve operations</a>. */
     @NativeType("VkBool32")
     public boolean separateDepthStencilAttachmentAccess() { return nseparateDepthStencilAttachmentAccess(address()) != 0; }
-    /** the maximum total count of dynamic uniform buffers that <b>can</b> be included in a pipeline layout. Descriptors with a type of {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC} count against this limit. Only descriptors in descriptor set layouts created without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set count against this limit. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-uniformbufferdynamic">Dynamic Uniform Buffer</a>. */
+    /** the maximum total count of dynamic uniform buffers that <b>can</b> be included in a pipeline layout. Descriptors with a type of {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC} count against this limit. Only descriptors in descriptor set layouts created without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set count against this limit. See <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-uniformbufferdynamic">Dynamic Uniform Buffer</a>. */
     @NativeType("uint32_t")
     public int maxDescriptorSetTotalUniformBuffersDynamic() { return nmaxDescriptorSetTotalUniformBuffersDynamic(address()); }
-    /** the maximum total count of dynamic storage buffers that <b>can</b> be included in a pipeline layout. Descriptors with a type of {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC} count against this limit. Only descriptors in descriptor set layouts created without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set count against this limit. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-storagebufferdynamic">Dynamic Storage Buffer</a>. */
+    /** the maximum total count of dynamic storage buffers that <b>can</b> be included in a pipeline layout. Descriptors with a type of {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC} count against this limit. Only descriptors in descriptor set layouts created without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set count against this limit. See <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-storagebufferdynamic">Dynamic Storage Buffer</a>. */
     @NativeType("uint32_t")
     public int maxDescriptorSetTotalStorageBuffersDynamic() { return nmaxDescriptorSetTotalStorageBuffersDynamic(address()); }
     /** the maximum total count of dynamic uniform buffers and storage buffers that <b>can</b> be included in a pipeline layout. Descriptors with a type of {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC} or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC} count against this limit. Only descriptors in descriptor set layouts created without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set count against this limit. */
@@ -201,8 +201,7 @@ public class VkPhysicalDeviceMaintenance7PropertiesKHR extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance7PropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMaintenance7PropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMaintenance7PropertiesKHR(address, null);
     }
 
@@ -245,8 +244,7 @@ public class VkPhysicalDeviceMaintenance7PropertiesKHR extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance7PropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMaintenance7PropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -291,28 +289,28 @@ public class VkPhysicalDeviceMaintenance7PropertiesKHR extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #robustFragmentShadingRateAttachmentAccess}. */
-    public static int nrobustFragmentShadingRateAttachmentAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.ROBUSTFRAGMENTSHADINGRATEATTACHMENTACCESS); }
+    public static int nrobustFragmentShadingRateAttachmentAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.ROBUSTFRAGMENTSHADINGRATEATTACHMENTACCESS); }
     /** Unsafe version of {@link #separateDepthStencilAttachmentAccess}. */
-    public static int nseparateDepthStencilAttachmentAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.SEPARATEDEPTHSTENCILATTACHMENTACCESS); }
+    public static int nseparateDepthStencilAttachmentAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.SEPARATEDEPTHSTENCILATTACHMENTACCESS); }
     /** Unsafe version of {@link #maxDescriptorSetTotalUniformBuffersDynamic}. */
-    public static int nmaxDescriptorSetTotalUniformBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALUNIFORMBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetTotalUniformBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALUNIFORMBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetTotalStorageBuffersDynamic}. */
-    public static int nmaxDescriptorSetTotalStorageBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALSTORAGEBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetTotalStorageBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALSTORAGEBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetTotalBuffersDynamic}. */
-    public static int nmaxDescriptorSetTotalBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetTotalBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic}. */
-    public static int nmaxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALUNIFORMBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALUNIFORMBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic}. */
-    public static int nmaxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALSTORAGEBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALSTORAGEBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindTotalBuffersDynamic}. */
-    public static int nmaxDescriptorSetUpdateAfterBindTotalBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetUpdateAfterBindTotalBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALBUFFERSDYNAMIC); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.PNEXT, value); }
 
@@ -347,6 +345,11 @@ public class VkPhysicalDeviceMaintenance7PropertiesKHR extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

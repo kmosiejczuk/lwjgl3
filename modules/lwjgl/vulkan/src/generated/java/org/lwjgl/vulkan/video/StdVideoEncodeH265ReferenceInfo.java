@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class StdVideoEncodeH265ReferenceInfo extends Struct<StdVideoEncodeH265Re
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH265ReferenceInfo createSafe(long address) {
+    public static @Nullable StdVideoEncodeH265ReferenceInfo createSafe(long address) {
         return address == NULL ? null : new StdVideoEncodeH265ReferenceInfo(address, null);
     }
 
@@ -198,8 +197,7 @@ public class StdVideoEncodeH265ReferenceInfo extends Struct<StdVideoEncodeH265Re
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH265ReferenceInfo.Buffer createSafe(long address, int capacity) {
+    public static StdVideoEncodeH265ReferenceInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,20 +244,20 @@ public class StdVideoEncodeH265ReferenceInfo extends Struct<StdVideoEncodeH265Re
     /** Unsafe version of {@link #flags}. */
     public static StdVideoEncodeH265ReferenceInfoFlags nflags(long struct) { return StdVideoEncodeH265ReferenceInfoFlags.create(struct + StdVideoEncodeH265ReferenceInfo.FLAGS); }
     /** Unsafe version of {@link #pic_type}. */
-    public static int npic_type(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH265ReferenceInfo.PIC_TYPE); }
+    public static int npic_type(long struct) { return memGetInt(struct + StdVideoEncodeH265ReferenceInfo.PIC_TYPE); }
     /** Unsafe version of {@link #PicOrderCntVal}. */
-    public static int nPicOrderCntVal(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH265ReferenceInfo.PICORDERCNTVAL); }
+    public static int nPicOrderCntVal(long struct) { return memGetInt(struct + StdVideoEncodeH265ReferenceInfo.PICORDERCNTVAL); }
     /** Unsafe version of {@link #TemporalId}. */
-    public static byte nTemporalId(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265ReferenceInfo.TEMPORALID); }
+    public static byte nTemporalId(long struct) { return memGetByte(struct + StdVideoEncodeH265ReferenceInfo.TEMPORALID); }
 
     /** Unsafe version of {@link #flags(StdVideoEncodeH265ReferenceInfoFlags) flags}. */
     public static void nflags(long struct, StdVideoEncodeH265ReferenceInfoFlags value) { memCopy(value.address(), struct + StdVideoEncodeH265ReferenceInfo.FLAGS, StdVideoEncodeH265ReferenceInfoFlags.SIZEOF); }
     /** Unsafe version of {@link #pic_type(int) pic_type}. */
-    public static void npic_type(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH265ReferenceInfo.PIC_TYPE, value); }
+    public static void npic_type(long struct, int value) { memPutInt(struct + StdVideoEncodeH265ReferenceInfo.PIC_TYPE, value); }
     /** Unsafe version of {@link #PicOrderCntVal(int) PicOrderCntVal}. */
-    public static void nPicOrderCntVal(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH265ReferenceInfo.PICORDERCNTVAL, value); }
+    public static void nPicOrderCntVal(long struct, int value) { memPutInt(struct + StdVideoEncodeH265ReferenceInfo.PICORDERCNTVAL, value); }
     /** Unsafe version of {@link #TemporalId(byte) TemporalId}. */
-    public static void nTemporalId(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265ReferenceInfo.TEMPORALID, value); }
+    public static void nTemporalId(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265ReferenceInfo.TEMPORALID, value); }
 
     // -----------------------------------
 
@@ -292,6 +290,11 @@ public class StdVideoEncodeH265ReferenceInfo extends Struct<StdVideoEncodeH265Re
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

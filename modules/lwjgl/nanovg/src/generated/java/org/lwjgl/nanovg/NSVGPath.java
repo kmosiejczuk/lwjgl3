@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -109,8 +109,7 @@ public class NSVGPath extends Struct<NSVGPath> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGPath createSafe(long address) {
+    public static @Nullable NSVGPath createSafe(long address) {
         return address == NULL ? null : new NSVGPath(address, null);
     }
 
@@ -125,8 +124,7 @@ public class NSVGPath extends Struct<NSVGPath> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGPath.Buffer createSafe(long address, int capacity) {
+    public static NSVGPath.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -135,14 +133,14 @@ public class NSVGPath extends Struct<NSVGPath> {
     /** Unsafe version of {@link #pts() pts}. */
     public static FloatBuffer npts(long struct) { return memFloatBuffer(memGetAddress(struct + NSVGPath.PTS), (nnpts(struct) << 1)); }
     /** Unsafe version of {@link #npts}. */
-    public static int nnpts(long struct) { return UNSAFE.getInt(null, struct + NSVGPath.NPTS); }
+    public static int nnpts(long struct) { return memGetInt(struct + NSVGPath.NPTS); }
     /** Unsafe version of {@link #closed}. */
-    public static byte nclosed(long struct) { return UNSAFE.getByte(null, struct + NSVGPath.CLOSED); }
+    public static byte nclosed(long struct) { return memGetByte(struct + NSVGPath.CLOSED); }
     /** Unsafe version of {@link #bounds}. */
     public static FloatBuffer nbounds(long struct) { return memFloatBuffer(struct + NSVGPath.BOUNDS, 4); }
     /** Unsafe version of {@link #bounds(int) bounds}. */
     public static float nbounds(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + NSVGPath.BOUNDS + check(index, 4) * 4);
+        return memGetFloat(struct + NSVGPath.BOUNDS + check(index, 4) * 4);
     }
     /** Unsafe version of {@link #next}. */
     public static NSVGPath nnext(long struct) { return NSVGPath.create(memGetAddress(struct + NSVGPath.NEXT)); }
@@ -178,6 +176,11 @@ public class NSVGPath extends Struct<NSVGPath> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

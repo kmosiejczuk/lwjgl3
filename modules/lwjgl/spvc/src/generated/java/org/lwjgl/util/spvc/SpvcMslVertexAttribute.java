@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -193,8 +193,7 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcMslVertexAttribute createSafe(long address) {
+    public static @Nullable SpvcMslVertexAttribute createSafe(long address) {
         return address == NULL ? null : new SpvcMslVertexAttribute(address, null);
     }
 
@@ -237,8 +236,7 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcMslVertexAttribute.Buffer createSafe(long address, int capacity) {
+    public static SpvcMslVertexAttribute.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,34 +281,34 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #location}. */
-    public static int nlocation(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.LOCATION); }
+    public static int nlocation(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.LOCATION); }
     /** Unsafe version of {@link #msl_buffer}. */
-    public static int nmsl_buffer(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.MSL_BUFFER); }
+    public static int nmsl_buffer(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.MSL_BUFFER); }
     /** Unsafe version of {@link #msl_offset}. */
-    public static int nmsl_offset(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.MSL_OFFSET); }
+    public static int nmsl_offset(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.MSL_OFFSET); }
     /** Unsafe version of {@link #msl_stride}. */
-    public static int nmsl_stride(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.MSL_STRIDE); }
+    public static int nmsl_stride(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.MSL_STRIDE); }
     /** Unsafe version of {@link #per_instance}. */
-    public static boolean nper_instance(long struct) { return UNSAFE.getByte(null, struct + SpvcMslVertexAttribute.PER_INSTANCE) != 0; }
+    public static boolean nper_instance(long struct) { return memGetByte(struct + SpvcMslVertexAttribute.PER_INSTANCE) != 0; }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.FORMAT); }
     /** Unsafe version of {@link #builtin}. */
-    public static int nbuiltin(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.BUILTIN); }
+    public static int nbuiltin(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.BUILTIN); }
 
     /** Unsafe version of {@link #location(int) location}. */
-    public static void nlocation(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.LOCATION, value); }
+    public static void nlocation(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.LOCATION, value); }
     /** Unsafe version of {@link #msl_buffer(int) msl_buffer}. */
-    public static void nmsl_buffer(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.MSL_BUFFER, value); }
+    public static void nmsl_buffer(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.MSL_BUFFER, value); }
     /** Unsafe version of {@link #msl_offset(int) msl_offset}. */
-    public static void nmsl_offset(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.MSL_OFFSET, value); }
+    public static void nmsl_offset(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.MSL_OFFSET, value); }
     /** Unsafe version of {@link #msl_stride(int) msl_stride}. */
-    public static void nmsl_stride(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.MSL_STRIDE, value); }
+    public static void nmsl_stride(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.MSL_STRIDE, value); }
     /** Unsafe version of {@link #per_instance(boolean) per_instance}. */
-    public static void nper_instance(long struct, boolean value) { UNSAFE.putByte(null, struct + SpvcMslVertexAttribute.PER_INSTANCE, value ? (byte)1 : (byte)0); }
+    public static void nper_instance(long struct, boolean value) { memPutByte(struct + SpvcMslVertexAttribute.PER_INSTANCE, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.FORMAT, value); }
     /** Unsafe version of {@link #builtin(int) builtin}. */
-    public static void nbuiltin(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.BUILTIN, value); }
+    public static void nbuiltin(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.BUILTIN, value); }
 
     // -----------------------------------
 
@@ -343,6 +341,11 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

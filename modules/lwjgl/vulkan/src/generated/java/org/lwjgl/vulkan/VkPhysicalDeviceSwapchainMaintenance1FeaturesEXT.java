@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT extends Struct<VkP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT(address, null);
     }
 
@@ -210,8 +209,7 @@ public class VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT extends Struct<VkP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,18 +254,18 @@ public class VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT extends Struct<VkP
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #swapchainMaintenance1}. */
-    public static int nswapchainMaintenance1(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.SWAPCHAINMAINTENANCE1); }
+    public static int nswapchainMaintenance1(long struct) { return memGetInt(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.SWAPCHAINMAINTENANCE1); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #swapchainMaintenance1(boolean) swapchainMaintenance1}. */
-    public static void nswapchainMaintenance1(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.SWAPCHAINMAINTENANCE1, value); }
+    public static void nswapchainMaintenance1(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.SWAPCHAINMAINTENANCE1, value); }
 
     // -----------------------------------
 
@@ -300,6 +298,11 @@ public class VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT extends Struct<VkP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

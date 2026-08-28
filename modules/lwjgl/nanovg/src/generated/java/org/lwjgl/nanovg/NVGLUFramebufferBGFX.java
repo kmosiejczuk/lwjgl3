@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -101,8 +101,7 @@ public class NVGLUFramebufferBGFX extends Struct<NVGLUFramebufferBGFX> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NVGLUFramebufferBGFX createSafe(long address) {
+    public static @Nullable NVGLUFramebufferBGFX createSafe(long address) {
         return address == NULL ? null : new NVGLUFramebufferBGFX(address, null);
     }
 
@@ -117,8 +116,7 @@ public class NVGLUFramebufferBGFX extends Struct<NVGLUFramebufferBGFX> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NVGLUFramebufferBGFX.Buffer createSafe(long address, int capacity) {
+    public static NVGLUFramebufferBGFX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -127,11 +125,11 @@ public class NVGLUFramebufferBGFX extends Struct<NVGLUFramebufferBGFX> {
     /** Unsafe version of {@link #ctx}. */
     public static long nctx(long struct) { return memGetAddress(struct + NVGLUFramebufferBGFX.CTX); }
     /** Unsafe version of {@link #handle}. */
-    public static short nhandle(long struct) { return UNSAFE.getShort(null, struct + NVGLUFramebufferBGFX.HANDLE); }
+    public static short nhandle(long struct) { return memGetShort(struct + NVGLUFramebufferBGFX.HANDLE); }
     /** Unsafe version of {@link #image}. */
-    public static int nimage(long struct) { return UNSAFE.getInt(null, struct + NVGLUFramebufferBGFX.IMAGE); }
+    public static int nimage(long struct) { return memGetInt(struct + NVGLUFramebufferBGFX.IMAGE); }
     /** Unsafe version of {@link #viewId}. */
-    public static short nviewId(long struct) { return UNSAFE.getShort(null, struct + NVGLUFramebufferBGFX.VIEWID); }
+    public static short nviewId(long struct) { return memGetShort(struct + NVGLUFramebufferBGFX.VIEWID); }
 
     // -----------------------------------
 
@@ -164,6 +162,11 @@ public class NVGLUFramebufferBGFX extends Struct<NVGLUFramebufferBGFX> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

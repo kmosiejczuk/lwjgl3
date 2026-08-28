@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -99,7 +99,7 @@ public class VkAndroidHardwareBufferFormatResolvePropertiesANDROID extends Struc
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkFormat} specifying the format of color attachment images that <b>must</b> be used for color attachments when resolving to the specified external format. If the implementation supports external format resolves for the specified external format, this value will be set to a color format supporting the {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT} in {@link VkFormatProperties}{@code ::optimalTilingFeatures} as returned by {@link VK10#vkGetPhysicalDeviceFormatProperties GetPhysicalDeviceFormatProperties} with {@code format} equal to {@code colorAttachmentFormat} If external format resolves are not supported, this value will be set to {@code VK_FORMAT_UNDEFINED}. */
+    /** a {@code VkFormat} specifying the format of color attachment images that <b>must</b> be used for color attachments when resolving to the specified external format. If the implementation supports external format resolves for the specified external format, this value will be a color format supporting the {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT} in {@link VkFormatProperties}{@code ::optimalTilingFeatures} as returned by {@link VK10#vkGetPhysicalDeviceFormatProperties GetPhysicalDeviceFormatProperties} with {@code format} equal to {@code colorAttachmentFormat} If external format resolves are not supported, this value will be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}. */
     @NativeType("VkFormat")
     public int colorAttachmentFormat() { return ncolorAttachmentFormat(address()); }
 
@@ -157,8 +157,7 @@ public class VkAndroidHardwareBufferFormatResolvePropertiesANDROID extends Struc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidHardwareBufferFormatResolvePropertiesANDROID createSafe(long address) {
+    public static @Nullable VkAndroidHardwareBufferFormatResolvePropertiesANDROID createSafe(long address) {
         return address == NULL ? null : new VkAndroidHardwareBufferFormatResolvePropertiesANDROID(address, null);
     }
 
@@ -201,8 +200,7 @@ public class VkAndroidHardwareBufferFormatResolvePropertiesANDROID extends Struc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidHardwareBufferFormatResolvePropertiesANDROID.Buffer createSafe(long address, int capacity) {
+    public static VkAndroidHardwareBufferFormatResolvePropertiesANDROID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,14 +245,14 @@ public class VkAndroidHardwareBufferFormatResolvePropertiesANDROID extends Struc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatResolvePropertiesANDROID.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatResolvePropertiesANDROID.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAndroidHardwareBufferFormatResolvePropertiesANDROID.PNEXT); }
     /** Unsafe version of {@link #colorAttachmentFormat}. */
-    public static int ncolorAttachmentFormat(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatResolvePropertiesANDROID.COLORATTACHMENTFORMAT); }
+    public static int ncolorAttachmentFormat(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatResolvePropertiesANDROID.COLORATTACHMENTFORMAT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAndroidHardwareBufferFormatResolvePropertiesANDROID.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAndroidHardwareBufferFormatResolvePropertiesANDROID.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAndroidHardwareBufferFormatResolvePropertiesANDROID.PNEXT, value); }
 
@@ -289,6 +287,11 @@ public class VkAndroidHardwareBufferFormatResolvePropertiesANDROID extends Struc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

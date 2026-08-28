@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class hb_ot_math_glyph_part_t extends Struct<hb_ot_math_glyph_part_t> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_math_glyph_part_t createSafe(long address) {
+    public static @Nullable hb_ot_math_glyph_part_t createSafe(long address) {
         return address == NULL ? null : new hb_ot_math_glyph_part_t(address, null);
     }
 
@@ -212,8 +211,7 @@ public class hb_ot_math_glyph_part_t extends Struct<hb_ot_math_glyph_part_t> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_math_glyph_part_t.Buffer createSafe(long address, int capacity) {
+    public static hb_ot_math_glyph_part_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,26 +256,26 @@ public class hb_ot_math_glyph_part_t extends Struct<hb_ot_math_glyph_part_t> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #glyph}. */
-    public static int nglyph(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_glyph_part_t.GLYPH); }
+    public static int nglyph(long struct) { return memGetInt(struct + hb_ot_math_glyph_part_t.GLYPH); }
     /** Unsafe version of {@link #start_connector_length}. */
-    public static int nstart_connector_length(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_glyph_part_t.START_CONNECTOR_LENGTH); }
+    public static int nstart_connector_length(long struct) { return memGetInt(struct + hb_ot_math_glyph_part_t.START_CONNECTOR_LENGTH); }
     /** Unsafe version of {@link #end_connector_length}. */
-    public static int nend_connector_length(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_glyph_part_t.END_CONNECTOR_LENGTH); }
+    public static int nend_connector_length(long struct) { return memGetInt(struct + hb_ot_math_glyph_part_t.END_CONNECTOR_LENGTH); }
     /** Unsafe version of {@link #full_advance}. */
-    public static int nfull_advance(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_glyph_part_t.FULL_ADVANCE); }
+    public static int nfull_advance(long struct) { return memGetInt(struct + hb_ot_math_glyph_part_t.FULL_ADVANCE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_glyph_part_t.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + hb_ot_math_glyph_part_t.FLAGS); }
 
     /** Unsafe version of {@link #glyph(int) glyph}. */
-    public static void nglyph(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_glyph_part_t.GLYPH, value); }
+    public static void nglyph(long struct, int value) { memPutInt(struct + hb_ot_math_glyph_part_t.GLYPH, value); }
     /** Unsafe version of {@link #start_connector_length(int) start_connector_length}. */
-    public static void nstart_connector_length(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_glyph_part_t.START_CONNECTOR_LENGTH, value); }
+    public static void nstart_connector_length(long struct, int value) { memPutInt(struct + hb_ot_math_glyph_part_t.START_CONNECTOR_LENGTH, value); }
     /** Unsafe version of {@link #end_connector_length(int) end_connector_length}. */
-    public static void nend_connector_length(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_glyph_part_t.END_CONNECTOR_LENGTH, value); }
+    public static void nend_connector_length(long struct, int value) { memPutInt(struct + hb_ot_math_glyph_part_t.END_CONNECTOR_LENGTH, value); }
     /** Unsafe version of {@link #full_advance(int) full_advance}. */
-    public static void nfull_advance(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_glyph_part_t.FULL_ADVANCE, value); }
+    public static void nfull_advance(long struct, int value) { memPutInt(struct + hb_ot_math_glyph_part_t.FULL_ADVANCE, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_glyph_part_t.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + hb_ot_math_glyph_part_t.FLAGS, value); }
 
     // -----------------------------------
 
@@ -310,6 +308,11 @@ public class hb_ot_math_glyph_part_t extends Struct<hb_ot_math_glyph_part_t> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

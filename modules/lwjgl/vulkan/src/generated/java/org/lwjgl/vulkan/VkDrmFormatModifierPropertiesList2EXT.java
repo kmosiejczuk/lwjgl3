@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -110,9 +110,8 @@ public class VkDrmFormatModifierPropertiesList2EXT extends Struct<VkDrmFormatMod
     @NativeType("uint32_t")
     public int drmFormatModifierCount() { return ndrmFormatModifierCount(address()); }
     /** either {@code NULL} or a pointer to an array of {@link VkDrmFormatModifierProperties2EXT} structures. */
-    @Nullable
     @NativeType("VkDrmFormatModifierProperties2EXT *")
-    public VkDrmFormatModifierProperties2EXT.Buffer pDrmFormatModifierProperties() { return npDrmFormatModifierProperties(address()); }
+    public VkDrmFormatModifierProperties2EXT.@Nullable Buffer pDrmFormatModifierProperties() { return npDrmFormatModifierProperties(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkDrmFormatModifierPropertiesList2EXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -168,8 +167,7 @@ public class VkDrmFormatModifierPropertiesList2EXT extends Struct<VkDrmFormatMod
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrmFormatModifierPropertiesList2EXT createSafe(long address) {
+    public static @Nullable VkDrmFormatModifierPropertiesList2EXT createSafe(long address) {
         return address == NULL ? null : new VkDrmFormatModifierPropertiesList2EXT(address, null);
     }
 
@@ -212,8 +210,7 @@ public class VkDrmFormatModifierPropertiesList2EXT extends Struct<VkDrmFormatMod
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrmFormatModifierPropertiesList2EXT.Buffer createSafe(long address, int capacity) {
+    public static VkDrmFormatModifierPropertiesList2EXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,16 +255,16 @@ public class VkDrmFormatModifierPropertiesList2EXT extends Struct<VkDrmFormatMod
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDrmFormatModifierPropertiesList2EXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDrmFormatModifierPropertiesList2EXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDrmFormatModifierPropertiesList2EXT.PNEXT); }
     /** Unsafe version of {@link #drmFormatModifierCount}. */
-    public static int ndrmFormatModifierCount(long struct) { return UNSAFE.getInt(null, struct + VkDrmFormatModifierPropertiesList2EXT.DRMFORMATMODIFIERCOUNT); }
+    public static int ndrmFormatModifierCount(long struct) { return memGetInt(struct + VkDrmFormatModifierPropertiesList2EXT.DRMFORMATMODIFIERCOUNT); }
     /** Unsafe version of {@link #pDrmFormatModifierProperties}. */
-    @Nullable public static VkDrmFormatModifierProperties2EXT.Buffer npDrmFormatModifierProperties(long struct) { return VkDrmFormatModifierProperties2EXT.createSafe(memGetAddress(struct + VkDrmFormatModifierPropertiesList2EXT.PDRMFORMATMODIFIERPROPERTIES), ndrmFormatModifierCount(struct)); }
+    public static VkDrmFormatModifierProperties2EXT.@Nullable Buffer npDrmFormatModifierProperties(long struct) { return VkDrmFormatModifierProperties2EXT.createSafe(memGetAddress(struct + VkDrmFormatModifierPropertiesList2EXT.PDRMFORMATMODIFIERPROPERTIES), ndrmFormatModifierCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDrmFormatModifierPropertiesList2EXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDrmFormatModifierPropertiesList2EXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDrmFormatModifierPropertiesList2EXT.PNEXT, value); }
 
@@ -305,6 +302,11 @@ public class VkDrmFormatModifierPropertiesList2EXT extends Struct<VkDrmFormatMod
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDrmFormatModifierPropertiesList2EXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -319,9 +321,8 @@ public class VkDrmFormatModifierPropertiesList2EXT extends Struct<VkDrmFormatMod
         @NativeType("uint32_t")
         public int drmFormatModifierCount() { return VkDrmFormatModifierPropertiesList2EXT.ndrmFormatModifierCount(address()); }
         /** @return a {@link VkDrmFormatModifierProperties2EXT.Buffer} view of the struct array pointed to by the {@link VkDrmFormatModifierPropertiesList2EXT#pDrmFormatModifierProperties} field. */
-        @Nullable
         @NativeType("VkDrmFormatModifierProperties2EXT *")
-        public VkDrmFormatModifierProperties2EXT.Buffer pDrmFormatModifierProperties() { return VkDrmFormatModifierPropertiesList2EXT.npDrmFormatModifierProperties(address()); }
+        public VkDrmFormatModifierProperties2EXT.@Nullable Buffer pDrmFormatModifierProperties() { return VkDrmFormatModifierPropertiesList2EXT.npDrmFormatModifierProperties(address()); }
 
         /** Sets the specified value to the {@link VkDrmFormatModifierPropertiesList2EXT#sType} field. */
         public VkDrmFormatModifierPropertiesList2EXT.Buffer sType(@NativeType("VkStructureType") int value) { VkDrmFormatModifierPropertiesList2EXT.nsType(address(), value); return this; }

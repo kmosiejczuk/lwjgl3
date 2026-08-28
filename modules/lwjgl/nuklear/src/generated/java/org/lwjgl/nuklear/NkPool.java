@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -128,8 +128,7 @@ class NkPool extends Struct<NkPool> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkPool createSafe(long address) {
+    public static @Nullable NkPool createSafe(long address) {
         return address == NULL ? null : new NkPool(address, null);
     }
 
@@ -144,8 +143,7 @@ class NkPool extends Struct<NkPool> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkPool.Buffer createSafe(long address, int capacity) {
+    public static NkPool.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -154,15 +152,15 @@ class NkPool extends Struct<NkPool> {
     /** Unsafe version of {@link #alloc}. */
     public static NkAllocator nalloc(long struct) { return NkAllocator.create(struct + NkPool.ALLOC); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + NkPool.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + NkPool.TYPE); }
     /** Unsafe version of {@link #page_count}. */
-    public static int npage_count(long struct) { return UNSAFE.getInt(null, struct + NkPool.PAGE_COUNT); }
+    public static int npage_count(long struct) { return memGetInt(struct + NkPool.PAGE_COUNT); }
     /** Unsafe version of {@link #pages}. */
     public static long npages(long struct) { return memGetAddress(struct + NkPool.PAGES); }
     /** Unsafe version of {@link #freelist}. */
     public static long nfreelist(long struct) { return memGetAddress(struct + NkPool.FREELIST); }
     /** Unsafe version of {@link #capacity$}. */
-    public static int ncapacity$(long struct) { return UNSAFE.getInt(null, struct + NkPool.CAPACITY); }
+    public static int ncapacity$(long struct) { return memGetInt(struct + NkPool.CAPACITY); }
     /** Unsafe version of {@link #size}. */
     public static long nsize(long struct) { return memGetAddress(struct + NkPool.SIZE); }
     /** Unsafe version of {@link #cap}. */
@@ -199,6 +197,11 @@ class NkPool extends Struct<NkPool> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

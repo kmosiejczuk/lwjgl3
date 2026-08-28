@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,77 +23,77 @@ import static org.lwjgl.system.MemoryStack.*;
  * <p>Limiting values are defined below that are referenced by the relevant valid usage statements of this structure.</p>
  * 
  * <ul>
- * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoDecodeH264#VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR}, then let {@code StdVideoH264SequenceParameterSet spsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-sps">H.264 SPS</a> entries to add to the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoDecodeH264#VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR}, then let {@code StdVideoH264SequenceParameterSet spsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-sps">H.264 SPS</a> entries to add to the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pParametersAddInfo} member of the {@link VkVideoDecodeH264SessionParametersCreateInfoKHR} structure provided in the {@code pNext} chain is not {@code NULL}, then the set of {@code StdVideoH264SequenceParameterSet} entries specified in {@code pParametersAddInfo→pStdSPSs} are added to {@code spsAddList};</li>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then each {@code StdVideoH264SequenceParameterSet} entry stored in it with {@code seq_parameter_set_id} not matching any of the entries already in {@code spsAddList} is added to {@code spsAddList}.</li>
  * </ul>
  * </li>
- * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoDecodeH264#VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR}, then let {@code StdVideoH264PictureParameterSet ppsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-pps">H.264 PPS</a> entries to add to the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoDecodeH264#VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR}, then let {@code StdVideoH264PictureParameterSet ppsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-pps">H.264 PPS</a> entries to add to the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pParametersAddInfo} member of the {@link VkVideoDecodeH264SessionParametersCreateInfoKHR} structure provided in the {@code pNext} chain is not {@code NULL}, then the set of {@code StdVideoH264PictureParameterSet} entries specified in {@code pParametersAddInfo→pStdPPSs} are added to {@code ppsAddList};</li>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then each {@code StdVideoH264PictureParameterSet} entry stored in it with {@code seq_parameter_set_id} or {@code pic_parameter_set_id} not matching any of the entries already in {@code ppsAddList} is added to {@code ppsAddList}.</li>
  * </ul>
  * </li>
- * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then let {@code StdVideoH265VideoParameterSet vpsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h265-vps">H.265 VPS</a> entries to add to the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then let {@code StdVideoH265VideoParameterSet vpsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h265-vps">H.265 VPS</a> entries to add to the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pParametersAddInfo} member of the {@link VkVideoDecodeH265SessionParametersCreateInfoKHR} structure provided in the {@code pNext} chain is not {@code NULL}, then the set of {@code StdVideoH265VideoParameterSet} entries specified in {@code pParametersAddInfo→pStdVPSs} are added to {@code vpsAddList};</li>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then each {@code StdVideoH265VideoParameterSet} entry stored in it with {@code vps_video_parameter_set_id} not matching any of the entries already in {@code vpsAddList} is added to {@code vpsAddList}.</li>
  * </ul>
  * </li>
- * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then let {@code StdVideoH265SequenceParameterSet spsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h265-sps">H.265 SPS</a> entries to add to the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then let {@code StdVideoH265SequenceParameterSet spsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h265-sps">H.265 SPS</a> entries to add to the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pParametersAddInfo} member of the {@link VkVideoDecodeH265SessionParametersCreateInfoKHR} structure provided in the {@code pNext} chain is not {@code NULL}, then the set of {@code StdVideoH265SequenceParameterSet} entries specified in {@code pParametersAddInfo→pStdSPSs} are added to {@code spsAddList};</li>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then each {@code StdVideoH265SequenceParameterSet} entry stored in it with {@code sps_video_parameter_set_id} or {@code sps_seq_parameter_set_id} not matching any of the entries already in {@code spsAddList} is added to {@code spsAddList}.</li>
  * </ul>
  * </li>
- * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then let {@code StdVideoH265PictureParameterSet ppsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h265-pps">H.265 PPS</a> entries to add to the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoDecodeH265#VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR}, then let {@code StdVideoH265PictureParameterSet ppsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h265-pps">H.265 PPS</a> entries to add to the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pParametersAddInfo} member of the {@link VkVideoDecodeH265SessionParametersCreateInfoKHR} structure provided in the {@code pNext} chain is not {@code NULL}, then the set of {@code StdVideoH265PictureParameterSet} entries specified in {@code pParametersAddInfo→pStdPPSs} are added to {@code ppsAddList};</li>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then each {@code StdVideoH265PictureParameterSet} entry stored in it with {@code sps_video_parameter_set_id}, {@code pps_seq_parameter_set_id}, or {@code pps_pic_parameter_set_id} not matching any of the entries already in {@code ppsAddList} is added to {@code ppsAddList}.</li>
  * </ul>
  * </li>
- * <li>If {@code videoSession} was created with an encode operation, then let {@code uint32_t qualityLevel} be the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-quality-level">video encode quality level</a> of the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with an encode operation, then let {@code uint32_t qualityLevel} be the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-quality-level">video encode quality level</a> of the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pNext} chain of this structure includes a {@link VkVideoEncodeQualityLevelInfoKHR} structure, then {@code qualityLevel} is equal to {@link VkVideoEncodeQualityLevelInfoKHR}{@code ::qualityLevel}.</li>
  * <li>Otherwise {@code qualityLevel} is 0</li>
  * </ul>
  * </li>
- * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoEncodeH264#VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR}, then let {@code StdVideoH264SequenceParameterSet spsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-sps">H.264 SPS</a> entries to add to the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoEncodeH264#VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR}, then let {@code StdVideoH264SequenceParameterSet spsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-sps">H.264 SPS</a> entries to add to the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pParametersAddInfo} member of the {@link VkVideoEncodeH264SessionParametersCreateInfoKHR} structure provided in the {@code pNext} chain is not {@code NULL}, then the set of {@code StdVideoH264SequenceParameterSet} entries specified in {@code pParametersAddInfo→pStdSPSs} are added to {@code spsAddList};</li>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then each {@code StdVideoH264SequenceParameterSet} entry stored in it with {@code seq_parameter_set_id} not matching any of the entries already in {@code spsAddList} is added to {@code spsAddList}.</li>
  * </ul>
  * </li>
- * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoEncodeH264#VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR}, then let {@code StdVideoH264PictureParameterSet ppsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-pps">H.264 PPS</a> entries to add to the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoEncodeH264#VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR}, then let {@code StdVideoH264PictureParameterSet ppsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-pps">H.264 PPS</a> entries to add to the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pParametersAddInfo} member of the {@link VkVideoEncodeH264SessionParametersCreateInfoKHR} structure provided in the {@code pNext} chain is not {@code NULL}, then the set of {@code StdVideoH264PictureParameterSet} entries specified in {@code pParametersAddInfo→pStdPPSs} are added to {@code ppsAddList};</li>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then each {@code StdVideoH264PictureParameterSet} entry stored in it with {@code seq_parameter_set_id} or {@code pic_parameter_set_id} not matching any of the entries already in {@code ppsAddList} is added to {@code ppsAddList}.</li>
  * </ul>
  * </li>
- * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then let {@code StdVideoH265VideoParameterSet vpsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-vps">H.265 VPS</a> entries to add to the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then let {@code StdVideoH265VideoParameterSet vpsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-vps">H.265 VPS</a> entries to add to the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pParametersAddInfo} member of the {@link VkVideoEncodeH265SessionParametersCreateInfoKHR} structure provided in the {@code pNext} chain is not {@code NULL}, then the set of {@code StdVideoH265VideoParameterSet} entries specified in {@code pParametersAddInfo→pStdVPSs} are added to {@code vpsAddList};</li>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then each {@code StdVideoH265VideoParameterSet} entry stored in it with {@code vps_video_parameter_set_id} not matching any of the entries already in {@code vpsAddList} is added to {@code vpsAddList}.</li>
  * </ul>
  * </li>
- * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then let {@code StdVideoH265SequenceParameterSet spsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-sps">H.265 SPS</a> entries to add to the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then let {@code StdVideoH265SequenceParameterSet spsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-sps">H.265 SPS</a> entries to add to the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pParametersAddInfo} member of the {@link VkVideoEncodeH265SessionParametersCreateInfoKHR} structure provided in the {@code pNext} chain is not {@code NULL}, then the set of {@code StdVideoH265SequenceParameterSet} entries specified in {@code pParametersAddInfo→pStdSPSs} are added to {@code spsAddList};</li>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, then each {@code StdVideoH265SequenceParameterSet} entry stored in it with {@code sps_video_parameter_set_id} or {@code sps_seq_parameter_set_id} not matching any of the entries already in {@code spsAddList} is added to {@code spsAddList}.</li>
  * </ul>
  * </li>
- * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then let {@code StdVideoH265PictureParameterSet ppsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-pps">H.265 PPS</a> entries to add to the created video session parameters object, defined as follows:
+ * <li>If {@code videoSession} was created with the codec operation {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then let {@code StdVideoH265PictureParameterSet ppsAddList[]} be the list of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-pps">H.265 PPS</a> entries to add to the created video session parameters object, defined as follows:
  * 
  * <ul>
  * <li>If the {@code pParametersAddInfo} member of the {@link VkVideoEncodeH265SessionParametersCreateInfoKHR} structure provided in the {@code pNext} chain is not {@code NULL}, then the set of {@code StdVideoH265PictureParameterSet} entries specified in {@code pParametersAddInfo→pStdPPSs} are added to {@code ppsAddList};</li>
@@ -106,7 +106,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> have been created against {@code videoSession}</li>
- * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@code videoSession} was created with an encode operation, then {@code qualityLevel} <b>must</b> equal the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-quality-level">video encode quality</a> level {@code videoSessionParametersTemplate} was created with</li>
+ * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@code videoSession} was created with an encode operation, then {@code qualityLevel} <b>must</b> equal the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-quality-level">video encode quality</a> level {@code videoSessionParametersTemplate} was created with</li>
+ * <li>If {@code flags} includes {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR}, then {@code videoSession} <b>must</b> have been created with {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR} or {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR}</li>
+ * <li>If {@code flags} includes {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR} structure</li>
+ * <li>If {@code flags} includes {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR} and {@code videoSession} was created with {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#supported-video-format-properties">list of video format properties</a> supported for the image usage flag {@link KHRVideoEncodeQuantizationMap#VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR} <b>must</b> have an element for which {@link VkVideoFormatQuantizationMapPropertiesKHR}{@code ::quantizationMapTexelSize} equals the {@code quantizationMapTexelSize} member of the {@link VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR} structure included in the {@code pNext} chain</li>
+ * <li>If {@code flags} includes {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR} and {@code videoSession} was created with {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#supported-video-format-properties">list of video format properties</a> supported for the image usage flag {@link KHRVideoEncodeQuantizationMap#VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR} <b>must</b> have an element for which {@link VkVideoFormatQuantizationMapPropertiesKHR}{@code ::quantizationMapTexelSize} equals the {@code quantizationMapTexelSize} member of the {@link VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR} structure included in the {@code pNext} chain</li>
+ * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@code flags} includes {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR}, then {@code videoSessionParametersTemplate} <b>must</b> have been created with {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR}</li>
+ * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@code flags} includes {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR}, then {@code videoSessionParametersTemplate} <b>must</b> have been created with the same <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-quantization-map-texel-size">quantization map texel size</a> as the one specified in the {@code quantizationMapTexelSize} member of the {@link VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR} structure included in the {@code pNext} chain</li>
+ * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@code flags} does not include {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR}, then {@code videoSessionParametersTemplate} <b>must</b> have been created without {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR}</li>
  * <li>If {@code videoSession} was created with the video codec operation {@link KHRVideoDecodeH264#VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoDecodeH264SessionParametersCreateInfoKHR} structure</li>
  * <li>If {@code videoSession} was created with the video codec operation {@link KHRVideoDecodeH264#VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR}, then the number of elements of {@code spsAddList} <b>must</b> be less than or equal to the {@code maxStdSPSCount} specified in the {@link VkVideoDecodeH264SessionParametersCreateInfoKHR} structure included in the {@code pNext} chain</li>
  * <li>If {@code videoSession} was created with the video codec operation {@link KHRVideoDecodeH264#VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR}, then the number of elements of {@code ppsAddList} <b>must</b> be less than or equal to the {@code maxStdPPSCount} specified in the {@link VkVideoDecodeH264SessionParametersCreateInfoKHR} structure included in the {@code pNext} chain</li>
@@ -125,15 +132,18 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code videoSession} was created with the video codec operation {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then the number of elements of {@code ppsAddList} <b>must</b> be less than or equal to the {@code maxStdPPSCount} specified in the {@link VkVideoEncodeH265SessionParametersCreateInfoKHR} structure included in the {@code pNext} chain</li>
  * <li>If {@code videoSession} was created with the video codec operation {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then {@code num_tile_columns_minus1} <b>must</b> be less than {@link VkVideoEncodeH265CapabilitiesKHR}{@code ::maxTiles.width}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile {@code videoSession} was created with, for each element of {@code ppsAddList}</li>
  * <li>If {@code videoSession} was created with the video codec operation {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then {@code num_tile_rows_minus1} <b>must</b> be less than {@link VkVideoEncodeH265CapabilitiesKHR}{@code ::maxTiles.height}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile {@code videoSession} was created with, for each element of {@code ppsAddList}</li>
+ * <li>If {@code videoSession} was created with the video codec operation {@link KHRVideoEncodeAV1#VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR}, then {@code videoSessionParametersTemplate} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If {@code videoSession} was created with the video codec operation {@link KHRVideoEncodeAV1#VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeAV1SessionParametersCreateInfoKHR} structure</li>
+ * <li>If {@code videoSession} was created with the video codec operation {@link KHRVideoEncodeAV1#VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR}, then the {@code stdOperatingPointCount} member of the {@link VkVideoEncodeAV1SessionParametersCreateInfoKHR} structure included in the {@code pNext} chain <b>must</b> be less than or equal to {@link VkVideoEncodeAV1CapabilitiesKHR}{@code ::maxOperatingPoints}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile {@code videoSession} was created with</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoDecodeAV1SessionParametersCreateInfoKHR}, {@link VkVideoDecodeH264SessionParametersCreateInfoKHR}, {@link VkVideoDecodeH265SessionParametersCreateInfoKHR}, {@link VkVideoEncodeH264SessionParametersCreateInfoKHR}, {@link VkVideoEncodeH265SessionParametersCreateInfoKHR}, or {@link VkVideoEncodeQualityLevelInfoKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoDecodeAV1SessionParametersCreateInfoKHR}, {@link VkVideoDecodeH264SessionParametersCreateInfoKHR}, {@link VkVideoDecodeH265SessionParametersCreateInfoKHR}, {@link VkVideoEncodeAV1SessionParametersCreateInfoKHR}, {@link VkVideoEncodeH264SessionParametersCreateInfoKHR}, {@link VkVideoEncodeH265SessionParametersCreateInfoKHR}, {@link VkVideoEncodeQualityLevelInfoKHR}, or {@link VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
- * <li>{@code flags} <b>must</b> be 0</li>
+ * <li>{@code flags} <b>must</b> be a valid combination of {@code VkVideoSessionParametersCreateFlagBitsKHR} values</li>
  * <li>If {@code videoSessionParametersTemplate} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code videoSessionParametersTemplate} <b>must</b> be a valid {@code VkVideoSessionParametersKHR} handle</li>
  * <li>{@code videoSession} <b>must</b> be a valid {@code VkVideoSessionKHR} handle</li>
  * <li>If {@code videoSessionParametersTemplate} is a valid handle, it <b>must</b> have been created, allocated, or retrieved from {@code videoSession}</li>
@@ -218,7 +228,7 @@ public class VkVideoSessionParametersCreateInfoKHR extends Struct<VkVideoSession
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** reserved for future use. */
+    /** a bitmask of {@code VkVideoSessionParametersCreateFlagBitsKHR} specifying create flags. */
     @NativeType("VkVideoSessionParametersCreateFlagsKHR")
     public int flags() { return nflags(address()); }
     /** {@link VK10#VK_NULL_HANDLE NULL_HANDLE} or a valid handle to a {@code VkVideoSessionParametersKHR} object used as a template for constructing the new video session parameters object. */
@@ -240,12 +250,16 @@ public class VkVideoSessionParametersCreateInfoKHR extends Struct<VkVideoSession
     public VkVideoSessionParametersCreateInfoKHR pNext(VkVideoDecodeH264SessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoDecodeH265SessionParametersCreateInfoKHR} value to the {@code pNext} chain. */
     public VkVideoSessionParametersCreateInfoKHR pNext(VkVideoDecodeH265SessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeAV1SessionParametersCreateInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoSessionParametersCreateInfoKHR pNext(VkVideoEncodeAV1SessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH264SessionParametersCreateInfoKHR} value to the {@code pNext} chain. */
     public VkVideoSessionParametersCreateInfoKHR pNext(VkVideoEncodeH264SessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH265SessionParametersCreateInfoKHR} value to the {@code pNext} chain. */
     public VkVideoSessionParametersCreateInfoKHR pNext(VkVideoEncodeH265SessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeQualityLevelInfoKHR} value to the {@code pNext} chain. */
     public VkVideoSessionParametersCreateInfoKHR pNext(VkVideoEncodeQualityLevelInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoSessionParametersCreateInfoKHR pNext(VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #flags} field. */
     public VkVideoSessionParametersCreateInfoKHR flags(@NativeType("VkVideoSessionParametersCreateFlagsKHR") int value) { nflags(address(), value); return this; }
     /** Sets the specified value to the {@link #videoSessionParametersTemplate} field. */
@@ -306,8 +320,7 @@ public class VkVideoSessionParametersCreateInfoKHR extends Struct<VkVideoSession
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoSessionParametersCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoSessionParametersCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoSessionParametersCreateInfoKHR(address, null);
     }
 
@@ -350,8 +363,7 @@ public class VkVideoSessionParametersCreateInfoKHR extends Struct<VkVideoSession
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoSessionParametersCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoSessionParametersCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -396,26 +408,26 @@ public class VkVideoSessionParametersCreateInfoKHR extends Struct<VkVideoSession
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionParametersCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoSessionParametersCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoSessionParametersCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionParametersCreateInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkVideoSessionParametersCreateInfoKHR.FLAGS); }
     /** Unsafe version of {@link #videoSessionParametersTemplate}. */
-    public static long nvideoSessionParametersTemplate(long struct) { return UNSAFE.getLong(null, struct + VkVideoSessionParametersCreateInfoKHR.VIDEOSESSIONPARAMETERSTEMPLATE); }
+    public static long nvideoSessionParametersTemplate(long struct) { return memGetLong(struct + VkVideoSessionParametersCreateInfoKHR.VIDEOSESSIONPARAMETERSTEMPLATE); }
     /** Unsafe version of {@link #videoSession}. */
-    public static long nvideoSession(long struct) { return UNSAFE.getLong(null, struct + VkVideoSessionParametersCreateInfoKHR.VIDEOSESSION); }
+    public static long nvideoSession(long struct) { return memGetLong(struct + VkVideoSessionParametersCreateInfoKHR.VIDEOSESSION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoSessionParametersCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoSessionParametersCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoSessionParametersCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoSessionParametersCreateInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkVideoSessionParametersCreateInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #videoSessionParametersTemplate(long) videoSessionParametersTemplate}. */
-    public static void nvideoSessionParametersTemplate(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoSessionParametersCreateInfoKHR.VIDEOSESSIONPARAMETERSTEMPLATE, value); }
+    public static void nvideoSessionParametersTemplate(long struct, long value) { memPutLong(struct + VkVideoSessionParametersCreateInfoKHR.VIDEOSESSIONPARAMETERSTEMPLATE, value); }
     /** Unsafe version of {@link #videoSession(long) videoSession}. */
-    public static void nvideoSession(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoSessionParametersCreateInfoKHR.VIDEOSESSION, value); }
+    public static void nvideoSession(long struct, long value) { memPutLong(struct + VkVideoSessionParametersCreateInfoKHR.VIDEOSESSION, value); }
 
     // -----------------------------------
 
@@ -451,6 +463,11 @@ public class VkVideoSessionParametersCreateInfoKHR extends Struct<VkVideoSession
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoSessionParametersCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -483,12 +500,16 @@ public class VkVideoSessionParametersCreateInfoKHR extends Struct<VkVideoSession
         public VkVideoSessionParametersCreateInfoKHR.Buffer pNext(VkVideoDecodeH264SessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoDecodeH265SessionParametersCreateInfoKHR} value to the {@code pNext} chain. */
         public VkVideoSessionParametersCreateInfoKHR.Buffer pNext(VkVideoDecodeH265SessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeAV1SessionParametersCreateInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoSessionParametersCreateInfoKHR.Buffer pNext(VkVideoEncodeAV1SessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH264SessionParametersCreateInfoKHR} value to the {@code pNext} chain. */
         public VkVideoSessionParametersCreateInfoKHR.Buffer pNext(VkVideoEncodeH264SessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH265SessionParametersCreateInfoKHR} value to the {@code pNext} chain. */
         public VkVideoSessionParametersCreateInfoKHR.Buffer pNext(VkVideoEncodeH265SessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeQualityLevelInfoKHR} value to the {@code pNext} chain. */
         public VkVideoSessionParametersCreateInfoKHR.Buffer pNext(VkVideoEncodeQualityLevelInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoSessionParametersCreateInfoKHR.Buffer pNext(VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkVideoSessionParametersCreateInfoKHR#flags} field. */
         public VkVideoSessionParametersCreateInfoKHR.Buffer flags(@NativeType("VkVideoSessionParametersCreateFlagsKHR") int value) { VkVideoSessionParametersCreateInfoKHR.nflags(address(), value); return this; }
         /** Sets the specified value to the {@link VkVideoSessionParametersCreateInfoKHR#videoSessionParametersTemplate} field. */

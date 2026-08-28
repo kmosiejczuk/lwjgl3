@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -131,8 +131,7 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS createSafe(long address) {
+    public static @Nullable CUDA_POINTER_ATTRIBUTE_P2P_TOKENS createSafe(long address) {
         return address == NULL ? null : new CUDA_POINTER_ATTRIBUTE_P2P_TOKENS(address, null);
     }
 
@@ -175,8 +174,7 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.Buffer createSafe(long address, int capacity) {
+    public static CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -221,14 +219,14 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
     // -----------------------------------
 
     /** Unsafe version of {@link #p2pToken}. */
-    public static long np2pToken(long struct) { return UNSAFE.getLong(null, struct + CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.P2PTOKEN); }
+    public static long np2pToken(long struct) { return memGetLong(struct + CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.P2PTOKEN); }
     /** Unsafe version of {@link #vaSpaceToken}. */
-    public static int nvaSpaceToken(long struct) { return UNSAFE.getInt(null, struct + CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.VASPACETOKEN); }
+    public static int nvaSpaceToken(long struct) { return memGetInt(struct + CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.VASPACETOKEN); }
 
     /** Unsafe version of {@link #p2pToken(long) p2pToken}. */
-    public static void np2pToken(long struct, long value) { UNSAFE.putLong(null, struct + CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.P2PTOKEN, value); }
+    public static void np2pToken(long struct, long value) { memPutLong(struct + CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.P2PTOKEN, value); }
     /** Unsafe version of {@link #vaSpaceToken(int) vaSpaceToken}. */
-    public static void nvaSpaceToken(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.VASPACETOKEN, value); }
+    public static void nvaSpaceToken(long struct, int value) { memPutInt(struct + CUDA_POINTER_ATTRIBUTE_P2P_TOKENS.VASPACETOKEN, value); }
 
     // -----------------------------------
 
@@ -261,6 +259,11 @@ public class CUDA_POINTER_ATTRIBUTE_P2P_TOKENS extends Struct<CUDA_POINTER_ATTRI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

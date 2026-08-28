@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -221,8 +221,7 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XSelectionRequestEvent createSafe(long address) {
+    public static @Nullable XSelectionRequestEvent createSafe(long address) {
         return address == NULL ? null : new XSelectionRequestEvent(address, null);
     }
 
@@ -265,8 +264,7 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XSelectionRequestEvent.Buffer createSafe(long address, int capacity) {
+    public static XSelectionRequestEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -330,11 +328,11 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XSelectionRequestEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XSelectionRequestEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XSelectionRequestEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XSelectionRequestEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XSelectionRequestEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XSelectionRequestEvent.DISPLAY); }
     /** Unsafe version of {@link #owner}. */
@@ -351,11 +349,11 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
     public static long ntime(long struct) { return memGetCLong(struct + XSelectionRequestEvent.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XSelectionRequestEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XSelectionRequestEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XSelectionRequestEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XSelectionRequestEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XSelectionRequestEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XSelectionRequestEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #owner(long) owner}. */
@@ -411,6 +409,11 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

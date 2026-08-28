@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class XrFaceTrackerCreateInfoFB extends Struct<XrFaceTrackerCreateInfoFB>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFaceTrackerCreateInfoFB createSafe(long address) {
+    public static @Nullable XrFaceTrackerCreateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrFaceTrackerCreateInfoFB(address, null);
     }
 
@@ -207,8 +206,7 @@ public class XrFaceTrackerCreateInfoFB extends Struct<XrFaceTrackerCreateInfoFB>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFaceTrackerCreateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrFaceTrackerCreateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +251,18 @@ public class XrFaceTrackerCreateInfoFB extends Struct<XrFaceTrackerCreateInfoFB>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFaceTrackerCreateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFaceTrackerCreateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFaceTrackerCreateInfoFB.NEXT); }
     /** Unsafe version of {@link #faceExpressionSet}. */
-    public static int nfaceExpressionSet(long struct) { return UNSAFE.getInt(null, struct + XrFaceTrackerCreateInfoFB.FACEEXPRESSIONSET); }
+    public static int nfaceExpressionSet(long struct) { return memGetInt(struct + XrFaceTrackerCreateInfoFB.FACEEXPRESSIONSET); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFaceTrackerCreateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFaceTrackerCreateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFaceTrackerCreateInfoFB.NEXT, value); }
     /** Unsafe version of {@link #faceExpressionSet(int) faceExpressionSet}. */
-    public static void nfaceExpressionSet(long struct, int value) { UNSAFE.putInt(null, struct + XrFaceTrackerCreateInfoFB.FACEEXPRESSIONSET, value); }
+    public static void nfaceExpressionSet(long struct, int value) { memPutInt(struct + XrFaceTrackerCreateInfoFB.FACEEXPRESSIONSET, value); }
 
     // -----------------------------------
 
@@ -297,6 +295,11 @@ public class XrFaceTrackerCreateInfoFB extends Struct<XrFaceTrackerCreateInfoFB>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

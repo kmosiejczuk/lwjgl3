@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VRTextureBounds extends Struct<VRTextureBounds> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRTextureBounds createSafe(long address) {
+    public static @Nullable VRTextureBounds createSafe(long address) {
         return address == NULL ? null : new VRTextureBounds(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VRTextureBounds extends Struct<VRTextureBounds> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRTextureBounds.Buffer createSafe(long address, int capacity) {
+    public static VRTextureBounds.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,22 +259,22 @@ public class VRTextureBounds extends Struct<VRTextureBounds> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #uMin}. */
-    public static float nuMin(long struct) { return UNSAFE.getFloat(null, struct + VRTextureBounds.UMIN); }
+    public static float nuMin(long struct) { return memGetFloat(struct + VRTextureBounds.UMIN); }
     /** Unsafe version of {@link #vMin}. */
-    public static float nvMin(long struct) { return UNSAFE.getFloat(null, struct + VRTextureBounds.VMIN); }
+    public static float nvMin(long struct) { return memGetFloat(struct + VRTextureBounds.VMIN); }
     /** Unsafe version of {@link #uMax}. */
-    public static float nuMax(long struct) { return UNSAFE.getFloat(null, struct + VRTextureBounds.UMAX); }
+    public static float nuMax(long struct) { return memGetFloat(struct + VRTextureBounds.UMAX); }
     /** Unsafe version of {@link #vMax}. */
-    public static float nvMax(long struct) { return UNSAFE.getFloat(null, struct + VRTextureBounds.VMAX); }
+    public static float nvMax(long struct) { return memGetFloat(struct + VRTextureBounds.VMAX); }
 
     /** Unsafe version of {@link #uMin(float) uMin}. */
-    public static void nuMin(long struct, float value) { UNSAFE.putFloat(null, struct + VRTextureBounds.UMIN, value); }
+    public static void nuMin(long struct, float value) { memPutFloat(struct + VRTextureBounds.UMIN, value); }
     /** Unsafe version of {@link #vMin(float) vMin}. */
-    public static void nvMin(long struct, float value) { UNSAFE.putFloat(null, struct + VRTextureBounds.VMIN, value); }
+    public static void nvMin(long struct, float value) { memPutFloat(struct + VRTextureBounds.VMIN, value); }
     /** Unsafe version of {@link #uMax(float) uMax}. */
-    public static void nuMax(long struct, float value) { UNSAFE.putFloat(null, struct + VRTextureBounds.UMAX, value); }
+    public static void nuMax(long struct, float value) { memPutFloat(struct + VRTextureBounds.UMAX, value); }
     /** Unsafe version of {@link #vMax(float) vMax}. */
-    public static void nvMax(long struct, float value) { UNSAFE.putFloat(null, struct + VRTextureBounds.VMAX, value); }
+    public static void nvMax(long struct, float value) { memPutFloat(struct + VRTextureBounds.VMAX, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VRTextureBounds extends Struct<VRTextureBounds> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

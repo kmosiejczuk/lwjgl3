@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code location} <b>must</b> be less than {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputAttributes}</li>
  * <li>{@code binding} <b>must</b> be less than {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputBindings}</li>
  * <li>{@code offset} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputAttributeOffset}</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-buffer-view-format-features">format features</a> of {@code format} <b>must</b> contain {@link VK10#VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT FORMAT_FEATURE_VERTEX_BUFFER_BIT}</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-buffer-view-format-features">format features</a> of {@code format} <b>must</b> contain {@link VK10#VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT FORMAT_FEATURE_VERTEX_BUFFER_BIT}</li>
  * <li>If the {@link KHRPortabilitySubset VK_KHR_portability_subset} extension is enabled, and {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR}{@code ::vertexAttributeAccessBeyondStride} is {@link VK10#VK_FALSE FALSE}, the sum of {@code offset} plus the size of the vertex attribute data described by {@code format} <b>must</b> not be greater than {@code stride} in the {@link VkVertexInputBindingDescription2EXT} referenced in {@code binding}</li>
  * </ul>
  * 
@@ -200,8 +200,7 @@ public class VkVertexInputAttributeDescription2EXT extends Struct<VkVertexInputA
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVertexInputAttributeDescription2EXT createSafe(long address) {
+    public static @Nullable VkVertexInputAttributeDescription2EXT createSafe(long address) {
         return address == NULL ? null : new VkVertexInputAttributeDescription2EXT(address, null);
     }
 
@@ -244,8 +243,7 @@ public class VkVertexInputAttributeDescription2EXT extends Struct<VkVertexInputA
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVertexInputAttributeDescription2EXT.Buffer createSafe(long address, int capacity) {
+    public static VkVertexInputAttributeDescription2EXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,30 +288,30 @@ public class VkVertexInputAttributeDescription2EXT extends Struct<VkVertexInputA
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputAttributeDescription2EXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVertexInputAttributeDescription2EXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVertexInputAttributeDescription2EXT.PNEXT); }
     /** Unsafe version of {@link #location}. */
-    public static int nlocation(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputAttributeDescription2EXT.LOCATION); }
+    public static int nlocation(long struct) { return memGetInt(struct + VkVertexInputAttributeDescription2EXT.LOCATION); }
     /** Unsafe version of {@link #binding}. */
-    public static int nbinding(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputAttributeDescription2EXT.BINDING); }
+    public static int nbinding(long struct) { return memGetInt(struct + VkVertexInputAttributeDescription2EXT.BINDING); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputAttributeDescription2EXT.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + VkVertexInputAttributeDescription2EXT.FORMAT); }
     /** Unsafe version of {@link #offset}. */
-    public static int noffset(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputAttributeDescription2EXT.OFFSET); }
+    public static int noffset(long struct) { return memGetInt(struct + VkVertexInputAttributeDescription2EXT.OFFSET); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputAttributeDescription2EXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVertexInputAttributeDescription2EXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVertexInputAttributeDescription2EXT.PNEXT, value); }
     /** Unsafe version of {@link #location(int) location}. */
-    public static void nlocation(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputAttributeDescription2EXT.LOCATION, value); }
+    public static void nlocation(long struct, int value) { memPutInt(struct + VkVertexInputAttributeDescription2EXT.LOCATION, value); }
     /** Unsafe version of {@link #binding(int) binding}. */
-    public static void nbinding(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputAttributeDescription2EXT.BINDING, value); }
+    public static void nbinding(long struct, int value) { memPutInt(struct + VkVertexInputAttributeDescription2EXT.BINDING, value); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputAttributeDescription2EXT.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + VkVertexInputAttributeDescription2EXT.FORMAT, value); }
     /** Unsafe version of {@link #offset(int) offset}. */
-    public static void noffset(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputAttributeDescription2EXT.OFFSET, value); }
+    public static void noffset(long struct, int value) { memPutInt(struct + VkVertexInputAttributeDescription2EXT.OFFSET, value); }
 
     // -----------------------------------
 
@@ -346,6 +344,11 @@ public class VkVertexInputAttributeDescription2EXT extends Struct<VkVertexInputA
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

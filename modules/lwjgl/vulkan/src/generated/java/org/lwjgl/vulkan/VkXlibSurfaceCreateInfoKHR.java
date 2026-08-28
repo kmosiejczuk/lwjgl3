@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -189,8 +189,7 @@ public class VkXlibSurfaceCreateInfoKHR extends Struct<VkXlibSurfaceCreateInfoKH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkXlibSurfaceCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkXlibSurfaceCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkXlibSurfaceCreateInfoKHR(address, null);
     }
 
@@ -233,8 +232,7 @@ public class VkXlibSurfaceCreateInfoKHR extends Struct<VkXlibSurfaceCreateInfoKH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkXlibSurfaceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkXlibSurfaceCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -298,22 +296,22 @@ public class VkXlibSurfaceCreateInfoKHR extends Struct<VkXlibSurfaceCreateInfoKH
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkXlibSurfaceCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkXlibSurfaceCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkXlibSurfaceCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkXlibSurfaceCreateInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkXlibSurfaceCreateInfoKHR.FLAGS); }
     /** Unsafe version of {@link #dpy}. */
     public static long ndpy(long struct) { return memGetAddress(struct + VkXlibSurfaceCreateInfoKHR.DPY); }
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetCLong(struct + VkXlibSurfaceCreateInfoKHR.WINDOW); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkXlibSurfaceCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkXlibSurfaceCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkXlibSurfaceCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkXlibSurfaceCreateInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkXlibSurfaceCreateInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #dpy(long) dpy}. */
     public static void ndpy(long struct, long value) { memPutAddress(struct + VkXlibSurfaceCreateInfoKHR.DPY, value); }
     /** Unsafe version of {@link #window(long) window}. */
@@ -350,6 +348,11 @@ public class VkXlibSurfaceCreateInfoKHR extends Struct<VkXlibSurfaceCreateInfoKH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

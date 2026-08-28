@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -35,6 +35,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkStructureType sType;
  *     void * pNext;
  *     VkBool32 {@link #shaderEnqueue};
+ *     VkBool32 {@link #shaderMeshEnqueue};
  * }</code></pre>
  */
 public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysicalDeviceShaderEnqueueFeaturesAMDX> implements NativeResource {
@@ -49,12 +50,14 @@ public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysical
     public static final int
         STYPE,
         PNEXT,
-        SHADERENQUEUE;
+        SHADERENQUEUE,
+        SHADERMESHENQUEUE;
 
     static {
         Layout layout = __struct(
             __member(4),
             __member(POINTER_SIZE),
+            __member(4),
             __member(4)
         );
 
@@ -64,6 +67,7 @@ public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysical
         STYPE = layout.offsetof(0);
         PNEXT = layout.offsetof(1);
         SHADERENQUEUE = layout.offsetof(2);
+        SHADERMESHENQUEUE = layout.offsetof(3);
     }
 
     protected VkPhysicalDeviceShaderEnqueueFeaturesAMDX(long address, @Nullable ByteBuffer container) {
@@ -94,9 +98,12 @@ public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysical
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#executiongraphs">execution graphs</a>. */
+    /** indicates whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#executiongraphs">execution graphs</a>. */
     @NativeType("VkBool32")
     public boolean shaderEnqueue() { return nshaderEnqueue(address()) != 0; }
+    /** indicates whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#executiongraphs-meshnodes">mesh nodes in execution graphs</a>. */
+    @NativeType("VkBool32")
+    public boolean shaderMeshEnqueue() { return nshaderMeshEnqueue(address()) != 0; }
 
     /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceShaderEnqueueFeaturesAMDX sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -106,16 +113,20 @@ public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysical
     public VkPhysicalDeviceShaderEnqueueFeaturesAMDX pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #shaderEnqueue} field. */
     public VkPhysicalDeviceShaderEnqueueFeaturesAMDX shaderEnqueue(@NativeType("VkBool32") boolean value) { nshaderEnqueue(address(), value ? 1 : 0); return this; }
+    /** Sets the specified value to the {@link #shaderMeshEnqueue} field. */
+    public VkPhysicalDeviceShaderEnqueueFeaturesAMDX shaderMeshEnqueue(@NativeType("VkBool32") boolean value) { nshaderMeshEnqueue(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkPhysicalDeviceShaderEnqueueFeaturesAMDX set(
         int sType,
         long pNext,
-        boolean shaderEnqueue
+        boolean shaderEnqueue,
+        boolean shaderMeshEnqueue
     ) {
         sType(sType);
         pNext(pNext);
         shaderEnqueue(shaderEnqueue);
+        shaderMeshEnqueue(shaderMeshEnqueue);
 
         return this;
     }
@@ -156,8 +167,7 @@ public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderEnqueueFeaturesAMDX createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderEnqueueFeaturesAMDX createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderEnqueueFeaturesAMDX(address, null);
     }
 
@@ -200,8 +210,7 @@ public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderEnqueueFeaturesAMDX.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderEnqueueFeaturesAMDX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +255,22 @@ public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.PNEXT); }
     /** Unsafe version of {@link #shaderEnqueue}. */
-    public static int nshaderEnqueue(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.SHADERENQUEUE); }
+    public static int nshaderEnqueue(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.SHADERENQUEUE); }
+    /** Unsafe version of {@link #shaderMeshEnqueue}. */
+    public static int nshaderMeshEnqueue(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.SHADERMESHENQUEUE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.PNEXT, value); }
     /** Unsafe version of {@link #shaderEnqueue(boolean) shaderEnqueue}. */
-    public static void nshaderEnqueue(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.SHADERENQUEUE, value); }
+    public static void nshaderEnqueue(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.SHADERENQUEUE, value); }
+    /** Unsafe version of {@link #shaderMeshEnqueue(boolean) shaderMeshEnqueue}. */
+    public static void nshaderMeshEnqueue(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderEnqueueFeaturesAMDX.SHADERMESHENQUEUE, value); }
 
     // -----------------------------------
 
@@ -293,6 +306,11 @@ public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysical
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceShaderEnqueueFeaturesAMDX getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -306,6 +324,9 @@ public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysical
         /** @return the value of the {@link VkPhysicalDeviceShaderEnqueueFeaturesAMDX#shaderEnqueue} field. */
         @NativeType("VkBool32")
         public boolean shaderEnqueue() { return VkPhysicalDeviceShaderEnqueueFeaturesAMDX.nshaderEnqueue(address()) != 0; }
+        /** @return the value of the {@link VkPhysicalDeviceShaderEnqueueFeaturesAMDX#shaderMeshEnqueue} field. */
+        @NativeType("VkBool32")
+        public boolean shaderMeshEnqueue() { return VkPhysicalDeviceShaderEnqueueFeaturesAMDX.nshaderMeshEnqueue(address()) != 0; }
 
         /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceShaderEnqueueFeaturesAMDX.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceShaderEnqueueFeaturesAMDX.nsType(address(), value); return this; }
@@ -315,6 +336,8 @@ public class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends Struct<VkPhysical
         public VkPhysicalDeviceShaderEnqueueFeaturesAMDX.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceShaderEnqueueFeaturesAMDX.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkPhysicalDeviceShaderEnqueueFeaturesAMDX#shaderEnqueue} field. */
         public VkPhysicalDeviceShaderEnqueueFeaturesAMDX.Buffer shaderEnqueue(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceShaderEnqueueFeaturesAMDX.nshaderEnqueue(address(), value ? 1 : 0); return this; }
+        /** Sets the specified value to the {@link VkPhysicalDeviceShaderEnqueueFeaturesAMDX#shaderMeshEnqueue} field. */
+        public VkPhysicalDeviceShaderEnqueueFeaturesAMDX.Buffer shaderMeshEnqueue(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceShaderEnqueueFeaturesAMDX.nshaderMeshEnqueue(address(), value ? 1 : 0); return this; }
 
     }
 

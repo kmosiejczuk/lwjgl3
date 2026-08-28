@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class XrMarkerDetectorArucoInfoML extends Struct<XrMarkerDetectorArucoInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerDetectorArucoInfoML createSafe(long address) {
+    public static @Nullable XrMarkerDetectorArucoInfoML createSafe(long address) {
         return address == NULL ? null : new XrMarkerDetectorArucoInfoML(address, null);
     }
 
@@ -207,8 +206,7 @@ public class XrMarkerDetectorArucoInfoML extends Struct<XrMarkerDetectorArucoInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerDetectorArucoInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrMarkerDetectorArucoInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +251,18 @@ public class XrMarkerDetectorArucoInfoML extends Struct<XrMarkerDetectorArucoInf
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrMarkerDetectorArucoInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrMarkerDetectorArucoInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrMarkerDetectorArucoInfoML.NEXT); }
     /** Unsafe version of {@link #arucoDict}. */
-    public static int narucoDict(long struct) { return UNSAFE.getInt(null, struct + XrMarkerDetectorArucoInfoML.ARUCODICT); }
+    public static int narucoDict(long struct) { return memGetInt(struct + XrMarkerDetectorArucoInfoML.ARUCODICT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrMarkerDetectorArucoInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrMarkerDetectorArucoInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrMarkerDetectorArucoInfoML.NEXT, value); }
     /** Unsafe version of {@link #arucoDict(int) arucoDict}. */
-    public static void narucoDict(long struct, int value) { UNSAFE.putInt(null, struct + XrMarkerDetectorArucoInfoML.ARUCODICT, value); }
+    public static void narucoDict(long struct, int value) { memPutInt(struct + XrMarkerDetectorArucoInfoML.ARUCODICT, value); }
 
     // -----------------------------------
 
@@ -297,6 +295,11 @@ public class XrMarkerDetectorArucoInfoML extends Struct<XrMarkerDetectorArucoInf
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

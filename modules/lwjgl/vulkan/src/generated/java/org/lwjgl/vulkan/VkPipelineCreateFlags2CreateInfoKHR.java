@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,57 +16,18 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Extended pipeline create flags.
- * 
- * <h5>Description</h5>
- * 
- * <p>If this structure is included in the {@code pNext} chain of a pipeline creation structure, {@code flags} is used instead of the corresponding {@code flags} value passed in that creation structure, allowing additional creation flags to be specified.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRMaintenance5#VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR}</li>
- * <li>{@code flags} <b>must</b> be a valid combination of {@code VkPipelineCreateFlagBits2KHR} values</li>
- * <li>{@code flags} <b>must</b> not be 0</li>
- * </ul>
+ * See {@link VkPipelineCreateFlags2CreateInfo}.
  * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct VkPipelineCreateFlags2CreateInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkPipelineCreateFlags2KHR {@link #flags};
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkPipelineCreateFlags2 flags;
  * }</code></pre>
  */
-public class VkPipelineCreateFlags2CreateInfoKHR extends Struct<VkPipelineCreateFlags2CreateInfoKHR> implements NativeResource {
-
-    /** The struct size in bytes. */
-    public static final int SIZEOF;
-
-    /** The struct alignment in bytes. */
-    public static final int ALIGNOF;
-
-    /** The struct member offsets. */
-    public static final int
-        STYPE,
-        PNEXT,
-        FLAGS;
-
-    static {
-        Layout layout = __struct(
-            __member(4),
-            __member(POINTER_SIZE),
-            __member(8)
-        );
-
-        SIZEOF = layout.getSize();
-        ALIGNOF = layout.getAlignment();
-
-        STYPE = layout.offsetof(0);
-        PNEXT = layout.offsetof(1);
-        FLAGS = layout.offsetof(2);
-    }
+public class VkPipelineCreateFlags2CreateInfoKHR extends VkPipelineCreateFlags2CreateInfo {
 
     protected VkPipelineCreateFlags2CreateInfoKHR(long address, @Nullable ByteBuffer container) {
         super(address, container);
@@ -84,32 +45,24 @@ public class VkPipelineCreateFlags2CreateInfoKHR extends Struct<VkPipelineCreate
      * <p>The created instance holds a strong reference to the container object.</p>
      */
     public VkPipelineCreateFlags2CreateInfoKHR(ByteBuffer container) {
-        super(memAddress(container), __checkContainer(container, SIZEOF));
+        super(container);
     }
 
+    /** Sets the specified value to the {@code sType} field. */
     @Override
-    public int sizeof() { return SIZEOF; }
-
-    /** a {@code VkStructureType} value identifying this structure. */
-    @NativeType("VkStructureType")
-    public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
-    @NativeType("void const *")
-    public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkPipelineCreateFlagBits2KHR} specifying how a pipeline will be generated. */
-    @NativeType("VkPipelineCreateFlags2KHR")
-    public long flags() { return nflags(address()); }
-
-    /** Sets the specified value to the {@link #sType} field. */
     public VkPipelineCreateFlags2CreateInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRMaintenance5#VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR} value to the {@link #sType} field. */
-    public VkPipelineCreateFlags2CreateInfoKHR sType$Default() { return sType(KHRMaintenance5.VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the {@link VK14#VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO} value to the {@code sType} field. */
+    @Override
+    public VkPipelineCreateFlags2CreateInfoKHR sType$Default() { return sType(VK14.VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO); }
+    /** Sets the specified value to the {@code pNext} field. */
+    @Override
     public VkPipelineCreateFlags2CreateInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
-    public VkPipelineCreateFlags2CreateInfoKHR flags(@NativeType("VkPipelineCreateFlags2KHR") long value) { nflags(address(), value); return this; }
+    /** Sets the specified value to the {@code flags} field. */
+    @Override
+    public VkPipelineCreateFlags2CreateInfoKHR flags(@NativeType("VkPipelineCreateFlags2") long value) { nflags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
+    @Override
     public VkPipelineCreateFlags2CreateInfoKHR set(
         int sType,
         long pNext,
@@ -158,8 +111,7 @@ public class VkPipelineCreateFlags2CreateInfoKHR extends Struct<VkPipelineCreate
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCreateFlags2CreateInfoKHR createSafe(long address) {
+    public static @Nullable VkPipelineCreateFlags2CreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkPipelineCreateFlags2CreateInfoKHR(address, null);
     }
 
@@ -202,8 +154,7 @@ public class VkPipelineCreateFlags2CreateInfoKHR extends Struct<VkPipelineCreate
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCreateFlags2CreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineCreateFlags2CreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,24 +198,8 @@ public class VkPipelineCreateFlags2CreateInfoKHR extends Struct<VkPipelineCreate
 
     // -----------------------------------
 
-    /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCreateFlags2CreateInfoKHR.STYPE); }
-    /** Unsafe version of {@link #pNext}. */
-    public static long npNext(long struct) { return memGetAddress(struct + VkPipelineCreateFlags2CreateInfoKHR.PNEXT); }
-    /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + VkPipelineCreateFlags2CreateInfoKHR.FLAGS); }
-
-    /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCreateFlags2CreateInfoKHR.STYPE, value); }
-    /** Unsafe version of {@link #pNext(long) pNext}. */
-    public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineCreateFlags2CreateInfoKHR.PNEXT, value); }
-    /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + VkPipelineCreateFlags2CreateInfoKHR.FLAGS, value); }
-
-    // -----------------------------------
-
     /** An array of {@link VkPipelineCreateFlags2CreateInfoKHR} structs. */
-    public static class Buffer extends StructBuffer<VkPipelineCreateFlags2CreateInfoKHR, Buffer> implements NativeResource {
+    public static class Buffer extends VkPipelineCreateFlags2CreateInfo.Buffer {
 
         private static final VkPipelineCreateFlags2CreateInfoKHR ELEMENT_FACTORY = VkPipelineCreateFlags2CreateInfoKHR.create(-1L);
 
@@ -278,7 +213,7 @@ public class VkPipelineCreateFlags2CreateInfoKHR extends Struct<VkPipelineCreate
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
         public Buffer(ByteBuffer container) {
-            super(container, container.remaining() / SIZEOF);
+            super(container);
         }
 
         public Buffer(long address, int cap) {
@@ -295,28 +230,27 @@ public class VkPipelineCreateFlags2CreateInfoKHR extends Struct<VkPipelineCreate
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineCreateFlags2CreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineCreateFlags2CreateInfoKHR#sType} field. */
-        @NativeType("VkStructureType")
-        public int sType() { return VkPipelineCreateFlags2CreateInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkPipelineCreateFlags2CreateInfoKHR#pNext} field. */
-        @NativeType("void const *")
-        public long pNext() { return VkPipelineCreateFlags2CreateInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkPipelineCreateFlags2CreateInfoKHR#flags} field. */
-        @NativeType("VkPipelineCreateFlags2KHR")
-        public long flags() { return VkPipelineCreateFlags2CreateInfoKHR.nflags(address()); }
-
-        /** Sets the specified value to the {@link VkPipelineCreateFlags2CreateInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
+        @Override
         public VkPipelineCreateFlags2CreateInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineCreateFlags2CreateInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRMaintenance5#VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR} value to the {@link VkPipelineCreateFlags2CreateInfoKHR#sType} field. */
-        public VkPipelineCreateFlags2CreateInfoKHR.Buffer sType$Default() { return sType(KHRMaintenance5.VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR); }
-        /** Sets the specified value to the {@link VkPipelineCreateFlags2CreateInfoKHR#pNext} field. */
+        /** Sets the {@link VK14#VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO} value to the {@code sType} field. */
+        @Override
+        public VkPipelineCreateFlags2CreateInfoKHR.Buffer sType$Default() { return sType(VK14.VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO); }
+        /** Sets the specified value to the {@code pNext} field. */
+        @Override
         public VkPipelineCreateFlags2CreateInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkPipelineCreateFlags2CreateInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineCreateFlags2CreateInfoKHR#flags} field. */
-        public VkPipelineCreateFlags2CreateInfoKHR.Buffer flags(@NativeType("VkPipelineCreateFlags2KHR") long value) { VkPipelineCreateFlags2CreateInfoKHR.nflags(address(), value); return this; }
+        /** Sets the specified value to the {@code flags} field. */
+        @Override
+        public VkPipelineCreateFlags2CreateInfoKHR.Buffer flags(@NativeType("VkPipelineCreateFlags2") long value) { VkPipelineCreateFlags2CreateInfoKHR.nflags(address(), value); return this; }
 
     }
 

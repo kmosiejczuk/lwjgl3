@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -119,8 +119,7 @@ public class VkSetStateFlagsIndirectCommandNV extends Struct<VkSetStateFlagsIndi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSetStateFlagsIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkSetStateFlagsIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkSetStateFlagsIndirectCommandNV(address, null);
     }
 
@@ -163,8 +162,7 @@ public class VkSetStateFlagsIndirectCommandNV extends Struct<VkSetStateFlagsIndi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSetStateFlagsIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkSetStateFlagsIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -209,10 +207,10 @@ public class VkSetStateFlagsIndirectCommandNV extends Struct<VkSetStateFlagsIndi
     // -----------------------------------
 
     /** Unsafe version of {@link #data}. */
-    public static int ndata(long struct) { return UNSAFE.getInt(null, struct + VkSetStateFlagsIndirectCommandNV.DATA); }
+    public static int ndata(long struct) { return memGetInt(struct + VkSetStateFlagsIndirectCommandNV.DATA); }
 
     /** Unsafe version of {@link #data(int) data}. */
-    public static void ndata(long struct, int value) { UNSAFE.putInt(null, struct + VkSetStateFlagsIndirectCommandNV.DATA, value); }
+    public static void ndata(long struct, int value) { memPutInt(struct + VkSetStateFlagsIndirectCommandNV.DATA, value); }
 
     // -----------------------------------
 
@@ -245,6 +243,11 @@ public class VkSetStateFlagsIndirectCommandNV extends Struct<VkSetStateFlagsIndi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

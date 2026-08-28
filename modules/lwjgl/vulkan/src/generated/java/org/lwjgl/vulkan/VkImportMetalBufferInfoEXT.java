@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -157,8 +157,7 @@ public class VkImportMetalBufferInfoEXT extends Struct<VkImportMetalBufferInfoEX
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportMetalBufferInfoEXT createSafe(long address) {
+    public static @Nullable VkImportMetalBufferInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkImportMetalBufferInfoEXT(address, null);
     }
 
@@ -201,8 +200,7 @@ public class VkImportMetalBufferInfoEXT extends Struct<VkImportMetalBufferInfoEX
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportMetalBufferInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImportMetalBufferInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,14 +245,14 @@ public class VkImportMetalBufferInfoEXT extends Struct<VkImportMetalBufferInfoEX
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImportMetalBufferInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImportMetalBufferInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImportMetalBufferInfoEXT.PNEXT); }
     /** Unsafe version of {@link #mtlBuffer}. */
     public static long nmtlBuffer(long struct) { return memGetAddress(struct + VkImportMetalBufferInfoEXT.MTLBUFFER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportMetalBufferInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImportMetalBufferInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImportMetalBufferInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #mtlBuffer(long) mtlBuffer}. */
@@ -300,6 +298,11 @@ public class VkImportMetalBufferInfoEXT extends Struct<VkImportMetalBufferInfoEX
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

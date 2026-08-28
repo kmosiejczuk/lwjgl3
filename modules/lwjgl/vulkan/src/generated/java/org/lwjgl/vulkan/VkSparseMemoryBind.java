@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code memory} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code memory} and {@code memoryOffset} <b>must</b> match the memory requirements of the resource, as described in section <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-association">Resource Memory Association</a></li>
+ * <li>If {@code memory} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code memory} and {@code memoryOffset} <b>must</b> match the memory requirements of the resource, as described in section <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-association">Resource Memory Association</a></li>
  * <li>If the resource being bound is a {@code VkBuffer}, {@code resourceOffset}, {@code memoryOffset} and {@code size} <b>must</b> be an integer multiple of the {@code alignment} of the {@link VkMemoryRequirements} structure returned from a call to {@link VK10#vkGetBufferMemoryRequirements GetBufferMemoryRequirements} with the buffer resource</li>
  * <li>If the resource being bound is a {@code VkImage}, {@code resourceOffset} and {@code memoryOffset} <b>must</b> be an integer multiple of the {@code alignment} of the {@link VkMemoryRequirements} structure returned from a call to {@link VK10#vkGetImageMemoryRequirements GetImageMemoryRequirements} with the image resource</li>
  * <li>If {@code memory} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code memory} <b>must</b> not have been created with a memory type that reports {@link VK10#VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT} bit set</li>
@@ -208,8 +208,7 @@ public class VkSparseMemoryBind extends Struct<VkSparseMemoryBind> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseMemoryBind createSafe(long address) {
+    public static @Nullable VkSparseMemoryBind createSafe(long address) {
         return address == NULL ? null : new VkSparseMemoryBind(address, null);
     }
 
@@ -252,8 +251,7 @@ public class VkSparseMemoryBind extends Struct<VkSparseMemoryBind> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseMemoryBind.Buffer createSafe(long address, int capacity) {
+    public static VkSparseMemoryBind.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -317,26 +315,26 @@ public class VkSparseMemoryBind extends Struct<VkSparseMemoryBind> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #resourceOffset}. */
-    public static long nresourceOffset(long struct) { return UNSAFE.getLong(null, struct + VkSparseMemoryBind.RESOURCEOFFSET); }
+    public static long nresourceOffset(long struct) { return memGetLong(struct + VkSparseMemoryBind.RESOURCEOFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkSparseMemoryBind.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkSparseMemoryBind.SIZE); }
     /** Unsafe version of {@link #memory}. */
-    public static long nmemory(long struct) { return UNSAFE.getLong(null, struct + VkSparseMemoryBind.MEMORY); }
+    public static long nmemory(long struct) { return memGetLong(struct + VkSparseMemoryBind.MEMORY); }
     /** Unsafe version of {@link #memoryOffset}. */
-    public static long nmemoryOffset(long struct) { return UNSAFE.getLong(null, struct + VkSparseMemoryBind.MEMORYOFFSET); }
+    public static long nmemoryOffset(long struct) { return memGetLong(struct + VkSparseMemoryBind.MEMORYOFFSET); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkSparseMemoryBind.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkSparseMemoryBind.FLAGS); }
 
     /** Unsafe version of {@link #resourceOffset(long) resourceOffset}. */
-    public static void nresourceOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseMemoryBind.RESOURCEOFFSET, value); }
+    public static void nresourceOffset(long struct, long value) { memPutLong(struct + VkSparseMemoryBind.RESOURCEOFFSET, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseMemoryBind.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkSparseMemoryBind.SIZE, value); }
     /** Unsafe version of {@link #memory(long) memory}. */
-    public static void nmemory(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseMemoryBind.MEMORY, value); }
+    public static void nmemory(long struct, long value) { memPutLong(struct + VkSparseMemoryBind.MEMORY, value); }
     /** Unsafe version of {@link #memoryOffset(long) memoryOffset}. */
-    public static void nmemoryOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseMemoryBind.MEMORYOFFSET, value); }
+    public static void nmemoryOffset(long struct, long value) { memPutLong(struct + VkSparseMemoryBind.MEMORYOFFSET, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkSparseMemoryBind.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkSparseMemoryBind.FLAGS, value); }
 
     // -----------------------------------
 
@@ -369,6 +367,11 @@ public class VkSparseMemoryBind extends Struct<VkSparseMemoryBind> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

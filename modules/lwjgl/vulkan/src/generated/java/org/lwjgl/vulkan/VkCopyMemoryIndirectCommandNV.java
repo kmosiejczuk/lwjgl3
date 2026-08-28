@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkCopyMemoryIndirectCommandNV extends Struct<VkCopyMemoryIndirectCo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyMemoryIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkCopyMemoryIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkCopyMemoryIndirectCommandNV(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkCopyMemoryIndirectCommandNV extends Struct<VkCopyMemoryIndirectCo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyMemoryIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkCopyMemoryIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,18 +240,18 @@ public class VkCopyMemoryIndirectCommandNV extends Struct<VkCopyMemoryIndirectCo
     // -----------------------------------
 
     /** Unsafe version of {@link #srcAddress}. */
-    public static long nsrcAddress(long struct) { return UNSAFE.getLong(null, struct + VkCopyMemoryIndirectCommandNV.SRCADDRESS); }
+    public static long nsrcAddress(long struct) { return memGetLong(struct + VkCopyMemoryIndirectCommandNV.SRCADDRESS); }
     /** Unsafe version of {@link #dstAddress}. */
-    public static long ndstAddress(long struct) { return UNSAFE.getLong(null, struct + VkCopyMemoryIndirectCommandNV.DSTADDRESS); }
+    public static long ndstAddress(long struct) { return memGetLong(struct + VkCopyMemoryIndirectCommandNV.DSTADDRESS); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkCopyMemoryIndirectCommandNV.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkCopyMemoryIndirectCommandNV.SIZE); }
 
     /** Unsafe version of {@link #srcAddress(long) srcAddress}. */
-    public static void nsrcAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyMemoryIndirectCommandNV.SRCADDRESS, value); }
+    public static void nsrcAddress(long struct, long value) { memPutLong(struct + VkCopyMemoryIndirectCommandNV.SRCADDRESS, value); }
     /** Unsafe version of {@link #dstAddress(long) dstAddress}. */
-    public static void ndstAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyMemoryIndirectCommandNV.DSTADDRESS, value); }
+    public static void ndstAddress(long struct, long value) { memPutLong(struct + VkCopyMemoryIndirectCommandNV.DSTADDRESS, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyMemoryIndirectCommandNV.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkCopyMemoryIndirectCommandNV.SIZE, value); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class VkCopyMemoryIndirectCommandNV extends Struct<VkCopyMemoryIndirectCo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

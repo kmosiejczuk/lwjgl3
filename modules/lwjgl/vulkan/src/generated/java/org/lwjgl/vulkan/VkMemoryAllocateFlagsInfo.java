@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -182,8 +182,7 @@ public class VkMemoryAllocateFlagsInfo extends Struct<VkMemoryAllocateFlagsInfo>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryAllocateFlagsInfo createSafe(long address) {
+    public static @Nullable VkMemoryAllocateFlagsInfo createSafe(long address) {
         return address == NULL ? null : new VkMemoryAllocateFlagsInfo(address, null);
     }
 
@@ -226,8 +225,7 @@ public class VkMemoryAllocateFlagsInfo extends Struct<VkMemoryAllocateFlagsInfo>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryAllocateFlagsInfo.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryAllocateFlagsInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -291,22 +289,22 @@ public class VkMemoryAllocateFlagsInfo extends Struct<VkMemoryAllocateFlagsInfo>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryAllocateFlagsInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryAllocateFlagsInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryAllocateFlagsInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkMemoryAllocateFlagsInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkMemoryAllocateFlagsInfo.FLAGS); }
     /** Unsafe version of {@link #deviceMask}. */
-    public static int ndeviceMask(long struct) { return UNSAFE.getInt(null, struct + VkMemoryAllocateFlagsInfo.DEVICEMASK); }
+    public static int ndeviceMask(long struct) { return memGetInt(struct + VkMemoryAllocateFlagsInfo.DEVICEMASK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryAllocateFlagsInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryAllocateFlagsInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryAllocateFlagsInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryAllocateFlagsInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkMemoryAllocateFlagsInfo.FLAGS, value); }
     /** Unsafe version of {@link #deviceMask(int) deviceMask}. */
-    public static void ndeviceMask(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryAllocateFlagsInfo.DEVICEMASK, value); }
+    public static void ndeviceMask(long struct, int value) { memPutInt(struct + VkMemoryAllocateFlagsInfo.DEVICEMASK, value); }
 
     // -----------------------------------
 
@@ -339,6 +337,11 @@ public class VkMemoryAllocateFlagsInfo extends Struct<VkMemoryAllocateFlagsInfo>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

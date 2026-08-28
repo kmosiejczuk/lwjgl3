@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,9 +23,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>When this structure is included in the {@code pNext} chain of {@link VkPipelineColorBlendStateCreateInfo}, it defines per-attachment color write state. If this structure is not included in the {@code pNext} chain, it is equivalent to specifying this structure with {@code attachmentCount} equal to the {@code attachmentCount} member of {@link VkPipelineColorBlendStateCreateInfo}, and {@code pColorWriteEnables} pointing to an array of as many {@link VK10#VK_TRUE TRUE} values.</p>
  * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-colorWriteEnable">{@code colorWriteEnable}</a> feature is not enabled on the device, all {@code VkBool32} elements in the {@code pColorWriteEnables} array <b>must</b> be {@link VK10#VK_TRUE TRUE}.</p>
+ * <p>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-colorWriteEnable">{@code colorWriteEnable}</a> feature is not enabled, all {@code VkBool32} elements in the {@code pColorWriteEnables} array <b>must</b> be {@link VK10#VK_TRUE TRUE}.</p>
  * 
- * <p>Color Write Enable interacts with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-color-write-mask">Color Write Mask</a> as follows:</p>
+ * <p>Color Write Enable interacts with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#framebuffer-color-write-mask">Color Write Mask</a> as follows:</p>
  * 
  * <ul>
  * <li>If {@code colorWriteEnable} is {@link VK10#VK_TRUE TRUE}, writes to the attachment are determined by the {@code colorWriteMask}.</li>
@@ -35,7 +35,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-colorWriteEnable">{@code colorWriteEnable}</a> feature is not enabled, all elements of {@code pColorWriteEnables} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-colorWriteEnable">{@code colorWriteEnable}</a> feature is not enabled, all elements of {@code pColorWriteEnables} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
  * <li>If the pipeline is being created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT}, {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT}, {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT}, or {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_WRITE_MASK_EXT DYNAMIC_STATE_COLOR_WRITE_MASK_EXT} dynamic states not set, {@code attachmentCount} <b>must</b> be equal to the {@code attachmentCount} member of the {@link VkPipelineColorBlendStateCreateInfo} structure specified during pipeline creation</li>
  * <li>{@code attachmentCount} <b>must</b> be less than or equal to the {@code maxColorAttachments} member of {@link VkPhysicalDeviceLimits}</li>
  * </ul>
@@ -121,9 +121,8 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct<VkPipelineColorWri
     @NativeType("uint32_t")
     public int attachmentCount() { return nattachmentCount(address()); }
     /** a pointer to an array of per target attachment boolean values specifying whether color writes are enabled for the given attachment. */
-    @Nullable
     @NativeType("VkBool32 const *")
-    public IntBuffer pColorWriteEnables() { return npColorWriteEnables(address()); }
+    public @Nullable IntBuffer pColorWriteEnables() { return npColorWriteEnables(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkPipelineColorWriteCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -183,8 +182,7 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct<VkPipelineColorWri
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineColorWriteCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineColorWriteCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineColorWriteCreateInfoEXT(address, null);
     }
 
@@ -227,8 +225,7 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct<VkPipelineColorWri
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineColorWriteCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineColorWriteCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,20 +270,20 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct<VkPipelineColorWri
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorWriteCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineColorWriteCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineColorWriteCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #attachmentCount}. */
-    public static int nattachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorWriteCreateInfoEXT.ATTACHMENTCOUNT); }
+    public static int nattachmentCount(long struct) { return memGetInt(struct + VkPipelineColorWriteCreateInfoEXT.ATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pColorWriteEnables() pColorWriteEnables}. */
-    @Nullable public static IntBuffer npColorWriteEnables(long struct) { return memIntBufferSafe(memGetAddress(struct + VkPipelineColorWriteCreateInfoEXT.PCOLORWRITEENABLES), nattachmentCount(struct)); }
+    public static @Nullable IntBuffer npColorWriteEnables(long struct) { return memIntBufferSafe(memGetAddress(struct + VkPipelineColorWriteCreateInfoEXT.PCOLORWRITEENABLES), nattachmentCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorWriteCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineColorWriteCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineColorWriteCreateInfoEXT.PNEXT, value); }
     /** Sets the specified value to the {@code attachmentCount} field of the specified {@code struct}. */
-    public static void nattachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorWriteCreateInfoEXT.ATTACHMENTCOUNT, value); }
+    public static void nattachmentCount(long struct, int value) { memPutInt(struct + VkPipelineColorWriteCreateInfoEXT.ATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pColorWriteEnables(IntBuffer) pColorWriteEnables}. */
     public static void npColorWriteEnables(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkPipelineColorWriteCreateInfoEXT.PCOLORWRITEENABLES, memAddressSafe(value)); nattachmentCount(struct, value == null ? 0 : value.remaining()); }
 
@@ -335,6 +332,11 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct<VkPipelineColorWri
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineColorWriteCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -349,9 +351,8 @@ public class VkPipelineColorWriteCreateInfoEXT extends Struct<VkPipelineColorWri
         @NativeType("uint32_t")
         public int attachmentCount() { return VkPipelineColorWriteCreateInfoEXT.nattachmentCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkPipelineColorWriteCreateInfoEXT#pColorWriteEnables} field. */
-        @Nullable
         @NativeType("VkBool32 const *")
-        public IntBuffer pColorWriteEnables() { return VkPipelineColorWriteCreateInfoEXT.npColorWriteEnables(address()); }
+        public @Nullable IntBuffer pColorWriteEnables() { return VkPipelineColorWriteCreateInfoEXT.npColorWriteEnables(address()); }
 
         /** Sets the specified value to the {@link VkPipelineColorWriteCreateInfoEXT#sType} field. */
         public VkPipelineColorWriteCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineColorWriteCreateInfoEXT.nsType(address(), value); return this; }

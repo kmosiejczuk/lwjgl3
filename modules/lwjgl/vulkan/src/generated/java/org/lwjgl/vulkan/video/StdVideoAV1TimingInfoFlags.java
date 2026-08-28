@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -115,8 +115,7 @@ public class StdVideoAV1TimingInfoFlags extends Struct<StdVideoAV1TimingInfoFlag
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1TimingInfoFlags createSafe(long address) {
+    public static @Nullable StdVideoAV1TimingInfoFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoAV1TimingInfoFlags(address, null);
     }
 
@@ -159,8 +158,7 @@ public class StdVideoAV1TimingInfoFlags extends Struct<StdVideoAV1TimingInfoFlag
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1TimingInfoFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoAV1TimingInfoFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -204,16 +202,16 @@ public class StdVideoAV1TimingInfoFlags extends Struct<StdVideoAV1TimingInfoFlag
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoAV1TimingInfoFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoAV1TimingInfoFlags.BITFIELD0); }
     /** Unsafe version of {@link #equal_picture_interval}. */
     public static int nequal_picture_interval(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
-    public static int nbitfield1(long struct) { return UNSAFE.getInt(null, struct + StdVideoAV1TimingInfoFlags.BITFIELD1); }
+    public static int nbitfield1(long struct) { return memGetInt(struct + StdVideoAV1TimingInfoFlags.BITFIELD1); }
     public static int nreserved(long struct) { return nbitfield1(struct) & 0x7F_FF_FF_FF; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoAV1TimingInfoFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoAV1TimingInfoFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #equal_picture_interval(boolean) equal_picture_interval}. */
     public static void nequal_picture_interval(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
-    public static void nbitfield1(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoAV1TimingInfoFlags.BITFIELD1, value); }
+    public static void nbitfield1(long struct, int value) { memPutInt(struct + StdVideoAV1TimingInfoFlags.BITFIELD1, value); }
     public static void nreserved(long struct, int value) { nbitfield1(struct, (nbitfield1(struct) & 0x80_00_00_00) | (value & 0x7F_FF_FF_FF)); }
 
     // -----------------------------------
@@ -247,6 +245,11 @@ public class StdVideoAV1TimingInfoFlags extends Struct<StdVideoAV1TimingInfoFlag
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

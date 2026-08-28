@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class FMOD_CODEC_STATE extends Struct<FMOD_CODEC_STATE> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_CODEC_STATE createSafe(long address) {
+    public static @Nullable FMOD_CODEC_STATE createSafe(long address) {
         return address == NULL ? null : new FMOD_CODEC_STATE(address, null);
     }
 
@@ -202,8 +201,7 @@ public class FMOD_CODEC_STATE extends Struct<FMOD_CODEC_STATE> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_CODEC_STATE.Buffer createSafe(long address, int capacity) {
+    public static FMOD_CODEC_STATE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,7 +252,7 @@ public class FMOD_CODEC_STATE extends Struct<FMOD_CODEC_STATE> implements Native
     /** Unsafe version of {@link #functions}. */
     public static FMOD_CODEC_STATE_FUNCTIONS nfunctions(long struct) { return FMOD_CODEC_STATE_FUNCTIONS.create(memGetAddress(struct + FMOD_CODEC_STATE.FUNCTIONS)); }
     /** Unsafe version of {@link #numsubsounds}. */
-    public static int nnumsubsounds(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_STATE.NUMSUBSOUNDS); }
+    public static int nnumsubsounds(long struct) { return memGetInt(struct + FMOD_CODEC_STATE.NUMSUBSOUNDS); }
 
     /** Unsafe version of {@link #plugindata(ByteBuffer) plugindata}. */
     public static void nplugindata(long struct, ByteBuffer value) { memPutAddress(struct + FMOD_CODEC_STATE.PLUGINDATA, memAddress(value)); }
@@ -263,7 +261,7 @@ public class FMOD_CODEC_STATE extends Struct<FMOD_CODEC_STATE> implements Native
     /** Unsafe version of {@link #functions(FMOD_CODEC_STATE_FUNCTIONS) functions}. */
     public static void nfunctions(long struct, FMOD_CODEC_STATE_FUNCTIONS value) { memPutAddress(struct + FMOD_CODEC_STATE.FUNCTIONS, value.address()); }
     /** Unsafe version of {@link #numsubsounds(int) numsubsounds}. */
-    public static void nnumsubsounds(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_STATE.NUMSUBSOUNDS, value); }
+    public static void nnumsubsounds(long struct, int value) { memPutInt(struct + FMOD_CODEC_STATE.NUMSUBSOUNDS, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -309,6 +307,11 @@ public class FMOD_CODEC_STATE extends Struct<FMOD_CODEC_STATE> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

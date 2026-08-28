@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkLayerProperties extends Struct<VkLayerProperties> implements Nati
     /** an array of {@link VK10#VK_MAX_EXTENSION_NAME_SIZE MAX_EXTENSION_NAME_SIZE} {@code char} containing a null-terminated UTF-8 string which is the name of the layer. Use this name in the {@code ppEnabledLayerNames} array passed in the {@link VkInstanceCreateInfo} structure to enable this layer for an instance. */
     @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
     public String layerNameString() { return nlayerNameString(address()); }
-    /** the Vulkan version the layer was written to, encoded as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-coreversions-versionnumbers">Version Numbers</a>. */
+    /** the Vulkan version the layer was written to, encoded as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#extendingvulkan-coreversions-versionnumbers">Version Numbers</a>. */
     @NativeType("uint32_t")
     public int specVersion() { return nspecVersion(address()); }
     /** the version of this layer. It is an integer, increasing with backward compatible changes. */
@@ -131,8 +131,7 @@ public class VkLayerProperties extends Struct<VkLayerProperties> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkLayerProperties createSafe(long address) {
+    public static @Nullable VkLayerProperties createSafe(long address) {
         return address == NULL ? null : new VkLayerProperties(address, null);
     }
 
@@ -175,8 +174,7 @@ public class VkLayerProperties extends Struct<VkLayerProperties> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkLayerProperties.Buffer createSafe(long address, int capacity) {
+    public static VkLayerProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,9 +242,9 @@ public class VkLayerProperties extends Struct<VkLayerProperties> implements Nati
     /** Unsafe version of {@link #layerNameString}. */
     public static String nlayerNameString(long struct) { return memUTF8(struct + VkLayerProperties.LAYERNAME); }
     /** Unsafe version of {@link #specVersion}. */
-    public static int nspecVersion(long struct) { return UNSAFE.getInt(null, struct + VkLayerProperties.SPECVERSION); }
+    public static int nspecVersion(long struct) { return memGetInt(struct + VkLayerProperties.SPECVERSION); }
     /** Unsafe version of {@link #implementationVersion}. */
-    public static int nimplementationVersion(long struct) { return UNSAFE.getInt(null, struct + VkLayerProperties.IMPLEMENTATIONVERSION); }
+    public static int nimplementationVersion(long struct) { return memGetInt(struct + VkLayerProperties.IMPLEMENTATIONVERSION); }
     /** Unsafe version of {@link #description}. */
     public static ByteBuffer ndescription(long struct) { return memByteBuffer(struct + VkLayerProperties.DESCRIPTION, VK_MAX_DESCRIPTION_SIZE); }
     /** Unsafe version of {@link #descriptionString}. */
@@ -283,6 +281,11 @@ public class VkLayerProperties extends Struct<VkLayerProperties> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

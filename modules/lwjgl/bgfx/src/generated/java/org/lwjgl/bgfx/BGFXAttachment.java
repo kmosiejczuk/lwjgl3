@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class BGFXAttachment extends Struct<BGFXAttachment> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXAttachment createSafe(long address) {
+    public static @Nullable BGFXAttachment createSafe(long address) {
         return address == NULL ? null : new BGFXAttachment(address, null);
     }
 
@@ -222,8 +221,7 @@ public class BGFXAttachment extends Struct<BGFXAttachment> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXAttachment.Buffer createSafe(long address, int capacity) {
+    public static BGFXAttachment.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -287,30 +285,30 @@ public class BGFXAttachment extends Struct<BGFXAttachment> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #access}. */
-    public static int naccess(long struct) { return UNSAFE.getInt(null, struct + BGFXAttachment.ACCESS); }
+    public static int naccess(long struct) { return memGetInt(struct + BGFXAttachment.ACCESS); }
     /** Unsafe version of {@link #handle}. */
-    public static short nhandle(long struct) { return UNSAFE.getShort(null, struct + BGFXAttachment.HANDLE); }
+    public static short nhandle(long struct) { return memGetShort(struct + BGFXAttachment.HANDLE); }
     /** Unsafe version of {@link #mip}. */
-    public static short nmip(long struct) { return UNSAFE.getShort(null, struct + BGFXAttachment.MIP); }
+    public static short nmip(long struct) { return memGetShort(struct + BGFXAttachment.MIP); }
     /** Unsafe version of {@link #layer}. */
-    public static short nlayer(long struct) { return UNSAFE.getShort(null, struct + BGFXAttachment.LAYER); }
+    public static short nlayer(long struct) { return memGetShort(struct + BGFXAttachment.LAYER); }
     /** Unsafe version of {@link #numLayers}. */
-    public static short nnumLayers(long struct) { return UNSAFE.getShort(null, struct + BGFXAttachment.NUMLAYERS); }
+    public static short nnumLayers(long struct) { return memGetShort(struct + BGFXAttachment.NUMLAYERS); }
     /** Unsafe version of {@link #resolve}. */
-    public static byte nresolve(long struct) { return UNSAFE.getByte(null, struct + BGFXAttachment.RESOLVE); }
+    public static byte nresolve(long struct) { return memGetByte(struct + BGFXAttachment.RESOLVE); }
 
     /** Unsafe version of {@link #access(int) access}. */
-    public static void naccess(long struct, int value) { UNSAFE.putInt(null, struct + BGFXAttachment.ACCESS, value); }
+    public static void naccess(long struct, int value) { memPutInt(struct + BGFXAttachment.ACCESS, value); }
     /** Unsafe version of {@link #handle(short) handle}. */
-    public static void nhandle(long struct, short value) { UNSAFE.putShort(null, struct + BGFXAttachment.HANDLE, value); }
+    public static void nhandle(long struct, short value) { memPutShort(struct + BGFXAttachment.HANDLE, value); }
     /** Unsafe version of {@link #mip(short) mip}. */
-    public static void nmip(long struct, short value) { UNSAFE.putShort(null, struct + BGFXAttachment.MIP, value); }
+    public static void nmip(long struct, short value) { memPutShort(struct + BGFXAttachment.MIP, value); }
     /** Unsafe version of {@link #layer(short) layer}. */
-    public static void nlayer(long struct, short value) { UNSAFE.putShort(null, struct + BGFXAttachment.LAYER, value); }
+    public static void nlayer(long struct, short value) { memPutShort(struct + BGFXAttachment.LAYER, value); }
     /** Unsafe version of {@link #numLayers(short) numLayers}. */
-    public static void nnumLayers(long struct, short value) { UNSAFE.putShort(null, struct + BGFXAttachment.NUMLAYERS, value); }
+    public static void nnumLayers(long struct, short value) { memPutShort(struct + BGFXAttachment.NUMLAYERS, value); }
     /** Unsafe version of {@link #resolve(byte) resolve}. */
-    public static void nresolve(long struct, byte value) { UNSAFE.putByte(null, struct + BGFXAttachment.RESOLVE, value); }
+    public static void nresolve(long struct, byte value) { memPutByte(struct + BGFXAttachment.RESOLVE, value); }
 
     // -----------------------------------
 
@@ -343,6 +341,11 @@ public class BGFXAttachment extends Struct<BGFXAttachment> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

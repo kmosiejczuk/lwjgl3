@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.par;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class ParSLViewport extends Struct<ParSLViewport> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLViewport createSafe(long address) {
+    public static @Nullable ParSLViewport createSafe(long address) {
         return address == NULL ? null : new ParSLViewport(address, null);
     }
 
@@ -196,8 +195,7 @@ public class ParSLViewport extends Struct<ParSLViewport> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLViewport.Buffer createSafe(long address, int capacity) {
+    public static ParSLViewport.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,22 +259,22 @@ public class ParSLViewport extends Struct<ParSLViewport> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #left}. */
-    public static float nleft(long struct) { return UNSAFE.getFloat(null, struct + ParSLViewport.LEFT); }
+    public static float nleft(long struct) { return memGetFloat(struct + ParSLViewport.LEFT); }
     /** Unsafe version of {@link #top}. */
-    public static float ntop(long struct) { return UNSAFE.getFloat(null, struct + ParSLViewport.TOP); }
+    public static float ntop(long struct) { return memGetFloat(struct + ParSLViewport.TOP); }
     /** Unsafe version of {@link #right}. */
-    public static float nright(long struct) { return UNSAFE.getFloat(null, struct + ParSLViewport.RIGHT); }
+    public static float nright(long struct) { return memGetFloat(struct + ParSLViewport.RIGHT); }
     /** Unsafe version of {@link #bottom}. */
-    public static float nbottom(long struct) { return UNSAFE.getFloat(null, struct + ParSLViewport.BOTTOM); }
+    public static float nbottom(long struct) { return memGetFloat(struct + ParSLViewport.BOTTOM); }
 
     /** Unsafe version of {@link #left(float) left}. */
-    public static void nleft(long struct, float value) { UNSAFE.putFloat(null, struct + ParSLViewport.LEFT, value); }
+    public static void nleft(long struct, float value) { memPutFloat(struct + ParSLViewport.LEFT, value); }
     /** Unsafe version of {@link #top(float) top}. */
-    public static void ntop(long struct, float value) { UNSAFE.putFloat(null, struct + ParSLViewport.TOP, value); }
+    public static void ntop(long struct, float value) { memPutFloat(struct + ParSLViewport.TOP, value); }
     /** Unsafe version of {@link #right(float) right}. */
-    public static void nright(long struct, float value) { UNSAFE.putFloat(null, struct + ParSLViewport.RIGHT, value); }
+    public static void nright(long struct, float value) { memPutFloat(struct + ParSLViewport.RIGHT, value); }
     /** Unsafe version of {@link #bottom(float) bottom}. */
-    public static void nbottom(long struct, float value) { UNSAFE.putFloat(null, struct + ParSLViewport.BOTTOM, value); }
+    public static void nbottom(long struct, float value) { memPutFloat(struct + ParSLViewport.BOTTOM, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class ParSLViewport extends Struct<ParSLViewport> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

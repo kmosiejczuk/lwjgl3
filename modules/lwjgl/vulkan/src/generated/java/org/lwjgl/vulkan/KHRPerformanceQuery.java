@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -245,10 +245,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Special Use</b></dt>
  * <dd><ul>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
@@ -507,7 +507,7 @@ public class KHRPerformanceQuery {
      * @param pCounterDescriptions either {@code NULL} or a pointer to an array of {@link VkPerformanceCounterDescriptionKHR} structures.
      */
     @NativeType("VkResult")
-    public static int vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(VkPhysicalDevice physicalDevice, @NativeType("uint32_t") int queueFamilyIndex, @NativeType("uint32_t *") IntBuffer pCounterCount, @Nullable @NativeType("VkPerformanceCounterKHR *") VkPerformanceCounterKHR.Buffer pCounters, @Nullable @NativeType("VkPerformanceCounterDescriptionKHR *") VkPerformanceCounterDescriptionKHR.Buffer pCounterDescriptions) {
+    public static int vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(VkPhysicalDevice physicalDevice, @NativeType("uint32_t") int queueFamilyIndex, @NativeType("uint32_t *") IntBuffer pCounterCount, @NativeType("VkPerformanceCounterKHR *") VkPerformanceCounterKHR.@Nullable Buffer pCounters, @NativeType("VkPerformanceCounterDescriptionKHR *") VkPerformanceCounterDescriptionKHR.@Nullable Buffer pCounterDescriptions) {
         if (CHECKS) {
             check(pCounterCount, 1);
             checkSafe(pCounters, pCounterCount.get(pCounterCount.position()));
@@ -665,7 +665,7 @@ public class KHRPerformanceQuery {
 
     /** Array version of: {@link #vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR} */
     @NativeType("VkResult")
-    public static int vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(VkPhysicalDevice physicalDevice, @NativeType("uint32_t") int queueFamilyIndex, @NativeType("uint32_t *") int[] pCounterCount, @Nullable @NativeType("VkPerformanceCounterKHR *") VkPerformanceCounterKHR.Buffer pCounters, @Nullable @NativeType("VkPerformanceCounterDescriptionKHR *") VkPerformanceCounterDescriptionKHR.Buffer pCounterDescriptions) {
+    public static int vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(VkPhysicalDevice physicalDevice, @NativeType("uint32_t") int queueFamilyIndex, @NativeType("uint32_t *") int[] pCounterCount, @NativeType("VkPerformanceCounterKHR *") VkPerformanceCounterKHR.@Nullable Buffer pCounters, @NativeType("VkPerformanceCounterDescriptionKHR *") VkPerformanceCounterDescriptionKHR.@Nullable Buffer pCounterDescriptions) {
         long __functionAddress = physicalDevice.getCapabilities().vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR;
         if (CHECKS) {
             check(__functionAddress);

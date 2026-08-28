@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -180,13 +180,11 @@ public class NkStyleProgress extends Struct<NkStyleProgress> implements NativeRe
     @NativeType("nk_handle")
     public NkHandle userdata() { return nuserdata(address()); }
     /** @return the value of the {@code draw_begin} field. */
-    @Nullable
     @NativeType("nk_draw_begin")
-    public NkDrawBeginCallback draw_begin() { return ndraw_begin(address()); }
+    public @Nullable NkDrawBeginCallback draw_begin() { return ndraw_begin(address()); }
     /** @return the value of the {@code draw_end} field. */
-    @Nullable
     @NativeType("nk_draw_end")
-    public NkDrawEndCallback draw_end() { return ndraw_end(address()); }
+    public @Nullable NkDrawEndCallback draw_end() { return ndraw_end(address()); }
 
     /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
     public NkStyleProgress normal(@NativeType("struct nk_style_item") NkStyleItem value) { nnormal(address(), value); return this; }
@@ -324,8 +322,7 @@ public class NkStyleProgress extends Struct<NkStyleProgress> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleProgress createSafe(long address) {
+    public static @Nullable NkStyleProgress createSafe(long address) {
         return address == NULL ? null : new NkStyleProgress(address, null);
     }
 
@@ -368,8 +365,7 @@ public class NkStyleProgress extends Struct<NkStyleProgress> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleProgress.Buffer createSafe(long address, int capacity) {
+    public static NkStyleProgress.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -449,25 +445,25 @@ public class NkStyleProgress extends Struct<NkStyleProgress> implements NativeRe
     /** Unsafe version of {@link #cursor_border_color}. */
     public static NkColor ncursor_border_color(long struct) { return NkColor.create(struct + NkStyleProgress.CURSOR_BORDER_COLOR); }
     /** Unsafe version of {@link #rounding}. */
-    public static float nrounding(long struct) { return UNSAFE.getFloat(null, struct + NkStyleProgress.ROUNDING); }
+    public static float nrounding(long struct) { return memGetFloat(struct + NkStyleProgress.ROUNDING); }
     /** Unsafe version of {@link #border}. */
-    public static float nborder(long struct) { return UNSAFE.getFloat(null, struct + NkStyleProgress.BORDER); }
+    public static float nborder(long struct) { return memGetFloat(struct + NkStyleProgress.BORDER); }
     /** Unsafe version of {@link #cursor_border}. */
-    public static float ncursor_border(long struct) { return UNSAFE.getFloat(null, struct + NkStyleProgress.CURSOR_BORDER); }
+    public static float ncursor_border(long struct) { return memGetFloat(struct + NkStyleProgress.CURSOR_BORDER); }
     /** Unsafe version of {@link #cursor_rounding}. */
-    public static float ncursor_rounding(long struct) { return UNSAFE.getFloat(null, struct + NkStyleProgress.CURSOR_ROUNDING); }
+    public static float ncursor_rounding(long struct) { return memGetFloat(struct + NkStyleProgress.CURSOR_ROUNDING); }
     /** Unsafe version of {@link #padding}. */
     public static NkVec2 npadding(long struct) { return NkVec2.create(struct + NkStyleProgress.PADDING); }
     /** Unsafe version of {@link #color_factor}. */
-    public static float ncolor_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleProgress.COLOR_FACTOR); }
+    public static float ncolor_factor(long struct) { return memGetFloat(struct + NkStyleProgress.COLOR_FACTOR); }
     /** Unsafe version of {@link #disabled_factor}. */
-    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleProgress.DISABLED_FACTOR); }
+    public static float ndisabled_factor(long struct) { return memGetFloat(struct + NkStyleProgress.DISABLED_FACTOR); }
     /** Unsafe version of {@link #userdata}. */
     public static NkHandle nuserdata(long struct) { return NkHandle.create(struct + NkStyleProgress.USERDATA); }
     /** Unsafe version of {@link #draw_begin}. */
-    @Nullable public static NkDrawBeginCallback ndraw_begin(long struct) { return NkDrawBeginCallback.createSafe(memGetAddress(struct + NkStyleProgress.DRAW_BEGIN)); }
+    public static @Nullable NkDrawBeginCallback ndraw_begin(long struct) { return NkDrawBeginCallback.createSafe(memGetAddress(struct + NkStyleProgress.DRAW_BEGIN)); }
     /** Unsafe version of {@link #draw_end}. */
-    @Nullable public static NkDrawEndCallback ndraw_end(long struct) { return NkDrawEndCallback.createSafe(memGetAddress(struct + NkStyleProgress.DRAW_END)); }
+    public static @Nullable NkDrawEndCallback ndraw_end(long struct) { return NkDrawEndCallback.createSafe(memGetAddress(struct + NkStyleProgress.DRAW_END)); }
 
     /** Unsafe version of {@link #normal(NkStyleItem) normal}. */
     public static void nnormal(long struct, NkStyleItem value) { memCopy(value.address(), struct + NkStyleProgress.NORMAL, NkStyleItem.SIZEOF); }
@@ -486,19 +482,19 @@ public class NkStyleProgress extends Struct<NkStyleProgress> implements NativeRe
     /** Unsafe version of {@link #cursor_border_color(NkColor) cursor_border_color}. */
     public static void ncursor_border_color(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleProgress.CURSOR_BORDER_COLOR, NkColor.SIZEOF); }
     /** Unsafe version of {@link #rounding(float) rounding}. */
-    public static void nrounding(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleProgress.ROUNDING, value); }
+    public static void nrounding(long struct, float value) { memPutFloat(struct + NkStyleProgress.ROUNDING, value); }
     /** Unsafe version of {@link #border(float) border}. */
-    public static void nborder(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleProgress.BORDER, value); }
+    public static void nborder(long struct, float value) { memPutFloat(struct + NkStyleProgress.BORDER, value); }
     /** Unsafe version of {@link #cursor_border(float) cursor_border}. */
-    public static void ncursor_border(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleProgress.CURSOR_BORDER, value); }
+    public static void ncursor_border(long struct, float value) { memPutFloat(struct + NkStyleProgress.CURSOR_BORDER, value); }
     /** Unsafe version of {@link #cursor_rounding(float) cursor_rounding}. */
-    public static void ncursor_rounding(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleProgress.CURSOR_ROUNDING, value); }
+    public static void ncursor_rounding(long struct, float value) { memPutFloat(struct + NkStyleProgress.CURSOR_ROUNDING, value); }
     /** Unsafe version of {@link #padding(NkVec2) padding}. */
     public static void npadding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleProgress.PADDING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #color_factor(float) color_factor}. */
-    public static void ncolor_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleProgress.COLOR_FACTOR, value); }
+    public static void ncolor_factor(long struct, float value) { memPutFloat(struct + NkStyleProgress.COLOR_FACTOR, value); }
     /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
-    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleProgress.DISABLED_FACTOR, value); }
+    public static void ndisabled_factor(long struct, float value) { memPutFloat(struct + NkStyleProgress.DISABLED_FACTOR, value); }
     /** Unsafe version of {@link #userdata(NkHandle) userdata}. */
     public static void nuserdata(long struct, NkHandle value) { memCopy(value.address(), struct + NkStyleProgress.USERDATA, NkHandle.SIZEOF); }
     /** Unsafe version of {@link #draw_begin(NkDrawBeginCallbackI) draw_begin}. */
@@ -537,6 +533,11 @@ public class NkStyleProgress extends Struct<NkStyleProgress> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -587,13 +588,11 @@ public class NkStyleProgress extends Struct<NkStyleProgress> implements NativeRe
         @NativeType("nk_handle")
         public NkHandle userdata() { return NkStyleProgress.nuserdata(address()); }
         /** @return the value of the {@code draw_begin} field. */
-        @Nullable
         @NativeType("nk_draw_begin")
-        public NkDrawBeginCallback draw_begin() { return NkStyleProgress.ndraw_begin(address()); }
+        public @Nullable NkDrawBeginCallback draw_begin() { return NkStyleProgress.ndraw_begin(address()); }
         /** @return the value of the {@code draw_end} field. */
-        @Nullable
         @NativeType("nk_draw_end")
-        public NkDrawEndCallback draw_end() { return NkStyleProgress.ndraw_end(address()); }
+        public @Nullable NkDrawEndCallback draw_end() { return NkStyleProgress.ndraw_end(address()); }
 
         /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
         public NkStyleProgress.Buffer normal(@NativeType("struct nk_style_item") NkStyleItem value) { NkStyleProgress.nnormal(address(), value); return this; }

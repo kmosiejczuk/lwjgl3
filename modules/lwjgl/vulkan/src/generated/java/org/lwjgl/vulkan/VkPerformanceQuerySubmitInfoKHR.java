@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class VkPerformanceQuerySubmitInfoKHR extends Struct<VkPerformanceQuerySu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceQuerySubmitInfoKHR createSafe(long address) {
+    public static @Nullable VkPerformanceQuerySubmitInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkPerformanceQuerySubmitInfoKHR(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkPerformanceQuerySubmitInfoKHR extends Struct<VkPerformanceQuerySu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceQuerySubmitInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPerformanceQuerySubmitInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class VkPerformanceQuerySubmitInfoKHR extends Struct<VkPerformanceQuerySu
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceQuerySubmitInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPerformanceQuerySubmitInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPerformanceQuerySubmitInfoKHR.PNEXT); }
     /** Unsafe version of {@link #counterPassIndex}. */
-    public static int ncounterPassIndex(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceQuerySubmitInfoKHR.COUNTERPASSINDEX); }
+    public static int ncounterPassIndex(long struct) { return memGetInt(struct + VkPerformanceQuerySubmitInfoKHR.COUNTERPASSINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceQuerySubmitInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPerformanceQuerySubmitInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPerformanceQuerySubmitInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #counterPassIndex(int) counterPassIndex}. */
-    public static void ncounterPassIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceQuerySubmitInfoKHR.COUNTERPASSINDEX, value); }
+    public static void ncounterPassIndex(long struct, int value) { memPutInt(struct + VkPerformanceQuerySubmitInfoKHR.COUNTERPASSINDEX, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class VkPerformanceQuerySubmitInfoKHR extends Struct<VkPerformanceQuerySu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

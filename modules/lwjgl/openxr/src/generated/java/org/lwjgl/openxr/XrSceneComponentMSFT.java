@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -177,8 +177,7 @@ public class XrSceneComponentMSFT extends Struct<XrSceneComponentMSFT> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneComponentMSFT createSafe(long address) {
+    public static @Nullable XrSceneComponentMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneComponentMSFT(address, null);
     }
 
@@ -221,8 +220,7 @@ public class XrSceneComponentMSFT extends Struct<XrSceneComponentMSFT> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneComponentMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneComponentMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,22 +265,22 @@ public class XrSceneComponentMSFT extends Struct<XrSceneComponentMSFT> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #componentType}. */
-    public static int ncomponentType(long struct) { return UNSAFE.getInt(null, struct + XrSceneComponentMSFT.COMPONENTTYPE); }
+    public static int ncomponentType(long struct) { return memGetInt(struct + XrSceneComponentMSFT.COMPONENTTYPE); }
     /** Unsafe version of {@link #id}. */
     public static XrUuidMSFT nid(long struct) { return XrUuidMSFT.create(struct + XrSceneComponentMSFT.ID); }
     /** Unsafe version of {@link #parentId}. */
     public static XrUuidMSFT nparentId(long struct) { return XrUuidMSFT.create(struct + XrSceneComponentMSFT.PARENTID); }
     /** Unsafe version of {@link #updateTime}. */
-    public static long nupdateTime(long struct) { return UNSAFE.getLong(null, struct + XrSceneComponentMSFT.UPDATETIME); }
+    public static long nupdateTime(long struct) { return memGetLong(struct + XrSceneComponentMSFT.UPDATETIME); }
 
     /** Unsafe version of {@link #componentType(int) componentType}. */
-    public static void ncomponentType(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneComponentMSFT.COMPONENTTYPE, value); }
+    public static void ncomponentType(long struct, int value) { memPutInt(struct + XrSceneComponentMSFT.COMPONENTTYPE, value); }
     /** Unsafe version of {@link #id(XrUuidMSFT) id}. */
     public static void nid(long struct, XrUuidMSFT value) { memCopy(value.address(), struct + XrSceneComponentMSFT.ID, XrUuidMSFT.SIZEOF); }
     /** Unsafe version of {@link #parentId(XrUuidMSFT) parentId}. */
     public static void nparentId(long struct, XrUuidMSFT value) { memCopy(value.address(), struct + XrSceneComponentMSFT.PARENTID, XrUuidMSFT.SIZEOF); }
     /** Unsafe version of {@link #updateTime(long) updateTime}. */
-    public static void nupdateTime(long struct, long value) { UNSAFE.putLong(null, struct + XrSceneComponentMSFT.UPDATETIME, value); }
+    public static void nupdateTime(long struct, long value) { memPutLong(struct + XrSceneComponentMSFT.UPDATETIME, value); }
 
     // -----------------------------------
 
@@ -315,6 +313,11 @@ public class XrSceneComponentMSFT extends Struct<XrSceneComponentMSFT> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

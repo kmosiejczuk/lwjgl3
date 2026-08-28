@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class XrOffset3DfFB extends Struct<XrOffset3DfFB> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrOffset3DfFB createSafe(long address) {
+    public static @Nullable XrOffset3DfFB createSafe(long address) {
         return address == NULL ? null : new XrOffset3DfFB(address, null);
     }
 
@@ -199,8 +198,7 @@ public class XrOffset3DfFB extends Struct<XrOffset3DfFB> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrOffset3DfFB.Buffer createSafe(long address, int capacity) {
+    public static XrOffset3DfFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,18 +243,18 @@ public class XrOffset3DfFB extends Struct<XrOffset3DfFB> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + XrOffset3DfFB.X); }
+    public static float nx(long struct) { return memGetFloat(struct + XrOffset3DfFB.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + XrOffset3DfFB.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + XrOffset3DfFB.Y); }
     /** Unsafe version of {@link #z}. */
-    public static float nz(long struct) { return UNSAFE.getFloat(null, struct + XrOffset3DfFB.Z); }
+    public static float nz(long struct) { return memGetFloat(struct + XrOffset3DfFB.Z); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + XrOffset3DfFB.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + XrOffset3DfFB.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + XrOffset3DfFB.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + XrOffset3DfFB.Y, value); }
     /** Unsafe version of {@link #z(float) z}. */
-    public static void nz(long struct, float value) { UNSAFE.putFloat(null, struct + XrOffset3DfFB.Z, value); }
+    public static void nz(long struct, float value) { memPutFloat(struct + XrOffset3DfFB.Z, value); }
 
     // -----------------------------------
 
@@ -289,6 +287,11 @@ public class XrOffset3DfFB extends Struct<XrOffset3DfFB> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

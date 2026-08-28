@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -128,8 +128,7 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkTransformMatrixKHR createSafe(long address) {
+    public static @Nullable VkTransformMatrixKHR createSafe(long address) {
         return address == NULL ? null : new VkTransformMatrixKHR(address, null);
     }
 
@@ -172,8 +171,7 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkTransformMatrixKHR.Buffer createSafe(long address, int capacity) {
+    public static VkTransformMatrixKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -221,7 +219,7 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
     public static FloatBuffer nmatrix(long struct) { return memFloatBuffer(struct + VkTransformMatrixKHR.MATRIX, 3 * 4); }
     /** Unsafe version of {@link #matrix(int) matrix}. */
     public static float nmatrix(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + VkTransformMatrixKHR.MATRIX + check(index, 3 * 4) * 4);
+        return memGetFloat(struct + VkTransformMatrixKHR.MATRIX + check(index, 3 * 4) * 4);
     }
 
     /** Unsafe version of {@link #matrix(FloatBuffer) matrix}. */
@@ -231,7 +229,7 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
     }
     /** Unsafe version of {@link #matrix(int, float) matrix}. */
     public static void nmatrix(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + VkTransformMatrixKHR.MATRIX + check(index, 3 * 4) * 4, value);
+        memPutFloat(struct + VkTransformMatrixKHR.MATRIX + check(index, 3 * 4) * 4, value);
     }
 
     // -----------------------------------
@@ -265,6 +263,11 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

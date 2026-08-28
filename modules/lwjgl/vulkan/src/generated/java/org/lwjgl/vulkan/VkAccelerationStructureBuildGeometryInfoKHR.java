@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Only one of {@code pGeometries} or {@code ppGeometries} <b>can</b> be a valid pointer, the other <b>must</b> be {@code NULL}. Each element of the non-{@code NULL} array describes the data used to build each acceleration structure geometry.</p>
  * 
- * <p>The index of each element of the {@code pGeometries} or {@code ppGeometries} members of {@link VkAccelerationStructureBuildGeometryInfoKHR} is used as the <em>geometry index</em> during ray traversal. The geometry index is available in ray shaders via the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-builtin-variables-raygeometryindex">{@code RayGeometryIndexKHR} built-in</a>, and is <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shader-binding-table-hit-shader-indexing">used to determine hit and intersection shaders executed during traversal</a>. The geometry index is available to ray queries via the {@code OpRayQueryGetIntersectionGeometryIndexKHR} instruction.</p>
+ * <p>The index of each element of the {@code pGeometries} or {@code ppGeometries} members of {@link VkAccelerationStructureBuildGeometryInfoKHR} is used as the <em>geometry index</em> during ray traversal. The geometry index is available in ray shaders via the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces-builtin-variables-raygeometryindex">{@code RayGeometryIndexKHR} built-in</a>, and is <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shader-binding-table-hit-shader-indexing">used to determine hit and intersection shaders executed during traversal</a>. The geometry index is available to ray queries via the {@code OpRayQueryGetIntersectionGeometryIndexKHR} instruction.</p>
  * 
  * <p>Setting {@link NVRayTracingMotionBlur#VK_BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV} in {@code flags} indicates that this build is a motion top level acceleration structure. A motion top level uses instances of format {@link VkAccelerationStructureMotionInstanceNV} if {@link VkAccelerationStructureGeometryInstancesDataKHR}{@code ::arrayOfPointers} is {@link VK10#VK_FALSE FALSE}.</p>
  * 
@@ -184,13 +184,11 @@ public class VkAccelerationStructureBuildGeometryInfoKHR extends Struct<VkAccele
     @NativeType("uint32_t")
     public int geometryCount() { return ngeometryCount(address()); }
     /** a pointer to an array of {@link VkAccelerationStructureGeometryKHR} structures. */
-    @Nullable
     @NativeType("VkAccelerationStructureGeometryKHR const *")
-    public VkAccelerationStructureGeometryKHR.Buffer pGeometries() { return npGeometries(address()); }
+    public VkAccelerationStructureGeometryKHR.@Nullable Buffer pGeometries() { return npGeometries(address()); }
     /** a pointer to an array of pointers to {@link VkAccelerationStructureGeometryKHR} structures. */
-    @Nullable
     @NativeType("VkAccelerationStructureGeometryKHR const * const *")
-    public PointerBuffer ppGeometries() { return nppGeometries(address()); }
+    public @Nullable PointerBuffer ppGeometries() { return nppGeometries(address()); }
     /** the device or host address to memory that will be used as scratch memory for the build. */
     public VkDeviceOrHostAddressKHR scratchData() { return nscratchData(address()); }
 
@@ -213,7 +211,7 @@ public class VkAccelerationStructureBuildGeometryInfoKHR extends Struct<VkAccele
     /** Sets the specified value to the {@link #geometryCount} field. */
     public VkAccelerationStructureBuildGeometryInfoKHR geometryCount(@NativeType("uint32_t") int value) { ngeometryCount(address(), value); return this; }
     /** Sets the address of the specified {@link VkAccelerationStructureGeometryKHR.Buffer} to the {@link #pGeometries} field. */
-    public VkAccelerationStructureBuildGeometryInfoKHR pGeometries(@Nullable @NativeType("VkAccelerationStructureGeometryKHR const *") VkAccelerationStructureGeometryKHR.Buffer value) { npGeometries(address(), value); return this; }
+    public VkAccelerationStructureBuildGeometryInfoKHR pGeometries(@NativeType("VkAccelerationStructureGeometryKHR const *") VkAccelerationStructureGeometryKHR.@Nullable Buffer value) { npGeometries(address(), value); return this; }
     /** Sets the address of the specified {@link PointerBuffer} to the {@link #ppGeometries} field. */
     public VkAccelerationStructureBuildGeometryInfoKHR ppGeometries(@Nullable @NativeType("VkAccelerationStructureGeometryKHR const * const *") PointerBuffer value) { nppGeometries(address(), value); return this; }
     /** Copies the specified {@link VkDeviceOrHostAddressKHR} to the {@link #scratchData} field. */
@@ -231,7 +229,7 @@ public class VkAccelerationStructureBuildGeometryInfoKHR extends Struct<VkAccele
         long srcAccelerationStructure,
         long dstAccelerationStructure,
         int geometryCount,
-        @Nullable VkAccelerationStructureGeometryKHR.Buffer pGeometries,
+        VkAccelerationStructureGeometryKHR.@Nullable Buffer pGeometries,
         @Nullable PointerBuffer ppGeometries,
         VkDeviceOrHostAddressKHR scratchData
     ) {
@@ -286,8 +284,7 @@ public class VkAccelerationStructureBuildGeometryInfoKHR extends Struct<VkAccele
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureBuildGeometryInfoKHR createSafe(long address) {
+    public static @Nullable VkAccelerationStructureBuildGeometryInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureBuildGeometryInfoKHR(address, null);
     }
 
@@ -330,8 +327,7 @@ public class VkAccelerationStructureBuildGeometryInfoKHR extends Struct<VkAccele
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureBuildGeometryInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureBuildGeometryInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -376,46 +372,46 @@ public class VkAccelerationStructureBuildGeometryInfoKHR extends Struct<VkAccele
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureBuildGeometryInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureBuildGeometryInfoKHR.PNEXT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkAccelerationStructureBuildGeometryInfoKHR.TYPE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkAccelerationStructureBuildGeometryInfoKHR.FLAGS); }
     /** Unsafe version of {@link #mode}. */
-    public static int nmode(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.MODE); }
+    public static int nmode(long struct) { return memGetInt(struct + VkAccelerationStructureBuildGeometryInfoKHR.MODE); }
     /** Unsafe version of {@link #srcAccelerationStructure}. */
-    public static long nsrcAccelerationStructure(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.SRCACCELERATIONSTRUCTURE); }
+    public static long nsrcAccelerationStructure(long struct) { return memGetLong(struct + VkAccelerationStructureBuildGeometryInfoKHR.SRCACCELERATIONSTRUCTURE); }
     /** Unsafe version of {@link #dstAccelerationStructure}. */
-    public static long ndstAccelerationStructure(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.DSTACCELERATIONSTRUCTURE); }
+    public static long ndstAccelerationStructure(long struct) { return memGetLong(struct + VkAccelerationStructureBuildGeometryInfoKHR.DSTACCELERATIONSTRUCTURE); }
     /** Unsafe version of {@link #geometryCount}. */
-    public static int ngeometryCount(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.GEOMETRYCOUNT); }
+    public static int ngeometryCount(long struct) { return memGetInt(struct + VkAccelerationStructureBuildGeometryInfoKHR.GEOMETRYCOUNT); }
     /** Unsafe version of {@link #pGeometries}. */
-    @Nullable public static VkAccelerationStructureGeometryKHR.Buffer npGeometries(long struct) { return VkAccelerationStructureGeometryKHR.createSafe(memGetAddress(struct + VkAccelerationStructureBuildGeometryInfoKHR.PGEOMETRIES), ngeometryCount(struct)); }
+    public static VkAccelerationStructureGeometryKHR.@Nullable Buffer npGeometries(long struct) { return VkAccelerationStructureGeometryKHR.createSafe(memGetAddress(struct + VkAccelerationStructureBuildGeometryInfoKHR.PGEOMETRIES), ngeometryCount(struct)); }
     /** Unsafe version of {@link #ppGeometries() ppGeometries}. */
-    @Nullable public static PointerBuffer nppGeometries(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkAccelerationStructureBuildGeometryInfoKHR.PPGEOMETRIES), ngeometryCount(struct)); }
+    public static @Nullable PointerBuffer nppGeometries(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkAccelerationStructureBuildGeometryInfoKHR.PPGEOMETRIES), ngeometryCount(struct)); }
     /** Unsafe version of {@link #scratchData}. */
     public static VkDeviceOrHostAddressKHR nscratchData(long struct) { return VkDeviceOrHostAddressKHR.create(struct + VkAccelerationStructureBuildGeometryInfoKHR.SCRATCHDATA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureBuildGeometryInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureBuildGeometryInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkAccelerationStructureBuildGeometryInfoKHR.TYPE, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkAccelerationStructureBuildGeometryInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #mode(int) mode}. */
-    public static void nmode(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.MODE, value); }
+    public static void nmode(long struct, int value) { memPutInt(struct + VkAccelerationStructureBuildGeometryInfoKHR.MODE, value); }
     /** Unsafe version of {@link #srcAccelerationStructure(long) srcAccelerationStructure}. */
-    public static void nsrcAccelerationStructure(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.SRCACCELERATIONSTRUCTURE, value); }
+    public static void nsrcAccelerationStructure(long struct, long value) { memPutLong(struct + VkAccelerationStructureBuildGeometryInfoKHR.SRCACCELERATIONSTRUCTURE, value); }
     /** Unsafe version of {@link #dstAccelerationStructure(long) dstAccelerationStructure}. */
-    public static void ndstAccelerationStructure(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.DSTACCELERATIONSTRUCTURE, value); }
+    public static void ndstAccelerationStructure(long struct, long value) { memPutLong(struct + VkAccelerationStructureBuildGeometryInfoKHR.DSTACCELERATIONSTRUCTURE, value); }
     /** Sets the specified value to the {@code geometryCount} field of the specified {@code struct}. */
-    public static void ngeometryCount(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureBuildGeometryInfoKHR.GEOMETRYCOUNT, value); }
+    public static void ngeometryCount(long struct, int value) { memPutInt(struct + VkAccelerationStructureBuildGeometryInfoKHR.GEOMETRYCOUNT, value); }
     /** Unsafe version of {@link #pGeometries(VkAccelerationStructureGeometryKHR.Buffer) pGeometries}. */
-    public static void npGeometries(long struct, @Nullable VkAccelerationStructureGeometryKHR.Buffer value) { memPutAddress(struct + VkAccelerationStructureBuildGeometryInfoKHR.PGEOMETRIES, memAddressSafe(value)); }
+    public static void npGeometries(long struct, VkAccelerationStructureGeometryKHR.@Nullable Buffer value) { memPutAddress(struct + VkAccelerationStructureBuildGeometryInfoKHR.PGEOMETRIES, memAddressSafe(value)); }
     /** Unsafe version of {@link #ppGeometries(PointerBuffer) ppGeometries}. */
     public static void nppGeometries(long struct, @Nullable PointerBuffer value) { memPutAddress(struct + VkAccelerationStructureBuildGeometryInfoKHR.PPGEOMETRIES, memAddressSafe(value)); }
     /** Unsafe version of {@link #scratchData(VkDeviceOrHostAddressKHR) scratchData}. */
@@ -455,6 +451,11 @@ public class VkAccelerationStructureBuildGeometryInfoKHR extends Struct<VkAccele
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAccelerationStructureBuildGeometryInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -484,13 +485,11 @@ public class VkAccelerationStructureBuildGeometryInfoKHR extends Struct<VkAccele
         @NativeType("uint32_t")
         public int geometryCount() { return VkAccelerationStructureBuildGeometryInfoKHR.ngeometryCount(address()); }
         /** @return a {@link VkAccelerationStructureGeometryKHR.Buffer} view of the struct array pointed to by the {@link VkAccelerationStructureBuildGeometryInfoKHR#pGeometries} field. */
-        @Nullable
         @NativeType("VkAccelerationStructureGeometryKHR const *")
-        public VkAccelerationStructureGeometryKHR.Buffer pGeometries() { return VkAccelerationStructureBuildGeometryInfoKHR.npGeometries(address()); }
+        public VkAccelerationStructureGeometryKHR.@Nullable Buffer pGeometries() { return VkAccelerationStructureBuildGeometryInfoKHR.npGeometries(address()); }
         /** @return a {@link PointerBuffer} view of the data pointed to by the {@link VkAccelerationStructureBuildGeometryInfoKHR#ppGeometries} field. */
-        @Nullable
         @NativeType("VkAccelerationStructureGeometryKHR const * const *")
-        public PointerBuffer ppGeometries() { return VkAccelerationStructureBuildGeometryInfoKHR.nppGeometries(address()); }
+        public @Nullable PointerBuffer ppGeometries() { return VkAccelerationStructureBuildGeometryInfoKHR.nppGeometries(address()); }
         /** @return a {@link VkDeviceOrHostAddressKHR} view of the {@link VkAccelerationStructureBuildGeometryInfoKHR#scratchData} field. */
         public VkDeviceOrHostAddressKHR scratchData() { return VkAccelerationStructureBuildGeometryInfoKHR.nscratchData(address()); }
 
@@ -513,7 +512,7 @@ public class VkAccelerationStructureBuildGeometryInfoKHR extends Struct<VkAccele
         /** Sets the specified value to the {@link VkAccelerationStructureBuildGeometryInfoKHR#geometryCount} field. */
         public VkAccelerationStructureBuildGeometryInfoKHR.Buffer geometryCount(@NativeType("uint32_t") int value) { VkAccelerationStructureBuildGeometryInfoKHR.ngeometryCount(address(), value); return this; }
         /** Sets the address of the specified {@link VkAccelerationStructureGeometryKHR.Buffer} to the {@link VkAccelerationStructureBuildGeometryInfoKHR#pGeometries} field. */
-        public VkAccelerationStructureBuildGeometryInfoKHR.Buffer pGeometries(@Nullable @NativeType("VkAccelerationStructureGeometryKHR const *") VkAccelerationStructureGeometryKHR.Buffer value) { VkAccelerationStructureBuildGeometryInfoKHR.npGeometries(address(), value); return this; }
+        public VkAccelerationStructureBuildGeometryInfoKHR.Buffer pGeometries(@NativeType("VkAccelerationStructureGeometryKHR const *") VkAccelerationStructureGeometryKHR.@Nullable Buffer value) { VkAccelerationStructureBuildGeometryInfoKHR.npGeometries(address(), value); return this; }
         /** Sets the address of the specified {@link PointerBuffer} to the {@link VkAccelerationStructureBuildGeometryInfoKHR#ppGeometries} field. */
         public VkAccelerationStructureBuildGeometryInfoKHR.Buffer ppGeometries(@Nullable @NativeType("VkAccelerationStructureGeometryKHR const * const *") PointerBuffer value) { VkAccelerationStructureBuildGeometryInfoKHR.nppGeometries(address(), value); return this; }
         /** Copies the specified {@link VkDeviceOrHostAddressKHR} to the {@link VkAccelerationStructureBuildGeometryInfoKHR#scratchData} field. */

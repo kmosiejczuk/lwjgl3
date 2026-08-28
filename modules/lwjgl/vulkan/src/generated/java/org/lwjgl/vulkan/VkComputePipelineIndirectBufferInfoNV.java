@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,12 +25,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
  * <li>The pipeline creation flags in {@link VkComputePipelineCreateInfo}{@code ::flags} <b>must</b> include {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV}</li>
  * <li>{@code deviceAddress} <b>must</b> be aligned to the {@link VkMemoryRequirements2}{@code ::alignment}, as returned by {@link NVDeviceGeneratedCommandsCompute#vkGetPipelineIndirectMemoryRequirementsNV GetPipelineIndirectMemoryRequirementsNV}</li>
  * <li>{@code deviceAddress} <b>must</b> have been allocated from a buffer that was created with usage {@link VK10#VK_BUFFER_USAGE_TRANSFER_DST_BIT BUFFER_USAGE_TRANSFER_DST_BIT} and {@link VK10#VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT BUFFER_USAGE_INDIRECT_BUFFER_BIT}</li>
  * <li>{@code size} <b>must</b> be greater than or equal to the {@link VkMemoryRequirements2}{@code ::size}, as returned by {@link NVDeviceGeneratedCommandsCompute#vkGetPipelineIndirectMemoryRequirementsNV GetPipelineIndirectMemoryRequirementsNV}</li>
- * <li>If {@code pipelineDeviceAddressCaptureReplay} is non-zero then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputeCaptureReplay}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code pipelineDeviceAddressCaptureReplay} is non-zero then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputeCaptureReplay}</a> feature <b>must</b> be enabled</li>
  * <li>If {@code pipelineDeviceAddressCaptureReplay} is non-zero then that address <b>must</b> have been allocated with flag {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT} set</li>
  * <li>If {@code pipelineDeviceAddressCaptureReplay} is non-zero, the {@code pipeline} <b>must</b> have been recreated for replay</li>
  * <li>{@code pipelineDeviceAddressCaptureReplay} <b>must</b> satisfy the {@code alignment} and {@code size} requirements similar to {@code deviceAddress}</li>
@@ -192,8 +192,7 @@ public class VkComputePipelineIndirectBufferInfoNV extends Struct<VkComputePipel
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkComputePipelineIndirectBufferInfoNV createSafe(long address) {
+    public static @Nullable VkComputePipelineIndirectBufferInfoNV createSafe(long address) {
         return address == NULL ? null : new VkComputePipelineIndirectBufferInfoNV(address, null);
     }
 
@@ -236,8 +235,7 @@ public class VkComputePipelineIndirectBufferInfoNV extends Struct<VkComputePipel
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkComputePipelineIndirectBufferInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkComputePipelineIndirectBufferInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -282,26 +280,26 @@ public class VkComputePipelineIndirectBufferInfoNV extends Struct<VkComputePipel
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkComputePipelineIndirectBufferInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkComputePipelineIndirectBufferInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkComputePipelineIndirectBufferInfoNV.PNEXT); }
     /** Unsafe version of {@link #deviceAddress}. */
-    public static long ndeviceAddress(long struct) { return UNSAFE.getLong(null, struct + VkComputePipelineIndirectBufferInfoNV.DEVICEADDRESS); }
+    public static long ndeviceAddress(long struct) { return memGetLong(struct + VkComputePipelineIndirectBufferInfoNV.DEVICEADDRESS); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkComputePipelineIndirectBufferInfoNV.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkComputePipelineIndirectBufferInfoNV.SIZE); }
     /** Unsafe version of {@link #pipelineDeviceAddressCaptureReplay}. */
-    public static long npipelineDeviceAddressCaptureReplay(long struct) { return UNSAFE.getLong(null, struct + VkComputePipelineIndirectBufferInfoNV.PIPELINEDEVICEADDRESSCAPTUREREPLAY); }
+    public static long npipelineDeviceAddressCaptureReplay(long struct) { return memGetLong(struct + VkComputePipelineIndirectBufferInfoNV.PIPELINEDEVICEADDRESSCAPTUREREPLAY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkComputePipelineIndirectBufferInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkComputePipelineIndirectBufferInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkComputePipelineIndirectBufferInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #deviceAddress(long) deviceAddress}. */
-    public static void ndeviceAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkComputePipelineIndirectBufferInfoNV.DEVICEADDRESS, value); }
+    public static void ndeviceAddress(long struct, long value) { memPutLong(struct + VkComputePipelineIndirectBufferInfoNV.DEVICEADDRESS, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkComputePipelineIndirectBufferInfoNV.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkComputePipelineIndirectBufferInfoNV.SIZE, value); }
     /** Unsafe version of {@link #pipelineDeviceAddressCaptureReplay(long) pipelineDeviceAddressCaptureReplay}. */
-    public static void npipelineDeviceAddressCaptureReplay(long struct, long value) { UNSAFE.putLong(null, struct + VkComputePipelineIndirectBufferInfoNV.PIPELINEDEVICEADDRESSCAPTUREREPLAY, value); }
+    public static void npipelineDeviceAddressCaptureReplay(long struct, long value) { memPutLong(struct + VkComputePipelineIndirectBufferInfoNV.PIPELINEDEVICEADDRESSCAPTUREREPLAY, value); }
 
     // -----------------------------------
 
@@ -334,6 +332,11 @@ public class VkComputePipelineIndirectBufferInfoNV extends Struct<VkComputePipel
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

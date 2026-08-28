@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -151,8 +151,7 @@ public class FSBANK_PROGRESSITEM extends Struct<FSBANK_PROGRESSITEM> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FSBANK_PROGRESSITEM createSafe(long address) {
+    public static @Nullable FSBANK_PROGRESSITEM createSafe(long address) {
         return address == NULL ? null : new FSBANK_PROGRESSITEM(address, null);
     }
 
@@ -195,8 +194,7 @@ public class FSBANK_PROGRESSITEM extends Struct<FSBANK_PROGRESSITEM> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FSBANK_PROGRESSITEM.Buffer createSafe(long address, int capacity) {
+    public static FSBANK_PROGRESSITEM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,20 +239,20 @@ public class FSBANK_PROGRESSITEM extends Struct<FSBANK_PROGRESSITEM> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #subSoundIndex}. */
-    public static int nsubSoundIndex(long struct) { return UNSAFE.getInt(null, struct + FSBANK_PROGRESSITEM.SUBSOUNDINDEX); }
+    public static int nsubSoundIndex(long struct) { return memGetInt(struct + FSBANK_PROGRESSITEM.SUBSOUNDINDEX); }
     /** Unsafe version of {@link #threadIndex}. */
-    public static int nthreadIndex(long struct) { return UNSAFE.getInt(null, struct + FSBANK_PROGRESSITEM.THREADINDEX); }
+    public static int nthreadIndex(long struct) { return memGetInt(struct + FSBANK_PROGRESSITEM.THREADINDEX); }
     /** Unsafe version of {@link #state}. */
-    public static int nstate(long struct) { return UNSAFE.getInt(null, struct + FSBANK_PROGRESSITEM.STATE); }
+    public static int nstate(long struct) { return memGetInt(struct + FSBANK_PROGRESSITEM.STATE); }
     /** Unsafe version of {@link #stateData}. */
     public static long nstateData(long struct) { return memGetAddress(struct + FSBANK_PROGRESSITEM.STATEDATA); }
 
     /** Unsafe version of {@link #subSoundIndex(int) subSoundIndex}. */
-    public static void nsubSoundIndex(long struct, int value) { UNSAFE.putInt(null, struct + FSBANK_PROGRESSITEM.SUBSOUNDINDEX, value); }
+    public static void nsubSoundIndex(long struct, int value) { memPutInt(struct + FSBANK_PROGRESSITEM.SUBSOUNDINDEX, value); }
     /** Unsafe version of {@link #threadIndex(int) threadIndex}. */
-    public static void nthreadIndex(long struct, int value) { UNSAFE.putInt(null, struct + FSBANK_PROGRESSITEM.THREADINDEX, value); }
+    public static void nthreadIndex(long struct, int value) { memPutInt(struct + FSBANK_PROGRESSITEM.THREADINDEX, value); }
     /** Unsafe version of {@link #state(int) state}. */
-    public static void nstate(long struct, int value) { UNSAFE.putInt(null, struct + FSBANK_PROGRESSITEM.STATE, value); }
+    public static void nstate(long struct, int value) { memPutInt(struct + FSBANK_PROGRESSITEM.STATE, value); }
     /** Unsafe version of {@link #stateData(long) stateData}. */
     public static void nstateData(long struct, long value) { memPutAddress(struct + FSBANK_PROGRESSITEM.STATEDATA, value); }
 
@@ -289,6 +287,11 @@ public class FSBANK_PROGRESSITEM extends Struct<FSBANK_PROGRESSITEM> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

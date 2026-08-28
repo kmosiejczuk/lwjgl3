@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceSynchronization2Features extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSynchronization2Features createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSynchronization2Features createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSynchronization2Features(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceSynchronization2Features extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSynchronization2Features.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSynchronization2Features.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceSynchronization2Features extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSynchronization2Features.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSynchronization2Features.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSynchronization2Features.PNEXT); }
     /** Unsafe version of {@link #synchronization2}. */
-    public static int nsynchronization2(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSynchronization2Features.SYNCHRONIZATION2); }
+    public static int nsynchronization2(long struct) { return memGetInt(struct + VkPhysicalDeviceSynchronization2Features.SYNCHRONIZATION2); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSynchronization2Features.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSynchronization2Features.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSynchronization2Features.PNEXT, value); }
     /** Unsafe version of {@link #synchronization2(boolean) synchronization2}. */
-    public static void nsynchronization2(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSynchronization2Features.SYNCHRONIZATION2, value); }
+    public static void nsynchronization2(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSynchronization2Features.SYNCHRONIZATION2, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceSynchronization2Features extends Struct<VkPhysicalD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

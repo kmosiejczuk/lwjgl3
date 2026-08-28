@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.vulkan.VK10.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The purpose and usage of the values of this structure are described in greater detail in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects-binary-compatibility">Binary Shader Compatibility</a>.</p>
+ * <p>The purpose and usage of the values of this structure are described in greater detail in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects-binary-compatibility">Binary Shader Compatibility</a>.</p>
  * 
  * <p>If the {@link VkPhysicalDeviceShaderObjectPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
  * 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceShaderObjectPropertiesEXT extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderObjectPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderObjectPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderObjectPropertiesEXT(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceShaderObjectPropertiesEXT extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderObjectPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderObjectPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,20 +255,20 @@ public class VkPhysicalDeviceShaderObjectPropertiesEXT extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderObjectPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderObjectPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderObjectPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #shaderBinaryUUID}. */
     public static ByteBuffer nshaderBinaryUUID(long struct) { return memByteBuffer(struct + VkPhysicalDeviceShaderObjectPropertiesEXT.SHADERBINARYUUID, VK_UUID_SIZE); }
     /** Unsafe version of {@link #shaderBinaryUUID(int) shaderBinaryUUID}. */
     public static byte nshaderBinaryUUID(long struct, int index) {
-        return UNSAFE.getByte(null, struct + VkPhysicalDeviceShaderObjectPropertiesEXT.SHADERBINARYUUID + check(index, VK_UUID_SIZE) * 1);
+        return memGetByte(struct + VkPhysicalDeviceShaderObjectPropertiesEXT.SHADERBINARYUUID + check(index, VK_UUID_SIZE) * 1);
     }
     /** Unsafe version of {@link #shaderBinaryVersion}. */
-    public static int nshaderBinaryVersion(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderObjectPropertiesEXT.SHADERBINARYVERSION); }
+    public static int nshaderBinaryVersion(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderObjectPropertiesEXT.SHADERBINARYVERSION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderObjectPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderObjectPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderObjectPropertiesEXT.PNEXT, value); }
 
@@ -305,6 +303,11 @@ public class VkPhysicalDeviceShaderObjectPropertiesEXT extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

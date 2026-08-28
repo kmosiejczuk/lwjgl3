@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class VkExportMetalIOSurfaceInfoEXT extends Struct<VkExportMetalIOSurface
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalIOSurfaceInfoEXT createSafe(long address) {
+    public static @Nullable VkExportMetalIOSurfaceInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkExportMetalIOSurfaceInfoEXT(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkExportMetalIOSurfaceInfoEXT extends Struct<VkExportMetalIOSurface
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalIOSurfaceInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExportMetalIOSurfaceInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,20 +253,20 @@ public class VkExportMetalIOSurfaceInfoEXT extends Struct<VkExportMetalIOSurface
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalIOSurfaceInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMetalIOSurfaceInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMetalIOSurfaceInfoEXT.PNEXT); }
     /** Unsafe version of {@link #image}. */
-    public static long nimage(long struct) { return UNSAFE.getLong(null, struct + VkExportMetalIOSurfaceInfoEXT.IMAGE); }
+    public static long nimage(long struct) { return memGetLong(struct + VkExportMetalIOSurfaceInfoEXT.IMAGE); }
     /** Unsafe version of {@link #ioSurface}. */
     public static long nioSurface(long struct) { return memGetAddress(struct + VkExportMetalIOSurfaceInfoEXT.IOSURFACE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalIOSurfaceInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMetalIOSurfaceInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMetalIOSurfaceInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #image(long) image}. */
-    public static void nimage(long struct, long value) { UNSAFE.putLong(null, struct + VkExportMetalIOSurfaceInfoEXT.IMAGE, value); }
+    public static void nimage(long struct, long value) { memPutLong(struct + VkExportMetalIOSurfaceInfoEXT.IMAGE, value); }
     /** Unsafe version of {@link #ioSurface(long) ioSurface}. */
     public static void nioSurface(long struct, long value) { memPutAddress(struct + VkExportMetalIOSurfaceInfoEXT.IOSURFACE, check(value)); }
 
@@ -312,6 +310,11 @@ public class VkExportMetalIOSurfaceInfoEXT extends Struct<VkExportMetalIOSurface
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

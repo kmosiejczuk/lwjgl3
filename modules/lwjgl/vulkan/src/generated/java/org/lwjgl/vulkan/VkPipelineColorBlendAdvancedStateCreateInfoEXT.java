@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,9 +25,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-advancedBlendNonPremultipliedSrcColor">non-premultiplied source color</a> property is not supported, {@code srcPremultiplied} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-advancedBlendNonPremultipliedDstColor">non-premultiplied destination color</a> property is not supported, {@code dstPremultiplied} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-advancedBlendCorrelatedOverlap">correlated overlap</a> property is not supported, {@code blendOverlap} <b>must</b> be {@link EXTBlendOperationAdvanced#VK_BLEND_OVERLAP_UNCORRELATED_EXT BLEND_OVERLAP_UNCORRELATED_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-advancedBlendNonPremultipliedSrcColor">non-premultiplied source color</a> property is not supported, {@code srcPremultiplied} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-advancedBlendNonPremultipliedDstColor">non-premultiplied destination color</a> property is not supported, {@code dstPremultiplied} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-advancedBlendCorrelatedOverlap">correlated overlap</a> property is not supported, {@code blendOverlap} <b>must</b> be {@link EXTBlendOperationAdvanced#VK_BLEND_OVERLAP_UNCORRELATED_EXT BLEND_OVERLAP_UNCORRELATED_EXT}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -187,8 +187,7 @@ public class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends Struct<VkPip
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineColorBlendAdvancedStateCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineColorBlendAdvancedStateCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineColorBlendAdvancedStateCreateInfoEXT(address, null);
     }
 
@@ -231,8 +230,7 @@ public class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends Struct<VkPip
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineColorBlendAdvancedStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineColorBlendAdvancedStateCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -296,26 +294,26 @@ public class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends Struct<VkPip
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #srcPremultiplied}. */
-    public static int nsrcPremultiplied(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.SRCPREMULTIPLIED); }
+    public static int nsrcPremultiplied(long struct) { return memGetInt(struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.SRCPREMULTIPLIED); }
     /** Unsafe version of {@link #dstPremultiplied}. */
-    public static int ndstPremultiplied(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.DSTPREMULTIPLIED); }
+    public static int ndstPremultiplied(long struct) { return memGetInt(struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.DSTPREMULTIPLIED); }
     /** Unsafe version of {@link #blendOverlap}. */
-    public static int nblendOverlap(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.BLENDOVERLAP); }
+    public static int nblendOverlap(long struct) { return memGetInt(struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.BLENDOVERLAP); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #srcPremultiplied(boolean) srcPremultiplied}. */
-    public static void nsrcPremultiplied(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.SRCPREMULTIPLIED, value); }
+    public static void nsrcPremultiplied(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.SRCPREMULTIPLIED, value); }
     /** Unsafe version of {@link #dstPremultiplied(boolean) dstPremultiplied}. */
-    public static void ndstPremultiplied(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.DSTPREMULTIPLIED, value); }
+    public static void ndstPremultiplied(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.DSTPREMULTIPLIED, value); }
     /** Unsafe version of {@link #blendOverlap(int) blendOverlap}. */
-    public static void nblendOverlap(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.BLENDOVERLAP, value); }
+    public static void nblendOverlap(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAdvancedStateCreateInfoEXT.BLENDOVERLAP, value); }
 
     // -----------------------------------
 
@@ -348,6 +346,11 @@ public class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends Struct<VkPip
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

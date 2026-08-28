@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class XrActiveActionSetPrioritiesEXT extends Struct<XrActiveActionSetPrio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActiveActionSetPrioritiesEXT createSafe(long address) {
+    public static @Nullable XrActiveActionSetPrioritiesEXT createSafe(long address) {
         return address == NULL ? null : new XrActiveActionSetPrioritiesEXT(address, null);
     }
 
@@ -218,8 +217,7 @@ public class XrActiveActionSetPrioritiesEXT extends Struct<XrActiveActionSetPrio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActiveActionSetPrioritiesEXT.Buffer createSafe(long address, int capacity) {
+    public static XrActiveActionSetPrioritiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,20 +262,20 @@ public class XrActiveActionSetPrioritiesEXT extends Struct<XrActiveActionSetPrio
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrActiveActionSetPrioritiesEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrActiveActionSetPrioritiesEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrActiveActionSetPrioritiesEXT.NEXT); }
     /** Unsafe version of {@link #actionSetPriorityCount}. */
-    public static int nactionSetPriorityCount(long struct) { return UNSAFE.getInt(null, struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITYCOUNT); }
+    public static int nactionSetPriorityCount(long struct) { return memGetInt(struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITYCOUNT); }
     /** Unsafe version of {@link #actionSetPriorities}. */
     public static XrActiveActionSetPriorityEXT.Buffer nactionSetPriorities(long struct) { return XrActiveActionSetPriorityEXT.create(memGetAddress(struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITIES), nactionSetPriorityCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrActiveActionSetPrioritiesEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrActiveActionSetPrioritiesEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrActiveActionSetPrioritiesEXT.NEXT, value); }
     /** Sets the specified value to the {@code actionSetPriorityCount} field of the specified {@code struct}. */
-    public static void nactionSetPriorityCount(long struct, int value) { UNSAFE.putInt(null, struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITYCOUNT, value); }
+    public static void nactionSetPriorityCount(long struct, int value) { memPutInt(struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITYCOUNT, value); }
     /** Unsafe version of {@link #actionSetPriorities(XrActiveActionSetPriorityEXT.Buffer) actionSetPriorities}. */
     public static void nactionSetPriorities(long struct, XrActiveActionSetPriorityEXT.Buffer value) { memPutAddress(struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITIES, value.address()); nactionSetPriorityCount(struct, value.remaining()); }
 
@@ -324,6 +322,11 @@ public class XrActiveActionSetPrioritiesEXT extends Struct<XrActiveActionSetPrio
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

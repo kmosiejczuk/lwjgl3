@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -145,8 +145,7 @@ public class XrActiveActionSetPriorityEXT extends Struct<XrActiveActionSetPriori
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActiveActionSetPriorityEXT createSafe(long address) {
+    public static @Nullable XrActiveActionSetPriorityEXT createSafe(long address) {
         return address == NULL ? null : new XrActiveActionSetPriorityEXT(address, null);
     }
 
@@ -189,8 +188,7 @@ public class XrActiveActionSetPriorityEXT extends Struct<XrActiveActionSetPriori
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActiveActionSetPriorityEXT.Buffer createSafe(long address, int capacity) {
+    public static XrActiveActionSetPriorityEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,12 +235,12 @@ public class XrActiveActionSetPriorityEXT extends Struct<XrActiveActionSetPriori
     /** Unsafe version of {@link #actionSet}. */
     public static long nactionSet(long struct) { return memGetAddress(struct + XrActiveActionSetPriorityEXT.ACTIONSET); }
     /** Unsafe version of {@link #priorityOverride}. */
-    public static int npriorityOverride(long struct) { return UNSAFE.getInt(null, struct + XrActiveActionSetPriorityEXT.PRIORITYOVERRIDE); }
+    public static int npriorityOverride(long struct) { return memGetInt(struct + XrActiveActionSetPriorityEXT.PRIORITYOVERRIDE); }
 
     /** Unsafe version of {@link #actionSet(XrActionSet) actionSet}. */
     public static void nactionSet(long struct, XrActionSet value) { memPutAddress(struct + XrActiveActionSetPriorityEXT.ACTIONSET, value.address()); }
     /** Unsafe version of {@link #priorityOverride(int) priorityOverride}. */
-    public static void npriorityOverride(long struct, int value) { UNSAFE.putInt(null, struct + XrActiveActionSetPriorityEXT.PRIORITYOVERRIDE, value); }
+    public static void npriorityOverride(long struct, int value) { memPutInt(struct + XrActiveActionSetPriorityEXT.PRIORITYOVERRIDE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -284,6 +282,11 @@ public class XrActiveActionSetPriorityEXT extends Struct<XrActiveActionSetPriori
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

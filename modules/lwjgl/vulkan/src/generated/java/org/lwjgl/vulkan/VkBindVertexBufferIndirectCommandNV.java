@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -151,8 +151,7 @@ public class VkBindVertexBufferIndirectCommandNV extends Struct<VkBindVertexBuff
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindVertexBufferIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkBindVertexBufferIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkBindVertexBufferIndirectCommandNV(address, null);
     }
 
@@ -195,8 +194,7 @@ public class VkBindVertexBufferIndirectCommandNV extends Struct<VkBindVertexBuff
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindVertexBufferIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkBindVertexBufferIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,18 +239,18 @@ public class VkBindVertexBufferIndirectCommandNV extends Struct<VkBindVertexBuff
     // -----------------------------------
 
     /** Unsafe version of {@link #bufferAddress}. */
-    public static long nbufferAddress(long struct) { return UNSAFE.getLong(null, struct + VkBindVertexBufferIndirectCommandNV.BUFFERADDRESS); }
+    public static long nbufferAddress(long struct) { return memGetLong(struct + VkBindVertexBufferIndirectCommandNV.BUFFERADDRESS); }
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + VkBindVertexBufferIndirectCommandNV.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + VkBindVertexBufferIndirectCommandNV.SIZE); }
     /** Unsafe version of {@link #stride}. */
-    public static int nstride(long struct) { return UNSAFE.getInt(null, struct + VkBindVertexBufferIndirectCommandNV.STRIDE); }
+    public static int nstride(long struct) { return memGetInt(struct + VkBindVertexBufferIndirectCommandNV.STRIDE); }
 
     /** Unsafe version of {@link #bufferAddress(long) bufferAddress}. */
-    public static void nbufferAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkBindVertexBufferIndirectCommandNV.BUFFERADDRESS, value); }
+    public static void nbufferAddress(long struct, long value) { memPutLong(struct + VkBindVertexBufferIndirectCommandNV.BUFFERADDRESS, value); }
     /** Unsafe version of {@link #size(int) size}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + VkBindVertexBufferIndirectCommandNV.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + VkBindVertexBufferIndirectCommandNV.SIZE, value); }
     /** Unsafe version of {@link #stride(int) stride}. */
-    public static void nstride(long struct, int value) { UNSAFE.putInt(null, struct + VkBindVertexBufferIndirectCommandNV.STRIDE, value); }
+    public static void nstride(long struct, int value) { memPutInt(struct + VkBindVertexBufferIndirectCommandNV.STRIDE, value); }
 
     // -----------------------------------
 
@@ -285,6 +283,11 @@ public class VkBindVertexBufferIndirectCommandNV extends Struct<VkBindVertexBuff
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

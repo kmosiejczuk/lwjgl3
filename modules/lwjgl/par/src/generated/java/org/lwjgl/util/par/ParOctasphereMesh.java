@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.par;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -102,17 +102,15 @@ public class ParOctasphereMesh extends Struct<ParOctasphereMesh> implements Nati
      *
      * @param capacity the number of elements in the returned buffer
      */
-    @Nullable
     @NativeType("float *")
-    public FloatBuffer normals(int capacity) { return nnormals(address(), capacity); }
+    public @Nullable FloatBuffer normals(int capacity) { return nnormals(address(), capacity); }
     /**
      * @return a {@link FloatBuffer} view of the data pointed to by the {@code texcoords} field.
      *
      * @param capacity the number of elements in the returned buffer
      */
-    @Nullable
     @NativeType("float *")
-    public FloatBuffer texcoords(int capacity) { return ntexcoords(address(), capacity); }
+    public @Nullable FloatBuffer texcoords(int capacity) { return ntexcoords(address(), capacity); }
     /**
      * @return a {@link ShortBuffer} view of the data pointed to by the {@code indices} field.
      *
@@ -187,8 +185,7 @@ public class ParOctasphereMesh extends Struct<ParOctasphereMesh> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParOctasphereMesh createSafe(long address) {
+    public static @Nullable ParOctasphereMesh createSafe(long address) {
         return address == NULL ? null : new ParOctasphereMesh(address, null);
     }
 
@@ -231,8 +228,7 @@ public class ParOctasphereMesh extends Struct<ParOctasphereMesh> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParOctasphereMesh.Buffer createSafe(long address, int capacity) {
+    public static ParOctasphereMesh.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,15 +275,15 @@ public class ParOctasphereMesh extends Struct<ParOctasphereMesh> implements Nati
     /** Unsafe version of {@link #positions(int) positions}. */
     public static FloatBuffer npositions(long struct, int capacity) { return memFloatBuffer(memGetAddress(struct + ParOctasphereMesh.POSITIONS), capacity); }
     /** Unsafe version of {@link #normals(int) normals}. */
-    @Nullable public static FloatBuffer nnormals(long struct, int capacity) { return memFloatBufferSafe(memGetAddress(struct + ParOctasphereMesh.NORMALS), capacity); }
+    public static @Nullable FloatBuffer nnormals(long struct, int capacity) { return memFloatBufferSafe(memGetAddress(struct + ParOctasphereMesh.NORMALS), capacity); }
     /** Unsafe version of {@link #texcoords(int) texcoords}. */
-    @Nullable public static FloatBuffer ntexcoords(long struct, int capacity) { return memFloatBufferSafe(memGetAddress(struct + ParOctasphereMesh.TEXCOORDS), capacity); }
+    public static @Nullable FloatBuffer ntexcoords(long struct, int capacity) { return memFloatBufferSafe(memGetAddress(struct + ParOctasphereMesh.TEXCOORDS), capacity); }
     /** Unsafe version of {@link #indices(int) indices}. */
     public static ShortBuffer nindices(long struct, int capacity) { return memShortBuffer(memGetAddress(struct + ParOctasphereMesh.INDICES), capacity); }
     /** Unsafe version of {@link #num_indices}. */
-    public static int nnum_indices(long struct) { return UNSAFE.getInt(null, struct + ParOctasphereMesh.NUM_INDICES); }
+    public static int nnum_indices(long struct) { return memGetInt(struct + ParOctasphereMesh.NUM_INDICES); }
     /** Unsafe version of {@link #num_vertices}. */
-    public static int nnum_vertices(long struct) { return UNSAFE.getInt(null, struct + ParOctasphereMesh.NUM_VERTICES); }
+    public static int nnum_vertices(long struct) { return memGetInt(struct + ParOctasphereMesh.NUM_VERTICES); }
 
     /** Unsafe version of {@link #positions(FloatBuffer) positions}. */
     public static void npositions(long struct, FloatBuffer value) { memPutAddress(struct + ParOctasphereMesh.POSITIONS, memAddress(value)); }
@@ -342,6 +338,11 @@ public class ParOctasphereMesh extends Struct<ParOctasphereMesh> implements Nati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ParOctasphereMesh getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -358,17 +359,15 @@ public class ParOctasphereMesh extends Struct<ParOctasphereMesh> implements Nati
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("float *")
-        public FloatBuffer normals(int capacity) { return ParOctasphereMesh.nnormals(address(), capacity); }
+        public @Nullable FloatBuffer normals(int capacity) { return ParOctasphereMesh.nnormals(address(), capacity); }
         /**
          * @return a {@link FloatBuffer} view of the data pointed to by the {@code texcoords} field.
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("float *")
-        public FloatBuffer texcoords(int capacity) { return ParOctasphereMesh.ntexcoords(address(), capacity); }
+        public @Nullable FloatBuffer texcoords(int capacity) { return ParOctasphereMesh.ntexcoords(address(), capacity); }
         /**
          * @return a {@link ShortBuffer} view of the data pointed to by the {@code indices} field.
          *

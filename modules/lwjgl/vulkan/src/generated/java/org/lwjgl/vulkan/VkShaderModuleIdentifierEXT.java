@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class VkShaderModuleIdentifierEXT extends Struct<VkShaderModuleIdentifier
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderModuleIdentifierEXT createSafe(long address) {
+    public static @Nullable VkShaderModuleIdentifierEXT createSafe(long address) {
         return address == NULL ? null : new VkShaderModuleIdentifierEXT(address, null);
     }
 
@@ -218,8 +217,7 @@ public class VkShaderModuleIdentifierEXT extends Struct<VkShaderModuleIdentifier
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderModuleIdentifierEXT.Buffer createSafe(long address, int capacity) {
+    public static VkShaderModuleIdentifierEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,20 +262,20 @@ public class VkShaderModuleIdentifierEXT extends Struct<VkShaderModuleIdentifier
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkShaderModuleIdentifierEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkShaderModuleIdentifierEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkShaderModuleIdentifierEXT.PNEXT); }
     /** Unsafe version of {@link #identifierSize}. */
-    public static int nidentifierSize(long struct) { return UNSAFE.getInt(null, struct + VkShaderModuleIdentifierEXT.IDENTIFIERSIZE); }
+    public static int nidentifierSize(long struct) { return memGetInt(struct + VkShaderModuleIdentifierEXT.IDENTIFIERSIZE); }
     /** Unsafe version of {@link #identifier}. */
     public static ByteBuffer nidentifier(long struct) { return memByteBuffer(struct + VkShaderModuleIdentifierEXT.IDENTIFIER, nidentifierSize(struct)); }
     /** Unsafe version of {@link #identifier(int) identifier}. */
     public static byte nidentifier(long struct, int index) {
-        return UNSAFE.getByte(null, struct + VkShaderModuleIdentifierEXT.IDENTIFIER + check(index, VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT) * 1);
+        return memGetByte(struct + VkShaderModuleIdentifierEXT.IDENTIFIER + check(index, VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT) * 1);
     }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkShaderModuleIdentifierEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkShaderModuleIdentifierEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkShaderModuleIdentifierEXT.PNEXT, value); }
 
@@ -312,6 +310,11 @@ public class VkShaderModuleIdentifierEXT extends Struct<VkShaderModuleIdentifier
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

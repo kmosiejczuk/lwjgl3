@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT extends Struct<Vk
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT extends Struct<Vk
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT extends Struct<Vk
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #shaderImageInt64Atomics}. */
-    public static int nshaderImageInt64Atomics(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.SHADERIMAGEINT64ATOMICS); }
+    public static int nshaderImageInt64Atomics(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.SHADERIMAGEINT64ATOMICS); }
     /** Unsafe version of {@link #sparseImageInt64Atomics}. */
-    public static int nsparseImageInt64Atomics(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.SPARSEIMAGEINT64ATOMICS); }
+    public static int nsparseImageInt64Atomics(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.SPARSEIMAGEINT64ATOMICS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #shaderImageInt64Atomics(boolean) shaderImageInt64Atomics}. */
-    public static void nshaderImageInt64Atomics(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.SHADERIMAGEINT64ATOMICS, value); }
+    public static void nshaderImageInt64Atomics(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.SHADERIMAGEINT64ATOMICS, value); }
     /** Unsafe version of {@link #sparseImageInt64Atomics(boolean) sparseImageInt64Atomics}. */
-    public static void nsparseImageInt64Atomics(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.SPARSEIMAGEINT64ATOMICS, value); }
+    public static void nsparseImageInt64Atomics(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.SPARSEIMAGEINT64ATOMICS, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT extends Struct<Vk
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

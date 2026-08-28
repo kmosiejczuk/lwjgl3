@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -149,8 +149,7 @@ public class CUlaunchAttribute extends Struct<CUlaunchAttribute> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUlaunchAttribute createSafe(long address) {
+    public static @Nullable CUlaunchAttribute createSafe(long address) {
         return address == NULL ? null : new CUlaunchAttribute(address, null);
     }
 
@@ -193,8 +192,7 @@ public class CUlaunchAttribute extends Struct<CUlaunchAttribute> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUlaunchAttribute.Buffer createSafe(long address, int capacity) {
+    public static CUlaunchAttribute.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -239,18 +237,18 @@ public class CUlaunchAttribute extends Struct<CUlaunchAttribute> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #id}. */
-    public static int nid(long struct) { return UNSAFE.getInt(null, struct + CUlaunchAttribute.ID); }
+    public static int nid(long struct) { return memGetInt(struct + CUlaunchAttribute.ID); }
     /** Unsafe version of {@link #pad}. */
     public static ByteBuffer npad(long struct) { return memByteBuffer(struct + CUlaunchAttribute.PAD, 4); }
     /** Unsafe version of {@link #pad(int) pad}. */
     public static byte npad(long struct, int index) {
-        return UNSAFE.getByte(null, struct + CUlaunchAttribute.PAD + check(index, 4) * 1);
+        return memGetByte(struct + CUlaunchAttribute.PAD + check(index, 4) * 1);
     }
     /** Unsafe version of {@link #value}. */
     public static CUlaunchAttributeValue nvalue(long struct) { return CUlaunchAttributeValue.create(struct + CUlaunchAttribute.VALUE); }
 
     /** Unsafe version of {@link #id(int) id}. */
-    public static void nid(long struct, int value) { UNSAFE.putInt(null, struct + CUlaunchAttribute.ID, value); }
+    public static void nid(long struct, int value) { memPutInt(struct + CUlaunchAttribute.ID, value); }
     /** Unsafe version of {@link #pad(ByteBuffer) pad}. */
     public static void npad(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 4); }
@@ -258,7 +256,7 @@ public class CUlaunchAttribute extends Struct<CUlaunchAttribute> implements Nati
     }
     /** Unsafe version of {@link #pad(int, byte) pad}. */
     public static void npad(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + CUlaunchAttribute.PAD + check(index, 4) * 1, value);
+        memPutByte(struct + CUlaunchAttribute.PAD + check(index, 4) * 1, value);
     }
     /** Unsafe version of {@link #value(CUlaunchAttributeValue) value}. */
     public static void nvalue(long struct, CUlaunchAttributeValue value) { memCopy(value.address(), struct + CUlaunchAttribute.VALUE, CUlaunchAttributeValue.SIZEOF); }
@@ -294,6 +292,11 @@ public class CUlaunchAttribute extends Struct<CUlaunchAttribute> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

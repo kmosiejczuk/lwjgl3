@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingRSRCUpdate2 createSafe(long address) {
+    public static @Nullable IOURingRSRCUpdate2 createSafe(long address) {
         return address == NULL ? null : new IOURingRSRCUpdate2(address, null);
     }
 
@@ -206,8 +205,7 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingRSRCUpdate2.Buffer createSafe(long address, int capacity) {
+    public static IOURingRSRCUpdate2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,26 +250,26 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #offset}. */
-    public static int noffset(long struct) { return UNSAFE.getInt(null, struct + IOURingRSRCUpdate2.OFFSET); }
-    public static int nresv(long struct) { return UNSAFE.getInt(null, struct + IOURingRSRCUpdate2.RESV); }
+    public static int noffset(long struct) { return memGetInt(struct + IOURingRSRCUpdate2.OFFSET); }
+    public static int nresv(long struct) { return memGetInt(struct + IOURingRSRCUpdate2.RESV); }
     /** Unsafe version of {@link #data}. */
-    public static long ndata(long struct) { return UNSAFE.getLong(null, struct + IOURingRSRCUpdate2.DATA); }
+    public static long ndata(long struct) { return memGetLong(struct + IOURingRSRCUpdate2.DATA); }
     /** Unsafe version of {@link #tags}. */
-    public static long ntags(long struct) { return UNSAFE.getLong(null, struct + IOURingRSRCUpdate2.TAGS); }
+    public static long ntags(long struct) { return memGetLong(struct + IOURingRSRCUpdate2.TAGS); }
     /** Unsafe version of {@link #nr}. */
-    public static int nnr(long struct) { return UNSAFE.getInt(null, struct + IOURingRSRCUpdate2.NR); }
-    public static int nresv2(long struct) { return UNSAFE.getInt(null, struct + IOURingRSRCUpdate2.RESV2); }
+    public static int nnr(long struct) { return memGetInt(struct + IOURingRSRCUpdate2.NR); }
+    public static int nresv2(long struct) { return memGetInt(struct + IOURingRSRCUpdate2.RESV2); }
 
     /** Unsafe version of {@link #offset(int) offset}. */
-    public static void noffset(long struct, int value) { UNSAFE.putInt(null, struct + IOURingRSRCUpdate2.OFFSET, value); }
-    public static void nresv(long struct, int value) { UNSAFE.putInt(null, struct + IOURingRSRCUpdate2.RESV, value); }
+    public static void noffset(long struct, int value) { memPutInt(struct + IOURingRSRCUpdate2.OFFSET, value); }
+    public static void nresv(long struct, int value) { memPutInt(struct + IOURingRSRCUpdate2.RESV, value); }
     /** Unsafe version of {@link #data(long) data}. */
-    public static void ndata(long struct, long value) { UNSAFE.putLong(null, struct + IOURingRSRCUpdate2.DATA, value); }
+    public static void ndata(long struct, long value) { memPutLong(struct + IOURingRSRCUpdate2.DATA, value); }
     /** Unsafe version of {@link #tags(long) tags}. */
-    public static void ntags(long struct, long value) { UNSAFE.putLong(null, struct + IOURingRSRCUpdate2.TAGS, value); }
+    public static void ntags(long struct, long value) { memPutLong(struct + IOURingRSRCUpdate2.TAGS, value); }
     /** Unsafe version of {@link #nr(int) nr}. */
-    public static void nnr(long struct, int value) { UNSAFE.putInt(null, struct + IOURingRSRCUpdate2.NR, value); }
-    public static void nresv2(long struct, int value) { UNSAFE.putInt(null, struct + IOURingRSRCUpdate2.RESV2, value); }
+    public static void nnr(long struct, int value) { memPutInt(struct + IOURingRSRCUpdate2.NR, value); }
+    public static void nresv2(long struct, int value) { memPutInt(struct + IOURingRSRCUpdate2.RESV2, value); }
 
     // -----------------------------------
 
@@ -304,6 +302,11 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

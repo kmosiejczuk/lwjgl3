@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class VRVulkanDevice extends Struct<VRVulkanDevice> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRVulkanDevice createSafe(long address) {
+    public static @Nullable VRVulkanDevice createSafe(long address) {
         return address == NULL ? null : new VRVulkanDevice(address, null);
     }
 
@@ -210,8 +209,7 @@ public class VRVulkanDevice extends Struct<VRVulkanDevice> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRVulkanDevice.Buffer createSafe(long address, int capacity) {
+    public static VRVulkanDevice.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,7 +262,7 @@ public class VRVulkanDevice extends Struct<VRVulkanDevice> implements NativeReso
     /** Unsafe version of {@link #m_pQueue}. */
     public static long nm_pQueue(long struct) { return memGetAddress(struct + VRVulkanDevice.M_PQUEUE); }
     /** Unsafe version of {@link #m_uQueueFamilyIndex}. */
-    public static int nm_uQueueFamilyIndex(long struct) { return UNSAFE.getInt(null, struct + VRVulkanDevice.M_UQUEUEFAMILYINDEX); }
+    public static int nm_uQueueFamilyIndex(long struct) { return memGetInt(struct + VRVulkanDevice.M_UQUEUEFAMILYINDEX); }
 
     /** Unsafe version of {@link #m_pInstance(long) m_pInstance}. */
     public static void nm_pInstance(long struct, long value) { memPutAddress(struct + VRVulkanDevice.M_PINSTANCE, check(value)); }
@@ -275,7 +273,7 @@ public class VRVulkanDevice extends Struct<VRVulkanDevice> implements NativeReso
     /** Unsafe version of {@link #m_pQueue(long) m_pQueue}. */
     public static void nm_pQueue(long struct, long value) { memPutAddress(struct + VRVulkanDevice.M_PQUEUE, check(value)); }
     /** Unsafe version of {@link #m_uQueueFamilyIndex(int) m_uQueueFamilyIndex}. */
-    public static void nm_uQueueFamilyIndex(long struct, int value) { UNSAFE.putInt(null, struct + VRVulkanDevice.M_UQUEUEFAMILYINDEX, value); }
+    public static void nm_uQueueFamilyIndex(long struct, int value) { memPutInt(struct + VRVulkanDevice.M_UQUEUEFAMILYINDEX, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -320,6 +318,11 @@ public class VRVulkanDevice extends Struct<VRVulkanDevice> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class XrCompositionLayerDepthTestFB extends Struct<XrCompositionLayerDept
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerDepthTestFB createSafe(long address) {
+    public static @Nullable XrCompositionLayerDepthTestFB createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerDepthTestFB(address, null);
     }
 
@@ -218,8 +217,7 @@ public class XrCompositionLayerDepthTestFB extends Struct<XrCompositionLayerDept
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerDepthTestFB.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerDepthTestFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +262,22 @@ public class XrCompositionLayerDepthTestFB extends Struct<XrCompositionLayerDept
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerDepthTestFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerDepthTestFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerDepthTestFB.NEXT); }
     /** Unsafe version of {@link #depthMask}. */
-    public static int ndepthMask(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerDepthTestFB.DEPTHMASK); }
+    public static int ndepthMask(long struct) { return memGetInt(struct + XrCompositionLayerDepthTestFB.DEPTHMASK); }
     /** Unsafe version of {@link #compareOp}. */
-    public static int ncompareOp(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerDepthTestFB.COMPAREOP); }
+    public static int ncompareOp(long struct) { return memGetInt(struct + XrCompositionLayerDepthTestFB.COMPAREOP); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerDepthTestFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerDepthTestFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerDepthTestFB.NEXT, value); }
     /** Unsafe version of {@link #depthMask(boolean) depthMask}. */
-    public static void ndepthMask(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerDepthTestFB.DEPTHMASK, value); }
+    public static void ndepthMask(long struct, int value) { memPutInt(struct + XrCompositionLayerDepthTestFB.DEPTHMASK, value); }
     /** Unsafe version of {@link #compareOp(int) compareOp}. */
-    public static void ncompareOp(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerDepthTestFB.COMPAREOP, value); }
+    public static void ncompareOp(long struct, int value) { memPutInt(struct + XrCompositionLayerDepthTestFB.COMPAREOP, value); }
 
     // -----------------------------------
 
@@ -312,6 +310,11 @@ public class XrCompositionLayerDepthTestFB extends Struct<XrCompositionLayerDept
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

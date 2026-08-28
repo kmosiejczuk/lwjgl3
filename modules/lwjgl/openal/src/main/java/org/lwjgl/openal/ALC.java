@@ -4,10 +4,10 @@
  */
 package org.lwjgl.openal;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
-import javax.annotation.*;
 import java.nio.*;
 import java.util.*;
 import java.util.function.*;
@@ -39,16 +39,13 @@ import static org.lwjgl.system.MemoryUtil.*;
  */
 public final class ALC {
 
-    @Nullable
-    private static FunctionProviderLocal functionProvider;
+    private static @Nullable FunctionProviderLocal functionProvider;
 
-    @Nullable
-    private static ALCCapabilities router;
+    private static @Nullable ALCCapabilities router;
 
     private static final ThreadLocal<ALCCapabilities> capabilitiesTLS = new ThreadLocal<>();
 
-    @Nullable
-    private static ICD icd;
+    private static @Nullable ICD icd;
 
     static {
         if (!Configuration.OPENAL_EXPLICIT_INIT.get(false)) {
@@ -100,9 +97,9 @@ public final class ALC {
 
         @Override
         public long getFunctionAddress(long handle, ByteBuffer functionName) {
-            long address = library.getFunctionAddress(functionName);
-            if (address == NULL && handle != NULL) {
-                address = invokePPP(handle, memAddress(functionName), alcGetProcAddress);
+            long address = invokePPP(handle, memAddress(functionName), alcGetProcAddress);
+            if (address == NULL) {
+                address = library.getFunctionAddress(functionName);
             }
             if (address == NULL && Checks.DEBUG_FUNCTIONS) {
                 apiLogMissing("ALC", functionName);
@@ -318,8 +315,7 @@ public final class ALC {
      */
     private static class ICDStatic implements ICD {
 
-        @Nullable
-        private static ALCCapabilities tempCaps;
+        private static @Nullable ALCCapabilities tempCaps;
 
         @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -134,8 +134,7 @@ public class LLVMOrcCLookupSetElement extends Struct<LLVMOrcCLookupSetElement> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMOrcCLookupSetElement createSafe(long address) {
+    public static @Nullable LLVMOrcCLookupSetElement createSafe(long address) {
         return address == NULL ? null : new LLVMOrcCLookupSetElement(address, null);
     }
 
@@ -178,8 +177,7 @@ public class LLVMOrcCLookupSetElement extends Struct<LLVMOrcCLookupSetElement> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMOrcCLookupSetElement.Buffer createSafe(long address, int capacity) {
+    public static LLVMOrcCLookupSetElement.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -226,12 +224,12 @@ public class LLVMOrcCLookupSetElement extends Struct<LLVMOrcCLookupSetElement> i
     /** Unsafe version of {@link #Name}. */
     public static long nName(long struct) { return memGetAddress(struct + LLVMOrcCLookupSetElement.NAME); }
     /** Unsafe version of {@link #LookupFlags}. */
-    public static int nLookupFlags(long struct) { return UNSAFE.getInt(null, struct + LLVMOrcCLookupSetElement.LOOKUPFLAGS); }
+    public static int nLookupFlags(long struct) { return memGetInt(struct + LLVMOrcCLookupSetElement.LOOKUPFLAGS); }
 
     /** Unsafe version of {@link #Name(long) Name}. */
     public static void nName(long struct, long value) { memPutAddress(struct + LLVMOrcCLookupSetElement.NAME, check(value)); }
     /** Unsafe version of {@link #LookupFlags(int) LookupFlags}. */
-    public static void nLookupFlags(long struct, int value) { UNSAFE.putInt(null, struct + LLVMOrcCLookupSetElement.LOOKUPFLAGS, value); }
+    public static void nLookupFlags(long struct, int value) { memPutInt(struct + LLVMOrcCLookupSetElement.LOOKUPFLAGS, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -273,6 +271,11 @@ public class LLVMOrcCLookupSetElement extends Struct<LLVMOrcCLookupSetElement> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

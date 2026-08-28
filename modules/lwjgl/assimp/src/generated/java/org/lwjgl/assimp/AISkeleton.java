@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -160,8 +160,7 @@ public class AISkeleton extends Struct<AISkeleton> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AISkeleton createSafe(long address) {
+    public static @Nullable AISkeleton createSafe(long address) {
         return address == NULL ? null : new AISkeleton(address, null);
     }
 
@@ -204,8 +203,7 @@ public class AISkeleton extends Struct<AISkeleton> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AISkeleton.Buffer createSafe(long address, int capacity) {
+    public static AISkeleton.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,14 +250,14 @@ public class AISkeleton extends Struct<AISkeleton> implements NativeResource {
     /** Unsafe version of {@link #mName}. */
     public static AIString nmName(long struct) { return AIString.create(struct + AISkeleton.MNAME); }
     /** Unsafe version of {@link #mNumBones}. */
-    public static int nmNumBones(long struct) { return UNSAFE.getInt(null, struct + AISkeleton.MNUMBONES); }
+    public static int nmNumBones(long struct) { return memGetInt(struct + AISkeleton.MNUMBONES); }
     /** Unsafe version of {@link #mBones() mBones}. */
     public static PointerBuffer nmBones(long struct) { return memPointerBuffer(memGetAddress(struct + AISkeleton.MBONES), nmNumBones(struct)); }
 
     /** Unsafe version of {@link #mName(AIString) mName}. */
     public static void nmName(long struct, AIString value) { memCopy(value.address(), struct + AISkeleton.MNAME, AIString.SIZEOF); }
     /** Sets the specified value to the {@code mNumBones} field of the specified {@code struct}. */
-    public static void nmNumBones(long struct, int value) { UNSAFE.putInt(null, struct + AISkeleton.MNUMBONES, value); }
+    public static void nmNumBones(long struct, int value) { memPutInt(struct + AISkeleton.MNUMBONES, value); }
     /** Unsafe version of {@link #mBones(PointerBuffer) mBones}. */
     public static void nmBones(long struct, PointerBuffer value) { memPutAddress(struct + AISkeleton.MBONES, memAddress(value)); nmNumBones(struct, value.remaining()); }
 
@@ -303,6 +301,11 @@ public class AISkeleton extends Struct<AISkeleton> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

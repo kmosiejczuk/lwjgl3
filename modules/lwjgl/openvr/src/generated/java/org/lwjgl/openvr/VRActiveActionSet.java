@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VRActiveActionSet extends Struct<VRActiveActionSet> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRActiveActionSet createSafe(long address) {
+    public static @Nullable VRActiveActionSet createSafe(long address) {
         return address == NULL ? null : new VRActiveActionSet(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VRActiveActionSet extends Struct<VRActiveActionSet> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRActiveActionSet.Buffer createSafe(long address, int capacity) {
+    public static VRActiveActionSet.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -276,22 +274,22 @@ public class VRActiveActionSet extends Struct<VRActiveActionSet> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #ulActionSet}. */
-    public static long nulActionSet(long struct) { return UNSAFE.getLong(null, struct + VRActiveActionSet.ULACTIONSET); }
+    public static long nulActionSet(long struct) { return memGetLong(struct + VRActiveActionSet.ULACTIONSET); }
     /** Unsafe version of {@link #ulRestrictedToDevice}. */
-    public static long nulRestrictedToDevice(long struct) { return UNSAFE.getLong(null, struct + VRActiveActionSet.ULRESTRICTEDTODEVICE); }
+    public static long nulRestrictedToDevice(long struct) { return memGetLong(struct + VRActiveActionSet.ULRESTRICTEDTODEVICE); }
     /** Unsafe version of {@link #ulSecondaryActionSet}. */
-    public static long nulSecondaryActionSet(long struct) { return UNSAFE.getLong(null, struct + VRActiveActionSet.ULSECONDARYACTIONSET); }
+    public static long nulSecondaryActionSet(long struct) { return memGetLong(struct + VRActiveActionSet.ULSECONDARYACTIONSET); }
     /** Unsafe version of {@link #nPriority}. */
-    public static int nnPriority(long struct) { return UNSAFE.getInt(null, struct + VRActiveActionSet.NPRIORITY); }
+    public static int nnPriority(long struct) { return memGetInt(struct + VRActiveActionSet.NPRIORITY); }
 
     /** Unsafe version of {@link #ulActionSet(long) ulActionSet}. */
-    public static void nulActionSet(long struct, long value) { UNSAFE.putLong(null, struct + VRActiveActionSet.ULACTIONSET, value); }
+    public static void nulActionSet(long struct, long value) { memPutLong(struct + VRActiveActionSet.ULACTIONSET, value); }
     /** Unsafe version of {@link #ulRestrictedToDevice(long) ulRestrictedToDevice}. */
-    public static void nulRestrictedToDevice(long struct, long value) { UNSAFE.putLong(null, struct + VRActiveActionSet.ULRESTRICTEDTODEVICE, value); }
+    public static void nulRestrictedToDevice(long struct, long value) { memPutLong(struct + VRActiveActionSet.ULRESTRICTEDTODEVICE, value); }
     /** Unsafe version of {@link #ulSecondaryActionSet(long) ulSecondaryActionSet}. */
-    public static void nulSecondaryActionSet(long struct, long value) { UNSAFE.putLong(null, struct + VRActiveActionSet.ULSECONDARYACTIONSET, value); }
+    public static void nulSecondaryActionSet(long struct, long value) { memPutLong(struct + VRActiveActionSet.ULSECONDARYACTIONSET, value); }
     /** Unsafe version of {@link #nPriority(int) nPriority}. */
-    public static void nnPriority(long struct, int value) { UNSAFE.putInt(null, struct + VRActiveActionSet.NPRIORITY, value); }
+    public static void nnPriority(long struct, int value) { memPutInt(struct + VRActiveActionSet.NPRIORITY, value); }
 
     // -----------------------------------
 
@@ -324,6 +322,11 @@ public class VRActiveActionSet extends Struct<VRActiveActionSet> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

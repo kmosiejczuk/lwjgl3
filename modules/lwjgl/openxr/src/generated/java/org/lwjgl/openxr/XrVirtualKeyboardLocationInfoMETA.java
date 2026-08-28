@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -198,8 +198,7 @@ public class XrVirtualKeyboardLocationInfoMETA extends Struct<XrVirtualKeyboardL
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardLocationInfoMETA createSafe(long address) {
+    public static @Nullable XrVirtualKeyboardLocationInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrVirtualKeyboardLocationInfoMETA(address, null);
     }
 
@@ -242,8 +241,7 @@ public class XrVirtualKeyboardLocationInfoMETA extends Struct<XrVirtualKeyboardL
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardLocationInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrVirtualKeyboardLocationInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -288,30 +286,30 @@ public class XrVirtualKeyboardLocationInfoMETA extends Struct<XrVirtualKeyboardL
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardLocationInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVirtualKeyboardLocationInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVirtualKeyboardLocationInfoMETA.NEXT); }
     /** Unsafe version of {@link #locationType}. */
-    public static int nlocationType(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardLocationInfoMETA.LOCATIONTYPE); }
+    public static int nlocationType(long struct) { return memGetInt(struct + XrVirtualKeyboardLocationInfoMETA.LOCATIONTYPE); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrVirtualKeyboardLocationInfoMETA.SPACE); }
     /** Unsafe version of {@link #poseInSpace}. */
     public static XrPosef nposeInSpace(long struct) { return XrPosef.create(struct + XrVirtualKeyboardLocationInfoMETA.POSEINSPACE); }
     /** Unsafe version of {@link #scale}. */
-    public static float nscale(long struct) { return UNSAFE.getFloat(null, struct + XrVirtualKeyboardLocationInfoMETA.SCALE); }
+    public static float nscale(long struct) { return memGetFloat(struct + XrVirtualKeyboardLocationInfoMETA.SCALE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardLocationInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVirtualKeyboardLocationInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVirtualKeyboardLocationInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #locationType(int) locationType}. */
-    public static void nlocationType(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardLocationInfoMETA.LOCATIONTYPE, value); }
+    public static void nlocationType(long struct, int value) { memPutInt(struct + XrVirtualKeyboardLocationInfoMETA.LOCATIONTYPE, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
     public static void nspace(long struct, XrSpace value) { memPutAddress(struct + XrVirtualKeyboardLocationInfoMETA.SPACE, value.address()); }
     /** Unsafe version of {@link #poseInSpace(XrPosef) poseInSpace}. */
     public static void nposeInSpace(long struct, XrPosef value) { memCopy(value.address(), struct + XrVirtualKeyboardLocationInfoMETA.POSEINSPACE, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #scale(float) scale}. */
-    public static void nscale(long struct, float value) { UNSAFE.putFloat(null, struct + XrVirtualKeyboardLocationInfoMETA.SCALE, value); }
+    public static void nscale(long struct, float value) { memPutFloat(struct + XrVirtualKeyboardLocationInfoMETA.SCALE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -353,6 +351,11 @@ public class XrVirtualKeyboardLocationInfoMETA extends Struct<XrVirtualKeyboardL
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

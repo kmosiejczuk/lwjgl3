@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -133,8 +133,7 @@ public class hb_ot_math_glyph_variant_t extends Struct<hb_ot_math_glyph_variant_
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_math_glyph_variant_t createSafe(long address) {
+    public static @Nullable hb_ot_math_glyph_variant_t createSafe(long address) {
         return address == NULL ? null : new hb_ot_math_glyph_variant_t(address, null);
     }
 
@@ -177,8 +176,7 @@ public class hb_ot_math_glyph_variant_t extends Struct<hb_ot_math_glyph_variant_
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_math_glyph_variant_t.Buffer createSafe(long address, int capacity) {
+    public static hb_ot_math_glyph_variant_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,14 +221,14 @@ public class hb_ot_math_glyph_variant_t extends Struct<hb_ot_math_glyph_variant_
     // -----------------------------------
 
     /** Unsafe version of {@link #glyph}. */
-    public static int nglyph(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_glyph_variant_t.GLYPH); }
+    public static int nglyph(long struct) { return memGetInt(struct + hb_ot_math_glyph_variant_t.GLYPH); }
     /** Unsafe version of {@link #advance}. */
-    public static int nadvance(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_glyph_variant_t.ADVANCE); }
+    public static int nadvance(long struct) { return memGetInt(struct + hb_ot_math_glyph_variant_t.ADVANCE); }
 
     /** Unsafe version of {@link #glyph(int) glyph}. */
-    public static void nglyph(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_glyph_variant_t.GLYPH, value); }
+    public static void nglyph(long struct, int value) { memPutInt(struct + hb_ot_math_glyph_variant_t.GLYPH, value); }
     /** Unsafe version of {@link #advance(int) advance}. */
-    public static void nadvance(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_glyph_variant_t.ADVANCE, value); }
+    public static void nadvance(long struct, int value) { memPutInt(struct + hb_ot_math_glyph_variant_t.ADVANCE, value); }
 
     // -----------------------------------
 
@@ -263,6 +261,11 @@ public class hb_ot_math_glyph_variant_t extends Struct<hb_ot_math_glyph_variant_
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

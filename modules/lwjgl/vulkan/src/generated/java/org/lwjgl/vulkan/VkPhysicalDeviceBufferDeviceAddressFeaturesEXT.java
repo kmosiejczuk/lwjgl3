@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -113,7 +113,7 @@ public class VkPhysicalDeviceBufferDeviceAddressFeaturesEXT extends Struct<VkPhy
     /** indicates that the implementation supports saving and reusing buffer addresses, e.g. for trace capture and replay. */
     @NativeType("VkBool32")
     public boolean bufferDeviceAddressCaptureReplay() { return nbufferDeviceAddressCaptureReplay(address()) != 0; }
-    /** indicates that the implementation supports the {@code bufferDeviceAddress} feature for logical devices created with multiple physical devices. If this feature is not supported, buffer addresses <b>must</b> not be queried on a logical device created with more than one physical device. */
+    /** indicates that the implementation supports the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-bufferDeviceAddressEXT">{@code bufferDeviceAddress}</a> feature for logical devices created with multiple physical devices. If this feature is not supported, buffer addresses <b>must</b> not be queried on a logical device created with more than one physical device. */
     @NativeType("VkBool32")
     public boolean bufferDeviceAddressMultiDevice() { return nbufferDeviceAddressMultiDevice(address()) != 0; }
 
@@ -183,8 +183,7 @@ public class VkPhysicalDeviceBufferDeviceAddressFeaturesEXT extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBufferDeviceAddressFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceBufferDeviceAddressFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceBufferDeviceAddressFeaturesEXT(address, null);
     }
 
@@ -227,8 +226,7 @@ public class VkPhysicalDeviceBufferDeviceAddressFeaturesEXT extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -292,26 +290,26 @@ public class VkPhysicalDeviceBufferDeviceAddressFeaturesEXT extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #bufferDeviceAddress}. */
-    public static int nbufferDeviceAddress(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESS); }
+    public static int nbufferDeviceAddress(long struct) { return memGetInt(struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESS); }
     /** Unsafe version of {@link #bufferDeviceAddressCaptureReplay}. */
-    public static int nbufferDeviceAddressCaptureReplay(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESSCAPTUREREPLAY); }
+    public static int nbufferDeviceAddressCaptureReplay(long struct) { return memGetInt(struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESSCAPTUREREPLAY); }
     /** Unsafe version of {@link #bufferDeviceAddressMultiDevice}. */
-    public static int nbufferDeviceAddressMultiDevice(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESSMULTIDEVICE); }
+    public static int nbufferDeviceAddressMultiDevice(long struct) { return memGetInt(struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESSMULTIDEVICE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #bufferDeviceAddress(boolean) bufferDeviceAddress}. */
-    public static void nbufferDeviceAddress(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESS, value); }
+    public static void nbufferDeviceAddress(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESS, value); }
     /** Unsafe version of {@link #bufferDeviceAddressCaptureReplay(boolean) bufferDeviceAddressCaptureReplay}. */
-    public static void nbufferDeviceAddressCaptureReplay(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESSCAPTUREREPLAY, value); }
+    public static void nbufferDeviceAddressCaptureReplay(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESSCAPTUREREPLAY, value); }
     /** Unsafe version of {@link #bufferDeviceAddressMultiDevice(boolean) bufferDeviceAddressMultiDevice}. */
-    public static void nbufferDeviceAddressMultiDevice(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESSMULTIDEVICE, value); }
+    public static void nbufferDeviceAddressMultiDevice(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.BUFFERDEVICEADDRESSMULTIDEVICE, value); }
 
     // -----------------------------------
 
@@ -344,6 +342,11 @@ public class VkPhysicalDeviceBufferDeviceAddressFeaturesEXT extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceHostQueryResetFeatures extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceHostQueryResetFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceHostQueryResetFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceHostQueryResetFeatures(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceHostQueryResetFeatures extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceHostQueryResetFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceHostQueryResetFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceHostQueryResetFeatures extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceHostQueryResetFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceHostQueryResetFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceHostQueryResetFeatures.PNEXT); }
     /** Unsafe version of {@link #hostQueryReset}. */
-    public static int nhostQueryReset(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceHostQueryResetFeatures.HOSTQUERYRESET); }
+    public static int nhostQueryReset(long struct) { return memGetInt(struct + VkPhysicalDeviceHostQueryResetFeatures.HOSTQUERYRESET); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceHostQueryResetFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceHostQueryResetFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceHostQueryResetFeatures.PNEXT, value); }
     /** Unsafe version of {@link #hostQueryReset(boolean) hostQueryReset}. */
-    public static void nhostQueryReset(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceHostQueryResetFeatures.HOSTQUERYRESET, value); }
+    public static void nhostQueryReset(long struct, int value) { memPutInt(struct + VkPhysicalDeviceHostQueryResetFeatures.HOSTQUERYRESET, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceHostQueryResetFeatures extends Struct<VkPhysicalDev
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

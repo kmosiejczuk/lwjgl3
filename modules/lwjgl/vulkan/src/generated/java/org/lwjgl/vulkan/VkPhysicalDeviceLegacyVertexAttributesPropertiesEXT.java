@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #nativeUnalignedPerformance}. */
-    public static int nnativeUnalignedPerformance(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.NATIVEUNALIGNEDPERFORMANCE); }
+    public static int nnativeUnalignedPerformance(long struct) { return memGetInt(struct + VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.NATIVEUNALIGNEDPERFORMANCE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.PNEXT, value); }
     /** Unsafe version of {@link #nativeUnalignedPerformance(boolean) nativeUnalignedPerformance}. */
-    public static void nnativeUnalignedPerformance(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.NATIVEUNALIGNEDPERFORMANCE, value); }
+    public static void nnativeUnalignedPerformance(long struct, int value) { memPutInt(struct + VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.NATIVEUNALIGNEDPERFORMANCE, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

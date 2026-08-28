@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkSpecializationMapEntry extends Struct<VkSpecializationMapEntry> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSpecializationMapEntry createSafe(long address) {
+    public static @Nullable VkSpecializationMapEntry createSafe(long address) {
         return address == NULL ? null : new VkSpecializationMapEntry(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkSpecializationMapEntry extends Struct<VkSpecializationMapEntry> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSpecializationMapEntry.Buffer createSafe(long address, int capacity) {
+    public static VkSpecializationMapEntry.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,16 +265,16 @@ public class VkSpecializationMapEntry extends Struct<VkSpecializationMapEntry> i
     // -----------------------------------
 
     /** Unsafe version of {@link #constantID}. */
-    public static int nconstantID(long struct) { return UNSAFE.getInt(null, struct + VkSpecializationMapEntry.CONSTANTID); }
+    public static int nconstantID(long struct) { return memGetInt(struct + VkSpecializationMapEntry.CONSTANTID); }
     /** Unsafe version of {@link #offset}. */
-    public static int noffset(long struct) { return UNSAFE.getInt(null, struct + VkSpecializationMapEntry.OFFSET); }
+    public static int noffset(long struct) { return memGetInt(struct + VkSpecializationMapEntry.OFFSET); }
     /** Unsafe version of {@link #size}. */
     public static long nsize(long struct) { return memGetAddress(struct + VkSpecializationMapEntry.SIZE); }
 
     /** Unsafe version of {@link #constantID(int) constantID}. */
-    public static void nconstantID(long struct, int value) { UNSAFE.putInt(null, struct + VkSpecializationMapEntry.CONSTANTID, value); }
+    public static void nconstantID(long struct, int value) { memPutInt(struct + VkSpecializationMapEntry.CONSTANTID, value); }
     /** Unsafe version of {@link #offset(int) offset}. */
-    public static void noffset(long struct, int value) { UNSAFE.putInt(null, struct + VkSpecializationMapEntry.OFFSET, value); }
+    public static void noffset(long struct, int value) { memPutInt(struct + VkSpecializationMapEntry.OFFSET, value); }
     /** Unsafe version of {@link #size(long) size}. */
     public static void nsize(long struct, long value) { memPutAddress(struct + VkSpecializationMapEntry.SIZE, value); }
 
@@ -311,6 +309,11 @@ public class VkSpecializationMapEntry extends Struct<VkSpecializationMapEntry> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

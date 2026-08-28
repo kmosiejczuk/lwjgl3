@@ -29,8 +29,8 @@ abstract class FontDemo {
     private final   int    lineCount;
 
     private long window;
-    private int ww = 800;
-    private int wh = 600;
+    private int  ww = 800;
+    private int  wh = 600;
 
     private float
         contentScaleX,
@@ -172,7 +172,7 @@ abstract class FontDemo {
             contentScaleX = px.get(0);
             contentScaleY = py.get(0);
 
-            if (Platform.get() == Platform.MACOSX) {
+            if (glfwGetPlatform() == GLFW_PLATFORM_COCOA) {
                 framebufferW = ww;
                 framebufferH = wh;
             } else {

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -118,8 +118,7 @@ public class hwloc_distances_s extends Struct<hwloc_distances_s> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_distances_s createSafe(long address) {
+    public static @Nullable hwloc_distances_s createSafe(long address) {
         return address == NULL ? null : new hwloc_distances_s(address, null);
     }
 
@@ -162,8 +161,7 @@ public class hwloc_distances_s extends Struct<hwloc_distances_s> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_distances_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_distances_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -208,7 +206,7 @@ public class hwloc_distances_s extends Struct<hwloc_distances_s> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #nbobjs}. */
-    public static int nnbobjs(long struct) { return UNSAFE.getInt(null, struct + hwloc_distances_s.NBOBJS); }
+    public static int nnbobjs(long struct) { return memGetInt(struct + hwloc_distances_s.NBOBJS); }
     /** Unsafe version of {@link #objs() objs}. */
     public static PointerBuffer nobjs(long struct) { return memPointerBuffer(memGetAddress(struct + hwloc_distances_s.OBJS), nnbobjs(struct)); }
     /** Unsafe version of {@link #kind}. */
@@ -247,6 +245,11 @@ public class hwloc_distances_s extends Struct<hwloc_distances_s> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

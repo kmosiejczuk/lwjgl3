@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -181,8 +181,7 @@ public class TOUCHINPUT extends Struct<TOUCHINPUT> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static TOUCHINPUT createSafe(long address) {
+    public static @Nullable TOUCHINPUT createSafe(long address) {
         return address == NULL ? null : new TOUCHINPUT(address, null);
     }
 
@@ -225,8 +224,7 @@ public class TOUCHINPUT extends Struct<TOUCHINPUT> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static TOUCHINPUT.Buffer createSafe(long address, int capacity) {
+    public static TOUCHINPUT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,25 +288,25 @@ public class TOUCHINPUT extends Struct<TOUCHINPUT> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + TOUCHINPUT.X); }
+    public static int nx(long struct) { return memGetInt(struct + TOUCHINPUT.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + TOUCHINPUT.Y); }
+    public static int ny(long struct) { return memGetInt(struct + TOUCHINPUT.Y); }
     /** Unsafe version of {@link #hSource}. */
     public static long nhSource(long struct) { return memGetAddress(struct + TOUCHINPUT.HSOURCE); }
     /** Unsafe version of {@link #dwID}. */
-    public static int ndwID(long struct) { return UNSAFE.getInt(null, struct + TOUCHINPUT.DWID); }
+    public static int ndwID(long struct) { return memGetInt(struct + TOUCHINPUT.DWID); }
     /** Unsafe version of {@link #dwFlags}. */
-    public static int ndwFlags(long struct) { return UNSAFE.getInt(null, struct + TOUCHINPUT.DWFLAGS); }
+    public static int ndwFlags(long struct) { return memGetInt(struct + TOUCHINPUT.DWFLAGS); }
     /** Unsafe version of {@link #dwMask}. */
-    public static int ndwMask(long struct) { return UNSAFE.getInt(null, struct + TOUCHINPUT.DWMASK); }
+    public static int ndwMask(long struct) { return memGetInt(struct + TOUCHINPUT.DWMASK); }
     /** Unsafe version of {@link #dwTime}. */
-    public static int ndwTime(long struct) { return UNSAFE.getInt(null, struct + TOUCHINPUT.DWTIME); }
+    public static int ndwTime(long struct) { return memGetInt(struct + TOUCHINPUT.DWTIME); }
     /** Unsafe version of {@link #dwExtraInfo}. */
     public static long ndwExtraInfo(long struct) { return memGetAddress(struct + TOUCHINPUT.DWEXTRAINFO); }
     /** Unsafe version of {@link #cxContact}. */
-    public static int ncxContact(long struct) { return UNSAFE.getInt(null, struct + TOUCHINPUT.CXCONTACT); }
+    public static int ncxContact(long struct) { return memGetInt(struct + TOUCHINPUT.CXCONTACT); }
     /** Unsafe version of {@link #cyContact}. */
-    public static int ncyContact(long struct) { return UNSAFE.getInt(null, struct + TOUCHINPUT.CYCONTACT); }
+    public static int ncyContact(long struct) { return memGetInt(struct + TOUCHINPUT.CYCONTACT); }
 
     // -----------------------------------
 
@@ -341,6 +339,11 @@ public class TOUCHINPUT extends Struct<TOUCHINPUT> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

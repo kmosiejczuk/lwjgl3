@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -114,8 +114,7 @@ public class CUDA_ARRAY_MEMORY_REQUIREMENTS extends Struct<CUDA_ARRAY_MEMORY_REQ
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_ARRAY_MEMORY_REQUIREMENTS createSafe(long address) {
+    public static @Nullable CUDA_ARRAY_MEMORY_REQUIREMENTS createSafe(long address) {
         return address == NULL ? null : new CUDA_ARRAY_MEMORY_REQUIREMENTS(address, null);
     }
 
@@ -158,8 +157,7 @@ public class CUDA_ARRAY_MEMORY_REQUIREMENTS extends Struct<CUDA_ARRAY_MEMORY_REQ
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_ARRAY_MEMORY_REQUIREMENTS.Buffer createSafe(long address, int capacity) {
+    public static CUDA_ARRAY_MEMORY_REQUIREMENTS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -211,7 +209,7 @@ public class CUDA_ARRAY_MEMORY_REQUIREMENTS extends Struct<CUDA_ARRAY_MEMORY_REQ
     public static IntBuffer nreserved(long struct) { return memIntBuffer(struct + CUDA_ARRAY_MEMORY_REQUIREMENTS.RESERVED, 4); }
     /** Unsafe version of {@link #reserved(int) reserved}. */
     public static int nreserved(long struct, int index) {
-        return UNSAFE.getInt(null, struct + CUDA_ARRAY_MEMORY_REQUIREMENTS.RESERVED + check(index, 4) * 4);
+        return memGetInt(struct + CUDA_ARRAY_MEMORY_REQUIREMENTS.RESERVED + check(index, 4) * 4);
     }
 
     // -----------------------------------
@@ -245,6 +243,11 @@ public class CUDA_ARRAY_MEMORY_REQUIREMENTS extends Struct<CUDA_ARRAY_MEMORY_REQ
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -108,7 +108,7 @@ public class VkPhysicalDeviceFragmentDensityMapFeaturesEXT extends Struct<VkPhys
     /** specifies whether the implementation supports dynamic fragment density map image views. If this feature is not enabled, {@link EXTFragmentDensityMap#VK_IMAGE_VIEW_CREATE_FRAGMENT_DENSITY_MAP_DYNAMIC_BIT_EXT IMAGE_VIEW_CREATE_FRAGMENT_DENSITY_MAP_DYNAMIC_BIT_EXT} <b>must</b> not be included in {@link VkImageViewCreateInfo}{@code ::flags}. */
     @NativeType("VkBool32")
     public boolean fragmentDensityMapDynamic() { return nfragmentDensityMapDynamic(address()) != 0; }
-    /** specifies whether the implementation supports regular non-subsampled image attachments with fragment density map render passes. If this feature is not enabled, render passes with a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-fragmentdensitymapattachment">fragment density map attachment</a> <b>must</b> only have <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-subsamplesampler">subsampled attachments</a> bound. */
+    /** specifies whether the implementation supports regular non-subsampled image attachments with fragment density map render passes. If this feature is not enabled, render passes with a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-fragmentdensitymapattachment">fragment density map attachment</a> <b>must</b> only have <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers-subsamplesampler">subsampled attachments</a> bound. */
     @NativeType("VkBool32")
     public boolean fragmentDensityMapNonSubsampledImages() { return nfragmentDensityMapNonSubsampledImages(address()) != 0; }
 
@@ -178,8 +178,7 @@ public class VkPhysicalDeviceFragmentDensityMapFeaturesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentDensityMapFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFragmentDensityMapFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFragmentDensityMapFeaturesEXT(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkPhysicalDeviceFragmentDensityMapFeaturesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentDensityMapFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFragmentDensityMapFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -287,26 +285,26 @@ public class VkPhysicalDeviceFragmentDensityMapFeaturesEXT extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #fragmentDensityMap}. */
-    public static int nfragmentDensityMap(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAP); }
+    public static int nfragmentDensityMap(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAP); }
     /** Unsafe version of {@link #fragmentDensityMapDynamic}. */
-    public static int nfragmentDensityMapDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAPDYNAMIC); }
+    public static int nfragmentDensityMapDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAPDYNAMIC); }
     /** Unsafe version of {@link #fragmentDensityMapNonSubsampledImages}. */
-    public static int nfragmentDensityMapNonSubsampledImages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAPNONSUBSAMPLEDIMAGES); }
+    public static int nfragmentDensityMapNonSubsampledImages(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAPNONSUBSAMPLEDIMAGES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #fragmentDensityMap(boolean) fragmentDensityMap}. */
-    public static void nfragmentDensityMap(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAP, value); }
+    public static void nfragmentDensityMap(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAP, value); }
     /** Unsafe version of {@link #fragmentDensityMapDynamic(boolean) fragmentDensityMapDynamic}. */
-    public static void nfragmentDensityMapDynamic(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAPDYNAMIC, value); }
+    public static void nfragmentDensityMapDynamic(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAPDYNAMIC, value); }
     /** Unsafe version of {@link #fragmentDensityMapNonSubsampledImages(boolean) fragmentDensityMapNonSubsampledImages}. */
-    public static void nfragmentDensityMapNonSubsampledImages(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAPNONSUBSAMPLEDIMAGES, value); }
+    public static void nfragmentDensityMapNonSubsampledImages(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentDensityMapFeaturesEXT.FRAGMENTDENSITYMAPNONSUBSAMPLEDIMAGES, value); }
 
     // -----------------------------------
 
@@ -339,6 +337,11 @@ public class VkPhysicalDeviceFragmentDensityMapFeaturesEXT extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

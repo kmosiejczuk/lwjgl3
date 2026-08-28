@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -184,8 +184,7 @@ public class PropertyWrite extends Struct<PropertyWrite> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static PropertyWrite createSafe(long address) {
+    public static @Nullable PropertyWrite createSafe(long address) {
         return address == NULL ? null : new PropertyWrite(address, null);
     }
 
@@ -228,8 +227,7 @@ public class PropertyWrite extends Struct<PropertyWrite> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static PropertyWrite.Buffer createSafe(long address, int capacity) {
+    public static PropertyWrite.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,34 +272,34 @@ public class PropertyWrite extends Struct<PropertyWrite> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #prop}. */
-    public static int nprop(long struct) { return UNSAFE.getInt(null, struct + PropertyWrite.PROP); }
+    public static int nprop(long struct) { return memGetInt(struct + PropertyWrite.PROP); }
     /** Unsafe version of {@link #writeType}. */
-    public static int nwriteType(long struct) { return UNSAFE.getInt(null, struct + PropertyWrite.WRITETYPE); }
+    public static int nwriteType(long struct) { return memGetInt(struct + PropertyWrite.WRITETYPE); }
     /** Unsafe version of {@link #eSetError}. */
-    public static int neSetError(long struct) { return UNSAFE.getInt(null, struct + PropertyWrite.ESETERROR); }
+    public static int neSetError(long struct) { return memGetInt(struct + PropertyWrite.ESETERROR); }
     /** Unsafe version of {@link #pvBuffer() pvBuffer}. */
     public static ByteBuffer npvBuffer(long struct) { return memByteBuffer(memGetAddress(struct + PropertyWrite.PVBUFFER), nunBufferSize(struct)); }
     /** Unsafe version of {@link #unBufferSize}. */
-    public static int nunBufferSize(long struct) { return UNSAFE.getInt(null, struct + PropertyWrite.UNBUFFERSIZE); }
+    public static int nunBufferSize(long struct) { return memGetInt(struct + PropertyWrite.UNBUFFERSIZE); }
     /** Unsafe version of {@link #unTag}. */
-    public static int nunTag(long struct) { return UNSAFE.getInt(null, struct + PropertyWrite.UNTAG); }
+    public static int nunTag(long struct) { return memGetInt(struct + PropertyWrite.UNTAG); }
     /** Unsafe version of {@link #eError}. */
-    public static int neError(long struct) { return UNSAFE.getInt(null, struct + PropertyWrite.EERROR); }
+    public static int neError(long struct) { return memGetInt(struct + PropertyWrite.EERROR); }
 
     /** Unsafe version of {@link #prop(int) prop}. */
-    public static void nprop(long struct, int value) { UNSAFE.putInt(null, struct + PropertyWrite.PROP, value); }
+    public static void nprop(long struct, int value) { memPutInt(struct + PropertyWrite.PROP, value); }
     /** Unsafe version of {@link #writeType(int) writeType}. */
-    public static void nwriteType(long struct, int value) { UNSAFE.putInt(null, struct + PropertyWrite.WRITETYPE, value); }
+    public static void nwriteType(long struct, int value) { memPutInt(struct + PropertyWrite.WRITETYPE, value); }
     /** Unsafe version of {@link #eSetError(int) eSetError}. */
-    public static void neSetError(long struct, int value) { UNSAFE.putInt(null, struct + PropertyWrite.ESETERROR, value); }
+    public static void neSetError(long struct, int value) { memPutInt(struct + PropertyWrite.ESETERROR, value); }
     /** Unsafe version of {@link #pvBuffer(ByteBuffer) pvBuffer}. */
     public static void npvBuffer(long struct, ByteBuffer value) { memPutAddress(struct + PropertyWrite.PVBUFFER, memAddress(value)); nunBufferSize(struct, value.remaining()); }
     /** Sets the specified value to the {@code unBufferSize} field of the specified {@code struct}. */
-    public static void nunBufferSize(long struct, int value) { UNSAFE.putInt(null, struct + PropertyWrite.UNBUFFERSIZE, value); }
+    public static void nunBufferSize(long struct, int value) { memPutInt(struct + PropertyWrite.UNBUFFERSIZE, value); }
     /** Unsafe version of {@link #unTag(int) unTag}. */
-    public static void nunTag(long struct, int value) { UNSAFE.putInt(null, struct + PropertyWrite.UNTAG, value); }
+    public static void nunTag(long struct, int value) { memPutInt(struct + PropertyWrite.UNTAG, value); }
     /** Unsafe version of {@link #eError(int) eError}. */
-    public static void neError(long struct, int value) { UNSAFE.putInt(null, struct + PropertyWrite.EERROR, value); }
+    public static void neError(long struct, int value) { memPutInt(struct + PropertyWrite.EERROR, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -343,6 +341,11 @@ public class PropertyWrite extends Struct<PropertyWrite> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_QUEUE_FAMILY_PROPERTIES_2 STRUCTURE_TYPE_QUEUE_FAMILY_PROPERTIES_2}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkQueueFamilyCheckpointProperties2NV}, {@link VkQueueFamilyCheckpointPropertiesNV}, {@link VkQueueFamilyGlobalPriorityPropertiesKHR}, {@link VkQueueFamilyQueryResultStatusPropertiesKHR}, or {@link VkQueueFamilyVideoPropertiesKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkQueueFamilyCheckpointProperties2NV}, {@link VkQueueFamilyCheckpointPropertiesNV}, {@link VkQueueFamilyGlobalPriorityProperties}, {@link VkQueueFamilyQueryResultStatusPropertiesKHR}, or {@link VkQueueFamilyVideoPropertiesKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * </ul>
  * 
@@ -109,6 +109,8 @@ public class VkQueueFamilyProperties2 extends Struct<VkQueueFamilyProperties2> i
     public VkQueueFamilyProperties2 pNext(VkQueueFamilyCheckpointProperties2NV value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkQueueFamilyCheckpointPropertiesNV} value to the {@code pNext} chain. */
     public VkQueueFamilyProperties2 pNext(VkQueueFamilyCheckpointPropertiesNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkQueueFamilyGlobalPriorityProperties} value to the {@code pNext} chain. */
+    public VkQueueFamilyProperties2 pNext(VkQueueFamilyGlobalPriorityProperties value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkQueueFamilyGlobalPriorityPropertiesEXT} value to the {@code pNext} chain. */
     public VkQueueFamilyProperties2 pNext(VkQueueFamilyGlobalPriorityPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkQueueFamilyGlobalPriorityPropertiesKHR} value to the {@code pNext} chain. */
@@ -165,8 +167,7 @@ public class VkQueueFamilyProperties2 extends Struct<VkQueueFamilyProperties2> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyProperties2 createSafe(long address) {
+    public static @Nullable VkQueueFamilyProperties2 createSafe(long address) {
         return address == NULL ? null : new VkQueueFamilyProperties2(address, null);
     }
 
@@ -209,8 +210,7 @@ public class VkQueueFamilyProperties2 extends Struct<VkQueueFamilyProperties2> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyProperties2.Buffer createSafe(long address, int capacity) {
+    public static VkQueueFamilyProperties2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,14 +274,14 @@ public class VkQueueFamilyProperties2 extends Struct<VkQueueFamilyProperties2> i
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueueFamilyProperties2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueueFamilyProperties2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueueFamilyProperties2.PNEXT); }
     /** Unsafe version of {@link #queueFamilyProperties}. */
     public static VkQueueFamilyProperties nqueueFamilyProperties(long struct) { return VkQueueFamilyProperties.create(struct + VkQueueFamilyProperties2.QUEUEFAMILYPROPERTIES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueueFamilyProperties2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueueFamilyProperties2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueueFamilyProperties2.PNEXT, value); }
 
@@ -319,6 +319,11 @@ public class VkQueueFamilyProperties2 extends Struct<VkQueueFamilyProperties2> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkQueueFamilyProperties2 getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -342,6 +347,8 @@ public class VkQueueFamilyProperties2 extends Struct<VkQueueFamilyProperties2> i
         public VkQueueFamilyProperties2.Buffer pNext(VkQueueFamilyCheckpointProperties2NV value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkQueueFamilyCheckpointPropertiesNV} value to the {@code pNext} chain. */
         public VkQueueFamilyProperties2.Buffer pNext(VkQueueFamilyCheckpointPropertiesNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkQueueFamilyGlobalPriorityProperties} value to the {@code pNext} chain. */
+        public VkQueueFamilyProperties2.Buffer pNext(VkQueueFamilyGlobalPriorityProperties value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkQueueFamilyGlobalPriorityPropertiesEXT} value to the {@code pNext} chain. */
         public VkQueueFamilyProperties2.Buffer pNext(VkQueueFamilyGlobalPriorityPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkQueueFamilyGlobalPriorityPropertiesKHR} value to the {@code pNext} chain. */

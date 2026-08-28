@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class Flock extends Struct<Flock> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static Flock createSafe(long address) {
+    public static @Nullable Flock createSafe(long address) {
         return address == NULL ? null : new Flock(address, null);
     }
 
@@ -207,8 +206,7 @@ public class Flock extends Struct<Flock> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static Flock.Buffer createSafe(long address, int capacity) {
+    public static Flock.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,26 +251,26 @@ public class Flock extends Struct<Flock> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #l_type}. */
-    public static short nl_type(long struct) { return UNSAFE.getShort(null, struct + Flock.L_TYPE); }
+    public static short nl_type(long struct) { return memGetShort(struct + Flock.L_TYPE); }
     /** Unsafe version of {@link #l_whence}. */
-    public static short nl_whence(long struct) { return UNSAFE.getShort(null, struct + Flock.L_WHENCE); }
+    public static short nl_whence(long struct) { return memGetShort(struct + Flock.L_WHENCE); }
     /** Unsafe version of {@link #l_start}. */
-    public static long nl_start(long struct) { return UNSAFE.getLong(null, struct + Flock.L_START); }
+    public static long nl_start(long struct) { return memGetLong(struct + Flock.L_START); }
     /** Unsafe version of {@link #l_len}. */
-    public static long nl_len(long struct) { return UNSAFE.getLong(null, struct + Flock.L_LEN); }
+    public static long nl_len(long struct) { return memGetLong(struct + Flock.L_LEN); }
     /** Unsafe version of {@link #l_pid}. */
-    public static int nl_pid(long struct) { return UNSAFE.getInt(null, struct + Flock.L_PID); }
+    public static int nl_pid(long struct) { return memGetInt(struct + Flock.L_PID); }
 
     /** Unsafe version of {@link #l_type(short) l_type}. */
-    public static void nl_type(long struct, short value) { UNSAFE.putShort(null, struct + Flock.L_TYPE, value); }
+    public static void nl_type(long struct, short value) { memPutShort(struct + Flock.L_TYPE, value); }
     /** Unsafe version of {@link #l_whence(short) l_whence}. */
-    public static void nl_whence(long struct, short value) { UNSAFE.putShort(null, struct + Flock.L_WHENCE, value); }
+    public static void nl_whence(long struct, short value) { memPutShort(struct + Flock.L_WHENCE, value); }
     /** Unsafe version of {@link #l_start(long) l_start}. */
-    public static void nl_start(long struct, long value) { UNSAFE.putLong(null, struct + Flock.L_START, value); }
+    public static void nl_start(long struct, long value) { memPutLong(struct + Flock.L_START, value); }
     /** Unsafe version of {@link #l_len(long) l_len}. */
-    public static void nl_len(long struct, long value) { UNSAFE.putLong(null, struct + Flock.L_LEN, value); }
+    public static void nl_len(long struct, long value) { memPutLong(struct + Flock.L_LEN, value); }
     /** Unsafe version of {@link #l_pid(int) l_pid}. */
-    public static void nl_pid(long struct, int value) { UNSAFE.putInt(null, struct + Flock.L_PID, value); }
+    public static void nl_pid(long struct, int value) { memPutInt(struct + Flock.L_PID, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class Flock extends Struct<Flock> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

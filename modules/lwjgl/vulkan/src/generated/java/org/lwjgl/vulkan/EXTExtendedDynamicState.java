@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <h5>Promotion to Vulkan 1.3</h5>
  * 
- * <p>This extension has been partially promoted. All dynamic state enumerants and commands in this extension are included in core Vulkan 1.3, with the EXT suffix omitted. The feature structure is not promoted. Extension interfaces that were promoted remain available as aliases of the core functionality.</p>
+ * <p>All dynamic state enumerants and commands in this extension are included in core Vulkan 1.3, with the EXT suffix omitted. The feature structure is not promoted. Extension interfaces that were promoted remain available as aliases of the core functionality.</p>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -32,10 +32,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
- * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
+ * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
@@ -237,7 +237,7 @@ public class EXTExtendedDynamicState {
      * @param pSizes        {@code NULL} or a pointer to an array of the size in bytes of vertex data bound from {@code pBuffers}.
      * @param pStrides      {@code NULL} or a pointer to an array of buffer strides.
      */
-    public static void vkCmdBindVertexBuffers2EXT(VkCommandBuffer commandBuffer, @NativeType("uint32_t") int firstBinding, @NativeType("VkBuffer const *") LongBuffer pBuffers, @NativeType("VkDeviceSize const *") LongBuffer pOffsets, @Nullable @NativeType("VkDeviceSize const *") LongBuffer pSizes, @Nullable @NativeType("VkDeviceSize const *") LongBuffer pStrides) {
+    public static void vkCmdBindVertexBuffers2EXT(VkCommandBuffer commandBuffer, @NativeType("uint32_t") int firstBinding, @NativeType("VkBuffer const *") LongBuffer pBuffers, @NativeType("VkDeviceSize const *") LongBuffer pOffsets, @NativeType("VkDeviceSize const *") @Nullable LongBuffer pSizes, @NativeType("VkDeviceSize const *") @Nullable LongBuffer pStrides) {
         if (CHECKS) {
             check(pOffsets, pBuffers.remaining());
             checkSafe(pSizes, pBuffers.remaining());
@@ -284,7 +284,7 @@ public class EXTExtendedDynamicState {
      * See {@link VK13#vkCmdSetDepthCompareOp CmdSetDepthCompareOp}.
      *
      * @param commandBuffer  the command buffer into which the command will be recorded.
-     * @param depthCompareOp a {@code VkCompareOp} value specifying the comparison operator used for the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth-comparison">Depth Comparison</a> step of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth">depth test</a>.
+     * @param depthCompareOp a {@code VkCompareOp} value specifying the comparison operator used for the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-depth-comparison">Depth Comparison</a> step of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-depth">depth test</a>.
      */
     public static void vkCmdSetDepthCompareOpEXT(VkCommandBuffer commandBuffer, @NativeType("VkCompareOp") int depthCompareOp) {
         long __functionAddress = commandBuffer.getCapabilities().vkCmdSetDepthCompareOpEXT;
@@ -347,7 +347,7 @@ public class EXTExtendedDynamicState {
     }
 
     /** Array version of: {@link #vkCmdBindVertexBuffers2EXT CmdBindVertexBuffers2EXT} */
-    public static void vkCmdBindVertexBuffers2EXT(VkCommandBuffer commandBuffer, @NativeType("uint32_t") int firstBinding, @NativeType("VkBuffer const *") long[] pBuffers, @NativeType("VkDeviceSize const *") long[] pOffsets, @Nullable @NativeType("VkDeviceSize const *") long[] pSizes, @Nullable @NativeType("VkDeviceSize const *") long[] pStrides) {
+    public static void vkCmdBindVertexBuffers2EXT(VkCommandBuffer commandBuffer, @NativeType("uint32_t") int firstBinding, @NativeType("VkBuffer const *") long[] pBuffers, @NativeType("VkDeviceSize const *") long[] pOffsets, @NativeType("VkDeviceSize const *") long @Nullable [] pSizes, @NativeType("VkDeviceSize const *") long @Nullable [] pStrides) {
         long __functionAddress = commandBuffer.getCapabilities().vkCmdBindVertexBuffers2EXT;
         if (CHECKS) {
             check(__functionAddress);

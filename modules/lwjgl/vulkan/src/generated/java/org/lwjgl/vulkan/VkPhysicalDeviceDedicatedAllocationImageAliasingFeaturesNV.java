@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #dedicatedAllocationImageAliasing}. */
-    public static int ndedicatedAllocationImageAliasing(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.DEDICATEDALLOCATIONIMAGEALIASING); }
+    public static int ndedicatedAllocationImageAliasing(long struct) { return memGetInt(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.DEDICATEDALLOCATIONIMAGEALIASING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #dedicatedAllocationImageAliasing(boolean) dedicatedAllocationImageAliasing}. */
-    public static void ndedicatedAllocationImageAliasing(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.DEDICATEDALLOCATIONIMAGEALIASING, value); }
+    public static void ndedicatedAllocationImageAliasing(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.DEDICATEDALLOCATIONIMAGEALIASING, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

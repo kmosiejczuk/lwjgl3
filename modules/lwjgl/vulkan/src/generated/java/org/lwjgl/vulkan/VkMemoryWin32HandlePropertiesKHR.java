@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkMemoryWin32HandlePropertiesKHR extends Struct<VkMemoryWin32Handle
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryWin32HandlePropertiesKHR createSafe(long address) {
+    public static @Nullable VkMemoryWin32HandlePropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkMemoryWin32HandlePropertiesKHR(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkMemoryWin32HandlePropertiesKHR extends Struct<VkMemoryWin32Handle
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryWin32HandlePropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryWin32HandlePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,14 +260,14 @@ public class VkMemoryWin32HandlePropertiesKHR extends Struct<VkMemoryWin32Handle
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryWin32HandlePropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryWin32HandlePropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryWin32HandlePropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #memoryTypeBits}. */
-    public static int nmemoryTypeBits(long struct) { return UNSAFE.getInt(null, struct + VkMemoryWin32HandlePropertiesKHR.MEMORYTYPEBITS); }
+    public static int nmemoryTypeBits(long struct) { return memGetInt(struct + VkMemoryWin32HandlePropertiesKHR.MEMORYTYPEBITS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryWin32HandlePropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryWin32HandlePropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryWin32HandlePropertiesKHR.PNEXT, value); }
 
@@ -304,6 +302,11 @@ public class VkMemoryWin32HandlePropertiesKHR extends Struct<VkMemoryWin32Handle
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

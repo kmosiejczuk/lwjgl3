@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkPhysicalDeviceSchedulingControlsPropertiesARM extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSchedulingControlsPropertiesARM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSchedulingControlsPropertiesARM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSchedulingControlsPropertiesARM(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkPhysicalDeviceSchedulingControlsPropertiesARM extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSchedulingControlsPropertiesARM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSchedulingControlsPropertiesARM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +246,18 @@ public class VkPhysicalDeviceSchedulingControlsPropertiesARM extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSchedulingControlsPropertiesARM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSchedulingControlsPropertiesARM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSchedulingControlsPropertiesARM.PNEXT); }
     /** Unsafe version of {@link #schedulingControlsFlags}. */
-    public static long nschedulingControlsFlags(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceSchedulingControlsPropertiesARM.SCHEDULINGCONTROLSFLAGS); }
+    public static long nschedulingControlsFlags(long struct) { return memGetLong(struct + VkPhysicalDeviceSchedulingControlsPropertiesARM.SCHEDULINGCONTROLSFLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSchedulingControlsPropertiesARM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSchedulingControlsPropertiesARM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSchedulingControlsPropertiesARM.PNEXT, value); }
     /** Unsafe version of {@link #schedulingControlsFlags(long) schedulingControlsFlags}. */
-    public static void nschedulingControlsFlags(long struct, long value) { UNSAFE.putLong(null, struct + VkPhysicalDeviceSchedulingControlsPropertiesARM.SCHEDULINGCONTROLSFLAGS, value); }
+    public static void nschedulingControlsFlags(long struct, long value) { memPutLong(struct + VkPhysicalDeviceSchedulingControlsPropertiesARM.SCHEDULINGCONTROLSFLAGS, value); }
 
     // -----------------------------------
 
@@ -292,6 +290,11 @@ public class VkPhysicalDeviceSchedulingControlsPropertiesARM extends Struct<VkPh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

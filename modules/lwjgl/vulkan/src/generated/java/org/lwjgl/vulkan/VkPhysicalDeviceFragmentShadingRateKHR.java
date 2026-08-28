@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkPhysicalDeviceFragmentShadingRateKHR extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShadingRateKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFragmentShadingRateKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFragmentShadingRateKHR(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkPhysicalDeviceFragmentShadingRateKHR extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShadingRateKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFragmentShadingRateKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,16 +247,16 @@ public class VkPhysicalDeviceFragmentShadingRateKHR extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShadingRateKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShadingRateKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFragmentShadingRateKHR.PNEXT); }
     /** Unsafe version of {@link #sampleCounts}. */
-    public static int nsampleCounts(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShadingRateKHR.SAMPLECOUNTS); }
+    public static int nsampleCounts(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShadingRateKHR.SAMPLECOUNTS); }
     /** Unsafe version of {@link #fragmentSize}. */
     public static VkExtent2D nfragmentSize(long struct) { return VkExtent2D.create(struct + VkPhysicalDeviceFragmentShadingRateKHR.FRAGMENTSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShadingRateKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShadingRateKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFragmentShadingRateKHR.PNEXT, value); }
 
@@ -293,6 +291,11 @@ public class VkPhysicalDeviceFragmentShadingRateKHR extends Struct<VkPhysicalDev
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

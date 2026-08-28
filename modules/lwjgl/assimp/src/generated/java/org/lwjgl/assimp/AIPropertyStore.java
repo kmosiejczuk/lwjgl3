@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -114,8 +114,7 @@ public class AIPropertyStore extends Struct<AIPropertyStore> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIPropertyStore createSafe(long address) {
+    public static @Nullable AIPropertyStore createSafe(long address) {
         return address == NULL ? null : new AIPropertyStore(address, null);
     }
 
@@ -158,8 +157,7 @@ public class AIPropertyStore extends Struct<AIPropertyStore> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIPropertyStore.Buffer createSafe(long address, int capacity) {
+    public static AIPropertyStore.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,10 +221,10 @@ public class AIPropertyStore extends Struct<AIPropertyStore> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #sentinel}. */
-    public static byte nsentinel(long struct) { return UNSAFE.getByte(null, struct + AIPropertyStore.SENTINEL); }
+    public static byte nsentinel(long struct) { return memGetByte(struct + AIPropertyStore.SENTINEL); }
 
     /** Unsafe version of {@link #sentinel(byte) sentinel}. */
-    public static void nsentinel(long struct, byte value) { UNSAFE.putByte(null, struct + AIPropertyStore.SENTINEL, value); }
+    public static void nsentinel(long struct, byte value) { memPutByte(struct + AIPropertyStore.SENTINEL, value); }
 
     // -----------------------------------
 
@@ -259,6 +257,11 @@ public class AIPropertyStore extends Struct<AIPropertyStore> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

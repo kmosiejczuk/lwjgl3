@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,7 +25,7 @@ import org.lwjgl.system.windows.*;
  * 
  * <p>If {@link VkExportSemaphoreCreateInfo} is not included in the same {@code pNext} chain, this structure is ignored.</p>
  * 
- * <p>If {@link VkExportSemaphoreCreateInfo} is included in the {@code pNext} chain of {@link VkSemaphoreCreateInfo} with a Windows {@code handleType}, but either {@link VkExportSemaphoreWin32HandleInfoKHR} is not included in the {@code pNext} chain, or it is included but {@code pAttributes} is set to {@code NULL}, default security descriptor values will be used, and child processes created by the application will not inherit the handle, as described in the MSDN documentation for “{@code Synchronization Object Security and Access Rights}”<sup>1</sup>. Further, if the structure is not present, the access rights used depend on the handle type.</p>
+ * <p>If {@link VkExportSemaphoreCreateInfo} is included in the {@code pNext} chain of {@link VkSemaphoreCreateInfo} with a Windows {@code handleType}, but either {@link VkExportSemaphoreWin32HandleInfoKHR} is not included in the {@code pNext} chain, or it is included but {@code pAttributes} is {@code NULL}, default security descriptor values will be used, and child processes created by the application will not inherit the handle, as described in the MSDN documentation for “{@code Synchronization Object Security and Access Rights}”<sup>1</sup>. Further, if the structure is not present, the access rights used depend on the handle type.</p>
  * 
  * <p>For handles of the following types:</p>
  * 
@@ -134,9 +134,8 @@ public class VkExportSemaphoreWin32HandleInfoKHR extends Struct<VkExportSemaphor
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** a pointer to a Windows {@code SECURITY_ATTRIBUTES} structure specifying security attributes of the handle. */
-    @Nullable
     @NativeType("SECURITY_ATTRIBUTES const *")
-    public SECURITY_ATTRIBUTES pAttributes() { return npAttributes(address()); }
+    public @Nullable SECURITY_ATTRIBUTES pAttributes() { return npAttributes(address()); }
     /** a {@code DWORD} specifying access rights of the handle. */
     @NativeType("DWORD")
     public int dwAccess() { return ndwAccess(address()); }
@@ -213,8 +212,7 @@ public class VkExportSemaphoreWin32HandleInfoKHR extends Struct<VkExportSemaphor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportSemaphoreWin32HandleInfoKHR createSafe(long address) {
+    public static @Nullable VkExportSemaphoreWin32HandleInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkExportSemaphoreWin32HandleInfoKHR(address, null);
     }
 
@@ -257,8 +255,7 @@ public class VkExportSemaphoreWin32HandleInfoKHR extends Struct<VkExportSemaphor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportSemaphoreWin32HandleInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkExportSemaphoreWin32HandleInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -322,26 +319,26 @@ public class VkExportSemaphoreWin32HandleInfoKHR extends Struct<VkExportSemaphor
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportSemaphoreWin32HandleInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportSemaphoreWin32HandleInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportSemaphoreWin32HandleInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pAttributes}. */
-    @Nullable public static SECURITY_ATTRIBUTES npAttributes(long struct) { return SECURITY_ATTRIBUTES.createSafe(memGetAddress(struct + VkExportSemaphoreWin32HandleInfoKHR.PATTRIBUTES)); }
+    public static @Nullable SECURITY_ATTRIBUTES npAttributes(long struct) { return SECURITY_ATTRIBUTES.createSafe(memGetAddress(struct + VkExportSemaphoreWin32HandleInfoKHR.PATTRIBUTES)); }
     /** Unsafe version of {@link #dwAccess}. */
-    public static int ndwAccess(long struct) { return UNSAFE.getInt(null, struct + VkExportSemaphoreWin32HandleInfoKHR.DWACCESS); }
+    public static int ndwAccess(long struct) { return memGetInt(struct + VkExportSemaphoreWin32HandleInfoKHR.DWACCESS); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBufferNT2(memGetAddress(struct + VkExportSemaphoreWin32HandleInfoKHR.NAME)); }
     /** Unsafe version of {@link #nameString}. */
     public static String nnameString(long struct) { return memUTF16(memGetAddress(struct + VkExportSemaphoreWin32HandleInfoKHR.NAME)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportSemaphoreWin32HandleInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportSemaphoreWin32HandleInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportSemaphoreWin32HandleInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pAttributes(SECURITY_ATTRIBUTES) pAttributes}. */
     public static void npAttributes(long struct, @Nullable SECURITY_ATTRIBUTES value) { memPutAddress(struct + VkExportSemaphoreWin32HandleInfoKHR.PATTRIBUTES, memAddressSafe(value)); }
     /** Unsafe version of {@link #dwAccess(int) dwAccess}. */
-    public static void ndwAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkExportSemaphoreWin32HandleInfoKHR.DWACCESS, value); }
+    public static void ndwAccess(long struct, int value) { memPutInt(struct + VkExportSemaphoreWin32HandleInfoKHR.DWACCESS, value); }
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT2(value); }
@@ -395,6 +392,11 @@ public class VkExportSemaphoreWin32HandleInfoKHR extends Struct<VkExportSemaphor
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExportSemaphoreWin32HandleInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -406,9 +408,8 @@ public class VkExportSemaphoreWin32HandleInfoKHR extends Struct<VkExportSemaphor
         @NativeType("void const *")
         public long pNext() { return VkExportSemaphoreWin32HandleInfoKHR.npNext(address()); }
         /** @return a {@link SECURITY_ATTRIBUTES} view of the struct pointed to by the {@link VkExportSemaphoreWin32HandleInfoKHR#pAttributes} field. */
-        @Nullable
         @NativeType("SECURITY_ATTRIBUTES const *")
-        public SECURITY_ATTRIBUTES pAttributes() { return VkExportSemaphoreWin32HandleInfoKHR.npAttributes(address()); }
+        public @Nullable SECURITY_ATTRIBUTES pAttributes() { return VkExportSemaphoreWin32HandleInfoKHR.npAttributes(address()); }
         /** @return the value of the {@link VkExportSemaphoreWin32HandleInfoKHR#dwAccess} field. */
         @NativeType("DWORD")
         public int dwAccess() { return VkExportSemaphoreWin32HandleInfoKHR.ndwAccess(address()); }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -102,8 +102,7 @@ public class VREventProcess extends Struct<VREventProcess> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventProcess createSafe(long address) {
+    public static @Nullable VREventProcess createSafe(long address) {
         return address == NULL ? null : new VREventProcess(address, null);
     }
 
@@ -118,21 +117,20 @@ public class VREventProcess extends Struct<VREventProcess> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventProcess.Buffer createSafe(long address, int capacity) {
+    public static VREventProcess.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #pid}. */
-    public static int npid(long struct) { return UNSAFE.getInt(null, struct + VREventProcess.PID); }
+    public static int npid(long struct) { return memGetInt(struct + VREventProcess.PID); }
     /** Unsafe version of {@link #oldPid}. */
-    public static int noldPid(long struct) { return UNSAFE.getInt(null, struct + VREventProcess.OLDPID); }
+    public static int noldPid(long struct) { return memGetInt(struct + VREventProcess.OLDPID); }
     /** Unsafe version of {@link #bForced}. */
-    public static boolean nbForced(long struct) { return UNSAFE.getByte(null, struct + VREventProcess.BFORCED) != 0; }
+    public static boolean nbForced(long struct) { return memGetByte(struct + VREventProcess.BFORCED) != 0; }
     /** Unsafe version of {@link #bConnectionLost}. */
-    public static boolean nbConnectionLost(long struct) { return UNSAFE.getByte(null, struct + VREventProcess.BCONNECTIONLOST) != 0; }
+    public static boolean nbConnectionLost(long struct) { return memGetByte(struct + VREventProcess.BCONNECTIONLOST) != 0; }
 
     // -----------------------------------
 
@@ -165,6 +163,11 @@ public class VREventProcess extends Struct<VREventProcess> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

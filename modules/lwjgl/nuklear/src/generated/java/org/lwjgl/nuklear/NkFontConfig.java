@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,13 +135,11 @@ public class NkFontConfig extends Struct<NkFontConfig> implements NativeResource
     public int sizeof() { return SIZEOF; }
 
     /** NOTE: only used internally */
-    @Nullable
     @NativeType("struct nk_font_config *")
-    public NkFontConfig next() { return nnext(address()); }
+    public @Nullable NkFontConfig next() { return nnext(address()); }
     /** pointer to loaded TTF file memory block */
-    @Nullable
     @NativeType("void *")
-    public ByteBuffer ttf_blob() { return nttf_blob(address()); }
+    public @Nullable ByteBuffer ttf_blob() { return nttf_blob(address()); }
     /** size of the loaded TTF file memory block */
     @NativeType("nk_size")
     public long ttf_size() { return nttf_size(address()); }
@@ -179,24 +177,20 @@ public class NkFontConfig extends Struct<NkFontConfig> implements NativeResource
      *
      * @return list of unicode ranges (2 values per range, zero terminated)
      */
-    @Nullable
     @NativeType("nk_rune const *")
-    public IntBuffer range(int capacity) { return nrange(address(), capacity); }
+    public @Nullable IntBuffer range(int capacity) { return nrange(address(), capacity); }
     /** font to setup in the baking process */
-    @Nullable
     @NativeType("struct nk_baked_font *")
-    public NkBakedFont font() { return nfont(address()); }
+    public @Nullable NkBakedFont font() { return nfont(address()); }
     /** fallback glyph to use if a given rune is not found */
     @NativeType("nk_rune")
     public int fallback_glyph() { return nfallback_glyph(address()); }
     /** @return a {@link NkFontConfig} view of the struct pointed to by the {@code n} field. */
-    @Nullable
     @NativeType("struct nk_font_config *")
-    public NkFontConfig n() { return nn(address()); }
+    public @Nullable NkFontConfig n() { return nn(address()); }
     /** @return a {@link NkFontConfig} view of the struct pointed to by the {@code p} field. */
-    @Nullable
     @NativeType("struct nk_font_config *")
-    public NkFontConfig p() { return np(address()); }
+    public @Nullable NkFontConfig p() { return np(address()); }
 
     /** Sets the address of the specified {@link NkFontConfig} to the {@link #next} field. */
     public NkFontConfig next(@Nullable @NativeType("struct nk_font_config *") NkFontConfig value) { nnext(address(), value); return this; }
@@ -314,8 +308,7 @@ public class NkFontConfig extends Struct<NkFontConfig> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkFontConfig createSafe(long address) {
+    public static @Nullable NkFontConfig createSafe(long address) {
         return address == NULL ? null : new NkFontConfig(address, null);
     }
 
@@ -358,8 +351,7 @@ public class NkFontConfig extends Struct<NkFontConfig> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkFontConfig.Buffer createSafe(long address, int capacity) {
+    public static NkFontConfig.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -404,43 +396,43 @@ public class NkFontConfig extends Struct<NkFontConfig> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #next}. */
-    @Nullable public static NkFontConfig nnext(long struct) { return NkFontConfig.createSafe(memGetAddress(struct + NkFontConfig.NEXT)); }
+    public static @Nullable NkFontConfig nnext(long struct) { return NkFontConfig.createSafe(memGetAddress(struct + NkFontConfig.NEXT)); }
     /** Unsafe version of {@link #ttf_blob() ttf_blob}. */
-    @Nullable public static ByteBuffer nttf_blob(long struct) { return memByteBufferSafe(memGetAddress(struct + NkFontConfig.TTF_BLOB), (int)nttf_size(struct)); }
+    public static @Nullable ByteBuffer nttf_blob(long struct) { return memByteBufferSafe(memGetAddress(struct + NkFontConfig.TTF_BLOB), (int)nttf_size(struct)); }
     /** Unsafe version of {@link #ttf_size}. */
     public static long nttf_size(long struct) { return memGetAddress(struct + NkFontConfig.TTF_SIZE); }
     /** Unsafe version of {@link #ttf_data_owned_by_atlas}. */
-    public static boolean nttf_data_owned_by_atlas(long struct) { return UNSAFE.getByte(null, struct + NkFontConfig.TTF_DATA_OWNED_BY_ATLAS) != 0; }
+    public static boolean nttf_data_owned_by_atlas(long struct) { return memGetByte(struct + NkFontConfig.TTF_DATA_OWNED_BY_ATLAS) != 0; }
     /** Unsafe version of {@link #merge_mode}. */
-    public static boolean nmerge_mode(long struct) { return UNSAFE.getByte(null, struct + NkFontConfig.MERGE_MODE) != 0; }
+    public static boolean nmerge_mode(long struct) { return memGetByte(struct + NkFontConfig.MERGE_MODE) != 0; }
     /** Unsafe version of {@link #pixel_snap}. */
-    public static boolean npixel_snap(long struct) { return UNSAFE.getByte(null, struct + NkFontConfig.PIXEL_SNAP) != 0; }
+    public static boolean npixel_snap(long struct) { return memGetByte(struct + NkFontConfig.PIXEL_SNAP) != 0; }
     /** Unsafe version of {@link #oversample_v}. */
-    public static boolean noversample_v(long struct) { return UNSAFE.getByte(null, struct + NkFontConfig.OVERSAMPLE_V) != 0; }
+    public static boolean noversample_v(long struct) { return memGetByte(struct + NkFontConfig.OVERSAMPLE_V) != 0; }
     /** Unsafe version of {@link #oversample_h}. */
-    public static boolean noversample_h(long struct) { return UNSAFE.getByte(null, struct + NkFontConfig.OVERSAMPLE_H) != 0; }
+    public static boolean noversample_h(long struct) { return memGetByte(struct + NkFontConfig.OVERSAMPLE_H) != 0; }
     /** Unsafe version of {@link #padding}. */
     public static ByteBuffer npadding(long struct) { return memByteBuffer(struct + NkFontConfig.PADDING, 3); }
     /** Unsafe version of {@link #padding(int) padding}. */
     public static byte npadding(long struct, int index) {
-        return UNSAFE.getByte(null, struct + NkFontConfig.PADDING + check(index, 3) * 1);
+        return memGetByte(struct + NkFontConfig.PADDING + check(index, 3) * 1);
     }
     /** Unsafe version of {@link #size}. */
-    public static float nsize(long struct) { return UNSAFE.getFloat(null, struct + NkFontConfig.SIZE); }
+    public static float nsize(long struct) { return memGetFloat(struct + NkFontConfig.SIZE); }
     /** Unsafe version of {@link #coord_type}. */
-    public static int ncoord_type(long struct) { return UNSAFE.getInt(null, struct + NkFontConfig.COORD_TYPE); }
+    public static int ncoord_type(long struct) { return memGetInt(struct + NkFontConfig.COORD_TYPE); }
     /** Unsafe version of {@link #spacing}. */
     public static NkVec2 nspacing(long struct) { return NkVec2.create(struct + NkFontConfig.SPACING); }
     /** Unsafe version of {@link #range(int) range}. */
-    @Nullable public static IntBuffer nrange(long struct, int capacity) { return memIntBufferSafe(memGetAddress(struct + NkFontConfig.RANGE), capacity); }
+    public static @Nullable IntBuffer nrange(long struct, int capacity) { return memIntBufferSafe(memGetAddress(struct + NkFontConfig.RANGE), capacity); }
     /** Unsafe version of {@link #font}. */
-    @Nullable public static NkBakedFont nfont(long struct) { return NkBakedFont.createSafe(memGetAddress(struct + NkFontConfig.FONT)); }
+    public static @Nullable NkBakedFont nfont(long struct) { return NkBakedFont.createSafe(memGetAddress(struct + NkFontConfig.FONT)); }
     /** Unsafe version of {@link #fallback_glyph}. */
-    public static int nfallback_glyph(long struct) { return UNSAFE.getInt(null, struct + NkFontConfig.FALLBACK_GLYPH); }
+    public static int nfallback_glyph(long struct) { return memGetInt(struct + NkFontConfig.FALLBACK_GLYPH); }
     /** Unsafe version of {@link #n}. */
-    @Nullable public static NkFontConfig nn(long struct) { return NkFontConfig.createSafe(memGetAddress(struct + NkFontConfig.N)); }
+    public static @Nullable NkFontConfig nn(long struct) { return NkFontConfig.createSafe(memGetAddress(struct + NkFontConfig.N)); }
     /** Unsafe version of {@link #p}. */
-    @Nullable public static NkFontConfig np(long struct) { return NkFontConfig.createSafe(memGetAddress(struct + NkFontConfig.P)); }
+    public static @Nullable NkFontConfig np(long struct) { return NkFontConfig.createSafe(memGetAddress(struct + NkFontConfig.P)); }
 
     /** Unsafe version of {@link #next(NkFontConfig) next}. */
     public static void nnext(long struct, @Nullable NkFontConfig value) { memPutAddress(struct + NkFontConfig.NEXT, memAddressSafe(value)); }
@@ -449,15 +441,15 @@ public class NkFontConfig extends Struct<NkFontConfig> implements NativeResource
     /** Sets the specified value to the {@code ttf_size} field of the specified {@code struct}. */
     public static void nttf_size(long struct, long value) { memPutAddress(struct + NkFontConfig.TTF_SIZE, value); }
     /** Unsafe version of {@link #ttf_data_owned_by_atlas(boolean) ttf_data_owned_by_atlas}. */
-    public static void nttf_data_owned_by_atlas(long struct, boolean value) { UNSAFE.putByte(null, struct + NkFontConfig.TTF_DATA_OWNED_BY_ATLAS, value ? (byte)1 : (byte)0); }
+    public static void nttf_data_owned_by_atlas(long struct, boolean value) { memPutByte(struct + NkFontConfig.TTF_DATA_OWNED_BY_ATLAS, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #merge_mode(boolean) merge_mode}. */
-    public static void nmerge_mode(long struct, boolean value) { UNSAFE.putByte(null, struct + NkFontConfig.MERGE_MODE, value ? (byte)1 : (byte)0); }
+    public static void nmerge_mode(long struct, boolean value) { memPutByte(struct + NkFontConfig.MERGE_MODE, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #pixel_snap(boolean) pixel_snap}. */
-    public static void npixel_snap(long struct, boolean value) { UNSAFE.putByte(null, struct + NkFontConfig.PIXEL_SNAP, value ? (byte)1 : (byte)0); }
+    public static void npixel_snap(long struct, boolean value) { memPutByte(struct + NkFontConfig.PIXEL_SNAP, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #oversample_v(boolean) oversample_v}. */
-    public static void noversample_v(long struct, boolean value) { UNSAFE.putByte(null, struct + NkFontConfig.OVERSAMPLE_V, value ? (byte)1 : (byte)0); }
+    public static void noversample_v(long struct, boolean value) { memPutByte(struct + NkFontConfig.OVERSAMPLE_V, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #oversample_h(boolean) oversample_h}. */
-    public static void noversample_h(long struct, boolean value) { UNSAFE.putByte(null, struct + NkFontConfig.OVERSAMPLE_H, value ? (byte)1 : (byte)0); }
+    public static void noversample_h(long struct, boolean value) { memPutByte(struct + NkFontConfig.OVERSAMPLE_H, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #padding(ByteBuffer) padding}. */
     public static void npadding(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
@@ -465,12 +457,12 @@ public class NkFontConfig extends Struct<NkFontConfig> implements NativeResource
     }
     /** Unsafe version of {@link #padding(int, byte) padding}. */
     public static void npadding(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + NkFontConfig.PADDING + check(index, 3) * 1, value);
+        memPutByte(struct + NkFontConfig.PADDING + check(index, 3) * 1, value);
     }
     /** Unsafe version of {@link #size(float) size}. */
-    public static void nsize(long struct, float value) { UNSAFE.putFloat(null, struct + NkFontConfig.SIZE, value); }
+    public static void nsize(long struct, float value) { memPutFloat(struct + NkFontConfig.SIZE, value); }
     /** Unsafe version of {@link #coord_type(int) coord_type}. */
-    public static void ncoord_type(long struct, int value) { UNSAFE.putInt(null, struct + NkFontConfig.COORD_TYPE, value); }
+    public static void ncoord_type(long struct, int value) { memPutInt(struct + NkFontConfig.COORD_TYPE, value); }
     /** Unsafe version of {@link #spacing(NkVec2) spacing}. */
     public static void nspacing(long struct, NkVec2 value) { memCopy(value.address(), struct + NkFontConfig.SPACING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #range(IntBuffer) range}. */
@@ -478,7 +470,7 @@ public class NkFontConfig extends Struct<NkFontConfig> implements NativeResource
     /** Unsafe version of {@link #font(NkBakedFont) font}. */
     public static void nfont(long struct, @Nullable NkBakedFont value) { memPutAddress(struct + NkFontConfig.FONT, memAddressSafe(value)); }
     /** Unsafe version of {@link #fallback_glyph(int) fallback_glyph}. */
-    public static void nfallback_glyph(long struct, int value) { UNSAFE.putInt(null, struct + NkFontConfig.FALLBACK_GLYPH, value); }
+    public static void nfallback_glyph(long struct, int value) { memPutInt(struct + NkFontConfig.FALLBACK_GLYPH, value); }
     /** Unsafe version of {@link #n(NkFontConfig) n}. */
     public static void nn(long struct, @Nullable NkFontConfig value) { memPutAddress(struct + NkFontConfig.N, memAddressSafe(value)); }
     /** Unsafe version of {@link #p(NkFontConfig) p}. */
@@ -518,18 +510,21 @@ public class NkFontConfig extends Struct<NkFontConfig> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkFontConfig getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return a {@link NkFontConfig} view of the struct pointed to by the {@link NkFontConfig#next} field. */
-        @Nullable
         @NativeType("struct nk_font_config *")
-        public NkFontConfig next() { return NkFontConfig.nnext(address()); }
+        public @Nullable NkFontConfig next() { return NkFontConfig.nnext(address()); }
         /** @return a {@link ByteBuffer} view of the data pointed to by the {@link NkFontConfig#ttf_blob} field. */
-        @Nullable
         @NativeType("void *")
-        public ByteBuffer ttf_blob() { return NkFontConfig.nttf_blob(address()); }
+        public @Nullable ByteBuffer ttf_blob() { return NkFontConfig.nttf_blob(address()); }
         /** @return the value of the {@link NkFontConfig#ttf_size} field. */
         @NativeType("nk_size")
         public long ttf_size() { return NkFontConfig.nttf_size(address()); }
@@ -567,24 +562,20 @@ public class NkFontConfig extends Struct<NkFontConfig> implements NativeResource
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("nk_rune const *")
-        public IntBuffer range(int capacity) { return NkFontConfig.nrange(address(), capacity); }
+        public @Nullable IntBuffer range(int capacity) { return NkFontConfig.nrange(address(), capacity); }
         /** @return a {@link NkBakedFont} view of the struct pointed to by the {@link NkFontConfig#font} field. */
-        @Nullable
         @NativeType("struct nk_baked_font *")
-        public NkBakedFont font() { return NkFontConfig.nfont(address()); }
+        public @Nullable NkBakedFont font() { return NkFontConfig.nfont(address()); }
         /** @return the value of the {@link NkFontConfig#fallback_glyph} field. */
         @NativeType("nk_rune")
         public int fallback_glyph() { return NkFontConfig.nfallback_glyph(address()); }
         /** @return a {@link NkFontConfig} view of the struct pointed to by the {@code n} field. */
-        @Nullable
         @NativeType("struct nk_font_config *")
-        public NkFontConfig n() { return NkFontConfig.nn(address()); }
+        public @Nullable NkFontConfig n() { return NkFontConfig.nn(address()); }
         /** @return a {@link NkFontConfig} view of the struct pointed to by the {@code p} field. */
-        @Nullable
         @NativeType("struct nk_font_config *")
-        public NkFontConfig p() { return NkFontConfig.np(address()); }
+        public @Nullable NkFontConfig p() { return NkFontConfig.np(address()); }
 
         /** Sets the address of the specified {@link NkFontConfig} to the {@link NkFontConfig#next} field. */
         public NkFontConfig.Buffer next(@Nullable @NativeType("struct nk_font_config *") NkFontConfig value) { NkFontConfig.nnext(address(), value); return this; }

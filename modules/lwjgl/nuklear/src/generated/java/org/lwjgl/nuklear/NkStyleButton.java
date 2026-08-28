@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -195,13 +195,11 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
     @NativeType("nk_handle")
     public NkHandle userdata() { return nuserdata(address()); }
     /** @return the value of the {@code draw_begin} field. */
-    @Nullable
     @NativeType("nk_draw_begin")
-    public NkDrawBeginCallback draw_begin() { return ndraw_begin(address()); }
+    public @Nullable NkDrawBeginCallback draw_begin() { return ndraw_begin(address()); }
     /** @return the value of the {@code draw_end} field. */
-    @Nullable
     @NativeType("nk_draw_end")
-    public NkDrawEndCallback draw_end() { return ndraw_end(address()); }
+    public @Nullable NkDrawEndCallback draw_end() { return ndraw_end(address()); }
 
     /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
     public NkStyleButton normal(@NativeType("struct nk_style_item") NkStyleItem value) { nnormal(address(), value); return this; }
@@ -351,8 +349,7 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleButton createSafe(long address) {
+    public static @Nullable NkStyleButton createSafe(long address) {
         return address == NULL ? null : new NkStyleButton(address, null);
     }
 
@@ -395,8 +392,7 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleButton.Buffer createSafe(long address, int capacity) {
+    public static NkStyleButton.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -468,7 +464,7 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
     /** Unsafe version of {@link #border_color}. */
     public static NkColor nborder_color(long struct) { return NkColor.create(struct + NkStyleButton.BORDER_COLOR); }
     /** Unsafe version of {@link #color_factor_background}. */
-    public static float ncolor_factor_background(long struct) { return UNSAFE.getFloat(null, struct + NkStyleButton.COLOR_FACTOR_BACKGROUND); }
+    public static float ncolor_factor_background(long struct) { return memGetFloat(struct + NkStyleButton.COLOR_FACTOR_BACKGROUND); }
     /** Unsafe version of {@link #text_background}. */
     public static NkColor ntext_background(long struct) { return NkColor.create(struct + NkStyleButton.TEXT_BACKGROUND); }
     /** Unsafe version of {@link #text_normal}. */
@@ -478,13 +474,13 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
     /** Unsafe version of {@link #text_active}. */
     public static NkColor ntext_active(long struct) { return NkColor.create(struct + NkStyleButton.TEXT_ACTIVE); }
     /** Unsafe version of {@link #text_alignment}. */
-    public static int ntext_alignment(long struct) { return UNSAFE.getInt(null, struct + NkStyleButton.TEXT_ALIGNMENT); }
+    public static int ntext_alignment(long struct) { return memGetInt(struct + NkStyleButton.TEXT_ALIGNMENT); }
     /** Unsafe version of {@link #color_factor_text}. */
-    public static float ncolor_factor_text(long struct) { return UNSAFE.getFloat(null, struct + NkStyleButton.COLOR_FACTOR_TEXT); }
+    public static float ncolor_factor_text(long struct) { return memGetFloat(struct + NkStyleButton.COLOR_FACTOR_TEXT); }
     /** Unsafe version of {@link #border}. */
-    public static float nborder(long struct) { return UNSAFE.getFloat(null, struct + NkStyleButton.BORDER); }
+    public static float nborder(long struct) { return memGetFloat(struct + NkStyleButton.BORDER); }
     /** Unsafe version of {@link #rounding}. */
-    public static float nrounding(long struct) { return UNSAFE.getFloat(null, struct + NkStyleButton.ROUNDING); }
+    public static float nrounding(long struct) { return memGetFloat(struct + NkStyleButton.ROUNDING); }
     /** Unsafe version of {@link #padding}. */
     public static NkVec2 npadding(long struct) { return NkVec2.create(struct + NkStyleButton.PADDING); }
     /** Unsafe version of {@link #image_padding}. */
@@ -492,13 +488,13 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
     /** Unsafe version of {@link #touch_padding}. */
     public static NkVec2 ntouch_padding(long struct) { return NkVec2.create(struct + NkStyleButton.TOUCH_PADDING); }
     /** Unsafe version of {@link #disabled_factor}. */
-    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleButton.DISABLED_FACTOR); }
+    public static float ndisabled_factor(long struct) { return memGetFloat(struct + NkStyleButton.DISABLED_FACTOR); }
     /** Unsafe version of {@link #userdata}. */
     public static NkHandle nuserdata(long struct) { return NkHandle.create(struct + NkStyleButton.USERDATA); }
     /** Unsafe version of {@link #draw_begin}. */
-    @Nullable public static NkDrawBeginCallback ndraw_begin(long struct) { return NkDrawBeginCallback.createSafe(memGetAddress(struct + NkStyleButton.DRAW_BEGIN)); }
+    public static @Nullable NkDrawBeginCallback ndraw_begin(long struct) { return NkDrawBeginCallback.createSafe(memGetAddress(struct + NkStyleButton.DRAW_BEGIN)); }
     /** Unsafe version of {@link #draw_end}. */
-    @Nullable public static NkDrawEndCallback ndraw_end(long struct) { return NkDrawEndCallback.createSafe(memGetAddress(struct + NkStyleButton.DRAW_END)); }
+    public static @Nullable NkDrawEndCallback ndraw_end(long struct) { return NkDrawEndCallback.createSafe(memGetAddress(struct + NkStyleButton.DRAW_END)); }
 
     /** Unsafe version of {@link #normal(NkStyleItem) normal}. */
     public static void nnormal(long struct, NkStyleItem value) { memCopy(value.address(), struct + NkStyleButton.NORMAL, NkStyleItem.SIZEOF); }
@@ -509,7 +505,7 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
     /** Unsafe version of {@link #border_color(NkColor) border_color}. */
     public static void nborder_color(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleButton.BORDER_COLOR, NkColor.SIZEOF); }
     /** Unsafe version of {@link #color_factor_background(float) color_factor_background}. */
-    public static void ncolor_factor_background(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleButton.COLOR_FACTOR_BACKGROUND, value); }
+    public static void ncolor_factor_background(long struct, float value) { memPutFloat(struct + NkStyleButton.COLOR_FACTOR_BACKGROUND, value); }
     /** Unsafe version of {@link #text_background(NkColor) text_background}. */
     public static void ntext_background(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleButton.TEXT_BACKGROUND, NkColor.SIZEOF); }
     /** Unsafe version of {@link #text_normal(NkColor) text_normal}. */
@@ -519,13 +515,13 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
     /** Unsafe version of {@link #text_active(NkColor) text_active}. */
     public static void ntext_active(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleButton.TEXT_ACTIVE, NkColor.SIZEOF); }
     /** Unsafe version of {@link #text_alignment(int) text_alignment}. */
-    public static void ntext_alignment(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleButton.TEXT_ALIGNMENT, value); }
+    public static void ntext_alignment(long struct, int value) { memPutInt(struct + NkStyleButton.TEXT_ALIGNMENT, value); }
     /** Unsafe version of {@link #color_factor_text(float) color_factor_text}. */
-    public static void ncolor_factor_text(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleButton.COLOR_FACTOR_TEXT, value); }
+    public static void ncolor_factor_text(long struct, float value) { memPutFloat(struct + NkStyleButton.COLOR_FACTOR_TEXT, value); }
     /** Unsafe version of {@link #border(float) border}. */
-    public static void nborder(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleButton.BORDER, value); }
+    public static void nborder(long struct, float value) { memPutFloat(struct + NkStyleButton.BORDER, value); }
     /** Unsafe version of {@link #rounding(float) rounding}. */
-    public static void nrounding(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleButton.ROUNDING, value); }
+    public static void nrounding(long struct, float value) { memPutFloat(struct + NkStyleButton.ROUNDING, value); }
     /** Unsafe version of {@link #padding(NkVec2) padding}. */
     public static void npadding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleButton.PADDING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #image_padding(NkVec2) image_padding}. */
@@ -533,7 +529,7 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
     /** Unsafe version of {@link #touch_padding(NkVec2) touch_padding}. */
     public static void ntouch_padding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleButton.TOUCH_PADDING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
-    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleButton.DISABLED_FACTOR, value); }
+    public static void ndisabled_factor(long struct, float value) { memPutFloat(struct + NkStyleButton.DISABLED_FACTOR, value); }
     /** Unsafe version of {@link #userdata(NkHandle) userdata}. */
     public static void nuserdata(long struct, NkHandle value) { memCopy(value.address(), struct + NkStyleButton.USERDATA, NkHandle.SIZEOF); }
     /** Unsafe version of {@link #draw_begin(NkDrawBeginCallbackI) draw_begin}. */
@@ -572,6 +568,11 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -629,13 +630,11 @@ public class NkStyleButton extends Struct<NkStyleButton> implements NativeResour
         @NativeType("nk_handle")
         public NkHandle userdata() { return NkStyleButton.nuserdata(address()); }
         /** @return the value of the {@code draw_begin} field. */
-        @Nullable
         @NativeType("nk_draw_begin")
-        public NkDrawBeginCallback draw_begin() { return NkStyleButton.ndraw_begin(address()); }
+        public @Nullable NkDrawBeginCallback draw_begin() { return NkStyleButton.ndraw_begin(address()); }
         /** @return the value of the {@code draw_end} field. */
-        @Nullable
         @NativeType("nk_draw_end")
-        public NkDrawEndCallback draw_end() { return NkStyleButton.ndraw_end(address()); }
+        public @Nullable NkDrawEndCallback draw_end() { return NkStyleButton.ndraw_end(address()); }
 
         /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
         public NkStyleButton.Buffer normal(@NativeType("struct nk_style_item") NkStyleItem value) { NkStyleButton.nnormal(address(), value); return this; }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -139,8 +139,7 @@ public class FMOD_STUDIO_MEMORY_USAGE extends Struct<FMOD_STUDIO_MEMORY_USAGE> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_MEMORY_USAGE createSafe(long address) {
+    public static @Nullable FMOD_STUDIO_MEMORY_USAGE createSafe(long address) {
         return address == NULL ? null : new FMOD_STUDIO_MEMORY_USAGE(address, null);
     }
 
@@ -183,8 +182,7 @@ public class FMOD_STUDIO_MEMORY_USAGE extends Struct<FMOD_STUDIO_MEMORY_USAGE> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_MEMORY_USAGE.Buffer createSafe(long address, int capacity) {
+    public static FMOD_STUDIO_MEMORY_USAGE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,18 +227,18 @@ public class FMOD_STUDIO_MEMORY_USAGE extends Struct<FMOD_STUDIO_MEMORY_USAGE> i
     // -----------------------------------
 
     /** Unsafe version of {@link #exclusive}. */
-    public static int nexclusive(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_MEMORY_USAGE.EXCLUSIVE); }
+    public static int nexclusive(long struct) { return memGetInt(struct + FMOD_STUDIO_MEMORY_USAGE.EXCLUSIVE); }
     /** Unsafe version of {@link #inclusive}. */
-    public static int ninclusive(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_MEMORY_USAGE.INCLUSIVE); }
+    public static int ninclusive(long struct) { return memGetInt(struct + FMOD_STUDIO_MEMORY_USAGE.INCLUSIVE); }
     /** Unsafe version of {@link #sampledata}. */
-    public static int nsampledata(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_MEMORY_USAGE.SAMPLEDATA); }
+    public static int nsampledata(long struct) { return memGetInt(struct + FMOD_STUDIO_MEMORY_USAGE.SAMPLEDATA); }
 
     /** Unsafe version of {@link #exclusive(int) exclusive}. */
-    public static void nexclusive(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_MEMORY_USAGE.EXCLUSIVE, value); }
+    public static void nexclusive(long struct, int value) { memPutInt(struct + FMOD_STUDIO_MEMORY_USAGE.EXCLUSIVE, value); }
     /** Unsafe version of {@link #inclusive(int) inclusive}. */
-    public static void ninclusive(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_MEMORY_USAGE.INCLUSIVE, value); }
+    public static void ninclusive(long struct, int value) { memPutInt(struct + FMOD_STUDIO_MEMORY_USAGE.INCLUSIVE, value); }
     /** Unsafe version of {@link #sampledata(int) sampledata}. */
-    public static void nsampledata(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_MEMORY_USAGE.SAMPLEDATA, value); }
+    public static void nsampledata(long struct, int value) { memPutInt(struct + FMOD_STUDIO_MEMORY_USAGE.SAMPLEDATA, value); }
 
     // -----------------------------------
 
@@ -273,6 +271,11 @@ public class FMOD_STUDIO_MEMORY_USAGE extends Struct<FMOD_STUDIO_MEMORY_USAGE> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

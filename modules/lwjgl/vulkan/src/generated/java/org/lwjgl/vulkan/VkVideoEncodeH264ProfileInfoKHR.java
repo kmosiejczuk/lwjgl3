@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -92,7 +92,7 @@ public class VkVideoEncodeH264ProfileInfoKHR extends Struct<VkVideoEncodeH264Pro
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code StdVideoH264ProfileIdc} value specifying the H.264 codec profile IDC, as defined in section A.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>. */
+    /** a {@code StdVideoH264ProfileIdc} value specifying the H.264 codec profile IDC, as defined in section A.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>. */
     @NativeType("StdVideoH264ProfileIdc")
     public int stdProfileIdc() { return nstdProfileIdc(address()); }
 
@@ -154,8 +154,7 @@ public class VkVideoEncodeH264ProfileInfoKHR extends Struct<VkVideoEncodeH264Pro
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264ProfileInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264ProfileInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264ProfileInfoKHR(address, null);
     }
 
@@ -198,8 +197,7 @@ public class VkVideoEncodeH264ProfileInfoKHR extends Struct<VkVideoEncodeH264Pro
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264ProfileInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264ProfileInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,18 +242,18 @@ public class VkVideoEncodeH264ProfileInfoKHR extends Struct<VkVideoEncodeH264Pro
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264ProfileInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH264ProfileInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH264ProfileInfoKHR.PNEXT); }
     /** Unsafe version of {@link #stdProfileIdc}. */
-    public static int nstdProfileIdc(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264ProfileInfoKHR.STDPROFILEIDC); }
+    public static int nstdProfileIdc(long struct) { return memGetInt(struct + VkVideoEncodeH264ProfileInfoKHR.STDPROFILEIDC); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264ProfileInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH264ProfileInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH264ProfileInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #stdProfileIdc(int) stdProfileIdc}. */
-    public static void nstdProfileIdc(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264ProfileInfoKHR.STDPROFILEIDC, value); }
+    public static void nstdProfileIdc(long struct, int value) { memPutInt(struct + VkVideoEncodeH264ProfileInfoKHR.STDPROFILEIDC, value); }
 
     // -----------------------------------
 
@@ -288,6 +286,11 @@ public class VkVideoEncodeH264ProfileInfoKHR extends Struct<VkVideoEncodeH264Pro
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

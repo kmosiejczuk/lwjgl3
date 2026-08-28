@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-exclusive-scissor">Exclusive Scissor Test</a> for more information.</p>
+ * <p>See <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-exclusive-scissor">Exclusive Scissor Test</a> for more information.</p>
  * 
  * <p>If the {@link VkPhysicalDeviceExclusiveScissorFeaturesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceExclusiveScissorFeaturesNV} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
  * 
@@ -158,8 +158,7 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExclusiveScissorFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceExclusiveScissorFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceExclusiveScissorFeaturesNV(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExclusiveScissorFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceExclusiveScissorFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +265,18 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExclusiveScissorFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceExclusiveScissorFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceExclusiveScissorFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #exclusiveScissor}. */
-    public static int nexclusiveScissor(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExclusiveScissorFeaturesNV.EXCLUSIVESCISSOR); }
+    public static int nexclusiveScissor(long struct) { return memGetInt(struct + VkPhysicalDeviceExclusiveScissorFeaturesNV.EXCLUSIVESCISSOR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExclusiveScissorFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExclusiveScissorFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceExclusiveScissorFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #exclusiveScissor(boolean) exclusiveScissor}. */
-    public static void nexclusiveScissor(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExclusiveScissorFeaturesNV.EXCLUSIVESCISSOR, value); }
+    public static void nexclusiveScissor(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExclusiveScissorFeaturesNV.EXCLUSIVESCISSOR, value); }
 
     // -----------------------------------
 
@@ -311,6 +309,11 @@ public class VkPhysicalDeviceExclusiveScissorFeaturesNV extends Struct<VkPhysica
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

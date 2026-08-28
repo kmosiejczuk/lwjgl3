@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,8 +137,7 @@ public class hwloc_bridge_attr_s extends Struct<hwloc_bridge_attr_s> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_bridge_attr_s createSafe(long address) {
+    public static @Nullable hwloc_bridge_attr_s createSafe(long address) {
         return address == NULL ? null : new hwloc_bridge_attr_s(address, null);
     }
 
@@ -153,8 +152,7 @@ public class hwloc_bridge_attr_s extends Struct<hwloc_bridge_attr_s> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_bridge_attr_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_bridge_attr_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -163,17 +161,17 @@ public class hwloc_bridge_attr_s extends Struct<hwloc_bridge_attr_s> {
     /** Unsafe version of {@link #upstream_pci}. */
     public static hwloc_pcidev_attr_s nupstream_pci(long struct) { return hwloc_pcidev_attr_s.create(struct + hwloc_bridge_attr_s.UPSTREAM_PCI); }
     /** Unsafe version of {@link #upstream_type}. */
-    public static int nupstream_type(long struct) { return UNSAFE.getInt(null, struct + hwloc_bridge_attr_s.UPSTREAM_TYPE); }
+    public static int nupstream_type(long struct) { return memGetInt(struct + hwloc_bridge_attr_s.UPSTREAM_TYPE); }
     /** Unsafe version of {@link #downstream_pci_domain}. */
-    public static int ndownstream_pci_domain(long struct) { return UNSAFE.getInt(null, struct + hwloc_bridge_attr_s.DOWNSTREAM_PCI_DOMAIN); }
+    public static int ndownstream_pci_domain(long struct) { return memGetInt(struct + hwloc_bridge_attr_s.DOWNSTREAM_PCI_DOMAIN); }
     /** Unsafe version of {@link #downstream_pci_secondary_bus}. */
-    public static byte ndownstream_pci_secondary_bus(long struct) { return UNSAFE.getByte(null, struct + hwloc_bridge_attr_s.DOWNSTREAM_PCI_SECONDARY_BUS); }
+    public static byte ndownstream_pci_secondary_bus(long struct) { return memGetByte(struct + hwloc_bridge_attr_s.DOWNSTREAM_PCI_SECONDARY_BUS); }
     /** Unsafe version of {@link #downstream_pci_subordinate_bus}. */
-    public static byte ndownstream_pci_subordinate_bus(long struct) { return UNSAFE.getByte(null, struct + hwloc_bridge_attr_s.DOWNSTREAM_PCI_SUBORDINATE_BUS); }
+    public static byte ndownstream_pci_subordinate_bus(long struct) { return memGetByte(struct + hwloc_bridge_attr_s.DOWNSTREAM_PCI_SUBORDINATE_BUS); }
     /** Unsafe version of {@link #downstream_type}. */
-    public static int ndownstream_type(long struct) { return UNSAFE.getInt(null, struct + hwloc_bridge_attr_s.DOWNSTREAM_TYPE); }
+    public static int ndownstream_type(long struct) { return memGetInt(struct + hwloc_bridge_attr_s.DOWNSTREAM_TYPE); }
     /** Unsafe version of {@link #depth}. */
-    public static int ndepth(long struct) { return UNSAFE.getInt(null, struct + hwloc_bridge_attr_s.DEPTH); }
+    public static int ndepth(long struct) { return memGetInt(struct + hwloc_bridge_attr_s.DEPTH); }
 
     // -----------------------------------
 
@@ -206,6 +204,11 @@ public class hwloc_bridge_attr_s extends Struct<hwloc_bridge_attr_s> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

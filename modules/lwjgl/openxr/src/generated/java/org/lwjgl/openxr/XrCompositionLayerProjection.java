@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -204,8 +204,7 @@ public class XrCompositionLayerProjection extends Struct<XrCompositionLayerProje
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerProjection createSafe(long address) {
+    public static @Nullable XrCompositionLayerProjection createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerProjection(address, null);
     }
 
@@ -253,8 +252,7 @@ public class XrCompositionLayerProjection extends Struct<XrCompositionLayerProje
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerProjection.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerProjection.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -304,28 +302,28 @@ public class XrCompositionLayerProjection extends Struct<XrCompositionLayerProje
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerProjection.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerProjection.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerProjection.NEXT); }
     /** Unsafe version of {@link #layerFlags}. */
-    public static long nlayerFlags(long struct) { return UNSAFE.getLong(null, struct + XrCompositionLayerProjection.LAYERFLAGS); }
+    public static long nlayerFlags(long struct) { return memGetLong(struct + XrCompositionLayerProjection.LAYERFLAGS); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrCompositionLayerProjection.SPACE); }
     /** Unsafe version of {@link #viewCount}. */
-    public static int nviewCount(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerProjection.VIEWCOUNT); }
+    public static int nviewCount(long struct) { return memGetInt(struct + XrCompositionLayerProjection.VIEWCOUNT); }
     /** Unsafe version of {@link #views}. */
     public static XrCompositionLayerProjectionView.Buffer nviews(long struct) { return XrCompositionLayerProjectionView.create(memGetAddress(struct + XrCompositionLayerProjection.VIEWS), nviewCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerProjection.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerProjection.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerProjection.NEXT, value); }
     /** Unsafe version of {@link #layerFlags(long) layerFlags}. */
-    public static void nlayerFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrCompositionLayerProjection.LAYERFLAGS, value); }
+    public static void nlayerFlags(long struct, long value) { memPutLong(struct + XrCompositionLayerProjection.LAYERFLAGS, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
     public static void nspace(long struct, XrSpace value) { memPutAddress(struct + XrCompositionLayerProjection.SPACE, value.address()); }
     /** Sets the specified value to the {@code viewCount} field of the specified {@code struct}. */
-    public static void nviewCount(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerProjection.VIEWCOUNT, value); }
+    public static void nviewCount(long struct, int value) { memPutInt(struct + XrCompositionLayerProjection.VIEWCOUNT, value); }
     /** Unsafe version of {@link #views(XrCompositionLayerProjectionView.Buffer) views}. */
     public static void nviews(long struct, XrCompositionLayerProjectionView.Buffer value) { memPutAddress(struct + XrCompositionLayerProjection.VIEWS, value.address()); nviewCount(struct, value.remaining()); }
 
@@ -373,6 +371,11 @@ public class XrCompositionLayerProjection extends Struct<XrCompositionLayerProje
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

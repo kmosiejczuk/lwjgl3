@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -293,8 +293,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingSQ createSafe(long address) {
+    public static @Nullable IOURingSQ createSafe(long address) {
         return address == NULL ? null : new IOURingSQ(address, null);
     }
 
@@ -337,8 +336,7 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingSQ.Buffer createSafe(long address, int capacity) {
+    public static IOURingSQ.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -399,20 +397,20 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
     /** Unsafe version of {@link #sqes}. */
     public static IOURingSQE nsqes(long struct) { return IOURingSQE.create(memGetAddress(struct + IOURingSQ.SQES)); }
     /** Unsafe version of {@link #sqe_head}. */
-    public static int nsqe_head(long struct) { return UNSAFE.getInt(null, struct + IOURingSQ.SQE_HEAD); }
+    public static int nsqe_head(long struct) { return memGetInt(struct + IOURingSQ.SQE_HEAD); }
     /** Unsafe version of {@link #sqe_tail}. */
-    public static int nsqe_tail(long struct) { return UNSAFE.getInt(null, struct + IOURingSQ.SQE_TAIL); }
+    public static int nsqe_tail(long struct) { return memGetInt(struct + IOURingSQ.SQE_TAIL); }
     /** Unsafe version of {@link #ring_sz}. */
     public static long nring_sz(long struct) { return memGetAddress(struct + IOURingSQ.RING_SZ); }
     /** Unsafe version of {@link #ring_ptr() ring_ptr}. */
     public static ByteBuffer nring_ptr(long struct) { return memByteBuffer(memGetAddress(struct + IOURingSQ.RING_PTR), (int)nring_sz(struct)); }
     /** Unsafe version of {@link #ring_mask}. */
-    public static int nring_mask(long struct) { return UNSAFE.getInt(null, struct + IOURingSQ.RING_MASK); }
+    public static int nring_mask(long struct) { return memGetInt(struct + IOURingSQ.RING_MASK); }
     /** Unsafe version of {@link #ring_entries}. */
-    public static int nring_entries(long struct) { return UNSAFE.getInt(null, struct + IOURingSQ.RING_ENTRIES); }
+    public static int nring_entries(long struct) { return memGetInt(struct + IOURingSQ.RING_ENTRIES); }
     public static IntBuffer npad(long struct) { return memIntBuffer(struct + IOURingSQ.PAD, 2); }
     public static int npad(long struct, int index) {
-        return UNSAFE.getInt(null, struct + IOURingSQ.PAD + check(index, 2) * 4);
+        return memGetInt(struct + IOURingSQ.PAD + check(index, 2) * 4);
     }
 
     /** Unsafe version of {@link #khead(IntBuffer) khead}. */
@@ -432,23 +430,23 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
     /** Unsafe version of {@link #sqes(IOURingSQE) sqes}. */
     public static void nsqes(long struct, IOURingSQE value) { memPutAddress(struct + IOURingSQ.SQES, value.address()); }
     /** Unsafe version of {@link #sqe_head(int) sqe_head}. */
-    public static void nsqe_head(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQ.SQE_HEAD, value); }
+    public static void nsqe_head(long struct, int value) { memPutInt(struct + IOURingSQ.SQE_HEAD, value); }
     /** Unsafe version of {@link #sqe_tail(int) sqe_tail}. */
-    public static void nsqe_tail(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQ.SQE_TAIL, value); }
+    public static void nsqe_tail(long struct, int value) { memPutInt(struct + IOURingSQ.SQE_TAIL, value); }
     /** Sets the specified value to the {@code ring_sz} field of the specified {@code struct}. */
     public static void nring_sz(long struct, long value) { memPutAddress(struct + IOURingSQ.RING_SZ, value); }
     /** Unsafe version of {@link #ring_ptr(ByteBuffer) ring_ptr}. */
     public static void nring_ptr(long struct, ByteBuffer value) { memPutAddress(struct + IOURingSQ.RING_PTR, memAddress(value)); nring_sz(struct, value.remaining()); }
     /** Unsafe version of {@link #ring_mask(int) ring_mask}. */
-    public static void nring_mask(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQ.RING_MASK, value); }
+    public static void nring_mask(long struct, int value) { memPutInt(struct + IOURingSQ.RING_MASK, value); }
     /** Unsafe version of {@link #ring_entries(int) ring_entries}. */
-    public static void nring_entries(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQ.RING_ENTRIES, value); }
+    public static void nring_entries(long struct, int value) { memPutInt(struct + IOURingSQ.RING_ENTRIES, value); }
     public static void npad(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 2); }
         memCopy(memAddress(value), struct + IOURingSQ.PAD, value.remaining() * 4);
     }
     public static void npad(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + IOURingSQ.PAD + check(index, 2) * 4, value);
+        memPutInt(struct + IOURingSQ.PAD + check(index, 2) * 4, value);
     }
 
     /**
@@ -499,6 +497,11 @@ public class IOURingSQ extends Struct<IOURingSQ> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

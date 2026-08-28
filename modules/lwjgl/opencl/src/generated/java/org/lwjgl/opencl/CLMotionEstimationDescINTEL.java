@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -160,8 +160,7 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLMotionEstimationDescINTEL createSafe(long address) {
+    public static @Nullable CLMotionEstimationDescINTEL createSafe(long address) {
         return address == NULL ? null : new CLMotionEstimationDescINTEL(address, null);
     }
 
@@ -204,8 +203,7 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLMotionEstimationDescINTEL.Buffer createSafe(long address, int capacity) {
+    public static CLMotionEstimationDescINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,22 +267,22 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
     // -----------------------------------
 
     /** Unsafe version of {@link #mb_block_type}. */
-    public static int nmb_block_type(long struct) { return UNSAFE.getInt(null, struct + CLMotionEstimationDescINTEL.MB_BLOCK_TYPE); }
+    public static int nmb_block_type(long struct) { return memGetInt(struct + CLMotionEstimationDescINTEL.MB_BLOCK_TYPE); }
     /** Unsafe version of {@link #subpixel_mode}. */
-    public static int nsubpixel_mode(long struct) { return UNSAFE.getInt(null, struct + CLMotionEstimationDescINTEL.SUBPIXEL_MODE); }
+    public static int nsubpixel_mode(long struct) { return memGetInt(struct + CLMotionEstimationDescINTEL.SUBPIXEL_MODE); }
     /** Unsafe version of {@link #sad_adjust_mode}. */
-    public static int nsad_adjust_mode(long struct) { return UNSAFE.getInt(null, struct + CLMotionEstimationDescINTEL.SAD_ADJUST_MODE); }
+    public static int nsad_adjust_mode(long struct) { return memGetInt(struct + CLMotionEstimationDescINTEL.SAD_ADJUST_MODE); }
     /** Unsafe version of {@link #search_path_type}. */
-    public static int nsearch_path_type(long struct) { return UNSAFE.getInt(null, struct + CLMotionEstimationDescINTEL.SEARCH_PATH_TYPE); }
+    public static int nsearch_path_type(long struct) { return memGetInt(struct + CLMotionEstimationDescINTEL.SEARCH_PATH_TYPE); }
 
     /** Unsafe version of {@link #mb_block_type(int) mb_block_type}. */
-    public static void nmb_block_type(long struct, int value) { UNSAFE.putInt(null, struct + CLMotionEstimationDescINTEL.MB_BLOCK_TYPE, value); }
+    public static void nmb_block_type(long struct, int value) { memPutInt(struct + CLMotionEstimationDescINTEL.MB_BLOCK_TYPE, value); }
     /** Unsafe version of {@link #subpixel_mode(int) subpixel_mode}. */
-    public static void nsubpixel_mode(long struct, int value) { UNSAFE.putInt(null, struct + CLMotionEstimationDescINTEL.SUBPIXEL_MODE, value); }
+    public static void nsubpixel_mode(long struct, int value) { memPutInt(struct + CLMotionEstimationDescINTEL.SUBPIXEL_MODE, value); }
     /** Unsafe version of {@link #sad_adjust_mode(int) sad_adjust_mode}. */
-    public static void nsad_adjust_mode(long struct, int value) { UNSAFE.putInt(null, struct + CLMotionEstimationDescINTEL.SAD_ADJUST_MODE, value); }
+    public static void nsad_adjust_mode(long struct, int value) { memPutInt(struct + CLMotionEstimationDescINTEL.SAD_ADJUST_MODE, value); }
     /** Unsafe version of {@link #search_path_type(int) search_path_type}. */
-    public static void nsearch_path_type(long struct, int value) { UNSAFE.putInt(null, struct + CLMotionEstimationDescINTEL.SEARCH_PATH_TYPE, value); }
+    public static void nsearch_path_type(long struct, int value) { memPutInt(struct + CLMotionEstimationDescINTEL.SEARCH_PATH_TYPE, value); }
 
     // -----------------------------------
 
@@ -317,6 +315,11 @@ public class CLMotionEstimationDescINTEL extends Struct<CLMotionEstimationDescIN
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #nonSeamlessCubeMap}. */
-    public static int nnonSeamlessCubeMap(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.NONSEAMLESSCUBEMAP); }
+    public static int nnonSeamlessCubeMap(long struct) { return memGetInt(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.NONSEAMLESSCUBEMAP); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #nonSeamlessCubeMap(boolean) nonSeamlessCubeMap}. */
-    public static void nnonSeamlessCubeMap(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.NONSEAMLESSCUBEMAP, value); }
+    public static void nnonSeamlessCubeMap(long struct, int value) { memPutInt(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.NONSEAMLESSCUBEMAP, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

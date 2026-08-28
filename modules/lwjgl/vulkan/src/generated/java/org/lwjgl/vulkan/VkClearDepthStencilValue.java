@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -142,8 +142,7 @@ public class VkClearDepthStencilValue extends Struct<VkClearDepthStencilValue> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkClearDepthStencilValue createSafe(long address) {
+    public static @Nullable VkClearDepthStencilValue createSafe(long address) {
         return address == NULL ? null : new VkClearDepthStencilValue(address, null);
     }
 
@@ -186,8 +185,7 @@ public class VkClearDepthStencilValue extends Struct<VkClearDepthStencilValue> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkClearDepthStencilValue.Buffer createSafe(long address, int capacity) {
+    public static VkClearDepthStencilValue.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,14 +249,14 @@ public class VkClearDepthStencilValue extends Struct<VkClearDepthStencilValue> i
     // -----------------------------------
 
     /** Unsafe version of {@link #depth}. */
-    public static float ndepth(long struct) { return UNSAFE.getFloat(null, struct + VkClearDepthStencilValue.DEPTH); }
+    public static float ndepth(long struct) { return memGetFloat(struct + VkClearDepthStencilValue.DEPTH); }
     /** Unsafe version of {@link #stencil}. */
-    public static int nstencil(long struct) { return UNSAFE.getInt(null, struct + VkClearDepthStencilValue.STENCIL); }
+    public static int nstencil(long struct) { return memGetInt(struct + VkClearDepthStencilValue.STENCIL); }
 
     /** Unsafe version of {@link #depth(float) depth}. */
-    public static void ndepth(long struct, float value) { UNSAFE.putFloat(null, struct + VkClearDepthStencilValue.DEPTH, value); }
+    public static void ndepth(long struct, float value) { memPutFloat(struct + VkClearDepthStencilValue.DEPTH, value); }
     /** Unsafe version of {@link #stencil(int) stencil}. */
-    public static void nstencil(long struct, int value) { UNSAFE.putInt(null, struct + VkClearDepthStencilValue.STENCIL, value); }
+    public static void nstencil(long struct, int value) { memPutInt(struct + VkClearDepthStencilValue.STENCIL, value); }
 
     // -----------------------------------
 
@@ -291,6 +289,11 @@ public class VkClearDepthStencilValue extends Struct<VkClearDepthStencilValue> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

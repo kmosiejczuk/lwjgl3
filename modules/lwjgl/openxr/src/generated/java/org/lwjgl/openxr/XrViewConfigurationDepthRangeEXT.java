@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -191,8 +191,7 @@ public class XrViewConfigurationDepthRangeEXT extends Struct<XrViewConfiguration
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewConfigurationDepthRangeEXT createSafe(long address) {
+    public static @Nullable XrViewConfigurationDepthRangeEXT createSafe(long address) {
         return address == NULL ? null : new XrViewConfigurationDepthRangeEXT(address, null);
     }
 
@@ -235,8 +234,7 @@ public class XrViewConfigurationDepthRangeEXT extends Struct<XrViewConfiguration
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewConfigurationDepthRangeEXT.Buffer createSafe(long address, int capacity) {
+    public static XrViewConfigurationDepthRangeEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -281,30 +279,30 @@ public class XrViewConfigurationDepthRangeEXT extends Struct<XrViewConfiguration
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrViewConfigurationDepthRangeEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrViewConfigurationDepthRangeEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrViewConfigurationDepthRangeEXT.NEXT); }
     /** Unsafe version of {@link #recommendedNearZ}. */
-    public static float nrecommendedNearZ(long struct) { return UNSAFE.getFloat(null, struct + XrViewConfigurationDepthRangeEXT.RECOMMENDEDNEARZ); }
+    public static float nrecommendedNearZ(long struct) { return memGetFloat(struct + XrViewConfigurationDepthRangeEXT.RECOMMENDEDNEARZ); }
     /** Unsafe version of {@link #minNearZ}. */
-    public static float nminNearZ(long struct) { return UNSAFE.getFloat(null, struct + XrViewConfigurationDepthRangeEXT.MINNEARZ); }
+    public static float nminNearZ(long struct) { return memGetFloat(struct + XrViewConfigurationDepthRangeEXT.MINNEARZ); }
     /** Unsafe version of {@link #recommendedFarZ}. */
-    public static float nrecommendedFarZ(long struct) { return UNSAFE.getFloat(null, struct + XrViewConfigurationDepthRangeEXT.RECOMMENDEDFARZ); }
+    public static float nrecommendedFarZ(long struct) { return memGetFloat(struct + XrViewConfigurationDepthRangeEXT.RECOMMENDEDFARZ); }
     /** Unsafe version of {@link #maxFarZ}. */
-    public static float nmaxFarZ(long struct) { return UNSAFE.getFloat(null, struct + XrViewConfigurationDepthRangeEXT.MAXFARZ); }
+    public static float nmaxFarZ(long struct) { return memGetFloat(struct + XrViewConfigurationDepthRangeEXT.MAXFARZ); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrViewConfigurationDepthRangeEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrViewConfigurationDepthRangeEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrViewConfigurationDepthRangeEXT.NEXT, value); }
     /** Unsafe version of {@link #recommendedNearZ(float) recommendedNearZ}. */
-    public static void nrecommendedNearZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrViewConfigurationDepthRangeEXT.RECOMMENDEDNEARZ, value); }
+    public static void nrecommendedNearZ(long struct, float value) { memPutFloat(struct + XrViewConfigurationDepthRangeEXT.RECOMMENDEDNEARZ, value); }
     /** Unsafe version of {@link #minNearZ(float) minNearZ}. */
-    public static void nminNearZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrViewConfigurationDepthRangeEXT.MINNEARZ, value); }
+    public static void nminNearZ(long struct, float value) { memPutFloat(struct + XrViewConfigurationDepthRangeEXT.MINNEARZ, value); }
     /** Unsafe version of {@link #recommendedFarZ(float) recommendedFarZ}. */
-    public static void nrecommendedFarZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrViewConfigurationDepthRangeEXT.RECOMMENDEDFARZ, value); }
+    public static void nrecommendedFarZ(long struct, float value) { memPutFloat(struct + XrViewConfigurationDepthRangeEXT.RECOMMENDEDFARZ, value); }
     /** Unsafe version of {@link #maxFarZ(float) maxFarZ}. */
-    public static void nmaxFarZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrViewConfigurationDepthRangeEXT.MAXFARZ, value); }
+    public static void nmaxFarZ(long struct, float value) { memPutFloat(struct + XrViewConfigurationDepthRangeEXT.MAXFARZ, value); }
 
     // -----------------------------------
 
@@ -337,6 +335,11 @@ public class XrViewConfigurationDepthRangeEXT extends Struct<XrViewConfiguration
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -119,8 +119,7 @@ public class StdVideoH265PredictorPaletteEntries extends Struct<StdVideoH265Pred
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265PredictorPaletteEntries createSafe(long address) {
+    public static @Nullable StdVideoH265PredictorPaletteEntries createSafe(long address) {
         return address == NULL ? null : new StdVideoH265PredictorPaletteEntries(address, null);
     }
 
@@ -163,8 +162,7 @@ public class StdVideoH265PredictorPaletteEntries extends Struct<StdVideoH265Pred
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265PredictorPaletteEntries.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265PredictorPaletteEntries.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -212,7 +210,7 @@ public class StdVideoH265PredictorPaletteEntries extends Struct<StdVideoH265Pred
     public static ShortBuffer nPredictorPaletteEntries(long struct) { return memShortBuffer(struct + StdVideoH265PredictorPaletteEntries.PREDICTORPALETTEENTRIES, STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE); }
     /** Unsafe version of {@link #PredictorPaletteEntries(int) PredictorPaletteEntries}. */
     public static short nPredictorPaletteEntries(long struct, int index) {
-        return UNSAFE.getShort(null, struct + StdVideoH265PredictorPaletteEntries.PREDICTORPALETTEENTRIES + check(index, STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE) * 2);
+        return memGetShort(struct + StdVideoH265PredictorPaletteEntries.PREDICTORPALETTEENTRIES + check(index, STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE) * 2);
     }
 
     /** Unsafe version of {@link #PredictorPaletteEntries(ShortBuffer) PredictorPaletteEntries}. */
@@ -222,7 +220,7 @@ public class StdVideoH265PredictorPaletteEntries extends Struct<StdVideoH265Pred
     }
     /** Unsafe version of {@link #PredictorPaletteEntries(int, short) PredictorPaletteEntries}. */
     public static void nPredictorPaletteEntries(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + StdVideoH265PredictorPaletteEntries.PREDICTORPALETTEENTRIES + check(index, STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE) * 2, value);
+        memPutShort(struct + StdVideoH265PredictorPaletteEntries.PREDICTORPALETTEENTRIES + check(index, STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE) * 2, value);
     }
 
     // -----------------------------------
@@ -256,6 +254,11 @@ public class StdVideoH265PredictorPaletteEntries extends Struct<StdVideoH265Pred
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

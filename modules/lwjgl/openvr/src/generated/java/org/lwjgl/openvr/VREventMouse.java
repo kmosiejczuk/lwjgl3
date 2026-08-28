@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -100,8 +100,7 @@ public class VREventMouse extends Struct<VREventMouse> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventMouse createSafe(long address) {
+    public static @Nullable VREventMouse createSafe(long address) {
         return address == NULL ? null : new VREventMouse(address, null);
     }
 
@@ -116,21 +115,20 @@ public class VREventMouse extends Struct<VREventMouse> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventMouse.Buffer createSafe(long address, int capacity) {
+    public static VREventMouse.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + VREventMouse.X); }
+    public static float nx(long struct) { return memGetFloat(struct + VREventMouse.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + VREventMouse.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + VREventMouse.Y); }
     /** Unsafe version of {@link #button}. */
-    public static int nbutton(long struct) { return UNSAFE.getInt(null, struct + VREventMouse.BUTTON); }
+    public static int nbutton(long struct) { return memGetInt(struct + VREventMouse.BUTTON); }
     /** Unsafe version of {@link #cursorIndex}. */
-    public static int ncursorIndex(long struct) { return UNSAFE.getInt(null, struct + VREventMouse.CURSORINDEX); }
+    public static int ncursorIndex(long struct) { return memGetInt(struct + VREventMouse.CURSORINDEX); }
 
     // -----------------------------------
 
@@ -163,6 +161,11 @@ public class VREventMouse extends Struct<VREventMouse> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

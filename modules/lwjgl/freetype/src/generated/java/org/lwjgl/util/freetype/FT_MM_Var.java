@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -126,8 +126,7 @@ public class FT_MM_Var extends Struct<FT_MM_Var> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_MM_Var createSafe(long address) {
+    public static @Nullable FT_MM_Var createSafe(long address) {
         return address == NULL ? null : new FT_MM_Var(address, null);
     }
 
@@ -170,8 +169,7 @@ public class FT_MM_Var extends Struct<FT_MM_Var> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_MM_Var.Buffer createSafe(long address, int capacity) {
+    public static FT_MM_Var.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -216,11 +214,11 @@ public class FT_MM_Var extends Struct<FT_MM_Var> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #num_axis}. */
-    public static int nnum_axis(long struct) { return UNSAFE.getInt(null, struct + FT_MM_Var.NUM_AXIS); }
+    public static int nnum_axis(long struct) { return memGetInt(struct + FT_MM_Var.NUM_AXIS); }
     /** Unsafe version of {@link #num_designs}. */
-    public static int nnum_designs(long struct) { return UNSAFE.getInt(null, struct + FT_MM_Var.NUM_DESIGNS); }
+    public static int nnum_designs(long struct) { return memGetInt(struct + FT_MM_Var.NUM_DESIGNS); }
     /** Unsafe version of {@link #num_namedstyles}. */
-    public static int nnum_namedstyles(long struct) { return UNSAFE.getInt(null, struct + FT_MM_Var.NUM_NAMEDSTYLES); }
+    public static int nnum_namedstyles(long struct) { return memGetInt(struct + FT_MM_Var.NUM_NAMEDSTYLES); }
     /** Unsafe version of {@link #axis}. */
     public static FT_Var_Axis.Buffer naxis(long struct) { return FT_Var_Axis.create(memGetAddress(struct + FT_MM_Var.AXIS), nnum_axis(struct)); }
     /** Unsafe version of {@link #namedstyle}. */
@@ -257,6 +255,11 @@ public class FT_MM_Var extends Struct<FT_MM_Var> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

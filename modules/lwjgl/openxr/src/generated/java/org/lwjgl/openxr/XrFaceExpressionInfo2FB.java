@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class XrFaceExpressionInfo2FB extends Struct<XrFaceExpressionInfo2FB> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFaceExpressionInfo2FB createSafe(long address) {
+    public static @Nullable XrFaceExpressionInfo2FB createSafe(long address) {
         return address == NULL ? null : new XrFaceExpressionInfo2FB(address, null);
     }
 
@@ -206,8 +205,7 @@ public class XrFaceExpressionInfo2FB extends Struct<XrFaceExpressionInfo2FB> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFaceExpressionInfo2FB.Buffer createSafe(long address, int capacity) {
+    public static XrFaceExpressionInfo2FB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class XrFaceExpressionInfo2FB extends Struct<XrFaceExpressionInfo2FB> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFaceExpressionInfo2FB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFaceExpressionInfo2FB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFaceExpressionInfo2FB.NEXT); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrFaceExpressionInfo2FB.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrFaceExpressionInfo2FB.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFaceExpressionInfo2FB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFaceExpressionInfo2FB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFaceExpressionInfo2FB.NEXT, value); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrFaceExpressionInfo2FB.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrFaceExpressionInfo2FB.TIME, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class XrFaceExpressionInfo2FB extends Struct<XrFaceExpressionInfo2FB> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.msdfgen;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -130,8 +130,7 @@ public class MSDFGenRange extends Struct<MSDFGenRange> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MSDFGenRange createSafe(long address) {
+    public static @Nullable MSDFGenRange createSafe(long address) {
         return address == NULL ? null : new MSDFGenRange(address, null);
     }
 
@@ -174,8 +173,7 @@ public class MSDFGenRange extends Struct<MSDFGenRange> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MSDFGenRange.Buffer createSafe(long address, int capacity) {
+    public static MSDFGenRange.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -220,14 +218,14 @@ public class MSDFGenRange extends Struct<MSDFGenRange> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #lower}. */
-    public static double nlower(long struct) { return UNSAFE.getDouble(null, struct + MSDFGenRange.LOWER); }
+    public static double nlower(long struct) { return memGetDouble(struct + MSDFGenRange.LOWER); }
     /** Unsafe version of {@link #upper}. */
-    public static double nupper(long struct) { return UNSAFE.getDouble(null, struct + MSDFGenRange.UPPER); }
+    public static double nupper(long struct) { return memGetDouble(struct + MSDFGenRange.UPPER); }
 
     /** Unsafe version of {@link #lower(double) lower}. */
-    public static void nlower(long struct, double value) { UNSAFE.putDouble(null, struct + MSDFGenRange.LOWER, value); }
+    public static void nlower(long struct, double value) { memPutDouble(struct + MSDFGenRange.LOWER, value); }
     /** Unsafe version of {@link #upper(double) upper}. */
-    public static void nupper(long struct, double value) { UNSAFE.putDouble(null, struct + MSDFGenRange.UPPER, value); }
+    public static void nupper(long struct, double value) { memPutDouble(struct + MSDFGenRange.UPPER, value); }
 
     // -----------------------------------
 
@@ -260,6 +258,11 @@ public class MSDFGenRange extends Struct<MSDFGenRange> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

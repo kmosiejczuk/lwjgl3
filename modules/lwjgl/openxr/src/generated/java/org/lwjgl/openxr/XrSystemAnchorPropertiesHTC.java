@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class XrSystemAnchorPropertiesHTC extends Struct<XrSystemAnchorProperties
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemAnchorPropertiesHTC createSafe(long address) {
+    public static @Nullable XrSystemAnchorPropertiesHTC createSafe(long address) {
         return address == NULL ? null : new XrSystemAnchorPropertiesHTC(address, null);
     }
 
@@ -202,8 +201,7 @@ public class XrSystemAnchorPropertiesHTC extends Struct<XrSystemAnchorProperties
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemAnchorPropertiesHTC.Buffer createSafe(long address, int capacity) {
+    public static XrSystemAnchorPropertiesHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +246,14 @@ public class XrSystemAnchorPropertiesHTC extends Struct<XrSystemAnchorProperties
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemAnchorPropertiesHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemAnchorPropertiesHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemAnchorPropertiesHTC.NEXT); }
     /** Unsafe version of {@link #supportsAnchor}. */
-    public static int nsupportsAnchor(long struct) { return UNSAFE.getInt(null, struct + XrSystemAnchorPropertiesHTC.SUPPORTSANCHOR); }
+    public static int nsupportsAnchor(long struct) { return memGetInt(struct + XrSystemAnchorPropertiesHTC.SUPPORTSANCHOR); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemAnchorPropertiesHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemAnchorPropertiesHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemAnchorPropertiesHTC.NEXT, value); }
 
@@ -290,6 +288,11 @@ public class XrSystemAnchorPropertiesHTC extends Struct<XrSystemAnchorProperties
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,35 +23,37 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, {@code codeSize} <b>must</b> be a multiple of 4</li>
- * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, {@code pCode} <b>must</b> point to valid SPIR-V code, formatted and packed as described by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirv-spec">Khronos SPIR-V Specification</a></li>
- * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, {@code pCode} <b>must</b> adhere to the validation rules described by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-module-validation">Validation Rules within a Module</a> section of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, {@code pCode} <b>must</b> point to valid SPIR-V code, formatted and packed as described by the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirv-spec">Khronos SPIR-V Specification</a></li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, {@code pCode} <b>must</b> adhere to the validation rules described by the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirvenv-module-validation">Validation Rules within a Module</a> section of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, {@code pCode} <b>must</b> declare the {@code Shader} capability for SPIR-V code</li>
- * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, {@code pCode} <b>must</b> not declare any capability that is not supported by the API, as described by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-module-validation">Capabilities</a> section of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
- * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code pCode} declares any of the capabilities listed in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
- * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, {@code pCode} <b>must</b> not declare any SPIR-V extension that is not supported by the API, as described by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions">Extension</a> section of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
- * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code pCode} declares any of the SPIR-V extensions listed in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, {@code pCode} <b>must</b> not declare any capability that is not supported by the API, as described by the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirvenv-module-validation">Capabilities</a> section of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code pCode} declares any of the capabilities listed in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirvenv-capabilities-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, {@code pCode} <b>must</b> not declare any SPIR-V extension that is not supported by the API, as described by the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirvenv-extensions">Extension</a> section of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirvenv-capabilities">SPIR-V Environment</a> appendix</li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code pCode} declares any of the SPIR-V extensions listed in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirvenv-extensions-table">SPIR-V Environment</a> appendix, one of the corresponding requirements <b>must</b> be satisfied</li>
  * <li>If {@code stage} is not {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT}, {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT}, {@link VK10#VK_SHADER_STAGE_VERTEX_BIT SHADER_STAGE_VERTEX_BIT}, {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT}, {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}, or {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT}, {@code flags} <b>must</b> not include {@link EXTShaderObject#VK_SHADER_CREATE_LINK_STAGE_BIT_EXT SHADER_CREATE_LINK_STAGE_BIT_EXT}</li>
  * <li>If {@code stage} is not {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT}, {@code flags} <b>must</b> not include {@link EXTShaderObject#VK_SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link EXTShaderObject#VK_SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link EXTShaderObject#VK_SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT}</li>
  * <li>If {@code stage} is not {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT}, {@code flags} <b>must</b> not include {@link EXTShaderObject#VK_SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-fragmentDensityMap">{@code fragmentDensityMap}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link EXTShaderObject#VK_SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT}</li>
- * <li>If {@code flags} includes {@link EXTShaderObject#VK_SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-subgroupSizeControl">{@code subgroupSizeControl}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code flags} includes {@link EXTShaderObject#VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-computeFullSubgroups">{@code computeFullSubgroups}</a> feature <b>must</b> be enabled</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-fragmentDensityMap">{@code fragmentDensityMap}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link EXTShaderObject#VK_SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT}</li>
+ * <li>If {@code flags} includes {@link EXTShaderObject#VK_SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-subgroupSizeControl">{@code subgroupSizeControl}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code flags} includes {@link EXTShaderObject#VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-computeFullSubgroups">{@code computeFullSubgroups}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code flags} includes {@link EXTDeviceGeneratedCommands#VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceGeneratedCommands">{@link VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT}{@code ::deviceGeneratedCommands}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code flags} includes {@link EXTDeviceGeneratedCommands#VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT}, then the identified entry point <b>must</b> not specify {@code Xfb} execution mode</li>
  * <li>If {@code flags} includes {@link EXTShaderObject#VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT}, {@code stage} <b>must</b> be one of {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT}, {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT}, or {@link VK10#VK_SHADER_STAGE_COMPUTE_BIT SHADER_STAGE_COMPUTE_BIT}</li>
  * <li>If {@code stage} is not {@link VK10#VK_SHADER_STAGE_COMPUTE_BIT SHADER_STAGE_COMPUTE_BIT}, {@code flags} <b>must</b> not include {@link EXTShaderObject#VK_SHADER_CREATE_DISPATCH_BASE_BIT_EXT SHADER_CREATE_DISPATCH_BASE_BIT_EXT}</li>
  * <li>If {@code stage} is not {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT}, {@code flags} <b>must</b> not include {@link EXTShaderObject#VK_SHADER_CREATE_NO_TASK_SHADER_BIT_EXT SHADER_CREATE_NO_TASK_SHADER_BIT_EXT}</li>
- * <li>If {@code flags} includes both {@link EXTShaderObject#VK_SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT} and {@link EXTShaderObject#VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT}, the local workgroup size in the X dimension of the shader <b>must</b> be a multiple of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxSubgroupSize">{@code maxSubgroupSize}</a></li>
- * <li>If {@code flags} includes {@link EXTShaderObject#VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT} but not {@link EXTShaderObject#VK_SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT} and no {@link VkShaderRequiredSubgroupSizeCreateInfoEXT} structure is included in the {@code pNext} chain, the local workgroup size in the X dimension of the shader <b>must</b> be a multiple of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-subgroupSize">{@code subgroupSize}</a></li>
+ * <li>If {@code flags} includes both {@link EXTShaderObject#VK_SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT} and {@link EXTShaderObject#VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT}, the local workgroup size in the X dimension of the shader <b>must</b> be a multiple of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxSubgroupSize">{@code maxSubgroupSize}</a></li>
+ * <li>If {@code flags} includes {@link EXTShaderObject#VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT} but not {@link EXTShaderObject#VK_SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT} and no {@link VkShaderRequiredSubgroupSizeCreateInfoEXT} structure is included in the {@code pNext} chain, the local workgroup size in the X dimension of the shader <b>must</b> be a multiple of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-subgroupSize">{@code subgroupSize}</a></li>
  * <li>{@code stage} <b>must</b> not be {@link VK10#VK_SHADER_STAGE_ALL_GRAPHICS SHADER_STAGE_ALL_GRAPHICS} or {@link VK10#VK_SHADER_STAGE_ALL SHADER_STAGE_ALL}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code stage} <b>must</b> not be {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT} or {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code stage} <b>must</b> not be {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, {@code stage} <b>must</b> not be {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, {@code stage} <b>must</b> not be {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code stage} <b>must</b> not be {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT} or {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code stage} <b>must</b> not be {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, {@code stage} <b>must</b> not be {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, {@code stage} <b>must</b> not be {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT}</li>
  * <li>{@code stage} <b>must</b> not be {@link HUAWEISubpassShading#VK_SHADER_STAGE_SUBPASS_SHADING_BIT_HUAWEI SHADER_STAGE_SUBPASS_SHADING_BIT_HUAWEI}</li>
  * <li>{@code stage} <b>must</b> not be {@link HUAWEIClusterCullingShader#VK_SHADER_STAGE_CLUSTER_CULLING_BIT_HUAWEI SHADER_STAGE_CLUSTER_CULLING_BIT_HUAWEI}</li>
  * <li>If {@code stage} is {@link VK10#VK_SHADER_STAGE_VERTEX_BIT SHADER_STAGE_VERTEX_BIT}, {@code nextStage} <b>must</b> not include any bits other than {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT}, {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}, and {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code nextStage} <b>must</b> not include {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT} or {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code nextStage} <b>must</b> not include {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code nextStage} <b>must</b> not include {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT} or {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code nextStage} <b>must</b> not include {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}</li>
  * <li>If {@code stage} is {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT}, {@code nextStage} <b>must</b> not include any bits other than {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}</li>
  * <li>If {@code stage} is {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, {@code nextStage} <b>must</b> not include any bits other than {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT} and {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT}</li>
  * <li>If {@code stage} is {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}, {@code nextStage} <b>must</b> not include any bits other than {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT}</li>
@@ -69,15 +71,18 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT} or {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, and the identified entry point has an {@code OpExecutionMode} instruction specifying a patch size with {@code OutputVertices}, the patch size <b>must</b> be greater than 0 and less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxTessellationPatchSize}</li>
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}, the identified entry point <b>must</b> have an {@code OpExecutionMode} instruction specifying a maximum output vertex count that is greater than 0 and less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxGeometryOutputVertices}</li>
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}, the identified entry point <b>must</b> have an {@code OpExecutionMode} instruction specifying an invocation count that is greater than 0 and less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxGeometryShaderInvocations}</li>
- * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader stage</a>, and the identified entry point writes to {@code Layer} for any primitive, it <b>must</b> write the same value to {@code Layer} for all vertices of a given primitive</li>
- * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader stage</a>, and the identified entry point writes to {@code ViewportIndex} for any primitive, it <b>must</b> write the same value to {@code ViewportIndex} for all vertices of a given primitive</li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader stage</a>, and the identified entry point writes to {@code Layer} for any primitive, it <b>must</b> write the same value to {@code Layer} for all vertices of a given primitive</li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader stage</a>, and the identified entry point writes to {@code ViewportIndex} for any primitive, it <b>must</b> write the same value to {@code ViewportIndex} for all vertices of a given primitive</li>
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT}, the identified entry point <b>must</b> not include any output variables in its interface decorated with {@code CullDistance}</li>
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT}, and the identified entry point writes to {@code FragDepth} in any execution path, all execution paths that are not exclusive to helper invocations <b>must</b> either discard the fragment, or write or initialize the value of {@code FragDepth}</li>
- * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, the shader code in {@code pCode} <b>must</b> be valid as described by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirv-spec">Khronos SPIR-V Specification</a> after applying the specializations provided in {@code pSpecializationInfo}, if any, and then converting all specialization constants into fixed constants</li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, the shader code in {@code pCode} <b>must</b> be valid as described by the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirv-spec">Khronos SPIR-V Specification</a> after applying the specializations provided in {@code pSpecializationInfo}, if any, and then converting all specialization constants into fixed constants</li>
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, {@code pCode} <b>must</b> contain an {@code OpExecutionMode} instruction specifying the type of subdivision</li>
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, {@code pCode} <b>must</b> contain an {@code OpExecutionMode} instruction specifying the orientation of triangles generated by the tessellator</li>
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, {@code pCode} <b>must</b> contain an {@code OpExecutionMode} instruction specifying the spacing of segments on the edges of tessellated primitives</li>
  * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and {@code stage} is {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, {@code pCode} <b>must</b> contain an {@code OpExecutionMode} instruction specifying the output patch size</li>
+ * <li>Any two elements of {@code pPushConstantRanges} <b>must</b> not include the same stage in {@code stageFlags}</li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and if a push constant block is declared in a shader, then an element of {@code pPushConstantRanges}{@code ::stageFlags} <b>must</b> match {@code stage}</li>
+ * <li>If {@code codeType} is {@link EXTShaderObject#VK_SHADER_CODE_TYPE_SPIRV_EXT SHADER_CODE_TYPE_SPIRV_EXT}, and if a push constant block is declared in a shader, the block must be contained inside the element of {@code pPushConstantRanges} that matches the stage</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -231,31 +236,26 @@ public class VkShaderCreateInfoEXT extends Struct<VkShaderCreateInfoEXT> impleme
     @NativeType("void const *")
     public ByteBuffer pCode() { return npCode(address()); }
     /** a pointer to a null-terminated UTF-8 string specifying the entry point name of the shader for this stage. */
-    @Nullable
     @NativeType("char const *")
-    public ByteBuffer pName() { return npName(address()); }
+    public @Nullable ByteBuffer pName() { return npName(address()); }
     /** a pointer to a null-terminated UTF-8 string specifying the entry point name of the shader for this stage. */
-    @Nullable
     @NativeType("char const *")
-    public String pNameString() { return npNameString(address()); }
+    public @Nullable String pNameString() { return npNameString(address()); }
     /** the number of descriptor set layouts pointed to by {@code pSetLayouts}. */
     @NativeType("uint32_t")
     public int setLayoutCount() { return nsetLayoutCount(address()); }
     /** a pointer to an array of {@code VkDescriptorSetLayout} objects used by the shader stage. */
-    @Nullable
     @NativeType("VkDescriptorSetLayout const *")
-    public LongBuffer pSetLayouts() { return npSetLayouts(address()); }
+    public @Nullable LongBuffer pSetLayouts() { return npSetLayouts(address()); }
     /** the number of push constant ranges pointed to by {@code pPushConstantRanges}. */
     @NativeType("uint32_t")
     public int pushConstantRangeCount() { return npushConstantRangeCount(address()); }
     /** a pointer to an array of {@link VkPushConstantRange} structures used by the shader stage. */
-    @Nullable
     @NativeType("VkPushConstantRange const *")
-    public VkPushConstantRange.Buffer pPushConstantRanges() { return npPushConstantRanges(address()); }
-    /** a pointer to a {@link VkSpecializationInfo} structure, as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-specialization-constants">Specialization Constants</a>, or {@code NULL}. */
-    @Nullable
+    public VkPushConstantRange.@Nullable Buffer pPushConstantRanges() { return npPushConstantRanges(address()); }
+    /** a pointer to a {@link VkSpecializationInfo} structure, as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-specialization-constants">Specialization Constants</a>, or {@code NULL}. */
     @NativeType("VkSpecializationInfo const *")
-    public VkSpecializationInfo pSpecializationInfo() { return npSpecializationInfo(address()); }
+    public @Nullable VkSpecializationInfo pSpecializationInfo() { return npSpecializationInfo(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkShaderCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -290,7 +290,7 @@ public class VkShaderCreateInfoEXT extends Struct<VkShaderCreateInfoEXT> impleme
     /** Sets the specified value to the {@link #pushConstantRangeCount} field. */
     public VkShaderCreateInfoEXT pushConstantRangeCount(@NativeType("uint32_t") int value) { npushConstantRangeCount(address(), value); return this; }
     /** Sets the address of the specified {@link VkPushConstantRange.Buffer} to the {@link #pPushConstantRanges} field. */
-    public VkShaderCreateInfoEXT pPushConstantRanges(@Nullable @NativeType("VkPushConstantRange const *") VkPushConstantRange.Buffer value) { npPushConstantRanges(address(), value); return this; }
+    public VkShaderCreateInfoEXT pPushConstantRanges(@NativeType("VkPushConstantRange const *") VkPushConstantRange.@Nullable Buffer value) { npPushConstantRanges(address(), value); return this; }
     /** Sets the address of the specified {@link VkSpecializationInfo} to the {@link #pSpecializationInfo} field. */
     public VkShaderCreateInfoEXT pSpecializationInfo(@Nullable @NativeType("VkSpecializationInfo const *") VkSpecializationInfo value) { npSpecializationInfo(address(), value); return this; }
 
@@ -307,7 +307,7 @@ public class VkShaderCreateInfoEXT extends Struct<VkShaderCreateInfoEXT> impleme
         int setLayoutCount,
         @Nullable LongBuffer pSetLayouts,
         int pushConstantRangeCount,
-        @Nullable VkPushConstantRange.Buffer pPushConstantRanges,
+        VkPushConstantRange.@Nullable Buffer pPushConstantRanges,
         @Nullable VkSpecializationInfo pSpecializationInfo
     ) {
         sType(sType);
@@ -363,8 +363,7 @@ public class VkShaderCreateInfoEXT extends Struct<VkShaderCreateInfoEXT> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkShaderCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkShaderCreateInfoEXT(address, null);
     }
 
@@ -407,8 +406,7 @@ public class VkShaderCreateInfoEXT extends Struct<VkShaderCreateInfoEXT> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkShaderCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -453,48 +451,48 @@ public class VkShaderCreateInfoEXT extends Struct<VkShaderCreateInfoEXT> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkShaderCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkShaderCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkShaderCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkShaderCreateInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkShaderCreateInfoEXT.FLAGS); }
     /** Unsafe version of {@link #stage}. */
-    public static int nstage(long struct) { return UNSAFE.getInt(null, struct + VkShaderCreateInfoEXT.STAGE); }
+    public static int nstage(long struct) { return memGetInt(struct + VkShaderCreateInfoEXT.STAGE); }
     /** Unsafe version of {@link #nextStage}. */
-    public static int nnextStage(long struct) { return UNSAFE.getInt(null, struct + VkShaderCreateInfoEXT.NEXTSTAGE); }
+    public static int nnextStage(long struct) { return memGetInt(struct + VkShaderCreateInfoEXT.NEXTSTAGE); }
     /** Unsafe version of {@link #codeType}. */
-    public static int ncodeType(long struct) { return UNSAFE.getInt(null, struct + VkShaderCreateInfoEXT.CODETYPE); }
+    public static int ncodeType(long struct) { return memGetInt(struct + VkShaderCreateInfoEXT.CODETYPE); }
     /** Unsafe version of {@link #codeSize}. */
     public static long ncodeSize(long struct) { return memGetAddress(struct + VkShaderCreateInfoEXT.CODESIZE); }
     /** Unsafe version of {@link #pCode() pCode}. */
     public static ByteBuffer npCode(long struct) { return memByteBuffer(memGetAddress(struct + VkShaderCreateInfoEXT.PCODE), (int)ncodeSize(struct)); }
     /** Unsafe version of {@link #pName}. */
-    @Nullable public static ByteBuffer npName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + VkShaderCreateInfoEXT.PNAME)); }
+    public static @Nullable ByteBuffer npName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + VkShaderCreateInfoEXT.PNAME)); }
     /** Unsafe version of {@link #pNameString}. */
-    @Nullable public static String npNameString(long struct) { return memUTF8Safe(memGetAddress(struct + VkShaderCreateInfoEXT.PNAME)); }
+    public static @Nullable String npNameString(long struct) { return memUTF8Safe(memGetAddress(struct + VkShaderCreateInfoEXT.PNAME)); }
     /** Unsafe version of {@link #setLayoutCount}. */
-    public static int nsetLayoutCount(long struct) { return UNSAFE.getInt(null, struct + VkShaderCreateInfoEXT.SETLAYOUTCOUNT); }
+    public static int nsetLayoutCount(long struct) { return memGetInt(struct + VkShaderCreateInfoEXT.SETLAYOUTCOUNT); }
     /** Unsafe version of {@link #pSetLayouts() pSetLayouts}. */
-    @Nullable public static LongBuffer npSetLayouts(long struct) { return memLongBufferSafe(memGetAddress(struct + VkShaderCreateInfoEXT.PSETLAYOUTS), nsetLayoutCount(struct)); }
+    public static @Nullable LongBuffer npSetLayouts(long struct) { return memLongBufferSafe(memGetAddress(struct + VkShaderCreateInfoEXT.PSETLAYOUTS), nsetLayoutCount(struct)); }
     /** Unsafe version of {@link #pushConstantRangeCount}. */
-    public static int npushConstantRangeCount(long struct) { return UNSAFE.getInt(null, struct + VkShaderCreateInfoEXT.PUSHCONSTANTRANGECOUNT); }
+    public static int npushConstantRangeCount(long struct) { return memGetInt(struct + VkShaderCreateInfoEXT.PUSHCONSTANTRANGECOUNT); }
     /** Unsafe version of {@link #pPushConstantRanges}. */
-    @Nullable public static VkPushConstantRange.Buffer npPushConstantRanges(long struct) { return VkPushConstantRange.createSafe(memGetAddress(struct + VkShaderCreateInfoEXT.PPUSHCONSTANTRANGES), npushConstantRangeCount(struct)); }
+    public static VkPushConstantRange.@Nullable Buffer npPushConstantRanges(long struct) { return VkPushConstantRange.createSafe(memGetAddress(struct + VkShaderCreateInfoEXT.PPUSHCONSTANTRANGES), npushConstantRangeCount(struct)); }
     /** Unsafe version of {@link #pSpecializationInfo}. */
-    @Nullable public static VkSpecializationInfo npSpecializationInfo(long struct) { return VkSpecializationInfo.createSafe(memGetAddress(struct + VkShaderCreateInfoEXT.PSPECIALIZATIONINFO)); }
+    public static @Nullable VkSpecializationInfo npSpecializationInfo(long struct) { return VkSpecializationInfo.createSafe(memGetAddress(struct + VkShaderCreateInfoEXT.PSPECIALIZATIONINFO)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkShaderCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkShaderCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkShaderCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkShaderCreateInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkShaderCreateInfoEXT.FLAGS, value); }
     /** Unsafe version of {@link #stage(int) stage}. */
-    public static void nstage(long struct, int value) { UNSAFE.putInt(null, struct + VkShaderCreateInfoEXT.STAGE, value); }
+    public static void nstage(long struct, int value) { memPutInt(struct + VkShaderCreateInfoEXT.STAGE, value); }
     /** Unsafe version of {@link #nextStage(int) nextStage}. */
-    public static void nnextStage(long struct, int value) { UNSAFE.putInt(null, struct + VkShaderCreateInfoEXT.NEXTSTAGE, value); }
+    public static void nnextStage(long struct, int value) { memPutInt(struct + VkShaderCreateInfoEXT.NEXTSTAGE, value); }
     /** Unsafe version of {@link #codeType(int) codeType}. */
-    public static void ncodeType(long struct, int value) { UNSAFE.putInt(null, struct + VkShaderCreateInfoEXT.CODETYPE, value); }
+    public static void ncodeType(long struct, int value) { memPutInt(struct + VkShaderCreateInfoEXT.CODETYPE, value); }
     /** Sets the specified value to the {@code codeSize} field of the specified {@code struct}. */
     public static void ncodeSize(long struct, long value) { memPutAddress(struct + VkShaderCreateInfoEXT.CODESIZE, value); }
     /** Unsafe version of {@link #pCode(ByteBuffer) pCode}. */
@@ -505,13 +503,13 @@ public class VkShaderCreateInfoEXT extends Struct<VkShaderCreateInfoEXT> impleme
         memPutAddress(struct + VkShaderCreateInfoEXT.PNAME, memAddressSafe(value));
     }
     /** Sets the specified value to the {@code setLayoutCount} field of the specified {@code struct}. */
-    public static void nsetLayoutCount(long struct, int value) { UNSAFE.putInt(null, struct + VkShaderCreateInfoEXT.SETLAYOUTCOUNT, value); }
+    public static void nsetLayoutCount(long struct, int value) { memPutInt(struct + VkShaderCreateInfoEXT.SETLAYOUTCOUNT, value); }
     /** Unsafe version of {@link #pSetLayouts(LongBuffer) pSetLayouts}. */
     public static void npSetLayouts(long struct, @Nullable LongBuffer value) { memPutAddress(struct + VkShaderCreateInfoEXT.PSETLAYOUTS, memAddressSafe(value)); if (value != null) { nsetLayoutCount(struct, value.remaining()); } }
     /** Sets the specified value to the {@code pushConstantRangeCount} field of the specified {@code struct}. */
-    public static void npushConstantRangeCount(long struct, int value) { UNSAFE.putInt(null, struct + VkShaderCreateInfoEXT.PUSHCONSTANTRANGECOUNT, value); }
+    public static void npushConstantRangeCount(long struct, int value) { memPutInt(struct + VkShaderCreateInfoEXT.PUSHCONSTANTRANGECOUNT, value); }
     /** Unsafe version of {@link #pPushConstantRanges(VkPushConstantRange.Buffer) pPushConstantRanges}. */
-    public static void npPushConstantRanges(long struct, @Nullable VkPushConstantRange.Buffer value) { memPutAddress(struct + VkShaderCreateInfoEXT.PPUSHCONSTANTRANGES, memAddressSafe(value)); if (value != null) { npushConstantRangeCount(struct, value.remaining()); } }
+    public static void npPushConstantRanges(long struct, VkPushConstantRange.@Nullable Buffer value) { memPutAddress(struct + VkShaderCreateInfoEXT.PPUSHCONSTANTRANGES, memAddressSafe(value)); if (value != null) { npushConstantRangeCount(struct, value.remaining()); } }
     /** Unsafe version of {@link #pSpecializationInfo(VkSpecializationInfo) pSpecializationInfo}. */
     public static void npSpecializationInfo(long struct, @Nullable VkSpecializationInfo value) { memPutAddress(struct + VkShaderCreateInfoEXT.PSPECIALIZATIONINFO, memAddressSafe(value)); }
 
@@ -562,6 +560,11 @@ public class VkShaderCreateInfoEXT extends Struct<VkShaderCreateInfoEXT> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkShaderCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -591,31 +594,26 @@ public class VkShaderCreateInfoEXT extends Struct<VkShaderCreateInfoEXT> impleme
         @NativeType("void const *")
         public ByteBuffer pCode() { return VkShaderCreateInfoEXT.npCode(address()); }
         /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link VkShaderCreateInfoEXT#pName} field. */
-        @Nullable
         @NativeType("char const *")
-        public ByteBuffer pName() { return VkShaderCreateInfoEXT.npName(address()); }
+        public @Nullable ByteBuffer pName() { return VkShaderCreateInfoEXT.npName(address()); }
         /** @return the null-terminated string pointed to by the {@link VkShaderCreateInfoEXT#pName} field. */
-        @Nullable
         @NativeType("char const *")
-        public String pNameString() { return VkShaderCreateInfoEXT.npNameString(address()); }
+        public @Nullable String pNameString() { return VkShaderCreateInfoEXT.npNameString(address()); }
         /** @return the value of the {@link VkShaderCreateInfoEXT#setLayoutCount} field. */
         @NativeType("uint32_t")
         public int setLayoutCount() { return VkShaderCreateInfoEXT.nsetLayoutCount(address()); }
         /** @return a {@link LongBuffer} view of the data pointed to by the {@link VkShaderCreateInfoEXT#pSetLayouts} field. */
-        @Nullable
         @NativeType("VkDescriptorSetLayout const *")
-        public LongBuffer pSetLayouts() { return VkShaderCreateInfoEXT.npSetLayouts(address()); }
+        public @Nullable LongBuffer pSetLayouts() { return VkShaderCreateInfoEXT.npSetLayouts(address()); }
         /** @return the value of the {@link VkShaderCreateInfoEXT#pushConstantRangeCount} field. */
         @NativeType("uint32_t")
         public int pushConstantRangeCount() { return VkShaderCreateInfoEXT.npushConstantRangeCount(address()); }
         /** @return a {@link VkPushConstantRange.Buffer} view of the struct array pointed to by the {@link VkShaderCreateInfoEXT#pPushConstantRanges} field. */
-        @Nullable
         @NativeType("VkPushConstantRange const *")
-        public VkPushConstantRange.Buffer pPushConstantRanges() { return VkShaderCreateInfoEXT.npPushConstantRanges(address()); }
+        public VkPushConstantRange.@Nullable Buffer pPushConstantRanges() { return VkShaderCreateInfoEXT.npPushConstantRanges(address()); }
         /** @return a {@link VkSpecializationInfo} view of the struct pointed to by the {@link VkShaderCreateInfoEXT#pSpecializationInfo} field. */
-        @Nullable
         @NativeType("VkSpecializationInfo const *")
-        public VkSpecializationInfo pSpecializationInfo() { return VkShaderCreateInfoEXT.npSpecializationInfo(address()); }
+        public @Nullable VkSpecializationInfo pSpecializationInfo() { return VkShaderCreateInfoEXT.npSpecializationInfo(address()); }
 
         /** Sets the specified value to the {@link VkShaderCreateInfoEXT#sType} field. */
         public VkShaderCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkShaderCreateInfoEXT.nsType(address(), value); return this; }
@@ -650,7 +648,7 @@ public class VkShaderCreateInfoEXT extends Struct<VkShaderCreateInfoEXT> impleme
         /** Sets the specified value to the {@link VkShaderCreateInfoEXT#pushConstantRangeCount} field. */
         public VkShaderCreateInfoEXT.Buffer pushConstantRangeCount(@NativeType("uint32_t") int value) { VkShaderCreateInfoEXT.npushConstantRangeCount(address(), value); return this; }
         /** Sets the address of the specified {@link VkPushConstantRange.Buffer} to the {@link VkShaderCreateInfoEXT#pPushConstantRanges} field. */
-        public VkShaderCreateInfoEXT.Buffer pPushConstantRanges(@Nullable @NativeType("VkPushConstantRange const *") VkPushConstantRange.Buffer value) { VkShaderCreateInfoEXT.npPushConstantRanges(address(), value); return this; }
+        public VkShaderCreateInfoEXT.Buffer pPushConstantRanges(@NativeType("VkPushConstantRange const *") VkPushConstantRange.@Nullable Buffer value) { VkShaderCreateInfoEXT.npPushConstantRanges(address(), value); return this; }
         /** Sets the address of the specified {@link VkSpecializationInfo} to the {@link VkShaderCreateInfoEXT#pSpecializationInfo} field. */
         public VkShaderCreateInfoEXT.Buffer pSpecializationInfo(@Nullable @NativeType("VkSpecializationInfo const *") VkSpecializationInfo value) { VkShaderCreateInfoEXT.npSpecializationInfo(address(), value); return this; }
 

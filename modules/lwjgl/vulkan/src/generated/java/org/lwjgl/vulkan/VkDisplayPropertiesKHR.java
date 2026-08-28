@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPropertiesKHR createSafe(long address) {
+    public static @Nullable VkDisplayPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayPropertiesKHR(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,7 +266,7 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #display}. */
-    public static long ndisplay(long struct) { return UNSAFE.getLong(null, struct + VkDisplayPropertiesKHR.DISPLAY); }
+    public static long ndisplay(long struct) { return memGetLong(struct + VkDisplayPropertiesKHR.DISPLAY); }
     /** Unsafe version of {@link #displayName}. */
     public static ByteBuffer ndisplayName(long struct) { return memByteBufferNT1(memGetAddress(struct + VkDisplayPropertiesKHR.DISPLAYNAME)); }
     /** Unsafe version of {@link #displayNameString}. */
@@ -278,11 +276,11 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
     /** Unsafe version of {@link #physicalResolution}. */
     public static VkExtent2D nphysicalResolution(long struct) { return VkExtent2D.create(struct + VkDisplayPropertiesKHR.PHYSICALRESOLUTION); }
     /** Unsafe version of {@link #supportedTransforms}. */
-    public static int nsupportedTransforms(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPropertiesKHR.SUPPORTEDTRANSFORMS); }
+    public static int nsupportedTransforms(long struct) { return memGetInt(struct + VkDisplayPropertiesKHR.SUPPORTEDTRANSFORMS); }
     /** Unsafe version of {@link #planeReorderPossible}. */
-    public static int nplaneReorderPossible(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPropertiesKHR.PLANEREORDERPOSSIBLE); }
+    public static int nplaneReorderPossible(long struct) { return memGetInt(struct + VkDisplayPropertiesKHR.PLANEREORDERPOSSIBLE); }
     /** Unsafe version of {@link #persistentContent}. */
-    public static int npersistentContent(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPropertiesKHR.PERSISTENTCONTENT); }
+    public static int npersistentContent(long struct) { return memGetInt(struct + VkDisplayPropertiesKHR.PERSISTENTCONTENT); }
 
     // -----------------------------------
 
@@ -315,6 +313,11 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_CAPABILITIES_KHR STRUCTURE_TYPE_VIDEO_CAPABILITIES_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoDecodeAV1CapabilitiesKHR}, {@link VkVideoDecodeCapabilitiesKHR}, {@link VkVideoDecodeH264CapabilitiesKHR}, {@link VkVideoDecodeH265CapabilitiesKHR}, {@link VkVideoEncodeCapabilitiesKHR}, {@link VkVideoEncodeH264CapabilitiesKHR}, or {@link VkVideoEncodeH265CapabilitiesKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoDecodeAV1CapabilitiesKHR}, {@link VkVideoDecodeCapabilitiesKHR}, {@link VkVideoDecodeH264CapabilitiesKHR}, {@link VkVideoDecodeH265CapabilitiesKHR}, {@link VkVideoEncodeAV1CapabilitiesKHR}, {@link VkVideoEncodeAV1QuantizationMapCapabilitiesKHR}, {@link VkVideoEncodeCapabilitiesKHR}, {@link VkVideoEncodeH264CapabilitiesKHR}, {@link VkVideoEncodeH264QuantizationMapCapabilitiesKHR}, {@link VkVideoEncodeH265CapabilitiesKHR}, {@link VkVideoEncodeH265QuantizationMapCapabilitiesKHR}, or {@link VkVideoEncodeQuantizationMapCapabilitiesKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * </ul>
  * 
@@ -150,10 +150,10 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
     public VkExtent2D minCodedExtent() { return nminCodedExtent(address()); }
     /** the maximum width and height of the coded frames. */
     public VkExtent2D maxCodedExtent() { return nmaxCodedExtent(address()); }
-    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slots</a> supported by a single video session. */
+    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot">DPB slots</a> supported by a single video session. */
     @NativeType("uint32_t")
     public int maxDpbSlots() { return nmaxDpbSlots(address()); }
-    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#active-reference-pictures">active reference pictures</a> a single video coding operation <b>can</b> use. */
+    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#active-reference-pictures">active reference pictures</a> a single video coding operation <b>can</b> use. */
     @NativeType("uint32_t")
     public int maxActiveReferencePictures() { return nmaxActiveReferencePictures(address()); }
     /** a {@link VkExtensionProperties} structure reporting the Video Std header name and version supported for the video profile. */
@@ -173,12 +173,22 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
     public VkVideoCapabilitiesKHR pNext(VkVideoDecodeH264CapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoDecodeH265CapabilitiesKHR} value to the {@code pNext} chain. */
     public VkVideoCapabilitiesKHR pNext(VkVideoDecodeH265CapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeAV1CapabilitiesKHR} value to the {@code pNext} chain. */
+    public VkVideoCapabilitiesKHR pNext(VkVideoEncodeAV1CapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeAV1QuantizationMapCapabilitiesKHR} value to the {@code pNext} chain. */
+    public VkVideoCapabilitiesKHR pNext(VkVideoEncodeAV1QuantizationMapCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeCapabilitiesKHR} value to the {@code pNext} chain. */
     public VkVideoCapabilitiesKHR pNext(VkVideoEncodeCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH264CapabilitiesKHR} value to the {@code pNext} chain. */
     public VkVideoCapabilitiesKHR pNext(VkVideoEncodeH264CapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH264QuantizationMapCapabilitiesKHR} value to the {@code pNext} chain. */
+    public VkVideoCapabilitiesKHR pNext(VkVideoEncodeH264QuantizationMapCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH265CapabilitiesKHR} value to the {@code pNext} chain. */
     public VkVideoCapabilitiesKHR pNext(VkVideoEncodeH265CapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH265QuantizationMapCapabilitiesKHR} value to the {@code pNext} chain. */
+    public VkVideoCapabilitiesKHR pNext(VkVideoEncodeH265QuantizationMapCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeQuantizationMapCapabilitiesKHR} value to the {@code pNext} chain. */
+    public VkVideoCapabilitiesKHR pNext(VkVideoEncodeQuantizationMapCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
     /** Initializes this struct with the specified values. */
     public VkVideoCapabilitiesKHR set(
@@ -227,8 +237,7 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoCapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkVideoCapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoCapabilitiesKHR(address, null);
     }
 
@@ -271,8 +280,7 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoCapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -317,15 +325,15 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoCapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoCapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoCapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoCapabilitiesKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkVideoCapabilitiesKHR.FLAGS); }
     /** Unsafe version of {@link #minBitstreamBufferOffsetAlignment}. */
-    public static long nminBitstreamBufferOffsetAlignment(long struct) { return UNSAFE.getLong(null, struct + VkVideoCapabilitiesKHR.MINBITSTREAMBUFFEROFFSETALIGNMENT); }
+    public static long nminBitstreamBufferOffsetAlignment(long struct) { return memGetLong(struct + VkVideoCapabilitiesKHR.MINBITSTREAMBUFFEROFFSETALIGNMENT); }
     /** Unsafe version of {@link #minBitstreamBufferSizeAlignment}. */
-    public static long nminBitstreamBufferSizeAlignment(long struct) { return UNSAFE.getLong(null, struct + VkVideoCapabilitiesKHR.MINBITSTREAMBUFFERSIZEALIGNMENT); }
+    public static long nminBitstreamBufferSizeAlignment(long struct) { return memGetLong(struct + VkVideoCapabilitiesKHR.MINBITSTREAMBUFFERSIZEALIGNMENT); }
     /** Unsafe version of {@link #pictureAccessGranularity}. */
     public static VkExtent2D npictureAccessGranularity(long struct) { return VkExtent2D.create(struct + VkVideoCapabilitiesKHR.PICTUREACCESSGRANULARITY); }
     /** Unsafe version of {@link #minCodedExtent}. */
@@ -333,14 +341,14 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
     /** Unsafe version of {@link #maxCodedExtent}. */
     public static VkExtent2D nmaxCodedExtent(long struct) { return VkExtent2D.create(struct + VkVideoCapabilitiesKHR.MAXCODEDEXTENT); }
     /** Unsafe version of {@link #maxDpbSlots}. */
-    public static int nmaxDpbSlots(long struct) { return UNSAFE.getInt(null, struct + VkVideoCapabilitiesKHR.MAXDPBSLOTS); }
+    public static int nmaxDpbSlots(long struct) { return memGetInt(struct + VkVideoCapabilitiesKHR.MAXDPBSLOTS); }
     /** Unsafe version of {@link #maxActiveReferencePictures}. */
-    public static int nmaxActiveReferencePictures(long struct) { return UNSAFE.getInt(null, struct + VkVideoCapabilitiesKHR.MAXACTIVEREFERENCEPICTURES); }
+    public static int nmaxActiveReferencePictures(long struct) { return memGetInt(struct + VkVideoCapabilitiesKHR.MAXACTIVEREFERENCEPICTURES); }
     /** Unsafe version of {@link #stdHeaderVersion}. */
     public static VkExtensionProperties nstdHeaderVersion(long struct) { return VkExtensionProperties.create(struct + VkVideoCapabilitiesKHR.STDHEADERVERSION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoCapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoCapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoCapabilitiesKHR.PNEXT, value); }
 
@@ -375,6 +383,11 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -426,12 +439,22 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
         public VkVideoCapabilitiesKHR.Buffer pNext(VkVideoDecodeH264CapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoDecodeH265CapabilitiesKHR} value to the {@code pNext} chain. */
         public VkVideoCapabilitiesKHR.Buffer pNext(VkVideoDecodeH265CapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeAV1CapabilitiesKHR} value to the {@code pNext} chain. */
+        public VkVideoCapabilitiesKHR.Buffer pNext(VkVideoEncodeAV1CapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeAV1QuantizationMapCapabilitiesKHR} value to the {@code pNext} chain. */
+        public VkVideoCapabilitiesKHR.Buffer pNext(VkVideoEncodeAV1QuantizationMapCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeCapabilitiesKHR} value to the {@code pNext} chain. */
         public VkVideoCapabilitiesKHR.Buffer pNext(VkVideoEncodeCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH264CapabilitiesKHR} value to the {@code pNext} chain. */
         public VkVideoCapabilitiesKHR.Buffer pNext(VkVideoEncodeH264CapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH264QuantizationMapCapabilitiesKHR} value to the {@code pNext} chain. */
+        public VkVideoCapabilitiesKHR.Buffer pNext(VkVideoEncodeH264QuantizationMapCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH265CapabilitiesKHR} value to the {@code pNext} chain. */
         public VkVideoCapabilitiesKHR.Buffer pNext(VkVideoEncodeH265CapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH265QuantizationMapCapabilitiesKHR} value to the {@code pNext} chain. */
+        public VkVideoCapabilitiesKHR.Buffer pNext(VkVideoEncodeH265QuantizationMapCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeQuantizationMapCapabilitiesKHR} value to the {@code pNext} chain. */
+        public VkVideoCapabilitiesKHR.Buffer pNext(VkVideoEncodeQuantizationMapCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
     }
 

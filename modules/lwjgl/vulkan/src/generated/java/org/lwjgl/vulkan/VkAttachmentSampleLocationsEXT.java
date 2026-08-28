@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class VkAttachmentSampleLocationsEXT extends Struct<VkAttachmentSampleLoc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentSampleLocationsEXT createSafe(long address) {
+    public static @Nullable VkAttachmentSampleLocationsEXT createSafe(long address) {
         return address == NULL ? null : new VkAttachmentSampleLocationsEXT(address, null);
     }
 
@@ -198,8 +197,7 @@ public class VkAttachmentSampleLocationsEXT extends Struct<VkAttachmentSampleLoc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentSampleLocationsEXT.Buffer createSafe(long address, int capacity) {
+    public static VkAttachmentSampleLocationsEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,12 +261,12 @@ public class VkAttachmentSampleLocationsEXT extends Struct<VkAttachmentSampleLoc
     // -----------------------------------
 
     /** Unsafe version of {@link #attachmentIndex}. */
-    public static int nattachmentIndex(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentSampleLocationsEXT.ATTACHMENTINDEX); }
+    public static int nattachmentIndex(long struct) { return memGetInt(struct + VkAttachmentSampleLocationsEXT.ATTACHMENTINDEX); }
     /** Unsafe version of {@link #sampleLocationsInfo}. */
     public static VkSampleLocationsInfoEXT nsampleLocationsInfo(long struct) { return VkSampleLocationsInfoEXT.create(struct + VkAttachmentSampleLocationsEXT.SAMPLELOCATIONSINFO); }
 
     /** Unsafe version of {@link #attachmentIndex(int) attachmentIndex}. */
-    public static void nattachmentIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentSampleLocationsEXT.ATTACHMENTINDEX, value); }
+    public static void nattachmentIndex(long struct, int value) { memPutInt(struct + VkAttachmentSampleLocationsEXT.ATTACHMENTINDEX, value); }
     /** Unsafe version of {@link #sampleLocationsInfo(VkSampleLocationsInfoEXT) sampleLocationsInfo}. */
     public static void nsampleLocationsInfo(long struct, VkSampleLocationsInfoEXT value) { memCopy(value.address(), struct + VkAttachmentSampleLocationsEXT.SAMPLELOCATIONSINFO, VkSampleLocationsInfoEXT.SIZEOF); }
 
@@ -312,6 +310,11 @@ public class VkAttachmentSampleLocationsEXT extends Struct<VkAttachmentSampleLoc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

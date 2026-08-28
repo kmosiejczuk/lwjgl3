@@ -13,15 +13,15 @@ package org.lwjgl.vulkan;
  * <p>On top of replicating all the bits from {@code VkFormatFeatureFlagBits}, {@code VkFormatFeatureFlagBits2KHR} adds the following bits :</p>
  * 
  * <ul>
- * <li>{@link #VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR} and {@link #VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR} indicate that an implementation supports respectively reading and writing a given {@code VkFormat} through storage operations without specifying the format in the shader.</li>
- * <li>{@link #VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR} indicates that an implementation supports depth comparison performed by {@code OpImage*Dref*} instructions on a given {@code VkFormat}. Previously the result of executing a {@code OpImage*Dref*} instruction on an image view, where the {@code format} was not one of the depth/stencil formats with a depth component, was undefined. This bit clarifies on which formats such instructions can be used.</li>
+ * <li>{@link #VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR} and {@link #VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR} specify that an implementation supports reading and writing, respectively, a given {@code VkFormat} through storage operations without specifying the format in the shader.</li>
+ * <li>{@link #VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR} specifies that an implementation supports depth comparison performed by {@code OpImage*Dref*} instructions on a given {@code VkFormat}. Previously the result of executing a {@code OpImage*Dref*} instruction on an image view, where the {@code format} was not one of the depth/stencil formats with a depth component, was undefined. This bit clarifies on which formats such instructions can be used.</li>
  * </ul>
  * 
- * <p>Prior to version 2 of this extension, implementations exposing the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderStorageImageReadWithoutFormat">{@code shaderStorageImageReadWithoutFormat}</a> and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderStorageImageWriteWithoutFormat">{@code shaderStorageImageWriteWithoutFormat}</a> features may not report {@link #VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR} and {@link #VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR} in {@link VkFormatProperties3KHR}{@code ::bufferFeatures}. Despite this, buffer reads/writes are supported as intended by the original features.</p>
+ * <p>Prior to version 2 of this extension, implementations exposing the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderStorageImageReadWithoutFormat">{@code shaderStorageImageReadWithoutFormat}</a> and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderStorageImageWriteWithoutFormat">{@code shaderStorageImageWriteWithoutFormat}</a> features may not report {@link #VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR} and {@link #VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR} in {@link VkFormatProperties3KHR}{@code ::bufferFeatures}. Despite this, buffer reads/writes are supported as intended by the original features.</p>
  * 
  * <h5>Promotion to Vulkan 1.3</h5>
  * 
- * <p>Functionality in this extension is included in core Vulkan 1.3, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
+ * <p>Vulkan APIs in this extension are included in core Vulkan 1.3, with the KHR suffix omitted. External interactions defined by this extension, such as SPIR-V token names, retain their original names. The original Vulkan API names are still available as aliases of the core functionality.</p>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -33,10 +33,17 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>API Interactions</b></dt>
+ * <dd><ul>
+ * <li>Interacts with VK_VERSION_1_2</li>
+ * <li>Interacts with VK_EXT_filter_cubic</li>
+ * <li>Interacts with VK_EXT_sampler_filter_minmax</li>
+ * <li>Interacts with VK_IMG_filter_cubic</li>
+ * </ul></dd>
  * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
- * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
+ * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>

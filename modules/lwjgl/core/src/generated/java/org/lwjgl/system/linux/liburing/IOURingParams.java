@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,7 +161,7 @@ public class IOURingParams extends Struct<IOURingParams> implements NativeResour
     /** @return the value of the {@code sq_thread_idle} field. */
     @NativeType("__u32")
     public int sq_thread_idle() { return nsq_thread_idle(address()); }
-    /** filled in by the kernel, which specifies various features supported by current kernel version. One or more of:<br><table><tr><td>{@link LibIOURing#IORING_FEAT_SINGLE_MMAP FEAT_SINGLE_MMAP}</td><td>{@link LibIOURing#IORING_FEAT_NODROP FEAT_NODROP}</td><td>{@link LibIOURing#IORING_FEAT_SUBMIT_STABLE FEAT_SUBMIT_STABLE}</td><td>{@link LibIOURing#IORING_FEAT_RW_CUR_POS FEAT_RW_CUR_POS}</td><td>{@link LibIOURing#IORING_FEAT_CUR_PERSONALITY FEAT_CUR_PERSONALITY}</td></tr><tr><td>{@link LibIOURing#IORING_FEAT_FAST_POLL FEAT_FAST_POLL}</td><td>{@link LibIOURing#IORING_FEAT_POLL_32BITS FEAT_POLL_32BITS}</td><td>{@link LibIOURing#IORING_FEAT_SQPOLL_NONFIXED FEAT_SQPOLL_NONFIXED}</td><td>{@link LibIOURing#IORING_FEAT_EXT_ARG FEAT_EXT_ARG}</td><td>{@link LibIOURing#IORING_FEAT_NATIVE_WORKERS FEAT_NATIVE_WORKERS}</td></tr><tr><td>{@link LibIOURing#IORING_FEAT_RSRC_TAGS FEAT_RSRC_TAGS}</td><td>{@link LibIOURing#IORING_FEAT_CQE_SKIP FEAT_CQE_SKIP}</td><td>{@link LibIOURing#IORING_FEAT_LINKED_FILE FEAT_LINKED_FILE}</td><td>{@link LibIOURing#IORING_FEAT_REG_REG_RING FEAT_REG_REG_RING}</td></tr></table> */
+    /** filled in by the kernel, which specifies various features supported by current kernel version. One or more of:<br><table><tr><td>{@link LibIOURing#IORING_FEAT_SINGLE_MMAP FEAT_SINGLE_MMAP}</td><td>{@link LibIOURing#IORING_FEAT_NODROP FEAT_NODROP}</td><td>{@link LibIOURing#IORING_FEAT_SUBMIT_STABLE FEAT_SUBMIT_STABLE}</td><td>{@link LibIOURing#IORING_FEAT_RW_CUR_POS FEAT_RW_CUR_POS}</td><td>{@link LibIOURing#IORING_FEAT_CUR_PERSONALITY FEAT_CUR_PERSONALITY}</td></tr><tr><td>{@link LibIOURing#IORING_FEAT_FAST_POLL FEAT_FAST_POLL}</td><td>{@link LibIOURing#IORING_FEAT_POLL_32BITS FEAT_POLL_32BITS}</td><td>{@link LibIOURing#IORING_FEAT_SQPOLL_NONFIXED FEAT_SQPOLL_NONFIXED}</td><td>{@link LibIOURing#IORING_FEAT_EXT_ARG FEAT_EXT_ARG}</td><td>{@link LibIOURing#IORING_FEAT_NATIVE_WORKERS FEAT_NATIVE_WORKERS}</td></tr><tr><td>{@link LibIOURing#IORING_FEAT_RSRC_TAGS FEAT_RSRC_TAGS}</td><td>{@link LibIOURing#IORING_FEAT_CQE_SKIP FEAT_CQE_SKIP}</td><td>{@link LibIOURing#IORING_FEAT_LINKED_FILE FEAT_LINKED_FILE}</td><td>{@link LibIOURing#IORING_FEAT_REG_REG_RING FEAT_REG_REG_RING}</td><td>{@link LibIOURing#IORING_FEAT_RECVSEND_BUNDLE FEAT_RECVSEND_BUNDLE}</td></tr><tr><td>{@link LibIOURing#IORING_FEAT_MIN_TIMEOUT FEAT_MIN_TIMEOUT}</td></tr></table> */
     @NativeType("__u32")
     public int features() { return nfeatures(address()); }
     /** @return the value of the {@code wq_fd} field. */
@@ -270,8 +270,7 @@ public class IOURingParams extends Struct<IOURingParams> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingParams createSafe(long address) {
+    public static @Nullable IOURingParams createSafe(long address) {
         return address == NULL ? null : new IOURingParams(address, null);
     }
 
@@ -314,8 +313,7 @@ public class IOURingParams extends Struct<IOURingParams> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingParams.Buffer createSafe(long address, int capacity) {
+    public static IOURingParams.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -360,22 +358,22 @@ public class IOURingParams extends Struct<IOURingParams> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #sq_entries}. */
-    public static int nsq_entries(long struct) { return UNSAFE.getInt(null, struct + IOURingParams.SQ_ENTRIES); }
+    public static int nsq_entries(long struct) { return memGetInt(struct + IOURingParams.SQ_ENTRIES); }
     /** Unsafe version of {@link #cq_entries}. */
-    public static int ncq_entries(long struct) { return UNSAFE.getInt(null, struct + IOURingParams.CQ_ENTRIES); }
+    public static int ncq_entries(long struct) { return memGetInt(struct + IOURingParams.CQ_ENTRIES); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + IOURingParams.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + IOURingParams.FLAGS); }
     /** Unsafe version of {@link #sq_thread_cpu}. */
-    public static int nsq_thread_cpu(long struct) { return UNSAFE.getInt(null, struct + IOURingParams.SQ_THREAD_CPU); }
+    public static int nsq_thread_cpu(long struct) { return memGetInt(struct + IOURingParams.SQ_THREAD_CPU); }
     /** Unsafe version of {@link #sq_thread_idle}. */
-    public static int nsq_thread_idle(long struct) { return UNSAFE.getInt(null, struct + IOURingParams.SQ_THREAD_IDLE); }
+    public static int nsq_thread_idle(long struct) { return memGetInt(struct + IOURingParams.SQ_THREAD_IDLE); }
     /** Unsafe version of {@link #features}. */
-    public static int nfeatures(long struct) { return UNSAFE.getInt(null, struct + IOURingParams.FEATURES); }
+    public static int nfeatures(long struct) { return memGetInt(struct + IOURingParams.FEATURES); }
     /** Unsafe version of {@link #wq_fd}. */
-    public static int nwq_fd(long struct) { return UNSAFE.getInt(null, struct + IOURingParams.WQ_FD); }
+    public static int nwq_fd(long struct) { return memGetInt(struct + IOURingParams.WQ_FD); }
     public static IntBuffer nresv(long struct) { return memIntBuffer(struct + IOURingParams.RESV, 3); }
     public static int nresv(long struct, int index) {
-        return UNSAFE.getInt(null, struct + IOURingParams.RESV + check(index, 3) * 4);
+        return memGetInt(struct + IOURingParams.RESV + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #sq_off}. */
     public static IOSQRingOffsets nsq_off(long struct) { return IOSQRingOffsets.create(struct + IOURingParams.SQ_OFF); }
@@ -383,25 +381,25 @@ public class IOURingParams extends Struct<IOURingParams> implements NativeResour
     public static IOCQRingOffsets ncq_off(long struct) { return IOCQRingOffsets.create(struct + IOURingParams.CQ_OFF); }
 
     /** Unsafe version of {@link #sq_entries(int) sq_entries}. */
-    public static void nsq_entries(long struct, int value) { UNSAFE.putInt(null, struct + IOURingParams.SQ_ENTRIES, value); }
+    public static void nsq_entries(long struct, int value) { memPutInt(struct + IOURingParams.SQ_ENTRIES, value); }
     /** Unsafe version of {@link #cq_entries(int) cq_entries}. */
-    public static void ncq_entries(long struct, int value) { UNSAFE.putInt(null, struct + IOURingParams.CQ_ENTRIES, value); }
+    public static void ncq_entries(long struct, int value) { memPutInt(struct + IOURingParams.CQ_ENTRIES, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingParams.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + IOURingParams.FLAGS, value); }
     /** Unsafe version of {@link #sq_thread_cpu(int) sq_thread_cpu}. */
-    public static void nsq_thread_cpu(long struct, int value) { UNSAFE.putInt(null, struct + IOURingParams.SQ_THREAD_CPU, value); }
+    public static void nsq_thread_cpu(long struct, int value) { memPutInt(struct + IOURingParams.SQ_THREAD_CPU, value); }
     /** Unsafe version of {@link #sq_thread_idle(int) sq_thread_idle}. */
-    public static void nsq_thread_idle(long struct, int value) { UNSAFE.putInt(null, struct + IOURingParams.SQ_THREAD_IDLE, value); }
+    public static void nsq_thread_idle(long struct, int value) { memPutInt(struct + IOURingParams.SQ_THREAD_IDLE, value); }
     /** Unsafe version of {@link #features(int) features}. */
-    public static void nfeatures(long struct, int value) { UNSAFE.putInt(null, struct + IOURingParams.FEATURES, value); }
+    public static void nfeatures(long struct, int value) { memPutInt(struct + IOURingParams.FEATURES, value); }
     /** Unsafe version of {@link #wq_fd(int) wq_fd}. */
-    public static void nwq_fd(long struct, int value) { UNSAFE.putInt(null, struct + IOURingParams.WQ_FD, value); }
+    public static void nwq_fd(long struct, int value) { memPutInt(struct + IOURingParams.WQ_FD, value); }
     public static void nresv(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
         memCopy(memAddress(value), struct + IOURingParams.RESV, value.remaining() * 4);
     }
     public static void nresv(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + IOURingParams.RESV + check(index, 3) * 4, value);
+        memPutInt(struct + IOURingParams.RESV + check(index, 3) * 4, value);
     }
     /** Unsafe version of {@link #sq_off(IOSQRingOffsets) sq_off}. */
     public static void nsq_off(long struct, IOSQRingOffsets value) { memCopy(value.address(), struct + IOURingParams.SQ_OFF, IOSQRingOffsets.SIZEOF); }
@@ -439,6 +437,11 @@ public class IOURingParams extends Struct<IOURingParams> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

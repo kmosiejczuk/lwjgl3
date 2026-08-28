@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -140,8 +140,7 @@ public class IOURingFileIndexRange extends Struct<IOURingFileIndexRange> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingFileIndexRange createSafe(long address) {
+    public static @Nullable IOURingFileIndexRange createSafe(long address) {
         return address == NULL ? null : new IOURingFileIndexRange(address, null);
     }
 
@@ -184,8 +183,7 @@ public class IOURingFileIndexRange extends Struct<IOURingFileIndexRange> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingFileIndexRange.Buffer createSafe(long address, int capacity) {
+    public static IOURingFileIndexRange.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -230,16 +228,16 @@ public class IOURingFileIndexRange extends Struct<IOURingFileIndexRange> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #off}. */
-    public static int noff(long struct) { return UNSAFE.getInt(null, struct + IOURingFileIndexRange.OFF); }
+    public static int noff(long struct) { return memGetInt(struct + IOURingFileIndexRange.OFF); }
     /** Unsafe version of {@link #len}. */
-    public static int nlen(long struct) { return UNSAFE.getInt(null, struct + IOURingFileIndexRange.LEN); }
-    public static long nresv(long struct) { return UNSAFE.getLong(null, struct + IOURingFileIndexRange.RESV); }
+    public static int nlen(long struct) { return memGetInt(struct + IOURingFileIndexRange.LEN); }
+    public static long nresv(long struct) { return memGetLong(struct + IOURingFileIndexRange.RESV); }
 
     /** Unsafe version of {@link #off(int) off}. */
-    public static void noff(long struct, int value) { UNSAFE.putInt(null, struct + IOURingFileIndexRange.OFF, value); }
+    public static void noff(long struct, int value) { memPutInt(struct + IOURingFileIndexRange.OFF, value); }
     /** Unsafe version of {@link #len(int) len}. */
-    public static void nlen(long struct, int value) { UNSAFE.putInt(null, struct + IOURingFileIndexRange.LEN, value); }
-    public static void nresv(long struct, long value) { UNSAFE.putLong(null, struct + IOURingFileIndexRange.RESV, value); }
+    public static void nlen(long struct, int value) { memPutInt(struct + IOURingFileIndexRange.LEN, value); }
+    public static void nresv(long struct, long value) { memPutLong(struct + IOURingFileIndexRange.RESV, value); }
 
     // -----------------------------------
 
@@ -272,6 +270,11 @@ public class IOURingFileIndexRange extends Struct<IOURingFileIndexRange> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

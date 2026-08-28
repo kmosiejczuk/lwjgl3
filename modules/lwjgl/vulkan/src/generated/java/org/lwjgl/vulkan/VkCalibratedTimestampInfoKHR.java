@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class VkCalibratedTimestampInfoKHR extends Struct<VkCalibratedTimestampIn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCalibratedTimestampInfoKHR createSafe(long address) {
+    public static @Nullable VkCalibratedTimestampInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkCalibratedTimestampInfoKHR(address, null);
     }
 
@@ -208,8 +207,7 @@ public class VkCalibratedTimestampInfoKHR extends Struct<VkCalibratedTimestampIn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCalibratedTimestampInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkCalibratedTimestampInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,18 +252,18 @@ public class VkCalibratedTimestampInfoKHR extends Struct<VkCalibratedTimestampIn
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCalibratedTimestampInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCalibratedTimestampInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCalibratedTimestampInfoKHR.PNEXT); }
     /** Unsafe version of {@link #timeDomain}. */
-    public static int ntimeDomain(long struct) { return UNSAFE.getInt(null, struct + VkCalibratedTimestampInfoKHR.TIMEDOMAIN); }
+    public static int ntimeDomain(long struct) { return memGetInt(struct + VkCalibratedTimestampInfoKHR.TIMEDOMAIN); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCalibratedTimestampInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCalibratedTimestampInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCalibratedTimestampInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #timeDomain(int) timeDomain}. */
-    public static void ntimeDomain(long struct, int value) { UNSAFE.putInt(null, struct + VkCalibratedTimestampInfoKHR.TIMEDOMAIN, value); }
+    public static void ntimeDomain(long struct, int value) { memPutInt(struct + VkCalibratedTimestampInfoKHR.TIMEDOMAIN, value); }
 
     // -----------------------------------
 
@@ -298,6 +296,11 @@ public class VkCalibratedTimestampInfoKHR extends Struct<VkCalibratedTimestampIn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class XrSpaceComponentStatusFB extends Struct<XrSpaceComponentStatusFB> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceComponentStatusFB createSafe(long address) {
+    public static @Nullable XrSpaceComponentStatusFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceComponentStatusFB(address, null);
     }
 
@@ -209,8 +208,7 @@ public class XrSpaceComponentStatusFB extends Struct<XrSpaceComponentStatusFB> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceComponentStatusFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceComponentStatusFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,16 +253,16 @@ public class XrSpaceComponentStatusFB extends Struct<XrSpaceComponentStatusFB> i
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentStatusFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceComponentStatusFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceComponentStatusFB.NEXT); }
     /** Unsafe version of {@link #enabled}. */
-    public static int nenabled(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentStatusFB.ENABLED); }
+    public static int nenabled(long struct) { return memGetInt(struct + XrSpaceComponentStatusFB.ENABLED); }
     /** Unsafe version of {@link #changePending}. */
-    public static int nchangePending(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentStatusFB.CHANGEPENDING); }
+    public static int nchangePending(long struct) { return memGetInt(struct + XrSpaceComponentStatusFB.CHANGEPENDING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentStatusFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceComponentStatusFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceComponentStatusFB.NEXT, value); }
 
@@ -299,6 +297,11 @@ public class XrSpaceComponentStatusFB extends Struct<XrSpaceComponentStatusFB> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

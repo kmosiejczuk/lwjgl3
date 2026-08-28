@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -136,8 +136,7 @@ public class TT_Postscript extends Struct<TT_Postscript> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static TT_Postscript createSafe(long address) {
+    public static @Nullable TT_Postscript createSafe(long address) {
         return address == NULL ? null : new TT_Postscript(address, null);
     }
 
@@ -152,8 +151,7 @@ public class TT_Postscript extends Struct<TT_Postscript> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static TT_Postscript.Buffer createSafe(long address, int capacity) {
+    public static TT_Postscript.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -164,9 +162,9 @@ public class TT_Postscript extends Struct<TT_Postscript> {
     /** Unsafe version of {@link #italicAngle}. */
     public static long nitalicAngle(long struct) { return memGetCLong(struct + TT_Postscript.ITALICANGLE); }
     /** Unsafe version of {@link #underlinePosition}. */
-    public static short nunderlinePosition(long struct) { return UNSAFE.getShort(null, struct + TT_Postscript.UNDERLINEPOSITION); }
+    public static short nunderlinePosition(long struct) { return memGetShort(struct + TT_Postscript.UNDERLINEPOSITION); }
     /** Unsafe version of {@link #underlineThickness}. */
-    public static short nunderlineThickness(long struct) { return UNSAFE.getShort(null, struct + TT_Postscript.UNDERLINETHICKNESS); }
+    public static short nunderlineThickness(long struct) { return memGetShort(struct + TT_Postscript.UNDERLINETHICKNESS); }
     /** Unsafe version of {@link #isFixedPitch}. */
     public static long nisFixedPitch(long struct) { return memGetCLong(struct + TT_Postscript.ISFIXEDPITCH); }
     /** Unsafe version of {@link #minMemType42}. */
@@ -209,6 +207,11 @@ public class TT_Postscript extends Struct<TT_Postscript> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

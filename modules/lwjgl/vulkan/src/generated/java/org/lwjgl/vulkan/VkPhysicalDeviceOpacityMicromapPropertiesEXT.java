@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkPhysicalDeviceOpacityMicromapPropertiesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceOpacityMicromapPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceOpacityMicromapPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceOpacityMicromapPropertiesEXT(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkPhysicalDeviceOpacityMicromapPropertiesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceOpacityMicromapPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceOpacityMicromapPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,16 +247,16 @@ public class VkPhysicalDeviceOpacityMicromapPropertiesEXT extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpacityMicromapPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceOpacityMicromapPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceOpacityMicromapPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #maxOpacity2StateSubdivisionLevel}. */
-    public static int nmaxOpacity2StateSubdivisionLevel(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpacityMicromapPropertiesEXT.MAXOPACITY2STATESUBDIVISIONLEVEL); }
+    public static int nmaxOpacity2StateSubdivisionLevel(long struct) { return memGetInt(struct + VkPhysicalDeviceOpacityMicromapPropertiesEXT.MAXOPACITY2STATESUBDIVISIONLEVEL); }
     /** Unsafe version of {@link #maxOpacity4StateSubdivisionLevel}. */
-    public static int nmaxOpacity4StateSubdivisionLevel(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpacityMicromapPropertiesEXT.MAXOPACITY4STATESUBDIVISIONLEVEL); }
+    public static int nmaxOpacity4StateSubdivisionLevel(long struct) { return memGetInt(struct + VkPhysicalDeviceOpacityMicromapPropertiesEXT.MAXOPACITY4STATESUBDIVISIONLEVEL); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceOpacityMicromapPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceOpacityMicromapPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceOpacityMicromapPropertiesEXT.PNEXT, value); }
 
@@ -293,6 +291,11 @@ public class VkPhysicalDeviceOpacityMicromapPropertiesEXT extends Struct<VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

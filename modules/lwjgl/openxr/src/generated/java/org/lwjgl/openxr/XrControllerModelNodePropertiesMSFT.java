@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -188,8 +188,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrControllerModelNodePropertiesMSFT createSafe(long address) {
+    public static @Nullable XrControllerModelNodePropertiesMSFT createSafe(long address) {
         return address == NULL ? null : new XrControllerModelNodePropertiesMSFT(address, null);
     }
 
@@ -232,8 +231,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrControllerModelNodePropertiesMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrControllerModelNodePropertiesMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -278,7 +276,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrControllerModelNodePropertiesMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrControllerModelNodePropertiesMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrControllerModelNodePropertiesMSFT.NEXT); }
     /** Unsafe version of {@link #parentNodeName}. */
@@ -291,7 +289,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
     public static String nnodeNameString(long struct) { return memUTF8(struct + XrControllerModelNodePropertiesMSFT.NODENAME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrControllerModelNodePropertiesMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrControllerModelNodePropertiesMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrControllerModelNodePropertiesMSFT.NEXT, value); }
     /** Unsafe version of {@link #parentNodeName(ByteBuffer) parentNodeName}. */
@@ -342,6 +340,11 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

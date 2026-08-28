@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -186,8 +186,7 @@ public class XrEventDataReferenceSpaceChangePending extends Struct<XrEventDataRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataReferenceSpaceChangePending createSafe(long address) {
+    public static @Nullable XrEventDataReferenceSpaceChangePending createSafe(long address) {
         return address == NULL ? null : new XrEventDataReferenceSpaceChangePending(address, null);
     }
 
@@ -235,8 +234,7 @@ public class XrEventDataReferenceSpaceChangePending extends Struct<XrEventDataRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataReferenceSpaceChangePending.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataReferenceSpaceChangePending.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,22 +284,22 @@ public class XrEventDataReferenceSpaceChangePending extends Struct<XrEventDataRe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataReferenceSpaceChangePending.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataReferenceSpaceChangePending.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataReferenceSpaceChangePending.NEXT); }
     /** Unsafe version of {@link #session}. */
     public static long nsession(long struct) { return memGetAddress(struct + XrEventDataReferenceSpaceChangePending.SESSION); }
     /** Unsafe version of {@link #referenceSpaceType}. */
-    public static int nreferenceSpaceType(long struct) { return UNSAFE.getInt(null, struct + XrEventDataReferenceSpaceChangePending.REFERENCESPACETYPE); }
+    public static int nreferenceSpaceType(long struct) { return memGetInt(struct + XrEventDataReferenceSpaceChangePending.REFERENCESPACETYPE); }
     /** Unsafe version of {@link #changeTime}. */
-    public static long nchangeTime(long struct) { return UNSAFE.getLong(null, struct + XrEventDataReferenceSpaceChangePending.CHANGETIME); }
+    public static long nchangeTime(long struct) { return memGetLong(struct + XrEventDataReferenceSpaceChangePending.CHANGETIME); }
     /** Unsafe version of {@link #poseValid}. */
-    public static int nposeValid(long struct) { return UNSAFE.getInt(null, struct + XrEventDataReferenceSpaceChangePending.POSEVALID); }
+    public static int nposeValid(long struct) { return memGetInt(struct + XrEventDataReferenceSpaceChangePending.POSEVALID); }
     /** Unsafe version of {@link #poseInPreviousSpace}. */
     public static XrPosef nposeInPreviousSpace(long struct) { return XrPosef.create(struct + XrEventDataReferenceSpaceChangePending.POSEINPREVIOUSSPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataReferenceSpaceChangePending.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataReferenceSpaceChangePending.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataReferenceSpaceChangePending.NEXT, value); }
 
@@ -336,6 +334,11 @@ public class XrEventDataReferenceSpaceChangePending extends Struct<XrEventDataRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

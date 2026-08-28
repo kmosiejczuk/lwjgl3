@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -182,8 +182,7 @@ public class CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC extends Struct<CUDA_EXTERNAL_SE
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC createSafe(long address) {
+    public static @Nullable CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC createSafe(long address) {
         return address == NULL ? null : new CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC(address, null);
     }
 
@@ -226,8 +225,7 @@ public class CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC extends Struct<CUDA_EXTERNAL_SE
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.Buffer createSafe(long address, int capacity) {
+    public static CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -291,9 +289,9 @@ public class CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC extends Struct<CUDA_EXTERNAL_SE
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.TYPE); }
     /** Unsafe version of {@link #handle_fd}. */
-    public static int nhandle_fd(long struct) { return UNSAFE.getInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.HANDLE_FD); }
+    public static int nhandle_fd(long struct) { return memGetInt(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.HANDLE_FD); }
     /** Unsafe version of {@link #handle_win32_handle}. */
     public static long nhandle_win32_handle(long struct) { return memGetAddress(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.HANDLE_WIN32_HANDLE); }
     /** Unsafe version of {@link #handle_win32_name}. */
@@ -301,18 +299,18 @@ public class CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC extends Struct<CUDA_EXTERNAL_SE
     /** Unsafe version of {@link #handle_nvSciSyncObj}. */
     public static long nhandle_nvSciSyncObj(long struct) { return memGetAddress(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.HANDLE_NVSCISYNCOBJ); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.FLAGS); }
     /** Unsafe version of {@link #reserved}. */
     public static IntBuffer nreserved(long struct) { return memIntBuffer(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.RESERVED, 16); }
     /** Unsafe version of {@link #reserved(int) reserved}. */
     public static int nreserved(long struct, int index) {
-        return UNSAFE.getInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.RESERVED + check(index, 16) * 4);
+        return memGetInt(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.RESERVED + check(index, 16) * 4);
     }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.TYPE, value); }
     /** Unsafe version of {@link #handle_fd(int) handle_fd}. */
-    public static void nhandle_fd(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.HANDLE_FD, value); }
+    public static void nhandle_fd(long struct, int value) { memPutInt(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.HANDLE_FD, value); }
     /** Unsafe version of {@link #handle_win32_handle(long) handle_win32_handle}. */
     public static void nhandle_win32_handle(long struct, long value) { memPutAddress(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.HANDLE_WIN32_HANDLE, value); }
     /** Unsafe version of {@link #handle_win32_name(long) handle_win32_name}. */
@@ -320,7 +318,7 @@ public class CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC extends Struct<CUDA_EXTERNAL_SE
     /** Unsafe version of {@link #handle_nvSciSyncObj(long) handle_nvSciSyncObj}. */
     public static void nhandle_nvSciSyncObj(long struct, long value) { memPutAddress(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.HANDLE_NVSCISYNCOBJ, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.FLAGS, value); }
     /** Unsafe version of {@link #reserved(IntBuffer) reserved}. */
     public static void nreserved(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 16); }
@@ -328,7 +326,7 @@ public class CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC extends Struct<CUDA_EXTERNAL_SE
     }
     /** Unsafe version of {@link #reserved(int, int) reserved}. */
     public static void nreserved(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.RESERVED + check(index, 16) * 4, value);
+        memPutInt(struct + CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC.RESERVED + check(index, 16) * 4, value);
     }
 
     // -----------------------------------
@@ -362,6 +360,11 @@ public class CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC extends Struct<CUDA_EXTERNAL_SE
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

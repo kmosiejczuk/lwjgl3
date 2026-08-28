@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -170,8 +170,7 @@ public class XrFoveationEyeTrackedStateMETA extends Struct<XrFoveationEyeTracked
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationEyeTrackedStateMETA createSafe(long address) {
+    public static @Nullable XrFoveationEyeTrackedStateMETA createSafe(long address) {
         return address == NULL ? null : new XrFoveationEyeTrackedStateMETA(address, null);
     }
 
@@ -214,8 +213,7 @@ public class XrFoveationEyeTrackedStateMETA extends Struct<XrFoveationEyeTracked
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationEyeTrackedStateMETA.Buffer createSafe(long address, int capacity) {
+    public static XrFoveationEyeTrackedStateMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,7 +258,7 @@ public class XrFoveationEyeTrackedStateMETA extends Struct<XrFoveationEyeTracked
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFoveationEyeTrackedStateMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFoveationEyeTrackedStateMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFoveationEyeTrackedStateMETA.NEXT); }
     /** Unsafe version of {@link #foveationCenter}. */
@@ -270,10 +268,10 @@ public class XrFoveationEyeTrackedStateMETA extends Struct<XrFoveationEyeTracked
         return XrVector2f.create(struct + XrFoveationEyeTrackedStateMETA.FOVEATIONCENTER + check(index, XR_FOVEATION_CENTER_SIZE_META) * XrVector2f.SIZEOF);
     }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrFoveationEyeTrackedStateMETA.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrFoveationEyeTrackedStateMETA.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationEyeTrackedStateMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFoveationEyeTrackedStateMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFoveationEyeTrackedStateMETA.NEXT, value); }
 
@@ -308,6 +306,11 @@ public class XrFoveationEyeTrackedStateMETA extends Struct<XrFoveationEyeTracked
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

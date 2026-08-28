@@ -25,7 +25,7 @@ val EXT_descriptor_indexing = "EXTDescriptorIndexing".nativeClassVK("EXT_descrip
         There are new descriptor set layout and descriptor pool creation flags that are required to opt in to the update-after-bind functionality, and there are separate {@code maxPerStage}* and {@code maxDescriptorSet}* limits that apply to these descriptor set layouts which <b>may</b> be much higher than the pre-existing limits. The old limits only count descriptors in non-updateAfterBind descriptor set layouts, and the new limits count descriptors in all descriptor set layouts in the pipeline layout.
 
         <h5>Promotion to Vulkan 1.2</h5>
-        Functionality in this extension is included in core Vulkan 1.2, with the EXT suffix omitted. However, if Vulkan 1.2 is supported and this extension is not, the {@code descriptorIndexing} capability is optional. The original type, enum and command names are still available as aliases of the core functionality.
+        Vulkan APIs in this extension are included in core Vulkan 1.2, with the EXT suffix omitted. However, if Vulkan 1.2 is supported and this extension is not, the {@code descriptorIndexing} capability is optional. External interactions defined by this extension, such as SPIR-V token names, retain their original names. The original Vulkan API names are still available as aliases of the core functionality.
 
         <dl>
             <dt><b>Name String</b></dt>
@@ -41,7 +41,7 @@ val EXT_descriptor_indexing = "EXTDescriptorIndexing".nativeClassVK("EXT_descrip
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRMaintenance3 VK_KHR_maintenance3} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRMaintenance3 VK_KHR_maintenance3} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>SPIR-V Dependencies</b></dt>
             <dd><ul>
@@ -50,7 +50,7 @@ val EXT_descriptor_indexing = "EXTDescriptorIndexing".nativeClassVK("EXT_descrip
 
             <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

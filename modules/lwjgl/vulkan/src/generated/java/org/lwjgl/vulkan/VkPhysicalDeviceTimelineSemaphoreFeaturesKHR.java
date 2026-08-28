@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -111,8 +111,7 @@ public class VkPhysicalDeviceTimelineSemaphoreFeaturesKHR extends VkPhysicalDevi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTimelineSemaphoreFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceTimelineSemaphoreFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceTimelineSemaphoreFeaturesKHR(address, null);
     }
 
@@ -155,8 +154,7 @@ public class VkPhysicalDeviceTimelineSemaphoreFeaturesKHR extends VkPhysicalDevi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTimelineSemaphoreFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceTimelineSemaphoreFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,6 +227,11 @@ public class VkPhysicalDeviceTimelineSemaphoreFeaturesKHR extends VkPhysicalDevi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

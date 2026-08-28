@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -85,8 +85,7 @@ public class CXTUResourceUsageEntry extends Struct<CXTUResourceUsageEntry> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXTUResourceUsageEntry createSafe(long address) {
+    public static @Nullable CXTUResourceUsageEntry createSafe(long address) {
         return address == NULL ? null : new CXTUResourceUsageEntry(address, null);
     }
 
@@ -101,15 +100,14 @@ public class CXTUResourceUsageEntry extends Struct<CXTUResourceUsageEntry> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXTUResourceUsageEntry.Buffer createSafe(long address, int capacity) {
+    public static CXTUResourceUsageEntry.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #kind}. */
-    public static int nkind(long struct) { return UNSAFE.getInt(null, struct + CXTUResourceUsageEntry.KIND); }
+    public static int nkind(long struct) { return memGetInt(struct + CXTUResourceUsageEntry.KIND); }
     /** Unsafe version of {@link #amount}. */
     public static long namount(long struct) { return memGetCLong(struct + CXTUResourceUsageEntry.AMOUNT); }
 
@@ -144,6 +142,11 @@ public class CXTUResourceUsageEntry extends Struct<CXTUResourceUsageEntry> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

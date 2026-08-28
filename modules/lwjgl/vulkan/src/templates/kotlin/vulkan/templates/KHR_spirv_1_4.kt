@@ -18,7 +18,7 @@ val KHR_spirv_1_4 = "KHRSpirv14".nativeClassVK("KHR_spirv_1_4", type = "device",
         SPIR-V 1.4 introduces new floating-point execution mode capabilities, also available via {@code SPV_KHR_float_controls}. Implementations are not required to support all of these new capabilities; support can be queried using ##VkPhysicalDeviceFloatControlsPropertiesKHR from the {@link KHRShaderFloatControls VK_KHR_shader_float_controls} extension.
 
         <h5>Promotion to Vulkan 1.2</h5>
-        All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
+        All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. The original type, enum, and command names are still available as aliases of the core functionality.
 
         <dl>
             <dt><b>Name String</b></dt>
@@ -34,11 +34,11 @@ val KHR_spirv_1_4 = "KHRSpirv14".nativeClassVK("KHR_spirv_1_4", type = "device",
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRShaderFloatControls VK_KHR_shader_float_controls}</dd>
+            <dd><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRShaderFloatControls VK_KHR_shader_float_controls}</dd>
 
             <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -35,8 +35,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code handleType} <b>must</b> be a value included in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-fence-handletypes-fd">Handle Types Supported by {@link VkImportFenceFdInfoKHR}</a> table</li>
- * <li>{@code fd} <b>must</b> obey any requirements listed for {@code handleType} in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#external-fence-handle-types-compatibility">external fence handle types compatibility</a></li>
+ * <li>{@code handleType} <b>must</b> be a value included in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-fence-handletypes-fd">Handle Types Supported by {@link VkImportFenceFdInfoKHR}</a> table</li>
+ * <li>{@code fd} <b>must</b> obey any requirements listed for {@code handleType} in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#external-fence-handle-types-compatibility">external fence handle types compatibility</a></li>
  * <li>If {@code handleType} refers to a handle type with copy payload transference semantics, {@code flags} <b>must</b> contain {@link VK11#VK_FENCE_IMPORT_TEMPORARY_BIT FENCE_IMPORT_TEMPORARY_BIT}</li>
  * </ul>
  * 
@@ -227,8 +227,7 @@ public class VkImportFenceFdInfoKHR extends Struct<VkImportFenceFdInfoKHR> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportFenceFdInfoKHR createSafe(long address) {
+    public static @Nullable VkImportFenceFdInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkImportFenceFdInfoKHR(address, null);
     }
 
@@ -271,8 +270,7 @@ public class VkImportFenceFdInfoKHR extends Struct<VkImportFenceFdInfoKHR> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportFenceFdInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkImportFenceFdInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -336,30 +334,30 @@ public class VkImportFenceFdInfoKHR extends Struct<VkImportFenceFdInfoKHR> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImportFenceFdInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImportFenceFdInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImportFenceFdInfoKHR.PNEXT); }
     /** Unsafe version of {@link #fence}. */
-    public static long nfence(long struct) { return UNSAFE.getLong(null, struct + VkImportFenceFdInfoKHR.FENCE); }
+    public static long nfence(long struct) { return memGetLong(struct + VkImportFenceFdInfoKHR.FENCE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkImportFenceFdInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkImportFenceFdInfoKHR.FLAGS); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkImportFenceFdInfoKHR.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkImportFenceFdInfoKHR.HANDLETYPE); }
     /** Unsafe version of {@link #fd}. */
-    public static int nfd(long struct) { return UNSAFE.getInt(null, struct + VkImportFenceFdInfoKHR.FD); }
+    public static int nfd(long struct) { return memGetInt(struct + VkImportFenceFdInfoKHR.FD); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportFenceFdInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImportFenceFdInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImportFenceFdInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #fence(long) fence}. */
-    public static void nfence(long struct, long value) { UNSAFE.putLong(null, struct + VkImportFenceFdInfoKHR.FENCE, value); }
+    public static void nfence(long struct, long value) { memPutLong(struct + VkImportFenceFdInfoKHR.FENCE, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkImportFenceFdInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkImportFenceFdInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportFenceFdInfoKHR.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkImportFenceFdInfoKHR.HANDLETYPE, value); }
     /** Unsafe version of {@link #fd(int) fd}. */
-    public static void nfd(long struct, int value) { UNSAFE.putInt(null, struct + VkImportFenceFdInfoKHR.FD, value); }
+    public static void nfd(long struct, int value) { memPutInt(struct + VkImportFenceFdInfoKHR.FD, value); }
 
     // -----------------------------------
 
@@ -392,6 +390,11 @@ public class VkImportFenceFdInfoKHR extends Struct<VkImportFenceFdInfoKHR> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

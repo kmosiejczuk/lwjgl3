@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,7 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a indirect dispatching command.
+ * Structure specifying an indirect dispatching command.
  * 
  * <h5>Description</h5>
  * 
@@ -160,8 +160,7 @@ public class VkDispatchIndirectCommand extends Struct<VkDispatchIndirectCommand>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDispatchIndirectCommand createSafe(long address) {
+    public static @Nullable VkDispatchIndirectCommand createSafe(long address) {
         return address == NULL ? null : new VkDispatchIndirectCommand(address, null);
     }
 
@@ -204,8 +203,7 @@ public class VkDispatchIndirectCommand extends Struct<VkDispatchIndirectCommand>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDispatchIndirectCommand.Buffer createSafe(long address, int capacity) {
+    public static VkDispatchIndirectCommand.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,18 +267,18 @@ public class VkDispatchIndirectCommand extends Struct<VkDispatchIndirectCommand>
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + VkDispatchIndirectCommand.X); }
+    public static int nx(long struct) { return memGetInt(struct + VkDispatchIndirectCommand.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + VkDispatchIndirectCommand.Y); }
+    public static int ny(long struct) { return memGetInt(struct + VkDispatchIndirectCommand.Y); }
     /** Unsafe version of {@link #z}. */
-    public static int nz(long struct) { return UNSAFE.getInt(null, struct + VkDispatchIndirectCommand.Z); }
+    public static int nz(long struct) { return memGetInt(struct + VkDispatchIndirectCommand.Z); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + VkDispatchIndirectCommand.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + VkDispatchIndirectCommand.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + VkDispatchIndirectCommand.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + VkDispatchIndirectCommand.Y, value); }
     /** Unsafe version of {@link #z(int) z}. */
-    public static void nz(long struct, int value) { UNSAFE.putInt(null, struct + VkDispatchIndirectCommand.Z, value); }
+    public static void nz(long struct, int value) { memPutInt(struct + VkDispatchIndirectCommand.Z, value); }
 
     // -----------------------------------
 
@@ -313,6 +311,11 @@ public class VkDispatchIndirectCommand extends Struct<VkDispatchIndirectCommand>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

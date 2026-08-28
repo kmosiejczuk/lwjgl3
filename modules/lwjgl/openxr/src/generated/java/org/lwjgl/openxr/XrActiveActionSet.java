@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -148,8 +148,7 @@ public class XrActiveActionSet extends Struct<XrActiveActionSet> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActiveActionSet createSafe(long address) {
+    public static @Nullable XrActiveActionSet createSafe(long address) {
         return address == NULL ? null : new XrActiveActionSet(address, null);
     }
 
@@ -192,8 +191,7 @@ public class XrActiveActionSet extends Struct<XrActiveActionSet> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActiveActionSet.Buffer createSafe(long address, int capacity) {
+    public static XrActiveActionSet.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,12 +238,12 @@ public class XrActiveActionSet extends Struct<XrActiveActionSet> implements Nati
     /** Unsafe version of {@link #actionSet}. */
     public static long nactionSet(long struct) { return memGetAddress(struct + XrActiveActionSet.ACTIONSET); }
     /** Unsafe version of {@link #subactionPath}. */
-    public static long nsubactionPath(long struct) { return UNSAFE.getLong(null, struct + XrActiveActionSet.SUBACTIONPATH); }
+    public static long nsubactionPath(long struct) { return memGetLong(struct + XrActiveActionSet.SUBACTIONPATH); }
 
     /** Unsafe version of {@link #actionSet(XrActionSet) actionSet}. */
     public static void nactionSet(long struct, XrActionSet value) { memPutAddress(struct + XrActiveActionSet.ACTIONSET, value.address()); }
     /** Unsafe version of {@link #subactionPath(long) subactionPath}. */
-    public static void nsubactionPath(long struct, long value) { UNSAFE.putLong(null, struct + XrActiveActionSet.SUBACTIONPATH, value); }
+    public static void nsubactionPath(long struct, long value) { memPutLong(struct + XrActiveActionSet.SUBACTIONPATH, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -287,6 +285,11 @@ public class XrActiveActionSet extends Struct<XrActiveActionSet> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

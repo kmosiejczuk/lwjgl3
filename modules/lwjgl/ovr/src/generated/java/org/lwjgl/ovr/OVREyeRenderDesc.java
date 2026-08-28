@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -128,8 +128,7 @@ public class OVREyeRenderDesc extends Struct<OVREyeRenderDesc> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVREyeRenderDesc createSafe(long address) {
+    public static @Nullable OVREyeRenderDesc createSafe(long address) {
         return address == NULL ? null : new OVREyeRenderDesc(address, null);
     }
 
@@ -172,8 +171,7 @@ public class OVREyeRenderDesc extends Struct<OVREyeRenderDesc> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVREyeRenderDesc.Buffer createSafe(long address, int capacity) {
+    public static OVREyeRenderDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,7 +235,7 @@ public class OVREyeRenderDesc extends Struct<OVREyeRenderDesc> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #Eye}. */
-    public static int nEye(long struct) { return UNSAFE.getInt(null, struct + OVREyeRenderDesc.EYE); }
+    public static int nEye(long struct) { return memGetInt(struct + OVREyeRenderDesc.EYE); }
     /** Unsafe version of {@link #Fov}. */
     public static OVRFovPort nFov(long struct) { return OVRFovPort.create(struct + OVREyeRenderDesc.FOV); }
     /** Unsafe version of {@link #DistortedViewport}. */
@@ -278,6 +276,11 @@ public class OVREyeRenderDesc extends Struct<OVREyeRenderDesc> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

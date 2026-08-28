@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Chromaticity coordinates are as specified in CIE 15:2004 “{@code Calculation of chromaticity coordinates}” (Section 7.3) and are limited to between 0 and 1 for real colors for the reference monitor.</p>
+ * <p>Chromaticity coordinates are as specified in CIE 15:2004 “{@code Calculation of chromaticity coordinates}” (Section 7.3) and are limited to between 0 and 1 for real colors.</p>
  * 
  * <h5>See Also</h5>
  * 
@@ -139,8 +139,7 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkXYColorEXT createSafe(long address) {
+    public static @Nullable VkXYColorEXT createSafe(long address) {
         return address == NULL ? null : new VkXYColorEXT(address, null);
     }
 
@@ -183,8 +182,7 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkXYColorEXT.Buffer createSafe(long address, int capacity) {
+    public static VkXYColorEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +246,14 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + VkXYColorEXT.X); }
+    public static float nx(long struct) { return memGetFloat(struct + VkXYColorEXT.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + VkXYColorEXT.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + VkXYColorEXT.Y); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + VkXYColorEXT.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + VkXYColorEXT.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + VkXYColorEXT.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + VkXYColorEXT.Y, value); }
 
     // -----------------------------------
 
@@ -288,6 +286,11 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

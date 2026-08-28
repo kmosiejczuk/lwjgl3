@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -289,8 +289,7 @@ public class VREventData extends Struct<VREventData> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventData createSafe(long address) {
+    public static @Nullable VREventData createSafe(long address) {
         return address == NULL ? null : new VREventData(address, null);
     }
 
@@ -305,8 +304,7 @@ public class VREventData extends Struct<VREventData> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventData.Buffer createSafe(long address, int capacity) {
+    public static VREventData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -406,6 +404,11 @@ public class VREventData extends Struct<VREventData> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

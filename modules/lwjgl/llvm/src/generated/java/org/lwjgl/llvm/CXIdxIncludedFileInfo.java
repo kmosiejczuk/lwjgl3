@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class CXIdxIncludedFileInfo extends Struct<CXIdxIncludedFileInfo> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxIncludedFileInfo createSafe(long address) {
+    public static @Nullable CXIdxIncludedFileInfo createSafe(long address) {
         return address == NULL ? null : new CXIdxIncludedFileInfo(address, null);
     }
 
@@ -133,8 +132,7 @@ public class CXIdxIncludedFileInfo extends Struct<CXIdxIncludedFileInfo> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxIncludedFileInfo.Buffer createSafe(long address, int capacity) {
+    public static CXIdxIncludedFileInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -149,11 +147,11 @@ public class CXIdxIncludedFileInfo extends Struct<CXIdxIncludedFileInfo> {
     /** Unsafe version of {@link #file}. */
     public static long nfile(long struct) { return memGetAddress(struct + CXIdxIncludedFileInfo.FILE); }
     /** Unsafe version of {@link #isImport}. */
-    public static int nisImport(long struct) { return UNSAFE.getInt(null, struct + CXIdxIncludedFileInfo.ISIMPORT); }
+    public static int nisImport(long struct) { return memGetInt(struct + CXIdxIncludedFileInfo.ISIMPORT); }
     /** Unsafe version of {@link #isAngled}. */
-    public static int nisAngled(long struct) { return UNSAFE.getInt(null, struct + CXIdxIncludedFileInfo.ISANGLED); }
+    public static int nisAngled(long struct) { return memGetInt(struct + CXIdxIncludedFileInfo.ISANGLED); }
     /** Unsafe version of {@link #isModuleImport}. */
-    public static int nisModuleImport(long struct) { return UNSAFE.getInt(null, struct + CXIdxIncludedFileInfo.ISMODULEIMPORT); }
+    public static int nisModuleImport(long struct) { return memGetInt(struct + CXIdxIncludedFileInfo.ISMODULEIMPORT); }
 
     // -----------------------------------
 
@@ -186,6 +184,11 @@ public class CXIdxIncludedFileInfo extends Struct<CXIdxIncludedFileInfo> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

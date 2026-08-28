@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -113,8 +113,7 @@ public class OVRAudioChannelData extends Struct<OVRAudioChannelData> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRAudioChannelData createSafe(long address) {
+    public static @Nullable OVRAudioChannelData createSafe(long address) {
         return address == NULL ? null : new OVRAudioChannelData(address, null);
     }
 
@@ -157,8 +156,7 @@ public class OVRAudioChannelData extends Struct<OVRAudioChannelData> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRAudioChannelData.Buffer createSafe(long address, int capacity) {
+    public static OVRAudioChannelData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -224,9 +222,9 @@ public class OVRAudioChannelData extends Struct<OVRAudioChannelData> implements 
     /** Unsafe version of {@link #Samples() Samples}. */
     public static FloatBuffer nSamples(long struct) { return memFloatBuffer(memGetAddress(struct + OVRAudioChannelData.SAMPLES), nSamplesCount(struct)); }
     /** Unsafe version of {@link #SamplesCount}. */
-    public static int nSamplesCount(long struct) { return UNSAFE.getInt(null, struct + OVRAudioChannelData.SAMPLESCOUNT); }
+    public static int nSamplesCount(long struct) { return memGetInt(struct + OVRAudioChannelData.SAMPLESCOUNT); }
     /** Unsafe version of {@link #Frequency}. */
-    public static int nFrequency(long struct) { return UNSAFE.getInt(null, struct + OVRAudioChannelData.FREQUENCY); }
+    public static int nFrequency(long struct) { return memGetInt(struct + OVRAudioChannelData.FREQUENCY); }
 
     // -----------------------------------
 
@@ -259,6 +257,11 @@ public class OVRAudioChannelData extends Struct<OVRAudioChannelData> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

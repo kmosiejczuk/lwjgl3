@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -175,8 +175,7 @@ public class VkPipelineExecutableInfoKHR extends Struct<VkPipelineExecutableInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineExecutableInfoKHR createSafe(long address) {
+    public static @Nullable VkPipelineExecutableInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkPipelineExecutableInfoKHR(address, null);
     }
 
@@ -219,8 +218,7 @@ public class VkPipelineExecutableInfoKHR extends Struct<VkPipelineExecutableInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineExecutableInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineExecutableInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,22 +282,22 @@ public class VkPipelineExecutableInfoKHR extends Struct<VkPipelineExecutableInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineExecutableInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineExecutableInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineExecutableInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pipeline}. */
-    public static long npipeline(long struct) { return UNSAFE.getLong(null, struct + VkPipelineExecutableInfoKHR.PIPELINE); }
+    public static long npipeline(long struct) { return memGetLong(struct + VkPipelineExecutableInfoKHR.PIPELINE); }
     /** Unsafe version of {@link #executableIndex}. */
-    public static int nexecutableIndex(long struct) { return UNSAFE.getInt(null, struct + VkPipelineExecutableInfoKHR.EXECUTABLEINDEX); }
+    public static int nexecutableIndex(long struct) { return memGetInt(struct + VkPipelineExecutableInfoKHR.EXECUTABLEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineExecutableInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineExecutableInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineExecutableInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pipeline(long) pipeline}. */
-    public static void npipeline(long struct, long value) { UNSAFE.putLong(null, struct + VkPipelineExecutableInfoKHR.PIPELINE, value); }
+    public static void npipeline(long struct, long value) { memPutLong(struct + VkPipelineExecutableInfoKHR.PIPELINE, value); }
     /** Unsafe version of {@link #executableIndex(int) executableIndex}. */
-    public static void nexecutableIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineExecutableInfoKHR.EXECUTABLEINDEX, value); }
+    public static void nexecutableIndex(long struct, int value) { memPutInt(struct + VkPipelineExecutableInfoKHR.EXECUTABLEINDEX, value); }
 
     // -----------------------------------
 
@@ -332,6 +330,11 @@ public class VkPipelineExecutableInfoKHR extends Struct<VkPipelineExecutableInfo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

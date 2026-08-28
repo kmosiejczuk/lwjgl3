@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.PNEXT); }
     /** Unsafe version of {@link #relaxedLineRasterization}. */
-    public static int nrelaxedLineRasterization(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.RELAXEDLINERASTERIZATION); }
+    public static int nrelaxedLineRasterization(long struct) { return memGetInt(struct + VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.RELAXEDLINERASTERIZATION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.PNEXT, value); }
     /** Unsafe version of {@link #relaxedLineRasterization(boolean) relaxedLineRasterization}. */
-    public static void nrelaxedLineRasterization(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.RELAXEDLINERASTERIZATION, value); }
+    public static void nrelaxedLineRasterization(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG.RELAXEDLINERASTERIZATION, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

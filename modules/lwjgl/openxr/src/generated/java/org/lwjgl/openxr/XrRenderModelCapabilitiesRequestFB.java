@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -160,8 +160,7 @@ public class XrRenderModelCapabilitiesRequestFB extends Struct<XrRenderModelCapa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelCapabilitiesRequestFB createSafe(long address) {
+    public static @Nullable XrRenderModelCapabilitiesRequestFB createSafe(long address) {
         return address == NULL ? null : new XrRenderModelCapabilitiesRequestFB(address, null);
     }
 
@@ -204,8 +203,7 @@ public class XrRenderModelCapabilitiesRequestFB extends Struct<XrRenderModelCapa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelCapabilitiesRequestFB.Buffer createSafe(long address, int capacity) {
+    public static XrRenderModelCapabilitiesRequestFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,18 +248,18 @@ public class XrRenderModelCapabilitiesRequestFB extends Struct<XrRenderModelCapa
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrRenderModelCapabilitiesRequestFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrRenderModelCapabilitiesRequestFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrRenderModelCapabilitiesRequestFB.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrRenderModelCapabilitiesRequestFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrRenderModelCapabilitiesRequestFB.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrRenderModelCapabilitiesRequestFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrRenderModelCapabilitiesRequestFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrRenderModelCapabilitiesRequestFB.NEXT, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrRenderModelCapabilitiesRequestFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrRenderModelCapabilitiesRequestFB.FLAGS, value); }
 
     // -----------------------------------
 
@@ -294,6 +292,11 @@ public class XrRenderModelCapabilitiesRequestFB extends Struct<XrRenderModelCapa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

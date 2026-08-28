@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -131,8 +131,7 @@ public class CUlaunchMemSyncDomainMap extends Struct<CUlaunchMemSyncDomainMap> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUlaunchMemSyncDomainMap createSafe(long address) {
+    public static @Nullable CUlaunchMemSyncDomainMap createSafe(long address) {
         return address == NULL ? null : new CUlaunchMemSyncDomainMap(address, null);
     }
 
@@ -175,8 +174,7 @@ public class CUlaunchMemSyncDomainMap extends Struct<CUlaunchMemSyncDomainMap> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUlaunchMemSyncDomainMap.Buffer createSafe(long address, int capacity) {
+    public static CUlaunchMemSyncDomainMap.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -221,14 +219,14 @@ public class CUlaunchMemSyncDomainMap extends Struct<CUlaunchMemSyncDomainMap> i
     // -----------------------------------
 
     /** Unsafe version of {@link #default_}. */
-    public static byte ndefault_(long struct) { return UNSAFE.getByte(null, struct + CUlaunchMemSyncDomainMap.DEFAULT_); }
+    public static byte ndefault_(long struct) { return memGetByte(struct + CUlaunchMemSyncDomainMap.DEFAULT_); }
     /** Unsafe version of {@link #remote}. */
-    public static byte nremote(long struct) { return UNSAFE.getByte(null, struct + CUlaunchMemSyncDomainMap.REMOTE); }
+    public static byte nremote(long struct) { return memGetByte(struct + CUlaunchMemSyncDomainMap.REMOTE); }
 
     /** Unsafe version of {@link #default_(byte) default_}. */
-    public static void ndefault_(long struct, byte value) { UNSAFE.putByte(null, struct + CUlaunchMemSyncDomainMap.DEFAULT_, value); }
+    public static void ndefault_(long struct, byte value) { memPutByte(struct + CUlaunchMemSyncDomainMap.DEFAULT_, value); }
     /** Unsafe version of {@link #remote(byte) remote}. */
-    public static void nremote(long struct, byte value) { UNSAFE.putByte(null, struct + CUlaunchMemSyncDomainMap.REMOTE, value); }
+    public static void nremote(long struct, byte value) { memPutByte(struct + CUlaunchMemSyncDomainMap.REMOTE, value); }
 
     // -----------------------------------
 
@@ -261,6 +259,11 @@ public class CUlaunchMemSyncDomainMap extends Struct<CUlaunchMemSyncDomainMap> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

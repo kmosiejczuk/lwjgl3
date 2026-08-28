@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,8 +137,7 @@ public class VRVulkanTextureArrayData extends Struct<VRVulkanTextureArrayData> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRVulkanTextureArrayData createSafe(long address) {
+    public static @Nullable VRVulkanTextureArrayData createSafe(long address) {
         return address == NULL ? null : new VRVulkanTextureArrayData(address, null);
     }
 
@@ -181,8 +180,7 @@ public class VRVulkanTextureArrayData extends Struct<VRVulkanTextureArrayData> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRVulkanTextureArrayData.Buffer createSafe(long address, int capacity) {
+    public static VRVulkanTextureArrayData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -227,14 +225,14 @@ public class VRVulkanTextureArrayData extends Struct<VRVulkanTextureArrayData> i
     // -----------------------------------
 
     /** Unsafe version of {@link #m_unArrayIndex}. */
-    public static int nm_unArrayIndex(long struct) { return UNSAFE.getInt(null, struct + VRVulkanTextureArrayData.M_UNARRAYINDEX); }
+    public static int nm_unArrayIndex(long struct) { return memGetInt(struct + VRVulkanTextureArrayData.M_UNARRAYINDEX); }
     /** Unsafe version of {@link #m_unArraySize}. */
-    public static int nm_unArraySize(long struct) { return UNSAFE.getInt(null, struct + VRVulkanTextureArrayData.M_UNARRAYSIZE); }
+    public static int nm_unArraySize(long struct) { return memGetInt(struct + VRVulkanTextureArrayData.M_UNARRAYSIZE); }
 
     /** Unsafe version of {@link #m_unArrayIndex(int) m_unArrayIndex}. */
-    public static void nm_unArrayIndex(long struct, int value) { UNSAFE.putInt(null, struct + VRVulkanTextureArrayData.M_UNARRAYINDEX, value); }
+    public static void nm_unArrayIndex(long struct, int value) { memPutInt(struct + VRVulkanTextureArrayData.M_UNARRAYINDEX, value); }
     /** Unsafe version of {@link #m_unArraySize(int) m_unArraySize}. */
-    public static void nm_unArraySize(long struct, int value) { UNSAFE.putInt(null, struct + VRVulkanTextureArrayData.M_UNARRAYSIZE, value); }
+    public static void nm_unArraySize(long struct, int value) { memPutInt(struct + VRVulkanTextureArrayData.M_UNARRAYSIZE, value); }
 
     // -----------------------------------
 
@@ -267,6 +265,11 @@ public class VRVulkanTextureArrayData extends Struct<VRVulkanTextureArrayData> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

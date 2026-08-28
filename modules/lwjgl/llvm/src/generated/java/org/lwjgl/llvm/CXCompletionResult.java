@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -110,8 +110,7 @@ public class CXCompletionResult extends Struct<CXCompletionResult> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXCompletionResult createSafe(long address) {
+    public static @Nullable CXCompletionResult createSafe(long address) {
         return address == NULL ? null : new CXCompletionResult(address, null);
     }
 
@@ -154,8 +153,7 @@ public class CXCompletionResult extends Struct<CXCompletionResult> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXCompletionResult.Buffer createSafe(long address, int capacity) {
+    public static CXCompletionResult.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -219,7 +217,7 @@ public class CXCompletionResult extends Struct<CXCompletionResult> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #CursorKind}. */
-    public static int nCursorKind(long struct) { return UNSAFE.getInt(null, struct + CXCompletionResult.CURSORKIND); }
+    public static int nCursorKind(long struct) { return memGetInt(struct + CXCompletionResult.CURSORKIND); }
     /** Unsafe version of {@link #CompletionString}. */
     public static long nCompletionString(long struct) { return memGetAddress(struct + CXCompletionResult.COMPLETIONSTRING); }
 
@@ -254,6 +252,11 @@ public class CXCompletionResult extends Struct<CXCompletionResult> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

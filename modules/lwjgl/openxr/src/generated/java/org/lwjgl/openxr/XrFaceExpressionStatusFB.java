@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -151,8 +151,7 @@ public class XrFaceExpressionStatusFB extends Struct<XrFaceExpressionStatusFB> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFaceExpressionStatusFB createSafe(long address) {
+    public static @Nullable XrFaceExpressionStatusFB createSafe(long address) {
         return address == NULL ? null : new XrFaceExpressionStatusFB(address, null);
     }
 
@@ -195,8 +194,7 @@ public class XrFaceExpressionStatusFB extends Struct<XrFaceExpressionStatusFB> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFaceExpressionStatusFB.Buffer createSafe(long address, int capacity) {
+    public static XrFaceExpressionStatusFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +239,14 @@ public class XrFaceExpressionStatusFB extends Struct<XrFaceExpressionStatusFB> i
     // -----------------------------------
 
     /** Unsafe version of {@link #isValid}. */
-    public static int nisValid(long struct) { return UNSAFE.getInt(null, struct + XrFaceExpressionStatusFB.ISVALID); }
+    public static int nisValid(long struct) { return memGetInt(struct + XrFaceExpressionStatusFB.ISVALID); }
     /** Unsafe version of {@link #isEyeFollowingBlendshapesValid}. */
-    public static int nisEyeFollowingBlendshapesValid(long struct) { return UNSAFE.getInt(null, struct + XrFaceExpressionStatusFB.ISEYEFOLLOWINGBLENDSHAPESVALID); }
+    public static int nisEyeFollowingBlendshapesValid(long struct) { return memGetInt(struct + XrFaceExpressionStatusFB.ISEYEFOLLOWINGBLENDSHAPESVALID); }
 
     /** Unsafe version of {@link #isValid(boolean) isValid}. */
-    public static void nisValid(long struct, int value) { UNSAFE.putInt(null, struct + XrFaceExpressionStatusFB.ISVALID, value); }
+    public static void nisValid(long struct, int value) { memPutInt(struct + XrFaceExpressionStatusFB.ISVALID, value); }
     /** Unsafe version of {@link #isEyeFollowingBlendshapesValid(boolean) isEyeFollowingBlendshapesValid}. */
-    public static void nisEyeFollowingBlendshapesValid(long struct, int value) { UNSAFE.putInt(null, struct + XrFaceExpressionStatusFB.ISEYEFOLLOWINGBLENDSHAPESVALID, value); }
+    public static void nisEyeFollowingBlendshapesValid(long struct, int value) { memPutInt(struct + XrFaceExpressionStatusFB.ISEYEFOLLOWINGBLENDSHAPESVALID, value); }
 
     // -----------------------------------
 
@@ -281,6 +279,11 @@ public class XrFaceExpressionStatusFB extends Struct<XrFaceExpressionStatusFB> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

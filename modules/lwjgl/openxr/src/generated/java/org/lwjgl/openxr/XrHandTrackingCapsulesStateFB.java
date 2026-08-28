@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingCapsulesStateFB createSafe(long address) {
+    public static @Nullable XrHandTrackingCapsulesStateFB createSafe(long address) {
         return address == NULL ? null : new XrHandTrackingCapsulesStateFB(address, null);
     }
 
@@ -203,8 +202,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingCapsulesStateFB.Buffer createSafe(long address, int capacity) {
+    public static XrHandTrackingCapsulesStateFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,7 +247,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackingCapsulesStateFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandTrackingCapsulesStateFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandTrackingCapsulesStateFB.NEXT); }
     /** Unsafe version of {@link #capsules}. */
@@ -260,7 +258,7 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
     }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackingCapsulesStateFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandTrackingCapsulesStateFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandTrackingCapsulesStateFB.NEXT, value); }
 
@@ -295,6 +293,11 @@ public class XrHandTrackingCapsulesStateFB extends Struct<XrHandTrackingCapsules
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -35,7 +35,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct VkSetLatencyMarkerInfoNV {
  *     VkStructureType {@link #sType};
  *     void const * {@link #pNext};
- *     uint64_t presentID;
+ *     uint64_t {@link #presentID};
  *     VkLatencyMarkerNV {@link #marker};
  * }</code></pre>
  */
@@ -99,7 +99,7 @@ public class VkSetLatencyMarkerInfoNV extends Struct<VkSetLatencyMarkerInfoNV> i
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** @return the value of the {@code presentID} field. */
+    /** an application provided value that is used to associate the timestamp with a {@code vkQueuePresentKHR} command using {@link VkPresentIdKHR}{@code ::pPresentIds} for a given present. */
     @NativeType("uint64_t")
     public long presentID() { return npresentID(address()); }
     /** the type of timestamp to be recorded. */
@@ -112,7 +112,7 @@ public class VkSetLatencyMarkerInfoNV extends Struct<VkSetLatencyMarkerInfoNV> i
     public VkSetLatencyMarkerInfoNV sType$Default() { return sType(NVLowLatency2.VK_STRUCTURE_TYPE_SET_LATENCY_MARKER_INFO_NV); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkSetLatencyMarkerInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@code presentID} field. */
+    /** Sets the specified value to the {@link #presentID} field. */
     public VkSetLatencyMarkerInfoNV presentID(@NativeType("uint64_t") long value) { npresentID(address(), value); return this; }
     /** Sets the specified value to the {@link #marker} field. */
     public VkSetLatencyMarkerInfoNV marker(@NativeType("VkLatencyMarkerNV") int value) { nmarker(address(), value); return this; }
@@ -168,8 +168,7 @@ public class VkSetLatencyMarkerInfoNV extends Struct<VkSetLatencyMarkerInfoNV> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSetLatencyMarkerInfoNV createSafe(long address) {
+    public static @Nullable VkSetLatencyMarkerInfoNV createSafe(long address) {
         return address == NULL ? null : new VkSetLatencyMarkerInfoNV(address, null);
     }
 
@@ -212,8 +211,7 @@ public class VkSetLatencyMarkerInfoNV extends Struct<VkSetLatencyMarkerInfoNV> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSetLatencyMarkerInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkSetLatencyMarkerInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,22 +256,22 @@ public class VkSetLatencyMarkerInfoNV extends Struct<VkSetLatencyMarkerInfoNV> i
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSetLatencyMarkerInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSetLatencyMarkerInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSetLatencyMarkerInfoNV.PNEXT); }
     /** Unsafe version of {@link #presentID}. */
-    public static long npresentID(long struct) { return UNSAFE.getLong(null, struct + VkSetLatencyMarkerInfoNV.PRESENTID); }
+    public static long npresentID(long struct) { return memGetLong(struct + VkSetLatencyMarkerInfoNV.PRESENTID); }
     /** Unsafe version of {@link #marker}. */
-    public static int nmarker(long struct) { return UNSAFE.getInt(null, struct + VkSetLatencyMarkerInfoNV.MARKER); }
+    public static int nmarker(long struct) { return memGetInt(struct + VkSetLatencyMarkerInfoNV.MARKER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSetLatencyMarkerInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSetLatencyMarkerInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSetLatencyMarkerInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #presentID(long) presentID}. */
-    public static void npresentID(long struct, long value) { UNSAFE.putLong(null, struct + VkSetLatencyMarkerInfoNV.PRESENTID, value); }
+    public static void npresentID(long struct, long value) { memPutLong(struct + VkSetLatencyMarkerInfoNV.PRESENTID, value); }
     /** Unsafe version of {@link #marker(int) marker}. */
-    public static void nmarker(long struct, int value) { UNSAFE.putInt(null, struct + VkSetLatencyMarkerInfoNV.MARKER, value); }
+    public static void nmarker(long struct, int value) { memPutInt(struct + VkSetLatencyMarkerInfoNV.MARKER, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkSetLatencyMarkerInfoNV extends Struct<VkSetLatencyMarkerInfoNV> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSetLatencyMarkerInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -319,7 +322,7 @@ public class VkSetLatencyMarkerInfoNV extends Struct<VkSetLatencyMarkerInfoNV> i
         /** @return the value of the {@link VkSetLatencyMarkerInfoNV#pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkSetLatencyMarkerInfoNV.npNext(address()); }
-        /** @return the value of the {@code presentID} field. */
+        /** @return the value of the {@link VkSetLatencyMarkerInfoNV#presentID} field. */
         @NativeType("uint64_t")
         public long presentID() { return VkSetLatencyMarkerInfoNV.npresentID(address()); }
         /** @return the value of the {@link VkSetLatencyMarkerInfoNV#marker} field. */
@@ -332,7 +335,7 @@ public class VkSetLatencyMarkerInfoNV extends Struct<VkSetLatencyMarkerInfoNV> i
         public VkSetLatencyMarkerInfoNV.Buffer sType$Default() { return sType(NVLowLatency2.VK_STRUCTURE_TYPE_SET_LATENCY_MARKER_INFO_NV); }
         /** Sets the specified value to the {@link VkSetLatencyMarkerInfoNV#pNext} field. */
         public VkSetLatencyMarkerInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkSetLatencyMarkerInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@code presentID} field. */
+        /** Sets the specified value to the {@link VkSetLatencyMarkerInfoNV#presentID} field. */
         public VkSetLatencyMarkerInfoNV.Buffer presentID(@NativeType("uint64_t") long value) { VkSetLatencyMarkerInfoNV.npresentID(address(), value); return this; }
         /** Sets the specified value to the {@link VkSetLatencyMarkerInfoNV#marker} field. */
         public VkSetLatencyMarkerInfoNV.Buffer marker(@NativeType("VkLatencyMarkerNV") int value) { VkSetLatencyMarkerInfoNV.nmarker(address(), value); return this; }

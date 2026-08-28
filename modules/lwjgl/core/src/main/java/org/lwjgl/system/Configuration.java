@@ -4,9 +4,9 @@
  */
 package org.lwjgl.system;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.system.MemoryUtil.*;
 
-import javax.annotation.*;
 import java.io.*;
 import java.util.function.*;
 
@@ -239,6 +239,20 @@ public class Configuration<T> {
     public static final Configuration<Boolean> DISABLE_FUNCTION_CHECKS = new Configuration<>("org.lwjgl.util.NoFunctionChecks", StateInit.BOOLEAN);
 
     /**
+     * Set to true to disable LWJGL's shared library hash checks.
+     *
+     * <p>LWJGL compares the shared library hash stored in the classpath, with the hash of the actual library loaded at runtime. These checks print a simple
+     * warning when there's a hash mismatch, to help diagnose installation/classpath issues. It is not a security feature.</p>
+     *
+     * <p>If this option is not set, it defaults to the value of {@link #DISABLE_CHECKS}.</p>
+     *
+     * <p style="font-family: monospace">
+     * Property: <b>org.lwjgl.util.NoLibraryChecks</b><br>
+     * &nbsp; &nbsp;Usage: Dynamic</p>
+     */
+    public static final Configuration<Boolean> DISABLE_HASH_CHECKS = new Configuration<>("org.lwjgl.util.NoHashChecks", StateInit.BOOLEAN);
+
+    /**
      * Set to true to enable LWJGL's debug mode.
      *
      * <p>Information messages will be printed to the {@link APIUtil#DEBUG_STREAM} and extra runtime checks will be performed (some potentially expensive,
@@ -425,6 +439,20 @@ public class Configuration<T> {
     /** Similar to {@link #LIBRARY_NAME} for the EGL library (<b>org.lwjgl.egl.libname</b>). */
     public static final Configuration<String> EGL_LIBRARY_NAME = new Configuration<>("org.lwjgl.egl.libname", StateInit.STRING);
 
+    /** Returns the default EGL library names for the current platform. */
+    public static String[] EGL_LIBRARY_NAME_DEFAULTS() {
+        switch (Platform.get()) {
+            case FREEBSD:
+            case LINUX:
+                return new String[] {"libEGL.so.1"};
+            case MACOSX:
+                return new String[] {"EGL"};
+            case WINDOWS:
+                return new String[] {"libEGL", "EGL"};
+        }
+        throw new IllegalStateException();
+    }
+
     /** Similar to {@link #OPENGL_EXTENSION_FILTER} for the EGL library (<b>org.lwjgl.egl.extensionFilter</b>). */
     public static final Configuration<Object> EGL_EXTENSION_FILTER = new Configuration<>("org.lwjgl.egl.extensionFilter", StateInit.STRING);
 
@@ -562,6 +590,37 @@ public class Configuration<T> {
     /** Similar to {@link #LIBRARY_NAME} for the OpenGL library (<b>org.lwjgl.opengl.libname</b>). */
     public static final Configuration<String> OPENGL_LIBRARY_NAME = new Configuration<>("org.lwjgl.opengl.libname", StateInit.STRING);
 
+    /** Returns the default OpenGL library names for the current platform. */
+    public static String[] OPENGL_LIBRARY_NAME_DEFAULTS() {
+        switch (Platform.get()) {
+            case FREEBSD:
+            case LINUX:
+                return new String[] {"libGLX.so.0", "libGL.so.1", "libGL.so"};
+            case MACOSX:
+                return new String[] {"/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL"};
+            case WINDOWS:
+                return new String[] {"opengl32"};
+        }
+        throw new IllegalStateException();
+    }
+
+    /** Similar to {@link #LIBRARY_NAME} for the OSMesa library (<b>org.lwjgl.opengl.osmesa.libname</b>). */
+    public static final Configuration<String> OPENGL_OSMESA_LIBRARY_NAME = new Configuration<>("org.lwjgl.opengl.osmesa.libname", StateInit.STRING);
+
+    /** Returns the default OSMEsa library names for the current platform. */
+    public static String[] OPENGL_OSMESA_LIBRARY_NAME_DEFAULTS() {
+        switch (Platform.get()) {
+            case FREEBSD:
+            case LINUX:
+                return new String[] {"libOSMesa.so.8", "libOSMesa.so.6", "libOSMesa.so"};
+            case MACOSX:
+                return new String[] {"libOSMesa.8.dylib"};
+            case WINDOWS:
+                return new String[] {"libOSMesa", "OSMesa"};
+        }
+        throw new IllegalStateException();
+    }
+
     /**
      * Can be used to limit the maximum available OpenGL version.
      *
@@ -592,6 +651,29 @@ public class Configuration<T> {
      */
     public static final Configuration<Object> OPENGL_EXTENSION_FILTER = new Configuration<>("org.lwjgl.opengl.extensionFilter", StateInit.STRING);
 
+    /**
+     * Defines the API that manages OpenGL contexts.
+     *
+     * <p>Supported values:</p>
+     * <ul>
+     * <li><em>native</em> - context management is provided by the native platform.<br>
+     * <li><em>EGL</em> - context management is provided by EGL.</li>
+     * <li><em>OSMesa</em> - context management is provided by OSMesa.</li>
+     * </ul>
+     *
+     * <p>If this option is not set, LWJGL will attempt to use the native platform API. If the native platform API is not available, it will attempt to use EGL
+     * and then OSMesa.</p>
+     *
+     * <p>If this option is not set and Wayland is detected ({@code XDG_SESSION_TYPE == "wayland"} and {@code WAYLAND_DISPLAY} is defined) on Linux and
+     * FreeBSD, then EGL becomes the default choice.</p>
+     *
+     * <p style="font-family: monospace">
+     * Property: <b>org.lwjgl.opengl.contextAPI</b><br>
+     * &nbsp; &nbsp; Type: String<br>
+     * &nbsp; &nbsp;Usage: Dynamic</p>
+     */
+    public static final Configuration<String> OPENGL_CONTEXT_API = new Configuration<>("org.lwjgl.opengl.contextAPI", StateInit.STRING);
+
     // -- OPENGL ES
 
     /** Similar to {@link #EGL_EXPLICIT_INIT} for the OpenGL ES library (<b>org.lwjgl.opengles.explicitInit</b>). */
@@ -599,6 +681,20 @@ public class Configuration<T> {
 
     /** Similar to {@link #LIBRARY_NAME} for the OpenGL ES library (<b>org.lwjgl.opengles.libname</b>). */
     public static final Configuration<String> OPENGLES_LIBRARY_NAME = new Configuration<>("org.lwjgl.opengles.libname", StateInit.STRING);
+
+    /** Returns the default OpenGL ES library names for the current platform. */
+    public static String[] OPENGLES_LIBRARY_NAME_DEFAULTS() {
+        switch (Platform.get()) {
+            case FREEBSD:
+            case LINUX:
+                return new String[] {"libGLESv2.so.2"};
+            case MACOSX:
+                return new String[] {"GLESv2"};
+            case WINDOWS:
+                return new String[] {"libGLESv2", "GLESv2"};
+        }
+        throw new IllegalStateException();
+    }
 
     /** Similar to {@link #OPENGL_MAXVERSION} for the OpenGL ES library (<b>org.lwjgl.opengles.maxVersion</b>). */
     public static final Configuration<Object> OPENGLES_MAXVERSION = new Configuration<>("org.lwjgl.opengles.maxVersion", StateInit.STRING);
@@ -613,9 +709,11 @@ public class Configuration<T> {
      * <ul>
      * <li><em>EGL</em> - context management is provided by EGL.</li>
      * <li><em>native</em> - context management is provided by the native platform.<br>
+     * <li><em>OSMesa</em> - context management is provided by OSMesa.<br>
      * </ul>
      *
-     * <p>If this option is not set, LWJGL will first attempt to use EGL. If EGL is not available, it will attempt to use the native platform API.</p>
+     * <p>If this option is not set, LWJGL will first attempt to use EGL. If EGL is not available, it will attempt to use the native platform API and then
+     * OSMesa.</p>
      *
      * <p style="font-family: monospace">
      * Property: <b>org.lwjgl.opengl.contextAPI</b><br>
@@ -673,8 +771,7 @@ public class Configuration<T> {
 
     private final String property;
 
-    @Nullable
-    private volatile T state;
+    private volatile @Nullable T state;
 
     Configuration(String property, StateInit<? extends T> init) {
         this.property = property;
@@ -699,8 +796,7 @@ public class Configuration<T> {
      *
      * <p>If the option value has not been set, null will be returned.</p>
      */
-    @Nullable
-    public T get() {
+    public @Nullable T get() {
         return state;
     }
 

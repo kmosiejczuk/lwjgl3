@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import org.lwjgl.vulkan.video.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>This structure is specified in the {@code pNext} chain of {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot}, if not {@code NULL}, and the {@code pNext} chain of the elements of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots} to specify the codec-specific reference picture information for an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264">H.264 decode operation</a>.</p>
+ * <p>This structure is specified in the {@code pNext} chain of {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot}, if not {@code NULL}, and the {@code pNext} chain of the elements of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots} to specify the codec-specific reference picture information for an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264">H.264 decode operation</a>.</p>
  * 
  * <dl>
  * <dt>Active Reference Picture Information</dt>
@@ -31,9 +31,9 @@ import org.lwjgl.vulkan.video.*;
  * <li>If neither {@code pStdReferenceInfo→flags.top_field_flag} nor {@code pStdReferenceInfo→flags.bottom_field_flag} is set, then the picture is added as a frame reference to the list of active reference pictures.</li>
  * <li>If {@code pStdReferenceInfo→flags.top_field_flag} is set, then the picture is added as a top field reference to the list of active reference pictures.</li>
  * <li>If {@code pStdReferenceInfo→flags.bottom_field_flag} is set, then the picture is added as a bottom field reference to the list of active reference pictures.</li>
- * <li>For each added reference picture, the corresponding image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
- * <li>Each added reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> index specified in the {@code slotIndex} member of the corresponding element of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots}.</li>
- * <li>Each added reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a> provided in {@code pStdReferenceInfo}.</li>
+ * <li>For each added reference picture, the corresponding image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
+ * <li>Each added reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot">DPB slot</a> index specified in the {@code slotIndex} member of the corresponding element of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots}.</li>
+ * <li>Each added reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a> provided in {@code pStdReferenceInfo}.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -48,9 +48,9 @@ import org.lwjgl.vulkan.video.*;
  * <li>If neither {@code pStdReferenceInfo→flags.top_field_flag} nor {@code pStdReferenceInfo→flags.bottom_field_flag} is set, then the picture represents a frame.</li>
  * <li>If {@code pStdReferenceInfo→flags.top_field_flag} is set, then the picture represents a field, specifically, the top field of the frame.</li>
  * <li>If {@code pStdReferenceInfo→flags.bottom_field_flag} is set, then the picture represents a field, specifically, the bottom field of the frame.</li>
- * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-ref-pic-setup">reference picture setup</a> is requested, then the reconstructed picture is used to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot-states">activate</a> the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> with the index specified in {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot→slotIndex}.</li>
- * <li>The reconstructed picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a> provided in {@code pStdReferenceInfo}.</li>
+ * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-ref-pic-setup">reference picture setup</a> is requested, then the reconstructed picture is used to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot-states">activate</a> the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot">DPB slot</a> with the index specified in {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot→slotIndex}.</li>
+ * <li>The reconstructed picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a> provided in {@code pStdReferenceInfo}.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -59,9 +59,9 @@ import org.lwjgl.vulkan.video.*;
  * <dd><ul>
  * <li>{@code flags.top_field_flag} is used to indicate whether the reference is used as top field reference;</li>
  * <li>{@code flags.bottom_field_flag} is used to indicate whether the reference is used as bottom field reference;</li>
- * <li>{@code flags.used_for_long_term_reference} is used to indicate whether the picture is marked as “used for long-term reference” as defined in section 8.2.5.1 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
- * <li>{@code flags.is_non_existing} is used to indicate whether the picture is marked as “non-existing” as defined in section 8.2.5.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
- * <li>all other members are interpreted as defined in section 8.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>.</li>
+ * <li>{@code flags.used_for_long_term_reference} is used to indicate whether the picture is marked as “used for long-term reference” as defined in section 8.2.5.1 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
+ * <li>{@code flags.is_non_existing} is used to indicate whether the picture is marked as “non-existing” as defined in section 8.2.5.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
+ * <li>all other members are interpreted as defined in section 8.2 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -138,7 +138,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct<VkVideoDecodeH264Dpb
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a pointer to a {@code StdVideoDecodeH264ReferenceInfo} structure specifying <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a>. */
+    /** a pointer to a {@code StdVideoDecodeH264ReferenceInfo} structure specifying <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a>. */
     @NativeType("StdVideoDecodeH264ReferenceInfo const *")
     public StdVideoDecodeH264ReferenceInfo pStdReferenceInfo() { return npStdReferenceInfo(address()); }
 
@@ -200,8 +200,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct<VkVideoDecodeH264Dpb
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264DpbSlotInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeH264DpbSlotInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeH264DpbSlotInfoKHR(address, null);
     }
 
@@ -244,8 +243,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct<VkVideoDecodeH264Dpb
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264DpbSlotInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeH264DpbSlotInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,14 +288,14 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct<VkVideoDecodeH264Dpb
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264DpbSlotInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeH264DpbSlotInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeH264DpbSlotInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pStdReferenceInfo}. */
     public static StdVideoDecodeH264ReferenceInfo npStdReferenceInfo(long struct) { return StdVideoDecodeH264ReferenceInfo.create(memGetAddress(struct + VkVideoDecodeH264DpbSlotInfoKHR.PSTDREFERENCEINFO)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH264DpbSlotInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeH264DpbSlotInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeH264DpbSlotInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pStdReferenceInfo(StdVideoDecodeH264ReferenceInfo) pStdReferenceInfo}. */
@@ -343,6 +341,11 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct<VkVideoDecodeH264Dpb
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

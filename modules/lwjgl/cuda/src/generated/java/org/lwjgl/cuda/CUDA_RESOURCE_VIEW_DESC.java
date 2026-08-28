@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -214,8 +214,7 @@ public class CUDA_RESOURCE_VIEW_DESC extends Struct<CUDA_RESOURCE_VIEW_DESC> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_RESOURCE_VIEW_DESC createSafe(long address) {
+    public static @Nullable CUDA_RESOURCE_VIEW_DESC createSafe(long address) {
         return address == NULL ? null : new CUDA_RESOURCE_VIEW_DESC(address, null);
     }
 
@@ -258,8 +257,7 @@ public class CUDA_RESOURCE_VIEW_DESC extends Struct<CUDA_RESOURCE_VIEW_DESC> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_RESOURCE_VIEW_DESC.Buffer createSafe(long address, int capacity) {
+    public static CUDA_RESOURCE_VIEW_DESC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -323,7 +321,7 @@ public class CUDA_RESOURCE_VIEW_DESC extends Struct<CUDA_RESOURCE_VIEW_DESC> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + CUDA_RESOURCE_VIEW_DESC.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + CUDA_RESOURCE_VIEW_DESC.FORMAT); }
     /** Unsafe version of {@link #width}. */
     public static long nwidth(long struct) { return memGetAddress(struct + CUDA_RESOURCE_VIEW_DESC.WIDTH); }
     /** Unsafe version of {@link #height}. */
@@ -331,22 +329,22 @@ public class CUDA_RESOURCE_VIEW_DESC extends Struct<CUDA_RESOURCE_VIEW_DESC> imp
     /** Unsafe version of {@link #depth}. */
     public static long ndepth(long struct) { return memGetAddress(struct + CUDA_RESOURCE_VIEW_DESC.DEPTH); }
     /** Unsafe version of {@link #firstMipmapLevel}. */
-    public static int nfirstMipmapLevel(long struct) { return UNSAFE.getInt(null, struct + CUDA_RESOURCE_VIEW_DESC.FIRSTMIPMAPLEVEL); }
+    public static int nfirstMipmapLevel(long struct) { return memGetInt(struct + CUDA_RESOURCE_VIEW_DESC.FIRSTMIPMAPLEVEL); }
     /** Unsafe version of {@link #lastMipmapLevel}. */
-    public static int nlastMipmapLevel(long struct) { return UNSAFE.getInt(null, struct + CUDA_RESOURCE_VIEW_DESC.LASTMIPMAPLEVEL); }
+    public static int nlastMipmapLevel(long struct) { return memGetInt(struct + CUDA_RESOURCE_VIEW_DESC.LASTMIPMAPLEVEL); }
     /** Unsafe version of {@link #firstLayer}. */
-    public static int nfirstLayer(long struct) { return UNSAFE.getInt(null, struct + CUDA_RESOURCE_VIEW_DESC.FIRSTLAYER); }
+    public static int nfirstLayer(long struct) { return memGetInt(struct + CUDA_RESOURCE_VIEW_DESC.FIRSTLAYER); }
     /** Unsafe version of {@link #lastLayer}. */
-    public static int nlastLayer(long struct) { return UNSAFE.getInt(null, struct + CUDA_RESOURCE_VIEW_DESC.LASTLAYER); }
+    public static int nlastLayer(long struct) { return memGetInt(struct + CUDA_RESOURCE_VIEW_DESC.LASTLAYER); }
     /** Unsafe version of {@link #reserved}. */
     public static IntBuffer nreserved(long struct) { return memIntBuffer(struct + CUDA_RESOURCE_VIEW_DESC.RESERVED, 16); }
     /** Unsafe version of {@link #reserved(int) reserved}. */
     public static int nreserved(long struct, int index) {
-        return UNSAFE.getInt(null, struct + CUDA_RESOURCE_VIEW_DESC.RESERVED + check(index, 16) * 4);
+        return memGetInt(struct + CUDA_RESOURCE_VIEW_DESC.RESERVED + check(index, 16) * 4);
     }
 
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_RESOURCE_VIEW_DESC.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + CUDA_RESOURCE_VIEW_DESC.FORMAT, value); }
     /** Unsafe version of {@link #width(long) width}. */
     public static void nwidth(long struct, long value) { memPutAddress(struct + CUDA_RESOURCE_VIEW_DESC.WIDTH, value); }
     /** Unsafe version of {@link #height(long) height}. */
@@ -354,13 +352,13 @@ public class CUDA_RESOURCE_VIEW_DESC extends Struct<CUDA_RESOURCE_VIEW_DESC> imp
     /** Unsafe version of {@link #depth(long) depth}. */
     public static void ndepth(long struct, long value) { memPutAddress(struct + CUDA_RESOURCE_VIEW_DESC.DEPTH, value); }
     /** Unsafe version of {@link #firstMipmapLevel(int) firstMipmapLevel}. */
-    public static void nfirstMipmapLevel(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_RESOURCE_VIEW_DESC.FIRSTMIPMAPLEVEL, value); }
+    public static void nfirstMipmapLevel(long struct, int value) { memPutInt(struct + CUDA_RESOURCE_VIEW_DESC.FIRSTMIPMAPLEVEL, value); }
     /** Unsafe version of {@link #lastMipmapLevel(int) lastMipmapLevel}. */
-    public static void nlastMipmapLevel(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_RESOURCE_VIEW_DESC.LASTMIPMAPLEVEL, value); }
+    public static void nlastMipmapLevel(long struct, int value) { memPutInt(struct + CUDA_RESOURCE_VIEW_DESC.LASTMIPMAPLEVEL, value); }
     /** Unsafe version of {@link #firstLayer(int) firstLayer}. */
-    public static void nfirstLayer(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_RESOURCE_VIEW_DESC.FIRSTLAYER, value); }
+    public static void nfirstLayer(long struct, int value) { memPutInt(struct + CUDA_RESOURCE_VIEW_DESC.FIRSTLAYER, value); }
     /** Unsafe version of {@link #lastLayer(int) lastLayer}. */
-    public static void nlastLayer(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_RESOURCE_VIEW_DESC.LASTLAYER, value); }
+    public static void nlastLayer(long struct, int value) { memPutInt(struct + CUDA_RESOURCE_VIEW_DESC.LASTLAYER, value); }
     /** Unsafe version of {@link #reserved(IntBuffer) reserved}. */
     public static void nreserved(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 16); }
@@ -368,7 +366,7 @@ public class CUDA_RESOURCE_VIEW_DESC extends Struct<CUDA_RESOURCE_VIEW_DESC> imp
     }
     /** Unsafe version of {@link #reserved(int, int) reserved}. */
     public static void nreserved(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + CUDA_RESOURCE_VIEW_DESC.RESERVED + check(index, 16) * 4, value);
+        memPutInt(struct + CUDA_RESOURCE_VIEW_DESC.RESERVED + check(index, 16) * 4, value);
     }
 
     // -----------------------------------
@@ -402,6 +400,11 @@ public class CUDA_RESOURCE_VIEW_DESC extends Struct<CUDA_RESOURCE_VIEW_DESC> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

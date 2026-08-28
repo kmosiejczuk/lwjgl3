@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,19 +24,19 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>A sliced 3D view <b>must</b> only be used with a single mip level. The slice coordinates are integer coordinates within the {@code subresourceRange.baseMipLevel} used to create the image view.</p>
  * 
- * <p>The effective view depth is equal to {@code extent.depth} used to create the {@code image} for this view adjusted by {@code subresourceRange.baseMipLevel} as specified in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-mip-level-sizing">Image Mip Level Sizing</a>.</p>
+ * <p>The effective view depth is equal to {@code extent.depth} used to create the {@code image} for this view adjusted by {@code subresourceRange.baseMipLevel} as specified in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-image-mip-level-sizing">Image Mip Level Sizing</a>.</p>
  * 
  * <p>Shader access to this image view is only affected by {@link VkImageViewSlicedCreateInfoEXT} if it uses a descriptor of type {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE}. For access using any other descriptor type, the contents of {@link VkImageViewSlicedCreateInfoEXT} are ignored; instead, {@code sliceOffset} is treated as being equal to 0, and {@code sliceCount} is treated as being equal to {@link EXTImageSlicedViewOf3d#VK_REMAINING_3D_SLICES_EXT REMAINING_3D_SLICES_EXT}.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code sliceOffset} <b>must</b> be less than the effective view depth as specified in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-mip-level-sizing">Image Mip Level Sizing</a></li>
- * <li>If {@code sliceCount} is not {@link EXTImageSlicedViewOf3d#VK_REMAINING_3D_SLICES_EXT REMAINING_3D_SLICES_EXT}, it <b>must</b> be non-zero and <code>sliceOffset + sliceCount</code> <b>must</b> be less than or equal to the effective view depth as specified in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-mip-level-sizing">Image Mip Level Sizing</a></li>
+ * <li>{@code sliceOffset} <b>must</b> be less than the effective view depth as specified in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-image-mip-level-sizing">Image Mip Level Sizing</a></li>
+ * <li>If {@code sliceCount} is not {@link EXTImageSlicedViewOf3d#VK_REMAINING_3D_SLICES_EXT REMAINING_3D_SLICES_EXT}, it <b>must</b> be non-zero and <code>sliceOffset + sliceCount</code> <b>must</b> be less than or equal to the effective view depth as specified in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-image-mip-level-sizing">Image Mip Level Sizing</a></li>
  * <li>{@code image} <b>must</b> have been created with {@code imageType} equal to {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D}</li>
  * <li>{@code viewType} <b>must</b> be {@link VK10#VK_IMAGE_VIEW_TYPE_3D IMAGE_VIEW_TYPE_3D}</li>
  * <li>The image view <b>must</b> reference exactly 1 mip level</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-imageSlicedViewOf3D">imageSlicedViewOf3D</a> feature <b>must</b> be enabled on the device</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-imageSlicedViewOf3D">imageSlicedViewOf3D</a> feature <b>must</b> be enabled</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -184,8 +184,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct<VkImageViewSlicedCrea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewSlicedCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkImageViewSlicedCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkImageViewSlicedCreateInfoEXT(address, null);
     }
 
@@ -228,8 +227,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct<VkImageViewSlicedCrea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewSlicedCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImageViewSlicedCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,22 +272,22 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct<VkImageViewSlicedCrea
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageViewSlicedCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageViewSlicedCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageViewSlicedCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #sliceOffset}. */
-    public static int nsliceOffset(long struct) { return UNSAFE.getInt(null, struct + VkImageViewSlicedCreateInfoEXT.SLICEOFFSET); }
+    public static int nsliceOffset(long struct) { return memGetInt(struct + VkImageViewSlicedCreateInfoEXT.SLICEOFFSET); }
     /** Unsafe version of {@link #sliceCount}. */
-    public static int nsliceCount(long struct) { return UNSAFE.getInt(null, struct + VkImageViewSlicedCreateInfoEXT.SLICECOUNT); }
+    public static int nsliceCount(long struct) { return memGetInt(struct + VkImageViewSlicedCreateInfoEXT.SLICECOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewSlicedCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageViewSlicedCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageViewSlicedCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #sliceOffset(int) sliceOffset}. */
-    public static void nsliceOffset(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewSlicedCreateInfoEXT.SLICEOFFSET, value); }
+    public static void nsliceOffset(long struct, int value) { memPutInt(struct + VkImageViewSlicedCreateInfoEXT.SLICEOFFSET, value); }
     /** Unsafe version of {@link #sliceCount(int) sliceCount}. */
-    public static void nsliceCount(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewSlicedCreateInfoEXT.SLICECOUNT, value); }
+    public static void nsliceCount(long struct, int value) { memPutInt(struct + VkImageViewSlicedCreateInfoEXT.SLICECOUNT, value); }
 
     // -----------------------------------
 
@@ -322,6 +320,11 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct<VkImageViewSlicedCrea
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

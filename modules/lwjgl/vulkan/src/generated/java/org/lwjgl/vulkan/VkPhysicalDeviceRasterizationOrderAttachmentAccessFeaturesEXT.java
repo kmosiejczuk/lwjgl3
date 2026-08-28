@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT exten
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT exten
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +266,26 @@ public class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT exten
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #rasterizationOrderColorAttachmentAccess}. */
-    public static int nrasterizationOrderColorAttachmentAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERCOLORATTACHMENTACCESS); }
+    public static int nrasterizationOrderColorAttachmentAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERCOLORATTACHMENTACCESS); }
     /** Unsafe version of {@link #rasterizationOrderDepthAttachmentAccess}. */
-    public static int nrasterizationOrderDepthAttachmentAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERDEPTHATTACHMENTACCESS); }
+    public static int nrasterizationOrderDepthAttachmentAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERDEPTHATTACHMENTACCESS); }
     /** Unsafe version of {@link #rasterizationOrderStencilAttachmentAccess}. */
-    public static int nrasterizationOrderStencilAttachmentAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERSTENCILATTACHMENTACCESS); }
+    public static int nrasterizationOrderStencilAttachmentAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERSTENCILATTACHMENTACCESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #rasterizationOrderColorAttachmentAccess(boolean) rasterizationOrderColorAttachmentAccess}. */
-    public static void nrasterizationOrderColorAttachmentAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERCOLORATTACHMENTACCESS, value); }
+    public static void nrasterizationOrderColorAttachmentAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERCOLORATTACHMENTACCESS, value); }
     /** Unsafe version of {@link #rasterizationOrderDepthAttachmentAccess(boolean) rasterizationOrderDepthAttachmentAccess}. */
-    public static void nrasterizationOrderDepthAttachmentAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERDEPTHATTACHMENTACCESS, value); }
+    public static void nrasterizationOrderDepthAttachmentAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERDEPTHATTACHMENTACCESS, value); }
     /** Unsafe version of {@link #rasterizationOrderStencilAttachmentAccess(boolean) rasterizationOrderStencilAttachmentAccess}. */
-    public static void nrasterizationOrderStencilAttachmentAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERSTENCILATTACHMENTACCESS, value); }
+    public static void nrasterizationOrderStencilAttachmentAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERSTENCILATTACHMENTACCESS, value); }
 
     // -----------------------------------
 
@@ -320,6 +318,11 @@ public class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT exten
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

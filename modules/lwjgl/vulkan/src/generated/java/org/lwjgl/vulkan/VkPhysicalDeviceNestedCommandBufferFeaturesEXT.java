@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -102,10 +102,10 @@ public class VkPhysicalDeviceNestedCommandBufferFeaturesEXT extends Struct<VkPhy
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates the implementation supports nested command buffers, which allows <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary">Secondary Command Buffers</a> to execute other <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary">Secondary Command Buffers</a>. */
+    /** indicates the implementation supports nested command buffers, which allows <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary">Secondary Command Buffers</a> to execute other <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary">Secondary Command Buffers</a>. */
     @NativeType("VkBool32")
     public boolean nestedCommandBuffer() { return nnestedCommandBuffer(address()) != 0; }
-    /** indicates that it is valid to call {@link VK10#vkCmdExecuteCommands CmdExecuteCommands} inside a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary">Secondary Command Buffer</a> recorded with {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT}. */
+    /** indicates that it is valid to call {@link VK10#vkCmdExecuteCommands CmdExecuteCommands} inside a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary">Secondary Command Buffer</a> recorded with {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT}. */
     @NativeType("VkBool32")
     public boolean nestedCommandBufferRendering() { return nnestedCommandBufferRendering(address()) != 0; }
     /** indicates that the implementation supports nested command buffers with command buffers that are recorded with {@link VK10#VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT}. */
@@ -178,8 +178,7 @@ public class VkPhysicalDeviceNestedCommandBufferFeaturesEXT extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceNestedCommandBufferFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceNestedCommandBufferFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceNestedCommandBufferFeaturesEXT(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkPhysicalDeviceNestedCommandBufferFeaturesEXT extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceNestedCommandBufferFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceNestedCommandBufferFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +266,26 @@ public class VkPhysicalDeviceNestedCommandBufferFeaturesEXT extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #nestedCommandBuffer}. */
-    public static int nnestedCommandBuffer(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFER); }
+    public static int nnestedCommandBuffer(long struct) { return memGetInt(struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFER); }
     /** Unsafe version of {@link #nestedCommandBufferRendering}. */
-    public static int nnestedCommandBufferRendering(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFERRENDERING); }
+    public static int nnestedCommandBufferRendering(long struct) { return memGetInt(struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFERRENDERING); }
     /** Unsafe version of {@link #nestedCommandBufferSimultaneousUse}. */
-    public static int nnestedCommandBufferSimultaneousUse(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFERSIMULTANEOUSUSE); }
+    public static int nnestedCommandBufferSimultaneousUse(long struct) { return memGetInt(struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFERSIMULTANEOUSUSE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #nestedCommandBuffer(boolean) nestedCommandBuffer}. */
-    public static void nnestedCommandBuffer(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFER, value); }
+    public static void nnestedCommandBuffer(long struct, int value) { memPutInt(struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFER, value); }
     /** Unsafe version of {@link #nestedCommandBufferRendering(boolean) nestedCommandBufferRendering}. */
-    public static void nnestedCommandBufferRendering(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFERRENDERING, value); }
+    public static void nnestedCommandBufferRendering(long struct, int value) { memPutInt(struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFERRENDERING, value); }
     /** Unsafe version of {@link #nestedCommandBufferSimultaneousUse(boolean) nestedCommandBufferSimultaneousUse}. */
-    public static void nnestedCommandBufferSimultaneousUse(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFERSIMULTANEOUSUSE, value); }
+    public static void nnestedCommandBufferSimultaneousUse(long struct, int value) { memPutInt(struct + VkPhysicalDeviceNestedCommandBufferFeaturesEXT.NESTEDCOMMANDBUFFERSIMULTANEOUSUSE, value); }
 
     // -----------------------------------
 
@@ -320,6 +318,11 @@ public class VkPhysicalDeviceNestedCommandBufferFeaturesEXT extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -14,7 +14,7 @@ val KHR_shader_terminate_invocation = "KHRShaderTerminateInvocation".nativeClass
         This extension adds Vulkan support for the <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_terminate_invocation.html">{@code SPV_KHR_terminate_invocation}</a> SPIR-V extension. That SPIR-V extension provides a new instruction, {@code OpTerminateInvocation}, which causes a shader invocation to immediately terminate and sets the coverage of shaded samples to 0; only previously executed instructions will have observable effects. The {@code OpTerminateInvocation} instruction, along with the {@code OpDemoteToHelperInvocation} instruction from the {@link EXTShaderDemoteToHelperInvocation VK_EXT_shader_demote_to_helper_invocation} extension, together replace the {@code OpKill} instruction, which could behave like either of these instructions. {@code OpTerminateInvocation} provides the behavior required by the GLSL {@code discard} statement, and should be used when available by GLSL compilers and applications that need the GLSL {@code discard} behavior.
 
         <h5>Promotion to Vulkan 1.3</h5>
-        Functionality in this extension is included in core Vulkan 1.3, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
+        Vulkan APIs in this extension are included in core Vulkan 1.3, with the KHR suffix omitted. External interactions defined by this extension, such as SPIR-V token names, retain their original names. The original Vulkan API names are still available as aliases of the core functionality.
 
         <dl>
             <dt><b>Name String</b></dt>
@@ -30,7 +30,7 @@ val KHR_shader_terminate_invocation = "KHRShaderTerminateInvocation".nativeClass
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>SPIR-V Dependencies</b></dt>
             <dd><ul>
@@ -39,7 +39,7 @@ val KHR_shader_terminate_invocation = "KHRShaderTerminateInvocation".nativeClass
 
             <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

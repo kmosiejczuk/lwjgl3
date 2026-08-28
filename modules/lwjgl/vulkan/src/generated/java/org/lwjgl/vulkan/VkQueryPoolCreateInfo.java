@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,23 +25,24 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is not enabled, {@code queryType} <b>must</b> not be {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShaderQueries">{@code meshShaderQueries}</a> feature is not enabled, {@code queryType} <b>must</b> not be {@link EXTMeshShader#VK_QUERY_TYPE_MESH_PRIMITIVES_GENERATED_EXT QUERY_TYPE_MESH_PRIMITIVES_GENERATED_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShaderQueries">{@code meshShaderQueries}</a> feature is not enabled, and {@code queryType} is {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}, {@code pipelineStatistics} <b>must</b> not contain {@link EXTMeshShader#VK_QUERY_PIPELINE_STATISTIC_TASK_SHADER_INVOCATIONS_BIT_EXT QUERY_PIPELINE_STATISTIC_TASK_SHADER_INVOCATIONS_BIT_EXT} or {@link EXTMeshShader#VK_QUERY_PIPELINE_STATISTIC_MESH_SHADER_INVOCATIONS_BIT_EXT QUERY_PIPELINE_STATISTIC_MESH_SHADER_INVOCATIONS_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is not enabled, {@code queryType} <b>must</b> not be {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-meshShaderQueries">{@code meshShaderQueries}</a> feature is not enabled, {@code queryType} <b>must</b> not be {@link EXTMeshShader#VK_QUERY_TYPE_MESH_PRIMITIVES_GENERATED_EXT QUERY_TYPE_MESH_PRIMITIVES_GENERATED_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-meshShaderQueries">{@code meshShaderQueries}</a> feature is not enabled, and {@code queryType} is {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}, {@code pipelineStatistics} <b>must</b> not contain {@link EXTMeshShader#VK_QUERY_PIPELINE_STATISTIC_TASK_SHADER_INVOCATIONS_BIT_EXT QUERY_PIPELINE_STATISTIC_TASK_SHADER_INVOCATIONS_BIT_EXT} or {@link EXTMeshShader#VK_QUERY_PIPELINE_STATISTIC_MESH_SHADER_INVOCATIONS_BIT_EXT QUERY_PIPELINE_STATISTIC_MESH_SHADER_INVOCATIONS_BIT_EXT}</li>
  * <li>If {@code queryType} is {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}, {@code pipelineStatistics} <b>must</b> be a valid combination of {@code VkQueryPipelineStatisticFlagBits} values</li>
  * <li>If {@code queryType} is {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}, {@code pipelineStatistics} <b>must</b> not be zero</li>
  * <li>If {@code queryType} is {@link KHRPerformanceQuery#VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR QUERY_TYPE_PERFORMANCE_QUERY_KHR}, the {@code pNext} chain <b>must</b> include a {@link VkQueryPoolPerformanceCreateInfoKHR} structure</li>
  * <li>{@code queryCount} <b>must</b> be greater than 0</li>
  * <li>If {@code queryType} is {@link KHRVideoEncodeQueue#VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoProfileInfoKHR} structure with {@code videoCodecOperation} specifying an encode operation</li>
  * <li>If {@code queryType} is {@link KHRVideoEncodeQueue#VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR} structure</li>
- * <li>If {@code queryType} is {@link KHRVideoEncodeQueue#VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR}, and the {@code pNext} chain includes a {@link VkVideoProfileInfoKHR} structure and a {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR} structure, then {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR}{@code ::encodeFeedbackFlags} <b>must</b> not contain any bits that are not set in {@link VkVideoEncodeCapabilitiesKHR}{@code ::supportedEncodeFeedbackFlags}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a> described by {@link VkVideoProfileInfoKHR} and its {@code pNext} chain</li>
+ * <li>If {@code queryType} is {@link KHRVideoEncodeQueue#VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR}, and the {@code pNext} chain includes a {@link VkVideoProfileInfoKHR} structure and a {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR} structure, then {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR}{@code ::encodeFeedbackFlags} <b>must</b> not contain any bits that are not set in {@link VkVideoEncodeCapabilitiesKHR}{@code ::supportedEncodeFeedbackFlags}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-profiles">video profile</a> described by {@link VkVideoProfileInfoKHR} and its {@code pNext} chain</li>
+ * <li>If the {@code pNext} chain includes a {@link VkVideoProfileInfoKHR} structure and its {@code videoCodecOperation} member is {@link KHRVideoEncodeAV1#VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-videoEncodeAV1">{@code videoEncodeAV1}</a> feature <b>must</b> be enabled</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkQueryPoolPerformanceCreateInfoKHR}, {@link VkQueryPoolPerformanceQueryCreateInfoINTEL}, {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR}, {@link VkVideoDecodeAV1ProfileInfoKHR}, {@link VkVideoDecodeH264ProfileInfoKHR}, {@link VkVideoDecodeH265ProfileInfoKHR}, {@link VkVideoDecodeUsageInfoKHR}, {@link VkVideoEncodeH264ProfileInfoKHR}, {@link VkVideoEncodeH265ProfileInfoKHR}, {@link VkVideoEncodeUsageInfoKHR}, or {@link VkVideoProfileInfoKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkQueryPoolPerformanceCreateInfoKHR}, {@link VkQueryPoolPerformanceQueryCreateInfoINTEL}, {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR}, {@link VkVideoDecodeAV1ProfileInfoKHR}, {@link VkVideoDecodeH264ProfileInfoKHR}, {@link VkVideoDecodeH265ProfileInfoKHR}, {@link VkVideoDecodeUsageInfoKHR}, {@link VkVideoEncodeAV1ProfileInfoKHR}, {@link VkVideoEncodeH264ProfileInfoKHR}, {@link VkVideoEncodeH265ProfileInfoKHR}, {@link VkVideoEncodeUsageInfoKHR}, or {@link VkVideoProfileInfoKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be 0</li>
  * <li>{@code queryType} <b>must</b> be a valid {@code VkQueryType} value</li>
@@ -138,7 +139,7 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
     /** the number of queries managed by the pool. */
     @NativeType("uint32_t")
     public int queryCount() { return nqueryCount(address()); }
-    /** a bitmask of {@code VkQueryPipelineStatisticFlagBits} specifying which counters will be returned in queries on the new pool, as described below in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#queries-pipestats">Pipeline Statistics Queries</a>. */
+    /** a bitmask of {@code VkQueryPipelineStatisticFlagBits} specifying which counters will be returned in queries on the new pool, as described below in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#queries-pipestats">Pipeline Statistics Queries</a>. */
     @NativeType("VkQueryPipelineStatisticFlags")
     public int pipelineStatistics() { return npipelineStatistics(address()); }
 
@@ -164,6 +165,8 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
     public VkQueryPoolCreateInfo pNext(VkVideoDecodeH265ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoDecodeUsageInfoKHR} value to the {@code pNext} chain. */
     public VkQueryPoolCreateInfo pNext(VkVideoDecodeUsageInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeAV1ProfileInfoKHR} value to the {@code pNext} chain. */
+    public VkQueryPoolCreateInfo pNext(VkVideoEncodeAV1ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH264ProfileInfoKHR} value to the {@code pNext} chain. */
     public VkQueryPoolCreateInfo pNext(VkVideoEncodeH264ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH265ProfileInfoKHR} value to the {@code pNext} chain. */
@@ -236,8 +239,7 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolCreateInfo createSafe(long address) {
+    public static @Nullable VkQueryPoolCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkQueryPoolCreateInfo(address, null);
     }
 
@@ -280,8 +282,7 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkQueryPoolCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -345,30 +346,30 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueryPoolCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueryPoolCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkQueryPoolCreateInfo.FLAGS); }
     /** Unsafe version of {@link #queryType}. */
-    public static int nqueryType(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolCreateInfo.QUERYTYPE); }
+    public static int nqueryType(long struct) { return memGetInt(struct + VkQueryPoolCreateInfo.QUERYTYPE); }
     /** Unsafe version of {@link #queryCount}. */
-    public static int nqueryCount(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolCreateInfo.QUERYCOUNT); }
+    public static int nqueryCount(long struct) { return memGetInt(struct + VkQueryPoolCreateInfo.QUERYCOUNT); }
     /** Unsafe version of {@link #pipelineStatistics}. */
-    public static int npipelineStatistics(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolCreateInfo.PIPELINESTATISTICS); }
+    public static int npipelineStatistics(long struct) { return memGetInt(struct + VkQueryPoolCreateInfo.PIPELINESTATISTICS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueryPoolCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueryPoolCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkQueryPoolCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #queryType(int) queryType}. */
-    public static void nqueryType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolCreateInfo.QUERYTYPE, value); }
+    public static void nqueryType(long struct, int value) { memPutInt(struct + VkQueryPoolCreateInfo.QUERYTYPE, value); }
     /** Unsafe version of {@link #queryCount(int) queryCount}. */
-    public static void nqueryCount(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolCreateInfo.QUERYCOUNT, value); }
+    public static void nqueryCount(long struct, int value) { memPutInt(struct + VkQueryPoolCreateInfo.QUERYCOUNT, value); }
     /** Unsafe version of {@link #pipelineStatistics(int) pipelineStatistics}. */
-    public static void npipelineStatistics(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolCreateInfo.PIPELINESTATISTICS, value); }
+    public static void npipelineStatistics(long struct, int value) { memPutInt(struct + VkQueryPoolCreateInfo.PIPELINESTATISTICS, value); }
 
     // -----------------------------------
 
@@ -401,6 +402,11 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -449,6 +455,8 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
         public VkQueryPoolCreateInfo.Buffer pNext(VkVideoDecodeH265ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoDecodeUsageInfoKHR} value to the {@code pNext} chain. */
         public VkQueryPoolCreateInfo.Buffer pNext(VkVideoDecodeUsageInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeAV1ProfileInfoKHR} value to the {@code pNext} chain. */
+        public VkQueryPoolCreateInfo.Buffer pNext(VkVideoEncodeAV1ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH264ProfileInfoKHR} value to the {@code pNext} chain. */
         public VkQueryPoolCreateInfo.Buffer pNext(VkVideoEncodeH264ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH265ProfileInfoKHR} value to the {@code pNext} chain. */

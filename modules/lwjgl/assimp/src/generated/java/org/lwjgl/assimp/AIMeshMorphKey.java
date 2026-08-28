@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class AIMeshMorphKey extends Struct<AIMeshMorphKey> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshMorphKey createSafe(long address) {
+    public static @Nullable AIMeshMorphKey createSafe(long address) {
         return address == NULL ? null : new AIMeshMorphKey(address, null);
     }
 
@@ -200,8 +199,7 @@ public class AIMeshMorphKey extends Struct<AIMeshMorphKey> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshMorphKey.Buffer createSafe(long address, int capacity) {
+    public static AIMeshMorphKey.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,22 +263,22 @@ public class AIMeshMorphKey extends Struct<AIMeshMorphKey> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #mTime}. */
-    public static double nmTime(long struct) { return UNSAFE.getDouble(null, struct + AIMeshMorphKey.MTIME); }
+    public static double nmTime(long struct) { return memGetDouble(struct + AIMeshMorphKey.MTIME); }
     /** Unsafe version of {@link #mValues() mValues}. */
     public static IntBuffer nmValues(long struct) { return memIntBuffer(memGetAddress(struct + AIMeshMorphKey.MVALUES), nmNumValuesAndWeights(struct)); }
     /** Unsafe version of {@link #mWeights() mWeights}. */
     public static DoubleBuffer nmWeights(long struct) { return memDoubleBuffer(memGetAddress(struct + AIMeshMorphKey.MWEIGHTS), nmNumValuesAndWeights(struct)); }
     /** Unsafe version of {@link #mNumValuesAndWeights}. */
-    public static int nmNumValuesAndWeights(long struct) { return UNSAFE.getInt(null, struct + AIMeshMorphKey.MNUMVALUESANDWEIGHTS); }
+    public static int nmNumValuesAndWeights(long struct) { return memGetInt(struct + AIMeshMorphKey.MNUMVALUESANDWEIGHTS); }
 
     /** Unsafe version of {@link #mTime(double) mTime}. */
-    public static void nmTime(long struct, double value) { UNSAFE.putDouble(null, struct + AIMeshMorphKey.MTIME, value); }
+    public static void nmTime(long struct, double value) { memPutDouble(struct + AIMeshMorphKey.MTIME, value); }
     /** Unsafe version of {@link #mValues(IntBuffer) mValues}. */
     public static void nmValues(long struct, IntBuffer value) { memPutAddress(struct + AIMeshMorphKey.MVALUES, memAddress(value)); }
     /** Unsafe version of {@link #mWeights(DoubleBuffer) mWeights}. */
     public static void nmWeights(long struct, DoubleBuffer value) { memPutAddress(struct + AIMeshMorphKey.MWEIGHTS, memAddress(value)); }
     /** Sets the specified value to the {@code mNumValuesAndWeights} field of the specified {@code struct}. */
-    public static void nmNumValuesAndWeights(long struct, int value) { UNSAFE.putInt(null, struct + AIMeshMorphKey.MNUMVALUESANDWEIGHTS, value); }
+    public static void nmNumValuesAndWeights(long struct, int value) { memPutInt(struct + AIMeshMorphKey.MNUMVALUESANDWEIGHTS, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -323,6 +321,11 @@ public class AIMeshMorphKey extends Struct<AIMeshMorphKey> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

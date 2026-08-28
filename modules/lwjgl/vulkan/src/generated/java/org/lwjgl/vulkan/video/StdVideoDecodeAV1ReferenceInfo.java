@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -173,8 +173,7 @@ public class StdVideoDecodeAV1ReferenceInfo extends Struct<StdVideoDecodeAV1Refe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoDecodeAV1ReferenceInfo createSafe(long address) {
+    public static @Nullable StdVideoDecodeAV1ReferenceInfo createSafe(long address) {
         return address == NULL ? null : new StdVideoDecodeAV1ReferenceInfo(address, null);
     }
 
@@ -217,8 +216,7 @@ public class StdVideoDecodeAV1ReferenceInfo extends Struct<StdVideoDecodeAV1Refe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoDecodeAV1ReferenceInfo.Buffer createSafe(long address, int capacity) {
+    public static StdVideoDecodeAV1ReferenceInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,26 +263,26 @@ public class StdVideoDecodeAV1ReferenceInfo extends Struct<StdVideoDecodeAV1Refe
     /** Unsafe version of {@link #flags}. */
     public static StdVideoDecodeAV1ReferenceInfoFlags nflags(long struct) { return StdVideoDecodeAV1ReferenceInfoFlags.create(struct + StdVideoDecodeAV1ReferenceInfo.FLAGS); }
     /** Unsafe version of {@link #frame_type}. */
-    public static byte nframe_type(long struct) { return UNSAFE.getByte(null, struct + StdVideoDecodeAV1ReferenceInfo.FRAME_TYPE); }
+    public static byte nframe_type(long struct) { return memGetByte(struct + StdVideoDecodeAV1ReferenceInfo.FRAME_TYPE); }
     /** Unsafe version of {@link #RefFrameSignBias}. */
-    public static byte nRefFrameSignBias(long struct) { return UNSAFE.getByte(null, struct + StdVideoDecodeAV1ReferenceInfo.REFFRAMESIGNBIAS); }
+    public static byte nRefFrameSignBias(long struct) { return memGetByte(struct + StdVideoDecodeAV1ReferenceInfo.REFFRAMESIGNBIAS); }
     /** Unsafe version of {@link #OrderHint}. */
-    public static byte nOrderHint(long struct) { return UNSAFE.getByte(null, struct + StdVideoDecodeAV1ReferenceInfo.ORDERHINT); }
+    public static byte nOrderHint(long struct) { return memGetByte(struct + StdVideoDecodeAV1ReferenceInfo.ORDERHINT); }
     /** Unsafe version of {@link #SavedOrderHints}. */
     public static ByteBuffer nSavedOrderHints(long struct) { return memByteBuffer(struct + StdVideoDecodeAV1ReferenceInfo.SAVEDORDERHINTS, STD_VIDEO_AV1_NUM_REF_FRAMES); }
     /** Unsafe version of {@link #SavedOrderHints(int) SavedOrderHints}. */
     public static byte nSavedOrderHints(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoDecodeAV1ReferenceInfo.SAVEDORDERHINTS + check(index, STD_VIDEO_AV1_NUM_REF_FRAMES) * 1);
+        return memGetByte(struct + StdVideoDecodeAV1ReferenceInfo.SAVEDORDERHINTS + check(index, STD_VIDEO_AV1_NUM_REF_FRAMES) * 1);
     }
 
     /** Unsafe version of {@link #flags(StdVideoDecodeAV1ReferenceInfoFlags) flags}. */
     public static void nflags(long struct, StdVideoDecodeAV1ReferenceInfoFlags value) { memCopy(value.address(), struct + StdVideoDecodeAV1ReferenceInfo.FLAGS, StdVideoDecodeAV1ReferenceInfoFlags.SIZEOF); }
     /** Unsafe version of {@link #frame_type(byte) frame_type}. */
-    public static void nframe_type(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoDecodeAV1ReferenceInfo.FRAME_TYPE, value); }
+    public static void nframe_type(long struct, byte value) { memPutByte(struct + StdVideoDecodeAV1ReferenceInfo.FRAME_TYPE, value); }
     /** Unsafe version of {@link #RefFrameSignBias(byte) RefFrameSignBias}. */
-    public static void nRefFrameSignBias(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoDecodeAV1ReferenceInfo.REFFRAMESIGNBIAS, value); }
+    public static void nRefFrameSignBias(long struct, byte value) { memPutByte(struct + StdVideoDecodeAV1ReferenceInfo.REFFRAMESIGNBIAS, value); }
     /** Unsafe version of {@link #OrderHint(byte) OrderHint}. */
-    public static void nOrderHint(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoDecodeAV1ReferenceInfo.ORDERHINT, value); }
+    public static void nOrderHint(long struct, byte value) { memPutByte(struct + StdVideoDecodeAV1ReferenceInfo.ORDERHINT, value); }
     /** Unsafe version of {@link #SavedOrderHints(ByteBuffer) SavedOrderHints}. */
     public static void nSavedOrderHints(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, STD_VIDEO_AV1_NUM_REF_FRAMES); }
@@ -292,7 +290,7 @@ public class StdVideoDecodeAV1ReferenceInfo extends Struct<StdVideoDecodeAV1Refe
     }
     /** Unsafe version of {@link #SavedOrderHints(int, byte) SavedOrderHints}. */
     public static void nSavedOrderHints(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoDecodeAV1ReferenceInfo.SAVEDORDERHINTS + check(index, STD_VIDEO_AV1_NUM_REF_FRAMES) * 1, value);
+        memPutByte(struct + StdVideoDecodeAV1ReferenceInfo.SAVEDORDERHINTS + check(index, STD_VIDEO_AV1_NUM_REF_FRAMES) * 1, value);
     }
 
     // -----------------------------------
@@ -326,6 +324,11 @@ public class StdVideoDecodeAV1ReferenceInfo extends Struct<StdVideoDecodeAV1Refe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

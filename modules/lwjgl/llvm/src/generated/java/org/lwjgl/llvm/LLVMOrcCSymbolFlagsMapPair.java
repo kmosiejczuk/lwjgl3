@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,8 +135,7 @@ public class LLVMOrcCSymbolFlagsMapPair extends Struct<LLVMOrcCSymbolFlagsMapPai
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMOrcCSymbolFlagsMapPair createSafe(long address) {
+    public static @Nullable LLVMOrcCSymbolFlagsMapPair createSafe(long address) {
         return address == NULL ? null : new LLVMOrcCSymbolFlagsMapPair(address, null);
     }
 
@@ -179,8 +178,7 @@ public class LLVMOrcCSymbolFlagsMapPair extends Struct<LLVMOrcCSymbolFlagsMapPai
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMOrcCSymbolFlagsMapPair.Buffer createSafe(long address, int capacity) {
+    public static LLVMOrcCSymbolFlagsMapPair.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,6 +272,11 @@ public class LLVMOrcCSymbolFlagsMapPair extends Struct<LLVMOrcCSymbolFlagsMapPai
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

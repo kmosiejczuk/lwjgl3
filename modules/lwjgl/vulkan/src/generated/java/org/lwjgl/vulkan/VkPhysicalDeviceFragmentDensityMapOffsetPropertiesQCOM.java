@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -98,7 +98,7 @@ public class VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM extends Stru
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the granularity for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-fragmentdensitymapoffsets">fragment density offsets</a>. */
+    /** the granularity for <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-fragmentdensitymapoffsets">fragment density offsets</a>. */
     public VkExtent2D fragmentDensityOffsetGranularity() { return nfragmentDensityOffsetGranularity(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
@@ -155,8 +155,7 @@ public class VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM extends Stru
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM(address, null);
     }
 
@@ -199,8 +198,7 @@ public class VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM extends Stru
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,14 +243,14 @@ public class VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM extends Stru
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.PNEXT); }
     /** Unsafe version of {@link #fragmentDensityOffsetGranularity}. */
     public static VkExtent2D nfragmentDensityOffsetGranularity(long struct) { return VkExtent2D.create(struct + VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.FRAGMENTDENSITYOFFSETGRANULARITY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM.PNEXT, value); }
 
@@ -287,6 +285,11 @@ public class VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM extends Stru
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

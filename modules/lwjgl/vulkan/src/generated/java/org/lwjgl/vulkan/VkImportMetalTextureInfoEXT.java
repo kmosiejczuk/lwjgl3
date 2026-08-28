@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -100,7 +100,7 @@ public class VkImportMetalTextureInfoEXT extends Struct<VkImportMetalTextureInfo
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** indicates the plane of the {@code VkImage} that the {@code id&lt;MTLTexture&gt;} object should be attached to. */
+    /** specifies the plane of the {@code VkImage} that the {@code id&lt;MTLTexture&gt;} object should be attached to. */
     @NativeType("VkImageAspectFlagBits")
     public int plane() { return nplane(address()); }
     /** a the Metal {@code id&lt;MTLTexture&gt;} object that is to underlie the {@code VkImage} plane. */
@@ -169,8 +169,7 @@ public class VkImportMetalTextureInfoEXT extends Struct<VkImportMetalTextureInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportMetalTextureInfoEXT createSafe(long address) {
+    public static @Nullable VkImportMetalTextureInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkImportMetalTextureInfoEXT(address, null);
     }
 
@@ -213,8 +212,7 @@ public class VkImportMetalTextureInfoEXT extends Struct<VkImportMetalTextureInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportMetalTextureInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImportMetalTextureInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,20 +257,20 @@ public class VkImportMetalTextureInfoEXT extends Struct<VkImportMetalTextureInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImportMetalTextureInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImportMetalTextureInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImportMetalTextureInfoEXT.PNEXT); }
     /** Unsafe version of {@link #plane}. */
-    public static int nplane(long struct) { return UNSAFE.getInt(null, struct + VkImportMetalTextureInfoEXT.PLANE); }
+    public static int nplane(long struct) { return memGetInt(struct + VkImportMetalTextureInfoEXT.PLANE); }
     /** Unsafe version of {@link #mtlTexture}. */
     public static long nmtlTexture(long struct) { return memGetAddress(struct + VkImportMetalTextureInfoEXT.MTLTEXTURE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportMetalTextureInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImportMetalTextureInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImportMetalTextureInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #plane(int) plane}. */
-    public static void nplane(long struct, int value) { UNSAFE.putInt(null, struct + VkImportMetalTextureInfoEXT.PLANE, value); }
+    public static void nplane(long struct, int value) { memPutInt(struct + VkImportMetalTextureInfoEXT.PLANE, value); }
     /** Unsafe version of {@link #mtlTexture(long) mtlTexture}. */
     public static void nmtlTexture(long struct, long value) { memPutAddress(struct + VkImportMetalTextureInfoEXT.MTLTEXTURE, check(value)); }
 
@@ -316,6 +314,11 @@ public class VkImportMetalTextureInfoEXT extends Struct<VkImportMetalTextureInfo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

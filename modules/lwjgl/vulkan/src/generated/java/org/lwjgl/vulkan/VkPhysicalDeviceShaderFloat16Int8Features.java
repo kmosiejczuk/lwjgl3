@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceShaderFloat16Int8Features extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderFloat16Int8Features createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderFloat16Int8Features createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderFloat16Int8Features(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceShaderFloat16Int8Features extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderFloat16Int8Features.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderFloat16Int8Features.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkPhysicalDeviceShaderFloat16Int8Features extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderFloat16Int8Features.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderFloat16Int8Features.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderFloat16Int8Features.PNEXT); }
     /** Unsafe version of {@link #shaderFloat16}. */
-    public static int nshaderFloat16(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderFloat16Int8Features.SHADERFLOAT16); }
+    public static int nshaderFloat16(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderFloat16Int8Features.SHADERFLOAT16); }
     /** Unsafe version of {@link #shaderInt8}. */
-    public static int nshaderInt8(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderFloat16Int8Features.SHADERINT8); }
+    public static int nshaderInt8(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderFloat16Int8Features.SHADERINT8); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderFloat16Int8Features.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderFloat16Int8Features.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderFloat16Int8Features.PNEXT, value); }
     /** Unsafe version of {@link #shaderFloat16(boolean) shaderFloat16}. */
-    public static void nshaderFloat16(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderFloat16Int8Features.SHADERFLOAT16, value); }
+    public static void nshaderFloat16(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderFloat16Int8Features.SHADERFLOAT16, value); }
     /** Unsafe version of {@link #shaderInt8(boolean) shaderInt8}. */
-    public static void nshaderInt8(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderFloat16Int8Features.SHADERINT8, value); }
+    public static void nshaderInt8(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderFloat16Int8Features.SHADERINT8, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkPhysicalDeviceShaderFloat16Int8Features extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -198,8 +198,7 @@ public class VkVideoInlineQueryInfoKHR extends Struct<VkVideoInlineQueryInfoKHR>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoInlineQueryInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoInlineQueryInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoInlineQueryInfoKHR(address, null);
     }
 
@@ -242,8 +241,7 @@ public class VkVideoInlineQueryInfoKHR extends Struct<VkVideoInlineQueryInfoKHR>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoInlineQueryInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoInlineQueryInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -288,26 +286,26 @@ public class VkVideoInlineQueryInfoKHR extends Struct<VkVideoInlineQueryInfoKHR>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoInlineQueryInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoInlineQueryInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoInlineQueryInfoKHR.PNEXT); }
     /** Unsafe version of {@link #queryPool}. */
-    public static long nqueryPool(long struct) { return UNSAFE.getLong(null, struct + VkVideoInlineQueryInfoKHR.QUERYPOOL); }
+    public static long nqueryPool(long struct) { return memGetLong(struct + VkVideoInlineQueryInfoKHR.QUERYPOOL); }
     /** Unsafe version of {@link #firstQuery}. */
-    public static int nfirstQuery(long struct) { return UNSAFE.getInt(null, struct + VkVideoInlineQueryInfoKHR.FIRSTQUERY); }
+    public static int nfirstQuery(long struct) { return memGetInt(struct + VkVideoInlineQueryInfoKHR.FIRSTQUERY); }
     /** Unsafe version of {@link #queryCount}. */
-    public static int nqueryCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoInlineQueryInfoKHR.QUERYCOUNT); }
+    public static int nqueryCount(long struct) { return memGetInt(struct + VkVideoInlineQueryInfoKHR.QUERYCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoInlineQueryInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoInlineQueryInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoInlineQueryInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #queryPool(long) queryPool}. */
-    public static void nqueryPool(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoInlineQueryInfoKHR.QUERYPOOL, value); }
+    public static void nqueryPool(long struct, long value) { memPutLong(struct + VkVideoInlineQueryInfoKHR.QUERYPOOL, value); }
     /** Unsafe version of {@link #firstQuery(int) firstQuery}. */
-    public static void nfirstQuery(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoInlineQueryInfoKHR.FIRSTQUERY, value); }
+    public static void nfirstQuery(long struct, int value) { memPutInt(struct + VkVideoInlineQueryInfoKHR.FIRSTQUERY, value); }
     /** Unsafe version of {@link #queryCount(int) queryCount}. */
-    public static void nqueryCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoInlineQueryInfoKHR.QUERYCOUNT, value); }
+    public static void nqueryCount(long struct, int value) { memPutInt(struct + VkVideoInlineQueryInfoKHR.QUERYCOUNT, value); }
 
     // -----------------------------------
 
@@ -340,6 +338,11 @@ public class VkVideoInlineQueryInfoKHR extends Struct<VkVideoInlineQueryInfoKHR>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

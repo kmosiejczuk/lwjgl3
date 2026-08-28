@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -106,8 +106,7 @@ public class VkSamplerYcbcrConversionImageFormatPropertiesKHR extends VkSamplerY
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerYcbcrConversionImageFormatPropertiesKHR createSafe(long address) {
+    public static @Nullable VkSamplerYcbcrConversionImageFormatPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkSamplerYcbcrConversionImageFormatPropertiesKHR(address, null);
     }
 
@@ -150,8 +149,7 @@ public class VkSamplerYcbcrConversionImageFormatPropertiesKHR extends VkSamplerY
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerYcbcrConversionImageFormatPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkSamplerYcbcrConversionImageFormatPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,6 +241,11 @@ public class VkSamplerYcbcrConversionImageFormatPropertiesKHR extends VkSamplerY
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

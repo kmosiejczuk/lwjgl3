@@ -21,7 +21,8 @@ import static org.lwjgl.system.MemoryUtil.*;
 /** The Gears demo implemented using GLFW. */
 public class Gears {
 
-    private Callback debugProc;
+    private GLFWAllocator allocator;
+    private Callback      debugProc;
 
     private long window;
 
@@ -69,7 +70,7 @@ public class Gears {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
         glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_TRUE);
         glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
-        if (Platform.get() == Platform.MACOSX) {
+        if (glfwGetPlatform() == GLFW_PLATFORM_COCOA) {
             glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
         }
 
@@ -83,7 +84,7 @@ public class Gears {
 
 		/*
         // This code did the equivalent of glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE) before GLFW 3.3
-		if ( Platform.get() == Platform.MACOSX ) {
+		if (glfwGetPlatform() == GLFW_PLATFORM_COCOA) {
 			long cocoaWindow = glfwGetCocoaWindow(window);
 
 			long objc_msgSend = ObjCRuntime.getLibrary().getFunctionAddress("objc_msgSend");

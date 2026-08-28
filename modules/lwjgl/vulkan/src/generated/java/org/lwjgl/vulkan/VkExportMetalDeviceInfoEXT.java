@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkExportMetalDeviceInfoEXT extends Struct<VkExportMetalDeviceInfoEX
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalDeviceInfoEXT createSafe(long address) {
+    public static @Nullable VkExportMetalDeviceInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkExportMetalDeviceInfoEXT(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkExportMetalDeviceInfoEXT extends Struct<VkExportMetalDeviceInfoEX
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalDeviceInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExportMetalDeviceInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,14 +241,14 @@ public class VkExportMetalDeviceInfoEXT extends Struct<VkExportMetalDeviceInfoEX
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalDeviceInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMetalDeviceInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMetalDeviceInfoEXT.PNEXT); }
     /** Unsafe version of {@link #mtlDevice}. */
     public static long nmtlDevice(long struct) { return memGetAddress(struct + VkExportMetalDeviceInfoEXT.MTLDEVICE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalDeviceInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMetalDeviceInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMetalDeviceInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #mtlDevice(long) mtlDevice}. */
@@ -296,6 +294,11 @@ public class VkExportMetalDeviceInfoEXT extends Struct<VkExportMetalDeviceInfoEX
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

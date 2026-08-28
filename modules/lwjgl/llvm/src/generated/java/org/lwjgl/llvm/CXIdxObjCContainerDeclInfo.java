@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -85,8 +85,7 @@ public class CXIdxObjCContainerDeclInfo extends Struct<CXIdxObjCContainerDeclInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxObjCContainerDeclInfo createSafe(long address) {
+    public static @Nullable CXIdxObjCContainerDeclInfo createSafe(long address) {
         return address == NULL ? null : new CXIdxObjCContainerDeclInfo(address, null);
     }
 
@@ -101,8 +100,7 @@ public class CXIdxObjCContainerDeclInfo extends Struct<CXIdxObjCContainerDeclInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxObjCContainerDeclInfo.Buffer createSafe(long address, int capacity) {
+    public static CXIdxObjCContainerDeclInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -111,7 +109,7 @@ public class CXIdxObjCContainerDeclInfo extends Struct<CXIdxObjCContainerDeclInf
     /** Unsafe version of {@link #declInfo}. */
     public static CXIdxDeclInfo ndeclInfo(long struct) { return CXIdxDeclInfo.create(memGetAddress(struct + CXIdxObjCContainerDeclInfo.DECLINFO)); }
     /** Unsafe version of {@link #kind}. */
-    public static int nkind(long struct) { return UNSAFE.getInt(null, struct + CXIdxObjCContainerDeclInfo.KIND); }
+    public static int nkind(long struct) { return memGetInt(struct + CXIdxObjCContainerDeclInfo.KIND); }
 
     // -----------------------------------
 
@@ -144,6 +142,11 @@ public class CXIdxObjCContainerDeclInfo extends Struct<CXIdxObjCContainerDeclInf
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

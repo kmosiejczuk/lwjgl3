@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -127,8 +127,7 @@ public class CUexecAffinityParam extends Struct<CUexecAffinityParam> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUexecAffinityParam createSafe(long address) {
+    public static @Nullable CUexecAffinityParam createSafe(long address) {
         return address == NULL ? null : new CUexecAffinityParam(address, null);
     }
 
@@ -171,8 +170,7 @@ public class CUexecAffinityParam extends Struct<CUexecAffinityParam> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUexecAffinityParam.Buffer createSafe(long address, int capacity) {
+    public static CUexecAffinityParam.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -217,12 +215,12 @@ public class CUexecAffinityParam extends Struct<CUexecAffinityParam> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + CUexecAffinityParam.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + CUexecAffinityParam.TYPE); }
     /** Unsafe version of {@link #param_smCount}. */
     public static CUexecAffinitySmCount nparam_smCount(long struct) { return CUexecAffinitySmCount.create(struct + CUexecAffinityParam.PARAM_SMCOUNT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + CUexecAffinityParam.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + CUexecAffinityParam.TYPE, value); }
     /** Unsafe version of {@link #param_smCount(CUexecAffinitySmCount) param_smCount}. */
     public static void nparam_smCount(long struct, CUexecAffinitySmCount value) { memCopy(value.address(), struct + CUexecAffinityParam.PARAM_SMCOUNT, CUexecAffinitySmCount.SIZEOF); }
 
@@ -257,6 +255,11 @@ public class CUexecAffinityParam extends Struct<CUexecAffinityParam> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

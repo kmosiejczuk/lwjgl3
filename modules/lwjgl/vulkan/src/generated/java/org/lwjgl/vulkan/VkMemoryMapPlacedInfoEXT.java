@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,9 +21,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@link VkMemoryMapInfoKHR}{@code ::flags} contains {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT}, {@code pPlacedAddress} <b>must</b> not be {@code NULL}</li>
+ * <li>If {@link VkMemoryMapInfo}{@code ::flags} contains {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT}, {@code pPlacedAddress} <b>must</b> not be {@code NULL}</li>
  * <li>{@code pPlacedAddress} <b>must</b> be aligned to an integer multiple of {@link VkPhysicalDeviceMapMemoryPlacedPropertiesEXT}{@code ::minPlacedMemoryMapAlignment}</li>
- * <li>The address range specified by {@code pPlacedAddress} and {@link VkMemoryMapInfoKHR}{@code ::size} <b>must</b> not overlap any existing Vulkan memory object mapping</li>
+ * <li>The address range specified by {@code pPlacedAddress} and {@link VkMemoryMapInfo}{@code ::size} <b>must</b> not overlap any existing Vulkan memory object mapping</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -98,7 +98,7 @@ public class VkMemoryMapPlacedInfoEXT extends Struct<VkMemoryMapPlacedInfoEXT> i
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the virtual address at which to place the address. If {@link VkMemoryMapInfoKHR}{@code ::flags} does not contain {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT}, this value is ignored. */
+    /** the virtual address at which to place the address. If {@link VkMemoryMapInfo}{@code ::flags} does not contain {@link EXTMapMemoryPlaced#VK_MEMORY_MAP_PLACED_BIT_EXT MEMORY_MAP_PLACED_BIT_EXT}, this value is ignored. */
     @NativeType("void *")
     public long pPlacedAddress() { return npPlacedAddress(address()); }
 
@@ -160,8 +160,7 @@ public class VkMemoryMapPlacedInfoEXT extends Struct<VkMemoryMapPlacedInfoEXT> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryMapPlacedInfoEXT createSafe(long address) {
+    public static @Nullable VkMemoryMapPlacedInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMemoryMapPlacedInfoEXT(address, null);
     }
 
@@ -204,8 +203,7 @@ public class VkMemoryMapPlacedInfoEXT extends Struct<VkMemoryMapPlacedInfoEXT> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryMapPlacedInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryMapPlacedInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,14 +248,14 @@ public class VkMemoryMapPlacedInfoEXT extends Struct<VkMemoryMapPlacedInfoEXT> i
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryMapPlacedInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryMapPlacedInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryMapPlacedInfoEXT.PNEXT); }
     /** Unsafe version of {@link #pPlacedAddress}. */
     public static long npPlacedAddress(long struct) { return memGetAddress(struct + VkMemoryMapPlacedInfoEXT.PPLACEDADDRESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryMapPlacedInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryMapPlacedInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryMapPlacedInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #pPlacedAddress(long) pPlacedAddress}. */
@@ -294,6 +292,11 @@ public class VkMemoryMapPlacedInfoEXT extends Struct<VkMemoryMapPlacedInfoEXT> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

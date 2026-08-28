@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -141,17 +141,15 @@ public class CUDA_KERNEL_NODE_PARAMS_v2 extends Struct<CUDA_KERNEL_NODE_PARAMS_v
      *
      * @param capacity the number of elements in the returned buffer
      */
-    @Nullable
     @NativeType("void **")
-    public PointerBuffer kernelParams(int capacity) { return nkernelParams(address(), capacity); }
+    public @Nullable PointerBuffer kernelParams(int capacity) { return nkernelParams(address(), capacity); }
     /**
      * @return a {@link PointerBuffer} view of the data pointed to by the {@code extra} field.
      *
      * @param capacity the number of elements in the returned buffer
      */
-    @Nullable
     @NativeType("void **")
-    public PointerBuffer extra(int capacity) { return nextra(address(), capacity); }
+    public @Nullable PointerBuffer extra(int capacity) { return nextra(address(), capacity); }
     /** @return the value of the {@code kern} field. */
     @NativeType("CUkernel")
     public long kern() { return nkern(address()); }
@@ -251,8 +249,7 @@ public class CUDA_KERNEL_NODE_PARAMS_v2 extends Struct<CUDA_KERNEL_NODE_PARAMS_v
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_KERNEL_NODE_PARAMS_v2 createSafe(long address) {
+    public static @Nullable CUDA_KERNEL_NODE_PARAMS_v2 createSafe(long address) {
         return address == NULL ? null : new CUDA_KERNEL_NODE_PARAMS_v2(address, null);
     }
 
@@ -295,8 +292,7 @@ public class CUDA_KERNEL_NODE_PARAMS_v2 extends Struct<CUDA_KERNEL_NODE_PARAMS_v
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_KERNEL_NODE_PARAMS_v2.Buffer createSafe(long address, int capacity) {
+    public static CUDA_KERNEL_NODE_PARAMS_v2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -343,23 +339,23 @@ public class CUDA_KERNEL_NODE_PARAMS_v2 extends Struct<CUDA_KERNEL_NODE_PARAMS_v
     /** Unsafe version of {@link #func}. */
     public static long nfunc(long struct) { return memGetAddress(struct + CUDA_KERNEL_NODE_PARAMS_v2.FUNC); }
     /** Unsafe version of {@link #gridDimX}. */
-    public static int ngridDimX(long struct) { return UNSAFE.getInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMX); }
+    public static int ngridDimX(long struct) { return memGetInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMX); }
     /** Unsafe version of {@link #gridDimY}. */
-    public static int ngridDimY(long struct) { return UNSAFE.getInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMY); }
+    public static int ngridDimY(long struct) { return memGetInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMY); }
     /** Unsafe version of {@link #gridDimZ}. */
-    public static int ngridDimZ(long struct) { return UNSAFE.getInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMZ); }
+    public static int ngridDimZ(long struct) { return memGetInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMZ); }
     /** Unsafe version of {@link #blockDimX}. */
-    public static int nblockDimX(long struct) { return UNSAFE.getInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMX); }
+    public static int nblockDimX(long struct) { return memGetInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMX); }
     /** Unsafe version of {@link #blockDimY}. */
-    public static int nblockDimY(long struct) { return UNSAFE.getInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMY); }
+    public static int nblockDimY(long struct) { return memGetInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMY); }
     /** Unsafe version of {@link #blockDimZ}. */
-    public static int nblockDimZ(long struct) { return UNSAFE.getInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMZ); }
+    public static int nblockDimZ(long struct) { return memGetInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMZ); }
     /** Unsafe version of {@link #sharedMemBytes}. */
-    public static int nsharedMemBytes(long struct) { return UNSAFE.getInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.SHAREDMEMBYTES); }
+    public static int nsharedMemBytes(long struct) { return memGetInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.SHAREDMEMBYTES); }
     /** Unsafe version of {@link #kernelParams(int) kernelParams}. */
-    @Nullable public static PointerBuffer nkernelParams(long struct, int capacity) { return memPointerBufferSafe(memGetAddress(struct + CUDA_KERNEL_NODE_PARAMS_v2.KERNELPARAMS), capacity); }
+    public static @Nullable PointerBuffer nkernelParams(long struct, int capacity) { return memPointerBufferSafe(memGetAddress(struct + CUDA_KERNEL_NODE_PARAMS_v2.KERNELPARAMS), capacity); }
     /** Unsafe version of {@link #extra(int) extra}. */
-    @Nullable public static PointerBuffer nextra(long struct, int capacity) { return memPointerBufferSafe(memGetAddress(struct + CUDA_KERNEL_NODE_PARAMS_v2.EXTRA), capacity); }
+    public static @Nullable PointerBuffer nextra(long struct, int capacity) { return memPointerBufferSafe(memGetAddress(struct + CUDA_KERNEL_NODE_PARAMS_v2.EXTRA), capacity); }
     /** Unsafe version of {@link #kern}. */
     public static long nkern(long struct) { return memGetAddress(struct + CUDA_KERNEL_NODE_PARAMS_v2.KERN); }
     /** Unsafe version of {@link #ctx}. */
@@ -368,19 +364,19 @@ public class CUDA_KERNEL_NODE_PARAMS_v2 extends Struct<CUDA_KERNEL_NODE_PARAMS_v
     /** Unsafe version of {@link #func(long) func}. */
     public static void nfunc(long struct, long value) { memPutAddress(struct + CUDA_KERNEL_NODE_PARAMS_v2.FUNC, value); }
     /** Unsafe version of {@link #gridDimX(int) gridDimX}. */
-    public static void ngridDimX(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMX, value); }
+    public static void ngridDimX(long struct, int value) { memPutInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMX, value); }
     /** Unsafe version of {@link #gridDimY(int) gridDimY}. */
-    public static void ngridDimY(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMY, value); }
+    public static void ngridDimY(long struct, int value) { memPutInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMY, value); }
     /** Unsafe version of {@link #gridDimZ(int) gridDimZ}. */
-    public static void ngridDimZ(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMZ, value); }
+    public static void ngridDimZ(long struct, int value) { memPutInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.GRIDDIMZ, value); }
     /** Unsafe version of {@link #blockDimX(int) blockDimX}. */
-    public static void nblockDimX(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMX, value); }
+    public static void nblockDimX(long struct, int value) { memPutInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMX, value); }
     /** Unsafe version of {@link #blockDimY(int) blockDimY}. */
-    public static void nblockDimY(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMY, value); }
+    public static void nblockDimY(long struct, int value) { memPutInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMY, value); }
     /** Unsafe version of {@link #blockDimZ(int) blockDimZ}. */
-    public static void nblockDimZ(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMZ, value); }
+    public static void nblockDimZ(long struct, int value) { memPutInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.BLOCKDIMZ, value); }
     /** Unsafe version of {@link #sharedMemBytes(int) sharedMemBytes}. */
-    public static void nsharedMemBytes(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_KERNEL_NODE_PARAMS_v2.SHAREDMEMBYTES, value); }
+    public static void nsharedMemBytes(long struct, int value) { memPutInt(struct + CUDA_KERNEL_NODE_PARAMS_v2.SHAREDMEMBYTES, value); }
     /** Unsafe version of {@link #kernelParams(PointerBuffer) kernelParams}. */
     public static void nkernelParams(long struct, @Nullable PointerBuffer value) { memPutAddress(struct + CUDA_KERNEL_NODE_PARAMS_v2.KERNELPARAMS, memAddressSafe(value)); }
     /** Unsafe version of {@link #extra(PointerBuffer) extra}. */
@@ -424,6 +420,11 @@ public class CUDA_KERNEL_NODE_PARAMS_v2 extends Struct<CUDA_KERNEL_NODE_PARAMS_v
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected CUDA_KERNEL_NODE_PARAMS_v2 getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -457,17 +458,15 @@ public class CUDA_KERNEL_NODE_PARAMS_v2 extends Struct<CUDA_KERNEL_NODE_PARAMS_v
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("void **")
-        public PointerBuffer kernelParams(int capacity) { return CUDA_KERNEL_NODE_PARAMS_v2.nkernelParams(address(), capacity); }
+        public @Nullable PointerBuffer kernelParams(int capacity) { return CUDA_KERNEL_NODE_PARAMS_v2.nkernelParams(address(), capacity); }
         /**
          * @return a {@link PointerBuffer} view of the data pointed to by the {@code extra} field.
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("void **")
-        public PointerBuffer extra(int capacity) { return CUDA_KERNEL_NODE_PARAMS_v2.nextra(address(), capacity); }
+        public @Nullable PointerBuffer extra(int capacity) { return CUDA_KERNEL_NODE_PARAMS_v2.nextra(address(), capacity); }
         /** @return the value of the {@code kern} field. */
         @NativeType("CUkernel")
         public long kern() { return CUDA_KERNEL_NODE_PARAMS_v2.nkern(address()); }

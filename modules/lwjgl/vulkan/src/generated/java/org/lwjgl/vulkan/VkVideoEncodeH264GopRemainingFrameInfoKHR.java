@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Setting {@code useGopRemainingFrames} to {@link VK10#VK_TRUE TRUE} and including this structure in the {@code pNext} chain of {@link VkVideoBeginCodingInfoKHR} is only mandatory if the {@link VkVideoEncodeH264CapabilitiesKHR}{@code ::requiresGopRemainingFrames} reported for the used <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a> is {@link VK10#VK_TRUE TRUE}. However, implementations <b>may</b> use these remaining frame counts, when specified, even when it is not required. In particular, when the application does not use a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-regular-gop">regular GOP structure</a>, these values <b>may</b> provide additional guidance for the implementation’s rate control algorithm.</p>
+ * <p>Setting {@code useGopRemainingFrames} to {@link VK10#VK_TRUE TRUE} and including this structure in the {@code pNext} chain of {@link VkVideoBeginCodingInfoKHR} is only mandatory if the {@link VkVideoEncodeH264CapabilitiesKHR}{@code ::requiresGopRemainingFrames} reported for the used <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-profiles">video profile</a> is {@link VK10#VK_TRUE TRUE}. However, implementations <b>may</b> use these remaining frame counts, when specified, even when it is not required. In particular, when the application does not use a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-regular-gop">regular GOP structure</a>, these values <b>may</b> provide additional guidance for the implementation’s rate control algorithm.</p>
  * 
  * <p>The {@link VkVideoEncodeH264CapabilitiesKHR}{@code ::prefersGopRemainingFrames} capability is also used to indicate that the implementation’s rate control algorithm <b>may</b> operate more accurately if the application specifies the remaining frame counts using this structure.</p>
  * 
@@ -113,13 +113,13 @@ public class VkVideoEncodeH264GopRemainingFrameInfoKHR extends Struct<VkVideoEnc
     /** indicates whether the implementation’s rate control algorithm <b>should</b> use the values specified in {@code gopRemainingI}, {@code gopRemainingP}, and {@code gopRemainingB}. If {@code useGopRemainingFrames} is {@link VK10#VK_FALSE FALSE}, then the values of {@code gopRemainingI}, {@code gopRemainingP}, and {@code gopRemainingB} are ignored. */
     @NativeType("VkBool32")
     public boolean useGopRemainingFrames() { return nuseGopRemainingFrames(address()) != 0; }
-    /** specifies the number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-i-pic">I frames</a> the implementation’s rate control algorithm <b>should</b> assume to be remaining in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-gop">GOP</a> prior to executing the video encode operation. */
+    /** specifies the number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-i-pic">I frames</a> the implementation’s rate control algorithm <b>should</b> assume to be remaining in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-gop">GOP</a> prior to executing the video encode operation. */
     @NativeType("uint32_t")
     public int gopRemainingI() { return ngopRemainingI(address()); }
-    /** specifies the number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-p-pic">P frames</a> the implementation’s rate control algorithm <b>should</b> assume to be remaining in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-gop">GOP</a> prior to executing the video encode operation. */
+    /** specifies the number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-p-pic">P frames</a> the implementation’s rate control algorithm <b>should</b> assume to be remaining in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-gop">GOP</a> prior to executing the video encode operation. */
     @NativeType("uint32_t")
     public int gopRemainingP() { return ngopRemainingP(address()); }
-    /** specifies the number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-b-pic">B frames</a> the implementation’s rate control algorithm <b>should</b> assume to be remaining in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-gop">GOP</a> prior to executing the video encode operation. */
+    /** specifies the number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-b-pic">B frames</a> the implementation’s rate control algorithm <b>should</b> assume to be remaining in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-gop">GOP</a> prior to executing the video encode operation. */
     @NativeType("uint32_t")
     public int gopRemainingB() { return ngopRemainingB(address()); }
 
@@ -193,8 +193,7 @@ public class VkVideoEncodeH264GopRemainingFrameInfoKHR extends Struct<VkVideoEnc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264GopRemainingFrameInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264GopRemainingFrameInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264GopRemainingFrameInfoKHR(address, null);
     }
 
@@ -237,8 +236,7 @@ public class VkVideoEncodeH264GopRemainingFrameInfoKHR extends Struct<VkVideoEnc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264GopRemainingFrameInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264GopRemainingFrameInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,30 +281,30 @@ public class VkVideoEncodeH264GopRemainingFrameInfoKHR extends Struct<VkVideoEnc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.PNEXT); }
     /** Unsafe version of {@link #useGopRemainingFrames}. */
-    public static int nuseGopRemainingFrames(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.USEGOPREMAININGFRAMES); }
+    public static int nuseGopRemainingFrames(long struct) { return memGetInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.USEGOPREMAININGFRAMES); }
     /** Unsafe version of {@link #gopRemainingI}. */
-    public static int ngopRemainingI(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGI); }
+    public static int ngopRemainingI(long struct) { return memGetInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGI); }
     /** Unsafe version of {@link #gopRemainingP}. */
-    public static int ngopRemainingP(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGP); }
+    public static int ngopRemainingP(long struct) { return memGetInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGP); }
     /** Unsafe version of {@link #gopRemainingB}. */
-    public static int ngopRemainingB(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGB); }
+    public static int ngopRemainingB(long struct) { return memGetInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGB); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #useGopRemainingFrames(boolean) useGopRemainingFrames}. */
-    public static void nuseGopRemainingFrames(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.USEGOPREMAININGFRAMES, value); }
+    public static void nuseGopRemainingFrames(long struct, int value) { memPutInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.USEGOPREMAININGFRAMES, value); }
     /** Unsafe version of {@link #gopRemainingI(int) gopRemainingI}. */
-    public static void ngopRemainingI(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGI, value); }
+    public static void ngopRemainingI(long struct, int value) { memPutInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGI, value); }
     /** Unsafe version of {@link #gopRemainingP(int) gopRemainingP}. */
-    public static void ngopRemainingP(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGP, value); }
+    public static void ngopRemainingP(long struct, int value) { memPutInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGP, value); }
     /** Unsafe version of {@link #gopRemainingB(int) gopRemainingB}. */
-    public static void ngopRemainingB(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGB, value); }
+    public static void ngopRemainingB(long struct, int value) { memPutInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGB, value); }
 
     // -----------------------------------
 
@@ -339,6 +337,11 @@ public class VkVideoEncodeH264GopRemainingFrameInfoKHR extends Struct<VkVideoEnc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

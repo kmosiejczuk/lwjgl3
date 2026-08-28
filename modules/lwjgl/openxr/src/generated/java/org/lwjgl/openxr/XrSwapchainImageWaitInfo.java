@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -157,8 +157,7 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainImageWaitInfo createSafe(long address) {
+    public static @Nullable XrSwapchainImageWaitInfo createSafe(long address) {
         return address == NULL ? null : new XrSwapchainImageWaitInfo(address, null);
     }
 
@@ -201,8 +200,7 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainImageWaitInfo.Buffer createSafe(long address, int capacity) {
+    public static XrSwapchainImageWaitInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,18 +245,18 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainImageWaitInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSwapchainImageWaitInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSwapchainImageWaitInfo.NEXT); }
     /** Unsafe version of {@link #timeout}. */
-    public static long ntimeout(long struct) { return UNSAFE.getLong(null, struct + XrSwapchainImageWaitInfo.TIMEOUT); }
+    public static long ntimeout(long struct) { return memGetLong(struct + XrSwapchainImageWaitInfo.TIMEOUT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainImageWaitInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSwapchainImageWaitInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSwapchainImageWaitInfo.NEXT, value); }
     /** Unsafe version of {@link #timeout(long) timeout}. */
-    public static void ntimeout(long struct, long value) { UNSAFE.putLong(null, struct + XrSwapchainImageWaitInfo.TIMEOUT, value); }
+    public static void ntimeout(long struct, long value) { memPutLong(struct + XrSwapchainImageWaitInfo.TIMEOUT, value); }
 
     // -----------------------------------
 
@@ -291,6 +289,11 @@ public class XrSwapchainImageWaitInfo extends Struct<XrSwapchainImageWaitInfo> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -195,8 +195,7 @@ public class XrPassthroughColorLutCreateInfoMETA extends Struct<XrPassthroughCol
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorLutCreateInfoMETA createSafe(long address) {
+    public static @Nullable XrPassthroughColorLutCreateInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrPassthroughColorLutCreateInfoMETA(address, null);
     }
 
@@ -239,8 +238,7 @@ public class XrPassthroughColorLutCreateInfoMETA extends Struct<XrPassthroughCol
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorLutCreateInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughColorLutCreateInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,24 +283,24 @@ public class XrPassthroughColorLutCreateInfoMETA extends Struct<XrPassthroughCol
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorLutCreateInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughColorLutCreateInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughColorLutCreateInfoMETA.NEXT); }
     /** Unsafe version of {@link #channels}. */
-    public static int nchannels(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorLutCreateInfoMETA.CHANNELS); }
+    public static int nchannels(long struct) { return memGetInt(struct + XrPassthroughColorLutCreateInfoMETA.CHANNELS); }
     /** Unsafe version of {@link #resolution}. */
-    public static int nresolution(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorLutCreateInfoMETA.RESOLUTION); }
+    public static int nresolution(long struct) { return memGetInt(struct + XrPassthroughColorLutCreateInfoMETA.RESOLUTION); }
     /** Unsafe version of {@link #data}. */
     public static XrPassthroughColorLutDataMETA ndata(long struct) { return XrPassthroughColorLutDataMETA.create(struct + XrPassthroughColorLutCreateInfoMETA.DATA); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorLutCreateInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughColorLutCreateInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughColorLutCreateInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #channels(int) channels}. */
-    public static void nchannels(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorLutCreateInfoMETA.CHANNELS, value); }
+    public static void nchannels(long struct, int value) { memPutInt(struct + XrPassthroughColorLutCreateInfoMETA.CHANNELS, value); }
     /** Unsafe version of {@link #resolution(int) resolution}. */
-    public static void nresolution(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorLutCreateInfoMETA.RESOLUTION, value); }
+    public static void nresolution(long struct, int value) { memPutInt(struct + XrPassthroughColorLutCreateInfoMETA.RESOLUTION, value); }
     /** Unsafe version of {@link #data(XrPassthroughColorLutDataMETA) data}. */
     public static void ndata(long struct, XrPassthroughColorLutDataMETA value) { memCopy(value.address(), struct + XrPassthroughColorLutCreateInfoMETA.DATA, XrPassthroughColorLutDataMETA.SIZEOF); }
 
@@ -346,6 +344,11 @@ public class XrPassthroughColorLutCreateInfoMETA extends Struct<XrPassthroughCol
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

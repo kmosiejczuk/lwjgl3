@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -169,8 +169,7 @@ public class XrEnvironmentDepthSwapchainStateMETA extends Struct<XrEnvironmentDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEnvironmentDepthSwapchainStateMETA createSafe(long address) {
+    public static @Nullable XrEnvironmentDepthSwapchainStateMETA createSafe(long address) {
         return address == NULL ? null : new XrEnvironmentDepthSwapchainStateMETA(address, null);
     }
 
@@ -213,8 +212,7 @@ public class XrEnvironmentDepthSwapchainStateMETA extends Struct<XrEnvironmentDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEnvironmentDepthSwapchainStateMETA.Buffer createSafe(long address, int capacity) {
+    public static XrEnvironmentDepthSwapchainStateMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,22 +257,22 @@ public class XrEnvironmentDepthSwapchainStateMETA extends Struct<XrEnvironmentDe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEnvironmentDepthSwapchainStateMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEnvironmentDepthSwapchainStateMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEnvironmentDepthSwapchainStateMETA.NEXT); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + XrEnvironmentDepthSwapchainStateMETA.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + XrEnvironmentDepthSwapchainStateMETA.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + XrEnvironmentDepthSwapchainStateMETA.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + XrEnvironmentDepthSwapchainStateMETA.HEIGHT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEnvironmentDepthSwapchainStateMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEnvironmentDepthSwapchainStateMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEnvironmentDepthSwapchainStateMETA.NEXT, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + XrEnvironmentDepthSwapchainStateMETA.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + XrEnvironmentDepthSwapchainStateMETA.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + XrEnvironmentDepthSwapchainStateMETA.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + XrEnvironmentDepthSwapchainStateMETA.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class XrEnvironmentDepthSwapchainStateMETA extends Struct<XrEnvironmentDe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

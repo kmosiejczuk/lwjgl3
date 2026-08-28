@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -198,8 +198,7 @@ public class IOURing extends Struct<IOURing> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURing createSafe(long address) {
+    public static @Nullable IOURing createSafe(long address) {
         return address == NULL ? null : new IOURing(address, null);
     }
 
@@ -242,8 +241,7 @@ public class IOURing extends Struct<IOURing> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURing.Buffer createSafe(long address, int capacity) {
+    public static IOURing.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -292,43 +290,43 @@ public class IOURing extends Struct<IOURing> implements NativeResource {
     /** Unsafe version of {@link #cq}. */
     public static IOURingCQ ncq(long struct) { return IOURingCQ.create(struct + IOURing.CQ); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + IOURing.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + IOURing.FLAGS); }
     /** Unsafe version of {@link #ring_fd}. */
-    public static int nring_fd(long struct) { return UNSAFE.getInt(null, struct + IOURing.RING_FD); }
+    public static int nring_fd(long struct) { return memGetInt(struct + IOURing.RING_FD); }
     /** Unsafe version of {@link #features}. */
-    public static int nfeatures(long struct) { return UNSAFE.getInt(null, struct + IOURing.FEATURES); }
+    public static int nfeatures(long struct) { return memGetInt(struct + IOURing.FEATURES); }
     /** Unsafe version of {@link #enter_ring_fd}. */
-    public static int nenter_ring_fd(long struct) { return UNSAFE.getInt(null, struct + IOURing.ENTER_RING_FD); }
+    public static int nenter_ring_fd(long struct) { return memGetInt(struct + IOURing.ENTER_RING_FD); }
     /** Unsafe version of {@link #int_flags}. */
-    public static byte nint_flags(long struct) { return UNSAFE.getByte(null, struct + IOURing.INT_FLAGS); }
+    public static byte nint_flags(long struct) { return memGetByte(struct + IOURing.INT_FLAGS); }
     public static ByteBuffer npad(long struct) { return memByteBuffer(struct + IOURing.PAD, 3); }
     public static byte npad(long struct, int index) {
-        return UNSAFE.getByte(null, struct + IOURing.PAD + check(index, 3) * 1);
+        return memGetByte(struct + IOURing.PAD + check(index, 3) * 1);
     }
-    public static int npad2(long struct) { return UNSAFE.getInt(null, struct + IOURing.PAD2); }
+    public static int npad2(long struct) { return memGetInt(struct + IOURing.PAD2); }
 
     /** Unsafe version of {@link #sq(IOURingSQ) sq}. */
     public static void nsq(long struct, IOURingSQ value) { memCopy(value.address(), struct + IOURing.SQ, IOURingSQ.SIZEOF); }
     /** Unsafe version of {@link #cq(IOURingCQ) cq}. */
     public static void ncq(long struct, IOURingCQ value) { memCopy(value.address(), struct + IOURing.CQ, IOURingCQ.SIZEOF); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + IOURing.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + IOURing.FLAGS, value); }
     /** Unsafe version of {@link #ring_fd(int) ring_fd}. */
-    public static void nring_fd(long struct, int value) { UNSAFE.putInt(null, struct + IOURing.RING_FD, value); }
+    public static void nring_fd(long struct, int value) { memPutInt(struct + IOURing.RING_FD, value); }
     /** Unsafe version of {@link #features(int) features}. */
-    public static void nfeatures(long struct, int value) { UNSAFE.putInt(null, struct + IOURing.FEATURES, value); }
+    public static void nfeatures(long struct, int value) { memPutInt(struct + IOURing.FEATURES, value); }
     /** Unsafe version of {@link #enter_ring_fd(int) enter_ring_fd}. */
-    public static void nenter_ring_fd(long struct, int value) { UNSAFE.putInt(null, struct + IOURing.ENTER_RING_FD, value); }
+    public static void nenter_ring_fd(long struct, int value) { memPutInt(struct + IOURing.ENTER_RING_FD, value); }
     /** Unsafe version of {@link #int_flags(byte) int_flags}. */
-    public static void nint_flags(long struct, byte value) { UNSAFE.putByte(null, struct + IOURing.INT_FLAGS, value); }
+    public static void nint_flags(long struct, byte value) { memPutByte(struct + IOURing.INT_FLAGS, value); }
     public static void npad(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
         memCopy(memAddress(value), struct + IOURing.PAD, value.remaining() * 1);
     }
     public static void npad(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + IOURing.PAD + check(index, 3) * 1, value);
+        memPutByte(struct + IOURing.PAD + check(index, 3) * 1, value);
     }
-    public static void npad2(long struct, int value) { UNSAFE.putInt(null, struct + IOURing.PAD2, value); }
+    public static void npad2(long struct, int value) { memPutInt(struct + IOURing.PAD2, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -371,6 +369,11 @@ public class IOURing extends Struct<IOURing> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

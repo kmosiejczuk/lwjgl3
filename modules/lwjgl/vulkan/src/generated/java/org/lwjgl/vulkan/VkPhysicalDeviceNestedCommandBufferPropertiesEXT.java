@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceNestedCommandBufferPropertiesEXT extends Struct<VkP
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates the maximum nesting level of calls to {@link VK10#vkCmdExecuteCommands CmdExecuteCommands} from <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary">Secondary Command Buffers</a>. A {@code maxCommandBufferNestingLevel} of {@code UINT32_MAX} means there is no limit to the nesting level. */
+    /** indicates the maximum nesting level of calls to {@link VK10#vkCmdExecuteCommands CmdExecuteCommands} from <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary">Secondary Command Buffers</a>. A {@code maxCommandBufferNestingLevel} of {@code UINT32_MAX} means there is no limit to the nesting level. */
     @NativeType("uint32_t")
     public int maxCommandBufferNestingLevel() { return nmaxCommandBufferNestingLevel(address()); }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceNestedCommandBufferPropertiesEXT extends Struct<VkP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceNestedCommandBufferPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceNestedCommandBufferPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceNestedCommandBufferPropertiesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceNestedCommandBufferPropertiesEXT extends Struct<VkP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceNestedCommandBufferPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceNestedCommandBufferPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceNestedCommandBufferPropertiesEXT extends Struct<VkP
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceNestedCommandBufferPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceNestedCommandBufferPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceNestedCommandBufferPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #maxCommandBufferNestingLevel}. */
-    public static int nmaxCommandBufferNestingLevel(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceNestedCommandBufferPropertiesEXT.MAXCOMMANDBUFFERNESTINGLEVEL); }
+    public static int nmaxCommandBufferNestingLevel(long struct) { return memGetInt(struct + VkPhysicalDeviceNestedCommandBufferPropertiesEXT.MAXCOMMANDBUFFERNESTINGLEVEL); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceNestedCommandBufferPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceNestedCommandBufferPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceNestedCommandBufferPropertiesEXT.PNEXT, value); }
     /** Unsafe version of {@link #maxCommandBufferNestingLevel(int) maxCommandBufferNestingLevel}. */
-    public static void nmaxCommandBufferNestingLevel(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceNestedCommandBufferPropertiesEXT.MAXCOMMANDBUFFERNESTINGLEVEL, value); }
+    public static void nmaxCommandBufferNestingLevel(long struct, int value) { memPutInt(struct + VkPhysicalDeviceNestedCommandBufferPropertiesEXT.MAXCOMMANDBUFFERNESTINGLEVEL, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceNestedCommandBufferPropertiesEXT extends Struct<VkP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

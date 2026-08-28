@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,7 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkImageSubresource2KHR}.
+ * See {@link VkImageSubresource2}.
  * 
  * <h3>Layout</h3>
  * 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkImageSubresource VkImageSubresource} imageSubresource;
  * }</code></pre>
  */
-public class VkImageSubresource2EXT extends VkImageSubresource2KHR {
+public class VkImageSubresource2EXT extends VkImageSubresource2 {
 
     protected VkImageSubresource2EXT(long address, @Nullable ByteBuffer container) {
         super(address, container);
@@ -51,9 +51,9 @@ public class VkImageSubresource2EXT extends VkImageSubresource2KHR {
     /** Sets the specified value to the {@code sType} field. */
     @Override
     public VkImageSubresource2EXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRMaintenance5#VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2_KHR STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2_KHR} value to the {@code sType} field. */
+    /** Sets the {@link VK14#VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2 STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2} value to the {@code sType} field. */
     @Override
-    public VkImageSubresource2EXT sType$Default() { return sType(KHRMaintenance5.VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2_KHR); }
+    public VkImageSubresource2EXT sType$Default() { return sType(VK14.VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2); }
     /** Sets the specified value to the {@code pNext} field. */
     @Override
     public VkImageSubresource2EXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
@@ -114,8 +114,7 @@ public class VkImageSubresource2EXT extends VkImageSubresource2KHR {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageSubresource2EXT createSafe(long address) {
+    public static @Nullable VkImageSubresource2EXT createSafe(long address) {
         return address == NULL ? null : new VkImageSubresource2EXT(address, null);
     }
 
@@ -158,8 +157,7 @@ public class VkImageSubresource2EXT extends VkImageSubresource2KHR {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageSubresource2EXT.Buffer createSafe(long address, int capacity) {
+    public static VkImageSubresource2EXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -204,7 +202,7 @@ public class VkImageSubresource2EXT extends VkImageSubresource2KHR {
     // -----------------------------------
 
     /** An array of {@link VkImageSubresource2EXT} structs. */
-    public static class Buffer extends VkImageSubresource2KHR.Buffer {
+    public static class Buffer extends VkImageSubresource2.Buffer {
 
         private static final VkImageSubresource2EXT ELEMENT_FACTORY = VkImageSubresource2EXT.create(-1L);
 
@@ -235,6 +233,11 @@ public class VkImageSubresource2EXT extends VkImageSubresource2KHR {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkImageSubresource2EXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -242,9 +245,9 @@ public class VkImageSubresource2EXT extends VkImageSubresource2KHR {
         /** Sets the specified value to the {@code sType} field. */
         @Override
         public VkImageSubresource2EXT.Buffer sType(@NativeType("VkStructureType") int value) { VkImageSubresource2EXT.nsType(address(), value); return this; }
-        /** Sets the {@link KHRMaintenance5#VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2_KHR STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2_KHR} value to the {@code sType} field. */
+        /** Sets the {@link VK14#VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2 STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2} value to the {@code sType} field. */
         @Override
-        public VkImageSubresource2EXT.Buffer sType$Default() { return sType(KHRMaintenance5.VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2_KHR); }
+        public VkImageSubresource2EXT.Buffer sType$Default() { return sType(VK14.VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2); }
         /** Sets the specified value to the {@code pNext} field. */
         @Override
         public VkImageSubresource2EXT.Buffer pNext(@NativeType("void *") long value) { VkImageSubresource2EXT.npNext(address(), value); return this; }

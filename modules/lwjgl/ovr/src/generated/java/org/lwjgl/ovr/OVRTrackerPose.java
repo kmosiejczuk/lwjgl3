@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -118,8 +118,7 @@ public class OVRTrackerPose extends Struct<OVRTrackerPose> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTrackerPose createSafe(long address) {
+    public static @Nullable OVRTrackerPose createSafe(long address) {
         return address == NULL ? null : new OVRTrackerPose(address, null);
     }
 
@@ -162,8 +161,7 @@ public class OVRTrackerPose extends Struct<OVRTrackerPose> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTrackerPose.Buffer createSafe(long address, int capacity) {
+    public static OVRTrackerPose.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -227,7 +225,7 @@ public class OVRTrackerPose extends Struct<OVRTrackerPose> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #TrackerFlags}. */
-    public static int nTrackerFlags(long struct) { return UNSAFE.getInt(null, struct + OVRTrackerPose.TRACKERFLAGS); }
+    public static int nTrackerFlags(long struct) { return memGetInt(struct + OVRTrackerPose.TRACKERFLAGS); }
     /** Unsafe version of {@link #Pose}. */
     public static OVRPosef nPose(long struct) { return OVRPosef.create(struct + OVRTrackerPose.POSE); }
     /** Unsafe version of {@link #LeveledPose}. */
@@ -264,6 +262,11 @@ public class OVRTrackerPose extends Struct<OVRTrackerPose> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

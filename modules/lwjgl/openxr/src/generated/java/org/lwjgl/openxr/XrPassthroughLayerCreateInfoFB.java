@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -195,8 +195,7 @@ public class XrPassthroughLayerCreateInfoFB extends Struct<XrPassthroughLayerCre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughLayerCreateInfoFB createSafe(long address) {
+    public static @Nullable XrPassthroughLayerCreateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrPassthroughLayerCreateInfoFB(address, null);
     }
 
@@ -239,8 +238,7 @@ public class XrPassthroughLayerCreateInfoFB extends Struct<XrPassthroughLayerCre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughLayerCreateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughLayerCreateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,26 +283,26 @@ public class XrPassthroughLayerCreateInfoFB extends Struct<XrPassthroughLayerCre
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughLayerCreateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughLayerCreateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughLayerCreateInfoFB.NEXT); }
     /** Unsafe version of {@link #passthrough}. */
     public static long npassthrough(long struct) { return memGetAddress(struct + XrPassthroughLayerCreateInfoFB.PASSTHROUGH); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrPassthroughLayerCreateInfoFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrPassthroughLayerCreateInfoFB.FLAGS); }
     /** Unsafe version of {@link #purpose}. */
-    public static int npurpose(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughLayerCreateInfoFB.PURPOSE); }
+    public static int npurpose(long struct) { return memGetInt(struct + XrPassthroughLayerCreateInfoFB.PURPOSE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughLayerCreateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughLayerCreateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughLayerCreateInfoFB.NEXT, value); }
     /** Unsafe version of {@link #passthrough(XrPassthroughFB) passthrough}. */
     public static void npassthrough(long struct, XrPassthroughFB value) { memPutAddress(struct + XrPassthroughLayerCreateInfoFB.PASSTHROUGH, value.address()); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrPassthroughLayerCreateInfoFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrPassthroughLayerCreateInfoFB.FLAGS, value); }
     /** Unsafe version of {@link #purpose(int) purpose}. */
-    public static void npurpose(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughLayerCreateInfoFB.PURPOSE, value); }
+    public static void npurpose(long struct, int value) { memPutInt(struct + XrPassthroughLayerCreateInfoFB.PURPOSE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -346,6 +344,11 @@ public class XrPassthroughLayerCreateInfoFB extends Struct<XrPassthroughLayerCre
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

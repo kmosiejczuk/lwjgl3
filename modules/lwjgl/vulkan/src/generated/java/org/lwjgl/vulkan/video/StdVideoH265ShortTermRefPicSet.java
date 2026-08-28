@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -256,8 +256,7 @@ public class StdVideoH265ShortTermRefPicSet extends Struct<StdVideoH265ShortTerm
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265ShortTermRefPicSet createSafe(long address) {
+    public static @Nullable StdVideoH265ShortTermRefPicSet createSafe(long address) {
         return address == NULL ? null : new StdVideoH265ShortTermRefPicSet(address, null);
     }
 
@@ -300,8 +299,7 @@ public class StdVideoH265ShortTermRefPicSet extends Struct<StdVideoH265ShortTerm
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265ShortTermRefPicSet.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265ShortTermRefPicSet.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -348,58 +346,58 @@ public class StdVideoH265ShortTermRefPicSet extends Struct<StdVideoH265ShortTerm
     /** Unsafe version of {@link #flags}. */
     public static StdVideoH265ShortTermRefPicSetFlags nflags(long struct) { return StdVideoH265ShortTermRefPicSetFlags.create(struct + StdVideoH265ShortTermRefPicSet.FLAGS); }
     /** Unsafe version of {@link #delta_idx_minus1}. */
-    public static int ndelta_idx_minus1(long struct) { return UNSAFE.getInt(null, struct + StdVideoH265ShortTermRefPicSet.DELTA_IDX_MINUS1); }
+    public static int ndelta_idx_minus1(long struct) { return memGetInt(struct + StdVideoH265ShortTermRefPicSet.DELTA_IDX_MINUS1); }
     /** Unsafe version of {@link #use_delta_flag}. */
-    public static short nuse_delta_flag(long struct) { return UNSAFE.getShort(null, struct + StdVideoH265ShortTermRefPicSet.USE_DELTA_FLAG); }
+    public static short nuse_delta_flag(long struct) { return memGetShort(struct + StdVideoH265ShortTermRefPicSet.USE_DELTA_FLAG); }
     /** Unsafe version of {@link #abs_delta_rps_minus1}. */
-    public static short nabs_delta_rps_minus1(long struct) { return UNSAFE.getShort(null, struct + StdVideoH265ShortTermRefPicSet.ABS_DELTA_RPS_MINUS1); }
+    public static short nabs_delta_rps_minus1(long struct) { return memGetShort(struct + StdVideoH265ShortTermRefPicSet.ABS_DELTA_RPS_MINUS1); }
     /** Unsafe version of {@link #used_by_curr_pic_flag}. */
-    public static short nused_by_curr_pic_flag(long struct) { return UNSAFE.getShort(null, struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_FLAG); }
+    public static short nused_by_curr_pic_flag(long struct) { return memGetShort(struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_FLAG); }
     /** Unsafe version of {@link #used_by_curr_pic_s0_flag}. */
-    public static short nused_by_curr_pic_s0_flag(long struct) { return UNSAFE.getShort(null, struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_S0_FLAG); }
+    public static short nused_by_curr_pic_s0_flag(long struct) { return memGetShort(struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_S0_FLAG); }
     /** Unsafe version of {@link #used_by_curr_pic_s1_flag}. */
-    public static short nused_by_curr_pic_s1_flag(long struct) { return UNSAFE.getShort(null, struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_S1_FLAG); }
-    public static short nreserved1(long struct) { return UNSAFE.getShort(null, struct + StdVideoH265ShortTermRefPicSet.RESERVED1); }
-    public static byte nreserved2(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265ShortTermRefPicSet.RESERVED2); }
-    public static byte nreserved3(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265ShortTermRefPicSet.RESERVED3); }
+    public static short nused_by_curr_pic_s1_flag(long struct) { return memGetShort(struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_S1_FLAG); }
+    public static short nreserved1(long struct) { return memGetShort(struct + StdVideoH265ShortTermRefPicSet.RESERVED1); }
+    public static byte nreserved2(long struct) { return memGetByte(struct + StdVideoH265ShortTermRefPicSet.RESERVED2); }
+    public static byte nreserved3(long struct) { return memGetByte(struct + StdVideoH265ShortTermRefPicSet.RESERVED3); }
     /** Unsafe version of {@link #num_negative_pics}. */
-    public static byte nnum_negative_pics(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265ShortTermRefPicSet.NUM_NEGATIVE_PICS); }
+    public static byte nnum_negative_pics(long struct) { return memGetByte(struct + StdVideoH265ShortTermRefPicSet.NUM_NEGATIVE_PICS); }
     /** Unsafe version of {@link #num_positive_pics}. */
-    public static byte nnum_positive_pics(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265ShortTermRefPicSet.NUM_POSITIVE_PICS); }
+    public static byte nnum_positive_pics(long struct) { return memGetByte(struct + StdVideoH265ShortTermRefPicSet.NUM_POSITIVE_PICS); }
     /** Unsafe version of {@link #delta_poc_s0_minus1}. */
     public static ShortBuffer ndelta_poc_s0_minus1(long struct) { return memShortBuffer(struct + StdVideoH265ShortTermRefPicSet.DELTA_POC_S0_MINUS1, STD_VIDEO_H265_MAX_DPB_SIZE); }
     /** Unsafe version of {@link #delta_poc_s0_minus1(int) delta_poc_s0_minus1}. */
     public static short ndelta_poc_s0_minus1(long struct, int index) {
-        return UNSAFE.getShort(null, struct + StdVideoH265ShortTermRefPicSet.DELTA_POC_S0_MINUS1 + check(index, STD_VIDEO_H265_MAX_DPB_SIZE) * 2);
+        return memGetShort(struct + StdVideoH265ShortTermRefPicSet.DELTA_POC_S0_MINUS1 + check(index, STD_VIDEO_H265_MAX_DPB_SIZE) * 2);
     }
     /** Unsafe version of {@link #delta_poc_s1_minus1}. */
     public static ShortBuffer ndelta_poc_s1_minus1(long struct) { return memShortBuffer(struct + StdVideoH265ShortTermRefPicSet.DELTA_POC_S1_MINUS1, STD_VIDEO_H265_MAX_DPB_SIZE); }
     /** Unsafe version of {@link #delta_poc_s1_minus1(int) delta_poc_s1_minus1}. */
     public static short ndelta_poc_s1_minus1(long struct, int index) {
-        return UNSAFE.getShort(null, struct + StdVideoH265ShortTermRefPicSet.DELTA_POC_S1_MINUS1 + check(index, STD_VIDEO_H265_MAX_DPB_SIZE) * 2);
+        return memGetShort(struct + StdVideoH265ShortTermRefPicSet.DELTA_POC_S1_MINUS1 + check(index, STD_VIDEO_H265_MAX_DPB_SIZE) * 2);
     }
 
     /** Unsafe version of {@link #flags(StdVideoH265ShortTermRefPicSetFlags) flags}. */
     public static void nflags(long struct, StdVideoH265ShortTermRefPicSetFlags value) { memCopy(value.address(), struct + StdVideoH265ShortTermRefPicSet.FLAGS, StdVideoH265ShortTermRefPicSetFlags.SIZEOF); }
     /** Unsafe version of {@link #delta_idx_minus1(int) delta_idx_minus1}. */
-    public static void ndelta_idx_minus1(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH265ShortTermRefPicSet.DELTA_IDX_MINUS1, value); }
+    public static void ndelta_idx_minus1(long struct, int value) { memPutInt(struct + StdVideoH265ShortTermRefPicSet.DELTA_IDX_MINUS1, value); }
     /** Unsafe version of {@link #use_delta_flag(short) use_delta_flag}. */
-    public static void nuse_delta_flag(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoH265ShortTermRefPicSet.USE_DELTA_FLAG, value); }
+    public static void nuse_delta_flag(long struct, short value) { memPutShort(struct + StdVideoH265ShortTermRefPicSet.USE_DELTA_FLAG, value); }
     /** Unsafe version of {@link #abs_delta_rps_minus1(short) abs_delta_rps_minus1}. */
-    public static void nabs_delta_rps_minus1(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoH265ShortTermRefPicSet.ABS_DELTA_RPS_MINUS1, value); }
+    public static void nabs_delta_rps_minus1(long struct, short value) { memPutShort(struct + StdVideoH265ShortTermRefPicSet.ABS_DELTA_RPS_MINUS1, value); }
     /** Unsafe version of {@link #used_by_curr_pic_flag(short) used_by_curr_pic_flag}. */
-    public static void nused_by_curr_pic_flag(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_FLAG, value); }
+    public static void nused_by_curr_pic_flag(long struct, short value) { memPutShort(struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_FLAG, value); }
     /** Unsafe version of {@link #used_by_curr_pic_s0_flag(short) used_by_curr_pic_s0_flag}. */
-    public static void nused_by_curr_pic_s0_flag(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_S0_FLAG, value); }
+    public static void nused_by_curr_pic_s0_flag(long struct, short value) { memPutShort(struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_S0_FLAG, value); }
     /** Unsafe version of {@link #used_by_curr_pic_s1_flag(short) used_by_curr_pic_s1_flag}. */
-    public static void nused_by_curr_pic_s1_flag(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_S1_FLAG, value); }
-    public static void nreserved1(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoH265ShortTermRefPicSet.RESERVED1, value); }
-    public static void nreserved2(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265ShortTermRefPicSet.RESERVED2, value); }
-    public static void nreserved3(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265ShortTermRefPicSet.RESERVED3, value); }
+    public static void nused_by_curr_pic_s1_flag(long struct, short value) { memPutShort(struct + StdVideoH265ShortTermRefPicSet.USED_BY_CURR_PIC_S1_FLAG, value); }
+    public static void nreserved1(long struct, short value) { memPutShort(struct + StdVideoH265ShortTermRefPicSet.RESERVED1, value); }
+    public static void nreserved2(long struct, byte value) { memPutByte(struct + StdVideoH265ShortTermRefPicSet.RESERVED2, value); }
+    public static void nreserved3(long struct, byte value) { memPutByte(struct + StdVideoH265ShortTermRefPicSet.RESERVED3, value); }
     /** Unsafe version of {@link #num_negative_pics(byte) num_negative_pics}. */
-    public static void nnum_negative_pics(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265ShortTermRefPicSet.NUM_NEGATIVE_PICS, value); }
+    public static void nnum_negative_pics(long struct, byte value) { memPutByte(struct + StdVideoH265ShortTermRefPicSet.NUM_NEGATIVE_PICS, value); }
     /** Unsafe version of {@link #num_positive_pics(byte) num_positive_pics}. */
-    public static void nnum_positive_pics(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265ShortTermRefPicSet.NUM_POSITIVE_PICS, value); }
+    public static void nnum_positive_pics(long struct, byte value) { memPutByte(struct + StdVideoH265ShortTermRefPicSet.NUM_POSITIVE_PICS, value); }
     /** Unsafe version of {@link #delta_poc_s0_minus1(ShortBuffer) delta_poc_s0_minus1}. */
     public static void ndelta_poc_s0_minus1(long struct, ShortBuffer value) {
         if (CHECKS) { checkGT(value, STD_VIDEO_H265_MAX_DPB_SIZE); }
@@ -407,7 +405,7 @@ public class StdVideoH265ShortTermRefPicSet extends Struct<StdVideoH265ShortTerm
     }
     /** Unsafe version of {@link #delta_poc_s0_minus1(int, short) delta_poc_s0_minus1}. */
     public static void ndelta_poc_s0_minus1(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + StdVideoH265ShortTermRefPicSet.DELTA_POC_S0_MINUS1 + check(index, STD_VIDEO_H265_MAX_DPB_SIZE) * 2, value);
+        memPutShort(struct + StdVideoH265ShortTermRefPicSet.DELTA_POC_S0_MINUS1 + check(index, STD_VIDEO_H265_MAX_DPB_SIZE) * 2, value);
     }
     /** Unsafe version of {@link #delta_poc_s1_minus1(ShortBuffer) delta_poc_s1_minus1}. */
     public static void ndelta_poc_s1_minus1(long struct, ShortBuffer value) {
@@ -416,7 +414,7 @@ public class StdVideoH265ShortTermRefPicSet extends Struct<StdVideoH265ShortTerm
     }
     /** Unsafe version of {@link #delta_poc_s1_minus1(int, short) delta_poc_s1_minus1}. */
     public static void ndelta_poc_s1_minus1(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + StdVideoH265ShortTermRefPicSet.DELTA_POC_S1_MINUS1 + check(index, STD_VIDEO_H265_MAX_DPB_SIZE) * 2, value);
+        memPutShort(struct + StdVideoH265ShortTermRefPicSet.DELTA_POC_S1_MINUS1 + check(index, STD_VIDEO_H265_MAX_DPB_SIZE) * 2, value);
     }
 
     // -----------------------------------
@@ -450,6 +448,11 @@ public class StdVideoH265ShortTermRefPicSet extends Struct<StdVideoH265ShortTerm
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

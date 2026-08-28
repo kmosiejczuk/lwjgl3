@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class XrKeyboardTrackingQueryFB extends Struct<XrKeyboardTrackingQueryFB>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrKeyboardTrackingQueryFB createSafe(long address) {
+    public static @Nullable XrKeyboardTrackingQueryFB createSafe(long address) {
         return address == NULL ? null : new XrKeyboardTrackingQueryFB(address, null);
     }
 
@@ -208,8 +207,7 @@ public class XrKeyboardTrackingQueryFB extends Struct<XrKeyboardTrackingQueryFB>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrKeyboardTrackingQueryFB.Buffer createSafe(long address, int capacity) {
+    public static XrKeyboardTrackingQueryFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,18 +252,18 @@ public class XrKeyboardTrackingQueryFB extends Struct<XrKeyboardTrackingQueryFB>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrKeyboardTrackingQueryFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrKeyboardTrackingQueryFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrKeyboardTrackingQueryFB.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrKeyboardTrackingQueryFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrKeyboardTrackingQueryFB.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrKeyboardTrackingQueryFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrKeyboardTrackingQueryFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrKeyboardTrackingQueryFB.NEXT, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrKeyboardTrackingQueryFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrKeyboardTrackingQueryFB.FLAGS, value); }
 
     // -----------------------------------
 
@@ -298,6 +296,11 @@ public class XrKeyboardTrackingQueryFB extends Struct<XrKeyboardTrackingQueryFB>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

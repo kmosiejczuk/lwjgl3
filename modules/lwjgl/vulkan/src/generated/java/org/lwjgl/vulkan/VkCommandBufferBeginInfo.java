@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>If {@code flags} contains {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT}, the {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
  * <li>If {@code flags} contains {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT}, the {@code framebuffer} member of {@code pInheritanceInfo} <b>must</b> be either {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, or a valid {@code VkFramebuffer} that is compatible with the {@code renderPass} member of {@code pInheritanceInfo}</li>
- * <li>If {@code flags} contains {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT} and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dynamicRendering">{@code dynamicRendering}</a> feature is not enabled, the {@code renderPass} member of {@code pInheritanceInfo} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If {@code flags} contains {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT} and the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dynamicRendering">{@code dynamicRendering}</a> feature is not enabled, the {@code renderPass} member of {@code pInheritanceInfo} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>If {@code flags} contains {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT} and the {@code renderPass} member of {@code pInheritanceInfo} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the {@code pNext} chain of {@code pInheritanceInfo} <b>must</b> include a {@link VkCommandBufferInheritanceRenderingInfo} structure</li>
  * <li>If {@code flags} contains {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT}, the {@code renderPass} member of {@code pInheritanceInfo} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and the {@code pNext} chain of {@code pInheritanceInfo} includes a {@link VkAttachmentSampleCountInfoAMD} or {@link VkAttachmentSampleCountInfoNV} structure, the {@code colorAttachmentCount} member of that structure <b>must</b> be equal to the value of {@link VkCommandBufferInheritanceRenderingInfo}{@code ::colorAttachmentCount}</li>
  * <li>If {@code flags} contains {@link VK10#VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT} and the {@code renderPass} member of {@code pInheritanceInfo} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the {@code renderPass} member of {@code pInheritanceInfo} <b>must</b> be a valid {@code VkRenderPass}</li>
@@ -117,9 +117,8 @@ public class VkCommandBufferBeginInfo extends Struct<VkCommandBufferBeginInfo> i
     @NativeType("VkCommandBufferUsageFlags")
     public int flags() { return nflags(address()); }
     /** a pointer to a {@link VkCommandBufferInheritanceInfo} structure, used if {@code commandBuffer} is a secondary command buffer. If this is a primary command buffer, then this value is ignored. */
-    @Nullable
     @NativeType("VkCommandBufferInheritanceInfo const *")
-    public VkCommandBufferInheritanceInfo pInheritanceInfo() { return npInheritanceInfo(address()); }
+    public @Nullable VkCommandBufferInheritanceInfo pInheritanceInfo() { return npInheritanceInfo(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkCommandBufferBeginInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -187,8 +186,7 @@ public class VkCommandBufferBeginInfo extends Struct<VkCommandBufferBeginInfo> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferBeginInfo createSafe(long address) {
+    public static @Nullable VkCommandBufferBeginInfo createSafe(long address) {
         return address == NULL ? null : new VkCommandBufferBeginInfo(address, null);
     }
 
@@ -231,8 +229,7 @@ public class VkCommandBufferBeginInfo extends Struct<VkCommandBufferBeginInfo> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferBeginInfo.Buffer createSafe(long address, int capacity) {
+    public static VkCommandBufferBeginInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -296,20 +293,20 @@ public class VkCommandBufferBeginInfo extends Struct<VkCommandBufferBeginInfo> i
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferBeginInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCommandBufferBeginInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCommandBufferBeginInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferBeginInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkCommandBufferBeginInfo.FLAGS); }
     /** Unsafe version of {@link #pInheritanceInfo}. */
-    @Nullable public static VkCommandBufferInheritanceInfo npInheritanceInfo(long struct) { return VkCommandBufferInheritanceInfo.createSafe(memGetAddress(struct + VkCommandBufferBeginInfo.PINHERITANCEINFO)); }
+    public static @Nullable VkCommandBufferInheritanceInfo npInheritanceInfo(long struct) { return VkCommandBufferInheritanceInfo.createSafe(memGetAddress(struct + VkCommandBufferBeginInfo.PINHERITANCEINFO)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferBeginInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCommandBufferBeginInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCommandBufferBeginInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferBeginInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkCommandBufferBeginInfo.FLAGS, value); }
     /** Unsafe version of {@link #pInheritanceInfo(VkCommandBufferInheritanceInfo) pInheritanceInfo}. */
     public static void npInheritanceInfo(long struct, @Nullable VkCommandBufferInheritanceInfo value) { memPutAddress(struct + VkCommandBufferBeginInfo.PINHERITANCEINFO, memAddressSafe(value)); }
 
@@ -347,6 +344,11 @@ public class VkCommandBufferBeginInfo extends Struct<VkCommandBufferBeginInfo> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkCommandBufferBeginInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -361,9 +363,8 @@ public class VkCommandBufferBeginInfo extends Struct<VkCommandBufferBeginInfo> i
         @NativeType("VkCommandBufferUsageFlags")
         public int flags() { return VkCommandBufferBeginInfo.nflags(address()); }
         /** @return a {@link VkCommandBufferInheritanceInfo} view of the struct pointed to by the {@link VkCommandBufferBeginInfo#pInheritanceInfo} field. */
-        @Nullable
         @NativeType("VkCommandBufferInheritanceInfo const *")
-        public VkCommandBufferInheritanceInfo pInheritanceInfo() { return VkCommandBufferBeginInfo.npInheritanceInfo(address()); }
+        public @Nullable VkCommandBufferInheritanceInfo pInheritanceInfo() { return VkCommandBufferBeginInfo.npInheritanceInfo(address()); }
 
         /** Sets the specified value to the {@link VkCommandBufferBeginInfo#sType} field. */
         public VkCommandBufferBeginInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkCommandBufferBeginInfo.nsType(address(), value); return this; }

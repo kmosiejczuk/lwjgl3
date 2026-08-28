@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -108,8 +108,7 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModePropertiesKHR createSafe(long address) {
+    public static @Nullable VkDisplayModePropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayModePropertiesKHR(address, null);
     }
 
@@ -152,8 +151,7 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModePropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayModePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -217,7 +215,7 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
     // -----------------------------------
 
     /** Unsafe version of {@link #displayMode}. */
-    public static long ndisplayMode(long struct) { return UNSAFE.getLong(null, struct + VkDisplayModePropertiesKHR.DISPLAYMODE); }
+    public static long ndisplayMode(long struct) { return memGetLong(struct + VkDisplayModePropertiesKHR.DISPLAYMODE); }
     /** Unsafe version of {@link #parameters}. */
     public static VkDisplayModeParametersKHR nparameters(long struct) { return VkDisplayModeParametersKHR.create(struct + VkDisplayModePropertiesKHR.PARAMETERS); }
 
@@ -252,6 +250,11 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

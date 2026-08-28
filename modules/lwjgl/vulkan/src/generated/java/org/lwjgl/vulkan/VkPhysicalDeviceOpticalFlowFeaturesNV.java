@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceOpticalFlowFeaturesNV extends Struct<VkPhysicalDevi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceOpticalFlowFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceOpticalFlowFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceOpticalFlowFeaturesNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceOpticalFlowFeaturesNV extends Struct<VkPhysicalDevi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceOpticalFlowFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceOpticalFlowFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceOpticalFlowFeaturesNV extends Struct<VkPhysicalDevi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpticalFlowFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #opticalFlow}. */
-    public static int nopticalFlow(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpticalFlowFeaturesNV.OPTICALFLOW); }
+    public static int nopticalFlow(long struct) { return memGetInt(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.OPTICALFLOW); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceOpticalFlowFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #opticalFlow(boolean) opticalFlow}. */
-    public static void nopticalFlow(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceOpticalFlowFeaturesNV.OPTICALFLOW, value); }
+    public static void nopticalFlow(long struct, int value) { memPutInt(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.OPTICALFLOW, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceOpticalFlowFeaturesNV extends Struct<VkPhysicalDevi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

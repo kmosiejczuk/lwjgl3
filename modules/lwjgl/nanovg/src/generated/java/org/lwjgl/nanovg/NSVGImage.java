@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -91,8 +91,7 @@ public class NSVGImage extends Struct<NSVGImage> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGImage createSafe(long address) {
+    public static @Nullable NSVGImage createSafe(long address) {
         return address == NULL ? null : new NSVGImage(address, null);
     }
 
@@ -107,17 +106,16 @@ public class NSVGImage extends Struct<NSVGImage> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGImage.Buffer createSafe(long address, int capacity) {
+    public static NSVGImage.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + NSVGImage.WIDTH); }
+    public static float nwidth(long struct) { return memGetFloat(struct + NSVGImage.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + NSVGImage.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + NSVGImage.HEIGHT); }
     /** Unsafe version of {@link #shapes}. */
     public static NSVGShape nshapes(long struct) { return NSVGShape.create(memGetAddress(struct + NSVGImage.SHAPES)); }
 
@@ -152,6 +150,11 @@ public class NSVGImage extends Struct<NSVGImage> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

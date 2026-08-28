@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -134,8 +134,7 @@ public class CLBusAddressAMD extends Struct<CLBusAddressAMD> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLBusAddressAMD createSafe(long address) {
+    public static @Nullable CLBusAddressAMD createSafe(long address) {
         return address == NULL ? null : new CLBusAddressAMD(address, null);
     }
 
@@ -178,8 +177,7 @@ public class CLBusAddressAMD extends Struct<CLBusAddressAMD> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLBusAddressAMD.Buffer createSafe(long address, int capacity) {
+    public static CLBusAddressAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,14 +241,14 @@ public class CLBusAddressAMD extends Struct<CLBusAddressAMD> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #surfbusaddress}. */
-    public static long nsurfbusaddress(long struct) { return UNSAFE.getLong(null, struct + CLBusAddressAMD.SURFBUSADDRESS); }
+    public static long nsurfbusaddress(long struct) { return memGetLong(struct + CLBusAddressAMD.SURFBUSADDRESS); }
     /** Unsafe version of {@link #signalbusaddress}. */
-    public static long nsignalbusaddress(long struct) { return UNSAFE.getLong(null, struct + CLBusAddressAMD.SIGNALBUSADDRESS); }
+    public static long nsignalbusaddress(long struct) { return memGetLong(struct + CLBusAddressAMD.SIGNALBUSADDRESS); }
 
     /** Unsafe version of {@link #surfbusaddress(long) surfbusaddress}. */
-    public static void nsurfbusaddress(long struct, long value) { UNSAFE.putLong(null, struct + CLBusAddressAMD.SURFBUSADDRESS, value); }
+    public static void nsurfbusaddress(long struct, long value) { memPutLong(struct + CLBusAddressAMD.SURFBUSADDRESS, value); }
     /** Unsafe version of {@link #signalbusaddress(long) signalbusaddress}. */
-    public static void nsignalbusaddress(long struct, long value) { UNSAFE.putLong(null, struct + CLBusAddressAMD.SIGNALBUSADDRESS, value); }
+    public static void nsignalbusaddress(long struct, long value) { memPutLong(struct + CLBusAddressAMD.SIGNALBUSADDRESS, value); }
 
     // -----------------------------------
 
@@ -283,6 +281,11 @@ public class CLBusAddressAMD extends Struct<CLBusAddressAMD> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

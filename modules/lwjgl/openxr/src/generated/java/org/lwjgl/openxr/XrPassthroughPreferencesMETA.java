@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -160,8 +160,7 @@ public class XrPassthroughPreferencesMETA extends Struct<XrPassthroughPreference
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughPreferencesMETA createSafe(long address) {
+    public static @Nullable XrPassthroughPreferencesMETA createSafe(long address) {
         return address == NULL ? null : new XrPassthroughPreferencesMETA(address, null);
     }
 
@@ -204,8 +203,7 @@ public class XrPassthroughPreferencesMETA extends Struct<XrPassthroughPreference
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughPreferencesMETA.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughPreferencesMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,14 +248,14 @@ public class XrPassthroughPreferencesMETA extends Struct<XrPassthroughPreference
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughPreferencesMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughPreferencesMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughPreferencesMETA.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrPassthroughPreferencesMETA.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrPassthroughPreferencesMETA.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughPreferencesMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughPreferencesMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughPreferencesMETA.NEXT, value); }
 
@@ -292,6 +290,11 @@ public class XrPassthroughPreferencesMETA extends Struct<XrPassthroughPreference
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

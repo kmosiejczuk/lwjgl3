@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.tinyexr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class EXRVersion extends Struct<EXRVersion> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRVersion createSafe(long address) {
+    public static @Nullable EXRVersion createSafe(long address) {
         return address == NULL ? null : new EXRVersion(address, null);
     }
 
@@ -207,8 +206,7 @@ public class EXRVersion extends Struct<EXRVersion> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRVersion.Buffer createSafe(long address, int capacity) {
+    public static EXRVersion.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,26 +270,26 @@ public class EXRVersion extends Struct<EXRVersion> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #version}. */
-    public static int nversion(long struct) { return UNSAFE.getInt(null, struct + EXRVersion.VERSION); }
+    public static int nversion(long struct) { return memGetInt(struct + EXRVersion.VERSION); }
     /** Unsafe version of {@link #tiled}. */
-    public static int ntiled(long struct) { return UNSAFE.getInt(null, struct + EXRVersion.TILED); }
+    public static int ntiled(long struct) { return memGetInt(struct + EXRVersion.TILED); }
     /** Unsafe version of {@link #long_name}. */
-    public static int nlong_name(long struct) { return UNSAFE.getInt(null, struct + EXRVersion.LONG_NAME); }
+    public static int nlong_name(long struct) { return memGetInt(struct + EXRVersion.LONG_NAME); }
     /** Unsafe version of {@link #non_image}. */
-    public static int nnon_image(long struct) { return UNSAFE.getInt(null, struct + EXRVersion.NON_IMAGE); }
+    public static int nnon_image(long struct) { return memGetInt(struct + EXRVersion.NON_IMAGE); }
     /** Unsafe version of {@link #multipart}. */
-    public static int nmultipart(long struct) { return UNSAFE.getInt(null, struct + EXRVersion.MULTIPART); }
+    public static int nmultipart(long struct) { return memGetInt(struct + EXRVersion.MULTIPART); }
 
     /** Unsafe version of {@link #version(int) version}. */
-    public static void nversion(long struct, int value) { UNSAFE.putInt(null, struct + EXRVersion.VERSION, value); }
+    public static void nversion(long struct, int value) { memPutInt(struct + EXRVersion.VERSION, value); }
     /** Unsafe version of {@link #tiled(boolean) tiled}. */
-    public static void ntiled(long struct, int value) { UNSAFE.putInt(null, struct + EXRVersion.TILED, value); }
+    public static void ntiled(long struct, int value) { memPutInt(struct + EXRVersion.TILED, value); }
     /** Unsafe version of {@link #long_name(boolean) long_name}. */
-    public static void nlong_name(long struct, int value) { UNSAFE.putInt(null, struct + EXRVersion.LONG_NAME, value); }
+    public static void nlong_name(long struct, int value) { memPutInt(struct + EXRVersion.LONG_NAME, value); }
     /** Unsafe version of {@link #non_image(boolean) non_image}. */
-    public static void nnon_image(long struct, int value) { UNSAFE.putInt(null, struct + EXRVersion.NON_IMAGE, value); }
+    public static void nnon_image(long struct, int value) { memPutInt(struct + EXRVersion.NON_IMAGE, value); }
     /** Unsafe version of {@link #multipart(boolean) multipart}. */
-    public static void nmultipart(long struct, int value) { UNSAFE.putInt(null, struct + EXRVersion.MULTIPART, value); }
+    public static void nmultipart(long struct, int value) { memPutInt(struct + EXRVersion.MULTIPART, value); }
 
     // -----------------------------------
 
@@ -324,6 +322,11 @@ public class EXRVersion extends Struct<EXRVersion> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

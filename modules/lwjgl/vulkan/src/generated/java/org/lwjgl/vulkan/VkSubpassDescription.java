@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,15 +21,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Each element of the {@code pInputAttachments} array corresponds to an input attachment index in a fragment shader, i.e. if a shader declares an image variable decorated with a {@code InputAttachmentIndex} value of <b>X</b>, then it uses the attachment provided in {@code pInputAttachments}[<b>X</b>]. Input attachments <b>must</b> also be bound to the pipeline in a descriptor set. If the {@code attachment} member of any element of {@code pInputAttachments} is {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, the application <b>must</b> not read from the corresponding input attachment index. Fragment shaders <b>can</b> use subpass input variables to access the contents of an input attachment at the fragment’s (x, y, layer) framebuffer coordinates. Input attachments <b>must</b> not be used by any subpasses within a render pass that enables <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vertexpostproc-renderpass-transform">render pass transform</a>.</p>
+ * <p>Each element of the {@code pInputAttachments} array corresponds to an input attachment index in a fragment shader, i.e. if a shader declares an image variable decorated with a {@code InputAttachmentIndex} value of <b>X</b>, then it uses the attachment provided in {@code pInputAttachments}[<b>X</b>]. Input attachments <b>must</b> also be bound to the pipeline in a descriptor set. If the {@code attachment} member of any element of {@code pInputAttachments} is {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, the application <b>must</b> not read from the corresponding input attachment index. Fragment shaders <b>can</b> use subpass input variables to access the contents of an input attachment at the fragment’s <code>(x<sub>f</sub>,y<sub>f</sub>)</code> framebuffer coordinates and layer. Input attachments <b>must</b> not be used by any subpasses within a render pass that enables <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vertexpostproc-renderpass-transform">render pass transform</a>.</p>
  * 
- * <p>Each element of the {@code pColorAttachments} array corresponds to an output location in the shader, i.e. if the shader declares an output variable decorated with a {@code Location} value of <b>X</b>, then it uses the attachment provided in {@code pColorAttachments}[<b>X</b>]. If the {@code attachment} member of any element of {@code pColorAttachments} is {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, or if <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-color-write-enable">Color Write Enable</a> has been disabled for the corresponding attachment index, then writes to the corresponding location by a fragment shader are discarded.</p>
+ * <p>Each element of the {@code pColorAttachments} array corresponds to an output location in the shader, i.e. if the shader declares an output variable decorated with a {@code Location} value of <b>X</b>, then it uses the attachment provided in {@code pColorAttachments}[<b>X</b>]. If the {@code attachment} member of any element of {@code pColorAttachments} is {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, or if <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#framebuffer-color-write-enable">Color Write Enable</a> has been disabled for the corresponding attachment index, then writes to the corresponding location by a fragment shader are discarded.</p>
  * 
- * <p>If {@code flags} does not include {@link QCOMRenderPassShaderResolve#VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM}, and if {@code pResolveAttachments} is not {@code NULL}, each of its elements corresponds to a color attachment (the element in {@code pColorAttachments} at the same index), and a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">multisample resolve operation</a> is defined for each attachment unless the resolve attachment index is {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}.</p>
+ * <p>If {@code flags} does not include {@link QCOMRenderPassShaderResolve#VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM}, and if {@code pResolveAttachments} is not {@code NULL}, each of its elements corresponds to a color attachment (the element in {@code pColorAttachments} at the same index), and a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-resolve-operations">multisample resolve operation</a> is defined for each attachment unless the resolve attachment index is {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}.</p>
  * 
- * <p>Similarly, if {@code flags} does not include {@link QCOMRenderPassShaderResolve#VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM}, and {@link VkSubpassDescriptionDepthStencilResolve}{@code ::pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, it corresponds to the depth/stencil attachment in {@code pDepthStencilAttachment}, and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">multisample resolve operation</a> for depth and stencil are defined by {@link VkSubpassDescriptionDepthStencilResolve}{@code ::depthResolveMode} and {@link VkSubpassDescriptionDepthStencilResolve}{@code ::stencilResolveMode}, respectively. If {@link VkSubpassDescriptionDepthStencilResolve}{@code ::depthResolveMode} is {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE} or the {@code pDepthStencilResolveAttachment} does not have a depth aspect, no resolve operation is performed for the depth attachment. If {@link VkSubpassDescriptionDepthStencilResolve}{@code ::stencilResolveMode} is {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE} or the {@code pDepthStencilResolveAttachment} does not have a stencil aspect, no resolve operation is performed for the stencil attachment.</p>
+ * <p>Similarly, if {@code flags} does not include {@link QCOMRenderPassShaderResolve#VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM}, and {@link VkSubpassDescriptionDepthStencilResolve}{@code ::pDepthStencilResolveAttachment} is not {@code NULL} and does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, it corresponds to the depth/stencil attachment in {@code pDepthStencilAttachment}, and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-resolve-operations">multisample resolve operation</a> for depth and stencil are defined by {@link VkSubpassDescriptionDepthStencilResolve}{@code ::depthResolveMode} and {@link VkSubpassDescriptionDepthStencilResolve}{@code ::stencilResolveMode}, respectively. If {@link VkSubpassDescriptionDepthStencilResolve}{@code ::depthResolveMode} is {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE} or the {@code pDepthStencilResolveAttachment} does not have a depth aspect, no resolve operation is performed for the depth attachment. If {@link VkSubpassDescriptionDepthStencilResolve}{@code ::stencilResolveMode} is {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE} or the {@code pDepthStencilResolveAttachment} does not have a stencil aspect, no resolve operation is performed for the stencil attachment.</p>
  * 
- * <p>If the image subresource range referenced by the depth/stencil attachment is created with {@link EXTSampleLocations#VK_IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">multisample resolve operation</a> uses the sample locations state specified in the {@code sampleLocationsInfo} member of the element of the {@link VkRenderPassSampleLocationsBeginInfoEXT}{@code ::pPostSubpassSampleLocations} for the subpass.</p>
+ * <p>If the image subresource range referenced by the depth/stencil attachment is created with {@link EXTSampleLocations#VK_IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-resolve-operations">multisample resolve operation</a> uses the sample locations state specified in the {@code sampleLocationsInfo} member of the element of the {@link VkRenderPassSampleLocationsBeginInfoEXT}{@code ::pPostSubpassSampleLocations} for the subpass.</p>
  * 
  * <p>If {@code pDepthStencilAttachment} is {@code NULL}, or if its attachment index is {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, it indicates that no depth/stencil attachment will be used in the subpass.</p>
  * 
@@ -73,13 +73,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code pResolveAttachments} is not {@code NULL}, each resolve attachment that is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have a sample count of {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}</li>
  * <li>If {@code pResolveAttachments} is not {@code NULL}, each resolve attachment that is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have the same {@code VkFormat} as its corresponding color attachment</li>
  * <li>All attachments in {@code pColorAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have the same sample count</li>
- * <li>All attachments in {@code pInputAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> contain at least {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT} or {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
- * <li>All attachments in {@code pColorAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT}</li>
- * <li>All attachments in {@code pResolveAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT}</li>
- * <li>If {@code pDepthStencilAttachment} is not {@code NULL} and the attachment is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} then it <b>must</b> have an image format whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled and the image is created with {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}, all attachments in {@code pInputAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> <b>must</b> contain {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled and the image is created with {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}, all attachments in {@code pColorAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> <b>must</b> contain {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled and the image is created with {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}, all attachments in {@code pResolveAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> <b>must</b> contain {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
+ * <li>All attachments in {@code pInputAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#potential-format-features">potential format features</a> contain at least {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT} or {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
+ * <li>All attachments in {@code pColorAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT}</li>
+ * <li>All attachments in {@code pResolveAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT}</li>
+ * <li>If {@code pDepthStencilAttachment} is not {@code NULL} and the attachment is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} then it <b>must</b> have an image format whose <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled and the image is created with {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}, all attachments in {@code pInputAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#potential-format-features">potential format features</a> <b>must</b> contain {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled and the image is created with {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}, all attachments in {@code pColorAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#potential-format-features">potential format features</a> <b>must</b> contain {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled and the image is created with {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}, all attachments in {@code pResolveAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#potential-format-features">potential format features</a> <b>must</b> contain {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
  * <li>If either of the following is enabled:
  * 
  * <ul>
@@ -220,44 +220,39 @@ public class VkSubpassDescription extends Struct<VkSubpassDescription> implement
     @NativeType("uint32_t")
     public int inputAttachmentCount() { return ninputAttachmentCount(address()); }
     /** a pointer to an array of {@link VkAttachmentReference} structures defining the input attachments for this subpass and their layouts. */
-    @Nullable
     @NativeType("VkAttachmentReference const *")
-    public VkAttachmentReference.Buffer pInputAttachments() { return npInputAttachments(address()); }
+    public VkAttachmentReference.@Nullable Buffer pInputAttachments() { return npInputAttachments(address()); }
     /** the number of color attachments. */
     @NativeType("uint32_t")
     public int colorAttachmentCount() { return ncolorAttachmentCount(address()); }
     /** a pointer to an array of {@code colorAttachmentCount} {@link VkAttachmentReference} structures defining the color attachments for this subpass and their layouts. */
-    @Nullable
     @NativeType("VkAttachmentReference const *")
-    public VkAttachmentReference.Buffer pColorAttachments() { return npColorAttachments(address()); }
+    public VkAttachmentReference.@Nullable Buffer pColorAttachments() { return npColorAttachments(address()); }
     /** {@code NULL} or a pointer to an array of {@code colorAttachmentCount} {@link VkAttachmentReference} structures defining the resolve attachments for this subpass and their layouts. */
-    @Nullable
     @NativeType("VkAttachmentReference const *")
-    public VkAttachmentReference.Buffer pResolveAttachments() { return npResolveAttachments(address()); }
+    public VkAttachmentReference.@Nullable Buffer pResolveAttachments() { return npResolveAttachments(address()); }
     /** a pointer to a {@link VkAttachmentReference} structure specifying the depth/stencil attachment for this subpass and its layout. */
-    @Nullable
     @NativeType("VkAttachmentReference const *")
-    public VkAttachmentReference pDepthStencilAttachment() { return npDepthStencilAttachment(address()); }
+    public @Nullable VkAttachmentReference pDepthStencilAttachment() { return npDepthStencilAttachment(address()); }
     /** the number of preserved attachments. */
     @NativeType("uint32_t")
     public int preserveAttachmentCount() { return npreserveAttachmentCount(address()); }
     /** a pointer to an array of {@code preserveAttachmentCount} render pass attachment indices identifying attachments that are not used by this subpass, but whose contents <b>must</b> be preserved throughout the subpass. */
-    @Nullable
     @NativeType("uint32_t const *")
-    public IntBuffer pPreserveAttachments() { return npPreserveAttachments(address()); }
+    public @Nullable IntBuffer pPreserveAttachments() { return npPreserveAttachments(address()); }
 
     /** Sets the specified value to the {@link #flags} field. */
     public VkSubpassDescription flags(@NativeType("VkSubpassDescriptionFlags") int value) { nflags(address(), value); return this; }
     /** Sets the specified value to the {@link #pipelineBindPoint} field. */
     public VkSubpassDescription pipelineBindPoint(@NativeType("VkPipelineBindPoint") int value) { npipelineBindPoint(address(), value); return this; }
     /** Sets the address of the specified {@link VkAttachmentReference.Buffer} to the {@link #pInputAttachments} field. */
-    public VkSubpassDescription pInputAttachments(@Nullable @NativeType("VkAttachmentReference const *") VkAttachmentReference.Buffer value) { npInputAttachments(address(), value); return this; }
+    public VkSubpassDescription pInputAttachments(@NativeType("VkAttachmentReference const *") VkAttachmentReference.@Nullable Buffer value) { npInputAttachments(address(), value); return this; }
     /** Sets the specified value to the {@link #colorAttachmentCount} field. */
     public VkSubpassDescription colorAttachmentCount(@NativeType("uint32_t") int value) { ncolorAttachmentCount(address(), value); return this; }
     /** Sets the address of the specified {@link VkAttachmentReference.Buffer} to the {@link #pColorAttachments} field. */
-    public VkSubpassDescription pColorAttachments(@Nullable @NativeType("VkAttachmentReference const *") VkAttachmentReference.Buffer value) { npColorAttachments(address(), value); return this; }
+    public VkSubpassDescription pColorAttachments(@NativeType("VkAttachmentReference const *") VkAttachmentReference.@Nullable Buffer value) { npColorAttachments(address(), value); return this; }
     /** Sets the address of the specified {@link VkAttachmentReference.Buffer} to the {@link #pResolveAttachments} field. */
-    public VkSubpassDescription pResolveAttachments(@Nullable @NativeType("VkAttachmentReference const *") VkAttachmentReference.Buffer value) { npResolveAttachments(address(), value); return this; }
+    public VkSubpassDescription pResolveAttachments(@NativeType("VkAttachmentReference const *") VkAttachmentReference.@Nullable Buffer value) { npResolveAttachments(address(), value); return this; }
     /** Sets the address of the specified {@link VkAttachmentReference} to the {@link #pDepthStencilAttachment} field. */
     public VkSubpassDescription pDepthStencilAttachment(@Nullable @NativeType("VkAttachmentReference const *") VkAttachmentReference value) { npDepthStencilAttachment(address(), value); return this; }
     /** Sets the address of the specified {@link IntBuffer} to the {@link #pPreserveAttachments} field. */
@@ -267,10 +262,10 @@ public class VkSubpassDescription extends Struct<VkSubpassDescription> implement
     public VkSubpassDescription set(
         int flags,
         int pipelineBindPoint,
-        @Nullable VkAttachmentReference.Buffer pInputAttachments,
+        VkAttachmentReference.@Nullable Buffer pInputAttachments,
         int colorAttachmentCount,
-        @Nullable VkAttachmentReference.Buffer pColorAttachments,
-        @Nullable VkAttachmentReference.Buffer pResolveAttachments,
+        VkAttachmentReference.@Nullable Buffer pColorAttachments,
+        VkAttachmentReference.@Nullable Buffer pResolveAttachments,
         @Nullable VkAttachmentReference pDepthStencilAttachment,
         @Nullable IntBuffer pPreserveAttachments
     ) {
@@ -322,8 +317,7 @@ public class VkSubpassDescription extends Struct<VkSubpassDescription> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassDescription createSafe(long address) {
+    public static @Nullable VkSubpassDescription createSafe(long address) {
         return address == NULL ? null : new VkSubpassDescription(address, null);
     }
 
@@ -366,8 +360,7 @@ public class VkSubpassDescription extends Struct<VkSubpassDescription> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassDescription.Buffer createSafe(long address, int capacity) {
+    public static VkSubpassDescription.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -431,44 +424,44 @@ public class VkSubpassDescription extends Struct<VkSubpassDescription> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkSubpassDescription.FLAGS); }
     /** Unsafe version of {@link #pipelineBindPoint}. */
-    public static int npipelineBindPoint(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription.PIPELINEBINDPOINT); }
+    public static int npipelineBindPoint(long struct) { return memGetInt(struct + VkSubpassDescription.PIPELINEBINDPOINT); }
     /** Unsafe version of {@link #inputAttachmentCount}. */
-    public static int ninputAttachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription.INPUTATTACHMENTCOUNT); }
+    public static int ninputAttachmentCount(long struct) { return memGetInt(struct + VkSubpassDescription.INPUTATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pInputAttachments}. */
-    @Nullable public static VkAttachmentReference.Buffer npInputAttachments(long struct) { return VkAttachmentReference.createSafe(memGetAddress(struct + VkSubpassDescription.PINPUTATTACHMENTS), ninputAttachmentCount(struct)); }
+    public static VkAttachmentReference.@Nullable Buffer npInputAttachments(long struct) { return VkAttachmentReference.createSafe(memGetAddress(struct + VkSubpassDescription.PINPUTATTACHMENTS), ninputAttachmentCount(struct)); }
     /** Unsafe version of {@link #colorAttachmentCount}. */
-    public static int ncolorAttachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription.COLORATTACHMENTCOUNT); }
+    public static int ncolorAttachmentCount(long struct) { return memGetInt(struct + VkSubpassDescription.COLORATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pColorAttachments}. */
-    @Nullable public static VkAttachmentReference.Buffer npColorAttachments(long struct) { return VkAttachmentReference.createSafe(memGetAddress(struct + VkSubpassDescription.PCOLORATTACHMENTS), ncolorAttachmentCount(struct)); }
+    public static VkAttachmentReference.@Nullable Buffer npColorAttachments(long struct) { return VkAttachmentReference.createSafe(memGetAddress(struct + VkSubpassDescription.PCOLORATTACHMENTS), ncolorAttachmentCount(struct)); }
     /** Unsafe version of {@link #pResolveAttachments}. */
-    @Nullable public static VkAttachmentReference.Buffer npResolveAttachments(long struct) { return VkAttachmentReference.createSafe(memGetAddress(struct + VkSubpassDescription.PRESOLVEATTACHMENTS), ncolorAttachmentCount(struct)); }
+    public static VkAttachmentReference.@Nullable Buffer npResolveAttachments(long struct) { return VkAttachmentReference.createSafe(memGetAddress(struct + VkSubpassDescription.PRESOLVEATTACHMENTS), ncolorAttachmentCount(struct)); }
     /** Unsafe version of {@link #pDepthStencilAttachment}. */
-    @Nullable public static VkAttachmentReference npDepthStencilAttachment(long struct) { return VkAttachmentReference.createSafe(memGetAddress(struct + VkSubpassDescription.PDEPTHSTENCILATTACHMENT)); }
+    public static @Nullable VkAttachmentReference npDepthStencilAttachment(long struct) { return VkAttachmentReference.createSafe(memGetAddress(struct + VkSubpassDescription.PDEPTHSTENCILATTACHMENT)); }
     /** Unsafe version of {@link #preserveAttachmentCount}. */
-    public static int npreserveAttachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription.PRESERVEATTACHMENTCOUNT); }
+    public static int npreserveAttachmentCount(long struct) { return memGetInt(struct + VkSubpassDescription.PRESERVEATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pPreserveAttachments() pPreserveAttachments}. */
-    @Nullable public static IntBuffer npPreserveAttachments(long struct) { return memIntBufferSafe(memGetAddress(struct + VkSubpassDescription.PPRESERVEATTACHMENTS), npreserveAttachmentCount(struct)); }
+    public static @Nullable IntBuffer npPreserveAttachments(long struct) { return memIntBufferSafe(memGetAddress(struct + VkSubpassDescription.PPRESERVEATTACHMENTS), npreserveAttachmentCount(struct)); }
 
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkSubpassDescription.FLAGS, value); }
     /** Unsafe version of {@link #pipelineBindPoint(int) pipelineBindPoint}. */
-    public static void npipelineBindPoint(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription.PIPELINEBINDPOINT, value); }
+    public static void npipelineBindPoint(long struct, int value) { memPutInt(struct + VkSubpassDescription.PIPELINEBINDPOINT, value); }
     /** Sets the specified value to the {@code inputAttachmentCount} field of the specified {@code struct}. */
-    public static void ninputAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription.INPUTATTACHMENTCOUNT, value); }
+    public static void ninputAttachmentCount(long struct, int value) { memPutInt(struct + VkSubpassDescription.INPUTATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pInputAttachments(VkAttachmentReference.Buffer) pInputAttachments}. */
-    public static void npInputAttachments(long struct, @Nullable VkAttachmentReference.Buffer value) { memPutAddress(struct + VkSubpassDescription.PINPUTATTACHMENTS, memAddressSafe(value)); ninputAttachmentCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npInputAttachments(long struct, VkAttachmentReference.@Nullable Buffer value) { memPutAddress(struct + VkSubpassDescription.PINPUTATTACHMENTS, memAddressSafe(value)); ninputAttachmentCount(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code colorAttachmentCount} field of the specified {@code struct}. */
-    public static void ncolorAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription.COLORATTACHMENTCOUNT, value); }
+    public static void ncolorAttachmentCount(long struct, int value) { memPutInt(struct + VkSubpassDescription.COLORATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pColorAttachments(VkAttachmentReference.Buffer) pColorAttachments}. */
-    public static void npColorAttachments(long struct, @Nullable VkAttachmentReference.Buffer value) { memPutAddress(struct + VkSubpassDescription.PCOLORATTACHMENTS, memAddressSafe(value)); }
+    public static void npColorAttachments(long struct, VkAttachmentReference.@Nullable Buffer value) { memPutAddress(struct + VkSubpassDescription.PCOLORATTACHMENTS, memAddressSafe(value)); }
     /** Unsafe version of {@link #pResolveAttachments(VkAttachmentReference.Buffer) pResolveAttachments}. */
-    public static void npResolveAttachments(long struct, @Nullable VkAttachmentReference.Buffer value) { memPutAddress(struct + VkSubpassDescription.PRESOLVEATTACHMENTS, memAddressSafe(value)); }
+    public static void npResolveAttachments(long struct, VkAttachmentReference.@Nullable Buffer value) { memPutAddress(struct + VkSubpassDescription.PRESOLVEATTACHMENTS, memAddressSafe(value)); }
     /** Unsafe version of {@link #pDepthStencilAttachment(VkAttachmentReference) pDepthStencilAttachment}. */
     public static void npDepthStencilAttachment(long struct, @Nullable VkAttachmentReference value) { memPutAddress(struct + VkSubpassDescription.PDEPTHSTENCILATTACHMENT, memAddressSafe(value)); }
     /** Sets the specified value to the {@code preserveAttachmentCount} field of the specified {@code struct}. */
-    public static void npreserveAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription.PRESERVEATTACHMENTCOUNT, value); }
+    public static void npreserveAttachmentCount(long struct, int value) { memPutInt(struct + VkSubpassDescription.PRESERVEATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pPreserveAttachments(IntBuffer) pPreserveAttachments}. */
     public static void npPreserveAttachments(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkSubpassDescription.PPRESERVEATTACHMENTS, memAddressSafe(value)); npreserveAttachmentCount(struct, value == null ? 0 : value.remaining()); }
 
@@ -523,6 +516,11 @@ public class VkSubpassDescription extends Struct<VkSubpassDescription> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSubpassDescription getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -537,44 +535,39 @@ public class VkSubpassDescription extends Struct<VkSubpassDescription> implement
         @NativeType("uint32_t")
         public int inputAttachmentCount() { return VkSubpassDescription.ninputAttachmentCount(address()); }
         /** @return a {@link VkAttachmentReference.Buffer} view of the struct array pointed to by the {@link VkSubpassDescription#pInputAttachments} field. */
-        @Nullable
         @NativeType("VkAttachmentReference const *")
-        public VkAttachmentReference.Buffer pInputAttachments() { return VkSubpassDescription.npInputAttachments(address()); }
+        public VkAttachmentReference.@Nullable Buffer pInputAttachments() { return VkSubpassDescription.npInputAttachments(address()); }
         /** @return the value of the {@link VkSubpassDescription#colorAttachmentCount} field. */
         @NativeType("uint32_t")
         public int colorAttachmentCount() { return VkSubpassDescription.ncolorAttachmentCount(address()); }
         /** @return a {@link VkAttachmentReference.Buffer} view of the struct array pointed to by the {@link VkSubpassDescription#pColorAttachments} field. */
-        @Nullable
         @NativeType("VkAttachmentReference const *")
-        public VkAttachmentReference.Buffer pColorAttachments() { return VkSubpassDescription.npColorAttachments(address()); }
+        public VkAttachmentReference.@Nullable Buffer pColorAttachments() { return VkSubpassDescription.npColorAttachments(address()); }
         /** @return a {@link VkAttachmentReference.Buffer} view of the struct array pointed to by the {@link VkSubpassDescription#pResolveAttachments} field. */
-        @Nullable
         @NativeType("VkAttachmentReference const *")
-        public VkAttachmentReference.Buffer pResolveAttachments() { return VkSubpassDescription.npResolveAttachments(address()); }
+        public VkAttachmentReference.@Nullable Buffer pResolveAttachments() { return VkSubpassDescription.npResolveAttachments(address()); }
         /** @return a {@link VkAttachmentReference} view of the struct pointed to by the {@link VkSubpassDescription#pDepthStencilAttachment} field. */
-        @Nullable
         @NativeType("VkAttachmentReference const *")
-        public VkAttachmentReference pDepthStencilAttachment() { return VkSubpassDescription.npDepthStencilAttachment(address()); }
+        public @Nullable VkAttachmentReference pDepthStencilAttachment() { return VkSubpassDescription.npDepthStencilAttachment(address()); }
         /** @return the value of the {@link VkSubpassDescription#preserveAttachmentCount} field. */
         @NativeType("uint32_t")
         public int preserveAttachmentCount() { return VkSubpassDescription.npreserveAttachmentCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkSubpassDescription#pPreserveAttachments} field. */
-        @Nullable
         @NativeType("uint32_t const *")
-        public IntBuffer pPreserveAttachments() { return VkSubpassDescription.npPreserveAttachments(address()); }
+        public @Nullable IntBuffer pPreserveAttachments() { return VkSubpassDescription.npPreserveAttachments(address()); }
 
         /** Sets the specified value to the {@link VkSubpassDescription#flags} field. */
         public VkSubpassDescription.Buffer flags(@NativeType("VkSubpassDescriptionFlags") int value) { VkSubpassDescription.nflags(address(), value); return this; }
         /** Sets the specified value to the {@link VkSubpassDescription#pipelineBindPoint} field. */
         public VkSubpassDescription.Buffer pipelineBindPoint(@NativeType("VkPipelineBindPoint") int value) { VkSubpassDescription.npipelineBindPoint(address(), value); return this; }
         /** Sets the address of the specified {@link VkAttachmentReference.Buffer} to the {@link VkSubpassDescription#pInputAttachments} field. */
-        public VkSubpassDescription.Buffer pInputAttachments(@Nullable @NativeType("VkAttachmentReference const *") VkAttachmentReference.Buffer value) { VkSubpassDescription.npInputAttachments(address(), value); return this; }
+        public VkSubpassDescription.Buffer pInputAttachments(@NativeType("VkAttachmentReference const *") VkAttachmentReference.@Nullable Buffer value) { VkSubpassDescription.npInputAttachments(address(), value); return this; }
         /** Sets the specified value to the {@link VkSubpassDescription#colorAttachmentCount} field. */
         public VkSubpassDescription.Buffer colorAttachmentCount(@NativeType("uint32_t") int value) { VkSubpassDescription.ncolorAttachmentCount(address(), value); return this; }
         /** Sets the address of the specified {@link VkAttachmentReference.Buffer} to the {@link VkSubpassDescription#pColorAttachments} field. */
-        public VkSubpassDescription.Buffer pColorAttachments(@Nullable @NativeType("VkAttachmentReference const *") VkAttachmentReference.Buffer value) { VkSubpassDescription.npColorAttachments(address(), value); return this; }
+        public VkSubpassDescription.Buffer pColorAttachments(@NativeType("VkAttachmentReference const *") VkAttachmentReference.@Nullable Buffer value) { VkSubpassDescription.npColorAttachments(address(), value); return this; }
         /** Sets the address of the specified {@link VkAttachmentReference.Buffer} to the {@link VkSubpassDescription#pResolveAttachments} field. */
-        public VkSubpassDescription.Buffer pResolveAttachments(@Nullable @NativeType("VkAttachmentReference const *") VkAttachmentReference.Buffer value) { VkSubpassDescription.npResolveAttachments(address(), value); return this; }
+        public VkSubpassDescription.Buffer pResolveAttachments(@NativeType("VkAttachmentReference const *") VkAttachmentReference.@Nullable Buffer value) { VkSubpassDescription.npResolveAttachments(address(), value); return this; }
         /** Sets the address of the specified {@link VkAttachmentReference} to the {@link VkSubpassDescription#pDepthStencilAttachment} field. */
         public VkSubpassDescription.Buffer pDepthStencilAttachment(@Nullable @NativeType("VkAttachmentReference const *") VkAttachmentReference value) { VkSubpassDescription.npDepthStencilAttachment(address(), value); return this; }
         /** Sets the address of the specified {@link IntBuffer} to the {@link VkSubpassDescription#pPreserveAttachments} field. */

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -113,8 +113,7 @@ public class RenderModelComponentState extends Struct<RenderModelComponentState>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RenderModelComponentState createSafe(long address) {
+    public static @Nullable RenderModelComponentState createSafe(long address) {
         return address == NULL ? null : new RenderModelComponentState(address, null);
     }
 
@@ -157,8 +156,7 @@ public class RenderModelComponentState extends Struct<RenderModelComponentState>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RenderModelComponentState.Buffer createSafe(long address, int capacity) {
+    public static RenderModelComponentState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -226,7 +224,7 @@ public class RenderModelComponentState extends Struct<RenderModelComponentState>
     /** Unsafe version of {@link #mTrackingToComponentLocal}. */
     public static HmdMatrix34 nmTrackingToComponentLocal(long struct) { return HmdMatrix34.create(struct + RenderModelComponentState.MTRACKINGTOCOMPONENTLOCAL); }
     /** Unsafe version of {@link #uProperties}. */
-    public static int nuProperties(long struct) { return UNSAFE.getInt(null, struct + RenderModelComponentState.UPROPERTIES); }
+    public static int nuProperties(long struct) { return memGetInt(struct + RenderModelComponentState.UPROPERTIES); }
 
     // -----------------------------------
 
@@ -259,6 +257,11 @@ public class RenderModelComponentState extends Struct<RenderModelComponentState>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

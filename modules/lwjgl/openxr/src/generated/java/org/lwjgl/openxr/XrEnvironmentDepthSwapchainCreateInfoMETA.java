@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class XrEnvironmentDepthSwapchainCreateInfoMETA extends Struct<XrEnvironm
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEnvironmentDepthSwapchainCreateInfoMETA createSafe(long address) {
+    public static @Nullable XrEnvironmentDepthSwapchainCreateInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrEnvironmentDepthSwapchainCreateInfoMETA(address, null);
     }
 
@@ -207,8 +206,7 @@ public class XrEnvironmentDepthSwapchainCreateInfoMETA extends Struct<XrEnvironm
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEnvironmentDepthSwapchainCreateInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrEnvironmentDepthSwapchainCreateInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +251,18 @@ public class XrEnvironmentDepthSwapchainCreateInfoMETA extends Struct<XrEnvironm
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEnvironmentDepthSwapchainCreateInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEnvironmentDepthSwapchainCreateInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEnvironmentDepthSwapchainCreateInfoMETA.NEXT); }
     /** Unsafe version of {@link #createFlags}. */
-    public static long ncreateFlags(long struct) { return UNSAFE.getLong(null, struct + XrEnvironmentDepthSwapchainCreateInfoMETA.CREATEFLAGS); }
+    public static long ncreateFlags(long struct) { return memGetLong(struct + XrEnvironmentDepthSwapchainCreateInfoMETA.CREATEFLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEnvironmentDepthSwapchainCreateInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEnvironmentDepthSwapchainCreateInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEnvironmentDepthSwapchainCreateInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #createFlags(long) createFlags}. */
-    public static void ncreateFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrEnvironmentDepthSwapchainCreateInfoMETA.CREATEFLAGS, value); }
+    public static void ncreateFlags(long struct, long value) { memPutLong(struct + XrEnvironmentDepthSwapchainCreateInfoMETA.CREATEFLAGS, value); }
 
     // -----------------------------------
 
@@ -297,6 +295,11 @@ public class XrEnvironmentDepthSwapchainCreateInfoMETA extends Struct<XrEnvironm
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

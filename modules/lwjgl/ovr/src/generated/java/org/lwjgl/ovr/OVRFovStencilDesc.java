@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -172,8 +172,7 @@ public class OVRFovStencilDesc extends Struct<OVRFovStencilDesc> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRFovStencilDesc createSafe(long address) {
+    public static @Nullable OVRFovStencilDesc createSafe(long address) {
         return address == NULL ? null : new OVRFovStencilDesc(address, null);
     }
 
@@ -216,8 +215,7 @@ public class OVRFovStencilDesc extends Struct<OVRFovStencilDesc> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRFovStencilDesc.Buffer createSafe(long address, int capacity) {
+    public static OVRFovStencilDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -281,22 +279,22 @@ public class OVRFovStencilDesc extends Struct<OVRFovStencilDesc> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #StencilType}. */
-    public static int nStencilType(long struct) { return UNSAFE.getInt(null, struct + OVRFovStencilDesc.STENCILTYPE); }
+    public static int nStencilType(long struct) { return memGetInt(struct + OVRFovStencilDesc.STENCILTYPE); }
     /** Unsafe version of {@link #StencilFlags}. */
-    public static int nStencilFlags(long struct) { return UNSAFE.getInt(null, struct + OVRFovStencilDesc.STENCILFLAGS); }
+    public static int nStencilFlags(long struct) { return memGetInt(struct + OVRFovStencilDesc.STENCILFLAGS); }
     /** Unsafe version of {@link #Eye}. */
-    public static int nEye(long struct) { return UNSAFE.getInt(null, struct + OVRFovStencilDesc.EYE); }
+    public static int nEye(long struct) { return memGetInt(struct + OVRFovStencilDesc.EYE); }
     /** Unsafe version of {@link #FovPort}. */
     public static OVRFovPort nFovPort(long struct) { return OVRFovPort.create(struct + OVRFovStencilDesc.FOVPORT); }
     /** Unsafe version of {@link #HmdToEyeRotation}. */
     public static OVRQuatf nHmdToEyeRotation(long struct) { return OVRQuatf.create(struct + OVRFovStencilDesc.HMDTOEYEROTATION); }
 
     /** Unsafe version of {@link #StencilType(int) StencilType}. */
-    public static void nStencilType(long struct, int value) { UNSAFE.putInt(null, struct + OVRFovStencilDesc.STENCILTYPE, value); }
+    public static void nStencilType(long struct, int value) { memPutInt(struct + OVRFovStencilDesc.STENCILTYPE, value); }
     /** Unsafe version of {@link #StencilFlags(int) StencilFlags}. */
-    public static void nStencilFlags(long struct, int value) { UNSAFE.putInt(null, struct + OVRFovStencilDesc.STENCILFLAGS, value); }
+    public static void nStencilFlags(long struct, int value) { memPutInt(struct + OVRFovStencilDesc.STENCILFLAGS, value); }
     /** Unsafe version of {@link #Eye(int) Eye}. */
-    public static void nEye(long struct, int value) { UNSAFE.putInt(null, struct + OVRFovStencilDesc.EYE, value); }
+    public static void nEye(long struct, int value) { memPutInt(struct + OVRFovStencilDesc.EYE, value); }
     /** Unsafe version of {@link #FovPort(OVRFovPort) FovPort}. */
     public static void nFovPort(long struct, OVRFovPort value) { memCopy(value.address(), struct + OVRFovStencilDesc.FOVPORT, OVRFovPort.SIZEOF); }
     /** Unsafe version of {@link #HmdToEyeRotation(OVRQuatf) HmdToEyeRotation}. */
@@ -333,6 +331,11 @@ public class OVRFovStencilDesc extends Struct<OVRFovStencilDesc> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

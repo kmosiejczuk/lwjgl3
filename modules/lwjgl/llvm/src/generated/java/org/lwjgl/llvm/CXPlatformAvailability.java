@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -131,8 +131,7 @@ public class CXPlatformAvailability extends Struct<CXPlatformAvailability> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXPlatformAvailability createSafe(long address) {
+    public static @Nullable CXPlatformAvailability createSafe(long address) {
         return address == NULL ? null : new CXPlatformAvailability(address, null);
     }
 
@@ -175,8 +174,7 @@ public class CXPlatformAvailability extends Struct<CXPlatformAvailability> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXPlatformAvailability.Buffer createSafe(long address, int capacity) {
+    public static CXPlatformAvailability.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,7 +246,7 @@ public class CXPlatformAvailability extends Struct<CXPlatformAvailability> imple
     /** Unsafe version of {@link #Obsoleted}. */
     public static CXVersion nObsoleted(long struct) { return CXVersion.create(struct + CXPlatformAvailability.OBSOLETED); }
     /** Unsafe version of {@link #Unavailable}. */
-    public static int nUnavailable(long struct) { return UNSAFE.getInt(null, struct + CXPlatformAvailability.UNAVAILABLE); }
+    public static int nUnavailable(long struct) { return memGetInt(struct + CXPlatformAvailability.UNAVAILABLE); }
     /** Unsafe version of {@link #Message}. */
     public static CXString nMessage(long struct) { return CXString.create(struct + CXPlatformAvailability.MESSAGE); }
 
@@ -283,6 +281,11 @@ public class CXPlatformAvailability extends Struct<CXPlatformAvailability> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

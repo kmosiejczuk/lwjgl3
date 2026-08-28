@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class FMOD_GUID extends Struct<FMOD_GUID> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_GUID createSafe(long address) {
+    public static @Nullable FMOD_GUID createSafe(long address) {
         return address == NULL ? null : new FMOD_GUID(address, null);
     }
 
@@ -203,8 +202,7 @@ public class FMOD_GUID extends Struct<FMOD_GUID> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_GUID.Buffer createSafe(long address, int capacity) {
+    public static FMOD_GUID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,24 +247,24 @@ public class FMOD_GUID extends Struct<FMOD_GUID> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #Data1}. */
-    public static int nData1(long struct) { return UNSAFE.getInt(null, struct + FMOD_GUID.DATA1); }
+    public static int nData1(long struct) { return memGetInt(struct + FMOD_GUID.DATA1); }
     /** Unsafe version of {@link #Data2}. */
-    public static short nData2(long struct) { return UNSAFE.getShort(null, struct + FMOD_GUID.DATA2); }
+    public static short nData2(long struct) { return memGetShort(struct + FMOD_GUID.DATA2); }
     /** Unsafe version of {@link #Data3}. */
-    public static short nData3(long struct) { return UNSAFE.getShort(null, struct + FMOD_GUID.DATA3); }
+    public static short nData3(long struct) { return memGetShort(struct + FMOD_GUID.DATA3); }
     /** Unsafe version of {@link #Data4}. */
     public static ByteBuffer nData4(long struct) { return memByteBuffer(struct + FMOD_GUID.DATA4, 8); }
     /** Unsafe version of {@link #Data4(int) Data4}. */
     public static byte nData4(long struct, int index) {
-        return UNSAFE.getByte(null, struct + FMOD_GUID.DATA4 + check(index, 8) * 1);
+        return memGetByte(struct + FMOD_GUID.DATA4 + check(index, 8) * 1);
     }
 
     /** Unsafe version of {@link #Data1(int) Data1}. */
-    public static void nData1(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_GUID.DATA1, value); }
+    public static void nData1(long struct, int value) { memPutInt(struct + FMOD_GUID.DATA1, value); }
     /** Unsafe version of {@link #Data2(short) Data2}. */
-    public static void nData2(long struct, short value) { UNSAFE.putShort(null, struct + FMOD_GUID.DATA2, value); }
+    public static void nData2(long struct, short value) { memPutShort(struct + FMOD_GUID.DATA2, value); }
     /** Unsafe version of {@link #Data3(short) Data3}. */
-    public static void nData3(long struct, short value) { UNSAFE.putShort(null, struct + FMOD_GUID.DATA3, value); }
+    public static void nData3(long struct, short value) { memPutShort(struct + FMOD_GUID.DATA3, value); }
     /** Unsafe version of {@link #Data4(ByteBuffer) Data4}. */
     public static void nData4(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 8); }
@@ -274,7 +272,7 @@ public class FMOD_GUID extends Struct<FMOD_GUID> implements NativeResource {
     }
     /** Unsafe version of {@link #Data4(int, byte) Data4}. */
     public static void nData4(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + FMOD_GUID.DATA4 + check(index, 8) * 1, value);
+        memPutByte(struct + FMOD_GUID.DATA4 + check(index, 8) * 1, value);
     }
 
     // -----------------------------------
@@ -308,6 +306,11 @@ public class FMOD_GUID extends Struct<FMOD_GUID> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

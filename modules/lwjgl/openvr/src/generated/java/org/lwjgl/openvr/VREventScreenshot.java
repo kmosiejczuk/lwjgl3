@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -86,8 +86,7 @@ public class VREventScreenshot extends Struct<VREventScreenshot> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventScreenshot createSafe(long address) {
+    public static @Nullable VREventScreenshot createSafe(long address) {
         return address == NULL ? null : new VREventScreenshot(address, null);
     }
 
@@ -102,17 +101,16 @@ public class VREventScreenshot extends Struct<VREventScreenshot> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventScreenshot.Buffer createSafe(long address, int capacity) {
+    public static VREventScreenshot.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #handle}. */
-    public static int nhandle(long struct) { return UNSAFE.getInt(null, struct + VREventScreenshot.HANDLE); }
+    public static int nhandle(long struct) { return memGetInt(struct + VREventScreenshot.HANDLE); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VREventScreenshot.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VREventScreenshot.TYPE); }
 
     // -----------------------------------
 
@@ -145,6 +143,11 @@ public class VREventScreenshot extends Struct<VREventScreenshot> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

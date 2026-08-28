@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class XrUserCalibrationEnableEventsInfoML extends Struct<XrUserCalibratio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrUserCalibrationEnableEventsInfoML createSafe(long address) {
+    public static @Nullable XrUserCalibrationEnableEventsInfoML createSafe(long address) {
         return address == NULL ? null : new XrUserCalibrationEnableEventsInfoML(address, null);
     }
 
@@ -202,8 +201,7 @@ public class XrUserCalibrationEnableEventsInfoML extends Struct<XrUserCalibratio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrUserCalibrationEnableEventsInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrUserCalibrationEnableEventsInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +246,18 @@ public class XrUserCalibrationEnableEventsInfoML extends Struct<XrUserCalibratio
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrUserCalibrationEnableEventsInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrUserCalibrationEnableEventsInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrUserCalibrationEnableEventsInfoML.NEXT); }
     /** Unsafe version of {@link #enabled}. */
-    public static int nenabled(long struct) { return UNSAFE.getInt(null, struct + XrUserCalibrationEnableEventsInfoML.ENABLED); }
+    public static int nenabled(long struct) { return memGetInt(struct + XrUserCalibrationEnableEventsInfoML.ENABLED); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrUserCalibrationEnableEventsInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrUserCalibrationEnableEventsInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrUserCalibrationEnableEventsInfoML.NEXT, value); }
     /** Unsafe version of {@link #enabled(boolean) enabled}. */
-    public static void nenabled(long struct, int value) { UNSAFE.putInt(null, struct + XrUserCalibrationEnableEventsInfoML.ENABLED, value); }
+    public static void nenabled(long struct, int value) { memPutInt(struct + XrUserCalibrationEnableEventsInfoML.ENABLED, value); }
 
     // -----------------------------------
 
@@ -292,6 +290,11 @@ public class XrUserCalibrationEnableEventsInfoML extends Struct<XrUserCalibratio
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

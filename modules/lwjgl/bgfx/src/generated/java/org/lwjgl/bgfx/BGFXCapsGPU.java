@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -88,8 +88,7 @@ public class BGFXCapsGPU extends Struct<BGFXCapsGPU> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXCapsGPU createSafe(long address) {
+    public static @Nullable BGFXCapsGPU createSafe(long address) {
         return address == NULL ? null : new BGFXCapsGPU(address, null);
     }
 
@@ -104,17 +103,16 @@ public class BGFXCapsGPU extends Struct<BGFXCapsGPU> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXCapsGPU.Buffer createSafe(long address, int capacity) {
+    public static BGFXCapsGPU.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #vendorId}. */
-    public static short nvendorId(long struct) { return UNSAFE.getShort(null, struct + BGFXCapsGPU.VENDORID); }
+    public static short nvendorId(long struct) { return memGetShort(struct + BGFXCapsGPU.VENDORID); }
     /** Unsafe version of {@link #deviceId}. */
-    public static short ndeviceId(long struct) { return UNSAFE.getShort(null, struct + BGFXCapsGPU.DEVICEID); }
+    public static short ndeviceId(long struct) { return memGetShort(struct + BGFXCapsGPU.DEVICEID); }
 
     // -----------------------------------
 
@@ -147,6 +145,11 @@ public class BGFXCapsGPU extends Struct<BGFXCapsGPU> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

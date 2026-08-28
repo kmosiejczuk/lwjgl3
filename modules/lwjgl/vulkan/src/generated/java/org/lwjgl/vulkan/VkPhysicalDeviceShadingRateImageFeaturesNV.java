@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-shading-rate-image">Shading Rate Image</a> for more information.</p>
+ * <p>See <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-shading-rate-image">Shading Rate Image</a> for more information.</p>
  * 
  * <p>If the {@link VkPhysicalDeviceShadingRateImageFeaturesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceShadingRateImageFeaturesNV} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
  * 
@@ -169,8 +169,7 @@ public class VkPhysicalDeviceShadingRateImageFeaturesNV extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShadingRateImageFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShadingRateImageFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShadingRateImageFeaturesNV(address, null);
     }
 
@@ -213,8 +212,7 @@ public class VkPhysicalDeviceShadingRateImageFeaturesNV extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShadingRateImageFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShadingRateImageFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -278,22 +276,22 @@ public class VkPhysicalDeviceShadingRateImageFeaturesNV extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShadingRateImageFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShadingRateImageFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShadingRateImageFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #shadingRateImage}. */
-    public static int nshadingRateImage(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShadingRateImageFeaturesNV.SHADINGRATEIMAGE); }
+    public static int nshadingRateImage(long struct) { return memGetInt(struct + VkPhysicalDeviceShadingRateImageFeaturesNV.SHADINGRATEIMAGE); }
     /** Unsafe version of {@link #shadingRateCoarseSampleOrder}. */
-    public static int nshadingRateCoarseSampleOrder(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShadingRateImageFeaturesNV.SHADINGRATECOARSESAMPLEORDER); }
+    public static int nshadingRateCoarseSampleOrder(long struct) { return memGetInt(struct + VkPhysicalDeviceShadingRateImageFeaturesNV.SHADINGRATECOARSESAMPLEORDER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShadingRateImageFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShadingRateImageFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShadingRateImageFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #shadingRateImage(boolean) shadingRateImage}. */
-    public static void nshadingRateImage(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShadingRateImageFeaturesNV.SHADINGRATEIMAGE, value); }
+    public static void nshadingRateImage(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShadingRateImageFeaturesNV.SHADINGRATEIMAGE, value); }
     /** Unsafe version of {@link #shadingRateCoarseSampleOrder(boolean) shadingRateCoarseSampleOrder}. */
-    public static void nshadingRateCoarseSampleOrder(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShadingRateImageFeaturesNV.SHADINGRATECOARSESAMPLEORDER, value); }
+    public static void nshadingRateCoarseSampleOrder(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShadingRateImageFeaturesNV.SHADINGRATECOARSESAMPLEORDER, value); }
 
     // -----------------------------------
 
@@ -326,6 +324,11 @@ public class VkPhysicalDeviceShadingRateImageFeaturesNV extends Struct<VkPhysica
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

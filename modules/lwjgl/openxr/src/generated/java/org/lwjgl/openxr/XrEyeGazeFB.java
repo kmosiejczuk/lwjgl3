@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class XrEyeGazeFB extends Struct<XrEyeGazeFB> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEyeGazeFB createSafe(long address) {
+    public static @Nullable XrEyeGazeFB createSafe(long address) {
         return address == NULL ? null : new XrEyeGazeFB(address, null);
     }
 
@@ -206,8 +205,7 @@ public class XrEyeGazeFB extends Struct<XrEyeGazeFB> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEyeGazeFB.Buffer createSafe(long address, int capacity) {
+    public static XrEyeGazeFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class XrEyeGazeFB extends Struct<XrEyeGazeFB> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #isValid}. */
-    public static int nisValid(long struct) { return UNSAFE.getInt(null, struct + XrEyeGazeFB.ISVALID); }
+    public static int nisValid(long struct) { return memGetInt(struct + XrEyeGazeFB.ISVALID); }
     /** Unsafe version of {@link #gazePose}. */
     public static XrPosef ngazePose(long struct) { return XrPosef.create(struct + XrEyeGazeFB.GAZEPOSE); }
     /** Unsafe version of {@link #gazeConfidence}. */
-    public static float ngazeConfidence(long struct) { return UNSAFE.getFloat(null, struct + XrEyeGazeFB.GAZECONFIDENCE); }
+    public static float ngazeConfidence(long struct) { return memGetFloat(struct + XrEyeGazeFB.GAZECONFIDENCE); }
 
     /** Unsafe version of {@link #isValid(boolean) isValid}. */
-    public static void nisValid(long struct, int value) { UNSAFE.putInt(null, struct + XrEyeGazeFB.ISVALID, value); }
+    public static void nisValid(long struct, int value) { memPutInt(struct + XrEyeGazeFB.ISVALID, value); }
     /** Unsafe version of {@link #gazePose(XrPosef) gazePose}. */
     public static void ngazePose(long struct, XrPosef value) { memCopy(value.address(), struct + XrEyeGazeFB.GAZEPOSE, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #gazeConfidence(float) gazeConfidence}. */
-    public static void ngazeConfidence(long struct, float value) { UNSAFE.putFloat(null, struct + XrEyeGazeFB.GAZECONFIDENCE, value); }
+    public static void ngazeConfidence(long struct, float value) { memPutFloat(struct + XrEyeGazeFB.GAZECONFIDENCE, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class XrEyeGazeFB extends Struct<XrEyeGazeFB> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

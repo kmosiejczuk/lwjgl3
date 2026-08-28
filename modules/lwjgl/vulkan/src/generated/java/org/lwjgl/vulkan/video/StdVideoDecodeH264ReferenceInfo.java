@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class StdVideoDecodeH264ReferenceInfo extends Struct<StdVideoDecodeH264Re
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoDecodeH264ReferenceInfo createSafe(long address) {
+    public static @Nullable StdVideoDecodeH264ReferenceInfo createSafe(long address) {
         return address == NULL ? null : new StdVideoDecodeH264ReferenceInfo(address, null);
     }
 
@@ -199,8 +198,7 @@ public class StdVideoDecodeH264ReferenceInfo extends Struct<StdVideoDecodeH264Re
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoDecodeH264ReferenceInfo.Buffer createSafe(long address, int capacity) {
+    public static StdVideoDecodeH264ReferenceInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,20 +245,20 @@ public class StdVideoDecodeH264ReferenceInfo extends Struct<StdVideoDecodeH264Re
     /** Unsafe version of {@link #flags}. */
     public static StdVideoDecodeH264ReferenceInfoFlags nflags(long struct) { return StdVideoDecodeH264ReferenceInfoFlags.create(struct + StdVideoDecodeH264ReferenceInfo.FLAGS); }
     /** Unsafe version of {@link #FrameNum}. */
-    public static short nFrameNum(long struct) { return UNSAFE.getShort(null, struct + StdVideoDecodeH264ReferenceInfo.FRAMENUM); }
-    public static short nreserved(long struct) { return UNSAFE.getShort(null, struct + StdVideoDecodeH264ReferenceInfo.RESERVED); }
+    public static short nFrameNum(long struct) { return memGetShort(struct + StdVideoDecodeH264ReferenceInfo.FRAMENUM); }
+    public static short nreserved(long struct) { return memGetShort(struct + StdVideoDecodeH264ReferenceInfo.RESERVED); }
     /** Unsafe version of {@link #PicOrderCnt}. */
     public static IntBuffer nPicOrderCnt(long struct) { return memIntBuffer(struct + StdVideoDecodeH264ReferenceInfo.PICORDERCNT, STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE); }
     /** Unsafe version of {@link #PicOrderCnt(int) PicOrderCnt}. */
     public static int nPicOrderCnt(long struct, int index) {
-        return UNSAFE.getInt(null, struct + StdVideoDecodeH264ReferenceInfo.PICORDERCNT + check(index, STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE) * 4);
+        return memGetInt(struct + StdVideoDecodeH264ReferenceInfo.PICORDERCNT + check(index, STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE) * 4);
     }
 
     /** Unsafe version of {@link #flags(StdVideoDecodeH264ReferenceInfoFlags) flags}. */
     public static void nflags(long struct, StdVideoDecodeH264ReferenceInfoFlags value) { memCopy(value.address(), struct + StdVideoDecodeH264ReferenceInfo.FLAGS, StdVideoDecodeH264ReferenceInfoFlags.SIZEOF); }
     /** Unsafe version of {@link #FrameNum(short) FrameNum}. */
-    public static void nFrameNum(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoDecodeH264ReferenceInfo.FRAMENUM, value); }
-    public static void nreserved(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoDecodeH264ReferenceInfo.RESERVED, value); }
+    public static void nFrameNum(long struct, short value) { memPutShort(struct + StdVideoDecodeH264ReferenceInfo.FRAMENUM, value); }
+    public static void nreserved(long struct, short value) { memPutShort(struct + StdVideoDecodeH264ReferenceInfo.RESERVED, value); }
     /** Unsafe version of {@link #PicOrderCnt(IntBuffer) PicOrderCnt}. */
     public static void nPicOrderCnt(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE); }
@@ -268,7 +266,7 @@ public class StdVideoDecodeH264ReferenceInfo extends Struct<StdVideoDecodeH264Re
     }
     /** Unsafe version of {@link #PicOrderCnt(int, int) PicOrderCnt}. */
     public static void nPicOrderCnt(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + StdVideoDecodeH264ReferenceInfo.PICORDERCNT + check(index, STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE) * 4, value);
+        memPutInt(struct + StdVideoDecodeH264ReferenceInfo.PICORDERCNT + check(index, STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE) * 4, value);
     }
 
     // -----------------------------------
@@ -302,6 +300,11 @@ public class StdVideoDecodeH264ReferenceInfo extends Struct<StdVideoDecodeH264Re
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

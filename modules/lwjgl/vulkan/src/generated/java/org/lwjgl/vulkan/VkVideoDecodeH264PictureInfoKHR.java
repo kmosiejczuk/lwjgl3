@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import org.lwjgl.vulkan.video.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>This structure is specified in the {@code pNext} chain of the {@link VkVideoDecodeInfoKHR} structure passed to {@link KHRVideoDecodeQueue#vkCmdDecodeVideoKHR CmdDecodeVideoKHR} to specify the codec-specific picture information for an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264">H.264 decode operation</a>.</p>
+ * <p>This structure is specified in the {@code pNext} chain of the {@link VkVideoDecodeInfoKHR} structure passed to {@link KHRVideoDecodeQueue#vkCmdDecodeVideoKHR CmdDecodeVideoKHR} to specify the codec-specific picture information for an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264">H.264 decode operation</a>.</p>
  * 
  * <dl>
  * <dt>Decode Output Picture Information</dt>
@@ -36,8 +36,8 @@ import org.lwjgl.vulkan.video.*;
  * <li>If {@code pStdPictureInfo→flags.bottom_field_flag} is set, then the picture represents the bottom field of the frame.</li>
  * </ul>
  * </li>
- * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
- * <li>The decode output picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-info">H.264 picture information</a> provided in {@code pStdPictureInfo}.</li>
+ * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
+ * <li>The decode output picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-picture-info">H.264 picture information</a> provided in {@code pStdPictureInfo}.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -45,21 +45,21 @@ import org.lwjgl.vulkan.video.*;
  * <dt>Std Picture Information</dt>
  * <dd><ul>
  * <li>{@code reserved1} and {@code reserved2} are used only for padding purposes and are otherwise ignored;</li>
- * <li>{@code flags.is_intra} as defined in section 3.73 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
- * <li>{@code flags.is_reference} as defined in section 3.136 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
- * <li>{@code flags.complementary_field_pair} as defined in section 3.35 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
+ * <li>{@code flags.is_intra} as defined in section 3.73 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
+ * <li>{@code flags.is_reference} as defined in section 3.136 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
+ * <li>{@code flags.complementary_field_pair} as defined in section 3.35 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
  * <li>{@code seq_parameter_set_id} and {@code pic_parameter_set_id} are used to identify the active parameter sets, as described below;</li>
- * <li>all other members are interpreted as defined in section 7.4.3 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>.</li>
+ * <li>all other members are interpreted as defined in section 7.4.3 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>.</li>
  * </ul></dd>
  * </dl>
  * 
- * <p>Reference picture setup is controlled by the value of {@code StdVideoDecodeH264PictureInfo}{@code ::flags.is_reference}. If it is set and a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-reconstructed-picture-info">reconstructed picture</a> is specified, then the latter is used as the target of picture reconstruction to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot-states">activate</a> the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> specified in {@code pDecodeInfo→pSetupReferenceSlot→slotIndex}. If {@code StdVideoDecodeH264PictureInfo}{@code ::flags.is_reference} is not set, but a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-reconstructed-picture-info">reconstructed picture</a> is specified, then the corresponding picture reference associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> is invalidated, as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot-states">DPB Slot States</a> section.</p>
+ * <p>Reference picture setup is controlled by the value of {@code StdVideoDecodeH264PictureInfo}{@code ::flags.is_reference}. If it is set and a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-reconstructed-picture-info">reconstructed picture</a> is specified, then the latter is used as the target of picture reconstruction to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot-states">activate</a> the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot">DPB slot</a> specified in {@code pDecodeInfo→pSetupReferenceSlot→slotIndex}. If {@code StdVideoDecodeH264PictureInfo}{@code ::flags.is_reference} is not set, but a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-reconstructed-picture-info">reconstructed picture</a> is specified, then the corresponding picture reference associated with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot">DPB slot</a> is invalidated, as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot-states">DPB Slot States</a> section.</p>
  * 
  * <dl>
  * <dt>Active Parameter Sets</dt>
  * <dd><ul>
- * <li>The <em>active SPS</em> is the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-sps">SPS</a> identified by the key specified in {@code StdVideoDecodeH264PictureInfo}{@code ::seq_parameter_set_id}.</li>
- * <li>The <em>active PPS</em> is the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-pps">PPS</a> identified by the key specified by the pair constructed from {@code StdVideoDecodeH264PictureInfo}{@code ::seq_parameter_set_id} and {@code StdVideoDecodeH264PictureInfo}{@code ::pic_parameter_set_id}.</li>
+ * <li>The <em>active SPS</em> is the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-sps">SPS</a> identified by the key specified in {@code StdVideoDecodeH264PictureInfo}{@code ::seq_parameter_set_id}.</li>
+ * <li>The <em>active PPS</em> is the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-pps">PPS</a> identified by the key specified by the pair constructed from {@code StdVideoDecodeH264PictureInfo}{@code ::seq_parameter_set_id} and {@code StdVideoDecodeH264PictureInfo}{@code ::pic_parameter_set_id}.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -146,7 +146,7 @@ public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264Pic
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a pointer to a {@code StdVideoDecodeH264PictureInfo} structure specifying <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-info">H.264 picture information</a>. */
+    /** a pointer to a {@code StdVideoDecodeH264PictureInfo} structure specifying <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-h264-picture-info">H.264 picture information</a>. */
     @NativeType("StdVideoDecodeH264PictureInfo const *")
     public StdVideoDecodeH264PictureInfo pStdPictureInfo() { return npStdPictureInfo(address()); }
     /** the number of elements in {@code pSliceOffsets}. */
@@ -218,8 +218,7 @@ public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264Pic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264PictureInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeH264PictureInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeH264PictureInfoKHR(address, null);
     }
 
@@ -262,8 +261,7 @@ public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264Pic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264PictureInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeH264PictureInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -308,24 +306,24 @@ public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264Pic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264PictureInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeH264PictureInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeH264PictureInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pStdPictureInfo}. */
     public static StdVideoDecodeH264PictureInfo npStdPictureInfo(long struct) { return StdVideoDecodeH264PictureInfo.create(memGetAddress(struct + VkVideoDecodeH264PictureInfoKHR.PSTDPICTUREINFO)); }
     /** Unsafe version of {@link #sliceCount}. */
-    public static int nsliceCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264PictureInfoKHR.SLICECOUNT); }
+    public static int nsliceCount(long struct) { return memGetInt(struct + VkVideoDecodeH264PictureInfoKHR.SLICECOUNT); }
     /** Unsafe version of {@link #pSliceOffsets() pSliceOffsets}. */
     public static IntBuffer npSliceOffsets(long struct) { return memIntBuffer(memGetAddress(struct + VkVideoDecodeH264PictureInfoKHR.PSLICEOFFSETS), nsliceCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH264PictureInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeH264PictureInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeH264PictureInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pStdPictureInfo(StdVideoDecodeH264PictureInfo) pStdPictureInfo}. */
     public static void npStdPictureInfo(long struct, StdVideoDecodeH264PictureInfo value) { memPutAddress(struct + VkVideoDecodeH264PictureInfoKHR.PSTDPICTUREINFO, value.address()); }
     /** Sets the specified value to the {@code sliceCount} field of the specified {@code struct}. */
-    public static void nsliceCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH264PictureInfoKHR.SLICECOUNT, value); }
+    public static void nsliceCount(long struct, int value) { memPutInt(struct + VkVideoDecodeH264PictureInfoKHR.SLICECOUNT, value); }
     /** Unsafe version of {@link #pSliceOffsets(IntBuffer) pSliceOffsets}. */
     public static void npSliceOffsets(long struct, IntBuffer value) { memPutAddress(struct + VkVideoDecodeH264PictureInfoKHR.PSLICEOFFSETS, memAddress(value)); nsliceCount(struct, value.remaining()); }
 
@@ -370,6 +368,11 @@ public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264Pic
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

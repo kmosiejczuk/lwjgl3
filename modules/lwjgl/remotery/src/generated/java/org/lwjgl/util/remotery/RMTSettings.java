@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.remotery;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -191,20 +191,17 @@ public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
     @NativeType("void *")
     public long mm_context() { return nmm_context(address()); }
     /** callback pointer for receiving input from the Remotery console */
-    @Nullable
     @NativeType("rmtInputHandlerPtr")
-    public RMTInputHandler input_handler() { return ninput_handler(address()); }
+    public @Nullable RMTInputHandler input_handler() { return ninput_handler(address()); }
     /** callback pointer for traversing the sample tree graph */
-    @Nullable
     @NativeType("rmtSampleTreeHandlerPtr")
-    public RMTSampleTreeHandler sampletree_handler() { return nsampletree_handler(address()); }
+    public @Nullable RMTSampleTreeHandler sampletree_handler() { return nsampletree_handler(address()); }
     /** @return the value of the {@code sampletree_context} field. */
     @NativeType("void *")
     public long sampletree_context() { return nsampletree_context(address()); }
     /** callback pointer for traversing the property graph */
-    @Nullable
     @NativeType("rmtPropertyHandlerPtr")
-    public RMTPropertyHandler snapshot_callback() { return nsnapshot_callback(address()); }
+    public @Nullable RMTPropertyHandler snapshot_callback() { return nsnapshot_callback(address()); }
     /** @return the value of the {@code snapshot_context} field. */
     @NativeType("void *")
     public long snapshot_context() { return nsnapshot_context(address()); }
@@ -212,13 +209,11 @@ public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
     @NativeType("void *")
     public long input_handler_context() { return ninput_handler_context(address()); }
     /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code logPath} field. */
-    @Nullable
     @NativeType("rmtPStr")
-    public ByteBuffer logPath() { return nlogPath(address()); }
+    public @Nullable ByteBuffer logPath() { return nlogPath(address()); }
     /** @return the null-terminated string pointed to by the {@code logPath} field. */
-    @Nullable
     @NativeType("rmtPStr")
-    public String logPathString() { return nlogPathString(address()); }
+    public @Nullable String logPathString() { return nlogPathString(address()); }
 
     /** Sets the specified value to the {@link #port} field. */
     public RMTSettings port(@NativeType("rmtU16") short value) { nport(address(), value); return this; }
@@ -336,8 +331,7 @@ public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RMTSettings createSafe(long address) {
+    public static @Nullable RMTSettings createSafe(long address) {
         return address == NULL ? null : new RMTSettings(address, null);
     }
 
@@ -374,19 +368,19 @@ public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #port}. */
-    public static short nport(long struct) { return UNSAFE.getShort(null, struct + RMTSettings.PORT); }
+    public static short nport(long struct) { return memGetShort(struct + RMTSettings.PORT); }
     /** Unsafe version of {@link #reuse_open_port}. */
-    public static int nreuse_open_port(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.REUSE_OPEN_PORT); }
+    public static int nreuse_open_port(long struct) { return memGetInt(struct + RMTSettings.REUSE_OPEN_PORT); }
     /** Unsafe version of {@link #limit_connections_to_localhost}. */
-    public static int nlimit_connections_to_localhost(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.LIMIT_CONNECTIONS_TO_LOCALHOST); }
+    public static int nlimit_connections_to_localhost(long struct) { return memGetInt(struct + RMTSettings.LIMIT_CONNECTIONS_TO_LOCALHOST); }
     /** Unsafe version of {@link #enableThreadSampler}. */
-    public static int nenableThreadSampler(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.ENABLETHREADSAMPLER); }
+    public static int nenableThreadSampler(long struct) { return memGetInt(struct + RMTSettings.ENABLETHREADSAMPLER); }
     /** Unsafe version of {@link #msSleepBetweenServerUpdates}. */
-    public static int nmsSleepBetweenServerUpdates(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.MSSLEEPBETWEENSERVERUPDATES); }
+    public static int nmsSleepBetweenServerUpdates(long struct) { return memGetInt(struct + RMTSettings.MSSLEEPBETWEENSERVERUPDATES); }
     /** Unsafe version of {@link #messageQueueSizeInBytes}. */
-    public static int nmessageQueueSizeInBytes(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.MESSAGEQUEUESIZEINBYTES); }
+    public static int nmessageQueueSizeInBytes(long struct) { return memGetInt(struct + RMTSettings.MESSAGEQUEUESIZEINBYTES); }
     /** Unsafe version of {@link #maxNbMessagesPerUpdate}. */
-    public static int nmaxNbMessagesPerUpdate(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.MAXNBMESSAGESPERUPDATE); }
+    public static int nmaxNbMessagesPerUpdate(long struct) { return memGetInt(struct + RMTSettings.MAXNBMESSAGESPERUPDATE); }
     /** Unsafe version of {@link #_malloc}. */
     public static RMTMalloc n_malloc(long struct) { return RMTMalloc.create(memGetAddress(struct + RMTSettings._MALLOC)); }
     /** Unsafe version of {@link #realloc}. */
@@ -396,36 +390,36 @@ public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
     /** Unsafe version of {@link #mm_context}. */
     public static long nmm_context(long struct) { return memGetAddress(struct + RMTSettings.MM_CONTEXT); }
     /** Unsafe version of {@link #input_handler}. */
-    @Nullable public static RMTInputHandler ninput_handler(long struct) { return RMTInputHandler.createSafe(memGetAddress(struct + RMTSettings.INPUT_HANDLER)); }
+    public static @Nullable RMTInputHandler ninput_handler(long struct) { return RMTInputHandler.createSafe(memGetAddress(struct + RMTSettings.INPUT_HANDLER)); }
     /** Unsafe version of {@link #sampletree_handler}. */
-    @Nullable public static RMTSampleTreeHandler nsampletree_handler(long struct) { return RMTSampleTreeHandler.createSafe(memGetAddress(struct + RMTSettings.SAMPLETREE_HANDLER)); }
+    public static @Nullable RMTSampleTreeHandler nsampletree_handler(long struct) { return RMTSampleTreeHandler.createSafe(memGetAddress(struct + RMTSettings.SAMPLETREE_HANDLER)); }
     /** Unsafe version of {@link #sampletree_context}. */
     public static long nsampletree_context(long struct) { return memGetAddress(struct + RMTSettings.SAMPLETREE_CONTEXT); }
     /** Unsafe version of {@link #snapshot_callback}. */
-    @Nullable public static RMTPropertyHandler nsnapshot_callback(long struct) { return RMTPropertyHandler.createSafe(memGetAddress(struct + RMTSettings.SNAPSHOT_CALLBACK)); }
+    public static @Nullable RMTPropertyHandler nsnapshot_callback(long struct) { return RMTPropertyHandler.createSafe(memGetAddress(struct + RMTSettings.SNAPSHOT_CALLBACK)); }
     /** Unsafe version of {@link #snapshot_context}. */
     public static long nsnapshot_context(long struct) { return memGetAddress(struct + RMTSettings.SNAPSHOT_CONTEXT); }
     /** Unsafe version of {@link #input_handler_context}. */
     public static long ninput_handler_context(long struct) { return memGetAddress(struct + RMTSettings.INPUT_HANDLER_CONTEXT); }
     /** Unsafe version of {@link #logPath}. */
-    @Nullable public static ByteBuffer nlogPath(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + RMTSettings.LOGPATH)); }
+    public static @Nullable ByteBuffer nlogPath(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + RMTSettings.LOGPATH)); }
     /** Unsafe version of {@link #logPathString}. */
-    @Nullable public static String nlogPathString(long struct) { return memUTF8Safe(memGetAddress(struct + RMTSettings.LOGPATH)); }
+    public static @Nullable String nlogPathString(long struct) { return memUTF8Safe(memGetAddress(struct + RMTSettings.LOGPATH)); }
 
     /** Unsafe version of {@link #port(short) port}. */
-    public static void nport(long struct, short value) { UNSAFE.putShort(null, struct + RMTSettings.PORT, value); }
+    public static void nport(long struct, short value) { memPutShort(struct + RMTSettings.PORT, value); }
     /** Unsafe version of {@link #reuse_open_port(boolean) reuse_open_port}. */
-    public static void nreuse_open_port(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.REUSE_OPEN_PORT, value); }
+    public static void nreuse_open_port(long struct, int value) { memPutInt(struct + RMTSettings.REUSE_OPEN_PORT, value); }
     /** Unsafe version of {@link #limit_connections_to_localhost(boolean) limit_connections_to_localhost}. */
-    public static void nlimit_connections_to_localhost(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.LIMIT_CONNECTIONS_TO_LOCALHOST, value); }
+    public static void nlimit_connections_to_localhost(long struct, int value) { memPutInt(struct + RMTSettings.LIMIT_CONNECTIONS_TO_LOCALHOST, value); }
     /** Unsafe version of {@link #enableThreadSampler(boolean) enableThreadSampler}. */
-    public static void nenableThreadSampler(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.ENABLETHREADSAMPLER, value); }
+    public static void nenableThreadSampler(long struct, int value) { memPutInt(struct + RMTSettings.ENABLETHREADSAMPLER, value); }
     /** Unsafe version of {@link #msSleepBetweenServerUpdates(int) msSleepBetweenServerUpdates}. */
-    public static void nmsSleepBetweenServerUpdates(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.MSSLEEPBETWEENSERVERUPDATES, value); }
+    public static void nmsSleepBetweenServerUpdates(long struct, int value) { memPutInt(struct + RMTSettings.MSSLEEPBETWEENSERVERUPDATES, value); }
     /** Unsafe version of {@link #messageQueueSizeInBytes(int) messageQueueSizeInBytes}. */
-    public static void nmessageQueueSizeInBytes(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.MESSAGEQUEUESIZEINBYTES, value); }
+    public static void nmessageQueueSizeInBytes(long struct, int value) { memPutInt(struct + RMTSettings.MESSAGEQUEUESIZEINBYTES, value); }
     /** Unsafe version of {@link #maxNbMessagesPerUpdate(int) maxNbMessagesPerUpdate}. */
-    public static void nmaxNbMessagesPerUpdate(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.MAXNBMESSAGESPERUPDATE, value); }
+    public static void nmaxNbMessagesPerUpdate(long struct, int value) { memPutInt(struct + RMTSettings.MAXNBMESSAGESPERUPDATE, value); }
     /** Unsafe version of {@link #_malloc(RMTMallocI) _malloc}. */
     public static void n_malloc(long struct, RMTMallocI value) { memPutAddress(struct + RMTSettings._MALLOC, value.address()); }
     /** Unsafe version of {@link #realloc(RMTReallocI) realloc}. */

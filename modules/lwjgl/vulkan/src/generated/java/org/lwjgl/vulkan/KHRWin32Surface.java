@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class KHRWin32Surface {
     }
 
     /**
-     * Create a VkSurfaceKHR object for an Win32 native window.
+     * Create a VkSurfaceKHR object for a Win32 native window.
      * 
      * <h5>C Specification</h5>
      * 
@@ -130,7 +130,7 @@ public class KHRWin32Surface {
      * </ul></dd>
      * </dl>
      * 
-     * <p>Some Vulkan functions <b>may</b> call the {@code SendMessage} system API when interacting with a {@code VkSurfaceKHR} through a {@code VkSwapchainKHR}. In a multithreaded environment, calling {@code SendMessage} from a thread that is not the thread associated with {@code pCreateInfo}{@code ::hwnd} will block until the application has processed the window message. Thus, applications <b>should</b> either call these Vulkan functions on the message pump thread, or make sure their message pump is actively running. Failing to do so <b>may</b> result in deadlocks.</p>
+     * <p>Some Vulkan functions <b>may</b> call the {@code SendMessage} system API when interacting with a {@code VkSurfaceKHR} through a {@code VkSwapchainKHR}. In a multithreaded environment, calling {@code SendMessage} from a thread that is not the thread associated with {@code pCreateInfo→hwnd} will block until the application has processed the window message. Thus, applications <b>should</b> either call these Vulkan functions on the message pump thread, or make sure their message pump is actively running. Failing to do so <b>may</b> result in deadlocks.</p>
      * 
      * <p>The functions subject to this requirement are:</p>
      * 
@@ -151,11 +151,11 @@ public class KHRWin32Surface {
      *
      * @param instance    the instance to associate the surface with.
      * @param pCreateInfo a pointer to a {@link VkWin32SurfaceCreateInfoKHR} structure containing parameters affecting the creation of the surface object.
-     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
+     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a>).
      * @param pSurface    a pointer to a {@code VkSurfaceKHR} handle in which the created surface object is returned.
      */
     @NativeType("VkResult")
-    public static int vkCreateWin32SurfaceKHR(VkInstance instance, @NativeType("VkWin32SurfaceCreateInfoKHR const *") VkWin32SurfaceCreateInfoKHR pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") LongBuffer pSurface) {
+    public static int vkCreateWin32SurfaceKHR(VkInstance instance, @NativeType("VkWin32SurfaceCreateInfoKHR const *") VkWin32SurfaceCreateInfoKHR pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") LongBuffer pSurface) {
         if (CHECKS) {
             check(pSurface, 1);
         }
@@ -206,7 +206,7 @@ public class KHRWin32Surface {
 
     /** Array version of: {@link #vkCreateWin32SurfaceKHR CreateWin32SurfaceKHR} */
     @NativeType("VkResult")
-    public static int vkCreateWin32SurfaceKHR(VkInstance instance, @NativeType("VkWin32SurfaceCreateInfoKHR const *") VkWin32SurfaceCreateInfoKHR pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") long[] pSurface) {
+    public static int vkCreateWin32SurfaceKHR(VkInstance instance, @NativeType("VkWin32SurfaceCreateInfoKHR const *") VkWin32SurfaceCreateInfoKHR pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") long[] pSurface) {
         long __functionAddress = instance.getCapabilities().vkCreateWin32SurfaceKHR;
         if (CHECKS) {
             check(__functionAddress);

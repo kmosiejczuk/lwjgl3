@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -101,7 +101,7 @@ public class VkVideoDecodeAV1SessionParametersCreateInfoKHR extends Struct<VkVid
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a pointer to a {@code StdVideoAV1SequenceHeader} structure describing the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-av1-sequence-header">AV1 sequence header</a> entry to store in the created object. */
+    /** a pointer to a {@code StdVideoAV1SequenceHeader} structure describing the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-av1-sequence-header">AV1 sequence header</a> entry to store in the created object. */
     @NativeType("StdVideoAV1SequenceHeader const *")
     public StdVideoAV1SequenceHeader pStdSequenceHeader() { return npStdSequenceHeader(address()); }
 
@@ -163,8 +163,7 @@ public class VkVideoDecodeAV1SessionParametersCreateInfoKHR extends Struct<VkVid
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeAV1SessionParametersCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeAV1SessionParametersCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeAV1SessionParametersCreateInfoKHR(address, null);
     }
 
@@ -207,8 +206,7 @@ public class VkVideoDecodeAV1SessionParametersCreateInfoKHR extends Struct<VkVid
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeAV1SessionParametersCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeAV1SessionParametersCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,14 +251,14 @@ public class VkVideoDecodeAV1SessionParametersCreateInfoKHR extends Struct<VkVid
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeAV1SessionParametersCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeAV1SessionParametersCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeAV1SessionParametersCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pStdSequenceHeader}. */
     public static StdVideoAV1SequenceHeader npStdSequenceHeader(long struct) { return StdVideoAV1SequenceHeader.create(memGetAddress(struct + VkVideoDecodeAV1SessionParametersCreateInfoKHR.PSTDSEQUENCEHEADER)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeAV1SessionParametersCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeAV1SessionParametersCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeAV1SessionParametersCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pStdSequenceHeader(StdVideoAV1SequenceHeader) pStdSequenceHeader}. */
@@ -308,6 +306,11 @@ public class VkVideoDecodeAV1SessionParametersCreateInfoKHR extends Struct<VkVid
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

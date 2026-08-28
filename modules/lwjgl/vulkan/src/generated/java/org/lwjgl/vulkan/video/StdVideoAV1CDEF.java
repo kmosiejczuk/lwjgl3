@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -198,8 +198,7 @@ public class StdVideoAV1CDEF extends Struct<StdVideoAV1CDEF> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1CDEF createSafe(long address) {
+    public static @Nullable StdVideoAV1CDEF createSafe(long address) {
         return address == NULL ? null : new StdVideoAV1CDEF(address, null);
     }
 
@@ -242,8 +241,7 @@ public class StdVideoAV1CDEF extends Struct<StdVideoAV1CDEF> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1CDEF.Buffer createSafe(long address, int capacity) {
+    public static StdVideoAV1CDEF.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -288,38 +286,38 @@ public class StdVideoAV1CDEF extends Struct<StdVideoAV1CDEF> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #cdef_damping_minus_3}. */
-    public static byte ncdef_damping_minus_3(long struct) { return UNSAFE.getByte(null, struct + StdVideoAV1CDEF.CDEF_DAMPING_MINUS_3); }
+    public static byte ncdef_damping_minus_3(long struct) { return memGetByte(struct + StdVideoAV1CDEF.CDEF_DAMPING_MINUS_3); }
     /** Unsafe version of {@link #cdef_bits}. */
-    public static byte ncdef_bits(long struct) { return UNSAFE.getByte(null, struct + StdVideoAV1CDEF.CDEF_BITS); }
+    public static byte ncdef_bits(long struct) { return memGetByte(struct + StdVideoAV1CDEF.CDEF_BITS); }
     /** Unsafe version of {@link #cdef_y_pri_strength}. */
     public static ByteBuffer ncdef_y_pri_strength(long struct) { return memByteBuffer(struct + StdVideoAV1CDEF.CDEF_Y_PRI_STRENGTH, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS); }
     /** Unsafe version of {@link #cdef_y_pri_strength(int) cdef_y_pri_strength}. */
     public static byte ncdef_y_pri_strength(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoAV1CDEF.CDEF_Y_PRI_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1);
+        return memGetByte(struct + StdVideoAV1CDEF.CDEF_Y_PRI_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1);
     }
     /** Unsafe version of {@link #cdef_y_sec_strength}. */
     public static ByteBuffer ncdef_y_sec_strength(long struct) { return memByteBuffer(struct + StdVideoAV1CDEF.CDEF_Y_SEC_STRENGTH, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS); }
     /** Unsafe version of {@link #cdef_y_sec_strength(int) cdef_y_sec_strength}. */
     public static byte ncdef_y_sec_strength(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoAV1CDEF.CDEF_Y_SEC_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1);
+        return memGetByte(struct + StdVideoAV1CDEF.CDEF_Y_SEC_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1);
     }
     /** Unsafe version of {@link #cdef_uv_pri_strength}. */
     public static ByteBuffer ncdef_uv_pri_strength(long struct) { return memByteBuffer(struct + StdVideoAV1CDEF.CDEF_UV_PRI_STRENGTH, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS); }
     /** Unsafe version of {@link #cdef_uv_pri_strength(int) cdef_uv_pri_strength}. */
     public static byte ncdef_uv_pri_strength(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoAV1CDEF.CDEF_UV_PRI_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1);
+        return memGetByte(struct + StdVideoAV1CDEF.CDEF_UV_PRI_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1);
     }
     /** Unsafe version of {@link #cdef_uv_sec_strength}. */
     public static ByteBuffer ncdef_uv_sec_strength(long struct) { return memByteBuffer(struct + StdVideoAV1CDEF.CDEF_UV_SEC_STRENGTH, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS); }
     /** Unsafe version of {@link #cdef_uv_sec_strength(int) cdef_uv_sec_strength}. */
     public static byte ncdef_uv_sec_strength(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoAV1CDEF.CDEF_UV_SEC_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1);
+        return memGetByte(struct + StdVideoAV1CDEF.CDEF_UV_SEC_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1);
     }
 
     /** Unsafe version of {@link #cdef_damping_minus_3(byte) cdef_damping_minus_3}. */
-    public static void ncdef_damping_minus_3(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoAV1CDEF.CDEF_DAMPING_MINUS_3, value); }
+    public static void ncdef_damping_minus_3(long struct, byte value) { memPutByte(struct + StdVideoAV1CDEF.CDEF_DAMPING_MINUS_3, value); }
     /** Unsafe version of {@link #cdef_bits(byte) cdef_bits}. */
-    public static void ncdef_bits(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoAV1CDEF.CDEF_BITS, value); }
+    public static void ncdef_bits(long struct, byte value) { memPutByte(struct + StdVideoAV1CDEF.CDEF_BITS, value); }
     /** Unsafe version of {@link #cdef_y_pri_strength(ByteBuffer) cdef_y_pri_strength}. */
     public static void ncdef_y_pri_strength(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS); }
@@ -327,7 +325,7 @@ public class StdVideoAV1CDEF extends Struct<StdVideoAV1CDEF> implements NativeRe
     }
     /** Unsafe version of {@link #cdef_y_pri_strength(int, byte) cdef_y_pri_strength}. */
     public static void ncdef_y_pri_strength(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoAV1CDEF.CDEF_Y_PRI_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1, value);
+        memPutByte(struct + StdVideoAV1CDEF.CDEF_Y_PRI_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1, value);
     }
     /** Unsafe version of {@link #cdef_y_sec_strength(ByteBuffer) cdef_y_sec_strength}. */
     public static void ncdef_y_sec_strength(long struct, ByteBuffer value) {
@@ -336,7 +334,7 @@ public class StdVideoAV1CDEF extends Struct<StdVideoAV1CDEF> implements NativeRe
     }
     /** Unsafe version of {@link #cdef_y_sec_strength(int, byte) cdef_y_sec_strength}. */
     public static void ncdef_y_sec_strength(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoAV1CDEF.CDEF_Y_SEC_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1, value);
+        memPutByte(struct + StdVideoAV1CDEF.CDEF_Y_SEC_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1, value);
     }
     /** Unsafe version of {@link #cdef_uv_pri_strength(ByteBuffer) cdef_uv_pri_strength}. */
     public static void ncdef_uv_pri_strength(long struct, ByteBuffer value) {
@@ -345,7 +343,7 @@ public class StdVideoAV1CDEF extends Struct<StdVideoAV1CDEF> implements NativeRe
     }
     /** Unsafe version of {@link #cdef_uv_pri_strength(int, byte) cdef_uv_pri_strength}. */
     public static void ncdef_uv_pri_strength(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoAV1CDEF.CDEF_UV_PRI_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1, value);
+        memPutByte(struct + StdVideoAV1CDEF.CDEF_UV_PRI_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1, value);
     }
     /** Unsafe version of {@link #cdef_uv_sec_strength(ByteBuffer) cdef_uv_sec_strength}. */
     public static void ncdef_uv_sec_strength(long struct, ByteBuffer value) {
@@ -354,7 +352,7 @@ public class StdVideoAV1CDEF extends Struct<StdVideoAV1CDEF> implements NativeRe
     }
     /** Unsafe version of {@link #cdef_uv_sec_strength(int, byte) cdef_uv_sec_strength}. */
     public static void ncdef_uv_sec_strength(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoAV1CDEF.CDEF_UV_SEC_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1, value);
+        memPutByte(struct + StdVideoAV1CDEF.CDEF_UV_SEC_STRENGTH + check(index, STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS) * 1, value);
     }
 
     // -----------------------------------
@@ -388,6 +386,11 @@ public class StdVideoAV1CDEF extends Struct<StdVideoAV1CDEF> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

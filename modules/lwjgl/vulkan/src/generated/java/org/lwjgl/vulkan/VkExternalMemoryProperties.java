@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -102,8 +102,7 @@ public class VkExternalMemoryProperties extends Struct<VkExternalMemoryPropertie
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalMemoryProperties createSafe(long address) {
+    public static @Nullable VkExternalMemoryProperties createSafe(long address) {
         return address == NULL ? null : new VkExternalMemoryProperties(address, null);
     }
 
@@ -118,19 +117,18 @@ public class VkExternalMemoryProperties extends Struct<VkExternalMemoryPropertie
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalMemoryProperties.Buffer createSafe(long address, int capacity) {
+    public static VkExternalMemoryProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #externalMemoryFeatures}. */
-    public static int nexternalMemoryFeatures(long struct) { return UNSAFE.getInt(null, struct + VkExternalMemoryProperties.EXTERNALMEMORYFEATURES); }
+    public static int nexternalMemoryFeatures(long struct) { return memGetInt(struct + VkExternalMemoryProperties.EXTERNALMEMORYFEATURES); }
     /** Unsafe version of {@link #exportFromImportedHandleTypes}. */
-    public static int nexportFromImportedHandleTypes(long struct) { return UNSAFE.getInt(null, struct + VkExternalMemoryProperties.EXPORTFROMIMPORTEDHANDLETYPES); }
+    public static int nexportFromImportedHandleTypes(long struct) { return memGetInt(struct + VkExternalMemoryProperties.EXPORTFROMIMPORTEDHANDLETYPES); }
     /** Unsafe version of {@link #compatibleHandleTypes}. */
-    public static int ncompatibleHandleTypes(long struct) { return UNSAFE.getInt(null, struct + VkExternalMemoryProperties.COMPATIBLEHANDLETYPES); }
+    public static int ncompatibleHandleTypes(long struct) { return memGetInt(struct + VkExternalMemoryProperties.COMPATIBLEHANDLETYPES); }
 
     // -----------------------------------
 
@@ -163,6 +161,11 @@ public class VkExternalMemoryProperties extends Struct<VkExternalMemoryPropertie
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

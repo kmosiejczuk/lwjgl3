@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -128,8 +128,7 @@ public class CXIdxEntityRefInfo extends Struct<CXIdxEntityRefInfo> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxEntityRefInfo createSafe(long address) {
+    public static @Nullable CXIdxEntityRefInfo createSafe(long address) {
         return address == NULL ? null : new CXIdxEntityRefInfo(address, null);
     }
 
@@ -144,15 +143,14 @@ public class CXIdxEntityRefInfo extends Struct<CXIdxEntityRefInfo> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxEntityRefInfo.Buffer createSafe(long address, int capacity) {
+    public static CXIdxEntityRefInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #kind}. */
-    public static int nkind(long struct) { return UNSAFE.getInt(null, struct + CXIdxEntityRefInfo.KIND); }
+    public static int nkind(long struct) { return memGetInt(struct + CXIdxEntityRefInfo.KIND); }
     /** Unsafe version of {@link #cursor}. */
     public static CXCursor ncursor(long struct) { return CXCursor.create(struct + CXIdxEntityRefInfo.CURSOR); }
     /** Unsafe version of {@link #loc}. */
@@ -164,7 +162,7 @@ public class CXIdxEntityRefInfo extends Struct<CXIdxEntityRefInfo> {
     /** Unsafe version of {@link #container}. */
     public static CXIdxContainerInfo ncontainer(long struct) { return CXIdxContainerInfo.create(memGetAddress(struct + CXIdxEntityRefInfo.CONTAINER)); }
     /** Unsafe version of {@link #role}. */
-    public static int nrole(long struct) { return UNSAFE.getInt(null, struct + CXIdxEntityRefInfo.ROLE); }
+    public static int nrole(long struct) { return memGetInt(struct + CXIdxEntityRefInfo.ROLE); }
 
     // -----------------------------------
 
@@ -197,6 +195,11 @@ public class CXIdxEntityRefInfo extends Struct<CXIdxEntityRefInfo> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

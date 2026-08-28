@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,8 +150,7 @@ public class OVRTrackingState extends Struct<OVRTrackingState> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTrackingState createSafe(long address) {
+    public static @Nullable OVRTrackingState createSafe(long address) {
         return address == NULL ? null : new OVRTrackingState(address, null);
     }
 
@@ -194,8 +193,7 @@ public class OVRTrackingState extends Struct<OVRTrackingState> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTrackingState.Buffer createSafe(long address, int capacity) {
+    public static OVRTrackingState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,7 +259,7 @@ public class OVRTrackingState extends Struct<OVRTrackingState> implements Native
     /** Unsafe version of {@link #HeadPose}. */
     public static OVRPoseStatef nHeadPose(long struct) { return OVRPoseStatef.create(struct + OVRTrackingState.HEADPOSE); }
     /** Unsafe version of {@link #StatusFlags}. */
-    public static int nStatusFlags(long struct) { return UNSAFE.getInt(null, struct + OVRTrackingState.STATUSFLAGS); }
+    public static int nStatusFlags(long struct) { return memGetInt(struct + OVRTrackingState.STATUSFLAGS); }
     /** Unsafe version of {@link #HandPoses}. */
     public static OVRPoseStatef.Buffer nHandPoses(long struct) { return OVRPoseStatef.create(struct + OVRTrackingState.HANDPOSES, 2); }
     /** Unsafe version of {@link #HandPoses(int) HandPoses}. */
@@ -272,7 +270,7 @@ public class OVRTrackingState extends Struct<OVRTrackingState> implements Native
     public static IntBuffer nHandStatusFlags(long struct) { return memIntBuffer(struct + OVRTrackingState.HANDSTATUSFLAGS, 2); }
     /** Unsafe version of {@link #HandStatusFlags(int) HandStatusFlags}. */
     public static int nHandStatusFlags(long struct, int index) {
-        return UNSAFE.getInt(null, struct + OVRTrackingState.HANDSTATUSFLAGS + check(index, 2) * 4);
+        return memGetInt(struct + OVRTrackingState.HANDSTATUSFLAGS + check(index, 2) * 4);
     }
     /** Unsafe version of {@link #CalibratedOrigin}. */
     public static OVRPosef nCalibratedOrigin(long struct) { return OVRPosef.create(struct + OVRTrackingState.CALIBRATEDORIGIN); }
@@ -308,6 +306,11 @@ public class OVRTrackingState extends Struct<OVRTrackingState> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

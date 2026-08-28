@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -99,8 +99,7 @@ public class hwloc_group_attr_s extends Struct<hwloc_group_attr_s> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_group_attr_s createSafe(long address) {
+    public static @Nullable hwloc_group_attr_s createSafe(long address) {
         return address == NULL ? null : new hwloc_group_attr_s(address, null);
     }
 
@@ -115,21 +114,20 @@ public class hwloc_group_attr_s extends Struct<hwloc_group_attr_s> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_group_attr_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_group_attr_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #depth}. */
-    public static int ndepth(long struct) { return UNSAFE.getInt(null, struct + hwloc_group_attr_s.DEPTH); }
+    public static int ndepth(long struct) { return memGetInt(struct + hwloc_group_attr_s.DEPTH); }
     /** Unsafe version of {@link #kind}. */
-    public static int nkind(long struct) { return UNSAFE.getInt(null, struct + hwloc_group_attr_s.KIND); }
+    public static int nkind(long struct) { return memGetInt(struct + hwloc_group_attr_s.KIND); }
     /** Unsafe version of {@link #subkind}. */
-    public static int nsubkind(long struct) { return UNSAFE.getInt(null, struct + hwloc_group_attr_s.SUBKIND); }
+    public static int nsubkind(long struct) { return memGetInt(struct + hwloc_group_attr_s.SUBKIND); }
     /** Unsafe version of {@link #dont_merge}. */
-    public static boolean ndont_merge(long struct) { return UNSAFE.getByte(null, struct + hwloc_group_attr_s.DONT_MERGE) != 0; }
+    public static boolean ndont_merge(long struct) { return memGetByte(struct + hwloc_group_attr_s.DONT_MERGE) != 0; }
 
     // -----------------------------------
 
@@ -162,6 +160,11 @@ public class hwloc_group_attr_s extends Struct<hwloc_group_attr_s> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -114,8 +114,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtensionProperties createSafe(long address) {
+    public static @Nullable VkExtensionProperties createSafe(long address) {
         return address == NULL ? null : new VkExtensionProperties(address, null);
     }
 
@@ -158,8 +157,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtensionProperties.Buffer createSafe(long address, int capacity) {
+    public static VkExtensionProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -227,7 +225,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
     /** Unsafe version of {@link #extensionNameString}. */
     public static String nextensionNameString(long struct) { return memUTF8(struct + VkExtensionProperties.EXTENSIONNAME); }
     /** Unsafe version of {@link #specVersion}. */
-    public static int nspecVersion(long struct) { return UNSAFE.getInt(null, struct + VkExtensionProperties.SPECVERSION); }
+    public static int nspecVersion(long struct) { return memGetInt(struct + VkExtensionProperties.SPECVERSION); }
 
     // -----------------------------------
 
@@ -260,6 +258,11 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

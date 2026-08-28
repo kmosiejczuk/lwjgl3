@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -171,8 +171,7 @@ public class FMOD_OUTPUT_OBJECT3DINFO extends Struct<FMOD_OUTPUT_OBJECT3DINFO> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_OUTPUT_OBJECT3DINFO createSafe(long address) {
+    public static @Nullable FMOD_OUTPUT_OBJECT3DINFO createSafe(long address) {
         return address == NULL ? null : new FMOD_OUTPUT_OBJECT3DINFO(address, null);
     }
 
@@ -215,8 +214,7 @@ public class FMOD_OUTPUT_OBJECT3DINFO extends Struct<FMOD_OUTPUT_OBJECT3DINFO> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_OUTPUT_OBJECT3DINFO.Buffer createSafe(long address, int capacity) {
+    public static FMOD_OUTPUT_OBJECT3DINFO.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,28 +261,28 @@ public class FMOD_OUTPUT_OBJECT3DINFO extends Struct<FMOD_OUTPUT_OBJECT3DINFO> i
     /** Unsafe version of {@link #buffer() buffer}. */
     public static FloatBuffer nbuffer(long struct) { return memFloatBuffer(memGetAddress(struct + FMOD_OUTPUT_OBJECT3DINFO.BUFFER), nbufferlength(struct)); }
     /** Unsafe version of {@link #bufferlength}. */
-    public static int nbufferlength(long struct) { return UNSAFE.getInt(null, struct + FMOD_OUTPUT_OBJECT3DINFO.BUFFERLENGTH); }
+    public static int nbufferlength(long struct) { return memGetInt(struct + FMOD_OUTPUT_OBJECT3DINFO.BUFFERLENGTH); }
     /** Unsafe version of {@link #position$}. */
     public static FMOD_VECTOR nposition$(long struct) { return FMOD_VECTOR.create(struct + FMOD_OUTPUT_OBJECT3DINFO.POSITION); }
     /** Unsafe version of {@link #gain}. */
-    public static float ngain(long struct) { return UNSAFE.getFloat(null, struct + FMOD_OUTPUT_OBJECT3DINFO.GAIN); }
+    public static float ngain(long struct) { return memGetFloat(struct + FMOD_OUTPUT_OBJECT3DINFO.GAIN); }
     /** Unsafe version of {@link #spread}. */
-    public static float nspread(long struct) { return UNSAFE.getFloat(null, struct + FMOD_OUTPUT_OBJECT3DINFO.SPREAD); }
+    public static float nspread(long struct) { return memGetFloat(struct + FMOD_OUTPUT_OBJECT3DINFO.SPREAD); }
     /** Unsafe version of {@link #priority}. */
-    public static float npriority(long struct) { return UNSAFE.getFloat(null, struct + FMOD_OUTPUT_OBJECT3DINFO.PRIORITY); }
+    public static float npriority(long struct) { return memGetFloat(struct + FMOD_OUTPUT_OBJECT3DINFO.PRIORITY); }
 
     /** Unsafe version of {@link #buffer(FloatBuffer) buffer}. */
     public static void nbuffer(long struct, FloatBuffer value) { memPutAddress(struct + FMOD_OUTPUT_OBJECT3DINFO.BUFFER, memAddress(value)); nbufferlength(struct, value.remaining()); }
     /** Sets the specified value to the {@code bufferlength} field of the specified {@code struct}. */
-    public static void nbufferlength(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_OUTPUT_OBJECT3DINFO.BUFFERLENGTH, value); }
+    public static void nbufferlength(long struct, int value) { memPutInt(struct + FMOD_OUTPUT_OBJECT3DINFO.BUFFERLENGTH, value); }
     /** Unsafe version of {@link #position$(FMOD_VECTOR) position$}. */
     public static void nposition$(long struct, FMOD_VECTOR value) { memCopy(value.address(), struct + FMOD_OUTPUT_OBJECT3DINFO.POSITION, FMOD_VECTOR.SIZEOF); }
     /** Unsafe version of {@link #gain(float) gain}. */
-    public static void ngain(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_OUTPUT_OBJECT3DINFO.GAIN, value); }
+    public static void ngain(long struct, float value) { memPutFloat(struct + FMOD_OUTPUT_OBJECT3DINFO.GAIN, value); }
     /** Unsafe version of {@link #spread(float) spread}. */
-    public static void nspread(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_OUTPUT_OBJECT3DINFO.SPREAD, value); }
+    public static void nspread(long struct, float value) { memPutFloat(struct + FMOD_OUTPUT_OBJECT3DINFO.SPREAD, value); }
     /** Unsafe version of {@link #priority(float) priority}. */
-    public static void npriority(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_OUTPUT_OBJECT3DINFO.PRIORITY, value); }
+    public static void npriority(long struct, float value) { memPutFloat(struct + FMOD_OUTPUT_OBJECT3DINFO.PRIORITY, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -326,6 +324,11 @@ public class FMOD_OUTPUT_OBJECT3DINFO extends Struct<FMOD_OUTPUT_OBJECT3DINFO> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

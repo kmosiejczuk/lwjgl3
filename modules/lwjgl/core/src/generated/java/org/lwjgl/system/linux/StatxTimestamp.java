@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -138,8 +138,7 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StatxTimestamp createSafe(long address) {
+    public static @Nullable StatxTimestamp createSafe(long address) {
         return address == NULL ? null : new StatxTimestamp(address, null);
     }
 
@@ -182,8 +181,7 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StatxTimestamp.Buffer createSafe(long address, int capacity) {
+    public static StatxTimestamp.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -228,16 +226,16 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #tv_sec}. */
-    public static long ntv_sec(long struct) { return UNSAFE.getLong(null, struct + StatxTimestamp.TV_SEC); }
+    public static long ntv_sec(long struct) { return memGetLong(struct + StatxTimestamp.TV_SEC); }
     /** Unsafe version of {@link #tv_nsec}. */
-    public static int ntv_nsec(long struct) { return UNSAFE.getInt(null, struct + StatxTimestamp.TV_NSEC); }
-    public static int n__reserved(long struct) { return UNSAFE.getInt(null, struct + StatxTimestamp.__RESERVED); }
+    public static int ntv_nsec(long struct) { return memGetInt(struct + StatxTimestamp.TV_NSEC); }
+    public static int n__reserved(long struct) { return memGetInt(struct + StatxTimestamp.__RESERVED); }
 
     /** Unsafe version of {@link #tv_sec(long) tv_sec}. */
-    public static void ntv_sec(long struct, long value) { UNSAFE.putLong(null, struct + StatxTimestamp.TV_SEC, value); }
+    public static void ntv_sec(long struct, long value) { memPutLong(struct + StatxTimestamp.TV_SEC, value); }
     /** Unsafe version of {@link #tv_nsec(int) tv_nsec}. */
-    public static void ntv_nsec(long struct, int value) { UNSAFE.putInt(null, struct + StatxTimestamp.TV_NSEC, value); }
-    public static void n__reserved(long struct, int value) { UNSAFE.putInt(null, struct + StatxTimestamp.__RESERVED, value); }
+    public static void ntv_nsec(long struct, int value) { memPutInt(struct + StatxTimestamp.TV_NSEC, value); }
+    public static void n__reserved(long struct, int value) { memPutInt(struct + StatxTimestamp.__RESERVED, value); }
 
     // -----------------------------------
 
@@ -270,6 +268,11 @@ public class StatxTimestamp extends Struct<StatxTimestamp> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

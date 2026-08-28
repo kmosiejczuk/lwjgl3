@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,8 +161,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcReflectedBuiltinResource createSafe(long address) {
+    public static @Nullable SpvcReflectedBuiltinResource createSafe(long address) {
         return address == NULL ? null : new SpvcReflectedBuiltinResource(address, null);
     }
 
@@ -205,8 +204,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcReflectedBuiltinResource.Buffer createSafe(long address, int capacity) {
+    public static SpvcReflectedBuiltinResource.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,16 +249,16 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
     // -----------------------------------
 
     /** Unsafe version of {@link #builtin}. */
-    public static int nbuiltin(long struct) { return UNSAFE.getInt(null, struct + SpvcReflectedBuiltinResource.BUILTIN); }
+    public static int nbuiltin(long struct) { return memGetInt(struct + SpvcReflectedBuiltinResource.BUILTIN); }
     /** Unsafe version of {@link #value_type_id}. */
-    public static int nvalue_type_id(long struct) { return UNSAFE.getInt(null, struct + SpvcReflectedBuiltinResource.VALUE_TYPE_ID); }
+    public static int nvalue_type_id(long struct) { return memGetInt(struct + SpvcReflectedBuiltinResource.VALUE_TYPE_ID); }
     /** Unsafe version of {@link #resource}. */
     public static SpvcReflectedResource nresource(long struct) { return SpvcReflectedResource.create(struct + SpvcReflectedBuiltinResource.RESOURCE); }
 
     /** Unsafe version of {@link #builtin(int) builtin}. */
-    public static void nbuiltin(long struct, int value) { UNSAFE.putInt(null, struct + SpvcReflectedBuiltinResource.BUILTIN, value); }
+    public static void nbuiltin(long struct, int value) { memPutInt(struct + SpvcReflectedBuiltinResource.BUILTIN, value); }
     /** Unsafe version of {@link #value_type_id(int) value_type_id}. */
-    public static void nvalue_type_id(long struct, int value) { UNSAFE.putInt(null, struct + SpvcReflectedBuiltinResource.VALUE_TYPE_ID, value); }
+    public static void nvalue_type_id(long struct, int value) { memPutInt(struct + SpvcReflectedBuiltinResource.VALUE_TYPE_ID, value); }
     /** Unsafe version of {@link #resource(SpvcReflectedResource) resource}. */
     public static void nresource(long struct, SpvcReflectedResource value) { memCopy(value.address(), struct + SpvcReflectedBuiltinResource.RESOURCE, SpvcReflectedResource.SIZEOF); }
 
@@ -304,6 +302,11 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

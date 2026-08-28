@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -143,8 +143,7 @@ public class StdVideoH265ProfileTierLevel extends Struct<StdVideoH265ProfileTier
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265ProfileTierLevel createSafe(long address) {
+    public static @Nullable StdVideoH265ProfileTierLevel createSafe(long address) {
         return address == NULL ? null : new StdVideoH265ProfileTierLevel(address, null);
     }
 
@@ -187,8 +186,7 @@ public class StdVideoH265ProfileTierLevel extends Struct<StdVideoH265ProfileTier
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265ProfileTierLevel.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265ProfileTierLevel.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -235,16 +233,16 @@ public class StdVideoH265ProfileTierLevel extends Struct<StdVideoH265ProfileTier
     /** Unsafe version of {@link #flags}. */
     public static StdVideoH265ProfileTierLevelFlags nflags(long struct) { return StdVideoH265ProfileTierLevelFlags.create(struct + StdVideoH265ProfileTierLevel.FLAGS); }
     /** Unsafe version of {@link #general_profile_idc}. */
-    public static int ngeneral_profile_idc(long struct) { return UNSAFE.getInt(null, struct + StdVideoH265ProfileTierLevel.GENERAL_PROFILE_IDC); }
+    public static int ngeneral_profile_idc(long struct) { return memGetInt(struct + StdVideoH265ProfileTierLevel.GENERAL_PROFILE_IDC); }
     /** Unsafe version of {@link #general_level_idc}. */
-    public static int ngeneral_level_idc(long struct) { return UNSAFE.getInt(null, struct + StdVideoH265ProfileTierLevel.GENERAL_LEVEL_IDC); }
+    public static int ngeneral_level_idc(long struct) { return memGetInt(struct + StdVideoH265ProfileTierLevel.GENERAL_LEVEL_IDC); }
 
     /** Unsafe version of {@link #flags(StdVideoH265ProfileTierLevelFlags) flags}. */
     public static void nflags(long struct, StdVideoH265ProfileTierLevelFlags value) { memCopy(value.address(), struct + StdVideoH265ProfileTierLevel.FLAGS, StdVideoH265ProfileTierLevelFlags.SIZEOF); }
     /** Unsafe version of {@link #general_profile_idc(int) general_profile_idc}. */
-    public static void ngeneral_profile_idc(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH265ProfileTierLevel.GENERAL_PROFILE_IDC, value); }
+    public static void ngeneral_profile_idc(long struct, int value) { memPutInt(struct + StdVideoH265ProfileTierLevel.GENERAL_PROFILE_IDC, value); }
     /** Unsafe version of {@link #general_level_idc(int) general_level_idc}. */
-    public static void ngeneral_level_idc(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH265ProfileTierLevel.GENERAL_LEVEL_IDC, value); }
+    public static void ngeneral_level_idc(long struct, int value) { memPutInt(struct + StdVideoH265ProfileTierLevel.GENERAL_LEVEL_IDC, value); }
 
     // -----------------------------------
 
@@ -277,6 +275,11 @@ public class StdVideoH265ProfileTierLevel extends Struct<StdVideoH265ProfileTier
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

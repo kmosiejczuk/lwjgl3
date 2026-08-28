@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -97,8 +97,7 @@ public class NSVGPaint extends Struct<NSVGPaint> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGPaint createSafe(long address) {
+    public static @Nullable NSVGPaint createSafe(long address) {
         return address == NULL ? null : new NSVGPaint(address, null);
     }
 
@@ -113,17 +112,16 @@ public class NSVGPaint extends Struct<NSVGPaint> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGPaint.Buffer createSafe(long address, int capacity) {
+    public static NSVGPaint.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static byte ntype(long struct) { return UNSAFE.getByte(null, struct + NSVGPaint.TYPE); }
+    public static byte ntype(long struct) { return memGetByte(struct + NSVGPaint.TYPE); }
     /** Unsafe version of {@link #color}. */
-    public static int ncolor(long struct) { return UNSAFE.getInt(null, struct + NSVGPaint.COLOR); }
+    public static int ncolor(long struct) { return memGetInt(struct + NSVGPaint.COLOR); }
     /** Unsafe version of {@link #gradient}. */
     public static NSVGGradient ngradient(long struct) { return NSVGGradient.create(memGetAddress(struct + NSVGPaint.GRADIENT)); }
 
@@ -158,6 +156,11 @@ public class NSVGPaint extends Struct<NSVGPaint> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

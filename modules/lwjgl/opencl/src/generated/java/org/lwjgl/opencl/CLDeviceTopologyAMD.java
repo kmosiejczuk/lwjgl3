@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class CLDeviceTopologyAMD extends Struct<CLDeviceTopologyAMD> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLDeviceTopologyAMD createSafe(long address) {
+    public static @Nullable CLDeviceTopologyAMD createSafe(long address) {
         return address == NULL ? null : new CLDeviceTopologyAMD(address, null);
     }
 
@@ -196,8 +195,7 @@ public class CLDeviceTopologyAMD extends Struct<CLDeviceTopologyAMD> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLDeviceTopologyAMD.Buffer createSafe(long address, int capacity) {
+    public static CLDeviceTopologyAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,21 +259,21 @@ public class CLDeviceTopologyAMD extends Struct<CLDeviceTopologyAMD> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #raw_type}. */
-    public static int nraw_type(long struct) { return UNSAFE.getInt(null, struct + CLDeviceTopologyAMD.RAW_TYPE); }
+    public static int nraw_type(long struct) { return memGetInt(struct + CLDeviceTopologyAMD.RAW_TYPE); }
     /** Unsafe version of {@link #raw_data}. */
     public static IntBuffer nraw_data(long struct) { return memIntBuffer(struct + CLDeviceTopologyAMD.RAW_DATA, 5); }
     /** Unsafe version of {@link #raw_data(int) raw_data}. */
     public static int nraw_data(long struct, int index) {
-        return UNSAFE.getInt(null, struct + CLDeviceTopologyAMD.RAW_DATA + check(index, 5) * 4);
+        return memGetInt(struct + CLDeviceTopologyAMD.RAW_DATA + check(index, 5) * 4);
     }
     /** Unsafe version of {@link #pcie_type}. */
-    public static int npcie_type(long struct) { return UNSAFE.getInt(null, struct + CLDeviceTopologyAMD.PCIE_TYPE); }
+    public static int npcie_type(long struct) { return memGetInt(struct + CLDeviceTopologyAMD.PCIE_TYPE); }
     /** Unsafe version of {@link #pcie_bus}. */
-    public static byte npcie_bus(long struct) { return UNSAFE.getByte(null, struct + CLDeviceTopologyAMD.PCIE_BUS); }
+    public static byte npcie_bus(long struct) { return memGetByte(struct + CLDeviceTopologyAMD.PCIE_BUS); }
     /** Unsafe version of {@link #pcie_device}. */
-    public static byte npcie_device(long struct) { return UNSAFE.getByte(null, struct + CLDeviceTopologyAMD.PCIE_DEVICE); }
+    public static byte npcie_device(long struct) { return memGetByte(struct + CLDeviceTopologyAMD.PCIE_DEVICE); }
     /** Unsafe version of {@link #pcie_function}. */
-    public static byte npcie_function(long struct) { return UNSAFE.getByte(null, struct + CLDeviceTopologyAMD.PCIE_FUNCTION); }
+    public static byte npcie_function(long struct) { return memGetByte(struct + CLDeviceTopologyAMD.PCIE_FUNCTION); }
 
     // -----------------------------------
 
@@ -308,6 +306,11 @@ public class CLDeviceTopologyAMD extends Struct<CLDeviceTopologyAMD> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -189,8 +189,7 @@ public class XrLocalizationMapML extends Struct<XrLocalizationMapML> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrLocalizationMapML createSafe(long address) {
+    public static @Nullable XrLocalizationMapML createSafe(long address) {
         return address == NULL ? null : new XrLocalizationMapML(address, null);
     }
 
@@ -233,8 +232,7 @@ public class XrLocalizationMapML extends Struct<XrLocalizationMapML> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrLocalizationMapML.Buffer createSafe(long address, int capacity) {
+    public static XrLocalizationMapML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,7 +277,7 @@ public class XrLocalizationMapML extends Struct<XrLocalizationMapML> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrLocalizationMapML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrLocalizationMapML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrLocalizationMapML.NEXT); }
     /** Unsafe version of {@link #name}. */
@@ -289,10 +287,10 @@ public class XrLocalizationMapML extends Struct<XrLocalizationMapML> implements 
     /** Unsafe version of {@link #mapUuid}. */
     public static XrUuidEXT nmapUuid(long struct) { return XrUuidEXT.create(struct + XrLocalizationMapML.MAPUUID); }
     /** Unsafe version of {@link #mapType}. */
-    public static int nmapType(long struct) { return UNSAFE.getInt(null, struct + XrLocalizationMapML.MAPTYPE); }
+    public static int nmapType(long struct) { return memGetInt(struct + XrLocalizationMapML.MAPTYPE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrLocalizationMapML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrLocalizationMapML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrLocalizationMapML.NEXT, value); }
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
@@ -306,7 +304,7 @@ public class XrLocalizationMapML extends Struct<XrLocalizationMapML> implements 
     /** Unsafe version of {@link #mapUuid(XrUuidEXT) mapUuid}. */
     public static void nmapUuid(long struct, XrUuidEXT value) { memCopy(value.address(), struct + XrLocalizationMapML.MAPUUID, XrUuidEXT.SIZEOF); }
     /** Unsafe version of {@link #mapType(int) mapType}. */
-    public static void nmapType(long struct, int value) { UNSAFE.putInt(null, struct + XrLocalizationMapML.MAPTYPE, value); }
+    public static void nmapType(long struct, int value) { memPutInt(struct + XrLocalizationMapML.MAPTYPE, value); }
 
     // -----------------------------------
 
@@ -339,6 +337,11 @@ public class XrLocalizationMapML extends Struct<XrLocalizationMapML> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -140,8 +140,7 @@ public class OVRLayerHeader extends Struct<OVRLayerHeader> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRLayerHeader createSafe(long address) {
+    public static @Nullable OVRLayerHeader createSafe(long address) {
         return address == NULL ? null : new OVRLayerHeader(address, null);
     }
 
@@ -184,8 +183,7 @@ public class OVRLayerHeader extends Struct<OVRLayerHeader> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRLayerHeader.Buffer createSafe(long address, int capacity) {
+    public static OVRLayerHeader.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,14 +247,14 @@ public class OVRLayerHeader extends Struct<OVRLayerHeader> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #Type}. */
-    public static int nType(long struct) { return UNSAFE.getInt(null, struct + OVRLayerHeader.TYPE); }
+    public static int nType(long struct) { return memGetInt(struct + OVRLayerHeader.TYPE); }
     /** Unsafe version of {@link #Flags}. */
-    public static int nFlags(long struct) { return UNSAFE.getInt(null, struct + OVRLayerHeader.FLAGS); }
+    public static int nFlags(long struct) { return memGetInt(struct + OVRLayerHeader.FLAGS); }
 
     /** Unsafe version of {@link #Type(int) Type}. */
-    public static void nType(long struct, int value) { UNSAFE.putInt(null, struct + OVRLayerHeader.TYPE, value); }
+    public static void nType(long struct, int value) { memPutInt(struct + OVRLayerHeader.TYPE, value); }
     /** Unsafe version of {@link #Flags(int) Flags}. */
-    public static void nFlags(long struct, int value) { UNSAFE.putInt(null, struct + OVRLayerHeader.FLAGS, value); }
+    public static void nFlags(long struct, int value) { memPutInt(struct + OVRLayerHeader.FLAGS, value); }
 
     // -----------------------------------
 
@@ -289,6 +287,11 @@ public class OVRLayerHeader extends Struct<OVRLayerHeader> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_MODE_PROPERTIES_2_KHR STRUCTURE_TYPE_DISPLAY_MODE_PROPERTIES_2_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkDisplayModeStereoPropertiesNV}</li>
+ * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -104,6 +105,8 @@ public class VkDisplayModeProperties2KHR extends Struct<VkDisplayModeProperties2
     public VkDisplayModeProperties2KHR sType$Default() { return sType(KHRGetDisplayProperties2.VK_STRUCTURE_TYPE_DISPLAY_MODE_PROPERTIES_2_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkDisplayModeProperties2KHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkDisplayModeStereoPropertiesNV} value to the {@code pNext} chain. */
+    public VkDisplayModeProperties2KHR pNext(VkDisplayModeStereoPropertiesNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
     /** Initializes this struct with the specified values. */
     public VkDisplayModeProperties2KHR set(
@@ -152,8 +155,7 @@ public class VkDisplayModeProperties2KHR extends Struct<VkDisplayModeProperties2
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModeProperties2KHR createSafe(long address) {
+    public static @Nullable VkDisplayModeProperties2KHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayModeProperties2KHR(address, null);
     }
 
@@ -196,8 +198,7 @@ public class VkDisplayModeProperties2KHR extends Struct<VkDisplayModeProperties2
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModeProperties2KHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayModeProperties2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,14 +262,14 @@ public class VkDisplayModeProperties2KHR extends Struct<VkDisplayModeProperties2
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDisplayModeProperties2KHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDisplayModeProperties2KHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDisplayModeProperties2KHR.PNEXT); }
     /** Unsafe version of {@link #displayModeProperties}. */
     public static VkDisplayModePropertiesKHR ndisplayModeProperties(long struct) { return VkDisplayModePropertiesKHR.create(struct + VkDisplayModeProperties2KHR.DISPLAYMODEPROPERTIES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayModeProperties2KHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDisplayModeProperties2KHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDisplayModeProperties2KHR.PNEXT, value); }
 
@@ -306,6 +307,11 @@ public class VkDisplayModeProperties2KHR extends Struct<VkDisplayModeProperties2
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDisplayModeProperties2KHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -325,6 +331,8 @@ public class VkDisplayModeProperties2KHR extends Struct<VkDisplayModeProperties2
         public VkDisplayModeProperties2KHR.Buffer sType$Default() { return sType(KHRGetDisplayProperties2.VK_STRUCTURE_TYPE_DISPLAY_MODE_PROPERTIES_2_KHR); }
         /** Sets the specified value to the {@link VkDisplayModeProperties2KHR#pNext} field. */
         public VkDisplayModeProperties2KHR.Buffer pNext(@NativeType("void *") long value) { VkDisplayModeProperties2KHR.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkDisplayModeStereoPropertiesNV} value to the {@code pNext} chain. */
+        public VkDisplayModeProperties2KHR.Buffer pNext(VkDisplayModeStereoPropertiesNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
     }
 

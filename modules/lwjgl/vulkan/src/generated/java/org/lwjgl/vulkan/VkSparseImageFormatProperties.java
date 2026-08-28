@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -115,8 +115,7 @@ public class VkSparseImageFormatProperties extends Struct<VkSparseImageFormatPro
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageFormatProperties createSafe(long address) {
+    public static @Nullable VkSparseImageFormatProperties createSafe(long address) {
         return address == NULL ? null : new VkSparseImageFormatProperties(address, null);
     }
 
@@ -159,8 +158,7 @@ public class VkSparseImageFormatProperties extends Struct<VkSparseImageFormatPro
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageFormatProperties.Buffer createSafe(long address, int capacity) {
+    public static VkSparseImageFormatProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -224,11 +222,11 @@ public class VkSparseImageFormatProperties extends Struct<VkSparseImageFormatPro
     // -----------------------------------
 
     /** Unsafe version of {@link #aspectMask}. */
-    public static int naspectMask(long struct) { return UNSAFE.getInt(null, struct + VkSparseImageFormatProperties.ASPECTMASK); }
+    public static int naspectMask(long struct) { return memGetInt(struct + VkSparseImageFormatProperties.ASPECTMASK); }
     /** Unsafe version of {@link #imageGranularity}. */
     public static VkExtent3D nimageGranularity(long struct) { return VkExtent3D.create(struct + VkSparseImageFormatProperties.IMAGEGRANULARITY); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkSparseImageFormatProperties.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkSparseImageFormatProperties.FLAGS); }
 
     // -----------------------------------
 
@@ -261,6 +259,11 @@ public class VkSparseImageFormatProperties extends Struct<VkSparseImageFormatPro
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

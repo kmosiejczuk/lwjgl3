@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -143,8 +143,7 @@ public class XrExtent2Df extends Struct<XrExtent2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExtent2Df createSafe(long address) {
+    public static @Nullable XrExtent2Df createSafe(long address) {
         return address == NULL ? null : new XrExtent2Df(address, null);
     }
 
@@ -187,8 +186,7 @@ public class XrExtent2Df extends Struct<XrExtent2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExtent2Df.Buffer createSafe(long address, int capacity) {
+    public static XrExtent2Df.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,14 +231,14 @@ public class XrExtent2Df extends Struct<XrExtent2Df> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + XrExtent2Df.WIDTH); }
+    public static float nwidth(long struct) { return memGetFloat(struct + XrExtent2Df.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + XrExtent2Df.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + XrExtent2Df.HEIGHT); }
 
     /** Unsafe version of {@link #width(float) width}. */
-    public static void nwidth(long struct, float value) { UNSAFE.putFloat(null, struct + XrExtent2Df.WIDTH, value); }
+    public static void nwidth(long struct, float value) { memPutFloat(struct + XrExtent2Df.WIDTH, value); }
     /** Unsafe version of {@link #height(float) height}. */
-    public static void nheight(long struct, float value) { UNSAFE.putFloat(null, struct + XrExtent2Df.HEIGHT, value); }
+    public static void nheight(long struct, float value) { memPutFloat(struct + XrExtent2Df.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -273,6 +271,11 @@ public class XrExtent2Df extends Struct<XrExtent2Df> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

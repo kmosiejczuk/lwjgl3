@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -36,6 +36,7 @@ import static org.lwjgl.nuklear.Nuklear.NK_CURSOR_COUNT;
  *     {@link NkStyleToggle struct nk_style_toggle} checkbox;
  *     {@link NkStyleSelectable struct nk_style_selectable} selectable;
  *     {@link NkStyleSlider struct nk_style_slider} slider;
+ *     {@link NkStyleKnob struct nk_style_knob} knob;
  *     {@link NkStyleProgress struct nk_style_progress} progress;
  *     {@link NkStyleProperty struct nk_style_property} property;
  *     {@link NkStyleEdit struct nk_style_edit} edit;
@@ -71,6 +72,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
         CHECKBOX,
         SELECTABLE,
         SLIDER,
+        KNOB,
         PROGRESS,
         PROPERTY,
         EDIT,
@@ -96,6 +98,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
             __member(NkStyleToggle.SIZEOF, NkStyleToggle.ALIGNOF),
             __member(NkStyleSelectable.SIZEOF, NkStyleSelectable.ALIGNOF),
             __member(NkStyleSlider.SIZEOF, NkStyleSlider.ALIGNOF),
+            __member(NkStyleKnob.SIZEOF, NkStyleKnob.ALIGNOF),
             __member(NkStyleProgress.SIZEOF, NkStyleProgress.ALIGNOF),
             __member(NkStyleProperty.SIZEOF, NkStyleProperty.ALIGNOF),
             __member(NkStyleEdit.SIZEOF, NkStyleEdit.ALIGNOF),
@@ -123,15 +126,16 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
         CHECKBOX = layout.offsetof(10);
         SELECTABLE = layout.offsetof(11);
         SLIDER = layout.offsetof(12);
-        PROGRESS = layout.offsetof(13);
-        PROPERTY = layout.offsetof(14);
-        EDIT = layout.offsetof(15);
-        CHART = layout.offsetof(16);
-        SCROLLH = layout.offsetof(17);
-        SCROLLV = layout.offsetof(18);
-        TAB = layout.offsetof(19);
-        COMBO = layout.offsetof(20);
-        WINDOW = layout.offsetof(21);
+        KNOB = layout.offsetof(13);
+        PROGRESS = layout.offsetof(14);
+        PROPERTY = layout.offsetof(15);
+        EDIT = layout.offsetof(16);
+        CHART = layout.offsetof(17);
+        SCROLLH = layout.offsetof(18);
+        SCROLLV = layout.offsetof(19);
+        TAB = layout.offsetof(20);
+        COMBO = layout.offsetof(21);
+        WINDOW = layout.offsetof(22);
     }
 
     protected NkStyle(long address, @Nullable ByteBuffer container) {
@@ -157,24 +161,20 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     public int sizeof() { return SIZEOF; }
 
     /** @return a {@link NkUserFont} view of the struct pointed to by the {@code font} field. */
-    @Nullable
     @NativeType("struct nk_user_font *")
-    public NkUserFont font() { return nfont(address()); }
+    public @Nullable NkUserFont font() { return nfont(address()); }
     /** @return a {@link PointerBuffer} view of the {@code cursors} field. */
     @NativeType("struct nk_cursor *[NK_CURSOR_COUNT]")
     public PointerBuffer cursors() { return ncursors(address()); }
     /** @return a {@link NkCursor} view of the pointer at the specified index of the {@code cursors} field. */
-    @Nullable
     @NativeType("struct nk_cursor *")
-    public NkCursor cursors(int index) { return ncursors(address(), index); }
+    public @Nullable NkCursor cursors(int index) { return ncursors(address(), index); }
     /** @return a {@link NkCursor} view of the struct pointed to by the {@code cursor_active} field. */
-    @Nullable
     @NativeType("struct nk_cursor *")
-    public NkCursor cursor_active() { return ncursor_active(address()); }
+    public @Nullable NkCursor cursor_active() { return ncursor_active(address()); }
     /** @return a {@link NkCursor} view of the struct pointed to by the {@code cursor_last} field. */
-    @Nullable
     @NativeType("struct nk_cursor *")
-    public NkCursor cursor_last() { return ncursor_last(address()); }
+    public @Nullable NkCursor cursor_last() { return ncursor_last(address()); }
     /** @return the value of the {@code cursor_visible} field. */
     @NativeType("int")
     public boolean cursor_visible() { return ncursor_visible(address()) != 0; }
@@ -202,6 +202,9 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     /** @return a {@link NkStyleSlider} view of the {@code slider} field. */
     @NativeType("struct nk_style_slider")
     public NkStyleSlider slider() { return nslider(address()); }
+    /** @return a {@link NkStyleKnob} view of the {@code knob} field. */
+    @NativeType("struct nk_style_knob")
+    public NkStyleKnob knob() { return nknob(address()); }
     /** @return a {@link NkStyleProgress} view of the {@code progress} field. */
     @NativeType("struct nk_style_progress")
     public NkStyleProgress progress() { return nprogress(address()); }
@@ -237,7 +240,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     /** Copies the address of the specified {@link NkCursor} at the specified index of the {@code cursors} field. */
     public NkStyle cursors(int index, @Nullable @NativeType("struct nk_cursor *") NkCursor value) { ncursors(address(), index, value); return this; }
     /** Passes the element at {@code index} of the {@code cursors} field to the specified {@link java.util.function.Consumer Consumer}. */
-    public NkStyle cursors(int index, java.util.function.Consumer<NkCursor> consumer) { consumer.accept(cursors(index)); return this; }
+    public NkStyle cursors(int index, java.util.function.Consumer<@Nullable NkCursor> consumer) { consumer.accept(cursors(index)); return this; }
     /** Sets the address of the specified {@link NkCursor} to the {@code cursor_active} field. */
     public NkStyle cursor_active(@Nullable @NativeType("struct nk_cursor *") NkCursor value) { ncursor_active(address(), value); return this; }
     /** Sets the address of the specified {@link NkCursor} to the {@code cursor_last} field. */
@@ -276,6 +279,10 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     public NkStyle slider(@NativeType("struct nk_style_slider") NkStyleSlider value) { nslider(address(), value); return this; }
     /** Passes the {@code slider} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NkStyle slider(java.util.function.Consumer<NkStyleSlider> consumer) { consumer.accept(slider()); return this; }
+    /** Copies the specified {@link NkStyleKnob} to the {@code knob} field. */
+    public NkStyle knob(@NativeType("struct nk_style_knob") NkStyleKnob value) { nknob(address(), value); return this; }
+    /** Passes the {@code knob} field to the specified {@link java.util.function.Consumer Consumer}. */
+    public NkStyle knob(java.util.function.Consumer<NkStyleKnob> consumer) { consumer.accept(knob()); return this; }
     /** Copies the specified {@link NkStyleProgress} to the {@code progress} field. */
     public NkStyle progress(@NativeType("struct nk_style_progress") NkStyleProgress value) { nprogress(address(), value); return this; }
     /** Passes the {@code progress} field to the specified {@link java.util.function.Consumer Consumer}. */
@@ -328,6 +335,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
         NkStyleToggle checkbox,
         NkStyleSelectable selectable,
         NkStyleSlider slider,
+        NkStyleKnob knob,
         NkStyleProgress progress,
         NkStyleProperty property,
         NkStyleEdit edit,
@@ -351,6 +359,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
         checkbox(checkbox);
         selectable(selectable);
         slider(slider);
+        knob(knob);
         progress(progress);
         property(property);
         edit(edit);
@@ -400,8 +409,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyle createSafe(long address) {
+    public static @Nullable NkStyle createSafe(long address) {
         return address == NULL ? null : new NkStyle(address, null);
     }
 
@@ -444,8 +452,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyle.Buffer createSafe(long address, int capacity) {
+    public static NkStyle.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -509,19 +516,19 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #font}. */
-    @Nullable public static NkUserFont nfont(long struct) { return NkUserFont.createSafe(memGetAddress(struct + NkStyle.FONT)); }
+    public static @Nullable NkUserFont nfont(long struct) { return NkUserFont.createSafe(memGetAddress(struct + NkStyle.FONT)); }
     /** Unsafe version of {@link #cursors}. */
     public static PointerBuffer ncursors(long struct) { return memPointerBuffer(struct + NkStyle.CURSORS, NK_CURSOR_COUNT); }
     /** Unsafe version of {@link #cursors(int) cursors}. */
-    @Nullable public static NkCursor ncursors(long struct, int index) {
+    public static @Nullable NkCursor ncursors(long struct, int index) {
         return NkCursor.createSafe(memGetAddress(struct + NkStyle.CURSORS + check(index, NK_CURSOR_COUNT) * POINTER_SIZE));
     }
     /** Unsafe version of {@link #cursor_active}. */
-    @Nullable public static NkCursor ncursor_active(long struct) { return NkCursor.createSafe(memGetAddress(struct + NkStyle.CURSOR_ACTIVE)); }
+    public static @Nullable NkCursor ncursor_active(long struct) { return NkCursor.createSafe(memGetAddress(struct + NkStyle.CURSOR_ACTIVE)); }
     /** Unsafe version of {@link #cursor_last}. */
-    @Nullable public static NkCursor ncursor_last(long struct) { return NkCursor.createSafe(memGetAddress(struct + NkStyle.CURSOR_LAST)); }
+    public static @Nullable NkCursor ncursor_last(long struct) { return NkCursor.createSafe(memGetAddress(struct + NkStyle.CURSOR_LAST)); }
     /** Unsafe version of {@link #cursor_visible}. */
-    public static int ncursor_visible(long struct) { return UNSAFE.getInt(null, struct + NkStyle.CURSOR_VISIBLE); }
+    public static int ncursor_visible(long struct) { return memGetInt(struct + NkStyle.CURSOR_VISIBLE); }
     /** Unsafe version of {@link #text}. */
     public static NkStyleText ntext(long struct) { return NkStyleText.create(struct + NkStyle.TEXT); }
     /** Unsafe version of {@link #button}. */
@@ -538,6 +545,8 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     public static NkStyleSelectable nselectable(long struct) { return NkStyleSelectable.create(struct + NkStyle.SELECTABLE); }
     /** Unsafe version of {@link #slider}. */
     public static NkStyleSlider nslider(long struct) { return NkStyleSlider.create(struct + NkStyle.SLIDER); }
+    /** Unsafe version of {@link #knob}. */
+    public static NkStyleKnob nknob(long struct) { return NkStyleKnob.create(struct + NkStyle.KNOB); }
     /** Unsafe version of {@link #progress}. */
     public static NkStyleProgress nprogress(long struct) { return NkStyleProgress.create(struct + NkStyle.PROGRESS); }
     /** Unsafe version of {@link #property}. */
@@ -573,7 +582,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     /** Unsafe version of {@link #cursor_last(NkCursor) cursor_last}. */
     public static void ncursor_last(long struct, @Nullable NkCursor value) { memPutAddress(struct + NkStyle.CURSOR_LAST, memAddressSafe(value)); }
     /** Unsafe version of {@link #cursor_visible(boolean) cursor_visible}. */
-    public static void ncursor_visible(long struct, int value) { UNSAFE.putInt(null, struct + NkStyle.CURSOR_VISIBLE, value); }
+    public static void ncursor_visible(long struct, int value) { memPutInt(struct + NkStyle.CURSOR_VISIBLE, value); }
     /** Unsafe version of {@link #text(NkStyleText) text}. */
     public static void ntext(long struct, NkStyleText value) { memCopy(value.address(), struct + NkStyle.TEXT, NkStyleText.SIZEOF); }
     /** Unsafe version of {@link #button(NkStyleButton) button}. */
@@ -590,6 +599,8 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     public static void nselectable(long struct, NkStyleSelectable value) { memCopy(value.address(), struct + NkStyle.SELECTABLE, NkStyleSelectable.SIZEOF); }
     /** Unsafe version of {@link #slider(NkStyleSlider) slider}. */
     public static void nslider(long struct, NkStyleSlider value) { memCopy(value.address(), struct + NkStyle.SLIDER, NkStyleSlider.SIZEOF); }
+    /** Unsafe version of {@link #knob(NkStyleKnob) knob}. */
+    public static void nknob(long struct, NkStyleKnob value) { memCopy(value.address(), struct + NkStyle.KNOB, NkStyleKnob.SIZEOF); }
     /** Unsafe version of {@link #progress(NkStyleProgress) progress}. */
     public static void nprogress(long struct, NkStyleProgress value) { memCopy(value.address(), struct + NkStyle.PROGRESS, NkStyleProgress.SIZEOF); }
     /** Unsafe version of {@link #property(NkStyleProperty) property}. */
@@ -643,29 +654,30 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkStyle getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return a {@link NkUserFont} view of the struct pointed to by the {@code font} field. */
-        @Nullable
         @NativeType("struct nk_user_font *")
-        public NkUserFont font() { return NkStyle.nfont(address()); }
+        public @Nullable NkUserFont font() { return NkStyle.nfont(address()); }
         /** @return a {@link PointerBuffer} view of the {@code cursors} field. */
         @NativeType("struct nk_cursor *[NK_CURSOR_COUNT]")
         public PointerBuffer cursors() { return NkStyle.ncursors(address()); }
         /** @return a {@link NkCursor} view of the pointer at the specified index of the {@code cursors} field. */
-        @Nullable
         @NativeType("struct nk_cursor *")
-        public NkCursor cursors(int index) { return NkStyle.ncursors(address(), index); }
+        public @Nullable NkCursor cursors(int index) { return NkStyle.ncursors(address(), index); }
         /** @return a {@link NkCursor} view of the struct pointed to by the {@code cursor_active} field. */
-        @Nullable
         @NativeType("struct nk_cursor *")
-        public NkCursor cursor_active() { return NkStyle.ncursor_active(address()); }
+        public @Nullable NkCursor cursor_active() { return NkStyle.ncursor_active(address()); }
         /** @return a {@link NkCursor} view of the struct pointed to by the {@code cursor_last} field. */
-        @Nullable
         @NativeType("struct nk_cursor *")
-        public NkCursor cursor_last() { return NkStyle.ncursor_last(address()); }
+        public @Nullable NkCursor cursor_last() { return NkStyle.ncursor_last(address()); }
         /** @return the value of the {@code cursor_visible} field. */
         @NativeType("int")
         public boolean cursor_visible() { return NkStyle.ncursor_visible(address()) != 0; }
@@ -693,6 +705,9 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
         /** @return a {@link NkStyleSlider} view of the {@code slider} field. */
         @NativeType("struct nk_style_slider")
         public NkStyleSlider slider() { return NkStyle.nslider(address()); }
+        /** @return a {@link NkStyleKnob} view of the {@code knob} field. */
+        @NativeType("struct nk_style_knob")
+        public NkStyleKnob knob() { return NkStyle.nknob(address()); }
         /** @return a {@link NkStyleProgress} view of the {@code progress} field. */
         @NativeType("struct nk_style_progress")
         public NkStyleProgress progress() { return NkStyle.nprogress(address()); }
@@ -728,7 +743,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
         /** Copies the address of the specified {@link NkCursor} at the specified index of the {@code cursors} field. */
         public NkStyle.Buffer cursors(int index, @Nullable @NativeType("struct nk_cursor *") NkCursor value) { NkStyle.ncursors(address(), index, value); return this; }
         /** Passes the element at {@code index} of the {@code cursors} field to the specified {@link java.util.function.Consumer Consumer}. */
-        public NkStyle.Buffer cursors(int index, java.util.function.Consumer<NkCursor> consumer) { consumer.accept(cursors(index)); return this; }
+        public NkStyle.Buffer cursors(int index, java.util.function.Consumer<@Nullable NkCursor> consumer) { consumer.accept(cursors(index)); return this; }
         /** Sets the address of the specified {@link NkCursor} to the {@code cursor_active} field. */
         public NkStyle.Buffer cursor_active(@Nullable @NativeType("struct nk_cursor *") NkCursor value) { NkStyle.ncursor_active(address(), value); return this; }
         /** Sets the address of the specified {@link NkCursor} to the {@code cursor_last} field. */
@@ -767,6 +782,10 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
         public NkStyle.Buffer slider(@NativeType("struct nk_style_slider") NkStyleSlider value) { NkStyle.nslider(address(), value); return this; }
         /** Passes the {@code slider} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NkStyle.Buffer slider(java.util.function.Consumer<NkStyleSlider> consumer) { consumer.accept(slider()); return this; }
+        /** Copies the specified {@link NkStyleKnob} to the {@code knob} field. */
+        public NkStyle.Buffer knob(@NativeType("struct nk_style_knob") NkStyleKnob value) { NkStyle.nknob(address(), value); return this; }
+        /** Passes the {@code knob} field to the specified {@link java.util.function.Consumer Consumer}. */
+        public NkStyle.Buffer knob(java.util.function.Consumer<NkStyleKnob> consumer) { consumer.accept(knob()); return this; }
         /** Copies the specified {@link NkStyleProgress} to the {@code progress} field. */
         public NkStyle.Buffer progress(@NativeType("struct nk_style_progress") NkStyleProgress value) { NkStyle.nprogress(address(), value); return this; }
         /** Passes the {@code progress} field to the specified {@link java.util.function.Consumer Consumer}. */

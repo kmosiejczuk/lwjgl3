@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -202,8 +202,7 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct<XrSecondar
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationLayerInfoMSFT createSafe(long address) {
+    public static @Nullable XrSecondaryViewConfigurationLayerInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrSecondaryViewConfigurationLayerInfoMSFT(address, null);
     }
 
@@ -246,8 +245,7 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct<XrSecondar
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationLayerInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSecondaryViewConfigurationLayerInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -292,28 +290,28 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct<XrSecondar
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationLayerInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationLayerInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSecondaryViewConfigurationLayerInfoMSFT.NEXT); }
     /** Unsafe version of {@link #viewConfigurationType}. */
-    public static int nviewConfigurationType(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationLayerInfoMSFT.VIEWCONFIGURATIONTYPE); }
+    public static int nviewConfigurationType(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationLayerInfoMSFT.VIEWCONFIGURATIONTYPE); }
     /** Unsafe version of {@link #environmentBlendMode}. */
-    public static int nenvironmentBlendMode(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationLayerInfoMSFT.ENVIRONMENTBLENDMODE); }
+    public static int nenvironmentBlendMode(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationLayerInfoMSFT.ENVIRONMENTBLENDMODE); }
     /** Unsafe version of {@link #layerCount}. */
-    public static int nlayerCount(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationLayerInfoMSFT.LAYERCOUNT); }
+    public static int nlayerCount(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationLayerInfoMSFT.LAYERCOUNT); }
     /** Unsafe version of {@link #layers() layers}. */
     public static PointerBuffer nlayers(long struct) { return memPointerBuffer(memGetAddress(struct + XrSecondaryViewConfigurationLayerInfoMSFT.LAYERS), nlayerCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationLayerInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationLayerInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSecondaryViewConfigurationLayerInfoMSFT.NEXT, value); }
     /** Unsafe version of {@link #viewConfigurationType(int) viewConfigurationType}. */
-    public static void nviewConfigurationType(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationLayerInfoMSFT.VIEWCONFIGURATIONTYPE, value); }
+    public static void nviewConfigurationType(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationLayerInfoMSFT.VIEWCONFIGURATIONTYPE, value); }
     /** Unsafe version of {@link #environmentBlendMode(int) environmentBlendMode}. */
-    public static void nenvironmentBlendMode(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationLayerInfoMSFT.ENVIRONMENTBLENDMODE, value); }
+    public static void nenvironmentBlendMode(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationLayerInfoMSFT.ENVIRONMENTBLENDMODE, value); }
     /** Sets the specified value to the {@code layerCount} field of the specified {@code struct}. */
-    public static void nlayerCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationLayerInfoMSFT.LAYERCOUNT, value); }
+    public static void nlayerCount(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationLayerInfoMSFT.LAYERCOUNT, value); }
     /** Unsafe version of {@link #layers(PointerBuffer) layers}. */
     public static void nlayers(long struct, PointerBuffer value) { memPutAddress(struct + XrSecondaryViewConfigurationLayerInfoMSFT.LAYERS, memAddress(value)); nlayerCount(struct, value.remaining()); }
 
@@ -357,6 +355,11 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct<XrSecondar
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

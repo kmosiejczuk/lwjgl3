@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class VkValidationFlagsEXT extends Struct<VkValidationFlagsEXT> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkValidationFlagsEXT createSafe(long address) {
+    public static @Nullable VkValidationFlagsEXT createSafe(long address) {
         return address == NULL ? null : new VkValidationFlagsEXT(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkValidationFlagsEXT extends Struct<VkValidationFlagsEXT> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkValidationFlagsEXT.Buffer createSafe(long address, int capacity) {
+    public static VkValidationFlagsEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -271,20 +269,20 @@ public class VkValidationFlagsEXT extends Struct<VkValidationFlagsEXT> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkValidationFlagsEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkValidationFlagsEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkValidationFlagsEXT.PNEXT); }
     /** Unsafe version of {@link #disabledValidationCheckCount}. */
-    public static int ndisabledValidationCheckCount(long struct) { return UNSAFE.getInt(null, struct + VkValidationFlagsEXT.DISABLEDVALIDATIONCHECKCOUNT); }
+    public static int ndisabledValidationCheckCount(long struct) { return memGetInt(struct + VkValidationFlagsEXT.DISABLEDVALIDATIONCHECKCOUNT); }
     /** Unsafe version of {@link #pDisabledValidationChecks() pDisabledValidationChecks}. */
     public static IntBuffer npDisabledValidationChecks(long struct) { return memIntBuffer(memGetAddress(struct + VkValidationFlagsEXT.PDISABLEDVALIDATIONCHECKS), ndisabledValidationCheckCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkValidationFlagsEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkValidationFlagsEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkValidationFlagsEXT.PNEXT, value); }
     /** Sets the specified value to the {@code disabledValidationCheckCount} field of the specified {@code struct}. */
-    public static void ndisabledValidationCheckCount(long struct, int value) { UNSAFE.putInt(null, struct + VkValidationFlagsEXT.DISABLEDVALIDATIONCHECKCOUNT, value); }
+    public static void ndisabledValidationCheckCount(long struct, int value) { memPutInt(struct + VkValidationFlagsEXT.DISABLEDVALIDATIONCHECKCOUNT, value); }
     /** Unsafe version of {@link #pDisabledValidationChecks(IntBuffer) pDisabledValidationChecks}. */
     public static void npDisabledValidationChecks(long struct, IntBuffer value) { memPutAddress(struct + VkValidationFlagsEXT.PDISABLEDVALIDATIONCHECKS, memAddress(value)); ndisabledValidationCheckCount(struct, value.remaining()); }
 
@@ -328,6 +326,11 @@ public class VkValidationFlagsEXT extends Struct<VkValidationFlagsEXT> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

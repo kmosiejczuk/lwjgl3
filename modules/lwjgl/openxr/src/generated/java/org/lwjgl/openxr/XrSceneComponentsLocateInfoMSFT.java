@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -121,9 +121,8 @@ public class XrSceneComponentsLocateInfoMSFT extends Struct<XrSceneComponentsLoc
     @NativeType("uint32_t")
     public int componentIdCount() { return ncomponentIdCount(address()); }
     /** an array of {@link XrUuidMSFT} identifiers for the scene components to location. */
-    @Nullable
     @NativeType("XrUuidMSFT const *")
-    public XrUuidMSFT.Buffer componentIds() { return ncomponentIds(address()); }
+    public XrUuidMSFT.@Nullable Buffer componentIds() { return ncomponentIds(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
     public XrSceneComponentsLocateInfoMSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
@@ -138,7 +137,7 @@ public class XrSceneComponentsLocateInfoMSFT extends Struct<XrSceneComponentsLoc
     /** Sets the specified value to the {@link #componentIdCount} field. */
     public XrSceneComponentsLocateInfoMSFT componentIdCount(@NativeType("uint32_t") int value) { ncomponentIdCount(address(), value); return this; }
     /** Sets the address of the specified {@link XrUuidMSFT.Buffer} to the {@link #componentIds} field. */
-    public XrSceneComponentsLocateInfoMSFT componentIds(@Nullable @NativeType("XrUuidMSFT const *") XrUuidMSFT.Buffer value) { ncomponentIds(address(), value); return this; }
+    public XrSceneComponentsLocateInfoMSFT componentIds(@NativeType("XrUuidMSFT const *") XrUuidMSFT.@Nullable Buffer value) { ncomponentIds(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSceneComponentsLocateInfoMSFT set(
@@ -147,7 +146,7 @@ public class XrSceneComponentsLocateInfoMSFT extends Struct<XrSceneComponentsLoc
         XrSpace baseSpace,
         long time,
         int componentIdCount,
-        @Nullable XrUuidMSFT.Buffer componentIds
+        XrUuidMSFT.@Nullable Buffer componentIds
     ) {
         type(type);
         next(next);
@@ -195,8 +194,7 @@ public class XrSceneComponentsLocateInfoMSFT extends Struct<XrSceneComponentsLoc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneComponentsLocateInfoMSFT createSafe(long address) {
+    public static @Nullable XrSceneComponentsLocateInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneComponentsLocateInfoMSFT(address, null);
     }
 
@@ -239,8 +237,7 @@ public class XrSceneComponentsLocateInfoMSFT extends Struct<XrSceneComponentsLoc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneComponentsLocateInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneComponentsLocateInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,30 +282,30 @@ public class XrSceneComponentsLocateInfoMSFT extends Struct<XrSceneComponentsLoc
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSceneComponentsLocateInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSceneComponentsLocateInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSceneComponentsLocateInfoMSFT.NEXT); }
     /** Unsafe version of {@link #baseSpace}. */
     public static long nbaseSpace(long struct) { return memGetAddress(struct + XrSceneComponentsLocateInfoMSFT.BASESPACE); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrSceneComponentsLocateInfoMSFT.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrSceneComponentsLocateInfoMSFT.TIME); }
     /** Unsafe version of {@link #componentIdCount}. */
-    public static int ncomponentIdCount(long struct) { return UNSAFE.getInt(null, struct + XrSceneComponentsLocateInfoMSFT.COMPONENTIDCOUNT); }
+    public static int ncomponentIdCount(long struct) { return memGetInt(struct + XrSceneComponentsLocateInfoMSFT.COMPONENTIDCOUNT); }
     /** Unsafe version of {@link #componentIds}. */
-    @Nullable public static XrUuidMSFT.Buffer ncomponentIds(long struct) { return XrUuidMSFT.createSafe(memGetAddress(struct + XrSceneComponentsLocateInfoMSFT.COMPONENTIDS), ncomponentIdCount(struct)); }
+    public static XrUuidMSFT.@Nullable Buffer ncomponentIds(long struct) { return XrUuidMSFT.createSafe(memGetAddress(struct + XrSceneComponentsLocateInfoMSFT.COMPONENTIDS), ncomponentIdCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneComponentsLocateInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSceneComponentsLocateInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSceneComponentsLocateInfoMSFT.NEXT, value); }
     /** Unsafe version of {@link #baseSpace(XrSpace) baseSpace}. */
     public static void nbaseSpace(long struct, XrSpace value) { memPutAddress(struct + XrSceneComponentsLocateInfoMSFT.BASESPACE, value.address()); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrSceneComponentsLocateInfoMSFT.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrSceneComponentsLocateInfoMSFT.TIME, value); }
     /** Sets the specified value to the {@code componentIdCount} field of the specified {@code struct}. */
-    public static void ncomponentIdCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneComponentsLocateInfoMSFT.COMPONENTIDCOUNT, value); }
+    public static void ncomponentIdCount(long struct, int value) { memPutInt(struct + XrSceneComponentsLocateInfoMSFT.COMPONENTIDCOUNT, value); }
     /** Unsafe version of {@link #componentIds(XrUuidMSFT.Buffer) componentIds}. */
-    public static void ncomponentIds(long struct, @Nullable XrUuidMSFT.Buffer value) { memPutAddress(struct + XrSceneComponentsLocateInfoMSFT.COMPONENTIDS, memAddressSafe(value)); if (value != null) { ncomponentIdCount(struct, value.remaining()); } }
+    public static void ncomponentIds(long struct, XrUuidMSFT.@Nullable Buffer value) { memPutAddress(struct + XrSceneComponentsLocateInfoMSFT.COMPONENTIDS, memAddressSafe(value)); if (value != null) { ncomponentIdCount(struct, value.remaining()); } }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -353,6 +350,11 @@ public class XrSceneComponentsLocateInfoMSFT extends Struct<XrSceneComponentsLoc
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSceneComponentsLocateInfoMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -373,9 +375,8 @@ public class XrSceneComponentsLocateInfoMSFT extends Struct<XrSceneComponentsLoc
         @NativeType("uint32_t")
         public int componentIdCount() { return XrSceneComponentsLocateInfoMSFT.ncomponentIdCount(address()); }
         /** @return a {@link XrUuidMSFT.Buffer} view of the struct array pointed to by the {@link XrSceneComponentsLocateInfoMSFT#componentIds} field. */
-        @Nullable
         @NativeType("XrUuidMSFT const *")
-        public XrUuidMSFT.Buffer componentIds() { return XrSceneComponentsLocateInfoMSFT.ncomponentIds(address()); }
+        public XrUuidMSFT.@Nullable Buffer componentIds() { return XrSceneComponentsLocateInfoMSFT.ncomponentIds(address()); }
 
         /** Sets the specified value to the {@link XrSceneComponentsLocateInfoMSFT#type} field. */
         public XrSceneComponentsLocateInfoMSFT.Buffer type(@NativeType("XrStructureType") int value) { XrSceneComponentsLocateInfoMSFT.ntype(address(), value); return this; }
@@ -390,7 +391,7 @@ public class XrSceneComponentsLocateInfoMSFT extends Struct<XrSceneComponentsLoc
         /** Sets the specified value to the {@link XrSceneComponentsLocateInfoMSFT#componentIdCount} field. */
         public XrSceneComponentsLocateInfoMSFT.Buffer componentIdCount(@NativeType("uint32_t") int value) { XrSceneComponentsLocateInfoMSFT.ncomponentIdCount(address(), value); return this; }
         /** Sets the address of the specified {@link XrUuidMSFT.Buffer} to the {@link XrSceneComponentsLocateInfoMSFT#componentIds} field. */
-        public XrSceneComponentsLocateInfoMSFT.Buffer componentIds(@Nullable @NativeType("XrUuidMSFT const *") XrUuidMSFT.Buffer value) { XrSceneComponentsLocateInfoMSFT.ncomponentIds(address(), value); return this; }
+        public XrSceneComponentsLocateInfoMSFT.Buffer componentIds(@NativeType("XrUuidMSFT const *") XrUuidMSFT.@Nullable Buffer value) { XrSceneComponentsLocateInfoMSFT.ncomponentIds(address(), value); return this; }
 
     }
 

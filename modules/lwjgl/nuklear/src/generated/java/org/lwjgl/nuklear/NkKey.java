@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -86,8 +86,7 @@ public class NkKey extends Struct<NkKey> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkKey createSafe(long address) {
+    public static @Nullable NkKey createSafe(long address) {
         return address == NULL ? null : new NkKey(address, null);
     }
 
@@ -102,17 +101,16 @@ public class NkKey extends Struct<NkKey> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkKey.Buffer createSafe(long address, int capacity) {
+    public static NkKey.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #down}. */
-    public static boolean ndown(long struct) { return UNSAFE.getByte(null, struct + NkKey.DOWN) != 0; }
+    public static boolean ndown(long struct) { return memGetByte(struct + NkKey.DOWN) != 0; }
     /** Unsafe version of {@link #clicked}. */
-    public static int nclicked(long struct) { return UNSAFE.getInt(null, struct + NkKey.CLICKED); }
+    public static int nclicked(long struct) { return memGetInt(struct + NkKey.CLICKED); }
 
     // -----------------------------------
 
@@ -145,6 +143,11 @@ public class NkKey extends Struct<NkKey> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

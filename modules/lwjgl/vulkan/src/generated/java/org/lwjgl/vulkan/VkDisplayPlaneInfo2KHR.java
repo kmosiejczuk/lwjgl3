@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -188,8 +188,7 @@ public class VkDisplayPlaneInfo2KHR extends Struct<VkDisplayPlaneInfo2KHR> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPlaneInfo2KHR createSafe(long address) {
+    public static @Nullable VkDisplayPlaneInfo2KHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayPlaneInfo2KHR(address, null);
     }
 
@@ -232,8 +231,7 @@ public class VkDisplayPlaneInfo2KHR extends Struct<VkDisplayPlaneInfo2KHR> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPlaneInfo2KHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayPlaneInfo2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -297,22 +295,22 @@ public class VkDisplayPlaneInfo2KHR extends Struct<VkDisplayPlaneInfo2KHR> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPlaneInfo2KHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDisplayPlaneInfo2KHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDisplayPlaneInfo2KHR.PNEXT); }
     /** Unsafe version of {@link #mode}. */
-    public static long nmode(long struct) { return UNSAFE.getLong(null, struct + VkDisplayPlaneInfo2KHR.MODE); }
+    public static long nmode(long struct) { return memGetLong(struct + VkDisplayPlaneInfo2KHR.MODE); }
     /** Unsafe version of {@link #planeIndex}. */
-    public static int nplaneIndex(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPlaneInfo2KHR.PLANEINDEX); }
+    public static int nplaneIndex(long struct) { return memGetInt(struct + VkDisplayPlaneInfo2KHR.PLANEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayPlaneInfo2KHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDisplayPlaneInfo2KHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDisplayPlaneInfo2KHR.PNEXT, value); }
     /** Unsafe version of {@link #mode(long) mode}. */
-    public static void nmode(long struct, long value) { UNSAFE.putLong(null, struct + VkDisplayPlaneInfo2KHR.MODE, value); }
+    public static void nmode(long struct, long value) { memPutLong(struct + VkDisplayPlaneInfo2KHR.MODE, value); }
     /** Unsafe version of {@link #planeIndex(int) planeIndex}. */
-    public static void nplaneIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayPlaneInfo2KHR.PLANEINDEX, value); }
+    public static void nplaneIndex(long struct, int value) { memPutInt(struct + VkDisplayPlaneInfo2KHR.PLANEINDEX, value); }
 
     // -----------------------------------
 
@@ -345,6 +343,11 @@ public class VkDisplayPlaneInfo2KHR extends Struct<VkDisplayPlaneInfo2KHR> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -147,8 +147,7 @@ public class VROverlayIntersectionParams extends Struct<VROverlayIntersectionPar
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VROverlayIntersectionParams createSafe(long address) {
+    public static @Nullable VROverlayIntersectionParams createSafe(long address) {
         return address == NULL ? null : new VROverlayIntersectionParams(address, null);
     }
 
@@ -191,8 +190,7 @@ public class VROverlayIntersectionParams extends Struct<VROverlayIntersectionPar
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VROverlayIntersectionParams.Buffer createSafe(long address, int capacity) {
+    public static VROverlayIntersectionParams.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,14 +258,14 @@ public class VROverlayIntersectionParams extends Struct<VROverlayIntersectionPar
     /** Unsafe version of {@link #vDirection}. */
     public static HmdVector3 nvDirection(long struct) { return HmdVector3.create(struct + VROverlayIntersectionParams.VDIRECTION); }
     /** Unsafe version of {@link #eOrigin}. */
-    public static int neOrigin(long struct) { return UNSAFE.getInt(null, struct + VROverlayIntersectionParams.EORIGIN); }
+    public static int neOrigin(long struct) { return memGetInt(struct + VROverlayIntersectionParams.EORIGIN); }
 
     /** Unsafe version of {@link #vSource(HmdVector3) vSource}. */
     public static void nvSource(long struct, HmdVector3 value) { memCopy(value.address(), struct + VROverlayIntersectionParams.VSOURCE, HmdVector3.SIZEOF); }
     /** Unsafe version of {@link #vDirection(HmdVector3) vDirection}. */
     public static void nvDirection(long struct, HmdVector3 value) { memCopy(value.address(), struct + VROverlayIntersectionParams.VDIRECTION, HmdVector3.SIZEOF); }
     /** Unsafe version of {@link #eOrigin(int) eOrigin}. */
-    public static void neOrigin(long struct, int value) { UNSAFE.putInt(null, struct + VROverlayIntersectionParams.EORIGIN, value); }
+    public static void neOrigin(long struct, int value) { memPutInt(struct + VROverlayIntersectionParams.EORIGIN, value); }
 
     // -----------------------------------
 
@@ -300,6 +298,11 @@ public class VROverlayIntersectionParams extends Struct<VROverlayIntersectionPar
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -133,11 +133,11 @@ public class KHRXcbSurface {
      *
      * @param instance    the instance to associate the surface with.
      * @param pCreateInfo a pointer to a {@link VkXcbSurfaceCreateInfoKHR} structure containing parameters affecting the creation of the surface object.
-     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
+     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a>).
      * @param pSurface    a pointer to a {@code VkSurfaceKHR} handle in which the created surface object is returned.
      */
     @NativeType("VkResult")
-    public static int vkCreateXcbSurfaceKHR(VkInstance instance, @NativeType("VkXcbSurfaceCreateInfoKHR const *") VkXcbSurfaceCreateInfoKHR pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") LongBuffer pSurface) {
+    public static int vkCreateXcbSurfaceKHR(VkInstance instance, @NativeType("VkXcbSurfaceCreateInfoKHR const *") VkXcbSurfaceCreateInfoKHR pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") LongBuffer pSurface) {
         if (CHECKS) {
             check(pSurface, 1);
         }
@@ -194,7 +194,7 @@ public class KHRXcbSurface {
 
     /** Array version of: {@link #vkCreateXcbSurfaceKHR CreateXcbSurfaceKHR} */
     @NativeType("VkResult")
-    public static int vkCreateXcbSurfaceKHR(VkInstance instance, @NativeType("VkXcbSurfaceCreateInfoKHR const *") VkXcbSurfaceCreateInfoKHR pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") long[] pSurface) {
+    public static int vkCreateXcbSurfaceKHR(VkInstance instance, @NativeType("VkXcbSurfaceCreateInfoKHR const *") VkXcbSurfaceCreateInfoKHR pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") long[] pSurface) {
         long __functionAddress = instance.getCapabilities().vkCreateXcbSurfaceKHR;
         if (CHECKS) {
             check(__functionAddress);

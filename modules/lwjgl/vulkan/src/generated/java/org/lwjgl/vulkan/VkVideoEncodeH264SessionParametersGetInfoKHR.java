@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,14 +23,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * <p>When this structure is specified in the {@code pNext} chain of the {@link VkVideoEncodeSessionParametersGetInfoKHR} structure passed to {@link KHRVideoEncodeQueue#vkGetEncodedVideoSessionParametersKHR GetEncodedVideoSessionParametersKHR}, the command will write encoded parameter data to the output buffer in the following order:</p>
  * 
  * <ul>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-sps">H.264 sequence parameter set</a> identified by {@code stdSPSId}, if {@code writeStdSPS} is set to {@link VK10#VK_TRUE TRUE}.</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-pps">H.264 picture parameter set</a> identified by the pair constructed from {@code stdSPSId} and {@code stdPPSId}, if {@code writeStdPPS} is set to {@link VK10#VK_TRUE TRUE}.</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-sps">H.264 sequence parameter set</a> identified by {@code stdSPSId}, if {@code writeStdSPS} is {@link VK10#VK_TRUE TRUE}.</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-pps">H.264 picture parameter set</a> identified by the pair constructed from {@code stdSPSId} and {@code stdPPSId}, if {@code writeStdPPS} is {@link VK10#VK_TRUE TRUE}.</li>
  * </ul>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>At least one of {@code writeStdSPS} and {@code writeStdPPS} <b>must</b> be set to {@link VK10#VK_TRUE TRUE}</li>
+ * <li>At least one of {@code writeStdSPS} and {@code writeStdPPS} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -117,16 +117,16 @@ public class VkVideoEncodeH264SessionParametersGetInfoKHR extends Struct<VkVideo
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the encoded <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-sps">H.264 sequence parameter set</a> identified by {@code stdSPSId} is requested to be retrieved. */
+    /** indicates whether the encoded <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-sps">H.264 sequence parameter set</a> identified by {@code stdSPSId} is requested to be retrieved. */
     @NativeType("VkBool32")
     public boolean writeStdSPS() { return nwriteStdSPS(address()) != 0; }
-    /** indicates whether the encoded <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-pps">H.264 picture parameter set</a> identified by the pair constructed from {@code stdSPSId} and {@code stdPPSId} is requested to be retrieved. */
+    /** indicates whether the encoded <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-pps">H.264 picture parameter set</a> identified by the pair constructed from {@code stdSPSId} and {@code stdPPSId} is requested to be retrieved. */
     @NativeType("VkBool32")
     public boolean writeStdPPS() { return nwriteStdPPS(address()) != 0; }
     /** specifies the H.264 sequence parameter set ID used to identify the retrieved H.264 sequence and/or picture parameter set(s). */
     @NativeType("uint32_t")
     public int stdSPSId() { return nstdSPSId(address()); }
-    /** specifies the H.264 picture parameter set ID used to identify the retrieved H.264 picture parameter set when {@code writeStdPPS} is set to {@link VK10#VK_TRUE TRUE}. */
+    /** specifies the H.264 picture parameter set ID used to identify the retrieved H.264 picture parameter set when {@code writeStdPPS} is {@link VK10#VK_TRUE TRUE}. */
     @NativeType("uint32_t")
     public int stdPPSId() { return nstdPPSId(address()); }
 
@@ -200,8 +200,7 @@ public class VkVideoEncodeH264SessionParametersGetInfoKHR extends Struct<VkVideo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264SessionParametersGetInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264SessionParametersGetInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264SessionParametersGetInfoKHR(address, null);
     }
 
@@ -244,8 +243,7 @@ public class VkVideoEncodeH264SessionParametersGetInfoKHR extends Struct<VkVideo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264SessionParametersGetInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264SessionParametersGetInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,30 +288,30 @@ public class VkVideoEncodeH264SessionParametersGetInfoKHR extends Struct<VkVideo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.PNEXT); }
     /** Unsafe version of {@link #writeStdSPS}. */
-    public static int nwriteStdSPS(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersGetInfoKHR.WRITESTDSPS); }
+    public static int nwriteStdSPS(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.WRITESTDSPS); }
     /** Unsafe version of {@link #writeStdPPS}. */
-    public static int nwriteStdPPS(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersGetInfoKHR.WRITESTDPPS); }
+    public static int nwriteStdPPS(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.WRITESTDPPS); }
     /** Unsafe version of {@link #stdSPSId}. */
-    public static int nstdSPSId(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STDSPSID); }
+    public static int nstdSPSId(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STDSPSID); }
     /** Unsafe version of {@link #stdPPSId}. */
-    public static int nstdPPSId(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STDPPSID); }
+    public static int nstdPPSId(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STDPPSID); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #writeStdSPS(boolean) writeStdSPS}. */
-    public static void nwriteStdSPS(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264SessionParametersGetInfoKHR.WRITESTDSPS, value); }
+    public static void nwriteStdSPS(long struct, int value) { memPutInt(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.WRITESTDSPS, value); }
     /** Unsafe version of {@link #writeStdPPS(boolean) writeStdPPS}. */
-    public static void nwriteStdPPS(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264SessionParametersGetInfoKHR.WRITESTDPPS, value); }
+    public static void nwriteStdPPS(long struct, int value) { memPutInt(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.WRITESTDPPS, value); }
     /** Unsafe version of {@link #stdSPSId(int) stdSPSId}. */
-    public static void nstdSPSId(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STDSPSID, value); }
+    public static void nstdSPSId(long struct, int value) { memPutInt(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STDSPSID, value); }
     /** Unsafe version of {@link #stdPPSId(int) stdPPSId}. */
-    public static void nstdPPSId(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STDPPSID, value); }
+    public static void nstdPPSId(long struct, int value) { memPutInt(struct + VkVideoEncodeH264SessionParametersGetInfoKHR.STDPPSID, value); }
 
     // -----------------------------------
 
@@ -346,6 +344,11 @@ public class VkVideoEncodeH264SessionParametersGetInfoKHR extends Struct<VkVideo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

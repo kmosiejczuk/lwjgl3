@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -172,8 +172,7 @@ public class XrFoveationCustomModeInfoHTC extends Struct<XrFoveationCustomModeIn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationCustomModeInfoHTC createSafe(long address) {
+    public static @Nullable XrFoveationCustomModeInfoHTC createSafe(long address) {
         return address == NULL ? null : new XrFoveationCustomModeInfoHTC(address, null);
     }
 
@@ -216,8 +215,7 @@ public class XrFoveationCustomModeInfoHTC extends Struct<XrFoveationCustomModeIn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationCustomModeInfoHTC.Buffer createSafe(long address, int capacity) {
+    public static XrFoveationCustomModeInfoHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,20 +260,20 @@ public class XrFoveationCustomModeInfoHTC extends Struct<XrFoveationCustomModeIn
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFoveationCustomModeInfoHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFoveationCustomModeInfoHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFoveationCustomModeInfoHTC.NEXT); }
     /** Unsafe version of {@link #configCount}. */
-    public static int nconfigCount(long struct) { return UNSAFE.getInt(null, struct + XrFoveationCustomModeInfoHTC.CONFIGCOUNT); }
+    public static int nconfigCount(long struct) { return memGetInt(struct + XrFoveationCustomModeInfoHTC.CONFIGCOUNT); }
     /** Unsafe version of {@link #configs}. */
     public static XrFoveationConfigurationHTC.Buffer nconfigs(long struct) { return XrFoveationConfigurationHTC.create(memGetAddress(struct + XrFoveationCustomModeInfoHTC.CONFIGS), nconfigCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationCustomModeInfoHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFoveationCustomModeInfoHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFoveationCustomModeInfoHTC.NEXT, value); }
     /** Sets the specified value to the {@code configCount} field of the specified {@code struct}. */
-    public static void nconfigCount(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationCustomModeInfoHTC.CONFIGCOUNT, value); }
+    public static void nconfigCount(long struct, int value) { memPutInt(struct + XrFoveationCustomModeInfoHTC.CONFIGCOUNT, value); }
     /** Unsafe version of {@link #configs(XrFoveationConfigurationHTC.Buffer) configs}. */
     public static void nconfigs(long struct, XrFoveationConfigurationHTC.Buffer value) { memPutAddress(struct + XrFoveationCustomModeInfoHTC.CONFIGS, value.address()); nconfigCount(struct, value.remaining()); }
 
@@ -319,6 +317,11 @@ public class XrFoveationCustomModeInfoHTC extends Struct<XrFoveationCustomModeIn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

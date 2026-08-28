@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -92,8 +92,7 @@ public class AIColor3D extends Struct<AIColor3D> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIColor3D createSafe(long address) {
+    public static @Nullable AIColor3D createSafe(long address) {
         return address == NULL ? null : new AIColor3D(address, null);
     }
 
@@ -108,19 +107,18 @@ public class AIColor3D extends Struct<AIColor3D> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIColor3D.Buffer createSafe(long address, int capacity) {
+    public static AIColor3D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #r}. */
-    public static float nr(long struct) { return UNSAFE.getFloat(null, struct + AIColor3D.R); }
+    public static float nr(long struct) { return memGetFloat(struct + AIColor3D.R); }
     /** Unsafe version of {@link #g}. */
-    public static float ng(long struct) { return UNSAFE.getFloat(null, struct + AIColor3D.G); }
+    public static float ng(long struct) { return memGetFloat(struct + AIColor3D.G); }
     /** Unsafe version of {@link #b}. */
-    public static float nb(long struct) { return UNSAFE.getFloat(null, struct + AIColor3D.B); }
+    public static float nb(long struct) { return memGetFloat(struct + AIColor3D.B); }
 
     // -----------------------------------
 
@@ -153,6 +151,11 @@ public class AIColor3D extends Struct<AIColor3D> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

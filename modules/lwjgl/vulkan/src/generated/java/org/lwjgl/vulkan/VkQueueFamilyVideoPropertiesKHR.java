@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkQueueFamilyVideoPropertiesKHR extends Struct<VkQueueFamilyVideoPr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyVideoPropertiesKHR createSafe(long address) {
+    public static @Nullable VkQueueFamilyVideoPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkQueueFamilyVideoPropertiesKHR(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkQueueFamilyVideoPropertiesKHR extends Struct<VkQueueFamilyVideoPr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyVideoPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkQueueFamilyVideoPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkQueueFamilyVideoPropertiesKHR extends Struct<VkQueueFamilyVideoPr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueueFamilyVideoPropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueueFamilyVideoPropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueueFamilyVideoPropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #videoCodecOperations}. */
-    public static int nvideoCodecOperations(long struct) { return UNSAFE.getInt(null, struct + VkQueueFamilyVideoPropertiesKHR.VIDEOCODECOPERATIONS); }
+    public static int nvideoCodecOperations(long struct) { return memGetInt(struct + VkQueueFamilyVideoPropertiesKHR.VIDEOCODECOPERATIONS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueueFamilyVideoPropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueueFamilyVideoPropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueueFamilyVideoPropertiesKHR.PNEXT, value); }
 
@@ -284,6 +282,11 @@ public class VkQueueFamilyVideoPropertiesKHR extends Struct<VkQueueFamilyVideoPr
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

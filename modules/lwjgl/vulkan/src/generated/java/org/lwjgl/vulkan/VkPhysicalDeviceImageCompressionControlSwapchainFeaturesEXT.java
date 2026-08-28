@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #imageCompressionControlSwapchain}. */
-    public static int nimageCompressionControlSwapchain(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.IMAGECOMPRESSIONCONTROLSWAPCHAIN); }
+    public static int nimageCompressionControlSwapchain(long struct) { return memGetInt(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.IMAGECOMPRESSIONCONTROLSWAPCHAIN); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #imageCompressionControlSwapchain(boolean) imageCompressionControlSwapchain}. */
-    public static void nimageCompressionControlSwapchain(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.IMAGECOMPRESSIONCONTROLSWAPCHAIN, value); }
+    public static void nimageCompressionControlSwapchain(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.IMAGECOMPRESSIONCONTROLSWAPCHAIN, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

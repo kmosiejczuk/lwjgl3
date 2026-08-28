@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkMultiDrawIndexedInfoEXT extends Struct<VkMultiDrawIndexedInfoEXT>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMultiDrawIndexedInfoEXT createSafe(long address) {
+    public static @Nullable VkMultiDrawIndexedInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMultiDrawIndexedInfoEXT(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkMultiDrawIndexedInfoEXT extends Struct<VkMultiDrawIndexedInfoEXT>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMultiDrawIndexedInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMultiDrawIndexedInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,18 +240,18 @@ public class VkMultiDrawIndexedInfoEXT extends Struct<VkMultiDrawIndexedInfoEXT>
     // -----------------------------------
 
     /** Unsafe version of {@link #firstIndex}. */
-    public static int nfirstIndex(long struct) { return UNSAFE.getInt(null, struct + VkMultiDrawIndexedInfoEXT.FIRSTINDEX); }
+    public static int nfirstIndex(long struct) { return memGetInt(struct + VkMultiDrawIndexedInfoEXT.FIRSTINDEX); }
     /** Unsafe version of {@link #indexCount}. */
-    public static int nindexCount(long struct) { return UNSAFE.getInt(null, struct + VkMultiDrawIndexedInfoEXT.INDEXCOUNT); }
+    public static int nindexCount(long struct) { return memGetInt(struct + VkMultiDrawIndexedInfoEXT.INDEXCOUNT); }
     /** Unsafe version of {@link #vertexOffset}. */
-    public static int nvertexOffset(long struct) { return UNSAFE.getInt(null, struct + VkMultiDrawIndexedInfoEXT.VERTEXOFFSET); }
+    public static int nvertexOffset(long struct) { return memGetInt(struct + VkMultiDrawIndexedInfoEXT.VERTEXOFFSET); }
 
     /** Unsafe version of {@link #firstIndex(int) firstIndex}. */
-    public static void nfirstIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkMultiDrawIndexedInfoEXT.FIRSTINDEX, value); }
+    public static void nfirstIndex(long struct, int value) { memPutInt(struct + VkMultiDrawIndexedInfoEXT.FIRSTINDEX, value); }
     /** Unsafe version of {@link #indexCount(int) indexCount}. */
-    public static void nindexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkMultiDrawIndexedInfoEXT.INDEXCOUNT, value); }
+    public static void nindexCount(long struct, int value) { memPutInt(struct + VkMultiDrawIndexedInfoEXT.INDEXCOUNT, value); }
     /** Unsafe version of {@link #vertexOffset(int) vertexOffset}. */
-    public static void nvertexOffset(long struct, int value) { UNSAFE.putInt(null, struct + VkMultiDrawIndexedInfoEXT.VERTEXOFFSET, value); }
+    public static void nvertexOffset(long struct, int value) { memPutInt(struct + VkMultiDrawIndexedInfoEXT.VERTEXOFFSET, value); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class VkMultiDrawIndexedInfoEXT extends Struct<VkMultiDrawIndexedInfoEXT>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

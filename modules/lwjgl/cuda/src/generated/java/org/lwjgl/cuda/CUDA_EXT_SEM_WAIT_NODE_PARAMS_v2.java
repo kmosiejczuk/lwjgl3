@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -143,8 +143,7 @@ public class CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2 extends Struct<CUDA_EXT_SEM_WAIT_N
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2 createSafe(long address) {
+    public static @Nullable CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2 createSafe(long address) {
         return address == NULL ? null : new CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2(address, null);
     }
 
@@ -187,8 +186,7 @@ public class CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2 extends Struct<CUDA_EXT_SEM_WAIT_N
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2.Buffer createSafe(long address, int capacity) {
+    public static CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,14 +235,14 @@ public class CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2 extends Struct<CUDA_EXT_SEM_WAIT_N
     /** Unsafe version of {@link #paramsArray}. */
     public static CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.Buffer nparamsArray(long struct) { return CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.create(memGetAddress(struct + CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2.PARAMSARRAY), nnumExtSems(struct)); }
     /** Unsafe version of {@link #numExtSems}. */
-    public static int nnumExtSems(long struct) { return UNSAFE.getInt(null, struct + CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2.NUMEXTSEMS); }
+    public static int nnumExtSems(long struct) { return memGetInt(struct + CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2.NUMEXTSEMS); }
 
     /** Unsafe version of {@link #extSemArray(PointerBuffer) extSemArray}. */
     public static void nextSemArray(long struct, PointerBuffer value) { memPutAddress(struct + CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2.EXTSEMARRAY, memAddress(value)); }
     /** Unsafe version of {@link #paramsArray(CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.Buffer) paramsArray}. */
     public static void nparamsArray(long struct, CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.Buffer value) { memPutAddress(struct + CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2.PARAMSARRAY, value.address()); }
     /** Sets the specified value to the {@code numExtSems} field of the specified {@code struct}. */
-    public static void nnumExtSems(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2.NUMEXTSEMS, value); }
+    public static void nnumExtSems(long struct, int value) { memPutInt(struct + CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2.NUMEXTSEMS, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -287,6 +285,11 @@ public class CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2 extends Struct<CUDA_EXT_SEM_WAIT_N
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

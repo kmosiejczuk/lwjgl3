@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -129,8 +129,7 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct<StdVideoEn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH264ReferenceListsInfoFlags createSafe(long address) {
+    public static @Nullable StdVideoEncodeH264ReferenceListsInfoFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoEncodeH264ReferenceListsInfoFlags(address, null);
     }
 
@@ -173,8 +172,7 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct<StdVideoEn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH264ReferenceListsInfoFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoEncodeH264ReferenceListsInfoFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -218,14 +216,14 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct<StdVideoEn
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH264ReferenceListsInfoFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoEncodeH264ReferenceListsInfoFlags.BITFIELD0); }
     /** Unsafe version of {@link #ref_pic_list_modification_l0_flag}. */
     public static int nref_pic_list_modification_l0_flag(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #ref_pic_list_modification_l1_flag}. */
     public static int nref_pic_list_modification_l1_flag(long struct) { return (nbitfield0(struct) & 0x00_00_00_02) >>> 1; }
     public static int nreserved(long struct) { return nbitfield0(struct) >>> 2; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH264ReferenceListsInfoFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoEncodeH264ReferenceListsInfoFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #ref_pic_list_modification_l0_flag(boolean) ref_pic_list_modification_l0_flag}. */
     public static void nref_pic_list_modification_l0_flag(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #ref_pic_list_modification_l1_flag(boolean) ref_pic_list_modification_l1_flag}. */
@@ -263,6 +261,11 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct<StdVideoEn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

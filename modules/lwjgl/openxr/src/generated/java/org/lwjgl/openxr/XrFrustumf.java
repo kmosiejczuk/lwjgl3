@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class XrFrustumf extends Struct<XrFrustumf> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFrustumf createSafe(long address) {
+    public static @Nullable XrFrustumf createSafe(long address) {
         return address == NULL ? null : new XrFrustumf(address, null);
     }
 
@@ -211,8 +210,7 @@ public class XrFrustumf extends Struct<XrFrustumf> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFrustumf.Buffer createSafe(long address, int capacity) {
+    public static XrFrustumf.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,18 +259,18 @@ public class XrFrustumf extends Struct<XrFrustumf> implements NativeResource {
     /** Unsafe version of {@link #fov}. */
     public static XrFovf nfov(long struct) { return XrFovf.create(struct + XrFrustumf.FOV); }
     /** Unsafe version of {@link #nearZ}. */
-    public static float nnearZ(long struct) { return UNSAFE.getFloat(null, struct + XrFrustumf.NEARZ); }
+    public static float nnearZ(long struct) { return memGetFloat(struct + XrFrustumf.NEARZ); }
     /** Unsafe version of {@link #farZ}. */
-    public static float nfarZ(long struct) { return UNSAFE.getFloat(null, struct + XrFrustumf.FARZ); }
+    public static float nfarZ(long struct) { return memGetFloat(struct + XrFrustumf.FARZ); }
 
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrFrustumf.POSE, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #fov(XrFovf) fov}. */
     public static void nfov(long struct, XrFovf value) { memCopy(value.address(), struct + XrFrustumf.FOV, XrFovf.SIZEOF); }
     /** Unsafe version of {@link #nearZ(float) nearZ}. */
-    public static void nnearZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrFrustumf.NEARZ, value); }
+    public static void nnearZ(long struct, float value) { memPutFloat(struct + XrFrustumf.NEARZ, value); }
     /** Unsafe version of {@link #farZ(float) farZ}. */
-    public static void nfarZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrFrustumf.FARZ, value); }
+    public static void nfarZ(long struct, float value) { memPutFloat(struct + XrFrustumf.FARZ, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class XrFrustumf extends Struct<XrFrustumf> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

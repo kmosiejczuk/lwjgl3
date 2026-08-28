@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -147,8 +147,7 @@ public class XrMarkerDetectorSnapshotInfoML extends Struct<XrMarkerDetectorSnaps
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerDetectorSnapshotInfoML createSafe(long address) {
+    public static @Nullable XrMarkerDetectorSnapshotInfoML createSafe(long address) {
         return address == NULL ? null : new XrMarkerDetectorSnapshotInfoML(address, null);
     }
 
@@ -191,8 +190,7 @@ public class XrMarkerDetectorSnapshotInfoML extends Struct<XrMarkerDetectorSnaps
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerDetectorSnapshotInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrMarkerDetectorSnapshotInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,12 +235,12 @@ public class XrMarkerDetectorSnapshotInfoML extends Struct<XrMarkerDetectorSnaps
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrMarkerDetectorSnapshotInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrMarkerDetectorSnapshotInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrMarkerDetectorSnapshotInfoML.NEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrMarkerDetectorSnapshotInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrMarkerDetectorSnapshotInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrMarkerDetectorSnapshotInfoML.NEXT, value); }
 
@@ -277,6 +275,11 @@ public class XrMarkerDetectorSnapshotInfoML extends Struct<XrMarkerDetectorSnaps
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

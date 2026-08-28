@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -252,8 +252,7 @@ public class OVRLayerEyeMatrix extends Struct<OVRLayerEyeMatrix> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRLayerEyeMatrix createSafe(long address) {
+    public static @Nullable OVRLayerEyeMatrix createSafe(long address) {
         return address == NULL ? null : new OVRLayerEyeMatrix(address, null);
     }
 
@@ -296,8 +295,7 @@ public class OVRLayerEyeMatrix extends Struct<OVRLayerEyeMatrix> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRLayerEyeMatrix.Buffer createSafe(long address, int capacity) {
+    public static OVRLayerEyeMatrix.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -387,7 +385,7 @@ public class OVRLayerEyeMatrix extends Struct<OVRLayerEyeMatrix> implements Nati
         return OVRMatrix4f.create(struct + OVRLayerEyeMatrix.MATRIX + check(index, ovrEye_Count) * OVRMatrix4f.SIZEOF);
     }
     /** Unsafe version of {@link #SensorSampleTime}. */
-    public static double nSensorSampleTime(long struct) { return UNSAFE.getDouble(null, struct + OVRLayerEyeMatrix.SENSORSAMPLETIME); }
+    public static double nSensorSampleTime(long struct) { return memGetDouble(struct + OVRLayerEyeMatrix.SENSORSAMPLETIME); }
 
     /** Unsafe version of {@link #Header(OVRLayerHeader) Header}. */
     public static void nHeader(long struct, OVRLayerHeader value) { memCopy(value.address(), struct + OVRLayerEyeMatrix.HEADER, OVRLayerHeader.SIZEOF); }
@@ -428,7 +426,7 @@ public class OVRLayerEyeMatrix extends Struct<OVRLayerEyeMatrix> implements Nati
         memCopy(value.address(), struct + OVRLayerEyeMatrix.MATRIX + check(index, ovrEye_Count) * OVRMatrix4f.SIZEOF, OVRMatrix4f.SIZEOF);
     }
     /** Unsafe version of {@link #SensorSampleTime(double) SensorSampleTime}. */
-    public static void nSensorSampleTime(long struct, double value) { UNSAFE.putDouble(null, struct + OVRLayerEyeMatrix.SENSORSAMPLETIME, value); }
+    public static void nSensorSampleTime(long struct, double value) { memPutDouble(struct + OVRLayerEyeMatrix.SENSORSAMPLETIME, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -470,6 +468,11 @@ public class OVRLayerEyeMatrix extends Struct<OVRLayerEyeMatrix> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

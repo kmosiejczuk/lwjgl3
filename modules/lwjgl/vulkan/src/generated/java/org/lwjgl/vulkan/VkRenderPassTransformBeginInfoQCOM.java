@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkRenderPassTransformBeginInfoQCOM extends Struct<VkRenderPassTrans
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassTransformBeginInfoQCOM createSafe(long address) {
+    public static @Nullable VkRenderPassTransformBeginInfoQCOM createSafe(long address) {
         return address == NULL ? null : new VkRenderPassTransformBeginInfoQCOM(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkRenderPassTransformBeginInfoQCOM extends Struct<VkRenderPassTrans
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassTransformBeginInfoQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassTransformBeginInfoQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +247,18 @@ public class VkRenderPassTransformBeginInfoQCOM extends Struct<VkRenderPassTrans
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassTransformBeginInfoQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderPassTransformBeginInfoQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderPassTransformBeginInfoQCOM.PNEXT); }
     /** Unsafe version of {@link #transform}. */
-    public static int ntransform(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassTransformBeginInfoQCOM.TRANSFORM); }
+    public static int ntransform(long struct) { return memGetInt(struct + VkRenderPassTransformBeginInfoQCOM.TRANSFORM); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderPassTransformBeginInfoQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderPassTransformBeginInfoQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderPassTransformBeginInfoQCOM.PNEXT, value); }
     /** Unsafe version of {@link #transform(int) transform}. */
-    public static void ntransform(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderPassTransformBeginInfoQCOM.TRANSFORM, value); }
+    public static void ntransform(long struct, int value) { memPutInt(struct + VkRenderPassTransformBeginInfoQCOM.TRANSFORM, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class VkRenderPassTransformBeginInfoQCOM extends Struct<VkRenderPassTrans
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

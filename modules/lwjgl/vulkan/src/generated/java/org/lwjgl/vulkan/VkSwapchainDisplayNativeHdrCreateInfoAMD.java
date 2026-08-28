@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class VkSwapchainDisplayNativeHdrCreateInfoAMD extends Struct<VkSwapchain
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSwapchainDisplayNativeHdrCreateInfoAMD createSafe(long address) {
+    public static @Nullable VkSwapchainDisplayNativeHdrCreateInfoAMD createSafe(long address) {
         return address == NULL ? null : new VkSwapchainDisplayNativeHdrCreateInfoAMD(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkSwapchainDisplayNativeHdrCreateInfoAMD extends Struct<VkSwapchain
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSwapchainDisplayNativeHdrCreateInfoAMD.Buffer createSafe(long address, int capacity) {
+    public static VkSwapchainDisplayNativeHdrCreateInfoAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -271,18 +269,18 @@ public class VkSwapchainDisplayNativeHdrCreateInfoAMD extends Struct<VkSwapchain
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainDisplayNativeHdrCreateInfoAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSwapchainDisplayNativeHdrCreateInfoAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSwapchainDisplayNativeHdrCreateInfoAMD.PNEXT); }
     /** Unsafe version of {@link #localDimmingEnable}. */
-    public static int nlocalDimmingEnable(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainDisplayNativeHdrCreateInfoAMD.LOCALDIMMINGENABLE); }
+    public static int nlocalDimmingEnable(long struct) { return memGetInt(struct + VkSwapchainDisplayNativeHdrCreateInfoAMD.LOCALDIMMINGENABLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainDisplayNativeHdrCreateInfoAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSwapchainDisplayNativeHdrCreateInfoAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSwapchainDisplayNativeHdrCreateInfoAMD.PNEXT, value); }
     /** Unsafe version of {@link #localDimmingEnable(boolean) localDimmingEnable}. */
-    public static void nlocalDimmingEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainDisplayNativeHdrCreateInfoAMD.LOCALDIMMINGENABLE, value); }
+    public static void nlocalDimmingEnable(long struct, int value) { memPutInt(struct + VkSwapchainDisplayNativeHdrCreateInfoAMD.LOCALDIMMINGENABLE, value); }
 
     // -----------------------------------
 
@@ -315,6 +313,11 @@ public class VkSwapchainDisplayNativeHdrCreateInfoAMD extends Struct<VkSwapchain
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

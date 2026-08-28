@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkPhysicalDeviceShaderCoreProperties2AMD extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderCoreProperties2AMD createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderCoreProperties2AMD createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderCoreProperties2AMD(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkPhysicalDeviceShaderCoreProperties2AMD extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderCoreProperties2AMD.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderCoreProperties2AMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,16 +266,16 @@ public class VkPhysicalDeviceShaderCoreProperties2AMD extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderCoreProperties2AMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderCoreProperties2AMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderCoreProperties2AMD.PNEXT); }
     /** Unsafe version of {@link #shaderCoreFeatures}. */
-    public static int nshaderCoreFeatures(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderCoreProperties2AMD.SHADERCOREFEATURES); }
+    public static int nshaderCoreFeatures(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderCoreProperties2AMD.SHADERCOREFEATURES); }
     /** Unsafe version of {@link #activeComputeUnitCount}. */
-    public static int nactiveComputeUnitCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderCoreProperties2AMD.ACTIVECOMPUTEUNITCOUNT); }
+    public static int nactiveComputeUnitCount(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderCoreProperties2AMD.ACTIVECOMPUTEUNITCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderCoreProperties2AMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderCoreProperties2AMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderCoreProperties2AMD.PNEXT, value); }
 
@@ -312,6 +310,11 @@ public class VkPhysicalDeviceShaderCoreProperties2AMD extends Struct<VkPhysicalD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

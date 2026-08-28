@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkPhysicalDeviceMapMemoryPlacedPropertiesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMapMemoryPlacedPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMapMemoryPlacedPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMapMemoryPlacedPropertiesEXT(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkPhysicalDeviceMapMemoryPlacedPropertiesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkPhysicalDeviceMapMemoryPlacedPropertiesEXT extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #minPlacedMemoryMapAlignment}. */
-    public static long nminPlacedMemoryMapAlignment(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.MINPLACEDMEMORYMAPALIGNMENT); }
+    public static long nminPlacedMemoryMapAlignment(long struct) { return memGetLong(struct + VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.MINPLACEDMEMORYMAPALIGNMENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.PNEXT, value); }
 
@@ -284,6 +282,11 @@ public class VkPhysicalDeviceMapMemoryPlacedPropertiesEXT extends Struct<VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

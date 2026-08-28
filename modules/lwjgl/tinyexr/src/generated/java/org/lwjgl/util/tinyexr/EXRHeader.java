@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.tinyexr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -206,9 +206,8 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
     /** number of {@code EXRAttribute} in the {@code custom_attributes} array */
     public int num_custom_attributes() { return nnum_custom_attributes(address()); }
     /** custom attributes (excludes required attributes, e.g. `channels`, `compression`, etc) */
-    @Nullable
     @NativeType("EXRAttribute *")
-    public EXRAttribute.Buffer custom_attributes() { return ncustom_attributes(address()); }
+    public EXRAttribute.@Nullable Buffer custom_attributes() { return ncustom_attributes(address()); }
     /** @return a {@link EXRChannelInfo.Buffer} view of the struct array pointed to by the {@code channels} field. */
     @NativeType("EXRChannelInfo *")
     public EXRChannelInfo.Buffer channels() { return nchannels(address()); }
@@ -278,7 +277,7 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
     /** Sets the specified value to the {@link #num_custom_attributes} field. */
     public EXRHeader num_custom_attributes(int value) { nnum_custom_attributes(address(), value); return this; }
     /** Sets the address of the specified {@link EXRAttribute.Buffer} to the {@link #custom_attributes} field. */
-    public EXRHeader custom_attributes(@Nullable @NativeType("EXRAttribute *") EXRAttribute.Buffer value) { ncustom_attributes(address(), value); return this; }
+    public EXRHeader custom_attributes(@NativeType("EXRAttribute *") EXRAttribute.@Nullable Buffer value) { ncustom_attributes(address(), value); return this; }
     /** Sets the address of the specified {@link EXRChannelInfo.Buffer} to the {@code channels} field. */
     public EXRHeader channels(@NativeType("EXRChannelInfo *") EXRChannelInfo.Buffer value) { nchannels(address(), value); return this; }
     /** Sets the address of the specified {@link IntBuffer} to the {@link #pixel_types} field. */
@@ -311,7 +310,7 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
         boolean multipart,
         int header_len,
         int num_custom_attributes,
-        @Nullable EXRAttribute.Buffer custom_attributes,
+        EXRAttribute.@Nullable Buffer custom_attributes,
         EXRChannelInfo.Buffer channels,
         IntBuffer pixel_types,
         int num_channels,
@@ -383,8 +382,7 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRHeader createSafe(long address) {
+    public static @Nullable EXRHeader createSafe(long address) {
         return address == NULL ? null : new EXRHeader(address, null);
     }
 
@@ -427,8 +425,7 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRHeader.Buffer createSafe(long address, int capacity) {
+    public static EXRHeader.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -492,9 +489,9 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #pixel_aspect_ratio}. */
-    public static float npixel_aspect_ratio(long struct) { return UNSAFE.getFloat(null, struct + EXRHeader.PIXEL_ASPECT_RATIO); }
+    public static float npixel_aspect_ratio(long struct) { return memGetFloat(struct + EXRHeader.PIXEL_ASPECT_RATIO); }
     /** Unsafe version of {@link #line_order}. */
-    public static int nline_order(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.LINE_ORDER); }
+    public static int nline_order(long struct) { return memGetInt(struct + EXRHeader.LINE_ORDER); }
     /** Unsafe version of {@link #data_window}. */
     public static EXRBox2i ndata_window(long struct) { return EXRBox2i.create(struct + EXRHeader.DATA_WINDOW); }
     /** Unsafe version of {@link #display_window}. */
@@ -503,42 +500,42 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
     public static FloatBuffer nscreen_window_center(long struct) { return memFloatBuffer(struct + EXRHeader.SCREEN_WINDOW_CENTER, 2); }
     /** Unsafe version of {@link #screen_window_center(int) screen_window_center}. */
     public static float nscreen_window_center(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + EXRHeader.SCREEN_WINDOW_CENTER + check(index, 2) * 4);
+        return memGetFloat(struct + EXRHeader.SCREEN_WINDOW_CENTER + check(index, 2) * 4);
     }
     /** Unsafe version of {@link #screen_window_width}. */
-    public static float nscreen_window_width(long struct) { return UNSAFE.getFloat(null, struct + EXRHeader.SCREEN_WINDOW_WIDTH); }
+    public static float nscreen_window_width(long struct) { return memGetFloat(struct + EXRHeader.SCREEN_WINDOW_WIDTH); }
     /** Unsafe version of {@link #chunk_count}. */
-    public static int nchunk_count(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.CHUNK_COUNT); }
+    public static int nchunk_count(long struct) { return memGetInt(struct + EXRHeader.CHUNK_COUNT); }
     /** Unsafe version of {@link #tiled}. */
-    public static int ntiled(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.TILED); }
+    public static int ntiled(long struct) { return memGetInt(struct + EXRHeader.TILED); }
     /** Unsafe version of {@link #tile_size_x}. */
-    public static int ntile_size_x(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.TILE_SIZE_X); }
+    public static int ntile_size_x(long struct) { return memGetInt(struct + EXRHeader.TILE_SIZE_X); }
     /** Unsafe version of {@link #tile_size_y}. */
-    public static int ntile_size_y(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.TILE_SIZE_Y); }
+    public static int ntile_size_y(long struct) { return memGetInt(struct + EXRHeader.TILE_SIZE_Y); }
     /** Unsafe version of {@link #tile_level_mode}. */
-    public static int ntile_level_mode(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.TILE_LEVEL_MODE); }
+    public static int ntile_level_mode(long struct) { return memGetInt(struct + EXRHeader.TILE_LEVEL_MODE); }
     /** Unsafe version of {@link #tile_rounding_mode}. */
-    public static int ntile_rounding_mode(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.TILE_ROUNDING_MODE); }
+    public static int ntile_rounding_mode(long struct) { return memGetInt(struct + EXRHeader.TILE_ROUNDING_MODE); }
     /** Unsafe version of {@link #long_name}. */
-    public static int nlong_name(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.LONG_NAME); }
+    public static int nlong_name(long struct) { return memGetInt(struct + EXRHeader.LONG_NAME); }
     /** Unsafe version of {@link #non_image}. */
-    public static int nnon_image(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.NON_IMAGE); }
+    public static int nnon_image(long struct) { return memGetInt(struct + EXRHeader.NON_IMAGE); }
     /** Unsafe version of {@link #multipart}. */
-    public static int nmultipart(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.MULTIPART); }
+    public static int nmultipart(long struct) { return memGetInt(struct + EXRHeader.MULTIPART); }
     /** Unsafe version of {@link #header_len}. */
-    public static int nheader_len(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.HEADER_LEN); }
+    public static int nheader_len(long struct) { return memGetInt(struct + EXRHeader.HEADER_LEN); }
     /** Unsafe version of {@link #num_custom_attributes}. */
-    public static int nnum_custom_attributes(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.NUM_CUSTOM_ATTRIBUTES); }
+    public static int nnum_custom_attributes(long struct) { return memGetInt(struct + EXRHeader.NUM_CUSTOM_ATTRIBUTES); }
     /** Unsafe version of {@link #custom_attributes}. */
-    @Nullable public static EXRAttribute.Buffer ncustom_attributes(long struct) { return EXRAttribute.createSafe(memGetAddress(struct + EXRHeader.CUSTOM_ATTRIBUTES), nnum_custom_attributes(struct)); }
+    public static EXRAttribute.@Nullable Buffer ncustom_attributes(long struct) { return EXRAttribute.createSafe(memGetAddress(struct + EXRHeader.CUSTOM_ATTRIBUTES), nnum_custom_attributes(struct)); }
     /** Unsafe version of {@link #channels}. */
     public static EXRChannelInfo.Buffer nchannels(long struct) { return EXRChannelInfo.create(memGetAddress(struct + EXRHeader.CHANNELS), nnum_channels(struct)); }
     /** Unsafe version of {@link #pixel_types() pixel_types}. */
     public static IntBuffer npixel_types(long struct) { return memIntBuffer(memGetAddress(struct + EXRHeader.PIXEL_TYPES), nnum_channels(struct)); }
     /** Unsafe version of {@link #num_channels}. */
-    public static int nnum_channels(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.NUM_CHANNELS); }
+    public static int nnum_channels(long struct) { return memGetInt(struct + EXRHeader.NUM_CHANNELS); }
     /** Unsafe version of {@link #compression_type}. */
-    public static int ncompression_type(long struct) { return UNSAFE.getInt(null, struct + EXRHeader.COMPRESSION_TYPE); }
+    public static int ncompression_type(long struct) { return memGetInt(struct + EXRHeader.COMPRESSION_TYPE); }
     /** Unsafe version of {@link #requested_pixel_types() requested_pixel_types}. */
     public static IntBuffer nrequested_pixel_types(long struct) { return memIntBuffer(memGetAddress(struct + EXRHeader.REQUESTED_PIXEL_TYPES), nnum_channels(struct)); }
     /** Unsafe version of {@link #name}. */
@@ -547,9 +544,9 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
     public static String nnameString(long struct) { return memUTF8(struct + EXRHeader.NAME); }
 
     /** Unsafe version of {@link #pixel_aspect_ratio(float) pixel_aspect_ratio}. */
-    public static void npixel_aspect_ratio(long struct, float value) { UNSAFE.putFloat(null, struct + EXRHeader.PIXEL_ASPECT_RATIO, value); }
+    public static void npixel_aspect_ratio(long struct, float value) { memPutFloat(struct + EXRHeader.PIXEL_ASPECT_RATIO, value); }
     /** Unsafe version of {@link #line_order(int) line_order}. */
-    public static void nline_order(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.LINE_ORDER, value); }
+    public static void nline_order(long struct, int value) { memPutInt(struct + EXRHeader.LINE_ORDER, value); }
     /** Unsafe version of {@link #data_window(EXRBox2i) data_window}. */
     public static void ndata_window(long struct, EXRBox2i value) { memCopy(value.address(), struct + EXRHeader.DATA_WINDOW, EXRBox2i.SIZEOF); }
     /** Unsafe version of {@link #display_window(EXRBox2i) display_window}. */
@@ -561,42 +558,42 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
     }
     /** Unsafe version of {@link #screen_window_center(int, float) screen_window_center}. */
     public static void nscreen_window_center(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + EXRHeader.SCREEN_WINDOW_CENTER + check(index, 2) * 4, value);
+        memPutFloat(struct + EXRHeader.SCREEN_WINDOW_CENTER + check(index, 2) * 4, value);
     }
     /** Unsafe version of {@link #screen_window_width(float) screen_window_width}. */
-    public static void nscreen_window_width(long struct, float value) { UNSAFE.putFloat(null, struct + EXRHeader.SCREEN_WINDOW_WIDTH, value); }
+    public static void nscreen_window_width(long struct, float value) { memPutFloat(struct + EXRHeader.SCREEN_WINDOW_WIDTH, value); }
     /** Unsafe version of {@link #chunk_count(int) chunk_count}. */
-    public static void nchunk_count(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.CHUNK_COUNT, value); }
+    public static void nchunk_count(long struct, int value) { memPutInt(struct + EXRHeader.CHUNK_COUNT, value); }
     /** Unsafe version of {@link #tiled(boolean) tiled}. */
-    public static void ntiled(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.TILED, value); }
+    public static void ntiled(long struct, int value) { memPutInt(struct + EXRHeader.TILED, value); }
     /** Unsafe version of {@link #tile_size_x(int) tile_size_x}. */
-    public static void ntile_size_x(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.TILE_SIZE_X, value); }
+    public static void ntile_size_x(long struct, int value) { memPutInt(struct + EXRHeader.TILE_SIZE_X, value); }
     /** Unsafe version of {@link #tile_size_y(int) tile_size_y}. */
-    public static void ntile_size_y(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.TILE_SIZE_Y, value); }
+    public static void ntile_size_y(long struct, int value) { memPutInt(struct + EXRHeader.TILE_SIZE_Y, value); }
     /** Unsafe version of {@link #tile_level_mode(int) tile_level_mode}. */
-    public static void ntile_level_mode(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.TILE_LEVEL_MODE, value); }
+    public static void ntile_level_mode(long struct, int value) { memPutInt(struct + EXRHeader.TILE_LEVEL_MODE, value); }
     /** Unsafe version of {@link #tile_rounding_mode(int) tile_rounding_mode}. */
-    public static void ntile_rounding_mode(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.TILE_ROUNDING_MODE, value); }
+    public static void ntile_rounding_mode(long struct, int value) { memPutInt(struct + EXRHeader.TILE_ROUNDING_MODE, value); }
     /** Unsafe version of {@link #long_name(boolean) long_name}. */
-    public static void nlong_name(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.LONG_NAME, value); }
+    public static void nlong_name(long struct, int value) { memPutInt(struct + EXRHeader.LONG_NAME, value); }
     /** Unsafe version of {@link #non_image(boolean) non_image}. */
-    public static void nnon_image(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.NON_IMAGE, value); }
+    public static void nnon_image(long struct, int value) { memPutInt(struct + EXRHeader.NON_IMAGE, value); }
     /** Unsafe version of {@link #multipart(boolean) multipart}. */
-    public static void nmultipart(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.MULTIPART, value); }
+    public static void nmultipart(long struct, int value) { memPutInt(struct + EXRHeader.MULTIPART, value); }
     /** Unsafe version of {@link #header_len(int) header_len}. */
-    public static void nheader_len(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.HEADER_LEN, value); }
+    public static void nheader_len(long struct, int value) { memPutInt(struct + EXRHeader.HEADER_LEN, value); }
     /** Sets the specified value to the {@code num_custom_attributes} field of the specified {@code struct}. */
-    public static void nnum_custom_attributes(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.NUM_CUSTOM_ATTRIBUTES, value); }
+    public static void nnum_custom_attributes(long struct, int value) { memPutInt(struct + EXRHeader.NUM_CUSTOM_ATTRIBUTES, value); }
     /** Unsafe version of {@link #custom_attributes(EXRAttribute.Buffer) custom_attributes}. */
-    public static void ncustom_attributes(long struct, @Nullable EXRAttribute.Buffer value) { memPutAddress(struct + EXRHeader.CUSTOM_ATTRIBUTES, memAddressSafe(value)); nnum_custom_attributes(struct, value == null ? 0 : value.remaining()); }
+    public static void ncustom_attributes(long struct, EXRAttribute.@Nullable Buffer value) { memPutAddress(struct + EXRHeader.CUSTOM_ATTRIBUTES, memAddressSafe(value)); nnum_custom_attributes(struct, value == null ? 0 : value.remaining()); }
     /** Unsafe version of {@link #channels(EXRChannelInfo.Buffer) channels}. */
     public static void nchannels(long struct, EXRChannelInfo.Buffer value) { memPutAddress(struct + EXRHeader.CHANNELS, value.address()); }
     /** Unsafe version of {@link #pixel_types(IntBuffer) pixel_types}. */
     public static void npixel_types(long struct, IntBuffer value) { memPutAddress(struct + EXRHeader.PIXEL_TYPES, memAddress(value)); }
     /** Sets the specified value to the {@code num_channels} field of the specified {@code struct}. */
-    public static void nnum_channels(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.NUM_CHANNELS, value); }
+    public static void nnum_channels(long struct, int value) { memPutInt(struct + EXRHeader.NUM_CHANNELS, value); }
     /** Unsafe version of {@link #compression_type(int) compression_type}. */
-    public static void ncompression_type(long struct, int value) { UNSAFE.putInt(null, struct + EXRHeader.COMPRESSION_TYPE, value); }
+    public static void ncompression_type(long struct, int value) { memPutInt(struct + EXRHeader.COMPRESSION_TYPE, value); }
     /** Unsafe version of {@link #requested_pixel_types(IntBuffer) requested_pixel_types}. */
     public static void nrequested_pixel_types(long struct, IntBuffer value) { memPutAddress(struct + EXRHeader.REQUESTED_PIXEL_TYPES, memAddress(value)); }
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
@@ -658,6 +655,11 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected EXRHeader getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -705,9 +707,8 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
         /** @return the value of the {@link EXRHeader#num_custom_attributes} field. */
         public int num_custom_attributes() { return EXRHeader.nnum_custom_attributes(address()); }
         /** @return a {@link EXRAttribute.Buffer} view of the struct array pointed to by the {@link EXRHeader#custom_attributes} field. */
-        @Nullable
         @NativeType("EXRAttribute *")
-        public EXRAttribute.Buffer custom_attributes() { return EXRHeader.ncustom_attributes(address()); }
+        public EXRAttribute.@Nullable Buffer custom_attributes() { return EXRHeader.ncustom_attributes(address()); }
         /** @return a {@link EXRChannelInfo.Buffer} view of the struct array pointed to by the {@code channels} field. */
         @NativeType("EXRChannelInfo *")
         public EXRChannelInfo.Buffer channels() { return EXRHeader.nchannels(address()); }
@@ -769,7 +770,7 @@ public class EXRHeader extends Struct<EXRHeader> implements NativeResource {
         /** Sets the specified value to the {@link EXRHeader#num_custom_attributes} field. */
         public EXRHeader.Buffer num_custom_attributes(int value) { EXRHeader.nnum_custom_attributes(address(), value); return this; }
         /** Sets the address of the specified {@link EXRAttribute.Buffer} to the {@link EXRHeader#custom_attributes} field. */
-        public EXRHeader.Buffer custom_attributes(@Nullable @NativeType("EXRAttribute *") EXRAttribute.Buffer value) { EXRHeader.ncustom_attributes(address(), value); return this; }
+        public EXRHeader.Buffer custom_attributes(@NativeType("EXRAttribute *") EXRAttribute.@Nullable Buffer value) { EXRHeader.ncustom_attributes(address(), value); return this; }
         /** Sets the address of the specified {@link EXRChannelInfo.Buffer} to the {@code channels} field. */
         public EXRHeader.Buffer channels(@NativeType("EXRChannelInfo *") EXRChannelInfo.Buffer value) { EXRHeader.nchannels(address(), value); return this; }
         /** Sets the address of the specified {@link IntBuffer} to the {@link EXRHeader#pixel_types} field. */

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -175,8 +175,7 @@ public class XrHandTrackerCreateInfoEXT extends Struct<XrHandTrackerCreateInfoEX
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackerCreateInfoEXT createSafe(long address) {
+    public static @Nullable XrHandTrackerCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new XrHandTrackerCreateInfoEXT(address, null);
     }
 
@@ -219,8 +218,7 @@ public class XrHandTrackerCreateInfoEXT extends Struct<XrHandTrackerCreateInfoEX
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackerCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static XrHandTrackerCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,22 +263,22 @@ public class XrHandTrackerCreateInfoEXT extends Struct<XrHandTrackerCreateInfoEX
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackerCreateInfoEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandTrackerCreateInfoEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandTrackerCreateInfoEXT.NEXT); }
     /** Unsafe version of {@link #hand}. */
-    public static int nhand(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackerCreateInfoEXT.HAND); }
+    public static int nhand(long struct) { return memGetInt(struct + XrHandTrackerCreateInfoEXT.HAND); }
     /** Unsafe version of {@link #handJointSet}. */
-    public static int nhandJointSet(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackerCreateInfoEXT.HANDJOINTSET); }
+    public static int nhandJointSet(long struct) { return memGetInt(struct + XrHandTrackerCreateInfoEXT.HANDJOINTSET); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackerCreateInfoEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandTrackerCreateInfoEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandTrackerCreateInfoEXT.NEXT, value); }
     /** Unsafe version of {@link #hand(int) hand}. */
-    public static void nhand(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackerCreateInfoEXT.HAND, value); }
+    public static void nhand(long struct, int value) { memPutInt(struct + XrHandTrackerCreateInfoEXT.HAND, value); }
     /** Unsafe version of {@link #handJointSet(int) handJointSet}. */
-    public static void nhandJointSet(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackerCreateInfoEXT.HANDJOINTSET, value); }
+    public static void nhandJointSet(long struct, int value) { memPutInt(struct + XrHandTrackerCreateInfoEXT.HANDJOINTSET, value); }
 
     // -----------------------------------
 
@@ -313,6 +311,11 @@ public class XrHandTrackerCreateInfoEXT extends Struct<XrHandTrackerCreateInfoEX
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

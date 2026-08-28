@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -138,8 +138,7 @@ public class OVRPoseStatef extends Struct<OVRPoseStatef> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRPoseStatef createSafe(long address) {
+    public static @Nullable OVRPoseStatef createSafe(long address) {
         return address == NULL ? null : new OVRPoseStatef(address, null);
     }
 
@@ -182,8 +181,7 @@ public class OVRPoseStatef extends Struct<OVRPoseStatef> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRPoseStatef.Buffer createSafe(long address, int capacity) {
+    public static OVRPoseStatef.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,7 +255,7 @@ public class OVRPoseStatef extends Struct<OVRPoseStatef> implements NativeResour
     /** Unsafe version of {@link #LinearAcceleration}. */
     public static OVRVector3f nLinearAcceleration(long struct) { return OVRVector3f.create(struct + OVRPoseStatef.LINEARACCELERATION); }
     /** Unsafe version of {@link #TimeInSeconds}. */
-    public static double nTimeInSeconds(long struct) { return UNSAFE.getDouble(null, struct + OVRPoseStatef.TIMEINSECONDS); }
+    public static double nTimeInSeconds(long struct) { return memGetDouble(struct + OVRPoseStatef.TIMEINSECONDS); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class OVRPoseStatef extends Struct<OVRPoseStatef> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

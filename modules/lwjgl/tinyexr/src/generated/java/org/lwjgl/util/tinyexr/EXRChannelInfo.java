@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.tinyexr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class EXRChannelInfo extends Struct<EXRChannelInfo> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRChannelInfo createSafe(long address) {
+    public static @Nullable EXRChannelInfo createSafe(long address) {
         return address == NULL ? null : new EXRChannelInfo(address, null);
     }
 
@@ -211,8 +210,7 @@ public class EXRChannelInfo extends Struct<EXRChannelInfo> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRChannelInfo.Buffer createSafe(long address, int capacity) {
+    public static EXRChannelInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,13 +278,13 @@ public class EXRChannelInfo extends Struct<EXRChannelInfo> implements NativeReso
     /** Unsafe version of {@link #nameString}. */
     public static String nnameString(long struct) { return memASCII(struct + EXRChannelInfo.NAME); }
     /** Unsafe version of {@link #pixel_type}. */
-    public static int npixel_type(long struct) { return UNSAFE.getInt(null, struct + EXRChannelInfo.PIXEL_TYPE); }
+    public static int npixel_type(long struct) { return memGetInt(struct + EXRChannelInfo.PIXEL_TYPE); }
     /** Unsafe version of {@link #x_sampling}. */
-    public static int nx_sampling(long struct) { return UNSAFE.getInt(null, struct + EXRChannelInfo.X_SAMPLING); }
+    public static int nx_sampling(long struct) { return memGetInt(struct + EXRChannelInfo.X_SAMPLING); }
     /** Unsafe version of {@link #y_sampling}. */
-    public static int ny_sampling(long struct) { return UNSAFE.getInt(null, struct + EXRChannelInfo.Y_SAMPLING); }
+    public static int ny_sampling(long struct) { return memGetInt(struct + EXRChannelInfo.Y_SAMPLING); }
     /** Unsafe version of {@link #p_linear}. */
-    public static byte np_linear(long struct) { return UNSAFE.getByte(null, struct + EXRChannelInfo.P_LINEAR); }
+    public static byte np_linear(long struct) { return memGetByte(struct + EXRChannelInfo.P_LINEAR); }
 
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
@@ -297,13 +295,13 @@ public class EXRChannelInfo extends Struct<EXRChannelInfo> implements NativeReso
         memCopy(memAddress(value), struct + EXRChannelInfo.NAME, value.remaining());
     }
     /** Unsafe version of {@link #pixel_type(int) pixel_type}. */
-    public static void npixel_type(long struct, int value) { UNSAFE.putInt(null, struct + EXRChannelInfo.PIXEL_TYPE, value); }
+    public static void npixel_type(long struct, int value) { memPutInt(struct + EXRChannelInfo.PIXEL_TYPE, value); }
     /** Unsafe version of {@link #x_sampling(int) x_sampling}. */
-    public static void nx_sampling(long struct, int value) { UNSAFE.putInt(null, struct + EXRChannelInfo.X_SAMPLING, value); }
+    public static void nx_sampling(long struct, int value) { memPutInt(struct + EXRChannelInfo.X_SAMPLING, value); }
     /** Unsafe version of {@link #y_sampling(int) y_sampling}. */
-    public static void ny_sampling(long struct, int value) { UNSAFE.putInt(null, struct + EXRChannelInfo.Y_SAMPLING, value); }
+    public static void ny_sampling(long struct, int value) { memPutInt(struct + EXRChannelInfo.Y_SAMPLING, value); }
     /** Unsafe version of {@link #p_linear(byte) p_linear}. */
-    public static void np_linear(long struct, byte value) { UNSAFE.putByte(null, struct + EXRChannelInfo.P_LINEAR, value); }
+    public static void np_linear(long struct, byte value) { memPutByte(struct + EXRChannelInfo.P_LINEAR, value); }
 
     // -----------------------------------
 
@@ -336,6 +334,11 @@ public class EXRChannelInfo extends Struct<EXRChannelInfo> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -144,8 +144,7 @@ public class NkPopupState extends Struct<NkPopupState> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkPopupState createSafe(long address) {
+    public static @Nullable NkPopupState createSafe(long address) {
         return address == NULL ? null : new NkPopupState(address, null);
     }
 
@@ -160,8 +159,7 @@ public class NkPopupState extends Struct<NkPopupState> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkPopupState.Buffer createSafe(long address, int capacity) {
+    public static NkPopupState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -170,21 +168,21 @@ public class NkPopupState extends Struct<NkPopupState> {
     /** Unsafe version of {@link #win}. */
     public static NkWindow nwin(long struct) { return NkWindow.create(memGetAddress(struct + NkPopupState.WIN)); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + NkPopupState.TYPE); }
     /** Unsafe version of {@link #buf}. */
     public static NkPopupBuffer nbuf(long struct) { return NkPopupBuffer.create(struct + NkPopupState.BUF); }
     /** Unsafe version of {@link #name}. */
-    public static int nname(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.NAME); }
+    public static int nname(long struct) { return memGetInt(struct + NkPopupState.NAME); }
     /** Unsafe version of {@link #active}. */
-    public static boolean nactive(long struct) { return UNSAFE.getByte(null, struct + NkPopupState.ACTIVE) != 0; }
+    public static boolean nactive(long struct) { return memGetByte(struct + NkPopupState.ACTIVE) != 0; }
     /** Unsafe version of {@link #combo_count}. */
-    public static int ncombo_count(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.COMBO_COUNT); }
+    public static int ncombo_count(long struct) { return memGetInt(struct + NkPopupState.COMBO_COUNT); }
     /** Unsafe version of {@link #con_count}. */
-    public static int ncon_count(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.CON_COUNT); }
+    public static int ncon_count(long struct) { return memGetInt(struct + NkPopupState.CON_COUNT); }
     /** Unsafe version of {@link #con_old}. */
-    public static int ncon_old(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.CON_OLD); }
+    public static int ncon_old(long struct) { return memGetInt(struct + NkPopupState.CON_OLD); }
     /** Unsafe version of {@link #active_con}. */
-    public static int nactive_con(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.ACTIVE_CON); }
+    public static int nactive_con(long struct) { return memGetInt(struct + NkPopupState.ACTIVE_CON); }
     /** Unsafe version of {@link #header}. */
     public static NkRect nheader(long struct) { return NkRect.create(struct + NkPopupState.HEADER); }
 
@@ -219,6 +217,11 @@ public class NkPopupState extends Struct<NkPopupState> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

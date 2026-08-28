@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -182,8 +182,7 @@ public class XrSpaceVelocity extends Struct<XrSpaceVelocity> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceVelocity createSafe(long address) {
+    public static @Nullable XrSpaceVelocity createSafe(long address) {
         return address == NULL ? null : new XrSpaceVelocity(address, null);
     }
 
@@ -226,8 +225,7 @@ public class XrSpaceVelocity extends Struct<XrSpaceVelocity> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceVelocity.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceVelocity.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,22 +270,22 @@ public class XrSpaceVelocity extends Struct<XrSpaceVelocity> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceVelocity.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceVelocity.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceVelocity.NEXT); }
     /** Unsafe version of {@link #velocityFlags}. */
-    public static long nvelocityFlags(long struct) { return UNSAFE.getLong(null, struct + XrSpaceVelocity.VELOCITYFLAGS); }
+    public static long nvelocityFlags(long struct) { return memGetLong(struct + XrSpaceVelocity.VELOCITYFLAGS); }
     /** Unsafe version of {@link #linearVelocity}. */
     public static XrVector3f nlinearVelocity(long struct) { return XrVector3f.create(struct + XrSpaceVelocity.LINEARVELOCITY); }
     /** Unsafe version of {@link #angularVelocity}. */
     public static XrVector3f nangularVelocity(long struct) { return XrVector3f.create(struct + XrSpaceVelocity.ANGULARVELOCITY); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceVelocity.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceVelocity.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceVelocity.NEXT, value); }
     /** Unsafe version of {@link #velocityFlags(long) velocityFlags}. */
-    public static void nvelocityFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrSpaceVelocity.VELOCITYFLAGS, value); }
+    public static void nvelocityFlags(long struct, long value) { memPutLong(struct + XrSpaceVelocity.VELOCITYFLAGS, value); }
     /** Unsafe version of {@link #linearVelocity(XrVector3f) linearVelocity}. */
     public static void nlinearVelocity(long struct, XrVector3f value) { memCopy(value.address(), struct + XrSpaceVelocity.LINEARVELOCITY, XrVector3f.SIZEOF); }
     /** Unsafe version of {@link #angularVelocity(XrVector3f) angularVelocity}. */
@@ -324,6 +322,11 @@ public class XrSpaceVelocity extends Struct<XrSpaceVelocity> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

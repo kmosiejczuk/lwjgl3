@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -221,9 +221,8 @@ public class FT_Face extends Struct<FT_Face> {
     @NativeType("FT_Int")
     public int num_fixed_sizes() { return nnum_fixed_sizes(address()); }
     /** @return a {@link FT_Bitmap_Size.Buffer} view of the struct array pointed to by the {@code available_sizes} field. */
-    @Nullable
     @NativeType("FT_Bitmap_Size *")
-    public FT_Bitmap_Size.Buffer available_sizes() { return navailable_sizes(address()); }
+    public FT_Bitmap_Size.@Nullable Buffer available_sizes() { return navailable_sizes(address()); }
     /** @return the value of the {@code num_charmaps} field. */
     @NativeType("FT_Int")
     public int num_charmaps() { return nnum_charmaps(address()); }
@@ -259,14 +258,11 @@ public class FT_Face extends Struct<FT_Face> {
     @NativeType("FT_Short")
     public short underline_thickness() { return nunderline_thickness(address()); }
     /** @return a {@link FT_GlyphSlot} view of the struct pointed to by the {@code glyph} field. */
-    @Nullable
-    public FT_GlyphSlot glyph() { return nglyph(address()); }
+    public @Nullable FT_GlyphSlot glyph() { return nglyph(address()); }
     /** @return a {@link FT_Size} view of the struct pointed to by the {@code size} field. */
-    @Nullable
-    public FT_Size size() { return nsize(address()); }
+    public @Nullable FT_Size size() { return nsize(address()); }
     /** @return a {@link FT_CharMap} view of the struct pointed to by the {@code charmap} field. */
-    @Nullable
-    public FT_CharMap charmap() { return ncharmap(address()); }
+    public @Nullable FT_CharMap charmap() { return ncharmap(address()); }
 
     // -----------------------------------
 
@@ -276,8 +272,7 @@ public class FT_Face extends Struct<FT_Face> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Face createSafe(long address) {
+    public static @Nullable FT_Face createSafe(long address) {
         return address == NULL ? null : new FT_Face(address, null);
     }
 
@@ -292,8 +287,7 @@ public class FT_Face extends Struct<FT_Face> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Face.Buffer createSafe(long address, int capacity) {
+    public static FT_Face.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -318,11 +312,11 @@ public class FT_Face extends Struct<FT_Face> {
     /** Unsafe version of {@link #style_nameString}. */
     public static String nstyle_nameString(long struct) { return memUTF8(memGetAddress(struct + FT_Face.STYLE_NAME)); }
     /** Unsafe version of {@link #num_fixed_sizes}. */
-    public static int nnum_fixed_sizes(long struct) { return UNSAFE.getInt(null, struct + FT_Face.NUM_FIXED_SIZES); }
+    public static int nnum_fixed_sizes(long struct) { return memGetInt(struct + FT_Face.NUM_FIXED_SIZES); }
     /** Unsafe version of {@link #available_sizes}. */
-    @Nullable public static FT_Bitmap_Size.Buffer navailable_sizes(long struct) { return FT_Bitmap_Size.createSafe(memGetAddress(struct + FT_Face.AVAILABLE_SIZES), nnum_fixed_sizes(struct)); }
+    public static FT_Bitmap_Size.@Nullable Buffer navailable_sizes(long struct) { return FT_Bitmap_Size.createSafe(memGetAddress(struct + FT_Face.AVAILABLE_SIZES), nnum_fixed_sizes(struct)); }
     /** Unsafe version of {@link #num_charmaps}. */
-    public static int nnum_charmaps(long struct) { return UNSAFE.getInt(null, struct + FT_Face.NUM_CHARMAPS); }
+    public static int nnum_charmaps(long struct) { return memGetInt(struct + FT_Face.NUM_CHARMAPS); }
     /** Unsafe version of {@link #charmaps() charmaps}. */
     public static PointerBuffer ncharmaps(long struct) { return memPointerBuffer(memGetAddress(struct + FT_Face.CHARMAPS), nnum_charmaps(struct)); }
     /** Unsafe version of {@link #generic}. */
@@ -330,30 +324,30 @@ public class FT_Face extends Struct<FT_Face> {
     /** Unsafe version of {@link #bbox}. */
     public static FT_BBox nbbox(long struct) { return FT_BBox.create(struct + FT_Face.BBOX); }
     /** Unsafe version of {@link #units_per_EM}. */
-    public static short nunits_per_EM(long struct) { return UNSAFE.getShort(null, struct + FT_Face.UNITS_PER_EM); }
+    public static short nunits_per_EM(long struct) { return memGetShort(struct + FT_Face.UNITS_PER_EM); }
     /** Unsafe version of {@link #ascender}. */
-    public static short nascender(long struct) { return UNSAFE.getShort(null, struct + FT_Face.ASCENDER); }
+    public static short nascender(long struct) { return memGetShort(struct + FT_Face.ASCENDER); }
     /** Unsafe version of {@link #descender}. */
-    public static short ndescender(long struct) { return UNSAFE.getShort(null, struct + FT_Face.DESCENDER); }
+    public static short ndescender(long struct) { return memGetShort(struct + FT_Face.DESCENDER); }
     /** Unsafe version of {@link #height}. */
-    public static short nheight(long struct) { return UNSAFE.getShort(null, struct + FT_Face.HEIGHT); }
+    public static short nheight(long struct) { return memGetShort(struct + FT_Face.HEIGHT); }
     /** Unsafe version of {@link #max_advance_width}. */
-    public static short nmax_advance_width(long struct) { return UNSAFE.getShort(null, struct + FT_Face.MAX_ADVANCE_WIDTH); }
+    public static short nmax_advance_width(long struct) { return memGetShort(struct + FT_Face.MAX_ADVANCE_WIDTH); }
     /** Unsafe version of {@link #max_advance_height}. */
-    public static short nmax_advance_height(long struct) { return UNSAFE.getShort(null, struct + FT_Face.MAX_ADVANCE_HEIGHT); }
+    public static short nmax_advance_height(long struct) { return memGetShort(struct + FT_Face.MAX_ADVANCE_HEIGHT); }
     /** Unsafe version of {@link #underline_position}. */
-    public static short nunderline_position(long struct) { return UNSAFE.getShort(null, struct + FT_Face.UNDERLINE_POSITION); }
+    public static short nunderline_position(long struct) { return memGetShort(struct + FT_Face.UNDERLINE_POSITION); }
     /** Unsafe version of {@link #underline_thickness}. */
-    public static short nunderline_thickness(long struct) { return UNSAFE.getShort(null, struct + FT_Face.UNDERLINE_THICKNESS); }
+    public static short nunderline_thickness(long struct) { return memGetShort(struct + FT_Face.UNDERLINE_THICKNESS); }
     /** Unsafe version of {@link #glyph}. */
-    @Nullable public static FT_GlyphSlot nglyph(long struct) { return FT_GlyphSlot.createSafe(memGetAddress(struct + FT_Face.GLYPH)); }
+    public static @Nullable FT_GlyphSlot nglyph(long struct) { return FT_GlyphSlot.createSafe(memGetAddress(struct + FT_Face.GLYPH)); }
     /** Unsafe version of {@link #size}. */
-    @Nullable public static FT_Size nsize(long struct) { return FT_Size.createSafe(memGetAddress(struct + FT_Face.SIZE)); }
+    public static @Nullable FT_Size nsize(long struct) { return FT_Size.createSafe(memGetAddress(struct + FT_Face.SIZE)); }
     /** Unsafe version of {@link #charmap}. */
-    @Nullable public static FT_CharMap ncharmap(long struct) { return FT_CharMap.createSafe(memGetAddress(struct + FT_Face.CHARMAP)); }
+    public static @Nullable FT_CharMap ncharmap(long struct) { return FT_CharMap.createSafe(memGetAddress(struct + FT_Face.CHARMAP)); }
     public static long ndriver(long struct) { return memGetAddress(struct + FT_Face.DRIVER); }
-    @Nullable public static FT_Memory nmemory(long struct) { return FT_Memory.createSafe(memGetAddress(struct + FT_Face.MEMORY)); }
-    @Nullable public static FT_Stream nstream$(long struct) { return FT_Stream.createSafe(memGetAddress(struct + FT_Face.STREAM)); }
+    public static @Nullable FT_Memory nmemory(long struct) { return FT_Memory.createSafe(memGetAddress(struct + FT_Face.MEMORY)); }
+    public static @Nullable FT_Stream nstream$(long struct) { return FT_Stream.createSafe(memGetAddress(struct + FT_Face.STREAM)); }
     public static FT_List nsizes_list(long struct) { return FT_List.create(struct + FT_Face.SIZES_LIST); }
     public static FT_Generic nautohint(long struct) { return FT_Generic.create(struct + FT_Face.AUTOHINT); }
     public static long nextensions(long struct) { return memGetAddress(struct + FT_Face.EXTENSIONS); }
@@ -393,6 +387,11 @@ public class FT_Face extends Struct<FT_Face> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FT_Face getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -428,9 +427,8 @@ public class FT_Face extends Struct<FT_Face> {
         @NativeType("FT_Int")
         public int num_fixed_sizes() { return FT_Face.nnum_fixed_sizes(address()); }
         /** @return a {@link FT_Bitmap_Size.Buffer} view of the struct array pointed to by the {@code available_sizes} field. */
-        @Nullable
         @NativeType("FT_Bitmap_Size *")
-        public FT_Bitmap_Size.Buffer available_sizes() { return FT_Face.navailable_sizes(address()); }
+        public FT_Bitmap_Size.@Nullable Buffer available_sizes() { return FT_Face.navailable_sizes(address()); }
         /** @return the value of the {@code num_charmaps} field. */
         @NativeType("FT_Int")
         public int num_charmaps() { return FT_Face.nnum_charmaps(address()); }
@@ -466,14 +464,11 @@ public class FT_Face extends Struct<FT_Face> {
         @NativeType("FT_Short")
         public short underline_thickness() { return FT_Face.nunderline_thickness(address()); }
         /** @return a {@link FT_GlyphSlot} view of the struct pointed to by the {@code glyph} field. */
-        @Nullable
-        public FT_GlyphSlot glyph() { return FT_Face.nglyph(address()); }
+        public @Nullable FT_GlyphSlot glyph() { return FT_Face.nglyph(address()); }
         /** @return a {@link FT_Size} view of the struct pointed to by the {@code size} field. */
-        @Nullable
-        public FT_Size size() { return FT_Face.nsize(address()); }
+        public @Nullable FT_Size size() { return FT_Face.nsize(address()); }
         /** @return a {@link FT_CharMap} view of the struct pointed to by the {@code charmap} field. */
-        @Nullable
-        public FT_CharMap charmap() { return FT_Face.ncharmap(address()); }
+        public @Nullable FT_CharMap charmap() { return FT_Face.ncharmap(address()); }
 
     }
 

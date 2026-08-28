@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -175,8 +175,7 @@ public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreate
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidSurfaceCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkAndroidSurfaceCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkAndroidSurfaceCreateInfoKHR(address, null);
     }
 
@@ -219,8 +218,7 @@ public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreate
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidSurfaceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAndroidSurfaceCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,20 +263,20 @@ public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreate
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAndroidSurfaceCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAndroidSurfaceCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAndroidSurfaceCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkAndroidSurfaceCreateInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkAndroidSurfaceCreateInfoKHR.FLAGS); }
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetAddress(struct + VkAndroidSurfaceCreateInfoKHR.WINDOW); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAndroidSurfaceCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAndroidSurfaceCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAndroidSurfaceCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkAndroidSurfaceCreateInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkAndroidSurfaceCreateInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #window(long) window}. */
     public static void nwindow(long struct, long value) { memPutAddress(struct + VkAndroidSurfaceCreateInfoKHR.WINDOW, value); }
 
@@ -313,6 +311,11 @@ public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreate
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

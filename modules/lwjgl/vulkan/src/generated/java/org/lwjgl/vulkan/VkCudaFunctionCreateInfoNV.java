@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class VkCudaFunctionCreateInfoNV extends Struct<VkCudaFunctionCreateInfoN
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCudaFunctionCreateInfoNV createSafe(long address) {
+    public static @Nullable VkCudaFunctionCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkCudaFunctionCreateInfoNV(address, null);
     }
 
@@ -218,8 +217,7 @@ public class VkCudaFunctionCreateInfoNV extends Struct<VkCudaFunctionCreateInfoN
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCudaFunctionCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkCudaFunctionCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +262,22 @@ public class VkCudaFunctionCreateInfoNV extends Struct<VkCudaFunctionCreateInfoN
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCudaFunctionCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCudaFunctionCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCudaFunctionCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #module}. */
-    public static long nmodule(long struct) { return UNSAFE.getLong(null, struct + VkCudaFunctionCreateInfoNV.MODULE); }
+    public static long nmodule(long struct) { return memGetLong(struct + VkCudaFunctionCreateInfoNV.MODULE); }
     /** Unsafe version of {@link #pName}. */
     public static ByteBuffer npName(long struct) { return memByteBufferNT1(memGetAddress(struct + VkCudaFunctionCreateInfoNV.PNAME)); }
     /** Unsafe version of {@link #pNameString}. */
     public static String npNameString(long struct) { return memUTF8(memGetAddress(struct + VkCudaFunctionCreateInfoNV.PNAME)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCudaFunctionCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCudaFunctionCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCudaFunctionCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #module(long) module}. */
-    public static void nmodule(long struct, long value) { UNSAFE.putLong(null, struct + VkCudaFunctionCreateInfoNV.MODULE, value); }
+    public static void nmodule(long struct, long value) { memPutLong(struct + VkCudaFunctionCreateInfoNV.MODULE, value); }
     /** Unsafe version of {@link #pName(ByteBuffer) pName}. */
     public static void npName(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT1(value); }
@@ -326,6 +324,11 @@ public class VkCudaFunctionCreateInfoNV extends Struct<VkCudaFunctionCreateInfoN
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

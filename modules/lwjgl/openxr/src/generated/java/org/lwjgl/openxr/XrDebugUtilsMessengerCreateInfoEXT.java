@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -215,8 +215,7 @@ public class XrDebugUtilsMessengerCreateInfoEXT extends Struct<XrDebugUtilsMesse
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDebugUtilsMessengerCreateInfoEXT createSafe(long address) {
+    public static @Nullable XrDebugUtilsMessengerCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new XrDebugUtilsMessengerCreateInfoEXT(address, null);
     }
 
@@ -259,8 +258,7 @@ public class XrDebugUtilsMessengerCreateInfoEXT extends Struct<XrDebugUtilsMesse
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDebugUtilsMessengerCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static XrDebugUtilsMessengerCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -305,26 +303,26 @@ public class XrDebugUtilsMessengerCreateInfoEXT extends Struct<XrDebugUtilsMesse
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrDebugUtilsMessengerCreateInfoEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrDebugUtilsMessengerCreateInfoEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrDebugUtilsMessengerCreateInfoEXT.NEXT); }
     /** Unsafe version of {@link #messageSeverities}. */
-    public static long nmessageSeverities(long struct) { return UNSAFE.getLong(null, struct + XrDebugUtilsMessengerCreateInfoEXT.MESSAGESEVERITIES); }
+    public static long nmessageSeverities(long struct) { return memGetLong(struct + XrDebugUtilsMessengerCreateInfoEXT.MESSAGESEVERITIES); }
     /** Unsafe version of {@link #messageTypes}. */
-    public static long nmessageTypes(long struct) { return UNSAFE.getLong(null, struct + XrDebugUtilsMessengerCreateInfoEXT.MESSAGETYPES); }
+    public static long nmessageTypes(long struct) { return memGetLong(struct + XrDebugUtilsMessengerCreateInfoEXT.MESSAGETYPES); }
     /** Unsafe version of {@link #userCallback}. */
     public static XrDebugUtilsMessengerCallbackEXT nuserCallback(long struct) { return XrDebugUtilsMessengerCallbackEXT.create(memGetAddress(struct + XrDebugUtilsMessengerCreateInfoEXT.USERCALLBACK)); }
     /** Unsafe version of {@link #userData}. */
     public static long nuserData(long struct) { return memGetAddress(struct + XrDebugUtilsMessengerCreateInfoEXT.USERDATA); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrDebugUtilsMessengerCreateInfoEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrDebugUtilsMessengerCreateInfoEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrDebugUtilsMessengerCreateInfoEXT.NEXT, value); }
     /** Unsafe version of {@link #messageSeverities(long) messageSeverities}. */
-    public static void nmessageSeverities(long struct, long value) { UNSAFE.putLong(null, struct + XrDebugUtilsMessengerCreateInfoEXT.MESSAGESEVERITIES, value); }
+    public static void nmessageSeverities(long struct, long value) { memPutLong(struct + XrDebugUtilsMessengerCreateInfoEXT.MESSAGESEVERITIES, value); }
     /** Unsafe version of {@link #messageTypes(long) messageTypes}. */
-    public static void nmessageTypes(long struct, long value) { UNSAFE.putLong(null, struct + XrDebugUtilsMessengerCreateInfoEXT.MESSAGETYPES, value); }
+    public static void nmessageTypes(long struct, long value) { memPutLong(struct + XrDebugUtilsMessengerCreateInfoEXT.MESSAGETYPES, value); }
     /** Unsafe version of {@link #userCallback(XrDebugUtilsMessengerCallbackEXTI) userCallback}. */
     public static void nuserCallback(long struct, XrDebugUtilsMessengerCallbackEXTI value) { memPutAddress(struct + XrDebugUtilsMessengerCreateInfoEXT.USERCALLBACK, value.address()); }
     /** Unsafe version of {@link #userData(long) userData}. */
@@ -370,6 +368,11 @@ public class XrDebugUtilsMessengerCreateInfoEXT extends Struct<XrDebugUtilsMesse
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

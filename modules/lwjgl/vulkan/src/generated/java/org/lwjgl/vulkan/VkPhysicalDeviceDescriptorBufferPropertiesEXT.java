@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>A descriptor binding with type {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE} has a descriptor size which is implied by the descriptor types included in the {@link VkMutableDescriptorTypeCreateInfoVALVE}{@code ::pDescriptorTypes} list. The descriptor size is equal to the maximum size of any descriptor type included in the {@code pDescriptorTypes} list.</p>
  * 
- * <p>As there is no way to request robust and non-robust descriptors separately, or specify robust/non-robust descriptors in the set layout, if <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> is enabled then robust descriptors are always used.</p>
+ * <p>As there is no way to request robust and non-robust descriptors separately, or specify robust/non-robust descriptors in the set layout, if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled then robust descriptors are always used.</p>
  * 
  * <p>If the {@link VkPhysicalDeviceDescriptorBufferPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
  * 
@@ -238,13 +238,13 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct<VkPhys
     /** indicates the <b>required</b> alignment in bytes when setting offsets into the descriptor buffer. */
     @NativeType("VkDeviceSize")
     public long descriptorBufferOffsetAlignment() { return ndescriptorBufferOffsetAlignment(address()); }
-    /** indicates the maximum sum total number of descriptor buffers and embedded immutable sampler sets that <b>can</b> be bound. */
+    /** indicates the maximum number of descriptor buffer bindings. */
     @NativeType("uint32_t")
     public int maxDescriptorBufferBindings() { return nmaxDescriptorBufferBindings(address()); }
-    /** indicates the maximum number of resource descriptor buffers that <b>can</b> be bound. */
+    /** indicates the maximum number of descriptor buffer bindings with {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT} that <b>can</b> be used. */
     @NativeType("uint32_t")
     public int maxResourceDescriptorBufferBindings() { return nmaxResourceDescriptorBufferBindings(address()); }
-    /** indicates the maximum number of sampler descriptor buffers that <b>can</b> be bound. */
+    /** indicates the maximum number of descriptor buffer bindings with {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT} that <b>can</b> be used. */
     @NativeType("uint32_t")
     public int maxSamplerDescriptorBufferBindings() { return nmaxSamplerDescriptorBufferBindings(address()); }
     /** indicates the maximum number of embedded immutable sampler sets that <b>can</b> be bound. */
@@ -280,28 +280,28 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct<VkPhys
     /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE} descriptor. */
     @NativeType("size_t")
     public long storageImageDescriptorSize() { return nstorageImageDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is not enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is not enabled. */
     @NativeType("size_t")
     public long uniformTexelBufferDescriptorSize() { return nuniformTexelBufferDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
     @NativeType("size_t")
     public long robustUniformTexelBufferDescriptorSize() { return nrobustUniformTexelBufferDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is not enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is not enabled. */
     @NativeType("size_t")
     public long storageTexelBufferDescriptorSize() { return nstorageTexelBufferDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
     @NativeType("size_t")
     public long robustStorageTexelBufferDescriptorSize() { return nrobustStorageTexelBufferDescriptorSize(address()); }
     /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} descriptor. */
     @NativeType("size_t")
     public long uniformBufferDescriptorSize() { return nuniformBufferDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
     @NativeType("size_t")
     public long robustUniformBufferDescriptorSize() { return nrobustUniformBufferDescriptorSize(address()); }
     /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER} descriptor. */
     @NativeType("size_t")
     public long storageBufferDescriptorSize() { return nstorageBufferDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
     @NativeType("size_t")
     public long robustStorageBufferDescriptorSize() { return nrobustStorageBufferDescriptorSize(address()); }
     /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT} descriptor. */
@@ -380,8 +380,7 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorBufferPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDescriptorBufferPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDescriptorBufferPropertiesEXT(address, null);
     }
 
@@ -424,8 +423,7 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorBufferPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDescriptorBufferPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -470,27 +468,27 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #combinedImageSamplerDescriptorSingleArray}. */
-    public static int ncombinedImageSamplerDescriptorSingleArray(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.COMBINEDIMAGESAMPLERDESCRIPTORSINGLEARRAY); }
+    public static int ncombinedImageSamplerDescriptorSingleArray(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.COMBINEDIMAGESAMPLERDESCRIPTORSINGLEARRAY); }
     /** Unsafe version of {@link #bufferlessPushDescriptors}. */
-    public static int nbufferlessPushDescriptors(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.BUFFERLESSPUSHDESCRIPTORS); }
+    public static int nbufferlessPushDescriptors(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.BUFFERLESSPUSHDESCRIPTORS); }
     /** Unsafe version of {@link #allowSamplerImageViewPostSubmitCreation}. */
-    public static int nallowSamplerImageViewPostSubmitCreation(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.ALLOWSAMPLERIMAGEVIEWPOSTSUBMITCREATION); }
+    public static int nallowSamplerImageViewPostSubmitCreation(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.ALLOWSAMPLERIMAGEVIEWPOSTSUBMITCREATION); }
     /** Unsafe version of {@link #descriptorBufferOffsetAlignment}. */
-    public static long ndescriptorBufferOffsetAlignment(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.DESCRIPTORBUFFEROFFSETALIGNMENT); }
+    public static long ndescriptorBufferOffsetAlignment(long struct) { return memGetLong(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.DESCRIPTORBUFFEROFFSETALIGNMENT); }
     /** Unsafe version of {@link #maxDescriptorBufferBindings}. */
-    public static int nmaxDescriptorBufferBindings(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXDESCRIPTORBUFFERBINDINGS); }
+    public static int nmaxDescriptorBufferBindings(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXDESCRIPTORBUFFERBINDINGS); }
     /** Unsafe version of {@link #maxResourceDescriptorBufferBindings}. */
-    public static int nmaxResourceDescriptorBufferBindings(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXRESOURCEDESCRIPTORBUFFERBINDINGS); }
+    public static int nmaxResourceDescriptorBufferBindings(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXRESOURCEDESCRIPTORBUFFERBINDINGS); }
     /** Unsafe version of {@link #maxSamplerDescriptorBufferBindings}. */
-    public static int nmaxSamplerDescriptorBufferBindings(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXSAMPLERDESCRIPTORBUFFERBINDINGS); }
+    public static int nmaxSamplerDescriptorBufferBindings(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXSAMPLERDESCRIPTORBUFFERBINDINGS); }
     /** Unsafe version of {@link #maxEmbeddedImmutableSamplerBindings}. */
-    public static int nmaxEmbeddedImmutableSamplerBindings(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXEMBEDDEDIMMUTABLESAMPLERBINDINGS); }
+    public static int nmaxEmbeddedImmutableSamplerBindings(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXEMBEDDEDIMMUTABLESAMPLERBINDINGS); }
     /** Unsafe version of {@link #maxEmbeddedImmutableSamplers}. */
-    public static int nmaxEmbeddedImmutableSamplers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXEMBEDDEDIMMUTABLESAMPLERS); }
+    public static int nmaxEmbeddedImmutableSamplers(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXEMBEDDEDIMMUTABLESAMPLERS); }
     /** Unsafe version of {@link #bufferCaptureReplayDescriptorDataSize}. */
     public static long nbufferCaptureReplayDescriptorDataSize(long struct) { return memGetAddress(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.BUFFERCAPTUREREPLAYDESCRIPTORDATASIZE); }
     /** Unsafe version of {@link #imageCaptureReplayDescriptorDataSize}. */
@@ -530,18 +528,18 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct<VkPhys
     /** Unsafe version of {@link #accelerationStructureDescriptorSize}. */
     public static long naccelerationStructureDescriptorSize(long struct) { return memGetAddress(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.ACCELERATIONSTRUCTUREDESCRIPTORSIZE); }
     /** Unsafe version of {@link #maxSamplerDescriptorBufferRange}. */
-    public static long nmaxSamplerDescriptorBufferRange(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXSAMPLERDESCRIPTORBUFFERRANGE); }
+    public static long nmaxSamplerDescriptorBufferRange(long struct) { return memGetLong(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXSAMPLERDESCRIPTORBUFFERRANGE); }
     /** Unsafe version of {@link #maxResourceDescriptorBufferRange}. */
-    public static long nmaxResourceDescriptorBufferRange(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXRESOURCEDESCRIPTORBUFFERRANGE); }
+    public static long nmaxResourceDescriptorBufferRange(long struct) { return memGetLong(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.MAXRESOURCEDESCRIPTORBUFFERRANGE); }
     /** Unsafe version of {@link #samplerDescriptorBufferAddressSpaceSize}. */
-    public static long nsamplerDescriptorBufferAddressSpaceSize(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.SAMPLERDESCRIPTORBUFFERADDRESSSPACESIZE); }
+    public static long nsamplerDescriptorBufferAddressSpaceSize(long struct) { return memGetLong(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.SAMPLERDESCRIPTORBUFFERADDRESSSPACESIZE); }
     /** Unsafe version of {@link #resourceDescriptorBufferAddressSpaceSize}. */
-    public static long nresourceDescriptorBufferAddressSpaceSize(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.RESOURCEDESCRIPTORBUFFERADDRESSSPACESIZE); }
+    public static long nresourceDescriptorBufferAddressSpaceSize(long struct) { return memGetLong(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.RESOURCEDESCRIPTORBUFFERADDRESSSPACESIZE); }
     /** Unsafe version of {@link #descriptorBufferAddressSpaceSize}. */
-    public static long ndescriptorBufferAddressSpaceSize(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.DESCRIPTORBUFFERADDRESSSPACESIZE); }
+    public static long ndescriptorBufferAddressSpaceSize(long struct) { return memGetLong(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.DESCRIPTORBUFFERADDRESSSPACESIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDescriptorBufferPropertiesEXT.PNEXT, value); }
 
@@ -576,6 +574,11 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceImagelessFramebufferFeatures extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImagelessFramebufferFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImagelessFramebufferFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImagelessFramebufferFeatures(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceImagelessFramebufferFeatures extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImagelessFramebufferFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImagelessFramebufferFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceImagelessFramebufferFeatures extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImagelessFramebufferFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImagelessFramebufferFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImagelessFramebufferFeatures.PNEXT); }
     /** Unsafe version of {@link #imagelessFramebuffer}. */
-    public static int nimagelessFramebuffer(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImagelessFramebufferFeatures.IMAGELESSFRAMEBUFFER); }
+    public static int nimagelessFramebuffer(long struct) { return memGetInt(struct + VkPhysicalDeviceImagelessFramebufferFeatures.IMAGELESSFRAMEBUFFER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImagelessFramebufferFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImagelessFramebufferFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImagelessFramebufferFeatures.PNEXT, value); }
     /** Unsafe version of {@link #imagelessFramebuffer(boolean) imagelessFramebuffer}. */
-    public static void nimagelessFramebuffer(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImagelessFramebufferFeatures.IMAGELESSFRAMEBUFFER, value); }
+    public static void nimagelessFramebuffer(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImagelessFramebufferFeatures.IMAGELESSFRAMEBUFFER, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceImagelessFramebufferFeatures extends Struct<VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

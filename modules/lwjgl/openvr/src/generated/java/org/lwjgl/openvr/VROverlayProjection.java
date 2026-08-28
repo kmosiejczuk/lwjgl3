@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VROverlayProjection extends Struct<VROverlayProjection> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VROverlayProjection createSafe(long address) {
+    public static @Nullable VROverlayProjection createSafe(long address) {
         return address == NULL ? null : new VROverlayProjection(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VROverlayProjection extends Struct<VROverlayProjection> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VROverlayProjection.Buffer createSafe(long address, int capacity) {
+    public static VROverlayProjection.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,22 +240,22 @@ public class VROverlayProjection extends Struct<VROverlayProjection> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #fLeft}. */
-    public static float nfLeft(long struct) { return UNSAFE.getFloat(null, struct + VROverlayProjection.FLEFT); }
+    public static float nfLeft(long struct) { return memGetFloat(struct + VROverlayProjection.FLEFT); }
     /** Unsafe version of {@link #fRight}. */
-    public static float nfRight(long struct) { return UNSAFE.getFloat(null, struct + VROverlayProjection.FRIGHT); }
+    public static float nfRight(long struct) { return memGetFloat(struct + VROverlayProjection.FRIGHT); }
     /** Unsafe version of {@link #fTop}. */
-    public static float nfTop(long struct) { return UNSAFE.getFloat(null, struct + VROverlayProjection.FTOP); }
+    public static float nfTop(long struct) { return memGetFloat(struct + VROverlayProjection.FTOP); }
     /** Unsafe version of {@link #fBottom}. */
-    public static float nfBottom(long struct) { return UNSAFE.getFloat(null, struct + VROverlayProjection.FBOTTOM); }
+    public static float nfBottom(long struct) { return memGetFloat(struct + VROverlayProjection.FBOTTOM); }
 
     /** Unsafe version of {@link #fLeft(float) fLeft}. */
-    public static void nfLeft(long struct, float value) { UNSAFE.putFloat(null, struct + VROverlayProjection.FLEFT, value); }
+    public static void nfLeft(long struct, float value) { memPutFloat(struct + VROverlayProjection.FLEFT, value); }
     /** Unsafe version of {@link #fRight(float) fRight}. */
-    public static void nfRight(long struct, float value) { UNSAFE.putFloat(null, struct + VROverlayProjection.FRIGHT, value); }
+    public static void nfRight(long struct, float value) { memPutFloat(struct + VROverlayProjection.FRIGHT, value); }
     /** Unsafe version of {@link #fTop(float) fTop}. */
-    public static void nfTop(long struct, float value) { UNSAFE.putFloat(null, struct + VROverlayProjection.FTOP, value); }
+    public static void nfTop(long struct, float value) { memPutFloat(struct + VROverlayProjection.FTOP, value); }
     /** Unsafe version of {@link #fBottom(float) fBottom}. */
-    public static void nfBottom(long struct, float value) { UNSAFE.putFloat(null, struct + VROverlayProjection.FBOTTOM, value); }
+    public static void nfBottom(long struct, float value) { memPutFloat(struct + VROverlayProjection.FBOTTOM, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VROverlayProjection extends Struct<VROverlayProjection> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

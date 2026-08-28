@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRSessionStatus createSafe(long address) {
+    public static @Nullable OVRSessionStatus createSafe(long address) {
         return address == NULL ? null : new OVRSessionStatus(address, null);
     }
 
@@ -207,8 +206,7 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRSessionStatus.Buffer createSafe(long address, int capacity) {
+    public static OVRSessionStatus.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,23 +270,23 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #IsVisible}. */
-    public static boolean nIsVisible(long struct) { return UNSAFE.getByte(null, struct + OVRSessionStatus.ISVISIBLE) != 0; }
+    public static boolean nIsVisible(long struct) { return memGetByte(struct + OVRSessionStatus.ISVISIBLE) != 0; }
     /** Unsafe version of {@link #HmdPresent}. */
-    public static boolean nHmdPresent(long struct) { return UNSAFE.getByte(null, struct + OVRSessionStatus.HMDPRESENT) != 0; }
+    public static boolean nHmdPresent(long struct) { return memGetByte(struct + OVRSessionStatus.HMDPRESENT) != 0; }
     /** Unsafe version of {@link #HmdMounted}. */
-    public static boolean nHmdMounted(long struct) { return UNSAFE.getByte(null, struct + OVRSessionStatus.HMDMOUNTED) != 0; }
+    public static boolean nHmdMounted(long struct) { return memGetByte(struct + OVRSessionStatus.HMDMOUNTED) != 0; }
     /** Unsafe version of {@link #DisplayLost}. */
-    public static boolean nDisplayLost(long struct) { return UNSAFE.getByte(null, struct + OVRSessionStatus.DISPLAYLOST) != 0; }
+    public static boolean nDisplayLost(long struct) { return memGetByte(struct + OVRSessionStatus.DISPLAYLOST) != 0; }
     /** Unsafe version of {@link #ShouldQuit}. */
-    public static boolean nShouldQuit(long struct) { return UNSAFE.getByte(null, struct + OVRSessionStatus.SHOULDQUIT) != 0; }
+    public static boolean nShouldQuit(long struct) { return memGetByte(struct + OVRSessionStatus.SHOULDQUIT) != 0; }
     /** Unsafe version of {@link #ShouldRecenter}. */
-    public static boolean nShouldRecenter(long struct) { return UNSAFE.getByte(null, struct + OVRSessionStatus.SHOULDRECENTER) != 0; }
+    public static boolean nShouldRecenter(long struct) { return memGetByte(struct + OVRSessionStatus.SHOULDRECENTER) != 0; }
     /** Unsafe version of {@link #HasInputFocus}. */
-    public static boolean nHasInputFocus(long struct) { return UNSAFE.getByte(null, struct + OVRSessionStatus.HASINPUTFOCUS) != 0; }
+    public static boolean nHasInputFocus(long struct) { return memGetByte(struct + OVRSessionStatus.HASINPUTFOCUS) != 0; }
     /** Unsafe version of {@link #OverlayPresent}. */
-    public static boolean nOverlayPresent(long struct) { return UNSAFE.getByte(null, struct + OVRSessionStatus.OVERLAYPRESENT) != 0; }
+    public static boolean nOverlayPresent(long struct) { return memGetByte(struct + OVRSessionStatus.OVERLAYPRESENT) != 0; }
     /** Unsafe version of {@link #DepthRequested}. */
-    public static boolean nDepthRequested(long struct) { return UNSAFE.getByte(null, struct + OVRSessionStatus.DEPTHREQUESTED) != 0; }
+    public static boolean nDepthRequested(long struct) { return memGetByte(struct + OVRSessionStatus.DEPTHREQUESTED) != 0; }
 
     // -----------------------------------
 
@@ -321,6 +319,11 @@ public class OVRSessionStatus extends Struct<OVRSessionStatus> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

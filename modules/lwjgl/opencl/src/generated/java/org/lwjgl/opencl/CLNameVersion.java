@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -107,8 +107,7 @@ public class CLNameVersion extends Struct<CLNameVersion> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLNameVersion createSafe(long address) {
+    public static @Nullable CLNameVersion createSafe(long address) {
         return address == NULL ? null : new CLNameVersion(address, null);
     }
 
@@ -151,8 +150,7 @@ public class CLNameVersion extends Struct<CLNameVersion> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLNameVersion.Buffer createSafe(long address, int capacity) {
+    public static CLNameVersion.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -197,7 +195,7 @@ public class CLNameVersion extends Struct<CLNameVersion> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #version}. */
-    public static int nversion(long struct) { return UNSAFE.getInt(null, struct + CLNameVersion.VERSION); }
+    public static int nversion(long struct) { return memGetInt(struct + CLNameVersion.VERSION); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBuffer(struct + CLNameVersion.NAME, 64); }
     /** Unsafe version of {@link #nameString}. */
@@ -234,6 +232,11 @@ public class CLNameVersion extends Struct<CLNameVersion> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

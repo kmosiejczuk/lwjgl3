@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD}</li>
+ * <li>{@code sType} <b>must</b> be {@link AMDMixedAttachmentSamples#VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD}</li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -108,17 +108,16 @@ public class VkAttachmentSampleCountInfoAMD extends Struct<VkAttachmentSampleCou
     @NativeType("uint32_t")
     public int colorAttachmentCount() { return ncolorAttachmentCount(address()); }
     /** a pointer to an array of {@code VkSampleCountFlagBits} values defining the sample count of color attachments. */
-    @Nullable
     @NativeType("VkSampleCountFlagBits const *")
-    public IntBuffer pColorAttachmentSamples() { return npColorAttachmentSamples(address()); }
+    public @Nullable IntBuffer pColorAttachmentSamples() { return npColorAttachmentSamples(address()); }
     /** a {@code VkSampleCountFlagBits} value defining the sample count of a depth/stencil attachment. */
     @NativeType("VkSampleCountFlagBits")
     public int depthStencilAttachmentSamples() { return ndepthStencilAttachmentSamples(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkAttachmentSampleCountInfoAMD sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD} value to the {@link #sType} field. */
-    public VkAttachmentSampleCountInfoAMD sType$Default() { return sType(KHRDynamicRendering.VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD); }
+    /** Sets the {@link AMDMixedAttachmentSamples#VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD} value to the {@link #sType} field. */
+    public VkAttachmentSampleCountInfoAMD sType$Default() { return sType(AMDMixedAttachmentSamples.VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkAttachmentSampleCountInfoAMD pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #colorAttachmentCount} field. */
@@ -181,8 +180,7 @@ public class VkAttachmentSampleCountInfoAMD extends Struct<VkAttachmentSampleCou
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentSampleCountInfoAMD createSafe(long address) {
+    public static @Nullable VkAttachmentSampleCountInfoAMD createSafe(long address) {
         return address == NULL ? null : new VkAttachmentSampleCountInfoAMD(address, null);
     }
 
@@ -225,8 +223,7 @@ public class VkAttachmentSampleCountInfoAMD extends Struct<VkAttachmentSampleCou
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentSampleCountInfoAMD.Buffer createSafe(long address, int capacity) {
+    public static VkAttachmentSampleCountInfoAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -271,26 +268,26 @@ public class VkAttachmentSampleCountInfoAMD extends Struct<VkAttachmentSampleCou
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentSampleCountInfoAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAttachmentSampleCountInfoAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAttachmentSampleCountInfoAMD.PNEXT); }
     /** Unsafe version of {@link #colorAttachmentCount}. */
-    public static int ncolorAttachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentSampleCountInfoAMD.COLORATTACHMENTCOUNT); }
+    public static int ncolorAttachmentCount(long struct) { return memGetInt(struct + VkAttachmentSampleCountInfoAMD.COLORATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pColorAttachmentSamples() pColorAttachmentSamples}. */
-    @Nullable public static IntBuffer npColorAttachmentSamples(long struct) { return memIntBufferSafe(memGetAddress(struct + VkAttachmentSampleCountInfoAMD.PCOLORATTACHMENTSAMPLES), ncolorAttachmentCount(struct)); }
+    public static @Nullable IntBuffer npColorAttachmentSamples(long struct) { return memIntBufferSafe(memGetAddress(struct + VkAttachmentSampleCountInfoAMD.PCOLORATTACHMENTSAMPLES), ncolorAttachmentCount(struct)); }
     /** Unsafe version of {@link #depthStencilAttachmentSamples}. */
-    public static int ndepthStencilAttachmentSamples(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentSampleCountInfoAMD.DEPTHSTENCILATTACHMENTSAMPLES); }
+    public static int ndepthStencilAttachmentSamples(long struct) { return memGetInt(struct + VkAttachmentSampleCountInfoAMD.DEPTHSTENCILATTACHMENTSAMPLES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentSampleCountInfoAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAttachmentSampleCountInfoAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAttachmentSampleCountInfoAMD.PNEXT, value); }
     /** Sets the specified value to the {@code colorAttachmentCount} field of the specified {@code struct}. */
-    public static void ncolorAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentSampleCountInfoAMD.COLORATTACHMENTCOUNT, value); }
+    public static void ncolorAttachmentCount(long struct, int value) { memPutInt(struct + VkAttachmentSampleCountInfoAMD.COLORATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pColorAttachmentSamples(IntBuffer) pColorAttachmentSamples}. */
     public static void npColorAttachmentSamples(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkAttachmentSampleCountInfoAMD.PCOLORATTACHMENTSAMPLES, memAddressSafe(value)); if (value != null) { ncolorAttachmentCount(struct, value.remaining()); } }
     /** Unsafe version of {@link #depthStencilAttachmentSamples(int) depthStencilAttachmentSamples}. */
-    public static void ndepthStencilAttachmentSamples(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentSampleCountInfoAMD.DEPTHSTENCILATTACHMENTSAMPLES, value); }
+    public static void ndepthStencilAttachmentSamples(long struct, int value) { memPutInt(struct + VkAttachmentSampleCountInfoAMD.DEPTHSTENCILATTACHMENTSAMPLES, value); }
 
     // -----------------------------------
 
@@ -326,6 +323,11 @@ public class VkAttachmentSampleCountInfoAMD extends Struct<VkAttachmentSampleCou
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAttachmentSampleCountInfoAMD getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -340,17 +342,16 @@ public class VkAttachmentSampleCountInfoAMD extends Struct<VkAttachmentSampleCou
         @NativeType("uint32_t")
         public int colorAttachmentCount() { return VkAttachmentSampleCountInfoAMD.ncolorAttachmentCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkAttachmentSampleCountInfoAMD#pColorAttachmentSamples} field. */
-        @Nullable
         @NativeType("VkSampleCountFlagBits const *")
-        public IntBuffer pColorAttachmentSamples() { return VkAttachmentSampleCountInfoAMD.npColorAttachmentSamples(address()); }
+        public @Nullable IntBuffer pColorAttachmentSamples() { return VkAttachmentSampleCountInfoAMD.npColorAttachmentSamples(address()); }
         /** @return the value of the {@link VkAttachmentSampleCountInfoAMD#depthStencilAttachmentSamples} field. */
         @NativeType("VkSampleCountFlagBits")
         public int depthStencilAttachmentSamples() { return VkAttachmentSampleCountInfoAMD.ndepthStencilAttachmentSamples(address()); }
 
         /** Sets the specified value to the {@link VkAttachmentSampleCountInfoAMD#sType} field. */
         public VkAttachmentSampleCountInfoAMD.Buffer sType(@NativeType("VkStructureType") int value) { VkAttachmentSampleCountInfoAMD.nsType(address(), value); return this; }
-        /** Sets the {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD} value to the {@link VkAttachmentSampleCountInfoAMD#sType} field. */
-        public VkAttachmentSampleCountInfoAMD.Buffer sType$Default() { return sType(KHRDynamicRendering.VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD); }
+        /** Sets the {@link AMDMixedAttachmentSamples#VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD} value to the {@link VkAttachmentSampleCountInfoAMD#sType} field. */
+        public VkAttachmentSampleCountInfoAMD.Buffer sType$Default() { return sType(AMDMixedAttachmentSamples.VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD); }
         /** Sets the specified value to the {@link VkAttachmentSampleCountInfoAMD#pNext} field. */
         public VkAttachmentSampleCountInfoAMD.Buffer pNext(@NativeType("void const *") long value) { VkAttachmentSampleCountInfoAMD.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkAttachmentSampleCountInfoAMD#colorAttachmentCount} field. */

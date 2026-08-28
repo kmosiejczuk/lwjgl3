@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkDedicatedAllocationBufferCreateInfoNV extends Struct<VkDedicatedA
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDedicatedAllocationBufferCreateInfoNV createSafe(long address) {
+    public static @Nullable VkDedicatedAllocationBufferCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkDedicatedAllocationBufferCreateInfoNV(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkDedicatedAllocationBufferCreateInfoNV extends Struct<VkDedicatedA
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDedicatedAllocationBufferCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkDedicatedAllocationBufferCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,18 +259,18 @@ public class VkDedicatedAllocationBufferCreateInfoNV extends Struct<VkDedicatedA
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDedicatedAllocationBufferCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDedicatedAllocationBufferCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDedicatedAllocationBufferCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #dedicatedAllocation}. */
-    public static int ndedicatedAllocation(long struct) { return UNSAFE.getInt(null, struct + VkDedicatedAllocationBufferCreateInfoNV.DEDICATEDALLOCATION); }
+    public static int ndedicatedAllocation(long struct) { return memGetInt(struct + VkDedicatedAllocationBufferCreateInfoNV.DEDICATEDALLOCATION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDedicatedAllocationBufferCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDedicatedAllocationBufferCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDedicatedAllocationBufferCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #dedicatedAllocation(boolean) dedicatedAllocation}. */
-    public static void ndedicatedAllocation(long struct, int value) { UNSAFE.putInt(null, struct + VkDedicatedAllocationBufferCreateInfoNV.DEDICATEDALLOCATION, value); }
+    public static void ndedicatedAllocation(long struct, int value) { memPutInt(struct + VkDedicatedAllocationBufferCreateInfoNV.DEDICATEDALLOCATION, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkDedicatedAllocationBufferCreateInfoNV extends Struct<VkDedicatedA
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

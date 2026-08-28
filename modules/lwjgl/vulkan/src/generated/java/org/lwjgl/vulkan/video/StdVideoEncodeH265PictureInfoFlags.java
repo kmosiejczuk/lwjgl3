@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -188,8 +188,7 @@ public class StdVideoEncodeH265PictureInfoFlags extends Struct<StdVideoEncodeH26
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH265PictureInfoFlags createSafe(long address) {
+    public static @Nullable StdVideoEncodeH265PictureInfoFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoEncodeH265PictureInfoFlags(address, null);
     }
 
@@ -232,8 +231,7 @@ public class StdVideoEncodeH265PictureInfoFlags extends Struct<StdVideoEncodeH26
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH265PictureInfoFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoEncodeH265PictureInfoFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,7 +275,7 @@ public class StdVideoEncodeH265PictureInfoFlags extends Struct<StdVideoEncodeH26
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH265PictureInfoFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoEncodeH265PictureInfoFlags.BITFIELD0); }
     /** Unsafe version of {@link #is_reference}. */
     public static int nis_reference(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #IrapPicFlag}. */
@@ -296,10 +294,10 @@ public class StdVideoEncodeH265PictureInfoFlags extends Struct<StdVideoEncodeH26
     public static int nshort_term_ref_pic_set_sps_flag(long struct) { return (nbitfield0(struct) & 0x00_00_00_80) >>> 7; }
     /** Unsafe version of {@link #slice_temporal_mvp_enabled_flag}. */
     public static int nslice_temporal_mvp_enabled_flag(long struct) { return (nbitfield0(struct) & 0x00_00_01_00) >>> 8; }
-    public static int nbitfield1(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH265PictureInfoFlags.BITFIELD1); }
+    public static int nbitfield1(long struct) { return memGetInt(struct + StdVideoEncodeH265PictureInfoFlags.BITFIELD1); }
     public static int nreserved(long struct) { return nbitfield1(struct) & 0x00_7F_FF_FF; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH265PictureInfoFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoEncodeH265PictureInfoFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #is_reference(boolean) is_reference}. */
     public static void nis_reference(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #IrapPicFlag(boolean) IrapPicFlag}. */
@@ -318,7 +316,7 @@ public class StdVideoEncodeH265PictureInfoFlags extends Struct<StdVideoEncodeH26
     public static void nshort_term_ref_pic_set_sps_flag(long struct, int value) { nbitfield0(struct, ((value << 7) & 0x00_00_00_80) | (nbitfield0(struct) & 0xFF_FF_FF_7F)); }
     /** Unsafe version of {@link #slice_temporal_mvp_enabled_flag(boolean) slice_temporal_mvp_enabled_flag}. */
     public static void nslice_temporal_mvp_enabled_flag(long struct, int value) { nbitfield0(struct, ((value << 8) & 0x00_00_01_00) | (nbitfield0(struct) & 0xFF_FF_FE_FF)); }
-    public static void nbitfield1(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH265PictureInfoFlags.BITFIELD1, value); }
+    public static void nbitfield1(long struct, int value) { memPutInt(struct + StdVideoEncodeH265PictureInfoFlags.BITFIELD1, value); }
     public static void nreserved(long struct, int value) { nbitfield1(struct, (nbitfield1(struct) & 0xFF_80_00_00) | (value & 0x00_7F_FF_FF)); }
 
     // -----------------------------------
@@ -352,6 +350,11 @@ public class StdVideoEncodeH265PictureInfoFlags extends Struct<StdVideoEncodeH26
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

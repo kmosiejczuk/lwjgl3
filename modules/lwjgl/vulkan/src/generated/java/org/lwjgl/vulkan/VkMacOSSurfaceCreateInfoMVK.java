@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -176,8 +176,7 @@ public class VkMacOSSurfaceCreateInfoMVK extends Struct<VkMacOSSurfaceCreateInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMacOSSurfaceCreateInfoMVK createSafe(long address) {
+    public static @Nullable VkMacOSSurfaceCreateInfoMVK createSafe(long address) {
         return address == NULL ? null : new VkMacOSSurfaceCreateInfoMVK(address, null);
     }
 
@@ -220,8 +219,7 @@ public class VkMacOSSurfaceCreateInfoMVK extends Struct<VkMacOSSurfaceCreateInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMacOSSurfaceCreateInfoMVK.Buffer createSafe(long address, int capacity) {
+    public static VkMacOSSurfaceCreateInfoMVK.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,20 +283,20 @@ public class VkMacOSSurfaceCreateInfoMVK extends Struct<VkMacOSSurfaceCreateInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMacOSSurfaceCreateInfoMVK.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMacOSSurfaceCreateInfoMVK.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMacOSSurfaceCreateInfoMVK.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkMacOSSurfaceCreateInfoMVK.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkMacOSSurfaceCreateInfoMVK.FLAGS); }
     /** Unsafe version of {@link #pView}. */
     public static long npView(long struct) { return memGetAddress(struct + VkMacOSSurfaceCreateInfoMVK.PVIEW); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMacOSSurfaceCreateInfoMVK.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMacOSSurfaceCreateInfoMVK.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMacOSSurfaceCreateInfoMVK.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkMacOSSurfaceCreateInfoMVK.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkMacOSSurfaceCreateInfoMVK.FLAGS, value); }
     /** Unsafe version of {@link #pView(long) pView}. */
     public static void npView(long struct, long value) { memPutAddress(struct + VkMacOSSurfaceCreateInfoMVK.PVIEW, value); }
 
@@ -333,6 +331,11 @@ public class VkMacOSSurfaceCreateInfoMVK extends Struct<VkMacOSSurfaceCreateInfo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

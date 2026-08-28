@@ -15,16 +15,16 @@ val EXT_subgroup_size_control = "EXTSubgroupSizeControl".nativeClassVK("EXT_subg
 
         It extends the subgroup support in Vulkan 1.1 to allow an implementation to expose a varying subgroup size. Previously Vulkan exposed a single subgroup size per physical device, with the expectation that implementations will behave as if all subgroups have the same size. Some implementations <b>may</b> dispatch shaders with a varying subgroup size for different subgroups. As a result they could implicitly split a large subgroup into smaller subgroups or represent a small subgroup as a larger subgroup, some of whose invocations were inactive on launch.
 
-        To aid developers in understanding the performance characteristics of their programs, this extension exposes a minimum and maximum subgroup size that a physical device supports and a pipeline create flag to enable that pipeline to vary its subgroup size. If enabled, any {@code SubgroupSize} decorated variables in the SPIR-V shader modules provided to pipeline creation <b>may</b> vary between the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#limits-minSubgroupSize">minimum</a> and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#limits-maxSubgroupSize">maximum</a> subgroup sizes.
+        To aid developers in understanding the performance characteristics of their programs, this extension exposes a minimum and maximum subgroup size that a physical device supports and a pipeline create flag to enable that pipeline to vary its subgroup size. If enabled, any {@code SubgroupSize} decorated variables in the SPIR-V shader modules provided to pipeline creation <b>may</b> vary between the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#limits-minSubgroupSize">minimum</a> and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#limits-maxSubgroupSize">maximum</a> subgroup sizes.
 
-        An implementation is also optionally allowed to support specifying a required subgroup size for a given pipeline stage. Implementations advertise which <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#limits-requiredSubgroupSizeStages">stages support a required subgroup size</a>, and any pipeline of a supported stage can be passed a ##VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT structure to set the subgroup size for that shader stage of the pipeline. For compute shaders, this requires the developer to query the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#limits-maxComputeWorkgroupSubgroups">{@code maxComputeWorkgroupSubgroups}</a> and ensure that:
+        An implementation is also optionally allowed to support specifying a required subgroup size for a given pipeline stage. Implementations advertise which <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#limits-requiredSubgroupSizeStages">stages support a required subgroup size</a>, and any pipeline of a supported stage can be passed a ##VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT structure to set the subgroup size for that shader stage of the pipeline. For compute shaders, this requires the developer to query the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#limits-maxComputeWorkgroupSubgroups">{@code maxComputeWorkgroupSubgroups}</a> and ensure that:
 
         <code>s = { WorkGroupSize.x &times; WorkGroupSize.y &times; WorkgroupSize.z &le; SubgroupSize &times; maxComputeWorkgroupSubgroups }</code>
 
         Developers can also specify a new pipeline shader stage create flag that requires the implementation to have fully populated subgroups within local workgroups. This requires the workgroup size in the X dimension to be a multiple of the subgroup size.
 
         <h5>Promotion to Vulkan 1.3</h5>
-        Functionality in this extension is included in core Vulkan 1.3, with the EXT suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
+        Vulkan APIs in this extension are included in core Vulkan 1.3, with the EXT suffix omitted. External interactions defined by this extension, such as SPIR-V token names, retain their original names. The original Vulkan API names are still available as aliases of the core functionality.
 
         <dl>
             <dt><b>Name String</b></dt>
@@ -40,11 +40,11 @@ val EXT_subgroup_size_control = "EXTSubgroupSizeControl".nativeClassVK("EXT_subg
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

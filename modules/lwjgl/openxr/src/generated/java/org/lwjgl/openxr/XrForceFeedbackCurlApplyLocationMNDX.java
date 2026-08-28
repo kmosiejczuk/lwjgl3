@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -147,8 +147,7 @@ public class XrForceFeedbackCurlApplyLocationMNDX extends Struct<XrForceFeedback
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrForceFeedbackCurlApplyLocationMNDX createSafe(long address) {
+    public static @Nullable XrForceFeedbackCurlApplyLocationMNDX createSafe(long address) {
         return address == NULL ? null : new XrForceFeedbackCurlApplyLocationMNDX(address, null);
     }
 
@@ -191,8 +190,7 @@ public class XrForceFeedbackCurlApplyLocationMNDX extends Struct<XrForceFeedback
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrForceFeedbackCurlApplyLocationMNDX.Buffer createSafe(long address, int capacity) {
+    public static XrForceFeedbackCurlApplyLocationMNDX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,14 +235,14 @@ public class XrForceFeedbackCurlApplyLocationMNDX extends Struct<XrForceFeedback
     // -----------------------------------
 
     /** Unsafe version of {@link #location}. */
-    public static int nlocation(long struct) { return UNSAFE.getInt(null, struct + XrForceFeedbackCurlApplyLocationMNDX.LOCATION); }
+    public static int nlocation(long struct) { return memGetInt(struct + XrForceFeedbackCurlApplyLocationMNDX.LOCATION); }
     /** Unsafe version of {@link #value}. */
-    public static float nvalue(long struct) { return UNSAFE.getFloat(null, struct + XrForceFeedbackCurlApplyLocationMNDX.VALUE); }
+    public static float nvalue(long struct) { return memGetFloat(struct + XrForceFeedbackCurlApplyLocationMNDX.VALUE); }
 
     /** Unsafe version of {@link #location(int) location}. */
-    public static void nlocation(long struct, int value) { UNSAFE.putInt(null, struct + XrForceFeedbackCurlApplyLocationMNDX.LOCATION, value); }
+    public static void nlocation(long struct, int value) { memPutInt(struct + XrForceFeedbackCurlApplyLocationMNDX.LOCATION, value); }
     /** Unsafe version of {@link #value(float) value}. */
-    public static void nvalue(long struct, float value) { UNSAFE.putFloat(null, struct + XrForceFeedbackCurlApplyLocationMNDX.VALUE, value); }
+    public static void nvalue(long struct, float value) { memPutFloat(struct + XrForceFeedbackCurlApplyLocationMNDX.VALUE, value); }
 
     // -----------------------------------
 
@@ -277,6 +275,11 @@ public class XrForceFeedbackCurlApplyLocationMNDX extends Struct<XrForceFeedback
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

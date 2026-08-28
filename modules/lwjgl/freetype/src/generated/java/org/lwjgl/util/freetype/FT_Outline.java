@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class FT_Outline extends Struct<FT_Outline> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Outline createSafe(long address) {
+    public static @Nullable FT_Outline createSafe(long address) {
         return address == NULL ? null : new FT_Outline(address, null);
     }
 
@@ -176,8 +175,7 @@ public class FT_Outline extends Struct<FT_Outline> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Outline.Buffer createSafe(long address, int capacity) {
+    public static FT_Outline.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -222,9 +220,9 @@ public class FT_Outline extends Struct<FT_Outline> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #n_contours}. */
-    public static short nn_contours(long struct) { return UNSAFE.getShort(null, struct + FT_Outline.N_CONTOURS); }
+    public static short nn_contours(long struct) { return memGetShort(struct + FT_Outline.N_CONTOURS); }
     /** Unsafe version of {@link #n_points}. */
-    public static short nn_points(long struct) { return UNSAFE.getShort(null, struct + FT_Outline.N_POINTS); }
+    public static short nn_points(long struct) { return memGetShort(struct + FT_Outline.N_POINTS); }
     /** Unsafe version of {@link #points}. */
     public static FT_Vector.Buffer npoints(long struct) { return FT_Vector.create(memGetAddress(struct + FT_Outline.POINTS), Short.toUnsignedInt(nn_points(struct))); }
     /** Unsafe version of {@link #tags() tags}. */
@@ -232,7 +230,7 @@ public class FT_Outline extends Struct<FT_Outline> implements NativeResource {
     /** Unsafe version of {@link #contours() contours}. */
     public static ShortBuffer ncontours(long struct) { return memShortBuffer(memGetAddress(struct + FT_Outline.CONTOURS), Short.toUnsignedInt(nn_contours(struct))); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + FT_Outline.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + FT_Outline.FLAGS); }
 
     // -----------------------------------
 
@@ -265,6 +263,11 @@ public class FT_Outline extends Struct<FT_Outline> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

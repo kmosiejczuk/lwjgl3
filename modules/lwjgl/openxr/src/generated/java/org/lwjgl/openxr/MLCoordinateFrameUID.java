@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -82,8 +82,7 @@ public class MLCoordinateFrameUID extends Struct<MLCoordinateFrameUID> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MLCoordinateFrameUID createSafe(long address) {
+    public static @Nullable MLCoordinateFrameUID createSafe(long address) {
         return address == NULL ? null : new MLCoordinateFrameUID(address, null);
     }
 
@@ -98,8 +97,7 @@ public class MLCoordinateFrameUID extends Struct<MLCoordinateFrameUID> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MLCoordinateFrameUID.Buffer createSafe(long address, int capacity) {
+    public static MLCoordinateFrameUID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -109,7 +107,7 @@ public class MLCoordinateFrameUID extends Struct<MLCoordinateFrameUID> {
     public static LongBuffer ndata(long struct) { return memLongBuffer(struct + MLCoordinateFrameUID.DATA, 2); }
     /** Unsafe version of {@link #data(int) data}. */
     public static long ndata(long struct, int index) {
-        return UNSAFE.getLong(null, struct + MLCoordinateFrameUID.DATA + check(index, 2) * 8);
+        return memGetLong(struct + MLCoordinateFrameUID.DATA + check(index, 2) * 8);
     }
 
     // -----------------------------------
@@ -143,6 +141,11 @@ public class MLCoordinateFrameUID extends Struct<MLCoordinateFrameUID> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

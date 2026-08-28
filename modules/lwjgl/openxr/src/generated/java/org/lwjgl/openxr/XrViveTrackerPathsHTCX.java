@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class XrViveTrackerPathsHTCX extends Struct<XrViveTrackerPathsHTCX> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViveTrackerPathsHTCX createSafe(long address) {
+    public static @Nullable XrViveTrackerPathsHTCX createSafe(long address) {
         return address == NULL ? null : new XrViveTrackerPathsHTCX(address, null);
     }
 
@@ -209,8 +208,7 @@ public class XrViveTrackerPathsHTCX extends Struct<XrViveTrackerPathsHTCX> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViveTrackerPathsHTCX.Buffer createSafe(long address, int capacity) {
+    public static XrViveTrackerPathsHTCX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,16 +253,16 @@ public class XrViveTrackerPathsHTCX extends Struct<XrViveTrackerPathsHTCX> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrViveTrackerPathsHTCX.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrViveTrackerPathsHTCX.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrViveTrackerPathsHTCX.NEXT); }
     /** Unsafe version of {@link #persistentPath}. */
-    public static long npersistentPath(long struct) { return UNSAFE.getLong(null, struct + XrViveTrackerPathsHTCX.PERSISTENTPATH); }
+    public static long npersistentPath(long struct) { return memGetLong(struct + XrViveTrackerPathsHTCX.PERSISTENTPATH); }
     /** Unsafe version of {@link #rolePath}. */
-    public static long nrolePath(long struct) { return UNSAFE.getLong(null, struct + XrViveTrackerPathsHTCX.ROLEPATH); }
+    public static long nrolePath(long struct) { return memGetLong(struct + XrViveTrackerPathsHTCX.ROLEPATH); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrViveTrackerPathsHTCX.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrViveTrackerPathsHTCX.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrViveTrackerPathsHTCX.NEXT, value); }
 
@@ -299,6 +297,11 @@ public class XrViveTrackerPathsHTCX extends Struct<XrViveTrackerPathsHTCX> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

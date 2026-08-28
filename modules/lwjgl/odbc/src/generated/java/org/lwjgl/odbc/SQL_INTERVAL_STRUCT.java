@@ -5,7 +5,7 @@
  */
 package org.lwjgl.odbc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,8 +161,7 @@ public class SQL_INTERVAL_STRUCT extends Struct<SQL_INTERVAL_STRUCT> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SQL_INTERVAL_STRUCT createSafe(long address) {
+    public static @Nullable SQL_INTERVAL_STRUCT createSafe(long address) {
         return address == NULL ? null : new SQL_INTERVAL_STRUCT(address, null);
     }
 
@@ -205,8 +204,7 @@ public class SQL_INTERVAL_STRUCT extends Struct<SQL_INTERVAL_STRUCT> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SQL_INTERVAL_STRUCT.Buffer createSafe(long address, int capacity) {
+    public static SQL_INTERVAL_STRUCT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,18 +268,18 @@ public class SQL_INTERVAL_STRUCT extends Struct<SQL_INTERVAL_STRUCT> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #interval_type}. */
-    public static int ninterval_type(long struct) { return UNSAFE.getInt(null, struct + SQL_INTERVAL_STRUCT.INTERVAL_TYPE); }
+    public static int ninterval_type(long struct) { return memGetInt(struct + SQL_INTERVAL_STRUCT.INTERVAL_TYPE); }
     /** Unsafe version of {@link #interval_sign}. */
-    public static short ninterval_sign(long struct) { return UNSAFE.getShort(null, struct + SQL_INTERVAL_STRUCT.INTERVAL_SIGN); }
+    public static short ninterval_sign(long struct) { return memGetShort(struct + SQL_INTERVAL_STRUCT.INTERVAL_SIGN); }
     /** Unsafe version of {@link #intval_year_month}. */
     public static SQL_YEAR_MONTH_STRUCT nintval_year_month(long struct) { return SQL_YEAR_MONTH_STRUCT.create(struct + SQL_INTERVAL_STRUCT.INTVAL_YEAR_MONTH); }
     /** Unsafe version of {@link #intval_day_second}. */
     public static SQL_DAY_SECOND_STRUCT nintval_day_second(long struct) { return SQL_DAY_SECOND_STRUCT.create(struct + SQL_INTERVAL_STRUCT.INTVAL_DAY_SECOND); }
 
     /** Unsafe version of {@link #interval_type(int) interval_type}. */
-    public static void ninterval_type(long struct, int value) { UNSAFE.putInt(null, struct + SQL_INTERVAL_STRUCT.INTERVAL_TYPE, value); }
+    public static void ninterval_type(long struct, int value) { memPutInt(struct + SQL_INTERVAL_STRUCT.INTERVAL_TYPE, value); }
     /** Unsafe version of {@link #interval_sign(short) interval_sign}. */
-    public static void ninterval_sign(long struct, short value) { UNSAFE.putShort(null, struct + SQL_INTERVAL_STRUCT.INTERVAL_SIGN, value); }
+    public static void ninterval_sign(long struct, short value) { memPutShort(struct + SQL_INTERVAL_STRUCT.INTERVAL_SIGN, value); }
     /** Unsafe version of {@link #intval_year_month(SQL_YEAR_MONTH_STRUCT) intval_year_month}. */
     public static void nintval_year_month(long struct, SQL_YEAR_MONTH_STRUCT value) { memCopy(value.address(), struct + SQL_INTERVAL_STRUCT.INTVAL_YEAR_MONTH, SQL_YEAR_MONTH_STRUCT.SIZEOF); }
     /** Unsafe version of {@link #intval_day_second(SQL_DAY_SECOND_STRUCT) intval_day_second}. */
@@ -318,6 +316,11 @@ public class SQL_INTERVAL_STRUCT extends Struct<SQL_INTERVAL_STRUCT> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

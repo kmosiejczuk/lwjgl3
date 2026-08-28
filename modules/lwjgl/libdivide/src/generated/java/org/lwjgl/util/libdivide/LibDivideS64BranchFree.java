@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.libdivide;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LibDivideS64BranchFree createSafe(long address) {
+    public static @Nullable LibDivideS64BranchFree createSafe(long address) {
         return address == NULL ? null : new LibDivideS64BranchFree(address, null);
     }
 
@@ -176,8 +175,7 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LibDivideS64BranchFree.Buffer createSafe(long address, int capacity) {
+    public static LibDivideS64BranchFree.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +239,14 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #magic}. */
-    public static long nmagic(long struct) { return UNSAFE.getLong(null, struct + LibDivideS64BranchFree.MAGIC); }
+    public static long nmagic(long struct) { return memGetLong(struct + LibDivideS64BranchFree.MAGIC); }
     /** Unsafe version of {@link #more}. */
-    public static byte nmore(long struct) { return UNSAFE.getByte(null, struct + LibDivideS64BranchFree.MORE); }
+    public static byte nmore(long struct) { return memGetByte(struct + LibDivideS64BranchFree.MORE); }
 
     /** Unsafe version of {@link #magic(long) magic}. */
-    public static void nmagic(long struct, long value) { UNSAFE.putLong(null, struct + LibDivideS64BranchFree.MAGIC, value); }
+    public static void nmagic(long struct, long value) { memPutLong(struct + LibDivideS64BranchFree.MAGIC, value); }
     /** Unsafe version of {@link #more(byte) more}. */
-    public static void nmore(long struct, byte value) { UNSAFE.putByte(null, struct + LibDivideS64BranchFree.MORE, value); }
+    public static void nmore(long struct, byte value) { memPutByte(struct + LibDivideS64BranchFree.MORE, value); }
 
     // -----------------------------------
 
@@ -281,6 +279,11 @@ public class LibDivideS64BranchFree extends Struct<LibDivideS64BranchFree> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

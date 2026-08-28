@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -89,8 +89,7 @@ class NkConfigStackUserFont extends Struct<NkConfigStackUserFont> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackUserFont createSafe(long address) {
+    public static @Nullable NkConfigStackUserFont createSafe(long address) {
         return address == NULL ? null : new NkConfigStackUserFont(address, null);
     }
 
@@ -105,15 +104,14 @@ class NkConfigStackUserFont extends Struct<NkConfigStackUserFont> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackUserFont.Buffer createSafe(long address, int capacity) {
+    public static NkConfigStackUserFont.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #head}. */
-    public static int nhead(long struct) { return UNSAFE.getInt(null, struct + NkConfigStackUserFont.HEAD); }
+    public static int nhead(long struct) { return memGetInt(struct + NkConfigStackUserFont.HEAD); }
     /** Unsafe version of {@link #elements}. */
     public static NkConfigStackUserFontElement.Buffer nelements(long struct) { return NkConfigStackUserFontElement.create(struct + NkConfigStackUserFont.ELEMENTS, 8); }
     /** Unsafe version of {@link #elements(int) elements}. */
@@ -152,6 +150,11 @@ class NkConfigStackUserFont extends Struct<NkConfigStackUserFont> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

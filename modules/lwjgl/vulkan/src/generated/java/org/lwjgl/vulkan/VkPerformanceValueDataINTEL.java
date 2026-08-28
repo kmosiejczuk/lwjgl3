@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -160,8 +160,7 @@ public class VkPerformanceValueDataINTEL extends Struct<VkPerformanceValueDataIN
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceValueDataINTEL createSafe(long address) {
+    public static @Nullable VkPerformanceValueDataINTEL createSafe(long address) {
         return address == NULL ? null : new VkPerformanceValueDataINTEL(address, null);
     }
 
@@ -204,8 +203,7 @@ public class VkPerformanceValueDataINTEL extends Struct<VkPerformanceValueDataIN
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceValueDataINTEL.Buffer createSafe(long address, int capacity) {
+    public static VkPerformanceValueDataINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,26 +267,26 @@ public class VkPerformanceValueDataINTEL extends Struct<VkPerformanceValueDataIN
     // -----------------------------------
 
     /** Unsafe version of {@link #value32}. */
-    public static int nvalue32(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceValueDataINTEL.VALUE32); }
+    public static int nvalue32(long struct) { return memGetInt(struct + VkPerformanceValueDataINTEL.VALUE32); }
     /** Unsafe version of {@link #value64}. */
-    public static long nvalue64(long struct) { return UNSAFE.getLong(null, struct + VkPerformanceValueDataINTEL.VALUE64); }
+    public static long nvalue64(long struct) { return memGetLong(struct + VkPerformanceValueDataINTEL.VALUE64); }
     /** Unsafe version of {@link #valueFloat}. */
-    public static float nvalueFloat(long struct) { return UNSAFE.getFloat(null, struct + VkPerformanceValueDataINTEL.VALUEFLOAT); }
+    public static float nvalueFloat(long struct) { return memGetFloat(struct + VkPerformanceValueDataINTEL.VALUEFLOAT); }
     /** Unsafe version of {@link #valueBool}. */
-    public static int nvalueBool(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceValueDataINTEL.VALUEBOOL); }
+    public static int nvalueBool(long struct) { return memGetInt(struct + VkPerformanceValueDataINTEL.VALUEBOOL); }
     /** Unsafe version of {@link #valueString}. */
     public static ByteBuffer nvalueString(long struct) { return memByteBufferNT1(memGetAddress(struct + VkPerformanceValueDataINTEL.VALUESTRING)); }
     /** Unsafe version of {@link #valueStringString}. */
     public static String nvalueStringString(long struct) { return memUTF8(memGetAddress(struct + VkPerformanceValueDataINTEL.VALUESTRING)); }
 
     /** Unsafe version of {@link #value32(int) value32}. */
-    public static void nvalue32(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceValueDataINTEL.VALUE32, value); }
+    public static void nvalue32(long struct, int value) { memPutInt(struct + VkPerformanceValueDataINTEL.VALUE32, value); }
     /** Unsafe version of {@link #value64(long) value64}. */
-    public static void nvalue64(long struct, long value) { UNSAFE.putLong(null, struct + VkPerformanceValueDataINTEL.VALUE64, value); }
+    public static void nvalue64(long struct, long value) { memPutLong(struct + VkPerformanceValueDataINTEL.VALUE64, value); }
     /** Unsafe version of {@link #valueFloat(float) valueFloat}. */
-    public static void nvalueFloat(long struct, float value) { UNSAFE.putFloat(null, struct + VkPerformanceValueDataINTEL.VALUEFLOAT, value); }
+    public static void nvalueFloat(long struct, float value) { memPutFloat(struct + VkPerformanceValueDataINTEL.VALUEFLOAT, value); }
     /** Unsafe version of {@link #valueBool(boolean) valueBool}. */
-    public static void nvalueBool(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceValueDataINTEL.VALUEBOOL, value); }
+    public static void nvalueBool(long struct, int value) { memPutInt(struct + VkPerformanceValueDataINTEL.VALUEBOOL, value); }
     /** Unsafe version of {@link #valueString(ByteBuffer) valueString}. */
     public static void nvalueString(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT1(value); }
@@ -326,6 +324,11 @@ public class VkPerformanceValueDataINTEL extends Struct<VkPerformanceValueDataIN
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

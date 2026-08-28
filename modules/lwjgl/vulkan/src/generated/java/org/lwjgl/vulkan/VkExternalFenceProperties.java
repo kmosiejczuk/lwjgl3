@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If {@code handleType} is not supported by the implementation, then {@link VkExternalFenceProperties}{@code ::externalFenceFeatures} will be set to zero.</p>
+ * <p>If {@code handleType} is not supported by the implementation, then {@link VkExternalFenceProperties}{@code ::externalFenceFeatures} will be zero.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -171,8 +171,7 @@ public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalFenceProperties createSafe(long address) {
+    public static @Nullable VkExternalFenceProperties createSafe(long address) {
         return address == NULL ? null : new VkExternalFenceProperties(address, null);
     }
 
@@ -215,8 +214,7 @@ public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalFenceProperties.Buffer createSafe(long address, int capacity) {
+    public static VkExternalFenceProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,18 +278,18 @@ public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExternalFenceProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExternalFenceProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExternalFenceProperties.PNEXT); }
     /** Unsafe version of {@link #exportFromImportedHandleTypes}. */
-    public static int nexportFromImportedHandleTypes(long struct) { return UNSAFE.getInt(null, struct + VkExternalFenceProperties.EXPORTFROMIMPORTEDHANDLETYPES); }
+    public static int nexportFromImportedHandleTypes(long struct) { return memGetInt(struct + VkExternalFenceProperties.EXPORTFROMIMPORTEDHANDLETYPES); }
     /** Unsafe version of {@link #compatibleHandleTypes}. */
-    public static int ncompatibleHandleTypes(long struct) { return UNSAFE.getInt(null, struct + VkExternalFenceProperties.COMPATIBLEHANDLETYPES); }
+    public static int ncompatibleHandleTypes(long struct) { return memGetInt(struct + VkExternalFenceProperties.COMPATIBLEHANDLETYPES); }
     /** Unsafe version of {@link #externalFenceFeatures}. */
-    public static int nexternalFenceFeatures(long struct) { return UNSAFE.getInt(null, struct + VkExternalFenceProperties.EXTERNALFENCEFEATURES); }
+    public static int nexternalFenceFeatures(long struct) { return memGetInt(struct + VkExternalFenceProperties.EXTERNALFENCEFEATURES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExternalFenceProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExternalFenceProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExternalFenceProperties.PNEXT, value); }
 
@@ -326,6 +324,11 @@ public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class hb_glyph_info_t extends Struct<hb_glyph_info_t> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_glyph_info_t createSafe(long address) {
+    public static @Nullable hb_glyph_info_t createSafe(long address) {
         return address == NULL ? null : new hb_glyph_info_t(address, null);
     }
 
@@ -203,8 +202,7 @@ public class hb_glyph_info_t extends Struct<hb_glyph_info_t> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_glyph_info_t.Buffer createSafe(long address, int capacity) {
+    public static hb_glyph_info_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,20 +247,20 @@ public class hb_glyph_info_t extends Struct<hb_glyph_info_t> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #codepoint}. */
-    public static int ncodepoint(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_info_t.CODEPOINT); }
+    public static int ncodepoint(long struct) { return memGetInt(struct + hb_glyph_info_t.CODEPOINT); }
     /** Unsafe version of {@link #mask}. */
-    public static int nmask(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_info_t.MASK); }
+    public static int nmask(long struct) { return memGetInt(struct + hb_glyph_info_t.MASK); }
     /** Unsafe version of {@link #cluster}. */
-    public static int ncluster(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_info_t.CLUSTER); }
+    public static int ncluster(long struct) { return memGetInt(struct + hb_glyph_info_t.CLUSTER); }
     public static hb_var_int_t nvar1(long struct) { return hb_var_int_t.create(struct + hb_glyph_info_t.VAR1); }
     public static hb_var_int_t nvar2(long struct) { return hb_var_int_t.create(struct + hb_glyph_info_t.VAR2); }
 
     /** Unsafe version of {@link #codepoint(int) codepoint}. */
-    public static void ncodepoint(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_info_t.CODEPOINT, value); }
+    public static void ncodepoint(long struct, int value) { memPutInt(struct + hb_glyph_info_t.CODEPOINT, value); }
     /** Unsafe version of {@link #mask(int) mask}. */
-    public static void nmask(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_info_t.MASK, value); }
+    public static void nmask(long struct, int value) { memPutInt(struct + hb_glyph_info_t.MASK, value); }
     /** Unsafe version of {@link #cluster(int) cluster}. */
-    public static void ncluster(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_info_t.CLUSTER, value); }
+    public static void ncluster(long struct, int value) { memPutInt(struct + hb_glyph_info_t.CLUSTER, value); }
     public static void nvar1(long struct, hb_var_int_t value) { memCopy(value.address(), struct + hb_glyph_info_t.VAR1, hb_var_int_t.SIZEOF); }
     public static void nvar2(long struct, hb_var_int_t value) { memCopy(value.address(), struct + hb_glyph_info_t.VAR2, hb_var_int_t.SIZEOF); }
 
@@ -297,6 +295,11 @@ public class hb_glyph_info_t extends Struct<hb_glyph_info_t> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

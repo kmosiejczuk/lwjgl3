@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceInlineUniformBlockFeatures extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceInlineUniformBlockFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceInlineUniformBlockFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceInlineUniformBlockFeatures(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceInlineUniformBlockFeatures extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceInlineUniformBlockFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceInlineUniformBlockFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkPhysicalDeviceInlineUniformBlockFeatures extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceInlineUniformBlockFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceInlineUniformBlockFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceInlineUniformBlockFeatures.PNEXT); }
     /** Unsafe version of {@link #inlineUniformBlock}. */
-    public static int ninlineUniformBlock(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceInlineUniformBlockFeatures.INLINEUNIFORMBLOCK); }
+    public static int ninlineUniformBlock(long struct) { return memGetInt(struct + VkPhysicalDeviceInlineUniformBlockFeatures.INLINEUNIFORMBLOCK); }
     /** Unsafe version of {@link #descriptorBindingInlineUniformBlockUpdateAfterBind}. */
-    public static int ndescriptorBindingInlineUniformBlockUpdateAfterBind(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceInlineUniformBlockFeatures.DESCRIPTORBINDINGINLINEUNIFORMBLOCKUPDATEAFTERBIND); }
+    public static int ndescriptorBindingInlineUniformBlockUpdateAfterBind(long struct) { return memGetInt(struct + VkPhysicalDeviceInlineUniformBlockFeatures.DESCRIPTORBINDINGINLINEUNIFORMBLOCKUPDATEAFTERBIND); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceInlineUniformBlockFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceInlineUniformBlockFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceInlineUniformBlockFeatures.PNEXT, value); }
     /** Unsafe version of {@link #inlineUniformBlock(boolean) inlineUniformBlock}. */
-    public static void ninlineUniformBlock(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceInlineUniformBlockFeatures.INLINEUNIFORMBLOCK, value); }
+    public static void ninlineUniformBlock(long struct, int value) { memPutInt(struct + VkPhysicalDeviceInlineUniformBlockFeatures.INLINEUNIFORMBLOCK, value); }
     /** Unsafe version of {@link #descriptorBindingInlineUniformBlockUpdateAfterBind(boolean) descriptorBindingInlineUniformBlockUpdateAfterBind}. */
-    public static void ndescriptorBindingInlineUniformBlockUpdateAfterBind(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceInlineUniformBlockFeatures.DESCRIPTORBINDINGINLINEUNIFORMBLOCKUPDATEAFTERBIND, value); }
+    public static void ndescriptorBindingInlineUniformBlockUpdateAfterBind(long struct, int value) { memPutInt(struct + VkPhysicalDeviceInlineUniformBlockFeatures.DESCRIPTORBINDINGINLINEUNIFORMBLOCKUPDATEAFTERBIND, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkPhysicalDeviceInlineUniformBlockFeatures extends Struct<VkPhysica
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

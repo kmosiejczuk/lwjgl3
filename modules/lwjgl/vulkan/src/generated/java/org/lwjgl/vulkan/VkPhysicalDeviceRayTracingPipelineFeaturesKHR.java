@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -116,7 +116,7 @@ public class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends Struct<VkPhys
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports the ray tracing pipeline functionality. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#ray-tracing">Ray Tracing</a>. */
+    /** indicates whether the implementation supports the ray tracing pipeline functionality. See <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#ray-tracing">Ray Tracing</a>. */
     @NativeType("VkBool32")
     public boolean rayTracingPipeline() { return nrayTracingPipeline(address()) != 0; }
     /** indicates whether the implementation supports saving and reusing shader group handles, e.g. for trace capture and replay. */
@@ -128,7 +128,7 @@ public class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends Struct<VkPhys
     /** indicates whether the implementation supports indirect ray tracing commands, e.g. {@link KHRRayTracingPipeline#vkCmdTraceRaysIndirectKHR CmdTraceRaysIndirectKHR}. */
     @NativeType("VkBool32")
     public boolean rayTracingPipelineTraceRaysIndirect() { return nrayTracingPipelineTraceRaysIndirect(address()) != 0; }
-    /** indicates whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#ray-traversal-culling-primitive">primitive culling during ray traversal</a>. */
+    /** indicates whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#ray-traversal-culling-primitive">primitive culling during ray traversal</a>. */
     @NativeType("VkBool32")
     public boolean rayTraversalPrimitiveCulling() { return nrayTraversalPrimitiveCulling(address()) != 0; }
 
@@ -206,8 +206,7 @@ public class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingPipelineFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRayTracingPipelineFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRayTracingPipelineFeaturesKHR(address, null);
     }
 
@@ -250,8 +249,7 @@ public class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingPipelineFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRayTracingPipelineFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -296,34 +294,34 @@ public class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #rayTracingPipeline}. */
-    public static int nrayTracingPipeline(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINE); }
+    public static int nrayTracingPipeline(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINE); }
     /** Unsafe version of {@link #rayTracingPipelineShaderGroupHandleCaptureReplay}. */
-    public static int nrayTracingPipelineShaderGroupHandleCaptureReplay(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINESHADERGROUPHANDLECAPTUREREPLAY); }
+    public static int nrayTracingPipelineShaderGroupHandleCaptureReplay(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINESHADERGROUPHANDLECAPTUREREPLAY); }
     /** Unsafe version of {@link #rayTracingPipelineShaderGroupHandleCaptureReplayMixed}. */
-    public static int nrayTracingPipelineShaderGroupHandleCaptureReplayMixed(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINESHADERGROUPHANDLECAPTUREREPLAYMIXED); }
+    public static int nrayTracingPipelineShaderGroupHandleCaptureReplayMixed(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINESHADERGROUPHANDLECAPTUREREPLAYMIXED); }
     /** Unsafe version of {@link #rayTracingPipelineTraceRaysIndirect}. */
-    public static int nrayTracingPipelineTraceRaysIndirect(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINETRACERAYSINDIRECT); }
+    public static int nrayTracingPipelineTraceRaysIndirect(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINETRACERAYSINDIRECT); }
     /** Unsafe version of {@link #rayTraversalPrimitiveCulling}. */
-    public static int nrayTraversalPrimitiveCulling(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRAVERSALPRIMITIVECULLING); }
+    public static int nrayTraversalPrimitiveCulling(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRAVERSALPRIMITIVECULLING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #rayTracingPipeline(boolean) rayTracingPipeline}. */
-    public static void nrayTracingPipeline(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINE, value); }
+    public static void nrayTracingPipeline(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINE, value); }
     /** Unsafe version of {@link #rayTracingPipelineShaderGroupHandleCaptureReplay(boolean) rayTracingPipelineShaderGroupHandleCaptureReplay}. */
-    public static void nrayTracingPipelineShaderGroupHandleCaptureReplay(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINESHADERGROUPHANDLECAPTUREREPLAY, value); }
+    public static void nrayTracingPipelineShaderGroupHandleCaptureReplay(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINESHADERGROUPHANDLECAPTUREREPLAY, value); }
     /** Unsafe version of {@link #rayTracingPipelineShaderGroupHandleCaptureReplayMixed(boolean) rayTracingPipelineShaderGroupHandleCaptureReplayMixed}. */
-    public static void nrayTracingPipelineShaderGroupHandleCaptureReplayMixed(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINESHADERGROUPHANDLECAPTUREREPLAYMIXED, value); }
+    public static void nrayTracingPipelineShaderGroupHandleCaptureReplayMixed(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINESHADERGROUPHANDLECAPTUREREPLAYMIXED, value); }
     /** Unsafe version of {@link #rayTracingPipelineTraceRaysIndirect(boolean) rayTracingPipelineTraceRaysIndirect}. */
-    public static void nrayTracingPipelineTraceRaysIndirect(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINETRACERAYSINDIRECT, value); }
+    public static void nrayTracingPipelineTraceRaysIndirect(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRACINGPIPELINETRACERAYSINDIRECT, value); }
     /** Unsafe version of {@link #rayTraversalPrimitiveCulling(boolean) rayTraversalPrimitiveCulling}. */
-    public static void nrayTraversalPrimitiveCulling(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRAVERSALPRIMITIVECULLING, value); }
+    public static void nrayTraversalPrimitiveCulling(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPipelineFeaturesKHR.RAYTRAVERSALPRIMITIVECULLING, value); }
 
     // -----------------------------------
 
@@ -356,6 +354,11 @@ public class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -123,8 +123,7 @@ public class VREvent extends Struct<VREvent> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREvent createSafe(long address) {
+    public static @Nullable VREvent createSafe(long address) {
         return address == NULL ? null : new VREvent(address, null);
     }
 
@@ -167,8 +166,7 @@ public class VREvent extends Struct<VREvent> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREvent.Buffer createSafe(long address, int capacity) {
+    public static VREvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -232,11 +230,11 @@ public class VREvent extends Struct<VREvent> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #eventType}. */
-    public static int neventType(long struct) { return UNSAFE.getInt(null, struct + VREvent.EVENTTYPE); }
+    public static int neventType(long struct) { return memGetInt(struct + VREvent.EVENTTYPE); }
     /** Unsafe version of {@link #trackedDeviceIndex}. */
-    public static int ntrackedDeviceIndex(long struct) { return UNSAFE.getInt(null, struct + VREvent.TRACKEDDEVICEINDEX); }
+    public static int ntrackedDeviceIndex(long struct) { return memGetInt(struct + VREvent.TRACKEDDEVICEINDEX); }
     /** Unsafe version of {@link #eventAgeSeconds}. */
-    public static float neventAgeSeconds(long struct) { return UNSAFE.getFloat(null, struct + VREvent.EVENTAGESECONDS); }
+    public static float neventAgeSeconds(long struct) { return memGetFloat(struct + VREvent.EVENTAGESECONDS); }
     /** Unsafe version of {@link #data}. */
     public static VREventData ndata(long struct) { return VREventData.create(struct + VREvent.DATA); }
 
@@ -271,6 +269,11 @@ public class VREvent extends Struct<VREvent> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class VkLatencySleepInfoNV extends Struct<VkLatencySleepInfoNV> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkLatencySleepInfoNV createSafe(long address) {
+    public static @Nullable VkLatencySleepInfoNV createSafe(long address) {
         return address == NULL ? null : new VkLatencySleepInfoNV(address, null);
     }
 
@@ -218,8 +217,7 @@ public class VkLatencySleepInfoNV extends Struct<VkLatencySleepInfoNV> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkLatencySleepInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkLatencySleepInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +262,22 @@ public class VkLatencySleepInfoNV extends Struct<VkLatencySleepInfoNV> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkLatencySleepInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkLatencySleepInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkLatencySleepInfoNV.PNEXT); }
     /** Unsafe version of {@link #signalSemaphore}. */
-    public static long nsignalSemaphore(long struct) { return UNSAFE.getLong(null, struct + VkLatencySleepInfoNV.SIGNALSEMAPHORE); }
+    public static long nsignalSemaphore(long struct) { return memGetLong(struct + VkLatencySleepInfoNV.SIGNALSEMAPHORE); }
     /** Unsafe version of {@link #value}. */
-    public static long nvalue(long struct) { return UNSAFE.getLong(null, struct + VkLatencySleepInfoNV.VALUE); }
+    public static long nvalue(long struct) { return memGetLong(struct + VkLatencySleepInfoNV.VALUE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkLatencySleepInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkLatencySleepInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkLatencySleepInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #signalSemaphore(long) signalSemaphore}. */
-    public static void nsignalSemaphore(long struct, long value) { UNSAFE.putLong(null, struct + VkLatencySleepInfoNV.SIGNALSEMAPHORE, value); }
+    public static void nsignalSemaphore(long struct, long value) { memPutLong(struct + VkLatencySleepInfoNV.SIGNALSEMAPHORE, value); }
     /** Unsafe version of {@link #value(long) value}. */
-    public static void nvalue(long struct, long value) { UNSAFE.putLong(null, struct + VkLatencySleepInfoNV.VALUE, value); }
+    public static void nvalue(long struct, long value) { memPutLong(struct + VkLatencySleepInfoNV.VALUE, value); }
 
     // -----------------------------------
 
@@ -312,6 +310,11 @@ public class VkLatencySleepInfoNV extends Struct<VkLatencySleepInfoNV> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

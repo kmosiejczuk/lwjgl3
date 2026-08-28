@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -90,8 +90,7 @@ class NkConfigStackFlagsElement extends Struct<NkConfigStackFlagsElement> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackFlagsElement createSafe(long address) {
+    public static @Nullable NkConfigStackFlagsElement createSafe(long address) {
         return address == NULL ? null : new NkConfigStackFlagsElement(address, null);
     }
 
@@ -106,8 +105,7 @@ class NkConfigStackFlagsElement extends Struct<NkConfigStackFlagsElement> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackFlagsElement.Buffer createSafe(long address, int capacity) {
+    public static NkConfigStackFlagsElement.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -116,7 +114,7 @@ class NkConfigStackFlagsElement extends Struct<NkConfigStackFlagsElement> {
     /** Unsafe version of {@link #pValues(int) pValues}. */
     public static IntBuffer npValues(long struct, int capacity) { return memIntBuffer(memGetAddress(struct + NkConfigStackFlagsElement.PVALUES), capacity); }
     /** Unsafe version of {@link #old_value}. */
-    public static int nold_value(long struct) { return UNSAFE.getInt(null, struct + NkConfigStackFlagsElement.OLD_VALUE); }
+    public static int nold_value(long struct) { return memGetInt(struct + NkConfigStackFlagsElement.OLD_VALUE); }
 
     // -----------------------------------
 
@@ -149,6 +147,11 @@ class NkConfigStackFlagsElement extends Struct<NkConfigStackFlagsElement> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

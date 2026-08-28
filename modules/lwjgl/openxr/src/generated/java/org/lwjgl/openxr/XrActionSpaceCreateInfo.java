@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -182,8 +182,7 @@ public class XrActionSpaceCreateInfo extends Struct<XrActionSpaceCreateInfo> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionSpaceCreateInfo createSafe(long address) {
+    public static @Nullable XrActionSpaceCreateInfo createSafe(long address) {
         return address == NULL ? null : new XrActionSpaceCreateInfo(address, null);
     }
 
@@ -226,8 +225,7 @@ public class XrActionSpaceCreateInfo extends Struct<XrActionSpaceCreateInfo> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionSpaceCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static XrActionSpaceCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,24 +270,24 @@ public class XrActionSpaceCreateInfo extends Struct<XrActionSpaceCreateInfo> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrActionSpaceCreateInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrActionSpaceCreateInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrActionSpaceCreateInfo.NEXT); }
     /** Unsafe version of {@link #action}. */
     public static long naction(long struct) { return memGetAddress(struct + XrActionSpaceCreateInfo.ACTION); }
     /** Unsafe version of {@link #subactionPath}. */
-    public static long nsubactionPath(long struct) { return UNSAFE.getLong(null, struct + XrActionSpaceCreateInfo.SUBACTIONPATH); }
+    public static long nsubactionPath(long struct) { return memGetLong(struct + XrActionSpaceCreateInfo.SUBACTIONPATH); }
     /** Unsafe version of {@link #poseInActionSpace}. */
     public static XrPosef nposeInActionSpace(long struct) { return XrPosef.create(struct + XrActionSpaceCreateInfo.POSEINACTIONSPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrActionSpaceCreateInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrActionSpaceCreateInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrActionSpaceCreateInfo.NEXT, value); }
     /** Unsafe version of {@link #action(XrAction) action}. */
     public static void naction(long struct, XrAction value) { memPutAddress(struct + XrActionSpaceCreateInfo.ACTION, value.address()); }
     /** Unsafe version of {@link #subactionPath(long) subactionPath}. */
-    public static void nsubactionPath(long struct, long value) { UNSAFE.putLong(null, struct + XrActionSpaceCreateInfo.SUBACTIONPATH, value); }
+    public static void nsubactionPath(long struct, long value) { memPutLong(struct + XrActionSpaceCreateInfo.SUBACTIONPATH, value); }
     /** Unsafe version of {@link #poseInActionSpace(XrPosef) poseInActionSpace}. */
     public static void nposeInActionSpace(long struct, XrPosef value) { memCopy(value.address(), struct + XrActionSpaceCreateInfo.POSEINACTIONSPACE, XrPosef.SIZEOF); }
 
@@ -333,6 +331,11 @@ public class XrActionSpaceCreateInfo extends Struct<XrActionSpaceCreateInfo> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

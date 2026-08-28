@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -133,8 +133,7 @@ public class hb_ot_math_kern_entry_t extends Struct<hb_ot_math_kern_entry_t> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_math_kern_entry_t createSafe(long address) {
+    public static @Nullable hb_ot_math_kern_entry_t createSafe(long address) {
         return address == NULL ? null : new hb_ot_math_kern_entry_t(address, null);
     }
 
@@ -177,8 +176,7 @@ public class hb_ot_math_kern_entry_t extends Struct<hb_ot_math_kern_entry_t> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_math_kern_entry_t.Buffer createSafe(long address, int capacity) {
+    public static hb_ot_math_kern_entry_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,14 +221,14 @@ public class hb_ot_math_kern_entry_t extends Struct<hb_ot_math_kern_entry_t> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #max_correction_height}. */
-    public static int nmax_correction_height(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_kern_entry_t.MAX_CORRECTION_HEIGHT); }
+    public static int nmax_correction_height(long struct) { return memGetInt(struct + hb_ot_math_kern_entry_t.MAX_CORRECTION_HEIGHT); }
     /** Unsafe version of {@link #kern_value}. */
-    public static int nkern_value(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_kern_entry_t.KERN_VALUE); }
+    public static int nkern_value(long struct) { return memGetInt(struct + hb_ot_math_kern_entry_t.KERN_VALUE); }
 
     /** Unsafe version of {@link #max_correction_height(int) max_correction_height}. */
-    public static void nmax_correction_height(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_kern_entry_t.MAX_CORRECTION_HEIGHT, value); }
+    public static void nmax_correction_height(long struct, int value) { memPutInt(struct + hb_ot_math_kern_entry_t.MAX_CORRECTION_HEIGHT, value); }
     /** Unsafe version of {@link #kern_value(int) kern_value}. */
-    public static void nkern_value(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_kern_entry_t.KERN_VALUE, value); }
+    public static void nkern_value(long struct, int value) { memPutInt(struct + hb_ot_math_kern_entry_t.KERN_VALUE, value); }
 
     // -----------------------------------
 
@@ -263,6 +261,11 @@ public class hb_ot_math_kern_entry_t extends Struct<hb_ot_math_kern_entry_t> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

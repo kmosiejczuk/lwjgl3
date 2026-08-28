@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkPrivateDataSlotCreateInfo extends Struct<VkPrivateDataSlotCreateI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPrivateDataSlotCreateInfo createSafe(long address) {
+    public static @Nullable VkPrivateDataSlotCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkPrivateDataSlotCreateInfo(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkPrivateDataSlotCreateInfo extends Struct<VkPrivateDataSlotCreateI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPrivateDataSlotCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkPrivateDataSlotCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +246,18 @@ public class VkPrivateDataSlotCreateInfo extends Struct<VkPrivateDataSlotCreateI
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPrivateDataSlotCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPrivateDataSlotCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPrivateDataSlotCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPrivateDataSlotCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPrivateDataSlotCreateInfo.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPrivateDataSlotCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPrivateDataSlotCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPrivateDataSlotCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPrivateDataSlotCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPrivateDataSlotCreateInfo.FLAGS, value); }
 
     // -----------------------------------
 
@@ -292,6 +290,11 @@ public class VkPrivateDataSlotCreateInfo extends Struct<VkPrivateDataSlotCreateI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

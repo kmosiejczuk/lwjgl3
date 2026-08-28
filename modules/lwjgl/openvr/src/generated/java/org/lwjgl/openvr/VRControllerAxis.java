@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class VRControllerAxis extends Struct<VRControllerAxis> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRControllerAxis createSafe(long address) {
+    public static @Nullable VRControllerAxis createSafe(long address) {
         return address == NULL ? null : new VRControllerAxis(address, null);
     }
 
@@ -176,8 +175,7 @@ public class VRControllerAxis extends Struct<VRControllerAxis> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRControllerAxis.Buffer createSafe(long address, int capacity) {
+    public static VRControllerAxis.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +239,14 @@ public class VRControllerAxis extends Struct<VRControllerAxis> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + VRControllerAxis.X); }
+    public static float nx(long struct) { return memGetFloat(struct + VRControllerAxis.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + VRControllerAxis.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + VRControllerAxis.Y); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + VRControllerAxis.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + VRControllerAxis.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + VRControllerAxis.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + VRControllerAxis.Y, value); }
 
     // -----------------------------------
 
@@ -281,6 +279,11 @@ public class VRControllerAxis extends Struct<VRControllerAxis> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

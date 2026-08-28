@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -98,10 +98,10 @@ public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhys
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that defined values are returned by sampled image operations when used with a sampler that uses a {@link VK10#VK_BORDER_COLOR_FLOAT_OPAQUE_BLACK BORDER_COLOR_FLOAT_OPAQUE_BLACK}, {@link VK10#VK_BORDER_COLOR_INT_OPAQUE_BLACK BORDER_COLOR_INT_OPAQUE_BLACK}, {@link EXTCustomBorderColor#VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT}, or {@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT} {@code borderColor} and an image view that uses a non-<a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-views-identity-mappings">identity component mapping</a>, when either {@code borderColorSwizzleFromImage} is enabled or the {@link VkSamplerBorderColorComponentMappingCreateInfoEXT} is specified. */
+    /** indicates that defined values are returned by sampled image operations when used with a sampler that uses a {@link VK10#VK_BORDER_COLOR_FLOAT_OPAQUE_BLACK BORDER_COLOR_FLOAT_OPAQUE_BLACK}, {@link VK10#VK_BORDER_COLOR_INT_OPAQUE_BLACK BORDER_COLOR_INT_OPAQUE_BLACK}, {@link EXTCustomBorderColor#VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT}, or {@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT} {@code borderColor} and an image view that uses a non-<a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-image-views-identity-mappings">identity component mapping</a>, when either {@code borderColorSwizzleFromImage} is enabled or the {@link VkSamplerBorderColorComponentMappingCreateInfoEXT} is specified. */
     @NativeType("VkBool32")
     public boolean borderColorSwizzle() { return nborderColorSwizzle(address()) != 0; }
-    /** indicates that the implementation will return the correct border color values from sampled image operations under the conditions expressed above, without the application having to specify the border color component mapping when creating the sampler object. If this feature bit is not set, applications <b>can</b> chain a {@link VkSamplerBorderColorComponentMappingCreateInfoEXT} structure when creating samplers for use with image views that do not have an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-views-identity-mappings">identity swizzle</a> and, when those samplers are combined with image views using the same component mapping, sampled image operations that use opaque black or custom border colors will return the correct border color values. */
+    /** indicates that the implementation will return the correct border color values from sampled image operations under the conditions expressed above, without the application having to specify the border color component mapping when creating the sampler object. If this feature bit is not set, applications <b>can</b> chain a {@link VkSamplerBorderColorComponentMappingCreateInfoEXT} structure when creating samplers for use with image views that do not have an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-image-views-identity-mappings">identity swizzle</a> and, when those samplers are combined with image views using the same component mapping, sampled image operations that use opaque black or custom border colors will return the correct border color values. */
     @NativeType("VkBool32")
     public boolean borderColorSwizzleFromImage() { return nborderColorSwizzleFromImage(address()) != 0; }
 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBorderColorSwizzleFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceBorderColorSwizzleFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceBorderColorSwizzleFeaturesEXT(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #borderColorSwizzle}. */
-    public static int nborderColorSwizzle(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLE); }
+    public static int nborderColorSwizzle(long struct) { return memGetInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLE); }
     /** Unsafe version of {@link #borderColorSwizzleFromImage}. */
-    public static int nborderColorSwizzleFromImage(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLEFROMIMAGE); }
+    public static int nborderColorSwizzleFromImage(long struct) { return memGetInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLEFROMIMAGE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #borderColorSwizzle(boolean) borderColorSwizzle}. */
-    public static void nborderColorSwizzle(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLE, value); }
+    public static void nborderColorSwizzle(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLE, value); }
     /** Unsafe version of {@link #borderColorSwizzleFromImage(boolean) borderColorSwizzleFromImage}. */
-    public static void nborderColorSwizzleFromImage(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLEFROMIMAGE, value); }
+    public static void nborderColorSwizzleFromImage(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLEFROMIMAGE, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class XrFutureCancelInfoEXT extends Struct<XrFutureCancelInfoEXT> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFutureCancelInfoEXT createSafe(long address) {
+    public static @Nullable XrFutureCancelInfoEXT createSafe(long address) {
         return address == NULL ? null : new XrFutureCancelInfoEXT(address, null);
     }
 
@@ -206,8 +205,7 @@ public class XrFutureCancelInfoEXT extends Struct<XrFutureCancelInfoEXT> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFutureCancelInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static XrFutureCancelInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class XrFutureCancelInfoEXT extends Struct<XrFutureCancelInfoEXT> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFutureCancelInfoEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFutureCancelInfoEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFutureCancelInfoEXT.NEXT); }
     /** Unsafe version of {@link #future}. */
-    public static long nfuture(long struct) { return UNSAFE.getLong(null, struct + XrFutureCancelInfoEXT.FUTURE); }
+    public static long nfuture(long struct) { return memGetLong(struct + XrFutureCancelInfoEXT.FUTURE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFutureCancelInfoEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFutureCancelInfoEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFutureCancelInfoEXT.NEXT, value); }
     /** Unsafe version of {@link #future(long) future}. */
-    public static void nfuture(long struct, long value) { UNSAFE.putLong(null, struct + XrFutureCancelInfoEXT.FUTURE, value); }
+    public static void nfuture(long struct, long value) { memPutLong(struct + XrFutureCancelInfoEXT.FUTURE, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class XrFutureCancelInfoEXT extends Struct<XrFutureCancelInfoEXT> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

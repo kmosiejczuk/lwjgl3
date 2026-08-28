@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCubicWeightsFeaturesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCubicWeightsFeaturesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCubicWeightsFeaturesQCOM(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCubicWeightsFeaturesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCubicWeightsFeaturesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.PNEXT); }
     /** Unsafe version of {@link #selectableCubicWeights}. */
-    public static int nselectableCubicWeights(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.SELECTABLECUBICWEIGHTS); }
+    public static int nselectableCubicWeights(long struct) { return memGetInt(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.SELECTABLECUBICWEIGHTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #selectableCubicWeights(boolean) selectableCubicWeights}. */
-    public static void nselectableCubicWeights(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.SELECTABLECUBICWEIGHTS, value); }
+    public static void nselectableCubicWeights(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.SELECTABLECUBICWEIGHTS, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

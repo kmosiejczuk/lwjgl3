@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.nfd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -83,8 +83,7 @@ public class NFDPathSetEnum extends Struct<NFDPathSetEnum> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NFDPathSetEnum createSafe(long address) {
+    public static @Nullable NFDPathSetEnum createSafe(long address) {
         return address == NULL ? null : new NFDPathSetEnum(address, null);
     }
 
@@ -127,8 +126,7 @@ public class NFDPathSetEnum extends Struct<NFDPathSetEnum> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NFDPathSetEnum.Buffer createSafe(long address, int capacity) {
+    public static NFDPathSetEnum.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -203,6 +201,11 @@ public class NFDPathSetEnum extends Struct<NFDPathSetEnum> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

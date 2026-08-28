@@ -4,9 +4,9 @@
  */
 package org.lwjgl.system;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
 
-import javax.annotation.*;
 import java.nio.*;
 import java.util.*;
 
@@ -37,8 +37,7 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     }
 
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    @Nullable
-    private final ByteBuffer container;
+    private final @Nullable ByteBuffer container;
 
     private final int size;
 
@@ -171,7 +170,7 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     /** Stores the method that pushed a frame and checks if it is the same method when the frame is popped. */
     private static class DebugMemoryStack extends MemoryStack {
 
-        private Object[] debugFrames;
+        private @Nullable Object[] debugFrames;
 
         DebugMemoryStack(@Nullable ByteBuffer buffer, long address, int size) {
             super(buffer, address, size);
@@ -356,14 +355,14 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
         if (DEBUG) {
             checkAlignment(alignment);
         }
-        return MemoryUtil.wrap(BUFFER_BYTE, nmalloc(alignment, size), size).order(NATIVE_ORDER);
+        return MemoryUtil.wrapBufferByte(nmalloc(alignment, size), size);
     }
     /** Calloc version of {@link #malloc(int, int)}. */
     public ByteBuffer calloc(int alignment, int size) {
         if (DEBUG) {
             checkAlignment(alignment);
         }
-        return MemoryUtil.wrap(BUFFER_BYTE, ncalloc(alignment, size, 1), size).order(NATIVE_ORDER);
+        return MemoryUtil.wrapBufferByte(ncalloc(alignment, size, 1), size);
     }
 
     /**
@@ -374,11 +373,11 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
      * @return the allocated buffer
      */
     public ByteBuffer malloc(int size) {
-        return MemoryUtil.wrap(BUFFER_BYTE, nmalloc(POINTER_SIZE, size), size).order(NATIVE_ORDER);
+        return MemoryUtil.wrapBufferByte(nmalloc(POINTER_SIZE, size), size);
     }
     /** Calloc version of {@link #malloc(int)}. */
     public ByteBuffer calloc(int size) {
-        return MemoryUtil.wrap(BUFFER_BYTE, ncalloc(POINTER_SIZE, size, 1), size).order(NATIVE_ORDER);
+        return MemoryUtil.wrapBufferByte(ncalloc(POINTER_SIZE, size, 1), size);
     }
 
     /** Unsafe version of {@link #bytes(byte)}. */
@@ -405,13 +404,13 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     // -------------------------------------------------
 
     /** Short version of {@link #malloc(int)}. */
-    public ShortBuffer mallocShort(int size) { return MemoryUtil.wrap(BUFFER_SHORT, nmalloc(2, size << 1), size); }
+    public ShortBuffer mallocShort(int size) { return MemoryUtil.wrapBufferShort(nmalloc(2, size << 1), size); }
     /** Short version of {@link #calloc(int)}. */
     public ShortBuffer callocShort(int size) {
         int  bytes   = size * 2;
         long address = nmalloc(2, bytes);
         memSet(address, 0, bytes);
-        return MemoryUtil.wrap(BUFFER_SHORT, address, size);
+        return MemoryUtil.wrapBufferShort(address, size);
     }
 
     /** Unsafe version of {@link #shorts(short)}. */
@@ -438,13 +437,13 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     // -------------------------------------------------
 
     /** Int version of {@link #malloc(int)}. */
-    public IntBuffer mallocInt(int size) { return MemoryUtil.wrap(BUFFER_INT, nmalloc(4, size << 2), size); }
+    public IntBuffer mallocInt(int size) { return MemoryUtil.wrapBufferInt(nmalloc(4, size << 2), size); }
     /** Int version of {@link #calloc(int)}. */
     public IntBuffer callocInt(int size) {
         int  bytes   = size * 4;
         long address = nmalloc(4, bytes);
         memSet(address, 0, bytes);
-        return MemoryUtil.wrap(BUFFER_INT, address, size);
+        return MemoryUtil.wrapBufferInt(address, size);
     }
 
     /** Unsafe version of {@link #ints(int)}. */
@@ -471,13 +470,13 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     // -------------------------------------------------
 
     /** Long version of {@link #malloc(int)}. */
-    public LongBuffer mallocLong(int size) { return MemoryUtil.wrap(BUFFER_LONG, nmalloc(8, size << 3), size); }
+    public LongBuffer mallocLong(int size) { return MemoryUtil.wrapBufferLong(nmalloc(8, size << 3), size); }
     /** Long version of {@link #calloc(int)}. */
     public LongBuffer callocLong(int size) {
         int  bytes   = size * 8;
         long address = nmalloc(8, bytes);
         memSet(address, 0, bytes);
-        return MemoryUtil.wrap(BUFFER_LONG, address, size);
+        return MemoryUtil.wrapBufferLong(address, size);
     }
 
     /** Unsafe version of {@link #longs(long)}. */
@@ -537,13 +536,13 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     // -------------------------------------------------
 
     /** Float version of {@link #malloc(int)}. */
-    public FloatBuffer mallocFloat(int size) { return MemoryUtil.wrap(BUFFER_FLOAT, nmalloc(4, size << 2), size); }
+    public FloatBuffer mallocFloat(int size) { return MemoryUtil.wrapBufferFloat(nmalloc(4, size << 2), size); }
     /** Float version of {@link #calloc(int)}. */
     public FloatBuffer callocFloat(int size) {
         int  bytes   = size * 4;
         long address = nmalloc(4, bytes);
         memSet(address, 0, bytes);
-        return MemoryUtil.wrap(BUFFER_FLOAT, address, size);
+        return MemoryUtil.wrapBufferFloat(address, size);
     }
 
     /** Unsafe version of {@link #floats(float)}. */
@@ -570,13 +569,13 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     // -------------------------------------------------
 
     /** Double version of {@link #malloc(int)}. */
-    public DoubleBuffer mallocDouble(int size) { return MemoryUtil.wrap(BUFFER_DOUBLE, nmalloc(8, size << 3), size); }
+    public DoubleBuffer mallocDouble(int size) { return MemoryUtil.wrapBufferDouble(nmalloc(8, size << 3), size); }
     /** Double version of {@link #calloc(int)}. */
     public DoubleBuffer callocDouble(int size) {
         int  bytes   = size * 8;
         long address = nmalloc(8, bytes);
         memSet(address, 0, bytes);
-        return MemoryUtil.wrap(BUFFER_DOUBLE, address, size);
+        return MemoryUtil.wrapBufferDouble(address, size);
     }
 
     /** Unsafe version of {@link #doubles(double)}. */
@@ -747,7 +746,7 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
         int  length = memLengthASCII(text, nullTerminated);
         long target = nmalloc(POINTER_SIZE, length);
         encodeASCIIUnsafe(text, nullTerminated, target);
-        return MemoryUtil.wrap(BUFFER_BYTE, target, length).order(NATIVE_ORDER);
+        return MemoryUtil.wrapBufferByte(target, length);
     }
 
     /**
@@ -765,14 +764,12 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     }
 
     /** Like {@link #ASCII(CharSequence) ASCII}, but returns {@code null} if {@code text} is {@code null}. */
-    @Nullable
-    public ByteBuffer ASCIISafe(@Nullable CharSequence text) {
+    public @Nullable ByteBuffer ASCIISafe(@Nullable CharSequence text) {
         return ASCIISafe(text, true);
     }
 
     /** Like {@link #ASCII(CharSequence, boolean) ASCII}, but returns {@code null} if {@code text} is {@code null}. */
-    @Nullable
-    public ByteBuffer ASCIISafe(@Nullable CharSequence text, boolean nullTerminated) {
+    public @Nullable ByteBuffer ASCIISafe(@Nullable CharSequence text, boolean nullTerminated) {
         return text == null ? null : ASCII(text, nullTerminated);
     }
 
@@ -805,7 +802,7 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
         int  length = memLengthUTF8(text, nullTerminated);
         long target = nmalloc(POINTER_SIZE, length);
         encodeUTF8Unsafe(text, nullTerminated, target);
-        return MemoryUtil.wrap(BUFFER_BYTE, target, length).order(NATIVE_ORDER);
+        return MemoryUtil.wrapBufferByte(target, length);
     }
 
     /**
@@ -823,14 +820,12 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     }
 
     /** Like {@link #UTF8(CharSequence) UTF8}, but returns {@code null} if {@code text} is {@code null}. */
-    @Nullable
-    public ByteBuffer UTF8Safe(@Nullable CharSequence text) {
+    public @Nullable ByteBuffer UTF8Safe(@Nullable CharSequence text) {
         return UTF8Safe(text, true);
     }
 
     /** Like {@link #UTF8(CharSequence, boolean) UTF8}, but returns {@code null} if {@code text} is {@code null}. */
-    @Nullable
-    public ByteBuffer UTF8Safe(@Nullable CharSequence text, boolean nullTerminated) {
+    public @Nullable ByteBuffer UTF8Safe(@Nullable CharSequence text, boolean nullTerminated) {
         return text == null ? null : UTF8(text, nullTerminated);
     }
 
@@ -863,7 +858,7 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
         int  length = memLengthUTF16(text, nullTerminated);
         long target = nmalloc(POINTER_SIZE, length);
         encodeUTF16Unsafe(text, nullTerminated, target);
-        return MemoryUtil.wrap(BUFFER_BYTE, target, length).order(NATIVE_ORDER);
+        return MemoryUtil.wrapBufferByte(target, length);
     }
 
     /**
@@ -881,14 +876,12 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     }
 
     /** Like {@link #UTF16(CharSequence) UTF16}, but returns {@code null} if {@code text} is {@code null}. */
-    @Nullable
-    public ByteBuffer UTF16Safe(@Nullable CharSequence text) {
+    public @Nullable ByteBuffer UTF16Safe(@Nullable CharSequence text) {
         return UTF16Safe(text, true);
     }
 
     /** Like {@link #UTF16(CharSequence, boolean) UTF16}, but returns {@code null} if {@code text} is {@code null}. */
-    @Nullable
-    public ByteBuffer UTF16Safe(@Nullable CharSequence text, boolean nullTerminated) {
+    public @Nullable ByteBuffer UTF16Safe(@Nullable CharSequence text, boolean nullTerminated) {
         return text == null ? null : UTF16(text, nullTerminated);
     }
 
@@ -1107,21 +1100,21 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     public static ByteBuffer stackUTF16(CharSequence text, boolean nullTerminated) { return stackGet().UTF16(text, nullTerminated); }
 
     /** Thread-local version of {@link #ASCII(CharSequence)}. */
-    @Nullable public static ByteBuffer stackASCIISafe(@Nullable CharSequence text) { return stackGet().ASCIISafe(text); }
+    public static @Nullable ByteBuffer stackASCIISafe(@Nullable CharSequence text) { return stackGet().ASCIISafe(text); }
 
     /** Thread-local version of {@link #ASCII(CharSequence, boolean)}. */
-    @Nullable public static ByteBuffer stackASCIISafe(@Nullable CharSequence text, boolean nullTerminated) { return stackGet().ASCIISafe(text, nullTerminated); }
+    public static @Nullable ByteBuffer stackASCIISafe(@Nullable CharSequence text, boolean nullTerminated) { return stackGet().ASCIISafe(text, nullTerminated); }
 
     /** Thread-local version of {@link #UTF8(CharSequence)}. */
-    @Nullable public static ByteBuffer stackUTF8Safe(@Nullable CharSequence text) { return stackGet().UTF8Safe(text); }
+    public static @Nullable ByteBuffer stackUTF8Safe(@Nullable CharSequence text) { return stackGet().UTF8Safe(text); }
 
     /** Thread-local version of {@link #UTF8(CharSequence, boolean)}. */
-    @Nullable public static ByteBuffer stackUTF8Safe(@Nullable CharSequence text, boolean nullTerminated) { return stackGet().UTF8Safe(text, nullTerminated); }
+    public static @Nullable ByteBuffer stackUTF8Safe(@Nullable CharSequence text, boolean nullTerminated) { return stackGet().UTF8Safe(text, nullTerminated); }
 
     /** Thread-local version of {@link #UTF16(CharSequence)}. */
-    @Nullable public static ByteBuffer stackUTF16Safe(@Nullable CharSequence text) { return stackGet().UTF16Safe(text); }
+    public static @Nullable ByteBuffer stackUTF16Safe(@Nullable CharSequence text) { return stackGet().UTF16Safe(text); }
 
     /** Thread-local version of {@link #UTF16(CharSequence, boolean)}. */
-    @Nullable public static ByteBuffer stackUTF16Safe(@Nullable CharSequence text, boolean nullTerminated) { return stackGet().UTF16Safe(text, nullTerminated); }
+    public static @Nullable ByteBuffer stackUTF16Safe(@Nullable CharSequence text, boolean nullTerminated) { return stackGet().UTF16Safe(text, nullTerminated); }
 
 }

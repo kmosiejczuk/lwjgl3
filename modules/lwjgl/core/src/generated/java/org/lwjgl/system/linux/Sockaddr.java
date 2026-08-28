@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -140,8 +140,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static Sockaddr createSafe(long address) {
+    public static @Nullable Sockaddr createSafe(long address) {
         return address == NULL ? null : new Sockaddr(address, null);
     }
 
@@ -184,8 +183,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static Sockaddr.Buffer createSafe(long address, int capacity) {
+    public static Sockaddr.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -230,16 +228,16 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #sa_family}. */
-    public static short nsa_family(long struct) { return UNSAFE.getShort(null, struct + Sockaddr.SA_FAMILY); }
+    public static short nsa_family(long struct) { return memGetShort(struct + Sockaddr.SA_FAMILY); }
     /** Unsafe version of {@link #sa_data}. */
     public static ByteBuffer nsa_data(long struct) { return memByteBuffer(struct + Sockaddr.SA_DATA, 14); }
     /** Unsafe version of {@link #sa_data(int) sa_data}. */
     public static byte nsa_data(long struct, int index) {
-        return UNSAFE.getByte(null, struct + Sockaddr.SA_DATA + check(index, 14) * 1);
+        return memGetByte(struct + Sockaddr.SA_DATA + check(index, 14) * 1);
     }
 
     /** Unsafe version of {@link #sa_family(short) sa_family}. */
-    public static void nsa_family(long struct, short value) { UNSAFE.putShort(null, struct + Sockaddr.SA_FAMILY, value); }
+    public static void nsa_family(long struct, short value) { memPutShort(struct + Sockaddr.SA_FAMILY, value); }
     /** Unsafe version of {@link #sa_data(ByteBuffer) sa_data}. */
     public static void nsa_data(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 14); }
@@ -247,7 +245,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
     }
     /** Unsafe version of {@link #sa_data(int, byte) sa_data}. */
     public static void nsa_data(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + Sockaddr.SA_DATA + check(index, 14) * 1, value);
+        memPutByte(struct + Sockaddr.SA_DATA + check(index, 14) * 1, value);
     }
 
     // -----------------------------------
@@ -281,6 +279,11 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

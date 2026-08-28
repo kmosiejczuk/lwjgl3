@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -143,8 +143,7 @@ public class UIVec2 extends Struct<UIVec2> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static UIVec2 createSafe(long address) {
+    public static @Nullable UIVec2 createSafe(long address) {
         return address == NULL ? null : new UIVec2(address, null);
     }
 
@@ -187,8 +186,7 @@ public class UIVec2 extends Struct<UIVec2> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static UIVec2.Buffer createSafe(long address, int capacity) {
+    public static UIVec2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,12 +253,12 @@ public class UIVec2 extends Struct<UIVec2> implements NativeResource {
     public static IntBuffer nv(long struct) { return memIntBuffer(struct + UIVec2.V, 2); }
     /** Unsafe version of {@link #v(int) v}. */
     public static int nv(long struct, int index) {
-        return UNSAFE.getInt(null, struct + UIVec2.V + check(index, 2) * 4);
+        return memGetInt(struct + UIVec2.V + check(index, 2) * 4);
     }
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + UIVec2.X); }
+    public static int nx(long struct) { return memGetInt(struct + UIVec2.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + UIVec2.Y); }
+    public static int ny(long struct) { return memGetInt(struct + UIVec2.Y); }
 
     /** Unsafe version of {@link #v(IntBuffer) v}. */
     public static void nv(long struct, IntBuffer value) {
@@ -269,12 +267,12 @@ public class UIVec2 extends Struct<UIVec2> implements NativeResource {
     }
     /** Unsafe version of {@link #v(int, int) v}. */
     public static void nv(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + UIVec2.V + check(index, 2) * 4, value);
+        memPutInt(struct + UIVec2.V + check(index, 2) * 4, value);
     }
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + UIVec2.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + UIVec2.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + UIVec2.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + UIVec2.Y, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class UIVec2 extends Struct<UIVec2> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

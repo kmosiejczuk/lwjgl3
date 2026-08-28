@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class XrVirtualKeyboardTextContextChangeInfoMETA extends Struct<XrVirtual
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardTextContextChangeInfoMETA createSafe(long address) {
+    public static @Nullable XrVirtualKeyboardTextContextChangeInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrVirtualKeyboardTextContextChangeInfoMETA(address, null);
     }
 
@@ -207,8 +206,7 @@ public class XrVirtualKeyboardTextContextChangeInfoMETA extends Struct<XrVirtual
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardTextContextChangeInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrVirtualKeyboardTextContextChangeInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,7 +251,7 @@ public class XrVirtualKeyboardTextContextChangeInfoMETA extends Struct<XrVirtual
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardTextContextChangeInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVirtualKeyboardTextContextChangeInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVirtualKeyboardTextContextChangeInfoMETA.NEXT); }
     /** Unsafe version of {@link #textContext}. */
@@ -262,7 +260,7 @@ public class XrVirtualKeyboardTextContextChangeInfoMETA extends Struct<XrVirtual
     public static String ntextContextString(long struct) { return memUTF8(memGetAddress(struct + XrVirtualKeyboardTextContextChangeInfoMETA.TEXTCONTEXT)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardTextContextChangeInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVirtualKeyboardTextContextChangeInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVirtualKeyboardTextContextChangeInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #textContext(ByteBuffer) textContext}. */
@@ -311,6 +309,11 @@ public class XrVirtualKeyboardTextContextChangeInfoMETA extends Struct<XrVirtual
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

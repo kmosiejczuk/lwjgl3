@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -82,13 +82,13 @@ public class VkVideoEncodeH264QpKHR extends Struct<VkVideoEncodeH264QpKHR> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the QP to be used for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-i-pic">I pictures</a>. */
+    /** the QP to be used for <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-i-pic">I pictures</a>. */
     @NativeType("int32_t")
     public int qpI() { return nqpI(address()); }
-    /** the QP to be used for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-p-pic">P pictures</a>. */
+    /** the QP to be used for <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-p-pic">P pictures</a>. */
     @NativeType("int32_t")
     public int qpP() { return nqpP(address()); }
-    /** the QP to be used for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-b-pic">B pictures</a>. */
+    /** the QP to be used for <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-b-pic">B pictures</a>. */
     @NativeType("int32_t")
     public int qpB() { return nqpB(address()); }
 
@@ -148,8 +148,7 @@ public class VkVideoEncodeH264QpKHR extends Struct<VkVideoEncodeH264QpKHR> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264QpKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264QpKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264QpKHR(address, null);
     }
 
@@ -192,8 +191,7 @@ public class VkVideoEncodeH264QpKHR extends Struct<VkVideoEncodeH264QpKHR> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264QpKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264QpKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -238,18 +236,18 @@ public class VkVideoEncodeH264QpKHR extends Struct<VkVideoEncodeH264QpKHR> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #qpI}. */
-    public static int nqpI(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QpKHR.QPI); }
+    public static int nqpI(long struct) { return memGetInt(struct + VkVideoEncodeH264QpKHR.QPI); }
     /** Unsafe version of {@link #qpP}. */
-    public static int nqpP(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QpKHR.QPP); }
+    public static int nqpP(long struct) { return memGetInt(struct + VkVideoEncodeH264QpKHR.QPP); }
     /** Unsafe version of {@link #qpB}. */
-    public static int nqpB(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QpKHR.QPB); }
+    public static int nqpB(long struct) { return memGetInt(struct + VkVideoEncodeH264QpKHR.QPB); }
 
     /** Unsafe version of {@link #qpI(int) qpI}. */
-    public static void nqpI(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264QpKHR.QPI, value); }
+    public static void nqpI(long struct, int value) { memPutInt(struct + VkVideoEncodeH264QpKHR.QPI, value); }
     /** Unsafe version of {@link #qpP(int) qpP}. */
-    public static void nqpP(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264QpKHR.QPP, value); }
+    public static void nqpP(long struct, int value) { memPutInt(struct + VkVideoEncodeH264QpKHR.QPP, value); }
     /** Unsafe version of {@link #qpB(int) qpB}. */
-    public static void nqpB(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264QpKHR.QPB, value); }
+    public static void nqpB(long struct, int value) { memPutInt(struct + VkVideoEncodeH264QpKHR.QPB, value); }
 
     // -----------------------------------
 
@@ -282,6 +280,11 @@ public class VkVideoEncodeH264QpKHR extends Struct<VkVideoEncodeH264QpKHR> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

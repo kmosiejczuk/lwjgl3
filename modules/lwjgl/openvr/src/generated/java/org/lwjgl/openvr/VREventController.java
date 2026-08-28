@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -81,8 +81,7 @@ public class VREventController extends Struct<VREventController> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventController createSafe(long address) {
+    public static @Nullable VREventController createSafe(long address) {
         return address == NULL ? null : new VREventController(address, null);
     }
 
@@ -97,15 +96,14 @@ public class VREventController extends Struct<VREventController> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventController.Buffer createSafe(long address, int capacity) {
+    public static VREventController.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #button}. */
-    public static int nbutton(long struct) { return UNSAFE.getInt(null, struct + VREventController.BUTTON); }
+    public static int nbutton(long struct) { return memGetInt(struct + VREventController.BUTTON); }
 
     // -----------------------------------
 
@@ -138,6 +136,11 @@ public class VREventController extends Struct<VREventController> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

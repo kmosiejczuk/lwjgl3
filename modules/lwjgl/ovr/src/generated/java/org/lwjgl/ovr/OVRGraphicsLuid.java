@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -106,8 +106,7 @@ public class OVRGraphicsLuid extends Struct<OVRGraphicsLuid> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRGraphicsLuid createSafe(long address) {
+    public static @Nullable OVRGraphicsLuid createSafe(long address) {
         return address == NULL ? null : new OVRGraphicsLuid(address, null);
     }
 
@@ -150,8 +149,7 @@ public class OVRGraphicsLuid extends Struct<OVRGraphicsLuid> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRGraphicsLuid.Buffer createSafe(long address, int capacity) {
+    public static OVRGraphicsLuid.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -218,7 +216,7 @@ public class OVRGraphicsLuid extends Struct<OVRGraphicsLuid> implements NativeRe
     public static ByteBuffer nReserved(long struct) { return memByteBuffer(struct + OVRGraphicsLuid.RESERVED, 8); }
     /** Unsafe version of {@link #Reserved(int) Reserved}. */
     public static byte nReserved(long struct, int index) {
-        return UNSAFE.getByte(null, struct + OVRGraphicsLuid.RESERVED + check(index, 8) * 1);
+        return memGetByte(struct + OVRGraphicsLuid.RESERVED + check(index, 8) * 1);
     }
 
     // -----------------------------------
@@ -252,6 +250,11 @@ public class OVRGraphicsLuid extends Struct<OVRGraphicsLuid> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

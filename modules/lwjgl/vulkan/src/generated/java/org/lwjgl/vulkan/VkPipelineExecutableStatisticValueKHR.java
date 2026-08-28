@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -104,8 +104,7 @@ public class VkPipelineExecutableStatisticValueKHR extends Struct<VkPipelineExec
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineExecutableStatisticValueKHR createSafe(long address) {
+    public static @Nullable VkPipelineExecutableStatisticValueKHR createSafe(long address) {
         return address == NULL ? null : new VkPipelineExecutableStatisticValueKHR(address, null);
     }
 
@@ -120,21 +119,20 @@ public class VkPipelineExecutableStatisticValueKHR extends Struct<VkPipelineExec
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineExecutableStatisticValueKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineExecutableStatisticValueKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #b32}. */
-    public static int nb32(long struct) { return UNSAFE.getInt(null, struct + VkPipelineExecutableStatisticValueKHR.B32); }
+    public static int nb32(long struct) { return memGetInt(struct + VkPipelineExecutableStatisticValueKHR.B32); }
     /** Unsafe version of {@link #i64}. */
-    public static long ni64(long struct) { return UNSAFE.getLong(null, struct + VkPipelineExecutableStatisticValueKHR.I64); }
+    public static long ni64(long struct) { return memGetLong(struct + VkPipelineExecutableStatisticValueKHR.I64); }
     /** Unsafe version of {@link #u64}. */
-    public static long nu64(long struct) { return UNSAFE.getLong(null, struct + VkPipelineExecutableStatisticValueKHR.U64); }
+    public static long nu64(long struct) { return memGetLong(struct + VkPipelineExecutableStatisticValueKHR.U64); }
     /** Unsafe version of {@link #f64}. */
-    public static double nf64(long struct) { return UNSAFE.getDouble(null, struct + VkPipelineExecutableStatisticValueKHR.F64); }
+    public static double nf64(long struct) { return memGetDouble(struct + VkPipelineExecutableStatisticValueKHR.F64); }
 
     // -----------------------------------
 
@@ -167,6 +165,11 @@ public class VkPipelineExecutableStatisticValueKHR extends Struct<VkPipelineExec
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

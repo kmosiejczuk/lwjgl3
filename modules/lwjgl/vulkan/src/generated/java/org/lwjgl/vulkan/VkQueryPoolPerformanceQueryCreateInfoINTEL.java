@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkQueryPoolPerformanceQueryCreateInfoINTEL extends Struct<VkQueryPo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolPerformanceQueryCreateInfoINTEL createSafe(long address) {
+    public static @Nullable VkQueryPoolPerformanceQueryCreateInfoINTEL createSafe(long address) {
         return address == NULL ? null : new VkQueryPoolPerformanceQueryCreateInfoINTEL(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkQueryPoolPerformanceQueryCreateInfoINTEL extends Struct<VkQueryPo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolPerformanceQueryCreateInfoINTEL.Buffer createSafe(long address, int capacity) {
+    public static VkQueryPoolPerformanceQueryCreateInfoINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,18 +241,18 @@ public class VkQueryPoolPerformanceQueryCreateInfoINTEL extends Struct<VkQueryPo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolPerformanceQueryCreateInfoINTEL.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueryPoolPerformanceQueryCreateInfoINTEL.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueryPoolPerformanceQueryCreateInfoINTEL.PNEXT); }
     /** Unsafe version of {@link #performanceCountersSampling}. */
-    public static int nperformanceCountersSampling(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolPerformanceQueryCreateInfoINTEL.PERFORMANCECOUNTERSSAMPLING); }
+    public static int nperformanceCountersSampling(long struct) { return memGetInt(struct + VkQueryPoolPerformanceQueryCreateInfoINTEL.PERFORMANCECOUNTERSSAMPLING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolPerformanceQueryCreateInfoINTEL.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueryPoolPerformanceQueryCreateInfoINTEL.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueryPoolPerformanceQueryCreateInfoINTEL.PNEXT, value); }
     /** Unsafe version of {@link #performanceCountersSampling(int) performanceCountersSampling}. */
-    public static void nperformanceCountersSampling(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolPerformanceQueryCreateInfoINTEL.PERFORMANCECOUNTERSSAMPLING, value); }
+    public static void nperformanceCountersSampling(long struct, int value) { memPutInt(struct + VkQueryPoolPerformanceQueryCreateInfoINTEL.PERFORMANCECOUNTERSSAMPLING, value); }
 
     // -----------------------------------
 
@@ -287,6 +285,11 @@ public class VkQueryPoolPerformanceQueryCreateInfoINTEL extends Struct<VkQueryPo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

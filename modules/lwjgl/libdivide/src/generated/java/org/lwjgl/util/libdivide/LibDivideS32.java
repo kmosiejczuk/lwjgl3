@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.libdivide;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class LibDivideS32 extends Struct<LibDivideS32> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LibDivideS32 createSafe(long address) {
+    public static @Nullable LibDivideS32 createSafe(long address) {
         return address == NULL ? null : new LibDivideS32(address, null);
     }
 
@@ -176,8 +175,7 @@ public class LibDivideS32 extends Struct<LibDivideS32> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LibDivideS32.Buffer createSafe(long address, int capacity) {
+    public static LibDivideS32.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +239,14 @@ public class LibDivideS32 extends Struct<LibDivideS32> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #magic}. */
-    public static int nmagic(long struct) { return UNSAFE.getInt(null, struct + LibDivideS32.MAGIC); }
+    public static int nmagic(long struct) { return memGetInt(struct + LibDivideS32.MAGIC); }
     /** Unsafe version of {@link #more}. */
-    public static byte nmore(long struct) { return UNSAFE.getByte(null, struct + LibDivideS32.MORE); }
+    public static byte nmore(long struct) { return memGetByte(struct + LibDivideS32.MORE); }
 
     /** Unsafe version of {@link #magic(int) magic}. */
-    public static void nmagic(long struct, int value) { UNSAFE.putInt(null, struct + LibDivideS32.MAGIC, value); }
+    public static void nmagic(long struct, int value) { memPutInt(struct + LibDivideS32.MAGIC, value); }
     /** Unsafe version of {@link #more(byte) more}. */
-    public static void nmore(long struct, byte value) { UNSAFE.putByte(null, struct + LibDivideS32.MORE, value); }
+    public static void nmore(long struct, byte value) { memPutByte(struct + LibDivideS32.MORE, value); }
 
     // -----------------------------------
 
@@ -281,6 +279,11 @@ public class LibDivideS32 extends Struct<LibDivideS32> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

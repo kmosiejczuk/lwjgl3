@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class XrSystemVirtualKeyboardPropertiesMETA extends Struct<XrSystemVirtua
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemVirtualKeyboardPropertiesMETA createSafe(long address) {
+    public static @Nullable XrSystemVirtualKeyboardPropertiesMETA createSafe(long address) {
         return address == NULL ? null : new XrSystemVirtualKeyboardPropertiesMETA(address, null);
     }
 
@@ -202,8 +201,7 @@ public class XrSystemVirtualKeyboardPropertiesMETA extends Struct<XrSystemVirtua
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemVirtualKeyboardPropertiesMETA.Buffer createSafe(long address, int capacity) {
+    public static XrSystemVirtualKeyboardPropertiesMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +246,14 @@ public class XrSystemVirtualKeyboardPropertiesMETA extends Struct<XrSystemVirtua
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemVirtualKeyboardPropertiesMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemVirtualKeyboardPropertiesMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemVirtualKeyboardPropertiesMETA.NEXT); }
     /** Unsafe version of {@link #supportsVirtualKeyboard}. */
-    public static int nsupportsVirtualKeyboard(long struct) { return UNSAFE.getInt(null, struct + XrSystemVirtualKeyboardPropertiesMETA.SUPPORTSVIRTUALKEYBOARD); }
+    public static int nsupportsVirtualKeyboard(long struct) { return memGetInt(struct + XrSystemVirtualKeyboardPropertiesMETA.SUPPORTSVIRTUALKEYBOARD); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemVirtualKeyboardPropertiesMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemVirtualKeyboardPropertiesMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemVirtualKeyboardPropertiesMETA.NEXT, value); }
 
@@ -290,6 +288,11 @@ public class XrSystemVirtualKeyboardPropertiesMETA extends Struct<XrSystemVirtua
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

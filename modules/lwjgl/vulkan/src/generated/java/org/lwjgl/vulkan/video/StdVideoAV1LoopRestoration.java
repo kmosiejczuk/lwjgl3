@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -144,8 +144,7 @@ public class StdVideoAV1LoopRestoration extends Struct<StdVideoAV1LoopRestoratio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1LoopRestoration createSafe(long address) {
+    public static @Nullable StdVideoAV1LoopRestoration createSafe(long address) {
         return address == NULL ? null : new StdVideoAV1LoopRestoration(address, null);
     }
 
@@ -188,8 +187,7 @@ public class StdVideoAV1LoopRestoration extends Struct<StdVideoAV1LoopRestoratio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1LoopRestoration.Buffer createSafe(long address, int capacity) {
+    public static StdVideoAV1LoopRestoration.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,13 +235,13 @@ public class StdVideoAV1LoopRestoration extends Struct<StdVideoAV1LoopRestoratio
     public static IntBuffer nFrameRestorationType(long struct) { return memIntBuffer(struct + StdVideoAV1LoopRestoration.FRAMERESTORATIONTYPE, STD_VIDEO_AV1_MAX_NUM_PLANES); }
     /** Unsafe version of {@link #FrameRestorationType(int) FrameRestorationType}. */
     public static int nFrameRestorationType(long struct, int index) {
-        return UNSAFE.getInt(null, struct + StdVideoAV1LoopRestoration.FRAMERESTORATIONTYPE + check(index, STD_VIDEO_AV1_MAX_NUM_PLANES) * 4);
+        return memGetInt(struct + StdVideoAV1LoopRestoration.FRAMERESTORATIONTYPE + check(index, STD_VIDEO_AV1_MAX_NUM_PLANES) * 4);
     }
     /** Unsafe version of {@link #LoopRestorationSize}. */
     public static ShortBuffer nLoopRestorationSize(long struct) { return memShortBuffer(struct + StdVideoAV1LoopRestoration.LOOPRESTORATIONSIZE, STD_VIDEO_AV1_MAX_NUM_PLANES); }
     /** Unsafe version of {@link #LoopRestorationSize(int) LoopRestorationSize}. */
     public static short nLoopRestorationSize(long struct, int index) {
-        return UNSAFE.getShort(null, struct + StdVideoAV1LoopRestoration.LOOPRESTORATIONSIZE + check(index, STD_VIDEO_AV1_MAX_NUM_PLANES) * 2);
+        return memGetShort(struct + StdVideoAV1LoopRestoration.LOOPRESTORATIONSIZE + check(index, STD_VIDEO_AV1_MAX_NUM_PLANES) * 2);
     }
 
     /** Unsafe version of {@link #FrameRestorationType(IntBuffer) FrameRestorationType}. */
@@ -253,7 +251,7 @@ public class StdVideoAV1LoopRestoration extends Struct<StdVideoAV1LoopRestoratio
     }
     /** Unsafe version of {@link #FrameRestorationType(int, int) FrameRestorationType}. */
     public static void nFrameRestorationType(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + StdVideoAV1LoopRestoration.FRAMERESTORATIONTYPE + check(index, STD_VIDEO_AV1_MAX_NUM_PLANES) * 4, value);
+        memPutInt(struct + StdVideoAV1LoopRestoration.FRAMERESTORATIONTYPE + check(index, STD_VIDEO_AV1_MAX_NUM_PLANES) * 4, value);
     }
     /** Unsafe version of {@link #LoopRestorationSize(ShortBuffer) LoopRestorationSize}. */
     public static void nLoopRestorationSize(long struct, ShortBuffer value) {
@@ -262,7 +260,7 @@ public class StdVideoAV1LoopRestoration extends Struct<StdVideoAV1LoopRestoratio
     }
     /** Unsafe version of {@link #LoopRestorationSize(int, short) LoopRestorationSize}. */
     public static void nLoopRestorationSize(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + StdVideoAV1LoopRestoration.LOOPRESTORATIONSIZE + check(index, STD_VIDEO_AV1_MAX_NUM_PLANES) * 2, value);
+        memPutShort(struct + StdVideoAV1LoopRestoration.LOOPRESTORATIONSIZE + check(index, STD_VIDEO_AV1_MAX_NUM_PLANES) * 2, value);
     }
 
     // -----------------------------------
@@ -296,6 +294,11 @@ public class StdVideoAV1LoopRestoration extends Struct<StdVideoAV1LoopRestoratio
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

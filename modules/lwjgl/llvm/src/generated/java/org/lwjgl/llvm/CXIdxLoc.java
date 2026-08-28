@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -109,8 +109,7 @@ public class CXIdxLoc extends Struct<CXIdxLoc> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxLoc createSafe(long address) {
+    public static @Nullable CXIdxLoc createSafe(long address) {
         return address == NULL ? null : new CXIdxLoc(address, null);
     }
 
@@ -153,8 +152,7 @@ public class CXIdxLoc extends Struct<CXIdxLoc> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxLoc.Buffer createSafe(long address, int capacity) {
+    public static CXIdxLoc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -224,7 +222,7 @@ public class CXIdxLoc extends Struct<CXIdxLoc> implements NativeResource {
         return memGetAddress(struct + CXIdxLoc.PTR_DATA + check(index, 2) * POINTER_SIZE);
     }
     /** Unsafe version of {@link #int_data}. */
-    public static int nint_data(long struct) { return UNSAFE.getInt(null, struct + CXIdxLoc.INT_DATA); }
+    public static int nint_data(long struct) { return memGetInt(struct + CXIdxLoc.INT_DATA); }
 
     // -----------------------------------
 
@@ -257,6 +255,11 @@ public class CXIdxLoc extends Struct<CXIdxLoc> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

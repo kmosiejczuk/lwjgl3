@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -102,8 +102,7 @@ public class FTC_ImageType extends Struct<FTC_ImageType> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FTC_ImageType createSafe(long address) {
+    public static @Nullable FTC_ImageType createSafe(long address) {
         return address == NULL ? null : new FTC_ImageType(address, null);
     }
 
@@ -118,8 +117,7 @@ public class FTC_ImageType extends Struct<FTC_ImageType> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FTC_ImageType.Buffer createSafe(long address, int capacity) {
+    public static FTC_ImageType.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -128,11 +126,11 @@ public class FTC_ImageType extends Struct<FTC_ImageType> {
     /** Unsafe version of {@link #face_id}. */
     public static long nface_id(long struct) { return memGetAddress(struct + FTC_ImageType.FACE_ID); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + FTC_ImageType.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + FTC_ImageType.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + FTC_ImageType.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + FTC_ImageType.HEIGHT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + FTC_ImageType.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + FTC_ImageType.FLAGS); }
 
     // -----------------------------------
 
@@ -165,6 +163,11 @@ public class FTC_ImageType extends Struct<FTC_ImageType> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

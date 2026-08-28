@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -241,8 +241,7 @@ public class VkPhysicalDeviceImageFormatInfo2 extends Struct<VkPhysicalDeviceIma
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageFormatInfo2 createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImageFormatInfo2 createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImageFormatInfo2(address, null);
     }
 
@@ -285,8 +284,7 @@ public class VkPhysicalDeviceImageFormatInfo2 extends Struct<VkPhysicalDeviceIma
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageFormatInfo2.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImageFormatInfo2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -350,34 +348,34 @@ public class VkPhysicalDeviceImageFormatInfo2 extends Struct<VkPhysicalDeviceIma
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageFormatInfo2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImageFormatInfo2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImageFormatInfo2.PNEXT); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageFormatInfo2.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + VkPhysicalDeviceImageFormatInfo2.FORMAT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageFormatInfo2.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkPhysicalDeviceImageFormatInfo2.TYPE); }
     /** Unsafe version of {@link #tiling}. */
-    public static int ntiling(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageFormatInfo2.TILING); }
+    public static int ntiling(long struct) { return memGetInt(struct + VkPhysicalDeviceImageFormatInfo2.TILING); }
     /** Unsafe version of {@link #usage}. */
-    public static int nusage(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageFormatInfo2.USAGE); }
+    public static int nusage(long struct) { return memGetInt(struct + VkPhysicalDeviceImageFormatInfo2.USAGE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageFormatInfo2.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPhysicalDeviceImageFormatInfo2.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageFormatInfo2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageFormatInfo2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImageFormatInfo2.PNEXT, value); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageFormatInfo2.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageFormatInfo2.FORMAT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageFormatInfo2.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageFormatInfo2.TYPE, value); }
     /** Unsafe version of {@link #tiling(int) tiling}. */
-    public static void ntiling(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageFormatInfo2.TILING, value); }
+    public static void ntiling(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageFormatInfo2.TILING, value); }
     /** Unsafe version of {@link #usage(int) usage}. */
-    public static void nusage(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageFormatInfo2.USAGE, value); }
+    public static void nusage(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageFormatInfo2.USAGE, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageFormatInfo2.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageFormatInfo2.FLAGS, value); }
 
     // -----------------------------------
 
@@ -410,6 +408,11 @@ public class VkPhysicalDeviceImageFormatInfo2 extends Struct<VkPhysicalDeviceIma
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

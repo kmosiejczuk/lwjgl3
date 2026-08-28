@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -189,8 +189,7 @@ public class VkPhysicalDevice16BitStorageFeatures extends Struct<VkPhysicalDevic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevice16BitStorageFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDevice16BitStorageFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevice16BitStorageFeatures(address, null);
     }
 
@@ -233,8 +232,7 @@ public class VkPhysicalDevice16BitStorageFeatures extends Struct<VkPhysicalDevic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevice16BitStorageFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevice16BitStorageFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -298,30 +296,30 @@ public class VkPhysicalDevice16BitStorageFeatures extends Struct<VkPhysicalDevic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevice16BitStorageFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevice16BitStorageFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevice16BitStorageFeatures.PNEXT); }
     /** Unsafe version of {@link #storageBuffer16BitAccess}. */
-    public static int nstorageBuffer16BitAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevice16BitStorageFeatures.STORAGEBUFFER16BITACCESS); }
+    public static int nstorageBuffer16BitAccess(long struct) { return memGetInt(struct + VkPhysicalDevice16BitStorageFeatures.STORAGEBUFFER16BITACCESS); }
     /** Unsafe version of {@link #uniformAndStorageBuffer16BitAccess}. */
-    public static int nuniformAndStorageBuffer16BitAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevice16BitStorageFeatures.UNIFORMANDSTORAGEBUFFER16BITACCESS); }
+    public static int nuniformAndStorageBuffer16BitAccess(long struct) { return memGetInt(struct + VkPhysicalDevice16BitStorageFeatures.UNIFORMANDSTORAGEBUFFER16BITACCESS); }
     /** Unsafe version of {@link #storagePushConstant16}. */
-    public static int nstoragePushConstant16(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevice16BitStorageFeatures.STORAGEPUSHCONSTANT16); }
+    public static int nstoragePushConstant16(long struct) { return memGetInt(struct + VkPhysicalDevice16BitStorageFeatures.STORAGEPUSHCONSTANT16); }
     /** Unsafe version of {@link #storageInputOutput16}. */
-    public static int nstorageInputOutput16(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevice16BitStorageFeatures.STORAGEINPUTOUTPUT16); }
+    public static int nstorageInputOutput16(long struct) { return memGetInt(struct + VkPhysicalDevice16BitStorageFeatures.STORAGEINPUTOUTPUT16); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevice16BitStorageFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevice16BitStorageFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevice16BitStorageFeatures.PNEXT, value); }
     /** Unsafe version of {@link #storageBuffer16BitAccess(boolean) storageBuffer16BitAccess}. */
-    public static void nstorageBuffer16BitAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevice16BitStorageFeatures.STORAGEBUFFER16BITACCESS, value); }
+    public static void nstorageBuffer16BitAccess(long struct, int value) { memPutInt(struct + VkPhysicalDevice16BitStorageFeatures.STORAGEBUFFER16BITACCESS, value); }
     /** Unsafe version of {@link #uniformAndStorageBuffer16BitAccess(boolean) uniformAndStorageBuffer16BitAccess}. */
-    public static void nuniformAndStorageBuffer16BitAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevice16BitStorageFeatures.UNIFORMANDSTORAGEBUFFER16BITACCESS, value); }
+    public static void nuniformAndStorageBuffer16BitAccess(long struct, int value) { memPutInt(struct + VkPhysicalDevice16BitStorageFeatures.UNIFORMANDSTORAGEBUFFER16BITACCESS, value); }
     /** Unsafe version of {@link #storagePushConstant16(boolean) storagePushConstant16}. */
-    public static void nstoragePushConstant16(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevice16BitStorageFeatures.STORAGEPUSHCONSTANT16, value); }
+    public static void nstoragePushConstant16(long struct, int value) { memPutInt(struct + VkPhysicalDevice16BitStorageFeatures.STORAGEPUSHCONSTANT16, value); }
     /** Unsafe version of {@link #storageInputOutput16(boolean) storageInputOutput16}. */
-    public static void nstorageInputOutput16(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevice16BitStorageFeatures.STORAGEINPUTOUTPUT16, value); }
+    public static void nstorageInputOutput16(long struct, int value) { memPutInt(struct + VkPhysicalDevice16BitStorageFeatures.STORAGEINPUTOUTPUT16, value); }
 
     // -----------------------------------
 
@@ -354,6 +352,11 @@ public class VkPhysicalDevice16BitStorageFeatures extends Struct<VkPhysicalDevic
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

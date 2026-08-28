@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -287,8 +287,7 @@ public class XrSwapchainStateSamplerVulkanFB extends Struct<XrSwapchainStateSamp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateSamplerVulkanFB createSafe(long address) {
+    public static @Nullable XrSwapchainStateSamplerVulkanFB createSafe(long address) {
         return address == NULL ? null : new XrSwapchainStateSamplerVulkanFB(address, null);
     }
 
@@ -336,8 +335,7 @@ public class XrSwapchainStateSamplerVulkanFB extends Struct<XrSwapchainStateSamp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateSamplerVulkanFB.Buffer createSafe(long address, int capacity) {
+    public static XrSwapchainStateSamplerVulkanFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -387,56 +385,56 @@ public class XrSwapchainStateSamplerVulkanFB extends Struct<XrSwapchainStateSamp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerVulkanFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSwapchainStateSamplerVulkanFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSwapchainStateSamplerVulkanFB.NEXT); }
     /** Unsafe version of {@link #minFilter}. */
-    public static int nminFilter(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerVulkanFB.MINFILTER); }
+    public static int nminFilter(long struct) { return memGetInt(struct + XrSwapchainStateSamplerVulkanFB.MINFILTER); }
     /** Unsafe version of {@link #magFilter}. */
-    public static int nmagFilter(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerVulkanFB.MAGFILTER); }
+    public static int nmagFilter(long struct) { return memGetInt(struct + XrSwapchainStateSamplerVulkanFB.MAGFILTER); }
     /** Unsafe version of {@link #mipmapMode}. */
-    public static int nmipmapMode(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerVulkanFB.MIPMAPMODE); }
+    public static int nmipmapMode(long struct) { return memGetInt(struct + XrSwapchainStateSamplerVulkanFB.MIPMAPMODE); }
     /** Unsafe version of {@link #wrapModeS}. */
-    public static int nwrapModeS(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerVulkanFB.WRAPMODES); }
+    public static int nwrapModeS(long struct) { return memGetInt(struct + XrSwapchainStateSamplerVulkanFB.WRAPMODES); }
     /** Unsafe version of {@link #wrapModeT}. */
-    public static int nwrapModeT(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerVulkanFB.WRAPMODET); }
+    public static int nwrapModeT(long struct) { return memGetInt(struct + XrSwapchainStateSamplerVulkanFB.WRAPMODET); }
     /** Unsafe version of {@link #swizzleRed}. */
-    public static int nswizzleRed(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerVulkanFB.SWIZZLERED); }
+    public static int nswizzleRed(long struct) { return memGetInt(struct + XrSwapchainStateSamplerVulkanFB.SWIZZLERED); }
     /** Unsafe version of {@link #swizzleGreen}. */
-    public static int nswizzleGreen(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEGREEN); }
+    public static int nswizzleGreen(long struct) { return memGetInt(struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEGREEN); }
     /** Unsafe version of {@link #swizzleBlue}. */
-    public static int nswizzleBlue(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEBLUE); }
+    public static int nswizzleBlue(long struct) { return memGetInt(struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEBLUE); }
     /** Unsafe version of {@link #swizzleAlpha}. */
-    public static int nswizzleAlpha(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEALPHA); }
+    public static int nswizzleAlpha(long struct) { return memGetInt(struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEALPHA); }
     /** Unsafe version of {@link #maxAnisotropy}. */
-    public static float nmaxAnisotropy(long struct) { return UNSAFE.getFloat(null, struct + XrSwapchainStateSamplerVulkanFB.MAXANISOTROPY); }
+    public static float nmaxAnisotropy(long struct) { return memGetFloat(struct + XrSwapchainStateSamplerVulkanFB.MAXANISOTROPY); }
     /** Unsafe version of {@link #borderColor}. */
     public static XrColor4f nborderColor(long struct) { return XrColor4f.create(struct + XrSwapchainStateSamplerVulkanFB.BORDERCOLOR); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerVulkanFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerVulkanFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSwapchainStateSamplerVulkanFB.NEXT, value); }
     /** Unsafe version of {@link #minFilter(int) minFilter}. */
-    public static void nminFilter(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerVulkanFB.MINFILTER, value); }
+    public static void nminFilter(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerVulkanFB.MINFILTER, value); }
     /** Unsafe version of {@link #magFilter(int) magFilter}. */
-    public static void nmagFilter(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerVulkanFB.MAGFILTER, value); }
+    public static void nmagFilter(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerVulkanFB.MAGFILTER, value); }
     /** Unsafe version of {@link #mipmapMode(int) mipmapMode}. */
-    public static void nmipmapMode(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerVulkanFB.MIPMAPMODE, value); }
+    public static void nmipmapMode(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerVulkanFB.MIPMAPMODE, value); }
     /** Unsafe version of {@link #wrapModeS(int) wrapModeS}. */
-    public static void nwrapModeS(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerVulkanFB.WRAPMODES, value); }
+    public static void nwrapModeS(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerVulkanFB.WRAPMODES, value); }
     /** Unsafe version of {@link #wrapModeT(int) wrapModeT}. */
-    public static void nwrapModeT(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerVulkanFB.WRAPMODET, value); }
+    public static void nwrapModeT(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerVulkanFB.WRAPMODET, value); }
     /** Unsafe version of {@link #swizzleRed(int) swizzleRed}. */
-    public static void nswizzleRed(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerVulkanFB.SWIZZLERED, value); }
+    public static void nswizzleRed(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerVulkanFB.SWIZZLERED, value); }
     /** Unsafe version of {@link #swizzleGreen(int) swizzleGreen}. */
-    public static void nswizzleGreen(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEGREEN, value); }
+    public static void nswizzleGreen(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEGREEN, value); }
     /** Unsafe version of {@link #swizzleBlue(int) swizzleBlue}. */
-    public static void nswizzleBlue(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEBLUE, value); }
+    public static void nswizzleBlue(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEBLUE, value); }
     /** Unsafe version of {@link #swizzleAlpha(int) swizzleAlpha}. */
-    public static void nswizzleAlpha(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEALPHA, value); }
+    public static void nswizzleAlpha(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerVulkanFB.SWIZZLEALPHA, value); }
     /** Unsafe version of {@link #maxAnisotropy(float) maxAnisotropy}. */
-    public static void nmaxAnisotropy(long struct, float value) { UNSAFE.putFloat(null, struct + XrSwapchainStateSamplerVulkanFB.MAXANISOTROPY, value); }
+    public static void nmaxAnisotropy(long struct, float value) { memPutFloat(struct + XrSwapchainStateSamplerVulkanFB.MAXANISOTROPY, value); }
     /** Unsafe version of {@link #borderColor(XrColor4f) borderColor}. */
     public static void nborderColor(long struct, XrColor4f value) { memCopy(value.address(), struct + XrSwapchainStateSamplerVulkanFB.BORDERCOLOR, XrColor4f.SIZEOF); }
 
@@ -471,6 +469,11 @@ public class XrSwapchainStateSamplerVulkanFB extends Struct<XrSwapchainStateSamp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

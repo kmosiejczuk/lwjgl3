@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -185,8 +185,7 @@ public class XCirculateRequestEvent extends Struct<XCirculateRequestEvent> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XCirculateRequestEvent createSafe(long address) {
+    public static @Nullable XCirculateRequestEvent createSafe(long address) {
         return address == NULL ? null : new XCirculateRequestEvent(address, null);
     }
 
@@ -229,8 +228,7 @@ public class XCirculateRequestEvent extends Struct<XCirculateRequestEvent> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XCirculateRequestEvent.Buffer createSafe(long address, int capacity) {
+    public static XCirculateRequestEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,11 +292,11 @@ public class XCirculateRequestEvent extends Struct<XCirculateRequestEvent> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XCirculateRequestEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XCirculateRequestEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XCirculateRequestEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XCirculateRequestEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XCirculateRequestEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XCirculateRequestEvent.DISPLAY); }
     /** Unsafe version of {@link #parent}. */
@@ -306,14 +304,14 @@ public class XCirculateRequestEvent extends Struct<XCirculateRequestEvent> imple
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetCLong(struct + XCirculateRequestEvent.WINDOW); }
     /** Unsafe version of {@link #place}. */
-    public static int nplace(long struct) { return UNSAFE.getInt(null, struct + XCirculateRequestEvent.PLACE); }
+    public static int nplace(long struct) { return memGetInt(struct + XCirculateRequestEvent.PLACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XCirculateRequestEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XCirculateRequestEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XCirculateRequestEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XCirculateRequestEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XCirculateRequestEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XCirculateRequestEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #parent(long) parent}. */
@@ -321,7 +319,7 @@ public class XCirculateRequestEvent extends Struct<XCirculateRequestEvent> imple
     /** Unsafe version of {@link #window(long) window}. */
     public static void nwindow(long struct, long value) { memPutCLong(struct + XCirculateRequestEvent.WINDOW, value); }
     /** Unsafe version of {@link #place(int) place}. */
-    public static void nplace(long struct, int value) { UNSAFE.putInt(null, struct + XCirculateRequestEvent.PLACE, value); }
+    public static void nplace(long struct, int value) { memPutInt(struct + XCirculateRequestEvent.PLACE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -363,6 +361,11 @@ public class XCirculateRequestEvent extends Struct<XCirculateRequestEvent> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -134,8 +134,7 @@ public class EpollEvent extends Struct<EpollEvent> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EpollEvent createSafe(long address) {
+    public static @Nullable EpollEvent createSafe(long address) {
         return address == NULL ? null : new EpollEvent(address, null);
     }
 
@@ -178,8 +177,7 @@ public class EpollEvent extends Struct<EpollEvent> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EpollEvent.Buffer createSafe(long address, int capacity) {
+    public static EpollEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -224,12 +222,12 @@ public class EpollEvent extends Struct<EpollEvent> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #events}. */
-    public static int nevents(long struct) { return UNSAFE.getInt(null, struct + EpollEvent.EVENTS); }
+    public static int nevents(long struct) { return memGetInt(struct + EpollEvent.EVENTS); }
     /** Unsafe version of {@link #data}. */
     public static EpollData ndata(long struct) { return EpollData.create(struct + EpollEvent.DATA); }
 
     /** Unsafe version of {@link #events(int) events}. */
-    public static void nevents(long struct, int value) { UNSAFE.putInt(null, struct + EpollEvent.EVENTS, value); }
+    public static void nevents(long struct, int value) { memPutInt(struct + EpollEvent.EVENTS, value); }
     /** Unsafe version of {@link #data(EpollData) data}. */
     public static void ndata(long struct, EpollData value) { memCopy(value.address(), struct + EpollEvent.DATA, EpollData.SIZEOF); }
 
@@ -264,6 +262,11 @@ public class EpollEvent extends Struct<EpollEvent> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,13 +159,13 @@ public class VkVideoEncodeH265CapabilitiesKHR extends Struct<VkVideoEncodeH265Ca
     /** a bitmask of {@code VkVideoEncodeH265CapabilityFlagBitsKHR} indicating supported H.265 encoding capabilities. */
     @NativeType("VkVideoEncodeH265CapabilityFlagsKHR")
     public int flags() { return nflags(address()); }
-    /** a {@code StdVideoH265LevelIdc} value indicating the maximum H.265 level supported by the profile, where enum constant {@code STD_VIDEO_H265_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;} identifies H.265 level {@code &lt;major&gt;.&lt;minor&gt;} as defined in section A.4 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>. */
+    /** a {@code StdVideoH265LevelIdc} value indicating the maximum H.265 level supported by the profile, where enum constant {@code STD_VIDEO_H265_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;} identifies H.265 level {@code &lt;major&gt;.&lt;minor&gt;} as defined in section A.4 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>. */
     @NativeType("StdVideoH265LevelIdc")
     public int maxLevelIdc() { return nmaxLevelIdc(address()); }
     /** indicates the maximum number of slice segments that <b>can</b> be encoded for a single picture. Further restrictions <b>may</b> apply to the number of slice segments that <b>can</b> be encoded for a single picture depending on other capabilities and codec-specific rules. */
     @NativeType("uint32_t")
     public int maxSliceSegmentCount() { return nmaxSliceSegmentCount(address()); }
-    /** indicates the maximum number of H.265 tile columns and rows, as defined in sections 3.175 and 3.176 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a> that <b>can</b> be encoded for a single picture. Further restrictions <b>may</b> apply to the number of H.265 tiles that <b>can</b> be encoded for a single picture depending on other capabilities and codec-specific rules. */
+    /** indicates the maximum number of H.265 tile columns and rows, as defined in sections 3.175 and 3.176 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a> that <b>can</b> be encoded for a single picture. Further restrictions <b>may</b> apply to the number of H.265 tiles that <b>can</b> be encoded for a single picture depending on other capabilities and codec-specific rules. */
     public VkExtent2D maxTiles() { return nmaxTiles(address()); }
     /** a bitmask of {@code VkVideoEncodeH265CtbSizeFlagBitsKHR} describing the supported CTB sizes. */
     @NativeType("VkVideoEncodeH265CtbSizeFlagsKHR")
@@ -174,24 +174,24 @@ public class VkVideoEncodeH265CapabilitiesKHR extends Struct<VkVideoEncodeH265Ca
     @NativeType("VkVideoEncodeH265TransformBlockSizeFlagsKHR")
     public int transformBlockSizes() { return ntransformBlockSizes(address()); }
     /**
-     * indicates the maximum number of reference pictures the implementation supports in the reference list L0 for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-p-pic">P pictures</a>.
+     * indicates the maximum number of reference pictures the implementation supports in the reference list L0 for <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-p-pic">P pictures</a>.
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
-     * <p>As implementations <b>may</b> <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-overrides">override</a> the reference lists, {@code maxPPictureL0ReferenceCount} does not limit the number of elements that the application <b>can</b> specify in the L0 reference list for P pictures. However, if {@code maxPPictureL0ReferenceCount} is zero, then the use of P pictures is not allowed. In case of H.265 encoding, pictures <b>can</b> be encoded using only forward prediction even if P pictures are not supported, as the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a> supports <em>generalized P &amp; B frames</em> (also known as low delay B frames) whereas B frames <b>can</b> refer to past frames through both the L0 and L1 reference lists.</p>
+     * <p>As implementations <b>may</b> <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-overrides">override</a> the reference lists, {@code maxPPictureL0ReferenceCount} does not limit the number of elements that the application <b>can</b> specify in the L0 reference list for P pictures. However, if {@code maxPPictureL0ReferenceCount} is zero, then the use of P pictures is not allowed. In case of H.265 encoding, pictures <b>can</b> be encoded using only forward prediction even if P pictures are not supported, as the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a> supports <em>generalized P &amp; B frames</em> (also known as low delay B frames) whereas B frames <b>can</b> refer to past frames through both the L0 and L1 reference lists.</p>
      * </div>
      */
     @NativeType("uint32_t")
     public int maxPPictureL0ReferenceCount() { return nmaxPPictureL0ReferenceCount(address()); }
-    /** indicates the maximum number of reference pictures the implementation supports in the reference list L0 for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-b-pic">B pictures</a>. */
+    /** indicates the maximum number of reference pictures the implementation supports in the reference list L0 for <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-b-pic">B pictures</a>. */
     @NativeType("uint32_t")
     public int maxBPictureL0ReferenceCount() { return nmaxBPictureL0ReferenceCount(address()); }
     /**
-     * indicates the maximum number of reference pictures the implementation supports in the reference list L1 if encoding of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-b-pic">B pictures</a> is supported.
+     * indicates the maximum number of reference pictures the implementation supports in the reference list L1 if encoding of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-b-pic">B pictures</a> is supported.
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
-     * <p>As implementations <b>may</b> <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-overrides">override</a> the reference lists, {@code maxBPictureL0ReferenceCount} and {@code maxL1ReferenceCount} does not limit the number of elements that the application <b>can</b> specify in the L0 and L1 reference lists for B pictures. However, if {@code maxBPictureL0ReferenceCount} and {@code maxL1ReferenceCount} are both zero, then the use of B pictures is not allowed.</p>
+     * <p>As implementations <b>may</b> <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-overrides">override</a> the reference lists, {@code maxBPictureL0ReferenceCount} and {@code maxL1ReferenceCount} does not limit the number of elements that the application <b>can</b> specify in the L0 and L1 reference lists for B pictures. However, if {@code maxBPictureL0ReferenceCount} and {@code maxL1ReferenceCount} are both zero, then the use of B pictures is not allowed.</p>
      * </div>
      */
     @NativeType("uint32_t")
@@ -199,7 +199,7 @@ public class VkVideoEncodeH265CapabilitiesKHR extends Struct<VkVideoEncodeH265Ca
     /** indicates the maximum number of H.265 sub-layers supported by the implementation. */
     @NativeType("uint32_t")
     public int maxSubLayerCount() { return nmaxSubLayerCount(address()); }
-    /** indicates that the implementation’s rate control algorithms expect the application to use a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-layer-pattern-dyadic">dyadic temporal sub-layer pattern</a> when encoding multiple temporal sub-layers. */
+    /** indicates that the implementation’s rate control algorithms expect the application to use a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-layer-pattern-dyadic">dyadic temporal sub-layer pattern</a> when encoding multiple temporal sub-layers. */
     @NativeType("VkBool32")
     public boolean expectDyadicTemporalSubLayerPattern() { return nexpectDyadicTemporalSubLayerPattern(address()) != 0; }
     /** indicates the minimum QP value supported. */
@@ -208,10 +208,10 @@ public class VkVideoEncodeH265CapabilitiesKHR extends Struct<VkVideoEncodeH265Ca
     /** indicates the maximum QP value supported. */
     @NativeType("int32_t")
     public int maxQp() { return nmaxQp(address()); }
-    /** indicates that the implementation’s rate control algorithm prefers the application to specify the number of frames of each type <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-gop-remaining-frames">remaining</a> in the current <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-gop">group of pictures</a> when beginning a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-coding-scope">video coding scope</a>. */
+    /** indicates that the implementation’s rate control algorithm prefers the application to specify the number of frames of each type <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-gop-remaining-frames">remaining</a> in the current <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-gop">group of pictures</a> when beginning a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-coding-scope">video coding scope</a>. */
     @NativeType("VkBool32")
     public boolean prefersGopRemainingFrames() { return nprefersGopRemainingFrames(address()) != 0; }
-    /** indicates that the implementation’s rate control algorithm requires the application to specify the number of frames of each type <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-gop-remaining-frames">remaining</a> in the current <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h265-gop">group of pictures</a> when beginning a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-coding-scope">video coding scope</a>. */
+    /** indicates that the implementation’s rate control algorithm requires the application to specify the number of frames of each type <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-gop-remaining-frames">remaining</a> in the current <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h265-gop">group of pictures</a> when beginning a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-coding-scope">video coding scope</a>. */
     @NativeType("VkBool32")
     public boolean requiresGopRemainingFrames() { return nrequiresGopRemainingFrames(address()) != 0; }
     /** a bitmask of {@code VkVideoEncodeH265StdFlagBitsKHR} indicating capabilities related to H.265 syntax elements. */
@@ -272,8 +272,7 @@ public class VkVideoEncodeH265CapabilitiesKHR extends Struct<VkVideoEncodeH265Ca
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH265CapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH265CapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH265CapabilitiesKHR(address, null);
     }
 
@@ -316,8 +315,7 @@ public class VkVideoEncodeH265CapabilitiesKHR extends Struct<VkVideoEncodeH265Ca
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH265CapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH265CapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -362,44 +360,44 @@ public class VkVideoEncodeH265CapabilitiesKHR extends Struct<VkVideoEncodeH265Ca
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH265CapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.FLAGS); }
     /** Unsafe version of {@link #maxLevelIdc}. */
-    public static int nmaxLevelIdc(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.MAXLEVELIDC); }
+    public static int nmaxLevelIdc(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.MAXLEVELIDC); }
     /** Unsafe version of {@link #maxSliceSegmentCount}. */
-    public static int nmaxSliceSegmentCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.MAXSLICESEGMENTCOUNT); }
+    public static int nmaxSliceSegmentCount(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.MAXSLICESEGMENTCOUNT); }
     /** Unsafe version of {@link #maxTiles}. */
     public static VkExtent2D nmaxTiles(long struct) { return VkExtent2D.create(struct + VkVideoEncodeH265CapabilitiesKHR.MAXTILES); }
     /** Unsafe version of {@link #ctbSizes}. */
-    public static int nctbSizes(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.CTBSIZES); }
+    public static int nctbSizes(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.CTBSIZES); }
     /** Unsafe version of {@link #transformBlockSizes}. */
-    public static int ntransformBlockSizes(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.TRANSFORMBLOCKSIZES); }
+    public static int ntransformBlockSizes(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.TRANSFORMBLOCKSIZES); }
     /** Unsafe version of {@link #maxPPictureL0ReferenceCount}. */
-    public static int nmaxPPictureL0ReferenceCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.MAXPPICTUREL0REFERENCECOUNT); }
+    public static int nmaxPPictureL0ReferenceCount(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.MAXPPICTUREL0REFERENCECOUNT); }
     /** Unsafe version of {@link #maxBPictureL0ReferenceCount}. */
-    public static int nmaxBPictureL0ReferenceCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.MAXBPICTUREL0REFERENCECOUNT); }
+    public static int nmaxBPictureL0ReferenceCount(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.MAXBPICTUREL0REFERENCECOUNT); }
     /** Unsafe version of {@link #maxL1ReferenceCount}. */
-    public static int nmaxL1ReferenceCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.MAXL1REFERENCECOUNT); }
+    public static int nmaxL1ReferenceCount(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.MAXL1REFERENCECOUNT); }
     /** Unsafe version of {@link #maxSubLayerCount}. */
-    public static int nmaxSubLayerCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.MAXSUBLAYERCOUNT); }
+    public static int nmaxSubLayerCount(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.MAXSUBLAYERCOUNT); }
     /** Unsafe version of {@link #expectDyadicTemporalSubLayerPattern}. */
-    public static int nexpectDyadicTemporalSubLayerPattern(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.EXPECTDYADICTEMPORALSUBLAYERPATTERN); }
+    public static int nexpectDyadicTemporalSubLayerPattern(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.EXPECTDYADICTEMPORALSUBLAYERPATTERN); }
     /** Unsafe version of {@link #minQp}. */
-    public static int nminQp(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.MINQP); }
+    public static int nminQp(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.MINQP); }
     /** Unsafe version of {@link #maxQp}. */
-    public static int nmaxQp(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.MAXQP); }
+    public static int nmaxQp(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.MAXQP); }
     /** Unsafe version of {@link #prefersGopRemainingFrames}. */
-    public static int nprefersGopRemainingFrames(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.PREFERSGOPREMAININGFRAMES); }
+    public static int nprefersGopRemainingFrames(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.PREFERSGOPREMAININGFRAMES); }
     /** Unsafe version of {@link #requiresGopRemainingFrames}. */
-    public static int nrequiresGopRemainingFrames(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.REQUIRESGOPREMAININGFRAMES); }
+    public static int nrequiresGopRemainingFrames(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.REQUIRESGOPREMAININGFRAMES); }
     /** Unsafe version of {@link #stdSyntaxFlags}. */
-    public static int nstdSyntaxFlags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.STDSYNTAXFLAGS); }
+    public static int nstdSyntaxFlags(long struct) { return memGetInt(struct + VkVideoEncodeH265CapabilitiesKHR.STDSYNTAXFLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265CapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH265CapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH265CapabilitiesKHR.PNEXT, value); }
 
@@ -434,6 +432,11 @@ public class VkVideoEncodeH265CapabilitiesKHR extends Struct<VkVideoEncodeH265Ca
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

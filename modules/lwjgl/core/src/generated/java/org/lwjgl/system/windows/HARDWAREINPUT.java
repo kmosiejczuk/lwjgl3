@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -144,8 +144,7 @@ public class HARDWAREINPUT extends Struct<HARDWAREINPUT> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static HARDWAREINPUT createSafe(long address) {
+    public static @Nullable HARDWAREINPUT createSafe(long address) {
         return address == NULL ? null : new HARDWAREINPUT(address, null);
     }
 
@@ -188,8 +187,7 @@ public class HARDWAREINPUT extends Struct<HARDWAREINPUT> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static HARDWAREINPUT.Buffer createSafe(long address, int capacity) {
+    public static HARDWAREINPUT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +251,18 @@ public class HARDWAREINPUT extends Struct<HARDWAREINPUT> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #uMsg}. */
-    public static int nuMsg(long struct) { return UNSAFE.getInt(null, struct + HARDWAREINPUT.UMSG); }
+    public static int nuMsg(long struct) { return memGetInt(struct + HARDWAREINPUT.UMSG); }
     /** Unsafe version of {@link #wParamL}. */
-    public static short nwParamL(long struct) { return UNSAFE.getShort(null, struct + HARDWAREINPUT.WPARAML); }
+    public static short nwParamL(long struct) { return memGetShort(struct + HARDWAREINPUT.WPARAML); }
     /** Unsafe version of {@link #wParamH}. */
-    public static short nwParamH(long struct) { return UNSAFE.getShort(null, struct + HARDWAREINPUT.WPARAMH); }
+    public static short nwParamH(long struct) { return memGetShort(struct + HARDWAREINPUT.WPARAMH); }
 
     /** Unsafe version of {@link #uMsg(int) uMsg}. */
-    public static void nuMsg(long struct, int value) { UNSAFE.putInt(null, struct + HARDWAREINPUT.UMSG, value); }
+    public static void nuMsg(long struct, int value) { memPutInt(struct + HARDWAREINPUT.UMSG, value); }
     /** Unsafe version of {@link #wParamL(short) wParamL}. */
-    public static void nwParamL(long struct, short value) { UNSAFE.putShort(null, struct + HARDWAREINPUT.WPARAML, value); }
+    public static void nwParamL(long struct, short value) { memPutShort(struct + HARDWAREINPUT.WPARAML, value); }
     /** Unsafe version of {@link #wParamH(short) wParamH}. */
-    public static void nwParamH(long struct, short value) { UNSAFE.putShort(null, struct + HARDWAREINPUT.WPARAMH, value); }
+    public static void nwParamH(long struct, short value) { memPutShort(struct + HARDWAREINPUT.WPARAMH, value); }
 
     // -----------------------------------
 
@@ -297,6 +295,11 @@ public class HARDWAREINPUT extends Struct<HARDWAREINPUT> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

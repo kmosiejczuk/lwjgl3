@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -138,8 +138,7 @@ public class hb_ot_name_entry_t extends Struct<hb_ot_name_entry_t> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_name_entry_t createSafe(long address) {
+    public static @Nullable hb_ot_name_entry_t createSafe(long address) {
         return address == NULL ? null : new hb_ot_name_entry_t(address, null);
     }
 
@@ -182,8 +181,7 @@ public class hb_ot_name_entry_t extends Struct<hb_ot_name_entry_t> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_name_entry_t.Buffer createSafe(long address, int capacity) {
+    public static hb_ot_name_entry_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -228,13 +226,13 @@ public class hb_ot_name_entry_t extends Struct<hb_ot_name_entry_t> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #name_id}. */
-    public static int nname_id(long struct) { return UNSAFE.getInt(null, struct + hb_ot_name_entry_t.NAME_ID); }
+    public static int nname_id(long struct) { return memGetInt(struct + hb_ot_name_entry_t.NAME_ID); }
     public static hb_var_int_t nvar(long struct) { return hb_var_int_t.create(struct + hb_ot_name_entry_t.VAR); }
     /** Unsafe version of {@link #language}. */
     public static long nlanguage(long struct) { return memGetAddress(struct + hb_ot_name_entry_t.LANGUAGE); }
 
     /** Unsafe version of {@link #name_id(int) name_id}. */
-    public static void nname_id(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_name_entry_t.NAME_ID, value); }
+    public static void nname_id(long struct, int value) { memPutInt(struct + hb_ot_name_entry_t.NAME_ID, value); }
     public static void nvar(long struct, hb_var_int_t value) { memCopy(value.address(), struct + hb_ot_name_entry_t.VAR, hb_var_int_t.SIZEOF); }
     /** Unsafe version of {@link #language(long) language}. */
     public static void nlanguage(long struct, long value) { memPutAddress(struct + hb_ot_name_entry_t.LANGUAGE, check(value)); }
@@ -279,6 +277,11 @@ public class hb_ot_name_entry_t extends Struct<hb_ot_name_entry_t> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

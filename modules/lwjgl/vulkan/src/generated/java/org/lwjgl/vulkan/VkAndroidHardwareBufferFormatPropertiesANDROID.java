@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,18 +20,18 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the Android hardware buffer has one of the formats listed in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-external-android-hardware-buffer-formats">Format Equivalence table</a>, then {@code format} <b>must</b> have the equivalent Vulkan format listed in the table. Otherwise, {@code format} <b>may</b> be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, indicating the Android hardware buffer <b>can</b> only be used with an external format.</p>
+ * <p>If the Android hardware buffer has one of the formats listed in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-external-android-hardware-buffer-formats">Format Equivalence table</a>, then {@code format} <b>must</b> have the equivalent Vulkan format listed in the table. Otherwise, {@code format} <b>may</b> be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, indicating the Android hardware buffer <b>can</b> only be used with an external format.</p>
  * 
  * <p>The {@code formatFeatures} member <b>must</b> include {@link VK10#VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT FORMAT_FEATURE_SAMPLED_IMAGE_BIT} and at least one of {@link VK11#VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT} or {@link VK11#VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT}, and <b>should</b> include {@link VK10#VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT} and {@link VK11#VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT}.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>The {@code formatFeatures} member only indicates the features available when using an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-external-android-hardware-buffer-external-formats">external-format image</a> created from the Android hardware buffer. Images from Android hardware buffers with a format other than {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} are subject to the format capabilities obtained from {@link VK11#vkGetPhysicalDeviceFormatProperties2 GetPhysicalDeviceFormatProperties2}, and {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} with appropriate parameters. These sets of features are independent of each other, e.g. the external format will support sampler Y′C<sub>B</sub>C<sub>R</sub> conversion even if the non-external format does not, and rendering directly to the external format will not be supported even if the non-external format does support this.</p>
+ * <p>The {@code formatFeatures} member only indicates the features available when using an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-external-android-hardware-buffer-external-formats">external-format image</a> created from the Android hardware buffer. Images from Android hardware buffers with a format other than {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} are subject to the format capabilities obtained from {@link VK11#vkGetPhysicalDeviceFormatProperties2 GetPhysicalDeviceFormatProperties2}, and {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} with appropriate parameters. These sets of features are independent of each other, e.g. the external format will support sampler Y′C<sub>B</sub>C<sub>R</sub> conversion even if the non-external format does not, and rendering directly to the external format will not be supported even if the non-external format does support this.</p>
  * </div>
  * 
  * <p>Android hardware buffers with the same external format <b>must</b> have the same support for {@link VK10#VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT}, {@link VK11#VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT}, {@link VK11#VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT}, {@link VK11#VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT}, {@link VK11#VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT}, and {@link VK11#VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT}. in {@code formatFeatures}. Other format features <b>may</b> differ between Android hardware buffers that have the same external format. This allows applications to use the same {@code VkSamplerYcbcrConversion} object (and samplers and pipelines created from them) for any Android hardware buffers that have the same external format.</p>
  * 
- * <p>If {@code format} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, then the value of {@code samplerYcbcrConversionComponents} <b>must</b> be valid when used as the {@code components} member of {@link VkSamplerYcbcrConversionCreateInfo} with that format. If {@code format} is {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, all members of {@code samplerYcbcrConversionComponents} <b>must</b> be the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-views-identity-mappings">identity swizzle</a>.</p>
+ * <p>If {@code format} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, then the value of {@code samplerYcbcrConversionComponents} <b>must</b> be valid when used as the {@code components} member of {@link VkSamplerYcbcrConversionCreateInfo} with that format. If {@code format} is {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, all members of {@code samplerYcbcrConversionComponents} <b>must</b> be the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-image-views-identity-mappings">identity swizzle</a>.</p>
  * 
  * <p>Implementations <b>may</b> not always be able to determine the color model, numerical range, or chroma offsets of the image contents, so the values in {@link VkAndroidHardwareBufferFormatPropertiesANDROID} are only suggestions. Applications <b>should</b> treat these values as sensible defaults to use in the absence of more reliable information obtained through some other means. If the underlying physical device is also usable via OpenGL ES with the <a href="https://registry.khronos.org/OpenGL/extensions/OES/OES_EGL_image_external.txt">{@code GL_OES_EGL_image_external}</a> extension, the implementation <b>should</b> suggest values that will produce similar sampled values as would be obtained by sampling the same external image via {@code samplerExternalOES} in OpenGL ES using equivalent sampler parameters.</p>
  * 
@@ -222,8 +222,7 @@ public class VkAndroidHardwareBufferFormatPropertiesANDROID extends Struct<VkAnd
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidHardwareBufferFormatPropertiesANDROID createSafe(long address) {
+    public static @Nullable VkAndroidHardwareBufferFormatPropertiesANDROID createSafe(long address) {
         return address == NULL ? null : new VkAndroidHardwareBufferFormatPropertiesANDROID(address, null);
     }
 
@@ -266,8 +265,7 @@ public class VkAndroidHardwareBufferFormatPropertiesANDROID extends Struct<VkAnd
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidHardwareBufferFormatPropertiesANDROID.Buffer createSafe(long address, int capacity) {
+    public static VkAndroidHardwareBufferFormatPropertiesANDROID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -312,28 +310,28 @@ public class VkAndroidHardwareBufferFormatPropertiesANDROID extends Struct<VkAnd
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatPropertiesANDROID.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.PNEXT); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatPropertiesANDROID.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.FORMAT); }
     /** Unsafe version of {@link #externalFormat}. */
-    public static long nexternalFormat(long struct) { return UNSAFE.getLong(null, struct + VkAndroidHardwareBufferFormatPropertiesANDROID.EXTERNALFORMAT); }
+    public static long nexternalFormat(long struct) { return memGetLong(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.EXTERNALFORMAT); }
     /** Unsafe version of {@link #formatFeatures}. */
-    public static int nformatFeatures(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatPropertiesANDROID.FORMATFEATURES); }
+    public static int nformatFeatures(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.FORMATFEATURES); }
     /** Unsafe version of {@link #samplerYcbcrConversionComponents}. */
     public static VkComponentMapping nsamplerYcbcrConversionComponents(long struct) { return VkComponentMapping.create(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.SAMPLERYCBCRCONVERSIONCOMPONENTS); }
     /** Unsafe version of {@link #suggestedYcbcrModel}. */
-    public static int nsuggestedYcbcrModel(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatPropertiesANDROID.SUGGESTEDYCBCRMODEL); }
+    public static int nsuggestedYcbcrModel(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.SUGGESTEDYCBCRMODEL); }
     /** Unsafe version of {@link #suggestedYcbcrRange}. */
-    public static int nsuggestedYcbcrRange(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatPropertiesANDROID.SUGGESTEDYCBCRRANGE); }
+    public static int nsuggestedYcbcrRange(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.SUGGESTEDYCBCRRANGE); }
     /** Unsafe version of {@link #suggestedXChromaOffset}. */
-    public static int nsuggestedXChromaOffset(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatPropertiesANDROID.SUGGESTEDXCHROMAOFFSET); }
+    public static int nsuggestedXChromaOffset(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.SUGGESTEDXCHROMAOFFSET); }
     /** Unsafe version of {@link #suggestedYChromaOffset}. */
-    public static int nsuggestedYChromaOffset(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatPropertiesANDROID.SUGGESTEDYCHROMAOFFSET); }
+    public static int nsuggestedYChromaOffset(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.SUGGESTEDYCHROMAOFFSET); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAndroidHardwareBufferFormatPropertiesANDROID.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAndroidHardwareBufferFormatPropertiesANDROID.PNEXT, value); }
 
@@ -368,6 +366,11 @@ public class VkAndroidHardwareBufferFormatPropertiesANDROID extends Struct<VkAnd
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

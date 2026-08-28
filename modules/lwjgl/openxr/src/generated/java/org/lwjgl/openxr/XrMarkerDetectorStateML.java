@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class XrMarkerDetectorStateML extends Struct<XrMarkerDetectorStateML> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerDetectorStateML createSafe(long address) {
+    public static @Nullable XrMarkerDetectorStateML createSafe(long address) {
         return address == NULL ? null : new XrMarkerDetectorStateML(address, null);
     }
 
@@ -198,8 +197,7 @@ public class XrMarkerDetectorStateML extends Struct<XrMarkerDetectorStateML> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerDetectorStateML.Buffer createSafe(long address, int capacity) {
+    public static XrMarkerDetectorStateML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,14 +242,14 @@ public class XrMarkerDetectorStateML extends Struct<XrMarkerDetectorStateML> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrMarkerDetectorStateML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrMarkerDetectorStateML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrMarkerDetectorStateML.NEXT); }
     /** Unsafe version of {@link #state}. */
-    public static int nstate(long struct) { return UNSAFE.getInt(null, struct + XrMarkerDetectorStateML.STATE); }
+    public static int nstate(long struct) { return memGetInt(struct + XrMarkerDetectorStateML.STATE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrMarkerDetectorStateML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrMarkerDetectorStateML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrMarkerDetectorStateML.NEXT, value); }
 
@@ -286,6 +284,11 @@ public class XrMarkerDetectorStateML extends Struct<XrMarkerDetectorStateML> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

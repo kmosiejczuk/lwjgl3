@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -194,8 +194,7 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkConditionalRenderingBeginInfoEXT createSafe(long address) {
+    public static @Nullable VkConditionalRenderingBeginInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkConditionalRenderingBeginInfoEXT(address, null);
     }
 
@@ -238,8 +237,7 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkConditionalRenderingBeginInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkConditionalRenderingBeginInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -303,26 +301,26 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkConditionalRenderingBeginInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkConditionalRenderingBeginInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkConditionalRenderingBeginInfoEXT.PNEXT); }
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkConditionalRenderingBeginInfoEXT.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkConditionalRenderingBeginInfoEXT.BUFFER); }
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VkConditionalRenderingBeginInfoEXT.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VkConditionalRenderingBeginInfoEXT.OFFSET); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkConditionalRenderingBeginInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkConditionalRenderingBeginInfoEXT.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkConditionalRenderingBeginInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkConditionalRenderingBeginInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkConditionalRenderingBeginInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkConditionalRenderingBeginInfoEXT.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkConditionalRenderingBeginInfoEXT.BUFFER, value); }
     /** Unsafe version of {@link #offset(long) offset}. */
-    public static void noffset(long struct, long value) { UNSAFE.putLong(null, struct + VkConditionalRenderingBeginInfoEXT.OFFSET, value); }
+    public static void noffset(long struct, long value) { memPutLong(struct + VkConditionalRenderingBeginInfoEXT.OFFSET, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkConditionalRenderingBeginInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkConditionalRenderingBeginInfoEXT.FLAGS, value); }
 
     // -----------------------------------
 
@@ -355,6 +353,11 @@ public class VkConditionalRenderingBeginInfoEXT extends Struct<VkConditionalRend
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

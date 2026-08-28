@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -184,9 +184,8 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
      *
      * @param capacity the number of elements in the returned buffer
      */
-    @Nullable
     @NativeType("void const *")
-    public ByteBuffer srcHost(int capacity) { return nsrcHost(address(), capacity); }
+    public @Nullable ByteBuffer srcHost(int capacity) { return nsrcHost(address(), capacity); }
     /** @return the value of the {@code srcDevice} field. */
     @NativeType("CUdeviceptr")
     public long srcDevice() { return nsrcDevice(address()); }
@@ -222,9 +221,8 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
      *
      * @param capacity the number of elements in the returned buffer
      */
-    @Nullable
     @NativeType("void *")
-    public ByteBuffer dstHost(int capacity) { return ndstHost(address(), capacity); }
+    public @Nullable ByteBuffer dstHost(int capacity) { return ndstHost(address(), capacity); }
     /** @return the value of the {@code dstDevice} field. */
     @NativeType("CUdeviceptr")
     public long dstDevice() { return ndstDevice(address()); }
@@ -394,8 +392,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_MEMCPY3D createSafe(long address) {
+    public static @Nullable CUDA_MEMCPY3D createSafe(long address) {
         return address == NULL ? null : new CUDA_MEMCPY3D(address, null);
     }
 
@@ -438,8 +435,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_MEMCPY3D.Buffer createSafe(long address, int capacity) {
+    public static CUDA_MEMCPY3D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -511,9 +507,9 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
     /** Unsafe version of {@link #srcLOD}. */
     public static long nsrcLOD(long struct) { return memGetAddress(struct + CUDA_MEMCPY3D.SRCLOD); }
     /** Unsafe version of {@link #srcMemoryType}. */
-    public static int nsrcMemoryType(long struct) { return UNSAFE.getInt(null, struct + CUDA_MEMCPY3D.SRCMEMORYTYPE); }
+    public static int nsrcMemoryType(long struct) { return memGetInt(struct + CUDA_MEMCPY3D.SRCMEMORYTYPE); }
     /** Unsafe version of {@link #srcHost(int) srcHost}. */
-    @Nullable public static ByteBuffer nsrcHost(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + CUDA_MEMCPY3D.SRCHOST), capacity); }
+    public static @Nullable ByteBuffer nsrcHost(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + CUDA_MEMCPY3D.SRCHOST), capacity); }
     /** Unsafe version of {@link #srcDevice}. */
     public static long nsrcDevice(long struct) { return memGetAddress(struct + CUDA_MEMCPY3D.SRCDEVICE); }
     /** Unsafe version of {@link #srcArray}. */
@@ -533,9 +529,9 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
     /** Unsafe version of {@link #dstLOD}. */
     public static long ndstLOD(long struct) { return memGetAddress(struct + CUDA_MEMCPY3D.DSTLOD); }
     /** Unsafe version of {@link #dstMemoryType}. */
-    public static int ndstMemoryType(long struct) { return UNSAFE.getInt(null, struct + CUDA_MEMCPY3D.DSTMEMORYTYPE); }
+    public static int ndstMemoryType(long struct) { return memGetInt(struct + CUDA_MEMCPY3D.DSTMEMORYTYPE); }
     /** Unsafe version of {@link #dstHost(int) dstHost}. */
-    @Nullable public static ByteBuffer ndstHost(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + CUDA_MEMCPY3D.DSTHOST), capacity); }
+    public static @Nullable ByteBuffer ndstHost(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + CUDA_MEMCPY3D.DSTHOST), capacity); }
     /** Unsafe version of {@link #dstDevice}. */
     public static long ndstDevice(long struct) { return memGetAddress(struct + CUDA_MEMCPY3D.DSTDEVICE); }
     /** Unsafe version of {@link #dstArray}. */
@@ -562,7 +558,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
     /** Unsafe version of {@link #srcLOD(long) srcLOD}. */
     public static void nsrcLOD(long struct, long value) { memPutAddress(struct + CUDA_MEMCPY3D.SRCLOD, value); }
     /** Unsafe version of {@link #srcMemoryType(int) srcMemoryType}. */
-    public static void nsrcMemoryType(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_MEMCPY3D.SRCMEMORYTYPE, value); }
+    public static void nsrcMemoryType(long struct, int value) { memPutInt(struct + CUDA_MEMCPY3D.SRCMEMORYTYPE, value); }
     /** Unsafe version of {@link #srcHost(ByteBuffer) srcHost}. */
     public static void nsrcHost(long struct, @Nullable ByteBuffer value) { memPutAddress(struct + CUDA_MEMCPY3D.SRCHOST, memAddressSafe(value)); }
     /** Unsafe version of {@link #srcDevice(long) srcDevice}. */
@@ -584,7 +580,7 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
     /** Unsafe version of {@link #dstLOD(long) dstLOD}. */
     public static void ndstLOD(long struct, long value) { memPutAddress(struct + CUDA_MEMCPY3D.DSTLOD, value); }
     /** Unsafe version of {@link #dstMemoryType(int) dstMemoryType}. */
-    public static void ndstMemoryType(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_MEMCPY3D.DSTMEMORYTYPE, value); }
+    public static void ndstMemoryType(long struct, int value) { memPutInt(struct + CUDA_MEMCPY3D.DSTMEMORYTYPE, value); }
     /** Unsafe version of {@link #dstHost(ByteBuffer) dstHost}. */
     public static void ndstHost(long struct, @Nullable ByteBuffer value) { memPutAddress(struct + CUDA_MEMCPY3D.DSTHOST, memAddressSafe(value)); }
     /** Unsafe version of {@link #dstDevice(long) dstDevice}. */
@@ -638,6 +634,11 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected CUDA_MEMCPY3D getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -662,9 +663,8 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("void const *")
-        public ByteBuffer srcHost(int capacity) { return CUDA_MEMCPY3D.nsrcHost(address(), capacity); }
+        public @Nullable ByteBuffer srcHost(int capacity) { return CUDA_MEMCPY3D.nsrcHost(address(), capacity); }
         /** @return the value of the {@code srcDevice} field. */
         @NativeType("CUdeviceptr")
         public long srcDevice() { return CUDA_MEMCPY3D.nsrcDevice(address()); }
@@ -700,9 +700,8 @@ public class CUDA_MEMCPY3D extends Struct<CUDA_MEMCPY3D> implements NativeResour
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("void *")
-        public ByteBuffer dstHost(int capacity) { return CUDA_MEMCPY3D.ndstHost(address(), capacity); }
+        public @Nullable ByteBuffer dstHost(int capacity) { return CUDA_MEMCPY3D.ndstHost(address(), capacity); }
         /** @return the value of the {@code dstDevice} field. */
         @NativeType("CUdeviceptr")
         public long dstDevice() { return CUDA_MEMCPY3D.ndstDevice(address()); }

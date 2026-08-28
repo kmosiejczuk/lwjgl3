@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -133,8 +133,7 @@ public class POINTL extends Struct<POINTL> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static POINTL createSafe(long address) {
+    public static @Nullable POINTL createSafe(long address) {
         return address == NULL ? null : new POINTL(address, null);
     }
 
@@ -177,8 +176,7 @@ public class POINTL extends Struct<POINTL> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static POINTL.Buffer createSafe(long address, int capacity) {
+    public static POINTL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class POINTL extends Struct<POINTL> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + POINTL.X); }
+    public static int nx(long struct) { return memGetInt(struct + POINTL.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + POINTL.Y); }
+    public static int ny(long struct) { return memGetInt(struct + POINTL.Y); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + POINTL.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + POINTL.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + POINTL.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + POINTL.Y, value); }
 
     // -----------------------------------
 
@@ -282,6 +280,11 @@ public class POINTL extends Struct<POINTL> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

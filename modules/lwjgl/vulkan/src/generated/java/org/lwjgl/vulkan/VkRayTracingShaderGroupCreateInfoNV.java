@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -213,8 +213,7 @@ public class VkRayTracingShaderGroupCreateInfoNV extends Struct<VkRayTracingShad
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRayTracingShaderGroupCreateInfoNV createSafe(long address) {
+    public static @Nullable VkRayTracingShaderGroupCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkRayTracingShaderGroupCreateInfoNV(address, null);
     }
 
@@ -257,8 +256,7 @@ public class VkRayTracingShaderGroupCreateInfoNV extends Struct<VkRayTracingShad
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRayTracingShaderGroupCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkRayTracingShaderGroupCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -322,34 +320,34 @@ public class VkRayTracingShaderGroupCreateInfoNV extends Struct<VkRayTracingShad
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRayTracingShaderGroupCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoNV.TYPE); }
     /** Unsafe version of {@link #generalShader}. */
-    public static int ngeneralShader(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.GENERALSHADER); }
+    public static int ngeneralShader(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoNV.GENERALSHADER); }
     /** Unsafe version of {@link #closestHitShader}. */
-    public static int nclosestHitShader(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.CLOSESTHITSHADER); }
+    public static int nclosestHitShader(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoNV.CLOSESTHITSHADER); }
     /** Unsafe version of {@link #anyHitShader}. */
-    public static int nanyHitShader(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.ANYHITSHADER); }
+    public static int nanyHitShader(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoNV.ANYHITSHADER); }
     /** Unsafe version of {@link #intersectionShader}. */
-    public static int nintersectionShader(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.INTERSECTIONSHADER); }
+    public static int nintersectionShader(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoNV.INTERSECTIONSHADER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRayTracingShaderGroupCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoNV.TYPE, value); }
     /** Unsafe version of {@link #generalShader(int) generalShader}. */
-    public static void ngeneralShader(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.GENERALSHADER, value); }
+    public static void ngeneralShader(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoNV.GENERALSHADER, value); }
     /** Unsafe version of {@link #closestHitShader(int) closestHitShader}. */
-    public static void nclosestHitShader(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.CLOSESTHITSHADER, value); }
+    public static void nclosestHitShader(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoNV.CLOSESTHITSHADER, value); }
     /** Unsafe version of {@link #anyHitShader(int) anyHitShader}. */
-    public static void nanyHitShader(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.ANYHITSHADER, value); }
+    public static void nanyHitShader(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoNV.ANYHITSHADER, value); }
     /** Unsafe version of {@link #intersectionShader(int) intersectionShader}. */
-    public static void nintersectionShader(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoNV.INTERSECTIONSHADER, value); }
+    public static void nintersectionShader(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoNV.INTERSECTIONSHADER, value); }
 
     // -----------------------------------
 
@@ -382,6 +380,11 @@ public class VkRayTracingShaderGroupCreateInfoNV extends Struct<VkRayTracingShad
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

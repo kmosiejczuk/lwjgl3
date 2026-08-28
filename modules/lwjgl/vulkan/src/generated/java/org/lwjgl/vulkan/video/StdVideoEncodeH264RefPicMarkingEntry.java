@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class StdVideoEncodeH264RefPicMarkingEntry extends Struct<StdVideoEncodeH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH264RefPicMarkingEntry createSafe(long address) {
+    public static @Nullable StdVideoEncodeH264RefPicMarkingEntry createSafe(long address) {
         return address == NULL ? null : new StdVideoEncodeH264RefPicMarkingEntry(address, null);
     }
 
@@ -208,8 +207,7 @@ public class StdVideoEncodeH264RefPicMarkingEntry extends Struct<StdVideoEncodeH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH264RefPicMarkingEntry.Buffer createSafe(long address, int capacity) {
+    public static StdVideoEncodeH264RefPicMarkingEntry.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,26 +252,26 @@ public class StdVideoEncodeH264RefPicMarkingEntry extends Struct<StdVideoEncodeH
     // -----------------------------------
 
     /** Unsafe version of {@link #memory_management_control_operation}. */
-    public static int nmemory_management_control_operation(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH264RefPicMarkingEntry.MEMORY_MANAGEMENT_CONTROL_OPERATION); }
+    public static int nmemory_management_control_operation(long struct) { return memGetInt(struct + StdVideoEncodeH264RefPicMarkingEntry.MEMORY_MANAGEMENT_CONTROL_OPERATION); }
     /** Unsafe version of {@link #difference_of_pic_nums_minus1}. */
-    public static short ndifference_of_pic_nums_minus1(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH264RefPicMarkingEntry.DIFFERENCE_OF_PIC_NUMS_MINUS1); }
+    public static short ndifference_of_pic_nums_minus1(long struct) { return memGetShort(struct + StdVideoEncodeH264RefPicMarkingEntry.DIFFERENCE_OF_PIC_NUMS_MINUS1); }
     /** Unsafe version of {@link #long_term_pic_num}. */
-    public static short nlong_term_pic_num(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH264RefPicMarkingEntry.LONG_TERM_PIC_NUM); }
+    public static short nlong_term_pic_num(long struct) { return memGetShort(struct + StdVideoEncodeH264RefPicMarkingEntry.LONG_TERM_PIC_NUM); }
     /** Unsafe version of {@link #long_term_frame_idx}. */
-    public static short nlong_term_frame_idx(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH264RefPicMarkingEntry.LONG_TERM_FRAME_IDX); }
+    public static short nlong_term_frame_idx(long struct) { return memGetShort(struct + StdVideoEncodeH264RefPicMarkingEntry.LONG_TERM_FRAME_IDX); }
     /** Unsafe version of {@link #max_long_term_frame_idx_plus1}. */
-    public static short nmax_long_term_frame_idx_plus1(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH264RefPicMarkingEntry.MAX_LONG_TERM_FRAME_IDX_PLUS1); }
+    public static short nmax_long_term_frame_idx_plus1(long struct) { return memGetShort(struct + StdVideoEncodeH264RefPicMarkingEntry.MAX_LONG_TERM_FRAME_IDX_PLUS1); }
 
     /** Unsafe version of {@link #memory_management_control_operation(int) memory_management_control_operation}. */
-    public static void nmemory_management_control_operation(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH264RefPicMarkingEntry.MEMORY_MANAGEMENT_CONTROL_OPERATION, value); }
+    public static void nmemory_management_control_operation(long struct, int value) { memPutInt(struct + StdVideoEncodeH264RefPicMarkingEntry.MEMORY_MANAGEMENT_CONTROL_OPERATION, value); }
     /** Unsafe version of {@link #difference_of_pic_nums_minus1(short) difference_of_pic_nums_minus1}. */
-    public static void ndifference_of_pic_nums_minus1(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH264RefPicMarkingEntry.DIFFERENCE_OF_PIC_NUMS_MINUS1, value); }
+    public static void ndifference_of_pic_nums_minus1(long struct, short value) { memPutShort(struct + StdVideoEncodeH264RefPicMarkingEntry.DIFFERENCE_OF_PIC_NUMS_MINUS1, value); }
     /** Unsafe version of {@link #long_term_pic_num(short) long_term_pic_num}. */
-    public static void nlong_term_pic_num(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH264RefPicMarkingEntry.LONG_TERM_PIC_NUM, value); }
+    public static void nlong_term_pic_num(long struct, short value) { memPutShort(struct + StdVideoEncodeH264RefPicMarkingEntry.LONG_TERM_PIC_NUM, value); }
     /** Unsafe version of {@link #long_term_frame_idx(short) long_term_frame_idx}. */
-    public static void nlong_term_frame_idx(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH264RefPicMarkingEntry.LONG_TERM_FRAME_IDX, value); }
+    public static void nlong_term_frame_idx(long struct, short value) { memPutShort(struct + StdVideoEncodeH264RefPicMarkingEntry.LONG_TERM_FRAME_IDX, value); }
     /** Unsafe version of {@link #max_long_term_frame_idx_plus1(short) max_long_term_frame_idx_plus1}. */
-    public static void nmax_long_term_frame_idx_plus1(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH264RefPicMarkingEntry.MAX_LONG_TERM_FRAME_IDX_PLUS1, value); }
+    public static void nmax_long_term_frame_idx_plus1(long struct, short value) { memPutShort(struct + StdVideoEncodeH264RefPicMarkingEntry.MAX_LONG_TERM_FRAME_IDX_PLUS1, value); }
 
     // -----------------------------------
 
@@ -306,6 +304,11 @@ public class StdVideoEncodeH264RefPicMarkingEntry extends Struct<StdVideoEncodeH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

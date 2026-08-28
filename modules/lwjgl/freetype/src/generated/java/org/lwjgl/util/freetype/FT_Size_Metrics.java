@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -129,8 +129,7 @@ public class FT_Size_Metrics extends Struct<FT_Size_Metrics> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Size_Metrics createSafe(long address) {
+    public static @Nullable FT_Size_Metrics createSafe(long address) {
         return address == NULL ? null : new FT_Size_Metrics(address, null);
     }
 
@@ -145,17 +144,16 @@ public class FT_Size_Metrics extends Struct<FT_Size_Metrics> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Size_Metrics.Buffer createSafe(long address, int capacity) {
+    public static FT_Size_Metrics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #x_ppem}. */
-    public static short nx_ppem(long struct) { return UNSAFE.getShort(null, struct + FT_Size_Metrics.X_PPEM); }
+    public static short nx_ppem(long struct) { return memGetShort(struct + FT_Size_Metrics.X_PPEM); }
     /** Unsafe version of {@link #y_ppem}. */
-    public static short ny_ppem(long struct) { return UNSAFE.getShort(null, struct + FT_Size_Metrics.Y_PPEM); }
+    public static short ny_ppem(long struct) { return memGetShort(struct + FT_Size_Metrics.Y_PPEM); }
     /** Unsafe version of {@link #x_scale}. */
     public static long nx_scale(long struct) { return memGetCLong(struct + FT_Size_Metrics.X_SCALE); }
     /** Unsafe version of {@link #y_scale}. */
@@ -200,6 +198,11 @@ public class FT_Size_Metrics extends Struct<FT_Size_Metrics> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

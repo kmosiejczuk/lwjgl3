@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -100,7 +100,7 @@ public class VkVideoEncodeSessionParametersFeedbackInfoKHR extends Struct<VkVide
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether any of the requested parameter data were <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-overrides">overridden</a> by the implementation. */
+    /** indicates whether any of the requested parameter data were <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-overrides">overridden</a> by the implementation. */
     @NativeType("VkBool32")
     public boolean hasOverrides() { return nhasOverrides(address()) != 0; }
 
@@ -162,8 +162,7 @@ public class VkVideoEncodeSessionParametersFeedbackInfoKHR extends Struct<VkVide
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeSessionParametersFeedbackInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeSessionParametersFeedbackInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeSessionParametersFeedbackInfoKHR(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkVideoEncodeSessionParametersFeedbackInfoKHR extends Struct<VkVide
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeSessionParametersFeedbackInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeSessionParametersFeedbackInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,14 +250,14 @@ public class VkVideoEncodeSessionParametersFeedbackInfoKHR extends Struct<VkVide
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeSessionParametersFeedbackInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeSessionParametersFeedbackInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeSessionParametersFeedbackInfoKHR.PNEXT); }
     /** Unsafe version of {@link #hasOverrides}. */
-    public static int nhasOverrides(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeSessionParametersFeedbackInfoKHR.HASOVERRIDES); }
+    public static int nhasOverrides(long struct) { return memGetInt(struct + VkVideoEncodeSessionParametersFeedbackInfoKHR.HASOVERRIDES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeSessionParametersFeedbackInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeSessionParametersFeedbackInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeSessionParametersFeedbackInfoKHR.PNEXT, value); }
 
@@ -294,6 +292,11 @@ public class VkVideoEncodeSessionParametersFeedbackInfoKHR extends Struct<VkVide
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

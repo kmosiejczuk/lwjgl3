@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -121,9 +121,8 @@ public class XrHandMeshIndexBufferMSFT extends Struct<XrHandMeshIndexBufferMSFT>
     @NativeType("uint32_t")
     public int indexCountOutput() { return nindexCountOutput(address()); }
     /** an array of indices filled in by the runtime, specifying the indices of the triangles list in the vertex buffer. */
-    @Nullable
     @NativeType("uint32_t *")
-    public IntBuffer indices() { return nindices(address()); }
+    public @Nullable IntBuffer indices() { return nindices(address()); }
 
     /** Sets the specified value to the {@link #indexBufferKey} field. */
     public XrHandMeshIndexBufferMSFT indexBufferKey(@NativeType("uint32_t") int value) { nindexBufferKey(address(), value); return this; }
@@ -185,8 +184,7 @@ public class XrHandMeshIndexBufferMSFT extends Struct<XrHandMeshIndexBufferMSFT>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandMeshIndexBufferMSFT createSafe(long address) {
+    public static @Nullable XrHandMeshIndexBufferMSFT createSafe(long address) {
         return address == NULL ? null : new XrHandMeshIndexBufferMSFT(address, null);
     }
 
@@ -229,8 +227,7 @@ public class XrHandMeshIndexBufferMSFT extends Struct<XrHandMeshIndexBufferMSFT>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandMeshIndexBufferMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrHandMeshIndexBufferMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,20 +272,20 @@ public class XrHandMeshIndexBufferMSFT extends Struct<XrHandMeshIndexBufferMSFT>
     // -----------------------------------
 
     /** Unsafe version of {@link #indexBufferKey}. */
-    public static int nindexBufferKey(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshIndexBufferMSFT.INDEXBUFFERKEY); }
+    public static int nindexBufferKey(long struct) { return memGetInt(struct + XrHandMeshIndexBufferMSFT.INDEXBUFFERKEY); }
     /** Unsafe version of {@link #indexCapacityInput}. */
-    public static int nindexCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshIndexBufferMSFT.INDEXCAPACITYINPUT); }
+    public static int nindexCapacityInput(long struct) { return memGetInt(struct + XrHandMeshIndexBufferMSFT.INDEXCAPACITYINPUT); }
     /** Unsafe version of {@link #indexCountOutput}. */
-    public static int nindexCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshIndexBufferMSFT.INDEXCOUNTOUTPUT); }
+    public static int nindexCountOutput(long struct) { return memGetInt(struct + XrHandMeshIndexBufferMSFT.INDEXCOUNTOUTPUT); }
     /** Unsafe version of {@link #indices() indices}. */
-    @Nullable public static IntBuffer nindices(long struct) { return memIntBufferSafe(memGetAddress(struct + XrHandMeshIndexBufferMSFT.INDICES), nindexCapacityInput(struct)); }
+    public static @Nullable IntBuffer nindices(long struct) { return memIntBufferSafe(memGetAddress(struct + XrHandMeshIndexBufferMSFT.INDICES), nindexCapacityInput(struct)); }
 
     /** Unsafe version of {@link #indexBufferKey(int) indexBufferKey}. */
-    public static void nindexBufferKey(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshIndexBufferMSFT.INDEXBUFFERKEY, value); }
+    public static void nindexBufferKey(long struct, int value) { memPutInt(struct + XrHandMeshIndexBufferMSFT.INDEXBUFFERKEY, value); }
     /** Sets the specified value to the {@code indexCapacityInput} field of the specified {@code struct}. */
-    public static void nindexCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshIndexBufferMSFT.INDEXCAPACITYINPUT, value); }
+    public static void nindexCapacityInput(long struct, int value) { memPutInt(struct + XrHandMeshIndexBufferMSFT.INDEXCAPACITYINPUT, value); }
     /** Unsafe version of {@link #indexCountOutput(int) indexCountOutput}. */
-    public static void nindexCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshIndexBufferMSFT.INDEXCOUNTOUTPUT, value); }
+    public static void nindexCountOutput(long struct, int value) { memPutInt(struct + XrHandMeshIndexBufferMSFT.INDEXCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #indices(IntBuffer) indices}. */
     public static void nindices(long struct, @Nullable IntBuffer value) { memPutAddress(struct + XrHandMeshIndexBufferMSFT.INDICES, memAddressSafe(value)); if (value != null) { nindexCapacityInput(struct, value.remaining()); } }
 
@@ -326,6 +323,11 @@ public class XrHandMeshIndexBufferMSFT extends Struct<XrHandMeshIndexBufferMSFT>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrHandMeshIndexBufferMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -340,9 +342,8 @@ public class XrHandMeshIndexBufferMSFT extends Struct<XrHandMeshIndexBufferMSFT>
         @NativeType("uint32_t")
         public int indexCountOutput() { return XrHandMeshIndexBufferMSFT.nindexCountOutput(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link XrHandMeshIndexBufferMSFT#indices} field. */
-        @Nullable
         @NativeType("uint32_t *")
-        public IntBuffer indices() { return XrHandMeshIndexBufferMSFT.nindices(address()); }
+        public @Nullable IntBuffer indices() { return XrHandMeshIndexBufferMSFT.nindices(address()); }
 
         /** Sets the specified value to the {@link XrHandMeshIndexBufferMSFT#indexBufferKey} field. */
         public XrHandMeshIndexBufferMSFT.Buffer indexBufferKey(@NativeType("uint32_t") int value) { XrHandMeshIndexBufferMSFT.nindexBufferKey(address(), value); return this; }

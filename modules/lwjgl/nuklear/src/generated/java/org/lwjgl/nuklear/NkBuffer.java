@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class NkBuffer extends Struct<NkBuffer> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkBuffer createSafe(long address) {
+    public static @Nullable NkBuffer createSafe(long address) {
         return address == NULL ? null : new NkBuffer(address, null);
     }
 
@@ -200,8 +199,7 @@ public class NkBuffer extends Struct<NkBuffer> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkBuffer.Buffer createSafe(long address, int capacity) {
+    public static NkBuffer.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,11 +271,11 @@ public class NkBuffer extends Struct<NkBuffer> implements NativeResource {
     /** Unsafe version of {@link #pool}. */
     public static NkAllocator npool(long struct) { return NkAllocator.create(struct + NkBuffer.POOL); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + NkBuffer.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + NkBuffer.TYPE); }
     /** Unsafe version of {@link #memory}. */
     public static NkMemory nmemory(long struct) { return NkMemory.create(struct + NkBuffer.MEMORY); }
     /** Unsafe version of {@link #grow_factor}. */
-    public static float ngrow_factor(long struct) { return UNSAFE.getFloat(null, struct + NkBuffer.GROW_FACTOR); }
+    public static float ngrow_factor(long struct) { return memGetFloat(struct + NkBuffer.GROW_FACTOR); }
     /** Unsafe version of {@link #allocated}. */
     public static long nallocated(long struct) { return memGetAddress(struct + NkBuffer.ALLOCATED); }
     /** Unsafe version of {@link #needed}. */
@@ -318,6 +316,11 @@ public class NkBuffer extends Struct<NkBuffer> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

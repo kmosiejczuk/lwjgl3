@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,10 +153,10 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
     /** specifies whether the implementation supports multiview rendering within a render pass. If this feature is not enabled, the view mask of each subpass <b>must</b> always be zero. */
     @NativeType("VkBool32")
     public boolean multiview() { return nmultiview(address()) != 0; }
-    /** specifies whether the implementation supports multiview rendering within a render pass, with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#geometry">geometry shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include a geometry shader. */
+    /** specifies whether the implementation supports multiview rendering within a render pass, with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#geometry">geometry shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include a geometry shader. */
     @NativeType("VkBool32")
     public boolean multiviewGeometryShader() { return nmultiviewGeometryShader(address()) != 0; }
-    /** specifies whether the implementation supports multiview rendering within a render pass, with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">tessellation shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include any tessellation shaders. */
+    /** specifies whether the implementation supports multiview rendering within a render pass, with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#tessellation">tessellation shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include any tessellation shaders. */
     @NativeType("VkBool32")
     public boolean multiviewTessellationShader() { return nmultiviewTessellationShader(address()) != 0; }
     /** specifies whether the implementation supports the SPIR-V {@code VariablePointersStorageBuffer} capability. When this feature is not enabled, shader modules <b>must</b> not declare the {@code SPV_KHR_variable_pointers} extension or the {@code VariablePointersStorageBuffer} capability. */
@@ -165,10 +165,10 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
     /** specifies whether the implementation supports the SPIR-V {@code VariablePointers} capability. When this feature is not enabled, shader modules <b>must</b> not declare the {@code VariablePointers} capability. */
     @NativeType("VkBool32")
     public boolean variablePointers() { return nvariablePointers(address()) != 0; }
-    /** specifies whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-protected-memory">protected memory</a> is supported. */
+    /** specifies whether <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-protected-memory">protected memory</a> is supported. */
     @NativeType("VkBool32")
     public boolean protectedMemory() { return nprotectedMemory(address()) != 0; }
-    /** specifies whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>. If {@code samplerYcbcrConversion} is {@link VK10#VK_FALSE FALSE}, sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is not supported, and samplers using sampler Y′C<sub>B</sub>C<sub>R</sub> conversion <b>must</b> not be used. */
+    /** specifies whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>. If {@code samplerYcbcrConversion} is {@link VK10#VK_FALSE FALSE}, sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is not supported, and samplers using sampler Y′C<sub>B</sub>C<sub>R</sub> conversion <b>must</b> not be used. */
     @NativeType("VkBool32")
     public boolean samplerYcbcrConversion() { return nsamplerYcbcrConversion(address()) != 0; }
     /** specifies whether the implementation supports the SPIR-V {@code DrawParameters} capability. When this feature is not enabled, shader modules <b>must</b> not declare the {@code SPV_KHR_shader_draw_parameters} extension or the {@code DrawParameters} capability. */
@@ -277,8 +277,7 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVulkan11Features createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceVulkan11Features createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceVulkan11Features(address, null);
     }
 
@@ -321,8 +320,7 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVulkan11Features.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceVulkan11Features.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -367,62 +365,62 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceVulkan11Features.PNEXT); }
     /** Unsafe version of {@link #storageBuffer16BitAccess}. */
-    public static int nstorageBuffer16BitAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.STORAGEBUFFER16BITACCESS); }
+    public static int nstorageBuffer16BitAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.STORAGEBUFFER16BITACCESS); }
     /** Unsafe version of {@link #uniformAndStorageBuffer16BitAccess}. */
-    public static int nuniformAndStorageBuffer16BitAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.UNIFORMANDSTORAGEBUFFER16BITACCESS); }
+    public static int nuniformAndStorageBuffer16BitAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.UNIFORMANDSTORAGEBUFFER16BITACCESS); }
     /** Unsafe version of {@link #storagePushConstant16}. */
-    public static int nstoragePushConstant16(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.STORAGEPUSHCONSTANT16); }
+    public static int nstoragePushConstant16(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.STORAGEPUSHCONSTANT16); }
     /** Unsafe version of {@link #storageInputOutput16}. */
-    public static int nstorageInputOutput16(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.STORAGEINPUTOUTPUT16); }
+    public static int nstorageInputOutput16(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.STORAGEINPUTOUTPUT16); }
     /** Unsafe version of {@link #multiview}. */
-    public static int nmultiview(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.MULTIVIEW); }
+    public static int nmultiview(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.MULTIVIEW); }
     /** Unsafe version of {@link #multiviewGeometryShader}. */
-    public static int nmultiviewGeometryShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.MULTIVIEWGEOMETRYSHADER); }
+    public static int nmultiviewGeometryShader(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.MULTIVIEWGEOMETRYSHADER); }
     /** Unsafe version of {@link #multiviewTessellationShader}. */
-    public static int nmultiviewTessellationShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.MULTIVIEWTESSELLATIONSHADER); }
+    public static int nmultiviewTessellationShader(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.MULTIVIEWTESSELLATIONSHADER); }
     /** Unsafe version of {@link #variablePointersStorageBuffer}. */
-    public static int nvariablePointersStorageBuffer(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.VARIABLEPOINTERSSTORAGEBUFFER); }
+    public static int nvariablePointersStorageBuffer(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.VARIABLEPOINTERSSTORAGEBUFFER); }
     /** Unsafe version of {@link #variablePointers}. */
-    public static int nvariablePointers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.VARIABLEPOINTERS); }
+    public static int nvariablePointers(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.VARIABLEPOINTERS); }
     /** Unsafe version of {@link #protectedMemory}. */
-    public static int nprotectedMemory(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.PROTECTEDMEMORY); }
+    public static int nprotectedMemory(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.PROTECTEDMEMORY); }
     /** Unsafe version of {@link #samplerYcbcrConversion}. */
-    public static int nsamplerYcbcrConversion(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.SAMPLERYCBCRCONVERSION); }
+    public static int nsamplerYcbcrConversion(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.SAMPLERYCBCRCONVERSION); }
     /** Unsafe version of {@link #shaderDrawParameters}. */
-    public static int nshaderDrawParameters(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan11Features.SHADERDRAWPARAMETERS); }
+    public static int nshaderDrawParameters(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan11Features.SHADERDRAWPARAMETERS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceVulkan11Features.PNEXT, value); }
     /** Unsafe version of {@link #storageBuffer16BitAccess(boolean) storageBuffer16BitAccess}. */
-    public static void nstorageBuffer16BitAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.STORAGEBUFFER16BITACCESS, value); }
+    public static void nstorageBuffer16BitAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.STORAGEBUFFER16BITACCESS, value); }
     /** Unsafe version of {@link #uniformAndStorageBuffer16BitAccess(boolean) uniformAndStorageBuffer16BitAccess}. */
-    public static void nuniformAndStorageBuffer16BitAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.UNIFORMANDSTORAGEBUFFER16BITACCESS, value); }
+    public static void nuniformAndStorageBuffer16BitAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.UNIFORMANDSTORAGEBUFFER16BITACCESS, value); }
     /** Unsafe version of {@link #storagePushConstant16(boolean) storagePushConstant16}. */
-    public static void nstoragePushConstant16(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.STORAGEPUSHCONSTANT16, value); }
+    public static void nstoragePushConstant16(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.STORAGEPUSHCONSTANT16, value); }
     /** Unsafe version of {@link #storageInputOutput16(boolean) storageInputOutput16}. */
-    public static void nstorageInputOutput16(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.STORAGEINPUTOUTPUT16, value); }
+    public static void nstorageInputOutput16(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.STORAGEINPUTOUTPUT16, value); }
     /** Unsafe version of {@link #multiview(boolean) multiview}. */
-    public static void nmultiview(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.MULTIVIEW, value); }
+    public static void nmultiview(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.MULTIVIEW, value); }
     /** Unsafe version of {@link #multiviewGeometryShader(boolean) multiviewGeometryShader}. */
-    public static void nmultiviewGeometryShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.MULTIVIEWGEOMETRYSHADER, value); }
+    public static void nmultiviewGeometryShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.MULTIVIEWGEOMETRYSHADER, value); }
     /** Unsafe version of {@link #multiviewTessellationShader(boolean) multiviewTessellationShader}. */
-    public static void nmultiviewTessellationShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.MULTIVIEWTESSELLATIONSHADER, value); }
+    public static void nmultiviewTessellationShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.MULTIVIEWTESSELLATIONSHADER, value); }
     /** Unsafe version of {@link #variablePointersStorageBuffer(boolean) variablePointersStorageBuffer}. */
-    public static void nvariablePointersStorageBuffer(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.VARIABLEPOINTERSSTORAGEBUFFER, value); }
+    public static void nvariablePointersStorageBuffer(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.VARIABLEPOINTERSSTORAGEBUFFER, value); }
     /** Unsafe version of {@link #variablePointers(boolean) variablePointers}. */
-    public static void nvariablePointers(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.VARIABLEPOINTERS, value); }
+    public static void nvariablePointers(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.VARIABLEPOINTERS, value); }
     /** Unsafe version of {@link #protectedMemory(boolean) protectedMemory}. */
-    public static void nprotectedMemory(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.PROTECTEDMEMORY, value); }
+    public static void nprotectedMemory(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.PROTECTEDMEMORY, value); }
     /** Unsafe version of {@link #samplerYcbcrConversion(boolean) samplerYcbcrConversion}. */
-    public static void nsamplerYcbcrConversion(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.SAMPLERYCBCRCONVERSION, value); }
+    public static void nsamplerYcbcrConversion(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.SAMPLERYCBCRCONVERSION, value); }
     /** Unsafe version of {@link #shaderDrawParameters(boolean) shaderDrawParameters}. */
-    public static void nshaderDrawParameters(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan11Features.SHADERDRAWPARAMETERS, value); }
+    public static void nshaderDrawParameters(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan11Features.SHADERDRAWPARAMETERS, value); }
 
     // -----------------------------------
 
@@ -455,6 +453,11 @@ public class VkPhysicalDeviceVulkan11Features extends Struct<VkPhysicalDeviceVul
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

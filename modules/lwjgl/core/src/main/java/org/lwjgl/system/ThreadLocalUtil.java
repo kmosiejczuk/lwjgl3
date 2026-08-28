@@ -83,14 +83,24 @@ public final class ThreadLocalUtil {
     - (minor) JVMTI has the ability to intercept JNI functions with SetJNIFunctionTable. This interacts badly with the jniNativeInterface copies, but it should
     be easy to workaround (attaching the agent at startup, making sure no contexts are current when the agent is attached, clearing and setting again the
     capabilities instance).
-
-    Since 3.3.1: the JNIEnv copies are now also used for storing/retrieving the thread-local errno/LastError values.
     */
 
     /** The global JNIEnv. */
     private static final long JNI_NATIVE_INTERFACE = memGetAddress(getThreadJNIEnv());
 
-    /** The number of pointers in the JNIEnv struct. */
+    /** The offset in {@code JNIEnv} at which to store the pointer to the capabilities array. */
+    private static final int CAPABILITIES_OFFSET = 3 * POINTER_SIZE;
+
+    /** The reference {@code NULL} value to use for {@code JNIEnv}'s reserved fields. */
+    private static final long RESERVED_NULL = memGetAddress(JNI_NATIVE_INTERFACE + CAPABILITIES_OFFSET);
+    // VM        | HotSpot | GraalVM Native Image (#875)     | EspressoVM / Truffle (#1003)     |
+    // ----------+---------+---------------------------------+----------------------------------+
+    // reserved0 | NULL    | UnimplementedWithJNIEnvArgument | struct NespressoEnv *            |
+    // reserved1 | NULL    | UnimplementedWithJNIEnvArgument | struct MokapotNativeInterface_ * |
+    // reserved2 | NULL    | UnimplementedWithJNIEnvArgument | unset_function_error             |
+    // reserved3 | NULL    | UnimplementedWithJNIEnvArgument | unset_function_error             |
+
+    /** The number of pointers in the {@code JNIEnv} struct. */
     private static final int JNI_NATIVE_INTERFACE_FUNCTION_COUNT;
 
     /** A function to delegate to when an unsupported function is called. */
@@ -102,9 +112,6 @@ public final class ThreadLocalUtil {
      * <p>The array size depends on whether OpenGL or OpenGL ES is used.</p>
      */
     private static long FUNCTION_MISSING_ABORT_TABLE = NULL;
-
-    /** The offset in JNIEnv at which to store the pointer to the capabilities array. */
-    private static final int CAPABILITIES_OFFSET = 3 * POINTER_SIZE;
 
     static {
         int JNI_VERSION = GetVersion();
@@ -144,8 +151,11 @@ public final class ThreadLocalUtil {
             case JNI_VERSION_21:
                 jniCallCount = 232;
                 break;
+            case JNI_VERSION_24:
+                jniCallCount = 233;
+                break;
             default:
-                jniCallCount = 232;
+                jniCallCount = 233;
                 DEBUG_STREAM
                     .println("[LWJGL] [ThreadLocalUtil] Unsupported JNI version detected, this may result in a crash. Please inform LWJGL developers.");
         }
@@ -159,10 +169,7 @@ public final class ThreadLocalUtil {
 
     private static native long getFunctionMissingAbort();
 
-    private static native long nsetupEnvData(int functionCount);
-    public static long setupEnvData() {
-        return nsetupEnvData(JNI_NATIVE_INTERFACE_FUNCTION_COUNT);
-    }
+    private static native long setupEnvData(int functionCount);
 
     public static void setCapabilities(long capabilities) {
         // Get thread's JNIEnv
@@ -175,7 +182,7 @@ public final class ThreadLocalUtil {
             }
         } else {
             if (env_p == JNI_NATIVE_INTERFACE) {
-                setupEnvData();
+                setupEnvData(JNI_NATIVE_INTERFACE_FUNCTION_COUNT);
                 env_p = memGetAddress(env_pp);
             }
             memPutAddress(env_p + CAPABILITIES_OFFSET, capabilities);
@@ -184,26 +191,27 @@ public final class ThreadLocalUtil {
 
     // Ensures FUNCTION_MISSING_ABORT will be called even if no context is current,
     public static void setFunctionMissingAddresses(int functionCount) {
-        // OpenJDK: NULL
-        // GraalVM Native Image: pointer to UnimplementedWithJNIEnvArgument function (see #875)
-        long RESERVED0_NULL = memGetAddress(JNI_NATIVE_INTERFACE);
-
         long ptr = JNI_NATIVE_INTERFACE + CAPABILITIES_OFFSET;
 
         long currentTable = memGetAddress(ptr);
         if (functionCount == 0) {
-            if (currentTable != RESERVED0_NULL) {
+            if (currentTable == FUNCTION_MISSING_ABORT_TABLE && FUNCTION_MISSING_ABORT_TABLE != NULL) {
                 FUNCTION_MISSING_ABORT_TABLE = NULL;
                 getAllocator().free(currentTable);
-                memPutAddress(ptr, NULL);
+                memPutAddress(ptr, RESERVED_NULL);
             }
         } else {
-            if (currentTable != RESERVED0_NULL) {
+            if (currentTable != RESERVED_NULL) {
                 throw new IllegalStateException("setFunctionMissingAddresses has been called already");
             }
             if (currentTable != NULL) {
-                // silently abort on Native Image, the global JNIEnv object lives in read-only memory by default. (see #875)
-                return;
+                // check reserved0 to see if this Native Image or EspressoVM.
+                if (memGetAddress(JNI_NATIVE_INTERFACE) == RESERVED_NULL) { // NativeImage
+                    // silently abort on Native Image, the global JNIEnv object lives in read-only memory by default. (see #875)
+                    return;
+                } else { // EspressoVM
+                    System.err.println("[LWJGL] [ThreadLocalUtil] Unsupported JVM detected, this may result in a crash. Please inform LWJGL developers.");
+                }
             }
 
             FUNCTION_MISSING_ABORT_TABLE = getAllocator().malloc(Integer.toUnsignedLong(functionCount) * POINTER_SIZE);

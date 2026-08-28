@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,8 +137,7 @@ public class XrPassthroughColorLutDataMETA extends Struct<XrPassthroughColorLutD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorLutDataMETA createSafe(long address) {
+    public static @Nullable XrPassthroughColorLutDataMETA createSafe(long address) {
         return address == NULL ? null : new XrPassthroughColorLutDataMETA(address, null);
     }
 
@@ -181,8 +180,7 @@ public class XrPassthroughColorLutDataMETA extends Struct<XrPassthroughColorLutD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorLutDataMETA.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughColorLutDataMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -227,12 +225,12 @@ public class XrPassthroughColorLutDataMETA extends Struct<XrPassthroughColorLutD
     // -----------------------------------
 
     /** Unsafe version of {@link #bufferSize}. */
-    public static int nbufferSize(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorLutDataMETA.BUFFERSIZE); }
+    public static int nbufferSize(long struct) { return memGetInt(struct + XrPassthroughColorLutDataMETA.BUFFERSIZE); }
     /** Unsafe version of {@link #buffer() buffer}. */
     public static ByteBuffer nbuffer(long struct) { return memByteBuffer(memGetAddress(struct + XrPassthroughColorLutDataMETA.BUFFER), nbufferSize(struct)); }
 
     /** Sets the specified value to the {@code bufferSize} field of the specified {@code struct}. */
-    public static void nbufferSize(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorLutDataMETA.BUFFERSIZE, value); }
+    public static void nbufferSize(long struct, int value) { memPutInt(struct + XrPassthroughColorLutDataMETA.BUFFERSIZE, value); }
     /** Unsafe version of {@link #buffer(ByteBuffer) buffer}. */
     public static void nbuffer(long struct, ByteBuffer value) { memPutAddress(struct + XrPassthroughColorLutDataMETA.BUFFER, memAddress(value)); nbufferSize(struct, value.remaining()); }
 
@@ -276,6 +274,11 @@ public class XrPassthroughColorLutDataMETA extends Struct<XrPassthroughColorLutD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

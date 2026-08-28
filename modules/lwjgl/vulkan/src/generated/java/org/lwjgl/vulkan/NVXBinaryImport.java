@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -149,8 +149,24 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link #VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkCuModuleTexturingModeCreateInfoNVX}</li>
+ * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>If {@code dataSize} is not 0, {@code pData} <b>must</b> be a valid pointer to an array of {@code dataSize} bytes</li>
+ * </ul>
+ * 
+ * <p>There is currently no specification language written for this type. This section acts only as placeholder and to avoid dead links in the specification and reference pages.</p>
+ * 
+ * <pre><code>
+ * typedef struct VkCuModuleTexturingModeCreateInfoNVX {
+ *     VkStructureType    sType;
+ *     const void*        pNext;
+ *     VkBool32           use64bitTexturing;
+ * } VkCuModuleTexturingModeCreateInfoNVX;</code></pre>
+ * 
+ * <h5>Valid Usage (Implicit)</h5>
+ * 
+ * <ul>
+ * <li>{@code sType} <b>must</b> be {@link #VK_STRUCTURE_TYPE_CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX STRUCTURE_TYPE_CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX}</li>
  * </ul>
  * 
  * <p>There is currently no specification language written for this command. This section acts only as placeholder and to avoid dead links in the specification and reference pages.</p>
@@ -182,7 +198,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <ul>
  * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
  * <li>{@code pLaunchInfo} <b>must</b> be a valid pointer to a valid {@link VkCuLaunchInfoNVX} structure</li>
- * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+ * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
  * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
  * <li>This command <b>must</b> only be called outside of a video coding scope</li>
  * </ul>
@@ -196,7 +212,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <h5>Command Properties</h5>
  * 
  * <table class="lwjgl">
- * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+ * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
  * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>Action</td></tr></tbody>
  * </table>
  * 
@@ -238,7 +254,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Registered Extension Number</b></dt>
  * <dd>30</dd>
  * <dt><b>Revision</b></dt>
- * <dd>1</dd>
+ * <dd>2</dd>
  * <dt><b>API Interactions</b></dt>
  * <dd><ul>
  * <li>Interacts with VK_EXT_debug_report</li>
@@ -254,7 +270,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
- * <dd>2021-04-09</dd>
+ * <dd>2024-11-04</dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
  * <li>Eric Werness, NVIDIA</li>
@@ -265,7 +281,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class NVXBinaryImport {
 
     /** The extension specification version. */
-    public static final int VK_NVX_BINARY_IMPORT_SPEC_VERSION = 1;
+    public static final int VK_NVX_BINARY_IMPORT_SPEC_VERSION = 2;
 
     /** The extension name. */
     public static final String VK_NVX_BINARY_IMPORT_EXTENSION_NAME = "VK_NVX_binary_import";
@@ -279,12 +295,14 @@ public class NVXBinaryImport {
      * <li>{@link #VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX}</li>
      * <li>{@link #VK_STRUCTURE_TYPE_CU_FUNCTION_CREATE_INFO_NVX STRUCTURE_TYPE_CU_FUNCTION_CREATE_INFO_NVX}</li>
      * <li>{@link #VK_STRUCTURE_TYPE_CU_LAUNCH_INFO_NVX STRUCTURE_TYPE_CU_LAUNCH_INFO_NVX}</li>
+     * <li>{@link #VK_STRUCTURE_TYPE_CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX STRUCTURE_TYPE_CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX}</li>
      * </ul>
      */
     public static final int
-        VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX   = 1000029000,
-        VK_STRUCTURE_TYPE_CU_FUNCTION_CREATE_INFO_NVX = 1000029001,
-        VK_STRUCTURE_TYPE_CU_LAUNCH_INFO_NVX          = 1000029002;
+        VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX                = 1000029000,
+        VK_STRUCTURE_TYPE_CU_FUNCTION_CREATE_INFO_NVX              = 1000029001,
+        VK_STRUCTURE_TYPE_CU_LAUNCH_INFO_NVX                       = 1000029002,
+        VK_STRUCTURE_TYPE_CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX = 1000029004;
 
     /**
      * Extends {@code VkObjectType}.
@@ -372,7 +390,7 @@ public class NVXBinaryImport {
      * <p>{@link VkAllocationCallbacks}, {@link VkCuModuleCreateInfoNVX}</p>
      */
     @NativeType("VkResult")
-    public static int vkCreateCuModuleNVX(VkDevice device, @NativeType("VkCuModuleCreateInfoNVX const *") VkCuModuleCreateInfoNVX pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkCuModuleNVX *") LongBuffer pModule) {
+    public static int vkCreateCuModuleNVX(VkDevice device, @NativeType("VkCuModuleCreateInfoNVX const *") VkCuModuleCreateInfoNVX pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkCuModuleNVX *") LongBuffer pModule) {
         if (CHECKS) {
             check(pModule, 1);
         }
@@ -433,7 +451,7 @@ public class NVXBinaryImport {
      * <p>{@link VkAllocationCallbacks}, {@link VkCuFunctionCreateInfoNVX}</p>
      */
     @NativeType("VkResult")
-    public static int vkCreateCuFunctionNVX(VkDevice device, @NativeType("VkCuFunctionCreateInfoNVX const *") VkCuFunctionCreateInfoNVX pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkCuFunctionNVX *") LongBuffer pFunction) {
+    public static int vkCreateCuFunctionNVX(VkDevice device, @NativeType("VkCuFunctionCreateInfoNVX const *") VkCuFunctionCreateInfoNVX pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkCuFunctionNVX *") LongBuffer pFunction) {
         if (CHECKS) {
             check(pFunction, 1);
         }
@@ -477,7 +495,7 @@ public class NVXBinaryImport {
      * 
      * <p>{@link VkAllocationCallbacks}</p>
      */
-    public static void vkDestroyCuModuleNVX(VkDevice device, @NativeType("VkCuModuleNVX") long module, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
+    public static void vkDestroyCuModuleNVX(VkDevice device, @NativeType("VkCuModuleNVX") long module, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator) {
         nvkDestroyCuModuleNVX(device, module, memAddressSafe(pAllocator));
     }
 
@@ -518,7 +536,7 @@ public class NVXBinaryImport {
      * 
      * <p>{@link VkAllocationCallbacks}</p>
      */
-    public static void vkDestroyCuFunctionNVX(VkDevice device, @NativeType("VkCuFunctionNVX") long function, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
+    public static void vkDestroyCuFunctionNVX(VkDevice device, @NativeType("VkCuFunctionNVX") long function, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator) {
         nvkDestroyCuFunctionNVX(device, function, memAddressSafe(pAllocator));
     }
 
@@ -551,7 +569,7 @@ public class NVXBinaryImport {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pLaunchInfo} <b>must</b> be a valid pointer to a valid {@link VkCuLaunchInfoNVX} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -565,7 +583,7 @@ public class NVXBinaryImport {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>Action</td></tr></tbody>
      * </table>
      * 
@@ -579,7 +597,7 @@ public class NVXBinaryImport {
 
     /** Array version of: {@link #vkCreateCuModuleNVX CreateCuModuleNVX} */
     @NativeType("VkResult")
-    public static int vkCreateCuModuleNVX(VkDevice device, @NativeType("VkCuModuleCreateInfoNVX const *") VkCuModuleCreateInfoNVX pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkCuModuleNVX *") long[] pModule) {
+    public static int vkCreateCuModuleNVX(VkDevice device, @NativeType("VkCuModuleCreateInfoNVX const *") VkCuModuleCreateInfoNVX pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkCuModuleNVX *") long[] pModule) {
         long __functionAddress = device.getCapabilities().vkCreateCuModuleNVX;
         if (CHECKS) {
             check(__functionAddress);
@@ -591,7 +609,7 @@ public class NVXBinaryImport {
 
     /** Array version of: {@link #vkCreateCuFunctionNVX CreateCuFunctionNVX} */
     @NativeType("VkResult")
-    public static int vkCreateCuFunctionNVX(VkDevice device, @NativeType("VkCuFunctionCreateInfoNVX const *") VkCuFunctionCreateInfoNVX pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkCuFunctionNVX *") long[] pFunction) {
+    public static int vkCreateCuFunctionNVX(VkDevice device, @NativeType("VkCuFunctionCreateInfoNVX const *") VkCuFunctionCreateInfoNVX pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkCuFunctionNVX *") long[] pFunction) {
         long __functionAddress = device.getCapabilities().vkCreateCuFunctionNVX;
         if (CHECKS) {
             check(__functionAddress);

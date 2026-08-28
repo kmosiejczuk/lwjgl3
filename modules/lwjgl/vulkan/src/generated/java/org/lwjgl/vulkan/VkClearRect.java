@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkClearRect extends Struct<VkClearRect> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkClearRect createSafe(long address) {
+    public static @Nullable VkClearRect createSafe(long address) {
         return address == NULL ? null : new VkClearRect(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkClearRect extends Struct<VkClearRect> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkClearRect.Buffer createSafe(long address, int capacity) {
+    public static VkClearRect.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,16 +262,16 @@ public class VkClearRect extends Struct<VkClearRect> implements NativeResource {
     /** Unsafe version of {@link #rect}. */
     public static VkRect2D nrect(long struct) { return VkRect2D.create(struct + VkClearRect.RECT); }
     /** Unsafe version of {@link #baseArrayLayer}. */
-    public static int nbaseArrayLayer(long struct) { return UNSAFE.getInt(null, struct + VkClearRect.BASEARRAYLAYER); }
+    public static int nbaseArrayLayer(long struct) { return memGetInt(struct + VkClearRect.BASEARRAYLAYER); }
     /** Unsafe version of {@link #layerCount}. */
-    public static int nlayerCount(long struct) { return UNSAFE.getInt(null, struct + VkClearRect.LAYERCOUNT); }
+    public static int nlayerCount(long struct) { return memGetInt(struct + VkClearRect.LAYERCOUNT); }
 
     /** Unsafe version of {@link #rect(VkRect2D) rect}. */
     public static void nrect(long struct, VkRect2D value) { memCopy(value.address(), struct + VkClearRect.RECT, VkRect2D.SIZEOF); }
     /** Unsafe version of {@link #baseArrayLayer(int) baseArrayLayer}. */
-    public static void nbaseArrayLayer(long struct, int value) { UNSAFE.putInt(null, struct + VkClearRect.BASEARRAYLAYER, value); }
+    public static void nbaseArrayLayer(long struct, int value) { memPutInt(struct + VkClearRect.BASEARRAYLAYER, value); }
     /** Unsafe version of {@link #layerCount(int) layerCount}. */
-    public static void nlayerCount(long struct, int value) { UNSAFE.putInt(null, struct + VkClearRect.LAYERCOUNT, value); }
+    public static void nlayerCount(long struct, int value) { memPutInt(struct + VkClearRect.LAYERCOUNT, value); }
 
     // -----------------------------------
 
@@ -306,6 +304,11 @@ public class VkClearRect extends Struct<VkClearRect> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

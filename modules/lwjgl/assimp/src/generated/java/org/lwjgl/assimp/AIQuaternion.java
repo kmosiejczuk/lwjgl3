@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class AIQuaternion extends Struct<AIQuaternion> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIQuaternion createSafe(long address) {
+    public static @Nullable AIQuaternion createSafe(long address) {
         return address == NULL ? null : new AIQuaternion(address, null);
     }
 
@@ -196,8 +195,7 @@ public class AIQuaternion extends Struct<AIQuaternion> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIQuaternion.Buffer createSafe(long address, int capacity) {
+    public static AIQuaternion.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,22 +259,22 @@ public class AIQuaternion extends Struct<AIQuaternion> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #w}. */
-    public static float nw(long struct) { return UNSAFE.getFloat(null, struct + AIQuaternion.W); }
+    public static float nw(long struct) { return memGetFloat(struct + AIQuaternion.W); }
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + AIQuaternion.X); }
+    public static float nx(long struct) { return memGetFloat(struct + AIQuaternion.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + AIQuaternion.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + AIQuaternion.Y); }
     /** Unsafe version of {@link #z}. */
-    public static float nz(long struct) { return UNSAFE.getFloat(null, struct + AIQuaternion.Z); }
+    public static float nz(long struct) { return memGetFloat(struct + AIQuaternion.Z); }
 
     /** Unsafe version of {@link #w(float) w}. */
-    public static void nw(long struct, float value) { UNSAFE.putFloat(null, struct + AIQuaternion.W, value); }
+    public static void nw(long struct, float value) { memPutFloat(struct + AIQuaternion.W, value); }
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + AIQuaternion.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + AIQuaternion.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + AIQuaternion.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + AIQuaternion.Y, value); }
     /** Unsafe version of {@link #z(float) z}. */
-    public static void nz(long struct, float value) { UNSAFE.putFloat(null, struct + AIQuaternion.Z, value); }
+    public static void nz(long struct, float value) { memPutFloat(struct + AIQuaternion.Z, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class AIQuaternion extends Struct<AIQuaternion> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

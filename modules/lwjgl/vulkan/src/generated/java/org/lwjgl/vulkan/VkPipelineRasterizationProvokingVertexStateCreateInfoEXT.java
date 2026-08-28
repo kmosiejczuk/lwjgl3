@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,12 +22,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If this struct is not provided when creating the pipeline, the pipeline will use the {@link EXTProvokingVertex#VK_PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT} mode.</p>
  * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-provokingVertexModePerPipeline">{@code provokingVertexModePerPipeline}</a> limit is {@link VK10#VK_FALSE FALSE}, then all pipelines bound within a render pass instance <b>must</b> have the same {@code provokingVertexMode}.</p>
+ * <p>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-provokingVertexModePerPipeline">{@code provokingVertexModePerPipeline}</a> limit is {@link VK10#VK_FALSE FALSE}, then all pipelines bound within a render pass instance <b>must</b> have the same {@code provokingVertexMode}.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code provokingVertexMode} is {@link EXTProvokingVertex#VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-provokingVertexLast">{@code provokingVertexLast}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code provokingVertexMode} is {@link EXTProvokingVertex#VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-provokingVertexLast">{@code provokingVertexLast}</a> feature <b>must</b> be enabled</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -165,8 +165,7 @@ public class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends St
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationProvokingVertexStateCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineRasterizationProvokingVertexStateCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineRasterizationProvokingVertexStateCreateInfoEXT(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends St
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,18 +253,18 @@ public class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends St
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #provokingVertexMode}. */
-    public static int nprovokingVertexMode(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PROVOKINGVERTEXMODE); }
+    public static int nprovokingVertexMode(long struct) { return memGetInt(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PROVOKINGVERTEXMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #provokingVertexMode(int) provokingVertexMode}. */
-    public static void nprovokingVertexMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PROVOKINGVERTEXMODE, value); }
+    public static void nprovokingVertexMode(long struct, int value) { memPutInt(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PROVOKINGVERTEXMODE, value); }
 
     // -----------------------------------
 
@@ -299,6 +297,11 @@ public class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends St
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

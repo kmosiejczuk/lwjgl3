@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModeParametersKHR createSafe(long address) {
+    public static @Nullable VkDisplayModeParametersKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayModeParametersKHR(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModeParametersKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayModeParametersKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,12 +262,12 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
     /** Unsafe version of {@link #visibleRegion}. */
     public static VkExtent2D nvisibleRegion(long struct) { return VkExtent2D.create(struct + VkDisplayModeParametersKHR.VISIBLEREGION); }
     /** Unsafe version of {@link #refreshRate}. */
-    public static int nrefreshRate(long struct) { return UNSAFE.getInt(null, struct + VkDisplayModeParametersKHR.REFRESHRATE); }
+    public static int nrefreshRate(long struct) { return memGetInt(struct + VkDisplayModeParametersKHR.REFRESHRATE); }
 
     /** Unsafe version of {@link #visibleRegion(VkExtent2D) visibleRegion}. */
     public static void nvisibleRegion(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkDisplayModeParametersKHR.VISIBLEREGION, VkExtent2D.SIZEOF); }
     /** Unsafe version of {@link #refreshRate(int) refreshRate}. */
-    public static void nrefreshRate(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayModeParametersKHR.REFRESHRATE, value); }
+    public static void nrefreshRate(long struct, int value) { memPutInt(struct + VkDisplayModeParametersKHR.REFRESHRATE, value); }
 
     // -----------------------------------
 
@@ -302,6 +300,11 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

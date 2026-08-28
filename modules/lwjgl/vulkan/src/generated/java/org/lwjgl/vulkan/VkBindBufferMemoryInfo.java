@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -47,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkBindBufferMemoryDeviceGroupInfo} or {@link VkBindMemoryStatusKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkBindBufferMemoryDeviceGroupInfo} or {@link VkBindMemoryStatus}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code buffer} <b>must</b> be a valid {@code VkBuffer} handle</li>
  * <li>{@code memory} <b>must</b> be a valid {@code VkDeviceMemory} handle</li>
@@ -152,6 +152,8 @@ public class VkBindBufferMemoryInfo extends Struct<VkBindBufferMemoryInfo> imple
     public VkBindBufferMemoryInfo pNext(VkBindBufferMemoryDeviceGroupInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkBindBufferMemoryDeviceGroupInfoKHR} value to the {@code pNext} chain. */
     public VkBindBufferMemoryInfo pNext(VkBindBufferMemoryDeviceGroupInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkBindMemoryStatus} value to the {@code pNext} chain. */
+    public VkBindBufferMemoryInfo pNext(VkBindMemoryStatus value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkBindMemoryStatusKHR} value to the {@code pNext} chain. */
     public VkBindBufferMemoryInfo pNext(VkBindMemoryStatusKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #buffer} field. */
@@ -214,8 +216,7 @@ public class VkBindBufferMemoryInfo extends Struct<VkBindBufferMemoryInfo> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindBufferMemoryInfo createSafe(long address) {
+    public static @Nullable VkBindBufferMemoryInfo createSafe(long address) {
         return address == NULL ? null : new VkBindBufferMemoryInfo(address, null);
     }
 
@@ -258,8 +259,7 @@ public class VkBindBufferMemoryInfo extends Struct<VkBindBufferMemoryInfo> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindBufferMemoryInfo.Buffer createSafe(long address, int capacity) {
+    public static VkBindBufferMemoryInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -323,26 +323,26 @@ public class VkBindBufferMemoryInfo extends Struct<VkBindBufferMemoryInfo> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBindBufferMemoryInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBindBufferMemoryInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBindBufferMemoryInfo.PNEXT); }
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkBindBufferMemoryInfo.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkBindBufferMemoryInfo.BUFFER); }
     /** Unsafe version of {@link #memory}. */
-    public static long nmemory(long struct) { return UNSAFE.getLong(null, struct + VkBindBufferMemoryInfo.MEMORY); }
+    public static long nmemory(long struct) { return memGetLong(struct + VkBindBufferMemoryInfo.MEMORY); }
     /** Unsafe version of {@link #memoryOffset}. */
-    public static long nmemoryOffset(long struct) { return UNSAFE.getLong(null, struct + VkBindBufferMemoryInfo.MEMORYOFFSET); }
+    public static long nmemoryOffset(long struct) { return memGetLong(struct + VkBindBufferMemoryInfo.MEMORYOFFSET); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBindBufferMemoryInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBindBufferMemoryInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBindBufferMemoryInfo.PNEXT, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkBindBufferMemoryInfo.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkBindBufferMemoryInfo.BUFFER, value); }
     /** Unsafe version of {@link #memory(long) memory}. */
-    public static void nmemory(long struct, long value) { UNSAFE.putLong(null, struct + VkBindBufferMemoryInfo.MEMORY, value); }
+    public static void nmemory(long struct, long value) { memPutLong(struct + VkBindBufferMemoryInfo.MEMORY, value); }
     /** Unsafe version of {@link #memoryOffset(long) memoryOffset}. */
-    public static void nmemoryOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkBindBufferMemoryInfo.MEMORYOFFSET, value); }
+    public static void nmemoryOffset(long struct, long value) { memPutLong(struct + VkBindBufferMemoryInfo.MEMORYOFFSET, value); }
 
     // -----------------------------------
 
@@ -378,6 +378,11 @@ public class VkBindBufferMemoryInfo extends Struct<VkBindBufferMemoryInfo> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkBindBufferMemoryInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -408,6 +413,8 @@ public class VkBindBufferMemoryInfo extends Struct<VkBindBufferMemoryInfo> imple
         public VkBindBufferMemoryInfo.Buffer pNext(VkBindBufferMemoryDeviceGroupInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkBindBufferMemoryDeviceGroupInfoKHR} value to the {@code pNext} chain. */
         public VkBindBufferMemoryInfo.Buffer pNext(VkBindBufferMemoryDeviceGroupInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkBindMemoryStatus} value to the {@code pNext} chain. */
+        public VkBindBufferMemoryInfo.Buffer pNext(VkBindMemoryStatus value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkBindMemoryStatusKHR} value to the {@code pNext} chain. */
         public VkBindBufferMemoryInfo.Buffer pNext(VkBindMemoryStatusKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkBindBufferMemoryInfo#buffer} field. */

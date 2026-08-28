@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -146,7 +146,7 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
     /** a bitmask of {@code VkCompositeAlphaFlagBitsKHR}, representing the alpha compositing modes supported by the presentation engine for the surface on the specified device, and at least one bit will be set. Opaque composition <b>can</b> be achieved in any alpha compositing mode by either using an image format that has no alpha component, or by ensuring that all pixels in the presentable images have an alpha value of 1.0. */
     @NativeType("VkCompositeAlphaFlagsKHR")
     public int supportedCompositeAlpha() { return nsupportedCompositeAlpha(address()); }
-    /** a bitmask of {@code VkImageUsageFlagBits} representing the ways the application <b>can</b> use the presentable images of a swapchain created with {@code VkPresentModeKHR} set to {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR}, {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR}, {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR} for the surface on the specified device. {@link VK10#VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT IMAGE_USAGE_COLOR_ATTACHMENT_BIT} <b>must</b> be included in the set. Implementations <b>may</b> support additional usages. */
+    /** a bitmask of {@code VkImageUsageFlagBits} representing the ways the application <b>can</b> use the presentable images of a swapchain created with {@code VkPresentModeKHR} set to {@link EXTPresentModeFifoLatestReady#VK_PRESENT_MODE_FIFO_LATEST_READY_EXT PRESENT_MODE_FIFO_LATEST_READY_EXT}, {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR}, {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR}, {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR} for the surface on the specified device. {@link VK10#VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT IMAGE_USAGE_COLOR_ATTACHMENT_BIT} <b>must</b> be included in the set. Implementations <b>may</b> support additional usages. */
     @NativeType("VkImageUsageFlags")
     public int supportedUsageFlags() { return nsupportedUsageFlags(address()); }
 
@@ -174,8 +174,7 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceCapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkSurfaceCapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkSurfaceCapabilitiesKHR(address, null);
     }
 
@@ -218,8 +217,7 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkSurfaceCapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,9 +281,9 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
     // -----------------------------------
 
     /** Unsafe version of {@link #minImageCount}. */
-    public static int nminImageCount(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.MINIMAGECOUNT); }
+    public static int nminImageCount(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.MINIMAGECOUNT); }
     /** Unsafe version of {@link #maxImageCount}. */
-    public static int nmaxImageCount(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.MAXIMAGECOUNT); }
+    public static int nmaxImageCount(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.MAXIMAGECOUNT); }
     /** Unsafe version of {@link #currentExtent}. */
     public static VkExtent2D ncurrentExtent(long struct) { return VkExtent2D.create(struct + VkSurfaceCapabilitiesKHR.CURRENTEXTENT); }
     /** Unsafe version of {@link #minImageExtent}. */
@@ -293,15 +291,15 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
     /** Unsafe version of {@link #maxImageExtent}. */
     public static VkExtent2D nmaxImageExtent(long struct) { return VkExtent2D.create(struct + VkSurfaceCapabilitiesKHR.MAXIMAGEEXTENT); }
     /** Unsafe version of {@link #maxImageArrayLayers}. */
-    public static int nmaxImageArrayLayers(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.MAXIMAGEARRAYLAYERS); }
+    public static int nmaxImageArrayLayers(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.MAXIMAGEARRAYLAYERS); }
     /** Unsafe version of {@link #supportedTransforms}. */
-    public static int nsupportedTransforms(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.SUPPORTEDTRANSFORMS); }
+    public static int nsupportedTransforms(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.SUPPORTEDTRANSFORMS); }
     /** Unsafe version of {@link #currentTransform}. */
-    public static int ncurrentTransform(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.CURRENTTRANSFORM); }
+    public static int ncurrentTransform(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.CURRENTTRANSFORM); }
     /** Unsafe version of {@link #supportedCompositeAlpha}. */
-    public static int nsupportedCompositeAlpha(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.SUPPORTEDCOMPOSITEALPHA); }
+    public static int nsupportedCompositeAlpha(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.SUPPORTEDCOMPOSITEALPHA); }
     /** Unsafe version of {@link #supportedUsageFlags}. */
-    public static int nsupportedUsageFlags(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.SUPPORTEDUSAGEFLAGS); }
+    public static int nsupportedUsageFlags(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.SUPPORTEDUSAGEFLAGS); }
 
     // -----------------------------------
 
@@ -334,6 +332,11 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

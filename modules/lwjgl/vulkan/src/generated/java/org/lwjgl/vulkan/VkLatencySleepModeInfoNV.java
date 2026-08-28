@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If {@code lowLatencyMode} is set to {@link VK10#VK_FALSE FALSE}, {@code lowLatencyBoost} will still hint to the GPU to increase its power state and {@code vkLatencySleepNV} will still enforce {@code minimumIntervalUs} between {@code vkQueuePresentKHR} calls.</p>
+ * <p>If {@code lowLatencyMode} is {@link VK10#VK_FALSE FALSE}, {@code lowLatencyBoost} will still hint to the GPU to increase its power state and {@code vkLatencySleepNV} will still enforce {@code minimumIntervalUs} between {@code vkQueuePresentKHR} calls.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -182,8 +182,7 @@ public class VkLatencySleepModeInfoNV extends Struct<VkLatencySleepModeInfoNV> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkLatencySleepModeInfoNV createSafe(long address) {
+    public static @Nullable VkLatencySleepModeInfoNV createSafe(long address) {
         return address == NULL ? null : new VkLatencySleepModeInfoNV(address, null);
     }
 
@@ -226,8 +225,7 @@ public class VkLatencySleepModeInfoNV extends Struct<VkLatencySleepModeInfoNV> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkLatencySleepModeInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkLatencySleepModeInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,26 +270,26 @@ public class VkLatencySleepModeInfoNV extends Struct<VkLatencySleepModeInfoNV> i
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkLatencySleepModeInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkLatencySleepModeInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkLatencySleepModeInfoNV.PNEXT); }
     /** Unsafe version of {@link #lowLatencyMode}. */
-    public static int nlowLatencyMode(long struct) { return UNSAFE.getInt(null, struct + VkLatencySleepModeInfoNV.LOWLATENCYMODE); }
+    public static int nlowLatencyMode(long struct) { return memGetInt(struct + VkLatencySleepModeInfoNV.LOWLATENCYMODE); }
     /** Unsafe version of {@link #lowLatencyBoost}. */
-    public static int nlowLatencyBoost(long struct) { return UNSAFE.getInt(null, struct + VkLatencySleepModeInfoNV.LOWLATENCYBOOST); }
+    public static int nlowLatencyBoost(long struct) { return memGetInt(struct + VkLatencySleepModeInfoNV.LOWLATENCYBOOST); }
     /** Unsafe version of {@link #minimumIntervalUs}. */
-    public static int nminimumIntervalUs(long struct) { return UNSAFE.getInt(null, struct + VkLatencySleepModeInfoNV.MINIMUMINTERVALUS); }
+    public static int nminimumIntervalUs(long struct) { return memGetInt(struct + VkLatencySleepModeInfoNV.MINIMUMINTERVALUS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkLatencySleepModeInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkLatencySleepModeInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkLatencySleepModeInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #lowLatencyMode(boolean) lowLatencyMode}. */
-    public static void nlowLatencyMode(long struct, int value) { UNSAFE.putInt(null, struct + VkLatencySleepModeInfoNV.LOWLATENCYMODE, value); }
+    public static void nlowLatencyMode(long struct, int value) { memPutInt(struct + VkLatencySleepModeInfoNV.LOWLATENCYMODE, value); }
     /** Unsafe version of {@link #lowLatencyBoost(boolean) lowLatencyBoost}. */
-    public static void nlowLatencyBoost(long struct, int value) { UNSAFE.putInt(null, struct + VkLatencySleepModeInfoNV.LOWLATENCYBOOST, value); }
+    public static void nlowLatencyBoost(long struct, int value) { memPutInt(struct + VkLatencySleepModeInfoNV.LOWLATENCYBOOST, value); }
     /** Unsafe version of {@link #minimumIntervalUs(int) minimumIntervalUs}. */
-    public static void nminimumIntervalUs(long struct, int value) { UNSAFE.putInt(null, struct + VkLatencySleepModeInfoNV.MINIMUMINTERVALUS, value); }
+    public static void nminimumIntervalUs(long struct, int value) { memPutInt(struct + VkLatencySleepModeInfoNV.MINIMUMINTERVALUS, value); }
 
     // -----------------------------------
 
@@ -324,6 +322,11 @@ public class VkLatencySleepModeInfoNV extends Struct<VkLatencySleepModeInfoNV> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

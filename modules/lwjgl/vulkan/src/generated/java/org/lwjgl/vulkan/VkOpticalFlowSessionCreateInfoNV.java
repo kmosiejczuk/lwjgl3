@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -273,8 +273,7 @@ public class VkOpticalFlowSessionCreateInfoNV extends Struct<VkOpticalFlowSessio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOpticalFlowSessionCreateInfoNV createSafe(long address) {
+    public static @Nullable VkOpticalFlowSessionCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkOpticalFlowSessionCreateInfoNV(address, null);
     }
 
@@ -317,8 +316,7 @@ public class VkOpticalFlowSessionCreateInfoNV extends Struct<VkOpticalFlowSessio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOpticalFlowSessionCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkOpticalFlowSessionCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -363,50 +361,50 @@ public class VkOpticalFlowSessionCreateInfoNV extends Struct<VkOpticalFlowSessio
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkOpticalFlowSessionCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreateInfoNV.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreateInfoNV.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreateInfoNV.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreateInfoNV.HEIGHT); }
     /** Unsafe version of {@link #imageFormat}. */
-    public static int nimageFormat(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreateInfoNV.IMAGEFORMAT); }
+    public static int nimageFormat(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreateInfoNV.IMAGEFORMAT); }
     /** Unsafe version of {@link #flowVectorFormat}. */
-    public static int nflowVectorFormat(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreateInfoNV.FLOWVECTORFORMAT); }
+    public static int nflowVectorFormat(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreateInfoNV.FLOWVECTORFORMAT); }
     /** Unsafe version of {@link #costFormat}. */
-    public static int ncostFormat(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreateInfoNV.COSTFORMAT); }
+    public static int ncostFormat(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreateInfoNV.COSTFORMAT); }
     /** Unsafe version of {@link #outputGridSize}. */
-    public static int noutputGridSize(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreateInfoNV.OUTPUTGRIDSIZE); }
+    public static int noutputGridSize(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreateInfoNV.OUTPUTGRIDSIZE); }
     /** Unsafe version of {@link #hintGridSize}. */
-    public static int nhintGridSize(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreateInfoNV.HINTGRIDSIZE); }
+    public static int nhintGridSize(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreateInfoNV.HINTGRIDSIZE); }
     /** Unsafe version of {@link #performanceLevel}. */
-    public static int nperformanceLevel(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreateInfoNV.PERFORMANCELEVEL); }
+    public static int nperformanceLevel(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreateInfoNV.PERFORMANCELEVEL); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreateInfoNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreateInfoNV.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkOpticalFlowSessionCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreateInfoNV.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreateInfoNV.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreateInfoNV.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreateInfoNV.HEIGHT, value); }
     /** Unsafe version of {@link #imageFormat(int) imageFormat}. */
-    public static void nimageFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreateInfoNV.IMAGEFORMAT, value); }
+    public static void nimageFormat(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreateInfoNV.IMAGEFORMAT, value); }
     /** Unsafe version of {@link #flowVectorFormat(int) flowVectorFormat}. */
-    public static void nflowVectorFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreateInfoNV.FLOWVECTORFORMAT, value); }
+    public static void nflowVectorFormat(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreateInfoNV.FLOWVECTORFORMAT, value); }
     /** Unsafe version of {@link #costFormat(int) costFormat}. */
-    public static void ncostFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreateInfoNV.COSTFORMAT, value); }
+    public static void ncostFormat(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreateInfoNV.COSTFORMAT, value); }
     /** Unsafe version of {@link #outputGridSize(int) outputGridSize}. */
-    public static void noutputGridSize(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreateInfoNV.OUTPUTGRIDSIZE, value); }
+    public static void noutputGridSize(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreateInfoNV.OUTPUTGRIDSIZE, value); }
     /** Unsafe version of {@link #hintGridSize(int) hintGridSize}. */
-    public static void nhintGridSize(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreateInfoNV.HINTGRIDSIZE, value); }
+    public static void nhintGridSize(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreateInfoNV.HINTGRIDSIZE, value); }
     /** Unsafe version of {@link #performanceLevel(int) performanceLevel}. */
-    public static void nperformanceLevel(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreateInfoNV.PERFORMANCELEVEL, value); }
+    public static void nperformanceLevel(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreateInfoNV.PERFORMANCELEVEL, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreateInfoNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreateInfoNV.FLAGS, value); }
 
     // -----------------------------------
 
@@ -439,6 +437,11 @@ public class VkOpticalFlowSessionCreateInfoNV extends Struct<VkOpticalFlowSessio
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

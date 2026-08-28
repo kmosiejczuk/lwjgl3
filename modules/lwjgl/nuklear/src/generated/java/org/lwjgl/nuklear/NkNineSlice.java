@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class NkNineSlice extends Struct<NkNineSlice> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkNineSlice createSafe(long address) {
+    public static @Nullable NkNineSlice createSafe(long address) {
         return address == NULL ? null : new NkNineSlice(address, null);
     }
 
@@ -211,8 +210,7 @@ public class NkNineSlice extends Struct<NkNineSlice> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkNineSlice.Buffer createSafe(long address, int capacity) {
+    public static NkNineSlice.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,24 +257,24 @@ public class NkNineSlice extends Struct<NkNineSlice> implements NativeResource {
     /** Unsafe version of {@link #img}. */
     public static NkImage nimg(long struct) { return NkImage.create(struct + NkNineSlice.IMG); }
     /** Unsafe version of {@link #l}. */
-    public static short nl(long struct) { return UNSAFE.getShort(null, struct + NkNineSlice.L); }
+    public static short nl(long struct) { return memGetShort(struct + NkNineSlice.L); }
     /** Unsafe version of {@link #t}. */
-    public static short nt(long struct) { return UNSAFE.getShort(null, struct + NkNineSlice.T); }
+    public static short nt(long struct) { return memGetShort(struct + NkNineSlice.T); }
     /** Unsafe version of {@link #r}. */
-    public static short nr(long struct) { return UNSAFE.getShort(null, struct + NkNineSlice.R); }
+    public static short nr(long struct) { return memGetShort(struct + NkNineSlice.R); }
     /** Unsafe version of {@link #b}. */
-    public static short nb(long struct) { return UNSAFE.getShort(null, struct + NkNineSlice.B); }
+    public static short nb(long struct) { return memGetShort(struct + NkNineSlice.B); }
 
     /** Unsafe version of {@link #img(NkImage) img}. */
     public static void nimg(long struct, NkImage value) { memCopy(value.address(), struct + NkNineSlice.IMG, NkImage.SIZEOF); }
     /** Unsafe version of {@link #l(short) l}. */
-    public static void nl(long struct, short value) { UNSAFE.putShort(null, struct + NkNineSlice.L, value); }
+    public static void nl(long struct, short value) { memPutShort(struct + NkNineSlice.L, value); }
     /** Unsafe version of {@link #t(short) t}. */
-    public static void nt(long struct, short value) { UNSAFE.putShort(null, struct + NkNineSlice.T, value); }
+    public static void nt(long struct, short value) { memPutShort(struct + NkNineSlice.T, value); }
     /** Unsafe version of {@link #r(short) r}. */
-    public static void nr(long struct, short value) { UNSAFE.putShort(null, struct + NkNineSlice.R, value); }
+    public static void nr(long struct, short value) { memPutShort(struct + NkNineSlice.R, value); }
     /** Unsafe version of {@link #b(short) b}. */
-    public static void nb(long struct, short value) { UNSAFE.putShort(null, struct + NkNineSlice.B, value); }
+    public static void nb(long struct, short value) { memPutShort(struct + NkNineSlice.B, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class NkNineSlice extends Struct<NkNineSlice> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

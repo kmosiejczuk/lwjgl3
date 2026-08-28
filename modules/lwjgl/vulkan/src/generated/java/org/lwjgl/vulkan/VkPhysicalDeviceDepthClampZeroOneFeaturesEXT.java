@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceDepthClampZeroOneFeaturesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDepthClampZeroOneFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDepthClampZeroOneFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDepthClampZeroOneFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceDepthClampZeroOneFeaturesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceDepthClampZeroOneFeaturesEXT extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #depthClampZeroOne}. */
-    public static int ndepthClampZeroOne(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.DEPTHCLAMPZEROONE); }
+    public static int ndepthClampZeroOne(long struct) { return memGetInt(struct + VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.DEPTHCLAMPZEROONE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #depthClampZeroOne(boolean) depthClampZeroOne}. */
-    public static void ndepthClampZeroOne(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.DEPTHCLAMPZEROONE, value); }
+    public static void ndepthClampZeroOne(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDepthClampZeroOneFeaturesEXT.DEPTHCLAMPZEROONE, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceDepthClampZeroOneFeaturesEXT extends Struct<VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -139,8 +139,7 @@ public class VmaStatistics extends Struct<VmaStatistics> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaStatistics createSafe(long address) {
+    public static @Nullable VmaStatistics createSafe(long address) {
         return address == NULL ? null : new VmaStatistics(address, null);
     }
 
@@ -183,8 +182,7 @@ public class VmaStatistics extends Struct<VmaStatistics> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaStatistics.Buffer createSafe(long address, int capacity) {
+    public static VmaStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,13 +227,13 @@ public class VmaStatistics extends Struct<VmaStatistics> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #blockCount}. */
-    public static int nblockCount(long struct) { return UNSAFE.getInt(null, struct + VmaStatistics.BLOCKCOUNT); }
+    public static int nblockCount(long struct) { return memGetInt(struct + VmaStatistics.BLOCKCOUNT); }
     /** Unsafe version of {@link #allocationCount}. */
-    public static int nallocationCount(long struct) { return UNSAFE.getInt(null, struct + VmaStatistics.ALLOCATIONCOUNT); }
+    public static int nallocationCount(long struct) { return memGetInt(struct + VmaStatistics.ALLOCATIONCOUNT); }
     /** Unsafe version of {@link #blockBytes}. */
-    public static long nblockBytes(long struct) { return UNSAFE.getLong(null, struct + VmaStatistics.BLOCKBYTES); }
+    public static long nblockBytes(long struct) { return memGetLong(struct + VmaStatistics.BLOCKBYTES); }
     /** Unsafe version of {@link #allocationBytes}. */
-    public static long nallocationBytes(long struct) { return UNSAFE.getLong(null, struct + VmaStatistics.ALLOCATIONBYTES); }
+    public static long nallocationBytes(long struct) { return memGetLong(struct + VmaStatistics.ALLOCATIONBYTES); }
 
     // -----------------------------------
 
@@ -268,6 +266,11 @@ public class VmaStatistics extends Struct<VmaStatistics> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

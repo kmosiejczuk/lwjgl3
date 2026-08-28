@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.lz4;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -82,9 +82,9 @@ public class LZ4FDecompressOptions extends Struct<LZ4FDecompressOptions> impleme
     public int sizeof() { return SIZEOF; }
 
     /**
-     * pledges that last 64KB decompressed data will remain available unmodified between invocations.
+     * pledges that last 64KB decompressed data is present right before {@code dstBuffer} pointer.
      * 
-     * <p>This optimization skips storage operations in tmp buffers.</p>
+     * <p>This optimization skips internal storage operations. Once set, this pledge must remain valid up to the end of current frame.</p>
      */
     @NativeType("unsigned")
     public int stableDst() { return nstableDst(address()); }
@@ -162,8 +162,7 @@ public class LZ4FDecompressOptions extends Struct<LZ4FDecompressOptions> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4FDecompressOptions createSafe(long address) {
+    public static @Nullable LZ4FDecompressOptions createSafe(long address) {
         return address == NULL ? null : new LZ4FDecompressOptions(address, null);
     }
 
@@ -206,8 +205,7 @@ public class LZ4FDecompressOptions extends Struct<LZ4FDecompressOptions> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4FDecompressOptions.Buffer createSafe(long address, int capacity) {
+    public static LZ4FDecompressOptions.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -271,22 +269,22 @@ public class LZ4FDecompressOptions extends Struct<LZ4FDecompressOptions> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #stableDst}. */
-    public static int nstableDst(long struct) { return UNSAFE.getInt(null, struct + LZ4FDecompressOptions.STABLEDST); }
+    public static int nstableDst(long struct) { return memGetInt(struct + LZ4FDecompressOptions.STABLEDST); }
     /** Unsafe version of {@link #skipChecksums}. */
-    public static int nskipChecksums(long struct) { return UNSAFE.getInt(null, struct + LZ4FDecompressOptions.SKIPCHECKSUMS); }
+    public static int nskipChecksums(long struct) { return memGetInt(struct + LZ4FDecompressOptions.SKIPCHECKSUMS); }
     /** Unsafe version of {@link #reserved1}. */
-    public static int nreserved1(long struct) { return UNSAFE.getInt(null, struct + LZ4FDecompressOptions.RESERVED1); }
+    public static int nreserved1(long struct) { return memGetInt(struct + LZ4FDecompressOptions.RESERVED1); }
     /** Unsafe version of {@link #reserved0}. */
-    public static int nreserved0(long struct) { return UNSAFE.getInt(null, struct + LZ4FDecompressOptions.RESERVED0); }
+    public static int nreserved0(long struct) { return memGetInt(struct + LZ4FDecompressOptions.RESERVED0); }
 
     /** Unsafe version of {@link #stableDst(int) stableDst}. */
-    public static void nstableDst(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FDecompressOptions.STABLEDST, value); }
+    public static void nstableDst(long struct, int value) { memPutInt(struct + LZ4FDecompressOptions.STABLEDST, value); }
     /** Unsafe version of {@link #skipChecksums(int) skipChecksums}. */
-    public static void nskipChecksums(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FDecompressOptions.SKIPCHECKSUMS, value); }
+    public static void nskipChecksums(long struct, int value) { memPutInt(struct + LZ4FDecompressOptions.SKIPCHECKSUMS, value); }
     /** Unsafe version of {@link #reserved1(int) reserved1}. */
-    public static void nreserved1(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FDecompressOptions.RESERVED1, value); }
+    public static void nreserved1(long struct, int value) { memPutInt(struct + LZ4FDecompressOptions.RESERVED1, value); }
     /** Unsafe version of {@link #reserved0(int) reserved0}. */
-    public static void nreserved0(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FDecompressOptions.RESERVED0, value); }
+    public static void nreserved0(long struct, int value) { memPutInt(struct + LZ4FDecompressOptions.RESERVED0, value); }
 
     // -----------------------------------
 
@@ -319,6 +317,11 @@ public class LZ4FDecompressOptions extends Struct<LZ4FDecompressOptions> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -170,8 +170,7 @@ public class VRTextureWithPoseAndDepth extends Struct<VRTextureWithPoseAndDepth>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRTextureWithPoseAndDepth createSafe(long address) {
+    public static @Nullable VRTextureWithPoseAndDepth createSafe(long address) {
         return address == NULL ? null : new VRTextureWithPoseAndDepth(address, null);
     }
 
@@ -214,8 +213,7 @@ public class VRTextureWithPoseAndDepth extends Struct<VRTextureWithPoseAndDepth>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRTextureWithPoseAndDepth.Buffer createSafe(long address, int capacity) {
+    public static VRTextureWithPoseAndDepth.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -281,9 +279,9 @@ public class VRTextureWithPoseAndDepth extends Struct<VRTextureWithPoseAndDepth>
     /** Unsafe version of {@link #handle}. */
     public static long nhandle(long struct) { return memGetAddress(struct + VRTextureWithPoseAndDepth.HANDLE); }
     /** Unsafe version of {@link #eType}. */
-    public static int neType(long struct) { return UNSAFE.getInt(null, struct + VRTextureWithPoseAndDepth.ETYPE); }
+    public static int neType(long struct) { return memGetInt(struct + VRTextureWithPoseAndDepth.ETYPE); }
     /** Unsafe version of {@link #eColorSpace}. */
-    public static int neColorSpace(long struct) { return UNSAFE.getInt(null, struct + VRTextureWithPoseAndDepth.ECOLORSPACE); }
+    public static int neColorSpace(long struct) { return memGetInt(struct + VRTextureWithPoseAndDepth.ECOLORSPACE); }
     /** Unsafe version of {@link #mDeviceToAbsoluteTracking}. */
     public static HmdMatrix34 nmDeviceToAbsoluteTracking(long struct) { return HmdMatrix34.create(struct + VRTextureWithPoseAndDepth.MDEVICETOABSOLUTETRACKING); }
     /** Unsafe version of {@link #depth}. */
@@ -292,9 +290,9 @@ public class VRTextureWithPoseAndDepth extends Struct<VRTextureWithPoseAndDepth>
     /** Unsafe version of {@link #handle(long) handle}. */
     public static void nhandle(long struct, long value) { memPutAddress(struct + VRTextureWithPoseAndDepth.HANDLE, check(value)); }
     /** Unsafe version of {@link #eType(int) eType}. */
-    public static void neType(long struct, int value) { UNSAFE.putInt(null, struct + VRTextureWithPoseAndDepth.ETYPE, value); }
+    public static void neType(long struct, int value) { memPutInt(struct + VRTextureWithPoseAndDepth.ETYPE, value); }
     /** Unsafe version of {@link #eColorSpace(int) eColorSpace}. */
-    public static void neColorSpace(long struct, int value) { UNSAFE.putInt(null, struct + VRTextureWithPoseAndDepth.ECOLORSPACE, value); }
+    public static void neColorSpace(long struct, int value) { memPutInt(struct + VRTextureWithPoseAndDepth.ECOLORSPACE, value); }
     /** Unsafe version of {@link #mDeviceToAbsoluteTracking(HmdMatrix34) mDeviceToAbsoluteTracking}. */
     public static void nmDeviceToAbsoluteTracking(long struct, HmdMatrix34 value) { memCopy(value.address(), struct + VRTextureWithPoseAndDepth.MDEVICETOABSOLUTETRACKING, HmdMatrix34.SIZEOF); }
     /** Unsafe version of {@link #depth(VRTextureDepthInfo) depth}. */
@@ -341,6 +339,11 @@ public class VRTextureWithPoseAndDepth extends Struct<VRTextureWithPoseAndDepth>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

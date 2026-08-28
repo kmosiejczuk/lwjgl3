@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -86,8 +86,7 @@ public class VREventProperty extends Struct<VREventProperty> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventProperty createSafe(long address) {
+    public static @Nullable VREventProperty createSafe(long address) {
         return address == NULL ? null : new VREventProperty(address, null);
     }
 
@@ -102,17 +101,16 @@ public class VREventProperty extends Struct<VREventProperty> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventProperty.Buffer createSafe(long address, int capacity) {
+    public static VREventProperty.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #container}. */
-    public static long ncontainer(long struct) { return UNSAFE.getLong(null, struct + VREventProperty.CONTAINER); }
+    public static long ncontainer(long struct) { return memGetLong(struct + VREventProperty.CONTAINER); }
     /** Unsafe version of {@link #prop}. */
-    public static int nprop(long struct) { return UNSAFE.getInt(null, struct + VREventProperty.PROP); }
+    public static int nprop(long struct) { return memGetInt(struct + VREventProperty.PROP); }
 
     // -----------------------------------
 
@@ -145,6 +143,11 @@ public class VREventProperty extends Struct<VREventProperty> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

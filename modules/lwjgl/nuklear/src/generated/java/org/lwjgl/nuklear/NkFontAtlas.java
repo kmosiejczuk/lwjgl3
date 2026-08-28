@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -119,9 +119,8 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
     public int sizeof() { return SIZEOF; }
 
     /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pixel} field. */
-    @Nullable
     @NativeType("void *")
-    public ByteBuffer pixel() { return npixel(address()); }
+    public @Nullable ByteBuffer pixel() { return npixel(address()); }
     /** @return the value of the {@code tex_width} field. */
     public int tex_width() { return ntex_width(address()); }
     /** @return the value of the {@code tex_height} field. */
@@ -144,21 +143,17 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
     /** @return the value of the {@code glyph_count} field. */
     public int glyph_count() { return nglyph_count(address()); }
     /** @return a {@link NkFontGlyph.Buffer} view of the struct array pointed to by the {@code glyphs} field. */
-    @Nullable
     @NativeType("struct nk_font_glyph *")
-    public NkFontGlyph.Buffer glyphs() { return nglyphs(address()); }
+    public NkFontGlyph.@Nullable Buffer glyphs() { return nglyphs(address()); }
     /** @return a {@link NkFont} view of the struct pointed to by the {@code default_font} field. */
-    @Nullable
     @NativeType("struct nk_font *")
-    public NkFont default_font() { return ndefault_font(address()); }
+    public @Nullable NkFont default_font() { return ndefault_font(address()); }
     /** @return a {@link NkFont} view of the struct pointed to by the {@code fonts} field. */
-    @Nullable
     @NativeType("struct nk_font *")
-    public NkFont fonts() { return nfonts(address()); }
+    public @Nullable NkFont fonts() { return nfonts(address()); }
     /** @return a {@link NkFontConfig} view of the struct pointed to by the {@code config} field. */
-    @Nullable
     @NativeType("struct nk_font_config *")
-    public NkFontConfig config() { return nconfig(address()); }
+    public @Nullable NkFontConfig config() { return nconfig(address()); }
     /** @return the value of the {@code font_num} field. */
     public int font_num() { return nfont_num(address()); }
 
@@ -191,7 +186,7 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
     /** Sets the specified value to the {@code glyph_count} field. */
     public NkFontAtlas glyph_count(int value) { nglyph_count(address(), value); return this; }
     /** Sets the address of the specified {@link NkFontGlyph.Buffer} to the {@code glyphs} field. */
-    public NkFontAtlas glyphs(@Nullable @NativeType("struct nk_font_glyph *") NkFontGlyph.Buffer value) { nglyphs(address(), value); return this; }
+    public NkFontAtlas glyphs(@NativeType("struct nk_font_glyph *") NkFontGlyph.@Nullable Buffer value) { nglyphs(address(), value); return this; }
     /** Sets the address of the specified {@link NkFont} to the {@code default_font} field. */
     public NkFontAtlas default_font(@Nullable @NativeType("struct nk_font *") NkFont value) { ndefault_font(address(), value); return this; }
     /** Sets the address of the specified {@link NkFont} to the {@code fonts} field. */
@@ -211,7 +206,7 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
         NkRecti custom,
         NkCursor.Buffer cursors,
         int glyph_count,
-        @Nullable NkFontGlyph.Buffer glyphs,
+        NkFontGlyph.@Nullable Buffer glyphs,
         @Nullable NkFont default_font,
         @Nullable NkFont fonts,
         @Nullable NkFontConfig config,
@@ -270,8 +265,7 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkFontAtlas createSafe(long address) {
+    public static @Nullable NkFontAtlas createSafe(long address) {
         return address == NULL ? null : new NkFontAtlas(address, null);
     }
 
@@ -314,8 +308,7 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkFontAtlas.Buffer createSafe(long address, int capacity) {
+    public static NkFontAtlas.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -360,11 +353,11 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #pixel() pixel}. */
-    @Nullable public static ByteBuffer npixel(long struct) { return memByteBufferSafe(memGetAddress(struct + NkFontAtlas.PIXEL), ntex_width(struct) * ntex_height(struct)); }
+    public static @Nullable ByteBuffer npixel(long struct) { return memByteBufferSafe(memGetAddress(struct + NkFontAtlas.PIXEL), ntex_width(struct) * ntex_height(struct)); }
     /** Unsafe version of {@link #tex_width}. */
-    public static int ntex_width(long struct) { return UNSAFE.getInt(null, struct + NkFontAtlas.TEX_WIDTH); }
+    public static int ntex_width(long struct) { return memGetInt(struct + NkFontAtlas.TEX_WIDTH); }
     /** Unsafe version of {@link #tex_height}. */
-    public static int ntex_height(long struct) { return UNSAFE.getInt(null, struct + NkFontAtlas.TEX_HEIGHT); }
+    public static int ntex_height(long struct) { return memGetInt(struct + NkFontAtlas.TEX_HEIGHT); }
     /** Unsafe version of {@link #permanent}. */
     public static NkAllocator npermanent(long struct) { return NkAllocator.create(struct + NkFontAtlas.PERMANENT); }
     /** Unsafe version of {@link #temporary}. */
@@ -378,24 +371,24 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
         return NkCursor.create(struct + NkFontAtlas.CURSORS + check(index, 7) * NkCursor.SIZEOF);
     }
     /** Unsafe version of {@link #glyph_count}. */
-    public static int nglyph_count(long struct) { return UNSAFE.getInt(null, struct + NkFontAtlas.GLYPH_COUNT); }
+    public static int nglyph_count(long struct) { return memGetInt(struct + NkFontAtlas.GLYPH_COUNT); }
     /** Unsafe version of {@link #glyphs}. */
-    @Nullable public static NkFontGlyph.Buffer nglyphs(long struct) { return NkFontGlyph.createSafe(memGetAddress(struct + NkFontAtlas.GLYPHS), nglyph_count(struct)); }
+    public static NkFontGlyph.@Nullable Buffer nglyphs(long struct) { return NkFontGlyph.createSafe(memGetAddress(struct + NkFontAtlas.GLYPHS), nglyph_count(struct)); }
     /** Unsafe version of {@link #default_font}. */
-    @Nullable public static NkFont ndefault_font(long struct) { return NkFont.createSafe(memGetAddress(struct + NkFontAtlas.DEFAULT_FONT)); }
+    public static @Nullable NkFont ndefault_font(long struct) { return NkFont.createSafe(memGetAddress(struct + NkFontAtlas.DEFAULT_FONT)); }
     /** Unsafe version of {@link #fonts}. */
-    @Nullable public static NkFont nfonts(long struct) { return NkFont.createSafe(memGetAddress(struct + NkFontAtlas.FONTS)); }
+    public static @Nullable NkFont nfonts(long struct) { return NkFont.createSafe(memGetAddress(struct + NkFontAtlas.FONTS)); }
     /** Unsafe version of {@link #config}. */
-    @Nullable public static NkFontConfig nconfig(long struct) { return NkFontConfig.createSafe(memGetAddress(struct + NkFontAtlas.CONFIG)); }
+    public static @Nullable NkFontConfig nconfig(long struct) { return NkFontConfig.createSafe(memGetAddress(struct + NkFontAtlas.CONFIG)); }
     /** Unsafe version of {@link #font_num}. */
-    public static int nfont_num(long struct) { return UNSAFE.getInt(null, struct + NkFontAtlas.FONT_NUM); }
+    public static int nfont_num(long struct) { return memGetInt(struct + NkFontAtlas.FONT_NUM); }
 
     /** Unsafe version of {@link #pixel(ByteBuffer) pixel}. */
     public static void npixel(long struct, @Nullable ByteBuffer value) { memPutAddress(struct + NkFontAtlas.PIXEL, memAddressSafe(value)); ntex_width(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code tex_width} field of the specified {@code struct}. */
-    public static void ntex_width(long struct, int value) { UNSAFE.putInt(null, struct + NkFontAtlas.TEX_WIDTH, value); }
+    public static void ntex_width(long struct, int value) { memPutInt(struct + NkFontAtlas.TEX_WIDTH, value); }
     /** Sets the specified value to the {@code tex_height} field of the specified {@code struct}. */
-    public static void ntex_height(long struct, int value) { UNSAFE.putInt(null, struct + NkFontAtlas.TEX_HEIGHT, value); }
+    public static void ntex_height(long struct, int value) { memPutInt(struct + NkFontAtlas.TEX_HEIGHT, value); }
     /** Unsafe version of {@link #permanent(NkAllocator) permanent}. */
     public static void npermanent(long struct, NkAllocator value) { memCopy(value.address(), struct + NkFontAtlas.PERMANENT, NkAllocator.SIZEOF); }
     /** Unsafe version of {@link #temporary(NkAllocator) temporary}. */
@@ -412,9 +405,9 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
         memCopy(value.address(), struct + NkFontAtlas.CURSORS + check(index, 7) * NkCursor.SIZEOF, NkCursor.SIZEOF);
     }
     /** Sets the specified value to the {@code glyph_count} field of the specified {@code struct}. */
-    public static void nglyph_count(long struct, int value) { UNSAFE.putInt(null, struct + NkFontAtlas.GLYPH_COUNT, value); }
+    public static void nglyph_count(long struct, int value) { memPutInt(struct + NkFontAtlas.GLYPH_COUNT, value); }
     /** Unsafe version of {@link #glyphs(NkFontGlyph.Buffer) glyphs}. */
-    public static void nglyphs(long struct, @Nullable NkFontGlyph.Buffer value) { memPutAddress(struct + NkFontAtlas.GLYPHS, memAddressSafe(value)); nglyph_count(struct, value == null ? 0 : value.remaining()); }
+    public static void nglyphs(long struct, NkFontGlyph.@Nullable Buffer value) { memPutAddress(struct + NkFontAtlas.GLYPHS, memAddressSafe(value)); nglyph_count(struct, value == null ? 0 : value.remaining()); }
     /** Unsafe version of {@link #default_font(NkFont) default_font}. */
     public static void ndefault_font(long struct, @Nullable NkFont value) { memPutAddress(struct + NkFontAtlas.DEFAULT_FONT, memAddressSafe(value)); }
     /** Unsafe version of {@link #fonts(NkFont) fonts}. */
@@ -422,7 +415,7 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
     /** Unsafe version of {@link #config(NkFontConfig) config}. */
     public static void nconfig(long struct, @Nullable NkFontConfig value) { memPutAddress(struct + NkFontAtlas.CONFIG, memAddressSafe(value)); }
     /** Unsafe version of {@link #font_num(int) font_num}. */
-    public static void nfont_num(long struct, int value) { UNSAFE.putInt(null, struct + NkFontAtlas.FONT_NUM, value); }
+    public static void nfont_num(long struct, int value) { memPutInt(struct + NkFontAtlas.FONT_NUM, value); }
 
     // -----------------------------------
 
@@ -458,14 +451,18 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkFontAtlas getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pixel} field. */
-        @Nullable
         @NativeType("void *")
-        public ByteBuffer pixel() { return NkFontAtlas.npixel(address()); }
+        public @Nullable ByteBuffer pixel() { return NkFontAtlas.npixel(address()); }
         /** @return the value of the {@code tex_width} field. */
         public int tex_width() { return NkFontAtlas.ntex_width(address()); }
         /** @return the value of the {@code tex_height} field. */
@@ -488,21 +485,17 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
         /** @return the value of the {@code glyph_count} field. */
         public int glyph_count() { return NkFontAtlas.nglyph_count(address()); }
         /** @return a {@link NkFontGlyph.Buffer} view of the struct array pointed to by the {@code glyphs} field. */
-        @Nullable
         @NativeType("struct nk_font_glyph *")
-        public NkFontGlyph.Buffer glyphs() { return NkFontAtlas.nglyphs(address()); }
+        public NkFontGlyph.@Nullable Buffer glyphs() { return NkFontAtlas.nglyphs(address()); }
         /** @return a {@link NkFont} view of the struct pointed to by the {@code default_font} field. */
-        @Nullable
         @NativeType("struct nk_font *")
-        public NkFont default_font() { return NkFontAtlas.ndefault_font(address()); }
+        public @Nullable NkFont default_font() { return NkFontAtlas.ndefault_font(address()); }
         /** @return a {@link NkFont} view of the struct pointed to by the {@code fonts} field. */
-        @Nullable
         @NativeType("struct nk_font *")
-        public NkFont fonts() { return NkFontAtlas.nfonts(address()); }
+        public @Nullable NkFont fonts() { return NkFontAtlas.nfonts(address()); }
         /** @return a {@link NkFontConfig} view of the struct pointed to by the {@code config} field. */
-        @Nullable
         @NativeType("struct nk_font_config *")
-        public NkFontConfig config() { return NkFontAtlas.nconfig(address()); }
+        public @Nullable NkFontConfig config() { return NkFontAtlas.nconfig(address()); }
         /** @return the value of the {@code font_num} field. */
         public int font_num() { return NkFontAtlas.nfont_num(address()); }
 
@@ -535,7 +528,7 @@ public class NkFontAtlas extends Struct<NkFontAtlas> implements NativeResource {
         /** Sets the specified value to the {@code glyph_count} field. */
         public NkFontAtlas.Buffer glyph_count(int value) { NkFontAtlas.nglyph_count(address(), value); return this; }
         /** Sets the address of the specified {@link NkFontGlyph.Buffer} to the {@code glyphs} field. */
-        public NkFontAtlas.Buffer glyphs(@Nullable @NativeType("struct nk_font_glyph *") NkFontGlyph.Buffer value) { NkFontAtlas.nglyphs(address(), value); return this; }
+        public NkFontAtlas.Buffer glyphs(@NativeType("struct nk_font_glyph *") NkFontGlyph.@Nullable Buffer value) { NkFontAtlas.nglyphs(address(), value); return this; }
         /** Sets the address of the specified {@link NkFont} to the {@code default_font} field. */
         public NkFontAtlas.Buffer default_font(@Nullable @NativeType("struct nk_font *") NkFont value) { NkFontAtlas.ndefault_font(address(), value); return this; }
         /** Sets the address of the specified {@link NkFont} to the {@code fonts} field. */

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,7 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a indexed indirect drawing command.
+ * Structure specifying an indexed indirect drawing command.
  * 
  * <h5>Description</h5>
  * 
@@ -25,14 +25,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the bound graphics pipeline state was created with {@link VkPipelineVertexInputDivisorStateCreateInfoKHR} in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}{@code ::pVertexInputState}, any member of {@link VkPipelineVertexInputDivisorStateCreateInfoKHR}{@code ::pVertexBindingDivisors} has a value other than 1 in {@code divisor}, and {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesKHR}{@code ::supportsNonZeroFirstInstance} is {@link VK10#VK_FALSE FALSE}, then {@code firstInstance} <b>must</b> be 0</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a> are used for drawing or the bound graphics pipeline state was created with the {@link EXTVertexInputDynamicState#VK_DYNAMIC_STATE_VERTEX_INPUT_EXT DYNAMIC_STATE_VERTEX_INPUT_EXT} dynamic state enabled, any member of the {@code pVertexBindingDescriptions} parameter to the {@link EXTShaderObject#vkCmdSetVertexInputEXT CmdSetVertexInputEXT} call that sets this dynamic state has a value other than 1 in {@code divisor}, and {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesKHR}{@code ::supportsNonZeroFirstInstance} is {@link VK10#VK_FALSE FALSE}, then {@code firstInstance} <b>must</b> be 0</li>
+ * <li>If the bound graphics pipeline state was created with {@link VkPipelineVertexInputDivisorStateCreateInfo} in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}{@code ::pVertexInputState}, any member of {@link VkPipelineVertexInputDivisorStateCreateInfo}{@code ::pVertexBindingDivisors} has a value other than 1 in {@code divisor}, and {@link VkPhysicalDeviceVertexAttributeDivisorProperties}{@code ::supportsNonZeroFirstInstance} is {@link VK10#VK_FALSE FALSE}, then {@code firstInstance} <b>must</b> be 0</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a> are used for drawing or the bound graphics pipeline state was created with the {@link EXTVertexInputDynamicState#VK_DYNAMIC_STATE_VERTEX_INPUT_EXT DYNAMIC_STATE_VERTEX_INPUT_EXT} dynamic state enabled, any member of the {@code pVertexBindingDescriptions} parameter to the {@link EXTShaderObject#vkCmdSetVertexInputEXT CmdSetVertexInputEXT} call that sets this dynamic state has a value other than 1 in {@code divisor}, and {@link VkPhysicalDeviceVertexAttributeDivisorProperties}{@code ::supportsNonZeroFirstInstance} is {@link VK10#VK_FALSE FALSE}, then {@code firstInstance} <b>must</b> be 0</li>
  * </ul>
  * 
  * <ul>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess2">{@code robustBufferAccess2}</a> is not enabled, <code>(indexSize × (firstIndex + indexCount) + offset)</code> <b>must</b> be less than or equal to the size of the bound index buffer, with {@code indexSize} being based on the type specified by {@code indexType}, where the index buffer, {@code indexType}, and {@code offset} are specified via {@code vkCmdBindIndexBuffer} or {@code vkCmdBindIndexBuffer2KHR}. If {@code vkCmdBindIndexBuffer2KHR} is used to bind the index buffer, the size of the bound index buffer is {@link KHRMaintenance5#vkCmdBindIndexBuffer2KHR CmdBindIndexBuffer2KHR}{@code ::size}</li>
- * <li>For a given vertex buffer binding, any attribute data fetched <b>must</b> be entirely contained within the corresponding vertex buffer binding, as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fxvertex-input">Vertex Input Description</a></li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-drawIndirectFirstInstance">{@code drawIndirectFirstInstance}</a> feature is not enabled, {@code firstInstance} <b>must</b> be 0</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-robustBufferAccess2">{@code robustBufferAccess2}</a> feature is not enabled, <code>(indexSize × (firstIndex + indexCount) + offset)</code> <b>must</b> be less than or equal to the size of the bound index buffer, with {@code indexSize} being based on the type specified by {@code indexType}, where the index buffer, {@code indexType}, and {@code offset} are specified via {@code vkCmdBindIndexBuffer} or {@code vkCmdBindIndexBuffer2}. If {@code vkCmdBindIndexBuffer2} is used to bind the index buffer, the size of the bound index buffer is {@link VK14#vkCmdBindIndexBuffer2 CmdBindIndexBuffer2}{@code ::size}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-drawIndirectFirstInstance">{@code drawIndirectFirstInstance}</a> feature is not enabled, {@code firstInstance} <b>must</b> be 0</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -187,8 +186,7 @@ public class VkDrawIndexedIndirectCommand extends Struct<VkDrawIndexedIndirectCo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawIndexedIndirectCommand createSafe(long address) {
+    public static @Nullable VkDrawIndexedIndirectCommand createSafe(long address) {
         return address == NULL ? null : new VkDrawIndexedIndirectCommand(address, null);
     }
 
@@ -231,8 +229,7 @@ public class VkDrawIndexedIndirectCommand extends Struct<VkDrawIndexedIndirectCo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawIndexedIndirectCommand.Buffer createSafe(long address, int capacity) {
+    public static VkDrawIndexedIndirectCommand.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -296,26 +293,26 @@ public class VkDrawIndexedIndirectCommand extends Struct<VkDrawIndexedIndirectCo
     // -----------------------------------
 
     /** Unsafe version of {@link #indexCount}. */
-    public static int nindexCount(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndexedIndirectCommand.INDEXCOUNT); }
+    public static int nindexCount(long struct) { return memGetInt(struct + VkDrawIndexedIndirectCommand.INDEXCOUNT); }
     /** Unsafe version of {@link #instanceCount}. */
-    public static int ninstanceCount(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndexedIndirectCommand.INSTANCECOUNT); }
+    public static int ninstanceCount(long struct) { return memGetInt(struct + VkDrawIndexedIndirectCommand.INSTANCECOUNT); }
     /** Unsafe version of {@link #firstIndex}. */
-    public static int nfirstIndex(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndexedIndirectCommand.FIRSTINDEX); }
+    public static int nfirstIndex(long struct) { return memGetInt(struct + VkDrawIndexedIndirectCommand.FIRSTINDEX); }
     /** Unsafe version of {@link #vertexOffset}. */
-    public static int nvertexOffset(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndexedIndirectCommand.VERTEXOFFSET); }
+    public static int nvertexOffset(long struct) { return memGetInt(struct + VkDrawIndexedIndirectCommand.VERTEXOFFSET); }
     /** Unsafe version of {@link #firstInstance}. */
-    public static int nfirstInstance(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndexedIndirectCommand.FIRSTINSTANCE); }
+    public static int nfirstInstance(long struct) { return memGetInt(struct + VkDrawIndexedIndirectCommand.FIRSTINSTANCE); }
 
     /** Unsafe version of {@link #indexCount(int) indexCount}. */
-    public static void nindexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndexedIndirectCommand.INDEXCOUNT, value); }
+    public static void nindexCount(long struct, int value) { memPutInt(struct + VkDrawIndexedIndirectCommand.INDEXCOUNT, value); }
     /** Unsafe version of {@link #instanceCount(int) instanceCount}. */
-    public static void ninstanceCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndexedIndirectCommand.INSTANCECOUNT, value); }
+    public static void ninstanceCount(long struct, int value) { memPutInt(struct + VkDrawIndexedIndirectCommand.INSTANCECOUNT, value); }
     /** Unsafe version of {@link #firstIndex(int) firstIndex}. */
-    public static void nfirstIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndexedIndirectCommand.FIRSTINDEX, value); }
+    public static void nfirstIndex(long struct, int value) { memPutInt(struct + VkDrawIndexedIndirectCommand.FIRSTINDEX, value); }
     /** Unsafe version of {@link #vertexOffset(int) vertexOffset}. */
-    public static void nvertexOffset(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndexedIndirectCommand.VERTEXOFFSET, value); }
+    public static void nvertexOffset(long struct, int value) { memPutInt(struct + VkDrawIndexedIndirectCommand.VERTEXOFFSET, value); }
     /** Unsafe version of {@link #firstInstance(int) firstInstance}. */
-    public static void nfirstInstance(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndexedIndirectCommand.FIRSTINSTANCE, value); }
+    public static void nfirstInstance(long struct, int value) { memPutInt(struct + VkDrawIndexedIndirectCommand.FIRSTINSTANCE, value); }
 
     // -----------------------------------
 
@@ -348,6 +345,11 @@ public class VkDrawIndexedIndirectCommand extends Struct<VkDrawIndexedIndirectCo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

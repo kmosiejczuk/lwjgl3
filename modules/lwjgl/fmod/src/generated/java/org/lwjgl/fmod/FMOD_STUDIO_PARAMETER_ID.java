@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -131,8 +131,7 @@ public class FMOD_STUDIO_PARAMETER_ID extends Struct<FMOD_STUDIO_PARAMETER_ID> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_PARAMETER_ID createSafe(long address) {
+    public static @Nullable FMOD_STUDIO_PARAMETER_ID createSafe(long address) {
         return address == NULL ? null : new FMOD_STUDIO_PARAMETER_ID(address, null);
     }
 
@@ -175,8 +174,7 @@ public class FMOD_STUDIO_PARAMETER_ID extends Struct<FMOD_STUDIO_PARAMETER_ID> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_PARAMETER_ID.Buffer createSafe(long address, int capacity) {
+    public static FMOD_STUDIO_PARAMETER_ID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -221,14 +219,14 @@ public class FMOD_STUDIO_PARAMETER_ID extends Struct<FMOD_STUDIO_PARAMETER_ID> i
     // -----------------------------------
 
     /** Unsafe version of {@link #data1}. */
-    public static int ndata1(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_PARAMETER_ID.DATA1); }
+    public static int ndata1(long struct) { return memGetInt(struct + FMOD_STUDIO_PARAMETER_ID.DATA1); }
     /** Unsafe version of {@link #data2}. */
-    public static int ndata2(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_PARAMETER_ID.DATA2); }
+    public static int ndata2(long struct) { return memGetInt(struct + FMOD_STUDIO_PARAMETER_ID.DATA2); }
 
     /** Unsafe version of {@link #data1(int) data1}. */
-    public static void ndata1(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_PARAMETER_ID.DATA1, value); }
+    public static void ndata1(long struct, int value) { memPutInt(struct + FMOD_STUDIO_PARAMETER_ID.DATA1, value); }
     /** Unsafe version of {@link #data2(int) data2}. */
-    public static void ndata2(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_PARAMETER_ID.DATA2, value); }
+    public static void ndata2(long struct, int value) { memPutInt(struct + FMOD_STUDIO_PARAMETER_ID.DATA2, value); }
 
     // -----------------------------------
 
@@ -261,6 +259,11 @@ public class FMOD_STUDIO_PARAMETER_ID extends Struct<FMOD_STUDIO_PARAMETER_ID> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

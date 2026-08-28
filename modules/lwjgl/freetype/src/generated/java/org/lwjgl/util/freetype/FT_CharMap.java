@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -104,8 +104,7 @@ public class FT_CharMap extends Struct<FT_CharMap> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_CharMap createSafe(long address) {
+    public static @Nullable FT_CharMap createSafe(long address) {
         return address == NULL ? null : new FT_CharMap(address, null);
     }
 
@@ -120,8 +119,7 @@ public class FT_CharMap extends Struct<FT_CharMap> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_CharMap.Buffer createSafe(long address, int capacity) {
+    public static FT_CharMap.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -130,11 +128,11 @@ public class FT_CharMap extends Struct<FT_CharMap> {
     /** Unsafe version of {@link #face}. */
     public static FT_Face nface(long struct) { return FT_Face.create(memGetAddress(struct + FT_CharMap.FACE)); }
     /** Unsafe version of {@link #encoding}. */
-    public static int nencoding(long struct) { return UNSAFE.getInt(null, struct + FT_CharMap.ENCODING); }
+    public static int nencoding(long struct) { return memGetInt(struct + FT_CharMap.ENCODING); }
     /** Unsafe version of {@link #platform_id}. */
-    public static short nplatform_id(long struct) { return UNSAFE.getShort(null, struct + FT_CharMap.PLATFORM_ID); }
+    public static short nplatform_id(long struct) { return memGetShort(struct + FT_CharMap.PLATFORM_ID); }
     /** Unsafe version of {@link #encoding_id}. */
-    public static short nencoding_id(long struct) { return UNSAFE.getShort(null, struct + FT_CharMap.ENCODING_ID); }
+    public static short nencoding_id(long struct) { return memGetShort(struct + FT_CharMap.ENCODING_ID); }
 
     // -----------------------------------
 
@@ -167,6 +165,11 @@ public class FT_CharMap extends Struct<FT_CharMap> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

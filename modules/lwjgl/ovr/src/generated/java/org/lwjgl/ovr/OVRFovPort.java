@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class OVRFovPort extends Struct<OVRFovPort> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRFovPort createSafe(long address) {
+    public static @Nullable OVRFovPort createSafe(long address) {
         return address == NULL ? null : new OVRFovPort(address, null);
     }
 
@@ -199,8 +198,7 @@ public class OVRFovPort extends Struct<OVRFovPort> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRFovPort.Buffer createSafe(long address, int capacity) {
+    public static OVRFovPort.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +262,22 @@ public class OVRFovPort extends Struct<OVRFovPort> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #UpTan}. */
-    public static float nUpTan(long struct) { return UNSAFE.getFloat(null, struct + OVRFovPort.UPTAN); }
+    public static float nUpTan(long struct) { return memGetFloat(struct + OVRFovPort.UPTAN); }
     /** Unsafe version of {@link #DownTan}. */
-    public static float nDownTan(long struct) { return UNSAFE.getFloat(null, struct + OVRFovPort.DOWNTAN); }
+    public static float nDownTan(long struct) { return memGetFloat(struct + OVRFovPort.DOWNTAN); }
     /** Unsafe version of {@link #LeftTan}. */
-    public static float nLeftTan(long struct) { return UNSAFE.getFloat(null, struct + OVRFovPort.LEFTTAN); }
+    public static float nLeftTan(long struct) { return memGetFloat(struct + OVRFovPort.LEFTTAN); }
     /** Unsafe version of {@link #RightTan}. */
-    public static float nRightTan(long struct) { return UNSAFE.getFloat(null, struct + OVRFovPort.RIGHTTAN); }
+    public static float nRightTan(long struct) { return memGetFloat(struct + OVRFovPort.RIGHTTAN); }
 
     /** Unsafe version of {@link #UpTan(float) UpTan}. */
-    public static void nUpTan(long struct, float value) { UNSAFE.putFloat(null, struct + OVRFovPort.UPTAN, value); }
+    public static void nUpTan(long struct, float value) { memPutFloat(struct + OVRFovPort.UPTAN, value); }
     /** Unsafe version of {@link #DownTan(float) DownTan}. */
-    public static void nDownTan(long struct, float value) { UNSAFE.putFloat(null, struct + OVRFovPort.DOWNTAN, value); }
+    public static void nDownTan(long struct, float value) { memPutFloat(struct + OVRFovPort.DOWNTAN, value); }
     /** Unsafe version of {@link #LeftTan(float) LeftTan}. */
-    public static void nLeftTan(long struct, float value) { UNSAFE.putFloat(null, struct + OVRFovPort.LEFTTAN, value); }
+    public static void nLeftTan(long struct, float value) { memPutFloat(struct + OVRFovPort.LEFTTAN, value); }
     /** Unsafe version of {@link #RightTan(float) RightTan}. */
-    public static void nRightTan(long struct, float value) { UNSAFE.putFloat(null, struct + OVRFovPort.RIGHTTAN, value); }
+    public static void nRightTan(long struct, float value) { memPutFloat(struct + OVRFovPort.RIGHTTAN, value); }
 
     // -----------------------------------
 
@@ -312,6 +310,11 @@ public class OVRFovPort extends Struct<OVRFovPort> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

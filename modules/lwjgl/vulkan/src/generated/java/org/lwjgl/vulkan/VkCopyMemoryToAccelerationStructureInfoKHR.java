@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -191,8 +191,7 @@ public class VkCopyMemoryToAccelerationStructureInfoKHR extends Struct<VkCopyMem
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyMemoryToAccelerationStructureInfoKHR createSafe(long address) {
+    public static @Nullable VkCopyMemoryToAccelerationStructureInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkCopyMemoryToAccelerationStructureInfoKHR(address, null);
     }
 
@@ -235,8 +234,7 @@ public class VkCopyMemoryToAccelerationStructureInfoKHR extends Struct<VkCopyMem
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyMemoryToAccelerationStructureInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkCopyMemoryToAccelerationStructureInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -281,26 +279,26 @@ public class VkCopyMemoryToAccelerationStructureInfoKHR extends Struct<VkCopyMem
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCopyMemoryToAccelerationStructureInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCopyMemoryToAccelerationStructureInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCopyMemoryToAccelerationStructureInfoKHR.PNEXT); }
     /** Unsafe version of {@link #src}. */
     public static VkDeviceOrHostAddressConstKHR nsrc(long struct) { return VkDeviceOrHostAddressConstKHR.create(struct + VkCopyMemoryToAccelerationStructureInfoKHR.SRC); }
     /** Unsafe version of {@link #dst}. */
-    public static long ndst(long struct) { return UNSAFE.getLong(null, struct + VkCopyMemoryToAccelerationStructureInfoKHR.DST); }
+    public static long ndst(long struct) { return memGetLong(struct + VkCopyMemoryToAccelerationStructureInfoKHR.DST); }
     /** Unsafe version of {@link #mode}. */
-    public static int nmode(long struct) { return UNSAFE.getInt(null, struct + VkCopyMemoryToAccelerationStructureInfoKHR.MODE); }
+    public static int nmode(long struct) { return memGetInt(struct + VkCopyMemoryToAccelerationStructureInfoKHR.MODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyMemoryToAccelerationStructureInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCopyMemoryToAccelerationStructureInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCopyMemoryToAccelerationStructureInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #src(VkDeviceOrHostAddressConstKHR) src}. */
     public static void nsrc(long struct, VkDeviceOrHostAddressConstKHR value) { memCopy(value.address(), struct + VkCopyMemoryToAccelerationStructureInfoKHR.SRC, VkDeviceOrHostAddressConstKHR.SIZEOF); }
     /** Unsafe version of {@link #dst(long) dst}. */
-    public static void ndst(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyMemoryToAccelerationStructureInfoKHR.DST, value); }
+    public static void ndst(long struct, long value) { memPutLong(struct + VkCopyMemoryToAccelerationStructureInfoKHR.DST, value); }
     /** Unsafe version of {@link #mode(int) mode}. */
-    public static void nmode(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyMemoryToAccelerationStructureInfoKHR.MODE, value); }
+    public static void nmode(long struct, int value) { memPutInt(struct + VkCopyMemoryToAccelerationStructureInfoKHR.MODE, value); }
 
     // -----------------------------------
 
@@ -333,6 +331,11 @@ public class VkCopyMemoryToAccelerationStructureInfoKHR extends Struct<VkCopyMem
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

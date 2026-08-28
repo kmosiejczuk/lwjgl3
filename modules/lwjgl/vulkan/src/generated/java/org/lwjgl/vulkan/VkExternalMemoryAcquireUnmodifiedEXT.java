@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code acquireUnmodifiedMemory} is {@link VK10#VK_TRUE TRUE}, and the memory barrier’s {@code srcQueueFamilyIndex} is a special queue family reserved for external memory ownership transfers (as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-queue-transfers">Queue Family Ownership Transfer</a>), then each range of {@code VkDeviceMemory} bound to the resource <b>must</b> have remained unmodified during all time since the resource’s most recent release of ownership to the queue family</li>
+ * <li>If {@code acquireUnmodifiedMemory} is {@link VK10#VK_TRUE TRUE}, and the memory barrier’s {@code srcQueueFamilyIndex} is a special queue family reserved for external memory ownership transfers (as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-queue-transfers">Queue Family Ownership Transfer</a>), then each range of {@code VkDeviceMemory} bound to the resource <b>must</b> have remained unmodified during all time since the resource’s most recent release of ownership to the queue family</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -175,8 +175,7 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalMemoryAcquireUnmodifiedEXT createSafe(long address) {
+    public static @Nullable VkExternalMemoryAcquireUnmodifiedEXT createSafe(long address) {
         return address == NULL ? null : new VkExternalMemoryAcquireUnmodifiedEXT(address, null);
     }
 
@@ -219,8 +218,7 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalMemoryAcquireUnmodifiedEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExternalMemoryAcquireUnmodifiedEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExternalMemoryAcquireUnmodifiedEXT.PNEXT); }
     /** Unsafe version of {@link #acquireUnmodifiedMemory}. */
-    public static int nacquireUnmodifiedMemory(long struct) { return UNSAFE.getInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY); }
+    public static int nacquireUnmodifiedMemory(long struct) { return memGetInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExternalMemoryAcquireUnmodifiedEXT.PNEXT, value); }
     /** Unsafe version of {@link #acquireUnmodifiedMemory(boolean) acquireUnmodifiedMemory}. */
-    public static void nacquireUnmodifiedMemory(long struct, int value) { UNSAFE.putInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY, value); }
+    public static void nacquireUnmodifiedMemory(long struct, int value) { memPutInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

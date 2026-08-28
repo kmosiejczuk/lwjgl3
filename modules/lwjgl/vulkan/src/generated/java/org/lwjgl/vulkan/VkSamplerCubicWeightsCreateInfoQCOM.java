@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkSamplerCubicWeightsCreateInfoQCOM extends Struct<VkSamplerCubicWe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerCubicWeightsCreateInfoQCOM createSafe(long address) {
+    public static @Nullable VkSamplerCubicWeightsCreateInfoQCOM createSafe(long address) {
         return address == NULL ? null : new VkSamplerCubicWeightsCreateInfoQCOM(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkSamplerCubicWeightsCreateInfoQCOM extends Struct<VkSamplerCubicWe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerCubicWeightsCreateInfoQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkSamplerCubicWeightsCreateInfoQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +247,18 @@ public class VkSamplerCubicWeightsCreateInfoQCOM extends Struct<VkSamplerCubicWe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCubicWeightsCreateInfoQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSamplerCubicWeightsCreateInfoQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSamplerCubicWeightsCreateInfoQCOM.PNEXT); }
     /** Unsafe version of {@link #cubicWeights}. */
-    public static int ncubicWeights(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCubicWeightsCreateInfoQCOM.CUBICWEIGHTS); }
+    public static int ncubicWeights(long struct) { return memGetInt(struct + VkSamplerCubicWeightsCreateInfoQCOM.CUBICWEIGHTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCubicWeightsCreateInfoQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSamplerCubicWeightsCreateInfoQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSamplerCubicWeightsCreateInfoQCOM.PNEXT, value); }
     /** Unsafe version of {@link #cubicWeights(int) cubicWeights}. */
-    public static void ncubicWeights(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCubicWeightsCreateInfoQCOM.CUBICWEIGHTS, value); }
+    public static void ncubicWeights(long struct, int value) { memPutInt(struct + VkSamplerCubicWeightsCreateInfoQCOM.CUBICWEIGHTS, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class VkSamplerCubicWeightsCreateInfoQCOM extends Struct<VkSamplerCubicWe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

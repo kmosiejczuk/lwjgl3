@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -224,8 +224,7 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerQuad createSafe(long address) {
+    public static @Nullable XrCompositionLayerQuad createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerQuad(address, null);
     }
 
@@ -273,8 +272,7 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerQuad.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerQuad.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -324,15 +322,15 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerQuad.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerQuad.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerQuad.NEXT); }
     /** Unsafe version of {@link #layerFlags}. */
-    public static long nlayerFlags(long struct) { return UNSAFE.getLong(null, struct + XrCompositionLayerQuad.LAYERFLAGS); }
+    public static long nlayerFlags(long struct) { return memGetLong(struct + XrCompositionLayerQuad.LAYERFLAGS); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrCompositionLayerQuad.SPACE); }
     /** Unsafe version of {@link #eyeVisibility}. */
-    public static int neyeVisibility(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerQuad.EYEVISIBILITY); }
+    public static int neyeVisibility(long struct) { return memGetInt(struct + XrCompositionLayerQuad.EYEVISIBILITY); }
     /** Unsafe version of {@link #subImage}. */
     public static XrSwapchainSubImage nsubImage(long struct) { return XrSwapchainSubImage.create(struct + XrCompositionLayerQuad.SUBIMAGE); }
     /** Unsafe version of {@link #pose}. */
@@ -341,15 +339,15 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
     public static XrExtent2Df nsize(long struct) { return XrExtent2Df.create(struct + XrCompositionLayerQuad.SIZE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerQuad.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerQuad.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerQuad.NEXT, value); }
     /** Unsafe version of {@link #layerFlags(long) layerFlags}. */
-    public static void nlayerFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrCompositionLayerQuad.LAYERFLAGS, value); }
+    public static void nlayerFlags(long struct, long value) { memPutLong(struct + XrCompositionLayerQuad.LAYERFLAGS, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
     public static void nspace(long struct, XrSpace value) { memPutAddress(struct + XrCompositionLayerQuad.SPACE, value.address()); }
     /** Unsafe version of {@link #eyeVisibility(int) eyeVisibility}. */
-    public static void neyeVisibility(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerQuad.EYEVISIBILITY, value); }
+    public static void neyeVisibility(long struct, int value) { memPutInt(struct + XrCompositionLayerQuad.EYEVISIBILITY, value); }
     /** Unsafe version of {@link #subImage(XrSwapchainSubImage) subImage}. */
     public static void nsubImage(long struct, XrSwapchainSubImage value) { memCopy(value.address(), struct + XrCompositionLayerQuad.SUBIMAGE, XrSwapchainSubImage.SIZEOF); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
@@ -398,6 +396,11 @@ public class XrCompositionLayerQuad extends Struct<XrCompositionLayerQuad> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

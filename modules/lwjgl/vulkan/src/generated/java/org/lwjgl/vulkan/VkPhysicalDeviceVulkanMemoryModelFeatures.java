@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -108,7 +108,7 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
     /** indicates whether the Vulkan Memory Model can use {@code Device} scope synchronization. This also indicates whether shader modules <b>can</b> declare the {@code VulkanMemoryModelDeviceScope} capability. */
     @NativeType("VkBool32")
     public boolean vulkanMemoryModelDeviceScope() { return nvulkanMemoryModelDeviceScope(address()) != 0; }
-    /** indicates whether the Vulkan Memory Model can use <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-model-availability-visibility">availability and visibility chains</a> with more than one element. */
+    /** indicates whether the Vulkan Memory Model can use <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-model-availability-visibility">availability and visibility chains</a> with more than one element. */
     @NativeType("VkBool32")
     public boolean vulkanMemoryModelAvailabilityVisibilityChains() { return nvulkanMemoryModelAvailabilityVisibilityChains(address()) != 0; }
 
@@ -178,8 +178,7 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVulkanMemoryModelFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceVulkanMemoryModelFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceVulkanMemoryModelFeatures(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVulkanMemoryModelFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceVulkanMemoryModelFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +266,26 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkanMemoryModelFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkanMemoryModelFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceVulkanMemoryModelFeatures.PNEXT); }
     /** Unsafe version of {@link #vulkanMemoryModel}. */
-    public static int nvulkanMemoryModel(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODEL); }
+    public static int nvulkanMemoryModel(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODEL); }
     /** Unsafe version of {@link #vulkanMemoryModelDeviceScope}. */
-    public static int nvulkanMemoryModelDeviceScope(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODELDEVICESCOPE); }
+    public static int nvulkanMemoryModelDeviceScope(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODELDEVICESCOPE); }
     /** Unsafe version of {@link #vulkanMemoryModelAvailabilityVisibilityChains}. */
-    public static int nvulkanMemoryModelAvailabilityVisibilityChains(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODELAVAILABILITYVISIBILITYCHAINS); }
+    public static int nvulkanMemoryModelAvailabilityVisibilityChains(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODELAVAILABILITYVISIBILITYCHAINS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkanMemoryModelFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkanMemoryModelFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceVulkanMemoryModelFeatures.PNEXT, value); }
     /** Unsafe version of {@link #vulkanMemoryModel(boolean) vulkanMemoryModel}. */
-    public static void nvulkanMemoryModel(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODEL, value); }
+    public static void nvulkanMemoryModel(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODEL, value); }
     /** Unsafe version of {@link #vulkanMemoryModelDeviceScope(boolean) vulkanMemoryModelDeviceScope}. */
-    public static void nvulkanMemoryModelDeviceScope(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODELDEVICESCOPE, value); }
+    public static void nvulkanMemoryModelDeviceScope(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODELDEVICESCOPE, value); }
     /** Unsafe version of {@link #vulkanMemoryModelAvailabilityVisibilityChains(boolean) vulkanMemoryModelAvailabilityVisibilityChains}. */
-    public static void nvulkanMemoryModelAvailabilityVisibilityChains(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODELAVAILABILITYVISIBILITYCHAINS, value); }
+    public static void nvulkanMemoryModelAvailabilityVisibilityChains(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkanMemoryModelFeatures.VULKANMEMORYMODELAVAILABILITYVISIBILITYCHAINS, value); }
 
     // -----------------------------------
 
@@ -320,6 +318,11 @@ public class VkPhysicalDeviceVulkanMemoryModelFeatures extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -118,8 +118,7 @@ public class ovrHmdColorDesc extends Struct<ovrHmdColorDesc> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ovrHmdColorDesc createSafe(long address) {
+    public static @Nullable ovrHmdColorDesc createSafe(long address) {
         return address == NULL ? null : new ovrHmdColorDesc(address, null);
     }
 
@@ -162,8 +161,7 @@ public class ovrHmdColorDesc extends Struct<ovrHmdColorDesc> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ovrHmdColorDesc.Buffer createSafe(long address, int capacity) {
+    public static ovrHmdColorDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -208,10 +206,10 @@ public class ovrHmdColorDesc extends Struct<ovrHmdColorDesc> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #ColorSpace}. */
-    public static int nColorSpace(long struct) { return UNSAFE.getInt(null, struct + ovrHmdColorDesc.COLORSPACE); }
+    public static int nColorSpace(long struct) { return memGetInt(struct + ovrHmdColorDesc.COLORSPACE); }
 
     /** Unsafe version of {@link #ColorSpace(int) ColorSpace}. */
-    public static void nColorSpace(long struct, int value) { UNSAFE.putInt(null, struct + ovrHmdColorDesc.COLORSPACE, value); }
+    public static void nColorSpace(long struct, int value) { memPutInt(struct + ovrHmdColorDesc.COLORSPACE, value); }
 
     // -----------------------------------
 
@@ -244,6 +242,11 @@ public class ovrHmdColorDesc extends Struct<ovrHmdColorDesc> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

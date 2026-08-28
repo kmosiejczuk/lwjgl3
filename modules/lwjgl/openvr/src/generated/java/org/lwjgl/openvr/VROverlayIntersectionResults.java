@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class VROverlayIntersectionResults extends Struct<VROverlayIntersectionRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VROverlayIntersectionResults createSafe(long address) {
+    public static @Nullable VROverlayIntersectionResults createSafe(long address) {
         return address == NULL ? null : new VROverlayIntersectionResults(address, null);
     }
 
@@ -161,8 +160,7 @@ public class VROverlayIntersectionResults extends Struct<VROverlayIntersectionRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VROverlayIntersectionResults.Buffer createSafe(long address, int capacity) {
+    public static VROverlayIntersectionResults.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -232,7 +230,7 @@ public class VROverlayIntersectionResults extends Struct<VROverlayIntersectionRe
     /** Unsafe version of {@link #vUVs}. */
     public static HmdVector2 nvUVs(long struct) { return HmdVector2.create(struct + VROverlayIntersectionResults.VUVS); }
     /** Unsafe version of {@link #fDistance}. */
-    public static float nfDistance(long struct) { return UNSAFE.getFloat(null, struct + VROverlayIntersectionResults.FDISTANCE); }
+    public static float nfDistance(long struct) { return memGetFloat(struct + VROverlayIntersectionResults.FDISTANCE); }
 
     // -----------------------------------
 
@@ -265,6 +263,11 @@ public class VROverlayIntersectionResults extends Struct<VROverlayIntersectionRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

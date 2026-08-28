@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceDynamicRenderingFeatures extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDynamicRenderingFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDynamicRenderingFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDynamicRenderingFeatures(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceDynamicRenderingFeatures extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDynamicRenderingFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDynamicRenderingFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceDynamicRenderingFeatures extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDynamicRenderingFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDynamicRenderingFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDynamicRenderingFeatures.PNEXT); }
     /** Unsafe version of {@link #dynamicRendering}. */
-    public static int ndynamicRendering(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDynamicRenderingFeatures.DYNAMICRENDERING); }
+    public static int ndynamicRendering(long struct) { return memGetInt(struct + VkPhysicalDeviceDynamicRenderingFeatures.DYNAMICRENDERING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDynamicRenderingFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDynamicRenderingFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDynamicRenderingFeatures.PNEXT, value); }
     /** Unsafe version of {@link #dynamicRendering(boolean) dynamicRendering}. */
-    public static void ndynamicRendering(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDynamicRenderingFeatures.DYNAMICRENDERING, value); }
+    public static void ndynamicRendering(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDynamicRenderingFeatures.DYNAMICRENDERING, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceDynamicRenderingFeatures extends Struct<VkPhysicalD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

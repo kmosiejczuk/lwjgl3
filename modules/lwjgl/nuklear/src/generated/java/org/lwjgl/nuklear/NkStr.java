@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -108,8 +108,7 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStr createSafe(long address) {
+    public static @Nullable NkStr createSafe(long address) {
         return address == NULL ? null : new NkStr(address, null);
     }
 
@@ -152,8 +151,7 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStr.Buffer createSafe(long address, int capacity) {
+    public static NkStr.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -219,7 +217,7 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
     /** Unsafe version of {@link #buffer}. */
     public static NkBuffer nbuffer(long struct) { return NkBuffer.create(struct + NkStr.BUFFER); }
     /** Unsafe version of {@link #len}. */
-    public static int nlen(long struct) { return UNSAFE.getInt(null, struct + NkStr.LEN); }
+    public static int nlen(long struct) { return memGetInt(struct + NkStr.LEN); }
 
     // -----------------------------------
 
@@ -252,6 +250,11 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

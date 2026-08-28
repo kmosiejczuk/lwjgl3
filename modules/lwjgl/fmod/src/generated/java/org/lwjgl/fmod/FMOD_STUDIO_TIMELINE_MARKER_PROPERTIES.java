@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -134,8 +134,7 @@ public class FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES extends Struct<FMOD_STUDIO_T
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES createSafe(long address) {
+    public static @Nullable FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES createSafe(long address) {
         return address == NULL ? null : new FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES(address, null);
     }
 
@@ -178,8 +177,7 @@ public class FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES extends Struct<FMOD_STUDIO_T
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES.Buffer createSafe(long address, int capacity) {
+    public static FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -228,7 +226,7 @@ public class FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES extends Struct<FMOD_STUDIO_T
     /** Unsafe version of {@link #nameString}. */
     public static String nnameString(long struct) { return memUTF8(memGetAddress(struct + FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES.NAME)); }
     /** Unsafe version of {@link #position$}. */
-    public static int nposition$(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES.POSITION); }
+    public static int nposition$(long struct) { return memGetInt(struct + FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES.POSITION); }
 
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
@@ -236,7 +234,7 @@ public class FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES extends Struct<FMOD_STUDIO_T
         memPutAddress(struct + FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES.NAME, memAddress(value));
     }
     /** Unsafe version of {@link #position$(int) position$}. */
-    public static void nposition$(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES.POSITION, value); }
+    public static void nposition$(long struct, int value) { memPutInt(struct + FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES.POSITION, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -278,6 +276,11 @@ public class FMOD_STUDIO_TIMELINE_MARKER_PROPERTIES extends Struct<FMOD_STUDIO_T
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

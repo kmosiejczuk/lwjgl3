@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,7 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a indirect drawing command.
+ * Structure specifying an indirect drawing command.
  * 
  * <h5>Description</h5>
  * 
@@ -25,13 +25,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the bound graphics pipeline state was created with {@link VkPipelineVertexInputDivisorStateCreateInfoKHR} in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}{@code ::pVertexInputState}, any member of {@link VkPipelineVertexInputDivisorStateCreateInfoKHR}{@code ::pVertexBindingDivisors} has a value other than 1 in {@code divisor}, and {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesKHR}{@code ::supportsNonZeroFirstInstance} is {@link VK10#VK_FALSE FALSE}, then {@code firstInstance} <b>must</b> be 0</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a> are used for drawing or the bound graphics pipeline state was created with the {@link EXTVertexInputDynamicState#VK_DYNAMIC_STATE_VERTEX_INPUT_EXT DYNAMIC_STATE_VERTEX_INPUT_EXT} dynamic state enabled, any member of the {@code pVertexBindingDescriptions} parameter to the {@link EXTShaderObject#vkCmdSetVertexInputEXT CmdSetVertexInputEXT} call that sets this dynamic state has a value other than 1 in {@code divisor}, and {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesKHR}{@code ::supportsNonZeroFirstInstance} is {@link VK10#VK_FALSE FALSE}, then {@code firstInstance} <b>must</b> be 0</li>
+ * <li>If the bound graphics pipeline state was created with {@link VkPipelineVertexInputDivisorStateCreateInfo} in the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo}{@code ::pVertexInputState}, any member of {@link VkPipelineVertexInputDivisorStateCreateInfo}{@code ::pVertexBindingDivisors} has a value other than 1 in {@code divisor}, and {@link VkPhysicalDeviceVertexAttributeDivisorProperties}{@code ::supportsNonZeroFirstInstance} is {@link VK10#VK_FALSE FALSE}, then {@code firstInstance} <b>must</b> be 0</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a> are used for drawing or the bound graphics pipeline state was created with the {@link EXTVertexInputDynamicState#VK_DYNAMIC_STATE_VERTEX_INPUT_EXT DYNAMIC_STATE_VERTEX_INPUT_EXT} dynamic state enabled, any member of the {@code pVertexBindingDescriptions} parameter to the {@link EXTShaderObject#vkCmdSetVertexInputEXT CmdSetVertexInputEXT} call that sets this dynamic state has a value other than 1 in {@code divisor}, and {@link VkPhysicalDeviceVertexAttributeDivisorProperties}{@code ::supportsNonZeroFirstInstance} is {@link VK10#VK_FALSE FALSE}, then {@code firstInstance} <b>must</b> be 0</li>
  * </ul>
  * 
  * <ul>
- * <li>For a given vertex buffer binding, any attribute data fetched <b>must</b> be entirely contained within the corresponding vertex buffer binding, as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fxvertex-input">Vertex Input Description</a></li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-drawIndirectFirstInstance">{@code drawIndirectFirstInstance}</a> feature is not enabled, {@code firstInstance} <b>must</b> be 0</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-drawIndirectFirstInstance">{@code drawIndirectFirstInstance}</a> feature is not enabled, {@code firstInstance} <b>must</b> be 0</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -175,8 +174,7 @@ public class VkDrawIndirectCommand extends Struct<VkDrawIndirectCommand> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawIndirectCommand createSafe(long address) {
+    public static @Nullable VkDrawIndirectCommand createSafe(long address) {
         return address == NULL ? null : new VkDrawIndirectCommand(address, null);
     }
 
@@ -219,8 +217,7 @@ public class VkDrawIndirectCommand extends Struct<VkDrawIndirectCommand> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawIndirectCommand.Buffer createSafe(long address, int capacity) {
+    public static VkDrawIndirectCommand.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,22 +281,22 @@ public class VkDrawIndirectCommand extends Struct<VkDrawIndirectCommand> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #vertexCount}. */
-    public static int nvertexCount(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndirectCommand.VERTEXCOUNT); }
+    public static int nvertexCount(long struct) { return memGetInt(struct + VkDrawIndirectCommand.VERTEXCOUNT); }
     /** Unsafe version of {@link #instanceCount}. */
-    public static int ninstanceCount(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndirectCommand.INSTANCECOUNT); }
+    public static int ninstanceCount(long struct) { return memGetInt(struct + VkDrawIndirectCommand.INSTANCECOUNT); }
     /** Unsafe version of {@link #firstVertex}. */
-    public static int nfirstVertex(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndirectCommand.FIRSTVERTEX); }
+    public static int nfirstVertex(long struct) { return memGetInt(struct + VkDrawIndirectCommand.FIRSTVERTEX); }
     /** Unsafe version of {@link #firstInstance}. */
-    public static int nfirstInstance(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndirectCommand.FIRSTINSTANCE); }
+    public static int nfirstInstance(long struct) { return memGetInt(struct + VkDrawIndirectCommand.FIRSTINSTANCE); }
 
     /** Unsafe version of {@link #vertexCount(int) vertexCount}. */
-    public static void nvertexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndirectCommand.VERTEXCOUNT, value); }
+    public static void nvertexCount(long struct, int value) { memPutInt(struct + VkDrawIndirectCommand.VERTEXCOUNT, value); }
     /** Unsafe version of {@link #instanceCount(int) instanceCount}. */
-    public static void ninstanceCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndirectCommand.INSTANCECOUNT, value); }
+    public static void ninstanceCount(long struct, int value) { memPutInt(struct + VkDrawIndirectCommand.INSTANCECOUNT, value); }
     /** Unsafe version of {@link #firstVertex(int) firstVertex}. */
-    public static void nfirstVertex(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndirectCommand.FIRSTVERTEX, value); }
+    public static void nfirstVertex(long struct, int value) { memPutInt(struct + VkDrawIndirectCommand.FIRSTVERTEX, value); }
     /** Unsafe version of {@link #firstInstance(int) firstInstance}. */
-    public static void nfirstInstance(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndirectCommand.FIRSTINSTANCE, value); }
+    public static void nfirstInstance(long struct, int value) { memPutInt(struct + VkDrawIndirectCommand.FIRSTINSTANCE, value); }
 
     // -----------------------------------
 
@@ -332,6 +329,11 @@ public class VkDrawIndirectCommand extends Struct<VkDrawIndirectCommand> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

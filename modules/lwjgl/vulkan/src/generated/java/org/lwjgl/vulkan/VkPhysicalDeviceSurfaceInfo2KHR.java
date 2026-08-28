@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -177,8 +177,7 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSurfaceInfo2KHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSurfaceInfo2KHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSurfaceInfo2KHR(address, null);
     }
 
@@ -221,8 +220,7 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSurfaceInfo2KHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSurfaceInfo2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,18 +284,18 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSurfaceInfo2KHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSurfaceInfo2KHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSurfaceInfo2KHR.PNEXT); }
     /** Unsafe version of {@link #surface}. */
-    public static long nsurface(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceSurfaceInfo2KHR.SURFACE); }
+    public static long nsurface(long struct) { return memGetLong(struct + VkPhysicalDeviceSurfaceInfo2KHR.SURFACE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSurfaceInfo2KHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSurfaceInfo2KHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSurfaceInfo2KHR.PNEXT, value); }
     /** Unsafe version of {@link #surface(long) surface}. */
-    public static void nsurface(long struct, long value) { UNSAFE.putLong(null, struct + VkPhysicalDeviceSurfaceInfo2KHR.SURFACE, value); }
+    public static void nsurface(long struct, long value) { memPutLong(struct + VkPhysicalDeviceSurfaceInfo2KHR.SURFACE, value); }
 
     // -----------------------------------
 
@@ -330,6 +328,11 @@ public class VkPhysicalDeviceSurfaceInfo2KHR extends Struct<VkPhysicalDeviceSurf
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

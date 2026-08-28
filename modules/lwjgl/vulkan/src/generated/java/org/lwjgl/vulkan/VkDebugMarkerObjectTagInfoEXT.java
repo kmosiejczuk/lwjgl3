@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code objectType} <b>must</b> not be {@link EXTDebugReport#VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT}</li>
  * <li>{@code object} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
- * <li>{@code object} <b>must</b> be a Vulkan object of the type associated with {@code objectType} as defined in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#debug-report-object-types">{@code VkDebugReportObjectTypeEXT} and Vulkan Handle Relationship</a></li>
+ * <li>{@code object} <b>must</b> be a Vulkan object of the type associated with {@code objectType} as defined in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#debug-report-object-types">{@code VkDebugReportObjectTypeEXT} and Vulkan Handle Relationship</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -213,8 +213,7 @@ public class VkDebugMarkerObjectTagInfoEXT extends Struct<VkDebugMarkerObjectTag
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDebugMarkerObjectTagInfoEXT createSafe(long address) {
+    public static @Nullable VkDebugMarkerObjectTagInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDebugMarkerObjectTagInfoEXT(address, null);
     }
 
@@ -257,8 +256,7 @@ public class VkDebugMarkerObjectTagInfoEXT extends Struct<VkDebugMarkerObjectTag
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDebugMarkerObjectTagInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDebugMarkerObjectTagInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -322,30 +320,30 @@ public class VkDebugMarkerObjectTagInfoEXT extends Struct<VkDebugMarkerObjectTag
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDebugMarkerObjectTagInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDebugMarkerObjectTagInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDebugMarkerObjectTagInfoEXT.PNEXT); }
     /** Unsafe version of {@link #objectType}. */
-    public static int nobjectType(long struct) { return UNSAFE.getInt(null, struct + VkDebugMarkerObjectTagInfoEXT.OBJECTTYPE); }
+    public static int nobjectType(long struct) { return memGetInt(struct + VkDebugMarkerObjectTagInfoEXT.OBJECTTYPE); }
     /** Unsafe version of {@link #object}. */
-    public static long nobject(long struct) { return UNSAFE.getLong(null, struct + VkDebugMarkerObjectTagInfoEXT.OBJECT); }
+    public static long nobject(long struct) { return memGetLong(struct + VkDebugMarkerObjectTagInfoEXT.OBJECT); }
     /** Unsafe version of {@link #tagName}. */
-    public static long ntagName(long struct) { return UNSAFE.getLong(null, struct + VkDebugMarkerObjectTagInfoEXT.TAGNAME); }
+    public static long ntagName(long struct) { return memGetLong(struct + VkDebugMarkerObjectTagInfoEXT.TAGNAME); }
     /** Unsafe version of {@link #tagSize}. */
     public static long ntagSize(long struct) { return memGetAddress(struct + VkDebugMarkerObjectTagInfoEXT.TAGSIZE); }
     /** Unsafe version of {@link #pTag() pTag}. */
     public static ByteBuffer npTag(long struct) { return memByteBuffer(memGetAddress(struct + VkDebugMarkerObjectTagInfoEXT.PTAG), (int)ntagSize(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDebugMarkerObjectTagInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDebugMarkerObjectTagInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDebugMarkerObjectTagInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #objectType(int) objectType}. */
-    public static void nobjectType(long struct, int value) { UNSAFE.putInt(null, struct + VkDebugMarkerObjectTagInfoEXT.OBJECTTYPE, value); }
+    public static void nobjectType(long struct, int value) { memPutInt(struct + VkDebugMarkerObjectTagInfoEXT.OBJECTTYPE, value); }
     /** Unsafe version of {@link #object(long) object}. */
-    public static void nobject(long struct, long value) { UNSAFE.putLong(null, struct + VkDebugMarkerObjectTagInfoEXT.OBJECT, value); }
+    public static void nobject(long struct, long value) { memPutLong(struct + VkDebugMarkerObjectTagInfoEXT.OBJECT, value); }
     /** Unsafe version of {@link #tagName(long) tagName}. */
-    public static void ntagName(long struct, long value) { UNSAFE.putLong(null, struct + VkDebugMarkerObjectTagInfoEXT.TAGNAME, value); }
+    public static void ntagName(long struct, long value) { memPutLong(struct + VkDebugMarkerObjectTagInfoEXT.TAGNAME, value); }
     /** Sets the specified value to the {@code tagSize} field of the specified {@code struct}. */
     public static void ntagSize(long struct, long value) { memPutAddress(struct + VkDebugMarkerObjectTagInfoEXT.TAGSIZE, value); }
     /** Unsafe version of {@link #pTag(ByteBuffer) pTag}. */
@@ -391,6 +389,11 @@ public class VkDebugMarkerObjectTagInfoEXT extends Struct<VkDebugMarkerObjectTag
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -157,8 +157,7 @@ public class hb_glyph_extents_t extends Struct<hb_glyph_extents_t> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_glyph_extents_t createSafe(long address) {
+    public static @Nullable hb_glyph_extents_t createSafe(long address) {
         return address == NULL ? null : new hb_glyph_extents_t(address, null);
     }
 
@@ -201,8 +200,7 @@ public class hb_glyph_extents_t extends Struct<hb_glyph_extents_t> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_glyph_extents_t.Buffer createSafe(long address, int capacity) {
+    public static hb_glyph_extents_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,22 +245,22 @@ public class hb_glyph_extents_t extends Struct<hb_glyph_extents_t> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #x_bearing}. */
-    public static int nx_bearing(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_extents_t.X_BEARING); }
+    public static int nx_bearing(long struct) { return memGetInt(struct + hb_glyph_extents_t.X_BEARING); }
     /** Unsafe version of {@link #y_bearing}. */
-    public static int ny_bearing(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_extents_t.Y_BEARING); }
+    public static int ny_bearing(long struct) { return memGetInt(struct + hb_glyph_extents_t.Y_BEARING); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_extents_t.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + hb_glyph_extents_t.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_extents_t.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + hb_glyph_extents_t.HEIGHT); }
 
     /** Unsafe version of {@link #x_bearing(int) x_bearing}. */
-    public static void nx_bearing(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_extents_t.X_BEARING, value); }
+    public static void nx_bearing(long struct, int value) { memPutInt(struct + hb_glyph_extents_t.X_BEARING, value); }
     /** Unsafe version of {@link #y_bearing(int) y_bearing}. */
-    public static void ny_bearing(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_extents_t.Y_BEARING, value); }
+    public static void ny_bearing(long struct, int value) { memPutInt(struct + hb_glyph_extents_t.Y_BEARING, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_extents_t.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + hb_glyph_extents_t.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_extents_t.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + hb_glyph_extents_t.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -295,6 +293,11 @@ public class hb_glyph_extents_t extends Struct<hb_glyph_extents_t> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

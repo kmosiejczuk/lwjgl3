@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -102,8 +102,7 @@ public class AITexel extends Struct<AITexel> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AITexel createSafe(long address) {
+    public static @Nullable AITexel createSafe(long address) {
         return address == NULL ? null : new AITexel(address, null);
     }
 
@@ -118,21 +117,20 @@ public class AITexel extends Struct<AITexel> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AITexel.Buffer createSafe(long address, int capacity) {
+    public static AITexel.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #b}. */
-    public static byte nb(long struct) { return UNSAFE.getByte(null, struct + AITexel.B); }
+    public static byte nb(long struct) { return memGetByte(struct + AITexel.B); }
     /** Unsafe version of {@link #g}. */
-    public static byte ng(long struct) { return UNSAFE.getByte(null, struct + AITexel.G); }
+    public static byte ng(long struct) { return memGetByte(struct + AITexel.G); }
     /** Unsafe version of {@link #r}. */
-    public static byte nr(long struct) { return UNSAFE.getByte(null, struct + AITexel.R); }
+    public static byte nr(long struct) { return memGetByte(struct + AITexel.R); }
     /** Unsafe version of {@link #a}. */
-    public static byte na(long struct) { return UNSAFE.getByte(null, struct + AITexel.A); }
+    public static byte na(long struct) { return memGetByte(struct + AITexel.A); }
 
     // -----------------------------------
 
@@ -165,6 +163,11 @@ public class AITexel extends Struct<AITexel> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

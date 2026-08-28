@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -108,8 +108,7 @@ public class XrBoxfKHR extends XrBoxf {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBoxfKHR createSafe(long address) {
+    public static @Nullable XrBoxfKHR createSafe(long address) {
         return address == NULL ? null : new XrBoxfKHR(address, null);
     }
 
@@ -152,8 +151,7 @@ public class XrBoxfKHR extends XrBoxf {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBoxfKHR.Buffer createSafe(long address, int capacity) {
+    public static XrBoxfKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -226,6 +224,11 @@ public class XrBoxfKHR extends XrBoxf {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

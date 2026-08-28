@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -193,8 +193,7 @@ public class AIFile extends Struct<AIFile> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIFile createSafe(long address) {
+    public static @Nullable AIFile createSafe(long address) {
         return address == NULL ? null : new AIFile(address, null);
     }
 
@@ -237,8 +236,7 @@ public class AIFile extends Struct<AIFile> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIFile.Buffer createSafe(long address, int capacity) {
+    public static AIFile.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -376,6 +374,11 @@ public class AIFile extends Struct<AIFile> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

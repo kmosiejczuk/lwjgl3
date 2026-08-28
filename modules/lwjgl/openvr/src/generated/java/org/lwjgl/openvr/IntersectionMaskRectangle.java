@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,8 +150,7 @@ public class IntersectionMaskRectangle extends Struct<IntersectionMaskRectangle>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IntersectionMaskRectangle createSafe(long address) {
+    public static @Nullable IntersectionMaskRectangle createSafe(long address) {
         return address == NULL ? null : new IntersectionMaskRectangle(address, null);
     }
 
@@ -194,8 +193,7 @@ public class IntersectionMaskRectangle extends Struct<IntersectionMaskRectangle>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IntersectionMaskRectangle.Buffer createSafe(long address, int capacity) {
+    public static IntersectionMaskRectangle.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,22 +257,22 @@ public class IntersectionMaskRectangle extends Struct<IntersectionMaskRectangle>
     // -----------------------------------
 
     /** Unsafe version of {@link #m_flTopLeftX}. */
-    public static float nm_flTopLeftX(long struct) { return UNSAFE.getFloat(null, struct + IntersectionMaskRectangle.M_FLTOPLEFTX); }
+    public static float nm_flTopLeftX(long struct) { return memGetFloat(struct + IntersectionMaskRectangle.M_FLTOPLEFTX); }
     /** Unsafe version of {@link #m_flTopLeftY}. */
-    public static float nm_flTopLeftY(long struct) { return UNSAFE.getFloat(null, struct + IntersectionMaskRectangle.M_FLTOPLEFTY); }
+    public static float nm_flTopLeftY(long struct) { return memGetFloat(struct + IntersectionMaskRectangle.M_FLTOPLEFTY); }
     /** Unsafe version of {@link #m_flWidth}. */
-    public static float nm_flWidth(long struct) { return UNSAFE.getFloat(null, struct + IntersectionMaskRectangle.M_FLWIDTH); }
+    public static float nm_flWidth(long struct) { return memGetFloat(struct + IntersectionMaskRectangle.M_FLWIDTH); }
     /** Unsafe version of {@link #m_flHeight}. */
-    public static float nm_flHeight(long struct) { return UNSAFE.getFloat(null, struct + IntersectionMaskRectangle.M_FLHEIGHT); }
+    public static float nm_flHeight(long struct) { return memGetFloat(struct + IntersectionMaskRectangle.M_FLHEIGHT); }
 
     /** Unsafe version of {@link #m_flTopLeftX(float) m_flTopLeftX}. */
-    public static void nm_flTopLeftX(long struct, float value) { UNSAFE.putFloat(null, struct + IntersectionMaskRectangle.M_FLTOPLEFTX, value); }
+    public static void nm_flTopLeftX(long struct, float value) { memPutFloat(struct + IntersectionMaskRectangle.M_FLTOPLEFTX, value); }
     /** Unsafe version of {@link #m_flTopLeftY(float) m_flTopLeftY}. */
-    public static void nm_flTopLeftY(long struct, float value) { UNSAFE.putFloat(null, struct + IntersectionMaskRectangle.M_FLTOPLEFTY, value); }
+    public static void nm_flTopLeftY(long struct, float value) { memPutFloat(struct + IntersectionMaskRectangle.M_FLTOPLEFTY, value); }
     /** Unsafe version of {@link #m_flWidth(float) m_flWidth}. */
-    public static void nm_flWidth(long struct, float value) { UNSAFE.putFloat(null, struct + IntersectionMaskRectangle.M_FLWIDTH, value); }
+    public static void nm_flWidth(long struct, float value) { memPutFloat(struct + IntersectionMaskRectangle.M_FLWIDTH, value); }
     /** Unsafe version of {@link #m_flHeight(float) m_flHeight}. */
-    public static void nm_flHeight(long struct, float value) { UNSAFE.putFloat(null, struct + IntersectionMaskRectangle.M_FLHEIGHT, value); }
+    public static void nm_flHeight(long struct, float value) { memPutFloat(struct + IntersectionMaskRectangle.M_FLHEIGHT, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class IntersectionMaskRectangle extends Struct<IntersectionMaskRectangle>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

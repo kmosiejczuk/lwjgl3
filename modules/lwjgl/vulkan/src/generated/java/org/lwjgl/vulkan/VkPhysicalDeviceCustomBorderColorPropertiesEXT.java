@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCustomBorderColorPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCustomBorderColorPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCustomBorderColorPropertiesEXT(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCustomBorderColorPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCustomBorderColorPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #maxCustomBorderColorSamplers}. */
-    public static int nmaxCustomBorderColorSamplers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.MAXCUSTOMBORDERCOLORSAMPLERS); }
+    public static int nmaxCustomBorderColorSamplers(long struct) { return memGetInt(struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.MAXCUSTOMBORDERCOLORSAMPLERS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.PNEXT, value); }
 
@@ -284,6 +282,11 @@ public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

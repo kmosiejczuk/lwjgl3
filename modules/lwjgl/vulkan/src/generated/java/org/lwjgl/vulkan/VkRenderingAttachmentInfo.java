@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,9 +20,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Values in {@code imageView} are loaded and stored according to the values of {@code loadOp} and {@code storeOp}, within the render area for each device specified in {@link VkRenderingInfo}. If {@code imageView} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and {@code resolveMode} is not {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, other members of this structure are ignored; writes to this attachment will be discarded, and no <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-load-operations">load</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-store-operations">store</a>, or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">multisample resolve</a> operations will be performed.</p>
+ * <p>Values in {@code imageView} are loaded and stored according to the values of {@code loadOp} and {@code storeOp}, within the render area for each device specified in {@link VkRenderingInfo}. If {@code imageView} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and {@code resolveMode} is not {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, other members of this structure are ignored; writes to this attachment will be discarded, and no <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-load-operations">load</a>, <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-store-operations">store</a>, or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-resolve-operations">multisample resolve</a> operations will be performed.</p>
  * 
- * <p>If {@code resolveMode} is {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, then {@code resolveImageView} is ignored. If {@code resolveMode} is not {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, and {@code resolveImageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">render pass multisample resolve operation</a> is defined for the attachment subresource. If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> limit is {@link VK10#VK_TRUE TRUE}, values are only undefined once <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-load-operations">load operations</a> have completed.</p>
+ * <p>If {@code resolveMode} is {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, then {@code resolveImageView} is ignored. If {@code resolveMode} is not {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, and {@code resolveImageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-resolve-operations">render pass multisample resolve operation</a> is defined for the attachment subresource. If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, and the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> limit is {@link VK10#VK_TRUE TRUE}, values are only undefined once <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-load-operations">load operations</a> have completed.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -35,7 +35,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Image contents at the end of a suspended render pass instance remain defined for access by a resuming render pass instance.</p>
  * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> limit is {@link VK10#VK_TRUE TRUE}, and {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, values in the color attachment will be loaded from the resolve attachment at the start of rendering, and <b>may</b> also be reloaded any time after a resolve occurs or the resolve attachment is written to; if this occurs it <b>must</b> happen-before any writes to the color attachment are performed which happen-after the resolve that triggers this. If any color component in the external format is subsampled, values will be read from the nearest sample in the image when they are loaded.</p>
+ * <p>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> limit is {@link VK10#VK_TRUE TRUE}, and {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, values in the color attachment will be loaded from the resolve attachment at the start of rendering, and <b>may</b> also be reloaded any time after a resolve occurs or the resolve attachment is written to; if this occurs it <b>must</b> happen-before any writes to the color attachment are performed which happen-after the resolve that triggers this. If any color component in the external format is subsampled, values will be read from the nearest sample in the image when they are loaded.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -73,14 +73,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@code resolveMode} is not {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, {@code resolveImageLayout} <b>must</b> not be {@link KHRFragmentShadingRate#VK_IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR}</li>
  * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code imageLayout} <b>must</b> not be {@link KHRSwapchain#VK_IMAGE_LAYOUT_PRESENT_SRC_KHR IMAGE_LAYOUT_PRESENT_SRC_KHR}</li>
  * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and {@code resolveMode} is not {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, {@code resolveImageLayout} <b>must</b> not be {@link KHRSwapchain#VK_IMAGE_LAYOUT_PRESENT_SRC_KHR IMAGE_LAYOUT_PRESENT_SRC_KHR}</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-externalFormatResolve">{@code externalFormatResolve}</a> is not enabled, {@code resolveMode} <b>must</b> not be {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-externalFormatResolve">{@code externalFormatResolve}</a> feature is not enabled, {@code resolveMode} <b>must</b> not be {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}</li>
  * <li>If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, {@code resolveImageView} <b>must</b> be a valid image view</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> property is {@link VK10#VK_TRUE TRUE} and {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, {@code resolveImageView} <b>must</b> have been created with an image with a {@code samples} value of {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> property is {@link VK10#VK_TRUE TRUE} and {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, {@code resolveImageView} <b>must</b> have been created with an image with a {@code samples} value of {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}</li>
  * <li>If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, {@code resolveImageView} <b>must</b> have been created with an external format specified by {@link VkExternalFormatANDROID}</li>
  * <li>If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, {@code resolveImageView} <b>must</b> have been created with a {@code subresourceRange.layerCount} of 1</li>
- * <li>If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID} and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> is {@link VK10#VK_TRUE TRUE}, {@code imageView} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
- * <li>If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID} and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> is {@link VK10#VK_FALSE FALSE}, {@code imageView} <b>must</b> be a valid {@code VkImageView}</li>
- * <li>If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID} and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> is {@link VK10#VK_FALSE FALSE}, {@code imageView} <b>must</b> have a format equal to the value of {@link VkAndroidHardwareBufferFormatResolvePropertiesANDROID}{@code ::colorAttachmentFormat} as returned by a call to {@link ANDROIDExternalMemoryAndroidHardwareBuffer#vkGetAndroidHardwareBufferPropertiesANDROID GetAndroidHardwareBufferPropertiesANDROID} for the Android hardware buffer that was used to create {@code resolveImageView}</li>
+ * <li>If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID} and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> is {@link VK10#VK_TRUE TRUE}, {@code imageView} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID} and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> is {@link VK10#VK_FALSE FALSE}, {@code imageView} <b>must</b> be a valid {@code VkImageView}</li>
+ * <li>If {@code resolveMode} is {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID} and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-nullColorAttachmentWithExternalFormatResolve">{@code nullColorAttachmentWithExternalFormatResolve}</a> is {@link VK10#VK_FALSE FALSE}, {@code imageView} <b>must</b> have a format equal to the value of {@link VkAndroidHardwareBufferFormatResolvePropertiesANDROID}{@code ::colorAttachmentFormat} as returned by a call to {@link ANDROIDExternalMemoryAndroidHardwareBuffer#vkGetAndroidHardwareBufferPropertiesANDROID GetAndroidHardwareBufferPropertiesANDROID} for the Android hardware buffer that was used to create {@code resolveImageView}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -212,10 +212,10 @@ public class VkRenderingAttachmentInfo extends Struct<VkRenderingAttachmentInfo>
     /** the layout that {@code resolveImageView} will be in during rendering. */
     @NativeType("VkImageLayout")
     public int resolveImageLayout() { return nresolveImageLayout(address()); }
-    /** a {@code VkAttachmentLoadOp} value defining the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-load-operations">load operation</a> for the attachment. */
+    /** a {@code VkAttachmentLoadOp} value defining the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-load-operations">load operation</a> for the attachment. */
     @NativeType("VkAttachmentLoadOp")
     public int loadOp() { return nloadOp(address()); }
-    /** a {@code VkAttachmentStoreOp} value defining the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-store-operations">store operation</a> for the attachment. */
+    /** a {@code VkAttachmentStoreOp} value defining the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-store-operations">store operation</a> for the attachment. */
     @NativeType("VkAttachmentStoreOp")
     public int storeOp() { return nstoreOp(address()); }
     /** a {@link VkClearValue} structure defining values used to clear {@code imageView} when {@code loadOp} is {@link VK10#VK_ATTACHMENT_LOAD_OP_CLEAR ATTACHMENT_LOAD_OP_CLEAR}. */
@@ -309,8 +309,7 @@ public class VkRenderingAttachmentInfo extends Struct<VkRenderingAttachmentInfo>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderingAttachmentInfo createSafe(long address) {
+    public static @Nullable VkRenderingAttachmentInfo createSafe(long address) {
         return address == NULL ? null : new VkRenderingAttachmentInfo(address, null);
     }
 
@@ -353,8 +352,7 @@ public class VkRenderingAttachmentInfo extends Struct<VkRenderingAttachmentInfo>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderingAttachmentInfo.Buffer createSafe(long address, int capacity) {
+    public static VkRenderingAttachmentInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -399,44 +397,44 @@ public class VkRenderingAttachmentInfo extends Struct<VkRenderingAttachmentInfo>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderingAttachmentInfo.PNEXT); }
     /** Unsafe version of {@link #imageView}. */
-    public static long nimageView(long struct) { return UNSAFE.getLong(null, struct + VkRenderingAttachmentInfo.IMAGEVIEW); }
+    public static long nimageView(long struct) { return memGetLong(struct + VkRenderingAttachmentInfo.IMAGEVIEW); }
     /** Unsafe version of {@link #imageLayout}. */
-    public static int nimageLayout(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.IMAGELAYOUT); }
+    public static int nimageLayout(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.IMAGELAYOUT); }
     /** Unsafe version of {@link #resolveMode}. */
-    public static int nresolveMode(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.RESOLVEMODE); }
+    public static int nresolveMode(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.RESOLVEMODE); }
     /** Unsafe version of {@link #resolveImageView}. */
-    public static long nresolveImageView(long struct) { return UNSAFE.getLong(null, struct + VkRenderingAttachmentInfo.RESOLVEIMAGEVIEW); }
+    public static long nresolveImageView(long struct) { return memGetLong(struct + VkRenderingAttachmentInfo.RESOLVEIMAGEVIEW); }
     /** Unsafe version of {@link #resolveImageLayout}. */
-    public static int nresolveImageLayout(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.RESOLVEIMAGELAYOUT); }
+    public static int nresolveImageLayout(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.RESOLVEIMAGELAYOUT); }
     /** Unsafe version of {@link #loadOp}. */
-    public static int nloadOp(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.LOADOP); }
+    public static int nloadOp(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.LOADOP); }
     /** Unsafe version of {@link #storeOp}. */
-    public static int nstoreOp(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.STOREOP); }
+    public static int nstoreOp(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.STOREOP); }
     /** Unsafe version of {@link #clearValue}. */
     public static VkClearValue nclearValue(long struct) { return VkClearValue.create(struct + VkRenderingAttachmentInfo.CLEARVALUE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderingAttachmentInfo.PNEXT, value); }
     /** Unsafe version of {@link #imageView(long) imageView}. */
-    public static void nimageView(long struct, long value) { UNSAFE.putLong(null, struct + VkRenderingAttachmentInfo.IMAGEVIEW, value); }
+    public static void nimageView(long struct, long value) { memPutLong(struct + VkRenderingAttachmentInfo.IMAGEVIEW, value); }
     /** Unsafe version of {@link #imageLayout(int) imageLayout}. */
-    public static void nimageLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.IMAGELAYOUT, value); }
+    public static void nimageLayout(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.IMAGELAYOUT, value); }
     /** Unsafe version of {@link #resolveMode(int) resolveMode}. */
-    public static void nresolveMode(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.RESOLVEMODE, value); }
+    public static void nresolveMode(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.RESOLVEMODE, value); }
     /** Unsafe version of {@link #resolveImageView(long) resolveImageView}. */
-    public static void nresolveImageView(long struct, long value) { UNSAFE.putLong(null, struct + VkRenderingAttachmentInfo.RESOLVEIMAGEVIEW, value); }
+    public static void nresolveImageView(long struct, long value) { memPutLong(struct + VkRenderingAttachmentInfo.RESOLVEIMAGEVIEW, value); }
     /** Unsafe version of {@link #resolveImageLayout(int) resolveImageLayout}. */
-    public static void nresolveImageLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.RESOLVEIMAGELAYOUT, value); }
+    public static void nresolveImageLayout(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.RESOLVEIMAGELAYOUT, value); }
     /** Unsafe version of {@link #loadOp(int) loadOp}. */
-    public static void nloadOp(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.LOADOP, value); }
+    public static void nloadOp(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.LOADOP, value); }
     /** Unsafe version of {@link #storeOp(int) storeOp}. */
-    public static void nstoreOp(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.STOREOP, value); }
+    public static void nstoreOp(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.STOREOP, value); }
     /** Unsafe version of {@link #clearValue(VkClearValue) clearValue}. */
     public static void nclearValue(long struct, VkClearValue value) { memCopy(value.address(), struct + VkRenderingAttachmentInfo.CLEARVALUE, VkClearValue.SIZEOF); }
 
@@ -471,6 +469,11 @@ public class VkRenderingAttachmentInfo extends Struct<VkRenderingAttachmentInfo>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

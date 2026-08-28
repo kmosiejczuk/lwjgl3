@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -112,7 +112,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a> and {@link KHRFormatFeatureFlags2 VK_KHR_format_feature_flags2} and {@link KHRSynchronization2 VK_KHR_synchronization2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3">Version 1.3</a></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a> and {@link KHRFormatFeatureFlags2 VK_KHR_format_feature_flags2} and {@link KHRSynchronization2 VK_KHR_synchronization2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.3">Version 1.3</a></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Carsten Rohde <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_optical_flow]%20@crohde%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_optical_flow%20extension*">crohde</a></li>
@@ -355,7 +355,7 @@ public class NVOpticalFlow {
         VK_OPTICAL_FLOW_SESSION_CREATE_BOTH_DIRECTIONS_BIT_NV    = 0x10;
 
     /**
-     * VkOpticalFlowExecuteFlagBitsNV - Bits specifying flags for a optical flow vector calculation
+     * VkOpticalFlowExecuteFlagBitsNV - Bits specifying flags for an optical flow vector calculation
      * 
      * <h5>Description</h5>
      * 
@@ -400,9 +400,9 @@ public class NVOpticalFlow {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pImageFormatProperties} is {@code NULL}, then the number of optical flow properties supported for the given {@code physicalDevice} is returned in {@code pFormatCount}. Otherwise, {@code pFormatCount} must point to a variable set by the application to the number of elements in the {@code pImageFormatProperties} array, and on return the variable is overwritten with the number of values actually written to {@code pImageFormatProperties}. If the value of {@code pFormatCount} is less than the number of optical flow properties supported, at most {@code pFormatCount} values will be written to {@code pImageFormatProperties}, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available values were returned.</p>
+     * <p>If {@code pImageFormatProperties} is {@code NULL}, then the number of optical flow properties supported for the given {@code physicalDevice} is returned in {@code pFormatCount}. Otherwise, {@code pFormatCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pImageFormatProperties} array, and on return the variable is overwritten with the number of values actually written to {@code pImageFormatProperties}. If the value of {@code pFormatCount} is less than the number of optical flow properties supported, at most {@code pFormatCount} values will be written to {@code pImageFormatProperties}, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available values were returned.</p>
      * 
-     * <p>Before creating an image to be used as a optical flow frame, obtain the supported image creation parameters by querying with {@link VK11#vkGetPhysicalDeviceFormatProperties2 GetPhysicalDeviceFormatProperties2} and {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} using one of the reported formats and adding {@link VkOpticalFlowImageFormatInfoNV} to the {@code pNext} chain of {@link VkPhysicalDeviceImageFormatInfo2}.</p>
+     * <p>Before creating an image to be used as an optical flow frame, obtain the supported image creation parameters by querying with {@link VK11#vkGetPhysicalDeviceFormatProperties2 GetPhysicalDeviceFormatProperties2} and {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} using one of the reported formats and adding {@link VkOpticalFlowImageFormatInfoNV} to the {@code pNext} chain of {@link VkPhysicalDeviceImageFormatInfo2}.</p>
      * 
      * <p>When querying the parameters with {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} for images used for optical flow operations, the {@link VkOpticalFlowImageFormatInfoNV}{@code ::usage} field <b>must</b> contain one or more of the bits defined in {@code VkOpticalFlowUsageFlagBitsNV}.</p>
      * 
@@ -433,11 +433,11 @@ public class NVOpticalFlow {
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
-     * <p>{@link VK10#VK_FORMAT_B8G8R8A8_UNORM FORMAT_B8G8R8A8_UNORM}, {@link VK10#VK_FORMAT_R8_UNORM FORMAT_R8_UNORM} and {@link VK11#VK_FORMAT_G8_B8R8_2PLANE_420_UNORM FORMAT_G8_B8R8_2PLANE_420_UNORM} are initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#opticalflow-usage">optical usage</a> {@link #VK_OPTICAL_FLOW_USAGE_INPUT_BIT_NV OPTICAL_FLOW_USAGE_INPUT_BIT_NV}.</p>
+     * <p>{@link VK10#VK_FORMAT_B8G8R8A8_UNORM FORMAT_B8G8R8A8_UNORM}, {@link VK10#VK_FORMAT_R8_UNORM FORMAT_R8_UNORM} and {@link VK11#VK_FORMAT_G8_B8R8_2PLANE_420_UNORM FORMAT_G8_B8R8_2PLANE_420_UNORM} are initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#opticalflow-usage">optical usage</a> {@link #VK_OPTICAL_FLOW_USAGE_INPUT_BIT_NV OPTICAL_FLOW_USAGE_INPUT_BIT_NV}.</p>
      * 
-     * <p>{@link #VK_FORMAT_R16G16_SFIXED5_NV FORMAT_R16G16_SFIXED5_NV} is initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#opticalflow-usage">optical flow usage</a> {@link #VK_OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV}, {@link #VK_OPTICAL_FLOW_USAGE_HINT_BIT_NV OPTICAL_FLOW_USAGE_HINT_BIT_NV} and {@link #VK_OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV}.</p>
+     * <p>{@link #VK_FORMAT_R16G16_SFIXED5_NV FORMAT_R16G16_SFIXED5_NV} is initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#opticalflow-usage">optical flow usage</a> {@link #VK_OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV}, {@link #VK_OPTICAL_FLOW_USAGE_HINT_BIT_NV OPTICAL_FLOW_USAGE_HINT_BIT_NV} and {@link #VK_OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV}.</p>
      * 
-     * <p>{@link VK10#VK_FORMAT_R8_UINT FORMAT_R8_UINT} and {@link VK10#VK_FORMAT_R32_UINT FORMAT_R32_UINT} are initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#opticalflow-usage">optical flow usage</a> {@link #VK_OPTICAL_FLOW_USAGE_COST_BIT_NV OPTICAL_FLOW_USAGE_COST_BIT_NV}. It is recommended to use {@link VK10#VK_FORMAT_R8_UINT FORMAT_R8_UINT} because of the lower bandwidth.</p>
+     * <p>{@link VK10#VK_FORMAT_R8_UINT FORMAT_R8_UINT} and {@link VK10#VK_FORMAT_R32_UINT FORMAT_R32_UINT} are initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#opticalflow-usage">optical flow usage</a> {@link #VK_OPTICAL_FLOW_USAGE_COST_BIT_NV OPTICAL_FLOW_USAGE_COST_BIT_NV}. It is recommended to use {@link VK10#VK_FORMAT_R8_UINT FORMAT_R8_UINT} because of the lower bandwidth.</p>
      * </div>
      * 
      * <h5>See Also</h5>
@@ -450,7 +450,7 @@ public class NVOpticalFlow {
      * @param pImageFormatProperties      a pointer to an array of {@link VkOpticalFlowImageFormatPropertiesNV} structures in which supported formats and image parameters are returned.
      */
     @NativeType("VkResult")
-    public static int vkGetPhysicalDeviceOpticalFlowImageFormatsNV(VkPhysicalDevice physicalDevice, @NativeType("VkOpticalFlowImageFormatInfoNV const *") VkOpticalFlowImageFormatInfoNV pOpticalFlowImageFormatInfo, @NativeType("uint32_t *") IntBuffer pFormatCount, @Nullable @NativeType("VkOpticalFlowImageFormatPropertiesNV *") VkOpticalFlowImageFormatPropertiesNV.Buffer pImageFormatProperties) {
+    public static int vkGetPhysicalDeviceOpticalFlowImageFormatsNV(VkPhysicalDevice physicalDevice, @NativeType("VkOpticalFlowImageFormatInfoNV const *") VkOpticalFlowImageFormatInfoNV pOpticalFlowImageFormatInfo, @NativeType("uint32_t *") IntBuffer pFormatCount, @NativeType("VkOpticalFlowImageFormatPropertiesNV *") VkOpticalFlowImageFormatPropertiesNV.@Nullable Buffer pImageFormatProperties) {
         if (CHECKS) {
             check(pFormatCount, 1);
             checkSafe(pImageFormatProperties, pFormatCount.get(pFormatCount.position()));
@@ -512,11 +512,11 @@ public class NVOpticalFlow {
      *
      * @param device      the logical device that creates the optical flow session object.
      * @param pCreateInfo a pointer to a {@link VkOpticalFlowSessionCreateInfoNV} structure containing parameters specifying the creation of the optical flow session.
-     * @param pAllocator  controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator  controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pSession    a pointer to a {@code VkOpticalFlowSessionNV} handle specifying the optical flow session object which will be created by this function when it returns {@link VK10#VK_SUCCESS SUCCESS}
      */
     @NativeType("VkResult")
-    public static int vkCreateOpticalFlowSessionNV(VkDevice device, @NativeType("VkOpticalFlowSessionCreateInfoNV const *") VkOpticalFlowSessionCreateInfoNV pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkOpticalFlowSessionNV *") LongBuffer pSession) {
+    public static int vkCreateOpticalFlowSessionNV(VkDevice device, @NativeType("VkOpticalFlowSessionCreateInfoNV const *") VkOpticalFlowSessionCreateInfoNV pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkOpticalFlowSessionNV *") LongBuffer pSession) {
         if (CHECKS) {
             check(pSession, 1);
         }
@@ -539,7 +539,7 @@ public class NVOpticalFlow {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To destroy a optical flow session object, call:</p>
+     * <p>To destroy an optical flow session object, call:</p>
      * 
      * <pre><code>
      * void vkDestroyOpticalFlowSessionNV(
@@ -562,9 +562,9 @@ public class NVOpticalFlow {
      *
      * @param device     the device that was used for the creation of the optical flow session.
      * @param session    the optical flow session to be destroyed.
-     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
-    public static void vkDestroyOpticalFlowSessionNV(VkDevice device, @NativeType("VkOpticalFlowSessionNV") long session, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
+    public static void vkDestroyOpticalFlowSessionNV(VkDevice device, @NativeType("VkOpticalFlowSessionNV") long session, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator) {
         nvkDestroyOpticalFlowSessionNV(device, session, memAddressSafe(pAllocator));
     }
 
@@ -658,7 +658,7 @@ public class NVOpticalFlow {
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code session} <b>must</b> be a valid {@code VkOpticalFlowSessionNV} handle</li>
      * <li>{@code pExecuteInfo} <b>must</b> be a valid pointer to a valid {@link VkOpticalFlowExecuteInfoNV} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support optical flow operations</li>
      * <li>This command <b>must</b> only be called outside of a render pass instance</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
@@ -674,7 +674,7 @@ public class NVOpticalFlow {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Outside</td><td>Outside</td><td>Opticalflow</td><td>Action</td></tr></tbody>
      * </table>
      * 
@@ -692,7 +692,7 @@ public class NVOpticalFlow {
 
     /** Array version of: {@link #vkGetPhysicalDeviceOpticalFlowImageFormatsNV GetPhysicalDeviceOpticalFlowImageFormatsNV} */
     @NativeType("VkResult")
-    public static int vkGetPhysicalDeviceOpticalFlowImageFormatsNV(VkPhysicalDevice physicalDevice, @NativeType("VkOpticalFlowImageFormatInfoNV const *") VkOpticalFlowImageFormatInfoNV pOpticalFlowImageFormatInfo, @NativeType("uint32_t *") int[] pFormatCount, @Nullable @NativeType("VkOpticalFlowImageFormatPropertiesNV *") VkOpticalFlowImageFormatPropertiesNV.Buffer pImageFormatProperties) {
+    public static int vkGetPhysicalDeviceOpticalFlowImageFormatsNV(VkPhysicalDevice physicalDevice, @NativeType("VkOpticalFlowImageFormatInfoNV const *") VkOpticalFlowImageFormatInfoNV pOpticalFlowImageFormatInfo, @NativeType("uint32_t *") int[] pFormatCount, @NativeType("VkOpticalFlowImageFormatPropertiesNV *") VkOpticalFlowImageFormatPropertiesNV.@Nullable Buffer pImageFormatProperties) {
         long __functionAddress = physicalDevice.getCapabilities().vkGetPhysicalDeviceOpticalFlowImageFormatsNV;
         if (CHECKS) {
             check(__functionAddress);
@@ -704,7 +704,7 @@ public class NVOpticalFlow {
 
     /** Array version of: {@link #vkCreateOpticalFlowSessionNV CreateOpticalFlowSessionNV} */
     @NativeType("VkResult")
-    public static int vkCreateOpticalFlowSessionNV(VkDevice device, @NativeType("VkOpticalFlowSessionCreateInfoNV const *") VkOpticalFlowSessionCreateInfoNV pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkOpticalFlowSessionNV *") long[] pSession) {
+    public static int vkCreateOpticalFlowSessionNV(VkDevice device, @NativeType("VkOpticalFlowSessionCreateInfoNV const *") VkOpticalFlowSessionCreateInfoNV pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkOpticalFlowSessionNV *") long[] pSession) {
         long __functionAddress = device.getCapabilities().vkCreateOpticalFlowSessionNV;
         if (CHECKS) {
             check(__functionAddress);

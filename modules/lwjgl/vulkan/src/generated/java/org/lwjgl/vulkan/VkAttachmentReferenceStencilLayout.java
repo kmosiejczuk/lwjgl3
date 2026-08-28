@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkAttachmentReferenceStencilLayout extends Struct<VkAttachmentRefer
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentReferenceStencilLayout createSafe(long address) {
+    public static @Nullable VkAttachmentReferenceStencilLayout createSafe(long address) {
         return address == NULL ? null : new VkAttachmentReferenceStencilLayout(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkAttachmentReferenceStencilLayout extends Struct<VkAttachmentRefer
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentReferenceStencilLayout.Buffer createSafe(long address, int capacity) {
+    public static VkAttachmentReferenceStencilLayout.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +247,18 @@ public class VkAttachmentReferenceStencilLayout extends Struct<VkAttachmentRefer
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentReferenceStencilLayout.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAttachmentReferenceStencilLayout.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAttachmentReferenceStencilLayout.PNEXT); }
     /** Unsafe version of {@link #stencilLayout}. */
-    public static int nstencilLayout(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentReferenceStencilLayout.STENCILLAYOUT); }
+    public static int nstencilLayout(long struct) { return memGetInt(struct + VkAttachmentReferenceStencilLayout.STENCILLAYOUT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentReferenceStencilLayout.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAttachmentReferenceStencilLayout.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAttachmentReferenceStencilLayout.PNEXT, value); }
     /** Unsafe version of {@link #stencilLayout(int) stencilLayout}. */
-    public static void nstencilLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentReferenceStencilLayout.STENCILLAYOUT, value); }
+    public static void nstencilLayout(long struct, int value) { memPutInt(struct + VkAttachmentReferenceStencilLayout.STENCILLAYOUT, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class VkAttachmentReferenceStencilLayout extends Struct<VkAttachmentRefer
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

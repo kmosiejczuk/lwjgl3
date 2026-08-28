@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -149,8 +149,7 @@ public class AIMeshAnim extends Struct<AIMeshAnim> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshAnim createSafe(long address) {
+    public static @Nullable AIMeshAnim createSafe(long address) {
         return address == NULL ? null : new AIMeshAnim(address, null);
     }
 
@@ -193,8 +192,7 @@ public class AIMeshAnim extends Struct<AIMeshAnim> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshAnim.Buffer createSafe(long address, int capacity) {
+    public static AIMeshAnim.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,14 +258,14 @@ public class AIMeshAnim extends Struct<AIMeshAnim> implements NativeResource {
     /** Unsafe version of {@link #mName}. */
     public static AIString nmName(long struct) { return AIString.create(struct + AIMeshAnim.MNAME); }
     /** Unsafe version of {@link #mNumKeys}. */
-    public static int nmNumKeys(long struct) { return UNSAFE.getInt(null, struct + AIMeshAnim.MNUMKEYS); }
+    public static int nmNumKeys(long struct) { return memGetInt(struct + AIMeshAnim.MNUMKEYS); }
     /** Unsafe version of {@link #mKeys}. */
     public static AIMeshKey.Buffer nmKeys(long struct) { return AIMeshKey.create(memGetAddress(struct + AIMeshAnim.MKEYS), nmNumKeys(struct)); }
 
     /** Unsafe version of {@link #mName(AIString) mName}. */
     public static void nmName(long struct, AIString value) { memCopy(value.address(), struct + AIMeshAnim.MNAME, AIString.SIZEOF); }
     /** Sets the specified value to the {@code mNumKeys} field of the specified {@code struct}. */
-    public static void nmNumKeys(long struct, int value) { UNSAFE.putInt(null, struct + AIMeshAnim.MNUMKEYS, value); }
+    public static void nmNumKeys(long struct, int value) { memPutInt(struct + AIMeshAnim.MNUMKEYS, value); }
     /** Unsafe version of {@link #mKeys(AIMeshKey.Buffer) mKeys}. */
     public static void nmKeys(long struct, AIMeshKey.Buffer value) { memPutAddress(struct + AIMeshAnim.MKEYS, value.address()); nmNumKeys(struct, value.remaining()); }
 
@@ -311,6 +309,11 @@ public class AIMeshAnim extends Struct<AIMeshAnim> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

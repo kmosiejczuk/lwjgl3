@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class VkImageDrmFormatModifierListCreateInfoEXT extends Struct<VkImageDrm
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageDrmFormatModifierListCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkImageDrmFormatModifierListCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkImageDrmFormatModifierListCreateInfoEXT(address, null);
     }
 
@@ -212,8 +211,7 @@ public class VkImageDrmFormatModifierListCreateInfoEXT extends Struct<VkImageDrm
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageDrmFormatModifierListCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImageDrmFormatModifierListCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,20 +275,20 @@ public class VkImageDrmFormatModifierListCreateInfoEXT extends Struct<VkImageDrm
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageDrmFormatModifierListCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageDrmFormatModifierListCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageDrmFormatModifierListCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #drmFormatModifierCount}. */
-    public static int ndrmFormatModifierCount(long struct) { return UNSAFE.getInt(null, struct + VkImageDrmFormatModifierListCreateInfoEXT.DRMFORMATMODIFIERCOUNT); }
+    public static int ndrmFormatModifierCount(long struct) { return memGetInt(struct + VkImageDrmFormatModifierListCreateInfoEXT.DRMFORMATMODIFIERCOUNT); }
     /** Unsafe version of {@link #pDrmFormatModifiers() pDrmFormatModifiers}. */
     public static LongBuffer npDrmFormatModifiers(long struct) { return memLongBuffer(memGetAddress(struct + VkImageDrmFormatModifierListCreateInfoEXT.PDRMFORMATMODIFIERS), ndrmFormatModifierCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageDrmFormatModifierListCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageDrmFormatModifierListCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageDrmFormatModifierListCreateInfoEXT.PNEXT, value); }
     /** Sets the specified value to the {@code drmFormatModifierCount} field of the specified {@code struct}. */
-    public static void ndrmFormatModifierCount(long struct, int value) { UNSAFE.putInt(null, struct + VkImageDrmFormatModifierListCreateInfoEXT.DRMFORMATMODIFIERCOUNT, value); }
+    public static void ndrmFormatModifierCount(long struct, int value) { memPutInt(struct + VkImageDrmFormatModifierListCreateInfoEXT.DRMFORMATMODIFIERCOUNT, value); }
     /** Unsafe version of {@link #pDrmFormatModifiers(LongBuffer) pDrmFormatModifiers}. */
     public static void npDrmFormatModifiers(long struct, LongBuffer value) { memPutAddress(struct + VkImageDrmFormatModifierListCreateInfoEXT.PDRMFORMATMODIFIERS, memAddress(value)); ndrmFormatModifierCount(struct, value.remaining()); }
 
@@ -334,6 +332,11 @@ public class VkImageDrmFormatModifierListCreateInfoEXT extends Struct<VkImageDrm
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

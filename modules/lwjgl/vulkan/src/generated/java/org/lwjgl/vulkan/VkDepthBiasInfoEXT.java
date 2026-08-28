@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-depthBiasClamp">{@code depthBiasClamp}</a> feature is not enabled, {@code depthBiasClamp} <b>must</b> be {@code 0.0}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-depthBiasClamp">{@code depthBiasClamp}</a> feature is not enabled, {@code depthBiasClamp} <b>must</b> be {@code 0.0}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -189,8 +189,7 @@ public class VkDepthBiasInfoEXT extends Struct<VkDepthBiasInfoEXT> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDepthBiasInfoEXT createSafe(long address) {
+    public static @Nullable VkDepthBiasInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDepthBiasInfoEXT(address, null);
     }
 
@@ -233,8 +232,7 @@ public class VkDepthBiasInfoEXT extends Struct<VkDepthBiasInfoEXT> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDepthBiasInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDepthBiasInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,26 +277,26 @@ public class VkDepthBiasInfoEXT extends Struct<VkDepthBiasInfoEXT> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDepthBiasInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDepthBiasInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDepthBiasInfoEXT.PNEXT); }
     /** Unsafe version of {@link #depthBiasConstantFactor}. */
-    public static float ndepthBiasConstantFactor(long struct) { return UNSAFE.getFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASCONSTANTFACTOR); }
+    public static float ndepthBiasConstantFactor(long struct) { return memGetFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASCONSTANTFACTOR); }
     /** Unsafe version of {@link #depthBiasClamp}. */
-    public static float ndepthBiasClamp(long struct) { return UNSAFE.getFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASCLAMP); }
+    public static float ndepthBiasClamp(long struct) { return memGetFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASCLAMP); }
     /** Unsafe version of {@link #depthBiasSlopeFactor}. */
-    public static float ndepthBiasSlopeFactor(long struct) { return UNSAFE.getFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASSLOPEFACTOR); }
+    public static float ndepthBiasSlopeFactor(long struct) { return memGetFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASSLOPEFACTOR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDepthBiasInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDepthBiasInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDepthBiasInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #depthBiasConstantFactor(float) depthBiasConstantFactor}. */
-    public static void ndepthBiasConstantFactor(long struct, float value) { UNSAFE.putFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASCONSTANTFACTOR, value); }
+    public static void ndepthBiasConstantFactor(long struct, float value) { memPutFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASCONSTANTFACTOR, value); }
     /** Unsafe version of {@link #depthBiasClamp(float) depthBiasClamp}. */
-    public static void ndepthBiasClamp(long struct, float value) { UNSAFE.putFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASCLAMP, value); }
+    public static void ndepthBiasClamp(long struct, float value) { memPutFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASCLAMP, value); }
     /** Unsafe version of {@link #depthBiasSlopeFactor(float) depthBiasSlopeFactor}. */
-    public static void ndepthBiasSlopeFactor(long struct, float value) { UNSAFE.putFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASSLOPEFACTOR, value); }
+    public static void ndepthBiasSlopeFactor(long struct, float value) { memPutFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASSLOPEFACTOR, value); }
 
     // -----------------------------------
 
@@ -331,6 +329,11 @@ public class VkDepthBiasInfoEXT extends Struct<VkDepthBiasInfoEXT> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class XrPassthroughColorMapLutMETA extends Struct<XrPassthroughColorMapLu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorMapLutMETA createSafe(long address) {
+    public static @Nullable XrPassthroughColorMapLutMETA createSafe(long address) {
         return address == NULL ? null : new XrPassthroughColorMapLutMETA(address, null);
     }
 
@@ -218,8 +217,7 @@ public class XrPassthroughColorMapLutMETA extends Struct<XrPassthroughColorMapLu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorMapLutMETA.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughColorMapLutMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +262,22 @@ public class XrPassthroughColorMapLutMETA extends Struct<XrPassthroughColorMapLu
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorMapLutMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughColorMapLutMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughColorMapLutMETA.NEXT); }
     /** Unsafe version of {@link #colorLut}. */
     public static long ncolorLut(long struct) { return memGetAddress(struct + XrPassthroughColorMapLutMETA.COLORLUT); }
     /** Unsafe version of {@link #weight}. */
-    public static float nweight(long struct) { return UNSAFE.getFloat(null, struct + XrPassthroughColorMapLutMETA.WEIGHT); }
+    public static float nweight(long struct) { return memGetFloat(struct + XrPassthroughColorMapLutMETA.WEIGHT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorMapLutMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughColorMapLutMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughColorMapLutMETA.NEXT, value); }
     /** Unsafe version of {@link #colorLut(XrPassthroughColorLutMETA) colorLut}. */
     public static void ncolorLut(long struct, XrPassthroughColorLutMETA value) { memPutAddress(struct + XrPassthroughColorMapLutMETA.COLORLUT, value.address()); }
     /** Unsafe version of {@link #weight(float) weight}. */
-    public static void nweight(long struct, float value) { UNSAFE.putFloat(null, struct + XrPassthroughColorMapLutMETA.WEIGHT, value); }
+    public static void nweight(long struct, float value) { memPutFloat(struct + XrPassthroughColorMapLutMETA.WEIGHT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -321,6 +319,11 @@ public class XrPassthroughColorMapLutMETA extends Struct<XrPassthroughColorMapLu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

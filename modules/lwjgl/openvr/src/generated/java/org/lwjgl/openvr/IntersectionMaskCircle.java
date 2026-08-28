@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -140,8 +140,7 @@ public class IntersectionMaskCircle extends Struct<IntersectionMaskCircle> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IntersectionMaskCircle createSafe(long address) {
+    public static @Nullable IntersectionMaskCircle createSafe(long address) {
         return address == NULL ? null : new IntersectionMaskCircle(address, null);
     }
 
@@ -184,8 +183,7 @@ public class IntersectionMaskCircle extends Struct<IntersectionMaskCircle> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IntersectionMaskCircle.Buffer createSafe(long address, int capacity) {
+    public static IntersectionMaskCircle.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +247,18 @@ public class IntersectionMaskCircle extends Struct<IntersectionMaskCircle> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #m_flCenterX}. */
-    public static float nm_flCenterX(long struct) { return UNSAFE.getFloat(null, struct + IntersectionMaskCircle.M_FLCENTERX); }
+    public static float nm_flCenterX(long struct) { return memGetFloat(struct + IntersectionMaskCircle.M_FLCENTERX); }
     /** Unsafe version of {@link #m_flCenterY}. */
-    public static float nm_flCenterY(long struct) { return UNSAFE.getFloat(null, struct + IntersectionMaskCircle.M_FLCENTERY); }
+    public static float nm_flCenterY(long struct) { return memGetFloat(struct + IntersectionMaskCircle.M_FLCENTERY); }
     /** Unsafe version of {@link #m_flRadius}. */
-    public static float nm_flRadius(long struct) { return UNSAFE.getFloat(null, struct + IntersectionMaskCircle.M_FLRADIUS); }
+    public static float nm_flRadius(long struct) { return memGetFloat(struct + IntersectionMaskCircle.M_FLRADIUS); }
 
     /** Unsafe version of {@link #m_flCenterX(float) m_flCenterX}. */
-    public static void nm_flCenterX(long struct, float value) { UNSAFE.putFloat(null, struct + IntersectionMaskCircle.M_FLCENTERX, value); }
+    public static void nm_flCenterX(long struct, float value) { memPutFloat(struct + IntersectionMaskCircle.M_FLCENTERX, value); }
     /** Unsafe version of {@link #m_flCenterY(float) m_flCenterY}. */
-    public static void nm_flCenterY(long struct, float value) { UNSAFE.putFloat(null, struct + IntersectionMaskCircle.M_FLCENTERY, value); }
+    public static void nm_flCenterY(long struct, float value) { memPutFloat(struct + IntersectionMaskCircle.M_FLCENTERY, value); }
     /** Unsafe version of {@link #m_flRadius(float) m_flRadius}. */
-    public static void nm_flRadius(long struct, float value) { UNSAFE.putFloat(null, struct + IntersectionMaskCircle.M_FLRADIUS, value); }
+    public static void nm_flRadius(long struct, float value) { memPutFloat(struct + IntersectionMaskCircle.M_FLRADIUS, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class IntersectionMaskCircle extends Struct<IntersectionMaskCircle> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

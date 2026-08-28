@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class XrEnvironmentDepthHandRemovalSetInfoMETA extends Struct<XrEnvironme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEnvironmentDepthHandRemovalSetInfoMETA createSafe(long address) {
+    public static @Nullable XrEnvironmentDepthHandRemovalSetInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrEnvironmentDepthHandRemovalSetInfoMETA(address, null);
     }
 
@@ -206,8 +205,7 @@ public class XrEnvironmentDepthHandRemovalSetInfoMETA extends Struct<XrEnvironme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEnvironmentDepthHandRemovalSetInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrEnvironmentDepthHandRemovalSetInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class XrEnvironmentDepthHandRemovalSetInfoMETA extends Struct<XrEnvironme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEnvironmentDepthHandRemovalSetInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEnvironmentDepthHandRemovalSetInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEnvironmentDepthHandRemovalSetInfoMETA.NEXT); }
     /** Unsafe version of {@link #enabled}. */
-    public static int nenabled(long struct) { return UNSAFE.getInt(null, struct + XrEnvironmentDepthHandRemovalSetInfoMETA.ENABLED); }
+    public static int nenabled(long struct) { return memGetInt(struct + XrEnvironmentDepthHandRemovalSetInfoMETA.ENABLED); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEnvironmentDepthHandRemovalSetInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEnvironmentDepthHandRemovalSetInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEnvironmentDepthHandRemovalSetInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #enabled(boolean) enabled}. */
-    public static void nenabled(long struct, int value) { UNSAFE.putInt(null, struct + XrEnvironmentDepthHandRemovalSetInfoMETA.ENABLED, value); }
+    public static void nenabled(long struct, int value) { memPutInt(struct + XrEnvironmentDepthHandRemovalSetInfoMETA.ENABLED, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class XrEnvironmentDepthHandRemovalSetInfoMETA extends Struct<XrEnvironme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

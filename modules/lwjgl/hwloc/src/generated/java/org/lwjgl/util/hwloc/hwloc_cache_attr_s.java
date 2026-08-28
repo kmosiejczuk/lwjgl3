@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -105,8 +105,7 @@ public class hwloc_cache_attr_s extends Struct<hwloc_cache_attr_s> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_cache_attr_s createSafe(long address) {
+    public static @Nullable hwloc_cache_attr_s createSafe(long address) {
         return address == NULL ? null : new hwloc_cache_attr_s(address, null);
     }
 
@@ -121,23 +120,22 @@ public class hwloc_cache_attr_s extends Struct<hwloc_cache_attr_s> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_cache_attr_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_cache_attr_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + hwloc_cache_attr_s.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + hwloc_cache_attr_s.SIZE); }
     /** Unsafe version of {@link #depth}. */
-    public static int ndepth(long struct) { return UNSAFE.getInt(null, struct + hwloc_cache_attr_s.DEPTH); }
+    public static int ndepth(long struct) { return memGetInt(struct + hwloc_cache_attr_s.DEPTH); }
     /** Unsafe version of {@link #linesize}. */
-    public static int nlinesize(long struct) { return UNSAFE.getInt(null, struct + hwloc_cache_attr_s.LINESIZE); }
+    public static int nlinesize(long struct) { return memGetInt(struct + hwloc_cache_attr_s.LINESIZE); }
     /** Unsafe version of {@link #associativity}. */
-    public static int nassociativity(long struct) { return UNSAFE.getInt(null, struct + hwloc_cache_attr_s.ASSOCIATIVITY); }
+    public static int nassociativity(long struct) { return memGetInt(struct + hwloc_cache_attr_s.ASSOCIATIVITY); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + hwloc_cache_attr_s.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + hwloc_cache_attr_s.TYPE); }
 
     // -----------------------------------
 
@@ -170,6 +168,11 @@ public class hwloc_cache_attr_s extends Struct<hwloc_cache_attr_s> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

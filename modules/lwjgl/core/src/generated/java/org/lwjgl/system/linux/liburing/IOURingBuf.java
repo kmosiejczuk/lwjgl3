@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -147,8 +147,7 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingBuf createSafe(long address) {
+    public static @Nullable IOURingBuf createSafe(long address) {
         return address == NULL ? null : new IOURingBuf(address, null);
     }
 
@@ -191,8 +190,7 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingBuf.Buffer createSafe(long address, int capacity) {
+    public static IOURingBuf.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,20 +235,20 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #addr}. */
-    public static long naddr(long struct) { return UNSAFE.getLong(null, struct + IOURingBuf.ADDR); }
+    public static long naddr(long struct) { return memGetLong(struct + IOURingBuf.ADDR); }
     /** Unsafe version of {@link #len}. */
-    public static int nlen(long struct) { return UNSAFE.getInt(null, struct + IOURingBuf.LEN); }
+    public static int nlen(long struct) { return memGetInt(struct + IOURingBuf.LEN); }
     /** Unsafe version of {@link #bid}. */
-    public static short nbid(long struct) { return UNSAFE.getShort(null, struct + IOURingBuf.BID); }
-    public static short nresv(long struct) { return UNSAFE.getShort(null, struct + IOURingBuf.RESV); }
+    public static short nbid(long struct) { return memGetShort(struct + IOURingBuf.BID); }
+    public static short nresv(long struct) { return memGetShort(struct + IOURingBuf.RESV); }
 
     /** Unsafe version of {@link #addr(long) addr}. */
-    public static void naddr(long struct, long value) { UNSAFE.putLong(null, struct + IOURingBuf.ADDR, value); }
+    public static void naddr(long struct, long value) { memPutLong(struct + IOURingBuf.ADDR, value); }
     /** Unsafe version of {@link #len(int) len}. */
-    public static void nlen(long struct, int value) { UNSAFE.putInt(null, struct + IOURingBuf.LEN, value); }
+    public static void nlen(long struct, int value) { memPutInt(struct + IOURingBuf.LEN, value); }
     /** Unsafe version of {@link #bid(short) bid}. */
-    public static void nbid(long struct, short value) { UNSAFE.putShort(null, struct + IOURingBuf.BID, value); }
-    public static void nresv(long struct, short value) { UNSAFE.putShort(null, struct + IOURingBuf.RESV, value); }
+    public static void nbid(long struct, short value) { memPutShort(struct + IOURingBuf.BID, value); }
+    public static void nresv(long struct, short value) { memPutShort(struct + IOURingBuf.RESV, value); }
 
     // -----------------------------------
 
@@ -283,6 +281,11 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

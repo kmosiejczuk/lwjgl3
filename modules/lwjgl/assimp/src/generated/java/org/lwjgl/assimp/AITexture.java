@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class AITexture extends Struct<AITexture> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AITexture createSafe(long address) {
+    public static @Nullable AITexture createSafe(long address) {
         return address == NULL ? null : new AITexture(address, null);
     }
 
@@ -182,17 +181,16 @@ public class AITexture extends Struct<AITexture> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AITexture.Buffer createSafe(long address, int capacity) {
+    public static AITexture.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #mWidth}. */
-    public static int nmWidth(long struct) { return UNSAFE.getInt(null, struct + AITexture.MWIDTH); }
+    public static int nmWidth(long struct) { return memGetInt(struct + AITexture.MWIDTH); }
     /** Unsafe version of {@link #mHeight}. */
-    public static int nmHeight(long struct) { return UNSAFE.getInt(null, struct + AITexture.MHEIGHT); }
+    public static int nmHeight(long struct) { return memGetInt(struct + AITexture.MHEIGHT); }
     /** Unsafe version of {@link #achFormatHint}. */
     public static ByteBuffer nachFormatHint(long struct) { return memByteBuffer(struct + AITexture.ACHFORMATHINT, 9); }
     /** Unsafe version of {@link #achFormatHintString}. */
@@ -240,6 +238,11 @@ public class AITexture extends Struct<AITexture> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

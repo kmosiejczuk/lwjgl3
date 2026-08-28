@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class VkDrawMeshTasksIndirectCommandEXT extends Struct<VkDrawMeshTasksInd
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawMeshTasksIndirectCommandEXT createSafe(long address) {
+    public static @Nullable VkDrawMeshTasksIndirectCommandEXT createSafe(long address) {
         return address == NULL ? null : new VkDrawMeshTasksIndirectCommandEXT(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkDrawMeshTasksIndirectCommandEXT extends Struct<VkDrawMeshTasksInd
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawMeshTasksIndirectCommandEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDrawMeshTasksIndirectCommandEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,18 +253,18 @@ public class VkDrawMeshTasksIndirectCommandEXT extends Struct<VkDrawMeshTasksInd
     // -----------------------------------
 
     /** Unsafe version of {@link #groupCountX}. */
-    public static int ngroupCountX(long struct) { return UNSAFE.getInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTX); }
+    public static int ngroupCountX(long struct) { return memGetInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTX); }
     /** Unsafe version of {@link #groupCountY}. */
-    public static int ngroupCountY(long struct) { return UNSAFE.getInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTY); }
+    public static int ngroupCountY(long struct) { return memGetInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTY); }
     /** Unsafe version of {@link #groupCountZ}. */
-    public static int ngroupCountZ(long struct) { return UNSAFE.getInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTZ); }
+    public static int ngroupCountZ(long struct) { return memGetInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTZ); }
 
     /** Unsafe version of {@link #groupCountX(int) groupCountX}. */
-    public static void ngroupCountX(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTX, value); }
+    public static void ngroupCountX(long struct, int value) { memPutInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTX, value); }
     /** Unsafe version of {@link #groupCountY(int) groupCountY}. */
-    public static void ngroupCountY(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTY, value); }
+    public static void ngroupCountY(long struct, int value) { memPutInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTY, value); }
     /** Unsafe version of {@link #groupCountZ(int) groupCountZ}. */
-    public static void ngroupCountZ(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTZ, value); }
+    public static void ngroupCountZ(long struct, int value) { memPutInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTZ, value); }
 
     // -----------------------------------
 
@@ -299,6 +297,11 @@ public class VkDrawMeshTasksIndirectCommandEXT extends Struct<VkDrawMeshTasksInd
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

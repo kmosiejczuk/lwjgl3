@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkBufferImageCopy}, {@link VkBufferImageCopy2}, {@link VkCopyMemoryToImageIndirectCommandNV}, {@link VkImageBlit}, {@link VkImageBlit2}, {@link VkImageCopy}, {@link VkImageCopy2}, {@link VkImageResolve}, {@link VkImageResolve2}, {@link VkImageToMemoryCopyEXT}, {@link VkMemoryToImageCopyEXT}, {@link VkSparseImageMemoryBind}</p>
+ * <p>{@link VkBufferImageCopy}, {@link VkBufferImageCopy2}, {@link VkCopyMemoryToImageIndirectCommandNV}, {@link VkImageBlit}, {@link VkImageBlit2}, {@link VkImageCopy}, {@link VkImageCopy2}, {@link VkImageResolve}, {@link VkImageResolve2}, {@link VkImageToMemoryCopy}, {@link VkMemoryToImageCopy}, {@link VkSparseImageMemoryBind}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -148,8 +148,7 @@ public class VkOffset3D extends Struct<VkOffset3D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOffset3D createSafe(long address) {
+    public static @Nullable VkOffset3D createSafe(long address) {
         return address == NULL ? null : new VkOffset3D(address, null);
     }
 
@@ -192,8 +191,7 @@ public class VkOffset3D extends Struct<VkOffset3D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOffset3D.Buffer createSafe(long address, int capacity) {
+    public static VkOffset3D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,18 +255,18 @@ public class VkOffset3D extends Struct<VkOffset3D> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + VkOffset3D.X); }
+    public static int nx(long struct) { return memGetInt(struct + VkOffset3D.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + VkOffset3D.Y); }
+    public static int ny(long struct) { return memGetInt(struct + VkOffset3D.Y); }
     /** Unsafe version of {@link #z}. */
-    public static int nz(long struct) { return UNSAFE.getInt(null, struct + VkOffset3D.Z); }
+    public static int nz(long struct) { return memGetInt(struct + VkOffset3D.Z); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + VkOffset3D.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + VkOffset3D.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + VkOffset3D.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + VkOffset3D.Y, value); }
     /** Unsafe version of {@link #z(int) z}. */
-    public static void nz(long struct, int value) { UNSAFE.putInt(null, struct + VkOffset3D.Z, value); }
+    public static void nz(long struct, int value) { memPutInt(struct + VkOffset3D.Z, value); }
 
     // -----------------------------------
 
@@ -301,6 +299,11 @@ public class VkOffset3D extends Struct<VkOffset3D> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

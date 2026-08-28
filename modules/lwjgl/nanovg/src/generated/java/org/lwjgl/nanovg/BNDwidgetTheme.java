@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -210,8 +210,7 @@ public class BNDwidgetTheme extends Struct<BNDwidgetTheme> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BNDwidgetTheme createSafe(long address) {
+    public static @Nullable BNDwidgetTheme createSafe(long address) {
         return address == NULL ? null : new BNDwidgetTheme(address, null);
     }
 
@@ -254,8 +253,7 @@ public class BNDwidgetTheme extends Struct<BNDwidgetTheme> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BNDwidgetTheme.Buffer createSafe(long address, int capacity) {
+    public static BNDwidgetTheme.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -331,9 +329,9 @@ public class BNDwidgetTheme extends Struct<BNDwidgetTheme> implements NativeReso
     /** Unsafe version of {@link #textSelectedColor}. */
     public static NVGColor ntextSelectedColor(long struct) { return NVGColor.create(struct + BNDwidgetTheme.TEXTSELECTEDCOLOR); }
     /** Unsafe version of {@link #shadeTop}. */
-    public static int nshadeTop(long struct) { return UNSAFE.getInt(null, struct + BNDwidgetTheme.SHADETOP); }
+    public static int nshadeTop(long struct) { return memGetInt(struct + BNDwidgetTheme.SHADETOP); }
     /** Unsafe version of {@link #shadeDown}. */
-    public static int nshadeDown(long struct) { return UNSAFE.getInt(null, struct + BNDwidgetTheme.SHADEDOWN); }
+    public static int nshadeDown(long struct) { return memGetInt(struct + BNDwidgetTheme.SHADEDOWN); }
 
     /** Unsafe version of {@link #outlineColor(NVGColor) outlineColor}. */
     public static void noutlineColor(long struct, NVGColor value) { memCopy(value.address(), struct + BNDwidgetTheme.OUTLINECOLOR, NVGColor.SIZEOF); }
@@ -348,9 +346,9 @@ public class BNDwidgetTheme extends Struct<BNDwidgetTheme> implements NativeReso
     /** Unsafe version of {@link #textSelectedColor(NVGColor) textSelectedColor}. */
     public static void ntextSelectedColor(long struct, NVGColor value) { memCopy(value.address(), struct + BNDwidgetTheme.TEXTSELECTEDCOLOR, NVGColor.SIZEOF); }
     /** Unsafe version of {@link #shadeTop(int) shadeTop}. */
-    public static void nshadeTop(long struct, int value) { UNSAFE.putInt(null, struct + BNDwidgetTheme.SHADETOP, value); }
+    public static void nshadeTop(long struct, int value) { memPutInt(struct + BNDwidgetTheme.SHADETOP, value); }
     /** Unsafe version of {@link #shadeDown(int) shadeDown}. */
-    public static void nshadeDown(long struct, int value) { UNSAFE.putInt(null, struct + BNDwidgetTheme.SHADEDOWN, value); }
+    public static void nshadeDown(long struct, int value) { memPutInt(struct + BNDwidgetTheme.SHADEDOWN, value); }
 
     // -----------------------------------
 
@@ -383,6 +381,11 @@ public class BNDwidgetTheme extends Struct<BNDwidgetTheme> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

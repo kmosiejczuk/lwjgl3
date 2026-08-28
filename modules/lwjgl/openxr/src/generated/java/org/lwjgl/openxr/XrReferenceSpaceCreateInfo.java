@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -170,8 +170,7 @@ public class XrReferenceSpaceCreateInfo extends Struct<XrReferenceSpaceCreateInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrReferenceSpaceCreateInfo createSafe(long address) {
+    public static @Nullable XrReferenceSpaceCreateInfo createSafe(long address) {
         return address == NULL ? null : new XrReferenceSpaceCreateInfo(address, null);
     }
 
@@ -214,8 +213,7 @@ public class XrReferenceSpaceCreateInfo extends Struct<XrReferenceSpaceCreateInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrReferenceSpaceCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static XrReferenceSpaceCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,20 +258,20 @@ public class XrReferenceSpaceCreateInfo extends Struct<XrReferenceSpaceCreateInf
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrReferenceSpaceCreateInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrReferenceSpaceCreateInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrReferenceSpaceCreateInfo.NEXT); }
     /** Unsafe version of {@link #referenceSpaceType}. */
-    public static int nreferenceSpaceType(long struct) { return UNSAFE.getInt(null, struct + XrReferenceSpaceCreateInfo.REFERENCESPACETYPE); }
+    public static int nreferenceSpaceType(long struct) { return memGetInt(struct + XrReferenceSpaceCreateInfo.REFERENCESPACETYPE); }
     /** Unsafe version of {@link #poseInReferenceSpace}. */
     public static XrPosef nposeInReferenceSpace(long struct) { return XrPosef.create(struct + XrReferenceSpaceCreateInfo.POSEINREFERENCESPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrReferenceSpaceCreateInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrReferenceSpaceCreateInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrReferenceSpaceCreateInfo.NEXT, value); }
     /** Unsafe version of {@link #referenceSpaceType(int) referenceSpaceType}. */
-    public static void nreferenceSpaceType(long struct, int value) { UNSAFE.putInt(null, struct + XrReferenceSpaceCreateInfo.REFERENCESPACETYPE, value); }
+    public static void nreferenceSpaceType(long struct, int value) { memPutInt(struct + XrReferenceSpaceCreateInfo.REFERENCESPACETYPE, value); }
     /** Unsafe version of {@link #poseInReferenceSpace(XrPosef) poseInReferenceSpace}. */
     public static void nposeInReferenceSpace(long struct, XrPosef value) { memCopy(value.address(), struct + XrReferenceSpaceCreateInfo.POSEINREFERENCESPACE, XrPosef.SIZEOF); }
 
@@ -308,6 +306,11 @@ public class XrReferenceSpaceCreateInfo extends Struct<XrReferenceSpaceCreateInf
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

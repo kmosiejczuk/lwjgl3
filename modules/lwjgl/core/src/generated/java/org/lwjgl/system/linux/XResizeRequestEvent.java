@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -184,8 +184,7 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XResizeRequestEvent createSafe(long address) {
+    public static @Nullable XResizeRequestEvent createSafe(long address) {
         return address == NULL ? null : new XResizeRequestEvent(address, null);
     }
 
@@ -228,8 +227,7 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XResizeRequestEvent.Buffer createSafe(long address, int capacity) {
+    public static XResizeRequestEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,34 +291,34 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XResizeRequestEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XResizeRequestEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XResizeRequestEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XResizeRequestEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XResizeRequestEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XResizeRequestEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetCLong(struct + XResizeRequestEvent.WINDOW); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + XResizeRequestEvent.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + XResizeRequestEvent.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + XResizeRequestEvent.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + XResizeRequestEvent.HEIGHT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XResizeRequestEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XResizeRequestEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XResizeRequestEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XResizeRequestEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XResizeRequestEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XResizeRequestEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
     public static void nwindow(long struct, long value) { memPutCLong(struct + XResizeRequestEvent.WINDOW, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + XResizeRequestEvent.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + XResizeRequestEvent.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + XResizeRequestEvent.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + XResizeRequestEvent.HEIGHT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -362,6 +360,11 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

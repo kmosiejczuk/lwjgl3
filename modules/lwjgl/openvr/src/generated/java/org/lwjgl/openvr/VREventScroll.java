@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -106,8 +106,7 @@ public class VREventScroll extends Struct<VREventScroll> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventScroll createSafe(long address) {
+    public static @Nullable VREventScroll createSafe(long address) {
         return address == NULL ? null : new VREventScroll(address, null);
     }
 
@@ -122,23 +121,22 @@ public class VREventScroll extends Struct<VREventScroll> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventScroll.Buffer createSafe(long address, int capacity) {
+    public static VREventScroll.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #xdelta}. */
-    public static float nxdelta(long struct) { return UNSAFE.getFloat(null, struct + VREventScroll.XDELTA); }
+    public static float nxdelta(long struct) { return memGetFloat(struct + VREventScroll.XDELTA); }
     /** Unsafe version of {@link #ydelta}. */
-    public static float nydelta(long struct) { return UNSAFE.getFloat(null, struct + VREventScroll.YDELTA); }
+    public static float nydelta(long struct) { return memGetFloat(struct + VREventScroll.YDELTA); }
     /** Unsafe version of {@link #unused}. */
-    public static int nunused(long struct) { return UNSAFE.getInt(null, struct + VREventScroll.UNUSED); }
+    public static int nunused(long struct) { return memGetInt(struct + VREventScroll.UNUSED); }
     /** Unsafe version of {@link #viewportscale}. */
-    public static float nviewportscale(long struct) { return UNSAFE.getFloat(null, struct + VREventScroll.VIEWPORTSCALE); }
+    public static float nviewportscale(long struct) { return memGetFloat(struct + VREventScroll.VIEWPORTSCALE); }
     /** Unsafe version of {@link #cursorIndex}. */
-    public static int ncursorIndex(long struct) { return UNSAFE.getInt(null, struct + VREventScroll.CURSORINDEX); }
+    public static int ncursorIndex(long struct) { return memGetInt(struct + VREventScroll.CURSORINDEX); }
 
     // -----------------------------------
 
@@ -171,6 +169,11 @@ public class VREventScroll extends Struct<VREventScroll> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

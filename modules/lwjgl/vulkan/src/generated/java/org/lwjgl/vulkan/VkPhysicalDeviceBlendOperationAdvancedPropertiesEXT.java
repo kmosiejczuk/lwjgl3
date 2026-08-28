@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -114,7 +114,7 @@ public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** one greater than the highest color attachment index that <b>can</b> be used in a subpass, for a pipeline that uses an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-blend-advanced">advanced blend operation</a>. */
+    /** one greater than the highest color attachment index that <b>can</b> be used in a subpass, for a pipeline that uses an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#framebuffer-blend-advanced">advanced blend operation</a>. */
     @NativeType("uint32_t")
     public int advancedBlendMaxColorAttachments() { return nadvancedBlendMaxColorAttachments(address()); }
     /** specifies whether advanced blend operations <b>can</b> vary per-attachment. */
@@ -187,8 +187,7 @@ public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT(address, null);
     }
 
@@ -231,8 +230,7 @@ public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -296,24 +294,24 @@ public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #advancedBlendMaxColorAttachments}. */
-    public static int nadvancedBlendMaxColorAttachments(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDMAXCOLORATTACHMENTS); }
+    public static int nadvancedBlendMaxColorAttachments(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDMAXCOLORATTACHMENTS); }
     /** Unsafe version of {@link #advancedBlendIndependentBlend}. */
-    public static int nadvancedBlendIndependentBlend(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDINDEPENDENTBLEND); }
+    public static int nadvancedBlendIndependentBlend(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDINDEPENDENTBLEND); }
     /** Unsafe version of {@link #advancedBlendNonPremultipliedSrcColor}. */
-    public static int nadvancedBlendNonPremultipliedSrcColor(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDNONPREMULTIPLIEDSRCCOLOR); }
+    public static int nadvancedBlendNonPremultipliedSrcColor(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDNONPREMULTIPLIEDSRCCOLOR); }
     /** Unsafe version of {@link #advancedBlendNonPremultipliedDstColor}. */
-    public static int nadvancedBlendNonPremultipliedDstColor(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDNONPREMULTIPLIEDDSTCOLOR); }
+    public static int nadvancedBlendNonPremultipliedDstColor(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDNONPREMULTIPLIEDDSTCOLOR); }
     /** Unsafe version of {@link #advancedBlendCorrelatedOverlap}. */
-    public static int nadvancedBlendCorrelatedOverlap(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDCORRELATEDOVERLAP); }
+    public static int nadvancedBlendCorrelatedOverlap(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDCORRELATEDOVERLAP); }
     /** Unsafe version of {@link #advancedBlendAllOperations}. */
-    public static int nadvancedBlendAllOperations(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDALLOPERATIONS); }
+    public static int nadvancedBlendAllOperations(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDALLOPERATIONS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.PNEXT, value); }
 
@@ -348,6 +346,11 @@ public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

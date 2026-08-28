@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opengl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -124,8 +124,7 @@ public class GLXStereoNotifyEventEXT extends Struct<GLXStereoNotifyEventEXT> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static GLXStereoNotifyEventEXT createSafe(long address) {
+    public static @Nullable GLXStereoNotifyEventEXT createSafe(long address) {
         return address == NULL ? null : new GLXStereoNotifyEventEXT(address, null);
     }
 
@@ -140,29 +139,28 @@ public class GLXStereoNotifyEventEXT extends Struct<GLXStereoNotifyEventEXT> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static GLXStereoNotifyEventEXT.Buffer createSafe(long address, int capacity) {
+    public static GLXStereoNotifyEventEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + GLXStereoNotifyEventEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + GLXStereoNotifyEventEXT.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + GLXStereoNotifyEventEXT.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + GLXStereoNotifyEventEXT.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + GLXStereoNotifyEventEXT.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + GLXStereoNotifyEventEXT.DISPLAY); }
     /** Unsafe version of {@link #extension}. */
-    public static int nextension(long struct) { return UNSAFE.getInt(null, struct + GLXStereoNotifyEventEXT.EXTENSION); }
+    public static int nextension(long struct) { return memGetInt(struct + GLXStereoNotifyEventEXT.EXTENSION); }
     /** Unsafe version of {@link #evtype}. */
-    public static int nevtype(long struct) { return UNSAFE.getInt(null, struct + GLXStereoNotifyEventEXT.EVTYPE); }
+    public static int nevtype(long struct) { return memGetInt(struct + GLXStereoNotifyEventEXT.EVTYPE); }
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetAddress(struct + GLXStereoNotifyEventEXT.WINDOW); }
     /** Unsafe version of {@link #stereo_tree}. */
-    public static int nstereo_tree(long struct) { return UNSAFE.getInt(null, struct + GLXStereoNotifyEventEXT.STEREO_TREE); }
+    public static int nstereo_tree(long struct) { return memGetInt(struct + GLXStereoNotifyEventEXT.STEREO_TREE); }
 
     // -----------------------------------
 
@@ -195,6 +193,11 @@ public class GLXStereoNotifyEventEXT extends Struct<GLXStereoNotifyEventEXT> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

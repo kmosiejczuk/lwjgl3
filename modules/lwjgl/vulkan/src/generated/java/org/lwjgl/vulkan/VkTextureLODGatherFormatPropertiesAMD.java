@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -148,8 +148,7 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkTextureLODGatherFormatPropertiesAMD createSafe(long address) {
+    public static @Nullable VkTextureLODGatherFormatPropertiesAMD createSafe(long address) {
         return address == NULL ? null : new VkTextureLODGatherFormatPropertiesAMD(address, null);
     }
 
@@ -192,8 +191,7 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkTextureLODGatherFormatPropertiesAMD.Buffer createSafe(long address, int capacity) {
+    public static VkTextureLODGatherFormatPropertiesAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,14 +255,14 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkTextureLODGatherFormatPropertiesAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkTextureLODGatherFormatPropertiesAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkTextureLODGatherFormatPropertiesAMD.PNEXT); }
     /** Unsafe version of {@link #supportsTextureGatherLODBiasAMD}. */
-    public static int nsupportsTextureGatherLODBiasAMD(long struct) { return UNSAFE.getInt(null, struct + VkTextureLODGatherFormatPropertiesAMD.SUPPORTSTEXTUREGATHERLODBIASAMD); }
+    public static int nsupportsTextureGatherLODBiasAMD(long struct) { return memGetInt(struct + VkTextureLODGatherFormatPropertiesAMD.SUPPORTSTEXTUREGATHERLODBIASAMD); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkTextureLODGatherFormatPropertiesAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkTextureLODGatherFormatPropertiesAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkTextureLODGatherFormatPropertiesAMD.PNEXT, value); }
 
@@ -299,6 +297,11 @@ public class VkTextureLODGatherFormatPropertiesAMD extends Struct<VkTextureLODGa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

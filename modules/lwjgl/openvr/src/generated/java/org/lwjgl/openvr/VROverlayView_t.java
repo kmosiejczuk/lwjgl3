@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -110,8 +110,7 @@ public class VROverlayView_t extends Struct<VROverlayView_t> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VROverlayView_t createSafe(long address) {
+    public static @Nullable VROverlayView_t createSafe(long address) {
         return address == NULL ? null : new VROverlayView_t(address, null);
     }
 
@@ -154,8 +153,7 @@ public class VROverlayView_t extends Struct<VROverlayView_t> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VROverlayView_t.Buffer createSafe(long address, int capacity) {
+    public static VROverlayView_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -200,7 +198,7 @@ public class VROverlayView_t extends Struct<VROverlayView_t> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #overlayHandle}. */
-    public static long noverlayHandle(long struct) { return UNSAFE.getLong(null, struct + VROverlayView_t.OVERLAYHANDLE); }
+    public static long noverlayHandle(long struct) { return memGetLong(struct + VROverlayView_t.OVERLAYHANDLE); }
     /** Unsafe version of {@link #texture}. */
     public static Texture ntexture(long struct) { return Texture.create(struct + VROverlayView_t.TEXTURE); }
     /** Unsafe version of {@link #textureBounds}. */
@@ -237,6 +235,11 @@ public class VROverlayView_t extends Struct<VROverlayView_t> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

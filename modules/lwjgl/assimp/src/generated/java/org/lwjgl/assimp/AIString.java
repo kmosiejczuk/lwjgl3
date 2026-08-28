@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -125,8 +125,7 @@ public class AIString extends Struct<AIString> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIString createSafe(long address) {
+    public static @Nullable AIString createSafe(long address) {
         return address == NULL ? null : new AIString(address, null);
     }
 
@@ -169,8 +168,7 @@ public class AIString extends Struct<AIString> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIString.Buffer createSafe(long address, int capacity) {
+    public static AIString.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -234,14 +232,14 @@ public class AIString extends Struct<AIString> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #length}. */
-    public static int nlength(long struct) { return UNSAFE.getInt(null, struct + AIString.LENGTH); }
+    public static int nlength(long struct) { return memGetInt(struct + AIString.LENGTH); }
     /** Unsafe version of {@link #data}. */
     public static ByteBuffer ndata(long struct) { return memByteBuffer(struct + AIString.DATA, nlength(struct)); }
     /** Unsafe version of {@link #dataString}. */
     public static String ndataString(long struct) { return memUTF8(ndata(struct)); }
 
     /** Sets the specified value to the {@code length} field of the specified {@code struct}. */
-    public static void nlength(long struct, int value) { UNSAFE.putInt(null, struct + AIString.LENGTH, value); }
+    public static void nlength(long struct, int value) { memPutInt(struct + AIString.LENGTH, value); }
     /** Unsafe version of {@link #data(ByteBuffer) data}. */
     public static void ndata(long struct, ByteBuffer value) {
         if (CHECKS) {
@@ -283,6 +281,11 @@ public class AIString extends Struct<AIString> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

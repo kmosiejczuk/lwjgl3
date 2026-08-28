@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -31,8 +31,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}, {@code pStorageTexelBuffer} is not {@code NULL} and {@code pStorageTexelBuffer→address} is not zero, {@code pStorageTexelBuffer→address} <b>must</b> be an address within a {@code VkBuffer} created on {@code device}</li>
  * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER}, {@code pUniformBuffer} is not {@code NULL} and {@code pUniformBuffer→address} is not zero, {@code pUniformBuffer→address} <b>must</b> be an address within a {@code VkBuffer} created on {@code device}</li>
  * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER}, {@code pStorageBuffer} is not {@code NULL} and {@code pStorageBuffer→address} is not zero, {@code pStorageBuffer→address} <b>must</b> be an address within a {@code VkBuffer} created on {@code device}</li>
- * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER}, {@code pUniformBuffer} is not {@code NULL} , the number of texel buffer elements given by <code>(⌊pUniformBuffer→range / (texel block size)⌋ × (texels per block))</code> where texel block size and texels per block are as defined in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility">Compatible Formats</a> table for {@code pUniformBuffer→format}, <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxTexelBufferElements}</li>
- * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}, {@code pStorageBuffer} is not {@code NULL} , the number of texel buffer elements given by <code>(⌊pStorageBuffer→range / (texel block size)⌋ × (texels per block))</code> where texel block size and texels per block are as defined in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility">Compatible Formats</a> table for {@code pStorageBuffer→format}, <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxTexelBufferElements}</li>
+ * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER}, {@code pUniformBuffer} is not {@code NULL} , the number of texel buffer elements given by <code>(⌊pUniformBuffer→range / (texel block size)⌋ × (texels per block))</code> where texel block size and texels per block are as defined in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility">Compatible Formats</a> table for {@code pUniformBuffer→format}, <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxTexelBufferElements}</li>
+ * <li>If {@code type} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}, {@code pStorageBuffer} is not {@code NULL} , the number of texel buffer elements given by <code>(⌊pStorageBuffer→range / (texel block size)⌋ × (texels per block))</code> where texel block size and texels per block are as defined in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility">Compatible Formats</a> table for {@code pStorageBuffer→format}, <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxTexelBufferElements}</li>
  * <li>If {@code type} is {@link KHRAccelerationStructure#VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR} and {@code accelerationStructure} is not 0, {@code accelerationStructure} <b>must</b> contain the address of a {@code VkAccelerationStructureKHR} created on {@code device}</li>
  * <li>If {@code type} is {@link NVRayTracing#VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV} and {@code accelerationStructure} is not 0, {@code accelerationStructure} <b>must</b> contain the handle of a {@code VkAccelerationStructureNV} created on {@code device}, returned by {@link NVRayTracing#vkGetAccelerationStructureHandleNV GetAccelerationStructureHandleNV}</li>
  * </ul>
@@ -198,8 +198,7 @@ public class VkDescriptorGetInfoEXT extends Struct<VkDescriptorGetInfoEXT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorGetInfoEXT createSafe(long address) {
+    public static @Nullable VkDescriptorGetInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDescriptorGetInfoEXT(address, null);
     }
 
@@ -242,8 +241,7 @@ public class VkDescriptorGetInfoEXT extends Struct<VkDescriptorGetInfoEXT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorGetInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorGetInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -288,20 +286,20 @@ public class VkDescriptorGetInfoEXT extends Struct<VkDescriptorGetInfoEXT> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorGetInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorGetInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorGetInfoEXT.PNEXT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorGetInfoEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkDescriptorGetInfoEXT.TYPE); }
     /** Unsafe version of {@link #data}. */
     public static VkDescriptorDataEXT ndata(long struct) { return VkDescriptorDataEXT.create(struct + VkDescriptorGetInfoEXT.DATA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorGetInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorGetInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorGetInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorGetInfoEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkDescriptorGetInfoEXT.TYPE, value); }
     /** Unsafe version of {@link #data(VkDescriptorDataEXT) data}. */
     public static void ndata(long struct, VkDescriptorDataEXT value) { memCopy(value.address(), struct + VkDescriptorGetInfoEXT.DATA, VkDescriptorDataEXT.SIZEOF); }
 
@@ -336,6 +334,11 @@ public class VkDescriptorGetInfoEXT extends Struct<VkDescriptorGetInfoEXT> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

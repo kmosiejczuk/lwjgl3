@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -190,8 +190,7 @@ public class XrEventDataLocalizationChangedML extends Struct<XrEventDataLocaliza
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataLocalizationChangedML createSafe(long address) {
+    public static @Nullable XrEventDataLocalizationChangedML createSafe(long address) {
         return address == NULL ? null : new XrEventDataLocalizationChangedML(address, null);
     }
 
@@ -239,8 +238,7 @@ public class XrEventDataLocalizationChangedML extends Struct<XrEventDataLocaliza
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataLocalizationChangedML.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataLocalizationChangedML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,22 +288,22 @@ public class XrEventDataLocalizationChangedML extends Struct<XrEventDataLocaliza
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataLocalizationChangedML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataLocalizationChangedML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataLocalizationChangedML.NEXT); }
     /** Unsafe version of {@link #session}. */
     public static long nsession(long struct) { return memGetAddress(struct + XrEventDataLocalizationChangedML.SESSION); }
     /** Unsafe version of {@link #state}. */
-    public static int nstate(long struct) { return UNSAFE.getInt(null, struct + XrEventDataLocalizationChangedML.STATE); }
+    public static int nstate(long struct) { return memGetInt(struct + XrEventDataLocalizationChangedML.STATE); }
     /** Unsafe version of {@link #map}. */
     public static XrLocalizationMapML nmap(long struct) { return XrLocalizationMapML.create(struct + XrEventDataLocalizationChangedML.MAP); }
     /** Unsafe version of {@link #confidence}. */
-    public static int nconfidence(long struct) { return UNSAFE.getInt(null, struct + XrEventDataLocalizationChangedML.CONFIDENCE); }
+    public static int nconfidence(long struct) { return memGetInt(struct + XrEventDataLocalizationChangedML.CONFIDENCE); }
     /** Unsafe version of {@link #errorFlags}. */
-    public static long nerrorFlags(long struct) { return UNSAFE.getLong(null, struct + XrEventDataLocalizationChangedML.ERRORFLAGS); }
+    public static long nerrorFlags(long struct) { return memGetLong(struct + XrEventDataLocalizationChangedML.ERRORFLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataLocalizationChangedML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataLocalizationChangedML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataLocalizationChangedML.NEXT, value); }
 
@@ -340,6 +338,11 @@ public class XrEventDataLocalizationChangedML extends Struct<XrEventDataLocaliza
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

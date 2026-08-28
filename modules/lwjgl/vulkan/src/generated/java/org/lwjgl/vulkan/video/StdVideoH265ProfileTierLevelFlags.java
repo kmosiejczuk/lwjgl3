@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class StdVideoH265ProfileTierLevelFlags extends Struct<StdVideoH265Profil
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265ProfileTierLevelFlags createSafe(long address) {
+    public static @Nullable StdVideoH265ProfileTierLevelFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoH265ProfileTierLevelFlags(address, null);
     }
 
@@ -196,8 +195,7 @@ public class StdVideoH265ProfileTierLevelFlags extends Struct<StdVideoH265Profil
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265ProfileTierLevelFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265ProfileTierLevelFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,7 +239,7 @@ public class StdVideoH265ProfileTierLevelFlags extends Struct<StdVideoH265Profil
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoH265ProfileTierLevelFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoH265ProfileTierLevelFlags.BITFIELD0); }
     /** Unsafe version of {@link #general_tier_flag}. */
     public static int ngeneral_tier_flag(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #general_progressive_source_flag}. */
@@ -253,7 +251,7 @@ public class StdVideoH265ProfileTierLevelFlags extends Struct<StdVideoH265Profil
     /** Unsafe version of {@link #general_frame_only_constraint_flag}. */
     public static int ngeneral_frame_only_constraint_flag(long struct) { return (nbitfield0(struct) & 0x00_00_00_10) >>> 4; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH265ProfileTierLevelFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoH265ProfileTierLevelFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #general_tier_flag(boolean) general_tier_flag}. */
     public static void ngeneral_tier_flag(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #general_progressive_source_flag(boolean) general_progressive_source_flag}. */
@@ -296,6 +294,11 @@ public class StdVideoH265ProfileTierLevelFlags extends Struct<StdVideoH265Profil
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

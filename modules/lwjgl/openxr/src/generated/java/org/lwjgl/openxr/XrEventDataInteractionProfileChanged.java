@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class XrEventDataInteractionProfileChanged extends Struct<XrEventDataInte
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataInteractionProfileChanged createSafe(long address) {
+    public static @Nullable XrEventDataInteractionProfileChanged createSafe(long address) {
         return address == NULL ? null : new XrEventDataInteractionProfileChanged(address, null);
     }
 
@@ -208,8 +207,7 @@ public class XrEventDataInteractionProfileChanged extends Struct<XrEventDataInte
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataInteractionProfileChanged.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataInteractionProfileChanged.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,14 +257,14 @@ public class XrEventDataInteractionProfileChanged extends Struct<XrEventDataInte
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataInteractionProfileChanged.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataInteractionProfileChanged.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataInteractionProfileChanged.NEXT); }
     /** Unsafe version of {@link #session}. */
     public static long nsession(long struct) { return memGetAddress(struct + XrEventDataInteractionProfileChanged.SESSION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataInteractionProfileChanged.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataInteractionProfileChanged.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataInteractionProfileChanged.NEXT, value); }
 
@@ -301,6 +299,11 @@ public class XrEventDataInteractionProfileChanged extends Struct<XrEventDataInte
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

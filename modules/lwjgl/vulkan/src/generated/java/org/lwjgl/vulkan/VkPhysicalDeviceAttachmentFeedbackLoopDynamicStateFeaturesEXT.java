@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT exten
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT exten
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT exten
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #attachmentFeedbackLoopDynamicState}. */
-    public static int nattachmentFeedbackLoopDynamicState(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.ATTACHMENTFEEDBACKLOOPDYNAMICSTATE); }
+    public static int nattachmentFeedbackLoopDynamicState(long struct) { return memGetInt(struct + VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.ATTACHMENTFEEDBACKLOOPDYNAMICSTATE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #attachmentFeedbackLoopDynamicState(boolean) attachmentFeedbackLoopDynamicState}. */
-    public static void nattachmentFeedbackLoopDynamicState(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.ATTACHMENTFEEDBACKLOOPDYNAMICSTATE, value); }
+    public static void nattachmentFeedbackLoopDynamicState(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.ATTACHMENTFEEDBACKLOOPDYNAMICSTATE, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT exten
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

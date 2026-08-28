@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkPipelineCompilerControlCreateInfoAMD extends Struct<VkPipelineCom
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCompilerControlCreateInfoAMD createSafe(long address) {
+    public static @Nullable VkPipelineCompilerControlCreateInfoAMD createSafe(long address) {
         return address == NULL ? null : new VkPipelineCompilerControlCreateInfoAMD(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkPipelineCompilerControlCreateInfoAMD extends Struct<VkPipelineCom
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCompilerControlCreateInfoAMD.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineCompilerControlCreateInfoAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,18 +260,18 @@ public class VkPipelineCompilerControlCreateInfoAMD extends Struct<VkPipelineCom
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCompilerControlCreateInfoAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineCompilerControlCreateInfoAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineCompilerControlCreateInfoAMD.PNEXT); }
     /** Unsafe version of {@link #compilerControlFlags}. */
-    public static int ncompilerControlFlags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCompilerControlCreateInfoAMD.COMPILERCONTROLFLAGS); }
+    public static int ncompilerControlFlags(long struct) { return memGetInt(struct + VkPipelineCompilerControlCreateInfoAMD.COMPILERCONTROLFLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCompilerControlCreateInfoAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineCompilerControlCreateInfoAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineCompilerControlCreateInfoAMD.PNEXT, value); }
     /** Unsafe version of {@link #compilerControlFlags(int) compilerControlFlags}. */
-    public static void ncompilerControlFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCompilerControlCreateInfoAMD.COMPILERCONTROLFLAGS, value); }
+    public static void ncompilerControlFlags(long struct, int value) { memPutInt(struct + VkPipelineCompilerControlCreateInfoAMD.COMPILERCONTROLFLAGS, value); }
 
     // -----------------------------------
 
@@ -306,6 +304,11 @@ public class VkPipelineCompilerControlCreateInfoAMD extends Struct<VkPipelineCom
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

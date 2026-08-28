@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -98,8 +98,7 @@ public class FT_Glyph extends Struct<FT_Glyph> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Glyph createSafe(long address) {
+    public static @Nullable FT_Glyph createSafe(long address) {
         return address == NULL ? null : new FT_Glyph(address, null);
     }
 
@@ -114,8 +113,7 @@ public class FT_Glyph extends Struct<FT_Glyph> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Glyph.Buffer createSafe(long address, int capacity) {
+    public static FT_Glyph.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -125,7 +123,7 @@ public class FT_Glyph extends Struct<FT_Glyph> {
     public static long nlibrary(long struct) { return memGetAddress(struct + FT_Glyph.LIBRARY); }
     public static long nclazz(long struct) { return memGetAddress(struct + FT_Glyph.CLAZZ); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + FT_Glyph.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + FT_Glyph.FORMAT); }
     /** Unsafe version of {@link #advance}. */
     public static FT_Vector nadvance(long struct) { return FT_Vector.create(struct + FT_Glyph.ADVANCE); }
 
@@ -160,6 +158,11 @@ public class FT_Glyph extends Struct<FT_Glyph> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -177,8 +177,7 @@ public class XrSemanticLabelsSupportInfoFB extends Struct<XrSemanticLabelsSuppor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSemanticLabelsSupportInfoFB createSafe(long address) {
+    public static @Nullable XrSemanticLabelsSupportInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSemanticLabelsSupportInfoFB(address, null);
     }
 
@@ -221,8 +220,7 @@ public class XrSemanticLabelsSupportInfoFB extends Struct<XrSemanticLabelsSuppor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSemanticLabelsSupportInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSemanticLabelsSupportInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,22 +265,22 @@ public class XrSemanticLabelsSupportInfoFB extends Struct<XrSemanticLabelsSuppor
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSemanticLabelsSupportInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSemanticLabelsSupportInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSemanticLabelsSupportInfoFB.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrSemanticLabelsSupportInfoFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrSemanticLabelsSupportInfoFB.FLAGS); }
     /** Unsafe version of {@link #recognizedLabels}. */
     public static ByteBuffer nrecognizedLabels(long struct) { return memByteBufferNT1(memGetAddress(struct + XrSemanticLabelsSupportInfoFB.RECOGNIZEDLABELS)); }
     /** Unsafe version of {@link #recognizedLabelsString}. */
     public static String nrecognizedLabelsString(long struct) { return memUTF8(memGetAddress(struct + XrSemanticLabelsSupportInfoFB.RECOGNIZEDLABELS)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSemanticLabelsSupportInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSemanticLabelsSupportInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSemanticLabelsSupportInfoFB.NEXT, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrSemanticLabelsSupportInfoFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrSemanticLabelsSupportInfoFB.FLAGS, value); }
     /** Unsafe version of {@link #recognizedLabels(ByteBuffer) recognizedLabels}. */
     public static void nrecognizedLabels(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT1(value); }
@@ -329,6 +327,11 @@ public class XrSemanticLabelsSupportInfoFB extends Struct<XrSemanticLabelsSuppor
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

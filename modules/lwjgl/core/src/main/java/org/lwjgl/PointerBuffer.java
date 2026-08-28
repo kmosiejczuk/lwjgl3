@@ -4,9 +4,9 @@
  */
 package org.lwjgl;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.system.*;
 
-import javax.annotation.*;
 import java.nio.*;
 
 import static org.lwjgl.system.CheckIntrinsics.*;
@@ -59,6 +59,11 @@ public class PointerBuffer extends CustomBuffer<PointerBuffer> implements Compar
     @Override
     protected PointerBuffer self() {
         return this;
+    }
+
+    @Override
+    protected PointerBuffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+        return new PointerBuffer(address, container, mark, position, limit, capacity);
     }
 
     @Override

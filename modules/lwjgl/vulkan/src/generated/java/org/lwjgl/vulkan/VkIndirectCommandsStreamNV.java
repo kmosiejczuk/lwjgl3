@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -151,8 +151,7 @@ public class VkIndirectCommandsStreamNV extends Struct<VkIndirectCommandsStreamN
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectCommandsStreamNV createSafe(long address) {
+    public static @Nullable VkIndirectCommandsStreamNV createSafe(long address) {
         return address == NULL ? null : new VkIndirectCommandsStreamNV(address, null);
     }
 
@@ -195,8 +194,7 @@ public class VkIndirectCommandsStreamNV extends Struct<VkIndirectCommandsStreamN
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectCommandsStreamNV.Buffer createSafe(long address, int capacity) {
+    public static VkIndirectCommandsStreamNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +239,14 @@ public class VkIndirectCommandsStreamNV extends Struct<VkIndirectCommandsStreamN
     // -----------------------------------
 
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkIndirectCommandsStreamNV.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkIndirectCommandsStreamNV.BUFFER); }
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VkIndirectCommandsStreamNV.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VkIndirectCommandsStreamNV.OFFSET); }
 
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkIndirectCommandsStreamNV.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkIndirectCommandsStreamNV.BUFFER, value); }
     /** Unsafe version of {@link #offset(long) offset}. */
-    public static void noffset(long struct, long value) { UNSAFE.putLong(null, struct + VkIndirectCommandsStreamNV.OFFSET, value); }
+    public static void noffset(long struct, long value) { memPutLong(struct + VkIndirectCommandsStreamNV.OFFSET, value); }
 
     // -----------------------------------
 
@@ -281,6 +279,11 @@ public class VkIndirectCommandsStreamNV extends Struct<VkIndirectCommandsStreamN
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

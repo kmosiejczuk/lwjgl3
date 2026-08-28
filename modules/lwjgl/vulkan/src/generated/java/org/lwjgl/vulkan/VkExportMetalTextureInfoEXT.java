@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -121,7 +121,7 @@ public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfo
     /** {@link VK10#VK_NULL_HANDLE NULL_HANDLE} or a {@code VkBufferView}. */
     @NativeType("VkBufferView")
     public long bufferView() { return nbufferView(address()); }
-    /** indicates the plane of a multi-planar {@code VkImage} or {@code VkImageView}. */
+    /** specifies the plane of a multi-planar {@code VkImage} or {@code VkImageView}. */
     @NativeType("VkImageAspectFlagBits")
     public int plane() { return nplane(address()); }
     /** the Metal {@code id&lt;MTLTexture&gt;} object underlying the {@code VkImage}, {@code VkImageView}, or {@code VkBufferView} object in {@code image}, {@code imageView}, or {@code bufferView}, respectively, at the plane indicated in {@code aspectMask}. The implementation will return the {@code MTLTexture} in this member, or it will return {@code NULL} if no {@code MTLTexture} could be found underlying the {@code VkImage}, {@code VkImageView}, or {@code VkBufferView} object, at the plane indicated in {@code aspectMask}. */
@@ -202,8 +202,7 @@ public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalTextureInfoEXT createSafe(long address) {
+    public static @Nullable VkExportMetalTextureInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkExportMetalTextureInfoEXT(address, null);
     }
 
@@ -246,8 +245,7 @@ public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalTextureInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExportMetalTextureInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -292,32 +290,32 @@ public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalTextureInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMetalTextureInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMetalTextureInfoEXT.PNEXT); }
     /** Unsafe version of {@link #image}. */
-    public static long nimage(long struct) { return UNSAFE.getLong(null, struct + VkExportMetalTextureInfoEXT.IMAGE); }
+    public static long nimage(long struct) { return memGetLong(struct + VkExportMetalTextureInfoEXT.IMAGE); }
     /** Unsafe version of {@link #imageView}. */
-    public static long nimageView(long struct) { return UNSAFE.getLong(null, struct + VkExportMetalTextureInfoEXT.IMAGEVIEW); }
+    public static long nimageView(long struct) { return memGetLong(struct + VkExportMetalTextureInfoEXT.IMAGEVIEW); }
     /** Unsafe version of {@link #bufferView}. */
-    public static long nbufferView(long struct) { return UNSAFE.getLong(null, struct + VkExportMetalTextureInfoEXT.BUFFERVIEW); }
+    public static long nbufferView(long struct) { return memGetLong(struct + VkExportMetalTextureInfoEXT.BUFFERVIEW); }
     /** Unsafe version of {@link #plane}. */
-    public static int nplane(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalTextureInfoEXT.PLANE); }
+    public static int nplane(long struct) { return memGetInt(struct + VkExportMetalTextureInfoEXT.PLANE); }
     /** Unsafe version of {@link #mtlTexture}. */
     public static long nmtlTexture(long struct) { return memGetAddress(struct + VkExportMetalTextureInfoEXT.MTLTEXTURE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalTextureInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMetalTextureInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMetalTextureInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #image(long) image}. */
-    public static void nimage(long struct, long value) { UNSAFE.putLong(null, struct + VkExportMetalTextureInfoEXT.IMAGE, value); }
+    public static void nimage(long struct, long value) { memPutLong(struct + VkExportMetalTextureInfoEXT.IMAGE, value); }
     /** Unsafe version of {@link #imageView(long) imageView}. */
-    public static void nimageView(long struct, long value) { UNSAFE.putLong(null, struct + VkExportMetalTextureInfoEXT.IMAGEVIEW, value); }
+    public static void nimageView(long struct, long value) { memPutLong(struct + VkExportMetalTextureInfoEXT.IMAGEVIEW, value); }
     /** Unsafe version of {@link #bufferView(long) bufferView}. */
-    public static void nbufferView(long struct, long value) { UNSAFE.putLong(null, struct + VkExportMetalTextureInfoEXT.BUFFERVIEW, value); }
+    public static void nbufferView(long struct, long value) { memPutLong(struct + VkExportMetalTextureInfoEXT.BUFFERVIEW, value); }
     /** Unsafe version of {@link #plane(int) plane}. */
-    public static void nplane(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalTextureInfoEXT.PLANE, value); }
+    public static void nplane(long struct, int value) { memPutInt(struct + VkExportMetalTextureInfoEXT.PLANE, value); }
     /** Unsafe version of {@link #mtlTexture(long) mtlTexture}. */
     public static void nmtlTexture(long struct, long value) { memPutAddress(struct + VkExportMetalTextureInfoEXT.MTLTEXTURE, check(value)); }
 
@@ -361,6 +359,11 @@ public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

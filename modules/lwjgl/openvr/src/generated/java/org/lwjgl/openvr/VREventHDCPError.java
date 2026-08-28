@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -79,8 +79,7 @@ public class VREventHDCPError extends Struct<VREventHDCPError> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventHDCPError createSafe(long address) {
+    public static @Nullable VREventHDCPError createSafe(long address) {
         return address == NULL ? null : new VREventHDCPError(address, null);
     }
 
@@ -95,15 +94,14 @@ public class VREventHDCPError extends Struct<VREventHDCPError> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventHDCPError.Buffer createSafe(long address, int capacity) {
+    public static VREventHDCPError.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #eCode}. */
-    public static int neCode(long struct) { return UNSAFE.getInt(null, struct + VREventHDCPError.ECODE); }
+    public static int neCode(long struct) { return memGetInt(struct + VREventHDCPError.ECODE); }
 
     // -----------------------------------
 
@@ -136,6 +134,11 @@ public class VREventHDCPError extends Struct<VREventHDCPError> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

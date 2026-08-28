@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,8 +161,7 @@ public class VkRectLayerKHR extends Struct<VkRectLayerKHR> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRectLayerKHR createSafe(long address) {
+    public static @Nullable VkRectLayerKHR createSafe(long address) {
         return address == NULL ? null : new VkRectLayerKHR(address, null);
     }
 
@@ -205,8 +204,7 @@ public class VkRectLayerKHR extends Struct<VkRectLayerKHR> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRectLayerKHR.Buffer createSafe(long address, int capacity) {
+    public static VkRectLayerKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,14 +272,14 @@ public class VkRectLayerKHR extends Struct<VkRectLayerKHR> implements NativeReso
     /** Unsafe version of {@link #extent}. */
     public static VkExtent2D nextent(long struct) { return VkExtent2D.create(struct + VkRectLayerKHR.EXTENT); }
     /** Unsafe version of {@link #layer}. */
-    public static int nlayer(long struct) { return UNSAFE.getInt(null, struct + VkRectLayerKHR.LAYER); }
+    public static int nlayer(long struct) { return memGetInt(struct + VkRectLayerKHR.LAYER); }
 
     /** Unsafe version of {@link #offset(VkOffset2D) offset}. */
     public static void noffset(long struct, VkOffset2D value) { memCopy(value.address(), struct + VkRectLayerKHR.OFFSET, VkOffset2D.SIZEOF); }
     /** Unsafe version of {@link #extent(VkExtent2D) extent}. */
     public static void nextent(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkRectLayerKHR.EXTENT, VkExtent2D.SIZEOF); }
     /** Unsafe version of {@link #layer(int) layer}. */
-    public static void nlayer(long struct, int value) { UNSAFE.putInt(null, struct + VkRectLayerKHR.LAYER, value); }
+    public static void nlayer(long struct, int value) { memPutInt(struct + VkRectLayerKHR.LAYER, value); }
 
     // -----------------------------------
 
@@ -314,6 +312,11 @@ public class VkRectLayerKHR extends Struct<VkRectLayerKHR> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

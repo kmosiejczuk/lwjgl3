@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class XrSecondaryViewConfigurationStateMSFT extends Struct<XrSecondaryVie
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationStateMSFT createSafe(long address) {
+    public static @Nullable XrSecondaryViewConfigurationStateMSFT createSafe(long address) {
         return address == NULL ? null : new XrSecondaryViewConfigurationStateMSFT(address, null);
     }
 
@@ -222,8 +221,7 @@ public class XrSecondaryViewConfigurationStateMSFT extends Struct<XrSecondaryVie
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationStateMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSecondaryViewConfigurationStateMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,22 +266,22 @@ public class XrSecondaryViewConfigurationStateMSFT extends Struct<XrSecondaryVie
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationStateMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationStateMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSecondaryViewConfigurationStateMSFT.NEXT); }
     /** Unsafe version of {@link #viewConfigurationType}. */
-    public static int nviewConfigurationType(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationStateMSFT.VIEWCONFIGURATIONTYPE); }
+    public static int nviewConfigurationType(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationStateMSFT.VIEWCONFIGURATIONTYPE); }
     /** Unsafe version of {@link #active}. */
-    public static int nactive(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationStateMSFT.ACTIVE); }
+    public static int nactive(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationStateMSFT.ACTIVE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationStateMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationStateMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSecondaryViewConfigurationStateMSFT.NEXT, value); }
     /** Unsafe version of {@link #viewConfigurationType(int) viewConfigurationType}. */
-    public static void nviewConfigurationType(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationStateMSFT.VIEWCONFIGURATIONTYPE, value); }
+    public static void nviewConfigurationType(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationStateMSFT.VIEWCONFIGURATIONTYPE, value); }
     /** Unsafe version of {@link #active(boolean) active}. */
-    public static void nactive(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationStateMSFT.ACTIVE, value); }
+    public static void nactive(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationStateMSFT.ACTIVE, value); }
 
     // -----------------------------------
 
@@ -316,6 +314,11 @@ public class XrSecondaryViewConfigurationStateMSFT extends Struct<XrSecondaryVie
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

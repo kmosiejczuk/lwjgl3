@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.par;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -113,17 +113,14 @@ public class ParSLMesh extends Struct<ParSLMesh> {
     @NativeType("parsl_position *")
     public ParSLPosition.Buffer positions() { return npositions(address()); }
     /** @return a {@link ParSLAnnotation.Buffer} view of the struct array pointed to by the {@code annotations} field. */
-    @Nullable
     @NativeType("parsl_annotation *")
-    public ParSLAnnotation.Buffer annotations() { return nannotations(address()); }
+    public ParSLAnnotation.@Nullable Buffer annotations() { return nannotations(address()); }
     /** @return a {@link FloatBuffer} view of the data pointed to by the {@code spine_lengths} field. */
-    @Nullable
     @NativeType("float *")
-    public FloatBuffer spine_lengths() { return nspine_lengths(address()); }
+    public @Nullable FloatBuffer spine_lengths() { return nspine_lengths(address()); }
     /** @return a {@link FloatBuffer} view of the data pointed to by the {@code random_offsets} field. */
-    @Nullable
     @NativeType("float *")
-    public FloatBuffer random_offsets() { return nrandom_offsets(address()); }
+    public @Nullable FloatBuffer random_offsets() { return nrandom_offsets(address()); }
 
     // -----------------------------------
 
@@ -133,8 +130,7 @@ public class ParSLMesh extends Struct<ParSLMesh> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLMesh createSafe(long address) {
+    public static @Nullable ParSLMesh createSafe(long address) {
         return address == NULL ? null : new ParSLMesh(address, null);
     }
 
@@ -149,27 +145,26 @@ public class ParSLMesh extends Struct<ParSLMesh> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLMesh.Buffer createSafe(long address, int capacity) {
+    public static ParSLMesh.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #num_vertices}. */
-    public static int nnum_vertices(long struct) { return UNSAFE.getInt(null, struct + ParSLMesh.NUM_VERTICES); }
+    public static int nnum_vertices(long struct) { return memGetInt(struct + ParSLMesh.NUM_VERTICES); }
     /** Unsafe version of {@link #num_triangles}. */
-    public static int nnum_triangles(long struct) { return UNSAFE.getInt(null, struct + ParSLMesh.NUM_TRIANGLES); }
+    public static int nnum_triangles(long struct) { return memGetInt(struct + ParSLMesh.NUM_TRIANGLES); }
     /** Unsafe version of {@link #triangle_indices(int) triangle_indices}. */
     public static IntBuffer ntriangle_indices(long struct, int capacity) { return memIntBuffer(memGetAddress(struct + ParSLMesh.TRIANGLE_INDICES), capacity); }
     /** Unsafe version of {@link #positions}. */
     public static ParSLPosition.Buffer npositions(long struct) { return ParSLPosition.create(memGetAddress(struct + ParSLMesh.POSITIONS), nnum_vertices(struct)); }
     /** Unsafe version of {@link #annotations}. */
-    @Nullable public static ParSLAnnotation.Buffer nannotations(long struct) { return ParSLAnnotation.createSafe(memGetAddress(struct + ParSLMesh.ANNOTATIONS), nnum_vertices(struct)); }
+    public static ParSLAnnotation.@Nullable Buffer nannotations(long struct) { return ParSLAnnotation.createSafe(memGetAddress(struct + ParSLMesh.ANNOTATIONS), nnum_vertices(struct)); }
     /** Unsafe version of {@link #spine_lengths() spine_lengths}. */
-    @Nullable public static FloatBuffer nspine_lengths(long struct) { return memFloatBufferSafe(memGetAddress(struct + ParSLMesh.SPINE_LENGTHS), nnum_vertices(struct)); }
+    public static @Nullable FloatBuffer nspine_lengths(long struct) { return memFloatBufferSafe(memGetAddress(struct + ParSLMesh.SPINE_LENGTHS), nnum_vertices(struct)); }
     /** Unsafe version of {@link #random_offsets() random_offsets}. */
-    @Nullable public static FloatBuffer nrandom_offsets(long struct) { return memFloatBufferSafe(memGetAddress(struct + ParSLMesh.RANDOM_OFFSETS), nnum_vertices(struct)); }
+    public static @Nullable FloatBuffer nrandom_offsets(long struct) { return memFloatBufferSafe(memGetAddress(struct + ParSLMesh.RANDOM_OFFSETS), nnum_vertices(struct)); }
 
     // -----------------------------------
 
@@ -205,6 +200,11 @@ public class ParSLMesh extends Struct<ParSLMesh> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ParSLMesh getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -226,17 +226,14 @@ public class ParSLMesh extends Struct<ParSLMesh> {
         @NativeType("parsl_position *")
         public ParSLPosition.Buffer positions() { return ParSLMesh.npositions(address()); }
         /** @return a {@link ParSLAnnotation.Buffer} view of the struct array pointed to by the {@code annotations} field. */
-        @Nullable
         @NativeType("parsl_annotation *")
-        public ParSLAnnotation.Buffer annotations() { return ParSLMesh.nannotations(address()); }
+        public ParSLAnnotation.@Nullable Buffer annotations() { return ParSLMesh.nannotations(address()); }
         /** @return a {@link FloatBuffer} view of the data pointed to by the {@code spine_lengths} field. */
-        @Nullable
         @NativeType("float *")
-        public FloatBuffer spine_lengths() { return ParSLMesh.nspine_lengths(address()); }
+        public @Nullable FloatBuffer spine_lengths() { return ParSLMesh.nspine_lengths(address()); }
         /** @return a {@link FloatBuffer} view of the data pointed to by the {@code random_offsets} field. */
-        @Nullable
         @NativeType("float *")
-        public FloatBuffer random_offsets() { return ParSLMesh.nrandom_offsets(address()); }
+        public @Nullable FloatBuffer random_offsets() { return ParSLMesh.nrandom_offsets(address()); }
 
     }
 

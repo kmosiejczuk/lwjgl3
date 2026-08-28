@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -143,8 +143,7 @@ public class NkDrawVertexLayoutElement extends Struct<NkDrawVertexLayoutElement>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkDrawVertexLayoutElement createSafe(long address) {
+    public static @Nullable NkDrawVertexLayoutElement createSafe(long address) {
         return address == NULL ? null : new NkDrawVertexLayoutElement(address, null);
     }
 
@@ -187,8 +186,7 @@ public class NkDrawVertexLayoutElement extends Struct<NkDrawVertexLayoutElement>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkDrawVertexLayoutElement.Buffer createSafe(long address, int capacity) {
+    public static NkDrawVertexLayoutElement.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,16 +250,16 @@ public class NkDrawVertexLayoutElement extends Struct<NkDrawVertexLayoutElement>
     // -----------------------------------
 
     /** Unsafe version of {@link #attribute}. */
-    public static int nattribute(long struct) { return UNSAFE.getInt(null, struct + NkDrawVertexLayoutElement.ATTRIBUTE); }
+    public static int nattribute(long struct) { return memGetInt(struct + NkDrawVertexLayoutElement.ATTRIBUTE); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + NkDrawVertexLayoutElement.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + NkDrawVertexLayoutElement.FORMAT); }
     /** Unsafe version of {@link #offset}. */
     public static long noffset(long struct) { return memGetAddress(struct + NkDrawVertexLayoutElement.OFFSET); }
 
     /** Unsafe version of {@link #attribute(int) attribute}. */
-    public static void nattribute(long struct, int value) { UNSAFE.putInt(null, struct + NkDrawVertexLayoutElement.ATTRIBUTE, value); }
+    public static void nattribute(long struct, int value) { memPutInt(struct + NkDrawVertexLayoutElement.ATTRIBUTE, value); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + NkDrawVertexLayoutElement.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + NkDrawVertexLayoutElement.FORMAT, value); }
     /** Unsafe version of {@link #offset(long) offset}. */
     public static void noffset(long struct, long value) { memPutAddress(struct + NkDrawVertexLayoutElement.OFFSET, value); }
 
@@ -296,6 +294,11 @@ public class NkDrawVertexLayoutElement extends Struct<NkDrawVertexLayoutElement>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -141,8 +141,7 @@ public class VkMultiDrawInfoEXT extends Struct<VkMultiDrawInfoEXT> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMultiDrawInfoEXT createSafe(long address) {
+    public static @Nullable VkMultiDrawInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMultiDrawInfoEXT(address, null);
     }
 
@@ -185,8 +184,7 @@ public class VkMultiDrawInfoEXT extends Struct<VkMultiDrawInfoEXT> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMultiDrawInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMultiDrawInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -231,14 +229,14 @@ public class VkMultiDrawInfoEXT extends Struct<VkMultiDrawInfoEXT> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #firstVertex}. */
-    public static int nfirstVertex(long struct) { return UNSAFE.getInt(null, struct + VkMultiDrawInfoEXT.FIRSTVERTEX); }
+    public static int nfirstVertex(long struct) { return memGetInt(struct + VkMultiDrawInfoEXT.FIRSTVERTEX); }
     /** Unsafe version of {@link #vertexCount}. */
-    public static int nvertexCount(long struct) { return UNSAFE.getInt(null, struct + VkMultiDrawInfoEXT.VERTEXCOUNT); }
+    public static int nvertexCount(long struct) { return memGetInt(struct + VkMultiDrawInfoEXT.VERTEXCOUNT); }
 
     /** Unsafe version of {@link #firstVertex(int) firstVertex}. */
-    public static void nfirstVertex(long struct, int value) { UNSAFE.putInt(null, struct + VkMultiDrawInfoEXT.FIRSTVERTEX, value); }
+    public static void nfirstVertex(long struct, int value) { memPutInt(struct + VkMultiDrawInfoEXT.FIRSTVERTEX, value); }
     /** Unsafe version of {@link #vertexCount(int) vertexCount}. */
-    public static void nvertexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkMultiDrawInfoEXT.VERTEXCOUNT, value); }
+    public static void nvertexCount(long struct, int value) { memPutInt(struct + VkMultiDrawInfoEXT.VERTEXCOUNT, value); }
 
     // -----------------------------------
 
@@ -271,6 +269,11 @@ public class VkMultiDrawInfoEXT extends Struct<VkMultiDrawInfoEXT> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

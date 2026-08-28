@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -38,13 +38,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * <dd><code>p<sub>z</sub> = maxDepth - minDepth</code> (or <code>(maxDepth - minDepth) / 2</code> if {@link VkPipelineViewportDepthClipControlCreateInfoEXT}{@code ::negativeOneToOne} is {@link VK10#VK_TRUE TRUE})</dd>
  * </dl>
  * 
- * <p>If a render pass transform is enabled, the values <code>(p<sub>x</sub>,p<sub>y</sub>)</code> and <code>(o<sub>x</sub>, o<sub>y</sub>)</code> defining the viewport are transformed as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vertexpostproc-renderpass-transform">render pass transform</a> before participating in the viewport transform.</p>
+ * <p>If a render pass transform is enabled, the values <code>(p<sub>x</sub>,p<sub>y</sub>)</code> and <code>(o<sub>x</sub>, o<sub>y</sub>)</code> defining the viewport are transformed as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vertexpostproc-renderpass-transform">render pass transform</a> before participating in the viewport transform.</p>
  * 
- * <p>The application <b>can</b> specify a negative term for {@code height}, which has the effect of negating the y coordinate in clip space before performing the transform. When using a negative {@code height}, the application <b>should</b> also adjust the {@code y} value to point to the lower left corner of the viewport instead of the upper left corner. Using the negative {@code height} allows the application to avoid having to negate the y component of the {@code Position} output from the last <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader stage</a>.</p>
+ * <p>The application <b>can</b> specify a negative term for {@code height}, which has the effect of negating the y coordinate in clip space before performing the transform. When using a negative {@code height}, the application <b>should</b> also adjust the {@code y} value to point to the lower left corner of the viewport instead of the upper left corner. Using the negative {@code height} allows the application to avoid having to negate the y component of the {@code Position} output from the last <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader stage</a>.</p>
  * 
- * <p>The width and height of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxViewportDimensions">implementation-dependent maximum viewport dimensions</a> <b>must</b> be greater than or equal to the width and height of the largest image which <b>can</b> be created and attached to a framebuffer.</p>
+ * <p>The width and height of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxViewportDimensions">implementation-dependent maximum viewport dimensions</a> <b>must</b> be greater than or equal to the width and height of the largest image which <b>can</b> be created and attached to a framebuffer.</p>
  * 
- * <p>The floating-point viewport bounds are represented with an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-viewportSubPixelBits">implementation-dependent precision</a>.</p>
+ * <p>The floating-point viewport bounds are represented with an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-viewportSubPixelBits">implementation-dependent precision</a>.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -220,8 +220,7 @@ public class VkViewport extends Struct<VkViewport> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkViewport createSafe(long address) {
+    public static @Nullable VkViewport createSafe(long address) {
         return address == NULL ? null : new VkViewport(address, null);
     }
 
@@ -264,8 +263,7 @@ public class VkViewport extends Struct<VkViewport> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkViewport.Buffer createSafe(long address, int capacity) {
+    public static VkViewport.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -329,30 +327,30 @@ public class VkViewport extends Struct<VkViewport> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.X); }
+    public static float nx(long struct) { return memGetFloat(struct + VkViewport.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + VkViewport.Y); }
     /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.WIDTH); }
+    public static float nwidth(long struct) { return memGetFloat(struct + VkViewport.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + VkViewport.HEIGHT); }
     /** Unsafe version of {@link #minDepth}. */
-    public static float nminDepth(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.MINDEPTH); }
+    public static float nminDepth(long struct) { return memGetFloat(struct + VkViewport.MINDEPTH); }
     /** Unsafe version of {@link #maxDepth}. */
-    public static float nmaxDepth(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.MAXDEPTH); }
+    public static float nmaxDepth(long struct) { return memGetFloat(struct + VkViewport.MAXDEPTH); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + VkViewport.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + VkViewport.Y, value); }
     /** Unsafe version of {@link #width(float) width}. */
-    public static void nwidth(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.WIDTH, value); }
+    public static void nwidth(long struct, float value) { memPutFloat(struct + VkViewport.WIDTH, value); }
     /** Unsafe version of {@link #height(float) height}. */
-    public static void nheight(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.HEIGHT, value); }
+    public static void nheight(long struct, float value) { memPutFloat(struct + VkViewport.HEIGHT, value); }
     /** Unsafe version of {@link #minDepth(float) minDepth}. */
-    public static void nminDepth(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.MINDEPTH, value); }
+    public static void nminDepth(long struct, float value) { memPutFloat(struct + VkViewport.MINDEPTH, value); }
     /** Unsafe version of {@link #maxDepth(float) maxDepth}. */
-    public static void nmaxDepth(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.MAXDEPTH, value); }
+    public static void nmaxDepth(long struct, float value) { memPutFloat(struct + VkViewport.MAXDEPTH, value); }
 
     // -----------------------------------
 
@@ -385,6 +383,11 @@ public class VkViewport extends Struct<VkViewport> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

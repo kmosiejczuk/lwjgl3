@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceDepthClipEnableFeaturesEXT extends Struct<VkPhysica
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports setting the depth clipping operation explicitly via the {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT} pipeline state. Otherwise depth clipping is only enabled when {@link VkPipelineRasterizationStateCreateInfo}{@code ::depthClampEnable} is set to {@link VK10#VK_FALSE FALSE}. */
+    /** indicates that the implementation supports setting the depth clipping operation explicitly via the {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT} pipeline state. Otherwise depth clipping is only enabled when {@link VkPipelineRasterizationStateCreateInfo}{@code ::depthClampEnable} is {@link VK10#VK_FALSE FALSE}. */
     @NativeType("VkBool32")
     public boolean depthClipEnable() { return ndepthClipEnable(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceDepthClipEnableFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDepthClipEnableFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDepthClipEnableFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDepthClipEnableFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceDepthClipEnableFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDepthClipEnableFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDepthClipEnableFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkPhysicalDeviceDepthClipEnableFeaturesEXT extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDepthClipEnableFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDepthClipEnableFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDepthClipEnableFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #depthClipEnable}. */
-    public static int ndepthClipEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDepthClipEnableFeaturesEXT.DEPTHCLIPENABLE); }
+    public static int ndepthClipEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceDepthClipEnableFeaturesEXT.DEPTHCLIPENABLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDepthClipEnableFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDepthClipEnableFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDepthClipEnableFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #depthClipEnable(boolean) depthClipEnable}. */
-    public static void ndepthClipEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDepthClipEnableFeaturesEXT.DEPTHCLIPENABLE, value); }
+    public static void ndepthClipEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDepthClipEnableFeaturesEXT.DEPTHCLIPENABLE, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkPhysicalDeviceDepthClipEnableFeaturesEXT extends Struct<VkPhysica
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

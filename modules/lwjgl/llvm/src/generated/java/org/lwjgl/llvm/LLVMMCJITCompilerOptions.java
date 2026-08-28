@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class LLVMMCJITCompilerOptions extends Struct<LLVMMCJITCompilerOptions> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMMCJITCompilerOptions createSafe(long address) {
+    public static @Nullable LLVMMCJITCompilerOptions createSafe(long address) {
         return address == NULL ? null : new LLVMMCJITCompilerOptions(address, null);
     }
 
@@ -210,8 +209,7 @@ public class LLVMMCJITCompilerOptions extends Struct<LLVMMCJITCompilerOptions> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMMCJITCompilerOptions.Buffer createSafe(long address, int capacity) {
+    public static LLVMMCJITCompilerOptions.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,24 +273,24 @@ public class LLVMMCJITCompilerOptions extends Struct<LLVMMCJITCompilerOptions> i
     // -----------------------------------
 
     /** Unsafe version of {@link #OptLevel}. */
-    public static int nOptLevel(long struct) { return UNSAFE.getInt(null, struct + LLVMMCJITCompilerOptions.OPTLEVEL); }
+    public static int nOptLevel(long struct) { return memGetInt(struct + LLVMMCJITCompilerOptions.OPTLEVEL); }
     /** Unsafe version of {@link #CodeModel}. */
-    public static int nCodeModel(long struct) { return UNSAFE.getInt(null, struct + LLVMMCJITCompilerOptions.CODEMODEL); }
+    public static int nCodeModel(long struct) { return memGetInt(struct + LLVMMCJITCompilerOptions.CODEMODEL); }
     /** Unsafe version of {@link #NoFramePointerElim}. */
-    public static int nNoFramePointerElim(long struct) { return UNSAFE.getInt(null, struct + LLVMMCJITCompilerOptions.NOFRAMEPOINTERELIM); }
+    public static int nNoFramePointerElim(long struct) { return memGetInt(struct + LLVMMCJITCompilerOptions.NOFRAMEPOINTERELIM); }
     /** Unsafe version of {@link #EnableFastISel}. */
-    public static int nEnableFastISel(long struct) { return UNSAFE.getInt(null, struct + LLVMMCJITCompilerOptions.ENABLEFASTISEL); }
+    public static int nEnableFastISel(long struct) { return memGetInt(struct + LLVMMCJITCompilerOptions.ENABLEFASTISEL); }
     /** Unsafe version of {@link #MCJMM}. */
     public static long nMCJMM(long struct) { return memGetAddress(struct + LLVMMCJITCompilerOptions.MCJMM); }
 
     /** Unsafe version of {@link #OptLevel(int) OptLevel}. */
-    public static void nOptLevel(long struct, int value) { UNSAFE.putInt(null, struct + LLVMMCJITCompilerOptions.OPTLEVEL, value); }
+    public static void nOptLevel(long struct, int value) { memPutInt(struct + LLVMMCJITCompilerOptions.OPTLEVEL, value); }
     /** Unsafe version of {@link #CodeModel(int) CodeModel}. */
-    public static void nCodeModel(long struct, int value) { UNSAFE.putInt(null, struct + LLVMMCJITCompilerOptions.CODEMODEL, value); }
+    public static void nCodeModel(long struct, int value) { memPutInt(struct + LLVMMCJITCompilerOptions.CODEMODEL, value); }
     /** Unsafe version of {@link #NoFramePointerElim(boolean) NoFramePointerElim}. */
-    public static void nNoFramePointerElim(long struct, int value) { UNSAFE.putInt(null, struct + LLVMMCJITCompilerOptions.NOFRAMEPOINTERELIM, value); }
+    public static void nNoFramePointerElim(long struct, int value) { memPutInt(struct + LLVMMCJITCompilerOptions.NOFRAMEPOINTERELIM, value); }
     /** Unsafe version of {@link #EnableFastISel(boolean) EnableFastISel}. */
-    public static void nEnableFastISel(long struct, int value) { UNSAFE.putInt(null, struct + LLVMMCJITCompilerOptions.ENABLEFASTISEL, value); }
+    public static void nEnableFastISel(long struct, int value) { memPutInt(struct + LLVMMCJITCompilerOptions.ENABLEFASTISEL, value); }
     /** Unsafe version of {@link #MCJMM(long) MCJMM}. */
     public static void nMCJMM(long struct, long value) { memPutAddress(struct + LLVMMCJITCompilerOptions.MCJMM, check(value)); }
 
@@ -336,6 +334,11 @@ public class LLVMMCJITCompilerOptions extends Struct<LLVMMCJITCompilerOptions> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

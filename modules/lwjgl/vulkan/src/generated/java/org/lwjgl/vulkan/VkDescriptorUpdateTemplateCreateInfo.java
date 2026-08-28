@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,9 +23,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If {@code templateType} is {@link VK11#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET}, {@code descriptorSetLayout} <b>must</b> be a valid {@code VkDescriptorSetLayout} handle</li>
- * <li>If {@code templateType} is {@link KHRPushDescriptor#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR}, {@code pipelineBindPoint} <b>must</b> be a valid {@code VkPipelineBindPoint} value</li>
- * <li>If {@code templateType} is {@link KHRPushDescriptor#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR}, {@code pipelineLayout} <b>must</b> be a valid {@code VkPipelineLayout} handle</li>
- * <li>If {@code templateType} is {@link KHRPushDescriptor#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR}, {@code set} <b>must</b> be the unique set number in the pipeline layout that uses a descriptor set layout that was created with {@link KHRPushDescriptor#VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR}</li>
+ * <li>If {@code templateType} is {@link VK14#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS}, {@code pipelineBindPoint} <b>must</b> be a valid {@code VkPipelineBindPoint} value</li>
+ * <li>If {@code templateType} is {@link VK14#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS}, {@code pipelineLayout} <b>must</b> be a valid {@code VkPipelineLayout} handle</li>
+ * <li>If {@code templateType} is {@link VK14#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS}, {@code set} <b>must</b> be the unique set number in the pipeline layout that uses a descriptor set layout that was created with {@link VK14#VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT}</li>
  * <li>If {@code templateType} is {@link VK11#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET}, {@code descriptorSetLayout} <b>must</b> not contain a binding with type {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}</li>
  * </ul>
  * 
@@ -148,19 +148,19 @@ public class VkDescriptorUpdateTemplateCreateInfo extends Struct<VkDescriptorUpd
     /** a pointer to an array of {@link VkDescriptorUpdateTemplateEntry} structures describing the descriptors to be updated by the descriptor update template. */
     @NativeType("VkDescriptorUpdateTemplateEntry const *")
     public VkDescriptorUpdateTemplateEntry.Buffer pDescriptorUpdateEntries() { return npDescriptorUpdateEntries(address()); }
-    /** Specifies the type of the descriptor update template. If set to {@link VK11#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET} it <b>can</b> only be used to update descriptor sets with a fixed {@code descriptorSetLayout}. If set to {@link KHRPushDescriptor#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR} it <b>can</b> only be used to push descriptor sets using the provided {@code pipelineBindPoint}, {@code pipelineLayout}, and {@code set} number. */
+    /** Specifies the type of the descriptor update template. If set to {@link VK11#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET} it <b>can</b> only be used to update descriptor sets with a fixed {@code descriptorSetLayout}. If set to {@link VK14#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS} it <b>can</b> only be used to push descriptor sets using the provided {@code pipelineBindPoint}, {@code pipelineLayout}, and {@code set} number. */
     @NativeType("VkDescriptorUpdateTemplateType")
     public int templateType() { return ntemplateType(address()); }
     /** the descriptor set layout used to build the descriptor update template. All descriptor sets which are going to be updated through the newly created descriptor update template <b>must</b> be created with a layout that matches (is the same as, or defined identically to) this layout. This parameter is ignored if {@code templateType} is not {@link VK11#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET}. */
     @NativeType("VkDescriptorSetLayout")
     public long descriptorSetLayout() { return ndescriptorSetLayout(address()); }
-    /** a {@code VkPipelineBindPoint} indicating the type of the pipeline that will use the descriptors. This parameter is ignored if {@code templateType} is not {@link KHRPushDescriptor#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR} */
+    /** a {@code VkPipelineBindPoint} indicating the type of the pipeline that will use the descriptors. This parameter is ignored if {@code templateType} is not {@link VK14#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS} */
     @NativeType("VkPipelineBindPoint")
     public int pipelineBindPoint() { return npipelineBindPoint(address()); }
-    /** a {@code VkPipelineLayout} object used to program the bindings. This parameter is ignored if {@code templateType} is not {@link KHRPushDescriptor#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR} */
+    /** a {@code VkPipelineLayout} object used to program the bindings. This parameter is ignored if {@code templateType} is not {@link VK14#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS} */
     @NativeType("VkPipelineLayout")
     public long pipelineLayout() { return npipelineLayout(address()); }
-    /** the set number of the descriptor set in the pipeline layout that will be updated. This parameter is ignored if {@code templateType} is not {@link KHRPushDescriptor#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR} */
+    /** the set number of the descriptor set in the pipeline layout that will be updated. This parameter is ignored if {@code templateType} is not {@link VK14#VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS} */
     @NativeType("uint32_t")
     public int set() { return nset(address()); }
 
@@ -246,8 +246,7 @@ public class VkDescriptorUpdateTemplateCreateInfo extends Struct<VkDescriptorUpd
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorUpdateTemplateCreateInfo createSafe(long address) {
+    public static @Nullable VkDescriptorUpdateTemplateCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkDescriptorUpdateTemplateCreateInfo(address, null);
     }
 
@@ -290,8 +289,7 @@ public class VkDescriptorUpdateTemplateCreateInfo extends Struct<VkDescriptorUpd
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorUpdateTemplateCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorUpdateTemplateCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -355,46 +353,46 @@ public class VkDescriptorUpdateTemplateCreateInfo extends Struct<VkDescriptorUpd
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorUpdateTemplateCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorUpdateTemplateCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkDescriptorUpdateTemplateCreateInfo.FLAGS); }
     /** Unsafe version of {@link #descriptorUpdateEntryCount}. */
-    public static int ndescriptorUpdateEntryCount(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.DESCRIPTORUPDATEENTRYCOUNT); }
+    public static int ndescriptorUpdateEntryCount(long struct) { return memGetInt(struct + VkDescriptorUpdateTemplateCreateInfo.DESCRIPTORUPDATEENTRYCOUNT); }
     /** Unsafe version of {@link #pDescriptorUpdateEntries}. */
     public static VkDescriptorUpdateTemplateEntry.Buffer npDescriptorUpdateEntries(long struct) { return VkDescriptorUpdateTemplateEntry.create(memGetAddress(struct + VkDescriptorUpdateTemplateCreateInfo.PDESCRIPTORUPDATEENTRIES), ndescriptorUpdateEntryCount(struct)); }
     /** Unsafe version of {@link #templateType}. */
-    public static int ntemplateType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.TEMPLATETYPE); }
+    public static int ntemplateType(long struct) { return memGetInt(struct + VkDescriptorUpdateTemplateCreateInfo.TEMPLATETYPE); }
     /** Unsafe version of {@link #descriptorSetLayout}. */
-    public static long ndescriptorSetLayout(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorUpdateTemplateCreateInfo.DESCRIPTORSETLAYOUT); }
+    public static long ndescriptorSetLayout(long struct) { return memGetLong(struct + VkDescriptorUpdateTemplateCreateInfo.DESCRIPTORSETLAYOUT); }
     /** Unsafe version of {@link #pipelineBindPoint}. */
-    public static int npipelineBindPoint(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.PIPELINEBINDPOINT); }
+    public static int npipelineBindPoint(long struct) { return memGetInt(struct + VkDescriptorUpdateTemplateCreateInfo.PIPELINEBINDPOINT); }
     /** Unsafe version of {@link #pipelineLayout}. */
-    public static long npipelineLayout(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorUpdateTemplateCreateInfo.PIPELINELAYOUT); }
+    public static long npipelineLayout(long struct) { return memGetLong(struct + VkDescriptorUpdateTemplateCreateInfo.PIPELINELAYOUT); }
     /** Unsafe version of {@link #set}. */
-    public static int nset(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.SET); }
+    public static int nset(long struct) { return memGetInt(struct + VkDescriptorUpdateTemplateCreateInfo.SET); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorUpdateTemplateCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorUpdateTemplateCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkDescriptorUpdateTemplateCreateInfo.FLAGS, value); }
     /** Sets the specified value to the {@code descriptorUpdateEntryCount} field of the specified {@code struct}. */
-    public static void ndescriptorUpdateEntryCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.DESCRIPTORUPDATEENTRYCOUNT, value); }
+    public static void ndescriptorUpdateEntryCount(long struct, int value) { memPutInt(struct + VkDescriptorUpdateTemplateCreateInfo.DESCRIPTORUPDATEENTRYCOUNT, value); }
     /** Unsafe version of {@link #pDescriptorUpdateEntries(VkDescriptorUpdateTemplateEntry.Buffer) pDescriptorUpdateEntries}. */
     public static void npDescriptorUpdateEntries(long struct, VkDescriptorUpdateTemplateEntry.Buffer value) { memPutAddress(struct + VkDescriptorUpdateTemplateCreateInfo.PDESCRIPTORUPDATEENTRIES, value.address()); ndescriptorUpdateEntryCount(struct, value.remaining()); }
     /** Unsafe version of {@link #templateType(int) templateType}. */
-    public static void ntemplateType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.TEMPLATETYPE, value); }
+    public static void ntemplateType(long struct, int value) { memPutInt(struct + VkDescriptorUpdateTemplateCreateInfo.TEMPLATETYPE, value); }
     /** Unsafe version of {@link #descriptorSetLayout(long) descriptorSetLayout}. */
-    public static void ndescriptorSetLayout(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorUpdateTemplateCreateInfo.DESCRIPTORSETLAYOUT, value); }
+    public static void ndescriptorSetLayout(long struct, long value) { memPutLong(struct + VkDescriptorUpdateTemplateCreateInfo.DESCRIPTORSETLAYOUT, value); }
     /** Unsafe version of {@link #pipelineBindPoint(int) pipelineBindPoint}. */
-    public static void npipelineBindPoint(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.PIPELINEBINDPOINT, value); }
+    public static void npipelineBindPoint(long struct, int value) { memPutInt(struct + VkDescriptorUpdateTemplateCreateInfo.PIPELINEBINDPOINT, value); }
     /** Unsafe version of {@link #pipelineLayout(long) pipelineLayout}. */
-    public static void npipelineLayout(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorUpdateTemplateCreateInfo.PIPELINELAYOUT, value); }
+    public static void npipelineLayout(long struct, long value) { memPutLong(struct + VkDescriptorUpdateTemplateCreateInfo.PIPELINELAYOUT, value); }
     /** Unsafe version of {@link #set(int) set}. */
-    public static void nset(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorUpdateTemplateCreateInfo.SET, value); }
+    public static void nset(long struct, int value) { memPutInt(struct + VkDescriptorUpdateTemplateCreateInfo.SET, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -436,6 +434,11 @@ public class VkDescriptorUpdateTemplateCreateInfo extends Struct<VkDescriptorUpd
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

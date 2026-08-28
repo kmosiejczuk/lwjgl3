@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class XrEventDataSpaceQueryResultsAvailableFB extends Struct<XrEventDataS
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataSpaceQueryResultsAvailableFB createSafe(long address) {
+    public static @Nullable XrEventDataSpaceQueryResultsAvailableFB createSafe(long address) {
         return address == NULL ? null : new XrEventDataSpaceQueryResultsAvailableFB(address, null);
     }
 
@@ -203,8 +202,7 @@ public class XrEventDataSpaceQueryResultsAvailableFB extends Struct<XrEventDataS
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataSpaceQueryResultsAvailableFB.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataSpaceQueryResultsAvailableFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,14 +252,14 @@ public class XrEventDataSpaceQueryResultsAvailableFB extends Struct<XrEventDataS
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataSpaceQueryResultsAvailableFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataSpaceQueryResultsAvailableFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataSpaceQueryResultsAvailableFB.NEXT); }
     /** Unsafe version of {@link #requestId}. */
-    public static long nrequestId(long struct) { return UNSAFE.getLong(null, struct + XrEventDataSpaceQueryResultsAvailableFB.REQUESTID); }
+    public static long nrequestId(long struct) { return memGetLong(struct + XrEventDataSpaceQueryResultsAvailableFB.REQUESTID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataSpaceQueryResultsAvailableFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataSpaceQueryResultsAvailableFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataSpaceQueryResultsAvailableFB.NEXT, value); }
 
@@ -296,6 +294,11 @@ public class XrEventDataSpaceQueryResultsAvailableFB extends Struct<XrEventDataS
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

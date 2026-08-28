@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkDescriptorPoolInlineUniformBlockCreateInfo extends Struct<VkDescr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorPoolInlineUniformBlockCreateInfo createSafe(long address) {
+    public static @Nullable VkDescriptorPoolInlineUniformBlockCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkDescriptorPoolInlineUniformBlockCreateInfo(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkDescriptorPoolInlineUniformBlockCreateInfo extends Struct<VkDescr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorPoolInlineUniformBlockCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorPoolInlineUniformBlockCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,18 +240,18 @@ public class VkDescriptorPoolInlineUniformBlockCreateInfo extends Struct<VkDescr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorPoolInlineUniformBlockCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.PNEXT); }
     /** Unsafe version of {@link #maxInlineUniformBlockBindings}. */
-    public static int nmaxInlineUniformBlockBindings(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorPoolInlineUniformBlockCreateInfo.MAXINLINEUNIFORMBLOCKBINDINGS); }
+    public static int nmaxInlineUniformBlockBindings(long struct) { return memGetInt(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.MAXINLINEUNIFORMBLOCKBINDINGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorPoolInlineUniformBlockCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #maxInlineUniformBlockBindings(int) maxInlineUniformBlockBindings}. */
-    public static void nmaxInlineUniformBlockBindings(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorPoolInlineUniformBlockCreateInfo.MAXINLINEUNIFORMBLOCKBINDINGS, value); }
+    public static void nmaxInlineUniformBlockBindings(long struct, int value) { memPutInt(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.MAXINLINEUNIFORMBLOCKBINDINGS, value); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class VkDescriptorPoolInlineUniformBlockCreateInfo extends Struct<VkDescr
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -120,8 +120,7 @@ public class CUkernelNodeAttrValue extends Struct<CUkernelNodeAttrValue> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUkernelNodeAttrValue createSafe(long address) {
+    public static @Nullable CUkernelNodeAttrValue createSafe(long address) {
         return address == NULL ? null : new CUkernelNodeAttrValue(address, null);
     }
 
@@ -164,8 +163,7 @@ public class CUkernelNodeAttrValue extends Struct<CUkernelNodeAttrValue> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUkernelNodeAttrValue.Buffer createSafe(long address, int capacity) {
+    public static CUkernelNodeAttrValue.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -212,12 +210,12 @@ public class CUkernelNodeAttrValue extends Struct<CUkernelNodeAttrValue> impleme
     /** Unsafe version of {@link #accessPolicyWindow}. */
     public static CUaccessPolicyWindow naccessPolicyWindow(long struct) { return CUaccessPolicyWindow.create(struct + CUkernelNodeAttrValue.ACCESSPOLICYWINDOW); }
     /** Unsafe version of {@link #cooperative}. */
-    public static int ncooperative(long struct) { return UNSAFE.getInt(null, struct + CUkernelNodeAttrValue.COOPERATIVE); }
+    public static int ncooperative(long struct) { return memGetInt(struct + CUkernelNodeAttrValue.COOPERATIVE); }
 
     /** Unsafe version of {@link #accessPolicyWindow(CUaccessPolicyWindow) accessPolicyWindow}. */
     public static void naccessPolicyWindow(long struct, CUaccessPolicyWindow value) { memCopy(value.address(), struct + CUkernelNodeAttrValue.ACCESSPOLICYWINDOW, CUaccessPolicyWindow.SIZEOF); }
     /** Unsafe version of {@link #cooperative(int) cooperative}. */
-    public static void ncooperative(long struct, int value) { UNSAFE.putInt(null, struct + CUkernelNodeAttrValue.COOPERATIVE, value); }
+    public static void ncooperative(long struct, int value) { memPutInt(struct + CUkernelNodeAttrValue.COOPERATIVE, value); }
 
     // -----------------------------------
 
@@ -250,6 +248,11 @@ public class CUkernelNodeAttrValue extends Struct<CUkernelNodeAttrValue> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

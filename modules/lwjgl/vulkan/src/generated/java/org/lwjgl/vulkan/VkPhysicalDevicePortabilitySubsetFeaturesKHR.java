@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,10 +150,10 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct<VkPhysi
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether this implementation supports constant <em>alpha</em> <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-blendfactors">Blend Factors</a> used as source or destination <em>color</em> <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-blending">Blending</a>. */
+    /** indicates whether this implementation supports constant <em>alpha</em> <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#framebuffer-blendfactors">Blend Factors</a> used as source or destination <em>color</em> <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#framebuffer-blending">Blending</a>. */
     @NativeType("VkBool32")
     public boolean constantAlphaColorBlendFactors() { return nconstantAlphaColorBlendFactors(address()) != 0; }
-    /** indicates whether this implementation supports synchronization using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-events">Events</a>. */
+    /** indicates whether this implementation supports synchronization using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-events">Events</a>. */
     @NativeType("VkBool32")
     public boolean events() { return nevents(address()) != 0; }
     /** indicates whether this implementation supports a {@code VkImageView} being created with a texel format containing a different number of components, or a different number of bits in each component, than the texel format of the underlying {@code VkImage}. */
@@ -168,28 +168,28 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct<VkPhysi
     /** indicates whether this implementation supports a {@code VkImage} being created as a 2D array with multiple samples per texel. */
     @NativeType("VkBool32")
     public boolean multisampleArrayImage() { return nmultisampleArrayImage(address()) != 0; }
-    /** indicates whether this implementation allows descriptors with comparison samplers to be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates">updated</a>. */
+    /** indicates whether this implementation allows descriptors with comparison samplers to be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-updates">updated</a>. */
     @NativeType("VkBool32")
     public boolean mutableComparisonSamplers() { return nmutableComparisonSamplers(address()) != 0; }
-    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast">Rasterization</a> using a <em>point</em> <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-polygonmode">Polygon Mode</a>. */
+    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast">Rasterization</a> using a <em>point</em> <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-polygonmode">Polygon Mode</a>. */
     @NativeType("VkBool32")
     public boolean pointPolygons() { return npointPolygons(address()) != 0; }
-    /** indicates whether this implementation supports setting a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-mipLodBias">mipmap LOD bias value</a> when <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers">creating a sampler</a>. */
+    /** indicates whether this implementation supports setting a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers-mipLodBias">mipmap LOD bias value</a> when <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers">creating a sampler</a>. */
     @NativeType("VkBool32")
     public boolean samplerMipLodBias() { return nsamplerMipLodBias(address()) != 0; }
-    /** indicates whether this implementation supports separate front and back <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-stencil">Stencil Test</a> reference values. */
+    /** indicates whether this implementation supports separate front and back <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-stencil">Stencil Test</a> reference values. */
     @NativeType("VkBool32")
     public boolean separateStencilMaskRef() { return nseparateStencilMaskRef(address()) != 0; }
-    /** indicates whether this implementation supports fragment shaders which use the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities-table-InterpolationFunction">{@code InterpolationFunction}</a> capability and the extended instructions {@code InterpolateAtCentroid}, {@code InterpolateAtOffset}, and {@code InterpolateAtSample} from the {@code GLSL.std.450} extended instruction set. This member is only meaningful if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sampleRateShading">{@code sampleRateShading}</a> feature is supported. */
+    /** indicates whether this implementation supports fragment shaders which use the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirvenv-capabilities-table-InterpolationFunction">{@code InterpolationFunction}</a> capability and the extended instructions {@code InterpolateAtCentroid}, {@code InterpolateAtOffset}, and {@code InterpolateAtSample} from the {@code GLSL.std.450} extended instruction set. This member is only meaningful if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-sampleRateShading">{@code sampleRateShading}</a> feature is supported. */
     @NativeType("VkBool32")
     public boolean shaderSampleRateInterpolationFunctions() { return nshaderSampleRateInterpolationFunctions(address()) != 0; }
-    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation-isoline-tessellation">isoline output</a> from the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">Tessellation</a> stage of a graphics pipeline. This member is only meaningful if <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> are supported. */
+    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#tessellation-isoline-tessellation">isoline output</a> from the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#tessellation">Tessellation</a> stage of a graphics pipeline. This member is only meaningful if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is supported. */
     @NativeType("VkBool32")
     public boolean tessellationIsolines() { return ntessellationIsolines(address()) != 0; }
-    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation-point-mode">point output</a> from the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">Tessellation</a> stage of a graphics pipeline. This member is only meaningful if <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> are supported. */
+    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#tessellation-point-mode">point output</a> from the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#tessellation">Tessellation</a> stage of a graphics pipeline. This member is only meaningful if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is supported. */
     @NativeType("VkBool32")
     public boolean tessellationPointMode() { return ntessellationPointMode(address()) != 0; }
-    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#drawing-triangle-fans">Triangle Fans</a> primitive topology. */
+    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#drawing-triangle-fans">Triangle Fans</a> primitive topology. */
     @NativeType("VkBool32")
     public boolean triangleFans() { return ntriangleFans(address()) != 0; }
     /** indicates whether this implementation supports accessing a vertex input attribute beyond the stride of the corresponding vertex input binding. */
@@ -310,8 +310,7 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePortabilitySubsetFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePortabilitySubsetFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePortabilitySubsetFeaturesKHR(address, null);
     }
 
@@ -354,8 +353,7 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePortabilitySubsetFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePortabilitySubsetFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -400,74 +398,74 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #constantAlphaColorBlendFactors}. */
-    public static int nconstantAlphaColorBlendFactors(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.CONSTANTALPHACOLORBLENDFACTORS); }
+    public static int nconstantAlphaColorBlendFactors(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.CONSTANTALPHACOLORBLENDFACTORS); }
     /** Unsafe version of {@link #events}. */
-    public static int nevents(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.EVENTS); }
+    public static int nevents(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.EVENTS); }
     /** Unsafe version of {@link #imageViewFormatReinterpretation}. */
-    public static int nimageViewFormatReinterpretation(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEWFORMATREINTERPRETATION); }
+    public static int nimageViewFormatReinterpretation(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEWFORMATREINTERPRETATION); }
     /** Unsafe version of {@link #imageViewFormatSwizzle}. */
-    public static int nimageViewFormatSwizzle(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEWFORMATSWIZZLE); }
+    public static int nimageViewFormatSwizzle(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEWFORMATSWIZZLE); }
     /** Unsafe version of {@link #imageView2DOn3DImage}. */
-    public static int nimageView2DOn3DImage(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEW2DON3DIMAGE); }
+    public static int nimageView2DOn3DImage(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEW2DON3DIMAGE); }
     /** Unsafe version of {@link #multisampleArrayImage}. */
-    public static int nmultisampleArrayImage(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.MULTISAMPLEARRAYIMAGE); }
+    public static int nmultisampleArrayImage(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.MULTISAMPLEARRAYIMAGE); }
     /** Unsafe version of {@link #mutableComparisonSamplers}. */
-    public static int nmutableComparisonSamplers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.MUTABLECOMPARISONSAMPLERS); }
+    public static int nmutableComparisonSamplers(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.MUTABLECOMPARISONSAMPLERS); }
     /** Unsafe version of {@link #pointPolygons}. */
-    public static int npointPolygons(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.POINTPOLYGONS); }
+    public static int npointPolygons(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.POINTPOLYGONS); }
     /** Unsafe version of {@link #samplerMipLodBias}. */
-    public static int nsamplerMipLodBias(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SAMPLERMIPLODBIAS); }
+    public static int nsamplerMipLodBias(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SAMPLERMIPLODBIAS); }
     /** Unsafe version of {@link #separateStencilMaskRef}. */
-    public static int nseparateStencilMaskRef(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SEPARATESTENCILMASKREF); }
+    public static int nseparateStencilMaskRef(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SEPARATESTENCILMASKREF); }
     /** Unsafe version of {@link #shaderSampleRateInterpolationFunctions}. */
-    public static int nshaderSampleRateInterpolationFunctions(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SHADERSAMPLERATEINTERPOLATIONFUNCTIONS); }
+    public static int nshaderSampleRateInterpolationFunctions(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SHADERSAMPLERATEINTERPOLATIONFUNCTIONS); }
     /** Unsafe version of {@link #tessellationIsolines}. */
-    public static int ntessellationIsolines(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TESSELLATIONISOLINES); }
+    public static int ntessellationIsolines(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TESSELLATIONISOLINES); }
     /** Unsafe version of {@link #tessellationPointMode}. */
-    public static int ntessellationPointMode(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TESSELLATIONPOINTMODE); }
+    public static int ntessellationPointMode(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TESSELLATIONPOINTMODE); }
     /** Unsafe version of {@link #triangleFans}. */
-    public static int ntriangleFans(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TRIANGLEFANS); }
+    public static int ntriangleFans(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TRIANGLEFANS); }
     /** Unsafe version of {@link #vertexAttributeAccessBeyondStride}. */
-    public static int nvertexAttributeAccessBeyondStride(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.VERTEXATTRIBUTEACCESSBEYONDSTRIDE); }
+    public static int nvertexAttributeAccessBeyondStride(long struct) { return memGetInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.VERTEXATTRIBUTEACCESSBEYONDSTRIDE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #constantAlphaColorBlendFactors(boolean) constantAlphaColorBlendFactors}. */
-    public static void nconstantAlphaColorBlendFactors(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.CONSTANTALPHACOLORBLENDFACTORS, value); }
+    public static void nconstantAlphaColorBlendFactors(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.CONSTANTALPHACOLORBLENDFACTORS, value); }
     /** Unsafe version of {@link #events(boolean) events}. */
-    public static void nevents(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.EVENTS, value); }
+    public static void nevents(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.EVENTS, value); }
     /** Unsafe version of {@link #imageViewFormatReinterpretation(boolean) imageViewFormatReinterpretation}. */
-    public static void nimageViewFormatReinterpretation(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEWFORMATREINTERPRETATION, value); }
+    public static void nimageViewFormatReinterpretation(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEWFORMATREINTERPRETATION, value); }
     /** Unsafe version of {@link #imageViewFormatSwizzle(boolean) imageViewFormatSwizzle}. */
-    public static void nimageViewFormatSwizzle(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEWFORMATSWIZZLE, value); }
+    public static void nimageViewFormatSwizzle(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEWFORMATSWIZZLE, value); }
     /** Unsafe version of {@link #imageView2DOn3DImage(boolean) imageView2DOn3DImage}. */
-    public static void nimageView2DOn3DImage(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEW2DON3DIMAGE, value); }
+    public static void nimageView2DOn3DImage(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.IMAGEVIEW2DON3DIMAGE, value); }
     /** Unsafe version of {@link #multisampleArrayImage(boolean) multisampleArrayImage}. */
-    public static void nmultisampleArrayImage(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.MULTISAMPLEARRAYIMAGE, value); }
+    public static void nmultisampleArrayImage(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.MULTISAMPLEARRAYIMAGE, value); }
     /** Unsafe version of {@link #mutableComparisonSamplers(boolean) mutableComparisonSamplers}. */
-    public static void nmutableComparisonSamplers(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.MUTABLECOMPARISONSAMPLERS, value); }
+    public static void nmutableComparisonSamplers(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.MUTABLECOMPARISONSAMPLERS, value); }
     /** Unsafe version of {@link #pointPolygons(boolean) pointPolygons}. */
-    public static void npointPolygons(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.POINTPOLYGONS, value); }
+    public static void npointPolygons(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.POINTPOLYGONS, value); }
     /** Unsafe version of {@link #samplerMipLodBias(boolean) samplerMipLodBias}. */
-    public static void nsamplerMipLodBias(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SAMPLERMIPLODBIAS, value); }
+    public static void nsamplerMipLodBias(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SAMPLERMIPLODBIAS, value); }
     /** Unsafe version of {@link #separateStencilMaskRef(boolean) separateStencilMaskRef}. */
-    public static void nseparateStencilMaskRef(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SEPARATESTENCILMASKREF, value); }
+    public static void nseparateStencilMaskRef(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SEPARATESTENCILMASKREF, value); }
     /** Unsafe version of {@link #shaderSampleRateInterpolationFunctions(boolean) shaderSampleRateInterpolationFunctions}. */
-    public static void nshaderSampleRateInterpolationFunctions(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SHADERSAMPLERATEINTERPOLATIONFUNCTIONS, value); }
+    public static void nshaderSampleRateInterpolationFunctions(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.SHADERSAMPLERATEINTERPOLATIONFUNCTIONS, value); }
     /** Unsafe version of {@link #tessellationIsolines(boolean) tessellationIsolines}. */
-    public static void ntessellationIsolines(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TESSELLATIONISOLINES, value); }
+    public static void ntessellationIsolines(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TESSELLATIONISOLINES, value); }
     /** Unsafe version of {@link #tessellationPointMode(boolean) tessellationPointMode}. */
-    public static void ntessellationPointMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TESSELLATIONPOINTMODE, value); }
+    public static void ntessellationPointMode(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TESSELLATIONPOINTMODE, value); }
     /** Unsafe version of {@link #triangleFans(boolean) triangleFans}. */
-    public static void ntriangleFans(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TRIANGLEFANS, value); }
+    public static void ntriangleFans(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.TRIANGLEFANS, value); }
     /** Unsafe version of {@link #vertexAttributeAccessBeyondStride(boolean) vertexAttributeAccessBeyondStride}. */
-    public static void nvertexAttributeAccessBeyondStride(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.VERTEXATTRIBUTEACCESSBEYONDSTRIDE, value); }
+    public static void nvertexAttributeAccessBeyondStride(long struct, int value) { memPutInt(struct + VkPhysicalDevicePortabilitySubsetFeaturesKHR.VERTEXATTRIBUTEACCESSBEYONDSTRIDE, value); }
 
     // -----------------------------------
 
@@ -500,6 +498,11 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct<VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

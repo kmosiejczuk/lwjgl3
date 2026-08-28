@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -116,8 +116,7 @@ public class FTC_Scaler extends Struct<FTC_Scaler> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FTC_Scaler createSafe(long address) {
+    public static @Nullable FTC_Scaler createSafe(long address) {
         return address == NULL ? null : new FTC_Scaler(address, null);
     }
 
@@ -132,8 +131,7 @@ public class FTC_Scaler extends Struct<FTC_Scaler> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FTC_Scaler.Buffer createSafe(long address, int capacity) {
+    public static FTC_Scaler.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -142,15 +140,15 @@ public class FTC_Scaler extends Struct<FTC_Scaler> {
     /** Unsafe version of {@link #face_id}. */
     public static long nface_id(long struct) { return memGetAddress(struct + FTC_Scaler.FACE_ID); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + FTC_Scaler.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + FTC_Scaler.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + FTC_Scaler.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + FTC_Scaler.HEIGHT); }
     /** Unsafe version of {@link #pixel}. */
-    public static int npixel(long struct) { return UNSAFE.getInt(null, struct + FTC_Scaler.PIXEL); }
+    public static int npixel(long struct) { return memGetInt(struct + FTC_Scaler.PIXEL); }
     /** Unsafe version of {@link #x_res}. */
-    public static int nx_res(long struct) { return UNSAFE.getInt(null, struct + FTC_Scaler.X_RES); }
+    public static int nx_res(long struct) { return memGetInt(struct + FTC_Scaler.X_RES); }
     /** Unsafe version of {@link #y_res}. */
-    public static int ny_res(long struct) { return UNSAFE.getInt(null, struct + FTC_Scaler.Y_RES); }
+    public static int ny_res(long struct) { return memGetInt(struct + FTC_Scaler.Y_RES); }
 
     // -----------------------------------
 
@@ -183,6 +181,11 @@ public class FTC_Scaler extends Struct<FTC_Scaler> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

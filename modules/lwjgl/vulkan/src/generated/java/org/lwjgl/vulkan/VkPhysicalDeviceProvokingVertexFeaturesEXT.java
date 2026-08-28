@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the {@link VkPhysicalDeviceProvokingVertexFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceProvokingVertexFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
  * 
- * <p>When {@link VkPhysicalDeviceProvokingVertexFeaturesEXT} is in the {@code pNext} chain of {@link VkDeviceCreateInfo} but the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, the value of {@code transformFeedbackPreservesProvokingVertex} is ignored.</p>
+ * <p>When {@link VkPhysicalDeviceProvokingVertexFeaturesEXT} is in the {@code pNext} chain of {@link VkDeviceCreateInfo} but the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, the value of {@code transformFeedbackPreservesProvokingVertex} is ignored.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -103,7 +103,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
     /** indicates whether the implementation supports the {@link EXTProvokingVertex#VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT} provoking vertex mode ({@code VkProvokingVertexModeEXT}) for flat shading. */
     @NativeType("VkBool32")
     public boolean provokingVertexLast() { return nprovokingVertexLast(address()) != 0; }
-    /** indicates that the order of vertices within each primitive written by transform feedback will preserve the provoking vertex. This does not apply to triangle fan primitives when <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-transformFeedbackPreservesTriangleFanProvokingVertex">{@code transformFeedbackPreservesTriangleFanProvokingVertex}</a> is {@link VK10#VK_FALSE FALSE}. {@code transformFeedbackPreservesProvokingVertex} <b>must</b> be {@link VK10#VK_FALSE FALSE} when the {@link EXTTransformFeedback VK_EXT_transform_feedback} extension is not supported. */
+    /** indicates that the order of vertices within each primitive written by transform feedback will preserve the provoking vertex. This does not apply to triangle fan primitives when <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-transformFeedbackPreservesTriangleFanProvokingVertex">{@code transformFeedbackPreservesTriangleFanProvokingVertex}</a> is {@link VK10#VK_FALSE FALSE}. {@code transformFeedbackPreservesProvokingVertex} <b>must</b> be {@link VK10#VK_FALSE FALSE} when the {@link EXTTransformFeedback VK_EXT_transform_feedback} extension is not supported. */
     @NativeType("VkBool32")
     public boolean transformFeedbackPreservesProvokingVertex() { return ntransformFeedbackPreservesProvokingVertex(address()) != 0; }
 
@@ -169,8 +169,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceProvokingVertexFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceProvokingVertexFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceProvokingVertexFeaturesEXT(address, null);
     }
 
@@ -213,8 +212,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceProvokingVertexFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceProvokingVertexFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,22 +257,22 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #provokingVertexLast}. */
-    public static int nprovokingVertexLast(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PROVOKINGVERTEXLAST); }
+    public static int nprovokingVertexLast(long struct) { return memGetInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PROVOKINGVERTEXLAST); }
     /** Unsafe version of {@link #transformFeedbackPreservesProvokingVertex}. */
-    public static int ntransformFeedbackPreservesProvokingVertex(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.TRANSFORMFEEDBACKPRESERVESPROVOKINGVERTEX); }
+    public static int ntransformFeedbackPreservesProvokingVertex(long struct) { return memGetInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.TRANSFORMFEEDBACKPRESERVESPROVOKINGVERTEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #provokingVertexLast(boolean) provokingVertexLast}. */
-    public static void nprovokingVertexLast(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PROVOKINGVERTEXLAST, value); }
+    public static void nprovokingVertexLast(long struct, int value) { memPutInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PROVOKINGVERTEXLAST, value); }
     /** Unsafe version of {@link #transformFeedbackPreservesProvokingVertex(boolean) transformFeedbackPreservesProvokingVertex}. */
-    public static void ntransformFeedbackPreservesProvokingVertex(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.TRANSFORMFEEDBACKPRESERVESPROVOKINGVERTEX, value); }
+    public static void ntransformFeedbackPreservesProvokingVertex(long struct, int value) { memPutInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.TRANSFORMFEEDBACKPRESERVESPROVOKINGVERTEX, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

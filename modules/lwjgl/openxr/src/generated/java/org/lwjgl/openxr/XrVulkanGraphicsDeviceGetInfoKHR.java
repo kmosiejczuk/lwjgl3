@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -173,8 +173,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVulkanGraphicsDeviceGetInfoKHR createSafe(long address) {
+    public static @Nullable XrVulkanGraphicsDeviceGetInfoKHR createSafe(long address) {
         return address == NULL ? null : new XrVulkanGraphicsDeviceGetInfoKHR(address, null);
     }
 
@@ -217,8 +216,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVulkanGraphicsDeviceGetInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static XrVulkanGraphicsDeviceGetInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,20 +261,20 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVulkanGraphicsDeviceGetInfoKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVulkanGraphicsDeviceGetInfoKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVulkanGraphicsDeviceGetInfoKHR.NEXT); }
     /** Unsafe version of {@link #systemId}. */
-    public static long nsystemId(long struct) { return UNSAFE.getLong(null, struct + XrVulkanGraphicsDeviceGetInfoKHR.SYSTEMID); }
+    public static long nsystemId(long struct) { return memGetLong(struct + XrVulkanGraphicsDeviceGetInfoKHR.SYSTEMID); }
     /** Unsafe version of {@link #vulkanInstance}. */
     public static long nvulkanInstance(long struct) { return memGetAddress(struct + XrVulkanGraphicsDeviceGetInfoKHR.VULKANINSTANCE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVulkanGraphicsDeviceGetInfoKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVulkanGraphicsDeviceGetInfoKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVulkanGraphicsDeviceGetInfoKHR.NEXT, value); }
     /** Unsafe version of {@link #systemId(long) systemId}. */
-    public static void nsystemId(long struct, long value) { UNSAFE.putLong(null, struct + XrVulkanGraphicsDeviceGetInfoKHR.SYSTEMID, value); }
+    public static void nsystemId(long struct, long value) { memPutLong(struct + XrVulkanGraphicsDeviceGetInfoKHR.SYSTEMID, value); }
     /** Unsafe version of {@link #vulkanInstance(VkInstance) vulkanInstance}. */
     public static void nvulkanInstance(long struct, VkInstance value) { memPutAddress(struct + XrVulkanGraphicsDeviceGetInfoKHR.VULKANINSTANCE, value.address()); }
 
@@ -320,6 +318,11 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

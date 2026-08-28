@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -90,8 +90,7 @@ public class XTimeCoord extends Struct<XTimeCoord> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XTimeCoord createSafe(long address) {
+    public static @Nullable XTimeCoord createSafe(long address) {
         return address == NULL ? null : new XTimeCoord(address, null);
     }
 
@@ -106,8 +105,7 @@ public class XTimeCoord extends Struct<XTimeCoord> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XTimeCoord.Buffer createSafe(long address, int capacity) {
+    public static XTimeCoord.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -116,9 +114,9 @@ public class XTimeCoord extends Struct<XTimeCoord> {
     /** Unsafe version of {@link #time}. */
     public static long ntime(long struct) { return memGetCLong(struct + XTimeCoord.TIME); }
     /** Unsafe version of {@link #x}. */
-    public static short nx(long struct) { return UNSAFE.getShort(null, struct + XTimeCoord.X); }
+    public static short nx(long struct) { return memGetShort(struct + XTimeCoord.X); }
     /** Unsafe version of {@link #y}. */
-    public static short ny(long struct) { return UNSAFE.getShort(null, struct + XTimeCoord.Y); }
+    public static short ny(long struct) { return memGetShort(struct + XTimeCoord.Y); }
 
     // -----------------------------------
 
@@ -151,6 +149,11 @@ public class XTimeCoord extends Struct<XTimeCoord> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

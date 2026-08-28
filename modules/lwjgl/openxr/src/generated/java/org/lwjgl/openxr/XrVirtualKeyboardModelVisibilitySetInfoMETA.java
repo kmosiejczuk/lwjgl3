@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class XrVirtualKeyboardModelVisibilitySetInfoMETA extends Struct<XrVirtua
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardModelVisibilitySetInfoMETA createSafe(long address) {
+    public static @Nullable XrVirtualKeyboardModelVisibilitySetInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrVirtualKeyboardModelVisibilitySetInfoMETA(address, null);
     }
 
@@ -202,8 +201,7 @@ public class XrVirtualKeyboardModelVisibilitySetInfoMETA extends Struct<XrVirtua
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardModelVisibilitySetInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrVirtualKeyboardModelVisibilitySetInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +246,18 @@ public class XrVirtualKeyboardModelVisibilitySetInfoMETA extends Struct<XrVirtua
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.NEXT); }
     /** Unsafe version of {@link #visible}. */
-    public static int nvisible(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.VISIBLE); }
+    public static int nvisible(long struct) { return memGetInt(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.VISIBLE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #visible(boolean) visible}. */
-    public static void nvisible(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.VISIBLE, value); }
+    public static void nvisible(long struct, int value) { memPutInt(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.VISIBLE, value); }
 
     // -----------------------------------
 
@@ -292,6 +290,11 @@ public class XrVirtualKeyboardModelVisibilitySetInfoMETA extends Struct<XrVirtua
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,6 +18,17 @@ import static org.lwjgl.system.MemoryStack.*;
 
 /**
  * Structure specifying sparse image opaque memory bind information.
+ * 
+ * <h5>Description</h5>
+ * 
+ * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+ * 
+ * <p>This structure is normally used to bind memory to fully-resident sparse images or for mip tail regions of partially resident images. However, it <b>can</b> also be used to bind memory for the entire binding range of partially resident images.</p>
+ * 
+ * <p>If the {@code pBinds}[i].flags of an element <em>i</em> of {@code pBinds} does not contain {@link VK10#VK_SPARSE_MEMORY_BIND_METADATA_BIT SPARSE_MEMORY_BIND_METADATA_BIT}, the {@code resourceOffset} is in the range <code>[0, {@link VkMemoryRequirements}::size)</code>, This range includes data from all aspects of the image, including metadata. For most implementations this will probably mean that the {@code resourceOffset} is a simple device address offset within the resource. It is possible for an application to bind a range of memory that includes both resource data and metadata. However, the application would not know what part of the image the memory is used for, or if any range is being used for metadata.</p>
+ * 
+ * <p>If the {@code pBinds}[i].flags of an element <em>i</em> of {@code pBinds} contains {@link VK10#VK_SPARSE_MEMORY_BIND_METADATA_BIT SPARSE_MEMORY_BIND_METADATA_BIT}, the binding range specified <b>must</b> be within the mip tail region of the metadata aspect. In this case the {@code resourceOffset} is not <b>required</b> to be a simple device address offset within the resource. However, it <em>is</em> defined to be within <code>[imageMipTailOffset, imageMipTailOffset + imageMipTailSize)</code> for the metadata aspect. See {@link VkSparseMemoryBind} for the full constraints on binding region with this flag present.</p>
+ * </div>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -159,8 +170,7 @@ public class VkSparseImageOpaqueMemoryBindInfo extends Struct<VkSparseImageOpaqu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageOpaqueMemoryBindInfo createSafe(long address) {
+    public static @Nullable VkSparseImageOpaqueMemoryBindInfo createSafe(long address) {
         return address == NULL ? null : new VkSparseImageOpaqueMemoryBindInfo(address, null);
     }
 
@@ -203,8 +213,7 @@ public class VkSparseImageOpaqueMemoryBindInfo extends Struct<VkSparseImageOpaqu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageOpaqueMemoryBindInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSparseImageOpaqueMemoryBindInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,16 +277,16 @@ public class VkSparseImageOpaqueMemoryBindInfo extends Struct<VkSparseImageOpaqu
     // -----------------------------------
 
     /** Unsafe version of {@link #image}. */
-    public static long nimage(long struct) { return UNSAFE.getLong(null, struct + VkSparseImageOpaqueMemoryBindInfo.IMAGE); }
+    public static long nimage(long struct) { return memGetLong(struct + VkSparseImageOpaqueMemoryBindInfo.IMAGE); }
     /** Unsafe version of {@link #bindCount}. */
-    public static int nbindCount(long struct) { return UNSAFE.getInt(null, struct + VkSparseImageOpaqueMemoryBindInfo.BINDCOUNT); }
+    public static int nbindCount(long struct) { return memGetInt(struct + VkSparseImageOpaqueMemoryBindInfo.BINDCOUNT); }
     /** Unsafe version of {@link #pBinds}. */
     public static VkSparseMemoryBind.Buffer npBinds(long struct) { return VkSparseMemoryBind.create(memGetAddress(struct + VkSparseImageOpaqueMemoryBindInfo.PBINDS), nbindCount(struct)); }
 
     /** Unsafe version of {@link #image(long) image}. */
-    public static void nimage(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseImageOpaqueMemoryBindInfo.IMAGE, value); }
+    public static void nimage(long struct, long value) { memPutLong(struct + VkSparseImageOpaqueMemoryBindInfo.IMAGE, value); }
     /** Sets the specified value to the {@code bindCount} field of the specified {@code struct}. */
-    public static void nbindCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSparseImageOpaqueMemoryBindInfo.BINDCOUNT, value); }
+    public static void nbindCount(long struct, int value) { memPutInt(struct + VkSparseImageOpaqueMemoryBindInfo.BINDCOUNT, value); }
     /** Unsafe version of {@link #pBinds(VkSparseMemoryBind.Buffer) pBinds}. */
     public static void npBinds(long struct, VkSparseMemoryBind.Buffer value) { memPutAddress(struct + VkSparseImageOpaqueMemoryBindInfo.PBINDS, value.address()); nbindCount(struct, value.remaining()); }
 
@@ -321,6 +330,11 @@ public class VkSparseImageOpaqueMemoryBindInfo extends Struct<VkSparseImageOpaqu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

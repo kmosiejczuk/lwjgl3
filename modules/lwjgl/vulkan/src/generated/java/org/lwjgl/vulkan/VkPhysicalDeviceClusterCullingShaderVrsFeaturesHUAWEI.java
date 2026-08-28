@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI extends Struc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI extends Struc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,18 +240,18 @@ public class VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI extends Struc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.PNEXT); }
     /** Unsafe version of {@link #clusterShadingRate}. */
-    public static int nclusterShadingRate(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.CLUSTERSHADINGRATE); }
+    public static int nclusterShadingRate(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.CLUSTERSHADINGRATE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.PNEXT, value); }
     /** Unsafe version of {@link #clusterShadingRate(boolean) clusterShadingRate}. */
-    public static void nclusterShadingRate(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.CLUSTERSHADINGRATE, value); }
+    public static void nclusterShadingRate(long struct, int value) { memPutInt(struct + VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI.CLUSTERSHADINGRATE, value); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI extends Struc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

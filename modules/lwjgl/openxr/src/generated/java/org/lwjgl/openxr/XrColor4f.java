@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,8 +161,7 @@ public class XrColor4f extends Struct<XrColor4f> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrColor4f createSafe(long address) {
+    public static @Nullable XrColor4f createSafe(long address) {
         return address == NULL ? null : new XrColor4f(address, null);
     }
 
@@ -205,8 +204,7 @@ public class XrColor4f extends Struct<XrColor4f> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrColor4f.Buffer createSafe(long address, int capacity) {
+    public static XrColor4f.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,22 +249,22 @@ public class XrColor4f extends Struct<XrColor4f> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #r}. */
-    public static float nr(long struct) { return UNSAFE.getFloat(null, struct + XrColor4f.R); }
+    public static float nr(long struct) { return memGetFloat(struct + XrColor4f.R); }
     /** Unsafe version of {@link #g}. */
-    public static float ng(long struct) { return UNSAFE.getFloat(null, struct + XrColor4f.G); }
+    public static float ng(long struct) { return memGetFloat(struct + XrColor4f.G); }
     /** Unsafe version of {@link #b}. */
-    public static float nb(long struct) { return UNSAFE.getFloat(null, struct + XrColor4f.B); }
+    public static float nb(long struct) { return memGetFloat(struct + XrColor4f.B); }
     /** Unsafe version of {@link #a}. */
-    public static float na(long struct) { return UNSAFE.getFloat(null, struct + XrColor4f.A); }
+    public static float na(long struct) { return memGetFloat(struct + XrColor4f.A); }
 
     /** Unsafe version of {@link #r(float) r}. */
-    public static void nr(long struct, float value) { UNSAFE.putFloat(null, struct + XrColor4f.R, value); }
+    public static void nr(long struct, float value) { memPutFloat(struct + XrColor4f.R, value); }
     /** Unsafe version of {@link #g(float) g}. */
-    public static void ng(long struct, float value) { UNSAFE.putFloat(null, struct + XrColor4f.G, value); }
+    public static void ng(long struct, float value) { memPutFloat(struct + XrColor4f.G, value); }
     /** Unsafe version of {@link #b(float) b}. */
-    public static void nb(long struct, float value) { UNSAFE.putFloat(null, struct + XrColor4f.B, value); }
+    public static void nb(long struct, float value) { memPutFloat(struct + XrColor4f.B, value); }
     /** Unsafe version of {@link #a(float) a}. */
-    public static void na(long struct, float value) { UNSAFE.putFloat(null, struct + XrColor4f.A, value); }
+    public static void na(long struct, float value) { memPutFloat(struct + XrColor4f.A, value); }
 
     // -----------------------------------
 
@@ -299,6 +297,11 @@ public class XrColor4f extends Struct<XrColor4f> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -29,9 +29,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>Transition from {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR} to {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR}: the presentation engine updates the shared presentable image according to the behavior of {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR}.</li>
  * <li>Transition from {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR} to {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR}: the presentation engine <b>may</b> update the shared presentable image or defer that to its regular refresh cycle, according to the behavior of {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR}.</li>
  * <li>Transition between {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} and {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR}: Images continue to be appended to the same FIFO queue, and the behavior with respect to waiting for vertical blanking period will follow the new mode for current and subsequent images.</li>
- * <li>Transition from {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR} to {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR}: As all prior present requests in the {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR} mode are applied immediately, there are no outstanding present operations in this mode, and current and subsequent images are appended to the FIFO queue and presented according to the new mode.</li>
- * <li>Transition from {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR} to {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR}: Presentation in both modes require waiting for the next vertical blanking period, with {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR} allowing the pending present operation to be replaced by a new one. In this case, the current present operation will replace the pending present operation and is applied according to the new mode.</li>
- * <li>Transition from {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR} to {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR} or {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR}: If the FIFO queue is empty, presentation is done according to the behavior of the new mode. If there are present operations in the FIFO queue, once the last present operation is performed based on the respective vertical blanking period, the current and subsequent updates are applied according to the new mode.</li>
+ * <li>Transition from {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR} to {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR} or {@link EXTPresentModeFifoLatestReady#VK_PRESENT_MODE_FIFO_LATEST_READY_EXT PRESENT_MODE_FIFO_LATEST_READY_EXT} : As all prior present requests in the {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR} mode are applied immediately, there are no outstanding present operations in this mode, and current and subsequent images are appended to the FIFO queue and presented according to the new mode.</li>
+ * <li>Transition from {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR} to {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR} or {@link EXTPresentModeFifoLatestReady#VK_PRESENT_MODE_FIFO_LATEST_READY_EXT PRESENT_MODE_FIFO_LATEST_READY_EXT} : Presentation in FIFO modes require waiting for the next vertical blanking period, with {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR} allowing the pending present operation to be replaced by a new one. In this case, the current present operation will replace the pending present operation and is applied according to the new mode.</li>
+ * <li>Transition from {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR} or {@link EXTPresentModeFifoLatestReady#VK_PRESENT_MODE_FIFO_LATEST_READY_EXT PRESENT_MODE_FIFO_LATEST_READY_EXT} to {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR} or {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR}: If the FIFO queue is empty, presentation is done according to the behavior of the new mode. If there are present operations in the FIFO queue, once the last present operation is performed based on the respective vertical blanking period, the current and subsequent updates are applied according to the new mode.</li>
+ * <li>Transition between {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR}, and {@link EXTPresentModeFifoLatestReady#VK_PRESENT_MODE_FIFO_LATEST_READY_EXT PRESENT_MODE_FIFO_LATEST_READY_EXT}: Images continue to be appended to the same FIFO queue, and the behavior with respect to waiting for vertical blanking period and dequeuing requests will follow the new mode for current and subsequent images.</li>
  * <li>The behavior during transition between any other present modes, if possible, is implementation defined.</li>
  * </ul>
  * 
@@ -39,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code swapchainCount} <b>must</b> be equal to {@link VkPresentInfoKHR}{@code ::swapchainCount}</li>
- * <li>Each entry in {@code pPresentModes} must be a presentation mode specified in {@link VkSwapchainPresentModesCreateInfoEXT}{@code ::pPresentModes} when creating the entry’s corresponding swapchain</li>
+ * <li>Each entry in {@code pPresentModes} <b>must</b> be a presentation mode specified in {@link VkSwapchainPresentModesCreateInfoEXT}{@code ::pPresentModes} when creating the entry’s corresponding swapchain</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -185,8 +186,7 @@ public class VkSwapchainPresentModeInfoEXT extends Struct<VkSwapchainPresentMode
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSwapchainPresentModeInfoEXT createSafe(long address) {
+    public static @Nullable VkSwapchainPresentModeInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkSwapchainPresentModeInfoEXT(address, null);
     }
 
@@ -229,8 +229,7 @@ public class VkSwapchainPresentModeInfoEXT extends Struct<VkSwapchainPresentMode
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSwapchainPresentModeInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSwapchainPresentModeInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,20 +274,20 @@ public class VkSwapchainPresentModeInfoEXT extends Struct<VkSwapchainPresentMode
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainPresentModeInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSwapchainPresentModeInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSwapchainPresentModeInfoEXT.PNEXT); }
     /** Unsafe version of {@link #swapchainCount}. */
-    public static int nswapchainCount(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainPresentModeInfoEXT.SWAPCHAINCOUNT); }
+    public static int nswapchainCount(long struct) { return memGetInt(struct + VkSwapchainPresentModeInfoEXT.SWAPCHAINCOUNT); }
     /** Unsafe version of {@link #pPresentModes() pPresentModes}. */
     public static IntBuffer npPresentModes(long struct) { return memIntBuffer(memGetAddress(struct + VkSwapchainPresentModeInfoEXT.PPRESENTMODES), nswapchainCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainPresentModeInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSwapchainPresentModeInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSwapchainPresentModeInfoEXT.PNEXT, value); }
     /** Sets the specified value to the {@code swapchainCount} field of the specified {@code struct}. */
-    public static void nswapchainCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainPresentModeInfoEXT.SWAPCHAINCOUNT, value); }
+    public static void nswapchainCount(long struct, int value) { memPutInt(struct + VkSwapchainPresentModeInfoEXT.SWAPCHAINCOUNT, value); }
     /** Unsafe version of {@link #pPresentModes(IntBuffer) pPresentModes}. */
     public static void npPresentModes(long struct, IntBuffer value) { memPutAddress(struct + VkSwapchainPresentModeInfoEXT.PPRESENTMODES, memAddress(value)); nswapchainCount(struct, value.remaining()); }
 
@@ -332,6 +331,11 @@ public class VkSwapchainPresentModeInfoEXT extends Struct<VkSwapchainPresentMode
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

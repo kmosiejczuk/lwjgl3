@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,8 +27,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code handleType} <b>must</b> have been included in {@link VkExportFenceCreateInfo}{@code ::handleTypes} when the {@code fence}’s current payload was created</li>
  * <li>If {@code handleType} is defined as an NT handle, {@link KHRExternalFenceWin32#vkGetFenceWin32HandleKHR GetFenceWin32HandleKHR} <b>must</b> be called no more than once for each valid unique combination of {@code fence} and {@code handleType}</li>
- * <li>{@code fence} <b>must</b> not currently have its payload replaced by an imported payload as described below in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-fences-importing">Importing Fence Payloads</a> unless that imported payload’s handle type was included in {@link VkExternalFenceProperties}{@code ::exportFromImportedHandleTypes} for {@code handleType}</li>
- * <li>If {@code handleType} refers to a handle type with copy payload transference semantics, {@code fence} <b>must</b> be signaled, or have an associated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-fences-signaling">fence signal operation</a> pending execution</li>
+ * <li>{@code fence} <b>must</b> not currently have its payload replaced by an imported payload as described below in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-fences-importing">Importing Fence Payloads</a> unless that imported payload’s handle type was included in {@link VkExternalFenceProperties}{@code ::exportFromImportedHandleTypes} for {@code handleType}</li>
+ * <li>If {@code handleType} refers to a handle type with copy payload transference semantics, {@code fence} <b>must</b> be signaled, or have an associated <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-fences-signaling">fence signal operation</a> pending execution</li>
  * <li>{@code handleType} <b>must</b> be defined as an NT handle or a global share handle</li>
  * </ul>
  * 
@@ -184,8 +184,7 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFenceGetWin32HandleInfoKHR createSafe(long address) {
+    public static @Nullable VkFenceGetWin32HandleInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkFenceGetWin32HandleInfoKHR(address, null);
     }
 
@@ -228,8 +227,7 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFenceGetWin32HandleInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkFenceGetWin32HandleInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,22 +291,22 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkFenceGetWin32HandleInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkFenceGetWin32HandleInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkFenceGetWin32HandleInfoKHR.PNEXT); }
     /** Unsafe version of {@link #fence}. */
-    public static long nfence(long struct) { return UNSAFE.getLong(null, struct + VkFenceGetWin32HandleInfoKHR.FENCE); }
+    public static long nfence(long struct) { return memGetLong(struct + VkFenceGetWin32HandleInfoKHR.FENCE); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkFenceGetWin32HandleInfoKHR.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkFenceGetWin32HandleInfoKHR.HANDLETYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkFenceGetWin32HandleInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkFenceGetWin32HandleInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkFenceGetWin32HandleInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #fence(long) fence}. */
-    public static void nfence(long struct, long value) { UNSAFE.putLong(null, struct + VkFenceGetWin32HandleInfoKHR.FENCE, value); }
+    public static void nfence(long struct, long value) { memPutLong(struct + VkFenceGetWin32HandleInfoKHR.FENCE, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkFenceGetWin32HandleInfoKHR.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkFenceGetWin32HandleInfoKHR.HANDLETYPE, value); }
 
     // -----------------------------------
 
@@ -341,6 +339,11 @@ public class VkFenceGetWin32HandleInfoKHR extends Struct<VkFenceGetWin32HandleIn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -148,8 +148,7 @@ public class XrSystemGraphicsProperties extends Struct<XrSystemGraphicsPropertie
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemGraphicsProperties createSafe(long address) {
+    public static @Nullable XrSystemGraphicsProperties createSafe(long address) {
         return address == NULL ? null : new XrSystemGraphicsProperties(address, null);
     }
 
@@ -192,8 +191,7 @@ public class XrSystemGraphicsProperties extends Struct<XrSystemGraphicsPropertie
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemGraphicsProperties.Buffer createSafe(long address, int capacity) {
+    public static XrSystemGraphicsProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -238,18 +236,18 @@ public class XrSystemGraphicsProperties extends Struct<XrSystemGraphicsPropertie
     // -----------------------------------
 
     /** Unsafe version of {@link #maxSwapchainImageHeight}. */
-    public static int nmaxSwapchainImageHeight(long struct) { return UNSAFE.getInt(null, struct + XrSystemGraphicsProperties.MAXSWAPCHAINIMAGEHEIGHT); }
+    public static int nmaxSwapchainImageHeight(long struct) { return memGetInt(struct + XrSystemGraphicsProperties.MAXSWAPCHAINIMAGEHEIGHT); }
     /** Unsafe version of {@link #maxSwapchainImageWidth}. */
-    public static int nmaxSwapchainImageWidth(long struct) { return UNSAFE.getInt(null, struct + XrSystemGraphicsProperties.MAXSWAPCHAINIMAGEWIDTH); }
+    public static int nmaxSwapchainImageWidth(long struct) { return memGetInt(struct + XrSystemGraphicsProperties.MAXSWAPCHAINIMAGEWIDTH); }
     /** Unsafe version of {@link #maxLayerCount}. */
-    public static int nmaxLayerCount(long struct) { return UNSAFE.getInt(null, struct + XrSystemGraphicsProperties.MAXLAYERCOUNT); }
+    public static int nmaxLayerCount(long struct) { return memGetInt(struct + XrSystemGraphicsProperties.MAXLAYERCOUNT); }
 
     /** Unsafe version of {@link #maxSwapchainImageHeight(int) maxSwapchainImageHeight}. */
-    public static void nmaxSwapchainImageHeight(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemGraphicsProperties.MAXSWAPCHAINIMAGEHEIGHT, value); }
+    public static void nmaxSwapchainImageHeight(long struct, int value) { memPutInt(struct + XrSystemGraphicsProperties.MAXSWAPCHAINIMAGEHEIGHT, value); }
     /** Unsafe version of {@link #maxSwapchainImageWidth(int) maxSwapchainImageWidth}. */
-    public static void nmaxSwapchainImageWidth(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemGraphicsProperties.MAXSWAPCHAINIMAGEWIDTH, value); }
+    public static void nmaxSwapchainImageWidth(long struct, int value) { memPutInt(struct + XrSystemGraphicsProperties.MAXSWAPCHAINIMAGEWIDTH, value); }
     /** Unsafe version of {@link #maxLayerCount(int) maxLayerCount}. */
-    public static void nmaxLayerCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemGraphicsProperties.MAXLAYERCOUNT, value); }
+    public static void nmaxLayerCount(long struct, int value) { memPutInt(struct + XrSystemGraphicsProperties.MAXLAYERCOUNT, value); }
 
     // -----------------------------------
 
@@ -282,6 +280,11 @@ public class XrSystemGraphicsProperties extends Struct<XrSystemGraphicsPropertie
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

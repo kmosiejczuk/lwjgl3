@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,9 +24,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Each micromap triangle refers to one element in {@code triangleArray} which contains the {@code format} and {@code subdivisionLevel} for that particular triangle as well as a {@code dataOffset} in bytes which is the location relative to {@code data} where that triangle’s micromap data begins. The data at {@code triangleArray} is laid out as a 4 byte unsigned integer for the {@code dataOffset} followed by a 2 byte unsigned integer for the subdivision level then a 2 byte unsigned integer for the format. In practice, compilers compile {@link VkMicromapTriangleEXT} to match this pattern.</p>
  * 
- * <p>For opacity micromaps, the data at {@code data} is packed as either one bit per element for {@link EXTOpacityMicromap#VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT OPACITY_MICROMAP_FORMAT_2_STATE_EXT} or two bits per element for {@link EXTOpacityMicromap#VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT OPACITY_MICROMAP_FORMAT_4_STATE_EXT} and is packed from LSB to MSB in each byte. The data at each index in those bytes is interpreted as discussed in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#ray-opacity-micromap">Ray Opacity Micromap</a>.</p>
+ * <p>For opacity micromaps, the data at {@code data} is packed as either one bit per element for {@link EXTOpacityMicromap#VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT OPACITY_MICROMAP_FORMAT_2_STATE_EXT} or two bits per element for {@link EXTOpacityMicromap#VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT OPACITY_MICROMAP_FORMAT_4_STATE_EXT} and is packed from LSB to MSB in each byte. The data at each index in those bytes is interpreted as discussed in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#ray-opacity-micromap">Ray Opacity Micromap</a>.</p>
  * 
- * <p>For displacement micromaps, the data at {@code data} is interpreted as discussed in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#displacement-micromap-encoding">Displacement Micromap Encoding</a>.</p>
+ * <p>For displacement micromaps, the data at {@code data} is interpreted as discussed in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#displacement-micromap-encoding">Displacement Micromap Encoding</a>.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -175,13 +175,11 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     @NativeType("uint32_t")
     public int usageCountsCount() { return nusageCountsCount(address()); }
     /** a pointer to an array of {@link VkMicromapUsageEXT} structures. */
-    @Nullable
     @NativeType("VkMicromapUsageEXT const *")
-    public VkMicromapUsageEXT.Buffer pUsageCounts() { return npUsageCounts(address()); }
+    public VkMicromapUsageEXT.@Nullable Buffer pUsageCounts() { return npUsageCounts(address()); }
     /** a pointer to an array of pointers to {@link VkMicromapUsageEXT} structures. */
-    @Nullable
     @NativeType("VkMicromapUsageEXT const * const *")
-    public PointerBuffer ppUsageCounts() { return nppUsageCounts(address()); }
+    public @Nullable PointerBuffer ppUsageCounts() { return nppUsageCounts(address()); }
     /** the device or host address to memory which contains the data for the micromap. */
     public VkDeviceOrHostAddressConstKHR data() { return ndata(address()); }
     /** the device or host address to memory that will be used as scratch memory for the build. */
@@ -209,7 +207,7 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     /** Sets the specified value to the {@link #usageCountsCount} field. */
     public VkMicromapBuildInfoEXT usageCountsCount(@NativeType("uint32_t") int value) { nusageCountsCount(address(), value); return this; }
     /** Sets the address of the specified {@link VkMicromapUsageEXT.Buffer} to the {@link #pUsageCounts} field. */
-    public VkMicromapBuildInfoEXT pUsageCounts(@Nullable @NativeType("VkMicromapUsageEXT const *") VkMicromapUsageEXT.Buffer value) { npUsageCounts(address(), value); return this; }
+    public VkMicromapBuildInfoEXT pUsageCounts(@NativeType("VkMicromapUsageEXT const *") VkMicromapUsageEXT.@Nullable Buffer value) { npUsageCounts(address(), value); return this; }
     /** Sets the address of the specified {@link PointerBuffer} to the {@link #ppUsageCounts} field. */
     public VkMicromapBuildInfoEXT ppUsageCounts(@Nullable @NativeType("VkMicromapUsageEXT const * const *") PointerBuffer value) { nppUsageCounts(address(), value); return this; }
     /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@link #data} field. */
@@ -236,7 +234,7 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
         int mode,
         long dstMicromap,
         int usageCountsCount,
-        @Nullable VkMicromapUsageEXT.Buffer pUsageCounts,
+        VkMicromapUsageEXT.@Nullable Buffer pUsageCounts,
         @Nullable PointerBuffer ppUsageCounts,
         VkDeviceOrHostAddressConstKHR data,
         VkDeviceOrHostAddressKHR scratchData,
@@ -296,8 +294,7 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapBuildInfoEXT createSafe(long address) {
+    public static @Nullable VkMicromapBuildInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMicromapBuildInfoEXT(address, null);
     }
 
@@ -340,8 +337,7 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapBuildInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMicromapBuildInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -386,23 +382,23 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMicromapBuildInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMicromapBuildInfoEXT.PNEXT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildInfoEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkMicromapBuildInfoEXT.TYPE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkMicromapBuildInfoEXT.FLAGS); }
     /** Unsafe version of {@link #mode}. */
-    public static int nmode(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildInfoEXT.MODE); }
+    public static int nmode(long struct) { return memGetInt(struct + VkMicromapBuildInfoEXT.MODE); }
     /** Unsafe version of {@link #dstMicromap}. */
-    public static long ndstMicromap(long struct) { return UNSAFE.getLong(null, struct + VkMicromapBuildInfoEXT.DSTMICROMAP); }
+    public static long ndstMicromap(long struct) { return memGetLong(struct + VkMicromapBuildInfoEXT.DSTMICROMAP); }
     /** Unsafe version of {@link #usageCountsCount}. */
-    public static int nusageCountsCount(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildInfoEXT.USAGECOUNTSCOUNT); }
+    public static int nusageCountsCount(long struct) { return memGetInt(struct + VkMicromapBuildInfoEXT.USAGECOUNTSCOUNT); }
     /** Unsafe version of {@link #pUsageCounts}. */
-    @Nullable public static VkMicromapUsageEXT.Buffer npUsageCounts(long struct) { return VkMicromapUsageEXT.createSafe(memGetAddress(struct + VkMicromapBuildInfoEXT.PUSAGECOUNTS), nusageCountsCount(struct)); }
+    public static VkMicromapUsageEXT.@Nullable Buffer npUsageCounts(long struct) { return VkMicromapUsageEXT.createSafe(memGetAddress(struct + VkMicromapBuildInfoEXT.PUSAGECOUNTS), nusageCountsCount(struct)); }
     /** Unsafe version of {@link #ppUsageCounts() ppUsageCounts}. */
-    @Nullable public static PointerBuffer nppUsageCounts(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkMicromapBuildInfoEXT.PPUSAGECOUNTS), nusageCountsCount(struct)); }
+    public static @Nullable PointerBuffer nppUsageCounts(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkMicromapBuildInfoEXT.PPUSAGECOUNTS), nusageCountsCount(struct)); }
     /** Unsafe version of {@link #data}. */
     public static VkDeviceOrHostAddressConstKHR ndata(long struct) { return VkDeviceOrHostAddressConstKHR.create(struct + VkMicromapBuildInfoEXT.DATA); }
     /** Unsafe version of {@link #scratchData}. */
@@ -410,24 +406,24 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     /** Unsafe version of {@link #triangleArray}. */
     public static VkDeviceOrHostAddressConstKHR ntriangleArray(long struct) { return VkDeviceOrHostAddressConstKHR.create(struct + VkMicromapBuildInfoEXT.TRIANGLEARRAY); }
     /** Unsafe version of {@link #triangleArrayStride}. */
-    public static long ntriangleArrayStride(long struct) { return UNSAFE.getLong(null, struct + VkMicromapBuildInfoEXT.TRIANGLEARRAYSTRIDE); }
+    public static long ntriangleArrayStride(long struct) { return memGetLong(struct + VkMicromapBuildInfoEXT.TRIANGLEARRAYSTRIDE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMicromapBuildInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMicromapBuildInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildInfoEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkMicromapBuildInfoEXT.TYPE, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkMicromapBuildInfoEXT.FLAGS, value); }
     /** Unsafe version of {@link #mode(int) mode}. */
-    public static void nmode(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildInfoEXT.MODE, value); }
+    public static void nmode(long struct, int value) { memPutInt(struct + VkMicromapBuildInfoEXT.MODE, value); }
     /** Unsafe version of {@link #dstMicromap(long) dstMicromap}. */
-    public static void ndstMicromap(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapBuildInfoEXT.DSTMICROMAP, value); }
+    public static void ndstMicromap(long struct, long value) { memPutLong(struct + VkMicromapBuildInfoEXT.DSTMICROMAP, value); }
     /** Sets the specified value to the {@code usageCountsCount} field of the specified {@code struct}. */
-    public static void nusageCountsCount(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildInfoEXT.USAGECOUNTSCOUNT, value); }
+    public static void nusageCountsCount(long struct, int value) { memPutInt(struct + VkMicromapBuildInfoEXT.USAGECOUNTSCOUNT, value); }
     /** Unsafe version of {@link #pUsageCounts(VkMicromapUsageEXT.Buffer) pUsageCounts}. */
-    public static void npUsageCounts(long struct, @Nullable VkMicromapUsageEXT.Buffer value) { memPutAddress(struct + VkMicromapBuildInfoEXT.PUSAGECOUNTS, memAddressSafe(value)); }
+    public static void npUsageCounts(long struct, VkMicromapUsageEXT.@Nullable Buffer value) { memPutAddress(struct + VkMicromapBuildInfoEXT.PUSAGECOUNTS, memAddressSafe(value)); }
     /** Unsafe version of {@link #ppUsageCounts(PointerBuffer) ppUsageCounts}. */
     public static void nppUsageCounts(long struct, @Nullable PointerBuffer value) { memPutAddress(struct + VkMicromapBuildInfoEXT.PPUSAGECOUNTS, memAddressSafe(value)); }
     /** Unsafe version of {@link #data(VkDeviceOrHostAddressConstKHR) data}. */
@@ -437,7 +433,7 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     /** Unsafe version of {@link #triangleArray(VkDeviceOrHostAddressConstKHR) triangleArray}. */
     public static void ntriangleArray(long struct, VkDeviceOrHostAddressConstKHR value) { memCopy(value.address(), struct + VkMicromapBuildInfoEXT.TRIANGLEARRAY, VkDeviceOrHostAddressConstKHR.SIZEOF); }
     /** Unsafe version of {@link #triangleArrayStride(long) triangleArrayStride}. */
-    public static void ntriangleArrayStride(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapBuildInfoEXT.TRIANGLEARRAYSTRIDE, value); }
+    public static void ntriangleArrayStride(long struct, long value) { memPutLong(struct + VkMicromapBuildInfoEXT.TRIANGLEARRAYSTRIDE, value); }
 
     // -----------------------------------
 
@@ -473,6 +469,11 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMicromapBuildInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -499,13 +500,11 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
         @NativeType("uint32_t")
         public int usageCountsCount() { return VkMicromapBuildInfoEXT.nusageCountsCount(address()); }
         /** @return a {@link VkMicromapUsageEXT.Buffer} view of the struct array pointed to by the {@link VkMicromapBuildInfoEXT#pUsageCounts} field. */
-        @Nullable
         @NativeType("VkMicromapUsageEXT const *")
-        public VkMicromapUsageEXT.Buffer pUsageCounts() { return VkMicromapBuildInfoEXT.npUsageCounts(address()); }
+        public VkMicromapUsageEXT.@Nullable Buffer pUsageCounts() { return VkMicromapBuildInfoEXT.npUsageCounts(address()); }
         /** @return a {@link PointerBuffer} view of the data pointed to by the {@link VkMicromapBuildInfoEXT#ppUsageCounts} field. */
-        @Nullable
         @NativeType("VkMicromapUsageEXT const * const *")
-        public PointerBuffer ppUsageCounts() { return VkMicromapBuildInfoEXT.nppUsageCounts(address()); }
+        public @Nullable PointerBuffer ppUsageCounts() { return VkMicromapBuildInfoEXT.nppUsageCounts(address()); }
         /** @return a {@link VkDeviceOrHostAddressConstKHR} view of the {@link VkMicromapBuildInfoEXT#data} field. */
         public VkDeviceOrHostAddressConstKHR data() { return VkMicromapBuildInfoEXT.ndata(address()); }
         /** @return a {@link VkDeviceOrHostAddressKHR} view of the {@link VkMicromapBuildInfoEXT#scratchData} field. */
@@ -533,7 +532,7 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
         /** Sets the specified value to the {@link VkMicromapBuildInfoEXT#usageCountsCount} field. */
         public VkMicromapBuildInfoEXT.Buffer usageCountsCount(@NativeType("uint32_t") int value) { VkMicromapBuildInfoEXT.nusageCountsCount(address(), value); return this; }
         /** Sets the address of the specified {@link VkMicromapUsageEXT.Buffer} to the {@link VkMicromapBuildInfoEXT#pUsageCounts} field. */
-        public VkMicromapBuildInfoEXT.Buffer pUsageCounts(@Nullable @NativeType("VkMicromapUsageEXT const *") VkMicromapUsageEXT.Buffer value) { VkMicromapBuildInfoEXT.npUsageCounts(address(), value); return this; }
+        public VkMicromapBuildInfoEXT.Buffer pUsageCounts(@NativeType("VkMicromapUsageEXT const *") VkMicromapUsageEXT.@Nullable Buffer value) { VkMicromapBuildInfoEXT.npUsageCounts(address(), value); return this; }
         /** Sets the address of the specified {@link PointerBuffer} to the {@link VkMicromapBuildInfoEXT#ppUsageCounts} field. */
         public VkMicromapBuildInfoEXT.Buffer ppUsageCounts(@Nullable @NativeType("VkMicromapUsageEXT const * const *") PointerBuffer value) { VkMicromapBuildInfoEXT.nppUsageCounts(address(), value); return this; }
         /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@link VkMicromapBuildInfoEXT#data} field. */

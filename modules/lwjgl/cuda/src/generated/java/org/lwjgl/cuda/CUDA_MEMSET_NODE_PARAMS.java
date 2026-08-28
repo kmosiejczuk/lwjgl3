@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -176,8 +176,7 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_MEMSET_NODE_PARAMS createSafe(long address) {
+    public static @Nullable CUDA_MEMSET_NODE_PARAMS createSafe(long address) {
         return address == NULL ? null : new CUDA_MEMSET_NODE_PARAMS(address, null);
     }
 
@@ -220,8 +219,7 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_MEMSET_NODE_PARAMS.Buffer createSafe(long address, int capacity) {
+    public static CUDA_MEMSET_NODE_PARAMS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,9 +287,9 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
     /** Unsafe version of {@link #pitch}. */
     public static long npitch(long struct) { return memGetAddress(struct + CUDA_MEMSET_NODE_PARAMS.PITCH); }
     /** Unsafe version of {@link #value}. */
-    public static int nvalue(long struct) { return UNSAFE.getInt(null, struct + CUDA_MEMSET_NODE_PARAMS.VALUE); }
+    public static int nvalue(long struct) { return memGetInt(struct + CUDA_MEMSET_NODE_PARAMS.VALUE); }
     /** Unsafe version of {@link #elementSize}. */
-    public static int nelementSize(long struct) { return UNSAFE.getInt(null, struct + CUDA_MEMSET_NODE_PARAMS.ELEMENTSIZE); }
+    public static int nelementSize(long struct) { return memGetInt(struct + CUDA_MEMSET_NODE_PARAMS.ELEMENTSIZE); }
     /** Unsafe version of {@link #width}. */
     public static long nwidth(long struct) { return memGetAddress(struct + CUDA_MEMSET_NODE_PARAMS.WIDTH); }
     /** Unsafe version of {@link #height}. */
@@ -302,9 +300,9 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
     /** Unsafe version of {@link #pitch(long) pitch}. */
     public static void npitch(long struct, long value) { memPutAddress(struct + CUDA_MEMSET_NODE_PARAMS.PITCH, value); }
     /** Unsafe version of {@link #value(int) value}. */
-    public static void nvalue(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_MEMSET_NODE_PARAMS.VALUE, value); }
+    public static void nvalue(long struct, int value) { memPutInt(struct + CUDA_MEMSET_NODE_PARAMS.VALUE, value); }
     /** Unsafe version of {@link #elementSize(int) elementSize}. */
-    public static void nelementSize(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_MEMSET_NODE_PARAMS.ELEMENTSIZE, value); }
+    public static void nelementSize(long struct, int value) { memPutInt(struct + CUDA_MEMSET_NODE_PARAMS.ELEMENTSIZE, value); }
     /** Unsafe version of {@link #width(long) width}. */
     public static void nwidth(long struct, long value) { memPutAddress(struct + CUDA_MEMSET_NODE_PARAMS.WIDTH, value); }
     /** Unsafe version of {@link #height(long) height}. */
@@ -350,6 +348,11 @@ public class CUDA_MEMSET_NODE_PARAMS extends Struct<CUDA_MEMSET_NODE_PARAMS> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opengl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -1027,7 +1027,7 @@ public class GL40 extends GL33 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetActiveSubroutineUniformName">Reference Page</a>
      */
-    public static void glGetActiveSubroutineUniformName(@NativeType("GLuint") int program, @NativeType("GLenum") int shadertype, @NativeType("GLuint") int index, @Nullable @NativeType("GLsizei *") IntBuffer length, @NativeType("GLchar *") ByteBuffer name) {
+    public static void glGetActiveSubroutineUniformName(@NativeType("GLuint") int program, @NativeType("GLenum") int shadertype, @NativeType("GLuint") int index, @NativeType("GLsizei *") @Nullable IntBuffer length, @NativeType("GLchar *") ByteBuffer name) {
         GL40C.glGetActiveSubroutineUniformName(program, shadertype, index, length, name);
     }
 
@@ -1082,7 +1082,7 @@ public class GL40 extends GL33 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetActiveSubroutineName">Reference Page</a>
      */
-    public static void glGetActiveSubroutineName(@NativeType("GLuint") int program, @NativeType("GLenum") int shadertype, @NativeType("GLuint") int index, @Nullable @NativeType("GLsizei *") IntBuffer length, @NativeType("GLchar *") ByteBuffer name) {
+    public static void glGetActiveSubroutineName(@NativeType("GLuint") int program, @NativeType("GLenum") int shadertype, @NativeType("GLuint") int index, @NativeType("GLsizei *") @Nullable IntBuffer length, @NativeType("GLchar *") ByteBuffer name) {
         GL40C.glGetActiveSubroutineName(program, shadertype, index, length, name);
     }
 
@@ -1225,7 +1225,7 @@ public class GL40 extends GL33 {
      * @param pname the name of the parameter to set. Must be:<br><table><tr><td>{@link GL40C#GL_PATCH_VERTICES PATCH_VERTICES}</td></tr></table>
      * @param value the new value for the parameter given by {@code pname}
      * 
-     * @see <a href="https://docs.gl/gl4/glPatchParameteri">Reference Page</a>
+     * @see <a href="https://docs.gl/gl4/glPatchParameter">Reference Page</a>
      */
     public static void glPatchParameteri(@NativeType("GLenum") int pname, @NativeType("GLint") int value) {
         GL40C.glPatchParameteri(pname, value);
@@ -1626,7 +1626,7 @@ public class GL40 extends GL33 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetActiveSubroutineUniformName">Reference Page</a>
      */
-    public static void glGetActiveSubroutineUniformName(@NativeType("GLuint") int program, @NativeType("GLenum") int shadertype, @NativeType("GLuint") int index, @Nullable @NativeType("GLsizei *") int[] length, @NativeType("GLchar *") ByteBuffer name) {
+    public static void glGetActiveSubroutineUniformName(@NativeType("GLuint") int program, @NativeType("GLenum") int shadertype, @NativeType("GLuint") int index, @NativeType("GLsizei *") int @Nullable [] length, @NativeType("GLchar *") ByteBuffer name) {
         GL40C.glGetActiveSubroutineUniformName(program, shadertype, index, length, name);
     }
 
@@ -1635,7 +1635,7 @@ public class GL40 extends GL33 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetActiveSubroutineName">Reference Page</a>
      */
-    public static void glGetActiveSubroutineName(@NativeType("GLuint") int program, @NativeType("GLenum") int shadertype, @NativeType("GLuint") int index, @Nullable @NativeType("GLsizei *") int[] length, @NativeType("GLchar *") ByteBuffer name) {
+    public static void glGetActiveSubroutineName(@NativeType("GLuint") int program, @NativeType("GLenum") int shadertype, @NativeType("GLuint") int index, @NativeType("GLsizei *") int @Nullable [] length, @NativeType("GLchar *") ByteBuffer name) {
         GL40C.glGetActiveSubroutineName(program, shadertype, index, length, name);
     }
 

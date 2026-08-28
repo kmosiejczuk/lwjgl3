@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -100,8 +100,7 @@ public class XrSpaceVelocityData extends Struct<XrSpaceVelocityData> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceVelocityData createSafe(long address) {
+    public static @Nullable XrSpaceVelocityData createSafe(long address) {
         return address == NULL ? null : new XrSpaceVelocityData(address, null);
     }
 
@@ -116,15 +115,14 @@ public class XrSpaceVelocityData extends Struct<XrSpaceVelocityData> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceVelocityData.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceVelocityData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #velocityFlags}. */
-    public static long nvelocityFlags(long struct) { return UNSAFE.getLong(null, struct + XrSpaceVelocityData.VELOCITYFLAGS); }
+    public static long nvelocityFlags(long struct) { return memGetLong(struct + XrSpaceVelocityData.VELOCITYFLAGS); }
     /** Unsafe version of {@link #linearVelocity}. */
     public static XrVector3f nlinearVelocity(long struct) { return XrVector3f.create(struct + XrSpaceVelocityData.LINEARVELOCITY); }
     /** Unsafe version of {@link #angularVelocity}. */
@@ -161,6 +159,11 @@ public class XrSpaceVelocityData extends Struct<XrSpaceVelocityData> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,8 +150,7 @@ public class CXIdxEntityInfo extends Struct<CXIdxEntityInfo> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxEntityInfo createSafe(long address) {
+    public static @Nullable CXIdxEntityInfo createSafe(long address) {
         return address == NULL ? null : new CXIdxEntityInfo(address, null);
     }
 
@@ -194,8 +193,7 @@ public class CXIdxEntityInfo extends Struct<CXIdxEntityInfo> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxEntityInfo.Buffer createSafe(long address, int capacity) {
+    public static CXIdxEntityInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,11 +257,11 @@ public class CXIdxEntityInfo extends Struct<CXIdxEntityInfo> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #kind}. */
-    public static int nkind(long struct) { return UNSAFE.getInt(null, struct + CXIdxEntityInfo.KIND); }
+    public static int nkind(long struct) { return memGetInt(struct + CXIdxEntityInfo.KIND); }
     /** Unsafe version of {@link #templateKind}. */
-    public static int ntemplateKind(long struct) { return UNSAFE.getInt(null, struct + CXIdxEntityInfo.TEMPLATEKIND); }
+    public static int ntemplateKind(long struct) { return memGetInt(struct + CXIdxEntityInfo.TEMPLATEKIND); }
     /** Unsafe version of {@link #lang}. */
-    public static int nlang(long struct) { return UNSAFE.getInt(null, struct + CXIdxEntityInfo.LANG); }
+    public static int nlang(long struct) { return memGetInt(struct + CXIdxEntityInfo.LANG); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBufferNT1(memGetAddress(struct + CXIdxEntityInfo.NAME)); }
     /** Unsafe version of {@link #nameString}. */
@@ -277,7 +275,7 @@ public class CXIdxEntityInfo extends Struct<CXIdxEntityInfo> implements NativeRe
     /** Unsafe version of {@link #attributes() attributes}. */
     public static PointerBuffer nattributes(long struct) { return memPointerBuffer(memGetAddress(struct + CXIdxEntityInfo.ATTRIBUTES), nnumAttributes(struct)); }
     /** Unsafe version of {@link #numAttributes}. */
-    public static int nnumAttributes(long struct) { return UNSAFE.getInt(null, struct + CXIdxEntityInfo.NUMATTRIBUTES); }
+    public static int nnumAttributes(long struct) { return memGetInt(struct + CXIdxEntityInfo.NUMATTRIBUTES); }
 
     // -----------------------------------
 
@@ -310,6 +308,11 @@ public class CXIdxEntityInfo extends Struct<CXIdxEntityInfo> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

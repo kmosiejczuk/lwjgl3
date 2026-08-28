@@ -133,13 +133,14 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
             <li>#PRESENT_MODE_MAILBOX_KHR specifies that the presentation engine waits for the next vertical blanking period to update the current image. Tearing <b>cannot</b> be observed. An internal single-entry queue is used to hold pending presentation requests. If the queue is full when a new presentation request is received, the new request replaces the existing entry, and any images associated with the prior entry become available for reuse by the application. One request is removed from the queue and processed during each vertical blanking period in which the queue is non-empty.</li>
             <li>#PRESENT_MODE_FIFO_KHR specifies that the presentation engine waits for the next vertical blanking period to update the current image. Tearing <b>cannot</b> be observed. An internal queue is used to hold pending presentation requests. New requests are appended to the end of the queue, and one request is removed from the beginning of the queue and processed during each vertical blanking period in which the queue is non-empty. This is the only value of {@code presentMode} that is <b>required</b> to be supported.</li>
             <li>#PRESENT_MODE_FIFO_RELAXED_KHR specifies that the presentation engine generally waits for the next vertical blanking period to update the current image. If a vertical blanking period has already passed since the last update of the current image then the presentation engine does not wait for another vertical blanking period for the update, meaning this mode <b>may</b> result in visible tearing in this case. This mode is useful for reducing visual stutter with an application that will mostly present a new image before the next vertical blanking period, but may occasionally be late, and present a new image just after the next vertical blanking period. An internal queue is used to hold pending presentation requests. New requests are appended to the end of the queue, and one request is removed from the beginning of the queue and processed during or after each vertical blanking period in which the queue is non-empty.</li>
+            <li>#PRESENT_MODE_FIFO_LATEST_READY_EXT specifies that the presentation engine waits for the next vertical blanking period to update the current image. Tearing <b>cannot</b> be observed. An internal queue is used to hold pending presentation requests. New requests are appended to the end of the queue. At each vertical blanking period, the presentation engine dequeues all successive requests that are ready to be presented from the beginning of the queue. If using {@link GOOGLEDisplayTiming VK_GOOGLE_display_timing} to provide a target present time, the presentation engine will check the specified time for each image. If the target present time is less-than or equal-to the current time, the presentation engine will dequeue the image and check the next one. The image of the last dequeued request will be presented. The other dequeued requests will be dropped.</li>
             <li>#PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR specifies that the presentation engine and application have concurrent access to a single image, which is referred to as a <em>shared presentable image</em>. The presentation engine is only required to update the current image after a new presentation request is received. Therefore the application <b>must</b> make a presentation request whenever an update is required. However, the presentation engine <b>may</b> update the current image at any point, meaning this mode <b>may</b> result in visible tearing.</li>
             <li>#PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR specifies that the presentation engine and application have concurrent access to a single image, which is referred to as a <em>shared presentable image</em>. The presentation engine periodically updates the current image on its regular refresh cycle. The application is only required to make one initial presentation request, after which the presentation engine <b>must</b> update the current image without any need for further presentation requests. The application <b>can</b> indicate the image contents have been updated by making a presentation request, but this does not guarantee the timing of when it will be updated. This mode <b>may</b> result in visible tearing if rendering to the image is not timed correctly.</li>
         </ul>
 
         The supported {@code VkImageUsageFlagBits} of the presentable images of a swapchain created for a surface <b>may</b> differ depending on the presentation mode, and can be determined as per the table below:
 
-        <h6>Presentable image usage queries</h6>
+        <h6>Presentable Image Usage Queries</h6>
         <table class="lwjgl">
             <thead><tr><th>Presentation mode</th><th>Image usage flags</th></tr></thead>
             <tbody>
@@ -147,6 +148,7 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
                 <tr><td>#PRESENT_MODE_MAILBOX_KHR</td><td>##VkSurfaceCapabilitiesKHR{@code ::supportedUsageFlags}</td></tr>
                 <tr><td>#PRESENT_MODE_FIFO_KHR</td><td>##VkSurfaceCapabilitiesKHR{@code ::supportedUsageFlags}</td></tr>
                 <tr><td>#PRESENT_MODE_FIFO_RELAXED_KHR</td><td>##VkSurfaceCapabilitiesKHR{@code ::supportedUsageFlags}</td></tr>
+                <tr><td>#PRESENT_MODE_FIFO_LATEST_READY_EXT</td><td>##VkSurfaceCapabilitiesKHR{@code ::supportedUsageFlags}</td></tr>
                 <tr><td>#PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR</td><td>##VkSharedPresentSurfaceCapabilitiesKHR{@code ::sharedPresentSupportedUsageFlags}</td></tr>
                 <tr><td>#PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR</td><td>##VkSharedPresentSurfaceCapabilitiesKHR{@code ::sharedPresentSupportedUsageFlags}</td></tr>
             </tbody>
@@ -172,20 +174,19 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
 
         <h5>Description</h5>
         <ul>
-            <li>#COLOR_SPACE_SRGB_NONLINEAR_KHR specifies support for the sRGB color space.</li>
-            <li>#COLOR_SPACE_DISPLAY_P3_NONLINEAR_EXT specifies support for the Display-P3 color space to be displayed using an sRGB-like EOTF (defined below).</li>
-            <li>#COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT specifies support for the extended sRGB color space to be displayed using a linear EOTF.</li>
-            <li>#COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT specifies support for the extended sRGB color space to be displayed using an sRGB EOTF.</li>
-            <li>#COLOR_SPACE_DISPLAY_P3_LINEAR_EXT specifies support for the Display-P3 color space to be displayed using a linear EOTF.</li>
-            <li>#COLOR_SPACE_DCI_P3_NONLINEAR_EXT specifies support for the DCI-P3 color space to be displayed using the DCI-P3 EOTF. Note that values in such an image are interpreted as XYZ encoded color data by the presentation engine.</li>
-            <li>#COLOR_SPACE_BT709_LINEAR_EXT specifies support for the BT709 color space to be displayed using a linear EOTF.</li>
-            <li>#COLOR_SPACE_BT709_NONLINEAR_EXT specifies support for the BT709 color space to be displayed using the SMPTE 170M EOTF.</li>
-            <li>#COLOR_SPACE_BT2020_LINEAR_EXT specifies support for the BT2020 color space to be displayed using a linear EOTF.</li>
-            <li>#COLOR_SPACE_HDR10_ST2084_EXT specifies support for the HDR10 (BT2020 color) space to be displayed using the SMPTE ST2084 Perceptual Quantizer (PQ) EOTF.</li>
-            <li>#COLOR_SPACE_DOLBYVISION_EXT specifies support for the Dolby Vision (BT2020 color space), proprietary encoding, to be displayed using the SMPTE ST2084 EOTF.</li>
-            <li>#COLOR_SPACE_HDR10_HLG_EXT specifies support for the HDR10 (BT2020 color space) to be displayed using the Hybrid Log Gamma (HLG) EOTF.</li>
-            <li>#COLOR_SPACE_ADOBERGB_LINEAR_EXT specifies support for the AdobeRGB color space to be displayed using a linear EOTF.</li>
-            <li>#COLOR_SPACE_ADOBERGB_NONLINEAR_EXT specifies support for the AdobeRGB color space to be displayed using the Gamma 2.2 EOTF.</li>
+            <li>#COLOR_SPACE_SRGB_NONLINEAR_KHR specifies support for the images in sRGB color space, encoded according to the sRGB specification.</li>
+            <li>#COLOR_SPACE_DISPLAY_P3_NONLINEAR_EXT specifies support for the images in Display-P3 color space, encoded using a Display-P3 transfer function.</li>
+            <li>#COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT specifies support for the images in extended sRGB color space, encoded using a linear transfer function.</li>
+            <li>#COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT specifies support for the images in extended sRGB color space, encoded according to the scRGB specification.</li>
+            <li>#COLOR_SPACE_DISPLAY_P3_LINEAR_EXT specifies support for the images in Display-P3 color space, encoded using a linear transfer function.</li>
+            <li>#COLOR_SPACE_DCI_P3_NONLINEAR_EXT specifies support for the images in DCI-P3 color space, encoded according to the DCI-P3 specification. Note that values in such an image are interpreted as XYZ encoded color data by the presentation engine.</li>
+            <li>#COLOR_SPACE_BT709_LINEAR_EXT specifies support for the images in BT709 color space, encoded using a linear transfer function.</li>
+            <li>#COLOR_SPACE_BT709_NONLINEAR_EXT specifies support for the images in BT709 color space, encoded according to the BT709 specification.</li>
+            <li>#COLOR_SPACE_BT2020_LINEAR_EXT specifies support for the images in BT2020 color space, encoded using a linear transfer function.</li>
+            <li>#COLOR_SPACE_HDR10_ST2084_EXT specifies support for the images in HDR10 (BT2020) color space, encoded according to SMPTE ST2084 Perceptual Quantizer (PQ) specification.</li>
+            <li>#COLOR_SPACE_HDR10_HLG_EXT specifies support for the images in HDR10 (BT2020) color space, encoded according to the Hybrid Log Gamma (HLG) specification.</li>
+            <li>#COLOR_SPACE_ADOBERGB_LINEAR_EXT specifies support for images in Adobe RGB color space, encoded using a linear transfer function.</li>
+            <li>#COLOR_SPACE_ADOBERGB_NONLINEAR_EXT specifies support for the images in Adobe RGB color space, encoded according to the Adobe RGB specification (approximately Gamma 2.2).</li>
             <li>#COLOR_SPACE_PASS_THROUGH_EXT specifies that color components are used “as is”. This is intended to allow applications to supply data for color spaces not described here.</li>
             <li>#COLOR_SPACE_DISPLAY_NATIVE_AMD specifies support for the display’s native color space. This matches the color space expectations of AMD’s FreeSync2 standard, for displays supporting it.</li>
         </ul>
@@ -199,10 +200,16 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
         </div>
 
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+        In older versions of the {@link EXTSwapchainColorspace VK_EXT_swapchain_colorspace} extension, #COLOR_SPACE_DOLBYVISION_EXT was exposed. The intent was to indicate the presentation engine shall decode an image using the SMPTE ST 2084 Perceptual Quantizer (PQ) EOTF, and then apply a proprietary OOTF to process the image. However, Dolby Vision profile 8.4 describes an encoding using the Hybrid Log Gamma (HLG) OETF, and there is no swapchain extension for signaling Dolby Vision metadata to be used by a proprietary OOTF. This enum is deprecated but is maintained for backwards compatibility.
+        </div>
+
+        <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
         For a traditional “{@code Linear}” or non-gamma transfer function color space use #COLOR_SPACE_PASS_THROUGH_EXT.
         </div>
 
-        The color components of non-linear color space swapchain images <b>must</b> have had the appropriate transfer function applied. The color space selected for the swapchain image will not affect the processing of data written into the image by the implementation. Vulkan requires that all implementations support the sRGB transfer function by use of an SRGB pixel format. Other transfer functions, such as SMPTE 170M or SMPTE2084, <b>can</b> be performed by the application shader. This extension defines enums for {@code VkColorSpaceKHR} that correspond to the following color spaces:
+        The presentation engine interprets the pixel values of the R, G, and B components as having been encoded using an appropriate transfer function. Applications <b>should</b> ensure that the appropriate transfer function has been applied. <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#textures-output-format-conversion">Textures Output Format Conversion</a> requires that all implementations implicitly apply the sRGB EOTF<sup>-1</sup> on R, G, and B components when shaders write to an sRGB pixel format image, which is useful for sRGB color spaces. For sRGB color spaces with other pixel formats, or other non-linear color spaces, applications <b>can</b> apply the transfer function explicitly in a shader. The A channel is always interpreted as linearly encoded.
+
+        This extension defines enums for {@code VkColorSpaceKHR} that correspond to the following color spaces:
 
         <h6>Color Spaces and Attributes</h6>
         <table class="lwjgl">
@@ -210,17 +217,16 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
             <tbody>
                 <tr><td>DCI-P3</td><td>1.000, 0.000</td><td>0.000, 1.000</td><td>0.000, 0.000</td><td>0.3333, 0.3333</td><td>DCI P3</td></tr>
                 <tr><td>Display-P3</td><td>0.680, 0.320</td><td>0.265, 0.690</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>Display-P3</td></tr>
-                <tr><td>BT709</td><td>0.640, 0.330</td><td>0.300, 0.600</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>ITU (SMPTE 170M)</td></tr>
+                <tr><td>BT709</td><td>0.640, 0.330</td><td>0.300, 0.600</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>BT709</td></tr>
                 <tr><td>sRGB</td><td>0.640, 0.330</td><td>0.300, 0.600</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>sRGB</td></tr>
-                <tr><td>extended sRGB</td><td>0.640, 0.330</td><td>0.300, 0.600</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>extended sRGB</td></tr>
+                <tr><td>extended sRGB</td><td>0.640, 0.330</td><td>0.300, 0.600</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>scRGB</td></tr>
                 <tr><td>HDR10_ST2084</td><td>0.708, 0.292</td><td>0.170, 0.797</td><td>0.131, 0.046</td><td>0.3127, 0.3290 (D65)</td><td>ST2084 PQ</td></tr>
-                <tr><td>DOLBYVISION</td><td>0.708, 0.292</td><td>0.170, 0.797</td><td>0.131, 0.046</td><td>0.3127, 0.3290 (D65)</td><td>ST2084 PQ</td></tr>
                 <tr><td>HDR10_HLG</td><td>0.708, 0.292</td><td>0.170, 0.797</td><td>0.131, 0.046</td><td>0.3127, 0.3290 (D65)</td><td>HLG</td></tr>
-                <tr><td>AdobeRGB</td><td>0.640, 0.330</td><td>0.210, 0.710</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>AdobeRGB</td></tr>
+                <tr><td>Adobe RGB</td><td>0.640, 0.330</td><td>0.210, 0.710</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>Adobe RGB</td></tr>
             </tbody>
         </table>
 
-        The transfer functions are described in the “{@code Transfer Functions}” chapter of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#data-format">Khronos Data Format Specification</a>.
+        The transfer functions are described in the “{@code Transfer Functions}” chapter of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#data-format">Khronos Data Format Specification</a>.
 
         Except Display-P3 OETF, which is:
 
@@ -309,7 +315,7 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
 
         VkInstance("instance", "the instance used to create the surface."),
         VkSurfaceKHR("surface", "the surface to destroy."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>).")
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href=\"https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>).")
     )
 
     VkResult(
@@ -359,7 +365,7 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
         VkPhysicalDevice("physicalDevice", "the physical device."),
         uint32_t("queueFamilyIndex", "the queue family."),
         VkSurfaceKHR("surface", "the surface."),
-        Check(1)..VkBool32.p("pSupported", "a pointer to a {@code VkBool32}, which is set to #TRUE to indicate support, and #FALSE otherwise.")
+        Check(1)..VkBool32.p("pSupported", "a pointer to a {@code VkBool32}. #TRUE indicates support, and #FALSE indicates no support.")
     )
 
     VkResult(

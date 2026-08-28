@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -230,8 +230,7 @@ public class CUDA_TEXTURE_DESC extends Struct<CUDA_TEXTURE_DESC> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_TEXTURE_DESC createSafe(long address) {
+    public static @Nullable CUDA_TEXTURE_DESC createSafe(long address) {
         return address == NULL ? null : new CUDA_TEXTURE_DESC(address, null);
     }
 
@@ -274,8 +273,7 @@ public class CUDA_TEXTURE_DESC extends Struct<CUDA_TEXTURE_DESC> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_TEXTURE_DESC.Buffer createSafe(long address, int capacity) {
+    public static CUDA_TEXTURE_DESC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -342,33 +340,33 @@ public class CUDA_TEXTURE_DESC extends Struct<CUDA_TEXTURE_DESC> implements Nati
     public static IntBuffer naddressMode(long struct) { return memIntBuffer(struct + CUDA_TEXTURE_DESC.ADDRESSMODE, 3); }
     /** Unsafe version of {@link #addressMode(int) addressMode}. */
     public static int naddressMode(long struct, int index) {
-        return UNSAFE.getInt(null, struct + CUDA_TEXTURE_DESC.ADDRESSMODE + check(index, 3) * 4);
+        return memGetInt(struct + CUDA_TEXTURE_DESC.ADDRESSMODE + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #filterMode}. */
-    public static int nfilterMode(long struct) { return UNSAFE.getInt(null, struct + CUDA_TEXTURE_DESC.FILTERMODE); }
+    public static int nfilterMode(long struct) { return memGetInt(struct + CUDA_TEXTURE_DESC.FILTERMODE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + CUDA_TEXTURE_DESC.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + CUDA_TEXTURE_DESC.FLAGS); }
     /** Unsafe version of {@link #maxAnisotropy}. */
-    public static int nmaxAnisotropy(long struct) { return UNSAFE.getInt(null, struct + CUDA_TEXTURE_DESC.MAXANISOTROPY); }
+    public static int nmaxAnisotropy(long struct) { return memGetInt(struct + CUDA_TEXTURE_DESC.MAXANISOTROPY); }
     /** Unsafe version of {@link #mipmapFilterMode}. */
-    public static int nmipmapFilterMode(long struct) { return UNSAFE.getInt(null, struct + CUDA_TEXTURE_DESC.MIPMAPFILTERMODE); }
+    public static int nmipmapFilterMode(long struct) { return memGetInt(struct + CUDA_TEXTURE_DESC.MIPMAPFILTERMODE); }
     /** Unsafe version of {@link #mipmapLevelBias}. */
-    public static float nmipmapLevelBias(long struct) { return UNSAFE.getFloat(null, struct + CUDA_TEXTURE_DESC.MIPMAPLEVELBIAS); }
+    public static float nmipmapLevelBias(long struct) { return memGetFloat(struct + CUDA_TEXTURE_DESC.MIPMAPLEVELBIAS); }
     /** Unsafe version of {@link #minMipmapLevelClamp}. */
-    public static float nminMipmapLevelClamp(long struct) { return UNSAFE.getFloat(null, struct + CUDA_TEXTURE_DESC.MINMIPMAPLEVELCLAMP); }
+    public static float nminMipmapLevelClamp(long struct) { return memGetFloat(struct + CUDA_TEXTURE_DESC.MINMIPMAPLEVELCLAMP); }
     /** Unsafe version of {@link #maxMipmapLevelClamp}. */
-    public static float nmaxMipmapLevelClamp(long struct) { return UNSAFE.getFloat(null, struct + CUDA_TEXTURE_DESC.MAXMIPMAPLEVELCLAMP); }
+    public static float nmaxMipmapLevelClamp(long struct) { return memGetFloat(struct + CUDA_TEXTURE_DESC.MAXMIPMAPLEVELCLAMP); }
     /** Unsafe version of {@link #borderColor}. */
     public static FloatBuffer nborderColor(long struct) { return memFloatBuffer(struct + CUDA_TEXTURE_DESC.BORDERCOLOR, 4); }
     /** Unsafe version of {@link #borderColor(int) borderColor}. */
     public static float nborderColor(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + CUDA_TEXTURE_DESC.BORDERCOLOR + check(index, 4) * 4);
+        return memGetFloat(struct + CUDA_TEXTURE_DESC.BORDERCOLOR + check(index, 4) * 4);
     }
     /** Unsafe version of {@link #reserved}. */
     public static IntBuffer nreserved(long struct) { return memIntBuffer(struct + CUDA_TEXTURE_DESC.RESERVED, 12); }
     /** Unsafe version of {@link #reserved(int) reserved}. */
     public static int nreserved(long struct, int index) {
-        return UNSAFE.getInt(null, struct + CUDA_TEXTURE_DESC.RESERVED + check(index, 12) * 4);
+        return memGetInt(struct + CUDA_TEXTURE_DESC.RESERVED + check(index, 12) * 4);
     }
 
     /** Unsafe version of {@link #addressMode(IntBuffer) addressMode}. */
@@ -378,22 +376,22 @@ public class CUDA_TEXTURE_DESC extends Struct<CUDA_TEXTURE_DESC> implements Nati
     }
     /** Unsafe version of {@link #addressMode(int, int) addressMode}. */
     public static void naddressMode(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + CUDA_TEXTURE_DESC.ADDRESSMODE + check(index, 3) * 4, value);
+        memPutInt(struct + CUDA_TEXTURE_DESC.ADDRESSMODE + check(index, 3) * 4, value);
     }
     /** Unsafe version of {@link #filterMode(int) filterMode}. */
-    public static void nfilterMode(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_TEXTURE_DESC.FILTERMODE, value); }
+    public static void nfilterMode(long struct, int value) { memPutInt(struct + CUDA_TEXTURE_DESC.FILTERMODE, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_TEXTURE_DESC.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + CUDA_TEXTURE_DESC.FLAGS, value); }
     /** Unsafe version of {@link #maxAnisotropy(int) maxAnisotropy}. */
-    public static void nmaxAnisotropy(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_TEXTURE_DESC.MAXANISOTROPY, value); }
+    public static void nmaxAnisotropy(long struct, int value) { memPutInt(struct + CUDA_TEXTURE_DESC.MAXANISOTROPY, value); }
     /** Unsafe version of {@link #mipmapFilterMode(int) mipmapFilterMode}. */
-    public static void nmipmapFilterMode(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_TEXTURE_DESC.MIPMAPFILTERMODE, value); }
+    public static void nmipmapFilterMode(long struct, int value) { memPutInt(struct + CUDA_TEXTURE_DESC.MIPMAPFILTERMODE, value); }
     /** Unsafe version of {@link #mipmapLevelBias(float) mipmapLevelBias}. */
-    public static void nmipmapLevelBias(long struct, float value) { UNSAFE.putFloat(null, struct + CUDA_TEXTURE_DESC.MIPMAPLEVELBIAS, value); }
+    public static void nmipmapLevelBias(long struct, float value) { memPutFloat(struct + CUDA_TEXTURE_DESC.MIPMAPLEVELBIAS, value); }
     /** Unsafe version of {@link #minMipmapLevelClamp(float) minMipmapLevelClamp}. */
-    public static void nminMipmapLevelClamp(long struct, float value) { UNSAFE.putFloat(null, struct + CUDA_TEXTURE_DESC.MINMIPMAPLEVELCLAMP, value); }
+    public static void nminMipmapLevelClamp(long struct, float value) { memPutFloat(struct + CUDA_TEXTURE_DESC.MINMIPMAPLEVELCLAMP, value); }
     /** Unsafe version of {@link #maxMipmapLevelClamp(float) maxMipmapLevelClamp}. */
-    public static void nmaxMipmapLevelClamp(long struct, float value) { UNSAFE.putFloat(null, struct + CUDA_TEXTURE_DESC.MAXMIPMAPLEVELCLAMP, value); }
+    public static void nmaxMipmapLevelClamp(long struct, float value) { memPutFloat(struct + CUDA_TEXTURE_DESC.MAXMIPMAPLEVELCLAMP, value); }
     /** Unsafe version of {@link #borderColor(FloatBuffer) borderColor}. */
     public static void nborderColor(long struct, FloatBuffer value) {
         if (CHECKS) { checkGT(value, 4); }
@@ -401,7 +399,7 @@ public class CUDA_TEXTURE_DESC extends Struct<CUDA_TEXTURE_DESC> implements Nati
     }
     /** Unsafe version of {@link #borderColor(int, float) borderColor}. */
     public static void nborderColor(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + CUDA_TEXTURE_DESC.BORDERCOLOR + check(index, 4) * 4, value);
+        memPutFloat(struct + CUDA_TEXTURE_DESC.BORDERCOLOR + check(index, 4) * 4, value);
     }
     /** Unsafe version of {@link #reserved(IntBuffer) reserved}. */
     public static void nreserved(long struct, IntBuffer value) {
@@ -410,7 +408,7 @@ public class CUDA_TEXTURE_DESC extends Struct<CUDA_TEXTURE_DESC> implements Nati
     }
     /** Unsafe version of {@link #reserved(int, int) reserved}. */
     public static void nreserved(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + CUDA_TEXTURE_DESC.RESERVED + check(index, 12) * 4, value);
+        memPutInt(struct + CUDA_TEXTURE_DESC.RESERVED + check(index, 12) * 4, value);
     }
 
     // -----------------------------------
@@ -444,6 +442,11 @@ public class CUDA_TEXTURE_DESC extends Struct<CUDA_TEXTURE_DESC> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

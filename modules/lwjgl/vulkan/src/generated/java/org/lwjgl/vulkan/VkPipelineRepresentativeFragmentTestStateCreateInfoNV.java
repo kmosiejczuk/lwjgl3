@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkPipelineRepresentativeFragmentTestStateCreateInfoNV extends Struc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRepresentativeFragmentTestStateCreateInfoNV createSafe(long address) {
+    public static @Nullable VkPipelineRepresentativeFragmentTestStateCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkPipelineRepresentativeFragmentTestStateCreateInfoNV(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkPipelineRepresentativeFragmentTestStateCreateInfoNV extends Struc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRepresentativeFragmentTestStateCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineRepresentativeFragmentTestStateCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +265,18 @@ public class VkPipelineRepresentativeFragmentTestStateCreateInfoNV extends Struc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRepresentativeFragmentTestStateCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineRepresentativeFragmentTestStateCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineRepresentativeFragmentTestStateCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #representativeFragmentTestEnable}. */
-    public static int nrepresentativeFragmentTestEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRepresentativeFragmentTestStateCreateInfoNV.REPRESENTATIVEFRAGMENTTESTENABLE); }
+    public static int nrepresentativeFragmentTestEnable(long struct) { return memGetInt(struct + VkPipelineRepresentativeFragmentTestStateCreateInfoNV.REPRESENTATIVEFRAGMENTTESTENABLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRepresentativeFragmentTestStateCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineRepresentativeFragmentTestStateCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineRepresentativeFragmentTestStateCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #representativeFragmentTestEnable(boolean) representativeFragmentTestEnable}. */
-    public static void nrepresentativeFragmentTestEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRepresentativeFragmentTestStateCreateInfoNV.REPRESENTATIVEFRAGMENTTESTENABLE, value); }
+    public static void nrepresentativeFragmentTestEnable(long struct, int value) { memPutInt(struct + VkPipelineRepresentativeFragmentTestStateCreateInfoNV.REPRESENTATIVEFRAGMENTTESTENABLE, value); }
 
     // -----------------------------------
 
@@ -311,6 +309,11 @@ public class VkPipelineRepresentativeFragmentTestStateCreateInfoNV extends Struc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

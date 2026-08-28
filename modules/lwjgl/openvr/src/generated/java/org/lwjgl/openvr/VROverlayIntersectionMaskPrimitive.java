@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -134,8 +134,7 @@ public class VROverlayIntersectionMaskPrimitive extends Struct<VROverlayIntersec
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VROverlayIntersectionMaskPrimitive createSafe(long address) {
+    public static @Nullable VROverlayIntersectionMaskPrimitive createSafe(long address) {
         return address == NULL ? null : new VROverlayIntersectionMaskPrimitive(address, null);
     }
 
@@ -178,8 +177,7 @@ public class VROverlayIntersectionMaskPrimitive extends Struct<VROverlayIntersec
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VROverlayIntersectionMaskPrimitive.Buffer createSafe(long address, int capacity) {
+    public static VROverlayIntersectionMaskPrimitive.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,12 +241,12 @@ public class VROverlayIntersectionMaskPrimitive extends Struct<VROverlayIntersec
     // -----------------------------------
 
     /** Unsafe version of {@link #m_nPrimitiveType}. */
-    public static int nm_nPrimitiveType(long struct) { return UNSAFE.getInt(null, struct + VROverlayIntersectionMaskPrimitive.M_NPRIMITIVETYPE); }
+    public static int nm_nPrimitiveType(long struct) { return memGetInt(struct + VROverlayIntersectionMaskPrimitive.M_NPRIMITIVETYPE); }
     /** Unsafe version of {@link #m_Primitive}. */
     public static VROverlayIntersectionMaskPrimitiveData nm_Primitive(long struct) { return VROverlayIntersectionMaskPrimitiveData.create(struct + VROverlayIntersectionMaskPrimitive.M_PRIMITIVE); }
 
     /** Unsafe version of {@link #m_nPrimitiveType(int) m_nPrimitiveType}. */
-    public static void nm_nPrimitiveType(long struct, int value) { UNSAFE.putInt(null, struct + VROverlayIntersectionMaskPrimitive.M_NPRIMITIVETYPE, value); }
+    public static void nm_nPrimitiveType(long struct, int value) { memPutInt(struct + VROverlayIntersectionMaskPrimitive.M_NPRIMITIVETYPE, value); }
     /** Unsafe version of {@link #m_Primitive(VROverlayIntersectionMaskPrimitiveData) m_Primitive}. */
     public static void nm_Primitive(long struct, VROverlayIntersectionMaskPrimitiveData value) { memCopy(value.address(), struct + VROverlayIntersectionMaskPrimitive.M_PRIMITIVE, VROverlayIntersectionMaskPrimitiveData.SIZEOF); }
 
@@ -283,6 +281,11 @@ public class VROverlayIntersectionMaskPrimitive extends Struct<VROverlayIntersec
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

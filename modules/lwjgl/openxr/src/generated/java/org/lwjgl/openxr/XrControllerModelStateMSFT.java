@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -112,9 +112,8 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
     @NativeType("uint32_t")
     public int nodeCountOutput() { return nnodeCountOutput(address()); }
     /** a pointer to an application-allocated array that will be filled with the {@link XrControllerModelNodeStateMSFT} values. It <b>can</b> be {@code NULL} if {@code nodeCapacityInput} is 0. */
-    @Nullable
     @NativeType("XrControllerModelNodeStateMSFT *")
-    public XrControllerModelNodeStateMSFT.Buffer nodeStates() { return nnodeStates(address()); }
+    public XrControllerModelNodeStateMSFT.@Nullable Buffer nodeStates() { return nnodeStates(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
     public XrControllerModelStateMSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
@@ -127,7 +126,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
     /** Sets the specified value to the {@link #nodeCountOutput} field. */
     public XrControllerModelStateMSFT nodeCountOutput(@NativeType("uint32_t") int value) { nnodeCountOutput(address(), value); return this; }
     /** Sets the address of the specified {@link XrControllerModelNodeStateMSFT.Buffer} to the {@link #nodeStates} field. */
-    public XrControllerModelStateMSFT nodeStates(@Nullable @NativeType("XrControllerModelNodeStateMSFT *") XrControllerModelNodeStateMSFT.Buffer value) { nnodeStates(address(), value); return this; }
+    public XrControllerModelStateMSFT nodeStates(@NativeType("XrControllerModelNodeStateMSFT *") XrControllerModelNodeStateMSFT.@Nullable Buffer value) { nnodeStates(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrControllerModelStateMSFT set(
@@ -135,7 +134,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
         long next,
         int nodeCapacityInput,
         int nodeCountOutput,
-        @Nullable XrControllerModelNodeStateMSFT.Buffer nodeStates
+        XrControllerModelNodeStateMSFT.@Nullable Buffer nodeStates
     ) {
         type(type);
         next(next);
@@ -182,8 +181,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrControllerModelStateMSFT createSafe(long address) {
+    public static @Nullable XrControllerModelStateMSFT createSafe(long address) {
         return address == NULL ? null : new XrControllerModelStateMSFT(address, null);
     }
 
@@ -226,8 +224,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrControllerModelStateMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrControllerModelStateMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,26 +269,26 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrControllerModelStateMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrControllerModelStateMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrControllerModelStateMSFT.NEXT); }
     /** Unsafe version of {@link #nodeCapacityInput}. */
-    public static int nnodeCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrControllerModelStateMSFT.NODECAPACITYINPUT); }
+    public static int nnodeCapacityInput(long struct) { return memGetInt(struct + XrControllerModelStateMSFT.NODECAPACITYINPUT); }
     /** Unsafe version of {@link #nodeCountOutput}. */
-    public static int nnodeCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrControllerModelStateMSFT.NODECOUNTOUTPUT); }
+    public static int nnodeCountOutput(long struct) { return memGetInt(struct + XrControllerModelStateMSFT.NODECOUNTOUTPUT); }
     /** Unsafe version of {@link #nodeStates}. */
-    @Nullable public static XrControllerModelNodeStateMSFT.Buffer nnodeStates(long struct) { return XrControllerModelNodeStateMSFT.createSafe(memGetAddress(struct + XrControllerModelStateMSFT.NODESTATES), nnodeCapacityInput(struct)); }
+    public static XrControllerModelNodeStateMSFT.@Nullable Buffer nnodeStates(long struct) { return XrControllerModelNodeStateMSFT.createSafe(memGetAddress(struct + XrControllerModelStateMSFT.NODESTATES), nnodeCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrControllerModelStateMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrControllerModelStateMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrControllerModelStateMSFT.NEXT, value); }
     /** Sets the specified value to the {@code nodeCapacityInput} field of the specified {@code struct}. */
-    public static void nnodeCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrControllerModelStateMSFT.NODECAPACITYINPUT, value); }
+    public static void nnodeCapacityInput(long struct, int value) { memPutInt(struct + XrControllerModelStateMSFT.NODECAPACITYINPUT, value); }
     /** Unsafe version of {@link #nodeCountOutput(int) nodeCountOutput}. */
-    public static void nnodeCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrControllerModelStateMSFT.NODECOUNTOUTPUT, value); }
+    public static void nnodeCountOutput(long struct, int value) { memPutInt(struct + XrControllerModelStateMSFT.NODECOUNTOUTPUT, value); }
     /** Unsafe version of {@link #nodeStates(XrControllerModelNodeStateMSFT.Buffer) nodeStates}. */
-    public static void nnodeStates(long struct, @Nullable XrControllerModelNodeStateMSFT.Buffer value) { memPutAddress(struct + XrControllerModelStateMSFT.NODESTATES, memAddressSafe(value)); if (value != null) { nnodeCapacityInput(struct, value.remaining()); } }
+    public static void nnodeStates(long struct, XrControllerModelNodeStateMSFT.@Nullable Buffer value) { memPutAddress(struct + XrControllerModelStateMSFT.NODESTATES, memAddressSafe(value)); if (value != null) { nnodeCapacityInput(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -327,6 +324,11 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrControllerModelStateMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -344,9 +346,8 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
         @NativeType("uint32_t")
         public int nodeCountOutput() { return XrControllerModelStateMSFT.nnodeCountOutput(address()); }
         /** @return a {@link XrControllerModelNodeStateMSFT.Buffer} view of the struct array pointed to by the {@link XrControllerModelStateMSFT#nodeStates} field. */
-        @Nullable
         @NativeType("XrControllerModelNodeStateMSFT *")
-        public XrControllerModelNodeStateMSFT.Buffer nodeStates() { return XrControllerModelStateMSFT.nnodeStates(address()); }
+        public XrControllerModelNodeStateMSFT.@Nullable Buffer nodeStates() { return XrControllerModelStateMSFT.nnodeStates(address()); }
 
         /** Sets the specified value to the {@link XrControllerModelStateMSFT#type} field. */
         public XrControllerModelStateMSFT.Buffer type(@NativeType("XrStructureType") int value) { XrControllerModelStateMSFT.ntype(address(), value); return this; }
@@ -359,7 +360,7 @@ public class XrControllerModelStateMSFT extends Struct<XrControllerModelStateMSF
         /** Sets the specified value to the {@link XrControllerModelStateMSFT#nodeCountOutput} field. */
         public XrControllerModelStateMSFT.Buffer nodeCountOutput(@NativeType("uint32_t") int value) { XrControllerModelStateMSFT.nnodeCountOutput(address(), value); return this; }
         /** Sets the address of the specified {@link XrControllerModelNodeStateMSFT.Buffer} to the {@link XrControllerModelStateMSFT#nodeStates} field. */
-        public XrControllerModelStateMSFT.Buffer nodeStates(@Nullable @NativeType("XrControllerModelNodeStateMSFT *") XrControllerModelNodeStateMSFT.Buffer value) { XrControllerModelStateMSFT.nnodeStates(address(), value); return this; }
+        public XrControllerModelStateMSFT.Buffer nodeStates(@NativeType("XrControllerModelNodeStateMSFT *") XrControllerModelNodeStateMSFT.@Nullable Buffer value) { XrControllerModelStateMSFT.nnodeStates(address(), value); return this; }
 
     }
 

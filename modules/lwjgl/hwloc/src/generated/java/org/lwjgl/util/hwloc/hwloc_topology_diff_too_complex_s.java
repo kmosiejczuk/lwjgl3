@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -82,9 +82,8 @@ public class hwloc_topology_diff_too_complex_s extends Struct<hwloc_topology_dif
     @NativeType("hwloc_topology_diff_type_t")
     public int type() { return ntype(address()); }
     /** @return a {@link hwloc_topology_diff_u} view of the struct pointed to by the {@code next} field. */
-    @Nullable
     @NativeType("struct hwloc_topology_diff_u *")
-    public hwloc_topology_diff_u next() { return nnext(address()); }
+    public @Nullable hwloc_topology_diff_u next() { return nnext(address()); }
     /** @return the value of the {@code obj_depth} field. */
     public int obj_depth() { return nobj_depth(address()); }
     /** @return the value of the {@code obj_index} field. */
@@ -99,8 +98,7 @@ public class hwloc_topology_diff_too_complex_s extends Struct<hwloc_topology_dif
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_diff_too_complex_s createSafe(long address) {
+    public static @Nullable hwloc_topology_diff_too_complex_s createSafe(long address) {
         return address == NULL ? null : new hwloc_topology_diff_too_complex_s(address, null);
     }
 
@@ -115,21 +113,20 @@ public class hwloc_topology_diff_too_complex_s extends Struct<hwloc_topology_dif
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_diff_too_complex_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_topology_diff_too_complex_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + hwloc_topology_diff_too_complex_s.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + hwloc_topology_diff_too_complex_s.TYPE); }
     /** Unsafe version of {@link #next}. */
-    @Nullable public static hwloc_topology_diff_u nnext(long struct) { return hwloc_topology_diff_u.createSafe(memGetAddress(struct + hwloc_topology_diff_too_complex_s.NEXT)); }
+    public static @Nullable hwloc_topology_diff_u nnext(long struct) { return hwloc_topology_diff_u.createSafe(memGetAddress(struct + hwloc_topology_diff_too_complex_s.NEXT)); }
     /** Unsafe version of {@link #obj_depth}. */
-    public static int nobj_depth(long struct) { return UNSAFE.getInt(null, struct + hwloc_topology_diff_too_complex_s.OBJ_DEPTH); }
+    public static int nobj_depth(long struct) { return memGetInt(struct + hwloc_topology_diff_too_complex_s.OBJ_DEPTH); }
     /** Unsafe version of {@link #obj_index}. */
-    public static int nobj_index(long struct) { return UNSAFE.getInt(null, struct + hwloc_topology_diff_too_complex_s.OBJ_INDEX); }
+    public static int nobj_index(long struct) { return memGetInt(struct + hwloc_topology_diff_too_complex_s.OBJ_INDEX); }
 
     // -----------------------------------
 
@@ -165,6 +162,11 @@ public class hwloc_topology_diff_too_complex_s extends Struct<hwloc_topology_dif
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected hwloc_topology_diff_too_complex_s getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -173,9 +175,8 @@ public class hwloc_topology_diff_too_complex_s extends Struct<hwloc_topology_dif
         @NativeType("hwloc_topology_diff_type_t")
         public int type() { return hwloc_topology_diff_too_complex_s.ntype(address()); }
         /** @return a {@link hwloc_topology_diff_u} view of the struct pointed to by the {@code next} field. */
-        @Nullable
         @NativeType("struct hwloc_topology_diff_u *")
-        public hwloc_topology_diff_u next() { return hwloc_topology_diff_too_complex_s.nnext(address()); }
+        public @Nullable hwloc_topology_diff_u next() { return hwloc_topology_diff_too_complex_s.nnext(address()); }
         /** @return the value of the {@code obj_depth} field. */
         public int obj_depth() { return hwloc_topology_diff_too_complex_s.nobj_depth(address()); }
         /** @return the value of the {@code obj_index} field. */

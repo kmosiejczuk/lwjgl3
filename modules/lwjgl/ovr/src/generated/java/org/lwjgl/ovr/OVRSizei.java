@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class OVRSizei extends Struct<OVRSizei> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRSizei createSafe(long address) {
+    public static @Nullable OVRSizei createSafe(long address) {
         return address == NULL ? null : new OVRSizei(address, null);
     }
 
@@ -176,8 +175,7 @@ public class OVRSizei extends Struct<OVRSizei> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRSizei.Buffer createSafe(long address, int capacity) {
+    public static OVRSizei.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +239,14 @@ public class OVRSizei extends Struct<OVRSizei> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #w}. */
-    public static int nw(long struct) { return UNSAFE.getInt(null, struct + OVRSizei.W); }
+    public static int nw(long struct) { return memGetInt(struct + OVRSizei.W); }
     /** Unsafe version of {@link #h}. */
-    public static int nh(long struct) { return UNSAFE.getInt(null, struct + OVRSizei.H); }
+    public static int nh(long struct) { return memGetInt(struct + OVRSizei.H); }
 
     /** Unsafe version of {@link #w(int) w}. */
-    public static void nw(long struct, int value) { UNSAFE.putInt(null, struct + OVRSizei.W, value); }
+    public static void nw(long struct, int value) { memPutInt(struct + OVRSizei.W, value); }
     /** Unsafe version of {@link #h(int) h}. */
-    public static void nh(long struct, int value) { UNSAFE.putInt(null, struct + OVRSizei.H, value); }
+    public static void nh(long struct, int value) { memPutInt(struct + OVRSizei.H, value); }
 
     // -----------------------------------
 
@@ -281,6 +279,11 @@ public class OVRSizei extends Struct<OVRSizei> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

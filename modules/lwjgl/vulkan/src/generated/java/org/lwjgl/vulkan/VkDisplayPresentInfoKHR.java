@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -192,8 +192,7 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPresentInfoKHR createSafe(long address) {
+    public static @Nullable VkDisplayPresentInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayPresentInfoKHR(address, null);
     }
 
@@ -236,8 +235,7 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPresentInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayPresentInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -301,7 +299,7 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPresentInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDisplayPresentInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDisplayPresentInfoKHR.PNEXT); }
     /** Unsafe version of {@link #srcRect}. */
@@ -309,10 +307,10 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     /** Unsafe version of {@link #dstRect}. */
     public static VkRect2D ndstRect(long struct) { return VkRect2D.create(struct + VkDisplayPresentInfoKHR.DSTRECT); }
     /** Unsafe version of {@link #persistent}. */
-    public static int npersistent(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPresentInfoKHR.PERSISTENT); }
+    public static int npersistent(long struct) { return memGetInt(struct + VkDisplayPresentInfoKHR.PERSISTENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayPresentInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDisplayPresentInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDisplayPresentInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #srcRect(VkRect2D) srcRect}. */
@@ -320,7 +318,7 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     /** Unsafe version of {@link #dstRect(VkRect2D) dstRect}. */
     public static void ndstRect(long struct, VkRect2D value) { memCopy(value.address(), struct + VkDisplayPresentInfoKHR.DSTRECT, VkRect2D.SIZEOF); }
     /** Unsafe version of {@link #persistent(boolean) persistent}. */
-    public static void npersistent(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayPresentInfoKHR.PERSISTENT, value); }
+    public static void npersistent(long struct, int value) { memPutInt(struct + VkDisplayPresentInfoKHR.PERSISTENT, value); }
 
     // -----------------------------------
 
@@ -353,6 +351,11 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

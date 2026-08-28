@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class XrSystemBodyTrackingPropertiesFB extends Struct<XrSystemBodyTrackin
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemBodyTrackingPropertiesFB createSafe(long address) {
+    public static @Nullable XrSystemBodyTrackingPropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrSystemBodyTrackingPropertiesFB(address, null);
     }
 
@@ -198,8 +197,7 @@ public class XrSystemBodyTrackingPropertiesFB extends Struct<XrSystemBodyTrackin
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemBodyTrackingPropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrSystemBodyTrackingPropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,14 +242,14 @@ public class XrSystemBodyTrackingPropertiesFB extends Struct<XrSystemBodyTrackin
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemBodyTrackingPropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemBodyTrackingPropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemBodyTrackingPropertiesFB.NEXT); }
     /** Unsafe version of {@link #supportsBodyTracking}. */
-    public static int nsupportsBodyTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemBodyTrackingPropertiesFB.SUPPORTSBODYTRACKING); }
+    public static int nsupportsBodyTracking(long struct) { return memGetInt(struct + XrSystemBodyTrackingPropertiesFB.SUPPORTSBODYTRACKING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemBodyTrackingPropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemBodyTrackingPropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemBodyTrackingPropertiesFB.NEXT, value); }
 
@@ -286,6 +284,11 @@ public class XrSystemBodyTrackingPropertiesFB extends Struct<XrSystemBodyTrackin
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

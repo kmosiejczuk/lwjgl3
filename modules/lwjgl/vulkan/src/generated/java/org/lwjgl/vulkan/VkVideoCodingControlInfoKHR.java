@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeH264RateControlInfoKHR}, {@link VkVideoEncodeH265RateControlInfoKHR}, {@link VkVideoEncodeQualityLevelInfoKHR}, or {@link VkVideoEncodeRateControlInfoKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeAV1RateControlInfoKHR}, {@link VkVideoEncodeH264RateControlInfoKHR}, {@link VkVideoEncodeH265RateControlInfoKHR}, {@link VkVideoEncodeQualityLevelInfoKHR}, or {@link VkVideoEncodeRateControlInfoKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code VkVideoCodingControlFlagBitsKHR} values</li>
  * <li>{@code flags} <b>must</b> not be 0</li>
@@ -115,6 +115,8 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
     public VkVideoCodingControlInfoKHR sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkVideoCodingControlInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkVideoEncodeAV1RateControlInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoCodingControlInfoKHR pNext(VkVideoEncodeAV1RateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH264RateControlInfoKHR} value to the {@code pNext} chain. */
     public VkVideoCodingControlInfoKHR pNext(VkVideoEncodeH264RateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH265RateControlInfoKHR} value to the {@code pNext} chain. */
@@ -175,8 +177,7 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoCodingControlInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoCodingControlInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoCodingControlInfoKHR(address, null);
     }
 
@@ -219,8 +220,7 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoCodingControlInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoCodingControlInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +265,18 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoCodingControlInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoCodingControlInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoCodingControlInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoCodingControlInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkVideoCodingControlInfoKHR.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoCodingControlInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoCodingControlInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoCodingControlInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoCodingControlInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkVideoCodingControlInfoKHR.FLAGS, value); }
 
     // -----------------------------------
 
@@ -312,6 +312,11 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoCodingControlInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -332,6 +337,8 @@ public class VkVideoCodingControlInfoKHR extends Struct<VkVideoCodingControlInfo
         public VkVideoCodingControlInfoKHR.Buffer sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR); }
         /** Sets the specified value to the {@link VkVideoCodingControlInfoKHR#pNext} field. */
         public VkVideoCodingControlInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoCodingControlInfoKHR.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkVideoEncodeAV1RateControlInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoCodingControlInfoKHR.Buffer pNext(VkVideoEncodeAV1RateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH264RateControlInfoKHR} value to the {@code pNext} chain. */
         public VkVideoCodingControlInfoKHR.Buffer pNext(VkVideoEncodeH264RateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH265RateControlInfoKHR} value to the {@code pNext} chain. */

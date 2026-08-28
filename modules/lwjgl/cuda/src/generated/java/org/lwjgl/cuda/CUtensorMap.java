@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -120,8 +120,7 @@ public class CUtensorMap extends Struct<CUtensorMap> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUtensorMap createSafe(long address) {
+    public static @Nullable CUtensorMap createSafe(long address) {
         return address == NULL ? null : new CUtensorMap(address, null);
     }
 
@@ -164,8 +163,7 @@ public class CUtensorMap extends Struct<CUtensorMap> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUtensorMap.Buffer createSafe(long address, int capacity) {
+    public static CUtensorMap.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -213,7 +211,7 @@ public class CUtensorMap extends Struct<CUtensorMap> implements NativeResource {
     public static LongBuffer nopaque(long struct) { return memLongBuffer(struct + CUtensorMap.OPAQUE, CU_TENSOR_MAP_NUM_QWORDS); }
     /** Unsafe version of {@link #opaque(int) opaque}. */
     public static long nopaque(long struct, int index) {
-        return UNSAFE.getLong(null, struct + CUtensorMap.OPAQUE + check(index, CU_TENSOR_MAP_NUM_QWORDS) * 8);
+        return memGetLong(struct + CUtensorMap.OPAQUE + check(index, CU_TENSOR_MAP_NUM_QWORDS) * 8);
     }
 
     /** Unsafe version of {@link #opaque(LongBuffer) opaque}. */
@@ -223,7 +221,7 @@ public class CUtensorMap extends Struct<CUtensorMap> implements NativeResource {
     }
     /** Unsafe version of {@link #opaque(int, long) opaque}. */
     public static void nopaque(long struct, int index, long value) {
-        UNSAFE.putLong(null, struct + CUtensorMap.OPAQUE + check(index, CU_TENSOR_MAP_NUM_QWORDS) * 8, value);
+        memPutLong(struct + CUtensorMap.OPAQUE + check(index, CU_TENSOR_MAP_NUM_QWORDS) * 8, value);
     }
 
     // -----------------------------------
@@ -257,6 +255,11 @@ public class CUtensorMap extends Struct<CUtensorMap> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

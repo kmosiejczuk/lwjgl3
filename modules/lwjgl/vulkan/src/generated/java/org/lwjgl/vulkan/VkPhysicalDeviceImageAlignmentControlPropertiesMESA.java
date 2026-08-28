@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceImageAlignmentControlPropertiesMESA extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageAlignmentControlPropertiesMESA createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImageAlignmentControlPropertiesMESA createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImageAlignmentControlPropertiesMESA(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceImageAlignmentControlPropertiesMESA extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageAlignmentControlPropertiesMESA.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImageAlignmentControlPropertiesMESA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceImageAlignmentControlPropertiesMESA extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageAlignmentControlPropertiesMESA.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImageAlignmentControlPropertiesMESA.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImageAlignmentControlPropertiesMESA.PNEXT); }
     /** Unsafe version of {@link #supportedImageAlignmentMask}. */
-    public static int nsupportedImageAlignmentMask(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageAlignmentControlPropertiesMESA.SUPPORTEDIMAGEALIGNMENTMASK); }
+    public static int nsupportedImageAlignmentMask(long struct) { return memGetInt(struct + VkPhysicalDeviceImageAlignmentControlPropertiesMESA.SUPPORTEDIMAGEALIGNMENTMASK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageAlignmentControlPropertiesMESA.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageAlignmentControlPropertiesMESA.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImageAlignmentControlPropertiesMESA.PNEXT, value); }
     /** Unsafe version of {@link #supportedImageAlignmentMask(int) supportedImageAlignmentMask}. */
-    public static void nsupportedImageAlignmentMask(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageAlignmentControlPropertiesMESA.SUPPORTEDIMAGEALIGNMENTMASK, value); }
+    public static void nsupportedImageAlignmentMask(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageAlignmentControlPropertiesMESA.SUPPORTEDIMAGEALIGNMENTMASK, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceImageAlignmentControlPropertiesMESA extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

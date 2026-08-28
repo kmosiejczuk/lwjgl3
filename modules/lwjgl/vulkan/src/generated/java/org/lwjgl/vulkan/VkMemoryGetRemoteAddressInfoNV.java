@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -176,8 +176,7 @@ public class VkMemoryGetRemoteAddressInfoNV extends Struct<VkMemoryGetRemoteAddr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryGetRemoteAddressInfoNV createSafe(long address) {
+    public static @Nullable VkMemoryGetRemoteAddressInfoNV createSafe(long address) {
         return address == NULL ? null : new VkMemoryGetRemoteAddressInfoNV(address, null);
     }
 
@@ -220,8 +219,7 @@ public class VkMemoryGetRemoteAddressInfoNV extends Struct<VkMemoryGetRemoteAddr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryGetRemoteAddressInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryGetRemoteAddressInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,22 +264,22 @@ public class VkMemoryGetRemoteAddressInfoNV extends Struct<VkMemoryGetRemoteAddr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryGetRemoteAddressInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryGetRemoteAddressInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryGetRemoteAddressInfoNV.PNEXT); }
     /** Unsafe version of {@link #memory}. */
-    public static long nmemory(long struct) { return UNSAFE.getLong(null, struct + VkMemoryGetRemoteAddressInfoNV.MEMORY); }
+    public static long nmemory(long struct) { return memGetLong(struct + VkMemoryGetRemoteAddressInfoNV.MEMORY); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryGetRemoteAddressInfoNV.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkMemoryGetRemoteAddressInfoNV.HANDLETYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryGetRemoteAddressInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryGetRemoteAddressInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryGetRemoteAddressInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #memory(long) memory}. */
-    public static void nmemory(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryGetRemoteAddressInfoNV.MEMORY, value); }
+    public static void nmemory(long struct, long value) { memPutLong(struct + VkMemoryGetRemoteAddressInfoNV.MEMORY, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryGetRemoteAddressInfoNV.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkMemoryGetRemoteAddressInfoNV.HANDLETYPE, value); }
 
     // -----------------------------------
 
@@ -314,6 +312,11 @@ public class VkMemoryGetRemoteAddressInfoNV extends Struct<VkMemoryGetRemoteAddr
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

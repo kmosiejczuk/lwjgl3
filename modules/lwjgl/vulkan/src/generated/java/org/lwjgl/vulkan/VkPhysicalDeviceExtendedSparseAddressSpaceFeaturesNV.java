@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV extends Struct
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV extends Struct
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV extends Struct
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #extendedSparseAddressSpace}. */
-    public static int nextendedSparseAddressSpace(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.EXTENDEDSPARSEADDRESSSPACE); }
+    public static int nextendedSparseAddressSpace(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.EXTENDEDSPARSEADDRESSSPACE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #extendedSparseAddressSpace(boolean) extendedSparseAddressSpace}. */
-    public static void nextendedSparseAddressSpace(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.EXTENDEDSPARSEADDRESSSPACE, value); }
+    public static void nextendedSparseAddressSpace(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.EXTENDEDSPARSEADDRESSSPACE, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV extends Struct
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

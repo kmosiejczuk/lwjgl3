@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class FT_Size_Request extends Struct<FT_Size_Request> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Size_Request createSafe(long address) {
+    public static @Nullable FT_Size_Request createSafe(long address) {
         return address == NULL ? null : new FT_Size_Request(address, null);
     }
 
@@ -211,8 +210,7 @@ public class FT_Size_Request extends Struct<FT_Size_Request> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Size_Request.Buffer createSafe(long address, int capacity) {
+    public static FT_Size_Request.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,26 +255,26 @@ public class FT_Size_Request extends Struct<FT_Size_Request> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + FT_Size_Request.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + FT_Size_Request.TYPE); }
     /** Unsafe version of {@link #width}. */
     public static long nwidth(long struct) { return memGetCLong(struct + FT_Size_Request.WIDTH); }
     /** Unsafe version of {@link #height}. */
     public static long nheight(long struct) { return memGetCLong(struct + FT_Size_Request.HEIGHT); }
     /** Unsafe version of {@link #horiResolution}. */
-    public static int nhoriResolution(long struct) { return UNSAFE.getInt(null, struct + FT_Size_Request.HORIRESOLUTION); }
+    public static int nhoriResolution(long struct) { return memGetInt(struct + FT_Size_Request.HORIRESOLUTION); }
     /** Unsafe version of {@link #vertResolution}. */
-    public static int nvertResolution(long struct) { return UNSAFE.getInt(null, struct + FT_Size_Request.VERTRESOLUTION); }
+    public static int nvertResolution(long struct) { return memGetInt(struct + FT_Size_Request.VERTRESOLUTION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + FT_Size_Request.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + FT_Size_Request.TYPE, value); }
     /** Unsafe version of {@link #width(long) width}. */
     public static void nwidth(long struct, long value) { memPutCLong(struct + FT_Size_Request.WIDTH, value); }
     /** Unsafe version of {@link #height(long) height}. */
     public static void nheight(long struct, long value) { memPutCLong(struct + FT_Size_Request.HEIGHT, value); }
     /** Unsafe version of {@link #horiResolution(int) horiResolution}. */
-    public static void nhoriResolution(long struct, int value) { UNSAFE.putInt(null, struct + FT_Size_Request.HORIRESOLUTION, value); }
+    public static void nhoriResolution(long struct, int value) { memPutInt(struct + FT_Size_Request.HORIRESOLUTION, value); }
     /** Unsafe version of {@link #vertResolution(int) vertResolution}. */
-    public static void nvertResolution(long struct, int value) { UNSAFE.putInt(null, struct + FT_Size_Request.VERTRESOLUTION, value); }
+    public static void nvertResolution(long struct, int value) { memPutInt(struct + FT_Size_Request.VERTRESOLUTION, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class FT_Size_Request extends Struct<FT_Size_Request> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

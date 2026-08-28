@@ -524,6 +524,25 @@ private val String.const get() =
     else
         "$this const"
 
+internal val String.nullable: String get() {
+    val input = this
+    return buildString {
+        if (input.contains("[]")) {
+            append(input.substringBefore("[]"))
+            append(" @Nullable []")
+            append(substringAfter("[]", missingDelimiterValue = ""))
+        } else {
+            if (input.contains('.')) {
+                append(input.substringBeforeLast('.'))
+                append(".")
+            }
+            append("@Nullable ")
+            append(input.substringAfterLast('.'))
+        }
+    }
+}
+
+
 /** The JNI function argument type. */
 internal val NativeType.jniFunctionType
     get() = mapping.jniFunctionType
@@ -571,7 +590,7 @@ internal fun NativeType.annotate(type: String) = annotation(type).let {
 }
 
 internal val NativeType.castAddressToPointer
-    get() = (this is PointerType<*> && this !is ArrayType<*>) || this is StructType
+    get() = (this is PointerType<*> && this !is ArrayType<*> && this !== va_list) || this is StructType
 
 internal val NativeType.isPointer
     get() = this is PointerType<*> || this.mapping === PrimitiveMapping.POINTER

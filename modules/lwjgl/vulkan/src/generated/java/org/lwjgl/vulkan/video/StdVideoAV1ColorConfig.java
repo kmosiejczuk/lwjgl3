@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -202,8 +202,7 @@ public class StdVideoAV1ColorConfig extends Struct<StdVideoAV1ColorConfig> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1ColorConfig createSafe(long address) {
+    public static @Nullable StdVideoAV1ColorConfig createSafe(long address) {
         return address == NULL ? null : new StdVideoAV1ColorConfig(address, null);
     }
 
@@ -246,8 +245,7 @@ public class StdVideoAV1ColorConfig extends Struct<StdVideoAV1ColorConfig> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1ColorConfig.Buffer createSafe(long address, int capacity) {
+    public static StdVideoAV1ColorConfig.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,38 +292,38 @@ public class StdVideoAV1ColorConfig extends Struct<StdVideoAV1ColorConfig> imple
     /** Unsafe version of {@link #flags}. */
     public static StdVideoAV1ColorConfigFlags nflags(long struct) { return StdVideoAV1ColorConfigFlags.create(struct + StdVideoAV1ColorConfig.FLAGS); }
     /** Unsafe version of {@link #BitDepth}. */
-    public static byte nBitDepth(long struct) { return UNSAFE.getByte(null, struct + StdVideoAV1ColorConfig.BITDEPTH); }
+    public static byte nBitDepth(long struct) { return memGetByte(struct + StdVideoAV1ColorConfig.BITDEPTH); }
     /** Unsafe version of {@link #subsampling_x}. */
-    public static byte nsubsampling_x(long struct) { return UNSAFE.getByte(null, struct + StdVideoAV1ColorConfig.SUBSAMPLING_X); }
+    public static byte nsubsampling_x(long struct) { return memGetByte(struct + StdVideoAV1ColorConfig.SUBSAMPLING_X); }
     /** Unsafe version of {@link #subsampling_y}. */
-    public static byte nsubsampling_y(long struct) { return UNSAFE.getByte(null, struct + StdVideoAV1ColorConfig.SUBSAMPLING_Y); }
-    public static byte nreserved1(long struct) { return UNSAFE.getByte(null, struct + StdVideoAV1ColorConfig.RESERVED1); }
+    public static byte nsubsampling_y(long struct) { return memGetByte(struct + StdVideoAV1ColorConfig.SUBSAMPLING_Y); }
+    public static byte nreserved1(long struct) { return memGetByte(struct + StdVideoAV1ColorConfig.RESERVED1); }
     /** Unsafe version of {@link #color_primaries}. */
-    public static int ncolor_primaries(long struct) { return UNSAFE.getInt(null, struct + StdVideoAV1ColorConfig.COLOR_PRIMARIES); }
+    public static int ncolor_primaries(long struct) { return memGetInt(struct + StdVideoAV1ColorConfig.COLOR_PRIMARIES); }
     /** Unsafe version of {@link #transfer_characteristics}. */
-    public static int ntransfer_characteristics(long struct) { return UNSAFE.getInt(null, struct + StdVideoAV1ColorConfig.TRANSFER_CHARACTERISTICS); }
+    public static int ntransfer_characteristics(long struct) { return memGetInt(struct + StdVideoAV1ColorConfig.TRANSFER_CHARACTERISTICS); }
     /** Unsafe version of {@link #matrix_coefficients}. */
-    public static int nmatrix_coefficients(long struct) { return UNSAFE.getInt(null, struct + StdVideoAV1ColorConfig.MATRIX_COEFFICIENTS); }
+    public static int nmatrix_coefficients(long struct) { return memGetInt(struct + StdVideoAV1ColorConfig.MATRIX_COEFFICIENTS); }
     /** Unsafe version of {@link #chroma_sample_position}. */
-    public static int nchroma_sample_position(long struct) { return UNSAFE.getInt(null, struct + StdVideoAV1ColorConfig.CHROMA_SAMPLE_POSITION); }
+    public static int nchroma_sample_position(long struct) { return memGetInt(struct + StdVideoAV1ColorConfig.CHROMA_SAMPLE_POSITION); }
 
     /** Unsafe version of {@link #flags(StdVideoAV1ColorConfigFlags) flags}. */
     public static void nflags(long struct, StdVideoAV1ColorConfigFlags value) { memCopy(value.address(), struct + StdVideoAV1ColorConfig.FLAGS, StdVideoAV1ColorConfigFlags.SIZEOF); }
     /** Unsafe version of {@link #BitDepth(byte) BitDepth}. */
-    public static void nBitDepth(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoAV1ColorConfig.BITDEPTH, value); }
+    public static void nBitDepth(long struct, byte value) { memPutByte(struct + StdVideoAV1ColorConfig.BITDEPTH, value); }
     /** Unsafe version of {@link #subsampling_x(byte) subsampling_x}. */
-    public static void nsubsampling_x(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoAV1ColorConfig.SUBSAMPLING_X, value); }
+    public static void nsubsampling_x(long struct, byte value) { memPutByte(struct + StdVideoAV1ColorConfig.SUBSAMPLING_X, value); }
     /** Unsafe version of {@link #subsampling_y(byte) subsampling_y}. */
-    public static void nsubsampling_y(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoAV1ColorConfig.SUBSAMPLING_Y, value); }
-    public static void nreserved1(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoAV1ColorConfig.RESERVED1, value); }
+    public static void nsubsampling_y(long struct, byte value) { memPutByte(struct + StdVideoAV1ColorConfig.SUBSAMPLING_Y, value); }
+    public static void nreserved1(long struct, byte value) { memPutByte(struct + StdVideoAV1ColorConfig.RESERVED1, value); }
     /** Unsafe version of {@link #color_primaries(int) color_primaries}. */
-    public static void ncolor_primaries(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoAV1ColorConfig.COLOR_PRIMARIES, value); }
+    public static void ncolor_primaries(long struct, int value) { memPutInt(struct + StdVideoAV1ColorConfig.COLOR_PRIMARIES, value); }
     /** Unsafe version of {@link #transfer_characteristics(int) transfer_characteristics}. */
-    public static void ntransfer_characteristics(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoAV1ColorConfig.TRANSFER_CHARACTERISTICS, value); }
+    public static void ntransfer_characteristics(long struct, int value) { memPutInt(struct + StdVideoAV1ColorConfig.TRANSFER_CHARACTERISTICS, value); }
     /** Unsafe version of {@link #matrix_coefficients(int) matrix_coefficients}. */
-    public static void nmatrix_coefficients(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoAV1ColorConfig.MATRIX_COEFFICIENTS, value); }
+    public static void nmatrix_coefficients(long struct, int value) { memPutInt(struct + StdVideoAV1ColorConfig.MATRIX_COEFFICIENTS, value); }
     /** Unsafe version of {@link #chroma_sample_position(int) chroma_sample_position}. */
-    public static void nchroma_sample_position(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoAV1ColorConfig.CHROMA_SAMPLE_POSITION, value); }
+    public static void nchroma_sample_position(long struct, int value) { memPutInt(struct + StdVideoAV1ColorConfig.CHROMA_SAMPLE_POSITION, value); }
 
     // -----------------------------------
 
@@ -358,6 +356,11 @@ public class StdVideoAV1ColorConfig extends Struct<StdVideoAV1ColorConfig> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

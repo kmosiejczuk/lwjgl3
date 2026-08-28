@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -143,8 +143,7 @@ public class VkFramebufferAttachmentImageInfoKHR extends VkFramebufferAttachment
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFramebufferAttachmentImageInfoKHR createSafe(long address) {
+    public static @Nullable VkFramebufferAttachmentImageInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkFramebufferAttachmentImageInfoKHR(address, null);
     }
 
@@ -187,8 +186,7 @@ public class VkFramebufferAttachmentImageInfoKHR extends VkFramebufferAttachment
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFramebufferAttachmentImageInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkFramebufferAttachmentImageInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,6 +278,11 @@ public class VkFramebufferAttachmentImageInfoKHR extends VkFramebufferAttachment
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

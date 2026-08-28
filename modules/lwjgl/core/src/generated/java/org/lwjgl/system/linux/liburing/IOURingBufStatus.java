@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -139,8 +139,7 @@ public class IOURingBufStatus extends Struct<IOURingBufStatus> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingBufStatus createSafe(long address) {
+    public static @Nullable IOURingBufStatus createSafe(long address) {
         return address == NULL ? null : new IOURingBufStatus(address, null);
     }
 
@@ -183,8 +182,7 @@ public class IOURingBufStatus extends Struct<IOURingBufStatus> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingBufStatus.Buffer createSafe(long address, int capacity) {
+    public static IOURingBufStatus.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,24 +227,24 @@ public class IOURingBufStatus extends Struct<IOURingBufStatus> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #buf_group}. */
-    public static int nbuf_group(long struct) { return UNSAFE.getInt(null, struct + IOURingBufStatus.BUF_GROUP); }
+    public static int nbuf_group(long struct) { return memGetInt(struct + IOURingBufStatus.BUF_GROUP); }
     /** Unsafe version of {@link #head}. */
-    public static int nhead(long struct) { return UNSAFE.getInt(null, struct + IOURingBufStatus.HEAD); }
+    public static int nhead(long struct) { return memGetInt(struct + IOURingBufStatus.HEAD); }
     public static IntBuffer nresv(long struct) { return memIntBuffer(struct + IOURingBufStatus.RESV, 8); }
     public static int nresv(long struct, int index) {
-        return UNSAFE.getInt(null, struct + IOURingBufStatus.RESV + check(index, 8) * 4);
+        return memGetInt(struct + IOURingBufStatus.RESV + check(index, 8) * 4);
     }
 
     /** Unsafe version of {@link #buf_group(int) buf_group}. */
-    public static void nbuf_group(long struct, int value) { UNSAFE.putInt(null, struct + IOURingBufStatus.BUF_GROUP, value); }
+    public static void nbuf_group(long struct, int value) { memPutInt(struct + IOURingBufStatus.BUF_GROUP, value); }
     /** Unsafe version of {@link #head(int) head}. */
-    public static void nhead(long struct, int value) { UNSAFE.putInt(null, struct + IOURingBufStatus.HEAD, value); }
+    public static void nhead(long struct, int value) { memPutInt(struct + IOURingBufStatus.HEAD, value); }
     public static void nresv(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 8); }
         memCopy(memAddress(value), struct + IOURingBufStatus.RESV, value.remaining() * 4);
     }
     public static void nresv(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + IOURingBufStatus.RESV + check(index, 8) * 4, value);
+        memPutInt(struct + IOURingBufStatus.RESV + check(index, 8) * 4, value);
     }
 
     // -----------------------------------
@@ -280,6 +278,11 @@ public class IOURingBufStatus extends Struct<IOURingBufStatus> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class XrControllerModelKeyStateMSFT extends Struct<XrControllerModelKeySt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrControllerModelKeyStateMSFT createSafe(long address) {
+    public static @Nullable XrControllerModelKeyStateMSFT createSafe(long address) {
         return address == NULL ? null : new XrControllerModelKeyStateMSFT(address, null);
     }
 
@@ -210,8 +209,7 @@ public class XrControllerModelKeyStateMSFT extends Struct<XrControllerModelKeySt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrControllerModelKeyStateMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrControllerModelKeyStateMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,18 +254,18 @@ public class XrControllerModelKeyStateMSFT extends Struct<XrControllerModelKeySt
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrControllerModelKeyStateMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrControllerModelKeyStateMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrControllerModelKeyStateMSFT.NEXT); }
     /** Unsafe version of {@link #modelKey}. */
-    public static long nmodelKey(long struct) { return UNSAFE.getLong(null, struct + XrControllerModelKeyStateMSFT.MODELKEY); }
+    public static long nmodelKey(long struct) { return memGetLong(struct + XrControllerModelKeyStateMSFT.MODELKEY); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrControllerModelKeyStateMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrControllerModelKeyStateMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrControllerModelKeyStateMSFT.NEXT, value); }
     /** Unsafe version of {@link #modelKey(long) modelKey}. */
-    public static void nmodelKey(long struct, long value) { UNSAFE.putLong(null, struct + XrControllerModelKeyStateMSFT.MODELKEY, value); }
+    public static void nmodelKey(long struct, long value) { memPutLong(struct + XrControllerModelKeyStateMSFT.MODELKEY, value); }
 
     // -----------------------------------
 
@@ -300,6 +298,11 @@ public class XrControllerModelKeyStateMSFT extends Struct<XrControllerModelKeySt
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

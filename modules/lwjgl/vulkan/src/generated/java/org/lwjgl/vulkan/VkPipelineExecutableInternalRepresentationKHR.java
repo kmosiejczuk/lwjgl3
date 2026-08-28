@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.vulkan.VK10.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If {@code pData} is {@code NULL}, then the size, in bytes, of the internal representation data is returned in {@code dataSize}. Otherwise, {@code dataSize} must be the size of the buffer, in bytes, pointed to by {@code pData} and on return {@code dataSize} is overwritten with the number of bytes of data actually written to {@code pData} including any trailing null character. If {@code dataSize} is less than the size, in bytes, of the internal representation’s data, at most {@code dataSize} bytes of data will be written to {@code pData}, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available representation was returned.</p>
+ * <p>If {@code pData} is {@code NULL}, then the size, in bytes, of the internal representation data is returned in {@code dataSize}. Otherwise, {@code dataSize} <b>must</b> be the size of the buffer, in bytes, pointed to by {@code pData} and on return {@code dataSize} is overwritten with the number of bytes of data actually written to {@code pData} including any trailing null character. If {@code dataSize} is less than the size, in bytes, of the internal representation’s data, at most {@code dataSize} bytes of data will be written to {@code pData}, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available representation was returned.</p>
  * 
  * <p>If {@code isText} is {@link VK10#VK_TRUE TRUE} and {@code pData} is not {@code NULL} and {@code dataSize} is not zero, the last byte written to {@code pData} will be a null character.</p>
  * 
@@ -138,9 +138,8 @@ public class VkPipelineExecutableInternalRepresentationKHR extends Struct<VkPipe
     @NativeType("size_t")
     public long dataSize() { return ndataSize(address()); }
     /** either {@code NULL} or a pointer to a block of data into which the implementation will write the internal representation. */
-    @Nullable
     @NativeType("void *")
-    public ByteBuffer pData() { return npData(address()); }
+    public @Nullable ByteBuffer pData() { return npData(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkPipelineExecutableInternalRepresentationKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -196,8 +195,7 @@ public class VkPipelineExecutableInternalRepresentationKHR extends Struct<VkPipe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineExecutableInternalRepresentationKHR createSafe(long address) {
+    public static @Nullable VkPipelineExecutableInternalRepresentationKHR createSafe(long address) {
         return address == NULL ? null : new VkPipelineExecutableInternalRepresentationKHR(address, null);
     }
 
@@ -240,8 +238,7 @@ public class VkPipelineExecutableInternalRepresentationKHR extends Struct<VkPipe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineExecutableInternalRepresentationKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineExecutableInternalRepresentationKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -305,7 +302,7 @@ public class VkPipelineExecutableInternalRepresentationKHR extends Struct<VkPipe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineExecutableInternalRepresentationKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineExecutableInternalRepresentationKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineExecutableInternalRepresentationKHR.PNEXT); }
     /** Unsafe version of {@link #name}. */
@@ -317,14 +314,14 @@ public class VkPipelineExecutableInternalRepresentationKHR extends Struct<VkPipe
     /** Unsafe version of {@link #descriptionString}. */
     public static String ndescriptionString(long struct) { return memUTF8(struct + VkPipelineExecutableInternalRepresentationKHR.DESCRIPTION); }
     /** Unsafe version of {@link #isText}. */
-    public static int nisText(long struct) { return UNSAFE.getInt(null, struct + VkPipelineExecutableInternalRepresentationKHR.ISTEXT); }
+    public static int nisText(long struct) { return memGetInt(struct + VkPipelineExecutableInternalRepresentationKHR.ISTEXT); }
     /** Unsafe version of {@link #dataSize}. */
     public static long ndataSize(long struct) { return memGetAddress(struct + VkPipelineExecutableInternalRepresentationKHR.DATASIZE); }
     /** Unsafe version of {@link #pData() pData}. */
-    @Nullable public static ByteBuffer npData(long struct) { return memByteBufferSafe(memGetAddress(struct + VkPipelineExecutableInternalRepresentationKHR.PDATA), (int)ndataSize(struct)); }
+    public static @Nullable ByteBuffer npData(long struct) { return memByteBufferSafe(memGetAddress(struct + VkPipelineExecutableInternalRepresentationKHR.PDATA), (int)ndataSize(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineExecutableInternalRepresentationKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineExecutableInternalRepresentationKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineExecutableInternalRepresentationKHR.PNEXT, value); }
 
@@ -362,6 +359,11 @@ public class VkPipelineExecutableInternalRepresentationKHR extends Struct<VkPipe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineExecutableInternalRepresentationKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -391,9 +393,8 @@ public class VkPipelineExecutableInternalRepresentationKHR extends Struct<VkPipe
         @NativeType("size_t")
         public long dataSize() { return VkPipelineExecutableInternalRepresentationKHR.ndataSize(address()); }
         /** @return a {@link ByteBuffer} view of the data pointed to by the {@link VkPipelineExecutableInternalRepresentationKHR#pData} field. */
-        @Nullable
         @NativeType("void *")
-        public ByteBuffer pData() { return VkPipelineExecutableInternalRepresentationKHR.npData(address()); }
+        public @Nullable ByteBuffer pData() { return VkPipelineExecutableInternalRepresentationKHR.npData(address()); }
 
         /** Sets the specified value to the {@link VkPipelineExecutableInternalRepresentationKHR#sType} field. */
         public VkPipelineExecutableInternalRepresentationKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineExecutableInternalRepresentationKHR.nsType(address(), value); return this; }

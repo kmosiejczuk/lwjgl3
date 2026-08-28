@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.lz4;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -138,8 +138,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4FCompressOptions createSafe(long address) {
+    public static @Nullable LZ4FCompressOptions createSafe(long address) {
         return address == NULL ? null : new LZ4FCompressOptions(address, null);
     }
 
@@ -182,8 +181,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4FCompressOptions.Buffer createSafe(long address, int capacity) {
+    public static LZ4FCompressOptions.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,16 +245,16 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #stableSrc}. */
-    public static int nstableSrc(long struct) { return UNSAFE.getInt(null, struct + LZ4FCompressOptions.STABLESRC); }
+    public static int nstableSrc(long struct) { return memGetInt(struct + LZ4FCompressOptions.STABLESRC); }
     /** Unsafe version of {@link #reserved}. */
     public static IntBuffer nreserved(long struct) { return memIntBuffer(struct + LZ4FCompressOptions.RESERVED, 3); }
     /** Unsafe version of {@link #reserved(int) reserved}. */
     public static int nreserved(long struct, int index) {
-        return UNSAFE.getInt(null, struct + LZ4FCompressOptions.RESERVED + check(index, 3) * 4);
+        return memGetInt(struct + LZ4FCompressOptions.RESERVED + check(index, 3) * 4);
     }
 
     /** Unsafe version of {@link #stableSrc(int) stableSrc}. */
-    public static void nstableSrc(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FCompressOptions.STABLESRC, value); }
+    public static void nstableSrc(long struct, int value) { memPutInt(struct + LZ4FCompressOptions.STABLESRC, value); }
     /** Unsafe version of {@link #reserved(IntBuffer) reserved}. */
     public static void nreserved(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
@@ -264,7 +262,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     }
     /** Unsafe version of {@link #reserved(int, int) reserved}. */
     public static void nreserved(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + LZ4FCompressOptions.RESERVED + check(index, 3) * 4, value);
+        memPutInt(struct + LZ4FCompressOptions.RESERVED + check(index, 3) * 4, value);
     }
 
     // -----------------------------------
@@ -298,6 +296,11 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

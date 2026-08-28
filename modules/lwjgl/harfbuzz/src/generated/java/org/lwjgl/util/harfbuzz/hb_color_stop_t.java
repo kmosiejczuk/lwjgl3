@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -141,8 +141,7 @@ public class hb_color_stop_t extends Struct<hb_color_stop_t> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_color_stop_t createSafe(long address) {
+    public static @Nullable hb_color_stop_t createSafe(long address) {
         return address == NULL ? null : new hb_color_stop_t(address, null);
     }
 
@@ -185,8 +184,7 @@ public class hb_color_stop_t extends Struct<hb_color_stop_t> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_color_stop_t.Buffer createSafe(long address, int capacity) {
+    public static hb_color_stop_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -231,18 +229,18 @@ public class hb_color_stop_t extends Struct<hb_color_stop_t> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #offset}. */
-    public static float noffset(long struct) { return UNSAFE.getFloat(null, struct + hb_color_stop_t.OFFSET); }
+    public static float noffset(long struct) { return memGetFloat(struct + hb_color_stop_t.OFFSET); }
     /** Unsafe version of {@link #is_foreground}. */
-    public static int nis_foreground(long struct) { return UNSAFE.getInt(null, struct + hb_color_stop_t.IS_FOREGROUND); }
+    public static int nis_foreground(long struct) { return memGetInt(struct + hb_color_stop_t.IS_FOREGROUND); }
     /** Unsafe version of {@link #color}. */
-    public static int ncolor(long struct) { return UNSAFE.getInt(null, struct + hb_color_stop_t.COLOR); }
+    public static int ncolor(long struct) { return memGetInt(struct + hb_color_stop_t.COLOR); }
 
     /** Unsafe version of {@link #offset(float) offset}. */
-    public static void noffset(long struct, float value) { UNSAFE.putFloat(null, struct + hb_color_stop_t.OFFSET, value); }
+    public static void noffset(long struct, float value) { memPutFloat(struct + hb_color_stop_t.OFFSET, value); }
     /** Unsafe version of {@link #is_foreground(boolean) is_foreground}. */
-    public static void nis_foreground(long struct, int value) { UNSAFE.putInt(null, struct + hb_color_stop_t.IS_FOREGROUND, value); }
+    public static void nis_foreground(long struct, int value) { memPutInt(struct + hb_color_stop_t.IS_FOREGROUND, value); }
     /** Unsafe version of {@link #color(int) color}. */
-    public static void ncolor(long struct, int value) { UNSAFE.putInt(null, struct + hb_color_stop_t.COLOR, value); }
+    public static void ncolor(long struct, int value) { memPutInt(struct + hb_color_stop_t.COLOR, value); }
 
     // -----------------------------------
 
@@ -275,6 +273,11 @@ public class hb_color_stop_t extends Struct<hb_color_stop_t> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

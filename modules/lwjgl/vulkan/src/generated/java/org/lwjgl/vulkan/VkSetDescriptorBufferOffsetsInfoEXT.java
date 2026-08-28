@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * </ul>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dynamicPipelineLayout">{@code dynamicPipelineLayout}</a> feature is not enabled, {@code layout} <b>must</b> be a valid {@code VkPipelineLayout} handle</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dynamicPipelineLayout">{@code dynamicPipelineLayout}</a> feature is not enabled, {@code layout} <b>must</b> be a valid {@code VkPipelineLayout} handle</li>
  * <li>If {@code layout} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the {@code pNext} chain <b>must</b> include a valid {@link VkPipelineLayoutCreateInfo} structure</li>
  * </ul>
  * 
@@ -148,7 +148,7 @@ public class VkSetDescriptorBufferOffsetsInfoEXT extends Struct<VkSetDescriptorB
     /** a bitmask of {@code VkShaderStageFlagBits} specifying the shader stages the descriptor sets will be bound to */
     @NativeType("VkShaderStageFlags")
     public int stageFlags() { return nstageFlags(address()); }
-    /** a {@code VkPipelineLayout} object used to program the bindings. If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dynamicPipelineLayout">{@code dynamicPipelineLayout}</a> feature is enabled, {@code layout} <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and the layout <b>must</b> be specified by chaining {@link VkPipelineLayoutCreateInfo} structure off the {@code pNext} */
+    /** a {@code VkPipelineLayout} object used to program the bindings. If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dynamicPipelineLayout">{@code dynamicPipelineLayout}</a> feature is enabled, {@code layout} <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and the layout <b>must</b> be specified by chaining {@link VkPipelineLayoutCreateInfo} structure off the {@code pNext} */
     @NativeType("VkPipelineLayout")
     public long layout() { return nlayout(address()); }
     /** the number of the first set to be bound. */
@@ -244,8 +244,7 @@ public class VkSetDescriptorBufferOffsetsInfoEXT extends Struct<VkSetDescriptorB
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSetDescriptorBufferOffsetsInfoEXT createSafe(long address) {
+    public static @Nullable VkSetDescriptorBufferOffsetsInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkSetDescriptorBufferOffsetsInfoEXT(address, null);
     }
 
@@ -288,8 +287,7 @@ public class VkSetDescriptorBufferOffsetsInfoEXT extends Struct<VkSetDescriptorB
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSetDescriptorBufferOffsetsInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSetDescriptorBufferOffsetsInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -334,34 +332,34 @@ public class VkSetDescriptorBufferOffsetsInfoEXT extends Struct<VkSetDescriptorB
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSetDescriptorBufferOffsetsInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSetDescriptorBufferOffsetsInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSetDescriptorBufferOffsetsInfoEXT.PNEXT); }
     /** Unsafe version of {@link #stageFlags}. */
-    public static int nstageFlags(long struct) { return UNSAFE.getInt(null, struct + VkSetDescriptorBufferOffsetsInfoEXT.STAGEFLAGS); }
+    public static int nstageFlags(long struct) { return memGetInt(struct + VkSetDescriptorBufferOffsetsInfoEXT.STAGEFLAGS); }
     /** Unsafe version of {@link #layout}. */
-    public static long nlayout(long struct) { return UNSAFE.getLong(null, struct + VkSetDescriptorBufferOffsetsInfoEXT.LAYOUT); }
+    public static long nlayout(long struct) { return memGetLong(struct + VkSetDescriptorBufferOffsetsInfoEXT.LAYOUT); }
     /** Unsafe version of {@link #firstSet}. */
-    public static int nfirstSet(long struct) { return UNSAFE.getInt(null, struct + VkSetDescriptorBufferOffsetsInfoEXT.FIRSTSET); }
+    public static int nfirstSet(long struct) { return memGetInt(struct + VkSetDescriptorBufferOffsetsInfoEXT.FIRSTSET); }
     /** Unsafe version of {@link #setCount}. */
-    public static int nsetCount(long struct) { return UNSAFE.getInt(null, struct + VkSetDescriptorBufferOffsetsInfoEXT.SETCOUNT); }
+    public static int nsetCount(long struct) { return memGetInt(struct + VkSetDescriptorBufferOffsetsInfoEXT.SETCOUNT); }
     /** Unsafe version of {@link #pBufferIndices() pBufferIndices}. */
     public static IntBuffer npBufferIndices(long struct) { return memIntBuffer(memGetAddress(struct + VkSetDescriptorBufferOffsetsInfoEXT.PBUFFERINDICES), nsetCount(struct)); }
     /** Unsafe version of {@link #pOffsets() pOffsets}. */
     public static LongBuffer npOffsets(long struct) { return memLongBuffer(memGetAddress(struct + VkSetDescriptorBufferOffsetsInfoEXT.POFFSETS), nsetCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSetDescriptorBufferOffsetsInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSetDescriptorBufferOffsetsInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSetDescriptorBufferOffsetsInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #stageFlags(int) stageFlags}. */
-    public static void nstageFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkSetDescriptorBufferOffsetsInfoEXT.STAGEFLAGS, value); }
+    public static void nstageFlags(long struct, int value) { memPutInt(struct + VkSetDescriptorBufferOffsetsInfoEXT.STAGEFLAGS, value); }
     /** Unsafe version of {@link #layout(long) layout}. */
-    public static void nlayout(long struct, long value) { UNSAFE.putLong(null, struct + VkSetDescriptorBufferOffsetsInfoEXT.LAYOUT, value); }
+    public static void nlayout(long struct, long value) { memPutLong(struct + VkSetDescriptorBufferOffsetsInfoEXT.LAYOUT, value); }
     /** Unsafe version of {@link #firstSet(int) firstSet}. */
-    public static void nfirstSet(long struct, int value) { UNSAFE.putInt(null, struct + VkSetDescriptorBufferOffsetsInfoEXT.FIRSTSET, value); }
+    public static void nfirstSet(long struct, int value) { memPutInt(struct + VkSetDescriptorBufferOffsetsInfoEXT.FIRSTSET, value); }
     /** Sets the specified value to the {@code setCount} field of the specified {@code struct}. */
-    public static void nsetCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSetDescriptorBufferOffsetsInfoEXT.SETCOUNT, value); }
+    public static void nsetCount(long struct, int value) { memPutInt(struct + VkSetDescriptorBufferOffsetsInfoEXT.SETCOUNT, value); }
     /** Unsafe version of {@link #pBufferIndices(IntBuffer) pBufferIndices}. */
     public static void npBufferIndices(long struct, IntBuffer value) { memPutAddress(struct + VkSetDescriptorBufferOffsetsInfoEXT.PBUFFERINDICES, memAddress(value)); }
     /** Unsafe version of {@link #pOffsets(LongBuffer) pOffsets}. */
@@ -408,6 +406,11 @@ public class VkSetDescriptorBufferOffsetsInfoEXT extends Struct<VkSetDescriptorB
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

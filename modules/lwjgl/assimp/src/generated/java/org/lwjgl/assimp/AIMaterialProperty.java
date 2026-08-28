@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -133,8 +133,7 @@ public class AIMaterialProperty extends Struct<AIMaterialProperty> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMaterialProperty createSafe(long address) {
+    public static @Nullable AIMaterialProperty createSafe(long address) {
         return address == NULL ? null : new AIMaterialProperty(address, null);
     }
 
@@ -149,8 +148,7 @@ public class AIMaterialProperty extends Struct<AIMaterialProperty> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMaterialProperty.Buffer createSafe(long address, int capacity) {
+    public static AIMaterialProperty.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -159,13 +157,13 @@ public class AIMaterialProperty extends Struct<AIMaterialProperty> {
     /** Unsafe version of {@link #mKey}. */
     public static AIString nmKey(long struct) { return AIString.create(struct + AIMaterialProperty.MKEY); }
     /** Unsafe version of {@link #mSemantic}. */
-    public static int nmSemantic(long struct) { return UNSAFE.getInt(null, struct + AIMaterialProperty.MSEMANTIC); }
+    public static int nmSemantic(long struct) { return memGetInt(struct + AIMaterialProperty.MSEMANTIC); }
     /** Unsafe version of {@link #mIndex}. */
-    public static int nmIndex(long struct) { return UNSAFE.getInt(null, struct + AIMaterialProperty.MINDEX); }
+    public static int nmIndex(long struct) { return memGetInt(struct + AIMaterialProperty.MINDEX); }
     /** Unsafe version of {@link #mDataLength}. */
-    public static int nmDataLength(long struct) { return UNSAFE.getInt(null, struct + AIMaterialProperty.MDATALENGTH); }
+    public static int nmDataLength(long struct) { return memGetInt(struct + AIMaterialProperty.MDATALENGTH); }
     /** Unsafe version of {@link #mType}. */
-    public static int nmType(long struct) { return UNSAFE.getInt(null, struct + AIMaterialProperty.MTYPE); }
+    public static int nmType(long struct) { return memGetInt(struct + AIMaterialProperty.MTYPE); }
     /** Unsafe version of {@link #mData() mData}. */
     public static ByteBuffer nmData(long struct) { return memByteBuffer(memGetAddress(struct + AIMaterialProperty.MDATA), nmDataLength(struct)); }
 
@@ -200,6 +198,11 @@ public class AIMaterialProperty extends Struct<AIMaterialProperty> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * </ul>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dynamicPipelineLayout">{@code dynamicPipelineLayout}</a> feature is not enabled, {@code layout} <b>must</b> be a valid {@code VkPipelineLayout} handle</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dynamicPipelineLayout">{@code dynamicPipelineLayout}</a> feature is not enabled, {@code layout} <b>must</b> be a valid {@code VkPipelineLayout} handle</li>
  * <li>If {@code layout} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the {@code pNext} chain <b>must</b> include a valid {@link VkPipelineLayoutCreateInfo} structure</li>
  * </ul>
  * 
@@ -126,7 +126,7 @@ public class VkBindDescriptorBufferEmbeddedSamplersInfoEXT extends Struct<VkBind
     /** a bitmask of {@code VkShaderStageFlagBits} specifying the shader stages that will use the embedded immutable samplers. */
     @NativeType("VkShaderStageFlags")
     public int stageFlags() { return nstageFlags(address()); }
-    /** a {@code VkPipelineLayout} object used to program the bindings. If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dynamicPipelineLayout">{@code dynamicPipelineLayout}</a> feature is enabled, {@code layout} <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and the layout <b>must</b> be specified by chaining {@link VkPipelineLayoutCreateInfo} structure off the {@code pNext} */
+    /** a {@code VkPipelineLayout} object used to program the bindings. If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-dynamicPipelineLayout">{@code dynamicPipelineLayout}</a> feature is enabled, {@code layout} <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and the layout <b>must</b> be specified by chaining {@link VkPipelineLayoutCreateInfo} structure off the {@code pNext} */
     @NativeType("VkPipelineLayout")
     public long layout() { return nlayout(address()); }
     /** the number of the set to be bound. */
@@ -201,8 +201,7 @@ public class VkBindDescriptorBufferEmbeddedSamplersInfoEXT extends Struct<VkBind
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindDescriptorBufferEmbeddedSamplersInfoEXT createSafe(long address) {
+    public static @Nullable VkBindDescriptorBufferEmbeddedSamplersInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkBindDescriptorBufferEmbeddedSamplersInfoEXT(address, null);
     }
 
@@ -245,8 +244,7 @@ public class VkBindDescriptorBufferEmbeddedSamplersInfoEXT extends Struct<VkBind
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindDescriptorBufferEmbeddedSamplersInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkBindDescriptorBufferEmbeddedSamplersInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -291,26 +289,26 @@ public class VkBindDescriptorBufferEmbeddedSamplersInfoEXT extends Struct<VkBind
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.PNEXT); }
     /** Unsafe version of {@link #stageFlags}. */
-    public static int nstageFlags(long struct) { return UNSAFE.getInt(null, struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.STAGEFLAGS); }
+    public static int nstageFlags(long struct) { return memGetInt(struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.STAGEFLAGS); }
     /** Unsafe version of {@link #layout}. */
-    public static long nlayout(long struct) { return UNSAFE.getLong(null, struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.LAYOUT); }
+    public static long nlayout(long struct) { return memGetLong(struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.LAYOUT); }
     /** Unsafe version of {@link #set}. */
-    public static int nset(long struct) { return UNSAFE.getInt(null, struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.SET); }
+    public static int nset(long struct) { return memGetInt(struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.SET); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #stageFlags(int) stageFlags}. */
-    public static void nstageFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.STAGEFLAGS, value); }
+    public static void nstageFlags(long struct, int value) { memPutInt(struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.STAGEFLAGS, value); }
     /** Unsafe version of {@link #layout(long) layout}. */
-    public static void nlayout(long struct, long value) { UNSAFE.putLong(null, struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.LAYOUT, value); }
+    public static void nlayout(long struct, long value) { memPutLong(struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.LAYOUT, value); }
     /** Unsafe version of {@link #set(int) set}. */
-    public static void nset(long struct, int value) { UNSAFE.putInt(null, struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.SET, value); }
+    public static void nset(long struct, int value) { memPutInt(struct + VkBindDescriptorBufferEmbeddedSamplersInfoEXT.SET, value); }
 
     // -----------------------------------
 
@@ -343,6 +341,11 @@ public class VkBindDescriptorBufferEmbeddedSamplersInfoEXT extends Struct<VkBind
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

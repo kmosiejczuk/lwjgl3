@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -112,8 +112,7 @@ public class VREventTouchPadMove extends Struct<VREventTouchPadMove> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventTouchPadMove createSafe(long address) {
+    public static @Nullable VREventTouchPadMove createSafe(long address) {
         return address == NULL ? null : new VREventTouchPadMove(address, null);
     }
 
@@ -128,25 +127,24 @@ public class VREventTouchPadMove extends Struct<VREventTouchPadMove> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventTouchPadMove.Buffer createSafe(long address, int capacity) {
+    public static VREventTouchPadMove.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #bFingerDown}. */
-    public static boolean nbFingerDown(long struct) { return UNSAFE.getByte(null, struct + VREventTouchPadMove.BFINGERDOWN) != 0; }
+    public static boolean nbFingerDown(long struct) { return memGetByte(struct + VREventTouchPadMove.BFINGERDOWN) != 0; }
     /** Unsafe version of {@link #flSecondsFingerDown}. */
-    public static float nflSecondsFingerDown(long struct) { return UNSAFE.getFloat(null, struct + VREventTouchPadMove.FLSECONDSFINGERDOWN); }
+    public static float nflSecondsFingerDown(long struct) { return memGetFloat(struct + VREventTouchPadMove.FLSECONDSFINGERDOWN); }
     /** Unsafe version of {@link #fValueXFirst}. */
-    public static float nfValueXFirst(long struct) { return UNSAFE.getFloat(null, struct + VREventTouchPadMove.FVALUEXFIRST); }
+    public static float nfValueXFirst(long struct) { return memGetFloat(struct + VREventTouchPadMove.FVALUEXFIRST); }
     /** Unsafe version of {@link #fValueYFirst}. */
-    public static float nfValueYFirst(long struct) { return UNSAFE.getFloat(null, struct + VREventTouchPadMove.FVALUEYFIRST); }
+    public static float nfValueYFirst(long struct) { return memGetFloat(struct + VREventTouchPadMove.FVALUEYFIRST); }
     /** Unsafe version of {@link #fValueXRaw}. */
-    public static float nfValueXRaw(long struct) { return UNSAFE.getFloat(null, struct + VREventTouchPadMove.FVALUEXRAW); }
+    public static float nfValueXRaw(long struct) { return memGetFloat(struct + VREventTouchPadMove.FVALUEXRAW); }
     /** Unsafe version of {@link #fValueYRaw}. */
-    public static float nfValueYRaw(long struct) { return UNSAFE.getFloat(null, struct + VREventTouchPadMove.FVALUEYRAW); }
+    public static float nfValueYRaw(long struct) { return memGetFloat(struct + VREventTouchPadMove.FVALUEYRAW); }
 
     // -----------------------------------
 
@@ -179,6 +177,11 @@ public class VREventTouchPadMove extends Struct<VREventTouchPadMove> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

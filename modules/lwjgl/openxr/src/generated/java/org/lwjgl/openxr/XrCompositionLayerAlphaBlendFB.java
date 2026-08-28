@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -201,8 +201,7 @@ public class XrCompositionLayerAlphaBlendFB extends Struct<XrCompositionLayerAlp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerAlphaBlendFB createSafe(long address) {
+    public static @Nullable XrCompositionLayerAlphaBlendFB createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerAlphaBlendFB(address, null);
     }
 
@@ -245,8 +244,7 @@ public class XrCompositionLayerAlphaBlendFB extends Struct<XrCompositionLayerAlp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerAlphaBlendFB.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerAlphaBlendFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -291,30 +289,30 @@ public class XrCompositionLayerAlphaBlendFB extends Struct<XrCompositionLayerAlp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerAlphaBlendFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerAlphaBlendFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerAlphaBlendFB.NEXT); }
     /** Unsafe version of {@link #srcFactorColor}. */
-    public static int nsrcFactorColor(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerAlphaBlendFB.SRCFACTORCOLOR); }
+    public static int nsrcFactorColor(long struct) { return memGetInt(struct + XrCompositionLayerAlphaBlendFB.SRCFACTORCOLOR); }
     /** Unsafe version of {@link #dstFactorColor}. */
-    public static int ndstFactorColor(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerAlphaBlendFB.DSTFACTORCOLOR); }
+    public static int ndstFactorColor(long struct) { return memGetInt(struct + XrCompositionLayerAlphaBlendFB.DSTFACTORCOLOR); }
     /** Unsafe version of {@link #srcFactorAlpha}. */
-    public static int nsrcFactorAlpha(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerAlphaBlendFB.SRCFACTORALPHA); }
+    public static int nsrcFactorAlpha(long struct) { return memGetInt(struct + XrCompositionLayerAlphaBlendFB.SRCFACTORALPHA); }
     /** Unsafe version of {@link #dstFactorAlpha}. */
-    public static int ndstFactorAlpha(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerAlphaBlendFB.DSTFACTORALPHA); }
+    public static int ndstFactorAlpha(long struct) { return memGetInt(struct + XrCompositionLayerAlphaBlendFB.DSTFACTORALPHA); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerAlphaBlendFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerAlphaBlendFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerAlphaBlendFB.NEXT, value); }
     /** Unsafe version of {@link #srcFactorColor(int) srcFactorColor}. */
-    public static void nsrcFactorColor(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerAlphaBlendFB.SRCFACTORCOLOR, value); }
+    public static void nsrcFactorColor(long struct, int value) { memPutInt(struct + XrCompositionLayerAlphaBlendFB.SRCFACTORCOLOR, value); }
     /** Unsafe version of {@link #dstFactorColor(int) dstFactorColor}. */
-    public static void ndstFactorColor(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerAlphaBlendFB.DSTFACTORCOLOR, value); }
+    public static void ndstFactorColor(long struct, int value) { memPutInt(struct + XrCompositionLayerAlphaBlendFB.DSTFACTORCOLOR, value); }
     /** Unsafe version of {@link #srcFactorAlpha(int) srcFactorAlpha}. */
-    public static void nsrcFactorAlpha(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerAlphaBlendFB.SRCFACTORALPHA, value); }
+    public static void nsrcFactorAlpha(long struct, int value) { memPutInt(struct + XrCompositionLayerAlphaBlendFB.SRCFACTORALPHA, value); }
     /** Unsafe version of {@link #dstFactorAlpha(int) dstFactorAlpha}. */
-    public static void ndstFactorAlpha(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerAlphaBlendFB.DSTFACTORALPHA, value); }
+    public static void ndstFactorAlpha(long struct, int value) { memPutInt(struct + XrCompositionLayerAlphaBlendFB.DSTFACTORALPHA, value); }
 
     // -----------------------------------
 
@@ -347,6 +345,11 @@ public class XrCompositionLayerAlphaBlendFB extends Struct<XrCompositionLayerAlp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

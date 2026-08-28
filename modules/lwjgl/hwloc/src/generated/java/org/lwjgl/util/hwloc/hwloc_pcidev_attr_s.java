@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class hwloc_pcidev_attr_s extends Struct<hwloc_pcidev_attr_s> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_pcidev_attr_s createSafe(long address) {
+    public static @Nullable hwloc_pcidev_attr_s createSafe(long address) {
         return address == NULL ? null : new hwloc_pcidev_attr_s(address, null);
     }
 
@@ -170,37 +169,36 @@ public class hwloc_pcidev_attr_s extends Struct<hwloc_pcidev_attr_s> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_pcidev_attr_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_pcidev_attr_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #domain}. */
-    public static int ndomain(long struct) { return UNSAFE.getInt(null, struct + hwloc_pcidev_attr_s.DOMAIN); }
+    public static int ndomain(long struct) { return memGetInt(struct + hwloc_pcidev_attr_s.DOMAIN); }
     /** Unsafe version of {@link #bus}. */
-    public static byte nbus(long struct) { return UNSAFE.getByte(null, struct + hwloc_pcidev_attr_s.BUS); }
+    public static byte nbus(long struct) { return memGetByte(struct + hwloc_pcidev_attr_s.BUS); }
     /** Unsafe version of {@link #dev}. */
-    public static byte ndev(long struct) { return UNSAFE.getByte(null, struct + hwloc_pcidev_attr_s.DEV); }
+    public static byte ndev(long struct) { return memGetByte(struct + hwloc_pcidev_attr_s.DEV); }
     /** Unsafe version of {@link #func}. */
-    public static byte nfunc(long struct) { return UNSAFE.getByte(null, struct + hwloc_pcidev_attr_s.FUNC); }
+    public static byte nfunc(long struct) { return memGetByte(struct + hwloc_pcidev_attr_s.FUNC); }
     /** Unsafe version of {@link #prog_if}. */
-    public static byte nprog_if(long struct) { return UNSAFE.getByte(null, struct + hwloc_pcidev_attr_s.PROG_IF); }
+    public static byte nprog_if(long struct) { return memGetByte(struct + hwloc_pcidev_attr_s.PROG_IF); }
     /** Unsafe version of {@link #class_id}. */
-    public static short nclass_id(long struct) { return UNSAFE.getShort(null, struct + hwloc_pcidev_attr_s.CLASS_ID); }
+    public static short nclass_id(long struct) { return memGetShort(struct + hwloc_pcidev_attr_s.CLASS_ID); }
     /** Unsafe version of {@link #vendor_id}. */
-    public static short nvendor_id(long struct) { return UNSAFE.getShort(null, struct + hwloc_pcidev_attr_s.VENDOR_ID); }
+    public static short nvendor_id(long struct) { return memGetShort(struct + hwloc_pcidev_attr_s.VENDOR_ID); }
     /** Unsafe version of {@link #device_id}. */
-    public static short ndevice_id(long struct) { return UNSAFE.getShort(null, struct + hwloc_pcidev_attr_s.DEVICE_ID); }
+    public static short ndevice_id(long struct) { return memGetShort(struct + hwloc_pcidev_attr_s.DEVICE_ID); }
     /** Unsafe version of {@link #subvendor_id}. */
-    public static short nsubvendor_id(long struct) { return UNSAFE.getShort(null, struct + hwloc_pcidev_attr_s.SUBVENDOR_ID); }
+    public static short nsubvendor_id(long struct) { return memGetShort(struct + hwloc_pcidev_attr_s.SUBVENDOR_ID); }
     /** Unsafe version of {@link #subdevice_id}. */
-    public static short nsubdevice_id(long struct) { return UNSAFE.getShort(null, struct + hwloc_pcidev_attr_s.SUBDEVICE_ID); }
+    public static short nsubdevice_id(long struct) { return memGetShort(struct + hwloc_pcidev_attr_s.SUBDEVICE_ID); }
     /** Unsafe version of {@link #revision}. */
-    public static byte nrevision(long struct) { return UNSAFE.getByte(null, struct + hwloc_pcidev_attr_s.REVISION); }
+    public static byte nrevision(long struct) { return memGetByte(struct + hwloc_pcidev_attr_s.REVISION); }
     /** Unsafe version of {@link #linkspeed}. */
-    public static float nlinkspeed(long struct) { return UNSAFE.getFloat(null, struct + hwloc_pcidev_attr_s.LINKSPEED); }
+    public static float nlinkspeed(long struct) { return memGetFloat(struct + hwloc_pcidev_attr_s.LINKSPEED); }
 
     // -----------------------------------
 
@@ -233,6 +231,11 @@ public class hwloc_pcidev_attr_s extends Struct<hwloc_pcidev_attr_s> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class HmdMatrix33 extends Struct<HmdMatrix33> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static HmdMatrix33 createSafe(long address) {
+    public static @Nullable HmdMatrix33 createSafe(long address) {
         return address == NULL ? null : new HmdMatrix33(address, null);
     }
 
@@ -161,8 +160,7 @@ public class HmdMatrix33 extends Struct<HmdMatrix33> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static HmdMatrix33.Buffer createSafe(long address, int capacity) {
+    public static HmdMatrix33.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,7 +227,7 @@ public class HmdMatrix33 extends Struct<HmdMatrix33> implements NativeResource {
     public static FloatBuffer nm(long struct) { return memFloatBuffer(struct + HmdMatrix33.M, 9); }
     /** Unsafe version of {@link #m(int) m}. */
     public static float nm(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + HmdMatrix33.M + check(index, 9) * 4);
+        return memGetFloat(struct + HmdMatrix33.M + check(index, 9) * 4);
     }
 
     /** Unsafe version of {@link #m(FloatBuffer) m}. */
@@ -239,7 +237,7 @@ public class HmdMatrix33 extends Struct<HmdMatrix33> implements NativeResource {
     }
     /** Unsafe version of {@link #m(int, float) m}. */
     public static void nm(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + HmdMatrix33.M + check(index, 9) * 4, value);
+        memPutFloat(struct + HmdMatrix33.M + check(index, 9) * 4, value);
     }
 
     // -----------------------------------
@@ -273,6 +271,11 @@ public class HmdMatrix33 extends Struct<HmdMatrix33> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

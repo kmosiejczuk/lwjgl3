@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -99,8 +99,7 @@ public class OVRExtensionProperties extends Struct<OVRExtensionProperties> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRExtensionProperties createSafe(long address) {
+    public static @Nullable OVRExtensionProperties createSafe(long address) {
         return address == NULL ? null : new OVRExtensionProperties(address, null);
     }
 
@@ -115,21 +114,20 @@ public class OVRExtensionProperties extends Struct<OVRExtensionProperties> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRExtensionProperties.Buffer createSafe(long address, int capacity) {
+    public static OVRExtensionProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #extensionId}. */
-    public static int nextensionId(long struct) { return UNSAFE.getInt(null, struct + OVRExtensionProperties.EXTENSIONID); }
+    public static int nextensionId(long struct) { return memGetInt(struct + OVRExtensionProperties.EXTENSIONID); }
     /** Unsafe version of {@link #extensionName}. */
     public static ByteBuffer nextensionName(long struct) { return memByteBuffer(struct + OVRExtensionProperties.EXTENSIONNAME, OVR_MAX_EXTENSION_NAME_SIZE); }
     /** Unsafe version of {@link #extensionNameString}. */
     public static String nextensionNameString(long struct) { return memASCII(struct + OVRExtensionProperties.EXTENSIONNAME); }
     /** Unsafe version of {@link #extensionVersion}. */
-    public static int nextensionVersion(long struct) { return UNSAFE.getInt(null, struct + OVRExtensionProperties.EXTENSIONVERSION); }
+    public static int nextensionVersion(long struct) { return memGetInt(struct + OVRExtensionProperties.EXTENSIONVERSION); }
 
     // -----------------------------------
 
@@ -162,6 +160,11 @@ public class OVRExtensionProperties extends Struct<OVRExtensionProperties> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

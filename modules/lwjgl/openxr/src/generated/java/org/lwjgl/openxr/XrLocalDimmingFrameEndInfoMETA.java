@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class XrLocalDimmingFrameEndInfoMETA extends Struct<XrLocalDimmingFrameEn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrLocalDimmingFrameEndInfoMETA createSafe(long address) {
+    public static @Nullable XrLocalDimmingFrameEndInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrLocalDimmingFrameEndInfoMETA(address, null);
     }
 
@@ -207,8 +206,7 @@ public class XrLocalDimmingFrameEndInfoMETA extends Struct<XrLocalDimmingFrameEn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrLocalDimmingFrameEndInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrLocalDimmingFrameEndInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +251,18 @@ public class XrLocalDimmingFrameEndInfoMETA extends Struct<XrLocalDimmingFrameEn
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrLocalDimmingFrameEndInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrLocalDimmingFrameEndInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrLocalDimmingFrameEndInfoMETA.NEXT); }
     /** Unsafe version of {@link #localDimmingMode}. */
-    public static int nlocalDimmingMode(long struct) { return UNSAFE.getInt(null, struct + XrLocalDimmingFrameEndInfoMETA.LOCALDIMMINGMODE); }
+    public static int nlocalDimmingMode(long struct) { return memGetInt(struct + XrLocalDimmingFrameEndInfoMETA.LOCALDIMMINGMODE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrLocalDimmingFrameEndInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrLocalDimmingFrameEndInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrLocalDimmingFrameEndInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #localDimmingMode(int) localDimmingMode}. */
-    public static void nlocalDimmingMode(long struct, int value) { UNSAFE.putInt(null, struct + XrLocalDimmingFrameEndInfoMETA.LOCALDIMMINGMODE, value); }
+    public static void nlocalDimmingMode(long struct, int value) { memPutInt(struct + XrLocalDimmingFrameEndInfoMETA.LOCALDIMMINGMODE, value); }
 
     // -----------------------------------
 
@@ -297,6 +295,11 @@ public class XrLocalDimmingFrameEndInfoMETA extends Struct<XrLocalDimmingFrameEn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

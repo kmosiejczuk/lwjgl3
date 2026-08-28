@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,18 +25,18 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is not enabled, {@code occlusionQueryEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is enabled, {@code queryFlags} <b>must</b> be a valid combination of {@code VkQueryControlFlagBits} values</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is not enabled, {@code queryFlags} <b>must</b> be 0</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is enabled, {@code pipelineStatistics} <b>must</b> be a valid combination of {@code VkQueryPipelineStatisticFlagBits} values</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is not enabled, {@code pipelineStatistics} <b>must</b> be 0</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is not enabled, {@code occlusionQueryEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is enabled, {@code queryFlags} <b>must</b> be a valid combination of {@code VkQueryControlFlagBits} values</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-inheritedQueries">{@code inheritedQueries}</a> feature is not enabled, {@code queryFlags} <b>must</b> be 0</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is enabled, {@code pipelineStatistics} <b>must</b> be a valid combination of {@code VkQueryPipelineStatisticFlagBits} values</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is not enabled, {@code pipelineStatistics} <b>must</b> be 0</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkAttachmentSampleCountInfoAMD}, {@link VkCommandBufferInheritanceConditionalRenderingInfoEXT}, {@link VkCommandBufferInheritanceRenderPassTransformInfoQCOM}, {@link VkCommandBufferInheritanceRenderingInfo}, {@link VkCommandBufferInheritanceViewportScissorInfoNV}, {@link VkExternalFormatANDROID}, {@link VkMultiviewPerViewAttributesInfoNVX}, {@link VkRenderingAttachmentLocationInfoKHR}, or {@link VkRenderingInputAttachmentIndexInfoKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkAttachmentSampleCountInfoAMD}, {@link VkCommandBufferInheritanceConditionalRenderingInfoEXT}, {@link VkCommandBufferInheritanceRenderPassTransformInfoQCOM}, {@link VkCommandBufferInheritanceRenderingInfo}, {@link VkCommandBufferInheritanceViewportScissorInfoNV}, {@link VkExternalFormatANDROID}, {@link VkMultiviewPerViewAttributesInfoNVX}, {@link VkRenderingAttachmentLocationInfo}, or {@link VkRenderingInputAttachmentIndexInfo}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>Both of {@code framebuffer}, and {@code renderPass} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkDevice}</li>
  * </ul>
@@ -131,7 +131,7 @@ public class VkCommandBufferInheritanceInfo extends Struct<VkCommandBufferInheri
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkRenderPass} object defining which render passes the {@code VkCommandBuffer} will be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-compatibility">compatible</a> with and <b>can</b> be executed within. */
+    /** a {@code VkRenderPass} object defining which render passes the {@code VkCommandBuffer} will be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-compatibility">compatible</a> with and <b>can</b> be executed within. */
     @NativeType("VkRenderPass")
     public long renderPass() { return nrenderPass(address()); }
     /** the index of the subpass within the render pass instance that the {@code VkCommandBuffer} will be executed within. */
@@ -181,8 +181,12 @@ public class VkCommandBufferInheritanceInfo extends Struct<VkCommandBufferInheri
     public VkCommandBufferInheritanceInfo pNext(VkExternalFormatANDROID value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkMultiviewPerViewAttributesInfoNVX} value to the {@code pNext} chain. */
     public VkCommandBufferInheritanceInfo pNext(VkMultiviewPerViewAttributesInfoNVX value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkRenderingAttachmentLocationInfo} value to the {@code pNext} chain. */
+    public VkCommandBufferInheritanceInfo pNext(VkRenderingAttachmentLocationInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkRenderingAttachmentLocationInfoKHR} value to the {@code pNext} chain. */
     public VkCommandBufferInheritanceInfo pNext(VkRenderingAttachmentLocationInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkRenderingInputAttachmentIndexInfo} value to the {@code pNext} chain. */
+    public VkCommandBufferInheritanceInfo pNext(VkRenderingInputAttachmentIndexInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkRenderingInputAttachmentIndexInfoKHR} value to the {@code pNext} chain. */
     public VkCommandBufferInheritanceInfo pNext(VkRenderingInputAttachmentIndexInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #renderPass} field. */
@@ -257,8 +261,7 @@ public class VkCommandBufferInheritanceInfo extends Struct<VkCommandBufferInheri
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferInheritanceInfo createSafe(long address) {
+    public static @Nullable VkCommandBufferInheritanceInfo createSafe(long address) {
         return address == NULL ? null : new VkCommandBufferInheritanceInfo(address, null);
     }
 
@@ -301,8 +304,7 @@ public class VkCommandBufferInheritanceInfo extends Struct<VkCommandBufferInheri
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferInheritanceInfo.Buffer createSafe(long address, int capacity) {
+    public static VkCommandBufferInheritanceInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -366,38 +368,38 @@ public class VkCommandBufferInheritanceInfo extends Struct<VkCommandBufferInheri
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferInheritanceInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCommandBufferInheritanceInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCommandBufferInheritanceInfo.PNEXT); }
     /** Unsafe version of {@link #renderPass}. */
-    public static long nrenderPass(long struct) { return UNSAFE.getLong(null, struct + VkCommandBufferInheritanceInfo.RENDERPASS); }
+    public static long nrenderPass(long struct) { return memGetLong(struct + VkCommandBufferInheritanceInfo.RENDERPASS); }
     /** Unsafe version of {@link #subpass}. */
-    public static int nsubpass(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferInheritanceInfo.SUBPASS); }
+    public static int nsubpass(long struct) { return memGetInt(struct + VkCommandBufferInheritanceInfo.SUBPASS); }
     /** Unsafe version of {@link #framebuffer}. */
-    public static long nframebuffer(long struct) { return UNSAFE.getLong(null, struct + VkCommandBufferInheritanceInfo.FRAMEBUFFER); }
+    public static long nframebuffer(long struct) { return memGetLong(struct + VkCommandBufferInheritanceInfo.FRAMEBUFFER); }
     /** Unsafe version of {@link #occlusionQueryEnable}. */
-    public static int nocclusionQueryEnable(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferInheritanceInfo.OCCLUSIONQUERYENABLE); }
+    public static int nocclusionQueryEnable(long struct) { return memGetInt(struct + VkCommandBufferInheritanceInfo.OCCLUSIONQUERYENABLE); }
     /** Unsafe version of {@link #queryFlags}. */
-    public static int nqueryFlags(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferInheritanceInfo.QUERYFLAGS); }
+    public static int nqueryFlags(long struct) { return memGetInt(struct + VkCommandBufferInheritanceInfo.QUERYFLAGS); }
     /** Unsafe version of {@link #pipelineStatistics}. */
-    public static int npipelineStatistics(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferInheritanceInfo.PIPELINESTATISTICS); }
+    public static int npipelineStatistics(long struct) { return memGetInt(struct + VkCommandBufferInheritanceInfo.PIPELINESTATISTICS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferInheritanceInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCommandBufferInheritanceInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCommandBufferInheritanceInfo.PNEXT, value); }
     /** Unsafe version of {@link #renderPass(long) renderPass}. */
-    public static void nrenderPass(long struct, long value) { UNSAFE.putLong(null, struct + VkCommandBufferInheritanceInfo.RENDERPASS, value); }
+    public static void nrenderPass(long struct, long value) { memPutLong(struct + VkCommandBufferInheritanceInfo.RENDERPASS, value); }
     /** Unsafe version of {@link #subpass(int) subpass}. */
-    public static void nsubpass(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferInheritanceInfo.SUBPASS, value); }
+    public static void nsubpass(long struct, int value) { memPutInt(struct + VkCommandBufferInheritanceInfo.SUBPASS, value); }
     /** Unsafe version of {@link #framebuffer(long) framebuffer}. */
-    public static void nframebuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkCommandBufferInheritanceInfo.FRAMEBUFFER, value); }
+    public static void nframebuffer(long struct, long value) { memPutLong(struct + VkCommandBufferInheritanceInfo.FRAMEBUFFER, value); }
     /** Unsafe version of {@link #occlusionQueryEnable(boolean) occlusionQueryEnable}. */
-    public static void nocclusionQueryEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferInheritanceInfo.OCCLUSIONQUERYENABLE, value); }
+    public static void nocclusionQueryEnable(long struct, int value) { memPutInt(struct + VkCommandBufferInheritanceInfo.OCCLUSIONQUERYENABLE, value); }
     /** Unsafe version of {@link #queryFlags(int) queryFlags}. */
-    public static void nqueryFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferInheritanceInfo.QUERYFLAGS, value); }
+    public static void nqueryFlags(long struct, int value) { memPutInt(struct + VkCommandBufferInheritanceInfo.QUERYFLAGS, value); }
     /** Unsafe version of {@link #pipelineStatistics(int) pipelineStatistics}. */
-    public static void npipelineStatistics(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferInheritanceInfo.PIPELINESTATISTICS, value); }
+    public static void npipelineStatistics(long struct, int value) { memPutInt(struct + VkCommandBufferInheritanceInfo.PIPELINESTATISTICS, value); }
 
     // -----------------------------------
 
@@ -430,6 +432,11 @@ public class VkCommandBufferInheritanceInfo extends Struct<VkCommandBufferInheri
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -486,8 +493,12 @@ public class VkCommandBufferInheritanceInfo extends Struct<VkCommandBufferInheri
         public VkCommandBufferInheritanceInfo.Buffer pNext(VkExternalFormatANDROID value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkMultiviewPerViewAttributesInfoNVX} value to the {@code pNext} chain. */
         public VkCommandBufferInheritanceInfo.Buffer pNext(VkMultiviewPerViewAttributesInfoNVX value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkRenderingAttachmentLocationInfo} value to the {@code pNext} chain. */
+        public VkCommandBufferInheritanceInfo.Buffer pNext(VkRenderingAttachmentLocationInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkRenderingAttachmentLocationInfoKHR} value to the {@code pNext} chain. */
         public VkCommandBufferInheritanceInfo.Buffer pNext(VkRenderingAttachmentLocationInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkRenderingInputAttachmentIndexInfo} value to the {@code pNext} chain. */
+        public VkCommandBufferInheritanceInfo.Buffer pNext(VkRenderingInputAttachmentIndexInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkRenderingInputAttachmentIndexInfoKHR} value to the {@code pNext} chain. */
         public VkCommandBufferInheritanceInfo.Buffer pNext(VkRenderingInputAttachmentIndexInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkCommandBufferInheritanceInfo#renderPass} field. */

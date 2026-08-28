@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class GLFWImage extends Struct<GLFWImage> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static GLFWImage createSafe(long address) {
+    public static @Nullable GLFWImage createSafe(long address) {
         return address == NULL ? null : new GLFWImage(address, null);
     }
 
@@ -196,8 +195,7 @@ public class GLFWImage extends Struct<GLFWImage> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static GLFWImage.Buffer createSafe(long address, int capacity) {
+    public static GLFWImage.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,16 +259,16 @@ public class GLFWImage extends Struct<GLFWImage> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + GLFWImage.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + GLFWImage.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + GLFWImage.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + GLFWImage.HEIGHT); }
     /** Unsafe version of {@link #pixels(int) pixels}. */
     public static ByteBuffer npixels(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + GLFWImage.PIXELS), capacity); }
 
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + GLFWImage.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + GLFWImage.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + GLFWImage.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + GLFWImage.HEIGHT, value); }
     /** Unsafe version of {@link #pixels(ByteBuffer) pixels}. */
     public static void npixels(long struct, ByteBuffer value) { memPutAddress(struct + GLFWImage.PIXELS, memAddress(value)); }
 
@@ -314,6 +312,11 @@ public class GLFWImage extends Struct<GLFWImage> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

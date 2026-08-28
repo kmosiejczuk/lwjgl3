@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,10 +94,10 @@ public class VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM extends Struct<V
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-ycbcr-degamma">sRGB to linear</a> conversion is enabled for the G component. */
+    /** indicates <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-ycbcr-degamma">sRGB to linear</a> conversion is enabled for the G component. */
     @NativeType("VkBool32")
     public boolean enableYDegamma() { return nenableYDegamma(address()) != 0; }
-    /** indicates <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-ycbcr-degamma">sRGB to linear</a> conversion is enabled for the R and B components. */
+    /** indicates <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-ycbcr-degamma">sRGB to linear</a> conversion is enabled for the R and B components. */
     @NativeType("VkBool32")
     public boolean enableCbCrDegamma() { return nenableCbCrDegamma(address()) != 0; }
 
@@ -163,8 +163,7 @@ public class VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM createSafe(long address) {
+    public static @Nullable VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM createSafe(long address) {
         return address == NULL ? null : new VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM(address, null);
     }
 
@@ -207,8 +206,7 @@ public class VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,22 +251,22 @@ public class VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.PNEXT); }
     /** Unsafe version of {@link #enableYDegamma}. */
-    public static int nenableYDegamma(long struct) { return UNSAFE.getInt(null, struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.ENABLEYDEGAMMA); }
+    public static int nenableYDegamma(long struct) { return memGetInt(struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.ENABLEYDEGAMMA); }
     /** Unsafe version of {@link #enableCbCrDegamma}. */
-    public static int nenableCbCrDegamma(long struct) { return UNSAFE.getInt(null, struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.ENABLECBCRDEGAMMA); }
+    public static int nenableCbCrDegamma(long struct) { return memGetInt(struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.ENABLECBCRDEGAMMA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.PNEXT, value); }
     /** Unsafe version of {@link #enableYDegamma(boolean) enableYDegamma}. */
-    public static void nenableYDegamma(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.ENABLEYDEGAMMA, value); }
+    public static void nenableYDegamma(long struct, int value) { memPutInt(struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.ENABLEYDEGAMMA, value); }
     /** Unsafe version of {@link #enableCbCrDegamma(boolean) enableCbCrDegamma}. */
-    public static void nenableCbCrDegamma(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.ENABLECBCRDEGAMMA, value); }
+    public static void nenableCbCrDegamma(long struct, int value) { memPutInt(struct + VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.ENABLECBCRDEGAMMA, value); }
 
     // -----------------------------------
 
@@ -301,6 +299,11 @@ public class VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM extends Struct<V
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

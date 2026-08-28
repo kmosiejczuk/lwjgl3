@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -191,8 +191,7 @@ public class VkTilePropertiesQCOM extends Struct<VkTilePropertiesQCOM> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkTilePropertiesQCOM createSafe(long address) {
+    public static @Nullable VkTilePropertiesQCOM createSafe(long address) {
         return address == NULL ? null : new VkTilePropertiesQCOM(address, null);
     }
 
@@ -235,8 +234,7 @@ public class VkTilePropertiesQCOM extends Struct<VkTilePropertiesQCOM> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkTilePropertiesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkTilePropertiesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -281,7 +279,7 @@ public class VkTilePropertiesQCOM extends Struct<VkTilePropertiesQCOM> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkTilePropertiesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkTilePropertiesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkTilePropertiesQCOM.PNEXT); }
     /** Unsafe version of {@link #tileSize}. */
@@ -292,7 +290,7 @@ public class VkTilePropertiesQCOM extends Struct<VkTilePropertiesQCOM> implement
     public static VkOffset2D norigin(long struct) { return VkOffset2D.create(struct + VkTilePropertiesQCOM.ORIGIN); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkTilePropertiesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkTilePropertiesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkTilePropertiesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #tileSize(VkExtent3D) tileSize}. */
@@ -333,6 +331,11 @@ public class VkTilePropertiesQCOM extends Struct<VkTilePropertiesQCOM> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

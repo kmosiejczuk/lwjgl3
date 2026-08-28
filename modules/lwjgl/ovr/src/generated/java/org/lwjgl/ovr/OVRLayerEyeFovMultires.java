@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -259,8 +259,7 @@ public class OVRLayerEyeFovMultires extends Struct<OVRLayerEyeFovMultires> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRLayerEyeFovMultires createSafe(long address) {
+    public static @Nullable OVRLayerEyeFovMultires createSafe(long address) {
         return address == NULL ? null : new OVRLayerEyeFovMultires(address, null);
     }
 
@@ -303,8 +302,7 @@ public class OVRLayerEyeFovMultires extends Struct<OVRLayerEyeFovMultires> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRLayerEyeFovMultires.Buffer createSafe(long address, int capacity) {
+    public static OVRLayerEyeFovMultires.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -394,9 +392,9 @@ public class OVRLayerEyeFovMultires extends Struct<OVRLayerEyeFovMultires> imple
         return OVRPosef.create(struct + OVRLayerEyeFovMultires.RENDERPOSE + check(index, ovrEye_Count) * OVRPosef.SIZEOF);
     }
     /** Unsafe version of {@link #SensorSampleTime}. */
-    public static double nSensorSampleTime(long struct) { return UNSAFE.getDouble(null, struct + OVRLayerEyeFovMultires.SENSORSAMPLETIME); }
+    public static double nSensorSampleTime(long struct) { return memGetDouble(struct + OVRLayerEyeFovMultires.SENSORSAMPLETIME); }
     /** Unsafe version of {@link #TextureLayout}. */
-    public static int nTextureLayout(long struct) { return UNSAFE.getInt(null, struct + OVRLayerEyeFovMultires.TEXTURELAYOUT); }
+    public static int nTextureLayout(long struct) { return memGetInt(struct + OVRLayerEyeFovMultires.TEXTURELAYOUT); }
     /** Unsafe version of {@link #TextureLayoutDesc}. */
     public static OVRTextureLayoutDescUnion nTextureLayoutDesc(long struct) { return OVRTextureLayoutDescUnion.create(struct + OVRLayerEyeFovMultires.TEXTURELAYOUTDESC); }
 
@@ -439,9 +437,9 @@ public class OVRLayerEyeFovMultires extends Struct<OVRLayerEyeFovMultires> imple
         memCopy(value.address(), struct + OVRLayerEyeFovMultires.RENDERPOSE + check(index, ovrEye_Count) * OVRPosef.SIZEOF, OVRPosef.SIZEOF);
     }
     /** Unsafe version of {@link #SensorSampleTime(double) SensorSampleTime}. */
-    public static void nSensorSampleTime(long struct, double value) { UNSAFE.putDouble(null, struct + OVRLayerEyeFovMultires.SENSORSAMPLETIME, value); }
+    public static void nSensorSampleTime(long struct, double value) { memPutDouble(struct + OVRLayerEyeFovMultires.SENSORSAMPLETIME, value); }
     /** Unsafe version of {@link #TextureLayout(int) TextureLayout}. */
-    public static void nTextureLayout(long struct, int value) { UNSAFE.putInt(null, struct + OVRLayerEyeFovMultires.TEXTURELAYOUT, value); }
+    public static void nTextureLayout(long struct, int value) { memPutInt(struct + OVRLayerEyeFovMultires.TEXTURELAYOUT, value); }
     /** Unsafe version of {@link #TextureLayoutDesc(OVRTextureLayoutDescUnion) TextureLayoutDesc}. */
     public static void nTextureLayoutDesc(long struct, OVRTextureLayoutDescUnion value) { memCopy(value.address(), struct + OVRLayerEyeFovMultires.TEXTURELAYOUTDESC, OVRTextureLayoutDescUnion.SIZEOF); }
 
@@ -485,6 +483,11 @@ public class OVRLayerEyeFovMultires extends Struct<OVRLayerEyeFovMultires> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -181,8 +181,7 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreCreateInfo createSafe(long address) {
+    public static @Nullable VkSemaphoreCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkSemaphoreCreateInfo(address, null);
     }
 
@@ -225,8 +224,7 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSemaphoreCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,18 +288,18 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSemaphoreCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSemaphoreCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSemaphoreCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkSemaphoreCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkSemaphoreCreateInfo.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSemaphoreCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSemaphoreCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSemaphoreCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkSemaphoreCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkSemaphoreCreateInfo.FLAGS, value); }
 
     // -----------------------------------
 
@@ -334,6 +332,11 @@ public class VkSemaphoreCreateInfo extends Struct<VkSemaphoreCreateInfo> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

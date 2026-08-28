@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,7 +137,7 @@ public class VkVideoEncodeH265QualityLevelPropertiesKHR extends Struct<VkVideoEn
     /** indicates the preferred value to use for {@link VkVideoEncodeH265RateControlInfoKHR}{@code ::subLayerCount}. */
     @NativeType("uint32_t")
     public int preferredSubLayerCount() { return npreferredSubLayerCount(address()); }
-    /** indicates the preferred values to use for {@link VkVideoEncodeH265NaluSliceSegmentInfoKHR}{@code ::constantQp} for each picture type when using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-rate-control-modes">rate control mode</a> {@link KHRVideoEncodeQueue#VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR}. */
+    /** indicates the preferred values to use for {@link VkVideoEncodeH265NaluSliceSegmentInfoKHR}{@code ::constantQp} for each picture type when using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-rate-control-modes">rate control mode</a> {@link KHRVideoEncodeQueue#VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR}. */
     public VkVideoEncodeH265QpKHR preferredConstantQp() { return npreferredConstantQp(address()); }
     /** indicates the preferred maximum number of reference pictures to use in the reference list L0. */
     @NativeType("uint32_t")
@@ -200,8 +200,7 @@ public class VkVideoEncodeH265QualityLevelPropertiesKHR extends Struct<VkVideoEn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH265QualityLevelPropertiesKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH265QualityLevelPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH265QualityLevelPropertiesKHR(address, null);
     }
 
@@ -244,8 +243,7 @@ public class VkVideoEncodeH265QualityLevelPropertiesKHR extends Struct<VkVideoEn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH265QualityLevelPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH265QualityLevelPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,28 +288,28 @@ public class VkVideoEncodeH265QualityLevelPropertiesKHR extends Struct<VkVideoEn
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265QualityLevelPropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #preferredRateControlFlags}. */
-    public static int npreferredRateControlFlags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDRATECONTROLFLAGS); }
+    public static int npreferredRateControlFlags(long struct) { return memGetInt(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDRATECONTROLFLAGS); }
     /** Unsafe version of {@link #preferredGopFrameCount}. */
-    public static int npreferredGopFrameCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDGOPFRAMECOUNT); }
+    public static int npreferredGopFrameCount(long struct) { return memGetInt(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDGOPFRAMECOUNT); }
     /** Unsafe version of {@link #preferredIdrPeriod}. */
-    public static int npreferredIdrPeriod(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDIDRPERIOD); }
+    public static int npreferredIdrPeriod(long struct) { return memGetInt(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDIDRPERIOD); }
     /** Unsafe version of {@link #preferredConsecutiveBFrameCount}. */
-    public static int npreferredConsecutiveBFrameCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDCONSECUTIVEBFRAMECOUNT); }
+    public static int npreferredConsecutiveBFrameCount(long struct) { return memGetInt(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDCONSECUTIVEBFRAMECOUNT); }
     /** Unsafe version of {@link #preferredSubLayerCount}. */
-    public static int npreferredSubLayerCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDSUBLAYERCOUNT); }
+    public static int npreferredSubLayerCount(long struct) { return memGetInt(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDSUBLAYERCOUNT); }
     /** Unsafe version of {@link #preferredConstantQp}. */
     public static VkVideoEncodeH265QpKHR npreferredConstantQp(long struct) { return VkVideoEncodeH265QpKHR.create(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDCONSTANTQP); }
     /** Unsafe version of {@link #preferredMaxL0ReferenceCount}. */
-    public static int npreferredMaxL0ReferenceCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDMAXL0REFERENCECOUNT); }
+    public static int npreferredMaxL0ReferenceCount(long struct) { return memGetInt(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDMAXL0REFERENCECOUNT); }
     /** Unsafe version of {@link #preferredMaxL1ReferenceCount}. */
-    public static int npreferredMaxL1ReferenceCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDMAXL1REFERENCECOUNT); }
+    public static int npreferredMaxL1ReferenceCount(long struct) { return memGetInt(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PREFERREDMAXL1REFERENCECOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265QualityLevelPropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH265QualityLevelPropertiesKHR.PNEXT, value); }
 
@@ -346,6 +344,11 @@ public class VkVideoEncodeH265QualityLevelPropertiesKHR extends Struct<VkVideoEn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

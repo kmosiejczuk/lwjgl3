@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -138,8 +138,7 @@ public class VkShadingRatePaletteNV extends Struct<VkShadingRatePaletteNV> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShadingRatePaletteNV createSafe(long address) {
+    public static @Nullable VkShadingRatePaletteNV createSafe(long address) {
         return address == NULL ? null : new VkShadingRatePaletteNV(address, null);
     }
 
@@ -182,8 +181,7 @@ public class VkShadingRatePaletteNV extends Struct<VkShadingRatePaletteNV> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShadingRatePaletteNV.Buffer createSafe(long address, int capacity) {
+    public static VkShadingRatePaletteNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,12 +245,12 @@ public class VkShadingRatePaletteNV extends Struct<VkShadingRatePaletteNV> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #shadingRatePaletteEntryCount}. */
-    public static int nshadingRatePaletteEntryCount(long struct) { return UNSAFE.getInt(null, struct + VkShadingRatePaletteNV.SHADINGRATEPALETTEENTRYCOUNT); }
+    public static int nshadingRatePaletteEntryCount(long struct) { return memGetInt(struct + VkShadingRatePaletteNV.SHADINGRATEPALETTEENTRYCOUNT); }
     /** Unsafe version of {@link #pShadingRatePaletteEntries() pShadingRatePaletteEntries}. */
     public static IntBuffer npShadingRatePaletteEntries(long struct) { return memIntBuffer(memGetAddress(struct + VkShadingRatePaletteNV.PSHADINGRATEPALETTEENTRIES), nshadingRatePaletteEntryCount(struct)); }
 
     /** Sets the specified value to the {@code shadingRatePaletteEntryCount} field of the specified {@code struct}. */
-    public static void nshadingRatePaletteEntryCount(long struct, int value) { UNSAFE.putInt(null, struct + VkShadingRatePaletteNV.SHADINGRATEPALETTEENTRYCOUNT, value); }
+    public static void nshadingRatePaletteEntryCount(long struct, int value) { memPutInt(struct + VkShadingRatePaletteNV.SHADINGRATEPALETTEENTRYCOUNT, value); }
     /** Unsafe version of {@link #pShadingRatePaletteEntries(IntBuffer) pShadingRatePaletteEntries}. */
     public static void npShadingRatePaletteEntries(long struct, IntBuffer value) { memPutAddress(struct + VkShadingRatePaletteNV.PSHADINGRATEPALETTEENTRIES, memAddress(value)); nshadingRatePaletteEntryCount(struct, value.remaining()); }
 
@@ -296,6 +294,11 @@ public class VkShadingRatePaletteNV extends Struct<VkShadingRatePaletteNV> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

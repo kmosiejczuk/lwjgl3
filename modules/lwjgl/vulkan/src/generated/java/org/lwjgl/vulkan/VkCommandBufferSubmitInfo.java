@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -182,8 +182,7 @@ public class VkCommandBufferSubmitInfo extends Struct<VkCommandBufferSubmitInfo>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferSubmitInfo createSafe(long address) {
+    public static @Nullable VkCommandBufferSubmitInfo createSafe(long address) {
         return address == NULL ? null : new VkCommandBufferSubmitInfo(address, null);
     }
 
@@ -226,8 +225,7 @@ public class VkCommandBufferSubmitInfo extends Struct<VkCommandBufferSubmitInfo>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferSubmitInfo.Buffer createSafe(long address, int capacity) {
+    public static VkCommandBufferSubmitInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,22 +270,22 @@ public class VkCommandBufferSubmitInfo extends Struct<VkCommandBufferSubmitInfo>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferSubmitInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCommandBufferSubmitInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCommandBufferSubmitInfo.PNEXT); }
     /** Unsafe version of {@link #commandBuffer}. */
     public static long ncommandBuffer(long struct) { return memGetAddress(struct + VkCommandBufferSubmitInfo.COMMANDBUFFER); }
     /** Unsafe version of {@link #deviceMask}. */
-    public static int ndeviceMask(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferSubmitInfo.DEVICEMASK); }
+    public static int ndeviceMask(long struct) { return memGetInt(struct + VkCommandBufferSubmitInfo.DEVICEMASK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferSubmitInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCommandBufferSubmitInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCommandBufferSubmitInfo.PNEXT, value); }
     /** Unsafe version of {@link #commandBuffer(VkCommandBuffer) commandBuffer}. */
     public static void ncommandBuffer(long struct, VkCommandBuffer value) { memPutAddress(struct + VkCommandBufferSubmitInfo.COMMANDBUFFER, value.address()); }
     /** Unsafe version of {@link #deviceMask(int) deviceMask}. */
-    public static void ndeviceMask(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferSubmitInfo.DEVICEMASK, value); }
+    public static void ndeviceMask(long struct, int value) { memPutInt(struct + VkCommandBufferSubmitInfo.DEVICEMASK, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -329,6 +327,11 @@ public class VkCommandBufferSubmitInfo extends Struct<VkCommandBufferSubmitInfo>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

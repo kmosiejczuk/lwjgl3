@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-reportAddressBinding">{@code reportAddressBinding}</a> feature is enabled and the implementation binds or unbinds a region of virtual address space associated with a Vulkan object, the implementation <b>must</b> submit a debug message with the following properties:</p>
+ * <p>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-reportAddressBinding">{@code reportAddressBinding}</a> feature is enabled and the implementation binds or unbinds a region of virtual address space associated with a Vulkan object, the implementation <b>must</b> submit a debug message with the following properties:</p>
  * 
  * <ul>
  * <li>{@code messageSeverity} equal to {@link EXTDebugUtils#VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT}</li>
@@ -33,7 +33,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>An implementation <b>may</b> report binding events associated with a Vulkan object via {@code VkDebugUtilsMessengerEXT} prior to the object becoming visible to an application via other Vulkan commands. For example, object creation functions <b>may</b> report binding events that occur during an objects creation. In such cases, {@link VkDeviceAddressBindingCallbackDataEXT}{@code ::flags} <b>must</b> include {@link EXTDeviceAddressBindingReport#VK_DEVICE_ADDRESS_BINDING_INTERNAL_OBJECT_BIT_EXT DEVICE_ADDRESS_BINDING_INTERNAL_OBJECT_BIT_EXT}.</p>
  * 
- * <p>Object handles reported in this manner are not <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-validusage-handles">valid object handles</a>, and <b>must</b> not be used as an input parameter to any Vulkan command.</p>
+ * <p>Object handles reported in this manner are not <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-validusage-handles">valid object handles</a>, and <b>must</b> not be used as an input parameter to any Vulkan command.</p>
  * 
  * <p>Any valid object handle returned by an object creation function <b>must</b> match the handle specified via any previously reported binding events associated with the object’s creation.</p>
  * 
@@ -206,8 +206,7 @@ public class VkDeviceAddressBindingCallbackDataEXT extends Struct<VkDeviceAddres
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceAddressBindingCallbackDataEXT createSafe(long address) {
+    public static @Nullable VkDeviceAddressBindingCallbackDataEXT createSafe(long address) {
         return address == NULL ? null : new VkDeviceAddressBindingCallbackDataEXT(address, null);
     }
 
@@ -250,8 +249,7 @@ public class VkDeviceAddressBindingCallbackDataEXT extends Struct<VkDeviceAddres
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceAddressBindingCallbackDataEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceAddressBindingCallbackDataEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -296,30 +294,30 @@ public class VkDeviceAddressBindingCallbackDataEXT extends Struct<VkDeviceAddres
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceAddressBindingCallbackDataEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceAddressBindingCallbackDataEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceAddressBindingCallbackDataEXT.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDeviceAddressBindingCallbackDataEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkDeviceAddressBindingCallbackDataEXT.FLAGS); }
     /** Unsafe version of {@link #baseAddress}. */
-    public static long nbaseAddress(long struct) { return UNSAFE.getLong(null, struct + VkDeviceAddressBindingCallbackDataEXT.BASEADDRESS); }
+    public static long nbaseAddress(long struct) { return memGetLong(struct + VkDeviceAddressBindingCallbackDataEXT.BASEADDRESS); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkDeviceAddressBindingCallbackDataEXT.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkDeviceAddressBindingCallbackDataEXT.SIZE); }
     /** Unsafe version of {@link #bindingType}. */
-    public static int nbindingType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceAddressBindingCallbackDataEXT.BINDINGTYPE); }
+    public static int nbindingType(long struct) { return memGetInt(struct + VkDeviceAddressBindingCallbackDataEXT.BINDINGTYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceAddressBindingCallbackDataEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceAddressBindingCallbackDataEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceAddressBindingCallbackDataEXT.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceAddressBindingCallbackDataEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkDeviceAddressBindingCallbackDataEXT.FLAGS, value); }
     /** Unsafe version of {@link #baseAddress(long) baseAddress}. */
-    public static void nbaseAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkDeviceAddressBindingCallbackDataEXT.BASEADDRESS, value); }
+    public static void nbaseAddress(long struct, long value) { memPutLong(struct + VkDeviceAddressBindingCallbackDataEXT.BASEADDRESS, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkDeviceAddressBindingCallbackDataEXT.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkDeviceAddressBindingCallbackDataEXT.SIZE, value); }
     /** Unsafe version of {@link #bindingType(int) bindingType}. */
-    public static void nbindingType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceAddressBindingCallbackDataEXT.BINDINGTYPE, value); }
+    public static void nbindingType(long struct, int value) { memPutInt(struct + VkDeviceAddressBindingCallbackDataEXT.BINDINGTYPE, value); }
 
     // -----------------------------------
 
@@ -352,6 +350,11 @@ public class VkDeviceAddressBindingCallbackDataEXT extends Struct<VkDeviceAddres
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

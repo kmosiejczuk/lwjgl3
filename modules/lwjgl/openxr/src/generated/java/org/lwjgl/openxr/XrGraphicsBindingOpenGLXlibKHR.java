@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -216,8 +216,7 @@ public class XrGraphicsBindingOpenGLXlibKHR extends Struct<XrGraphicsBindingOpen
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsBindingOpenGLXlibKHR createSafe(long address) {
+    public static @Nullable XrGraphicsBindingOpenGLXlibKHR createSafe(long address) {
         return address == NULL ? null : new XrGraphicsBindingOpenGLXlibKHR(address, null);
     }
 
@@ -260,8 +259,7 @@ public class XrGraphicsBindingOpenGLXlibKHR extends Struct<XrGraphicsBindingOpen
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsBindingOpenGLXlibKHR.Buffer createSafe(long address, int capacity) {
+    public static XrGraphicsBindingOpenGLXlibKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -306,13 +304,13 @@ public class XrGraphicsBindingOpenGLXlibKHR extends Struct<XrGraphicsBindingOpen
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrGraphicsBindingOpenGLXlibKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrGraphicsBindingOpenGLXlibKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrGraphicsBindingOpenGLXlibKHR.NEXT); }
     /** Unsafe version of {@link #xDisplay}. */
     public static long nxDisplay(long struct) { return memGetAddress(struct + XrGraphicsBindingOpenGLXlibKHR.XDISPLAY); }
     /** Unsafe version of {@link #visualid}. */
-    public static int nvisualid(long struct) { return UNSAFE.getInt(null, struct + XrGraphicsBindingOpenGLXlibKHR.VISUALID); }
+    public static int nvisualid(long struct) { return memGetInt(struct + XrGraphicsBindingOpenGLXlibKHR.VISUALID); }
     /** Unsafe version of {@link #glxFBConfig}. */
     public static long nglxFBConfig(long struct) { return memGetAddress(struct + XrGraphicsBindingOpenGLXlibKHR.GLXFBCONFIG); }
     /** Unsafe version of {@link #glxDrawable}. */
@@ -321,13 +319,13 @@ public class XrGraphicsBindingOpenGLXlibKHR extends Struct<XrGraphicsBindingOpen
     public static long nglxContext(long struct) { return memGetAddress(struct + XrGraphicsBindingOpenGLXlibKHR.GLXCONTEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrGraphicsBindingOpenGLXlibKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrGraphicsBindingOpenGLXlibKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrGraphicsBindingOpenGLXlibKHR.NEXT, value); }
     /** Unsafe version of {@link #xDisplay(long) xDisplay}. */
     public static void nxDisplay(long struct, long value) { memPutAddress(struct + XrGraphicsBindingOpenGLXlibKHR.XDISPLAY, check(value)); }
     /** Unsafe version of {@link #visualid(int) visualid}. */
-    public static void nvisualid(long struct, int value) { UNSAFE.putInt(null, struct + XrGraphicsBindingOpenGLXlibKHR.VISUALID, value); }
+    public static void nvisualid(long struct, int value) { memPutInt(struct + XrGraphicsBindingOpenGLXlibKHR.VISUALID, value); }
     /** Unsafe version of {@link #glxFBConfig(long) glxFBConfig}. */
     public static void nglxFBConfig(long struct, long value) { memPutAddress(struct + XrGraphicsBindingOpenGLXlibKHR.GLXFBCONFIG, check(value)); }
     /** Unsafe version of {@link #glxDrawable(long) glxDrawable}. */
@@ -378,6 +376,11 @@ public class XrGraphicsBindingOpenGLXlibKHR extends Struct<XrGraphicsBindingOpen
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If {@code buffer} is not {@code NULL}, Android hardware buffers <b>must</b> be supported for import, as reported by {@link VkExternalImageFormatProperties} or {@link VkExternalBufferProperties}</li>
- * <li>If {@code buffer} is not {@code NULL}, it <b>must</b> be a valid Android hardware buffer object with {@code AHardwareBuffer_Desc}{@code ::usage} compatible with Vulkan as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-external-android-hardware-buffer">Android Hardware Buffers</a></li>
+ * <li>If {@code buffer} is not {@code NULL}, it <b>must</b> be a valid Android hardware buffer object with {@code AHardwareBuffer_Desc}{@code ::usage} compatible with Vulkan as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-external-android-hardware-buffer">Android Hardware Buffers</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -165,8 +165,7 @@ public class VkImportAndroidHardwareBufferInfoANDROID extends Struct<VkImportAnd
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportAndroidHardwareBufferInfoANDROID createSafe(long address) {
+    public static @Nullable VkImportAndroidHardwareBufferInfoANDROID createSafe(long address) {
         return address == NULL ? null : new VkImportAndroidHardwareBufferInfoANDROID(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkImportAndroidHardwareBufferInfoANDROID extends Struct<VkImportAnd
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportAndroidHardwareBufferInfoANDROID.Buffer createSafe(long address, int capacity) {
+    public static VkImportAndroidHardwareBufferInfoANDROID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,14 +253,14 @@ public class VkImportAndroidHardwareBufferInfoANDROID extends Struct<VkImportAnd
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImportAndroidHardwareBufferInfoANDROID.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImportAndroidHardwareBufferInfoANDROID.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImportAndroidHardwareBufferInfoANDROID.PNEXT); }
     /** Unsafe version of {@link #buffer}. */
     public static long nbuffer(long struct) { return memGetAddress(struct + VkImportAndroidHardwareBufferInfoANDROID.BUFFER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportAndroidHardwareBufferInfoANDROID.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImportAndroidHardwareBufferInfoANDROID.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImportAndroidHardwareBufferInfoANDROID.PNEXT, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
@@ -308,6 +306,11 @@ public class VkImportAndroidHardwareBufferInfoANDROID extends Struct<VkImportAnd
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

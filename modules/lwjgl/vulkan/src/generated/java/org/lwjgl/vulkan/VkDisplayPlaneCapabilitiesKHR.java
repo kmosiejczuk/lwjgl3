@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class VkDisplayPlaneCapabilitiesKHR extends Struct<VkDisplayPlaneCapabili
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPlaneCapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkDisplayPlaneCapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayPlaneCapabilitiesKHR(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkDisplayPlaneCapabilitiesKHR extends Struct<VkDisplayPlaneCapabili
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPlaneCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayPlaneCapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -271,7 +269,7 @@ public class VkDisplayPlaneCapabilitiesKHR extends Struct<VkDisplayPlaneCapabili
     // -----------------------------------
 
     /** Unsafe version of {@link #supportedAlpha}. */
-    public static int nsupportedAlpha(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPlaneCapabilitiesKHR.SUPPORTEDALPHA); }
+    public static int nsupportedAlpha(long struct) { return memGetInt(struct + VkDisplayPlaneCapabilitiesKHR.SUPPORTEDALPHA); }
     /** Unsafe version of {@link #minSrcPosition}. */
     public static VkOffset2D nminSrcPosition(long struct) { return VkOffset2D.create(struct + VkDisplayPlaneCapabilitiesKHR.MINSRCPOSITION); }
     /** Unsafe version of {@link #maxSrcPosition}. */
@@ -320,6 +318,11 @@ public class VkDisplayPlaneCapabilitiesKHR extends Struct<VkDisplayPlaneCapabili
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

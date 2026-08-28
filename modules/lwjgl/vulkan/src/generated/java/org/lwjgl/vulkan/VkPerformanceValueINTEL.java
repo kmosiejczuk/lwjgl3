@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -108,8 +108,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceValueINTEL createSafe(long address) {
+    public static @Nullable VkPerformanceValueINTEL createSafe(long address) {
         return address == NULL ? null : new VkPerformanceValueINTEL(address, null);
     }
 
@@ -152,8 +151,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceValueINTEL.Buffer createSafe(long address, int capacity) {
+    public static VkPerformanceValueINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -217,7 +215,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceValueINTEL.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkPerformanceValueINTEL.TYPE); }
     /** Unsafe version of {@link #data}. */
     public static VkPerformanceValueDataINTEL ndata(long struct) { return VkPerformanceValueDataINTEL.create(struct + VkPerformanceValueINTEL.DATA); }
 
@@ -252,6 +250,11 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

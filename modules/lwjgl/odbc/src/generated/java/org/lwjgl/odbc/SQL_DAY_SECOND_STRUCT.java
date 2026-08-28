@@ -5,7 +5,7 @@
  */
 package org.lwjgl.odbc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class SQL_DAY_SECOND_STRUCT extends Struct<SQL_DAY_SECOND_STRUCT> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SQL_DAY_SECOND_STRUCT createSafe(long address) {
+    public static @Nullable SQL_DAY_SECOND_STRUCT createSafe(long address) {
         return address == NULL ? null : new SQL_DAY_SECOND_STRUCT(address, null);
     }
 
@@ -208,8 +207,7 @@ public class SQL_DAY_SECOND_STRUCT extends Struct<SQL_DAY_SECOND_STRUCT> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SQL_DAY_SECOND_STRUCT.Buffer createSafe(long address, int capacity) {
+    public static SQL_DAY_SECOND_STRUCT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,26 +271,26 @@ public class SQL_DAY_SECOND_STRUCT extends Struct<SQL_DAY_SECOND_STRUCT> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #day}. */
-    public static int nday(long struct) { return UNSAFE.getInt(null, struct + SQL_DAY_SECOND_STRUCT.DAY); }
+    public static int nday(long struct) { return memGetInt(struct + SQL_DAY_SECOND_STRUCT.DAY); }
     /** Unsafe version of {@link #hour}. */
-    public static int nhour(long struct) { return UNSAFE.getInt(null, struct + SQL_DAY_SECOND_STRUCT.HOUR); }
+    public static int nhour(long struct) { return memGetInt(struct + SQL_DAY_SECOND_STRUCT.HOUR); }
     /** Unsafe version of {@link #minute}. */
-    public static int nminute(long struct) { return UNSAFE.getInt(null, struct + SQL_DAY_SECOND_STRUCT.MINUTE); }
+    public static int nminute(long struct) { return memGetInt(struct + SQL_DAY_SECOND_STRUCT.MINUTE); }
     /** Unsafe version of {@link #second}. */
-    public static int nsecond(long struct) { return UNSAFE.getInt(null, struct + SQL_DAY_SECOND_STRUCT.SECOND); }
+    public static int nsecond(long struct) { return memGetInt(struct + SQL_DAY_SECOND_STRUCT.SECOND); }
     /** Unsafe version of {@link #fraction}. */
-    public static int nfraction(long struct) { return UNSAFE.getInt(null, struct + SQL_DAY_SECOND_STRUCT.FRACTION); }
+    public static int nfraction(long struct) { return memGetInt(struct + SQL_DAY_SECOND_STRUCT.FRACTION); }
 
     /** Unsafe version of {@link #day(int) day}. */
-    public static void nday(long struct, int value) { UNSAFE.putInt(null, struct + SQL_DAY_SECOND_STRUCT.DAY, value); }
+    public static void nday(long struct, int value) { memPutInt(struct + SQL_DAY_SECOND_STRUCT.DAY, value); }
     /** Unsafe version of {@link #hour(int) hour}. */
-    public static void nhour(long struct, int value) { UNSAFE.putInt(null, struct + SQL_DAY_SECOND_STRUCT.HOUR, value); }
+    public static void nhour(long struct, int value) { memPutInt(struct + SQL_DAY_SECOND_STRUCT.HOUR, value); }
     /** Unsafe version of {@link #minute(int) minute}. */
-    public static void nminute(long struct, int value) { UNSAFE.putInt(null, struct + SQL_DAY_SECOND_STRUCT.MINUTE, value); }
+    public static void nminute(long struct, int value) { memPutInt(struct + SQL_DAY_SECOND_STRUCT.MINUTE, value); }
     /** Unsafe version of {@link #second(int) second}. */
-    public static void nsecond(long struct, int value) { UNSAFE.putInt(null, struct + SQL_DAY_SECOND_STRUCT.SECOND, value); }
+    public static void nsecond(long struct, int value) { memPutInt(struct + SQL_DAY_SECOND_STRUCT.SECOND, value); }
     /** Unsafe version of {@link #fraction(int) fraction}. */
-    public static void nfraction(long struct, int value) { UNSAFE.putInt(null, struct + SQL_DAY_SECOND_STRUCT.FRACTION, value); }
+    public static void nfraction(long struct, int value) { memPutInt(struct + SQL_DAY_SECOND_STRUCT.FRACTION, value); }
 
     // -----------------------------------
 
@@ -325,6 +323,11 @@ public class SQL_DAY_SECOND_STRUCT extends Struct<SQL_DAY_SECOND_STRUCT> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

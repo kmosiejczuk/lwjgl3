@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -224,8 +224,7 @@ public class XrViewConfigurationView extends Struct<XrViewConfigurationView> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewConfigurationView createSafe(long address) {
+    public static @Nullable XrViewConfigurationView createSafe(long address) {
         return address == NULL ? null : new XrViewConfigurationView(address, null);
     }
 
@@ -268,8 +267,7 @@ public class XrViewConfigurationView extends Struct<XrViewConfigurationView> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewConfigurationView.Buffer createSafe(long address, int capacity) {
+    public static XrViewConfigurationView.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -314,38 +312,38 @@ public class XrViewConfigurationView extends Struct<XrViewConfigurationView> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrViewConfigurationView.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrViewConfigurationView.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrViewConfigurationView.NEXT); }
     /** Unsafe version of {@link #recommendedImageRectWidth}. */
-    public static int nrecommendedImageRectWidth(long struct) { return UNSAFE.getInt(null, struct + XrViewConfigurationView.RECOMMENDEDIMAGERECTWIDTH); }
+    public static int nrecommendedImageRectWidth(long struct) { return memGetInt(struct + XrViewConfigurationView.RECOMMENDEDIMAGERECTWIDTH); }
     /** Unsafe version of {@link #maxImageRectWidth}. */
-    public static int nmaxImageRectWidth(long struct) { return UNSAFE.getInt(null, struct + XrViewConfigurationView.MAXIMAGERECTWIDTH); }
+    public static int nmaxImageRectWidth(long struct) { return memGetInt(struct + XrViewConfigurationView.MAXIMAGERECTWIDTH); }
     /** Unsafe version of {@link #recommendedImageRectHeight}. */
-    public static int nrecommendedImageRectHeight(long struct) { return UNSAFE.getInt(null, struct + XrViewConfigurationView.RECOMMENDEDIMAGERECTHEIGHT); }
+    public static int nrecommendedImageRectHeight(long struct) { return memGetInt(struct + XrViewConfigurationView.RECOMMENDEDIMAGERECTHEIGHT); }
     /** Unsafe version of {@link #maxImageRectHeight}. */
-    public static int nmaxImageRectHeight(long struct) { return UNSAFE.getInt(null, struct + XrViewConfigurationView.MAXIMAGERECTHEIGHT); }
+    public static int nmaxImageRectHeight(long struct) { return memGetInt(struct + XrViewConfigurationView.MAXIMAGERECTHEIGHT); }
     /** Unsafe version of {@link #recommendedSwapchainSampleCount}. */
-    public static int nrecommendedSwapchainSampleCount(long struct) { return UNSAFE.getInt(null, struct + XrViewConfigurationView.RECOMMENDEDSWAPCHAINSAMPLECOUNT); }
+    public static int nrecommendedSwapchainSampleCount(long struct) { return memGetInt(struct + XrViewConfigurationView.RECOMMENDEDSWAPCHAINSAMPLECOUNT); }
     /** Unsafe version of {@link #maxSwapchainSampleCount}. */
-    public static int nmaxSwapchainSampleCount(long struct) { return UNSAFE.getInt(null, struct + XrViewConfigurationView.MAXSWAPCHAINSAMPLECOUNT); }
+    public static int nmaxSwapchainSampleCount(long struct) { return memGetInt(struct + XrViewConfigurationView.MAXSWAPCHAINSAMPLECOUNT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrViewConfigurationView.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrViewConfigurationView.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrViewConfigurationView.NEXT, value); }
     /** Unsafe version of {@link #recommendedImageRectWidth(int) recommendedImageRectWidth}. */
-    public static void nrecommendedImageRectWidth(long struct, int value) { UNSAFE.putInt(null, struct + XrViewConfigurationView.RECOMMENDEDIMAGERECTWIDTH, value); }
+    public static void nrecommendedImageRectWidth(long struct, int value) { memPutInt(struct + XrViewConfigurationView.RECOMMENDEDIMAGERECTWIDTH, value); }
     /** Unsafe version of {@link #maxImageRectWidth(int) maxImageRectWidth}. */
-    public static void nmaxImageRectWidth(long struct, int value) { UNSAFE.putInt(null, struct + XrViewConfigurationView.MAXIMAGERECTWIDTH, value); }
+    public static void nmaxImageRectWidth(long struct, int value) { memPutInt(struct + XrViewConfigurationView.MAXIMAGERECTWIDTH, value); }
     /** Unsafe version of {@link #recommendedImageRectHeight(int) recommendedImageRectHeight}. */
-    public static void nrecommendedImageRectHeight(long struct, int value) { UNSAFE.putInt(null, struct + XrViewConfigurationView.RECOMMENDEDIMAGERECTHEIGHT, value); }
+    public static void nrecommendedImageRectHeight(long struct, int value) { memPutInt(struct + XrViewConfigurationView.RECOMMENDEDIMAGERECTHEIGHT, value); }
     /** Unsafe version of {@link #maxImageRectHeight(int) maxImageRectHeight}. */
-    public static void nmaxImageRectHeight(long struct, int value) { UNSAFE.putInt(null, struct + XrViewConfigurationView.MAXIMAGERECTHEIGHT, value); }
+    public static void nmaxImageRectHeight(long struct, int value) { memPutInt(struct + XrViewConfigurationView.MAXIMAGERECTHEIGHT, value); }
     /** Unsafe version of {@link #recommendedSwapchainSampleCount(int) recommendedSwapchainSampleCount}. */
-    public static void nrecommendedSwapchainSampleCount(long struct, int value) { UNSAFE.putInt(null, struct + XrViewConfigurationView.RECOMMENDEDSWAPCHAINSAMPLECOUNT, value); }
+    public static void nrecommendedSwapchainSampleCount(long struct, int value) { memPutInt(struct + XrViewConfigurationView.RECOMMENDEDSWAPCHAINSAMPLECOUNT, value); }
     /** Unsafe version of {@link #maxSwapchainSampleCount(int) maxSwapchainSampleCount}. */
-    public static void nmaxSwapchainSampleCount(long struct, int value) { UNSAFE.putInt(null, struct + XrViewConfigurationView.MAXSWAPCHAINSAMPLECOUNT, value); }
+    public static void nmaxSwapchainSampleCount(long struct, int value) { memPutInt(struct + XrViewConfigurationView.MAXSWAPCHAINSAMPLECOUNT, value); }
 
     // -----------------------------------
 
@@ -378,6 +376,11 @@ public class XrViewConfigurationView extends Struct<XrViewConfigurationView> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

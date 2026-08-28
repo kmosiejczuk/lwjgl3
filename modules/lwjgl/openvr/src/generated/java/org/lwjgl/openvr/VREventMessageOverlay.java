@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -79,8 +79,7 @@ public class VREventMessageOverlay extends Struct<VREventMessageOverlay> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventMessageOverlay createSafe(long address) {
+    public static @Nullable VREventMessageOverlay createSafe(long address) {
         return address == NULL ? null : new VREventMessageOverlay(address, null);
     }
 
@@ -95,15 +94,14 @@ public class VREventMessageOverlay extends Struct<VREventMessageOverlay> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventMessageOverlay.Buffer createSafe(long address, int capacity) {
+    public static VREventMessageOverlay.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #unVRMessageOverlayResponse}. */
-    public static int nunVRMessageOverlayResponse(long struct) { return UNSAFE.getInt(null, struct + VREventMessageOverlay.UNVRMESSAGEOVERLAYRESPONSE); }
+    public static int nunVRMessageOverlayResponse(long struct) { return memGetInt(struct + VREventMessageOverlay.UNVRMESSAGEOVERLAYRESPONSE); }
 
     // -----------------------------------
 
@@ -136,6 +134,11 @@ public class VREventMessageOverlay extends Struct<VREventMessageOverlay> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -89,8 +89,7 @@ class NkConfigStackStyleItem extends Struct<NkConfigStackStyleItem> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackStyleItem createSafe(long address) {
+    public static @Nullable NkConfigStackStyleItem createSafe(long address) {
         return address == NULL ? null : new NkConfigStackStyleItem(address, null);
     }
 
@@ -105,15 +104,14 @@ class NkConfigStackStyleItem extends Struct<NkConfigStackStyleItem> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackStyleItem.Buffer createSafe(long address, int capacity) {
+    public static NkConfigStackStyleItem.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #head}. */
-    public static int nhead(long struct) { return UNSAFE.getInt(null, struct + NkConfigStackStyleItem.HEAD); }
+    public static int nhead(long struct) { return memGetInt(struct + NkConfigStackStyleItem.HEAD); }
     /** Unsafe version of {@link #elements}. */
     public static NkConfigStackStyleItemElement.Buffer nelements(long struct) { return NkConfigStackStyleItemElement.create(struct + NkConfigStackStyleItem.ELEMENTS, 16); }
     /** Unsafe version of {@link #elements(int) elements}. */
@@ -152,6 +150,11 @@ class NkConfigStackStyleItem extends Struct<NkConfigStackStyleItem> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingScaleFB createSafe(long address) {
+    public static @Nullable XrHandTrackingScaleFB createSafe(long address) {
         return address == NULL ? null : new XrHandTrackingScaleFB(address, null);
     }
 
@@ -212,8 +211,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingScaleFB.Buffer createSafe(long address, int capacity) {
+    public static XrHandTrackingScaleFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,20 +256,20 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackingScaleFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandTrackingScaleFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandTrackingScaleFB.NEXT); }
     /** Unsafe version of {@link #sensorOutput}. */
-    public static float nsensorOutput(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingScaleFB.SENSOROUTPUT); }
+    public static float nsensorOutput(long struct) { return memGetFloat(struct + XrHandTrackingScaleFB.SENSOROUTPUT); }
     /** Unsafe version of {@link #currentOutput}. */
-    public static float ncurrentOutput(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingScaleFB.CURRENTOUTPUT); }
+    public static float ncurrentOutput(long struct) { return memGetFloat(struct + XrHandTrackingScaleFB.CURRENTOUTPUT); }
     /** Unsafe version of {@link #overrideHandScale}. */
-    public static int noverrideHandScale(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackingScaleFB.OVERRIDEHANDSCALE); }
+    public static int noverrideHandScale(long struct) { return memGetInt(struct + XrHandTrackingScaleFB.OVERRIDEHANDSCALE); }
     /** Unsafe version of {@link #overrideValueInput}. */
-    public static float noverrideValueInput(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingScaleFB.OVERRIDEVALUEINPUT); }
+    public static float noverrideValueInput(long struct) { return memGetFloat(struct + XrHandTrackingScaleFB.OVERRIDEVALUEINPUT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackingScaleFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandTrackingScaleFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandTrackingScaleFB.NEXT, value); }
 
@@ -306,6 +304,11 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

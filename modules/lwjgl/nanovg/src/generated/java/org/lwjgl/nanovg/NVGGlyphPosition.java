@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class NVGGlyphPosition extends Struct<NVGGlyphPosition> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NVGGlyphPosition createSafe(long address) {
+    public static @Nullable NVGGlyphPosition createSafe(long address) {
         return address == NULL ? null : new NVGGlyphPosition(address, null);
     }
 
@@ -161,8 +160,7 @@ public class NVGGlyphPosition extends Struct<NVGGlyphPosition> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NVGGlyphPosition.Buffer createSafe(long address, int capacity) {
+    public static NVGGlyphPosition.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -228,11 +226,11 @@ public class NVGGlyphPosition extends Struct<NVGGlyphPosition> implements Native
     /** Unsafe version of {@link #str}. */
     public static long nstr(long struct) { return memGetAddress(struct + NVGGlyphPosition.STR); }
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + NVGGlyphPosition.X); }
+    public static float nx(long struct) { return memGetFloat(struct + NVGGlyphPosition.X); }
     /** Unsafe version of {@link #minx}. */
-    public static float nminx(long struct) { return UNSAFE.getFloat(null, struct + NVGGlyphPosition.MINX); }
+    public static float nminx(long struct) { return memGetFloat(struct + NVGGlyphPosition.MINX); }
     /** Unsafe version of {@link #maxx}. */
-    public static float nmaxx(long struct) { return UNSAFE.getFloat(null, struct + NVGGlyphPosition.MAXX); }
+    public static float nmaxx(long struct) { return memGetFloat(struct + NVGGlyphPosition.MAXX); }
 
     // -----------------------------------
 
@@ -265,6 +263,11 @@ public class NVGGlyphPosition extends Struct<NVGGlyphPosition> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

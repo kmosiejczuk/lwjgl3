@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -91,8 +91,7 @@ public class CXToken extends Struct<CXToken> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXToken createSafe(long address) {
+    public static @Nullable CXToken createSafe(long address) {
         return address == NULL ? null : new CXToken(address, null);
     }
 
@@ -107,8 +106,7 @@ public class CXToken extends Struct<CXToken> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXToken.Buffer createSafe(long address, int capacity) {
+    public static CXToken.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -118,7 +116,7 @@ public class CXToken extends Struct<CXToken> {
     public static IntBuffer nint_data(long struct) { return memIntBuffer(struct + CXToken.INT_DATA, 4); }
     /** Unsafe version of {@link #int_data(int) int_data}. */
     public static int nint_data(long struct, int index) {
-        return UNSAFE.getInt(null, struct + CXToken.INT_DATA + check(index, 4) * 4);
+        return memGetInt(struct + CXToken.INT_DATA + check(index, 4) * 4);
     }
     /** Unsafe version of {@link #ptr_data}. */
     public static long nptr_data(long struct) { return memGetAddress(struct + CXToken.PTR_DATA); }
@@ -154,6 +152,11 @@ public class CXToken extends Struct<CXToken> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

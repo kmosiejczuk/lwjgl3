@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -121,8 +121,7 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUstreamAttrValue createSafe(long address) {
+    public static @Nullable CUstreamAttrValue createSafe(long address) {
         return address == NULL ? null : new CUstreamAttrValue(address, null);
     }
 
@@ -165,8 +164,7 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUstreamAttrValue.Buffer createSafe(long address, int capacity) {
+    public static CUstreamAttrValue.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -213,12 +211,12 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
     /** Unsafe version of {@link #accessPolicyWindow}. */
     public static CUaccessPolicyWindow naccessPolicyWindow(long struct) { return CUaccessPolicyWindow.create(struct + CUstreamAttrValue.ACCESSPOLICYWINDOW); }
     /** Unsafe version of {@link #syncPolicy}. */
-    public static int nsyncPolicy(long struct) { return UNSAFE.getInt(null, struct + CUstreamAttrValue.SYNCPOLICY); }
+    public static int nsyncPolicy(long struct) { return memGetInt(struct + CUstreamAttrValue.SYNCPOLICY); }
 
     /** Unsafe version of {@link #accessPolicyWindow(CUaccessPolicyWindow) accessPolicyWindow}. */
     public static void naccessPolicyWindow(long struct, CUaccessPolicyWindow value) { memCopy(value.address(), struct + CUstreamAttrValue.ACCESSPOLICYWINDOW, CUaccessPolicyWindow.SIZEOF); }
     /** Unsafe version of {@link #syncPolicy(int) syncPolicy}. */
-    public static void nsyncPolicy(long struct, int value) { UNSAFE.putInt(null, struct + CUstreamAttrValue.SYNCPOLICY, value); }
+    public static void nsyncPolicy(long struct, int value) { memPutInt(struct + CUstreamAttrValue.SYNCPOLICY, value); }
 
     // -----------------------------------
 
@@ -251,6 +249,11 @@ public class CUstreamAttrValue extends Struct<CUstreamAttrValue> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

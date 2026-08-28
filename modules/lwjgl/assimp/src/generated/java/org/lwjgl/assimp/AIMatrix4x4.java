@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -272,8 +272,7 @@ public class AIMatrix4x4 extends Struct<AIMatrix4x4> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMatrix4x4 createSafe(long address) {
+    public static @Nullable AIMatrix4x4 createSafe(long address) {
         return address == NULL ? null : new AIMatrix4x4(address, null);
     }
 
@@ -316,8 +315,7 @@ public class AIMatrix4x4 extends Struct<AIMatrix4x4> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMatrix4x4.Buffer createSafe(long address, int capacity) {
+    public static AIMatrix4x4.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -381,70 +379,70 @@ public class AIMatrix4x4 extends Struct<AIMatrix4x4> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #a1}. */
-    public static float na1(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.A1); }
+    public static float na1(long struct) { return memGetFloat(struct + AIMatrix4x4.A1); }
     /** Unsafe version of {@link #a2}. */
-    public static float na2(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.A2); }
+    public static float na2(long struct) { return memGetFloat(struct + AIMatrix4x4.A2); }
     /** Unsafe version of {@link #a3}. */
-    public static float na3(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.A3); }
+    public static float na3(long struct) { return memGetFloat(struct + AIMatrix4x4.A3); }
     /** Unsafe version of {@link #a4}. */
-    public static float na4(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.A4); }
+    public static float na4(long struct) { return memGetFloat(struct + AIMatrix4x4.A4); }
     /** Unsafe version of {@link #b1}. */
-    public static float nb1(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.B1); }
+    public static float nb1(long struct) { return memGetFloat(struct + AIMatrix4x4.B1); }
     /** Unsafe version of {@link #b2}. */
-    public static float nb2(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.B2); }
+    public static float nb2(long struct) { return memGetFloat(struct + AIMatrix4x4.B2); }
     /** Unsafe version of {@link #b3}. */
-    public static float nb3(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.B3); }
+    public static float nb3(long struct) { return memGetFloat(struct + AIMatrix4x4.B3); }
     /** Unsafe version of {@link #b4}. */
-    public static float nb4(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.B4); }
+    public static float nb4(long struct) { return memGetFloat(struct + AIMatrix4x4.B4); }
     /** Unsafe version of {@link #c1}. */
-    public static float nc1(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.C1); }
+    public static float nc1(long struct) { return memGetFloat(struct + AIMatrix4x4.C1); }
     /** Unsafe version of {@link #c2}. */
-    public static float nc2(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.C2); }
+    public static float nc2(long struct) { return memGetFloat(struct + AIMatrix4x4.C2); }
     /** Unsafe version of {@link #c3}. */
-    public static float nc3(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.C3); }
+    public static float nc3(long struct) { return memGetFloat(struct + AIMatrix4x4.C3); }
     /** Unsafe version of {@link #c4}. */
-    public static float nc4(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.C4); }
+    public static float nc4(long struct) { return memGetFloat(struct + AIMatrix4x4.C4); }
     /** Unsafe version of {@link #d1}. */
-    public static float nd1(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.D1); }
+    public static float nd1(long struct) { return memGetFloat(struct + AIMatrix4x4.D1); }
     /** Unsafe version of {@link #d2}. */
-    public static float nd2(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.D2); }
+    public static float nd2(long struct) { return memGetFloat(struct + AIMatrix4x4.D2); }
     /** Unsafe version of {@link #d3}. */
-    public static float nd3(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.D3); }
+    public static float nd3(long struct) { return memGetFloat(struct + AIMatrix4x4.D3); }
     /** Unsafe version of {@link #d4}. */
-    public static float nd4(long struct) { return UNSAFE.getFloat(null, struct + AIMatrix4x4.D4); }
+    public static float nd4(long struct) { return memGetFloat(struct + AIMatrix4x4.D4); }
 
     /** Unsafe version of {@link #a1(float) a1}. */
-    public static void na1(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.A1, value); }
+    public static void na1(long struct, float value) { memPutFloat(struct + AIMatrix4x4.A1, value); }
     /** Unsafe version of {@link #a2(float) a2}. */
-    public static void na2(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.A2, value); }
+    public static void na2(long struct, float value) { memPutFloat(struct + AIMatrix4x4.A2, value); }
     /** Unsafe version of {@link #a3(float) a3}. */
-    public static void na3(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.A3, value); }
+    public static void na3(long struct, float value) { memPutFloat(struct + AIMatrix4x4.A3, value); }
     /** Unsafe version of {@link #a4(float) a4}. */
-    public static void na4(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.A4, value); }
+    public static void na4(long struct, float value) { memPutFloat(struct + AIMatrix4x4.A4, value); }
     /** Unsafe version of {@link #b1(float) b1}. */
-    public static void nb1(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.B1, value); }
+    public static void nb1(long struct, float value) { memPutFloat(struct + AIMatrix4x4.B1, value); }
     /** Unsafe version of {@link #b2(float) b2}. */
-    public static void nb2(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.B2, value); }
+    public static void nb2(long struct, float value) { memPutFloat(struct + AIMatrix4x4.B2, value); }
     /** Unsafe version of {@link #b3(float) b3}. */
-    public static void nb3(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.B3, value); }
+    public static void nb3(long struct, float value) { memPutFloat(struct + AIMatrix4x4.B3, value); }
     /** Unsafe version of {@link #b4(float) b4}. */
-    public static void nb4(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.B4, value); }
+    public static void nb4(long struct, float value) { memPutFloat(struct + AIMatrix4x4.B4, value); }
     /** Unsafe version of {@link #c1(float) c1}. */
-    public static void nc1(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.C1, value); }
+    public static void nc1(long struct, float value) { memPutFloat(struct + AIMatrix4x4.C1, value); }
     /** Unsafe version of {@link #c2(float) c2}. */
-    public static void nc2(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.C2, value); }
+    public static void nc2(long struct, float value) { memPutFloat(struct + AIMatrix4x4.C2, value); }
     /** Unsafe version of {@link #c3(float) c3}. */
-    public static void nc3(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.C3, value); }
+    public static void nc3(long struct, float value) { memPutFloat(struct + AIMatrix4x4.C3, value); }
     /** Unsafe version of {@link #c4(float) c4}. */
-    public static void nc4(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.C4, value); }
+    public static void nc4(long struct, float value) { memPutFloat(struct + AIMatrix4x4.C4, value); }
     /** Unsafe version of {@link #d1(float) d1}. */
-    public static void nd1(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.D1, value); }
+    public static void nd1(long struct, float value) { memPutFloat(struct + AIMatrix4x4.D1, value); }
     /** Unsafe version of {@link #d2(float) d2}. */
-    public static void nd2(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.D2, value); }
+    public static void nd2(long struct, float value) { memPutFloat(struct + AIMatrix4x4.D2, value); }
     /** Unsafe version of {@link #d3(float) d3}. */
-    public static void nd3(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.D3, value); }
+    public static void nd3(long struct, float value) { memPutFloat(struct + AIMatrix4x4.D3, value); }
     /** Unsafe version of {@link #d4(float) d4}. */
-    public static void nd4(long struct, float value) { UNSAFE.putFloat(null, struct + AIMatrix4x4.D4, value); }
+    public static void nd4(long struct, float value) { memPutFloat(struct + AIMatrix4x4.D4, value); }
 
     // -----------------------------------
 
@@ -477,6 +475,11 @@ public class AIMatrix4x4 extends Struct<AIMatrix4x4> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inheritedConditionalRendering">{@code inheritedConditionalRendering}</a> feature is not enabled, {@code conditionalRenderingEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-inheritedConditionalRendering">{@code inheritedConditionalRendering}</a> feature is not enabled, {@code conditionalRenderingEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -162,8 +162,7 @@ public class VkCommandBufferInheritanceConditionalRenderingInfoEXT extends Struc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferInheritanceConditionalRenderingInfoEXT createSafe(long address) {
+    public static @Nullable VkCommandBufferInheritanceConditionalRenderingInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkCommandBufferInheritanceConditionalRenderingInfoEXT(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkCommandBufferInheritanceConditionalRenderingInfoEXT extends Struc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferInheritanceConditionalRenderingInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkCommandBufferInheritanceConditionalRenderingInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -271,18 +269,18 @@ public class VkCommandBufferInheritanceConditionalRenderingInfoEXT extends Struc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferInheritanceConditionalRenderingInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCommandBufferInheritanceConditionalRenderingInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCommandBufferInheritanceConditionalRenderingInfoEXT.PNEXT); }
     /** Unsafe version of {@link #conditionalRenderingEnable}. */
-    public static int nconditionalRenderingEnable(long struct) { return UNSAFE.getInt(null, struct + VkCommandBufferInheritanceConditionalRenderingInfoEXT.CONDITIONALRENDERINGENABLE); }
+    public static int nconditionalRenderingEnable(long struct) { return memGetInt(struct + VkCommandBufferInheritanceConditionalRenderingInfoEXT.CONDITIONALRENDERINGENABLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferInheritanceConditionalRenderingInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCommandBufferInheritanceConditionalRenderingInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCommandBufferInheritanceConditionalRenderingInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #conditionalRenderingEnable(boolean) conditionalRenderingEnable}. */
-    public static void nconditionalRenderingEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkCommandBufferInheritanceConditionalRenderingInfoEXT.CONDITIONALRENDERINGENABLE, value); }
+    public static void nconditionalRenderingEnable(long struct, int value) { memPutInt(struct + VkCommandBufferInheritanceConditionalRenderingInfoEXT.CONDITIONALRENDERINGENABLE, value); }
 
     // -----------------------------------
 
@@ -315,6 +313,11 @@ public class VkCommandBufferInheritanceConditionalRenderingInfoEXT extends Struc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

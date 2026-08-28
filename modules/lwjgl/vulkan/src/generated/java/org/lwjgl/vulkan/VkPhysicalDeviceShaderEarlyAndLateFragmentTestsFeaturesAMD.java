@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD extends 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD extends 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD extends 
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.PNEXT); }
     /** Unsafe version of {@link #shaderEarlyAndLateFragmentTests}. */
-    public static int nshaderEarlyAndLateFragmentTests(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.SHADEREARLYANDLATEFRAGMENTTESTS); }
+    public static int nshaderEarlyAndLateFragmentTests(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.SHADEREARLYANDLATEFRAGMENTTESTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.PNEXT, value); }
     /** Unsafe version of {@link #shaderEarlyAndLateFragmentTests(boolean) shaderEarlyAndLateFragmentTests}. */
-    public static void nshaderEarlyAndLateFragmentTests(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.SHADEREARLYANDLATEFRAGMENTTESTS, value); }
+    public static void nshaderEarlyAndLateFragmentTests(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.SHADEREARLYANDLATEFRAGMENTTESTS, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD extends 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

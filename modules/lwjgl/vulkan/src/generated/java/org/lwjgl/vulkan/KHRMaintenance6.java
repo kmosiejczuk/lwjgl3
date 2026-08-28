@@ -18,11 +18,15 @@ import static org.lwjgl.system.JNI.*;
  * <ul>
  * <li>{@link VkBindMemoryStatusKHR} may be included in the {@code pNext} chain of {@link VkBindBufferMemoryInfo} and {@link VkBindImageMemoryInfo}, allowing applications to identify individual resources for which memory binding failed during calls to {@link VK11#vkBindBufferMemory2 BindBufferMemory2} and {@link VK11#vkBindImageMemory2 BindImageMemory2}.</li>
  * <li>A new property {@code fragmentShadingRateClampCombinerInputs} to indicate if an implementation clamps the inputs to fragment shading rate combiner operations.</li>
- * <li>{@link VK10#VK_NULL_HANDLE NULL_HANDLE} is allowed to be used when binding an index buffer, instead of a valid {@code VkBuffer} handle. When the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is enabled, every index fetched results in a value of zero.</li>
- * <li>A new property {@code maxCombinedImageSamplerDescriptorCount} to indicate the maximum number of descriptors needed for any of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</li>
+ * <li>{@link VK10#VK_NULL_HANDLE NULL_HANDLE} is allowed to be used when binding an index buffer, instead of a valid {@code VkBuffer} handle. When the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is enabled, every index fetched results in a value of zero.</li>
+ * <li>A new property {@code maxCombinedImageSamplerDescriptorCount} to indicate the maximum number of descriptors needed for any of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</li>
  * <li>A new property {@code blockTexelViewCompatibleMultipleLayers} indicating whether {@link VK11#VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT} is allowed to be used with {@code layerCount} &gt; 1</li>
  * <li>{@code pNext} extensible *2 versions of all descriptor binding commands.</li>
  * </ul>
+ * 
+ * <h5>Promotion to Vulkan 1.4</h5>
+ * 
+ * <p>Functionality in this extension is included in core Vulkan 1.4 with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -34,11 +38,15 @@ import static org.lwjgl.system.JNI.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dd><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>API Interactions</b></dt>
  * <dd><ul>
  * <li>Interacts with VK_EXT_descriptor_buffer</li>
  * <li>Interacts with VK_KHR_push_descriptor</li>
+ * </ul></dd>
+ * <dt><b>Deprecation State</b></dt>
+ * <dd><ul>
+ * <li><em>Promoted</em> to Vulkan 1.4</li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
@@ -136,61 +144,18 @@ public class KHRMaintenance6 {
         long __functionAddress = commandBuffer.getCapabilities().vkCmdBindDescriptorSets2KHR;
         if (CHECKS) {
             check(__functionAddress);
-            VkBindDescriptorSetsInfoKHR.validate(pBindDescriptorSetsInfo);
+            VkBindDescriptorSetsInfo.validate(pBindDescriptorSetsInfo);
         }
         callPPV(commandBuffer.address(), pBindDescriptorSetsInfo, __functionAddress);
     }
 
     /**
-     * Binds descriptor sets to a command buffer.
-     * 
-     * <h5>C Specification</h5>
-     * 
-     * <p>Alternatively, to bind one or more descriptor sets to a command buffer, call:</p>
-     * 
-     * <pre><code>
-     * void vkCmdBindDescriptorSets2KHR(
-     *     VkCommandBuffer                             commandBuffer,
-     *     const VkBindDescriptorSetsInfoKHR*          pBindDescriptorSetsInfo);</code></pre>
-     * 
-     * <h5>Valid Usage</h5>
-     * 
-     * <ul>
-     * <li>Each bit in {@code pBindDescriptorSetsInfo→stageFlags} <b>must</b> be a stage supported by the {@code commandBuffer}’s parent {@code VkCommandPool}’s queue family</li>
-     * </ul>
-     * 
-     * <h5>Valid Usage (Implicit)</h5>
-     * 
-     * <ul>
-     * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code pBindDescriptorSetsInfo} <b>must</b> be a valid pointer to a valid {@link VkBindDescriptorSetsInfoKHR} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
-     * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
-     * <li>This command <b>must</b> only be called outside of a video coding scope</li>
-     * </ul>
-     * 
-     * <h5>Host Synchronization</h5>
-     * 
-     * <ul>
-     * <li>Host access to {@code commandBuffer} <b>must</b> be externally synchronized</li>
-     * <li>Host access to the {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> be externally synchronized</li>
-     * </ul>
-     * 
-     * <h5>Command Properties</h5>
-     * 
-     * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
-     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>State</td></tr></tbody>
-     * </table>
-     * 
-     * <h5>See Also</h5>
-     * 
-     * <p>{@link VkBindDescriptorSetsInfoKHR}</p>
+     * See {@link VK14#vkCmdBindDescriptorSets2 CmdBindDescriptorSets2}.
      *
      * @param commandBuffer           the command buffer that the descriptor sets will be bound to.
-     * @param pBindDescriptorSetsInfo a pointer to a {@link VkBindDescriptorSetsInfoKHR} structure.
+     * @param pBindDescriptorSetsInfo a pointer to a {@link VkBindDescriptorSetsInfo} structure.
      */
-    public static void vkCmdBindDescriptorSets2KHR(VkCommandBuffer commandBuffer, @NativeType("VkBindDescriptorSetsInfoKHR const *") VkBindDescriptorSetsInfoKHR pBindDescriptorSetsInfo) {
+    public static void vkCmdBindDescriptorSets2KHR(VkCommandBuffer commandBuffer, @NativeType("VkBindDescriptorSetsInfo const *") VkBindDescriptorSetsInfo pBindDescriptorSetsInfo) {
         nvkCmdBindDescriptorSets2KHR(commandBuffer, pBindDescriptorSetsInfo.address());
     }
 
@@ -201,55 +166,18 @@ public class KHRMaintenance6 {
         long __functionAddress = commandBuffer.getCapabilities().vkCmdPushConstants2KHR;
         if (CHECKS) {
             check(__functionAddress);
-            VkPushConstantsInfoKHR.validate(pPushConstantsInfo);
+            VkPushConstantsInfo.validate(pPushConstantsInfo);
         }
         callPPV(commandBuffer.address(), pPushConstantsInfo, __functionAddress);
     }
 
     /**
-     * Update the values of push constants.
-     * 
-     * <h5>C Specification</h5>
-     * 
-     * <p>Alternatively, to update push constants, call:</p>
-     * 
-     * <pre><code>
-     * void vkCmdPushConstants2KHR(
-     *     VkCommandBuffer                             commandBuffer,
-     *     const VkPushConstantsInfoKHR*               pPushConstantsInfo);</code></pre>
-     * 
-     * <h5>Valid Usage (Implicit)</h5>
-     * 
-     * <ul>
-     * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code pPushConstantsInfo} <b>must</b> be a valid pointer to a valid {@link VkPushConstantsInfoKHR} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
-     * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
-     * <li>This command <b>must</b> only be called outside of a video coding scope</li>
-     * </ul>
-     * 
-     * <h5>Host Synchronization</h5>
-     * 
-     * <ul>
-     * <li>Host access to {@code commandBuffer} <b>must</b> be externally synchronized</li>
-     * <li>Host access to the {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> be externally synchronized</li>
-     * </ul>
-     * 
-     * <h5>Command Properties</h5>
-     * 
-     * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
-     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>State</td></tr></tbody>
-     * </table>
-     * 
-     * <h5>See Also</h5>
-     * 
-     * <p>{@link VkPushConstantsInfoKHR}</p>
+     * See {@link VK14#vkCmdPushConstants2 CmdPushConstants2}.
      *
      * @param commandBuffer      the command buffer in which the push constant update will be recorded.
-     * @param pPushConstantsInfo a pointer to a {@link VkPushConstantsInfoKHR} structure.
+     * @param pPushConstantsInfo a pointer to a {@link VkPushConstantsInfo} structure.
      */
-    public static void vkCmdPushConstants2KHR(VkCommandBuffer commandBuffer, @NativeType("VkPushConstantsInfoKHR const *") VkPushConstantsInfoKHR pPushConstantsInfo) {
+    public static void vkCmdPushConstants2KHR(VkCommandBuffer commandBuffer, @NativeType("VkPushConstantsInfo const *") VkPushConstantsInfo pPushConstantsInfo) {
         nvkCmdPushConstants2KHR(commandBuffer, pPushConstantsInfo.address());
     }
 
@@ -260,61 +188,18 @@ public class KHRMaintenance6 {
         long __functionAddress = commandBuffer.getCapabilities().vkCmdPushDescriptorSet2KHR;
         if (CHECKS) {
             check(__functionAddress);
-            VkPushDescriptorSetInfoKHR.validate(pPushDescriptorSetInfo);
+            VkPushDescriptorSetInfo.validate(pPushDescriptorSetInfo);
         }
         callPPV(commandBuffer.address(), pPushDescriptorSetInfo, __functionAddress);
     }
 
     /**
-     * Pushes descriptor updates into a command buffer.
-     * 
-     * <h5>C Specification</h5>
-     * 
-     * <p>Alternatively, to push descriptor updates into a command buffer, call:</p>
-     * 
-     * <pre><code>
-     * void vkCmdPushDescriptorSet2KHR(
-     *     VkCommandBuffer                             commandBuffer,
-     *     const VkPushDescriptorSetInfoKHR*           pPushDescriptorSetInfo);</code></pre>
-     * 
-     * <h5>Valid Usage</h5>
-     * 
-     * <ul>
-     * <li>Each bit in {@code pPushDescriptorSetInfo→stageFlags} <b>must</b> be a stage supported by the {@code commandBuffer}’s parent {@code VkCommandPool}’s queue family</li>
-     * </ul>
-     * 
-     * <h5>Valid Usage (Implicit)</h5>
-     * 
-     * <ul>
-     * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code pPushDescriptorSetInfo} <b>must</b> be a valid pointer to a valid {@link VkPushDescriptorSetInfoKHR} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
-     * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
-     * <li>This command <b>must</b> only be called outside of a video coding scope</li>
-     * </ul>
-     * 
-     * <h5>Host Synchronization</h5>
-     * 
-     * <ul>
-     * <li>Host access to {@code commandBuffer} <b>must</b> be externally synchronized</li>
-     * <li>Host access to the {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> be externally synchronized</li>
-     * </ul>
-     * 
-     * <h5>Command Properties</h5>
-     * 
-     * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
-     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>State</td></tr></tbody>
-     * </table>
-     * 
-     * <h5>See Also</h5>
-     * 
-     * <p>{@link VkPushDescriptorSetInfoKHR}</p>
+     * See {@link VK14#vkCmdPushDescriptorSet2 CmdPushDescriptorSet2}.
      *
      * @param commandBuffer          the command buffer that the descriptors will be recorded in.
-     * @param pPushDescriptorSetInfo a pointer to a {@link VkPushDescriptorSetInfoKHR} structure.
+     * @param pPushDescriptorSetInfo a pointer to a {@link VkPushDescriptorSetInfo} structure.
      */
-    public static void vkCmdPushDescriptorSet2KHR(VkCommandBuffer commandBuffer, @NativeType("VkPushDescriptorSetInfoKHR const *") VkPushDescriptorSetInfoKHR pPushDescriptorSetInfo) {
+    public static void vkCmdPushDescriptorSet2KHR(VkCommandBuffer commandBuffer, @NativeType("VkPushDescriptorSetInfo const *") VkPushDescriptorSetInfo pPushDescriptorSetInfo) {
         nvkCmdPushDescriptorSet2KHR(commandBuffer, pPushDescriptorSetInfo.address());
     }
 
@@ -325,55 +210,18 @@ public class KHRMaintenance6 {
         long __functionAddress = commandBuffer.getCapabilities().vkCmdPushDescriptorSetWithTemplate2KHR;
         if (CHECKS) {
             check(__functionAddress);
-            VkPushDescriptorSetWithTemplateInfoKHR.validate(pPushDescriptorSetWithTemplateInfo);
+            VkPushDescriptorSetWithTemplateInfo.validate(pPushDescriptorSetWithTemplateInfo);
         }
         callPPV(commandBuffer.address(), pPushDescriptorSetWithTemplateInfo, __functionAddress);
     }
 
     /**
-     * Pushes descriptor updates into a command buffer using a descriptor update template.
-     * 
-     * <h5>C Specification</h5>
-     * 
-     * <p>Alternatively, to use a descriptor update template to specify the push descriptors to update, call:</p>
-     * 
-     * <pre><code>
-     * void vkCmdPushDescriptorSetWithTemplate2KHR(
-     *     VkCommandBuffer                             commandBuffer,
-     *     const VkPushDescriptorSetWithTemplateInfoKHR* pPushDescriptorSetWithTemplateInfo);</code></pre>
-     * 
-     * <h5>Valid Usage (Implicit)</h5>
-     * 
-     * <ul>
-     * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code pPushDescriptorSetWithTemplateInfo} <b>must</b> be a valid pointer to a valid {@link VkPushDescriptorSetWithTemplateInfoKHR} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
-     * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
-     * <li>This command <b>must</b> only be called outside of a video coding scope</li>
-     * </ul>
-     * 
-     * <h5>Host Synchronization</h5>
-     * 
-     * <ul>
-     * <li>Host access to {@code commandBuffer} <b>must</b> be externally synchronized</li>
-     * <li>Host access to the {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> be externally synchronized</li>
-     * </ul>
-     * 
-     * <h5>Command Properties</h5>
-     * 
-     * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
-     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>State</td></tr></tbody>
-     * </table>
-     * 
-     * <h5>See Also</h5>
-     * 
-     * <p>{@link VkPushDescriptorSetWithTemplateInfoKHR}</p>
+     * See {@link VK14#vkCmdPushDescriptorSetWithTemplate2 CmdPushDescriptorSetWithTemplate2}.
      *
      * @param commandBuffer                      the command buffer that the descriptors will be recorded in.
-     * @param pPushDescriptorSetWithTemplateInfo a pointer to a {@link VkPushDescriptorSetWithTemplateInfoKHR} structure.
+     * @param pPushDescriptorSetWithTemplateInfo a pointer to a {@link VkPushDescriptorSetWithTemplateInfo} structure.
      */
-    public static void vkCmdPushDescriptorSetWithTemplate2KHR(VkCommandBuffer commandBuffer, @NativeType("VkPushDescriptorSetWithTemplateInfoKHR const *") VkPushDescriptorSetWithTemplateInfoKHR pPushDescriptorSetWithTemplateInfo) {
+    public static void vkCmdPushDescriptorSetWithTemplate2KHR(VkCommandBuffer commandBuffer, @NativeType("VkPushDescriptorSetWithTemplateInfo const *") VkPushDescriptorSetWithTemplateInfo pPushDescriptorSetWithTemplateInfo) {
         nvkCmdPushDescriptorSetWithTemplate2KHR(commandBuffer, pPushDescriptorSetWithTemplateInfo.address());
     }
 
@@ -404,7 +252,7 @@ public class KHRMaintenance6 {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorBuffer">{@code descriptorBuffer}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-descriptorBuffer">{@code descriptorBuffer}</a> feature <b>must</b> be enabled</li>
      * <li>Each bit in {@code pSetDescriptorBufferOffsetsInfo→stageFlags} <b>must</b> be a stage supported by the {@code commandBuffer}’s parent {@code VkCommandPool}’s queue family</li>
      * </ul>
      * 
@@ -413,7 +261,7 @@ public class KHRMaintenance6 {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pSetDescriptorBufferOffsetsInfo} <b>must</b> be a valid pointer to a valid {@link VkSetDescriptorBufferOffsetsInfoEXT} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -428,7 +276,7 @@ public class KHRMaintenance6 {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>State</td></tr></tbody>
      * </table>
      * 
@@ -469,7 +317,7 @@ public class KHRMaintenance6 {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorBuffer">{@code descriptorBuffer}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-descriptorBuffer">{@code descriptorBuffer}</a> feature <b>must</b> be enabled</li>
      * <li>Each bit in {@code pBindDescriptorBufferEmbeddedSamplersInfo→stageFlags} <b>must</b> be a stage supported by the {@code commandBuffer}’s parent {@code VkCommandPool}’s queue family</li>
      * </ul>
      * 
@@ -478,7 +326,7 @@ public class KHRMaintenance6 {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pBindDescriptorBufferEmbeddedSamplersInfo} <b>must</b> be a valid pointer to a valid {@link VkBindDescriptorBufferEmbeddedSamplersInfoEXT} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -493,7 +341,7 @@ public class KHRMaintenance6 {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>State</td></tr></tbody>
      * </table>
      * 

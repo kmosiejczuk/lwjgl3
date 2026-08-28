@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -85,8 +85,7 @@ public class hwloc_topology_diff_generic_s extends Struct<hwloc_topology_diff_ge
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_diff_generic_s createSafe(long address) {
+    public static @Nullable hwloc_topology_diff_generic_s createSafe(long address) {
         return address == NULL ? null : new hwloc_topology_diff_generic_s(address, null);
     }
 
@@ -101,15 +100,14 @@ public class hwloc_topology_diff_generic_s extends Struct<hwloc_topology_diff_ge
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_diff_generic_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_topology_diff_generic_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + hwloc_topology_diff_generic_s.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + hwloc_topology_diff_generic_s.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static hwloc_topology_diff_u nnext(long struct) { return hwloc_topology_diff_u.create(memGetAddress(struct + hwloc_topology_diff_generic_s.NEXT)); }
 
@@ -144,6 +142,11 @@ public class hwloc_topology_diff_generic_s extends Struct<hwloc_topology_diff_ge
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -31,9 +31,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code swapchain} <b>must</b> not be in the retired state</li>
- * <li>If {@code semaphore} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} it <b>must</b> be unsignaled</li>
- * <li>If {@code semaphore} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} it <b>must</b> not have any uncompleted signal or wait operations pending</li>
- * <li>If {@code fence} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} it <b>must</b> be unsignaled and <b>must</b> not be associated with any other queue command that has not yet completed execution on that queue</li>
+ * <li>If {@code semaphore} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be unsignaled</li>
+ * <li>If {@code semaphore} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> not have any uncompleted signal or wait operations pending</li>
+ * <li>If {@code fence} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code fence} <b>must</b> be unsignaled</li>
+ * <li>If {@code fence} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code fence} <b>must</b> not be associated with any other queue command that has not yet completed execution on that queue</li>
  * <li>{@code semaphore} and {@code fence} <b>must</b> not both be equal to {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>{@code deviceMask} <b>must</b> be a valid device mask</li>
  * <li>{@code deviceMask} <b>must</b> not be zero</li>
@@ -235,8 +236,7 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAcquireNextImageInfoKHR createSafe(long address) {
+    public static @Nullable VkAcquireNextImageInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkAcquireNextImageInfoKHR(address, null);
     }
 
@@ -279,8 +279,7 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAcquireNextImageInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAcquireNextImageInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -344,34 +343,34 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAcquireNextImageInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAcquireNextImageInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAcquireNextImageInfoKHR.PNEXT); }
     /** Unsafe version of {@link #swapchain}. */
-    public static long nswapchain(long struct) { return UNSAFE.getLong(null, struct + VkAcquireNextImageInfoKHR.SWAPCHAIN); }
+    public static long nswapchain(long struct) { return memGetLong(struct + VkAcquireNextImageInfoKHR.SWAPCHAIN); }
     /** Unsafe version of {@link #timeout}. */
-    public static long ntimeout(long struct) { return UNSAFE.getLong(null, struct + VkAcquireNextImageInfoKHR.TIMEOUT); }
+    public static long ntimeout(long struct) { return memGetLong(struct + VkAcquireNextImageInfoKHR.TIMEOUT); }
     /** Unsafe version of {@link #semaphore}. */
-    public static long nsemaphore(long struct) { return UNSAFE.getLong(null, struct + VkAcquireNextImageInfoKHR.SEMAPHORE); }
+    public static long nsemaphore(long struct) { return memGetLong(struct + VkAcquireNextImageInfoKHR.SEMAPHORE); }
     /** Unsafe version of {@link #fence}. */
-    public static long nfence(long struct) { return UNSAFE.getLong(null, struct + VkAcquireNextImageInfoKHR.FENCE); }
+    public static long nfence(long struct) { return memGetLong(struct + VkAcquireNextImageInfoKHR.FENCE); }
     /** Unsafe version of {@link #deviceMask}. */
-    public static int ndeviceMask(long struct) { return UNSAFE.getInt(null, struct + VkAcquireNextImageInfoKHR.DEVICEMASK); }
+    public static int ndeviceMask(long struct) { return memGetInt(struct + VkAcquireNextImageInfoKHR.DEVICEMASK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAcquireNextImageInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAcquireNextImageInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAcquireNextImageInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #swapchain(long) swapchain}. */
-    public static void nswapchain(long struct, long value) { UNSAFE.putLong(null, struct + VkAcquireNextImageInfoKHR.SWAPCHAIN, value); }
+    public static void nswapchain(long struct, long value) { memPutLong(struct + VkAcquireNextImageInfoKHR.SWAPCHAIN, value); }
     /** Unsafe version of {@link #timeout(long) timeout}. */
-    public static void ntimeout(long struct, long value) { UNSAFE.putLong(null, struct + VkAcquireNextImageInfoKHR.TIMEOUT, value); }
+    public static void ntimeout(long struct, long value) { memPutLong(struct + VkAcquireNextImageInfoKHR.TIMEOUT, value); }
     /** Unsafe version of {@link #semaphore(long) semaphore}. */
-    public static void nsemaphore(long struct, long value) { UNSAFE.putLong(null, struct + VkAcquireNextImageInfoKHR.SEMAPHORE, value); }
+    public static void nsemaphore(long struct, long value) { memPutLong(struct + VkAcquireNextImageInfoKHR.SEMAPHORE, value); }
     /** Unsafe version of {@link #fence(long) fence}. */
-    public static void nfence(long struct, long value) { UNSAFE.putLong(null, struct + VkAcquireNextImageInfoKHR.FENCE, value); }
+    public static void nfence(long struct, long value) { memPutLong(struct + VkAcquireNextImageInfoKHR.FENCE, value); }
     /** Unsafe version of {@link #deviceMask(int) deviceMask}. */
-    public static void ndeviceMask(long struct, int value) { UNSAFE.putInt(null, struct + VkAcquireNextImageInfoKHR.DEVICEMASK, value); }
+    public static void ndeviceMask(long struct, int value) { memPutInt(struct + VkAcquireNextImageInfoKHR.DEVICEMASK, value); }
 
     // -----------------------------------
 
@@ -404,6 +403,11 @@ public class VkAcquireNextImageInfoKHR extends Struct<VkAcquireNextImageInfoKHR>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

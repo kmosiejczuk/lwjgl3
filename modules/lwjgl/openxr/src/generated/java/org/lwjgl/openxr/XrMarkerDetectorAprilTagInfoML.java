@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class XrMarkerDetectorAprilTagInfoML extends Struct<XrMarkerDetectorApril
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerDetectorAprilTagInfoML createSafe(long address) {
+    public static @Nullable XrMarkerDetectorAprilTagInfoML createSafe(long address) {
         return address == NULL ? null : new XrMarkerDetectorAprilTagInfoML(address, null);
     }
 
@@ -207,8 +206,7 @@ public class XrMarkerDetectorAprilTagInfoML extends Struct<XrMarkerDetectorApril
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerDetectorAprilTagInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrMarkerDetectorAprilTagInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +251,18 @@ public class XrMarkerDetectorAprilTagInfoML extends Struct<XrMarkerDetectorApril
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrMarkerDetectorAprilTagInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrMarkerDetectorAprilTagInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrMarkerDetectorAprilTagInfoML.NEXT); }
     /** Unsafe version of {@link #aprilTagDict}. */
-    public static int naprilTagDict(long struct) { return UNSAFE.getInt(null, struct + XrMarkerDetectorAprilTagInfoML.APRILTAGDICT); }
+    public static int naprilTagDict(long struct) { return memGetInt(struct + XrMarkerDetectorAprilTagInfoML.APRILTAGDICT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrMarkerDetectorAprilTagInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrMarkerDetectorAprilTagInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrMarkerDetectorAprilTagInfoML.NEXT, value); }
     /** Unsafe version of {@link #aprilTagDict(int) aprilTagDict}. */
-    public static void naprilTagDict(long struct, int value) { UNSAFE.putInt(null, struct + XrMarkerDetectorAprilTagInfoML.APRILTAGDICT, value); }
+    public static void naprilTagDict(long struct, int value) { memPutInt(struct + XrMarkerDetectorAprilTagInfoML.APRILTAGDICT, value); }
 
     // -----------------------------------
 
@@ -297,6 +295,11 @@ public class XrMarkerDetectorAprilTagInfoML extends Struct<XrMarkerDetectorApril
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

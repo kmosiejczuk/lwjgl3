@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -53,9 +53,9 @@ public class VkAttachmentSampleCountInfoNV extends VkAttachmentSampleCountInfoAM
     /** Sets the specified value to the {@code sType} field. */
     @Override
     public VkAttachmentSampleCountInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD} value to the {@code sType} field. */
+    /** Sets the {@link AMDMixedAttachmentSamples#VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD} value to the {@code sType} field. */
     @Override
-    public VkAttachmentSampleCountInfoNV sType$Default() { return sType(KHRDynamicRendering.VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD); }
+    public VkAttachmentSampleCountInfoNV sType$Default() { return sType(AMDMixedAttachmentSamples.VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD); }
     /** Sets the specified value to the {@code pNext} field. */
     @Override
     public VkAttachmentSampleCountInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
@@ -123,8 +123,7 @@ public class VkAttachmentSampleCountInfoNV extends VkAttachmentSampleCountInfoAM
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentSampleCountInfoNV createSafe(long address) {
+    public static @Nullable VkAttachmentSampleCountInfoNV createSafe(long address) {
         return address == NULL ? null : new VkAttachmentSampleCountInfoNV(address, null);
     }
 
@@ -167,8 +166,7 @@ public class VkAttachmentSampleCountInfoNV extends VkAttachmentSampleCountInfoAM
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentSampleCountInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkAttachmentSampleCountInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,6 +242,11 @@ public class VkAttachmentSampleCountInfoNV extends VkAttachmentSampleCountInfoAM
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAttachmentSampleCountInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -251,9 +254,9 @@ public class VkAttachmentSampleCountInfoNV extends VkAttachmentSampleCountInfoAM
         /** Sets the specified value to the {@code sType} field. */
         @Override
         public VkAttachmentSampleCountInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkAttachmentSampleCountInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD} value to the {@code sType} field. */
+        /** Sets the {@link AMDMixedAttachmentSamples#VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD} value to the {@code sType} field. */
         @Override
-        public VkAttachmentSampleCountInfoNV.Buffer sType$Default() { return sType(KHRDynamicRendering.VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD); }
+        public VkAttachmentSampleCountInfoNV.Buffer sType$Default() { return sType(AMDMixedAttachmentSamples.VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD); }
         /** Sets the specified value to the {@code pNext} field. */
         @Override
         public VkAttachmentSampleCountInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkAttachmentSampleCountInfoNV.npNext(address(), value); return this; }

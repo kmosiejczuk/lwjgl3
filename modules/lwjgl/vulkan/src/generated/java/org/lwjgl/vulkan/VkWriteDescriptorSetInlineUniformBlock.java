@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class VkWriteDescriptorSetInlineUniformBlock extends Struct<VkWriteDescri
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteDescriptorSetInlineUniformBlock createSafe(long address) {
+    public static @Nullable VkWriteDescriptorSetInlineUniformBlock createSafe(long address) {
         return address == NULL ? null : new VkWriteDescriptorSetInlineUniformBlock(address, null);
     }
 
@@ -212,8 +211,7 @@ public class VkWriteDescriptorSetInlineUniformBlock extends Struct<VkWriteDescri
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteDescriptorSetInlineUniformBlock.Buffer createSafe(long address, int capacity) {
+    public static VkWriteDescriptorSetInlineUniformBlock.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,20 +256,20 @@ public class VkWriteDescriptorSetInlineUniformBlock extends Struct<VkWriteDescri
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSetInlineUniformBlock.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkWriteDescriptorSetInlineUniformBlock.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkWriteDescriptorSetInlineUniformBlock.PNEXT); }
     /** Unsafe version of {@link #dataSize}. */
-    public static int ndataSize(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSetInlineUniformBlock.DATASIZE); }
+    public static int ndataSize(long struct) { return memGetInt(struct + VkWriteDescriptorSetInlineUniformBlock.DATASIZE); }
     /** Unsafe version of {@link #pData() pData}. */
     public static ByteBuffer npData(long struct) { return memByteBuffer(memGetAddress(struct + VkWriteDescriptorSetInlineUniformBlock.PDATA), ndataSize(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSetInlineUniformBlock.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkWriteDescriptorSetInlineUniformBlock.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkWriteDescriptorSetInlineUniformBlock.PNEXT, value); }
     /** Sets the specified value to the {@code dataSize} field of the specified {@code struct}. */
-    public static void ndataSize(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSetInlineUniformBlock.DATASIZE, value); }
+    public static void ndataSize(long struct, int value) { memPutInt(struct + VkWriteDescriptorSetInlineUniformBlock.DATASIZE, value); }
     /** Unsafe version of {@link #pData(ByteBuffer) pData}. */
     public static void npData(long struct, ByteBuffer value) { memPutAddress(struct + VkWriteDescriptorSetInlineUniformBlock.PDATA, memAddress(value)); ndataSize(struct, value.remaining()); }
 
@@ -315,6 +313,11 @@ public class VkWriteDescriptorSetInlineUniformBlock extends Struct<VkWriteDescri
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

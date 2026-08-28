@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -82,13 +82,13 @@ public class VkVideoEncodeH264FrameSizeKHR extends Struct<VkVideoEncodeH264Frame
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the size in bytes to be used for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-i-pic">I pictures</a>. */
+    /** the size in bytes to be used for <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-i-pic">I pictures</a>. */
     @NativeType("uint32_t")
     public int frameISize() { return nframeISize(address()); }
-    /** the size in bytes to be used for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-p-pic">P pictures</a>. */
+    /** the size in bytes to be used for <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-p-pic">P pictures</a>. */
     @NativeType("uint32_t")
     public int framePSize() { return nframePSize(address()); }
-    /** the size in bytes to be used for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-b-pic">B pictures</a>. */
+    /** the size in bytes to be used for <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-b-pic">B pictures</a>. */
     @NativeType("uint32_t")
     public int frameBSize() { return nframeBSize(address()); }
 
@@ -148,8 +148,7 @@ public class VkVideoEncodeH264FrameSizeKHR extends Struct<VkVideoEncodeH264Frame
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264FrameSizeKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264FrameSizeKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264FrameSizeKHR(address, null);
     }
 
@@ -192,8 +191,7 @@ public class VkVideoEncodeH264FrameSizeKHR extends Struct<VkVideoEncodeH264Frame
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264FrameSizeKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264FrameSizeKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -238,18 +236,18 @@ public class VkVideoEncodeH264FrameSizeKHR extends Struct<VkVideoEncodeH264Frame
     // -----------------------------------
 
     /** Unsafe version of {@link #frameISize}. */
-    public static int nframeISize(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264FrameSizeKHR.FRAMEISIZE); }
+    public static int nframeISize(long struct) { return memGetInt(struct + VkVideoEncodeH264FrameSizeKHR.FRAMEISIZE); }
     /** Unsafe version of {@link #framePSize}. */
-    public static int nframePSize(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264FrameSizeKHR.FRAMEPSIZE); }
+    public static int nframePSize(long struct) { return memGetInt(struct + VkVideoEncodeH264FrameSizeKHR.FRAMEPSIZE); }
     /** Unsafe version of {@link #frameBSize}. */
-    public static int nframeBSize(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264FrameSizeKHR.FRAMEBSIZE); }
+    public static int nframeBSize(long struct) { return memGetInt(struct + VkVideoEncodeH264FrameSizeKHR.FRAMEBSIZE); }
 
     /** Unsafe version of {@link #frameISize(int) frameISize}. */
-    public static void nframeISize(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264FrameSizeKHR.FRAMEISIZE, value); }
+    public static void nframeISize(long struct, int value) { memPutInt(struct + VkVideoEncodeH264FrameSizeKHR.FRAMEISIZE, value); }
     /** Unsafe version of {@link #framePSize(int) framePSize}. */
-    public static void nframePSize(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264FrameSizeKHR.FRAMEPSIZE, value); }
+    public static void nframePSize(long struct, int value) { memPutInt(struct + VkVideoEncodeH264FrameSizeKHR.FRAMEPSIZE, value); }
     /** Unsafe version of {@link #frameBSize(int) frameBSize}. */
-    public static void nframeBSize(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264FrameSizeKHR.FRAMEBSIZE, value); }
+    public static void nframeBSize(long struct, int value) { memPutInt(struct + VkVideoEncodeH264FrameSizeKHR.FRAMEBSIZE, value); }
 
     // -----------------------------------
 
@@ -282,6 +280,11 @@ public class VkVideoEncodeH264FrameSizeKHR extends Struct<VkVideoEncodeH264Frame
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -176,8 +176,7 @@ public class VkAccelerationStructureGeometryAabbsDataKHR extends Struct<VkAccele
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureGeometryAabbsDataKHR createSafe(long address) {
+    public static @Nullable VkAccelerationStructureGeometryAabbsDataKHR createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureGeometryAabbsDataKHR(address, null);
     }
 
@@ -220,8 +219,7 @@ public class VkAccelerationStructureGeometryAabbsDataKHR extends Struct<VkAccele
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureGeometryAabbsDataKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureGeometryAabbsDataKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,22 +264,22 @@ public class VkAccelerationStructureGeometryAabbsDataKHR extends Struct<VkAccele
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureGeometryAabbsDataKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureGeometryAabbsDataKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureGeometryAabbsDataKHR.PNEXT); }
     /** Unsafe version of {@link #data}. */
     public static VkDeviceOrHostAddressConstKHR ndata(long struct) { return VkDeviceOrHostAddressConstKHR.create(struct + VkAccelerationStructureGeometryAabbsDataKHR.DATA); }
     /** Unsafe version of {@link #stride}. */
-    public static long nstride(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureGeometryAabbsDataKHR.STRIDE); }
+    public static long nstride(long struct) { return memGetLong(struct + VkAccelerationStructureGeometryAabbsDataKHR.STRIDE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureGeometryAabbsDataKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureGeometryAabbsDataKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureGeometryAabbsDataKHR.PNEXT, value); }
     /** Unsafe version of {@link #data(VkDeviceOrHostAddressConstKHR) data}. */
     public static void ndata(long struct, VkDeviceOrHostAddressConstKHR value) { memCopy(value.address(), struct + VkAccelerationStructureGeometryAabbsDataKHR.DATA, VkDeviceOrHostAddressConstKHR.SIZEOF); }
     /** Unsafe version of {@link #stride(long) stride}. */
-    public static void nstride(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureGeometryAabbsDataKHR.STRIDE, value); }
+    public static void nstride(long struct, long value) { memPutLong(struct + VkAccelerationStructureGeometryAabbsDataKHR.STRIDE, value); }
 
     // -----------------------------------
 
@@ -314,6 +312,11 @@ public class VkAccelerationStructureGeometryAabbsDataKHR extends Struct<VkAccele
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

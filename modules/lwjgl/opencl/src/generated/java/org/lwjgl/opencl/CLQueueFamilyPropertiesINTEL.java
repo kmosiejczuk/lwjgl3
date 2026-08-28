@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -121,8 +121,7 @@ public class CLQueueFamilyPropertiesINTEL extends Struct<CLQueueFamilyProperties
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLQueueFamilyPropertiesINTEL createSafe(long address) {
+    public static @Nullable CLQueueFamilyPropertiesINTEL createSafe(long address) {
         return address == NULL ? null : new CLQueueFamilyPropertiesINTEL(address, null);
     }
 
@@ -165,8 +164,7 @@ public class CLQueueFamilyPropertiesINTEL extends Struct<CLQueueFamilyProperties
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLQueueFamilyPropertiesINTEL.Buffer createSafe(long address, int capacity) {
+    public static CLQueueFamilyPropertiesINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -211,11 +209,11 @@ public class CLQueueFamilyPropertiesINTEL extends Struct<CLQueueFamilyProperties
     // -----------------------------------
 
     /** Unsafe version of {@link #properties}. */
-    public static long nproperties(long struct) { return UNSAFE.getLong(null, struct + CLQueueFamilyPropertiesINTEL.PROPERTIES); }
+    public static long nproperties(long struct) { return memGetLong(struct + CLQueueFamilyPropertiesINTEL.PROPERTIES); }
     /** Unsafe version of {@link #capabilities}. */
-    public static long ncapabilities(long struct) { return UNSAFE.getLong(null, struct + CLQueueFamilyPropertiesINTEL.CAPABILITIES); }
+    public static long ncapabilities(long struct) { return memGetLong(struct + CLQueueFamilyPropertiesINTEL.CAPABILITIES); }
     /** Unsafe version of {@link #count}. */
-    public static int ncount(long struct) { return UNSAFE.getInt(null, struct + CLQueueFamilyPropertiesINTEL.COUNT); }
+    public static int ncount(long struct) { return memGetInt(struct + CLQueueFamilyPropertiesINTEL.COUNT); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBuffer(struct + CLQueueFamilyPropertiesINTEL.NAME, 64); }
     /** Unsafe version of {@link #nameString}. */
@@ -252,6 +250,11 @@ public class CLQueueFamilyPropertiesINTEL extends Struct<CLQueueFamilyProperties
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

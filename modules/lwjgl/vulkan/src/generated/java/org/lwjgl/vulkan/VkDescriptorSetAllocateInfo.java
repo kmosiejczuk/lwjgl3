@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled and {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, {@code descriptorSetCount} <b>must</b> not be greater than the number of sets that are currently available for allocation in {@code descriptorPool}</li>
  * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled and {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, {@code descriptorPool} <b>must</b> have enough free descriptor capacity remaining to allocate the descriptor sets of the specified layouts</li>
- * <li>Each element of {@code pSetLayouts} <b>must</b> not have been created with {@link KHRPushDescriptor#VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR} set</li>
+ * <li>Each element of {@code pSetLayouts} <b>must</b> not have been created with {@link VK14#VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT} set</li>
  * <li>If any element of {@code pSetLayouts} was created with the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set, {@code descriptorPool} <b>must</b> have been created with the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} flag set</li>
  * <li>If {@code pSetLayouts}[i] was created with an element of {@code pBindingFlags} that includes {@link VK12#VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT}, and {@link VkDescriptorSetVariableDescriptorCountAllocateInfo} is included in the {@code pNext} chain, and {@link VkDescriptorSetVariableDescriptorCountAllocateInfo}{@code ::descriptorSetCount} is not zero, then {@link VkDescriptorSetVariableDescriptorCountAllocateInfo}{@code ::pDescriptorCounts}[i] <b>must</b> be less than or equal to {@link VkDescriptorSetLayoutBinding}{@code ::descriptorCount} for the corresponding binding used to create {@code pSetLayouts}[i]</li>
  * <li>If any element of {@code pSetLayouts} was created with the {@link EXTMutableDescriptorType#VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT} bit set, {@code descriptorPool} <b>must</b> have been created with the {@link EXTMutableDescriptorType#VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT} flag set</li>
@@ -197,8 +197,7 @@ public class VkDescriptorSetAllocateInfo extends Struct<VkDescriptorSetAllocateI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorSetAllocateInfo createSafe(long address) {
+    public static @Nullable VkDescriptorSetAllocateInfo createSafe(long address) {
         return address == NULL ? null : new VkDescriptorSetAllocateInfo(address, null);
     }
 
@@ -241,8 +240,7 @@ public class VkDescriptorSetAllocateInfo extends Struct<VkDescriptorSetAllocateI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorSetAllocateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorSetAllocateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -306,24 +304,24 @@ public class VkDescriptorSetAllocateInfo extends Struct<VkDescriptorSetAllocateI
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetAllocateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorSetAllocateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorSetAllocateInfo.PNEXT); }
     /** Unsafe version of {@link #descriptorPool}. */
-    public static long ndescriptorPool(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorSetAllocateInfo.DESCRIPTORPOOL); }
+    public static long ndescriptorPool(long struct) { return memGetLong(struct + VkDescriptorSetAllocateInfo.DESCRIPTORPOOL); }
     /** Unsafe version of {@link #descriptorSetCount}. */
-    public static int ndescriptorSetCount(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetAllocateInfo.DESCRIPTORSETCOUNT); }
+    public static int ndescriptorSetCount(long struct) { return memGetInt(struct + VkDescriptorSetAllocateInfo.DESCRIPTORSETCOUNT); }
     /** Unsafe version of {@link #pSetLayouts() pSetLayouts}. */
     public static LongBuffer npSetLayouts(long struct) { return memLongBuffer(memGetAddress(struct + VkDescriptorSetAllocateInfo.PSETLAYOUTS), ndescriptorSetCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetAllocateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorSetAllocateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorSetAllocateInfo.PNEXT, value); }
     /** Unsafe version of {@link #descriptorPool(long) descriptorPool}. */
-    public static void ndescriptorPool(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorSetAllocateInfo.DESCRIPTORPOOL, value); }
+    public static void ndescriptorPool(long struct, long value) { memPutLong(struct + VkDescriptorSetAllocateInfo.DESCRIPTORPOOL, value); }
     /** Sets the specified value to the {@code descriptorSetCount} field of the specified {@code struct}. */
-    public static void ndescriptorSetCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetAllocateInfo.DESCRIPTORSETCOUNT, value); }
+    public static void ndescriptorSetCount(long struct, int value) { memPutInt(struct + VkDescriptorSetAllocateInfo.DESCRIPTORSETCOUNT, value); }
     /** Unsafe version of {@link #pSetLayouts(LongBuffer) pSetLayouts}. */
     public static void npSetLayouts(long struct, LongBuffer value) { memPutAddress(struct + VkDescriptorSetAllocateInfo.PSETLAYOUTS, memAddress(value)); ndescriptorSetCount(struct, value.remaining()); }
 
@@ -367,6 +365,11 @@ public class VkDescriptorSetAllocateInfo extends Struct<VkDescriptorSetAllocateI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

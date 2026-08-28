@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -42,7 +42,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *   }
  * }</code></pre>
  * 
- * <p>When tokens are consumed, an offset is computed based on token offset and stream stride. The resulting offset is required to be aligned. The alignment for a specific token is equal to the scalar alignment of the data type as defined in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-alignment-requirements">Alignment Requirements</a>, or {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::minIndirectCommandsBufferOffsetAlignment}, whichever is lower.</p>
+ * <p>When tokens are consumed, an offset is computed based on token offset and stream stride. The resulting offset is required to be aligned. The alignment for a specific token is equal to the scalar alignment of the data type as defined in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces-alignment-requirements">Alignment Requirements</a>, or {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::minIndirectCommandsBufferOffsetAlignment}, whichever is lower.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -61,9 +61,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>The content of {@code pTokens} <b>must</b> include one single action command token that is compatible with the {@code pipelineBindPoint}</li>
  * <li>{@code streamCount} <b>must</b> be greater than 0 and less or equal to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::maxIndirectCommandsStreamCount}</li>
  * <li>each element of {@code pStreamStrides} <b>must</b> be greater than 0 and less than or equal to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::maxIndirectCommandsStreamStride}. Furthermore the alignment of each token input <b>must</b> be ensured</li>
- * <li>If {@code pipelineBindPoint} is {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE} then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedCompute">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedCompute}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code pipelineBindPoint} is {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE} then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceGeneratedCompute">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedCompute}</a> feature <b>must</b> be enabled</li>
  * <li>If {@code pipelineBindPoint} is {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE} then the state tokens in {@code pTokens} <b>must</b> only include {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_NV INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_NV}, {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV}, or {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV}</li>
- * <li>If {@code pipelineBindPoint} is {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE} and {@code pTokens} includes {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code pipelineBindPoint} is {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE} and {@code pTokens} includes {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -258,8 +258,7 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct<VkIndirectComma
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectCommandsLayoutCreateInfoNV createSafe(long address) {
+    public static @Nullable VkIndirectCommandsLayoutCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkIndirectCommandsLayoutCreateInfoNV(address, null);
     }
 
@@ -302,8 +301,7 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct<VkIndirectComma
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectCommandsLayoutCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkIndirectCommandsLayoutCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -348,36 +346,36 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct<VkIndirectComma
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsLayoutCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkIndirectCommandsLayoutCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkIndirectCommandsLayoutCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsLayoutCreateInfoNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkIndirectCommandsLayoutCreateInfoNV.FLAGS); }
     /** Unsafe version of {@link #pipelineBindPoint}. */
-    public static int npipelineBindPoint(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsLayoutCreateInfoNV.PIPELINEBINDPOINT); }
+    public static int npipelineBindPoint(long struct) { return memGetInt(struct + VkIndirectCommandsLayoutCreateInfoNV.PIPELINEBINDPOINT); }
     /** Unsafe version of {@link #tokenCount}. */
-    public static int ntokenCount(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsLayoutCreateInfoNV.TOKENCOUNT); }
+    public static int ntokenCount(long struct) { return memGetInt(struct + VkIndirectCommandsLayoutCreateInfoNV.TOKENCOUNT); }
     /** Unsafe version of {@link #pTokens}. */
     public static VkIndirectCommandsLayoutTokenNV.Buffer npTokens(long struct) { return VkIndirectCommandsLayoutTokenNV.create(memGetAddress(struct + VkIndirectCommandsLayoutCreateInfoNV.PTOKENS), ntokenCount(struct)); }
     /** Unsafe version of {@link #streamCount}. */
-    public static int nstreamCount(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsLayoutCreateInfoNV.STREAMCOUNT); }
+    public static int nstreamCount(long struct) { return memGetInt(struct + VkIndirectCommandsLayoutCreateInfoNV.STREAMCOUNT); }
     /** Unsafe version of {@link #pStreamStrides() pStreamStrides}. */
     public static IntBuffer npStreamStrides(long struct) { return memIntBuffer(memGetAddress(struct + VkIndirectCommandsLayoutCreateInfoNV.PSTREAMSTRIDES), nstreamCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsLayoutCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkIndirectCommandsLayoutCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkIndirectCommandsLayoutCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsLayoutCreateInfoNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkIndirectCommandsLayoutCreateInfoNV.FLAGS, value); }
     /** Unsafe version of {@link #pipelineBindPoint(int) pipelineBindPoint}. */
-    public static void npipelineBindPoint(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsLayoutCreateInfoNV.PIPELINEBINDPOINT, value); }
+    public static void npipelineBindPoint(long struct, int value) { memPutInt(struct + VkIndirectCommandsLayoutCreateInfoNV.PIPELINEBINDPOINT, value); }
     /** Sets the specified value to the {@code tokenCount} field of the specified {@code struct}. */
-    public static void ntokenCount(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsLayoutCreateInfoNV.TOKENCOUNT, value); }
+    public static void ntokenCount(long struct, int value) { memPutInt(struct + VkIndirectCommandsLayoutCreateInfoNV.TOKENCOUNT, value); }
     /** Unsafe version of {@link #pTokens(VkIndirectCommandsLayoutTokenNV.Buffer) pTokens}. */
     public static void npTokens(long struct, VkIndirectCommandsLayoutTokenNV.Buffer value) { memPutAddress(struct + VkIndirectCommandsLayoutCreateInfoNV.PTOKENS, value.address()); ntokenCount(struct, value.remaining()); }
     /** Sets the specified value to the {@code streamCount} field of the specified {@code struct}. */
-    public static void nstreamCount(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsLayoutCreateInfoNV.STREAMCOUNT, value); }
+    public static void nstreamCount(long struct, int value) { memPutInt(struct + VkIndirectCommandsLayoutCreateInfoNV.STREAMCOUNT, value); }
     /** Unsafe version of {@link #pStreamStrides(IntBuffer) pStreamStrides}. */
     public static void npStreamStrides(long struct, IntBuffer value) { memPutAddress(struct + VkIndirectCommandsLayoutCreateInfoNV.PSTREAMSTRIDES, memAddress(value)); nstreamCount(struct, value.remaining()); }
 
@@ -425,6 +423,11 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct<VkIndirectComma
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

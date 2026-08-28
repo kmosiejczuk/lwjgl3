@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -176,8 +176,7 @@ public class XrSpaceEraseInfoFB extends Struct<XrSpaceEraseInfoFB> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceEraseInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceEraseInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceEraseInfoFB(address, null);
     }
 
@@ -220,8 +219,7 @@ public class XrSpaceEraseInfoFB extends Struct<XrSpaceEraseInfoFB> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceEraseInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceEraseInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,22 +264,22 @@ public class XrSpaceEraseInfoFB extends Struct<XrSpaceEraseInfoFB> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceEraseInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceEraseInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceEraseInfoFB.NEXT); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrSpaceEraseInfoFB.SPACE); }
     /** Unsafe version of {@link #location}. */
-    public static int nlocation(long struct) { return UNSAFE.getInt(null, struct + XrSpaceEraseInfoFB.LOCATION); }
+    public static int nlocation(long struct) { return memGetInt(struct + XrSpaceEraseInfoFB.LOCATION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceEraseInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceEraseInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceEraseInfoFB.NEXT, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
     public static void nspace(long struct, XrSpace value) { memPutAddress(struct + XrSpaceEraseInfoFB.SPACE, value.address()); }
     /** Unsafe version of {@link #location(int) location}. */
-    public static void nlocation(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceEraseInfoFB.LOCATION, value); }
+    public static void nlocation(long struct, int value) { memPutInt(struct + XrSpaceEraseInfoFB.LOCATION, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -323,6 +321,11 @@ public class XrSpaceEraseInfoFB extends Struct<XrSpaceEraseInfoFB> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

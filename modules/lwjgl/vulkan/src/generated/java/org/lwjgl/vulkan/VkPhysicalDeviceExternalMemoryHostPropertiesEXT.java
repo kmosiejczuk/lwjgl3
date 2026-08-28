@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkPhysicalDeviceExternalMemoryHostPropertiesEXT extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExternalMemoryHostPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceExternalMemoryHostPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceExternalMemoryHostPropertiesEXT(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkPhysicalDeviceExternalMemoryHostPropertiesEXT extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExternalMemoryHostPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceExternalMemoryHostPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,14 +259,14 @@ public class VkPhysicalDeviceExternalMemoryHostPropertiesEXT extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalMemoryHostPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalMemoryHostPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceExternalMemoryHostPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #minImportedHostPointerAlignment}. */
-    public static long nminImportedHostPointerAlignment(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceExternalMemoryHostPropertiesEXT.MINIMPORTEDHOSTPOINTERALIGNMENT); }
+    public static long nminImportedHostPointerAlignment(long struct) { return memGetLong(struct + VkPhysicalDeviceExternalMemoryHostPropertiesEXT.MINIMPORTEDHOSTPOINTERALIGNMENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalMemoryHostPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalMemoryHostPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceExternalMemoryHostPropertiesEXT.PNEXT, value); }
 
@@ -303,6 +301,11 @@ public class VkPhysicalDeviceExternalMemoryHostPropertiesEXT extends Struct<VkPh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

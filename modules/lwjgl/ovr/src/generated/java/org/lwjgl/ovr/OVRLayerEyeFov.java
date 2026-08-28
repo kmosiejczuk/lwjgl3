@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -225,8 +225,7 @@ public class OVRLayerEyeFov extends Struct<OVRLayerEyeFov> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRLayerEyeFov createSafe(long address) {
+    public static @Nullable OVRLayerEyeFov createSafe(long address) {
         return address == NULL ? null : new OVRLayerEyeFov(address, null);
     }
 
@@ -269,8 +268,7 @@ public class OVRLayerEyeFov extends Struct<OVRLayerEyeFov> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRLayerEyeFov.Buffer createSafe(long address, int capacity) {
+    public static OVRLayerEyeFov.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -360,7 +358,7 @@ public class OVRLayerEyeFov extends Struct<OVRLayerEyeFov> implements NativeReso
         return OVRPosef.create(struct + OVRLayerEyeFov.RENDERPOSE + check(index, ovrEye_Count) * OVRPosef.SIZEOF);
     }
     /** Unsafe version of {@link #SensorSampleTime}. */
-    public static double nSensorSampleTime(long struct) { return UNSAFE.getDouble(null, struct + OVRLayerEyeFov.SENSORSAMPLETIME); }
+    public static double nSensorSampleTime(long struct) { return memGetDouble(struct + OVRLayerEyeFov.SENSORSAMPLETIME); }
 
     /** Unsafe version of {@link #Header(OVRLayerHeader) Header}. */
     public static void nHeader(long struct, OVRLayerHeader value) { memCopy(value.address(), struct + OVRLayerEyeFov.HEADER, OVRLayerHeader.SIZEOF); }
@@ -401,7 +399,7 @@ public class OVRLayerEyeFov extends Struct<OVRLayerEyeFov> implements NativeReso
         memCopy(value.address(), struct + OVRLayerEyeFov.RENDERPOSE + check(index, ovrEye_Count) * OVRPosef.SIZEOF, OVRPosef.SIZEOF);
     }
     /** Unsafe version of {@link #SensorSampleTime(double) SensorSampleTime}. */
-    public static void nSensorSampleTime(long struct, double value) { UNSAFE.putDouble(null, struct + OVRLayerEyeFov.SENSORSAMPLETIME, value); }
+    public static void nSensorSampleTime(long struct, double value) { memPutDouble(struct + OVRLayerEyeFov.SENSORSAMPLETIME, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -443,6 +441,11 @@ public class OVRLayerEyeFov extends Struct<OVRLayerEyeFov> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

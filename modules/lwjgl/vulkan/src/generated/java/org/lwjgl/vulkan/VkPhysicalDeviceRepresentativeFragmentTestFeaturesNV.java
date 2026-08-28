@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV extends Struct
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports the representative fragment test. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-rep-frag-test">Representative Fragment Test</a>. */
+    /** indicates whether the implementation supports the representative fragment test. See <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-rep-frag-test">Representative Fragment Test</a>. */
     @NativeType("VkBool32")
     public boolean representativeFragmentTest() { return nrepresentativeFragmentTest(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV extends Struct
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV extends Struct
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV extends Struct
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #representativeFragmentTest}. */
-    public static int nrepresentativeFragmentTest(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.REPRESENTATIVEFRAGMENTTEST); }
+    public static int nrepresentativeFragmentTest(long struct) { return memGetInt(struct + VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.REPRESENTATIVEFRAGMENTTEST); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #representativeFragmentTest(boolean) representativeFragmentTest}. */
-    public static void nrepresentativeFragmentTest(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.REPRESENTATIVEFRAGMENTTEST, value); }
+    public static void nrepresentativeFragmentTest(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.REPRESENTATIVEFRAGMENTTEST, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV extends Struct
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

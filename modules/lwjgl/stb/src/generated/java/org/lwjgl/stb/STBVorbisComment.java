@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -113,8 +113,7 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBVorbisComment createSafe(long address) {
+    public static @Nullable STBVorbisComment createSafe(long address) {
         return address == NULL ? null : new STBVorbisComment(address, null);
     }
 
@@ -157,8 +156,7 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBVorbisComment.Buffer createSafe(long address, int capacity) {
+    public static STBVorbisComment.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -207,7 +205,7 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
     /** Unsafe version of {@link #vendorString}. */
     public static String nvendorString(long struct) { return memASCII(memGetAddress(struct + STBVorbisComment.VENDOR)); }
     /** Unsafe version of {@link #comment_list_length}. */
-    public static int ncomment_list_length(long struct) { return UNSAFE.getInt(null, struct + STBVorbisComment.COMMENT_LIST_LENGTH); }
+    public static int ncomment_list_length(long struct) { return memGetInt(struct + STBVorbisComment.COMMENT_LIST_LENGTH); }
     /** Unsafe version of {@link #comment_list() comment_list}. */
     public static PointerBuffer ncomment_list(long struct) { return memPointerBuffer(memGetAddress(struct + STBVorbisComment.COMMENT_LIST), ncomment_list_length(struct)); }
 
@@ -242,6 +240,11 @@ public class STBVorbisComment extends Struct<STBVorbisComment> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -106,10 +106,14 @@ public class LLVMDebugInfo {
             DisposeTemporaryMDNode                     = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMDisposeTemporaryMDNode"),
             MetadataReplaceAllUsesWith                 = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMMetadataReplaceAllUsesWith"),
             DIBuilderCreateTempGlobalVariableFwdDecl   = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMDIBuilderCreateTempGlobalVariableFwdDecl"),
-            DIBuilderInsertDeclareBefore               = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDeclareBefore"),
-            DIBuilderInsertDeclareAtEnd                = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDeclareAtEnd"),
-            DIBuilderInsertDbgValueBefore              = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDbgValueBefore"),
-            DIBuilderInsertDbgValueAtEnd               = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDbgValueAtEnd"),
+            DIBuilderInsertDeclareBefore               = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDeclareBefore"),
+            DIBuilderInsertDeclareAtEnd                = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDeclareAtEnd"),
+            DIBuilderInsertDbgValueBefore              = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDbgValueBefore"),
+            DIBuilderInsertDbgValueAtEnd               = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDbgValueAtEnd"),
+            DIBuilderInsertDeclareRecordBefore         = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDeclareRecordBefore"),
+            DIBuilderInsertDeclareRecordAtEnd          = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDeclareRecordAtEnd"),
+            DIBuilderInsertDbgValueRecordBefore        = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDbgValueRecordBefore"),
+            DIBuilderInsertDbgValueRecordAtEnd         = apiGetFunctionAddressOptional(LLVMCore.getLibrary(), "LLVMDIBuilderInsertDbgValueRecordAtEnd"),
             DIBuilderCreateAutoVariable                = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMDIBuilderCreateAutoVariable"),
             DIBuilderCreateParameterVariable           = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMDIBuilderCreateParameterVariable"),
             GetSubprogram                              = apiGetFunctionAddress(LLVMCore.getLibrary(), "LLVMGetSubprogram"),
@@ -257,7 +261,19 @@ public class LLVMDebugInfo {
      * <li>{@link #LLVMDWARFSourceLanguageFortran18 DWARFSourceLanguageFortran18}</li>
      * <li>{@link #LLVMDWARFSourceLanguageAda2005 DWARFSourceLanguageAda2005}</li>
      * <li>{@link #LLVMDWARFSourceLanguageAda2012 DWARFSourceLanguageAda2012}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageHIP DWARFSourceLanguageHIP}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageAssembly DWARFSourceLanguageAssembly}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageC_sharp DWARFSourceLanguageC_sharp}</li>
      * <li>{@link #LLVMDWARFSourceLanguageMojo DWARFSourceLanguageMojo}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageGLSL DWARFSourceLanguageGLSL}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageGLSL_ES DWARFSourceLanguageGLSL_ES}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageHLSL DWARFSourceLanguageHLSL}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageOpenCL_CPP DWARFSourceLanguageOpenCL_CPP}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageCPP_for_OpenCL DWARFSourceLanguageCPP_for_OpenCL}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageSYCL DWARFSourceLanguageSYCL}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageRuby DWARFSourceLanguageRuby}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageMove DWARFSourceLanguageMove}</li>
+     * <li>{@link #LLVMDWARFSourceLanguageHylo DWARFSourceLanguageHylo}</li>
      * <li>{@link #LLVMDWARFSourceLanguageMips_Assembler DWARFSourceLanguageMips_Assembler} - Vendor extensions:</li>
      * <li>{@link #LLVMDWARFSourceLanguageGOOGLE_RenderScript DWARFSourceLanguageGOOGLE_RenderScript} - Vendor extensions:</li>
      * <li>{@link #LLVMDWARFSourceLanguageBORLAND_Delphi DWARFSourceLanguageBORLAND_Delphi} - Vendor extensions:</li>
@@ -310,10 +326,22 @@ public class LLVMDebugInfo {
         LLVMDWARFSourceLanguageFortran18           = 43,
         LLVMDWARFSourceLanguageAda2005             = 44,
         LLVMDWARFSourceLanguageAda2012             = 45,
-        LLVMDWARFSourceLanguageMojo                = 46,
-        LLVMDWARFSourceLanguageMips_Assembler      = 47,
-        LLVMDWARFSourceLanguageGOOGLE_RenderScript = 48,
-        LLVMDWARFSourceLanguageBORLAND_Delphi      = 49;
+        LLVMDWARFSourceLanguageHIP                 = 46,
+        LLVMDWARFSourceLanguageAssembly            = 47,
+        LLVMDWARFSourceLanguageC_sharp             = 48,
+        LLVMDWARFSourceLanguageMojo                = 49,
+        LLVMDWARFSourceLanguageGLSL                = 50,
+        LLVMDWARFSourceLanguageGLSL_ES             = 51,
+        LLVMDWARFSourceLanguageHLSL                = 52,
+        LLVMDWARFSourceLanguageOpenCL_CPP          = 53,
+        LLVMDWARFSourceLanguageCPP_for_OpenCL      = 54,
+        LLVMDWARFSourceLanguageSYCL                = 55,
+        LLVMDWARFSourceLanguageRuby                = 56,
+        LLVMDWARFSourceLanguageMove                = 57,
+        LLVMDWARFSourceLanguageHylo                = 58,
+        LLVMDWARFSourceLanguageMips_Assembler      = 59,
+        LLVMDWARFSourceLanguageGOOGLE_RenderScript = 60,
+        LLVMDWARFSourceLanguageBORLAND_Delphi      = 61;
 
     /**
      * The amount of debug information to emit.
@@ -953,7 +981,7 @@ public class LLVMDebugInfo {
      * @param Elements       renamed elements
      */
     @NativeType("LLVMMetadataRef")
-    public static long LLVMDIBuilderCreateImportedModuleFromAlias(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMMetadataRef") long Scope, @NativeType("LLVMMetadataRef") long ImportedEntity, @NativeType("LLVMMetadataRef") long File, @NativeType("unsigned int") int Line, @Nullable @NativeType("LLVMMetadataRef *") PointerBuffer Elements) {
+    public static long LLVMDIBuilderCreateImportedModuleFromAlias(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMMetadataRef") long Scope, @NativeType("LLVMMetadataRef") long ImportedEntity, @NativeType("LLVMMetadataRef") long File, @NativeType("unsigned int") int Line, @NativeType("LLVMMetadataRef *") @Nullable PointerBuffer Elements) {
         return nLLVMDIBuilderCreateImportedModuleFromAlias(Builder, Scope, ImportedEntity, File, Line, memAddressSafe(Elements), remainingSafe(Elements));
     }
 
@@ -986,7 +1014,7 @@ public class LLVMDebugInfo {
      * @param Elements renamed elements
      */
     @NativeType("LLVMMetadataRef")
-    public static long LLVMDIBuilderCreateImportedModuleFromModule(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMMetadataRef") long Scope, @NativeType("LLVMMetadataRef") long M, @NativeType("LLVMMetadataRef") long File, @NativeType("unsigned int") int Line, @Nullable @NativeType("LLVMMetadataRef *") PointerBuffer Elements) {
+    public static long LLVMDIBuilderCreateImportedModuleFromModule(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMMetadataRef") long Scope, @NativeType("LLVMMetadataRef") long M, @NativeType("LLVMMetadataRef") long File, @NativeType("unsigned int") int Line, @NativeType("LLVMMetadataRef *") @Nullable PointerBuffer Elements) {
         return nLLVMDIBuilderCreateImportedModuleFromModule(Builder, Scope, M, File, Line, memAddressSafe(Elements), remainingSafe(Elements));
     }
 
@@ -1021,7 +1049,7 @@ public class LLVMDebugInfo {
      * @param Elements renamed elements
      */
     @NativeType("LLVMMetadataRef")
-    public static long LLVMDIBuilderCreateImportedDeclaration(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMMetadataRef") long Scope, @NativeType("LLVMMetadataRef") long Decl, @NativeType("LLVMMetadataRef") long File, @NativeType("unsigned int") int Line, @NativeType("char const *") ByteBuffer Name, @Nullable @NativeType("LLVMMetadataRef *") PointerBuffer Elements) {
+    public static long LLVMDIBuilderCreateImportedDeclaration(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMMetadataRef") long Scope, @NativeType("LLVMMetadataRef") long Decl, @NativeType("LLVMMetadataRef") long File, @NativeType("unsigned int") int Line, @NativeType("char const *") ByteBuffer Name, @NativeType("LLVMMetadataRef *") @Nullable PointerBuffer Elements) {
         return nLLVMDIBuilderCreateImportedDeclaration(Builder, Scope, Decl, File, Line, memAddress(Name), Name.remaining(), memAddressSafe(Elements), remainingSafe(Elements));
     }
 
@@ -1037,7 +1065,7 @@ public class LLVMDebugInfo {
      * @param Elements renamed elements
      */
     @NativeType("LLVMMetadataRef")
-    public static long LLVMDIBuilderCreateImportedDeclaration(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMMetadataRef") long Scope, @NativeType("LLVMMetadataRef") long Decl, @NativeType("LLVMMetadataRef") long File, @NativeType("unsigned int") int Line, @NativeType("char const *") CharSequence Name, @Nullable @NativeType("LLVMMetadataRef *") PointerBuffer Elements) {
+    public static long LLVMDIBuilderCreateImportedDeclaration(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMMetadataRef") long Scope, @NativeType("LLVMMetadataRef") long Decl, @NativeType("LLVMMetadataRef") long File, @NativeType("unsigned int") int Line, @NativeType("char const *") CharSequence Name, @NativeType("LLVMMetadataRef *") @Nullable PointerBuffer Elements) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             int NameEncodedLength = stack.nUTF8(Name, false);
@@ -1188,9 +1216,8 @@ public class LLVMDebugInfo {
      *
      * @since 9
      */
-    @Nullable
     @NativeType("char const *")
-    public static String LLVMDIFileGetDirectory(@NativeType("LLVMMetadataRef") long File) {
+    public static @Nullable String LLVMDIFileGetDirectory(@NativeType("LLVMMetadataRef") long File) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             IntBuffer Len = stack.callocInt(1);
@@ -1226,9 +1253,8 @@ public class LLVMDebugInfo {
      *
      * @since 9
      */
-    @Nullable
     @NativeType("char const *")
-    public static String LLVMDIFileGetFilename(@NativeType("LLVMMetadataRef") long File) {
+    public static @Nullable String LLVMDIFileGetFilename(@NativeType("LLVMMetadataRef") long File) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             IntBuffer Len = stack.callocInt(1);
@@ -1264,9 +1290,8 @@ public class LLVMDebugInfo {
      *
      * @since 9
      */
-    @Nullable
     @NativeType("char const *")
-    public static String LLVMDIFileGetSource(@NativeType("LLVMMetadataRef") long File) {
+    public static @Nullable String LLVMDIFileGetSource(@NativeType("LLVMMetadataRef") long File) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             IntBuffer Len = stack.callocInt(1);
@@ -2587,9 +2612,8 @@ public class LLVMDebugInfo {
      *
      * @param DType the DIType
      */
-    @Nullable
     @NativeType("char const *")
-    public static String LLVMDITypeGetName(@NativeType("LLVMMetadataRef") long DType) {
+    public static @Nullable String LLVMDITypeGetName(@NativeType("LLVMMetadataRef") long DType) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             PointerBuffer Length = stack.callocPointer(1);
@@ -3086,7 +3110,7 @@ public class LLVMDebugInfo {
     // --- [ LLVMDIBuilderInsertDeclareBefore ] ---
 
     /**
-     * Insert a new {@code llvm.dbg.declare} intrinsic call before the given instruction.
+     * Removed in LLVM 19.
      *
      * @param Builder  the {@code DIBuilder}
      * @param Storage  the storage of the variable to declare
@@ -3099,6 +3123,7 @@ public class LLVMDebugInfo {
     public static long LLVMDIBuilderInsertDeclareBefore(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMValueRef") long Storage, @NativeType("LLVMMetadataRef") long VarInfo, @NativeType("LLVMMetadataRef") long Expr, @NativeType("LLVMMetadataRef") long DebugLoc, @NativeType("LLVMValueRef") long Instr) {
         long __functionAddress = Functions.DIBuilderInsertDeclareBefore;
         if (CHECKS) {
+            check(__functionAddress);
             check(Builder);
             check(Storage);
             check(VarInfo);
@@ -3112,8 +3137,7 @@ public class LLVMDebugInfo {
     // --- [ LLVMDIBuilderInsertDeclareAtEnd ] ---
 
     /**
-     * Insert a new {@code llvm.dbg.declare} intrinsic call at the end of the given basic block. If the basic block has a terminator instruction, the
-     * intrinsic is inserted before that terminator instruction.
+     * Removed in LLVM 19.
      *
      * @param Builder  the {@code DIBuilder}
      * @param Storage  the storage of the variable to declare
@@ -3126,6 +3150,7 @@ public class LLVMDebugInfo {
     public static long LLVMDIBuilderInsertDeclareAtEnd(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMValueRef") long Storage, @NativeType("LLVMMetadataRef") long VarInfo, @NativeType("LLVMMetadataRef") long Expr, @NativeType("LLVMMetadataRef") long DebugLoc, @NativeType("LLVMBasicBlockRef") long Block) {
         long __functionAddress = Functions.DIBuilderInsertDeclareAtEnd;
         if (CHECKS) {
+            check(__functionAddress);
             check(Builder);
             check(Storage);
             check(VarInfo);
@@ -3139,7 +3164,7 @@ public class LLVMDebugInfo {
     // --- [ LLVMDIBuilderInsertDbgValueBefore ] ---
 
     /**
-     * Insert a new {@code llvm.dbg.value} intrinsic call before the given instruction.
+     * Removed in LLVM 19.
      *
      * @param Builder  the {@code DIBuilder}
      * @param Val      the value of the variable
@@ -3152,6 +3177,7 @@ public class LLVMDebugInfo {
     public static long LLVMDIBuilderInsertDbgValueBefore(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMValueRef") long Val, @NativeType("LLVMMetadataRef") long VarInfo, @NativeType("LLVMMetadataRef") long Expr, @NativeType("LLVMMetadataRef") long DebugLoc, @NativeType("LLVMValueRef") long Instr) {
         long __functionAddress = Functions.DIBuilderInsertDbgValueBefore;
         if (CHECKS) {
+            check(__functionAddress);
             check(Builder);
             check(Val);
             check(VarInfo);
@@ -3165,8 +3191,7 @@ public class LLVMDebugInfo {
     // --- [ LLVMDIBuilderInsertDbgValueAtEnd ] ---
 
     /**
-     * Insert a new {@code llvm.dbg.value} intrinsic call at the end of the given basic block. If the basic block has a terminator instruction, the intrinsic
-     * is inserted before that terminator instruction.
+     * Removed in LLVM 19.
      *
      * @param Builder  the {@code DIBuilder}
      * @param Val      the value of the variable
@@ -3179,6 +3204,127 @@ public class LLVMDebugInfo {
     public static long LLVMDIBuilderInsertDbgValueAtEnd(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMValueRef") long Val, @NativeType("LLVMMetadataRef") long VarInfo, @NativeType("LLVMMetadataRef") long Expr, @NativeType("LLVMMetadataRef") long DebugLoc, @NativeType("LLVMBasicBlockRef") long Block) {
         long __functionAddress = Functions.DIBuilderInsertDbgValueAtEnd;
         if (CHECKS) {
+            check(__functionAddress);
+            check(Builder);
+            check(Val);
+            check(VarInfo);
+            check(Expr);
+            check(DebugLoc);
+            check(Block);
+        }
+        return invokePPPPPPP(Builder, Val, VarInfo, Expr, DebugLoc, Block, __functionAddress);
+    }
+
+    // --- [ LLVMDIBuilderInsertDeclareRecordBefore ] ---
+
+    /**
+     * Insert a Declare {@code DbgRecord} before the given instruction.
+     *
+     * @param Builder  the {@code DIBuilder}
+     * @param Storage  the storage of the variable to declare
+     * @param VarInfo  the variable's debug info descriptor
+     * @param Expr     a complex location expression for the variable
+     * @param DebugLoc debug info location
+     * @param Instr    instruction acting as a location for the new record
+     *
+     * @since 19
+     */
+    @NativeType("LLVMDbgRecordRef")
+    public static long LLVMDIBuilderInsertDeclareRecordBefore(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMValueRef") long Storage, @NativeType("LLVMMetadataRef") long VarInfo, @NativeType("LLVMMetadataRef") long Expr, @NativeType("LLVMMetadataRef") long DebugLoc, @NativeType("LLVMValueRef") long Instr) {
+        long __functionAddress = Functions.DIBuilderInsertDeclareRecordBefore;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(Builder);
+            check(Storage);
+            check(VarInfo);
+            check(Expr);
+            check(DebugLoc);
+            check(Instr);
+        }
+        return invokePPPPPPP(Builder, Storage, VarInfo, Expr, DebugLoc, Instr, __functionAddress);
+    }
+
+    // --- [ LLVMDIBuilderInsertDeclareRecordAtEnd ] ---
+
+    /**
+     * Insert a Declare {@code DbgRecord} at the end of the given basic block.
+     * 
+     * <p>If the basic block has a terminator instruction, the record is inserted before that terminator instruction.</p>
+     *
+     * @param Builder  the {@code DIBuilder}
+     * @param Storage  the storage of the variable to declare
+     * @param VarInfo  the variable's debug info descriptor
+     * @param Expr     a complex location expression for the variable
+     * @param DebugLoc debug info location
+     * @param Block    basic block acting as a location for the new record
+     *
+     * @since 19
+     */
+    @NativeType("LLVMDbgRecordRef")
+    public static long LLVMDIBuilderInsertDeclareRecordAtEnd(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMValueRef") long Storage, @NativeType("LLVMMetadataRef") long VarInfo, @NativeType("LLVMMetadataRef") long Expr, @NativeType("LLVMMetadataRef") long DebugLoc, @NativeType("LLVMBasicBlockRef") long Block) {
+        long __functionAddress = Functions.DIBuilderInsertDeclareRecordAtEnd;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(Builder);
+            check(Storage);
+            check(VarInfo);
+            check(Expr);
+            check(DebugLoc);
+            check(Block);
+        }
+        return invokePPPPPPP(Builder, Storage, VarInfo, Expr, DebugLoc, Block, __functionAddress);
+    }
+
+    // --- [ LLVMDIBuilderInsertDbgValueRecordBefore ] ---
+
+    /**
+     * Insert a new debug record before the given instruction.
+     *
+     * @param Builder  the {@code DIBuilder}
+     * @param Val      the value of the variable
+     * @param VarInfo  the variable's debug info descriptor
+     * @param Expr     a complex location expression for the variable
+     * @param DebugLoc debug info location
+     * @param Instr    instruction acting as a location for the new record
+     *
+     * @since 19
+     */
+    @NativeType("LLVMDbgRecordRef")
+    public static long LLVMDIBuilderInsertDbgValueRecordBefore(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMValueRef") long Val, @NativeType("LLVMMetadataRef") long VarInfo, @NativeType("LLVMMetadataRef") long Expr, @NativeType("LLVMMetadataRef") long DebugLoc, @NativeType("LLVMValueRef") long Instr) {
+        long __functionAddress = Functions.DIBuilderInsertDbgValueRecordBefore;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(Builder);
+            check(Val);
+            check(VarInfo);
+            check(Expr);
+            check(DebugLoc);
+            check(Instr);
+        }
+        return invokePPPPPPP(Builder, Val, VarInfo, Expr, DebugLoc, Instr, __functionAddress);
+    }
+
+    // --- [ LLVMDIBuilderInsertDbgValueRecordAtEnd ] ---
+
+    /**
+     * Insert a new debug record at the end of the given basic block.
+     * 
+     * <p>If the basic block has a terminator instruction, the record is inserted before that terminator instruction.</p>
+     *
+     * @param Builder  the {@code DIBuilder}
+     * @param Val      the value of the variable
+     * @param VarInfo  the variable's debug info descriptor
+     * @param Expr     a complex location expression for the variable
+     * @param DebugLoc debug info location
+     * @param Block    basic block acting as a location for the new record
+     *
+     * @since 19
+     */
+    @NativeType("LLVMDbgRecordRef")
+    public static long LLVMDIBuilderInsertDbgValueRecordAtEnd(@NativeType("LLVMDIBuilderRef") long Builder, @NativeType("LLVMValueRef") long Val, @NativeType("LLVMMetadataRef") long VarInfo, @NativeType("LLVMMetadataRef") long Expr, @NativeType("LLVMMetadataRef") long DebugLoc, @NativeType("LLVMBasicBlockRef") long Block) {
+        long __functionAddress = Functions.DIBuilderInsertDbgValueRecordAtEnd;
+        if (CHECKS) {
+            check(__functionAddress);
             check(Builder);
             check(Val);
             check(VarInfo);

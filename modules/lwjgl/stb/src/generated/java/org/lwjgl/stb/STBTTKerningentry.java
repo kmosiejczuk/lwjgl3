@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -108,8 +108,7 @@ public class STBTTKerningentry extends Struct<STBTTKerningentry> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTKerningentry createSafe(long address) {
+    public static @Nullable STBTTKerningentry createSafe(long address) {
         return address == NULL ? null : new STBTTKerningentry(address, null);
     }
 
@@ -152,8 +151,7 @@ public class STBTTKerningentry extends Struct<STBTTKerningentry> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTKerningentry.Buffer createSafe(long address, int capacity) {
+    public static STBTTKerningentry.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -198,11 +196,11 @@ public class STBTTKerningentry extends Struct<STBTTKerningentry> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #glyph1}. */
-    public static int nglyph1(long struct) { return UNSAFE.getInt(null, struct + STBTTKerningentry.GLYPH1); }
+    public static int nglyph1(long struct) { return memGetInt(struct + STBTTKerningentry.GLYPH1); }
     /** Unsafe version of {@link #glyph2}. */
-    public static int nglyph2(long struct) { return UNSAFE.getInt(null, struct + STBTTKerningentry.GLYPH2); }
+    public static int nglyph2(long struct) { return memGetInt(struct + STBTTKerningentry.GLYPH2); }
     /** Unsafe version of {@link #advance}. */
-    public static int nadvance(long struct) { return UNSAFE.getInt(null, struct + STBTTKerningentry.ADVANCE); }
+    public static int nadvance(long struct) { return memGetInt(struct + STBTTKerningentry.ADVANCE); }
 
     // -----------------------------------
 
@@ -235,6 +233,11 @@ public class STBTTKerningentry extends Struct<STBTTKerningentry> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

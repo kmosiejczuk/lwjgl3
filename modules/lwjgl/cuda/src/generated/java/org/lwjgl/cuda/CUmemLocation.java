@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -130,8 +130,7 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUmemLocation createSafe(long address) {
+    public static @Nullable CUmemLocation createSafe(long address) {
         return address == NULL ? null : new CUmemLocation(address, null);
     }
 
@@ -174,8 +173,7 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUmemLocation.Buffer createSafe(long address, int capacity) {
+    public static CUmemLocation.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -220,14 +218,14 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + CUmemLocation.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + CUmemLocation.TYPE); }
     /** Unsafe version of {@link #id}. */
-    public static int nid(long struct) { return UNSAFE.getInt(null, struct + CUmemLocation.ID); }
+    public static int nid(long struct) { return memGetInt(struct + CUmemLocation.ID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + CUmemLocation.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + CUmemLocation.TYPE, value); }
     /** Unsafe version of {@link #id(int) id}. */
-    public static void nid(long struct, int value) { UNSAFE.putInt(null, struct + CUmemLocation.ID, value); }
+    public static void nid(long struct, int value) { memPutInt(struct + CUmemLocation.ID, value); }
 
     // -----------------------------------
 
@@ -260,6 +258,11 @@ public class CUmemLocation extends Struct<CUmemLocation> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

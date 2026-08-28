@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -103,8 +103,7 @@ public class NkMenuState extends Struct<NkMenuState> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkMenuState createSafe(long address) {
+    public static @Nullable NkMenuState createSafe(long address) {
         return address == NULL ? null : new NkMenuState(address, null);
     }
 
@@ -119,21 +118,20 @@ public class NkMenuState extends Struct<NkMenuState> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkMenuState.Buffer createSafe(long address, int capacity) {
+    public static NkMenuState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + NkMenuState.X); }
+    public static float nx(long struct) { return memGetFloat(struct + NkMenuState.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + NkMenuState.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + NkMenuState.Y); }
     /** Unsafe version of {@link #w}. */
-    public static float nw(long struct) { return UNSAFE.getFloat(null, struct + NkMenuState.W); }
+    public static float nw(long struct) { return memGetFloat(struct + NkMenuState.W); }
     /** Unsafe version of {@link #h}. */
-    public static float nh(long struct) { return UNSAFE.getFloat(null, struct + NkMenuState.H); }
+    public static float nh(long struct) { return memGetFloat(struct + NkMenuState.H); }
     /** Unsafe version of {@link #offset}. */
     public static NkScroll noffset(long struct) { return NkScroll.create(struct + NkMenuState.OFFSET); }
 
@@ -168,6 +166,11 @@ public class NkMenuState extends Struct<NkMenuState> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

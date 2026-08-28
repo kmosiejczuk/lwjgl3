@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -169,8 +169,7 @@ public class BGFXVertexLayout extends Struct<BGFXVertexLayout> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXVertexLayout createSafe(long address) {
+    public static @Nullable BGFXVertexLayout createSafe(long address) {
         return address == NULL ? null : new BGFXVertexLayout(address, null);
     }
 
@@ -213,8 +212,7 @@ public class BGFXVertexLayout extends Struct<BGFXVertexLayout> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXVertexLayout.Buffer createSafe(long address, int capacity) {
+    public static BGFXVertexLayout.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -278,26 +276,26 @@ public class BGFXVertexLayout extends Struct<BGFXVertexLayout> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #hash}. */
-    public static int nhash(long struct) { return UNSAFE.getInt(null, struct + BGFXVertexLayout.HASH); }
+    public static int nhash(long struct) { return memGetInt(struct + BGFXVertexLayout.HASH); }
     /** Unsafe version of {@link #stride}. */
-    public static short nstride(long struct) { return UNSAFE.getShort(null, struct + BGFXVertexLayout.STRIDE); }
+    public static short nstride(long struct) { return memGetShort(struct + BGFXVertexLayout.STRIDE); }
     /** Unsafe version of {@link #offset}. */
     public static ShortBuffer noffset(long struct) { return memShortBuffer(struct + BGFXVertexLayout.OFFSET, BGFX_ATTRIB_COUNT); }
     /** Unsafe version of {@link #offset(int) offset}. */
     public static short noffset(long struct, int index) {
-        return UNSAFE.getShort(null, struct + BGFXVertexLayout.OFFSET + check(index, BGFX_ATTRIB_COUNT) * 2);
+        return memGetShort(struct + BGFXVertexLayout.OFFSET + check(index, BGFX_ATTRIB_COUNT) * 2);
     }
     /** Unsafe version of {@link #attributes}. */
     public static ShortBuffer nattributes(long struct) { return memShortBuffer(struct + BGFXVertexLayout.ATTRIBUTES, BGFX_ATTRIB_COUNT); }
     /** Unsafe version of {@link #attributes(int) attributes}. */
     public static short nattributes(long struct, int index) {
-        return UNSAFE.getShort(null, struct + BGFXVertexLayout.ATTRIBUTES + check(index, BGFX_ATTRIB_COUNT) * 2);
+        return memGetShort(struct + BGFXVertexLayout.ATTRIBUTES + check(index, BGFX_ATTRIB_COUNT) * 2);
     }
 
     /** Unsafe version of {@link #hash(int) hash}. */
-    public static void nhash(long struct, int value) { UNSAFE.putInt(null, struct + BGFXVertexLayout.HASH, value); }
+    public static void nhash(long struct, int value) { memPutInt(struct + BGFXVertexLayout.HASH, value); }
     /** Unsafe version of {@link #stride(short) stride}. */
-    public static void nstride(long struct, short value) { UNSAFE.putShort(null, struct + BGFXVertexLayout.STRIDE, value); }
+    public static void nstride(long struct, short value) { memPutShort(struct + BGFXVertexLayout.STRIDE, value); }
     /** Unsafe version of {@link #offset(ShortBuffer) offset}. */
     public static void noffset(long struct, ShortBuffer value) {
         if (CHECKS) { checkGT(value, BGFX_ATTRIB_COUNT); }
@@ -305,7 +303,7 @@ public class BGFXVertexLayout extends Struct<BGFXVertexLayout> implements Native
     }
     /** Unsafe version of {@link #offset(int, short) offset}. */
     public static void noffset(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + BGFXVertexLayout.OFFSET + check(index, BGFX_ATTRIB_COUNT) * 2, value);
+        memPutShort(struct + BGFXVertexLayout.OFFSET + check(index, BGFX_ATTRIB_COUNT) * 2, value);
     }
     /** Unsafe version of {@link #attributes(ShortBuffer) attributes}. */
     public static void nattributes(long struct, ShortBuffer value) {
@@ -314,7 +312,7 @@ public class BGFXVertexLayout extends Struct<BGFXVertexLayout> implements Native
     }
     /** Unsafe version of {@link #attributes(int, short) attributes}. */
     public static void nattributes(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + BGFXVertexLayout.ATTRIBUTES + check(index, BGFX_ATTRIB_COUNT) * 2, value);
+        memPutShort(struct + BGFXVertexLayout.ATTRIBUTES + check(index, BGFX_ATTRIB_COUNT) * 2, value);
     }
 
     // -----------------------------------
@@ -348,6 +346,11 @@ public class BGFXVertexLayout extends Struct<BGFXVertexLayout> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,38 +20,39 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If a {@link VkBufferUsageFlags2CreateInfoKHR} structure is present in the {@code pNext} chain, {@link VkBufferUsageFlags2CreateInfoKHR}{@code ::usage} from that structure is used instead of {@code usage} from this structure.</p>
+ * <p>If the {@code pNext} chain includes a {@link VkBufferUsageFlags2CreateInfo} structure, {@link VkBufferUsageFlags2CreateInfo}{@code ::usage} from that structure is used instead of {@code usage} from this structure.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the {@code pNext} chain does not include a {@link VkBufferUsageFlags2CreateInfoKHR} structure, {@code usage} must be a valid combination of {@code VkBufferUsageFlagBits} values</li>
- * <li>If the {@code pNext} chain does not include a {@link VkBufferUsageFlags2CreateInfoKHR} structure, {@code usage} must not be 0</li>
+ * <li>If the {@code pNext} chain does not include a {@link VkBufferUsageFlags2CreateInfo} structure, {@code usage} <b>must</b> be a valid combination of {@code VkBufferUsageFlagBits} values</li>
+ * <li>If the {@code pNext} chain does not include a {@link VkBufferUsageFlags2CreateInfo} structure, {@code usage} <b>must</b> not be 0</li>
  * <li>{@code size} <b>must</b> be greater than 0</li>
  * <li>If {@code sharingMode} is {@link VK10#VK_SHARING_MODE_CONCURRENT SHARING_MODE_CONCURRENT}, {@code pQueueFamilyIndices} <b>must</b> be a valid pointer to an array of {@code queueFamilyIndexCount} {@code uint32_t} values</li>
  * <li>If {@code sharingMode} is {@link VK10#VK_SHARING_MODE_CONCURRENT SHARING_MODE_CONCURRENT}, {@code queueFamilyIndexCount} <b>must</b> be greater than 1</li>
  * <li>If {@code sharingMode} is {@link VK10#VK_SHARING_MODE_CONCURRENT SHARING_MODE_CONCURRENT}, each element of {@code pQueueFamilyIndices} <b>must</b> be unique and <b>must</b> be less than {@code pQueueFamilyPropertyCount} returned by either {@link VK11#vkGetPhysicalDeviceQueueFamilyProperties2 GetPhysicalDeviceQueueFamilyProperties2} or {@link VK10#vkGetPhysicalDeviceQueueFamilyProperties GetPhysicalDeviceQueueFamilyProperties} for the {@code physicalDevice} that was used to create {@code device}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sparseBinding">{@code sparseBinding}</a> feature is not enabled, {@code flags} <b>must</b> not contain {@link VK10#VK_BUFFER_CREATE_SPARSE_BINDING_BIT BUFFER_CREATE_SPARSE_BINDING_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sparseResidencyBuffer">{@code sparseResidencyBuffer}</a> feature is not enabled, {@code flags} <b>must</b> not contain {@link VK10#VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT BUFFER_CREATE_SPARSE_RESIDENCY_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sparseResidencyAliased">{@code sparseResidencyAliased}</a> feature is not enabled, {@code flags} <b>must</b> not contain {@link VK10#VK_BUFFER_CREATE_SPARSE_ALIASED_BIT BUFFER_CREATE_SPARSE_ALIASED_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-sparseBinding">{@code sparseBinding}</a> feature is not enabled, {@code flags} <b>must</b> not contain {@link VK10#VK_BUFFER_CREATE_SPARSE_BINDING_BIT BUFFER_CREATE_SPARSE_BINDING_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-sparseResidencyBuffer">{@code sparseResidencyBuffer}</a> feature is not enabled, {@code flags} <b>must</b> not contain {@link VK10#VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT BUFFER_CREATE_SPARSE_RESIDENCY_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-sparseResidencyAliased">{@code sparseResidencyAliased}</a> feature is not enabled, {@code flags} <b>must</b> not contain {@link VK10#VK_BUFFER_CREATE_SPARSE_ALIASED_BIT BUFFER_CREATE_SPARSE_ALIASED_BIT}</li>
  * <li>If {@code flags} contains {@link VK10#VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT BUFFER_CREATE_SPARSE_RESIDENCY_BIT} or {@link VK10#VK_BUFFER_CREATE_SPARSE_ALIASED_BIT BUFFER_CREATE_SPARSE_ALIASED_BIT}, it <b>must</b> also contain {@link VK10#VK_BUFFER_CREATE_SPARSE_BINDING_BIT BUFFER_CREATE_SPARSE_BINDING_BIT}</li>
  * <li>If the {@code pNext} chain includes a {@link VkExternalMemoryBufferCreateInfo} structure, its {@code handleTypes} member <b>must</b> only contain bits that are also in {@link VkExternalBufferProperties}{@code ::externalMemoryProperties.compatibleHandleTypes}, as returned by {@link VK11#vkGetPhysicalDeviceExternalBufferProperties GetPhysicalDeviceExternalBufferProperties} with {@code pExternalBufferInfo→handleType} equal to any one of the handle types specified in {@link VkExternalMemoryBufferCreateInfo}{@code ::handleTypes}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled, {@code flags} <b>must</b> not contain {@link VK11#VK_BUFFER_CREATE_PROTECTED_BIT BUFFER_CREATE_PROTECTED_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled, {@code flags} <b>must</b> not contain {@link VK11#VK_BUFFER_CREATE_PROTECTED_BIT BUFFER_CREATE_PROTECTED_BIT}</li>
  * <li>If any of the bits {@link VK10#VK_BUFFER_CREATE_SPARSE_BINDING_BIT BUFFER_CREATE_SPARSE_BINDING_BIT}, {@link VK10#VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT BUFFER_CREATE_SPARSE_RESIDENCY_BIT}, or {@link VK10#VK_BUFFER_CREATE_SPARSE_ALIASED_BIT BUFFER_CREATE_SPARSE_ALIASED_BIT} are set, {@link VK11#VK_BUFFER_CREATE_PROTECTED_BIT BUFFER_CREATE_PROTECTED_BIT} <b>must</b> not also be set</li>
  * <li>If the {@code pNext} chain includes a {@link VkDedicatedAllocationBufferCreateInfoNV} structure, and the {@code dedicatedAllocation} member of the chained structure is {@link VK10#VK_TRUE TRUE}, then {@code flags} <b>must</b> not include {@link VK10#VK_BUFFER_CREATE_SPARSE_BINDING_BIT BUFFER_CREATE_SPARSE_BINDING_BIT}, {@link VK10#VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT BUFFER_CREATE_SPARSE_RESIDENCY_BIT}, or {@link VK10#VK_BUFFER_CREATE_SPARSE_ALIASED_BIT BUFFER_CREATE_SPARSE_ALIASED_BIT}</li>
  * <li>If {@link VkBufferDeviceAddressCreateInfoEXT}{@code ::deviceAddress} is not zero, {@code flags} <b>must</b> include {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}</li>
  * <li>If {@link VkBufferOpaqueCaptureAddressCreateInfo}{@code ::opaqueCaptureAddress} is not zero, {@code flags} <b>must</b> include {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}</li>
- * <li>If {@code flags} includes {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bufferDeviceAddressCaptureReplayEXT">{@code bufferDeviceAddressCaptureReplay}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code flags} includes {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-bufferDeviceAddressCaptureReplayEXT">{@code bufferDeviceAddressCaptureReplay}</a> feature <b>must</b> be enabled</li>
  * <li>If {@code usage} includes {@link KHRVideoDecodeQueue#VK_BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR BUFFER_USAGE_VIDEO_DECODE_SRC_BIT_KHR} or {@link KHRVideoDecodeQueue#VK_BUFFER_USAGE_VIDEO_DECODE_DST_BIT_KHR BUFFER_USAGE_VIDEO_DECODE_DST_BIT_KHR}, and {@code flags} does not include {@link KHRVideoMaintenance1#VK_BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoProfileListInfoKHR} structure with {@code profileCount} greater than 0 and {@code pProfiles} including at least one {@link VkVideoProfileInfoKHR} structure with a {@code videoCodecOperation} member specifying a decode operation</li>
  * <li>If {@code usage} includes {@link KHRVideoEncodeQueue#VK_BUFFER_USAGE_VIDEO_ENCODE_SRC_BIT_KHR BUFFER_USAGE_VIDEO_ENCODE_SRC_BIT_KHR} or {@link KHRVideoEncodeQueue#VK_BUFFER_USAGE_VIDEO_ENCODE_DST_BIT_KHR BUFFER_USAGE_VIDEO_ENCODE_DST_BIT_KHR}, and {@code flags} does not include {@link KHRVideoMaintenance1#VK_BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoProfileListInfoKHR} structure with {@code profileCount} greater than 0 and {@code pProfiles} including at least one {@link VkVideoProfileInfoKHR} structure with a {@code videoCodecOperation} member specifying an encode operation</li>
- * <li>If {@code flags} includes {@link KHRVideoMaintenance1#VK_BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR}, then <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-videoMaintenance1">{@code videoMaintenance1}</a> <b>must</b> be enabled</li>
+ * <li>If {@code flags} includes {@link KHRVideoMaintenance1#VK_BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR}, then <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-videoMaintenance1">{@code videoMaintenance1}</a> <b>must</b> be enabled</li>
+ * <li>If the {@code pNext} chain includes a {@link VkVideoProfileListInfoKHR} structure and for any element of its {@code pProfiles} member {@code videoCodecOperation} is {@link KHRVideoEncodeAV1#VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-videoEncodeAV1">{@code videoEncodeAV1}</a> feature <b>must</b> be enabled</li>
  * <li>{@code size} <b>must</b> be less than or equal to {@link VkPhysicalDeviceMaintenance4Properties}{@code ::maxBufferSize}</li>
  * <li>If {@code usage} includes {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT}, creating this {@code VkBuffer} <b>must</b> not cause the total required space for all currently valid buffers using this flag on the device to exceed {@link VkPhysicalDeviceDescriptorBufferPropertiesEXT}{@code ::samplerDescriptorBufferAddressSpaceSize} or {@link VkPhysicalDeviceDescriptorBufferPropertiesEXT}{@code ::descriptorBufferAddressSpaceSize}</li>
  * <li>If {@code usage} includes {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT}, creating this {@code VkBuffer} <b>must</b> not cause the total required space for all currently valid buffers using this flag on the device to exceed {@link VkPhysicalDeviceDescriptorBufferPropertiesEXT}{@code ::resourceDescriptorBufferAddressSpaceSize} or {@link VkPhysicalDeviceDescriptorBufferPropertiesEXT}{@code ::descriptorBufferAddressSpaceSize}</li>
- * <li>If {@code flags} includes {@link EXTDescriptorBuffer#VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorBufferCaptureReplay">{@code descriptorBufferCaptureReplay}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code flags} includes {@link EXTDescriptorBuffer#VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-descriptorBufferCaptureReplay">{@code descriptorBufferCaptureReplay}</a> feature <b>must</b> be enabled</li>
  * <li>If the {@code pNext} chain includes a {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT} structure, {@code flags} <b>must</b> contain {@link EXTDescriptorBuffer#VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}</li>
- * <li>If {@code usage} includes {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorBufferPushDescriptors">{@code descriptorBufferPushDescriptors}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code usage} includes {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-bufferlessPushDescriptors">{@link VkPhysicalDeviceDescriptorBufferPropertiesEXT}{@code ::bufferlessPushDescriptors}</a> <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If {@code usage} includes {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-descriptorBufferPushDescriptors">{@code descriptorBufferPushDescriptors}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code usage} includes {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-bufferlessPushDescriptors">{@link VkPhysicalDeviceDescriptorBufferPropertiesEXT}{@code ::bufferlessPushDescriptors}</a> <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * <li>If {@code usage} includes {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT}, {@code usage} <b>must</b> contain at least one of {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT} or {@link EXTDescriptorBuffer#VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT}</li>
  * <li>If {@code flags} includes {@link VK11#VK_BUFFER_CREATE_PROTECTED_BIT BUFFER_CREATE_PROTECTED_BIT}, then {@code usage} <b>must</b> not contain any of the following bits
  * 
@@ -75,7 +76,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO STRUCTURE_TYPE_BUFFER_CREATE_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkBufferDeviceAddressCreateInfoEXT}, {@link VkBufferOpaqueCaptureAddressCreateInfo}, {@link VkBufferUsageFlags2CreateInfoKHR}, {@link VkDedicatedAllocationBufferCreateInfoNV}, {@link VkExternalMemoryBufferCreateInfo}, {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT}, or {@link VkVideoProfileListInfoKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkBufferDeviceAddressCreateInfoEXT}, {@link VkBufferOpaqueCaptureAddressCreateInfo}, {@link VkBufferUsageFlags2CreateInfo}, {@link VkDedicatedAllocationBufferCreateInfoNV}, {@link VkExternalMemoryBufferCreateInfo}, {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT}, or {@link VkVideoProfileListInfoKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code VkBufferCreateFlagBits} values</li>
  * <li>{@code sharingMode} <b>must</b> be a valid {@code VkSharingMode} value</li>
@@ -187,9 +188,8 @@ public class VkBufferCreateInfo extends Struct<VkBufferCreateInfo> implements Na
     @NativeType("uint32_t")
     public int queueFamilyIndexCount() { return nqueueFamilyIndexCount(address()); }
     /** a pointer to an array of queue families that will access this buffer. It is ignored if {@code sharingMode} is not {@link VK10#VK_SHARING_MODE_CONCURRENT SHARING_MODE_CONCURRENT}. */
-    @Nullable
     @NativeType("uint32_t const *")
-    public IntBuffer pQueueFamilyIndices() { return npQueueFamilyIndices(address()); }
+    public @Nullable IntBuffer pQueueFamilyIndices() { return npQueueFamilyIndices(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkBufferCreateInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -203,6 +203,8 @@ public class VkBufferCreateInfo extends Struct<VkBufferCreateInfo> implements Na
     public VkBufferCreateInfo pNext(VkBufferOpaqueCaptureAddressCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkBufferOpaqueCaptureAddressCreateInfoKHR} value to the {@code pNext} chain. */
     public VkBufferCreateInfo pNext(VkBufferOpaqueCaptureAddressCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkBufferUsageFlags2CreateInfo} value to the {@code pNext} chain. */
+    public VkBufferCreateInfo pNext(VkBufferUsageFlags2CreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkBufferUsageFlags2CreateInfoKHR} value to the {@code pNext} chain. */
     public VkBufferCreateInfo pNext(VkBufferUsageFlags2CreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkDedicatedAllocationBufferCreateInfoNV} value to the {@code pNext} chain. */
@@ -287,8 +289,7 @@ public class VkBufferCreateInfo extends Struct<VkBufferCreateInfo> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCreateInfo createSafe(long address) {
+    public static @Nullable VkBufferCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkBufferCreateInfo(address, null);
     }
 
@@ -331,8 +332,7 @@ public class VkBufferCreateInfo extends Struct<VkBufferCreateInfo> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkBufferCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -396,36 +396,36 @@ public class VkBufferCreateInfo extends Struct<VkBufferCreateInfo> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBufferCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBufferCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBufferCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkBufferCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkBufferCreateInfo.FLAGS); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkBufferCreateInfo.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkBufferCreateInfo.SIZE); }
     /** Unsafe version of {@link #usage}. */
-    public static int nusage(long struct) { return UNSAFE.getInt(null, struct + VkBufferCreateInfo.USAGE); }
+    public static int nusage(long struct) { return memGetInt(struct + VkBufferCreateInfo.USAGE); }
     /** Unsafe version of {@link #sharingMode}. */
-    public static int nsharingMode(long struct) { return UNSAFE.getInt(null, struct + VkBufferCreateInfo.SHARINGMODE); }
+    public static int nsharingMode(long struct) { return memGetInt(struct + VkBufferCreateInfo.SHARINGMODE); }
     /** Unsafe version of {@link #queueFamilyIndexCount}. */
-    public static int nqueueFamilyIndexCount(long struct) { return UNSAFE.getInt(null, struct + VkBufferCreateInfo.QUEUEFAMILYINDEXCOUNT); }
+    public static int nqueueFamilyIndexCount(long struct) { return memGetInt(struct + VkBufferCreateInfo.QUEUEFAMILYINDEXCOUNT); }
     /** Unsafe version of {@link #pQueueFamilyIndices() pQueueFamilyIndices}. */
-    @Nullable public static IntBuffer npQueueFamilyIndices(long struct) { return memIntBufferSafe(memGetAddress(struct + VkBufferCreateInfo.PQUEUEFAMILYINDICES), nqueueFamilyIndexCount(struct)); }
+    public static @Nullable IntBuffer npQueueFamilyIndices(long struct) { return memIntBufferSafe(memGetAddress(struct + VkBufferCreateInfo.PQUEUEFAMILYINDICES), nqueueFamilyIndexCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBufferCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBufferCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkBufferCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCreateInfo.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkBufferCreateInfo.SIZE, value); }
     /** Unsafe version of {@link #usage(int) usage}. */
-    public static void nusage(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferCreateInfo.USAGE, value); }
+    public static void nusage(long struct, int value) { memPutInt(struct + VkBufferCreateInfo.USAGE, value); }
     /** Unsafe version of {@link #sharingMode(int) sharingMode}. */
-    public static void nsharingMode(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferCreateInfo.SHARINGMODE, value); }
+    public static void nsharingMode(long struct, int value) { memPutInt(struct + VkBufferCreateInfo.SHARINGMODE, value); }
     /** Sets the specified value to the {@code queueFamilyIndexCount} field of the specified {@code struct}. */
-    public static void nqueueFamilyIndexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferCreateInfo.QUEUEFAMILYINDEXCOUNT, value); }
+    public static void nqueueFamilyIndexCount(long struct, int value) { memPutInt(struct + VkBufferCreateInfo.QUEUEFAMILYINDEXCOUNT, value); }
     /** Unsafe version of {@link #pQueueFamilyIndices(IntBuffer) pQueueFamilyIndices}. */
     public static void npQueueFamilyIndices(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkBufferCreateInfo.PQUEUEFAMILYINDICES, memAddressSafe(value)); if (value != null) { nqueueFamilyIndexCount(struct, value.remaining()); } }
 
@@ -463,6 +463,11 @@ public class VkBufferCreateInfo extends Struct<VkBufferCreateInfo> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkBufferCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -489,9 +494,8 @@ public class VkBufferCreateInfo extends Struct<VkBufferCreateInfo> implements Na
         @NativeType("uint32_t")
         public int queueFamilyIndexCount() { return VkBufferCreateInfo.nqueueFamilyIndexCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkBufferCreateInfo#pQueueFamilyIndices} field. */
-        @Nullable
         @NativeType("uint32_t const *")
-        public IntBuffer pQueueFamilyIndices() { return VkBufferCreateInfo.npQueueFamilyIndices(address()); }
+        public @Nullable IntBuffer pQueueFamilyIndices() { return VkBufferCreateInfo.npQueueFamilyIndices(address()); }
 
         /** Sets the specified value to the {@link VkBufferCreateInfo#sType} field. */
         public VkBufferCreateInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkBufferCreateInfo.nsType(address(), value); return this; }
@@ -505,6 +509,8 @@ public class VkBufferCreateInfo extends Struct<VkBufferCreateInfo> implements Na
         public VkBufferCreateInfo.Buffer pNext(VkBufferOpaqueCaptureAddressCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkBufferOpaqueCaptureAddressCreateInfoKHR} value to the {@code pNext} chain. */
         public VkBufferCreateInfo.Buffer pNext(VkBufferOpaqueCaptureAddressCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkBufferUsageFlags2CreateInfo} value to the {@code pNext} chain. */
+        public VkBufferCreateInfo.Buffer pNext(VkBufferUsageFlags2CreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkBufferUsageFlags2CreateInfoKHR} value to the {@code pNext} chain. */
         public VkBufferCreateInfo.Buffer pNext(VkBufferUsageFlags2CreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkDedicatedAllocationBufferCreateInfoNV} value to the {@code pNext} chain. */

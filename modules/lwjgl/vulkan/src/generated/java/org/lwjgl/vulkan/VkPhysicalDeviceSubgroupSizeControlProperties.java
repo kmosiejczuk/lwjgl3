@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the {@link VkPhysicalDeviceSubgroupSizeControlProperties} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
  * 
- * <p>If {@link VkPhysicalDeviceSubgroupProperties}{@code ::supportedOperations} includes <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-subgroup-quad">{@link VK11#VK_SUBGROUP_FEATURE_QUAD_BIT SUBGROUP_FEATURE_QUAD_BIT}</a>, {@code minSubgroupSize} <b>must</b> be greater than or equal to 4.</p>
+ * <p>If {@link VkPhysicalDeviceSubgroupProperties}{@code ::supportedOperations} includes <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-subgroup-quad">{@link VK11#VK_SUBGROUP_FEATURE_QUAD_BIT SUBGROUP_FEATURE_QUAD_BIT}</a>, {@code minSubgroupSize} <b>must</b> be greater than or equal to 4.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -108,10 +108,10 @@ public class VkPhysicalDeviceSubgroupSizeControlProperties extends Struct<VkPhys
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the minimum subgroup size supported by this device. {@code minSubgroupSize} is at least one if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. {@code minSubgroupSize} is a power-of-two. {@code minSubgroupSize} is less than or equal to {@code maxSubgroupSize}. {@code minSubgroupSize} is less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-subgroupSize">{@code subgroupSize}</a>. */
+    /** the minimum subgroup size supported by this device. {@code minSubgroupSize} is at least one if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. {@code minSubgroupSize} is a power-of-two. {@code minSubgroupSize} is less than or equal to {@code maxSubgroupSize}. {@code minSubgroupSize} is less than or equal to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-subgroupSize">{@code subgroupSize}</a>. */
     @NativeType("uint32_t")
     public int minSubgroupSize() { return nminSubgroupSize(address()); }
-    /** the maximum subgroup size supported by this device. {@code maxSubgroupSize} is at least one if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. {@code maxSubgroupSize} is a power-of-two. {@code maxSubgroupSize} is greater than or equal to {@code minSubgroupSize}. {@code maxSubgroupSize} is greater than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-subgroupSize">{@code subgroupSize}</a>. */
+    /** the maximum subgroup size supported by this device. {@code maxSubgroupSize} is at least one if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. {@code maxSubgroupSize} is a power-of-two. {@code maxSubgroupSize} is greater than or equal to {@code minSubgroupSize}. {@code maxSubgroupSize} is greater than or equal to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-subgroupSize">{@code subgroupSize}</a>. */
     @NativeType("uint32_t")
     public int maxSubgroupSize() { return nmaxSubgroupSize(address()); }
     /** the maximum number of subgroups supported by the implementation within a workgroup. */
@@ -175,8 +175,7 @@ public class VkPhysicalDeviceSubgroupSizeControlProperties extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSubgroupSizeControlProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSubgroupSizeControlProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSubgroupSizeControlProperties(address, null);
     }
 
@@ -219,8 +218,7 @@ public class VkPhysicalDeviceSubgroupSizeControlProperties extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSubgroupSizeControlProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSubgroupSizeControlProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,20 +263,20 @@ public class VkPhysicalDeviceSubgroupSizeControlProperties extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupSizeControlProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupSizeControlProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSubgroupSizeControlProperties.PNEXT); }
     /** Unsafe version of {@link #minSubgroupSize}. */
-    public static int nminSubgroupSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupSizeControlProperties.MINSUBGROUPSIZE); }
+    public static int nminSubgroupSize(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupSizeControlProperties.MINSUBGROUPSIZE); }
     /** Unsafe version of {@link #maxSubgroupSize}. */
-    public static int nmaxSubgroupSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupSizeControlProperties.MAXSUBGROUPSIZE); }
+    public static int nmaxSubgroupSize(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupSizeControlProperties.MAXSUBGROUPSIZE); }
     /** Unsafe version of {@link #maxComputeWorkgroupSubgroups}. */
-    public static int nmaxComputeWorkgroupSubgroups(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupSizeControlProperties.MAXCOMPUTEWORKGROUPSUBGROUPS); }
+    public static int nmaxComputeWorkgroupSubgroups(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupSizeControlProperties.MAXCOMPUTEWORKGROUPSUBGROUPS); }
     /** Unsafe version of {@link #requiredSubgroupSizeStages}. */
-    public static int nrequiredSubgroupSizeStages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupSizeControlProperties.REQUIREDSUBGROUPSIZESTAGES); }
+    public static int nrequiredSubgroupSizeStages(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupSizeControlProperties.REQUIREDSUBGROUPSIZESTAGES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSubgroupSizeControlProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSubgroupSizeControlProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSubgroupSizeControlProperties.PNEXT, value); }
 
@@ -313,6 +311,11 @@ public class VkPhysicalDeviceSubgroupSizeControlProperties extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

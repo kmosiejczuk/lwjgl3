@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -129,8 +129,7 @@ public class FMOD_DSP_PARAMETER_ATTENUATION_RANGE extends Struct<FMOD_DSP_PARAME
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_ATTENUATION_RANGE createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_ATTENUATION_RANGE createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_ATTENUATION_RANGE(address, null);
     }
 
@@ -173,8 +172,7 @@ public class FMOD_DSP_PARAMETER_ATTENUATION_RANGE extends Struct<FMOD_DSP_PARAME
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_ATTENUATION_RANGE.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_ATTENUATION_RANGE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -219,14 +217,14 @@ public class FMOD_DSP_PARAMETER_ATTENUATION_RANGE extends Struct<FMOD_DSP_PARAME
     // -----------------------------------
 
     /** Unsafe version of {@link #min}. */
-    public static float nmin(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_PARAMETER_ATTENUATION_RANGE.MIN); }
+    public static float nmin(long struct) { return memGetFloat(struct + FMOD_DSP_PARAMETER_ATTENUATION_RANGE.MIN); }
     /** Unsafe version of {@link #max}. */
-    public static float nmax(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_PARAMETER_ATTENUATION_RANGE.MAX); }
+    public static float nmax(long struct) { return memGetFloat(struct + FMOD_DSP_PARAMETER_ATTENUATION_RANGE.MAX); }
 
     /** Unsafe version of {@link #min(float) min}. */
-    public static void nmin(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_PARAMETER_ATTENUATION_RANGE.MIN, value); }
+    public static void nmin(long struct, float value) { memPutFloat(struct + FMOD_DSP_PARAMETER_ATTENUATION_RANGE.MIN, value); }
     /** Unsafe version of {@link #max(float) max}. */
-    public static void nmax(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_PARAMETER_ATTENUATION_RANGE.MAX, value); }
+    public static void nmax(long struct, float value) { memPutFloat(struct + FMOD_DSP_PARAMETER_ATTENUATION_RANGE.MAX, value); }
 
     // -----------------------------------
 
@@ -259,6 +257,11 @@ public class FMOD_DSP_PARAMETER_ATTENUATION_RANGE extends Struct<FMOD_DSP_PARAME
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -144,7 +144,7 @@ val EXT_validation_cache = "EXTValidationCache".nativeClassVK("EXT_validation_ca
 
         VkDevice("device", "the logical device that creates the validation cache object."),
         VkValidationCacheCreateInfoEXT.const.p("pCreateInfo", "a pointer to a ##VkValidationCacheCreateInfoEXT structure containing the initial parameters for the validation cache object."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a href=\"https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
         Check(1)..VkValidationCacheEXT.p("pValidationCache", "a pointer to a {@code VkValidationCacheEXT} handle in which the resulting validation cache object is returned.")
     )
 
@@ -187,7 +187,7 @@ val EXT_validation_cache = "EXTValidationCache".nativeClassVK("EXT_validation_ca
 
         VkDevice("device", "the logical device that destroys the validation cache object."),
         VkValidationCacheEXT("validationCache", "the handle of the validation cache to destroy."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a href=\"https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
     )
 
     VkResult(
@@ -275,7 +275,7 @@ val EXT_validation_cache = "EXTValidationCache".nativeClassVK("EXT_validation_ca
 
         Applications <b>can</b> store the data retrieved from the validation cache, and use these data, possibly in a future run of the application, to populate new validation cache objects. The results of validation, however, <b>may</b> depend on the vendor ID, device ID, driver version, and other details of the device. To enable applications to detect when previously retrieved data is incompatible with the device, the initial bytes written to {@code pData} <b>must</b> be a header consisting of the following members:
 
-        <h6>Layout for validation cache header version #VALIDATION_CACHE_HEADER_VERSION_ONE_EXT</h6>
+        <h6>Layout for Validation Cache Header Version #VALIDATION_CACHE_HEADER_VERSION_ONE_EXT</h6>
         <table class="lwjgl">
             <thead><tr><th>Offset</th><th>Size</th><th>Meaning</th></tr></thead>
             <tbody>

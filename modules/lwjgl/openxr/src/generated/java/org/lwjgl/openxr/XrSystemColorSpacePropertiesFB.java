@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,8 +150,7 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemColorSpacePropertiesFB createSafe(long address) {
+    public static @Nullable XrSystemColorSpacePropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrSystemColorSpacePropertiesFB(address, null);
     }
 
@@ -194,8 +193,7 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemColorSpacePropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrSystemColorSpacePropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,14 +238,14 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemColorSpacePropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemColorSpacePropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemColorSpacePropertiesFB.NEXT); }
     /** Unsafe version of {@link #colorSpace}. */
-    public static int ncolorSpace(long struct) { return UNSAFE.getInt(null, struct + XrSystemColorSpacePropertiesFB.COLORSPACE); }
+    public static int ncolorSpace(long struct) { return memGetInt(struct + XrSystemColorSpacePropertiesFB.COLORSPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemColorSpacePropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemColorSpacePropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemColorSpacePropertiesFB.NEXT, value); }
 
@@ -282,6 +280,11 @@ public class XrSystemColorSpacePropertiesFB extends Struct<XrSystemColorSpacePro
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -204,8 +204,7 @@ public class VkAndroidHardwareBufferFormatProperties2ANDROID extends Struct<VkAn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidHardwareBufferFormatProperties2ANDROID createSafe(long address) {
+    public static @Nullable VkAndroidHardwareBufferFormatProperties2ANDROID createSafe(long address) {
         return address == NULL ? null : new VkAndroidHardwareBufferFormatProperties2ANDROID(address, null);
     }
 
@@ -248,8 +247,7 @@ public class VkAndroidHardwareBufferFormatProperties2ANDROID extends Struct<VkAn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidHardwareBufferFormatProperties2ANDROID.Buffer createSafe(long address, int capacity) {
+    public static VkAndroidHardwareBufferFormatProperties2ANDROID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,28 +292,28 @@ public class VkAndroidHardwareBufferFormatProperties2ANDROID extends Struct<VkAn
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatProperties2ANDROID.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.PNEXT); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatProperties2ANDROID.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.FORMAT); }
     /** Unsafe version of {@link #externalFormat}. */
-    public static long nexternalFormat(long struct) { return UNSAFE.getLong(null, struct + VkAndroidHardwareBufferFormatProperties2ANDROID.EXTERNALFORMAT); }
+    public static long nexternalFormat(long struct) { return memGetLong(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.EXTERNALFORMAT); }
     /** Unsafe version of {@link #formatFeatures}. */
-    public static long nformatFeatures(long struct) { return UNSAFE.getLong(null, struct + VkAndroidHardwareBufferFormatProperties2ANDROID.FORMATFEATURES); }
+    public static long nformatFeatures(long struct) { return memGetLong(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.FORMATFEATURES); }
     /** Unsafe version of {@link #samplerYcbcrConversionComponents}. */
     public static VkComponentMapping nsamplerYcbcrConversionComponents(long struct) { return VkComponentMapping.create(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.SAMPLERYCBCRCONVERSIONCOMPONENTS); }
     /** Unsafe version of {@link #suggestedYcbcrModel}. */
-    public static int nsuggestedYcbcrModel(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatProperties2ANDROID.SUGGESTEDYCBCRMODEL); }
+    public static int nsuggestedYcbcrModel(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.SUGGESTEDYCBCRMODEL); }
     /** Unsafe version of {@link #suggestedYcbcrRange}. */
-    public static int nsuggestedYcbcrRange(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatProperties2ANDROID.SUGGESTEDYCBCRRANGE); }
+    public static int nsuggestedYcbcrRange(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.SUGGESTEDYCBCRRANGE); }
     /** Unsafe version of {@link #suggestedXChromaOffset}. */
-    public static int nsuggestedXChromaOffset(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatProperties2ANDROID.SUGGESTEDXCHROMAOFFSET); }
+    public static int nsuggestedXChromaOffset(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.SUGGESTEDXCHROMAOFFSET); }
     /** Unsafe version of {@link #suggestedYChromaOffset}. */
-    public static int nsuggestedYChromaOffset(long struct) { return UNSAFE.getInt(null, struct + VkAndroidHardwareBufferFormatProperties2ANDROID.SUGGESTEDYCHROMAOFFSET); }
+    public static int nsuggestedYChromaOffset(long struct) { return memGetInt(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.SUGGESTEDYCHROMAOFFSET); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAndroidHardwareBufferFormatProperties2ANDROID.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAndroidHardwareBufferFormatProperties2ANDROID.PNEXT, value); }
 
@@ -350,6 +348,11 @@ public class VkAndroidHardwareBufferFormatProperties2ANDROID extends Struct<VkAn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

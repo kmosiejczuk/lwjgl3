@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT extend
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT extend
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT extend
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #multisampledRenderToSingleSampled}. */
-    public static int nmultisampledRenderToSingleSampled(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.MULTISAMPLEDRENDERTOSINGLESAMPLED); }
+    public static int nmultisampledRenderToSingleSampled(long struct) { return memGetInt(struct + VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.MULTISAMPLEDRENDERTOSINGLESAMPLED); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #multisampledRenderToSingleSampled(boolean) multisampledRenderToSingleSampled}. */
-    public static void nmultisampledRenderToSingleSampled(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.MULTISAMPLEDRENDERTOSINGLESAMPLED, value); }
+    public static void nmultisampledRenderToSingleSampled(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.MULTISAMPLEDRENDERTOSINGLESAMPLED, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT extend
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If the {@code pEnabledValidationFeatures} array contains {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT}, then it <b>must</b> also contain {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT} or {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT}</li>
- * <li>If the {@code pEnabledValidationFeatures} array contains {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT}, then it <b>must</b> not contain {@link EXTValidationFeatures#VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -116,16 +115,14 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
     @NativeType("uint32_t")
     public int enabledValidationFeatureCount() { return nenabledValidationFeatureCount(address()); }
     /** a pointer to an array of {@code VkValidationFeatureEnableEXT} values specifying the validation features to be enabled. */
-    @Nullable
     @NativeType("VkValidationFeatureEnableEXT const *")
-    public IntBuffer pEnabledValidationFeatures() { return npEnabledValidationFeatures(address()); }
+    public @Nullable IntBuffer pEnabledValidationFeatures() { return npEnabledValidationFeatures(address()); }
     /** the number of features to disable. */
     @NativeType("uint32_t")
     public int disabledValidationFeatureCount() { return ndisabledValidationFeatureCount(address()); }
     /** a pointer to an array of {@code VkValidationFeatureDisableEXT} values specifying the validation features to be disabled. */
-    @Nullable
     @NativeType("VkValidationFeatureDisableEXT const *")
-    public IntBuffer pDisabledValidationFeatures() { return npDisabledValidationFeatures(address()); }
+    public @Nullable IntBuffer pDisabledValidationFeatures() { return npDisabledValidationFeatures(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkValidationFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -189,8 +186,7 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkValidationFeaturesEXT createSafe(long address) {
+    public static @Nullable VkValidationFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkValidationFeaturesEXT(address, null);
     }
 
@@ -233,8 +229,7 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkValidationFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkValidationFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -298,28 +293,28 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkValidationFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkValidationFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkValidationFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #enabledValidationFeatureCount}. */
-    public static int nenabledValidationFeatureCount(long struct) { return UNSAFE.getInt(null, struct + VkValidationFeaturesEXT.ENABLEDVALIDATIONFEATURECOUNT); }
+    public static int nenabledValidationFeatureCount(long struct) { return memGetInt(struct + VkValidationFeaturesEXT.ENABLEDVALIDATIONFEATURECOUNT); }
     /** Unsafe version of {@link #pEnabledValidationFeatures() pEnabledValidationFeatures}. */
-    @Nullable public static IntBuffer npEnabledValidationFeatures(long struct) { return memIntBufferSafe(memGetAddress(struct + VkValidationFeaturesEXT.PENABLEDVALIDATIONFEATURES), nenabledValidationFeatureCount(struct)); }
+    public static @Nullable IntBuffer npEnabledValidationFeatures(long struct) { return memIntBufferSafe(memGetAddress(struct + VkValidationFeaturesEXT.PENABLEDVALIDATIONFEATURES), nenabledValidationFeatureCount(struct)); }
     /** Unsafe version of {@link #disabledValidationFeatureCount}. */
-    public static int ndisabledValidationFeatureCount(long struct) { return UNSAFE.getInt(null, struct + VkValidationFeaturesEXT.DISABLEDVALIDATIONFEATURECOUNT); }
+    public static int ndisabledValidationFeatureCount(long struct) { return memGetInt(struct + VkValidationFeaturesEXT.DISABLEDVALIDATIONFEATURECOUNT); }
     /** Unsafe version of {@link #pDisabledValidationFeatures() pDisabledValidationFeatures}. */
-    @Nullable public static IntBuffer npDisabledValidationFeatures(long struct) { return memIntBufferSafe(memGetAddress(struct + VkValidationFeaturesEXT.PDISABLEDVALIDATIONFEATURES), ndisabledValidationFeatureCount(struct)); }
+    public static @Nullable IntBuffer npDisabledValidationFeatures(long struct) { return memIntBufferSafe(memGetAddress(struct + VkValidationFeaturesEXT.PDISABLEDVALIDATIONFEATURES), ndisabledValidationFeatureCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkValidationFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkValidationFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkValidationFeaturesEXT.PNEXT, value); }
     /** Sets the specified value to the {@code enabledValidationFeatureCount} field of the specified {@code struct}. */
-    public static void nenabledValidationFeatureCount(long struct, int value) { UNSAFE.putInt(null, struct + VkValidationFeaturesEXT.ENABLEDVALIDATIONFEATURECOUNT, value); }
+    public static void nenabledValidationFeatureCount(long struct, int value) { memPutInt(struct + VkValidationFeaturesEXT.ENABLEDVALIDATIONFEATURECOUNT, value); }
     /** Unsafe version of {@link #pEnabledValidationFeatures(IntBuffer) pEnabledValidationFeatures}. */
     public static void npEnabledValidationFeatures(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkValidationFeaturesEXT.PENABLEDVALIDATIONFEATURES, memAddressSafe(value)); nenabledValidationFeatureCount(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code disabledValidationFeatureCount} field of the specified {@code struct}. */
-    public static void ndisabledValidationFeatureCount(long struct, int value) { UNSAFE.putInt(null, struct + VkValidationFeaturesEXT.DISABLEDVALIDATIONFEATURECOUNT, value); }
+    public static void ndisabledValidationFeatureCount(long struct, int value) { memPutInt(struct + VkValidationFeaturesEXT.DISABLEDVALIDATIONFEATURECOUNT, value); }
     /** Unsafe version of {@link #pDisabledValidationFeatures(IntBuffer) pDisabledValidationFeatures}. */
     public static void npDisabledValidationFeatures(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkValidationFeaturesEXT.PDISABLEDVALIDATIONFEATURES, memAddressSafe(value)); ndisabledValidationFeatureCount(struct, value == null ? 0 : value.remaining()); }
 
@@ -371,6 +366,11 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkValidationFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -385,16 +385,14 @@ public class VkValidationFeaturesEXT extends Struct<VkValidationFeaturesEXT> imp
         @NativeType("uint32_t")
         public int enabledValidationFeatureCount() { return VkValidationFeaturesEXT.nenabledValidationFeatureCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkValidationFeaturesEXT#pEnabledValidationFeatures} field. */
-        @Nullable
         @NativeType("VkValidationFeatureEnableEXT const *")
-        public IntBuffer pEnabledValidationFeatures() { return VkValidationFeaturesEXT.npEnabledValidationFeatures(address()); }
+        public @Nullable IntBuffer pEnabledValidationFeatures() { return VkValidationFeaturesEXT.npEnabledValidationFeatures(address()); }
         /** @return the value of the {@link VkValidationFeaturesEXT#disabledValidationFeatureCount} field. */
         @NativeType("uint32_t")
         public int disabledValidationFeatureCount() { return VkValidationFeaturesEXT.ndisabledValidationFeatureCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkValidationFeaturesEXT#pDisabledValidationFeatures} field. */
-        @Nullable
         @NativeType("VkValidationFeatureDisableEXT const *")
-        public IntBuffer pDisabledValidationFeatures() { return VkValidationFeaturesEXT.npDisabledValidationFeatures(address()); }
+        public @Nullable IntBuffer pDisabledValidationFeatures() { return VkValidationFeaturesEXT.npDisabledValidationFeatures(address()); }
 
         /** Sets the specified value to the {@link VkValidationFeaturesEXT#sType} field. */
         public VkValidationFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkValidationFeaturesEXT.nsType(address(), value); return this; }

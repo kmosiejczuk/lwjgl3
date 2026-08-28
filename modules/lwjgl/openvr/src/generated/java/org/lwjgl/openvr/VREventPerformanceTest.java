@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -79,8 +79,7 @@ public class VREventPerformanceTest extends Struct<VREventPerformanceTest> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventPerformanceTest createSafe(long address) {
+    public static @Nullable VREventPerformanceTest createSafe(long address) {
         return address == NULL ? null : new VREventPerformanceTest(address, null);
     }
 
@@ -95,15 +94,14 @@ public class VREventPerformanceTest extends Struct<VREventPerformanceTest> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventPerformanceTest.Buffer createSafe(long address, int capacity) {
+    public static VREventPerformanceTest.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #m_nFidelityLevel}. */
-    public static int nm_nFidelityLevel(long struct) { return UNSAFE.getInt(null, struct + VREventPerformanceTest.M_NFIDELITYLEVEL); }
+    public static int nm_nFidelityLevel(long struct) { return memGetInt(struct + VREventPerformanceTest.M_NFIDELITYLEVEL); }
 
     // -----------------------------------
 
@@ -136,6 +134,11 @@ public class VREventPerformanceTest extends Struct<VREventPerformanceTest> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

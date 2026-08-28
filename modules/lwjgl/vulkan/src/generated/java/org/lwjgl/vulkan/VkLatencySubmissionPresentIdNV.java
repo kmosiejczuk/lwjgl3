@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>For any submission to be tracked with low latency mode pacing, it needs to be associated with other submissions in a given present. Applications <b>must</b> include the VkLatencySubmissionPresentIdNV in the pNext chain of {@link VK10#vkQueueSubmit QueueSubmit} to associate that submission with the {@code presentId} present for low latency mode.</p>
+ * <p>For any submission to be tracked with low latency mode pacing, it needs to be associated with other submissions in a given present. To associate a submission with {@code presentID} for low latency mode, the {@code pNext} chain of {@link VK10#vkQueueSubmit QueueSubmit} <b>must</b> include a {@link VkLatencySubmissionPresentIdNV} structure.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -34,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct VkLatencySubmissionPresentIdNV {
  *     VkStructureType {@link #sType};
  *     void const * {@link #pNext};
- *     uint64_t presentID;
+ *     uint64_t {@link #presentID};
  * }</code></pre>
  */
 public class VkLatencySubmissionPresentIdNV extends Struct<VkLatencySubmissionPresentIdNV> implements NativeResource {
@@ -94,7 +94,7 @@ public class VkLatencySubmissionPresentIdNV extends Struct<VkLatencySubmissionPr
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** @return the value of the {@code presentID} field. */
+    /** used to associate the {@code vkQueueSubmit} with the presentId used for a given {@code vkQueuePresentKHR} via {@link VkPresentIdKHR}{@code ::pPresentIds}. */
     @NativeType("uint64_t")
     public long presentID() { return npresentID(address()); }
 
@@ -104,7 +104,7 @@ public class VkLatencySubmissionPresentIdNV extends Struct<VkLatencySubmissionPr
     public VkLatencySubmissionPresentIdNV sType$Default() { return sType(NVLowLatency2.VK_STRUCTURE_TYPE_LATENCY_SUBMISSION_PRESENT_ID_NV); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkLatencySubmissionPresentIdNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@code presentID} field. */
+    /** Sets the specified value to the {@link #presentID} field. */
     public VkLatencySubmissionPresentIdNV presentID(@NativeType("uint64_t") long value) { npresentID(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +156,7 @@ public class VkLatencySubmissionPresentIdNV extends Struct<VkLatencySubmissionPr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkLatencySubmissionPresentIdNV createSafe(long address) {
+    public static @Nullable VkLatencySubmissionPresentIdNV createSafe(long address) {
         return address == NULL ? null : new VkLatencySubmissionPresentIdNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkLatencySubmissionPresentIdNV extends Struct<VkLatencySubmissionPr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkLatencySubmissionPresentIdNV.Buffer createSafe(long address, int capacity) {
+    public static VkLatencySubmissionPresentIdNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkLatencySubmissionPresentIdNV extends Struct<VkLatencySubmissionPr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkLatencySubmissionPresentIdNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkLatencySubmissionPresentIdNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkLatencySubmissionPresentIdNV.PNEXT); }
     /** Unsafe version of {@link #presentID}. */
-    public static long npresentID(long struct) { return UNSAFE.getLong(null, struct + VkLatencySubmissionPresentIdNV.PRESENTID); }
+    public static long npresentID(long struct) { return memGetLong(struct + VkLatencySubmissionPresentIdNV.PRESENTID); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkLatencySubmissionPresentIdNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkLatencySubmissionPresentIdNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkLatencySubmissionPresentIdNV.PNEXT, value); }
     /** Unsafe version of {@link #presentID(long) presentID}. */
-    public static void npresentID(long struct, long value) { UNSAFE.putLong(null, struct + VkLatencySubmissionPresentIdNV.PRESENTID, value); }
+    public static void npresentID(long struct, long value) { memPutLong(struct + VkLatencySubmissionPresentIdNV.PRESENTID, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class VkLatencySubmissionPresentIdNV extends Struct<VkLatencySubmissionPr
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkLatencySubmissionPresentIdNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -303,7 +306,7 @@ public class VkLatencySubmissionPresentIdNV extends Struct<VkLatencySubmissionPr
         /** @return the value of the {@link VkLatencySubmissionPresentIdNV#pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkLatencySubmissionPresentIdNV.npNext(address()); }
-        /** @return the value of the {@code presentID} field. */
+        /** @return the value of the {@link VkLatencySubmissionPresentIdNV#presentID} field. */
         @NativeType("uint64_t")
         public long presentID() { return VkLatencySubmissionPresentIdNV.npresentID(address()); }
 
@@ -313,7 +316,7 @@ public class VkLatencySubmissionPresentIdNV extends Struct<VkLatencySubmissionPr
         public VkLatencySubmissionPresentIdNV.Buffer sType$Default() { return sType(NVLowLatency2.VK_STRUCTURE_TYPE_LATENCY_SUBMISSION_PRESENT_ID_NV); }
         /** Sets the specified value to the {@link VkLatencySubmissionPresentIdNV#pNext} field. */
         public VkLatencySubmissionPresentIdNV.Buffer pNext(@NativeType("void const *") long value) { VkLatencySubmissionPresentIdNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@code presentID} field. */
+        /** Sets the specified value to the {@link VkLatencySubmissionPresentIdNV#presentID} field. */
         public VkLatencySubmissionPresentIdNV.Buffer presentID(@NativeType("uint64_t") long value) { VkLatencySubmissionPresentIdNV.npresentID(address(), value); return this; }
 
     }

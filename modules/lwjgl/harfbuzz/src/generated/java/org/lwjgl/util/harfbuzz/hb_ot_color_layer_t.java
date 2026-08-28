@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,8 +135,7 @@ public class hb_ot_color_layer_t extends Struct<hb_ot_color_layer_t> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_color_layer_t createSafe(long address) {
+    public static @Nullable hb_ot_color_layer_t createSafe(long address) {
         return address == NULL ? null : new hb_ot_color_layer_t(address, null);
     }
 
@@ -179,8 +178,7 @@ public class hb_ot_color_layer_t extends Struct<hb_ot_color_layer_t> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_color_layer_t.Buffer createSafe(long address, int capacity) {
+    public static hb_ot_color_layer_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -225,14 +223,14 @@ public class hb_ot_color_layer_t extends Struct<hb_ot_color_layer_t> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #glyph}. */
-    public static int nglyph(long struct) { return UNSAFE.getInt(null, struct + hb_ot_color_layer_t.GLYPH); }
+    public static int nglyph(long struct) { return memGetInt(struct + hb_ot_color_layer_t.GLYPH); }
     /** Unsafe version of {@link #color_index}. */
-    public static int ncolor_index(long struct) { return UNSAFE.getInt(null, struct + hb_ot_color_layer_t.COLOR_INDEX); }
+    public static int ncolor_index(long struct) { return memGetInt(struct + hb_ot_color_layer_t.COLOR_INDEX); }
 
     /** Unsafe version of {@link #glyph(int) glyph}. */
-    public static void nglyph(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_color_layer_t.GLYPH, value); }
+    public static void nglyph(long struct, int value) { memPutInt(struct + hb_ot_color_layer_t.GLYPH, value); }
     /** Unsafe version of {@link #color_index(int) color_index}. */
-    public static void ncolor_index(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_color_layer_t.COLOR_INDEX, value); }
+    public static void ncolor_index(long struct, int value) { memPutInt(struct + hb_ot_color_layer_t.COLOR_INDEX, value); }
 
     // -----------------------------------
 
@@ -265,6 +263,11 @@ public class hb_ot_color_layer_t extends Struct<hb_ot_color_layer_t> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Kernel parameters of {@code function} are specified via {@code pParams}, very much the same way as described in <a href="https://docs.nvidia.com/cuda/cuda-driver-api/group__CUDA__EXEC.html#group__CUDA__EXEC_1gb8f3dc3031b40da29d5f9a7139e52e15">cuLaunchKernel</a></p>
  * 
- * <p>If {@code function} has N parameters, then {@code pParams} <b>must</b> be an array of N pointers and {@code paramCount} <b>must</b> be set to N. Each of {@code kernelParams}[0] through {@code kernelParams}[N-1] <b>must</b> point to a region of memory from which the actual kernel parameter will be copied. The number of kernel parameters and their offsets and sizes are not specified here as that information is stored in the {@code VkCudaFunctionNV} object.</p>
+ * <p>If {@code function} has N parameters, then {@code pParams} <b>must</b> be an array of N pointers and {@code paramCount} <b>must</b> be N. Each of {@code kernelParams}[0] through {@code kernelParams}[N-1] <b>must</b> point to a region of memory from which the actual kernel parameter will be copied. The number of kernel parameters and their offsets and sizes are not specified here as that information is stored in the {@code VkCudaFunctionNV} object.</p>
  * 
  * <p>The application-owned memory pointed to by {@code pParams} and {@code kernelParams}[0] through {@code kernelParams}[N-1] are consumed immediately, and <b>may</b> be altered or freed after {@link NVCudaKernelLaunch#vkCmdCudaLaunchKernelNV CmdCudaLaunchKernelNV} has returned.</p>
  * 
@@ -34,8 +34,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code gridDimZ} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxComputeWorkGroupCount}[2]</li>
  * <li>{@code paramCount} <b>must</b> be the total amount of parameters listed in the {@code pParams} table</li>
  * <li>{@code pParams} <b>must</b> be a pointer to a table of {@code paramCount} parameters, corresponding to the arguments of {@code function}</li>
- * <li>{@code extraCount} must be 0</li>
- * <li>{@code pExtras} must be NULL</li>
+ * <li>{@code extraCount} <b>must</b> be 0</li>
+ * <li>{@code pExtras} <b>must</b> be NULL</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -163,13 +163,13 @@ public class VkCudaLaunchInfoNV extends Struct<VkCudaLaunchInfoNV> implements Na
     /** the CUDA-Driver handle to the function being launched. */
     @NativeType("VkCudaFunctionNV")
     public long function() { return nfunction(address()); }
-    /** the number of local workgroups to dispatch in the X dimension. It must be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxComputeWorkGroupCount}[0] */
+    /** the number of local workgroups to dispatch in the X dimension. It <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxComputeWorkGroupCount}[0] */
     @NativeType("uint32_t")
     public int gridDimX() { return ngridDimX(address()); }
-    /** the number of local workgroups to dispatch in the Y dimension. It must be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxComputeWorkGroupCount}[1] */
+    /** the number of local workgroups to dispatch in the Y dimension. It <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxComputeWorkGroupCount}[1] */
     @NativeType("uint32_t")
     public int gridDimY() { return ngridDimY(address()); }
-    /** the number of local workgroups to dispatch in the Z dimension. It must be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxComputeWorkGroupCount}[2] */
+    /** the number of local workgroups to dispatch in the Z dimension. It <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxComputeWorkGroupCount}[2] */
     @NativeType("uint32_t")
     public int gridDimZ() { return ngridDimZ(address()); }
     /** block size in the X dimension. */
@@ -188,16 +188,14 @@ public class VkCudaLaunchInfoNV extends Struct<VkCudaLaunchInfoNV> implements Na
     @NativeType("size_t")
     public long paramCount() { return nparamCount(address()); }
     /** a pointer to an array of {@code paramCount} pointers, corresponding to the arguments of {@code function}. */
-    @Nullable
     @NativeType("void const * const *")
-    public PointerBuffer pParams() { return npParams(address()); }
+    public @Nullable PointerBuffer pParams() { return npParams(address()); }
     /** reserved for future use. */
     @NativeType("size_t")
     public long extraCount() { return nextraCount(address()); }
     /** reserved for future use. */
-    @Nullable
     @NativeType("void const * const *")
-    public PointerBuffer pExtras() { return npExtras(address()); }
+    public @Nullable PointerBuffer pExtras() { return npExtras(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkCudaLaunchInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -301,8 +299,7 @@ public class VkCudaLaunchInfoNV extends Struct<VkCudaLaunchInfoNV> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCudaLaunchInfoNV createSafe(long address) {
+    public static @Nullable VkCudaLaunchInfoNV createSafe(long address) {
         return address == NULL ? null : new VkCudaLaunchInfoNV(address, null);
     }
 
@@ -345,8 +342,7 @@ public class VkCudaLaunchInfoNV extends Struct<VkCudaLaunchInfoNV> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCudaLaunchInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkCudaLaunchInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -391,54 +387,54 @@ public class VkCudaLaunchInfoNV extends Struct<VkCudaLaunchInfoNV> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCudaLaunchInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCudaLaunchInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCudaLaunchInfoNV.PNEXT); }
     /** Unsafe version of {@link #function}. */
-    public static long nfunction(long struct) { return UNSAFE.getLong(null, struct + VkCudaLaunchInfoNV.FUNCTION); }
+    public static long nfunction(long struct) { return memGetLong(struct + VkCudaLaunchInfoNV.FUNCTION); }
     /** Unsafe version of {@link #gridDimX}. */
-    public static int ngridDimX(long struct) { return UNSAFE.getInt(null, struct + VkCudaLaunchInfoNV.GRIDDIMX); }
+    public static int ngridDimX(long struct) { return memGetInt(struct + VkCudaLaunchInfoNV.GRIDDIMX); }
     /** Unsafe version of {@link #gridDimY}. */
-    public static int ngridDimY(long struct) { return UNSAFE.getInt(null, struct + VkCudaLaunchInfoNV.GRIDDIMY); }
+    public static int ngridDimY(long struct) { return memGetInt(struct + VkCudaLaunchInfoNV.GRIDDIMY); }
     /** Unsafe version of {@link #gridDimZ}. */
-    public static int ngridDimZ(long struct) { return UNSAFE.getInt(null, struct + VkCudaLaunchInfoNV.GRIDDIMZ); }
+    public static int ngridDimZ(long struct) { return memGetInt(struct + VkCudaLaunchInfoNV.GRIDDIMZ); }
     /** Unsafe version of {@link #blockDimX}. */
-    public static int nblockDimX(long struct) { return UNSAFE.getInt(null, struct + VkCudaLaunchInfoNV.BLOCKDIMX); }
+    public static int nblockDimX(long struct) { return memGetInt(struct + VkCudaLaunchInfoNV.BLOCKDIMX); }
     /** Unsafe version of {@link #blockDimY}. */
-    public static int nblockDimY(long struct) { return UNSAFE.getInt(null, struct + VkCudaLaunchInfoNV.BLOCKDIMY); }
+    public static int nblockDimY(long struct) { return memGetInt(struct + VkCudaLaunchInfoNV.BLOCKDIMY); }
     /** Unsafe version of {@link #blockDimZ}. */
-    public static int nblockDimZ(long struct) { return UNSAFE.getInt(null, struct + VkCudaLaunchInfoNV.BLOCKDIMZ); }
+    public static int nblockDimZ(long struct) { return memGetInt(struct + VkCudaLaunchInfoNV.BLOCKDIMZ); }
     /** Unsafe version of {@link #sharedMemBytes}. */
-    public static int nsharedMemBytes(long struct) { return UNSAFE.getInt(null, struct + VkCudaLaunchInfoNV.SHAREDMEMBYTES); }
+    public static int nsharedMemBytes(long struct) { return memGetInt(struct + VkCudaLaunchInfoNV.SHAREDMEMBYTES); }
     /** Unsafe version of {@link #paramCount}. */
     public static long nparamCount(long struct) { return memGetAddress(struct + VkCudaLaunchInfoNV.PARAMCOUNT); }
     /** Unsafe version of {@link #pParams() pParams}. */
-    @Nullable public static PointerBuffer npParams(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkCudaLaunchInfoNV.PPARAMS), (int)nparamCount(struct)); }
+    public static @Nullable PointerBuffer npParams(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkCudaLaunchInfoNV.PPARAMS), (int)nparamCount(struct)); }
     /** Unsafe version of {@link #extraCount}. */
     public static long nextraCount(long struct) { return memGetAddress(struct + VkCudaLaunchInfoNV.EXTRACOUNT); }
     /** Unsafe version of {@link #pExtras() pExtras}. */
-    @Nullable public static PointerBuffer npExtras(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkCudaLaunchInfoNV.PEXTRAS), (int)nextraCount(struct)); }
+    public static @Nullable PointerBuffer npExtras(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkCudaLaunchInfoNV.PEXTRAS), (int)nextraCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCudaLaunchInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCudaLaunchInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCudaLaunchInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #function(long) function}. */
-    public static void nfunction(long struct, long value) { UNSAFE.putLong(null, struct + VkCudaLaunchInfoNV.FUNCTION, value); }
+    public static void nfunction(long struct, long value) { memPutLong(struct + VkCudaLaunchInfoNV.FUNCTION, value); }
     /** Unsafe version of {@link #gridDimX(int) gridDimX}. */
-    public static void ngridDimX(long struct, int value) { UNSAFE.putInt(null, struct + VkCudaLaunchInfoNV.GRIDDIMX, value); }
+    public static void ngridDimX(long struct, int value) { memPutInt(struct + VkCudaLaunchInfoNV.GRIDDIMX, value); }
     /** Unsafe version of {@link #gridDimY(int) gridDimY}. */
-    public static void ngridDimY(long struct, int value) { UNSAFE.putInt(null, struct + VkCudaLaunchInfoNV.GRIDDIMY, value); }
+    public static void ngridDimY(long struct, int value) { memPutInt(struct + VkCudaLaunchInfoNV.GRIDDIMY, value); }
     /** Unsafe version of {@link #gridDimZ(int) gridDimZ}. */
-    public static void ngridDimZ(long struct, int value) { UNSAFE.putInt(null, struct + VkCudaLaunchInfoNV.GRIDDIMZ, value); }
+    public static void ngridDimZ(long struct, int value) { memPutInt(struct + VkCudaLaunchInfoNV.GRIDDIMZ, value); }
     /** Unsafe version of {@link #blockDimX(int) blockDimX}. */
-    public static void nblockDimX(long struct, int value) { UNSAFE.putInt(null, struct + VkCudaLaunchInfoNV.BLOCKDIMX, value); }
+    public static void nblockDimX(long struct, int value) { memPutInt(struct + VkCudaLaunchInfoNV.BLOCKDIMX, value); }
     /** Unsafe version of {@link #blockDimY(int) blockDimY}. */
-    public static void nblockDimY(long struct, int value) { UNSAFE.putInt(null, struct + VkCudaLaunchInfoNV.BLOCKDIMY, value); }
+    public static void nblockDimY(long struct, int value) { memPutInt(struct + VkCudaLaunchInfoNV.BLOCKDIMY, value); }
     /** Unsafe version of {@link #blockDimZ(int) blockDimZ}. */
-    public static void nblockDimZ(long struct, int value) { UNSAFE.putInt(null, struct + VkCudaLaunchInfoNV.BLOCKDIMZ, value); }
+    public static void nblockDimZ(long struct, int value) { memPutInt(struct + VkCudaLaunchInfoNV.BLOCKDIMZ, value); }
     /** Unsafe version of {@link #sharedMemBytes(int) sharedMemBytes}. */
-    public static void nsharedMemBytes(long struct, int value) { UNSAFE.putInt(null, struct + VkCudaLaunchInfoNV.SHAREDMEMBYTES, value); }
+    public static void nsharedMemBytes(long struct, int value) { memPutInt(struct + VkCudaLaunchInfoNV.SHAREDMEMBYTES, value); }
     /** Sets the specified value to the {@code paramCount} field of the specified {@code struct}. */
     public static void nparamCount(long struct, long value) { memPutAddress(struct + VkCudaLaunchInfoNV.PARAMCOUNT, value); }
     /** Unsafe version of {@link #pParams(PointerBuffer) pParams}. */
@@ -482,6 +478,11 @@ public class VkCudaLaunchInfoNV extends Struct<VkCudaLaunchInfoNV> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkCudaLaunchInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -520,16 +521,14 @@ public class VkCudaLaunchInfoNV extends Struct<VkCudaLaunchInfoNV> implements Na
         @NativeType("size_t")
         public long paramCount() { return VkCudaLaunchInfoNV.nparamCount(address()); }
         /** @return a {@link PointerBuffer} view of the data pointed to by the {@link VkCudaLaunchInfoNV#pParams} field. */
-        @Nullable
         @NativeType("void const * const *")
-        public PointerBuffer pParams() { return VkCudaLaunchInfoNV.npParams(address()); }
+        public @Nullable PointerBuffer pParams() { return VkCudaLaunchInfoNV.npParams(address()); }
         /** @return the value of the {@link VkCudaLaunchInfoNV#extraCount} field. */
         @NativeType("size_t")
         public long extraCount() { return VkCudaLaunchInfoNV.nextraCount(address()); }
         /** @return a {@link PointerBuffer} view of the data pointed to by the {@link VkCudaLaunchInfoNV#pExtras} field. */
-        @Nullable
         @NativeType("void const * const *")
-        public PointerBuffer pExtras() { return VkCudaLaunchInfoNV.npExtras(address()); }
+        public @Nullable PointerBuffer pExtras() { return VkCudaLaunchInfoNV.npExtras(address()); }
 
         /** Sets the specified value to the {@link VkCudaLaunchInfoNV#sType} field. */
         public VkCudaLaunchInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkCudaLaunchInfoNV.nsType(address(), value); return this; }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>{@code maxPipelineRayPayloadSize} is calculated as the maximum number of bytes used by any block declared in the {@code RayPayloadKHR} or {@code IncomingRayPayloadKHR} storage classes. {@code maxPipelineRayHitAttributeSize} is calculated as the maximum number of bytes used by any block declared in the {@code HitAttributeKHR} storage class. As variables in these storage classes do not have explicit offsets, the size should be calculated as if each variable has a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-alignment-requirements">scalar alignment</a> equal to the largest scalar alignment of any of the block’s members.</p>
+ * <p>{@code maxPipelineRayPayloadSize} is calculated as the maximum number of bytes used by any block declared in the {@code RayPayloadKHR} or {@code IncomingRayPayloadKHR} storage classes. {@code maxPipelineRayHitAttributeSize} is calculated as the maximum number of bytes used by any block declared in the {@code HitAttributeKHR} storage class. As variables in these storage classes do not have explicit offsets, the size should be calculated as if each variable has a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces-alignment-requirements">scalar alignment</a> equal to the largest scalar alignment of any of the block’s members.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -183,8 +183,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRayTracingPipelineInterfaceCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkRayTracingPipelineInterfaceCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkRayTracingPipelineInterfaceCreateInfoKHR(address, null);
     }
 
@@ -227,8 +226,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkRayTracingPipelineInterfaceCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,22 +271,22 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #maxPipelineRayPayloadSize}. */
-    public static int nmaxPipelineRayPayloadSize(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYPAYLOADSIZE); }
+    public static int nmaxPipelineRayPayloadSize(long struct) { return memGetInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYPAYLOADSIZE); }
     /** Unsafe version of {@link #maxPipelineRayHitAttributeSize}. */
-    public static int nmaxPipelineRayHitAttributeSize(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYHITATTRIBUTESIZE); }
+    public static int nmaxPipelineRayHitAttributeSize(long struct) { return memGetInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYHITATTRIBUTESIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #maxPipelineRayPayloadSize(int) maxPipelineRayPayloadSize}. */
-    public static void nmaxPipelineRayPayloadSize(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYPAYLOADSIZE, value); }
+    public static void nmaxPipelineRayPayloadSize(long struct, int value) { memPutInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYPAYLOADSIZE, value); }
     /** Unsafe version of {@link #maxPipelineRayHitAttributeSize(int) maxPipelineRayHitAttributeSize}. */
-    public static void nmaxPipelineRayHitAttributeSize(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYHITATTRIBUTESIZE, value); }
+    public static void nmaxPipelineRayHitAttributeSize(long struct, int value) { memPutInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYHITATTRIBUTESIZE, value); }
 
     // -----------------------------------
 
@@ -321,6 +319,11 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

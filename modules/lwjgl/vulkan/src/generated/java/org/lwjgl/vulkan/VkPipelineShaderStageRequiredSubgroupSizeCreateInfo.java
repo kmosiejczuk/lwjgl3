@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -28,8 +28,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code requiredSubgroupSize} <b>must</b> be a power-of-two integer</li>
- * <li>{@code requiredSubgroupSize} <b>must</b> be greater or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-minSubgroupSize">{@code minSubgroupSize}</a></li>
- * <li>{@code requiredSubgroupSize} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxSubgroupSize">{@code maxSubgroupSize}</a></li>
+ * <li>{@code requiredSubgroupSize} <b>must</b> be greater or equal to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-minSubgroupSize">{@code minSubgroupSize}</a></li>
+ * <li>{@code requiredSubgroupSize} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxSubgroupSize">{@code maxSubgroupSize}</a></li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -162,8 +162,7 @@ public class VkPipelineShaderStageRequiredSubgroupSizeCreateInfo extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineShaderStageRequiredSubgroupSizeCreateInfo createSafe(long address) {
+    public static @Nullable VkPipelineShaderStageRequiredSubgroupSizeCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkPipelineShaderStageRequiredSubgroupSizeCreateInfo(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkPipelineShaderStageRequiredSubgroupSizeCreateInfo extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,14 +250,14 @@ public class VkPipelineShaderStageRequiredSubgroupSizeCreateInfo extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.PNEXT); }
     /** Unsafe version of {@link #requiredSubgroupSize}. */
-    public static int nrequiredSubgroupSize(long struct) { return UNSAFE.getInt(null, struct + VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.REQUIREDSUBGROUPSIZE); }
+    public static int nrequiredSubgroupSize(long struct) { return memGetInt(struct + VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.REQUIREDSUBGROUPSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.PNEXT, value); }
 
@@ -294,6 +292,11 @@ public class VkPipelineShaderStageRequiredSubgroupSizeCreateInfo extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

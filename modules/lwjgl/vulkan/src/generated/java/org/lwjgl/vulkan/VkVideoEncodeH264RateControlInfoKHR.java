@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>When an instance of this structure is included in the {@code pNext} chain of the {@link VkVideoCodingControlInfoKHR} structure passed to the {@link KHRVideoQueue#vkCmdControlVideoCodingKHR CmdControlVideoCodingKHR} command, and {@link VkVideoCodingControlInfoKHR}{@code ::flags} includes {@link KHRVideoEncodeQueue#VK_VIDEO_CODING_CONTROL_ENCODE_RATE_CONTROL_BIT_KHR VIDEO_CODING_CONTROL_ENCODE_RATE_CONTROL_BIT_KHR}, the parameters in this structure are used as guidance for the implementation’s rate control algorithm (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-coding-control">Video Coding Control</a>).</p>
+ * <p>When an instance of this structure is included in the {@code pNext} chain of the {@link VkVideoCodingControlInfoKHR} structure passed to the {@link KHRVideoQueue#vkCmdControlVideoCodingKHR CmdControlVideoCodingKHR} command, and {@link VkVideoCodingControlInfoKHR}{@code ::flags} includes {@link KHRVideoEncodeQueue#VK_VIDEO_CODING_CONTROL_ENCODE_RATE_CONTROL_BIT_KHR VIDEO_CODING_CONTROL_ENCODE_RATE_CONTROL_BIT_KHR}, the parameters in this structure are used as guidance for the implementation’s rate control algorithm (see <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-coding-control">Video Coding Control</a>).</p>
  * 
  * <p>If {@code flags} includes {@link KHRVideoEncodeH264#VK_VIDEO_ENCODE_H264_RATE_CONTROL_ATTEMPT_HRD_COMPLIANCE_BIT_KHR VIDEO_ENCODE_H264_RATE_CONTROL_ATTEMPT_HRD_COMPLIANCE_BIT_KHR}, then the rate control state is reset to an initial state to meet HRD compliance requirements. Otherwise the new rate control state <b>may</b> be applied without a reset depending on the implementation and the specified rate control parameters.</p>
  * 
@@ -132,13 +132,13 @@ public class VkVideoEncodeH264RateControlInfoKHR extends Struct<VkVideoEncodeH26
     /** a bitmask of {@code VkVideoEncodeH264RateControlFlagBitsKHR} specifying H.264 rate control flags. */
     @NativeType("VkVideoEncodeH264RateControlFlagsKHR")
     public int flags() { return nflags(address()); }
-    /** the number of frames within a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-gop">group of pictures (GOP)</a> intended to be used by the application. If it is set to 0, the rate control algorithm <b>may</b> assume an implementation-dependent GOP length. If it is set to {@code UINT32_MAX}, the GOP length is treated as infinite. */
+    /** the number of frames within a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-gop">group of pictures (GOP)</a> intended to be used by the application. If it is 0, the rate control algorithm <b>may</b> assume an implementation-dependent GOP length. If it is {@code UINT32_MAX}, the GOP length is treated as infinite. */
     @NativeType("uint32_t")
     public int gopFrameCount() { return ngopFrameCount(address()); }
-    /** the interval, in terms of number of frames, between two <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-idr-pic">IDR frames</a> (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-idr-period">IDR period</a>). If it is set to 0, the rate control algorithm <b>may</b> assume an implementation-dependent IDR period. If it is set to {@code UINT32_MAX}, the IDR period is treated as infinite. */
+    /** the interval, in terms of number of frames, between two <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-idr-pic">IDR frames</a> (see <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-idr-period">IDR period</a>). If it is 0, the rate control algorithm <b>may</b> assume an implementation-dependent IDR period. If it is {@code UINT32_MAX}, the IDR period is treated as infinite. */
     @NativeType("uint32_t")
     public int idrPeriod() { return nidrPeriod(address()); }
-    /** the number of consecutive B frames between I and/or P frames within the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-gop">GOP</a>. */
+    /** the number of consecutive B frames between I and/or P frames within the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-gop">GOP</a>. */
     @NativeType("uint32_t")
     public int consecutiveBFrameCount() { return nconsecutiveBFrameCount(address()); }
     /** specifies the number of H.264 temporal layers that the application intends to use. */
@@ -219,8 +219,7 @@ public class VkVideoEncodeH264RateControlInfoKHR extends Struct<VkVideoEncodeH26
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264RateControlInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264RateControlInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264RateControlInfoKHR(address, null);
     }
 
@@ -263,8 +262,7 @@ public class VkVideoEncodeH264RateControlInfoKHR extends Struct<VkVideoEncodeH26
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264RateControlInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264RateControlInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -309,34 +307,34 @@ public class VkVideoEncodeH264RateControlInfoKHR extends Struct<VkVideoEncodeH26
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH264RateControlInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH264RateControlInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkVideoEncodeH264RateControlInfoKHR.FLAGS); }
     /** Unsafe version of {@link #gopFrameCount}. */
-    public static int ngopFrameCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.GOPFRAMECOUNT); }
+    public static int ngopFrameCount(long struct) { return memGetInt(struct + VkVideoEncodeH264RateControlInfoKHR.GOPFRAMECOUNT); }
     /** Unsafe version of {@link #idrPeriod}. */
-    public static int nidrPeriod(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.IDRPERIOD); }
+    public static int nidrPeriod(long struct) { return memGetInt(struct + VkVideoEncodeH264RateControlInfoKHR.IDRPERIOD); }
     /** Unsafe version of {@link #consecutiveBFrameCount}. */
-    public static int nconsecutiveBFrameCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.CONSECUTIVEBFRAMECOUNT); }
+    public static int nconsecutiveBFrameCount(long struct) { return memGetInt(struct + VkVideoEncodeH264RateControlInfoKHR.CONSECUTIVEBFRAMECOUNT); }
     /** Unsafe version of {@link #temporalLayerCount}. */
-    public static int ntemporalLayerCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.TEMPORALLAYERCOUNT); }
+    public static int ntemporalLayerCount(long struct) { return memGetInt(struct + VkVideoEncodeH264RateControlInfoKHR.TEMPORALLAYERCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH264RateControlInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH264RateControlInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkVideoEncodeH264RateControlInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #gopFrameCount(int) gopFrameCount}. */
-    public static void ngopFrameCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.GOPFRAMECOUNT, value); }
+    public static void ngopFrameCount(long struct, int value) { memPutInt(struct + VkVideoEncodeH264RateControlInfoKHR.GOPFRAMECOUNT, value); }
     /** Unsafe version of {@link #idrPeriod(int) idrPeriod}. */
-    public static void nidrPeriod(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.IDRPERIOD, value); }
+    public static void nidrPeriod(long struct, int value) { memPutInt(struct + VkVideoEncodeH264RateControlInfoKHR.IDRPERIOD, value); }
     /** Unsafe version of {@link #consecutiveBFrameCount(int) consecutiveBFrameCount}. */
-    public static void nconsecutiveBFrameCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.CONSECUTIVEBFRAMECOUNT, value); }
+    public static void nconsecutiveBFrameCount(long struct, int value) { memPutInt(struct + VkVideoEncodeH264RateControlInfoKHR.CONSECUTIVEBFRAMECOUNT, value); }
     /** Unsafe version of {@link #temporalLayerCount(int) temporalLayerCount}. */
-    public static void ntemporalLayerCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264RateControlInfoKHR.TEMPORALLAYERCOUNT, value); }
+    public static void ntemporalLayerCount(long struct, int value) { memPutInt(struct + VkVideoEncodeH264RateControlInfoKHR.TEMPORALLAYERCOUNT, value); }
 
     // -----------------------------------
 
@@ -369,6 +367,11 @@ public class VkVideoEncodeH264RateControlInfoKHR extends Struct<VkVideoEncodeH26
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class VkPhysicalDeviceImageProcessingFeaturesQCOM extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageProcessingFeaturesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImageProcessingFeaturesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImageProcessingFeaturesQCOM(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkPhysicalDeviceImageProcessingFeaturesQCOM extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageProcessingFeaturesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImageProcessingFeaturesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +266,26 @@ public class VkPhysicalDeviceImageProcessingFeaturesQCOM extends Struct<VkPhysic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.PNEXT); }
     /** Unsafe version of {@link #textureSampleWeighted}. */
-    public static int ntextureSampleWeighted(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTURESAMPLEWEIGHTED); }
+    public static int ntextureSampleWeighted(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTURESAMPLEWEIGHTED); }
     /** Unsafe version of {@link #textureBoxFilter}. */
-    public static int ntextureBoxFilter(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBOXFILTER); }
+    public static int ntextureBoxFilter(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBOXFILTER); }
     /** Unsafe version of {@link #textureBlockMatch}. */
-    public static int ntextureBlockMatch(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBLOCKMATCH); }
+    public static int ntextureBlockMatch(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBLOCKMATCH); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #textureSampleWeighted(boolean) textureSampleWeighted}. */
-    public static void ntextureSampleWeighted(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTURESAMPLEWEIGHTED, value); }
+    public static void ntextureSampleWeighted(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTURESAMPLEWEIGHTED, value); }
     /** Unsafe version of {@link #textureBoxFilter(boolean) textureBoxFilter}. */
-    public static void ntextureBoxFilter(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBOXFILTER, value); }
+    public static void ntextureBoxFilter(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBOXFILTER, value); }
     /** Unsafe version of {@link #textureBlockMatch(boolean) textureBlockMatch}. */
-    public static void ntextureBlockMatch(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBLOCKMATCH, value); }
+    public static void ntextureBlockMatch(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBLOCKMATCH, value); }
 
     // -----------------------------------
 
@@ -320,6 +318,11 @@ public class VkPhysicalDeviceImageProcessingFeaturesQCOM extends Struct<VkPhysic
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

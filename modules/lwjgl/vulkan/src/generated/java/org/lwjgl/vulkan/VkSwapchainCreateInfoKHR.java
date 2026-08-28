@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,14 +23,16 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code surface} <b>must</b> be a surface that is supported by the device as determined using {@link KHRSurface#vkGetPhysicalDeviceSurfaceSupportKHR GetPhysicalDeviceSurfaceSupportKHR}</li>
  * <li>{@code minImageCount} <b>must</b> be less than or equal to the value returned in the {@code maxImageCount} member of the {@link VkSurfaceCapabilitiesKHR} structure returned by {@code vkGetPhysicalDeviceSurfaceCapabilitiesKHR} for the surface if the returned {@code maxImageCount} is not zero</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-swapchainMaintenance1">{@code swapchainMaintenance1}</a> feature is not enabled, then the {@code pNext} chain <b>must</b> not include a {@link VkSwapchainPresentModesCreateInfoEXT} structure</li>
  * <li>If {@code presentMode} is not {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR} nor {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR}, then {@code minImageCount} <b>must</b> be greater than or equal to the value returned in the {@code minImageCount} member of the {@link VkSurfaceCapabilitiesKHR} structure returned by {@link KHRSurface#vkGetPhysicalDeviceSurfaceCapabilitiesKHR GetPhysicalDeviceSurfaceCapabilitiesKHR} for the surface</li>
  * <li>{@code minImageCount} <b>must</b> be 1 if {@code presentMode} is either {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR} or {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR}</li>
  * <li>{@code imageFormat} and {@code imageColorSpace} <b>must</b> match the {@code format} and {@code colorSpace} members, respectively, of one of the {@link VkSurfaceFormatKHR} structures returned by {@code vkGetPhysicalDeviceSurfaceFormatsKHR} for the surface</li>
  * <li>If a {@link VkSwapchainPresentScalingCreateInfoEXT} structure was not included in the {@code pNext} chain, or it is included and {@link VkSwapchainPresentScalingCreateInfoEXT}{@code ::scalingBehavior} is zero then {@code imageExtent} <b>must</b> be between {@code minImageExtent} and {@code maxImageExtent}, inclusive, where {@code minImageExtent} and {@code maxImageExtent} are members of the {@link VkSurfaceCapabilitiesKHR} structure returned by {@code vkGetPhysicalDeviceSurfaceCapabilitiesKHR} for the surface</li>
  * <li>If a {@link VkSwapchainPresentScalingCreateInfoEXT} structure was included in the {@code pNext} chain and {@link VkSwapchainPresentScalingCreateInfoEXT}{@code ::scalingBehavior} is not zero then {@code imageExtent} <b>must</b> be between {@code minScaledImageExtent} and {@code maxScaledImageExtent}, inclusive, where {@code minScaledImageExtent} and {@code maxScaledImageExtent} are members of the {@link VkSurfacePresentScalingCapabilitiesEXT} structure returned by {@code vkGetPhysicalDeviceSurfaceCapabilities2KHR} for the surface and {@code presentMode}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-swapchainMaintenance1">{@code swapchainMaintenance1}</a> feature is not enabled, then {@code flags} <b>must</b> not include {@link EXTSwapchainMaintenance1#VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT}</li>
  * <li>{@code imageExtent} members {@code width} and {@code height} <b>must</b> both be non-zero</li>
  * <li>{@code imageArrayLayers} <b>must</b> be greater than 0 and less than or equal to the {@code maxImageArrayLayers} member of the {@link VkSurfaceCapabilitiesKHR} structure returned by {@code vkGetPhysicalDeviceSurfaceCapabilitiesKHR} for the surface</li>
- * <li>If {@code presentMode} is {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR}, {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR}, {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR}, {@code imageUsage} <b>must</b> be a subset of the supported usage flags present in the {@code supportedUsageFlags} member of the {@link VkSurfaceCapabilitiesKHR} structure returned by {@link KHRSurface#vkGetPhysicalDeviceSurfaceCapabilitiesKHR GetPhysicalDeviceSurfaceCapabilitiesKHR} for {@code surface}</li>
+ * <li>If {@code presentMode} is {@link EXTPresentModeFifoLatestReady#VK_PRESENT_MODE_FIFO_LATEST_READY_EXT PRESENT_MODE_FIFO_LATEST_READY_EXT}, {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR}, {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR}, {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR}, {@code imageUsage} <b>must</b> be a subset of the supported usage flags present in the {@code supportedUsageFlags} member of the {@link VkSurfaceCapabilitiesKHR} structure returned by {@link KHRSurface#vkGetPhysicalDeviceSurfaceCapabilitiesKHR GetPhysicalDeviceSurfaceCapabilitiesKHR} for {@code surface}</li>
  * <li>If {@code presentMode} is {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR} or {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR}, {@code imageUsage} <b>must</b> be a subset of the supported usage flags present in the {@code sharedPresentSupportedUsageFlags} member of the {@link VkSharedPresentSurfaceCapabilitiesKHR} structure returned by {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceCapabilities2KHR GetPhysicalDeviceSurfaceCapabilities2KHR} for {@code surface}</li>
  * <li>If {@code imageSharingMode} is {@link VK10#VK_SHARING_MODE_CONCURRENT SHARING_MODE_CONCURRENT}, {@code pQueueFamilyIndices} <b>must</b> be a valid pointer to an array of {@code queueFamilyIndexCount} {@code uint32_t} values</li>
  * <li>If {@code imageSharingMode} is {@link VK10#VK_SHARING_MODE_CONCURRENT SHARING_MODE_CONCURRENT}, {@code queueFamilyIndexCount} <b>must</b> be greater than 1</li>
@@ -38,15 +40,16 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code preTransform} <b>must</b> be one of the bits present in the {@code supportedTransforms} member of the {@link VkSurfaceCapabilitiesKHR} structure returned by {@code vkGetPhysicalDeviceSurfaceCapabilitiesKHR} for the surface</li>
  * <li>{@code compositeAlpha} <b>must</b> be one of the bits present in the {@code supportedCompositeAlpha} member of the {@link VkSurfaceCapabilitiesKHR} structure returned by {@code vkGetPhysicalDeviceSurfaceCapabilitiesKHR} for the surface</li>
  * <li>{@code presentMode} <b>must</b> be one of the {@code VkPresentModeKHR} values returned by {@code vkGetPhysicalDeviceSurfacePresentModesKHR} for the surface</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-presentModeFifoLatestReady">{@code presentModeFifoLatestReady}</a> feature is not enabled, {@code presentMode} <b>must</b> not be {@link EXTPresentModeFifoLatestReady#VK_PRESENT_MODE_FIFO_LATEST_READY_EXT PRESENT_MODE_FIFO_LATEST_READY_EXT}</li>
  * <li>If the logical device was created with {@link VkDeviceGroupDeviceCreateInfo}{@code ::physicalDeviceCount} equal to 1, {@code flags} <b>must</b> not contain {@link KHRSwapchain#VK_SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR}</li>
  * <li>If {@code oldSwapchain} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code oldSwapchain} <b>must</b> be a non-retired swapchain associated with native window referred to by {@code surface}</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#swapchain-wsi-image-create-info">implied image creation parameters</a> of the swapchain <b>must</b> be supported as reported by {@link VK10#vkGetPhysicalDeviceImageFormatProperties GetPhysicalDeviceImageFormatProperties}</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#swapchain-wsi-image-create-info">implied image creation parameters</a> of the swapchain <b>must</b> be supported as reported by {@link VK10#vkGetPhysicalDeviceImageFormatProperties GetPhysicalDeviceImageFormatProperties}</li>
  * <li>If {@code flags} contains {@link KHRSwapchainMutableFormat#VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR} then the {@code pNext} chain <b>must</b> include a {@link VkImageFormatListCreateInfo} structure with a {@code viewFormatCount} greater than zero and {@code pViewFormats} <b>must</b> have an element equal to {@code imageFormat}</li>
- * <li>If a {@link VkImageFormatListCreateInfo} structure was included in the {@code pNext} chain and {@link VkImageFormatListCreateInfo}{@code ::viewFormatCount} is not zero then all of the formats in {@link VkImageFormatListCreateInfo}{@code ::pViewFormats} <b>must</b> be compatible with the {@code format} as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility">compatibility table</a></li>
+ * <li>If a {@link VkImageFormatListCreateInfo} structure was included in the {@code pNext} chain and {@link VkImageFormatListCreateInfo}{@code ::viewFormatCount} is not zero then all of the formats in {@link VkImageFormatListCreateInfo}{@code ::pViewFormats} <b>must</b> be compatible with the {@code format} as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility">compatibility table</a></li>
  * <li>If {@code flags} does not contain {@link KHRSwapchainMutableFormat#VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR} and the {@code pNext} chain include a {@link VkImageFormatListCreateInfo} structure then {@link VkImageFormatListCreateInfo}{@code ::viewFormatCount} <b>must</b> be 0 or 1</li>
  * <li>If {@code flags} contains {@link KHRSwapchain#VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR SWAPCHAIN_CREATE_PROTECTED_BIT_KHR}, then {@link VkSurfaceProtectedCapabilitiesKHR}{@code ::supportsProtected} <b>must</b> be {@link VK10#VK_TRUE TRUE} in the {@link VkSurfaceProtectedCapabilitiesKHR} structure returned by {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceCapabilities2KHR GetPhysicalDeviceSurfaceCapabilities2KHR} for {@code surface}</li>
  * <li>If the {@code pNext} chain includes a {@link VkSurfaceFullScreenExclusiveInfoEXT} structure with its {@code fullScreenExclusive} member set to {@link EXTFullScreenExclusive#VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT}, and {@code surface} was created using {@link KHRWin32Surface#vkCreateWin32SurfaceKHR CreateWin32SurfaceKHR}, a {@link VkSurfaceFullScreenExclusiveWin32InfoEXT} structure <b>must</b> be included in the {@code pNext} chain</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-imageCompressionControlSwapchain">{@code imageCompressionControlSwapchain}</a> feature is not enabled, the {@code pNext} chain <b>must</b> not include an {@link VkImageCompressionControlEXT} structure</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-imageCompressionControlSwapchain">{@code imageCompressionControlSwapchain}</a> feature is not enabled, the {@code pNext} chain <b>must</b> not include an {@link VkImageCompressionControlEXT} structure</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -236,9 +239,8 @@ public class VkSwapchainCreateInfoKHR extends Struct<VkSwapchainCreateInfoKHR> i
     @NativeType("uint32_t")
     public int queueFamilyIndexCount() { return nqueueFamilyIndexCount(address()); }
     /** a pointer to an array of queue family indices having access to the images(s) of the swapchain when {@code imageSharingMode} is {@link VK10#VK_SHARING_MODE_CONCURRENT SHARING_MODE_CONCURRENT}. */
-    @Nullable
     @NativeType("uint32_t const *")
-    public IntBuffer pQueueFamilyIndices() { return npQueueFamilyIndices(address()); }
+    public @Nullable IntBuffer pQueueFamilyIndices() { return npQueueFamilyIndices(address()); }
     /** a {@code VkSurfaceTransformFlagBitsKHR} value describing the transform, relative to the presentation engine’s natural orientation, applied to the image content prior to presentation. If it does not match the {@code currentTransform} value returned by {@code vkGetPhysicalDeviceSurfaceCapabilitiesKHR}, the presentation engine will transform the image content as part of the presentation operation. */
     @NativeType("VkSurfaceTransformFlagBitsKHR")
     public int preTransform() { return npreTransform(address()); }
@@ -252,8 +254,8 @@ public class VkSwapchainCreateInfoKHR extends Struct<VkSwapchainCreateInfoKHR> i
      * specifies whether the Vulkan implementation is allowed to discard rendering operations that affect regions of the surface that are not visible.
      * 
      * <ul>
-     * <li>If set to {@link VK10#VK_TRUE TRUE}, the presentable images associated with the swapchain <b>may</b> not own all of their pixels. Pixels in the presentable images that correspond to regions of the target surface obscured by another window on the desktop, or subject to some other clipping mechanism will have undefined content when read back. Fragment shaders <b>may</b> not execute for these pixels, and thus any side effects they would have had will not occur. Setting {@link VK10#VK_TRUE TRUE} does not guarantee any clipping will occur, but allows more efficient presentation methods to be used on some platforms.</li>
-     * <li>If set to {@link VK10#VK_FALSE FALSE}, presentable images associated with the swapchain will own all of the pixels they contain.
+     * <li>If {@code clipped} is {@link VK10#VK_TRUE TRUE}, the presentable images associated with the swapchain <b>may</b> not own all of their pixels. Pixels in the presentable images that correspond to regions of the target surface obscured by another window on the desktop, or subject to some other clipping mechanism will have undefined content when read back. Fragment shaders <b>may</b> not execute for these pixels, and thus any side effects they would have had will not occur. Setting {@link VK10#VK_TRUE TRUE} does not guarantee any clipping will occur, but allows more efficient presentation methods to be used on some platforms.</li>
+     * <li>If {@code clipped} is {@link VK10#VK_FALSE FALSE}, presentable images associated with the swapchain will own all of the pixels they contain.
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
@@ -427,8 +429,7 @@ public class VkSwapchainCreateInfoKHR extends Struct<VkSwapchainCreateInfoKHR> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSwapchainCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkSwapchainCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkSwapchainCreateInfoKHR(address, null);
     }
 
@@ -471,8 +472,7 @@ public class VkSwapchainCreateInfoKHR extends Struct<VkSwapchainCreateInfoKHR> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSwapchainCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkSwapchainCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -536,78 +536,78 @@ public class VkSwapchainCreateInfoKHR extends Struct<VkSwapchainCreateInfoKHR> i
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSwapchainCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.FLAGS); }
     /** Unsafe version of {@link #surface}. */
-    public static long nsurface(long struct) { return UNSAFE.getLong(null, struct + VkSwapchainCreateInfoKHR.SURFACE); }
+    public static long nsurface(long struct) { return memGetLong(struct + VkSwapchainCreateInfoKHR.SURFACE); }
     /** Unsafe version of {@link #minImageCount}. */
-    public static int nminImageCount(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.MINIMAGECOUNT); }
+    public static int nminImageCount(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.MINIMAGECOUNT); }
     /** Unsafe version of {@link #imageFormat}. */
-    public static int nimageFormat(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.IMAGEFORMAT); }
+    public static int nimageFormat(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.IMAGEFORMAT); }
     /** Unsafe version of {@link #imageColorSpace}. */
-    public static int nimageColorSpace(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.IMAGECOLORSPACE); }
+    public static int nimageColorSpace(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.IMAGECOLORSPACE); }
     /** Unsafe version of {@link #imageExtent}. */
     public static VkExtent2D nimageExtent(long struct) { return VkExtent2D.create(struct + VkSwapchainCreateInfoKHR.IMAGEEXTENT); }
     /** Unsafe version of {@link #imageArrayLayers}. */
-    public static int nimageArrayLayers(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.IMAGEARRAYLAYERS); }
+    public static int nimageArrayLayers(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.IMAGEARRAYLAYERS); }
     /** Unsafe version of {@link #imageUsage}. */
-    public static int nimageUsage(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.IMAGEUSAGE); }
+    public static int nimageUsage(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.IMAGEUSAGE); }
     /** Unsafe version of {@link #imageSharingMode}. */
-    public static int nimageSharingMode(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.IMAGESHARINGMODE); }
+    public static int nimageSharingMode(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.IMAGESHARINGMODE); }
     /** Unsafe version of {@link #queueFamilyIndexCount}. */
-    public static int nqueueFamilyIndexCount(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.QUEUEFAMILYINDEXCOUNT); }
+    public static int nqueueFamilyIndexCount(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.QUEUEFAMILYINDEXCOUNT); }
     /** Unsafe version of {@link #pQueueFamilyIndices() pQueueFamilyIndices}. */
-    @Nullable public static IntBuffer npQueueFamilyIndices(long struct) { return memIntBufferSafe(memGetAddress(struct + VkSwapchainCreateInfoKHR.PQUEUEFAMILYINDICES), nqueueFamilyIndexCount(struct)); }
+    public static @Nullable IntBuffer npQueueFamilyIndices(long struct) { return memIntBufferSafe(memGetAddress(struct + VkSwapchainCreateInfoKHR.PQUEUEFAMILYINDICES), nqueueFamilyIndexCount(struct)); }
     /** Unsafe version of {@link #preTransform}. */
-    public static int npreTransform(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.PRETRANSFORM); }
+    public static int npreTransform(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.PRETRANSFORM); }
     /** Unsafe version of {@link #compositeAlpha}. */
-    public static int ncompositeAlpha(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.COMPOSITEALPHA); }
+    public static int ncompositeAlpha(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.COMPOSITEALPHA); }
     /** Unsafe version of {@link #presentMode}. */
-    public static int npresentMode(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.PRESENTMODE); }
+    public static int npresentMode(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.PRESENTMODE); }
     /** Unsafe version of {@link #clipped}. */
-    public static int nclipped(long struct) { return UNSAFE.getInt(null, struct + VkSwapchainCreateInfoKHR.CLIPPED); }
+    public static int nclipped(long struct) { return memGetInt(struct + VkSwapchainCreateInfoKHR.CLIPPED); }
     /** Unsafe version of {@link #oldSwapchain}. */
-    public static long noldSwapchain(long struct) { return UNSAFE.getLong(null, struct + VkSwapchainCreateInfoKHR.OLDSWAPCHAIN); }
+    public static long noldSwapchain(long struct) { return memGetLong(struct + VkSwapchainCreateInfoKHR.OLDSWAPCHAIN); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSwapchainCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #surface(long) surface}. */
-    public static void nsurface(long struct, long value) { UNSAFE.putLong(null, struct + VkSwapchainCreateInfoKHR.SURFACE, value); }
+    public static void nsurface(long struct, long value) { memPutLong(struct + VkSwapchainCreateInfoKHR.SURFACE, value); }
     /** Unsafe version of {@link #minImageCount(int) minImageCount}. */
-    public static void nminImageCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.MINIMAGECOUNT, value); }
+    public static void nminImageCount(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.MINIMAGECOUNT, value); }
     /** Unsafe version of {@link #imageFormat(int) imageFormat}. */
-    public static void nimageFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.IMAGEFORMAT, value); }
+    public static void nimageFormat(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.IMAGEFORMAT, value); }
     /** Unsafe version of {@link #imageColorSpace(int) imageColorSpace}. */
-    public static void nimageColorSpace(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.IMAGECOLORSPACE, value); }
+    public static void nimageColorSpace(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.IMAGECOLORSPACE, value); }
     /** Unsafe version of {@link #imageExtent(VkExtent2D) imageExtent}. */
     public static void nimageExtent(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkSwapchainCreateInfoKHR.IMAGEEXTENT, VkExtent2D.SIZEOF); }
     /** Unsafe version of {@link #imageArrayLayers(int) imageArrayLayers}. */
-    public static void nimageArrayLayers(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.IMAGEARRAYLAYERS, value); }
+    public static void nimageArrayLayers(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.IMAGEARRAYLAYERS, value); }
     /** Unsafe version of {@link #imageUsage(int) imageUsage}. */
-    public static void nimageUsage(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.IMAGEUSAGE, value); }
+    public static void nimageUsage(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.IMAGEUSAGE, value); }
     /** Unsafe version of {@link #imageSharingMode(int) imageSharingMode}. */
-    public static void nimageSharingMode(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.IMAGESHARINGMODE, value); }
+    public static void nimageSharingMode(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.IMAGESHARINGMODE, value); }
     /** Sets the specified value to the {@code queueFamilyIndexCount} field of the specified {@code struct}. */
-    public static void nqueueFamilyIndexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.QUEUEFAMILYINDEXCOUNT, value); }
+    public static void nqueueFamilyIndexCount(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.QUEUEFAMILYINDEXCOUNT, value); }
     /** Unsafe version of {@link #pQueueFamilyIndices(IntBuffer) pQueueFamilyIndices}. */
     public static void npQueueFamilyIndices(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkSwapchainCreateInfoKHR.PQUEUEFAMILYINDICES, memAddressSafe(value)); if (value != null) { nqueueFamilyIndexCount(struct, value.remaining()); } }
     /** Unsafe version of {@link #preTransform(int) preTransform}. */
-    public static void npreTransform(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.PRETRANSFORM, value); }
+    public static void npreTransform(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.PRETRANSFORM, value); }
     /** Unsafe version of {@link #compositeAlpha(int) compositeAlpha}. */
-    public static void ncompositeAlpha(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.COMPOSITEALPHA, value); }
+    public static void ncompositeAlpha(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.COMPOSITEALPHA, value); }
     /** Unsafe version of {@link #presentMode(int) presentMode}. */
-    public static void npresentMode(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.PRESENTMODE, value); }
+    public static void npresentMode(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.PRESENTMODE, value); }
     /** Unsafe version of {@link #clipped(boolean) clipped}. */
-    public static void nclipped(long struct, int value) { UNSAFE.putInt(null, struct + VkSwapchainCreateInfoKHR.CLIPPED, value); }
+    public static void nclipped(long struct, int value) { memPutInt(struct + VkSwapchainCreateInfoKHR.CLIPPED, value); }
     /** Unsafe version of {@link #oldSwapchain(long) oldSwapchain}. */
-    public static void noldSwapchain(long struct, long value) { UNSAFE.putLong(null, struct + VkSwapchainCreateInfoKHR.OLDSWAPCHAIN, value); }
+    public static void noldSwapchain(long struct, long value) { memPutLong(struct + VkSwapchainCreateInfoKHR.OLDSWAPCHAIN, value); }
 
     // -----------------------------------
 
@@ -640,6 +640,11 @@ public class VkSwapchainCreateInfoKHR extends Struct<VkSwapchainCreateInfoKHR> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -683,9 +688,8 @@ public class VkSwapchainCreateInfoKHR extends Struct<VkSwapchainCreateInfoKHR> i
         @NativeType("uint32_t")
         public int queueFamilyIndexCount() { return VkSwapchainCreateInfoKHR.nqueueFamilyIndexCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkSwapchainCreateInfoKHR#pQueueFamilyIndices} field. */
-        @Nullable
         @NativeType("uint32_t const *")
-        public IntBuffer pQueueFamilyIndices() { return VkSwapchainCreateInfoKHR.npQueueFamilyIndices(address()); }
+        public @Nullable IntBuffer pQueueFamilyIndices() { return VkSwapchainCreateInfoKHR.npQueueFamilyIndices(address()); }
         /** @return the value of the {@link VkSwapchainCreateInfoKHR#preTransform} field. */
         @NativeType("VkSurfaceTransformFlagBitsKHR")
         public int preTransform() { return VkSwapchainCreateInfoKHR.npreTransform(address()); }

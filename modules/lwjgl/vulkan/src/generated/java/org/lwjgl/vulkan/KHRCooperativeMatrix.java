@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -32,7 +32,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>SPIR-V Dependencies</b></dt>
  * <dd><ul>
  * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_cooperative_matrix.html">SPV_KHR_cooperative_matrix</a></li>
@@ -97,19 +97,19 @@ public class KHRCooperativeMatrix {
      * <li>{@link #VK_COMPONENT_TYPE_FLOAT16_KHR COMPONENT_TYPE_FLOAT16_KHR} corresponds to SPIR-V {@code OpTypeFloat} 16.</li>
      * <li>{@link #VK_COMPONENT_TYPE_FLOAT32_KHR COMPONENT_TYPE_FLOAT32_KHR} corresponds to SPIR-V {@code OpTypeFloat} 32.</li>
      * <li>{@link #VK_COMPONENT_TYPE_FLOAT64_KHR COMPONENT_TYPE_FLOAT64_KHR} corresponds to SPIR-V {@code OpTypeFloat} 64.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT8_KHR COMPONENT_TYPE_SINT8_KHR} corresponds to SPIR-V {@code OpTypeInt} 8 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT16_KHR COMPONENT_TYPE_SINT16_KHR} corresponds to SPIR-V {@code OpTypeInt} 16 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT32_KHR COMPONENT_TYPE_SINT32_KHR} corresponds to SPIR-V {@code OpTypeInt} 32 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT64_KHR COMPONENT_TYPE_SINT64_KHR} corresponds to SPIR-V {@code OpTypeInt} 64 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT8_KHR COMPONENT_TYPE_UINT8_KHR} corresponds to SPIR-V {@code OpTypeInt} 8 0.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT16_KHR COMPONENT_TYPE_UINT16_KHR} corresponds to SPIR-V {@code OpTypeInt} 16 0.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT32_KHR COMPONENT_TYPE_UINT32_KHR} corresponds to SPIR-V {@code OpTypeInt} 32 0.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT64_KHR COMPONENT_TYPE_UINT64_KHR} corresponds to SPIR-V {@code OpTypeInt} 64 0.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT8_KHR COMPONENT_TYPE_SINT8_KHR} corresponds to SPIR-V {@code OpTypeInt} 8 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT16_KHR COMPONENT_TYPE_SINT16_KHR} corresponds to SPIR-V {@code OpTypeInt} 16 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT32_KHR COMPONENT_TYPE_SINT32_KHR} corresponds to SPIR-V {@code OpTypeInt} 32 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT64_KHR COMPONENT_TYPE_SINT64_KHR} corresponds to SPIR-V {@code OpTypeInt} 64 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT8_KHR COMPONENT_TYPE_UINT8_KHR} corresponds to SPIR-V {@code OpTypeInt} 8 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT16_KHR COMPONENT_TYPE_UINT16_KHR} corresponds to SPIR-V {@code OpTypeInt} 16 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT32_KHR COMPONENT_TYPE_UINT32_KHR} corresponds to SPIR-V {@code OpTypeInt} 32 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT64_KHR COMPONENT_TYPE_UINT64_KHR} corresponds to SPIR-V {@code OpTypeInt} 64 0/1.</li>
      * </ul>
      * 
      * <h5>See Also</h5>
      * 
-     * <p>{@link VkCooperativeMatrixPropertiesKHR}</p>
+     * <p>{@link VkCooperativeMatrixFlexibleDimensionsPropertiesNV}, {@link VkCooperativeMatrixPropertiesKHR}</p>
      */
     public static final int
         VK_COMPONENT_TYPE_FLOAT16_KHR = 0,
@@ -140,7 +140,7 @@ public class KHRCooperativeMatrix {
      * 
      * <h5>See Also</h5>
      * 
-     * <p>{@link VkCooperativeMatrixPropertiesKHR}</p>
+     * <p>{@link VkCooperativeMatrixFlexibleDimensionsPropertiesNV}, {@link VkCooperativeMatrixPropertiesKHR}</p>
      */
     public static final int
         VK_SCOPE_DEVICE_KHR       = 1,
@@ -216,7 +216,7 @@ public class KHRCooperativeMatrix {
      * @param pProperties    either {@code NULL} or a pointer to an array of {@link VkCooperativeMatrixPropertiesKHR} structures.
      */
     @NativeType("VkResult")
-    public static int vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(VkPhysicalDevice physicalDevice, @NativeType("uint32_t *") IntBuffer pPropertyCount, @Nullable @NativeType("VkCooperativeMatrixPropertiesKHR *") VkCooperativeMatrixPropertiesKHR.Buffer pProperties) {
+    public static int vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(VkPhysicalDevice physicalDevice, @NativeType("uint32_t *") IntBuffer pPropertyCount, @NativeType("VkCooperativeMatrixPropertiesKHR *") VkCooperativeMatrixPropertiesKHR.@Nullable Buffer pProperties) {
         if (CHECKS) {
             check(pPropertyCount, 1);
             checkSafe(pProperties, pPropertyCount.get(pPropertyCount.position()));
@@ -226,7 +226,7 @@ public class KHRCooperativeMatrix {
 
     /** Array version of: {@link #vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR GetPhysicalDeviceCooperativeMatrixPropertiesKHR} */
     @NativeType("VkResult")
-    public static int vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(VkPhysicalDevice physicalDevice, @NativeType("uint32_t *") int[] pPropertyCount, @Nullable @NativeType("VkCooperativeMatrixPropertiesKHR *") VkCooperativeMatrixPropertiesKHR.Buffer pProperties) {
+    public static int vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(VkPhysicalDevice physicalDevice, @NativeType("uint32_t *") int[] pPropertyCount, @NativeType("VkCooperativeMatrixPropertiesKHR *") VkCooperativeMatrixPropertiesKHR.@Nullable Buffer pProperties) {
         long __functionAddress = physicalDevice.getCapabilities().vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR;
         if (CHECKS) {
             check(__functionAddress);

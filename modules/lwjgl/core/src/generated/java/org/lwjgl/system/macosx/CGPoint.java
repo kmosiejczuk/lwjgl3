@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.macosx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -133,8 +133,7 @@ public class CGPoint extends Struct<CGPoint> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CGPoint createSafe(long address) {
+    public static @Nullable CGPoint createSafe(long address) {
         return address == NULL ? null : new CGPoint(address, null);
     }
 
@@ -177,8 +176,7 @@ public class CGPoint extends Struct<CGPoint> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CGPoint.Buffer createSafe(long address, int capacity) {
+    public static CGPoint.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class CGPoint extends Struct<CGPoint> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static double nx(long struct) { return UNSAFE.getDouble(null, struct + CGPoint.X); }
+    public static double nx(long struct) { return memGetDouble(struct + CGPoint.X); }
     /** Unsafe version of {@link #y}. */
-    public static double ny(long struct) { return UNSAFE.getDouble(null, struct + CGPoint.Y); }
+    public static double ny(long struct) { return memGetDouble(struct + CGPoint.Y); }
 
     /** Unsafe version of {@link #x(double) x}. */
-    public static void nx(long struct, double value) { UNSAFE.putDouble(null, struct + CGPoint.X, value); }
+    public static void nx(long struct, double value) { memPutDouble(struct + CGPoint.X, value); }
     /** Unsafe version of {@link #y(double) y}. */
-    public static void ny(long struct, double value) { UNSAFE.putDouble(null, struct + CGPoint.Y, value); }
+    public static void ny(long struct, double value) { memPutDouble(struct + CGPoint.Y, value); }
 
     // -----------------------------------
 
@@ -282,6 +280,11 @@ public class CGPoint extends Struct<CGPoint> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

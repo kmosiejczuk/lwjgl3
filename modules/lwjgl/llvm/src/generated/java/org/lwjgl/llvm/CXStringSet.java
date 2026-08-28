@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -85,8 +85,7 @@ public class CXStringSet extends Struct<CXStringSet> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXStringSet createSafe(long address) {
+    public static @Nullable CXStringSet createSafe(long address) {
         return address == NULL ? null : new CXStringSet(address, null);
     }
 
@@ -101,8 +100,7 @@ public class CXStringSet extends Struct<CXStringSet> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXStringSet.Buffer createSafe(long address, int capacity) {
+    public static CXStringSet.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -111,7 +109,7 @@ public class CXStringSet extends Struct<CXStringSet> {
     /** Unsafe version of {@link #Strings}. */
     public static CXString.Buffer nStrings(long struct) { return CXString.create(memGetAddress(struct + CXStringSet.STRINGS), nCount(struct)); }
     /** Unsafe version of {@link #Count}. */
-    public static int nCount(long struct) { return UNSAFE.getInt(null, struct + CXStringSet.COUNT); }
+    public static int nCount(long struct) { return memGetInt(struct + CXStringSet.COUNT); }
 
     // -----------------------------------
 
@@ -144,6 +142,11 @@ public class CXStringSet extends Struct<CXStringSet> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkPhysicalDeviceMultiviewProperties extends Struct<VkPhysicalDevice
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultiviewProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMultiviewProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMultiviewProperties(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkPhysicalDeviceMultiviewProperties extends Struct<VkPhysicalDevice
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultiviewProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMultiviewProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,16 +266,16 @@ public class VkPhysicalDeviceMultiviewProperties extends Struct<VkPhysicalDevice
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiviewProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiviewProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMultiviewProperties.PNEXT); }
     /** Unsafe version of {@link #maxMultiviewViewCount}. */
-    public static int nmaxMultiviewViewCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiviewProperties.MAXMULTIVIEWVIEWCOUNT); }
+    public static int nmaxMultiviewViewCount(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiviewProperties.MAXMULTIVIEWVIEWCOUNT); }
     /** Unsafe version of {@link #maxMultiviewInstanceIndex}. */
-    public static int nmaxMultiviewInstanceIndex(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiviewProperties.MAXMULTIVIEWINSTANCEINDEX); }
+    public static int nmaxMultiviewInstanceIndex(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiviewProperties.MAXMULTIVIEWINSTANCEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultiviewProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultiviewProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMultiviewProperties.PNEXT, value); }
 
@@ -312,6 +310,11 @@ public class VkPhysicalDeviceMultiviewProperties extends Struct<VkPhysicalDevice
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

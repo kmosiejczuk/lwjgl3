@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysical
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports the layout of resource blocks in shaders using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-alignment-requirements">scalar alignment</a>. */
+    /** indicates that the implementation supports the layout of resource blocks in shaders using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces-alignment-requirements">scalar alignment</a>. */
     @NativeType("VkBool32")
     public boolean scalarBlockLayout() { return nscalarBlockLayout(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceScalarBlockLayoutFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceScalarBlockLayoutFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceScalarBlockLayoutFeatures(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceScalarBlockLayoutFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceScalarBlockLayoutFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceScalarBlockLayoutFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.PNEXT); }
     /** Unsafe version of {@link #scalarBlockLayout}. */
-    public static int nscalarBlockLayout(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceScalarBlockLayoutFeatures.SCALARBLOCKLAYOUT); }
+    public static int nscalarBlockLayout(long struct) { return memGetInt(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.SCALARBLOCKLAYOUT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceScalarBlockLayoutFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.PNEXT, value); }
     /** Unsafe version of {@link #scalarBlockLayout(boolean) scalarBlockLayout}. */
-    public static void nscalarBlockLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceScalarBlockLayoutFeatures.SCALARBLOCKLAYOUT, value); }
+    public static void nscalarBlockLayout(long struct, int value) { memPutInt(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.SCALARBLOCKLAYOUT, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

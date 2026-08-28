@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -121,8 +121,7 @@ public class STBVorbisAlloc extends Struct<STBVorbisAlloc> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBVorbisAlloc createSafe(long address) {
+    public static @Nullable STBVorbisAlloc createSafe(long address) {
         return address == NULL ? null : new STBVorbisAlloc(address, null);
     }
 
@@ -165,8 +164,7 @@ public class STBVorbisAlloc extends Struct<STBVorbisAlloc> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBVorbisAlloc.Buffer createSafe(long address, int capacity) {
+    public static STBVorbisAlloc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -232,12 +230,12 @@ public class STBVorbisAlloc extends Struct<STBVorbisAlloc> implements NativeReso
     /** Unsafe version of {@link #alloc_buffer() alloc_buffer}. */
     public static ByteBuffer nalloc_buffer(long struct) { return memByteBuffer(memGetAddress(struct + STBVorbisAlloc.ALLOC_BUFFER), nalloc_buffer_length_in_bytes(struct)); }
     /** Unsafe version of {@link #alloc_buffer_length_in_bytes}. */
-    public static int nalloc_buffer_length_in_bytes(long struct) { return UNSAFE.getInt(null, struct + STBVorbisAlloc.ALLOC_BUFFER_LENGTH_IN_BYTES); }
+    public static int nalloc_buffer_length_in_bytes(long struct) { return memGetInt(struct + STBVorbisAlloc.ALLOC_BUFFER_LENGTH_IN_BYTES); }
 
     /** Unsafe version of {@link #alloc_buffer(ByteBuffer) alloc_buffer}. */
     public static void nalloc_buffer(long struct, ByteBuffer value) { memPutAddress(struct + STBVorbisAlloc.ALLOC_BUFFER, memAddress(value)); nalloc_buffer_length_in_bytes(struct, value.remaining()); }
     /** Sets the specified value to the {@code alloc_buffer_length_in_bytes} field of the specified {@code struct}. */
-    public static void nalloc_buffer_length_in_bytes(long struct, int value) { UNSAFE.putInt(null, struct + STBVorbisAlloc.ALLOC_BUFFER_LENGTH_IN_BYTES, value); }
+    public static void nalloc_buffer_length_in_bytes(long struct, int value) { memPutInt(struct + STBVorbisAlloc.ALLOC_BUFFER_LENGTH_IN_BYTES, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -279,6 +277,11 @@ public class STBVorbisAlloc extends Struct<STBVorbisAlloc> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

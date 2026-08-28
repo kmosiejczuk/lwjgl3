@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -101,8 +101,7 @@ public class FT_BitmapGlyph extends Struct<FT_BitmapGlyph> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_BitmapGlyph createSafe(long address) {
+    public static @Nullable FT_BitmapGlyph createSafe(long address) {
         return address == NULL ? null : new FT_BitmapGlyph(address, null);
     }
 
@@ -117,8 +116,7 @@ public class FT_BitmapGlyph extends Struct<FT_BitmapGlyph> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_BitmapGlyph.Buffer createSafe(long address, int capacity) {
+    public static FT_BitmapGlyph.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -127,9 +125,9 @@ public class FT_BitmapGlyph extends Struct<FT_BitmapGlyph> {
     /** Unsafe version of {@link #root}. */
     public static FT_Glyph nroot(long struct) { return FT_Glyph.create(struct + FT_BitmapGlyph.ROOT); }
     /** Unsafe version of {@link #left}. */
-    public static int nleft(long struct) { return UNSAFE.getInt(null, struct + FT_BitmapGlyph.LEFT); }
+    public static int nleft(long struct) { return memGetInt(struct + FT_BitmapGlyph.LEFT); }
     /** Unsafe version of {@link #top}. */
-    public static int ntop(long struct) { return UNSAFE.getInt(null, struct + FT_BitmapGlyph.TOP); }
+    public static int ntop(long struct) { return memGetInt(struct + FT_BitmapGlyph.TOP); }
     /** Unsafe version of {@link #bitmap}. */
     public static FT_Bitmap nbitmap(long struct) { return FT_Bitmap.create(struct + FT_BitmapGlyph.BITMAP); }
 
@@ -164,6 +162,11 @@ public class FT_BitmapGlyph extends Struct<FT_BitmapGlyph> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

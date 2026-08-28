@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -256,8 +256,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265SpsVuiFlags createSafe(long address) {
+    public static @Nullable StdVideoH265SpsVuiFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoH265SpsVuiFlags(address, null);
     }
 
@@ -300,8 +299,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265SpsVuiFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265SpsVuiFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -345,7 +343,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoH265SpsVuiFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoH265SpsVuiFlags.BITFIELD0); }
     /** Unsafe version of {@link #aspect_ratio_info_present_flag}. */
     public static int naspect_ratio_info_present_flag(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #overscan_info_present_flag}. */
@@ -383,7 +381,7 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
     /** Unsafe version of {@link #restricted_ref_pic_lists_flag}. */
     public static int nrestricted_ref_pic_lists_flag(long struct) { return (nbitfield0(struct) & 0x00_02_00_00) >>> 17; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH265SpsVuiFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoH265SpsVuiFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #aspect_ratio_info_present_flag(boolean) aspect_ratio_info_present_flag}. */
     public static void naspect_ratio_info_present_flag(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #overscan_info_present_flag(boolean) overscan_info_present_flag}. */
@@ -452,6 +450,11 @@ public class StdVideoH265SpsVuiFlags extends Struct<StdVideoH265SpsVuiFlags> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

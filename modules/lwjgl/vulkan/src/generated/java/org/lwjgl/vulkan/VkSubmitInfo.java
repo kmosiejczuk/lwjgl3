@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,36 +21,36 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The order that command buffers appear in {@code pCommandBuffers} is used to determine <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-submission-order">submission order</a>, and thus all the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-implicit">implicit ordering guarantees</a> that respect it. Other than these implicit ordering guarantees and any <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization">explicit synchronization primitives</a>, these command buffers <b>may</b> overlap or otherwise execute out of order.</p>
+ * <p>The order that command buffers appear in {@code pCommandBuffers} is used to determine <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-submission-order">submission order</a>, and thus all the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-implicit">implicit ordering guarantees</a> that respect it. Other than these implicit ordering guarantees and any <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization">explicit synchronization primitives</a>, these command buffers <b>may</b> overlap or otherwise execute out of order.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT PIPELINE_STAGE_GEOMETRY_SHADER_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT} or {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-conditionalRendering">{@code conditionalRendering}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link EXTConditionalRendering#VK_PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-fragmentDensityMap">{@code fragmentDensityMap}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link EXTFragmentDensityMap#VK_PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link EXTTransformFeedback#VK_PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_MESH_SHADER_BIT_EXT PIPELINE_STAGE_MESH_SHADER_BIT_EXT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_TASK_SHADER_BIT_EXT PIPELINE_STAGE_TASK_SHADER_BIT_EXT}</li>
- * <li>If neither the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shadingRateImage">{@code shadingRateImage}</a> or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> are enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link KHRFragmentShadingRate#VK_PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-synchronization2">{@code synchronization2}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not be 0</li>
- * <li>If neither the {@link NVRayTracing VK_NV_ray_tracing} extension or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rayTracingPipeline">{@code rayTracingPipeline} feature</a> are enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link KHRRayTracingPipeline#VK_PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_GEOMETRY_SHADER_BIT PIPELINE_STAGE_GEOMETRY_SHADER_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT} or {@link VK10#VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-conditionalRendering">{@code conditionalRendering}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link EXTConditionalRendering#VK_PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-fragmentDensityMap">{@code fragmentDensityMap}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link EXTFragmentDensityMap#VK_PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link EXTTransformFeedback#VK_PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_MESH_SHADER_BIT_EXT PIPELINE_STAGE_MESH_SHADER_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link EXTMeshShader#VK_PIPELINE_STAGE_TASK_SHADER_BIT_EXT PIPELINE_STAGE_TASK_SHADER_BIT_EXT}</li>
+ * <li>If neither of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shadingRateImage">{@code shadingRateImage}</a> or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-attachmentFragmentShadingRate">{@code attachmentFragmentShadingRate}</a> features are enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link KHRFragmentShadingRate#VK_PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-synchronization2">{@code synchronization2}</a> feature is not enabled, {@code pWaitDstStageMask} <b>must</b> not be 0</li>
+ * <li>If neither the {@link NVRayTracing VK_NV_ray_tracing} extension or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-rayTracingPipeline">{@code rayTracingPipeline}</a> feature are enabled, {@code pWaitDstStageMask} <b>must</b> not contain {@link KHRRayTracingPipeline#VK_PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR}</li>
  * <li>Each element of {@code pCommandBuffers} <b>must</b> not have been allocated with {@link VK10#VK_COMMAND_BUFFER_LEVEL_SECONDARY COMMAND_BUFFER_LEVEL_SECONDARY}</li>
  * <li>Each element of {@code pWaitDstStageMask} <b>must</b> not include {@link VK10#VK_PIPELINE_STAGE_HOST_BIT PIPELINE_STAGE_HOST_BIT}</li>
  * <li>If any element of {@code pWaitSemaphores} or {@code pSignalSemaphores} was created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE}, then the {@code pNext} chain <b>must</b> include a {@link VkTimelineSemaphoreSubmitInfo} structure</li>
  * <li>If the {@code pNext} chain of this structure includes a {@link VkTimelineSemaphoreSubmitInfo} structure and any element of {@code pWaitSemaphores} was created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE}, then its {@code waitSemaphoreValueCount} member <b>must</b> equal {@code waitSemaphoreCount}</li>
  * <li>If the {@code pNext} chain of this structure includes a {@link VkTimelineSemaphoreSubmitInfo} structure and any element of {@code pSignalSemaphores} was created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE}, then its {@code signalSemaphoreValueCount} member <b>must</b> equal {@code signalSemaphoreCount}</li>
- * <li>For each element of {@code pSignalSemaphores} created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE} the corresponding element of {@link VkTimelineSemaphoreSubmitInfo}{@code ::pSignalSemaphoreValues} <b>must</b> have a value greater than the current value of the semaphore when the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-semaphores-signaling">semaphore signal operation</a> is executed</li>
- * <li>For each element of {@code pWaitSemaphores} created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE} the corresponding element of {@link VkTimelineSemaphoreSubmitInfo}{@code ::pWaitSemaphoreValues} <b>must</b> have a value which does not differ from the current value of the semaphore or the value of any outstanding semaphore wait or signal operation on that semaphore by more than <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxTimelineSemaphoreValueDifference">{@code maxTimelineSemaphoreValueDifference}</a></li>
- * <li>For each element of {@code pSignalSemaphores} created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE} the corresponding element of {@link VkTimelineSemaphoreSubmitInfo}{@code ::pSignalSemaphoreValues} <b>must</b> have a value which does not differ from the current value of the semaphore or the value of any outstanding semaphore wait or signal operation on that semaphore by more than <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxTimelineSemaphoreValueDifference">{@code maxTimelineSemaphoreValueDifference}</a></li>
+ * <li>For each element of {@code pSignalSemaphores} created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE} the corresponding element of {@link VkTimelineSemaphoreSubmitInfo}{@code ::pSignalSemaphoreValues} <b>must</b> have a value greater than the current value of the semaphore when the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-semaphores-signaling">semaphore signal operation</a> is executed</li>
+ * <li>For each element of {@code pWaitSemaphores} created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE} the corresponding element of {@link VkTimelineSemaphoreSubmitInfo}{@code ::pWaitSemaphoreValues} <b>must</b> have a value which does not differ from the current value of the semaphore or the value of any outstanding semaphore wait or signal operation on that semaphore by more than <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxTimelineSemaphoreValueDifference">{@code maxTimelineSemaphoreValueDifference}</a></li>
+ * <li>For each element of {@code pSignalSemaphores} created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE} the corresponding element of {@link VkTimelineSemaphoreSubmitInfo}{@code ::pSignalSemaphoreValues} <b>must</b> have a value which does not differ from the current value of the semaphore or the value of any outstanding semaphore wait or signal operation on that semaphore by more than <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxTimelineSemaphoreValueDifference">{@code maxTimelineSemaphoreValueDifference}</a></li>
  * <li>If the {@code pNext} chain of this structure does not include a {@link VkProtectedSubmitInfo} structure with {@code protectedSubmit} set to {@link VK10#VK_TRUE TRUE}, then each element of the {@code pCommandBuffers} array <b>must</b> be an unprotected command buffer</li>
  * <li>If the {@code pNext} chain of this structure includes a {@link VkProtectedSubmitInfo} structure with {@code protectedSubmit} set to {@link VK10#VK_TRUE TRUE}, then each element of the {@code pCommandBuffers} array <b>must</b> be a protected command buffer</li>
- * <li>If {@code pCommandBuffers} contains any <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-suspension">resumed render pass instances</a>, they <b>must</b> be suspended by a render pass instance earlier in submission order within {@code pCommandBuffers}</li>
- * <li>If {@code pCommandBuffers} contains any <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-suspension">suspended render pass instances</a>, they <b>must</b> be resumed by a render pass instance later in submission order within {@code pCommandBuffers}</li>
- * <li>If {@code pCommandBuffers} contains any <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-suspension">suspended render pass instances</a>, there <b>must</b> be no action or synchronization commands executed in a primary or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-secondary">secondary</a> command buffer between that render pass instance and the render pass instance that resumes it</li>
- * <li>If {@code pCommandBuffers} contains any <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-suspension">suspended render pass instances</a>, there <b>must</b> be no render pass instances between that render pass instance and the render pass instance that resumes it</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-variableSampleLocations">{@code variableSampleLocations}</a> limit is not supported, and any element of {@code pCommandBuffers} contains any <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-suspension">suspended render pass instances</a>, where a graphics pipeline has been bound, any pipelines bound in the render pass instance that resumes it, or any subsequent render pass instances that resume from that one and so on, <b>must</b> use the same sample locations</li>
+ * <li>If {@code pCommandBuffers} contains any <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-suspension">resumed render pass instances</a>, they <b>must</b> be suspended by a render pass instance earlier in submission order within {@code pCommandBuffers}</li>
+ * <li>If {@code pCommandBuffers} contains any <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-suspension">suspended render pass instances</a>, they <b>must</b> be resumed by a render pass instance later in submission order within {@code pCommandBuffers}</li>
+ * <li>If {@code pCommandBuffers} contains any <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-suspension">suspended render pass instances</a>, there <b>must</b> be no action or synchronization commands executed in a primary or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-secondary">secondary</a> command buffer between that render pass instance and the render pass instance that resumes it</li>
+ * <li>If {@code pCommandBuffers} contains any <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-suspension">suspended render pass instances</a>, there <b>must</b> be no render pass instances between that render pass instance and the render pass instance that resumes it</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-variableSampleLocations">{@code variableSampleLocations}</a> limit is not supported, and any element of {@code pCommandBuffers} contains any <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-suspension">suspended render pass instances</a>, where a graphics pipeline has been bound, any pipelines bound in the render pass instance that resumes it, or any subsequent render pass instances that resume from that one and so on, <b>must</b> use the same sample locations</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -163,28 +163,24 @@ public class VkSubmitInfo extends Struct<VkSubmitInfo> implements NativeResource
     /** the number of semaphores upon which to wait before executing the command buffers for the batch. */
     @NativeType("uint32_t")
     public int waitSemaphoreCount() { return nwaitSemaphoreCount(address()); }
-    /** a pointer to an array of {@code VkSemaphore} handles upon which to wait before the command buffers for this batch begin execution. If semaphores to wait on are provided, they define a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-semaphores-waiting">semaphore wait operation</a>. */
-    @Nullable
+    /** a pointer to an array of {@code VkSemaphore} handles upon which to wait before the command buffers for this batch begin execution. If semaphores to wait on are provided, they define a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-semaphores-waiting">semaphore wait operation</a>. */
     @NativeType("VkSemaphore const *")
-    public LongBuffer pWaitSemaphores() { return npWaitSemaphores(address()); }
+    public @Nullable LongBuffer pWaitSemaphores() { return npWaitSemaphores(address()); }
     /** a pointer to an array of pipeline stages at which each corresponding semaphore wait will occur. */
-    @Nullable
     @NativeType("VkPipelineStageFlags const *")
-    public IntBuffer pWaitDstStageMask() { return npWaitDstStageMask(address()); }
+    public @Nullable IntBuffer pWaitDstStageMask() { return npWaitDstStageMask(address()); }
     /** the number of command buffers to execute in the batch. */
     @NativeType("uint32_t")
     public int commandBufferCount() { return ncommandBufferCount(address()); }
     /** a pointer to an array of {@code VkCommandBuffer} handles to execute in the batch. */
-    @Nullable
     @NativeType("VkCommandBuffer const *")
-    public PointerBuffer pCommandBuffers() { return npCommandBuffers(address()); }
+    public @Nullable PointerBuffer pCommandBuffers() { return npCommandBuffers(address()); }
     /** the number of semaphores to be signaled once the commands specified in {@code pCommandBuffers} have completed execution. */
     @NativeType("uint32_t")
     public int signalSemaphoreCount() { return nsignalSemaphoreCount(address()); }
-    /** a pointer to an array of {@code VkSemaphore} handles which will be signaled when the command buffers for this batch have completed execution. If semaphores to be signaled are provided, they define a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-semaphores-signaling">semaphore signal operation</a>. */
-    @Nullable
+    /** a pointer to an array of {@code VkSemaphore} handles which will be signaled when the command buffers for this batch have completed execution. If semaphores to be signaled are provided, they define a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-semaphores-signaling">semaphore signal operation</a>. */
     @NativeType("VkSemaphore const *")
-    public LongBuffer pSignalSemaphores() { return npSignalSemaphores(address()); }
+    public @Nullable LongBuffer pSignalSemaphores() { return npSignalSemaphores(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkSubmitInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -284,8 +280,7 @@ public class VkSubmitInfo extends Struct<VkSubmitInfo> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubmitInfo createSafe(long address) {
+    public static @Nullable VkSubmitInfo createSafe(long address) {
         return address == NULL ? null : new VkSubmitInfo(address, null);
     }
 
@@ -328,8 +323,7 @@ public class VkSubmitInfo extends Struct<VkSubmitInfo> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubmitInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSubmitInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -393,40 +387,40 @@ public class VkSubmitInfo extends Struct<VkSubmitInfo> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSubmitInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSubmitInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSubmitInfo.PNEXT); }
     /** Unsafe version of {@link #waitSemaphoreCount}. */
-    public static int nwaitSemaphoreCount(long struct) { return UNSAFE.getInt(null, struct + VkSubmitInfo.WAITSEMAPHORECOUNT); }
+    public static int nwaitSemaphoreCount(long struct) { return memGetInt(struct + VkSubmitInfo.WAITSEMAPHORECOUNT); }
     /** Unsafe version of {@link #pWaitSemaphores() pWaitSemaphores}. */
-    @Nullable public static LongBuffer npWaitSemaphores(long struct) { return memLongBufferSafe(memGetAddress(struct + VkSubmitInfo.PWAITSEMAPHORES), nwaitSemaphoreCount(struct)); }
+    public static @Nullable LongBuffer npWaitSemaphores(long struct) { return memLongBufferSafe(memGetAddress(struct + VkSubmitInfo.PWAITSEMAPHORES), nwaitSemaphoreCount(struct)); }
     /** Unsafe version of {@link #pWaitDstStageMask() pWaitDstStageMask}. */
-    @Nullable public static IntBuffer npWaitDstStageMask(long struct) { return memIntBufferSafe(memGetAddress(struct + VkSubmitInfo.PWAITDSTSTAGEMASK), nwaitSemaphoreCount(struct)); }
+    public static @Nullable IntBuffer npWaitDstStageMask(long struct) { return memIntBufferSafe(memGetAddress(struct + VkSubmitInfo.PWAITDSTSTAGEMASK), nwaitSemaphoreCount(struct)); }
     /** Unsafe version of {@link #commandBufferCount}. */
-    public static int ncommandBufferCount(long struct) { return UNSAFE.getInt(null, struct + VkSubmitInfo.COMMANDBUFFERCOUNT); }
+    public static int ncommandBufferCount(long struct) { return memGetInt(struct + VkSubmitInfo.COMMANDBUFFERCOUNT); }
     /** Unsafe version of {@link #pCommandBuffers() pCommandBuffers}. */
-    @Nullable public static PointerBuffer npCommandBuffers(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkSubmitInfo.PCOMMANDBUFFERS), ncommandBufferCount(struct)); }
+    public static @Nullable PointerBuffer npCommandBuffers(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkSubmitInfo.PCOMMANDBUFFERS), ncommandBufferCount(struct)); }
     /** Unsafe version of {@link #signalSemaphoreCount}. */
-    public static int nsignalSemaphoreCount(long struct) { return UNSAFE.getInt(null, struct + VkSubmitInfo.SIGNALSEMAPHORECOUNT); }
+    public static int nsignalSemaphoreCount(long struct) { return memGetInt(struct + VkSubmitInfo.SIGNALSEMAPHORECOUNT); }
     /** Unsafe version of {@link #pSignalSemaphores() pSignalSemaphores}. */
-    @Nullable public static LongBuffer npSignalSemaphores(long struct) { return memLongBufferSafe(memGetAddress(struct + VkSubmitInfo.PSIGNALSEMAPHORES), nsignalSemaphoreCount(struct)); }
+    public static @Nullable LongBuffer npSignalSemaphores(long struct) { return memLongBufferSafe(memGetAddress(struct + VkSubmitInfo.PSIGNALSEMAPHORES), nsignalSemaphoreCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSubmitInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSubmitInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSubmitInfo.PNEXT, value); }
     /** Sets the specified value to the {@code waitSemaphoreCount} field of the specified {@code struct}. */
-    public static void nwaitSemaphoreCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSubmitInfo.WAITSEMAPHORECOUNT, value); }
+    public static void nwaitSemaphoreCount(long struct, int value) { memPutInt(struct + VkSubmitInfo.WAITSEMAPHORECOUNT, value); }
     /** Unsafe version of {@link #pWaitSemaphores(LongBuffer) pWaitSemaphores}. */
     public static void npWaitSemaphores(long struct, @Nullable LongBuffer value) { memPutAddress(struct + VkSubmitInfo.PWAITSEMAPHORES, memAddressSafe(value)); }
     /** Unsafe version of {@link #pWaitDstStageMask(IntBuffer) pWaitDstStageMask}. */
     public static void npWaitDstStageMask(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkSubmitInfo.PWAITDSTSTAGEMASK, memAddressSafe(value)); }
     /** Sets the specified value to the {@code commandBufferCount} field of the specified {@code struct}. */
-    public static void ncommandBufferCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSubmitInfo.COMMANDBUFFERCOUNT, value); }
+    public static void ncommandBufferCount(long struct, int value) { memPutInt(struct + VkSubmitInfo.COMMANDBUFFERCOUNT, value); }
     /** Unsafe version of {@link #pCommandBuffers(PointerBuffer) pCommandBuffers}. */
     public static void npCommandBuffers(long struct, @Nullable PointerBuffer value) { memPutAddress(struct + VkSubmitInfo.PCOMMANDBUFFERS, memAddressSafe(value)); ncommandBufferCount(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code signalSemaphoreCount} field of the specified {@code struct}. */
-    public static void nsignalSemaphoreCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSubmitInfo.SIGNALSEMAPHORECOUNT, value); }
+    public static void nsignalSemaphoreCount(long struct, int value) { memPutInt(struct + VkSubmitInfo.SIGNALSEMAPHORECOUNT, value); }
     /** Unsafe version of {@link #pSignalSemaphores(LongBuffer) pSignalSemaphores}. */
     public static void npSignalSemaphores(long struct, @Nullable LongBuffer value) { memPutAddress(struct + VkSubmitInfo.PSIGNALSEMAPHORES, memAddressSafe(value)); nsignalSemaphoreCount(struct, value == null ? 0 : value.remaining()); }
 
@@ -481,6 +475,11 @@ public class VkSubmitInfo extends Struct<VkSubmitInfo> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSubmitInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -495,27 +494,23 @@ public class VkSubmitInfo extends Struct<VkSubmitInfo> implements NativeResource
         @NativeType("uint32_t")
         public int waitSemaphoreCount() { return VkSubmitInfo.nwaitSemaphoreCount(address()); }
         /** @return a {@link LongBuffer} view of the data pointed to by the {@link VkSubmitInfo#pWaitSemaphores} field. */
-        @Nullable
         @NativeType("VkSemaphore const *")
-        public LongBuffer pWaitSemaphores() { return VkSubmitInfo.npWaitSemaphores(address()); }
+        public @Nullable LongBuffer pWaitSemaphores() { return VkSubmitInfo.npWaitSemaphores(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkSubmitInfo#pWaitDstStageMask} field. */
-        @Nullable
         @NativeType("VkPipelineStageFlags const *")
-        public IntBuffer pWaitDstStageMask() { return VkSubmitInfo.npWaitDstStageMask(address()); }
+        public @Nullable IntBuffer pWaitDstStageMask() { return VkSubmitInfo.npWaitDstStageMask(address()); }
         /** @return the value of the {@link VkSubmitInfo#commandBufferCount} field. */
         @NativeType("uint32_t")
         public int commandBufferCount() { return VkSubmitInfo.ncommandBufferCount(address()); }
         /** @return a {@link PointerBuffer} view of the data pointed to by the {@link VkSubmitInfo#pCommandBuffers} field. */
-        @Nullable
         @NativeType("VkCommandBuffer const *")
-        public PointerBuffer pCommandBuffers() { return VkSubmitInfo.npCommandBuffers(address()); }
+        public @Nullable PointerBuffer pCommandBuffers() { return VkSubmitInfo.npCommandBuffers(address()); }
         /** @return the value of the {@link VkSubmitInfo#signalSemaphoreCount} field. */
         @NativeType("uint32_t")
         public int signalSemaphoreCount() { return VkSubmitInfo.nsignalSemaphoreCount(address()); }
         /** @return a {@link LongBuffer} view of the data pointed to by the {@link VkSubmitInfo#pSignalSemaphores} field. */
-        @Nullable
         @NativeType("VkSemaphore const *")
-        public LongBuffer pSignalSemaphores() { return VkSubmitInfo.npSignalSemaphores(address()); }
+        public @Nullable LongBuffer pSignalSemaphores() { return VkSubmitInfo.npSignalSemaphores(address()); }
 
         /** Sets the specified value to the {@link VkSubmitInfo#sType} field. */
         public VkSubmitInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkSubmitInfo.nsType(address(), value); return this; }

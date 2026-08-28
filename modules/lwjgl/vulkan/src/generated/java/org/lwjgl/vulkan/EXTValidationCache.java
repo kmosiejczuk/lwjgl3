@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,11 +163,11 @@ public class EXTValidationCache {
      *
      * @param device           the logical device that creates the validation cache object.
      * @param pCreateInfo      a pointer to a {@link VkValidationCacheCreateInfoEXT} structure containing the initial parameters for the validation cache object.
-     * @param pAllocator       controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator       controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pValidationCache a pointer to a {@code VkValidationCacheEXT} handle in which the resulting validation cache object is returned.
      */
     @NativeType("VkResult")
-    public static int vkCreateValidationCacheEXT(VkDevice device, @NativeType("VkValidationCacheCreateInfoEXT const *") VkValidationCacheCreateInfoEXT pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkValidationCacheEXT *") LongBuffer pValidationCache) {
+    public static int vkCreateValidationCacheEXT(VkDevice device, @NativeType("VkValidationCacheCreateInfoEXT const *") VkValidationCacheCreateInfoEXT pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkValidationCacheEXT *") LongBuffer pValidationCache) {
         if (CHECKS) {
             check(pValidationCache, 1);
         }
@@ -226,9 +226,9 @@ public class EXTValidationCache {
      *
      * @param device          the logical device that destroys the validation cache object.
      * @param validationCache the handle of the validation cache to destroy.
-     * @param pAllocator      controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator      controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
-    public static void vkDestroyValidationCacheEXT(VkDevice device, @NativeType("VkValidationCacheEXT") long validationCache, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
+    public static void vkDestroyValidationCacheEXT(VkDevice device, @NativeType("VkValidationCacheEXT") long validationCache, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator) {
         nvkDestroyValidationCacheEXT(device, validationCache, memAddressSafe(pAllocator));
     }
 
@@ -353,7 +353,7 @@ public class EXTValidationCache {
      * 
      * <p>Applications <b>can</b> store the data retrieved from the validation cache, and use these data, possibly in a future run of the application, to populate new validation cache objects. The results of validation, however, <b>may</b> depend on the vendor ID, device ID, driver version, and other details of the device. To enable applications to detect when previously retrieved data is incompatible with the device, the initial bytes written to {@code pData} <b>must</b> be a header consisting of the following members:</p>
      * 
-     * <h6>Layout for validation cache header version {@link #VK_VALIDATION_CACHE_HEADER_VERSION_ONE_EXT VALIDATION_CACHE_HEADER_VERSION_ONE_EXT}</h6>
+     * <h6>Layout for Validation Cache Header Version {@link #VK_VALIDATION_CACHE_HEADER_VERSION_ONE_EXT VALIDATION_CACHE_HEADER_VERSION_ONE_EXT}</h6>
      * 
      * <table class="lwjgl">
      * <thead><tr><th>Offset</th><th>Size</th><th>Meaning</th></tr></thead>
@@ -401,7 +401,7 @@ public class EXTValidationCache {
      * @param pData           either {@code NULL} or a pointer to a buffer.
      */
     @NativeType("VkResult")
-    public static int vkGetValidationCacheDataEXT(VkDevice device, @NativeType("VkValidationCacheEXT") long validationCache, @NativeType("size_t *") PointerBuffer pDataSize, @Nullable @NativeType("void *") ByteBuffer pData) {
+    public static int vkGetValidationCacheDataEXT(VkDevice device, @NativeType("VkValidationCacheEXT") long validationCache, @NativeType("size_t *") PointerBuffer pDataSize, @NativeType("void *") @Nullable ByteBuffer pData) {
         if (CHECKS) {
             check(pDataSize, 1);
             checkSafe(pData, pDataSize.get(pDataSize.position()));
@@ -411,7 +411,7 @@ public class EXTValidationCache {
 
     /** Array version of: {@link #vkCreateValidationCacheEXT CreateValidationCacheEXT} */
     @NativeType("VkResult")
-    public static int vkCreateValidationCacheEXT(VkDevice device, @NativeType("VkValidationCacheCreateInfoEXT const *") VkValidationCacheCreateInfoEXT pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkValidationCacheEXT *") long[] pValidationCache) {
+    public static int vkCreateValidationCacheEXT(VkDevice device, @NativeType("VkValidationCacheCreateInfoEXT const *") VkValidationCacheCreateInfoEXT pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkValidationCacheEXT *") long[] pValidationCache) {
         long __functionAddress = device.getCapabilities().vkCreateValidationCacheEXT;
         if (CHECKS) {
             check(__functionAddress);

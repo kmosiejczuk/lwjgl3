@@ -44,7 +44,7 @@ public final class HelloBGFXMT implements AutoCloseable {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        if (Platform.get() == Platform.MACOSX) {
+        if (glfwGetPlatform() == GLFW_PLATFORM_COCOA) {
             glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
         }
 
@@ -144,9 +144,16 @@ public final class HelloBGFXMT implements AutoCloseable {
                 switch (Platform.get()) {
                     case FREEBSD:
                     case LINUX:
-                        init.platformData()
-                            .ndt(GLFWNativeX11.glfwGetX11Display())
-                            .nwh(GLFWNativeX11.glfwGetX11Window(window));
+                        if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
+                            init.platformData()
+                                .ndt(GLFWNativeWayland.glfwGetWaylandDisplay())
+                                .nwh(GLFWNativeWayland.glfwGetWaylandWindow(window))
+                                .type(BGFX_NATIVE_WINDOW_HANDLE_TYPE_WAYLAND);
+                        } else {
+                            init.platformData()
+                                .ndt(GLFWNativeX11.glfwGetX11Display())
+                                .nwh(GLFWNativeX11.glfwGetX11Window(window));
+                        }
                         break;
                     case MACOSX:
                         init.platformData()

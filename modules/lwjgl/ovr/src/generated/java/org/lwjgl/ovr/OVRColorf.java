@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class OVRColorf extends Struct<OVRColorf> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRColorf createSafe(long address) {
+    public static @Nullable OVRColorf createSafe(long address) {
         return address == NULL ? null : new OVRColorf(address, null);
     }
 
@@ -196,8 +195,7 @@ public class OVRColorf extends Struct<OVRColorf> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRColorf.Buffer createSafe(long address, int capacity) {
+    public static OVRColorf.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,22 +259,22 @@ public class OVRColorf extends Struct<OVRColorf> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #r}. */
-    public static float nr(long struct) { return UNSAFE.getFloat(null, struct + OVRColorf.R); }
+    public static float nr(long struct) { return memGetFloat(struct + OVRColorf.R); }
     /** Unsafe version of {@link #g}. */
-    public static float ng(long struct) { return UNSAFE.getFloat(null, struct + OVRColorf.G); }
+    public static float ng(long struct) { return memGetFloat(struct + OVRColorf.G); }
     /** Unsafe version of {@link #b}. */
-    public static float nb(long struct) { return UNSAFE.getFloat(null, struct + OVRColorf.B); }
+    public static float nb(long struct) { return memGetFloat(struct + OVRColorf.B); }
     /** Unsafe version of {@link #a}. */
-    public static float na(long struct) { return UNSAFE.getFloat(null, struct + OVRColorf.A); }
+    public static float na(long struct) { return memGetFloat(struct + OVRColorf.A); }
 
     /** Unsafe version of {@link #r(float) r}. */
-    public static void nr(long struct, float value) { UNSAFE.putFloat(null, struct + OVRColorf.R, value); }
+    public static void nr(long struct, float value) { memPutFloat(struct + OVRColorf.R, value); }
     /** Unsafe version of {@link #g(float) g}. */
-    public static void ng(long struct, float value) { UNSAFE.putFloat(null, struct + OVRColorf.G, value); }
+    public static void ng(long struct, float value) { memPutFloat(struct + OVRColorf.G, value); }
     /** Unsafe version of {@link #b(float) b}. */
-    public static void nb(long struct, float value) { UNSAFE.putFloat(null, struct + OVRColorf.B, value); }
+    public static void nb(long struct, float value) { memPutFloat(struct + OVRColorf.B, value); }
     /** Unsafe version of {@link #a(float) a}. */
-    public static void na(long struct, float value) { UNSAFE.putFloat(null, struct + OVRColorf.A, value); }
+    public static void na(long struct, float value) { memPutFloat(struct + OVRColorf.A, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class OVRColorf extends Struct<OVRColorf> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

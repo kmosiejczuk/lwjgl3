@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.meshoptimizer;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -103,8 +103,7 @@ public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptVertexFetchStatistics createSafe(long address) {
+    public static @Nullable MeshoptVertexFetchStatistics createSafe(long address) {
         return address == NULL ? null : new MeshoptVertexFetchStatistics(address, null);
     }
 
@@ -147,8 +146,7 @@ public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptVertexFetchStatistics.Buffer createSafe(long address, int capacity) {
+    public static MeshoptVertexFetchStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -193,9 +191,9 @@ public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStati
     // -----------------------------------
 
     /** Unsafe version of {@link #bytes_fetched}. */
-    public static int nbytes_fetched(long struct) { return UNSAFE.getInt(null, struct + MeshoptVertexFetchStatistics.BYTES_FETCHED); }
+    public static int nbytes_fetched(long struct) { return memGetInt(struct + MeshoptVertexFetchStatistics.BYTES_FETCHED); }
     /** Unsafe version of {@link #overfetch}. */
-    public static float noverfetch(long struct) { return UNSAFE.getFloat(null, struct + MeshoptVertexFetchStatistics.OVERFETCH); }
+    public static float noverfetch(long struct) { return memGetFloat(struct + MeshoptVertexFetchStatistics.OVERFETCH); }
 
     // -----------------------------------
 
@@ -228,6 +226,11 @@ public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.jawt;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -108,8 +108,7 @@ public class JAWTX11DrawingSurfaceInfo extends Struct<JAWTX11DrawingSurfaceInfo>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static JAWTX11DrawingSurfaceInfo createSafe(long address) {
+    public static @Nullable JAWTX11DrawingSurfaceInfo createSafe(long address) {
         return address == NULL ? null : new JAWTX11DrawingSurfaceInfo(address, null);
     }
 
@@ -124,8 +123,7 @@ public class JAWTX11DrawingSurfaceInfo extends Struct<JAWTX11DrawingSurfaceInfo>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static JAWTX11DrawingSurfaceInfo.Buffer createSafe(long address, int capacity) {
+    public static JAWTX11DrawingSurfaceInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -140,7 +138,7 @@ public class JAWTX11DrawingSurfaceInfo extends Struct<JAWTX11DrawingSurfaceInfo>
     /** Unsafe version of {@link #colormapID}. */
     public static long ncolormapID(long struct) { return memGetCLong(struct + JAWTX11DrawingSurfaceInfo.COLORMAPID); }
     /** Unsafe version of {@link #depth}. */
-    public static int ndepth(long struct) { return UNSAFE.getInt(null, struct + JAWTX11DrawingSurfaceInfo.DEPTH); }
+    public static int ndepth(long struct) { return memGetInt(struct + JAWTX11DrawingSurfaceInfo.DEPTH); }
 
     // -----------------------------------
 
@@ -173,6 +171,11 @@ public class JAWTX11DrawingSurfaceInfo extends Struct<JAWTX11DrawingSurfaceInfo>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

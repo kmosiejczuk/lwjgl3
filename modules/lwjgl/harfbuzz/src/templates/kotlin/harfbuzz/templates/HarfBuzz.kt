@@ -267,6 +267,14 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
         "SCRIPT_KAWI".enum("", "HB_TAG ('K','a','w','i')"),
         "SCRIPT_NAG_MUNDARI".enum("", "HB_TAG ('N','a','g','m')"),
 
+        "SCRIPT_GARAY".enum("", "HB_TAG ('G','a','r','a')"),
+        "SCRIPT_GURUNG_KHEMA".enum("", "HB_TAG ('G','u','k','h')"),
+        "SCRIPT_KIRAT_RAI".enum("", "HB_TAG ('K','r','a','i')"),
+        "SCRIPT_OL_ONAL".enum("", "HB_TAG ('O','n','a','o')"),
+        "SCRIPT_SUNUWAR".enum("", "HB_TAG ('S','u','n','u')"),
+        "SCRIPT_TODHRI".enum("", "HB_TAG ('T','o','d','r')"),
+        "SCRIPT_TULU_TIGALARI".enum("", "HB_TAG ('T','u','t','g')"),
+
         "SCRIPT_INVALID".enum("No script set.", "HB_TAG_NONE")
     )
 
@@ -1112,6 +1120,21 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
     )
 
     void(
+        "buffer_set_not_found_variation_selector_glyph",
+        "",
+
+        hb_buffer_t.p("buffer", ""),
+        hb_codepoint_t("not_found_variation_selector", "")
+    )
+
+    hb_codepoint_t(
+        "buffer_get_not_found_variation_selector_glyph",
+        "",
+
+        hb_buffer_t.const.p("buffer", "")
+    )
+
+    void(
         "buffer_set_random_state",
         "",
 
@@ -1413,7 +1436,7 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
     // hb-draw.h
 
     customMethod("""
-    public static final hb_draw_state_t HB_DRAW_STATE_DEFAULT = hb_draw_state_t.create().set(false, 0.f, 0.f, 0.f, 0.f);
+    public static final hb_draw_state_t HB_DRAW_STATE_DEFAULT = hb_draw_state_t.create();
     """)
 
     void(
@@ -1605,6 +1628,22 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
     )
 
     hb_face_t.p(
+        "face_create_or_fail",
+        "",
+
+        hb_blob_t.p("blob", ""),
+        unsigned_int("index", "")
+    )
+
+    hb_face_t.p(
+        "face_create_from_file_or_fail",
+        "",
+
+        charUTF8.const.p("file_name", ""),
+        unsigned_int("index", "")
+    )
+
+    hb_face_t.p(
         "face_create_for_tables",
         "",
 
@@ -1725,6 +1764,16 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
         "",
 
         hb_face_t.const.p("face", "")
+    )
+
+    void(
+        "face_set_get_table_tags_func",
+        "",
+
+        hb_face_t.p("face", ""),
+        hb_get_table_tags_func_t("func", ""),
+        nullable..opaque_p("user_data", ""),
+        nullable..hb_destroy_func_t("destroy", "")
     )
 
     unsigned_int(
@@ -2668,12 +2717,20 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
         FT_Face("ft_face", "")
     )
 
+    IgnoreMissing..hb_face_t.p(
+        "ft_face_create_from_file_or_fail",
+        "",
+
+        charUTF8.const.p("file_name", ""),
+        unsigned_int("index", "")
+    )
+
     IgnoreMissing..hb_font_t.p(
         "ft_font_create",
         "",
 
         FT_Face("ft_face", ""),
-        hb_destroy_func_t("destroy", "")
+        nullable..hb_destroy_func_t("destroy", "")
     )
 
     IgnoreMissing..hb_font_t.p(
@@ -4170,11 +4227,11 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
 
     // hb-version.h
 
-    IntConstant("", "VERSION_MAJOR".."9")
-    IntConstant("", "VERSION_MINOR".."0")
+    IntConstant("", "VERSION_MAJOR".."10")
+    IntConstant("", "VERSION_MINOR".."1")
     IntConstant("", "VERSION_MICRO".."0")
 
-    StringConstant("", "VERSION_STRING".."9.0.0")
+    StringConstant("", "VERSION_STRING".."10.1.0")
 
     customMethod("""
     public static boolean HB_VERSION_ATLEAST(int major, int minor, int micro) {

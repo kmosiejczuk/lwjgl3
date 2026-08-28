@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class OVRVector2f extends Struct<OVRVector2f> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRVector2f createSafe(long address) {
+    public static @Nullable OVRVector2f createSafe(long address) {
         return address == NULL ? null : new OVRVector2f(address, null);
     }
 
@@ -176,8 +175,7 @@ public class OVRVector2f extends Struct<OVRVector2f> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRVector2f.Buffer createSafe(long address, int capacity) {
+    public static OVRVector2f.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +239,14 @@ public class OVRVector2f extends Struct<OVRVector2f> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + OVRVector2f.X); }
+    public static float nx(long struct) { return memGetFloat(struct + OVRVector2f.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + OVRVector2f.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + OVRVector2f.Y); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + OVRVector2f.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + OVRVector2f.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + OVRVector2f.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + OVRVector2f.Y, value); }
 
     // -----------------------------------
 
@@ -281,6 +279,11 @@ public class OVRVector2f extends Struct<OVRVector2f> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

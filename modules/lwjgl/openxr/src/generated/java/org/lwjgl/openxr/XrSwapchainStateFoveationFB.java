@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class XrSwapchainStateFoveationFB extends Struct<XrSwapchainStateFoveatio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateFoveationFB createSafe(long address) {
+    public static @Nullable XrSwapchainStateFoveationFB createSafe(long address) {
         return address == NULL ? null : new XrSwapchainStateFoveationFB(address, null);
     }
 
@@ -217,8 +216,7 @@ public class XrSwapchainStateFoveationFB extends Struct<XrSwapchainStateFoveatio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateFoveationFB.Buffer createSafe(long address, int capacity) {
+    public static XrSwapchainStateFoveationFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,20 +266,20 @@ public class XrSwapchainStateFoveationFB extends Struct<XrSwapchainStateFoveatio
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateFoveationFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSwapchainStateFoveationFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSwapchainStateFoveationFB.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrSwapchainStateFoveationFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrSwapchainStateFoveationFB.FLAGS); }
     /** Unsafe version of {@link #profile}. */
     public static long nprofile(long struct) { return memGetAddress(struct + XrSwapchainStateFoveationFB.PROFILE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateFoveationFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSwapchainStateFoveationFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSwapchainStateFoveationFB.NEXT, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrSwapchainStateFoveationFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrSwapchainStateFoveationFB.FLAGS, value); }
     /** Unsafe version of {@link #profile(XrFoveationProfileFB) profile}. */
     public static void nprofile(long struct, XrFoveationProfileFB value) { memPutAddress(struct + XrSwapchainStateFoveationFB.PROFILE, value.address()); }
 
@@ -325,6 +323,11 @@ public class XrSwapchainStateFoveationFB extends Struct<XrSwapchainStateFoveatio
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkDeviceGroupSwapchainCreateInfoKHR extends Struct<VkDeviceGroupSwa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupSwapchainCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkDeviceGroupSwapchainCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkDeviceGroupSwapchainCreateInfoKHR(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkDeviceGroupSwapchainCreateInfoKHR extends Struct<VkDeviceGroupSwa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupSwapchainCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceGroupSwapchainCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +265,18 @@ public class VkDeviceGroupSwapchainCreateInfoKHR extends Struct<VkDeviceGroupSwa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupSwapchainCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceGroupSwapchainCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceGroupSwapchainCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #modes}. */
-    public static int nmodes(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupSwapchainCreateInfoKHR.MODES); }
+    public static int nmodes(long struct) { return memGetInt(struct + VkDeviceGroupSwapchainCreateInfoKHR.MODES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupSwapchainCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceGroupSwapchainCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceGroupSwapchainCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #modes(int) modes}. */
-    public static void nmodes(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupSwapchainCreateInfoKHR.MODES, value); }
+    public static void nmodes(long struct, int value) { memPutInt(struct + VkDeviceGroupSwapchainCreateInfoKHR.MODES, value); }
 
     // -----------------------------------
 
@@ -311,6 +309,11 @@ public class VkDeviceGroupSwapchainCreateInfoKHR extends Struct<VkDeviceGroupSwa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

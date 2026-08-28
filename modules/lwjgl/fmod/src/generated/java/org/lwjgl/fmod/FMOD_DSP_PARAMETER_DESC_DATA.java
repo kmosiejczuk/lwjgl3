@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -110,8 +110,7 @@ public class FMOD_DSP_PARAMETER_DESC_DATA extends Struct<FMOD_DSP_PARAMETER_DESC
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_DESC_DATA createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_DESC_DATA createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_DESC_DATA(address, null);
     }
 
@@ -154,8 +153,7 @@ public class FMOD_DSP_PARAMETER_DESC_DATA extends Struct<FMOD_DSP_PARAMETER_DESC
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_DESC_DATA.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_DESC_DATA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -200,10 +198,10 @@ public class FMOD_DSP_PARAMETER_DESC_DATA extends Struct<FMOD_DSP_PARAMETER_DESC
     // -----------------------------------
 
     /** Unsafe version of {@link #datatype}. */
-    public static int ndatatype(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_DESC_DATA.DATATYPE); }
+    public static int ndatatype(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_DESC_DATA.DATATYPE); }
 
     /** Unsafe version of {@link #datatype(int) datatype}. */
-    public static void ndatatype(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_DESC_DATA.DATATYPE, value); }
+    public static void ndatatype(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_DESC_DATA.DATATYPE, value); }
 
     // -----------------------------------
 
@@ -236,6 +234,11 @@ public class FMOD_DSP_PARAMETER_DESC_DATA extends Struct<FMOD_DSP_PARAMETER_DESC
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

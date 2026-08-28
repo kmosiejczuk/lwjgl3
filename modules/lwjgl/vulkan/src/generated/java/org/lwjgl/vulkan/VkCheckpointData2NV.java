@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRSynchronization2#VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV}</li>
+ * <li>{@code sType} <b>must</b> be {@link NVDeviceDiagnosticCheckpoints#VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV}</li>
  * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
  * </ul>
  * 
@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link KHRSynchronization2#vkGetQueueCheckpointData2NV GetQueueCheckpointData2NV}</p>
+ * <p>{@link NVDeviceDiagnosticCheckpoints#vkGetQueueCheckpointData2NV GetQueueCheckpointData2NV}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -110,8 +110,8 @@ public class VkCheckpointData2NV extends Struct<VkCheckpointData2NV> implements 
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkCheckpointData2NV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRSynchronization2#VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV} value to the {@link #sType} field. */
-    public VkCheckpointData2NV sType$Default() { return sType(KHRSynchronization2.VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV); }
+    /** Sets the {@link NVDeviceDiagnosticCheckpoints#VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV} value to the {@link #sType} field. */
+    public VkCheckpointData2NV sType$Default() { return sType(NVDeviceDiagnosticCheckpoints.VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkCheckpointData2NV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
@@ -162,8 +162,7 @@ public class VkCheckpointData2NV extends Struct<VkCheckpointData2NV> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCheckpointData2NV createSafe(long address) {
+    public static @Nullable VkCheckpointData2NV createSafe(long address) {
         return address == NULL ? null : new VkCheckpointData2NV(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkCheckpointData2NV extends Struct<VkCheckpointData2NV> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCheckpointData2NV.Buffer createSafe(long address, int capacity) {
+    public static VkCheckpointData2NV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,16 +250,16 @@ public class VkCheckpointData2NV extends Struct<VkCheckpointData2NV> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCheckpointData2NV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCheckpointData2NV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCheckpointData2NV.PNEXT); }
     /** Unsafe version of {@link #stage}. */
-    public static long nstage(long struct) { return UNSAFE.getLong(null, struct + VkCheckpointData2NV.STAGE); }
+    public static long nstage(long struct) { return memGetLong(struct + VkCheckpointData2NV.STAGE); }
     /** Unsafe version of {@link #pCheckpointMarker}. */
     public static long npCheckpointMarker(long struct) { return memGetAddress(struct + VkCheckpointData2NV.PCHECKPOINTMARKER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCheckpointData2NV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCheckpointData2NV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCheckpointData2NV.PNEXT, value); }
 
@@ -299,6 +297,11 @@ public class VkCheckpointData2NV extends Struct<VkCheckpointData2NV> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkCheckpointData2NV getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -318,8 +321,8 @@ public class VkCheckpointData2NV extends Struct<VkCheckpointData2NV> implements 
 
         /** Sets the specified value to the {@link VkCheckpointData2NV#sType} field. */
         public VkCheckpointData2NV.Buffer sType(@NativeType("VkStructureType") int value) { VkCheckpointData2NV.nsType(address(), value); return this; }
-        /** Sets the {@link KHRSynchronization2#VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV} value to the {@link VkCheckpointData2NV#sType} field. */
-        public VkCheckpointData2NV.Buffer sType$Default() { return sType(KHRSynchronization2.VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV); }
+        /** Sets the {@link NVDeviceDiagnosticCheckpoints#VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV} value to the {@link VkCheckpointData2NV#sType} field. */
+        public VkCheckpointData2NV.Buffer sType$Default() { return sType(NVDeviceDiagnosticCheckpoints.VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV); }
         /** Sets the specified value to the {@link VkCheckpointData2NV#pNext} field. */
         public VkCheckpointData2NV.Buffer pNext(@NativeType("void *") long value) { VkCheckpointData2NV.npNext(address(), value); return this; }
 

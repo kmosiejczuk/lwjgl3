@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -111,8 +111,7 @@ public class FMOD_DSP_PARAMETER_SIDECHAIN extends Struct<FMOD_DSP_PARAMETER_SIDE
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_SIDECHAIN createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_SIDECHAIN createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_SIDECHAIN(address, null);
     }
 
@@ -155,8 +154,7 @@ public class FMOD_DSP_PARAMETER_SIDECHAIN extends Struct<FMOD_DSP_PARAMETER_SIDE
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_SIDECHAIN.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_SIDECHAIN.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -201,10 +199,10 @@ public class FMOD_DSP_PARAMETER_SIDECHAIN extends Struct<FMOD_DSP_PARAMETER_SIDE
     // -----------------------------------
 
     /** Unsafe version of {@link #sidechainenable}. */
-    public static int nsidechainenable(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_SIDECHAIN.SIDECHAINENABLE); }
+    public static int nsidechainenable(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_SIDECHAIN.SIDECHAINENABLE); }
 
     /** Unsafe version of {@link #sidechainenable(int) sidechainenable}. */
-    public static void nsidechainenable(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_SIDECHAIN.SIDECHAINENABLE, value); }
+    public static void nsidechainenable(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_SIDECHAIN.SIDECHAINENABLE, value); }
 
     // -----------------------------------
 
@@ -237,6 +235,11 @@ public class FMOD_DSP_PARAMETER_SIDECHAIN extends Struct<FMOD_DSP_PARAMETER_SIDE
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

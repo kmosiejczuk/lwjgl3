@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkCopyImageInfo2}, {@link VkCopyImageToImageInfoEXT}, {@link VkExtent3D}, {@link VkImageSubresourceLayers}, {@link VkOffset3D}</p>
+ * <p>{@link VkCopyImageInfo2}, {@link VkCopyImageToImageInfo}, {@link VkExtent3D}, {@link VkImageSubresourceLayers}, {@link VkOffset3D}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -218,8 +218,7 @@ public class VkImageCopy2 extends Struct<VkImageCopy2> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageCopy2 createSafe(long address) {
+    public static @Nullable VkImageCopy2 createSafe(long address) {
         return address == NULL ? null : new VkImageCopy2(address, null);
     }
 
@@ -262,8 +261,7 @@ public class VkImageCopy2 extends Struct<VkImageCopy2> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageCopy2.Buffer createSafe(long address, int capacity) {
+    public static VkImageCopy2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -308,7 +306,7 @@ public class VkImageCopy2 extends Struct<VkImageCopy2> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageCopy2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageCopy2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageCopy2.PNEXT); }
     /** Unsafe version of {@link #srcSubresource}. */
@@ -323,7 +321,7 @@ public class VkImageCopy2 extends Struct<VkImageCopy2> implements NativeResource
     public static VkExtent3D nextent(long struct) { return VkExtent3D.create(struct + VkImageCopy2.EXTENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageCopy2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageCopy2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageCopy2.PNEXT, value); }
     /** Unsafe version of {@link #srcSubresource(VkImageSubresourceLayers) srcSubresource}. */
@@ -368,6 +366,11 @@ public class VkImageCopy2 extends Struct<VkImageCopy2> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

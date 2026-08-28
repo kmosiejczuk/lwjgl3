@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -141,8 +141,7 @@ public class XrSpheref extends Struct<XrSpheref> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpheref createSafe(long address) {
+    public static @Nullable XrSpheref createSafe(long address) {
         return address == NULL ? null : new XrSpheref(address, null);
     }
 
@@ -185,8 +184,7 @@ public class XrSpheref extends Struct<XrSpheref> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpheref.Buffer createSafe(long address, int capacity) {
+    public static XrSpheref.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,12 +231,12 @@ public class XrSpheref extends Struct<XrSpheref> implements NativeResource {
     /** Unsafe version of {@link #center}. */
     public static XrPosef ncenter(long struct) { return XrPosef.create(struct + XrSpheref.CENTER); }
     /** Unsafe version of {@link #radius}. */
-    public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + XrSpheref.RADIUS); }
+    public static float nradius(long struct) { return memGetFloat(struct + XrSpheref.RADIUS); }
 
     /** Unsafe version of {@link #center(XrPosef) center}. */
     public static void ncenter(long struct, XrPosef value) { memCopy(value.address(), struct + XrSpheref.CENTER, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #radius(float) radius}. */
-    public static void nradius(long struct, float value) { UNSAFE.putFloat(null, struct + XrSpheref.RADIUS, value); }
+    public static void nradius(long struct, float value) { memPutFloat(struct + XrSpheref.RADIUS, value); }
 
     // -----------------------------------
 
@@ -271,6 +269,11 @@ public class XrSpheref extends Struct<XrSpheref> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

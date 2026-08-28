@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -111,8 +111,7 @@ public class CUexecAffinitySmCount extends Struct<CUexecAffinitySmCount> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUexecAffinitySmCount createSafe(long address) {
+    public static @Nullable CUexecAffinitySmCount createSafe(long address) {
         return address == NULL ? null : new CUexecAffinitySmCount(address, null);
     }
 
@@ -155,8 +154,7 @@ public class CUexecAffinitySmCount extends Struct<CUexecAffinitySmCount> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUexecAffinitySmCount.Buffer createSafe(long address, int capacity) {
+    public static CUexecAffinitySmCount.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -201,10 +199,10 @@ public class CUexecAffinitySmCount extends Struct<CUexecAffinitySmCount> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #val}. */
-    public static int nval(long struct) { return UNSAFE.getInt(null, struct + CUexecAffinitySmCount.VAL); }
+    public static int nval(long struct) { return memGetInt(struct + CUexecAffinitySmCount.VAL); }
 
     /** Unsafe version of {@link #val(int) val}. */
-    public static void nval(long struct, int value) { UNSAFE.putInt(null, struct + CUexecAffinitySmCount.VAL, value); }
+    public static void nval(long struct, int value) { memPutInt(struct + CUexecAffinitySmCount.VAL, value); }
 
     // -----------------------------------
 
@@ -237,6 +235,11 @@ public class CUexecAffinitySmCount extends Struct<CUexecAffinitySmCount> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

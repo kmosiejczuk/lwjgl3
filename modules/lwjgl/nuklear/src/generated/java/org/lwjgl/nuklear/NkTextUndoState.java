@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class NkTextUndoState extends Struct<NkTextUndoState> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkTextUndoState createSafe(long address) {
+    public static @Nullable NkTextUndoState createSafe(long address) {
         return address == NULL ? null : new NkTextUndoState(address, null);
     }
 
@@ -133,8 +132,7 @@ public class NkTextUndoState extends Struct<NkTextUndoState> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkTextUndoState.Buffer createSafe(long address, int capacity) {
+    public static NkTextUndoState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -150,16 +148,16 @@ public class NkTextUndoState extends Struct<NkTextUndoState> {
     public static IntBuffer nundo_char(long struct) { return memIntBuffer(struct + NkTextUndoState.UNDO_CHAR, 999); }
     /** Unsafe version of {@link #undo_char(int) undo_char}. */
     public static int nundo_char(long struct, int index) {
-        return UNSAFE.getInt(null, struct + NkTextUndoState.UNDO_CHAR + check(index, 999) * 4);
+        return memGetInt(struct + NkTextUndoState.UNDO_CHAR + check(index, 999) * 4);
     }
     /** Unsafe version of {@link #undo_point}. */
-    public static short nundo_point(long struct) { return UNSAFE.getShort(null, struct + NkTextUndoState.UNDO_POINT); }
+    public static short nundo_point(long struct) { return memGetShort(struct + NkTextUndoState.UNDO_POINT); }
     /** Unsafe version of {@link #redo_point}. */
-    public static short nredo_point(long struct) { return UNSAFE.getShort(null, struct + NkTextUndoState.REDO_POINT); }
+    public static short nredo_point(long struct) { return memGetShort(struct + NkTextUndoState.REDO_POINT); }
     /** Unsafe version of {@link #undo_char_point}. */
-    public static short nundo_char_point(long struct) { return UNSAFE.getShort(null, struct + NkTextUndoState.UNDO_CHAR_POINT); }
+    public static short nundo_char_point(long struct) { return memGetShort(struct + NkTextUndoState.UNDO_CHAR_POINT); }
     /** Unsafe version of {@link #redo_char_point}. */
-    public static short nredo_char_point(long struct) { return UNSAFE.getShort(null, struct + NkTextUndoState.REDO_CHAR_POINT); }
+    public static short nredo_char_point(long struct) { return memGetShort(struct + NkTextUndoState.REDO_CHAR_POINT); }
 
     // -----------------------------------
 
@@ -192,6 +190,11 @@ public class NkTextUndoState extends Struct<NkTextUndoState> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

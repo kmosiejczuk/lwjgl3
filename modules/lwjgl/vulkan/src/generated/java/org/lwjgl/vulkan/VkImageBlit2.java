@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -226,8 +226,7 @@ public class VkImageBlit2 extends Struct<VkImageBlit2> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageBlit2 createSafe(long address) {
+    public static @Nullable VkImageBlit2 createSafe(long address) {
         return address == NULL ? null : new VkImageBlit2(address, null);
     }
 
@@ -270,8 +269,7 @@ public class VkImageBlit2 extends Struct<VkImageBlit2> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageBlit2.Buffer createSafe(long address, int capacity) {
+    public static VkImageBlit2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -316,7 +314,7 @@ public class VkImageBlit2 extends Struct<VkImageBlit2> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageBlit2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageBlit2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageBlit2.PNEXT); }
     /** Unsafe version of {@link #srcSubresource}. */
@@ -337,7 +335,7 @@ public class VkImageBlit2 extends Struct<VkImageBlit2> implements NativeResource
     }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageBlit2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageBlit2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageBlit2.PNEXT, value); }
     /** Unsafe version of {@link #srcSubresource(VkImageSubresourceLayers) srcSubresource}. */
@@ -394,6 +392,11 @@ public class VkImageBlit2 extends Struct<VkImageBlit2> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

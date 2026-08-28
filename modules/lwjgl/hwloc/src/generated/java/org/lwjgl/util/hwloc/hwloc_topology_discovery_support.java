@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -114,8 +114,7 @@ public class hwloc_topology_discovery_support extends Struct<hwloc_topology_disc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_discovery_support createSafe(long address) {
+    public static @Nullable hwloc_topology_discovery_support createSafe(long address) {
         return address == NULL ? null : new hwloc_topology_discovery_support(address, null);
     }
 
@@ -130,25 +129,24 @@ public class hwloc_topology_discovery_support extends Struct<hwloc_topology_disc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_discovery_support.Buffer createSafe(long address, int capacity) {
+    public static hwloc_topology_discovery_support.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #pu}. */
-    public static boolean npu(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_discovery_support.PU) != 0; }
+    public static boolean npu(long struct) { return memGetByte(struct + hwloc_topology_discovery_support.PU) != 0; }
     /** Unsafe version of {@link #numa}. */
-    public static boolean nnuma(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_discovery_support.NUMA) != 0; }
+    public static boolean nnuma(long struct) { return memGetByte(struct + hwloc_topology_discovery_support.NUMA) != 0; }
     /** Unsafe version of {@link #numa_memory}. */
-    public static boolean nnuma_memory(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_discovery_support.NUMA_MEMORY) != 0; }
+    public static boolean nnuma_memory(long struct) { return memGetByte(struct + hwloc_topology_discovery_support.NUMA_MEMORY) != 0; }
     /** Unsafe version of {@link #disallowed_pu}. */
-    public static boolean ndisallowed_pu(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_discovery_support.DISALLOWED_PU) != 0; }
+    public static boolean ndisallowed_pu(long struct) { return memGetByte(struct + hwloc_topology_discovery_support.DISALLOWED_PU) != 0; }
     /** Unsafe version of {@link #disallowed_numa}. */
-    public static boolean ndisallowed_numa(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_discovery_support.DISALLOWED_NUMA) != 0; }
+    public static boolean ndisallowed_numa(long struct) { return memGetByte(struct + hwloc_topology_discovery_support.DISALLOWED_NUMA) != 0; }
     /** Unsafe version of {@link #cpukind_efficiency}. */
-    public static boolean ncpukind_efficiency(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_discovery_support.CPUKIND_EFFICIENCY) != 0; }
+    public static boolean ncpukind_efficiency(long struct) { return memGetByte(struct + hwloc_topology_discovery_support.CPUKIND_EFFICIENCY) != 0; }
 
     // -----------------------------------
 
@@ -181,6 +179,11 @@ public class hwloc_topology_discovery_support extends Struct<hwloc_topology_disc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

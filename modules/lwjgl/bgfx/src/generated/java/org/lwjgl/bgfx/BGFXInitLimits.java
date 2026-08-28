@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class BGFXInitLimits extends Struct<BGFXInitLimits> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXInitLimits createSafe(long address) {
+    public static @Nullable BGFXInitLimits createSafe(long address) {
         return address == NULL ? null : new BGFXInitLimits(address, null);
     }
 
@@ -194,21 +193,21 @@ public class BGFXInitLimits extends Struct<BGFXInitLimits> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #maxEncoders}. */
-    public static short nmaxEncoders(long struct) { return UNSAFE.getShort(null, struct + BGFXInitLimits.MAXENCODERS); }
+    public static short nmaxEncoders(long struct) { return memGetShort(struct + BGFXInitLimits.MAXENCODERS); }
     /** Unsafe version of {@link #minResourceCbSize}. */
-    public static int nminResourceCbSize(long struct) { return UNSAFE.getInt(null, struct + BGFXInitLimits.MINRESOURCECBSIZE); }
+    public static int nminResourceCbSize(long struct) { return memGetInt(struct + BGFXInitLimits.MINRESOURCECBSIZE); }
     /** Unsafe version of {@link #transientVbSize}. */
-    public static int ntransientVbSize(long struct) { return UNSAFE.getInt(null, struct + BGFXInitLimits.TRANSIENTVBSIZE); }
+    public static int ntransientVbSize(long struct) { return memGetInt(struct + BGFXInitLimits.TRANSIENTVBSIZE); }
     /** Unsafe version of {@link #transientIbSize}. */
-    public static int ntransientIbSize(long struct) { return UNSAFE.getInt(null, struct + BGFXInitLimits.TRANSIENTIBSIZE); }
+    public static int ntransientIbSize(long struct) { return memGetInt(struct + BGFXInitLimits.TRANSIENTIBSIZE); }
 
     /** Unsafe version of {@link #maxEncoders(short) maxEncoders}. */
-    public static void nmaxEncoders(long struct, short value) { UNSAFE.putShort(null, struct + BGFXInitLimits.MAXENCODERS, value); }
+    public static void nmaxEncoders(long struct, short value) { memPutShort(struct + BGFXInitLimits.MAXENCODERS, value); }
     /** Unsafe version of {@link #minResourceCbSize(int) minResourceCbSize}. */
-    public static void nminResourceCbSize(long struct, int value) { UNSAFE.putInt(null, struct + BGFXInitLimits.MINRESOURCECBSIZE, value); }
+    public static void nminResourceCbSize(long struct, int value) { memPutInt(struct + BGFXInitLimits.MINRESOURCECBSIZE, value); }
     /** Unsafe version of {@link #transientVbSize(int) transientVbSize}. */
-    public static void ntransientVbSize(long struct, int value) { UNSAFE.putInt(null, struct + BGFXInitLimits.TRANSIENTVBSIZE, value); }
+    public static void ntransientVbSize(long struct, int value) { memPutInt(struct + BGFXInitLimits.TRANSIENTVBSIZE, value); }
     /** Unsafe version of {@link #transientIbSize(int) transientIbSize}. */
-    public static void ntransientIbSize(long struct, int value) { UNSAFE.putInt(null, struct + BGFXInitLimits.TRANSIENTIBSIZE, value); }
+    public static void ntransientIbSize(long struct, int value) { memPutInt(struct + BGFXInitLimits.TRANSIENTIBSIZE, value); }
 
 }

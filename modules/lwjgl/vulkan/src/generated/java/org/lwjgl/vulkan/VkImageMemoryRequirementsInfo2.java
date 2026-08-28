@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -173,8 +173,7 @@ public class VkImageMemoryRequirementsInfo2 extends Struct<VkImageMemoryRequirem
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageMemoryRequirementsInfo2 createSafe(long address) {
+    public static @Nullable VkImageMemoryRequirementsInfo2 createSafe(long address) {
         return address == NULL ? null : new VkImageMemoryRequirementsInfo2(address, null);
     }
 
@@ -217,8 +216,7 @@ public class VkImageMemoryRequirementsInfo2 extends Struct<VkImageMemoryRequirem
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageMemoryRequirementsInfo2.Buffer createSafe(long address, int capacity) {
+    public static VkImageMemoryRequirementsInfo2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -282,18 +280,18 @@ public class VkImageMemoryRequirementsInfo2 extends Struct<VkImageMemoryRequirem
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageMemoryRequirementsInfo2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageMemoryRequirementsInfo2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageMemoryRequirementsInfo2.PNEXT); }
     /** Unsafe version of {@link #image}. */
-    public static long nimage(long struct) { return UNSAFE.getLong(null, struct + VkImageMemoryRequirementsInfo2.IMAGE); }
+    public static long nimage(long struct) { return memGetLong(struct + VkImageMemoryRequirementsInfo2.IMAGE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageMemoryRequirementsInfo2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageMemoryRequirementsInfo2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageMemoryRequirementsInfo2.PNEXT, value); }
     /** Unsafe version of {@link #image(long) image}. */
-    public static void nimage(long struct, long value) { UNSAFE.putLong(null, struct + VkImageMemoryRequirementsInfo2.IMAGE, value); }
+    public static void nimage(long struct, long value) { memPutLong(struct + VkImageMemoryRequirementsInfo2.IMAGE, value); }
 
     // -----------------------------------
 
@@ -326,6 +324,11 @@ public class VkImageMemoryRequirementsInfo2 extends Struct<VkImageMemoryRequirem
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -179,17 +179,15 @@ public class TT_HoriHeader extends Struct<TT_HoriHeader> {
      *
      * @param capacity the number of elements in the returned buffer
      */
-    @Nullable
     @NativeType("void *")
-    public ByteBuffer long_metrics(int capacity) { return nlong_metrics(address(), capacity); }
+    public @Nullable ByteBuffer long_metrics(int capacity) { return nlong_metrics(address(), capacity); }
     /**
      * @return a {@link ByteBuffer} view of the data pointed to by the {@code short_metrics} field.
      *
      * @param capacity the number of elements in the returned buffer
      */
-    @Nullable
     @NativeType("void *")
-    public ByteBuffer short_metrics(int capacity) { return nshort_metrics(address(), capacity); }
+    public @Nullable ByteBuffer short_metrics(int capacity) { return nshort_metrics(address(), capacity); }
 
     // -----------------------------------
 
@@ -199,8 +197,7 @@ public class TT_HoriHeader extends Struct<TT_HoriHeader> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static TT_HoriHeader createSafe(long address) {
+    public static @Nullable TT_HoriHeader createSafe(long address) {
         return address == NULL ? null : new TT_HoriHeader(address, null);
     }
 
@@ -215,8 +212,7 @@ public class TT_HoriHeader extends Struct<TT_HoriHeader> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static TT_HoriHeader.Buffer createSafe(long address, int capacity) {
+    public static TT_HoriHeader.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -225,39 +221,39 @@ public class TT_HoriHeader extends Struct<TT_HoriHeader> {
     /** Unsafe version of {@link #Version}. */
     public static long nVersion(long struct) { return memGetCLong(struct + TT_HoriHeader.VERSION); }
     /** Unsafe version of {@link #Ascender}. */
-    public static short nAscender(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.ASCENDER); }
+    public static short nAscender(long struct) { return memGetShort(struct + TT_HoriHeader.ASCENDER); }
     /** Unsafe version of {@link #Descender}. */
-    public static short nDescender(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.DESCENDER); }
+    public static short nDescender(long struct) { return memGetShort(struct + TT_HoriHeader.DESCENDER); }
     /** Unsafe version of {@link #Line_Gap}. */
-    public static short nLine_Gap(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.LINE_GAP); }
+    public static short nLine_Gap(long struct) { return memGetShort(struct + TT_HoriHeader.LINE_GAP); }
     /** Unsafe version of {@link #advance_Width_Max}. */
-    public static short nadvance_Width_Max(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.ADVANCE_WIDTH_MAX); }
+    public static short nadvance_Width_Max(long struct) { return memGetShort(struct + TT_HoriHeader.ADVANCE_WIDTH_MAX); }
     /** Unsafe version of {@link #min_Left_Side_Bearing}. */
-    public static short nmin_Left_Side_Bearing(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.MIN_LEFT_SIDE_BEARING); }
+    public static short nmin_Left_Side_Bearing(long struct) { return memGetShort(struct + TT_HoriHeader.MIN_LEFT_SIDE_BEARING); }
     /** Unsafe version of {@link #min_Right_Side_Bearing}. */
-    public static short nmin_Right_Side_Bearing(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.MIN_RIGHT_SIDE_BEARING); }
+    public static short nmin_Right_Side_Bearing(long struct) { return memGetShort(struct + TT_HoriHeader.MIN_RIGHT_SIDE_BEARING); }
     /** Unsafe version of {@link #xMax_Extent}. */
-    public static short nxMax_Extent(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.XMAX_EXTENT); }
+    public static short nxMax_Extent(long struct) { return memGetShort(struct + TT_HoriHeader.XMAX_EXTENT); }
     /** Unsafe version of {@link #caret_Slope_Rise}. */
-    public static short ncaret_Slope_Rise(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.CARET_SLOPE_RISE); }
+    public static short ncaret_Slope_Rise(long struct) { return memGetShort(struct + TT_HoriHeader.CARET_SLOPE_RISE); }
     /** Unsafe version of {@link #caret_Slope_Run}. */
-    public static short ncaret_Slope_Run(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.CARET_SLOPE_RUN); }
+    public static short ncaret_Slope_Run(long struct) { return memGetShort(struct + TT_HoriHeader.CARET_SLOPE_RUN); }
     /** Unsafe version of {@link #caret_Offset}. */
-    public static short ncaret_Offset(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.CARET_OFFSET); }
+    public static short ncaret_Offset(long struct) { return memGetShort(struct + TT_HoriHeader.CARET_OFFSET); }
     /** Unsafe version of {@link #Reserved}. */
     public static ShortBuffer nReserved(long struct) { return memShortBuffer(struct + TT_HoriHeader.RESERVED, 4); }
     /** Unsafe version of {@link #Reserved(int) Reserved}. */
     public static short nReserved(long struct, int index) {
-        return UNSAFE.getShort(null, struct + TT_HoriHeader.RESERVED + check(index, 4) * 2);
+        return memGetShort(struct + TT_HoriHeader.RESERVED + check(index, 4) * 2);
     }
     /** Unsafe version of {@link #metric_Data_Format}. */
-    public static short nmetric_Data_Format(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.METRIC_DATA_FORMAT); }
+    public static short nmetric_Data_Format(long struct) { return memGetShort(struct + TT_HoriHeader.METRIC_DATA_FORMAT); }
     /** Unsafe version of {@link #number_Of_HMetrics}. */
-    public static short nnumber_Of_HMetrics(long struct) { return UNSAFE.getShort(null, struct + TT_HoriHeader.NUMBER_OF_HMETRICS); }
+    public static short nnumber_Of_HMetrics(long struct) { return memGetShort(struct + TT_HoriHeader.NUMBER_OF_HMETRICS); }
     /** Unsafe version of {@link #long_metrics(int) long_metrics}. */
-    @Nullable public static ByteBuffer nlong_metrics(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + TT_HoriHeader.LONG_METRICS), capacity); }
+    public static @Nullable ByteBuffer nlong_metrics(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + TT_HoriHeader.LONG_METRICS), capacity); }
     /** Unsafe version of {@link #short_metrics(int) short_metrics}. */
-    @Nullable public static ByteBuffer nshort_metrics(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + TT_HoriHeader.SHORT_METRICS), capacity); }
+    public static @Nullable ByteBuffer nshort_metrics(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + TT_HoriHeader.SHORT_METRICS), capacity); }
 
     // -----------------------------------
 
@@ -290,6 +286,11 @@ public class TT_HoriHeader extends Struct<TT_HoriHeader> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -347,17 +348,15 @@ public class TT_HoriHeader extends Struct<TT_HoriHeader> {
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("void *")
-        public ByteBuffer long_metrics(int capacity) { return TT_HoriHeader.nlong_metrics(address(), capacity); }
+        public @Nullable ByteBuffer long_metrics(int capacity) { return TT_HoriHeader.nlong_metrics(address(), capacity); }
         /**
          * @return a {@link ByteBuffer} view of the data pointed to by the {@code short_metrics} field.
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("void *")
-        public ByteBuffer short_metrics(int capacity) { return TT_HoriHeader.nshort_metrics(address(), capacity); }
+        public @Nullable ByteBuffer short_metrics(int capacity) { return TT_HoriHeader.nshort_metrics(address(), capacity); }
 
     }
 

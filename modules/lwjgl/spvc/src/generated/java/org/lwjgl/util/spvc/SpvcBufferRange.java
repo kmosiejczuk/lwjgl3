@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -143,8 +143,7 @@ public class SpvcBufferRange extends Struct<SpvcBufferRange> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcBufferRange createSafe(long address) {
+    public static @Nullable SpvcBufferRange createSafe(long address) {
         return address == NULL ? null : new SpvcBufferRange(address, null);
     }
 
@@ -187,8 +186,7 @@ public class SpvcBufferRange extends Struct<SpvcBufferRange> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcBufferRange.Buffer createSafe(long address, int capacity) {
+    public static SpvcBufferRange.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,14 +231,14 @@ public class SpvcBufferRange extends Struct<SpvcBufferRange> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #index}. */
-    public static int nindex(long struct) { return UNSAFE.getInt(null, struct + SpvcBufferRange.INDEX); }
+    public static int nindex(long struct) { return memGetInt(struct + SpvcBufferRange.INDEX); }
     /** Unsafe version of {@link #offset}. */
     public static long noffset(long struct) { return memGetAddress(struct + SpvcBufferRange.OFFSET); }
     /** Unsafe version of {@link #range}. */
     public static long nrange(long struct) { return memGetAddress(struct + SpvcBufferRange.RANGE); }
 
     /** Unsafe version of {@link #index(int) index}. */
-    public static void nindex(long struct, int value) { UNSAFE.putInt(null, struct + SpvcBufferRange.INDEX, value); }
+    public static void nindex(long struct, int value) { memPutInt(struct + SpvcBufferRange.INDEX, value); }
     /** Unsafe version of {@link #offset(long) offset}. */
     public static void noffset(long struct, long value) { memPutAddress(struct + SpvcBufferRange.OFFSET, value); }
     /** Unsafe version of {@link #range(long) range}. */
@@ -277,6 +275,11 @@ public class SpvcBufferRange extends Struct<SpvcBufferRange> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

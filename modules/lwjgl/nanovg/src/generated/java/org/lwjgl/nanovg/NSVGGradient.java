@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class NSVGGradient extends Struct<NSVGGradient> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGGradient createSafe(long address) {
+    public static @Nullable NSVGGradient createSafe(long address) {
         return address == NULL ? null : new NSVGGradient(address, null);
     }
 
@@ -133,8 +132,7 @@ public class NSVGGradient extends Struct<NSVGGradient> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGGradient.Buffer createSafe(long address, int capacity) {
+    public static NSVGGradient.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -144,16 +142,16 @@ public class NSVGGradient extends Struct<NSVGGradient> {
     public static FloatBuffer nxform(long struct) { return memFloatBuffer(struct + NSVGGradient.XFORM, 6); }
     /** Unsafe version of {@link #xform(int) xform}. */
     public static float nxform(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + NSVGGradient.XFORM + check(index, 6) * 4);
+        return memGetFloat(struct + NSVGGradient.XFORM + check(index, 6) * 4);
     }
     /** Unsafe version of {@link #spread}. */
-    public static byte nspread(long struct) { return UNSAFE.getByte(null, struct + NSVGGradient.SPREAD); }
+    public static byte nspread(long struct) { return memGetByte(struct + NSVGGradient.SPREAD); }
     /** Unsafe version of {@link #fx}. */
-    public static float nfx(long struct) { return UNSAFE.getFloat(null, struct + NSVGGradient.FX); }
+    public static float nfx(long struct) { return memGetFloat(struct + NSVGGradient.FX); }
     /** Unsafe version of {@link #fy}. */
-    public static float nfy(long struct) { return UNSAFE.getFloat(null, struct + NSVGGradient.FY); }
+    public static float nfy(long struct) { return memGetFloat(struct + NSVGGradient.FY); }
     /** Unsafe version of {@link #nstops}. */
-    public static int nnstops(long struct) { return UNSAFE.getInt(null, struct + NSVGGradient.NSTOPS); }
+    public static int nnstops(long struct) { return memGetInt(struct + NSVGGradient.NSTOPS); }
     /** Unsafe version of {@link #pstops}. */
     public static NSVGGradientStop.Buffer npstops(long struct) { return NSVGGradientStop.create(struct + NSVGGradient.PSTOPS, nnstops(struct)); }
     /** Unsafe version of {@link #pstops(int) pstops}. */
@@ -192,6 +190,11 @@ public class NSVGGradient extends Struct<NSVGGradient> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

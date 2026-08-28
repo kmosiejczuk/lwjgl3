@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class VkStridedDeviceAddressRegionKHR extends Struct<VkStridedDeviceAddre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkStridedDeviceAddressRegionKHR createSafe(long address) {
+    public static @Nullable VkStridedDeviceAddressRegionKHR createSafe(long address) {
         return address == NULL ? null : new VkStridedDeviceAddressRegionKHR(address, null);
     }
 
@@ -199,8 +198,7 @@ public class VkStridedDeviceAddressRegionKHR extends Struct<VkStridedDeviceAddre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkStridedDeviceAddressRegionKHR.Buffer createSafe(long address, int capacity) {
+    public static VkStridedDeviceAddressRegionKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,18 +243,18 @@ public class VkStridedDeviceAddressRegionKHR extends Struct<VkStridedDeviceAddre
     // -----------------------------------
 
     /** Unsafe version of {@link #deviceAddress}. */
-    public static long ndeviceAddress(long struct) { return UNSAFE.getLong(null, struct + VkStridedDeviceAddressRegionKHR.DEVICEADDRESS); }
+    public static long ndeviceAddress(long struct) { return memGetLong(struct + VkStridedDeviceAddressRegionKHR.DEVICEADDRESS); }
     /** Unsafe version of {@link #stride}. */
-    public static long nstride(long struct) { return UNSAFE.getLong(null, struct + VkStridedDeviceAddressRegionKHR.STRIDE); }
+    public static long nstride(long struct) { return memGetLong(struct + VkStridedDeviceAddressRegionKHR.STRIDE); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkStridedDeviceAddressRegionKHR.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkStridedDeviceAddressRegionKHR.SIZE); }
 
     /** Unsafe version of {@link #deviceAddress(long) deviceAddress}. */
-    public static void ndeviceAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkStridedDeviceAddressRegionKHR.DEVICEADDRESS, value); }
+    public static void ndeviceAddress(long struct, long value) { memPutLong(struct + VkStridedDeviceAddressRegionKHR.DEVICEADDRESS, value); }
     /** Unsafe version of {@link #stride(long) stride}. */
-    public static void nstride(long struct, long value) { UNSAFE.putLong(null, struct + VkStridedDeviceAddressRegionKHR.STRIDE, value); }
+    public static void nstride(long struct, long value) { memPutLong(struct + VkStridedDeviceAddressRegionKHR.STRIDE, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkStridedDeviceAddressRegionKHR.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkStridedDeviceAddressRegionKHR.SIZE, value); }
 
     // -----------------------------------
 
@@ -289,6 +287,11 @@ public class VkStridedDeviceAddressRegionKHR extends Struct<VkStridedDeviceAddre
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

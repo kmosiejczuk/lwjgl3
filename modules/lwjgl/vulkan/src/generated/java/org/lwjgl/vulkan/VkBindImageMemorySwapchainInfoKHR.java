@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -183,8 +183,7 @@ public class VkBindImageMemorySwapchainInfoKHR extends Struct<VkBindImageMemoryS
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindImageMemorySwapchainInfoKHR createSafe(long address) {
+    public static @Nullable VkBindImageMemorySwapchainInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkBindImageMemorySwapchainInfoKHR(address, null);
     }
 
@@ -227,8 +226,7 @@ public class VkBindImageMemorySwapchainInfoKHR extends Struct<VkBindImageMemoryS
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindImageMemorySwapchainInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkBindImageMemorySwapchainInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -292,22 +290,22 @@ public class VkBindImageMemorySwapchainInfoKHR extends Struct<VkBindImageMemoryS
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBindImageMemorySwapchainInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBindImageMemorySwapchainInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBindImageMemorySwapchainInfoKHR.PNEXT); }
     /** Unsafe version of {@link #swapchain}. */
-    public static long nswapchain(long struct) { return UNSAFE.getLong(null, struct + VkBindImageMemorySwapchainInfoKHR.SWAPCHAIN); }
+    public static long nswapchain(long struct) { return memGetLong(struct + VkBindImageMemorySwapchainInfoKHR.SWAPCHAIN); }
     /** Unsafe version of {@link #imageIndex}. */
-    public static int nimageIndex(long struct) { return UNSAFE.getInt(null, struct + VkBindImageMemorySwapchainInfoKHR.IMAGEINDEX); }
+    public static int nimageIndex(long struct) { return memGetInt(struct + VkBindImageMemorySwapchainInfoKHR.IMAGEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBindImageMemorySwapchainInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBindImageMemorySwapchainInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBindImageMemorySwapchainInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #swapchain(long) swapchain}. */
-    public static void nswapchain(long struct, long value) { UNSAFE.putLong(null, struct + VkBindImageMemorySwapchainInfoKHR.SWAPCHAIN, value); }
+    public static void nswapchain(long struct, long value) { memPutLong(struct + VkBindImageMemorySwapchainInfoKHR.SWAPCHAIN, value); }
     /** Unsafe version of {@link #imageIndex(int) imageIndex}. */
-    public static void nimageIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkBindImageMemorySwapchainInfoKHR.IMAGEINDEX, value); }
+    public static void nimageIndex(long struct, int value) { memPutInt(struct + VkBindImageMemorySwapchainInfoKHR.IMAGEINDEX, value); }
 
     // -----------------------------------
 
@@ -340,6 +338,11 @@ public class VkBindImageMemorySwapchainInfoKHR extends Struct<VkBindImageMemoryS
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

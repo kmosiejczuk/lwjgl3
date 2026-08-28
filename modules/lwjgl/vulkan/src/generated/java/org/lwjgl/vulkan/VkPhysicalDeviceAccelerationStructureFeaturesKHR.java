@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -110,7 +110,7 @@ public class VkPhysicalDeviceAccelerationStructureFeaturesKHR extends Struct<VkP
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports the acceleration structure functionality. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#acceleration-structure">Acceleration Structures</a>. */
+    /** indicates whether the implementation supports the acceleration structure functionality. See <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#acceleration-structure">Acceleration Structures</a>. */
     @NativeType("VkBool32")
     public boolean accelerationStructure() { return naccelerationStructure(address()) != 0; }
     /** indicates whether the implementation supports saving and reusing acceleration structure device addresses, e.g. for trace capture and replay. */
@@ -200,8 +200,7 @@ public class VkPhysicalDeviceAccelerationStructureFeaturesKHR extends Struct<VkP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceAccelerationStructureFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceAccelerationStructureFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceAccelerationStructureFeaturesKHR(address, null);
     }
 
@@ -244,8 +243,7 @@ public class VkPhysicalDeviceAccelerationStructureFeaturesKHR extends Struct<VkP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceAccelerationStructureFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceAccelerationStructureFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,34 +288,34 @@ public class VkPhysicalDeviceAccelerationStructureFeaturesKHR extends Struct<VkP
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #accelerationStructure}. */
-    public static int naccelerationStructure(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTURE); }
+    public static int naccelerationStructure(long struct) { return memGetInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTURE); }
     /** Unsafe version of {@link #accelerationStructureCaptureReplay}. */
-    public static int naccelerationStructureCaptureReplay(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTURECAPTUREREPLAY); }
+    public static int naccelerationStructureCaptureReplay(long struct) { return memGetInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTURECAPTUREREPLAY); }
     /** Unsafe version of {@link #accelerationStructureIndirectBuild}. */
-    public static int naccelerationStructureIndirectBuild(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTUREINDIRECTBUILD); }
+    public static int naccelerationStructureIndirectBuild(long struct) { return memGetInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTUREINDIRECTBUILD); }
     /** Unsafe version of {@link #accelerationStructureHostCommands}. */
-    public static int naccelerationStructureHostCommands(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTUREHOSTCOMMANDS); }
+    public static int naccelerationStructureHostCommands(long struct) { return memGetInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTUREHOSTCOMMANDS); }
     /** Unsafe version of {@link #descriptorBindingAccelerationStructureUpdateAfterBind}. */
-    public static int ndescriptorBindingAccelerationStructureUpdateAfterBind(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.DESCRIPTORBINDINGACCELERATIONSTRUCTUREUPDATEAFTERBIND); }
+    public static int ndescriptorBindingAccelerationStructureUpdateAfterBind(long struct) { return memGetInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.DESCRIPTORBINDINGACCELERATIONSTRUCTUREUPDATEAFTERBIND); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #accelerationStructure(boolean) accelerationStructure}. */
-    public static void naccelerationStructure(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTURE, value); }
+    public static void naccelerationStructure(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTURE, value); }
     /** Unsafe version of {@link #accelerationStructureCaptureReplay(boolean) accelerationStructureCaptureReplay}. */
-    public static void naccelerationStructureCaptureReplay(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTURECAPTUREREPLAY, value); }
+    public static void naccelerationStructureCaptureReplay(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTURECAPTUREREPLAY, value); }
     /** Unsafe version of {@link #accelerationStructureIndirectBuild(boolean) accelerationStructureIndirectBuild}. */
-    public static void naccelerationStructureIndirectBuild(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTUREINDIRECTBUILD, value); }
+    public static void naccelerationStructureIndirectBuild(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTUREINDIRECTBUILD, value); }
     /** Unsafe version of {@link #accelerationStructureHostCommands(boolean) accelerationStructureHostCommands}. */
-    public static void naccelerationStructureHostCommands(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTUREHOSTCOMMANDS, value); }
+    public static void naccelerationStructureHostCommands(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.ACCELERATIONSTRUCTUREHOSTCOMMANDS, value); }
     /** Unsafe version of {@link #descriptorBindingAccelerationStructureUpdateAfterBind(boolean) descriptorBindingAccelerationStructureUpdateAfterBind}. */
-    public static void ndescriptorBindingAccelerationStructureUpdateAfterBind(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.DESCRIPTORBINDINGACCELERATIONSTRUCTUREUPDATEAFTERBIND, value); }
+    public static void ndescriptorBindingAccelerationStructureUpdateAfterBind(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAccelerationStructureFeaturesKHR.DESCRIPTORBINDINGACCELERATIONSTRUCTUREUPDATEAFTERBIND, value); }
 
     // -----------------------------------
 
@@ -350,6 +348,11 @@ public class VkPhysicalDeviceAccelerationStructureFeaturesKHR extends Struct<VkP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

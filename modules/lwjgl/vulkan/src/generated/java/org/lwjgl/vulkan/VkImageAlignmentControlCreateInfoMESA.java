@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,14 +22,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If {@code maximumRequestedAlignment} is not 0, the implementation <b>should</b> choose an image memory layout that requires an alignment no larger than {@code maximumRequestedAlignment} as reported in {@link VkMemoryRequirements}{@code ::alignment}. If such a layout does not exist for the given image creation parameters, the implementation <b>should</b> return the smallest alignment which is supported in {@link VkMemoryRequirements}.</p>
  * 
- * <p>If an implementation needs to disable image compression for {@code maximumRequestedAlignment} to be honored - where a larger alignment would enable image compression - the implementation <b>should</b> not use {@code maximumRequestedAlignment}, and <b>should</b> return the smallest alignment which does not compromise compression. If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-imageCompressionControl">{@code imageCompressionControl}</a> is enabled, the application <b>can</b> chain a {@link VkImageCompressionControlEXT} with {@link EXTImageCompressionControl#VK_IMAGE_COMPRESSION_DISABLED_EXT IMAGE_COMPRESSION_DISABLED_EXT}. In this case, image compression considerations <b>should</b> not apply when implementation decides alignment.</p>
+ * <p>If an implementation needs to disable image compression for {@code maximumRequestedAlignment} to be honored - where a larger alignment would enable image compression - the implementation <b>should</b> not use {@code maximumRequestedAlignment}, and <b>should</b> return the smallest alignment which does not compromise compression. If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-imageCompressionControl">{@code imageCompressionControl}</a> feature is enabled, the application <b>can</b> chain a {@link VkImageCompressionControlEXT} with {@link EXTImageCompressionControl#VK_IMAGE_COMPRESSION_DISABLED_EXT IMAGE_COMPRESSION_DISABLED_EXT}. In this case, image compression considerations <b>should</b> not apply when implementation decides alignment.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
  * <li>If {@code maximumRequestedAlignment} is not 0, {@code maximumRequestedAlignment} <b>must</b> be a power of two</li>
- * <li>If {@code maximumRequestedAlignment} is not 0, the bitwise-and of {@code maximumRequestedAlignment} and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-supportedImageAlignmentMask">{@code supportedImageAlignmentMask}</a> <b>must</b> be non-zero</li>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-imageAlignmentControl">{@code imageAlignmentControl}</a> <b>must</b> be enabled on the device</li>
+ * <li>If {@code maximumRequestedAlignment} is not 0, the bitwise-and of {@code maximumRequestedAlignment} and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-supportedImageAlignmentMask">{@code supportedImageAlignmentMask}</a> <b>must</b> be non-zero</li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-imageAlignmentControl">{@code imageAlignmentControl}</a> <b>must</b> be enabled</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -166,8 +166,7 @@ public class VkImageAlignmentControlCreateInfoMESA extends Struct<VkImageAlignme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageAlignmentControlCreateInfoMESA createSafe(long address) {
+    public static @Nullable VkImageAlignmentControlCreateInfoMESA createSafe(long address) {
         return address == NULL ? null : new VkImageAlignmentControlCreateInfoMESA(address, null);
     }
 
@@ -210,8 +209,7 @@ public class VkImageAlignmentControlCreateInfoMESA extends Struct<VkImageAlignme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageAlignmentControlCreateInfoMESA.Buffer createSafe(long address, int capacity) {
+    public static VkImageAlignmentControlCreateInfoMESA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,18 +254,18 @@ public class VkImageAlignmentControlCreateInfoMESA extends Struct<VkImageAlignme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageAlignmentControlCreateInfoMESA.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageAlignmentControlCreateInfoMESA.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageAlignmentControlCreateInfoMESA.PNEXT); }
     /** Unsafe version of {@link #maximumRequestedAlignment}. */
-    public static int nmaximumRequestedAlignment(long struct) { return UNSAFE.getInt(null, struct + VkImageAlignmentControlCreateInfoMESA.MAXIMUMREQUESTEDALIGNMENT); }
+    public static int nmaximumRequestedAlignment(long struct) { return memGetInt(struct + VkImageAlignmentControlCreateInfoMESA.MAXIMUMREQUESTEDALIGNMENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageAlignmentControlCreateInfoMESA.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageAlignmentControlCreateInfoMESA.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageAlignmentControlCreateInfoMESA.PNEXT, value); }
     /** Unsafe version of {@link #maximumRequestedAlignment(int) maximumRequestedAlignment}. */
-    public static void nmaximumRequestedAlignment(long struct, int value) { UNSAFE.putInt(null, struct + VkImageAlignmentControlCreateInfoMESA.MAXIMUMREQUESTEDALIGNMENT, value); }
+    public static void nmaximumRequestedAlignment(long struct, int value) { memPutInt(struct + VkImageAlignmentControlCreateInfoMESA.MAXIMUMREQUESTEDALIGNMENT, value); }
 
     // -----------------------------------
 
@@ -300,6 +298,11 @@ public class VkImageAlignmentControlCreateInfoMESA extends Struct<VkImageAlignme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

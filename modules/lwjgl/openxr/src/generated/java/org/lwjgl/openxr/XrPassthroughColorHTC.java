@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,8 +161,7 @@ public class XrPassthroughColorHTC extends Struct<XrPassthroughColorHTC> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorHTC createSafe(long address) {
+    public static @Nullable XrPassthroughColorHTC createSafe(long address) {
         return address == NULL ? null : new XrPassthroughColorHTC(address, null);
     }
 
@@ -205,8 +204,7 @@ public class XrPassthroughColorHTC extends Struct<XrPassthroughColorHTC> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorHTC.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughColorHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,18 +249,18 @@ public class XrPassthroughColorHTC extends Struct<XrPassthroughColorHTC> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughColorHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughColorHTC.NEXT); }
     /** Unsafe version of {@link #alpha}. */
-    public static float nalpha(long struct) { return UNSAFE.getFloat(null, struct + XrPassthroughColorHTC.ALPHA); }
+    public static float nalpha(long struct) { return memGetFloat(struct + XrPassthroughColorHTC.ALPHA); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughColorHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughColorHTC.NEXT, value); }
     /** Unsafe version of {@link #alpha(float) alpha}. */
-    public static void nalpha(long struct, float value) { UNSAFE.putFloat(null, struct + XrPassthroughColorHTC.ALPHA, value); }
+    public static void nalpha(long struct, float value) { memPutFloat(struct + XrPassthroughColorHTC.ALPHA, value); }
 
     // -----------------------------------
 
@@ -295,6 +293,11 @@ public class XrPassthroughColorHTC extends Struct<XrPassthroughColorHTC> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

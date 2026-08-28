@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -100,8 +100,7 @@ public class VREventInputBindingLoad extends Struct<VREventInputBindingLoad> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventInputBindingLoad createSafe(long address) {
+    public static @Nullable VREventInputBindingLoad createSafe(long address) {
         return address == NULL ? null : new VREventInputBindingLoad(address, null);
     }
 
@@ -116,21 +115,20 @@ public class VREventInputBindingLoad extends Struct<VREventInputBindingLoad> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventInputBindingLoad.Buffer createSafe(long address, int capacity) {
+    public static VREventInputBindingLoad.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #ulAppContainer}. */
-    public static long nulAppContainer(long struct) { return UNSAFE.getLong(null, struct + VREventInputBindingLoad.ULAPPCONTAINER); }
+    public static long nulAppContainer(long struct) { return memGetLong(struct + VREventInputBindingLoad.ULAPPCONTAINER); }
     /** Unsafe version of {@link #pathMessage}. */
-    public static long npathMessage(long struct) { return UNSAFE.getLong(null, struct + VREventInputBindingLoad.PATHMESSAGE); }
+    public static long npathMessage(long struct) { return memGetLong(struct + VREventInputBindingLoad.PATHMESSAGE); }
     /** Unsafe version of {@link #pathUrl}. */
-    public static long npathUrl(long struct) { return UNSAFE.getLong(null, struct + VREventInputBindingLoad.PATHURL); }
+    public static long npathUrl(long struct) { return memGetLong(struct + VREventInputBindingLoad.PATHURL); }
     /** Unsafe version of {@link #pathControllerType}. */
-    public static long npathControllerType(long struct) { return UNSAFE.getLong(null, struct + VREventInputBindingLoad.PATHCONTROLLERTYPE); }
+    public static long npathControllerType(long struct) { return memGetLong(struct + VREventInputBindingLoad.PATHCONTROLLERTYPE); }
 
     // -----------------------------------
 
@@ -163,6 +161,11 @@ public class VREventInputBindingLoad extends Struct<VREventInputBindingLoad> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

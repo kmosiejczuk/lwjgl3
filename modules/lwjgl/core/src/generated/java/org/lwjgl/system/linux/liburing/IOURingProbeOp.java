@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -140,8 +140,7 @@ public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingProbeOp createSafe(long address) {
+    public static @Nullable IOURingProbeOp createSafe(long address) {
         return address == NULL ? null : new IOURingProbeOp(address, null);
     }
 
@@ -184,8 +183,7 @@ public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingProbeOp.Buffer createSafe(long address, int capacity) {
+    public static IOURingProbeOp.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -230,18 +228,18 @@ public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #op}. */
-    public static byte nop(long struct) { return UNSAFE.getByte(null, struct + IOURingProbeOp.OP); }
-    public static byte nresv(long struct) { return UNSAFE.getByte(null, struct + IOURingProbeOp.RESV); }
+    public static byte nop(long struct) { return memGetByte(struct + IOURingProbeOp.OP); }
+    public static byte nresv(long struct) { return memGetByte(struct + IOURingProbeOp.RESV); }
     /** Unsafe version of {@link #flags}. */
-    public static short nflags(long struct) { return UNSAFE.getShort(null, struct + IOURingProbeOp.FLAGS); }
-    public static int nresv2(long struct) { return UNSAFE.getInt(null, struct + IOURingProbeOp.RESV2); }
+    public static short nflags(long struct) { return memGetShort(struct + IOURingProbeOp.FLAGS); }
+    public static int nresv2(long struct) { return memGetInt(struct + IOURingProbeOp.RESV2); }
 
     /** Unsafe version of {@link #op(byte) op}. */
-    public static void nop(long struct, byte value) { UNSAFE.putByte(null, struct + IOURingProbeOp.OP, value); }
-    public static void nresv(long struct, byte value) { UNSAFE.putByte(null, struct + IOURingProbeOp.RESV, value); }
+    public static void nop(long struct, byte value) { memPutByte(struct + IOURingProbeOp.OP, value); }
+    public static void nresv(long struct, byte value) { memPutByte(struct + IOURingProbeOp.RESV, value); }
     /** Unsafe version of {@link #flags(short) flags}. */
-    public static void nflags(long struct, short value) { UNSAFE.putShort(null, struct + IOURingProbeOp.FLAGS, value); }
-    public static void nresv2(long struct, int value) { UNSAFE.putInt(null, struct + IOURingProbeOp.RESV2, value); }
+    public static void nflags(long struct, short value) { memPutShort(struct + IOURingProbeOp.FLAGS, value); }
+    public static void nresv2(long struct, int value) { memPutInt(struct + IOURingProbeOp.RESV2, value); }
 
     // -----------------------------------
 
@@ -274,6 +272,11 @@ public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

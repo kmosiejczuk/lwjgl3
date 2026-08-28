@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,10 +94,10 @@ public class VkVideoEncodeH264SessionParametersFeedbackInfoKHR extends Struct<Vk
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether any of the parameters of the requested <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-sps">H.264 sequence parameter set</a>, if one was requested via {@link VkVideoEncodeH264SessionParametersGetInfoKHR}{@code ::writeStdSPS}, were <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-overrides">overridden</a> by the implementation. */
+    /** indicates whether any of the parameters of the requested <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-sps">H.264 sequence parameter set</a>, if one was requested via {@link VkVideoEncodeH264SessionParametersGetInfoKHR}{@code ::writeStdSPS}, were <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-overrides">overridden</a> by the implementation. */
     @NativeType("VkBool32")
     public boolean hasStdSPSOverrides() { return nhasStdSPSOverrides(address()) != 0; }
-    /** indicates whether any of the parameters of the requested <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-pps">H.264 picture parameter set</a>, if one was requested via {@link VkVideoEncodeH264SessionParametersGetInfoKHR}{@code ::writeStdPPS}, were <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-overrides">overridden</a> by the implementation. */
+    /** indicates whether any of the parameters of the requested <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-pps">H.264 picture parameter set</a>, if one was requested via {@link VkVideoEncodeH264SessionParametersGetInfoKHR}{@code ::writeStdPPS}, were <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-overrides">overridden</a> by the implementation. */
     @NativeType("VkBool32")
     public boolean hasStdPPSOverrides() { return nhasStdPPSOverrides(address()) != 0; }
 
@@ -155,8 +155,7 @@ public class VkVideoEncodeH264SessionParametersFeedbackInfoKHR extends Struct<Vk
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264SessionParametersFeedbackInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264SessionParametersFeedbackInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264SessionParametersFeedbackInfoKHR(address, null);
     }
 
@@ -199,8 +198,7 @@ public class VkVideoEncodeH264SessionParametersFeedbackInfoKHR extends Struct<Vk
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264SessionParametersFeedbackInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264SessionParametersFeedbackInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,16 +243,16 @@ public class VkVideoEncodeH264SessionParametersFeedbackInfoKHR extends Struct<Vk
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersFeedbackInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersFeedbackInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH264SessionParametersFeedbackInfoKHR.PNEXT); }
     /** Unsafe version of {@link #hasStdSPSOverrides}. */
-    public static int nhasStdSPSOverrides(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersFeedbackInfoKHR.HASSTDSPSOVERRIDES); }
+    public static int nhasStdSPSOverrides(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersFeedbackInfoKHR.HASSTDSPSOVERRIDES); }
     /** Unsafe version of {@link #hasStdPPSOverrides}. */
-    public static int nhasStdPPSOverrides(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersFeedbackInfoKHR.HASSTDPPSOVERRIDES); }
+    public static int nhasStdPPSOverrides(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersFeedbackInfoKHR.HASSTDPPSOVERRIDES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264SessionParametersFeedbackInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH264SessionParametersFeedbackInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH264SessionParametersFeedbackInfoKHR.PNEXT, value); }
 
@@ -289,6 +287,11 @@ public class VkVideoEncodeH264SessionParametersFeedbackInfoKHR extends Struct<Vk
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

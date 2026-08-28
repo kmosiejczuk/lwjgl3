@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class XrEventDataDisplayRefreshRateChangedFB extends Struct<XrEventDataDi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataDisplayRefreshRateChangedFB createSafe(long address) {
+    public static @Nullable XrEventDataDisplayRefreshRateChangedFB createSafe(long address) {
         return address == NULL ? null : new XrEventDataDisplayRefreshRateChangedFB(address, null);
     }
 
@@ -208,8 +207,7 @@ public class XrEventDataDisplayRefreshRateChangedFB extends Struct<XrEventDataDi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataDisplayRefreshRateChangedFB.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataDisplayRefreshRateChangedFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,16 +257,16 @@ public class XrEventDataDisplayRefreshRateChangedFB extends Struct<XrEventDataDi
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataDisplayRefreshRateChangedFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataDisplayRefreshRateChangedFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataDisplayRefreshRateChangedFB.NEXT); }
     /** Unsafe version of {@link #fromDisplayRefreshRate}. */
-    public static float nfromDisplayRefreshRate(long struct) { return UNSAFE.getFloat(null, struct + XrEventDataDisplayRefreshRateChangedFB.FROMDISPLAYREFRESHRATE); }
+    public static float nfromDisplayRefreshRate(long struct) { return memGetFloat(struct + XrEventDataDisplayRefreshRateChangedFB.FROMDISPLAYREFRESHRATE); }
     /** Unsafe version of {@link #toDisplayRefreshRate}. */
-    public static float ntoDisplayRefreshRate(long struct) { return UNSAFE.getFloat(null, struct + XrEventDataDisplayRefreshRateChangedFB.TODISPLAYREFRESHRATE); }
+    public static float ntoDisplayRefreshRate(long struct) { return memGetFloat(struct + XrEventDataDisplayRefreshRateChangedFB.TODISPLAYREFRESHRATE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataDisplayRefreshRateChangedFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataDisplayRefreshRateChangedFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataDisplayRefreshRateChangedFB.NEXT, value); }
 
@@ -303,6 +301,11 @@ public class XrEventDataDisplayRefreshRateChangedFB extends Struct<XrEventDataDi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

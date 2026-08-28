@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -145,8 +145,7 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneComponentLocationMSFT createSafe(long address) {
+    public static @Nullable XrSceneComponentLocationMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneComponentLocationMSFT(address, null);
     }
 
@@ -189,8 +188,7 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneComponentLocationMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneComponentLocationMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -235,12 +233,12 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
     // -----------------------------------
 
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrSceneComponentLocationMSFT.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrSceneComponentLocationMSFT.FLAGS); }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrSceneComponentLocationMSFT.POSE); }
 
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrSceneComponentLocationMSFT.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrSceneComponentLocationMSFT.FLAGS, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrSceneComponentLocationMSFT.POSE, XrPosef.SIZEOF); }
 
@@ -275,6 +273,11 @@ public class XrSceneComponentLocationMSFT extends Struct<XrSceneComponentLocatio
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

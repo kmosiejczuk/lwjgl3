@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class XrVector4f extends Struct<XrVector4f> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVector4f createSafe(long address) {
+    public static @Nullable XrVector4f createSafe(long address) {
         return address == NULL ? null : new XrVector4f(address, null);
     }
 
@@ -203,8 +202,7 @@ public class XrVector4f extends Struct<XrVector4f> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVector4f.Buffer createSafe(long address, int capacity) {
+    public static XrVector4f.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,22 +247,22 @@ public class XrVector4f extends Struct<XrVector4f> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + XrVector4f.X); }
+    public static float nx(long struct) { return memGetFloat(struct + XrVector4f.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + XrVector4f.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + XrVector4f.Y); }
     /** Unsafe version of {@link #z}. */
-    public static float nz(long struct) { return UNSAFE.getFloat(null, struct + XrVector4f.Z); }
+    public static float nz(long struct) { return memGetFloat(struct + XrVector4f.Z); }
     /** Unsafe version of {@link #w}. */
-    public static float nw(long struct) { return UNSAFE.getFloat(null, struct + XrVector4f.W); }
+    public static float nw(long struct) { return memGetFloat(struct + XrVector4f.W); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector4f.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + XrVector4f.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector4f.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + XrVector4f.Y, value); }
     /** Unsafe version of {@link #z(float) z}. */
-    public static void nz(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector4f.Z, value); }
+    public static void nz(long struct, float value) { memPutFloat(struct + XrVector4f.Z, value); }
     /** Unsafe version of {@link #w(float) w}. */
-    public static void nw(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector4f.W, value); }
+    public static void nw(long struct, float value) { memPutFloat(struct + XrVector4f.W, value); }
 
     // -----------------------------------
 
@@ -297,6 +295,11 @@ public class XrVector4f extends Struct<XrVector4f> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

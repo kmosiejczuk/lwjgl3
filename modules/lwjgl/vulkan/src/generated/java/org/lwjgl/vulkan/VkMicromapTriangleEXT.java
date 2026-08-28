@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkMicromapTriangleEXT extends Struct<VkMicromapTriangleEXT> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapTriangleEXT createSafe(long address) {
+    public static @Nullable VkMicromapTriangleEXT createSafe(long address) {
         return address == NULL ? null : new VkMicromapTriangleEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkMicromapTriangleEXT extends Struct<VkMicromapTriangleEXT> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapTriangleEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMicromapTriangleEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkMicromapTriangleEXT extends Struct<VkMicromapTriangleEXT> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #dataOffset}. */
-    public static int ndataOffset(long struct) { return UNSAFE.getInt(null, struct + VkMicromapTriangleEXT.DATAOFFSET); }
+    public static int ndataOffset(long struct) { return memGetInt(struct + VkMicromapTriangleEXT.DATAOFFSET); }
     /** Unsafe version of {@link #subdivisionLevel}. */
-    public static short nsubdivisionLevel(long struct) { return UNSAFE.getShort(null, struct + VkMicromapTriangleEXT.SUBDIVISIONLEVEL); }
+    public static short nsubdivisionLevel(long struct) { return memGetShort(struct + VkMicromapTriangleEXT.SUBDIVISIONLEVEL); }
     /** Unsafe version of {@link #format}. */
-    public static short nformat(long struct) { return UNSAFE.getShort(null, struct + VkMicromapTriangleEXT.FORMAT); }
+    public static short nformat(long struct) { return memGetShort(struct + VkMicromapTriangleEXT.FORMAT); }
 
     /** Unsafe version of {@link #dataOffset(int) dataOffset}. */
-    public static void ndataOffset(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapTriangleEXT.DATAOFFSET, value); }
+    public static void ndataOffset(long struct, int value) { memPutInt(struct + VkMicromapTriangleEXT.DATAOFFSET, value); }
     /** Unsafe version of {@link #subdivisionLevel(short) subdivisionLevel}. */
-    public static void nsubdivisionLevel(long struct, short value) { UNSAFE.putShort(null, struct + VkMicromapTriangleEXT.SUBDIVISIONLEVEL, value); }
+    public static void nsubdivisionLevel(long struct, short value) { memPutShort(struct + VkMicromapTriangleEXT.SUBDIVISIONLEVEL, value); }
     /** Unsafe version of {@link #format(short) format}. */
-    public static void nformat(long struct, short value) { UNSAFE.putShort(null, struct + VkMicromapTriangleEXT.FORMAT, value); }
+    public static void nformat(long struct, short value) { memPutShort(struct + VkMicromapTriangleEXT.FORMAT, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkMicromapTriangleEXT extends Struct<VkMicromapTriangleEXT> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

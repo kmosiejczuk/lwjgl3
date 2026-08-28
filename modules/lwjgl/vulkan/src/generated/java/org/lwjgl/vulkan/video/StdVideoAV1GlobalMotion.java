@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -144,8 +144,7 @@ public class StdVideoAV1GlobalMotion extends Struct<StdVideoAV1GlobalMotion> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1GlobalMotion createSafe(long address) {
+    public static @Nullable StdVideoAV1GlobalMotion createSafe(long address) {
         return address == NULL ? null : new StdVideoAV1GlobalMotion(address, null);
     }
 
@@ -188,8 +187,7 @@ public class StdVideoAV1GlobalMotion extends Struct<StdVideoAV1GlobalMotion> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1GlobalMotion.Buffer createSafe(long address, int capacity) {
+    public static StdVideoAV1GlobalMotion.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,13 +235,13 @@ public class StdVideoAV1GlobalMotion extends Struct<StdVideoAV1GlobalMotion> imp
     public static ByteBuffer nGmType(long struct) { return memByteBuffer(struct + StdVideoAV1GlobalMotion.GMTYPE, STD_VIDEO_AV1_NUM_REF_FRAMES); }
     /** Unsafe version of {@link #GmType(int) GmType}. */
     public static byte nGmType(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoAV1GlobalMotion.GMTYPE + check(index, STD_VIDEO_AV1_NUM_REF_FRAMES) * 1);
+        return memGetByte(struct + StdVideoAV1GlobalMotion.GMTYPE + check(index, STD_VIDEO_AV1_NUM_REF_FRAMES) * 1);
     }
     /** Unsafe version of {@link #gm_params}. */
     public static IntBuffer ngm_params(long struct) { return memIntBuffer(struct + StdVideoAV1GlobalMotion.GM_PARAMS, STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS); }
     /** Unsafe version of {@link #gm_params(int) gm_params}. */
     public static int ngm_params(long struct, int index) {
-        return UNSAFE.getInt(null, struct + StdVideoAV1GlobalMotion.GM_PARAMS + check(index, STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS) * 4);
+        return memGetInt(struct + StdVideoAV1GlobalMotion.GM_PARAMS + check(index, STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS) * 4);
     }
 
     /** Unsafe version of {@link #GmType(ByteBuffer) GmType}. */
@@ -253,7 +251,7 @@ public class StdVideoAV1GlobalMotion extends Struct<StdVideoAV1GlobalMotion> imp
     }
     /** Unsafe version of {@link #GmType(int, byte) GmType}. */
     public static void nGmType(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoAV1GlobalMotion.GMTYPE + check(index, STD_VIDEO_AV1_NUM_REF_FRAMES) * 1, value);
+        memPutByte(struct + StdVideoAV1GlobalMotion.GMTYPE + check(index, STD_VIDEO_AV1_NUM_REF_FRAMES) * 1, value);
     }
     /** Unsafe version of {@link #gm_params(IntBuffer) gm_params}. */
     public static void ngm_params(long struct, IntBuffer value) {
@@ -262,7 +260,7 @@ public class StdVideoAV1GlobalMotion extends Struct<StdVideoAV1GlobalMotion> imp
     }
     /** Unsafe version of {@link #gm_params(int, int) gm_params}. */
     public static void ngm_params(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + StdVideoAV1GlobalMotion.GM_PARAMS + check(index, STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS) * 4, value);
+        memPutInt(struct + StdVideoAV1GlobalMotion.GM_PARAMS + check(index, STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS) * 4, value);
     }
 
     // -----------------------------------
@@ -296,6 +294,11 @@ public class StdVideoAV1GlobalMotion extends Struct<StdVideoAV1GlobalMotion> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

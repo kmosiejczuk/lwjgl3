@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -118,8 +118,7 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRDetectResult createSafe(long address) {
+    public static @Nullable OVRDetectResult createSafe(long address) {
         return address == NULL ? null : new OVRDetectResult(address, null);
     }
 
@@ -162,8 +161,7 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRDetectResult.Buffer createSafe(long address, int capacity) {
+    public static OVRDetectResult.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -227,9 +225,9 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #IsOculusServiceRunning}. */
-    public static boolean nIsOculusServiceRunning(long struct) { return UNSAFE.getByte(null, struct + OVRDetectResult.ISOCULUSSERVICERUNNING) != 0; }
+    public static boolean nIsOculusServiceRunning(long struct) { return memGetByte(struct + OVRDetectResult.ISOCULUSSERVICERUNNING) != 0; }
     /** Unsafe version of {@link #IsOculusHMDConnected}. */
-    public static boolean nIsOculusHMDConnected(long struct) { return UNSAFE.getByte(null, struct + OVRDetectResult.ISOCULUSHMDCONNECTED) != 0; }
+    public static boolean nIsOculusHMDConnected(long struct) { return memGetByte(struct + OVRDetectResult.ISOCULUSHMDCONNECTED) != 0; }
 
     // -----------------------------------
 
@@ -262,6 +260,11 @@ public class OVRDetectResult extends Struct<OVRDetectResult> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

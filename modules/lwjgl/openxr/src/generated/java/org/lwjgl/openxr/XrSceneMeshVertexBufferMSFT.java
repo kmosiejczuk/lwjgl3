@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -112,9 +112,8 @@ public class XrSceneMeshVertexBufferMSFT extends Struct<XrSceneMeshVertexBufferM
     @NativeType("uint32_t")
     public int vertexCountOutput() { return nvertexCountOutput(address()); }
     /** an array of {@link XrVector3f} filled in by the runtime returns the position of vertices in the mesh component’s space. */
-    @Nullable
     @NativeType("XrVector3f *")
-    public XrVector3f.Buffer vertices() { return nvertices(address()); }
+    public XrVector3f.@Nullable Buffer vertices() { return nvertices(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
     public XrSceneMeshVertexBufferMSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
@@ -127,7 +126,7 @@ public class XrSceneMeshVertexBufferMSFT extends Struct<XrSceneMeshVertexBufferM
     /** Sets the specified value to the {@link #vertexCountOutput} field. */
     public XrSceneMeshVertexBufferMSFT vertexCountOutput(@NativeType("uint32_t") int value) { nvertexCountOutput(address(), value); return this; }
     /** Sets the address of the specified {@link XrVector3f.Buffer} to the {@link #vertices} field. */
-    public XrSceneMeshVertexBufferMSFT vertices(@Nullable @NativeType("XrVector3f *") XrVector3f.Buffer value) { nvertices(address(), value); return this; }
+    public XrSceneMeshVertexBufferMSFT vertices(@NativeType("XrVector3f *") XrVector3f.@Nullable Buffer value) { nvertices(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSceneMeshVertexBufferMSFT set(
@@ -135,7 +134,7 @@ public class XrSceneMeshVertexBufferMSFT extends Struct<XrSceneMeshVertexBufferM
         long next,
         int vertexCapacityInput,
         int vertexCountOutput,
-        @Nullable XrVector3f.Buffer vertices
+        XrVector3f.@Nullable Buffer vertices
     ) {
         type(type);
         next(next);
@@ -182,8 +181,7 @@ public class XrSceneMeshVertexBufferMSFT extends Struct<XrSceneMeshVertexBufferM
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneMeshVertexBufferMSFT createSafe(long address) {
+    public static @Nullable XrSceneMeshVertexBufferMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneMeshVertexBufferMSFT(address, null);
     }
 
@@ -226,8 +224,7 @@ public class XrSceneMeshVertexBufferMSFT extends Struct<XrSceneMeshVertexBufferM
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneMeshVertexBufferMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneMeshVertexBufferMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,26 +269,26 @@ public class XrSceneMeshVertexBufferMSFT extends Struct<XrSceneMeshVertexBufferM
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSceneMeshVertexBufferMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSceneMeshVertexBufferMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSceneMeshVertexBufferMSFT.NEXT); }
     /** Unsafe version of {@link #vertexCapacityInput}. */
-    public static int nvertexCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrSceneMeshVertexBufferMSFT.VERTEXCAPACITYINPUT); }
+    public static int nvertexCapacityInput(long struct) { return memGetInt(struct + XrSceneMeshVertexBufferMSFT.VERTEXCAPACITYINPUT); }
     /** Unsafe version of {@link #vertexCountOutput}. */
-    public static int nvertexCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrSceneMeshVertexBufferMSFT.VERTEXCOUNTOUTPUT); }
+    public static int nvertexCountOutput(long struct) { return memGetInt(struct + XrSceneMeshVertexBufferMSFT.VERTEXCOUNTOUTPUT); }
     /** Unsafe version of {@link #vertices}. */
-    @Nullable public static XrVector3f.Buffer nvertices(long struct) { return XrVector3f.createSafe(memGetAddress(struct + XrSceneMeshVertexBufferMSFT.VERTICES), nvertexCapacityInput(struct)); }
+    public static XrVector3f.@Nullable Buffer nvertices(long struct) { return XrVector3f.createSafe(memGetAddress(struct + XrSceneMeshVertexBufferMSFT.VERTICES), nvertexCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneMeshVertexBufferMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSceneMeshVertexBufferMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSceneMeshVertexBufferMSFT.NEXT, value); }
     /** Sets the specified value to the {@code vertexCapacityInput} field of the specified {@code struct}. */
-    public static void nvertexCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneMeshVertexBufferMSFT.VERTEXCAPACITYINPUT, value); }
+    public static void nvertexCapacityInput(long struct, int value) { memPutInt(struct + XrSceneMeshVertexBufferMSFT.VERTEXCAPACITYINPUT, value); }
     /** Unsafe version of {@link #vertexCountOutput(int) vertexCountOutput}. */
-    public static void nvertexCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneMeshVertexBufferMSFT.VERTEXCOUNTOUTPUT, value); }
+    public static void nvertexCountOutput(long struct, int value) { memPutInt(struct + XrSceneMeshVertexBufferMSFT.VERTEXCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #vertices(XrVector3f.Buffer) vertices}. */
-    public static void nvertices(long struct, @Nullable XrVector3f.Buffer value) { memPutAddress(struct + XrSceneMeshVertexBufferMSFT.VERTICES, memAddressSafe(value)); if (value != null) { nvertexCapacityInput(struct, value.remaining()); } }
+    public static void nvertices(long struct, XrVector3f.@Nullable Buffer value) { memPutAddress(struct + XrSceneMeshVertexBufferMSFT.VERTICES, memAddressSafe(value)); if (value != null) { nvertexCapacityInput(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -327,6 +324,11 @@ public class XrSceneMeshVertexBufferMSFT extends Struct<XrSceneMeshVertexBufferM
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSceneMeshVertexBufferMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -344,9 +346,8 @@ public class XrSceneMeshVertexBufferMSFT extends Struct<XrSceneMeshVertexBufferM
         @NativeType("uint32_t")
         public int vertexCountOutput() { return XrSceneMeshVertexBufferMSFT.nvertexCountOutput(address()); }
         /** @return a {@link XrVector3f.Buffer} view of the struct array pointed to by the {@link XrSceneMeshVertexBufferMSFT#vertices} field. */
-        @Nullable
         @NativeType("XrVector3f *")
-        public XrVector3f.Buffer vertices() { return XrSceneMeshVertexBufferMSFT.nvertices(address()); }
+        public XrVector3f.@Nullable Buffer vertices() { return XrSceneMeshVertexBufferMSFT.nvertices(address()); }
 
         /** Sets the specified value to the {@link XrSceneMeshVertexBufferMSFT#type} field. */
         public XrSceneMeshVertexBufferMSFT.Buffer type(@NativeType("XrStructureType") int value) { XrSceneMeshVertexBufferMSFT.ntype(address(), value); return this; }
@@ -359,7 +360,7 @@ public class XrSceneMeshVertexBufferMSFT extends Struct<XrSceneMeshVertexBufferM
         /** Sets the specified value to the {@link XrSceneMeshVertexBufferMSFT#vertexCountOutput} field. */
         public XrSceneMeshVertexBufferMSFT.Buffer vertexCountOutput(@NativeType("uint32_t") int value) { XrSceneMeshVertexBufferMSFT.nvertexCountOutput(address(), value); return this; }
         /** Sets the address of the specified {@link XrVector3f.Buffer} to the {@link XrSceneMeshVertexBufferMSFT#vertices} field. */
-        public XrSceneMeshVertexBufferMSFT.Buffer vertices(@Nullable @NativeType("XrVector3f *") XrVector3f.Buffer value) { XrSceneMeshVertexBufferMSFT.nvertices(address(), value); return this; }
+        public XrSceneMeshVertexBufferMSFT.Buffer vertices(@NativeType("XrVector3f *") XrVector3f.@Nullable Buffer value) { XrSceneMeshVertexBufferMSFT.nvertices(address(), value); return this; }
 
     }
 

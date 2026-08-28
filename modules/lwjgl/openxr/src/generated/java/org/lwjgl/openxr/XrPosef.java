@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link XrActionSpaceCreateInfo}, {@link XrBodyJointLocationFB}, {@link XrBodySkeletonJointFB}, {@link XrBoxf}, {@link XrCompositionLayerCylinderKHR}, {@link XrCompositionLayerEquirect2KHR}, {@link XrCompositionLayerEquirectKHR}, {@link XrCompositionLayerProjectionView}, {@link XrCompositionLayerQuad}, {@link XrCompositionLayerSpaceWarpInfoFB}, {@link XrControllerModelNodeStateMSFT}, {@link XrCoordinateSpaceCreateInfoML}, {@link XrEnvironmentDepthImageViewMETA}, {@link XrEventDataReferenceSpaceChangePending}, {@link XrExternalCameraExtrinsicsOCULUS}, {@link XrEyeGazeFB}, {@link XrFrustumf}, {@link XrGeometryInstanceCreateInfoFB}, {@link XrGeometryInstanceTransformFB}, {@link XrHandJointLocationEXT}, {@link XrHandMeshSpaceCreateInfoMSFT}, {@link XrHandTrackingAimStateFB}, {@link XrHandTrackingMeshFB}, {@link XrMarkerSpaceCreateInfoML}, {@link XrMarkerSpaceCreateInfoVARJO}, {@link XrPassthroughMeshTransformInfoHTC}, {@link XrPlaneDetectorBeginInfoEXT}, {@link XrPlaneDetectorLocationEXT}, {@link XrQuaternionf}, {@link XrReferenceSpaceCreateInfo}, {@link XrSceneComponentLocationMSFT}, {@link XrSceneFrustumBoundMSFT}, {@link XrSceneOrientedBoxBoundMSFT}, {@link XrSpaceLocation}, {@link XrSpaceLocationData}, {@link XrSpatialAnchorCreateInfoFB}, {@link XrSpatialAnchorCreateInfoHTC}, {@link XrSpatialAnchorCreateInfoMSFT}, {@link XrSpatialAnchorSpaceCreateInfoMSFT}, {@link XrSpatialGraphNodeBindingPropertiesMSFT}, {@link XrSpatialGraphNodeSpaceCreateInfoMSFT}, {@link XrSpatialGraphStaticNodeBindingCreateInfoMSFT}, {@link XrSpheref}, {@link XrVector2f}, {@link XrVector3f}, {@link XrVector4f}, {@link XrView}, {@link XrVirtualKeyboardInputInfoMETA}, {@link XrVirtualKeyboardLocationInfoMETA}, {@link XrVirtualKeyboardSpaceCreateInfoMETA}, {@link METAVirtualKeyboard#xrSendVirtualKeyboardInputMETA SendVirtualKeyboardInputMETA}, {@link EXTConformanceAutomation#xrSetInputDeviceLocationEXT SetInputDeviceLocationEXT}</p>
+ * <p>{@link XrActionSpaceCreateInfo}, {@link XrBodyJointLocationFB}, {@link XrBodyJointLocationHTC}, {@link XrBodySkeletonJointFB}, {@link XrBodySkeletonJointHTC}, {@link XrBoxf}, {@link XrCompositionLayerCylinderKHR}, {@link XrCompositionLayerEquirect2KHR}, {@link XrCompositionLayerEquirectKHR}, {@link XrCompositionLayerProjectionView}, {@link XrCompositionLayerQuad}, {@link XrCompositionLayerSpaceWarpInfoFB}, {@link XrControllerModelNodeStateMSFT}, {@link XrCoordinateSpaceCreateInfoML}, {@link XrEnvironmentDepthImageViewMETA}, {@link XrEventDataReferenceSpaceChangePending}, {@link XrExternalCameraExtrinsicsOCULUS}, {@link XrEyeGazeFB}, {@link XrFrustumf}, {@link XrGeometryInstanceCreateInfoFB}, {@link XrGeometryInstanceTransformFB}, {@link XrHandJointLocationEXT}, {@link XrHandMeshSpaceCreateInfoMSFT}, {@link XrHandTrackingAimStateFB}, {@link XrHandTrackingMeshFB}, {@link XrMarkerSpaceCreateInfoML}, {@link XrMarkerSpaceCreateInfoVARJO}, {@link XrPassthroughMeshTransformInfoHTC}, {@link XrPlaneDetectorBeginInfoEXT}, {@link XrPlaneDetectorLocationEXT}, {@link XrQuaternionf}, {@link XrReferenceSpaceCreateInfo}, {@link XrSceneComponentLocationMSFT}, {@link XrSceneFrustumBoundMSFT}, {@link XrSceneOrientedBoxBoundMSFT}, {@link XrSpaceLocation}, {@link XrSpaceLocationData}, {@link XrSpatialAnchorCreateInfoFB}, {@link XrSpatialAnchorCreateInfoHTC}, {@link XrSpatialAnchorCreateInfoMSFT}, {@link XrSpatialAnchorSpaceCreateInfoMSFT}, {@link XrSpatialAnchorsCreateInfoFromPoseML}, {@link XrSpatialGraphNodeBindingPropertiesMSFT}, {@link XrSpatialGraphNodeSpaceCreateInfoMSFT}, {@link XrSpatialGraphStaticNodeBindingCreateInfoMSFT}, {@link XrSpheref}, {@link XrVector2f}, {@link XrVector3f}, {@link XrVector4f}, {@link XrView}, {@link XrVirtualKeyboardInputInfoMETA}, {@link XrVirtualKeyboardLocationInfoMETA}, {@link XrVirtualKeyboardSpaceCreateInfoMETA}, {@link XrWorldMeshBlockStateML}, {@link XrWorldMeshStateRequestInfoML}, {@link METAVirtualKeyboard#xrSendVirtualKeyboardInputMETA SendVirtualKeyboardInputMETA}, {@link EXTConformanceAutomation#xrSetInputDeviceLocationEXT SetInputDeviceLocationEXT}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -143,8 +143,7 @@ public class XrPosef extends Struct<XrPosef> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPosef createSafe(long address) {
+    public static @Nullable XrPosef createSafe(long address) {
         return address == NULL ? null : new XrPosef(address, null);
     }
 
@@ -187,8 +186,7 @@ public class XrPosef extends Struct<XrPosef> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPosef.Buffer createSafe(long address, int capacity) {
+    public static XrPosef.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,6 +271,11 @@ public class XrPosef extends Struct<XrPosef> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

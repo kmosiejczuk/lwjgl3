@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,9 +22,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled or if {@link VkVideoCapabilitiesKHR}{@code ::flags} does not include {@link KHRVideoQueue#VK_VIDEO_CAPABILITY_PROTECTED_CONTENT_BIT_KHR VIDEO_CAPABILITY_PROTECTED_CONTENT_BIT_KHR}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified by {@code pVideoProfile}, then {@code flags} <b>must</b> not include {@link KHRVideoQueue#VK_VIDEO_SESSION_CREATE_PROTECTED_CONTENT_BIT_KHR VIDEO_SESSION_CREATE_PROTECTED_CONTENT_BIT_KHR}</li>
- * <li>If {@code flags} includes {@link KHRVideoMaintenance1#VK_VIDEO_SESSION_CREATE_INLINE_QUERIES_BIT_KHR VIDEO_SESSION_CREATE_INLINE_QUERIES_BIT_KHR}, then <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-videoMaintenance1">{@code videoMaintenance1}</a> <b>must</b> be enabled</li>
- * <li>{@code pVideoProfile} <b>must</b> be a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profile-support">supported video profile</a></li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled or if {@link VkVideoCapabilitiesKHR}{@code ::flags} does not include {@link KHRVideoQueue#VK_VIDEO_CAPABILITY_PROTECTED_CONTENT_BIT_KHR VIDEO_CAPABILITY_PROTECTED_CONTENT_BIT_KHR}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified by {@code pVideoProfile}, then {@code flags} <b>must</b> not include {@link KHRVideoQueue#VK_VIDEO_SESSION_CREATE_PROTECTED_CONTENT_BIT_KHR VIDEO_SESSION_CREATE_PROTECTED_CONTENT_BIT_KHR}</li>
+ * <li>If {@code flags} includes {@link KHRVideoMaintenance1#VK_VIDEO_SESSION_CREATE_INLINE_QUERIES_BIT_KHR VIDEO_SESSION_CREATE_INLINE_QUERIES_BIT_KHR}, then <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-videoMaintenance1">{@code videoMaintenance1}</a> <b>must</b> be enabled</li>
+ * <li>If {@code flags} includes {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR} or {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-videoEncodeQuantizationMap">{@code videoEncodeQuantizationMap}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code flags} includes {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR} or {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR}, then {@code pVideoProfile→videoCodecOperation} <b>must</b> specify an encode operation</li>
+ * <li>If {@code flags} includes {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR}, then it <b>must</b> not also include {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR}</li>
+ * <li>If {@link VkVideoEncodeCapabilitiesKHR}{@code ::flags} does not include {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_ENCODE_CAPABILITY_QUANTIZATION_DELTA_MAP_BIT_KHR VIDEO_ENCODE_CAPABILITY_QUANTIZATION_DELTA_MAP_BIT_KHR}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified by {@code pVideoProfile}, then {@code flags} <b>must</b> not include {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR}</li>
+ * <li>If {@link VkVideoEncodeCapabilitiesKHR}{@code ::flags} does not include {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_ENCODE_CAPABILITY_EMPHASIS_MAP_BIT_KHR VIDEO_ENCODE_CAPABILITY_EMPHASIS_MAP_BIT_KHR}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified by {@code pVideoProfile}, then {@code flags} <b>must</b> not include {@link KHRVideoEncodeQuantizationMap#VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR}</li>
+ * <li>{@code pVideoProfile} <b>must</b> be a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-profile-support">supported video profile</a></li>
  * <li>{@code maxDpbSlots} <b>must</b> be less than or equal to {@link VkVideoCapabilitiesKHR}{@code ::maxDpbSlots}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified by {@code pVideoProfile}</li>
  * <li>{@code maxActiveReferencePictures} <b>must</b> be less than or equal to {@link VkVideoCapabilitiesKHR}{@code ::maxActiveReferencePictures}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified by {@code pVideoProfile}</li>
  * <li>If either {@code maxDpbSlots} or {@code maxActiveReferencePictures} is 0, then both <b>must</b> be 0</li>
@@ -37,13 +42,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code pStdHeaderVersion→specVersion} <b>must</b> be less than or equal to {@link VkVideoCapabilitiesKHR}{@code ::stdHeaderVersion.specVersion}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified by {@code pVideoProfile}</li>
  * <li>If {@code pVideoProfile→videoCodecOperation} is {@link KHRVideoEncodeH264#VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR} and the {@code pNext} chain of this structure includes a {@link VkVideoEncodeH264SessionCreateInfoKHR} structure, then its {@code maxLevelIdc} member <b>must</b> be less than or equal to {@link VkVideoEncodeH264CapabilitiesKHR}{@code ::maxLevelIdc}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified in {@code pVideoProfile}</li>
  * <li>If {@code pVideoProfile→videoCodecOperation} is {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR} and the {@code pNext} chain of this structure includes a {@link VkVideoEncodeH265SessionCreateInfoKHR} structure, then its {@code maxLevelIdc} member <b>must</b> be less than or equal to {@link VkVideoEncodeH265CapabilitiesKHR}{@code ::maxLevelIdc}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified in {@code pVideoProfile}</li>
+ * <li>If {@code pVideoProfile→videoCodecOperation} is {@link KHRVideoEncodeAV1#VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-videoEncodeAV1">{@code videoEncodeAV1}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code pVideoProfile→videoCodecOperation} is {@link KHRVideoEncodeAV1#VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR} and the {@code pNext} chain of this structure includes a {@link VkVideoEncodeAV1SessionCreateInfoKHR} structure, then its {@code maxLevel} member <b>must</b> be less than or equal to {@link VkVideoEncodeAV1CapabilitiesKHR}{@code ::maxLevel}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified in {@code pVideoProfile}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_SESSION_CREATE_INFO_KHR STRUCTURE_TYPE_VIDEO_SESSION_CREATE_INFO_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeH264SessionCreateInfoKHR} or {@link VkVideoEncodeH265SessionCreateInfoKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeAV1SessionCreateInfoKHR}, {@link VkVideoEncodeH264SessionCreateInfoKHR}, or {@link VkVideoEncodeH265SessionCreateInfoKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code VkVideoSessionCreateFlagBitsKHR} values</li>
  * <li>{@code pVideoProfile} <b>must</b> be a valid pointer to a valid {@link VkVideoProfileInfoKHR} structure</li>
@@ -163,18 +170,18 @@ public class VkVideoSessionCreateInfoKHR extends Struct<VkVideoSessionCreateInfo
     /** a pointer to a {@link VkVideoProfileInfoKHR} structure specifying the video profile the created video session will be used with. */
     @NativeType("VkVideoProfileInfoKHR const *")
     public VkVideoProfileInfoKHR pVideoProfile() { return npVideoProfile(address()); }
-    /** the image format the created video session will be used with. If {@code pVideoProfile→videoCodecOperation} specifies a decode operation, then {@code pictureFormat} is the image format of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-output-picture">decode output pictures</a> usable with the created video session. If {@code pVideoProfile→videoCodecOperation} specifies an encode operation, then {@code pictureFormat} is the image format of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-input-picture">encode input pictures</a> usable with the created video session. */
+    /** the image format the created video session will be used with. If {@code pVideoProfile→videoCodecOperation} specifies a decode operation, then {@code pictureFormat} is the image format of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#decode-output-picture">decode output pictures</a> usable with the created video session. If {@code pVideoProfile→videoCodecOperation} specifies an encode operation, then {@code pictureFormat} is the image format of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-input-picture">encode input pictures</a> usable with the created video session. */
     @NativeType("VkFormat")
     public int pictureFormat() { return npictureFormat(address()); }
     /** the maximum width and height of the coded frames the created video session will be used with. */
     public VkExtent2D maxCodedExtent() { return nmaxCodedExtent(address()); }
-    /** the image format of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#reference-picture">reference pictures</a> stored in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb">DPB</a> the created video session will be used with. */
+    /** the image format of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#reference-picture">reference pictures</a> stored in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb">DPB</a> the created video session will be used with. */
     @NativeType("VkFormat")
     public int referencePictureFormat() { return nreferencePictureFormat(address()); }
-    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB Slots</a> that <b>can</b> be used with the created video session. */
+    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#dpb-slot">DPB Slots</a> that <b>can</b> be used with the created video session. */
     @NativeType("uint32_t")
     public int maxDpbSlots() { return nmaxDpbSlots(address()); }
-    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#active-reference-pictures">active reference pictures</a> that <b>can</b> be used in a single video coding operation using the created video session. */
+    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#active-reference-pictures">active reference pictures</a> that <b>can</b> be used in a single video coding operation using the created video session. */
     @NativeType("uint32_t")
     public int maxActiveReferencePictures() { return nmaxActiveReferencePictures(address()); }
     /** a pointer to a {@link VkExtensionProperties} structure requesting the Video Std header version to use for the {@code videoCodecOperation} specified in {@code pVideoProfile}. */
@@ -187,6 +194,8 @@ public class VkVideoSessionCreateInfoKHR extends Struct<VkVideoSessionCreateInfo
     public VkVideoSessionCreateInfoKHR sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_SESSION_CREATE_INFO_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkVideoSessionCreateInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkVideoEncodeAV1SessionCreateInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoSessionCreateInfoKHR pNext(VkVideoEncodeAV1SessionCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH264SessionCreateInfoKHR} value to the {@code pNext} chain. */
     public VkVideoSessionCreateInfoKHR pNext(VkVideoEncodeH264SessionCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH265SessionCreateInfoKHR} value to the {@code pNext} chain. */
@@ -277,8 +286,7 @@ public class VkVideoSessionCreateInfoKHR extends Struct<VkVideoSessionCreateInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoSessionCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoSessionCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoSessionCreateInfoKHR(address, null);
     }
 
@@ -321,8 +329,7 @@ public class VkVideoSessionCreateInfoKHR extends Struct<VkVideoSessionCreateInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoSessionCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoSessionCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -367,48 +374,48 @@ public class VkVideoSessionCreateInfoKHR extends Struct<VkVideoSessionCreateInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoSessionCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoSessionCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #queueFamilyIndex}. */
-    public static int nqueueFamilyIndex(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionCreateInfoKHR.QUEUEFAMILYINDEX); }
+    public static int nqueueFamilyIndex(long struct) { return memGetInt(struct + VkVideoSessionCreateInfoKHR.QUEUEFAMILYINDEX); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionCreateInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkVideoSessionCreateInfoKHR.FLAGS); }
     /** Unsafe version of {@link #pVideoProfile}. */
     public static VkVideoProfileInfoKHR npVideoProfile(long struct) { return VkVideoProfileInfoKHR.create(memGetAddress(struct + VkVideoSessionCreateInfoKHR.PVIDEOPROFILE)); }
     /** Unsafe version of {@link #pictureFormat}. */
-    public static int npictureFormat(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionCreateInfoKHR.PICTUREFORMAT); }
+    public static int npictureFormat(long struct) { return memGetInt(struct + VkVideoSessionCreateInfoKHR.PICTUREFORMAT); }
     /** Unsafe version of {@link #maxCodedExtent}. */
     public static VkExtent2D nmaxCodedExtent(long struct) { return VkExtent2D.create(struct + VkVideoSessionCreateInfoKHR.MAXCODEDEXTENT); }
     /** Unsafe version of {@link #referencePictureFormat}. */
-    public static int nreferencePictureFormat(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionCreateInfoKHR.REFERENCEPICTUREFORMAT); }
+    public static int nreferencePictureFormat(long struct) { return memGetInt(struct + VkVideoSessionCreateInfoKHR.REFERENCEPICTUREFORMAT); }
     /** Unsafe version of {@link #maxDpbSlots}. */
-    public static int nmaxDpbSlots(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionCreateInfoKHR.MAXDPBSLOTS); }
+    public static int nmaxDpbSlots(long struct) { return memGetInt(struct + VkVideoSessionCreateInfoKHR.MAXDPBSLOTS); }
     /** Unsafe version of {@link #maxActiveReferencePictures}. */
-    public static int nmaxActiveReferencePictures(long struct) { return UNSAFE.getInt(null, struct + VkVideoSessionCreateInfoKHR.MAXACTIVEREFERENCEPICTURES); }
+    public static int nmaxActiveReferencePictures(long struct) { return memGetInt(struct + VkVideoSessionCreateInfoKHR.MAXACTIVEREFERENCEPICTURES); }
     /** Unsafe version of {@link #pStdHeaderVersion}. */
     public static VkExtensionProperties npStdHeaderVersion(long struct) { return VkExtensionProperties.create(memGetAddress(struct + VkVideoSessionCreateInfoKHR.PSTDHEADERVERSION)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoSessionCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoSessionCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoSessionCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #queueFamilyIndex(int) queueFamilyIndex}. */
-    public static void nqueueFamilyIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoSessionCreateInfoKHR.QUEUEFAMILYINDEX, value); }
+    public static void nqueueFamilyIndex(long struct, int value) { memPutInt(struct + VkVideoSessionCreateInfoKHR.QUEUEFAMILYINDEX, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoSessionCreateInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkVideoSessionCreateInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #pVideoProfile(VkVideoProfileInfoKHR) pVideoProfile}. */
     public static void npVideoProfile(long struct, VkVideoProfileInfoKHR value) { memPutAddress(struct + VkVideoSessionCreateInfoKHR.PVIDEOPROFILE, value.address()); }
     /** Unsafe version of {@link #pictureFormat(int) pictureFormat}. */
-    public static void npictureFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoSessionCreateInfoKHR.PICTUREFORMAT, value); }
+    public static void npictureFormat(long struct, int value) { memPutInt(struct + VkVideoSessionCreateInfoKHR.PICTUREFORMAT, value); }
     /** Unsafe version of {@link #maxCodedExtent(VkExtent2D) maxCodedExtent}. */
     public static void nmaxCodedExtent(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkVideoSessionCreateInfoKHR.MAXCODEDEXTENT, VkExtent2D.SIZEOF); }
     /** Unsafe version of {@link #referencePictureFormat(int) referencePictureFormat}. */
-    public static void nreferencePictureFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoSessionCreateInfoKHR.REFERENCEPICTUREFORMAT, value); }
+    public static void nreferencePictureFormat(long struct, int value) { memPutInt(struct + VkVideoSessionCreateInfoKHR.REFERENCEPICTUREFORMAT, value); }
     /** Unsafe version of {@link #maxDpbSlots(int) maxDpbSlots}. */
-    public static void nmaxDpbSlots(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoSessionCreateInfoKHR.MAXDPBSLOTS, value); }
+    public static void nmaxDpbSlots(long struct, int value) { memPutInt(struct + VkVideoSessionCreateInfoKHR.MAXDPBSLOTS, value); }
     /** Unsafe version of {@link #maxActiveReferencePictures(int) maxActiveReferencePictures}. */
-    public static void nmaxActiveReferencePictures(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoSessionCreateInfoKHR.MAXACTIVEREFERENCEPICTURES, value); }
+    public static void nmaxActiveReferencePictures(long struct, int value) { memPutInt(struct + VkVideoSessionCreateInfoKHR.MAXACTIVEREFERENCEPICTURES, value); }
     /** Unsafe version of {@link #pStdHeaderVersion(VkExtensionProperties) pStdHeaderVersion}. */
     public static void npStdHeaderVersion(long struct, VkExtensionProperties value) { memPutAddress(struct + VkVideoSessionCreateInfoKHR.PSTDHEADERVERSION, value.address()); }
 
@@ -456,6 +463,11 @@ public class VkVideoSessionCreateInfoKHR extends Struct<VkVideoSessionCreateInfo
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoSessionCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -499,6 +511,8 @@ public class VkVideoSessionCreateInfoKHR extends Struct<VkVideoSessionCreateInfo
         public VkVideoSessionCreateInfoKHR.Buffer sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_SESSION_CREATE_INFO_KHR); }
         /** Sets the specified value to the {@link VkVideoSessionCreateInfoKHR#pNext} field. */
         public VkVideoSessionCreateInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoSessionCreateInfoKHR.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkVideoEncodeAV1SessionCreateInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoSessionCreateInfoKHR.Buffer pNext(VkVideoEncodeAV1SessionCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH264SessionCreateInfoKHR} value to the {@code pNext} chain. */
         public VkVideoSessionCreateInfoKHR.Buffer pNext(VkVideoEncodeH264SessionCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH265SessionCreateInfoKHR} value to the {@code pNext} chain. */

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -109,8 +109,7 @@ public class CXType extends Struct<CXType> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXType createSafe(long address) {
+    public static @Nullable CXType createSafe(long address) {
         return address == NULL ? null : new CXType(address, null);
     }
 
@@ -153,8 +152,7 @@ public class CXType extends Struct<CXType> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXType.Buffer createSafe(long address, int capacity) {
+    public static CXType.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -218,7 +216,7 @@ public class CXType extends Struct<CXType> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #kind}. */
-    public static int nkind(long struct) { return UNSAFE.getInt(null, struct + CXType.KIND); }
+    public static int nkind(long struct) { return memGetInt(struct + CXType.KIND); }
     /** Unsafe version of {@link #data}. */
     public static PointerBuffer ndata(long struct) { return memPointerBuffer(struct + CXType.DATA, 2); }
     /** Unsafe version of {@link #data(int) data}. */
@@ -257,6 +255,11 @@ public class CXType extends Struct<CXType> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

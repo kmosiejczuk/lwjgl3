@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -120,8 +120,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindShaderGroupIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkBindShaderGroupIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkBindShaderGroupIndirectCommandNV(address, null);
     }
 
@@ -164,8 +163,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindShaderGroupIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkBindShaderGroupIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -210,10 +208,10 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
     // -----------------------------------
 
     /** Unsafe version of {@link #groupIndex}. */
-    public static int ngroupIndex(long struct) { return UNSAFE.getInt(null, struct + VkBindShaderGroupIndirectCommandNV.GROUPINDEX); }
+    public static int ngroupIndex(long struct) { return memGetInt(struct + VkBindShaderGroupIndirectCommandNV.GROUPINDEX); }
 
     /** Unsafe version of {@link #groupIndex(int) groupIndex}. */
-    public static void ngroupIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkBindShaderGroupIndirectCommandNV.GROUPINDEX, value); }
+    public static void ngroupIndex(long struct, int value) { memPutInt(struct + VkBindShaderGroupIndirectCommandNV.GROUPINDEX, value); }
 
     // -----------------------------------
 
@@ -246,6 +244,11 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

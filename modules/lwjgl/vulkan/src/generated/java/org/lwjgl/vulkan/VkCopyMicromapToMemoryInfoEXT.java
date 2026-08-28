@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -190,8 +190,7 @@ public class VkCopyMicromapToMemoryInfoEXT extends Struct<VkCopyMicromapToMemory
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyMicromapToMemoryInfoEXT createSafe(long address) {
+    public static @Nullable VkCopyMicromapToMemoryInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkCopyMicromapToMemoryInfoEXT(address, null);
     }
 
@@ -234,8 +233,7 @@ public class VkCopyMicromapToMemoryInfoEXT extends Struct<VkCopyMicromapToMemory
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyMicromapToMemoryInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkCopyMicromapToMemoryInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,26 +278,26 @@ public class VkCopyMicromapToMemoryInfoEXT extends Struct<VkCopyMicromapToMemory
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCopyMicromapToMemoryInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCopyMicromapToMemoryInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCopyMicromapToMemoryInfoEXT.PNEXT); }
     /** Unsafe version of {@link #src}. */
-    public static long nsrc(long struct) { return UNSAFE.getLong(null, struct + VkCopyMicromapToMemoryInfoEXT.SRC); }
+    public static long nsrc(long struct) { return memGetLong(struct + VkCopyMicromapToMemoryInfoEXT.SRC); }
     /** Unsafe version of {@link #dst}. */
     public static VkDeviceOrHostAddressKHR ndst(long struct) { return VkDeviceOrHostAddressKHR.create(struct + VkCopyMicromapToMemoryInfoEXT.DST); }
     /** Unsafe version of {@link #mode}. */
-    public static int nmode(long struct) { return UNSAFE.getInt(null, struct + VkCopyMicromapToMemoryInfoEXT.MODE); }
+    public static int nmode(long struct) { return memGetInt(struct + VkCopyMicromapToMemoryInfoEXT.MODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyMicromapToMemoryInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCopyMicromapToMemoryInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCopyMicromapToMemoryInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #src(long) src}. */
-    public static void nsrc(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyMicromapToMemoryInfoEXT.SRC, value); }
+    public static void nsrc(long struct, long value) { memPutLong(struct + VkCopyMicromapToMemoryInfoEXT.SRC, value); }
     /** Unsafe version of {@link #dst(VkDeviceOrHostAddressKHR) dst}. */
     public static void ndst(long struct, VkDeviceOrHostAddressKHR value) { memCopy(value.address(), struct + VkCopyMicromapToMemoryInfoEXT.DST, VkDeviceOrHostAddressKHR.SIZEOF); }
     /** Unsafe version of {@link #mode(int) mode}. */
-    public static void nmode(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyMicromapToMemoryInfoEXT.MODE, value); }
+    public static void nmode(long struct, int value) { memPutInt(struct + VkCopyMicromapToMemoryInfoEXT.MODE, value); }
 
     // -----------------------------------
 
@@ -332,6 +330,11 @@ public class VkCopyMicromapToMemoryInfoEXT extends Struct<VkCopyMicromapToMemory
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

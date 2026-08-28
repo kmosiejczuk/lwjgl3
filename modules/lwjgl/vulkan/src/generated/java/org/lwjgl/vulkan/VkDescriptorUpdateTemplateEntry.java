@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code dstBinding} <b>must</b> be a valid binding in the descriptor set layout implicitly specified when using a descriptor update template to update descriptors</li>
- * <li>{@code dstArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding implicitly specified when using a descriptor update template to update descriptors, and all applicable consecutive bindings, as described by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
+ * <li>{@code dstArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding implicitly specified when using a descriptor update template to update descriptors, and all applicable <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-updates-consecutive">consecutive bindings</a></li>
  * <li>If {@code descriptor} type is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code dstArrayElement} <b>must</b> be an integer multiple of 4</li>
  * <li>If {@code descriptor} type is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code descriptorCount} <b>must</b> be an integer multiple of 4</li>
  * </ul>
@@ -203,8 +203,7 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorUpdateTemplateEntry createSafe(long address) {
+    public static @Nullable VkDescriptorUpdateTemplateEntry createSafe(long address) {
         return address == NULL ? null : new VkDescriptorUpdateTemplateEntry(address, null);
     }
 
@@ -247,8 +246,7 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorUpdateTemplateEntry.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorUpdateTemplateEntry.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -312,26 +310,26 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
     // -----------------------------------
 
     /** Unsafe version of {@link #dstBinding}. */
-    public static int ndstBinding(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorUpdateTemplateEntry.DSTBINDING); }
+    public static int ndstBinding(long struct) { return memGetInt(struct + VkDescriptorUpdateTemplateEntry.DSTBINDING); }
     /** Unsafe version of {@link #dstArrayElement}. */
-    public static int ndstArrayElement(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorUpdateTemplateEntry.DSTARRAYELEMENT); }
+    public static int ndstArrayElement(long struct) { return memGetInt(struct + VkDescriptorUpdateTemplateEntry.DSTARRAYELEMENT); }
     /** Unsafe version of {@link #descriptorCount}. */
-    public static int ndescriptorCount(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorUpdateTemplateEntry.DESCRIPTORCOUNT); }
+    public static int ndescriptorCount(long struct) { return memGetInt(struct + VkDescriptorUpdateTemplateEntry.DESCRIPTORCOUNT); }
     /** Unsafe version of {@link #descriptorType}. */
-    public static int ndescriptorType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorUpdateTemplateEntry.DESCRIPTORTYPE); }
+    public static int ndescriptorType(long struct) { return memGetInt(struct + VkDescriptorUpdateTemplateEntry.DESCRIPTORTYPE); }
     /** Unsafe version of {@link #offset}. */
     public static long noffset(long struct) { return memGetAddress(struct + VkDescriptorUpdateTemplateEntry.OFFSET); }
     /** Unsafe version of {@link #stride}. */
     public static long nstride(long struct) { return memGetAddress(struct + VkDescriptorUpdateTemplateEntry.STRIDE); }
 
     /** Unsafe version of {@link #dstBinding(int) dstBinding}. */
-    public static void ndstBinding(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorUpdateTemplateEntry.DSTBINDING, value); }
+    public static void ndstBinding(long struct, int value) { memPutInt(struct + VkDescriptorUpdateTemplateEntry.DSTBINDING, value); }
     /** Unsafe version of {@link #dstArrayElement(int) dstArrayElement}. */
-    public static void ndstArrayElement(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorUpdateTemplateEntry.DSTARRAYELEMENT, value); }
+    public static void ndstArrayElement(long struct, int value) { memPutInt(struct + VkDescriptorUpdateTemplateEntry.DSTARRAYELEMENT, value); }
     /** Unsafe version of {@link #descriptorCount(int) descriptorCount}. */
-    public static void ndescriptorCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorUpdateTemplateEntry.DESCRIPTORCOUNT, value); }
+    public static void ndescriptorCount(long struct, int value) { memPutInt(struct + VkDescriptorUpdateTemplateEntry.DESCRIPTORCOUNT, value); }
     /** Unsafe version of {@link #descriptorType(int) descriptorType}. */
-    public static void ndescriptorType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorUpdateTemplateEntry.DESCRIPTORTYPE, value); }
+    public static void ndescriptorType(long struct, int value) { memPutInt(struct + VkDescriptorUpdateTemplateEntry.DESCRIPTORTYPE, value); }
     /** Unsafe version of {@link #offset(long) offset}. */
     public static void noffset(long struct, long value) { memPutAddress(struct + VkDescriptorUpdateTemplateEntry.OFFSET, value); }
     /** Unsafe version of {@link #stride(long) stride}. */
@@ -368,6 +366,11 @@ public class VkDescriptorUpdateTemplateEntry extends Struct<VkDescriptorUpdateTe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

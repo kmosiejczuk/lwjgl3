@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code queueFamilyIndex} <b>must</b> be a valid queue family index of the device</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-performanceCounterQueryPools">{@code performanceCounterQueryPools}</a> feature <b>must</b> be enabled</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-performanceCounterQueryPools">{@code performanceCounterQueryPools}</a> feature <b>must</b> be enabled</li>
  * <li>Each element of {@code pCounterIndices} <b>must</b> be in the range of counters reported by {@code vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR} for the queue family specified in {@code queueFamilyIndex}</li>
  * </ul>
  * 
@@ -185,8 +185,7 @@ public class VkQueryPoolPerformanceCreateInfoKHR extends Struct<VkQueryPoolPerfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolPerformanceCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkQueryPoolPerformanceCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkQueryPoolPerformanceCreateInfoKHR(address, null);
     }
 
@@ -229,8 +228,7 @@ public class VkQueryPoolPerformanceCreateInfoKHR extends Struct<VkQueryPoolPerfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolPerformanceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkQueryPoolPerformanceCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,24 +273,24 @@ public class VkQueryPoolPerformanceCreateInfoKHR extends Struct<VkQueryPoolPerfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolPerformanceCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueryPoolPerformanceCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueryPoolPerformanceCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #queueFamilyIndex}. */
-    public static int nqueueFamilyIndex(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolPerformanceCreateInfoKHR.QUEUEFAMILYINDEX); }
+    public static int nqueueFamilyIndex(long struct) { return memGetInt(struct + VkQueryPoolPerformanceCreateInfoKHR.QUEUEFAMILYINDEX); }
     /** Unsafe version of {@link #counterIndexCount}. */
-    public static int ncounterIndexCount(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolPerformanceCreateInfoKHR.COUNTERINDEXCOUNT); }
+    public static int ncounterIndexCount(long struct) { return memGetInt(struct + VkQueryPoolPerformanceCreateInfoKHR.COUNTERINDEXCOUNT); }
     /** Unsafe version of {@link #pCounterIndices() pCounterIndices}. */
     public static IntBuffer npCounterIndices(long struct) { return memIntBuffer(memGetAddress(struct + VkQueryPoolPerformanceCreateInfoKHR.PCOUNTERINDICES), ncounterIndexCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolPerformanceCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueryPoolPerformanceCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueryPoolPerformanceCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #queueFamilyIndex(int) queueFamilyIndex}. */
-    public static void nqueueFamilyIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolPerformanceCreateInfoKHR.QUEUEFAMILYINDEX, value); }
+    public static void nqueueFamilyIndex(long struct, int value) { memPutInt(struct + VkQueryPoolPerformanceCreateInfoKHR.QUEUEFAMILYINDEX, value); }
     /** Sets the specified value to the {@code counterIndexCount} field of the specified {@code struct}. */
-    public static void ncounterIndexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolPerformanceCreateInfoKHR.COUNTERINDEXCOUNT, value); }
+    public static void ncounterIndexCount(long struct, int value) { memPutInt(struct + VkQueryPoolPerformanceCreateInfoKHR.COUNTERINDEXCOUNT, value); }
     /** Unsafe version of {@link #pCounterIndices(IntBuffer) pCounterIndices}. */
     public static void npCounterIndices(long struct, IntBuffer value) { memPutAddress(struct + VkQueryPoolPerformanceCreateInfoKHR.PCOUNTERINDICES, memAddress(value)); ncounterIndexCount(struct, value.remaining()); }
 
@@ -336,6 +334,11 @@ public class VkQueryPoolPerformanceCreateInfoKHR extends Struct<VkQueryPoolPerfo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

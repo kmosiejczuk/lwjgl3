@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -71,8 +71,7 @@ public class VkPipelineCreationFeedbackEXT extends VkPipelineCreationFeedback {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCreationFeedbackEXT createSafe(long address) {
+    public static @Nullable VkPipelineCreationFeedbackEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineCreationFeedbackEXT(address, null);
     }
 
@@ -115,8 +114,7 @@ public class VkPipelineCreationFeedbackEXT extends VkPipelineCreationFeedback {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCreationFeedbackEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineCreationFeedbackEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -208,6 +206,11 @@ public class VkPipelineCreationFeedbackEXT extends VkPipelineCreationFeedback {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

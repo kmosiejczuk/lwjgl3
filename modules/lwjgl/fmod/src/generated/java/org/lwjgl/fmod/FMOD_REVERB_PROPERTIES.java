@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -229,8 +229,7 @@ public class FMOD_REVERB_PROPERTIES extends Struct<FMOD_REVERB_PROPERTIES> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_REVERB_PROPERTIES createSafe(long address) {
+    public static @Nullable FMOD_REVERB_PROPERTIES createSafe(long address) {
         return address == NULL ? null : new FMOD_REVERB_PROPERTIES(address, null);
     }
 
@@ -273,8 +272,7 @@ public class FMOD_REVERB_PROPERTIES extends Struct<FMOD_REVERB_PROPERTIES> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_REVERB_PROPERTIES.Buffer createSafe(long address, int capacity) {
+    public static FMOD_REVERB_PROPERTIES.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -319,54 +317,54 @@ public class FMOD_REVERB_PROPERTIES extends Struct<FMOD_REVERB_PROPERTIES> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #DecayTime}. */
-    public static float nDecayTime(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.DECAYTIME); }
+    public static float nDecayTime(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.DECAYTIME); }
     /** Unsafe version of {@link #EarlyDelay}. */
-    public static float nEarlyDelay(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.EARLYDELAY); }
+    public static float nEarlyDelay(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.EARLYDELAY); }
     /** Unsafe version of {@link #LateDelay}. */
-    public static float nLateDelay(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.LATEDELAY); }
+    public static float nLateDelay(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.LATEDELAY); }
     /** Unsafe version of {@link #HFReference}. */
-    public static float nHFReference(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.HFREFERENCE); }
+    public static float nHFReference(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.HFREFERENCE); }
     /** Unsafe version of {@link #HFDecayRatio}. */
-    public static float nHFDecayRatio(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.HFDECAYRATIO); }
+    public static float nHFDecayRatio(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.HFDECAYRATIO); }
     /** Unsafe version of {@link #Diffusion}. */
-    public static float nDiffusion(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.DIFFUSION); }
+    public static float nDiffusion(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.DIFFUSION); }
     /** Unsafe version of {@link #Density}. */
-    public static float nDensity(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.DENSITY); }
+    public static float nDensity(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.DENSITY); }
     /** Unsafe version of {@link #LowShelfFrequency}. */
-    public static float nLowShelfFrequency(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.LOWSHELFFREQUENCY); }
+    public static float nLowShelfFrequency(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.LOWSHELFFREQUENCY); }
     /** Unsafe version of {@link #LowShelfGain}. */
-    public static float nLowShelfGain(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.LOWSHELFGAIN); }
+    public static float nLowShelfGain(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.LOWSHELFGAIN); }
     /** Unsafe version of {@link #HighCut}. */
-    public static float nHighCut(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.HIGHCUT); }
+    public static float nHighCut(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.HIGHCUT); }
     /** Unsafe version of {@link #EarlyLateMix}. */
-    public static float nEarlyLateMix(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.EARLYLATEMIX); }
+    public static float nEarlyLateMix(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.EARLYLATEMIX); }
     /** Unsafe version of {@link #WetLevel}. */
-    public static float nWetLevel(long struct) { return UNSAFE.getFloat(null, struct + FMOD_REVERB_PROPERTIES.WETLEVEL); }
+    public static float nWetLevel(long struct) { return memGetFloat(struct + FMOD_REVERB_PROPERTIES.WETLEVEL); }
 
     /** Unsafe version of {@link #DecayTime(float) DecayTime}. */
-    public static void nDecayTime(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.DECAYTIME, value); }
+    public static void nDecayTime(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.DECAYTIME, value); }
     /** Unsafe version of {@link #EarlyDelay(float) EarlyDelay}. */
-    public static void nEarlyDelay(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.EARLYDELAY, value); }
+    public static void nEarlyDelay(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.EARLYDELAY, value); }
     /** Unsafe version of {@link #LateDelay(float) LateDelay}. */
-    public static void nLateDelay(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.LATEDELAY, value); }
+    public static void nLateDelay(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.LATEDELAY, value); }
     /** Unsafe version of {@link #HFReference(float) HFReference}. */
-    public static void nHFReference(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.HFREFERENCE, value); }
+    public static void nHFReference(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.HFREFERENCE, value); }
     /** Unsafe version of {@link #HFDecayRatio(float) HFDecayRatio}. */
-    public static void nHFDecayRatio(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.HFDECAYRATIO, value); }
+    public static void nHFDecayRatio(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.HFDECAYRATIO, value); }
     /** Unsafe version of {@link #Diffusion(float) Diffusion}. */
-    public static void nDiffusion(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.DIFFUSION, value); }
+    public static void nDiffusion(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.DIFFUSION, value); }
     /** Unsafe version of {@link #Density(float) Density}. */
-    public static void nDensity(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.DENSITY, value); }
+    public static void nDensity(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.DENSITY, value); }
     /** Unsafe version of {@link #LowShelfFrequency(float) LowShelfFrequency}. */
-    public static void nLowShelfFrequency(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.LOWSHELFFREQUENCY, value); }
+    public static void nLowShelfFrequency(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.LOWSHELFFREQUENCY, value); }
     /** Unsafe version of {@link #LowShelfGain(float) LowShelfGain}. */
-    public static void nLowShelfGain(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.LOWSHELFGAIN, value); }
+    public static void nLowShelfGain(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.LOWSHELFGAIN, value); }
     /** Unsafe version of {@link #HighCut(float) HighCut}. */
-    public static void nHighCut(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.HIGHCUT, value); }
+    public static void nHighCut(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.HIGHCUT, value); }
     /** Unsafe version of {@link #EarlyLateMix(float) EarlyLateMix}. */
-    public static void nEarlyLateMix(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.EARLYLATEMIX, value); }
+    public static void nEarlyLateMix(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.EARLYLATEMIX, value); }
     /** Unsafe version of {@link #WetLevel(float) WetLevel}. */
-    public static void nWetLevel(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_REVERB_PROPERTIES.WETLEVEL, value); }
+    public static void nWetLevel(long struct, float value) { memPutFloat(struct + FMOD_REVERB_PROPERTIES.WETLEVEL, value); }
 
     // -----------------------------------
 
@@ -399,6 +397,11 @@ public class FMOD_REVERB_PROPERTIES extends Struct<FMOD_REVERB_PROPERTIES> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -190,8 +190,7 @@ public class hb_draw_state_t extends Struct<hb_draw_state_t> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_draw_state_t createSafe(long address) {
+    public static @Nullable hb_draw_state_t createSafe(long address) {
         return address == NULL ? null : new hb_draw_state_t(address, null);
     }
 
@@ -234,8 +233,7 @@ public class hb_draw_state_t extends Struct<hb_draw_state_t> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_draw_state_t.Buffer createSafe(long address, int capacity) {
+    public static hb_draw_state_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,15 +278,15 @@ public class hb_draw_state_t extends Struct<hb_draw_state_t> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #path_open}. */
-    public static int npath_open(long struct) { return UNSAFE.getInt(null, struct + hb_draw_state_t.PATH_OPEN); }
+    public static int npath_open(long struct) { return memGetInt(struct + hb_draw_state_t.PATH_OPEN); }
     /** Unsafe version of {@link #path_start_x}. */
-    public static float npath_start_x(long struct) { return UNSAFE.getFloat(null, struct + hb_draw_state_t.PATH_START_X); }
+    public static float npath_start_x(long struct) { return memGetFloat(struct + hb_draw_state_t.PATH_START_X); }
     /** Unsafe version of {@link #path_start_y}. */
-    public static float npath_start_y(long struct) { return UNSAFE.getFloat(null, struct + hb_draw_state_t.PATH_START_Y); }
+    public static float npath_start_y(long struct) { return memGetFloat(struct + hb_draw_state_t.PATH_START_Y); }
     /** Unsafe version of {@link #current_x}. */
-    public static float ncurrent_x(long struct) { return UNSAFE.getFloat(null, struct + hb_draw_state_t.CURRENT_X); }
+    public static float ncurrent_x(long struct) { return memGetFloat(struct + hb_draw_state_t.CURRENT_X); }
     /** Unsafe version of {@link #current_y}. */
-    public static float ncurrent_y(long struct) { return UNSAFE.getFloat(null, struct + hb_draw_state_t.CURRENT_Y); }
+    public static float ncurrent_y(long struct) { return memGetFloat(struct + hb_draw_state_t.CURRENT_Y); }
     public static hb_var_num_t nreserved1(long struct) { return hb_var_num_t.create(struct + hb_draw_state_t.RESERVED1); }
     public static hb_var_num_t nreserved2(long struct) { return hb_var_num_t.create(struct + hb_draw_state_t.RESERVED2); }
     public static hb_var_num_t nreserved3(long struct) { return hb_var_num_t.create(struct + hb_draw_state_t.RESERVED3); }
@@ -298,15 +296,15 @@ public class hb_draw_state_t extends Struct<hb_draw_state_t> implements NativeRe
     public static hb_var_num_t nreserved7(long struct) { return hb_var_num_t.create(struct + hb_draw_state_t.RESERVED7); }
 
     /** Unsafe version of {@link #path_open(boolean) path_open}. */
-    public static void npath_open(long struct, int value) { UNSAFE.putInt(null, struct + hb_draw_state_t.PATH_OPEN, value); }
+    public static void npath_open(long struct, int value) { memPutInt(struct + hb_draw_state_t.PATH_OPEN, value); }
     /** Unsafe version of {@link #path_start_x(float) path_start_x}. */
-    public static void npath_start_x(long struct, float value) { UNSAFE.putFloat(null, struct + hb_draw_state_t.PATH_START_X, value); }
+    public static void npath_start_x(long struct, float value) { memPutFloat(struct + hb_draw_state_t.PATH_START_X, value); }
     /** Unsafe version of {@link #path_start_y(float) path_start_y}. */
-    public static void npath_start_y(long struct, float value) { UNSAFE.putFloat(null, struct + hb_draw_state_t.PATH_START_Y, value); }
+    public static void npath_start_y(long struct, float value) { memPutFloat(struct + hb_draw_state_t.PATH_START_Y, value); }
     /** Unsafe version of {@link #current_x(float) current_x}. */
-    public static void ncurrent_x(long struct, float value) { UNSAFE.putFloat(null, struct + hb_draw_state_t.CURRENT_X, value); }
+    public static void ncurrent_x(long struct, float value) { memPutFloat(struct + hb_draw_state_t.CURRENT_X, value); }
     /** Unsafe version of {@link #current_y(float) current_y}. */
-    public static void ncurrent_y(long struct, float value) { UNSAFE.putFloat(null, struct + hb_draw_state_t.CURRENT_Y, value); }
+    public static void ncurrent_y(long struct, float value) { memPutFloat(struct + hb_draw_state_t.CURRENT_Y, value); }
     public static void nreserved1(long struct, hb_var_num_t value) { memCopy(value.address(), struct + hb_draw_state_t.RESERVED1, hb_var_num_t.SIZEOF); }
     public static void nreserved2(long struct, hb_var_num_t value) { memCopy(value.address(), struct + hb_draw_state_t.RESERVED2, hb_var_num_t.SIZEOF); }
     public static void nreserved3(long struct, hb_var_num_t value) { memCopy(value.address(), struct + hb_draw_state_t.RESERVED3, hb_var_num_t.SIZEOF); }
@@ -346,6 +344,11 @@ public class hb_draw_state_t extends Struct<hb_draw_state_t> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

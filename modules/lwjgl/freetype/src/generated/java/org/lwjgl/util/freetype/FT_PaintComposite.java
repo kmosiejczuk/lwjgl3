@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -95,8 +95,7 @@ public class FT_PaintComposite extends Struct<FT_PaintComposite> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintComposite createSafe(long address) {
+    public static @Nullable FT_PaintComposite createSafe(long address) {
         return address == NULL ? null : new FT_PaintComposite(address, null);
     }
 
@@ -111,8 +110,7 @@ public class FT_PaintComposite extends Struct<FT_PaintComposite> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintComposite.Buffer createSafe(long address, int capacity) {
+    public static FT_PaintComposite.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -121,7 +119,7 @@ public class FT_PaintComposite extends Struct<FT_PaintComposite> {
     /** Unsafe version of {@link #source_paint}. */
     public static FT_OpaquePaint nsource_paint(long struct) { return FT_OpaquePaint.create(struct + FT_PaintComposite.SOURCE_PAINT); }
     /** Unsafe version of {@link #composite_mode}. */
-    public static int ncomposite_mode(long struct) { return UNSAFE.getInt(null, struct + FT_PaintComposite.COMPOSITE_MODE); }
+    public static int ncomposite_mode(long struct) { return memGetInt(struct + FT_PaintComposite.COMPOSITE_MODE); }
     /** Unsafe version of {@link #backdrop_paint}. */
     public static FT_OpaquePaint nbackdrop_paint(long struct) { return FT_OpaquePaint.create(struct + FT_PaintComposite.BACKDROP_PAINT); }
 
@@ -156,6 +154,11 @@ public class FT_PaintComposite extends Struct<FT_PaintComposite> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

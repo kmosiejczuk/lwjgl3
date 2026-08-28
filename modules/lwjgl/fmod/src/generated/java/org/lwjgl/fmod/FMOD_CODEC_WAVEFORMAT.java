@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -119,13 +119,11 @@ public class FMOD_CODEC_WAVEFORMAT extends Struct<FMOD_CODEC_WAVEFORMAT> impleme
     public int sizeof() { return SIZEOF; }
 
     /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code name} field. */
-    @Nullable
     @NativeType("char const *")
-    public ByteBuffer name() { return nname(address()); }
+    public @Nullable ByteBuffer name() { return nname(address()); }
     /** @return the null-terminated string pointed to by the {@code name} field. */
-    @Nullable
     @NativeType("char const *")
-    public String nameString() { return nnameString(address()); }
+    public @Nullable String nameString() { return nnameString(address()); }
     /** @return the value of the {@code format} field. */
     @NativeType("FMOD_SOUND_FORMAT")
     public int format() { return nformat(address()); }
@@ -254,8 +252,7 @@ public class FMOD_CODEC_WAVEFORMAT extends Struct<FMOD_CODEC_WAVEFORMAT> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_CODEC_WAVEFORMAT createSafe(long address) {
+    public static @Nullable FMOD_CODEC_WAVEFORMAT createSafe(long address) {
         return address == NULL ? null : new FMOD_CODEC_WAVEFORMAT(address, null);
     }
 
@@ -298,8 +295,7 @@ public class FMOD_CODEC_WAVEFORMAT extends Struct<FMOD_CODEC_WAVEFORMAT> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_CODEC_WAVEFORMAT.Buffer createSafe(long address, int capacity) {
+    public static FMOD_CODEC_WAVEFORMAT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -344,33 +340,33 @@ public class FMOD_CODEC_WAVEFORMAT extends Struct<FMOD_CODEC_WAVEFORMAT> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #name}. */
-    @Nullable public static ByteBuffer nname(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + FMOD_CODEC_WAVEFORMAT.NAME)); }
+    public static @Nullable ByteBuffer nname(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + FMOD_CODEC_WAVEFORMAT.NAME)); }
     /** Unsafe version of {@link #nameString}. */
-    @Nullable public static String nnameString(long struct) { return memUTF8Safe(memGetAddress(struct + FMOD_CODEC_WAVEFORMAT.NAME)); }
+    public static @Nullable String nnameString(long struct) { return memUTF8Safe(memGetAddress(struct + FMOD_CODEC_WAVEFORMAT.NAME)); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.FORMAT); }
     /** Unsafe version of {@link #channels}. */
-    public static int nchannels(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.CHANNELS); }
+    public static int nchannels(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.CHANNELS); }
     /** Unsafe version of {@link #frequency}. */
-    public static int nfrequency(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.FREQUENCY); }
+    public static int nfrequency(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.FREQUENCY); }
     /** Unsafe version of {@link #lengthbytes}. */
-    public static int nlengthbytes(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.LENGTHBYTES); }
+    public static int nlengthbytes(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.LENGTHBYTES); }
     /** Unsafe version of {@link #lengthpcm}. */
-    public static int nlengthpcm(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.LENGTHPCM); }
+    public static int nlengthpcm(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.LENGTHPCM); }
     /** Unsafe version of {@link #pcmblocksize}. */
-    public static int npcmblocksize(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.PCMBLOCKSIZE); }
+    public static int npcmblocksize(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.PCMBLOCKSIZE); }
     /** Unsafe version of {@link #loopstart}. */
-    public static int nloopstart(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.LOOPSTART); }
+    public static int nloopstart(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.LOOPSTART); }
     /** Unsafe version of {@link #loopend}. */
-    public static int nloopend(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.LOOPEND); }
+    public static int nloopend(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.LOOPEND); }
     /** Unsafe version of {@link #mode}. */
-    public static int nmode(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.MODE); }
+    public static int nmode(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.MODE); }
     /** Unsafe version of {@link #channelmask}. */
-    public static int nchannelmask(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.CHANNELMASK); }
+    public static int nchannelmask(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.CHANNELMASK); }
     /** Unsafe version of {@link #channelorder}. */
-    public static int nchannelorder(long struct) { return UNSAFE.getInt(null, struct + FMOD_CODEC_WAVEFORMAT.CHANNELORDER); }
+    public static int nchannelorder(long struct) { return memGetInt(struct + FMOD_CODEC_WAVEFORMAT.CHANNELORDER); }
     /** Unsafe version of {@link #peakvolume}. */
-    public static float npeakvolume(long struct) { return UNSAFE.getFloat(null, struct + FMOD_CODEC_WAVEFORMAT.PEAKVOLUME); }
+    public static float npeakvolume(long struct) { return memGetFloat(struct + FMOD_CODEC_WAVEFORMAT.PEAKVOLUME); }
 
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, @Nullable ByteBuffer value) {
@@ -378,29 +374,29 @@ public class FMOD_CODEC_WAVEFORMAT extends Struct<FMOD_CODEC_WAVEFORMAT> impleme
         memPutAddress(struct + FMOD_CODEC_WAVEFORMAT.NAME, memAddressSafe(value));
     }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.FORMAT, value); }
     /** Unsafe version of {@link #channels(int) channels}. */
-    public static void nchannels(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.CHANNELS, value); }
+    public static void nchannels(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.CHANNELS, value); }
     /** Unsafe version of {@link #frequency(int) frequency}. */
-    public static void nfrequency(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.FREQUENCY, value); }
+    public static void nfrequency(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.FREQUENCY, value); }
     /** Unsafe version of {@link #lengthbytes(int) lengthbytes}. */
-    public static void nlengthbytes(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.LENGTHBYTES, value); }
+    public static void nlengthbytes(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.LENGTHBYTES, value); }
     /** Unsafe version of {@link #lengthpcm(int) lengthpcm}. */
-    public static void nlengthpcm(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.LENGTHPCM, value); }
+    public static void nlengthpcm(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.LENGTHPCM, value); }
     /** Unsafe version of {@link #pcmblocksize(int) pcmblocksize}. */
-    public static void npcmblocksize(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.PCMBLOCKSIZE, value); }
+    public static void npcmblocksize(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.PCMBLOCKSIZE, value); }
     /** Unsafe version of {@link #loopstart(int) loopstart}. */
-    public static void nloopstart(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.LOOPSTART, value); }
+    public static void nloopstart(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.LOOPSTART, value); }
     /** Unsafe version of {@link #loopend(int) loopend}. */
-    public static void nloopend(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.LOOPEND, value); }
+    public static void nloopend(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.LOOPEND, value); }
     /** Unsafe version of {@link #mode(int) mode}. */
-    public static void nmode(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.MODE, value); }
+    public static void nmode(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.MODE, value); }
     /** Unsafe version of {@link #channelmask(int) channelmask}. */
-    public static void nchannelmask(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.CHANNELMASK, value); }
+    public static void nchannelmask(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.CHANNELMASK, value); }
     /** Unsafe version of {@link #channelorder(int) channelorder}. */
-    public static void nchannelorder(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_CODEC_WAVEFORMAT.CHANNELORDER, value); }
+    public static void nchannelorder(long struct, int value) { memPutInt(struct + FMOD_CODEC_WAVEFORMAT.CHANNELORDER, value); }
     /** Unsafe version of {@link #peakvolume(float) peakvolume}. */
-    public static void npeakvolume(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_CODEC_WAVEFORMAT.PEAKVOLUME, value); }
+    public static void npeakvolume(long struct, float value) { memPutFloat(struct + FMOD_CODEC_WAVEFORMAT.PEAKVOLUME, value); }
 
     // -----------------------------------
 
@@ -436,18 +432,21 @@ public class FMOD_CODEC_WAVEFORMAT extends Struct<FMOD_CODEC_WAVEFORMAT> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FMOD_CODEC_WAVEFORMAT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code name} field. */
-        @Nullable
         @NativeType("char const *")
-        public ByteBuffer name() { return FMOD_CODEC_WAVEFORMAT.nname(address()); }
+        public @Nullable ByteBuffer name() { return FMOD_CODEC_WAVEFORMAT.nname(address()); }
         /** @return the null-terminated string pointed to by the {@code name} field. */
-        @Nullable
         @NativeType("char const *")
-        public String nameString() { return FMOD_CODEC_WAVEFORMAT.nnameString(address()); }
+        public @Nullable String nameString() { return FMOD_CODEC_WAVEFORMAT.nnameString(address()); }
         /** @return the value of the {@code format} field. */
         @NativeType("FMOD_SOUND_FORMAT")
         public int format() { return FMOD_CODEC_WAVEFORMAT.nformat(address()); }

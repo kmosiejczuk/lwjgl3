@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #texelBufferAlignment}. */
-    public static int ntexelBufferAlignment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.TEXELBUFFERALIGNMENT); }
+    public static int ntexelBufferAlignment(long struct) { return memGetInt(struct + VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.TEXELBUFFERALIGNMENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #texelBufferAlignment(boolean) texelBufferAlignment}. */
-    public static void ntexelBufferAlignment(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.TEXELBUFFERALIGNMENT, value); }
+    public static void ntexelBufferAlignment(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.TEXELBUFFERALIGNMENT, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT extends Struct<VkPh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

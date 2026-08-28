@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,8 +135,7 @@ public class FSBANK_STATEDATA_WARNING extends Struct<FSBANK_STATEDATA_WARNING> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FSBANK_STATEDATA_WARNING createSafe(long address) {
+    public static @Nullable FSBANK_STATEDATA_WARNING createSafe(long address) {
         return address == NULL ? null : new FSBANK_STATEDATA_WARNING(address, null);
     }
 
@@ -179,8 +178,7 @@ public class FSBANK_STATEDATA_WARNING extends Struct<FSBANK_STATEDATA_WARNING> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FSBANK_STATEDATA_WARNING.Buffer createSafe(long address, int capacity) {
+    public static FSBANK_STATEDATA_WARNING.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -225,14 +223,14 @@ public class FSBANK_STATEDATA_WARNING extends Struct<FSBANK_STATEDATA_WARNING> i
     // -----------------------------------
 
     /** Unsafe version of {@link #warnCode}. */
-    public static int nwarnCode(long struct) { return UNSAFE.getInt(null, struct + FSBANK_STATEDATA_WARNING.WARNCODE); }
+    public static int nwarnCode(long struct) { return memGetInt(struct + FSBANK_STATEDATA_WARNING.WARNCODE); }
     /** Unsafe version of {@link #warningString}. */
     public static ByteBuffer nwarningString(long struct) { return memByteBuffer(struct + FSBANK_STATEDATA_WARNING.WARNINGSTRING, 256); }
     /** Unsafe version of {@link #warningStringString}. */
     public static String nwarningStringString(long struct) { return memASCII(struct + FSBANK_STATEDATA_WARNING.WARNINGSTRING); }
 
     /** Unsafe version of {@link #warnCode(int) warnCode}. */
-    public static void nwarnCode(long struct, int value) { UNSAFE.putInt(null, struct + FSBANK_STATEDATA_WARNING.WARNCODE, value); }
+    public static void nwarnCode(long struct, int value) { memPutInt(struct + FSBANK_STATEDATA_WARNING.WARNCODE, value); }
     /** Unsafe version of {@link #warningString(ByteBuffer) warningString}. */
     public static void nwarningString(long struct, ByteBuffer value) {
         if (CHECKS) {
@@ -273,6 +271,11 @@ public class FSBANK_STATEDATA_WARNING extends Struct<FSBANK_STATEDATA_WARNING> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code accelerationStructureCount} <b>must</b> be equal to {@code descriptorCount} in the extended structure</li>
  * <li>Each acceleration structure in {@code pAccelerationStructures} <b>must</b> have been created with {@link KHRAccelerationStructure#VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is not enabled, each member of {@code pAccelerationStructures} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is not enabled, each member of {@code pAccelerationStructures} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -108,9 +108,8 @@ public class VkWriteDescriptorSetAccelerationStructureNV extends Struct<VkWriteD
     @NativeType("uint32_t")
     public int accelerationStructureCount() { return naccelerationStructureCount(address()); }
     /** a pointer to an array of {@code VkAccelerationStructureNV} structures specifying the acceleration structures to update. */
-    @Nullable
     @NativeType("VkAccelerationStructureNV const *")
-    public LongBuffer pAccelerationStructures() { return npAccelerationStructures(address()); }
+    public @Nullable LongBuffer pAccelerationStructures() { return npAccelerationStructures(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkWriteDescriptorSetAccelerationStructureNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -174,8 +173,7 @@ public class VkWriteDescriptorSetAccelerationStructureNV extends Struct<VkWriteD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteDescriptorSetAccelerationStructureNV createSafe(long address) {
+    public static @Nullable VkWriteDescriptorSetAccelerationStructureNV createSafe(long address) {
         return address == NULL ? null : new VkWriteDescriptorSetAccelerationStructureNV(address, null);
     }
 
@@ -218,8 +216,7 @@ public class VkWriteDescriptorSetAccelerationStructureNV extends Struct<VkWriteD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteDescriptorSetAccelerationStructureNV.Buffer createSafe(long address, int capacity) {
+    public static VkWriteDescriptorSetAccelerationStructureNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,20 +280,20 @@ public class VkWriteDescriptorSetAccelerationStructureNV extends Struct<VkWriteD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSetAccelerationStructureNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkWriteDescriptorSetAccelerationStructureNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkWriteDescriptorSetAccelerationStructureNV.PNEXT); }
     /** Unsafe version of {@link #accelerationStructureCount}. */
-    public static int naccelerationStructureCount(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSetAccelerationStructureNV.ACCELERATIONSTRUCTURECOUNT); }
+    public static int naccelerationStructureCount(long struct) { return memGetInt(struct + VkWriteDescriptorSetAccelerationStructureNV.ACCELERATIONSTRUCTURECOUNT); }
     /** Unsafe version of {@link #pAccelerationStructures() pAccelerationStructures}. */
-    @Nullable public static LongBuffer npAccelerationStructures(long struct) { return memLongBufferSafe(memGetAddress(struct + VkWriteDescriptorSetAccelerationStructureNV.PACCELERATIONSTRUCTURES), naccelerationStructureCount(struct)); }
+    public static @Nullable LongBuffer npAccelerationStructures(long struct) { return memLongBufferSafe(memGetAddress(struct + VkWriteDescriptorSetAccelerationStructureNV.PACCELERATIONSTRUCTURES), naccelerationStructureCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSetAccelerationStructureNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkWriteDescriptorSetAccelerationStructureNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkWriteDescriptorSetAccelerationStructureNV.PNEXT, value); }
     /** Sets the specified value to the {@code accelerationStructureCount} field of the specified {@code struct}. */
-    public static void naccelerationStructureCount(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSetAccelerationStructureNV.ACCELERATIONSTRUCTURECOUNT, value); }
+    public static void naccelerationStructureCount(long struct, int value) { memPutInt(struct + VkWriteDescriptorSetAccelerationStructureNV.ACCELERATIONSTRUCTURECOUNT, value); }
     /** Unsafe version of {@link #pAccelerationStructures(LongBuffer) pAccelerationStructures}. */
     public static void npAccelerationStructures(long struct, @Nullable LongBuffer value) { memPutAddress(struct + VkWriteDescriptorSetAccelerationStructureNV.PACCELERATIONSTRUCTURES, memAddressSafe(value)); if (value != null) { naccelerationStructureCount(struct, value.remaining()); } }
 
@@ -334,6 +331,11 @@ public class VkWriteDescriptorSetAccelerationStructureNV extends Struct<VkWriteD
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkWriteDescriptorSetAccelerationStructureNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -348,9 +350,8 @@ public class VkWriteDescriptorSetAccelerationStructureNV extends Struct<VkWriteD
         @NativeType("uint32_t")
         public int accelerationStructureCount() { return VkWriteDescriptorSetAccelerationStructureNV.naccelerationStructureCount(address()); }
         /** @return a {@link LongBuffer} view of the data pointed to by the {@link VkWriteDescriptorSetAccelerationStructureNV#pAccelerationStructures} field. */
-        @Nullable
         @NativeType("VkAccelerationStructureNV const *")
-        public LongBuffer pAccelerationStructures() { return VkWriteDescriptorSetAccelerationStructureNV.npAccelerationStructures(address()); }
+        public @Nullable LongBuffer pAccelerationStructures() { return VkWriteDescriptorSetAccelerationStructureNV.npAccelerationStructures(address()); }
 
         /** Sets the specified value to the {@link VkWriteDescriptorSetAccelerationStructureNV#sType} field. */
         public VkWriteDescriptorSetAccelerationStructureNV.Buffer sType(@NativeType("VkStructureType") int value) { VkWriteDescriptorSetAccelerationStructureNV.nsType(address(), value); return this; }

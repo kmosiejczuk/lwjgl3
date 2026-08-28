@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -185,8 +185,7 @@ public class VkPerformanceCounterDescriptionKHR extends Struct<VkPerformanceCoun
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceCounterDescriptionKHR createSafe(long address) {
+    public static @Nullable VkPerformanceCounterDescriptionKHR createSafe(long address) {
         return address == NULL ? null : new VkPerformanceCounterDescriptionKHR(address, null);
     }
 
@@ -229,8 +228,7 @@ public class VkPerformanceCounterDescriptionKHR extends Struct<VkPerformanceCoun
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceCounterDescriptionKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPerformanceCounterDescriptionKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,11 +273,11 @@ public class VkPerformanceCounterDescriptionKHR extends Struct<VkPerformanceCoun
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceCounterDescriptionKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPerformanceCounterDescriptionKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPerformanceCounterDescriptionKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceCounterDescriptionKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPerformanceCounterDescriptionKHR.FLAGS); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBuffer(struct + VkPerformanceCounterDescriptionKHR.NAME, VK_MAX_DESCRIPTION_SIZE); }
     /** Unsafe version of {@link #nameString}. */
@@ -294,7 +292,7 @@ public class VkPerformanceCounterDescriptionKHR extends Struct<VkPerformanceCoun
     public static String ndescriptionString(long struct) { return memUTF8(struct + VkPerformanceCounterDescriptionKHR.DESCRIPTION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceCounterDescriptionKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPerformanceCounterDescriptionKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPerformanceCounterDescriptionKHR.PNEXT, value); }
 
@@ -329,6 +327,11 @@ public class VkPerformanceCounterDescriptionKHR extends Struct<VkPerformanceCoun
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

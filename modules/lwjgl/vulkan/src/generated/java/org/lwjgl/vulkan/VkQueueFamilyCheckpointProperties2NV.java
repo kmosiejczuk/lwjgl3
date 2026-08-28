@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRSynchronization2#VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV}</li>
+ * <li>{@code sType} <b>must</b> be {@link NVDeviceDiagnosticCheckpoints#VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV}</li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -100,8 +100,8 @@ public class VkQueueFamilyCheckpointProperties2NV extends Struct<VkQueueFamilyCh
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkQueueFamilyCheckpointProperties2NV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRSynchronization2#VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV} value to the {@link #sType} field. */
-    public VkQueueFamilyCheckpointProperties2NV sType$Default() { return sType(KHRSynchronization2.VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV); }
+    /** Sets the {@link NVDeviceDiagnosticCheckpoints#VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV} value to the {@link #sType} field. */
+    public VkQueueFamilyCheckpointProperties2NV sType$Default() { return sType(NVDeviceDiagnosticCheckpoints.VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkQueueFamilyCheckpointProperties2NV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
@@ -152,8 +152,7 @@ public class VkQueueFamilyCheckpointProperties2NV extends Struct<VkQueueFamilyCh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyCheckpointProperties2NV createSafe(long address) {
+    public static @Nullable VkQueueFamilyCheckpointProperties2NV createSafe(long address) {
         return address == NULL ? null : new VkQueueFamilyCheckpointProperties2NV(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkQueueFamilyCheckpointProperties2NV extends Struct<VkQueueFamilyCh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyCheckpointProperties2NV.Buffer createSafe(long address, int capacity) {
+    public static VkQueueFamilyCheckpointProperties2NV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkQueueFamilyCheckpointProperties2NV extends Struct<VkQueueFamilyCh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueueFamilyCheckpointProperties2NV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueueFamilyCheckpointProperties2NV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueueFamilyCheckpointProperties2NV.PNEXT); }
     /** Unsafe version of {@link #checkpointExecutionStageMask}. */
-    public static long ncheckpointExecutionStageMask(long struct) { return UNSAFE.getLong(null, struct + VkQueueFamilyCheckpointProperties2NV.CHECKPOINTEXECUTIONSTAGEMASK); }
+    public static long ncheckpointExecutionStageMask(long struct) { return memGetLong(struct + VkQueueFamilyCheckpointProperties2NV.CHECKPOINTEXECUTIONSTAGEMASK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueueFamilyCheckpointProperties2NV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueueFamilyCheckpointProperties2NV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueueFamilyCheckpointProperties2NV.PNEXT, value); }
 
@@ -287,6 +285,11 @@ public class VkQueueFamilyCheckpointProperties2NV extends Struct<VkQueueFamilyCh
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkQueueFamilyCheckpointProperties2NV getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -303,8 +306,8 @@ public class VkQueueFamilyCheckpointProperties2NV extends Struct<VkQueueFamilyCh
 
         /** Sets the specified value to the {@link VkQueueFamilyCheckpointProperties2NV#sType} field. */
         public VkQueueFamilyCheckpointProperties2NV.Buffer sType(@NativeType("VkStructureType") int value) { VkQueueFamilyCheckpointProperties2NV.nsType(address(), value); return this; }
-        /** Sets the {@link KHRSynchronization2#VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV} value to the {@link VkQueueFamilyCheckpointProperties2NV#sType} field. */
-        public VkQueueFamilyCheckpointProperties2NV.Buffer sType$Default() { return sType(KHRSynchronization2.VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV); }
+        /** Sets the {@link NVDeviceDiagnosticCheckpoints#VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV} value to the {@link VkQueueFamilyCheckpointProperties2NV#sType} field. */
+        public VkQueueFamilyCheckpointProperties2NV.Buffer sType$Default() { return sType(NVDeviceDiagnosticCheckpoints.VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV); }
         /** Sets the specified value to the {@link VkQueueFamilyCheckpointProperties2NV#pNext} field. */
         public VkQueueFamilyCheckpointProperties2NV.Buffer pNext(@NativeType("void *") long value) { VkQueueFamilyCheckpointProperties2NV.npNext(address(), value); return this; }
 

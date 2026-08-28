@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkExportMemoryAllocateInfoNV extends Struct<VkExportMemoryAllocateI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMemoryAllocateInfoNV createSafe(long address) {
+    public static @Nullable VkExportMemoryAllocateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkExportMemoryAllocateInfoNV(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkExportMemoryAllocateInfoNV extends Struct<VkExportMemoryAllocateI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMemoryAllocateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkExportMemoryAllocateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,18 +260,18 @@ public class VkExportMemoryAllocateInfoNV extends Struct<VkExportMemoryAllocateI
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMemoryAllocateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMemoryAllocateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMemoryAllocateInfoNV.PNEXT); }
     /** Unsafe version of {@link #handleTypes}. */
-    public static int nhandleTypes(long struct) { return UNSAFE.getInt(null, struct + VkExportMemoryAllocateInfoNV.HANDLETYPES); }
+    public static int nhandleTypes(long struct) { return memGetInt(struct + VkExportMemoryAllocateInfoNV.HANDLETYPES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMemoryAllocateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMemoryAllocateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMemoryAllocateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #handleTypes(int) handleTypes}. */
-    public static void nhandleTypes(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMemoryAllocateInfoNV.HANDLETYPES, value); }
+    public static void nhandleTypes(long struct, int value) { memPutInt(struct + VkExportMemoryAllocateInfoNV.HANDLETYPES, value); }
 
     // -----------------------------------
 
@@ -306,6 +304,11 @@ public class VkExportMemoryAllocateInfoNV extends Struct<VkExportMemoryAllocateI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

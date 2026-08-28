@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -130,8 +130,7 @@ public class FMOD_COMPLEX extends Struct<FMOD_COMPLEX> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_COMPLEX createSafe(long address) {
+    public static @Nullable FMOD_COMPLEX createSafe(long address) {
         return address == NULL ? null : new FMOD_COMPLEX(address, null);
     }
 
@@ -174,8 +173,7 @@ public class FMOD_COMPLEX extends Struct<FMOD_COMPLEX> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_COMPLEX.Buffer createSafe(long address, int capacity) {
+    public static FMOD_COMPLEX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -220,14 +218,14 @@ public class FMOD_COMPLEX extends Struct<FMOD_COMPLEX> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #real}. */
-    public static float nreal(long struct) { return UNSAFE.getFloat(null, struct + FMOD_COMPLEX.REAL); }
+    public static float nreal(long struct) { return memGetFloat(struct + FMOD_COMPLEX.REAL); }
     /** Unsafe version of {@link #imag}. */
-    public static float nimag(long struct) { return UNSAFE.getFloat(null, struct + FMOD_COMPLEX.IMAG); }
+    public static float nimag(long struct) { return memGetFloat(struct + FMOD_COMPLEX.IMAG); }
 
     /** Unsafe version of {@link #real(float) real}. */
-    public static void nreal(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_COMPLEX.REAL, value); }
+    public static void nreal(long struct, float value) { memPutFloat(struct + FMOD_COMPLEX.REAL, value); }
     /** Unsafe version of {@link #imag(float) imag}. */
-    public static void nimag(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_COMPLEX.IMAG, value); }
+    public static void nimag(long struct, float value) { memPutFloat(struct + FMOD_COMPLEX.IMAG, value); }
 
     // -----------------------------------
 
@@ -260,6 +258,11 @@ public class FMOD_COMPLEX extends Struct<FMOD_COMPLEX> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

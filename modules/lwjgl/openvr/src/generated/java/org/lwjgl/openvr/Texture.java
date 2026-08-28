@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -144,8 +144,7 @@ public class Texture extends Struct<Texture> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static Texture createSafe(long address) {
+    public static @Nullable Texture createSafe(long address) {
         return address == NULL ? null : new Texture(address, null);
     }
 
@@ -188,8 +187,7 @@ public class Texture extends Struct<Texture> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static Texture.Buffer createSafe(long address, int capacity) {
+    public static Texture.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,16 +253,16 @@ public class Texture extends Struct<Texture> implements NativeResource {
     /** Unsafe version of {@link #handle}. */
     public static long nhandle(long struct) { return memGetAddress(struct + Texture.HANDLE); }
     /** Unsafe version of {@link #eType}. */
-    public static int neType(long struct) { return UNSAFE.getInt(null, struct + Texture.ETYPE); }
+    public static int neType(long struct) { return memGetInt(struct + Texture.ETYPE); }
     /** Unsafe version of {@link #eColorSpace}. */
-    public static int neColorSpace(long struct) { return UNSAFE.getInt(null, struct + Texture.ECOLORSPACE); }
+    public static int neColorSpace(long struct) { return memGetInt(struct + Texture.ECOLORSPACE); }
 
     /** Unsafe version of {@link #handle(long) handle}. */
     public static void nhandle(long struct, long value) { memPutAddress(struct + Texture.HANDLE, check(value)); }
     /** Unsafe version of {@link #eType(int) eType}. */
-    public static void neType(long struct, int value) { UNSAFE.putInt(null, struct + Texture.ETYPE, value); }
+    public static void neType(long struct, int value) { memPutInt(struct + Texture.ETYPE, value); }
     /** Unsafe version of {@link #eColorSpace(int) eColorSpace}. */
-    public static void neColorSpace(long struct, int value) { UNSAFE.putInt(null, struct + Texture.ECOLORSPACE, value); }
+    public static void neColorSpace(long struct, int value) { memPutInt(struct + Texture.ECOLORSPACE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -306,6 +304,11 @@ public class Texture extends Struct<Texture> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

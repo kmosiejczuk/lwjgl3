@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -212,8 +212,7 @@ public class CID_FaceInfo extends Struct<CID_FaceInfo> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CID_FaceInfo createSafe(long address) {
+    public static @Nullable CID_FaceInfo createSafe(long address) {
         return address == NULL ? null : new CID_FaceInfo(address, null);
     }
 
@@ -228,8 +227,7 @@ public class CID_FaceInfo extends Struct<CID_FaceInfo> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CID_FaceInfo.Buffer createSafe(long address, int capacity) {
+    public static CID_FaceInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,7 +240,7 @@ public class CID_FaceInfo extends Struct<CID_FaceInfo> {
     /** Unsafe version of {@link #cid_version}. */
     public static long ncid_version(long struct) { return memGetCLong(struct + CID_FaceInfo.CID_VERSION); }
     /** Unsafe version of {@link #cid_font_type}. */
-    public static int ncid_font_type(long struct) { return UNSAFE.getInt(null, struct + CID_FaceInfo.CID_FONT_TYPE); }
+    public static int ncid_font_type(long struct) { return memGetInt(struct + CID_FaceInfo.CID_FONT_TYPE); }
     /** Unsafe version of {@link #registry}. */
     public static ByteBuffer nregistry(long struct) { return memByteBufferNT1(memGetAddress(struct + CID_FaceInfo.REGISTRY)); }
     /** Unsafe version of {@link #registryString}. */
@@ -252,7 +250,7 @@ public class CID_FaceInfo extends Struct<CID_FaceInfo> {
     /** Unsafe version of {@link #orderingString}. */
     public static String norderingString(long struct) { return memUTF8(memGetAddress(struct + CID_FaceInfo.ORDERING)); }
     /** Unsafe version of {@link #supplement}. */
-    public static int nsupplement(long struct) { return UNSAFE.getInt(null, struct + CID_FaceInfo.SUPPLEMENT); }
+    public static int nsupplement(long struct) { return memGetInt(struct + CID_FaceInfo.SUPPLEMENT); }
     /** Unsafe version of {@link #font_info}. */
     public static PS_FontInfo nfont_info(long struct) { return PS_FontInfo.create(struct + CID_FaceInfo.FONT_INFO); }
     /** Unsafe version of {@link #font_bbox}. */
@@ -260,7 +258,7 @@ public class CID_FaceInfo extends Struct<CID_FaceInfo> {
     /** Unsafe version of {@link #uid_base}. */
     public static long nuid_base(long struct) { return memGetCLong(struct + CID_FaceInfo.UID_BASE); }
     /** Unsafe version of {@link #num_xuid}. */
-    public static int nnum_xuid(long struct) { return UNSAFE.getInt(null, struct + CID_FaceInfo.NUM_XUID); }
+    public static int nnum_xuid(long struct) { return memGetInt(struct + CID_FaceInfo.NUM_XUID); }
     /** Unsafe version of {@link #xuid}. */
     public static CLongBuffer nxuid(long struct) { return memCLongBuffer(struct + CID_FaceInfo.XUID, 16); }
     /** Unsafe version of {@link #xuid(int) xuid}. */
@@ -270,13 +268,13 @@ public class CID_FaceInfo extends Struct<CID_FaceInfo> {
     /** Unsafe version of {@link #cidmap_offset}. */
     public static long ncidmap_offset(long struct) { return memGetCLong(struct + CID_FaceInfo.CIDMAP_OFFSET); }
     /** Unsafe version of {@link #fd_bytes}. */
-    public static int nfd_bytes(long struct) { return UNSAFE.getInt(null, struct + CID_FaceInfo.FD_BYTES); }
+    public static int nfd_bytes(long struct) { return memGetInt(struct + CID_FaceInfo.FD_BYTES); }
     /** Unsafe version of {@link #gd_bytes}. */
-    public static int ngd_bytes(long struct) { return UNSAFE.getInt(null, struct + CID_FaceInfo.GD_BYTES); }
+    public static int ngd_bytes(long struct) { return memGetInt(struct + CID_FaceInfo.GD_BYTES); }
     /** Unsafe version of {@link #cid_count}. */
     public static long ncid_count(long struct) { return memGetCLong(struct + CID_FaceInfo.CID_COUNT); }
     /** Unsafe version of {@link #num_dicts}. */
-    public static int nnum_dicts(long struct) { return UNSAFE.getInt(null, struct + CID_FaceInfo.NUM_DICTS); }
+    public static int nnum_dicts(long struct) { return memGetInt(struct + CID_FaceInfo.NUM_DICTS); }
     /** Unsafe version of {@link #font_dicts}. */
     public static CID_FaceDict nfont_dicts(long struct) { return CID_FaceDict.create(memGetAddress(struct + CID_FaceInfo.FONT_DICTS)); }
     /** Unsafe version of {@link #data_offset}. */
@@ -313,6 +311,11 @@ public class CID_FaceInfo extends Struct<CID_FaceInfo> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

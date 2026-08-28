@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -194,8 +194,7 @@ public class VkCopyAccelerationStructureInfoKHR extends Struct<VkCopyAcceleratio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyAccelerationStructureInfoKHR createSafe(long address) {
+    public static @Nullable VkCopyAccelerationStructureInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkCopyAccelerationStructureInfoKHR(address, null);
     }
 
@@ -238,8 +237,7 @@ public class VkCopyAccelerationStructureInfoKHR extends Struct<VkCopyAcceleratio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyAccelerationStructureInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkCopyAccelerationStructureInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,26 +282,26 @@ public class VkCopyAccelerationStructureInfoKHR extends Struct<VkCopyAcceleratio
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCopyAccelerationStructureInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCopyAccelerationStructureInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCopyAccelerationStructureInfoKHR.PNEXT); }
     /** Unsafe version of {@link #src}. */
-    public static long nsrc(long struct) { return UNSAFE.getLong(null, struct + VkCopyAccelerationStructureInfoKHR.SRC); }
+    public static long nsrc(long struct) { return memGetLong(struct + VkCopyAccelerationStructureInfoKHR.SRC); }
     /** Unsafe version of {@link #dst}. */
-    public static long ndst(long struct) { return UNSAFE.getLong(null, struct + VkCopyAccelerationStructureInfoKHR.DST); }
+    public static long ndst(long struct) { return memGetLong(struct + VkCopyAccelerationStructureInfoKHR.DST); }
     /** Unsafe version of {@link #mode}. */
-    public static int nmode(long struct) { return UNSAFE.getInt(null, struct + VkCopyAccelerationStructureInfoKHR.MODE); }
+    public static int nmode(long struct) { return memGetInt(struct + VkCopyAccelerationStructureInfoKHR.MODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyAccelerationStructureInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCopyAccelerationStructureInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCopyAccelerationStructureInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #src(long) src}. */
-    public static void nsrc(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyAccelerationStructureInfoKHR.SRC, value); }
+    public static void nsrc(long struct, long value) { memPutLong(struct + VkCopyAccelerationStructureInfoKHR.SRC, value); }
     /** Unsafe version of {@link #dst(long) dst}. */
-    public static void ndst(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyAccelerationStructureInfoKHR.DST, value); }
+    public static void ndst(long struct, long value) { memPutLong(struct + VkCopyAccelerationStructureInfoKHR.DST, value); }
     /** Unsafe version of {@link #mode(int) mode}. */
-    public static void nmode(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyAccelerationStructureInfoKHR.MODE, value); }
+    public static void nmode(long struct, int value) { memPutInt(struct + VkCopyAccelerationStructureInfoKHR.MODE, value); }
 
     // -----------------------------------
 
@@ -336,6 +334,11 @@ public class VkCopyAccelerationStructureInfoKHR extends Struct<VkCopyAcceleratio
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

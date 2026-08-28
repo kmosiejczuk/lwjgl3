@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -98,8 +98,7 @@ public class RenderModelVertex extends Struct<RenderModelVertex> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RenderModelVertex createSafe(long address) {
+    public static @Nullable RenderModelVertex createSafe(long address) {
         return address == NULL ? null : new RenderModelVertex(address, null);
     }
 
@@ -114,8 +113,7 @@ public class RenderModelVertex extends Struct<RenderModelVertex> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RenderModelVertex.Buffer createSafe(long address, int capacity) {
+    public static RenderModelVertex.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -129,7 +127,7 @@ public class RenderModelVertex extends Struct<RenderModelVertex> {
     public static FloatBuffer nrfTextureCoord(long struct) { return memFloatBuffer(struct + RenderModelVertex.RFTEXTURECOORD, 2); }
     /** Unsafe version of {@link #rfTextureCoord(int) rfTextureCoord}. */
     public static float nrfTextureCoord(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + RenderModelVertex.RFTEXTURECOORD + check(index, 2) * 4);
+        return memGetFloat(struct + RenderModelVertex.RFTEXTURECOORD + check(index, 2) * 4);
     }
 
     // -----------------------------------
@@ -163,6 +161,11 @@ public class RenderModelVertex extends Struct<RenderModelVertex> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class StdVideoAV1TimingInfo extends Struct<StdVideoAV1TimingInfo> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1TimingInfo createSafe(long address) {
+    public static @Nullable StdVideoAV1TimingInfo createSafe(long address) {
         return address == NULL ? null : new StdVideoAV1TimingInfo(address, null);
     }
 
@@ -198,8 +197,7 @@ public class StdVideoAV1TimingInfo extends Struct<StdVideoAV1TimingInfo> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoAV1TimingInfo.Buffer createSafe(long address, int capacity) {
+    public static StdVideoAV1TimingInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,20 +244,20 @@ public class StdVideoAV1TimingInfo extends Struct<StdVideoAV1TimingInfo> impleme
     /** Unsafe version of {@link #flags}. */
     public static StdVideoAV1TimingInfoFlags nflags(long struct) { return StdVideoAV1TimingInfoFlags.create(struct + StdVideoAV1TimingInfo.FLAGS); }
     /** Unsafe version of {@link #num_units_in_display_tick}. */
-    public static int nnum_units_in_display_tick(long struct) { return UNSAFE.getInt(null, struct + StdVideoAV1TimingInfo.NUM_UNITS_IN_DISPLAY_TICK); }
+    public static int nnum_units_in_display_tick(long struct) { return memGetInt(struct + StdVideoAV1TimingInfo.NUM_UNITS_IN_DISPLAY_TICK); }
     /** Unsafe version of {@link #time_scale}. */
-    public static int ntime_scale(long struct) { return UNSAFE.getInt(null, struct + StdVideoAV1TimingInfo.TIME_SCALE); }
+    public static int ntime_scale(long struct) { return memGetInt(struct + StdVideoAV1TimingInfo.TIME_SCALE); }
     /** Unsafe version of {@link #num_ticks_per_picture_minus_1}. */
-    public static int nnum_ticks_per_picture_minus_1(long struct) { return UNSAFE.getInt(null, struct + StdVideoAV1TimingInfo.NUM_TICKS_PER_PICTURE_MINUS_1); }
+    public static int nnum_ticks_per_picture_minus_1(long struct) { return memGetInt(struct + StdVideoAV1TimingInfo.NUM_TICKS_PER_PICTURE_MINUS_1); }
 
     /** Unsafe version of {@link #flags(StdVideoAV1TimingInfoFlags) flags}. */
     public static void nflags(long struct, StdVideoAV1TimingInfoFlags value) { memCopy(value.address(), struct + StdVideoAV1TimingInfo.FLAGS, StdVideoAV1TimingInfoFlags.SIZEOF); }
     /** Unsafe version of {@link #num_units_in_display_tick(int) num_units_in_display_tick}. */
-    public static void nnum_units_in_display_tick(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoAV1TimingInfo.NUM_UNITS_IN_DISPLAY_TICK, value); }
+    public static void nnum_units_in_display_tick(long struct, int value) { memPutInt(struct + StdVideoAV1TimingInfo.NUM_UNITS_IN_DISPLAY_TICK, value); }
     /** Unsafe version of {@link #time_scale(int) time_scale}. */
-    public static void ntime_scale(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoAV1TimingInfo.TIME_SCALE, value); }
+    public static void ntime_scale(long struct, int value) { memPutInt(struct + StdVideoAV1TimingInfo.TIME_SCALE, value); }
     /** Unsafe version of {@link #num_ticks_per_picture_minus_1(int) num_ticks_per_picture_minus_1}. */
-    public static void nnum_ticks_per_picture_minus_1(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoAV1TimingInfo.NUM_TICKS_PER_PICTURE_MINUS_1, value); }
+    public static void nnum_ticks_per_picture_minus_1(long struct, int value) { memPutInt(struct + StdVideoAV1TimingInfo.NUM_TICKS_PER_PICTURE_MINUS_1, value); }
 
     // -----------------------------------
 
@@ -292,6 +290,11 @@ public class StdVideoAV1TimingInfo extends Struct<StdVideoAV1TimingInfo> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -104,8 +104,7 @@ public class VREventHapticVibration extends Struct<VREventHapticVibration> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventHapticVibration createSafe(long address) {
+    public static @Nullable VREventHapticVibration createSafe(long address) {
         return address == NULL ? null : new VREventHapticVibration(address, null);
     }
 
@@ -120,23 +119,22 @@ public class VREventHapticVibration extends Struct<VREventHapticVibration> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventHapticVibration.Buffer createSafe(long address, int capacity) {
+    public static VREventHapticVibration.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #containerHandle}. */
-    public static long ncontainerHandle(long struct) { return UNSAFE.getLong(null, struct + VREventHapticVibration.CONTAINERHANDLE); }
+    public static long ncontainerHandle(long struct) { return memGetLong(struct + VREventHapticVibration.CONTAINERHANDLE); }
     /** Unsafe version of {@link #componentHandle}. */
-    public static long ncomponentHandle(long struct) { return UNSAFE.getLong(null, struct + VREventHapticVibration.COMPONENTHANDLE); }
+    public static long ncomponentHandle(long struct) { return memGetLong(struct + VREventHapticVibration.COMPONENTHANDLE); }
     /** Unsafe version of {@link #fDurationSeconds}. */
-    public static float nfDurationSeconds(long struct) { return UNSAFE.getFloat(null, struct + VREventHapticVibration.FDURATIONSECONDS); }
+    public static float nfDurationSeconds(long struct) { return memGetFloat(struct + VREventHapticVibration.FDURATIONSECONDS); }
     /** Unsafe version of {@link #fFrequency}. */
-    public static float nfFrequency(long struct) { return UNSAFE.getFloat(null, struct + VREventHapticVibration.FFREQUENCY); }
+    public static float nfFrequency(long struct) { return memGetFloat(struct + VREventHapticVibration.FFREQUENCY); }
     /** Unsafe version of {@link #fAmplitude}. */
-    public static float nfAmplitude(long struct) { return UNSAFE.getFloat(null, struct + VREventHapticVibration.FAMPLITUDE); }
+    public static float nfAmplitude(long struct) { return memGetFloat(struct + VREventHapticVibration.FAMPLITUDE); }
 
     // -----------------------------------
 
@@ -169,6 +167,11 @@ public class VREventHapticVibration extends Struct<VREventHapticVibration> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

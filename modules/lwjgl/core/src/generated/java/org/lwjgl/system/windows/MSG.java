@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class MSG extends Struct<MSG> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MSG createSafe(long address) {
+    public static @Nullable MSG createSafe(long address) {
         return address == NULL ? null : new MSG(address, null);
     }
 
@@ -222,8 +221,7 @@ public class MSG extends Struct<MSG> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MSG.Buffer createSafe(long address, int capacity) {
+    public static MSG.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,26 +287,26 @@ public class MSG extends Struct<MSG> implements NativeResource {
     /** Unsafe version of {@link #hwnd}. */
     public static long nhwnd(long struct) { return memGetAddress(struct + MSG.HWND); }
     /** Unsafe version of {@link #message}. */
-    public static int nmessage(long struct) { return UNSAFE.getInt(null, struct + MSG.MESSAGE); }
+    public static int nmessage(long struct) { return memGetInt(struct + MSG.MESSAGE); }
     /** Unsafe version of {@link #wParam}. */
     public static long nwParam(long struct) { return memGetAddress(struct + MSG.WPARAM); }
     /** Unsafe version of {@link #lParam}. */
     public static long nlParam(long struct) { return memGetAddress(struct + MSG.LPARAM); }
     /** Unsafe version of {@link #time}. */
-    public static int ntime(long struct) { return UNSAFE.getInt(null, struct + MSG.TIME); }
+    public static int ntime(long struct) { return memGetInt(struct + MSG.TIME); }
     /** Unsafe version of {@link #pt}. */
     public static POINT npt(long struct) { return POINT.create(struct + MSG.PT); }
 
     /** Unsafe version of {@link #hwnd(long) hwnd}. */
     public static void nhwnd(long struct, long value) { memPutAddress(struct + MSG.HWND, value); }
     /** Unsafe version of {@link #message(int) message}. */
-    public static void nmessage(long struct, int value) { UNSAFE.putInt(null, struct + MSG.MESSAGE, value); }
+    public static void nmessage(long struct, int value) { memPutInt(struct + MSG.MESSAGE, value); }
     /** Unsafe version of {@link #wParam(long) wParam}. */
     public static void nwParam(long struct, long value) { memPutAddress(struct + MSG.WPARAM, value); }
     /** Unsafe version of {@link #lParam(long) lParam}. */
     public static void nlParam(long struct, long value) { memPutAddress(struct + MSG.LPARAM, value); }
     /** Unsafe version of {@link #time(int) time}. */
-    public static void ntime(long struct, int value) { UNSAFE.putInt(null, struct + MSG.TIME, value); }
+    public static void ntime(long struct, int value) { memPutInt(struct + MSG.TIME, value); }
     /** Unsafe version of {@link #pt(POINT) pt}. */
     public static void npt(long struct, POINT value) { memCopy(value.address(), struct + MSG.PT, POINT.SIZEOF); }
 
@@ -343,6 +341,11 @@ public class MSG extends Struct<MSG> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

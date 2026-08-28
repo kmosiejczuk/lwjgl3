@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class CUaccessPolicyWindow extends Struct<CUaccessPolicyWindow> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUaccessPolicyWindow createSafe(long address) {
+    public static @Nullable CUaccessPolicyWindow createSafe(long address) {
         return address == NULL ? null : new CUaccessPolicyWindow(address, null);
     }
 
@@ -208,8 +207,7 @@ public class CUaccessPolicyWindow extends Struct<CUaccessPolicyWindow> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUaccessPolicyWindow.Buffer createSafe(long address, int capacity) {
+    public static CUaccessPolicyWindow.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,22 +256,22 @@ public class CUaccessPolicyWindow extends Struct<CUaccessPolicyWindow> implement
     /** Unsafe version of {@link #num_bytes}. */
     public static long nnum_bytes(long struct) { return memGetAddress(struct + CUaccessPolicyWindow.NUM_BYTES); }
     /** Unsafe version of {@link #hitRatio}. */
-    public static float nhitRatio(long struct) { return UNSAFE.getFloat(null, struct + CUaccessPolicyWindow.HITRATIO); }
+    public static float nhitRatio(long struct) { return memGetFloat(struct + CUaccessPolicyWindow.HITRATIO); }
     /** Unsafe version of {@link #hitProp}. */
-    public static int nhitProp(long struct) { return UNSAFE.getInt(null, struct + CUaccessPolicyWindow.HITPROP); }
+    public static int nhitProp(long struct) { return memGetInt(struct + CUaccessPolicyWindow.HITPROP); }
     /** Unsafe version of {@link #missProp}. */
-    public static int nmissProp(long struct) { return UNSAFE.getInt(null, struct + CUaccessPolicyWindow.MISSPROP); }
+    public static int nmissProp(long struct) { return memGetInt(struct + CUaccessPolicyWindow.MISSPROP); }
 
     /** Unsafe version of {@link #base_ptr(long) base_ptr}. */
     public static void nbase_ptr(long struct, long value) { memPutAddress(struct + CUaccessPolicyWindow.BASE_PTR, check(value)); }
     /** Unsafe version of {@link #num_bytes(long) num_bytes}. */
     public static void nnum_bytes(long struct, long value) { memPutAddress(struct + CUaccessPolicyWindow.NUM_BYTES, value); }
     /** Unsafe version of {@link #hitRatio(float) hitRatio}. */
-    public static void nhitRatio(long struct, float value) { UNSAFE.putFloat(null, struct + CUaccessPolicyWindow.HITRATIO, value); }
+    public static void nhitRatio(long struct, float value) { memPutFloat(struct + CUaccessPolicyWindow.HITRATIO, value); }
     /** Unsafe version of {@link #hitProp(int) hitProp}. */
-    public static void nhitProp(long struct, int value) { UNSAFE.putInt(null, struct + CUaccessPolicyWindow.HITPROP, value); }
+    public static void nhitProp(long struct, int value) { memPutInt(struct + CUaccessPolicyWindow.HITPROP, value); }
     /** Unsafe version of {@link #missProp(int) missProp}. */
-    public static void nmissProp(long struct, int value) { UNSAFE.putInt(null, struct + CUaccessPolicyWindow.MISSPROP, value); }
+    public static void nmissProp(long struct, int value) { memPutInt(struct + CUaccessPolicyWindow.MISSPROP, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -315,6 +313,11 @@ public class CUaccessPolicyWindow extends Struct<CUaccessPolicyWindow> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

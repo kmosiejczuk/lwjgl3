@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -218,6 +218,8 @@ public class ClangIndex {
             Type_getCXXRefQualifier                 = apiGetFunctionAddress(CLANG, "clang_Type_getCXXRefQualifier"),
             isVirtualBase                           = apiGetFunctionAddress(CLANG, "clang_isVirtualBase"),
             getCXXAccessSpecifier                   = apiGetFunctionAddress(CLANG, "clang_getCXXAccessSpecifier"),
+            Cursor_getBinaryOpcode                  = apiGetFunctionAddressOptional(CLANG, "clang_Cursor_getBinaryOpcode"),
+            Cursor_getBinaryOpcodeStr               = apiGetFunctionAddressOptional(CLANG, "clang_Cursor_getBinaryOpcodeStr"),
             Cursor_getStorageClass                  = apiGetFunctionAddress(CLANG, "clang_Cursor_getStorageClass"),
             getNumOverloadedDecls                   = apiGetFunctionAddress(CLANG, "clang_getNumOverloadedDecls"),
             getOverloadedDecl                       = apiGetFunctionAddress(CLANG, "clang_getOverloadedDecl"),
@@ -1052,15 +1054,16 @@ public class ClangIndex {
      * </li>
      * <li>{@link #CXCursor_ObjCBoolLiteralExpr Cursor_ObjCBoolLiteralExpr} - Objective-c Boolean Literal.</li>
      * <li>{@link #CXCursor_ObjCSelfExpr Cursor_ObjCSelfExpr} - Represents the "self" expression in an Objective-C method.</li>
-     * <li>{@link #CXCursor_OMPArraySectionExpr Cursor_OMPArraySectionExpr} - OpenMP 5.0 [2.1.5, Array Section].</li>
+     * <li>{@link #CXCursor_ArraySectionExpr Cursor_ArraySectionExpr} - OpenMP 5.0 [2.1.5, Array Section].</li>
      * <li>{@link #CXCursor_ObjCAvailabilityCheckExpr Cursor_ObjCAvailabilityCheckExpr} - Represents an {@code @available (...)} check.</li>
      * <li>{@link #CXCursor_FixedPointLiteral Cursor_FixedPointLiteral} - Fixed point literal</li>
      * <li>{@link #CXCursor_OMPArrayShapingExpr Cursor_OMPArrayShapingExpr} - OpenMP 5.0 [2.1.4, Array Shaping].</li>
      * <li>{@link #CXCursor_OMPIteratorExpr Cursor_OMPIteratorExpr} - OpenMP 5.0 [2.1.6 Iterators]</li>
      * <li>{@link #CXCursor_CXXAddrspaceCastExpr Cursor_CXXAddrspaceCastExpr} - OpenCL's {@code addrspace_cast<>} expression.</li>
      * <li>{@link #CXCursor_ConceptSpecializationExpr Cursor_ConceptSpecializationExpr} - Expression that references a C++20 concept.</li>
-     * <li>{@link #CXCursor_RequiresExpr Cursor_RequiresExpr} - Expression that references a C++20 concept.</li>
+     * <li>{@link #CXCursor_RequiresExpr Cursor_RequiresExpr} - Expression that references a C++20 concept requires expression.</li>
      * <li>{@link #CXCursor_CXXParenListInitExpr Cursor_CXXParenListInitExpr} - Expression that references a C++20 parenthesized list aggregate initializer.</li>
+     * <li>{@link #CXCursor_PackIndexingExpr Cursor_PackIndexingExpr} - Represents a C++26 pack indexing expression.</li>
      * <li>{@link #CXCursor_LastExpr Cursor_LastExpr}</li>
      * <li>{@link #CXCursor_FirstStmt Cursor_FirstStmt} - Statements</li>
      * <li>{@link #CXCursor_UnexposedStmt Cursor_UnexposedStmt} - 
@@ -1192,6 +1195,10 @@ public class ClangIndex {
      * <li>{@link #CXCursor_OMPParallelMaskedTaskLoopSimdDirective Cursor_OMPParallelMaskedTaskLoopSimdDirective} - OpenMP parallel masked taskloop simd directive.</li>
      * <li>{@link #CXCursor_OMPErrorDirective Cursor_OMPErrorDirective} - OpenMP error directive.</li>
      * <li>{@link #CXCursor_OMPScopeDirective Cursor_OMPScopeDirective} - OpenMP scope directive.</li>
+     * <li>{@link #CXCursor_OMPReverseDirective Cursor_OMPReverseDirective} - OpenMP reverse directive.</li>
+     * <li>{@link #CXCursor_OMPInterchangeDirective Cursor_OMPInterchangeDirective} - OpenMP interchange directive.</li>
+     * <li>{@link #CXCursor_OpenACCComputeConstruct Cursor_OpenACCComputeConstruct} - OpenACC Compute Construct.</li>
+     * <li>{@link #CXCursor_OpenACCLoopConstruct Cursor_OpenACCLoopConstruct} - OpenACC Loop Construct.</li>
      * <li>{@link #CXCursor_LastStmt Cursor_LastStmt}</li>
      * <li>{@link #CXCursor_TranslationUnit Cursor_TranslationUnit} - 
      * Cursor that represents the translation unit itself.
@@ -1368,7 +1375,7 @@ public class ClangIndex {
         CXCursor_LambdaExpr                                       = 144,
         CXCursor_ObjCBoolLiteralExpr                              = 145,
         CXCursor_ObjCSelfExpr                                     = 146,
-        CXCursor_OMPArraySectionExpr                              = 147,
+        CXCursor_ArraySectionExpr                                 = 147,
         CXCursor_ObjCAvailabilityCheckExpr                        = 148,
         CXCursor_FixedPointLiteral                                = 149,
         CXCursor_OMPArrayShapingExpr                              = 150,
@@ -1377,7 +1384,8 @@ public class ClangIndex {
         CXCursor_ConceptSpecializationExpr                        = 153,
         CXCursor_RequiresExpr                                     = 154,
         CXCursor_CXXParenListInitExpr                             = 155,
-        CXCursor_LastExpr                                         = CXCursor_CXXParenListInitExpr,
+        CXCursor_PackIndexingExpr                                 = 156,
+        CXCursor_LastExpr                                         = CXCursor_PackIndexingExpr,
         CXCursor_FirstStmt                                        = 200,
         CXCursor_UnexposedStmt                                    = 200,
         CXCursor_LabelStmt                                        = 201,
@@ -1487,7 +1495,11 @@ public class ClangIndex {
         CXCursor_OMPParallelMaskedTaskLoopSimdDirective           = 304,
         CXCursor_OMPErrorDirective                                = 305,
         CXCursor_OMPScopeDirective                                = 306,
-        CXCursor_LastStmt                                         = CXCursor_OMPScopeDirective,
+        CXCursor_OMPReverseDirective                              = 307,
+        CXCursor_OMPInterchangeDirective                          = 308,
+        CXCursor_OpenACCComputeConstruct                          = 320,
+        CXCursor_OpenACCLoopConstruct                             = 321,
+        CXCursor_LastStmt                                         = CXCursor_OpenACCLoopConstruct,
         CXCursor_TranslationUnit                                  = 350,
         CXCursor_FirstAttr                                        = 400,
         CXCursor_UnexposedAttr                                    = 400,
@@ -1924,6 +1936,8 @@ public class ClangIndex {
      * <li>{@link #CXCallingConv_SwiftAsync CallingConv_SwiftAsync}</li>
      * <li>{@link #CXCallingConv_AArch64SVEPCS CallingConv_AArch64SVEPCS}</li>
      * <li>{@link #CXCallingConv_M68kRTD CallingConv_M68kRTD}</li>
+     * <li>{@link #CXCallingConv_PreserveNone CallingConv_PreserveNone}</li>
+     * <li>{@link #CXCallingConv_RISCVVectorCall CallingConv_RISCVVectorCall}</li>
      * <li>{@link #CXCallingConv_Invalid CallingConv_Invalid}</li>
      * <li>{@link #CXCallingConv_Unexposed CallingConv_Unexposed}</li>
      * </ul>
@@ -1950,6 +1964,8 @@ public class ClangIndex {
         CXCallingConv_SwiftAsync        = 17,
         CXCallingConv_AArch64SVEPCS     = 18,
         CXCallingConv_M68kRTD           = 19,
+        CXCallingConv_PreserveNone      = 20,
+        CXCallingConv_RISCVVectorCall   = 21,
         CXCallingConv_Invalid           = 100,
         CXCallingConv_Unexposed         = 200;
 
@@ -2099,6 +2115,86 @@ public class ClangIndex {
         CX_SC_OpenCLWorkGroupLocal = 5,
         CX_SC_Auto                 = 6,
         CX_SC_Register             = 7;
+
+    /**
+     * Represents a specific kind of binary operator which can appear at a cursor. ({@code enum CX_BinaryOperatorKind})
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #CX_BO_Invalid _BO_Invalid}</li>
+     * <li>{@link #CX_BO_PtrMemD _BO_PtrMemD}</li>
+     * <li>{@link #CX_BO_PtrMemI _BO_PtrMemI}</li>
+     * <li>{@link #CX_BO_Mul _BO_Mul}</li>
+     * <li>{@link #CX_BO_Div _BO_Div}</li>
+     * <li>{@link #CX_BO_Rem _BO_Rem}</li>
+     * <li>{@link #CX_BO_Add _BO_Add}</li>
+     * <li>{@link #CX_BO_Sub _BO_Sub}</li>
+     * <li>{@link #CX_BO_Shl _BO_Shl}</li>
+     * <li>{@link #CX_BO_Shr _BO_Shr}</li>
+     * <li>{@link #CX_BO_Cmp _BO_Cmp}</li>
+     * <li>{@link #CX_BO_LT _BO_LT}</li>
+     * <li>{@link #CX_BO_GT _BO_GT}</li>
+     * <li>{@link #CX_BO_LE _BO_LE}</li>
+     * <li>{@link #CX_BO_GE _BO_GE}</li>
+     * <li>{@link #CX_BO_EQ _BO_EQ}</li>
+     * <li>{@link #CX_BO_NE _BO_NE}</li>
+     * <li>{@link #CX_BO_And _BO_And}</li>
+     * <li>{@link #CX_BO_Xor _BO_Xor}</li>
+     * <li>{@link #CX_BO_Or _BO_Or}</li>
+     * <li>{@link #CX_BO_LAnd _BO_LAnd}</li>
+     * <li>{@link #CX_BO_LOr _BO_LOr}</li>
+     * <li>{@link #CX_BO_Assign _BO_Assign}</li>
+     * <li>{@link #CX_BO_MulAssign _BO_MulAssign}</li>
+     * <li>{@link #CX_BO_DivAssign _BO_DivAssign}</li>
+     * <li>{@link #CX_BO_RemAssign _BO_RemAssign}</li>
+     * <li>{@link #CX_BO_AddAssign _BO_AddAssign}</li>
+     * <li>{@link #CX_BO_SubAssign _BO_SubAssign}</li>
+     * <li>{@link #CX_BO_ShlAssign _BO_ShlAssign}</li>
+     * <li>{@link #CX_BO_ShrAssign _BO_ShrAssign}</li>
+     * <li>{@link #CX_BO_AndAssign _BO_AndAssign}</li>
+     * <li>{@link #CX_BO_XorAssign _BO_XorAssign}</li>
+     * <li>{@link #CX_BO_OrAssign _BO_OrAssign}</li>
+     * <li>{@link #CX_BO_Comma _BO_Comma}</li>
+     * <li>{@link #CX_BO_LAST _BO_LAST}</li>
+     * </ul>
+     */
+    public static final int
+        CX_BO_Invalid   = 0,
+        CX_BO_PtrMemD   = 1,
+        CX_BO_PtrMemI   = 2,
+        CX_BO_Mul       = 3,
+        CX_BO_Div       = 4,
+        CX_BO_Rem       = 5,
+        CX_BO_Add       = 6,
+        CX_BO_Sub       = 7,
+        CX_BO_Shl       = 8,
+        CX_BO_Shr       = 9,
+        CX_BO_Cmp       = 10,
+        CX_BO_LT        = 11,
+        CX_BO_GT        = 12,
+        CX_BO_LE        = 13,
+        CX_BO_GE        = 14,
+        CX_BO_EQ        = 15,
+        CX_BO_NE        = 16,
+        CX_BO_And       = 17,
+        CX_BO_Xor       = 18,
+        CX_BO_Or        = 19,
+        CX_BO_LAnd      = 20,
+        CX_BO_LOr       = 21,
+        CX_BO_Assign    = 22,
+        CX_BO_MulAssign = 23,
+        CX_BO_DivAssign = 24,
+        CX_BO_RemAssign = 25,
+        CX_BO_AddAssign = 26,
+        CX_BO_SubAssign = 27,
+        CX_BO_ShlAssign = 28,
+        CX_BO_ShrAssign = 29,
+        CX_BO_AndAssign = 30,
+        CX_BO_XorAssign = 31,
+        CX_BO_OrAssign  = 32,
+        CX_BO_Comma     = 33,
+        CX_BO_LAST      = CX_BO_Comma;
 
     /**
      * Describes how the traversal of the children of a particular cursor should proceed after visiting a particular child cursor. ({@code enum
@@ -2923,9 +3019,8 @@ public class ClangIndex {
     }
 
     /** Retrieve the character data associated with the given string. */
-    @Nullable
     @NativeType("char const *")
-    public static String clang_getCString(CXString string) {
+    public static @Nullable String clang_getCString(CXString string) {
         long __result = nclang_getCString(string.address());
         return memUTF8Safe(__result);
     }
@@ -3109,7 +3204,7 @@ public class ClangIndex {
      * <p>The invocation emission path specifies a path which will contain log files for certain libclang invocations. A null value (default) implies that
      * libclang invocations are not logged.</p>
      */
-    public static void clang_CXIndex_setInvocationEmissionPathOption(@NativeType("CXIndex") long index, @Nullable @NativeType("char const *") ByteBuffer Path) {
+    public static void clang_CXIndex_setInvocationEmissionPathOption(@NativeType("CXIndex") long index, @NativeType("char const *") @Nullable ByteBuffer Path) {
         if (CHECKS) {
             checkNT1Safe(Path);
         }
@@ -3124,7 +3219,7 @@ public class ClangIndex {
      * <p>The invocation emission path specifies a path which will contain log files for certain libclang invocations. A null value (default) implies that
      * libclang invocations are not logged.</p>
      */
-    public static void clang_CXIndex_setInvocationEmissionPathOption(@NativeType("CXIndex") long index, @Nullable @NativeType("char const *") CharSequence Path) {
+    public static void clang_CXIndex_setInvocationEmissionPathOption(@NativeType("CXIndex") long index, @NativeType("char const *") @Nullable CharSequence Path) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             stack.nUTF8Safe(Path, true);
@@ -3278,9 +3373,8 @@ public class ClangIndex {
      *
      * @return a pointer to the buffer in memory that holds the contents of {@code file}, or a {@code NULL} pointer when the file is not loaded
      */
-    @Nullable
     @NativeType("char const *")
-    public static ByteBuffer clang_getFileContents(@NativeType("CXTranslationUnit") long tu, @NativeType("CXFile") long file) {
+    public static @Nullable ByteBuffer clang_getFileContents(@NativeType("CXTranslationUnit") long tu, @NativeType("CXFile") long file) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         PointerBuffer size = stack.callocPointer(1);
         try {
@@ -3533,7 +3627,7 @@ public class ClangIndex {
      * @param column   [out] if non-{@code NULL}, will be set to the column to which the given source location points
      * @param offset   [out] if non-{@code NULL}, will be set to the offset into the buffer to which the given source location points
      */
-    public static void clang_getExpansionLocation(CXSourceLocation location, @Nullable @NativeType("CXFile *") PointerBuffer file, @Nullable @NativeType("unsigned *") IntBuffer line, @Nullable @NativeType("unsigned *") IntBuffer column, @Nullable @NativeType("unsigned *") IntBuffer offset) {
+    public static void clang_getExpansionLocation(CXSourceLocation location, @NativeType("CXFile *") @Nullable PointerBuffer file, @NativeType("unsigned *") @Nullable IntBuffer line, @NativeType("unsigned *") @Nullable IntBuffer column, @NativeType("unsigned *") @Nullable IntBuffer offset) {
         if (CHECKS) {
             checkSafe(file, 1);
             checkSafe(line, 1);
@@ -3583,7 +3677,7 @@ public class ClangIndex {
      * @param line     [out] if non-{@code NULL}, will be set to the line number of the source location. For an invalid source location, zero is returned.
      * @param column   [out] if non-{@code NULL}, will be set to the column number of the source location. For an invalid source location, zero is returned.
      */
-    public static void clang_getPresumedLocation(CXSourceLocation location, @Nullable @NativeType("CXString *") CXString.Buffer filename, @Nullable @NativeType("unsigned *") IntBuffer line, @Nullable @NativeType("unsigned *") IntBuffer column) {
+    public static void clang_getPresumedLocation(CXSourceLocation location, @NativeType("CXString *") CXString.@Nullable Buffer filename, @NativeType("unsigned *") @Nullable IntBuffer line, @NativeType("unsigned *") @Nullable IntBuffer column) {
         if (CHECKS) {
             checkSafe(filename, 1);
             checkSafe(line, 1);
@@ -3614,7 +3708,7 @@ public class ClangIndex {
      * @param column   [out] if non-{@code NULL}, will be set to the column to which the given source location points
      * @param offset   [out] if non-{@code NULL}, will be set to the offset into the buffer to which the given source location points
      */
-    public static void clang_getSpellingLocation(CXSourceLocation location, @Nullable @NativeType("CXFile *") PointerBuffer file, @Nullable @NativeType("unsigned *") IntBuffer line, @Nullable @NativeType("unsigned *") IntBuffer column, @Nullable @NativeType("unsigned *") IntBuffer offset) {
+    public static void clang_getSpellingLocation(CXSourceLocation location, @NativeType("CXFile *") @Nullable PointerBuffer file, @NativeType("unsigned *") @Nullable IntBuffer line, @NativeType("unsigned *") @Nullable IntBuffer column, @NativeType("unsigned *") @Nullable IntBuffer offset) {
         if (CHECKS) {
             checkSafe(file, 1);
             checkSafe(line, 1);
@@ -3647,7 +3741,7 @@ public class ClangIndex {
      * @param column   [out] if non-{@code NULL}, will be set to the column to which the given source location points
      * @param offset   [out] if non-{@code NULL}, will be set to the offset into the buffer to which the given source location points
      */
-    public static void clang_getFileLocation(CXSourceLocation location, @Nullable @NativeType("CXFile *") PointerBuffer file, @Nullable @NativeType("unsigned *") IntBuffer line, @Nullable @NativeType("unsigned *") IntBuffer column, @Nullable @NativeType("unsigned *") IntBuffer offset) {
+    public static void clang_getFileLocation(CXSourceLocation location, @NativeType("CXFile *") @Nullable PointerBuffer file, @NativeType("unsigned *") @Nullable IntBuffer line, @NativeType("unsigned *") @Nullable IntBuffer column, @NativeType("unsigned *") @Nullable IntBuffer offset) {
         if (CHECKS) {
             checkSafe(file, 1);
             checkSafe(line, 1);
@@ -3708,9 +3802,8 @@ public class ClangIndex {
      * 
      * <p>The preprocessor will skip lines when they are surrounded by an if/ifdef/ifndef directive whose condition does not evaluate to true.</p>
      */
-    @Nullable
     @NativeType("CXSourceRangeList *")
-    public static CXSourceRangeList clang_getSkippedRanges(@NativeType("CXTranslationUnit") long tu, @NativeType("CXFile") long file) {
+    public static @Nullable CXSourceRangeList clang_getSkippedRanges(@NativeType("CXTranslationUnit") long tu, @NativeType("CXFile") long file) {
         long __result = nclang_getSkippedRanges(tu, file);
         return CXSourceRangeList.createSafe(__result);
     }
@@ -3731,9 +3824,8 @@ public class ClangIndex {
      * 
      * <p>The preprocessor will skip lines when they are surrounded by an if/ifdef/ifndef directive whose condition does not evaluate to true.</p>
      */
-    @Nullable
     @NativeType("CXSourceRangeList *")
-    public static CXSourceRangeList clang_getAllSkippedRanges(@NativeType("CXTranslationUnit") long tu) {
+    public static @Nullable CXSourceRangeList clang_getAllSkippedRanges(@NativeType("CXTranslationUnit") long tu) {
         long __result = nclang_getAllSkippedRanges(tu);
         return CXSourceRangeList.createSafe(__result);
     }
@@ -4036,7 +4128,7 @@ public class ClangIndex {
      * @param Disable  if non-{@code NULL}, will be set to the option that disables this diagnostic (if any)
      * @param __result a string that contains the command-line option used to enable this warning, such as "-Wconversion" or "-pedantic"
      */
-    public static CXString clang_getDiagnosticOption(@NativeType("CXDiagnostic") long Diag, @Nullable @NativeType("CXString *") CXString Disable, CXString __result) {
+    public static CXString clang_getDiagnosticOption(@NativeType("CXDiagnostic") long Diag, @NativeType("CXString *") @Nullable CXString Disable, CXString __result) {
         nclang_getDiagnosticOption(Diag, memAddressSafe(Disable), __result.address());
         return __result;
     }
@@ -4232,7 +4324,7 @@ public class ClangIndex {
      *                                the call to this function returns.
      */
     @NativeType("CXTranslationUnit")
-    public static long clang_createTranslationUnitFromSourceFile(@NativeType("CXIndex") long CIdx, @Nullable @NativeType("char const *") ByteBuffer source_filename, @Nullable @NativeType("char const * const *") PointerBuffer clang_command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files) {
+    public static long clang_createTranslationUnitFromSourceFile(@NativeType("CXIndex") long CIdx, @NativeType("char const *") @Nullable ByteBuffer source_filename, @NativeType("char const * const *") @Nullable PointerBuffer clang_command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files) {
         if (CHECKS) {
             checkNT1Safe(source_filename);
         }
@@ -4264,7 +4356,7 @@ public class ClangIndex {
      *                                the call to this function returns.
      */
     @NativeType("CXTranslationUnit")
-    public static long clang_createTranslationUnitFromSourceFile(@NativeType("CXIndex") long CIdx, @Nullable @NativeType("char const *") CharSequence source_filename, @Nullable @NativeType("char const * const *") PointerBuffer clang_command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files) {
+    public static long clang_createTranslationUnitFromSourceFile(@NativeType("CXIndex") long CIdx, @NativeType("char const *") @Nullable CharSequence source_filename, @NativeType("char const * const *") @Nullable PointerBuffer clang_command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             stack.nUTF8Safe(source_filename, true);
@@ -4396,7 +4488,7 @@ public class ClangIndex {
      * {@code CXTranslationUnit}, without further detailed error codes.
      */
     @NativeType("CXTranslationUnit")
-    public static long clang_parseTranslationUnit(@NativeType("CXIndex") long CIdx, @Nullable @NativeType("char const *") ByteBuffer source_filename, @Nullable @NativeType("char const * const *") PointerBuffer command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @NativeType("unsigned") int options) {
+    public static long clang_parseTranslationUnit(@NativeType("CXIndex") long CIdx, @NativeType("char const *") @Nullable ByteBuffer source_filename, @NativeType("char const * const *") @Nullable PointerBuffer command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("unsigned") int options) {
         if (CHECKS) {
             checkNT1Safe(source_filename);
         }
@@ -4408,7 +4500,7 @@ public class ClangIndex {
      * {@code CXTranslationUnit}, without further detailed error codes.
      */
     @NativeType("CXTranslationUnit")
-    public static long clang_parseTranslationUnit(@NativeType("CXIndex") long CIdx, @Nullable @NativeType("char const *") CharSequence source_filename, @Nullable @NativeType("char const * const *") PointerBuffer command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @NativeType("unsigned") int options) {
+    public static long clang_parseTranslationUnit(@NativeType("CXIndex") long CIdx, @NativeType("char const *") @Nullable CharSequence source_filename, @NativeType("char const * const *") @Nullable PointerBuffer command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("unsigned") int options) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             stack.nUTF8Safe(source_filename, true);
@@ -4459,7 +4551,7 @@ public class ClangIndex {
      * @return zero on success, otherwise returns an error code
      */
     @NativeType("enum CXErrorCode")
-    public static int clang_parseTranslationUnit2(@NativeType("CXIndex") long CIdx, @Nullable @NativeType("char const *") ByteBuffer source_filename, @Nullable @NativeType("char const * const *") PointerBuffer command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @NativeType("unsigned") int options, @NativeType("CXTranslationUnit *") PointerBuffer out_TU) {
+    public static int clang_parseTranslationUnit2(@NativeType("CXIndex") long CIdx, @NativeType("char const *") @Nullable ByteBuffer source_filename, @NativeType("char const * const *") @Nullable PointerBuffer command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("unsigned") int options, @NativeType("CXTranslationUnit *") PointerBuffer out_TU) {
         if (CHECKS) {
             checkNT1Safe(source_filename);
             check(out_TU, 1);
@@ -4490,7 +4582,7 @@ public class ClangIndex {
      * @return zero on success, otherwise returns an error code
      */
     @NativeType("enum CXErrorCode")
-    public static int clang_parseTranslationUnit2(@NativeType("CXIndex") long CIdx, @Nullable @NativeType("char const *") CharSequence source_filename, @Nullable @NativeType("char const * const *") PointerBuffer command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @NativeType("unsigned") int options, @NativeType("CXTranslationUnit *") PointerBuffer out_TU) {
+    public static int clang_parseTranslationUnit2(@NativeType("CXIndex") long CIdx, @NativeType("char const *") @Nullable CharSequence source_filename, @NativeType("char const * const *") @Nullable PointerBuffer command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("unsigned") int options, @NativeType("CXTranslationUnit *") PointerBuffer out_TU) {
         if (CHECKS) {
             check(out_TU, 1);
         }
@@ -4520,7 +4612,7 @@ public class ClangIndex {
      * standard library paths are relative to the binary.
      */
     @NativeType("enum CXErrorCode")
-    public static int clang_parseTranslationUnit2FullArgv(@NativeType("CXIndex") long CIdx, @Nullable @NativeType("char const *") ByteBuffer source_filename, @NativeType("char const * const *") PointerBuffer command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @NativeType("unsigned") int options, @NativeType("CXTranslationUnit *") PointerBuffer out_TU) {
+    public static int clang_parseTranslationUnit2FullArgv(@NativeType("CXIndex") long CIdx, @NativeType("char const *") @Nullable ByteBuffer source_filename, @NativeType("char const * const *") PointerBuffer command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("unsigned") int options, @NativeType("CXTranslationUnit *") PointerBuffer out_TU) {
         if (CHECKS) {
             checkNT1Safe(source_filename);
             check(out_TU, 1);
@@ -4533,7 +4625,7 @@ public class ClangIndex {
      * standard library paths are relative to the binary.
      */
     @NativeType("enum CXErrorCode")
-    public static int clang_parseTranslationUnit2FullArgv(@NativeType("CXIndex") long CIdx, @Nullable @NativeType("char const *") CharSequence source_filename, @NativeType("char const * const *") PointerBuffer command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @NativeType("unsigned") int options, @NativeType("CXTranslationUnit *") PointerBuffer out_TU) {
+    public static int clang_parseTranslationUnit2FullArgv(@NativeType("CXIndex") long CIdx, @NativeType("char const *") @Nullable CharSequence source_filename, @NativeType("char const * const *") PointerBuffer command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("unsigned") int options, @NativeType("CXTranslationUnit *") PointerBuffer out_TU) {
         if (CHECKS) {
             check(out_TU, 1);
         }
@@ -4705,7 +4797,7 @@ public class ClangIndex {
      *         such cases, the only valid call for {@code TU} is {@link #clang_disposeTranslationUnit disposeTranslationUnit}. The error codes returned by this routine are described by the
      *         {@code CXErrorCode} enum.
      */
-    public static int clang_reparseTranslationUnit(@NativeType("CXTranslationUnit") long TU, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @NativeType("unsigned") int options) {
+    public static int clang_reparseTranslationUnit(@NativeType("CXTranslationUnit") long TU, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("unsigned") int options) {
         return nclang_reparseTranslationUnit(TU, remainingSafe(unsaved_files), memAddressSafe(unsaved_files), options);
     }
 
@@ -4718,9 +4810,8 @@ public class ClangIndex {
     }
 
     /** Returns the human-readable null-terminated C string that represents the name of the memory category. This string should never be freed. */
-    @Nullable
     @NativeType("char const *")
-    public static String clang_getTUResourceUsageName(@NativeType("enum CXTUResourceUsageKind") int kind) {
+    public static @Nullable String clang_getTUResourceUsageName(@NativeType("enum CXTUResourceUsageKind") int kind) {
         long __result = nclang_getTUResourceUsageName(kind);
         return memUTF8Safe(__result);
     }
@@ -5166,7 +5257,7 @@ public class ClangIndex {
      *
      * @return the number of platforms (N) for which availability information is available (which is unrelated to {@code availability_size})
      */
-    public static int clang_getCursorPlatformAvailability(CXCursor cursor, @Nullable @NativeType("int *") IntBuffer always_deprecated, @Nullable @NativeType("CXString *") CXString deprecated_message, @Nullable @NativeType("int *") IntBuffer always_unavailable, @Nullable @NativeType("CXString *") CXString unavailable_message, @Nullable @NativeType("CXPlatformAvailability *") CXPlatformAvailability.Buffer availability) {
+    public static int clang_getCursorPlatformAvailability(CXCursor cursor, @NativeType("int *") @Nullable IntBuffer always_deprecated, @NativeType("CXString *") @Nullable CXString deprecated_message, @NativeType("int *") @Nullable IntBuffer always_unavailable, @NativeType("CXString *") @Nullable CXString unavailable_message, @NativeType("CXPlatformAvailability *") CXPlatformAvailability.@Nullable Buffer availability) {
         if (CHECKS) {
             checkSafe(always_deprecated, 1);
             checkSafe(always_unavailable, 1);
@@ -7123,6 +7214,46 @@ if (clang_Cursor_isBitField(Cursor)) {
         return nclang_getCXXAccessSpecifier(cursor.address());
     }
 
+    // --- [ clang_Cursor_getBinaryOpcode ] ---
+
+    /** Unsafe version of: {@link #clang_Cursor_getBinaryOpcode Cursor_getBinaryOpcode} */
+    public static native int nclang_Cursor_getBinaryOpcode(long cursor, long __functionAddress);
+
+    /** Unsafe version of: {@link #clang_Cursor_getBinaryOpcode Cursor_getBinaryOpcode} */
+    public static int nclang_Cursor_getBinaryOpcode(long cursor) {
+        long __functionAddress = Functions.Cursor_getBinaryOpcode;
+        if (CHECKS) {
+            check(__functionAddress);
+        }
+        return nclang_Cursor_getBinaryOpcode(cursor, __functionAddress);
+    }
+
+    /** Returns the operator code for the binary operator. */
+    @NativeType("enum CX_BinaryOperatorKind")
+    public static int clang_Cursor_getBinaryOpcode(CXCursor cursor) {
+        return nclang_Cursor_getBinaryOpcode(cursor.address());
+    }
+
+    // --- [ clang_Cursor_getBinaryOpcodeStr ] ---
+
+    /** Unsafe version of: {@link #clang_Cursor_getBinaryOpcodeStr Cursor_getBinaryOpcodeStr} */
+    public static native void nclang_Cursor_getBinaryOpcodeStr(int Op, long __functionAddress, long __result);
+
+    /** Unsafe version of: {@link #clang_Cursor_getBinaryOpcodeStr Cursor_getBinaryOpcodeStr} */
+    public static void nclang_Cursor_getBinaryOpcodeStr(int Op, long __result) {
+        long __functionAddress = Functions.Cursor_getBinaryOpcodeStr;
+        if (CHECKS) {
+            check(__functionAddress);
+        }
+        nclang_Cursor_getBinaryOpcodeStr(Op, __functionAddress, __result);
+    }
+
+    /** Returns a string containing the spelling of the binary operator. */
+    public static CXString clang_Cursor_getBinaryOpcodeStr(@NativeType("enum CX_BinaryOperatorKind") int Op, CXString __result) {
+        nclang_Cursor_getBinaryOpcodeStr(Op, __result.address());
+        return __result;
+    }
+
     // --- [ clang_Cursor_getStorageClass ] ---
 
     /** Unsafe version of: {@link #clang_Cursor_getStorageClass Cursor_getStorageClass} */
@@ -7920,7 +8051,7 @@ if (clang_Cursor_isBitField(Cursor)) {
      * @param isGenerated if non-{@code NULL}, and the attribute is present, will be set to non-zero if the 'generated_declaration' is set in the attribute
      */
     @NativeType("unsigned")
-    public static boolean clang_Cursor_isExternalSymbol(CXCursor C, @Nullable @NativeType("CXString *") CXString.Buffer language, @Nullable @NativeType("CXString *") CXString.Buffer definedIn, @Nullable @NativeType("unsigned *") IntBuffer isGenerated) {
+    public static boolean clang_Cursor_isExternalSymbol(CXCursor C, @NativeType("CXString *") CXString.@Nullable Buffer language, @NativeType("CXString *") CXString.@Nullable Buffer definedIn, @NativeType("unsigned *") @Nullable IntBuffer isGenerated) {
         if (CHECKS) {
             checkSafe(language, 1);
             checkSafe(definedIn, 1);
@@ -8016,9 +8147,8 @@ if (clang_Cursor_isBitField(Cursor)) {
     }
 
     /** Retrieve the {@code CXString}s representing the mangled symbols of the C++ constructor or destructor at the cursor. */
-    @Nullable
     @NativeType("CXStringSet *")
-    public static CXStringSet clang_Cursor_getCXXManglings(CXCursor cursor) {
+    public static @Nullable CXStringSet clang_Cursor_getCXXManglings(CXCursor cursor) {
         long __result = nclang_Cursor_getCXXManglings(cursor.address());
         return CXStringSet.createSafe(__result);
     }
@@ -8038,9 +8168,8 @@ if (clang_Cursor_isBitField(Cursor)) {
     }
 
     /** Retrieve the {@code CXString}s representing the mangled symbols of the ObjC class interface or implementation at the cursor. */
-    @Nullable
     @NativeType("CXStringSet *")
-    public static CXStringSet clang_Cursor_getObjCManglings(CXCursor cursor) {
+    public static @Nullable CXStringSet clang_Cursor_getObjCManglings(CXCursor cursor) {
         long __result = nclang_Cursor_getObjCManglings(cursor.address());
         return CXStringSet.createSafe(__result);
     }
@@ -8688,9 +8817,8 @@ if (clang_Cursor_isBitField(Cursor)) {
      * @return the token starting with the given location or {@code NULL} if no such token exist. The returned pointer must be freed with {@link #clang_disposeTokens disposeTokens} before the
      *         translation unit is destroyed.
      */
-    @Nullable
     @NativeType("CXToken *")
-    public static CXToken clang_getToken(@NativeType("CXTranslationUnit") long TU, CXSourceLocation Location) {
+    public static @Nullable CXToken clang_getToken(@NativeType("CXTranslationUnit") long TU, CXSourceLocation Location) {
         long __result = nclang_getToken(TU, Location.address());
         return CXToken.createSafe(__result);
     }
@@ -8888,7 +9016,7 @@ if (clang_Cursor_isBitField(Cursor)) {
         nclang_getDefinitionSpellingAndExtent(cursor, startBuf, endBuf, startLine, startColumn, endLine, endColumn, __functionAddress);
     }
 
-    public static void clang_getDefinitionSpellingAndExtent(CXCursor cursor, @Nullable @NativeType("char const **") PointerBuffer startBuf, @Nullable @NativeType("char const **") PointerBuffer endBuf, @Nullable @NativeType("unsigned *") IntBuffer startLine, @Nullable @NativeType("unsigned *") IntBuffer startColumn, @Nullable @NativeType("unsigned *") IntBuffer endLine, @Nullable @NativeType("unsigned *") IntBuffer endColumn) {
+    public static void clang_getDefinitionSpellingAndExtent(CXCursor cursor, @NativeType("char const **") @Nullable PointerBuffer startBuf, @NativeType("char const **") @Nullable PointerBuffer endBuf, @NativeType("unsigned *") @Nullable IntBuffer startLine, @NativeType("unsigned *") @Nullable IntBuffer startColumn, @NativeType("unsigned *") @Nullable IntBuffer endLine, @NativeType("unsigned *") @Nullable IntBuffer endColumn) {
         if (CHECKS) {
             checkSafe(startBuf, 1);
             checkSafe(endBuf, 1);
@@ -9101,7 +9229,7 @@ if (clang_Cursor_isBitField(Cursor)) {
      * @param kind              DEPRECATED: always set to {@link #CXCursor_NotImplemented Cursor_NotImplemented} if non-{@code NULL}
      * @param __result          the name of the completion parent, e.g., "NSObject" if the completion string represents a method in the {@code NSObject} class.
      */
-    public static CXString clang_getCompletionParent(@NativeType("CXCompletionString") long completion_string, @Nullable @NativeType("enum CXCursorKind *") IntBuffer kind, CXString __result) {
+    public static CXString clang_getCompletionParent(@NativeType("CXCompletionString") long completion_string, @NativeType("enum CXCursorKind *") @Nullable IntBuffer kind, CXString __result) {
         if (CHECKS) {
             checkSafe(kind, 1);
         }
@@ -9283,9 +9411,8 @@ if (clang_Cursor_isBitField(Cursor)) {
      * @return if successful, a new {@code CXCodeCompleteResults} structure containing code-completion results, which should eventually be freed with
      *         {@link #clang_disposeCodeCompleteResults disposeCodeCompleteResults}. If code completion fails, returns {@code NULL}.
      */
-    @Nullable
     @NativeType("CXCodeCompleteResults *")
-    public static CXCodeCompleteResults clang_codeCompleteAt(@NativeType("CXTranslationUnit") long TU, @NativeType("char const *") ByteBuffer complete_filename, @NativeType("unsigned") int complete_line, @NativeType("unsigned") int complete_column, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @NativeType("unsigned") int options) {
+    public static @Nullable CXCodeCompleteResults clang_codeCompleteAt(@NativeType("CXTranslationUnit") long TU, @NativeType("char const *") ByteBuffer complete_filename, @NativeType("unsigned") int complete_line, @NativeType("unsigned") int complete_column, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("unsigned") int options) {
         if (CHECKS) {
             checkNT1(complete_filename);
         }
@@ -9327,9 +9454,8 @@ if (clang_Cursor_isBitField(Cursor)) {
      * @return if successful, a new {@code CXCodeCompleteResults} structure containing code-completion results, which should eventually be freed with
      *         {@link #clang_disposeCodeCompleteResults disposeCodeCompleteResults}. If code completion fails, returns {@code NULL}.
      */
-    @Nullable
     @NativeType("CXCodeCompleteResults *")
-    public static CXCodeCompleteResults clang_codeCompleteAt(@NativeType("CXTranslationUnit") long TU, @NativeType("char const *") CharSequence complete_filename, @NativeType("unsigned") int complete_line, @NativeType("unsigned") int complete_column, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @NativeType("unsigned") int options) {
+    public static @Nullable CXCodeCompleteResults clang_codeCompleteAt(@NativeType("CXTranslationUnit") long TU, @NativeType("char const *") CharSequence complete_filename, @NativeType("unsigned") int complete_line, @NativeType("unsigned") int complete_column, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("unsigned") int options) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             stack.nUTF8(complete_filename, true);
@@ -9660,9 +9786,8 @@ if (clang_Cursor_isBitField(Cursor)) {
      * Returns the evaluation result as a constant string if the kind is other than Int or float. User must not free this pointer, instead call
      * {@link #clang_EvalResult_dispose EvalResult_dispose} on the {@code CXEvalResult} returned by {@link #clang_Cursor_Evaluate Cursor_Evaluate}.
      */
-    @Nullable
     @NativeType("char const *")
-    public static String clang_EvalResult_getAsStr(@NativeType("CXEvalResult") long E) {
+    public static @Nullable String clang_EvalResult_getAsStr(@NativeType("CXEvalResult") long E) {
         long __result = nclang_EvalResult_getAsStr(E);
         return memUTF8Safe(__result);
     }
@@ -9773,7 +9898,7 @@ if (clang_Cursor_isBitField(Cursor)) {
      * @param original    if non-{@code NULL}, will be set to the original filename
      * @param transformed if non-{@code NULL}, will be set to the filename that the original is associated with
      */
-    public static void clang_remap_getFilenames(@NativeType("CXRemapping") long Remapping, @NativeType("unsigned") int index, @Nullable @NativeType("CXString *") CXString original, @Nullable @NativeType("CXString *") CXString transformed) {
+    public static void clang_remap_getFilenames(@NativeType("CXRemapping") long Remapping, @NativeType("unsigned") int index, @NativeType("CXString *") @Nullable CXString original, @NativeType("CXString *") @Nullable CXString transformed) {
         nclang_remap_getFilenames(Remapping, index, memAddressSafe(original), memAddressSafe(transformed));
     }
 
@@ -9863,9 +9988,8 @@ if (clang_Cursor_isBitField(Cursor)) {
         return invokePP(info, __functionAddress);
     }
 
-    @Nullable
     @NativeType("CXIdxObjCContainerDeclInfo const *")
-    public static CXIdxObjCContainerDeclInfo clang_index_getObjCContainerDeclInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
+    public static @Nullable CXIdxObjCContainerDeclInfo clang_index_getObjCContainerDeclInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
         long __result = nclang_index_getObjCContainerDeclInfo(info.address());
         return CXIdxObjCContainerDeclInfo.createSafe(__result);
     }
@@ -9877,9 +10001,8 @@ if (clang_Cursor_isBitField(Cursor)) {
         return invokePP(info, __functionAddress);
     }
 
-    @Nullable
     @NativeType("CXIdxObjCInterfaceDeclInfo const *")
-    public static CXIdxObjCInterfaceDeclInfo clang_index_getObjCInterfaceDeclInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
+    public static @Nullable CXIdxObjCInterfaceDeclInfo clang_index_getObjCInterfaceDeclInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
         long __result = nclang_index_getObjCInterfaceDeclInfo(info.address());
         return CXIdxObjCInterfaceDeclInfo.createSafe(__result);
     }
@@ -9891,9 +10014,8 @@ if (clang_Cursor_isBitField(Cursor)) {
         return invokePP(info, __functionAddress);
     }
 
-    @Nullable
     @NativeType("CXIdxObjCCategoryDeclInfo const *")
-    public static CXIdxObjCCategoryDeclInfo clang_index_getObjCCategoryDeclInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
+    public static @Nullable CXIdxObjCCategoryDeclInfo clang_index_getObjCCategoryDeclInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
         long __result = nclang_index_getObjCCategoryDeclInfo(info.address());
         return CXIdxObjCCategoryDeclInfo.createSafe(__result);
     }
@@ -9905,9 +10027,8 @@ if (clang_Cursor_isBitField(Cursor)) {
         return invokePP(info, __functionAddress);
     }
 
-    @Nullable
     @NativeType("CXIdxObjCProtocolRefListInfo const *")
-    public static CXIdxObjCProtocolRefListInfo clang_index_getObjCProtocolRefListInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
+    public static @Nullable CXIdxObjCProtocolRefListInfo clang_index_getObjCProtocolRefListInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
         long __result = nclang_index_getObjCProtocolRefListInfo(info.address());
         return CXIdxObjCProtocolRefListInfo.createSafe(__result);
     }
@@ -9919,9 +10040,8 @@ if (clang_Cursor_isBitField(Cursor)) {
         return invokePP(info, __functionAddress);
     }
 
-    @Nullable
     @NativeType("CXIdxObjCPropertyDeclInfo const *")
-    public static CXIdxObjCPropertyDeclInfo clang_index_getObjCPropertyDeclInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
+    public static @Nullable CXIdxObjCPropertyDeclInfo clang_index_getObjCPropertyDeclInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
         long __result = nclang_index_getObjCPropertyDeclInfo(info.address());
         return CXIdxObjCPropertyDeclInfo.createSafe(__result);
     }
@@ -9933,9 +10053,8 @@ if (clang_Cursor_isBitField(Cursor)) {
         return invokePP(info, __functionAddress);
     }
 
-    @Nullable
     @NativeType("CXIdxIBOutletCollectionAttrInfo const *")
-    public static CXIdxIBOutletCollectionAttrInfo clang_index_getIBOutletCollectionAttrInfo(@NativeType("CXIdxAttrInfo const *") CXIdxAttrInfo info) {
+    public static @Nullable CXIdxIBOutletCollectionAttrInfo clang_index_getIBOutletCollectionAttrInfo(@NativeType("CXIdxAttrInfo const *") CXIdxAttrInfo info) {
         long __result = nclang_index_getIBOutletCollectionAttrInfo(info.address());
         return CXIdxIBOutletCollectionAttrInfo.createSafe(__result);
     }
@@ -9947,9 +10066,8 @@ if (clang_Cursor_isBitField(Cursor)) {
         return invokePP(info, __functionAddress);
     }
 
-    @Nullable
     @NativeType("CXIdxCXXClassDeclInfo const *")
-    public static CXIdxCXXClassDeclInfo clang_index_getCXXClassDeclInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
+    public static @Nullable CXIdxCXXClassDeclInfo clang_index_getCXXClassDeclInfo(@NativeType("CXIdxDeclInfo const *") CXIdxDeclInfo info) {
         long __result = nclang_index_getCXXClassDeclInfo(info.address());
         return CXIdxCXXClassDeclInfo.createSafe(__result);
     }
@@ -10070,7 +10188,7 @@ if (clang_Cursor_isBitField(Cursor)) {
      * @return 0 on success or if there were errors from which the compiler could recover. If there is a failure from which there is no recovery, returns a non-zero
      *         {@code CXErrorCode}.
      */
-    public static int clang_indexSourceFile(@NativeType("CXIndexAction") long action, @NativeType("CXClientData") long client_data, @NativeType("IndexerCallbacks *") IndexerCallbacks index_callbacks, @NativeType("unsigned") int index_callbacks_size, @NativeType("unsigned") int index_options, @NativeType("char const *") ByteBuffer source_filename, @Nullable @NativeType("char const * const *") PointerBuffer command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @Nullable @NativeType("CXTranslationUnit *") PointerBuffer out_TU, @NativeType("unsigned") int TU_options) {
+    public static int clang_indexSourceFile(@NativeType("CXIndexAction") long action, @NativeType("CXClientData") long client_data, @NativeType("IndexerCallbacks *") IndexerCallbacks index_callbacks, @NativeType("unsigned") int index_callbacks_size, @NativeType("unsigned") int index_options, @NativeType("char const *") ByteBuffer source_filename, @NativeType("char const * const *") @Nullable PointerBuffer command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("CXTranslationUnit *") @Nullable PointerBuffer out_TU, @NativeType("unsigned") int TU_options) {
         if (CHECKS) {
             checkNT1(source_filename);
             checkSafe(out_TU, 1);
@@ -10092,7 +10210,7 @@ if (clang_Cursor_isBitField(Cursor)) {
      * @return 0 on success or if there were errors from which the compiler could recover. If there is a failure from which there is no recovery, returns a non-zero
      *         {@code CXErrorCode}.
      */
-    public static int clang_indexSourceFile(@NativeType("CXIndexAction") long action, @NativeType("CXClientData") long client_data, @NativeType("IndexerCallbacks *") IndexerCallbacks index_callbacks, @NativeType("unsigned") int index_callbacks_size, @NativeType("unsigned") int index_options, @NativeType("char const *") CharSequence source_filename, @Nullable @NativeType("char const * const *") PointerBuffer command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @Nullable @NativeType("CXTranslationUnit *") PointerBuffer out_TU, @NativeType("unsigned") int TU_options) {
+    public static int clang_indexSourceFile(@NativeType("CXIndexAction") long action, @NativeType("CXClientData") long client_data, @NativeType("IndexerCallbacks *") IndexerCallbacks index_callbacks, @NativeType("unsigned") int index_callbacks_size, @NativeType("unsigned") int index_options, @NativeType("char const *") CharSequence source_filename, @NativeType("char const * const *") @Nullable PointerBuffer command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("CXTranslationUnit *") @Nullable PointerBuffer out_TU, @NativeType("unsigned") int TU_options) {
         if (CHECKS) {
             checkSafe(out_TU, 1);
         }
@@ -10121,7 +10239,7 @@ if (clang_Cursor_isBitField(Cursor)) {
      * Same as {@link #clang_indexSourceFile indexSourceFile} but requires a full command line for {@code command_line_args} including {@code argv[0]}. This is useful if the standard
      * library paths are relative to the binary.
      */
-    public static int clang_indexSourceFileFullArgv(@NativeType("CXIndexAction") long action, @NativeType("CXClientData") long client_data, @NativeType("IndexerCallbacks *") IndexerCallbacks index_callbacks, @NativeType("unsigned") int index_callbacks_size, @NativeType("unsigned") int index_options, @NativeType("char const *") ByteBuffer source_filename, @NativeType("char const * const *") PointerBuffer command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @Nullable @NativeType("CXTranslationUnit *") PointerBuffer out_TU, @NativeType("unsigned") int TU_options) {
+    public static int clang_indexSourceFileFullArgv(@NativeType("CXIndexAction") long action, @NativeType("CXClientData") long client_data, @NativeType("IndexerCallbacks *") IndexerCallbacks index_callbacks, @NativeType("unsigned") int index_callbacks_size, @NativeType("unsigned") int index_options, @NativeType("char const *") ByteBuffer source_filename, @NativeType("char const * const *") PointerBuffer command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("CXTranslationUnit *") @Nullable PointerBuffer out_TU, @NativeType("unsigned") int TU_options) {
         if (CHECKS) {
             checkNT1(source_filename);
             checkSafe(out_TU, 1);
@@ -10133,7 +10251,7 @@ if (clang_Cursor_isBitField(Cursor)) {
      * Same as {@link #clang_indexSourceFile indexSourceFile} but requires a full command line for {@code command_line_args} including {@code argv[0]}. This is useful if the standard
      * library paths are relative to the binary.
      */
-    public static int clang_indexSourceFileFullArgv(@NativeType("CXIndexAction") long action, @NativeType("CXClientData") long client_data, @NativeType("IndexerCallbacks *") IndexerCallbacks index_callbacks, @NativeType("unsigned") int index_callbacks_size, @NativeType("unsigned") int index_options, @NativeType("char const *") CharSequence source_filename, @NativeType("char const * const *") PointerBuffer command_line_args, @Nullable @NativeType("struct CXUnsavedFile *") CXUnsavedFile.Buffer unsaved_files, @Nullable @NativeType("CXTranslationUnit *") PointerBuffer out_TU, @NativeType("unsigned") int TU_options) {
+    public static int clang_indexSourceFileFullArgv(@NativeType("CXIndexAction") long action, @NativeType("CXClientData") long client_data, @NativeType("IndexerCallbacks *") IndexerCallbacks index_callbacks, @NativeType("unsigned") int index_callbacks_size, @NativeType("unsigned") int index_options, @NativeType("char const *") CharSequence source_filename, @NativeType("char const * const *") PointerBuffer command_line_args, @NativeType("struct CXUnsavedFile *") CXUnsavedFile.@Nullable Buffer unsaved_files, @NativeType("CXTranslationUnit *") @Nullable PointerBuffer out_TU, @NativeType("unsigned") int TU_options) {
         if (CHECKS) {
             checkSafe(out_TU, 1);
         }
@@ -10196,7 +10314,7 @@ if (clang_Cursor_isBitField(Cursor)) {
      * <p>If the location refers into a macro expansion, retrieves the location of the macro expansion and if it refers into a macro argument retrieves the
      * location of the argument.</p>
      */
-    public static void clang_indexLoc_getFileLocation(CXIdxLoc loc, @Nullable @NativeType("CXIdxClientFile *") PointerBuffer indexFile, @Nullable @NativeType("CXFile *") PointerBuffer file, @Nullable @NativeType("unsigned *") IntBuffer line, @Nullable @NativeType("unsigned *") IntBuffer column, @Nullable @NativeType("unsigned *") IntBuffer offset) {
+    public static void clang_indexLoc_getFileLocation(CXIdxLoc loc, @NativeType("CXIdxClientFile *") @Nullable PointerBuffer indexFile, @NativeType("CXFile *") @Nullable PointerBuffer file, @NativeType("unsigned *") @Nullable IntBuffer line, @NativeType("unsigned *") @Nullable IntBuffer column, @NativeType("unsigned *") @Nullable IntBuffer offset) {
         if (CHECKS) {
             checkSafe(indexFile, 1);
             checkSafe(file, 1);

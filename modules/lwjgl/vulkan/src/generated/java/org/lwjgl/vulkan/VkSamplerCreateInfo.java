@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,16 +20,16 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Mapping of OpenGL to Vulkan filter modes</h5>
+ * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Mapping of OpenGL to Vulkan Filter Modes</h5>
  * 
  * <p>{@code magFilter} values of {@link VK10#VK_FILTER_NEAREST FILTER_NEAREST} and {@link VK10#VK_FILTER_LINEAR FILTER_LINEAR} directly correspond to {@code GL_NEAREST} and {@code GL_LINEAR} magnification filters. {@code minFilter} and {@code mipmapMode} combine to correspond to the similarly named OpenGL minification filter of {@code GL_minFilter_MIPMAP_mipmapMode} (e.g. {@code minFilter} of {@link VK10#VK_FILTER_LINEAR FILTER_LINEAR} and {@code mipmapMode} of {@link VK10#VK_SAMPLER_MIPMAP_MODE_NEAREST SAMPLER_MIPMAP_MODE_NEAREST} correspond to {@code GL_LINEAR_MIPMAP_NEAREST}).</p>
  * 
  * <p>There are no Vulkan filter modes that directly correspond to OpenGL minification filters of {@code GL_LINEAR} or {@code GL_NEAREST}, but they <b>can</b> be emulated using {@link VK10#VK_SAMPLER_MIPMAP_MODE_NEAREST SAMPLER_MIPMAP_MODE_NEAREST}, {@code minLod} = 0, and {@code maxLod} = 0.25, and using {@code minFilter} = {@link VK10#VK_FILTER_LINEAR FILTER_LINEAR} or {@code minFilter} = {@link VK10#VK_FILTER_NEAREST FILTER_NEAREST}, respectively.</p>
  * 
- * <p>Note that using a {@code maxLod} of zero would cause <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-texel-filtering">magnification</a> to always be performed, and the {@code magFilter} to always be used. This is valid, just not an exact match for OpenGL behavior. Clamping the maximum LOD to 0.25 allows the <code>λ</code> value to be non-zero and minification to be performed, while still always rounding down to the base level. If the {@code minFilter} and {@code magFilter} are equal, then using a {@code maxLod} of zero also works.</p>
+ * <p>Note that using a {@code maxLod} of zero would cause <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-texel-filtering">magnification</a> to always be performed, and the {@code magFilter} to always be used. This is valid, just not an exact match for OpenGL behavior. Clamping the maximum LOD to 0.25 allows the <code>λ</code> value to be non-zero and minification to be performed, while still always rounding down to the base level. If the {@code minFilter} and {@code magFilter} are equal, then using a {@code maxLod} of zero also works.</p>
  * </div>
  * 
- * <p>The maximum number of sampler objects which <b>can</b> be simultaneously created on a device is implementation-dependent and specified by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxSamplerAllocationCount">{@code maxSamplerAllocationCount}</a> member of the {@link VkPhysicalDeviceLimits} structure.</p>
+ * <p>The maximum number of sampler objects which <b>can</b> be simultaneously created on a device is implementation-dependent and specified by the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxSamplerAllocationCount">{@code maxSamplerAllocationCount}</a> member of the {@link VkPhysicalDeviceLimits} structure.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -44,9 +44,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>The absolute value of {@code mipLodBias} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxSamplerLodBias}</li>
  * <li>If the {@link KHRPortabilitySubset VK_KHR_portability_subset} extension is enabled, and {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR}{@code ::samplerMipLodBias} is {@link VK10#VK_FALSE FALSE}, {@code mipLodBias} <b>must</b> be zero</li>
  * <li>{@code maxLod} <b>must</b> be greater than or equal to {@code minLod}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-samplerAnisotropy">{@code samplerAnisotropy}</a> feature is not enabled, {@code anisotropyEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-samplerAnisotropy">{@code samplerAnisotropy}</a> feature is not enabled, {@code anisotropyEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * <li>If {@code anisotropyEnable} is {@link VK10#VK_TRUE TRUE}, {@code maxAnisotropy} <b>must</b> be between {@code 1.0} and {@link VkPhysicalDeviceLimits}{@code ::maxSamplerAnisotropy}, inclusive</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> of the sampler Y′C<sub>B</sub>C<sub>R</sub> conversion do not support {@link VK11#VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT}, {@code minFilter} and {@code magFilter} <b>must</b> be equal to the sampler Y′C<sub>B</sub>C<sub>R</sub> conversion’s {@code chromaFilter}</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled and the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#potential-format-features">potential format features</a> of the sampler Y′C<sub>B</sub>C<sub>R</sub> conversion do not support {@link VK11#VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT}, {@code minFilter} and {@code magFilter} <b>must</b> be equal to the sampler Y′C<sub>B</sub>C<sub>R</sub> conversion’s {@code chromaFilter}</li>
  * <li>If {@code unnormalizedCoordinates} is {@link VK10#VK_TRUE TRUE}, {@code minFilter} and {@code magFilter} <b>must</b> be equal</li>
  * <li>If {@code unnormalizedCoordinates} is {@link VK10#VK_TRUE TRUE}, {@code mipmapMode} <b>must</b> be {@link VK10#VK_SAMPLER_MIPMAP_MODE_NEAREST SAMPLER_MIPMAP_MODE_NEAREST}</li>
  * <li>If {@code unnormalizedCoordinates} is {@link VK10#VK_TRUE TRUE}, {@code minLod} and {@code maxLod} <b>must</b> be zero</li>
@@ -54,10 +54,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code unnormalizedCoordinates} is {@link VK10#VK_TRUE TRUE}, {@code anisotropyEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * <li>If {@code unnormalizedCoordinates} is {@link VK10#VK_TRUE TRUE}, {@code compareEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * <li>If any of {@code addressModeU}, {@code addressModeV} or {@code addressModeW} are {@link VK10#VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER}, {@code borderColor} <b>must</b> be a valid {@code VkBorderColor} value</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled, {@code addressModeU}, {@code addressModeV}, and {@code addressModeW} <b>must</b> be {@link VK10#VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE}, {@code anisotropyEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}, and {@code unnormalizedCoordinates} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled and the {@code pNext} chain includes a {@link VkSamplerReductionModeCreateInfo} structure, then the sampler reduction mode <b>must</b> be set to {@link VK12#VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE}</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-samplerFilterMinmax">{@code samplerFilterMinmax}</a> is not enabled and the {@code pNext} chain includes a {@link VkSamplerReductionModeCreateInfo} structure, then the sampler reduction mode <b>must</b> be set to {@link VK12#VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE}</li>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-samplerMirrorClampToEdge">{@code samplerMirrorClampToEdge}</a> is not enabled, and if the {@link KHRSamplerMirrorClampToEdge VK_KHR_sampler_mirror_clamp_to_edge} extension is not enabled, {@code addressModeU}, {@code addressModeV} and {@code addressModeW} <b>must</b> not be {@link VK12#VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE}</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled, {@code addressModeU}, {@code addressModeV}, and {@code addressModeW} <b>must</b> be {@link VK10#VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE}, {@code anisotropyEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}, and {@code unnormalizedCoordinates} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled and the {@code pNext} chain includes a {@link VkSamplerReductionModeCreateInfo} structure, then the sampler reduction mode <b>must</b> be {@link VK12#VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-samplerFilterMinmax">{@code samplerFilterMinmax}</a> feature is not enabled and the {@code pNext} chain includes a {@link VkSamplerReductionModeCreateInfo} structure, then the sampler reduction mode <b>must</b> be {@link VK12#VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-samplerMirrorClampToEdge">{@code samplerMirrorClampToEdge}</a> feature is not enabled, and if the {@link KHRSamplerMirrorClampToEdge VK_KHR_sampler_mirror_clamp_to_edge} extension is not enabled, {@code addressModeU}, {@code addressModeV} and {@code addressModeW} <b>must</b> not be {@link VK12#VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE}</li>
  * <li>If {@code compareEnable} is {@link VK10#VK_TRUE TRUE}, {@code compareOp} <b>must</b> be a valid {@code VkCompareOp} value</li>
  * <li>If either {@code magFilter} or {@code minFilter} is {@link EXTFilterCubic#VK_FILTER_CUBIC_EXT FILTER_CUBIC_EXT}, {@code anisotropyEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * <li>If the {@link EXTFilterCubic VK_EXT_filter_cubic} extension is not enabled and either {@code magFilter} or {@code minFilter} is {@link IMGFilterCubic#VK_FILTER_CUBIC_IMG FILTER_CUBIC_IMG}, the {@code reductionMode} member of {@link VkSamplerReductionModeCreateInfo} <b>must</b> be {@link VK12#VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE}</li>
@@ -69,12 +69,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code flags} includes {@link EXTFragmentDensityMap#VK_SAMPLER_CREATE_SUBSAMPLED_BIT_EXT SAMPLER_CREATE_SUBSAMPLED_BIT_EXT}, then {@code anisotropyEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * <li>If {@code flags} includes {@link EXTFragmentDensityMap#VK_SAMPLER_CREATE_SUBSAMPLED_BIT_EXT SAMPLER_CREATE_SUBSAMPLED_BIT_EXT}, then {@code compareEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * <li>If {@code flags} includes {@link EXTFragmentDensityMap#VK_SAMPLER_CREATE_SUBSAMPLED_BIT_EXT SAMPLER_CREATE_SUBSAMPLED_BIT_EXT}, then {@code unnormalizedCoordinates} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-nonSeamlessCubeMap">{@code nonSeamlessCubeMap}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link EXTNonSeamlessCubeMap#VK_SAMPLER_CREATE_NON_SEAMLESS_CUBE_MAP_BIT_EXT SAMPLER_CREATE_NON_SEAMLESS_CUBE_MAP_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-nonSeamlessCubeMap">{@code nonSeamlessCubeMap}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link EXTNonSeamlessCubeMap#VK_SAMPLER_CREATE_NON_SEAMLESS_CUBE_MAP_BIT_EXT SAMPLER_CREATE_NON_SEAMLESS_CUBE_MAP_BIT_EXT}</li>
  * <li>If {@code borderColor} is one of {@link EXTCustomBorderColor#VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT} or {@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT}, then a {@link VkSamplerCustomBorderColorCreateInfoEXT} <b>must</b> be included in the {@code pNext} chain</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-customBorderColors">{@code customBorderColors}</a> feature is not enabled, {@code borderColor} <b>must</b> not be {@link EXTCustomBorderColor#VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT} or {@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-customBorderColors">{@code customBorderColors}</a> feature is not enabled, {@code borderColor} <b>must</b> not be {@link EXTCustomBorderColor#VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT} or {@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT}</li>
  * <li>If {@code borderColor} is one of {@link EXTCustomBorderColor#VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT} or {@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT}, and {@link VkSamplerCustomBorderColorCreateInfoEXT}{@code ::format} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, {@link VkSamplerCustomBorderColorCreateInfoEXT}{@code ::customBorderColor} <b>must</b> be within the range of values representable in {@code format}</li>
- * <li>The maximum number of samplers with custom border colors which <b>can</b> be simultaneously created on a device is implementation-dependent and specified by the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxCustomBorderColorSamplers">{@code maxCustomBorderColorSamplers}</a> member of the {@link VkPhysicalDeviceCustomBorderColorPropertiesEXT} structure</li>
- * <li>If {@code flags} includes {@link EXTDescriptorBuffer#VK_SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorBufferCaptureReplay">{@code descriptorBufferCaptureReplay}</a> feature <b>must</b> be enabled</li>
+ * <li>The maximum number of samplers with custom border colors which <b>can</b> be simultaneously created on a device is implementation-dependent and specified by the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxCustomBorderColorSamplers">{@code maxCustomBorderColorSamplers}</a> member of the {@link VkPhysicalDeviceCustomBorderColorPropertiesEXT} structure</li>
+ * <li>If {@code flags} includes {@link EXTDescriptorBuffer#VK_SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-descriptorBufferCaptureReplay">{@code descriptorBufferCaptureReplay}</a> feature <b>must</b> be enabled</li>
  * <li>If the {@code pNext} chain includes a {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT} structure, {@code flags} <b>must</b> contain {@link EXTDescriptorBuffer#VK_SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}</li>
  * <li>If {@code flags} includes {@link QCOMImageProcessing#VK_SAMPLER_CREATE_IMAGE_PROCESSING_BIT_QCOM SAMPLER_CREATE_IMAGE_PROCESSING_BIT_QCOM}, then {@code minFilter} and {@code magFilter} <b>must</b> be {@link VK10#VK_FILTER_NEAREST FILTER_NEAREST}</li>
  * <li>If {@code flags} includes {@link QCOMImageProcessing#VK_SAMPLER_CREATE_IMAGE_PROCESSING_BIT_QCOM SAMPLER_CREATE_IMAGE_PROCESSING_BIT_QCOM}, then {@code mipmapMode} <b>must</b> be {@link VK10#VK_SAMPLER_MIPMAP_MODE_NEAREST SAMPLER_MIPMAP_MODE_NEAREST}</li>
@@ -251,9 +251,9 @@ public class VkSamplerCreateInfo extends Struct<VkSamplerCreateInfo> implements 
     /** a {@code VkSamplerAddressMode} value specifying the addressing mode for W coordinates outside <code>[0,1)</code>. */
     @NativeType("VkSamplerAddressMode")
     public int addressModeW() { return naddressModeW(address()); }
-    /** the bias to be added to mipmap LOD calculation and bias provided by image sampling functions in SPIR-V, as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-level-of-detail-operation">LOD Operation</a> section. */
+    /** the bias to be added to mipmap LOD calculation and bias provided by image sampling functions in SPIR-V, as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-level-of-detail-operation">LOD Operation</a> section. */
     public float mipLodBias() { return nmipLodBias(address()); }
-    /** {@link VK10#VK_TRUE TRUE} to enable anisotropic filtering, as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-texel-anisotropic-filtering">Texel Anisotropic Filtering</a> section, or {@link VK10#VK_FALSE FALSE} otherwise. */
+    /** {@link VK10#VK_TRUE TRUE} to enable anisotropic filtering, as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-texel-anisotropic-filtering">Texel Anisotropic Filtering</a> section, or {@link VK10#VK_FALSE FALSE} otherwise. */
     @NativeType("VkBool32")
     public boolean anisotropyEnable() { return nanisotropyEnable(address()) != 0; }
     /** the anisotropy value clamp used by the sampler when {@code anisotropyEnable} is {@link VK10#VK_TRUE TRUE}. If {@code anisotropyEnable} is {@link VK10#VK_FALSE FALSE}, {@code maxAnisotropy} is ignored. */
@@ -267,18 +267,18 @@ public class VkSamplerCreateInfo extends Struct<VkSamplerCreateInfo> implements 
      */
     @NativeType("VkBool32")
     public boolean compareEnable() { return ncompareEnable(address()) != 0; }
-    /** a {@code VkCompareOp} value specifying the comparison operator to apply to fetched data before filtering as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-depth-compare-operation">Depth Compare Operation</a> section. */
+    /** a {@code VkCompareOp} value specifying the comparison operator to apply to fetched data before filtering as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-depth-compare-operation">Depth Compare Operation</a> section. */
     @NativeType("VkCompareOp")
     public int compareOp() { return ncompareOp(address()); }
-    /** used to clamp the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-level-of-detail-operation">minimum of the computed LOD value</a>. */
+    /** used to clamp the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-level-of-detail-operation">minimum of the computed LOD value</a>. */
     public float minLod() { return nminLod(address()); }
-    /** used to clamp the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-level-of-detail-operation">maximum of the computed LOD value</a>. To avoid clamping the maximum value, set {@code maxLod} to the constant {@link VK10#VK_LOD_CLAMP_NONE LOD_CLAMP_NONE}. */
+    /** used to clamp the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-level-of-detail-operation">maximum of the computed LOD value</a>. To avoid clamping the maximum value, set {@code maxLod} to the constant {@link VK10#VK_LOD_CLAMP_NONE LOD_CLAMP_NONE}. */
     public float maxLod() { return nmaxLod(address()); }
     /** a {@code VkBorderColor} value specifying the predefined border color to use. */
     @NativeType("VkBorderColor")
     public int borderColor() { return nborderColor(address()); }
     /**
-     * controls whether to use unnormalized or normalized texel coordinates to address texels of the image. When set to {@link VK10#VK_TRUE TRUE}, the range of the image coordinates used to lookup the texel is in the range of zero to the image size in each dimension. When set to {@link VK10#VK_FALSE FALSE} the range of image coordinates is zero to one.
+     * controls whether to use unnormalized or normalized texel coordinates to address texels of the image. When {@code unnormalizedCoordinates} is {@link VK10#VK_TRUE TRUE}, the range of the image coordinates used to lookup the texel is in the range of zero to the image size in each dimension. When {@code unnormalizedCoordinates} is {@link VK10#VK_FALSE FALSE}, the range of image coordinates is zero to one.
      * 
      * <p>When {@code unnormalizedCoordinates} is {@link VK10#VK_TRUE TRUE}, images the sampler is used with in the shader have the following requirements:</p>
      * 
@@ -430,8 +430,7 @@ public class VkSamplerCreateInfo extends Struct<VkSamplerCreateInfo> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerCreateInfo createSafe(long address) {
+    public static @Nullable VkSamplerCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkSamplerCreateInfo(address, null);
     }
 
@@ -474,8 +473,7 @@ public class VkSamplerCreateInfo extends Struct<VkSamplerCreateInfo> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSamplerCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -539,78 +537,78 @@ public class VkSamplerCreateInfo extends Struct<VkSamplerCreateInfo> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSamplerCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSamplerCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkSamplerCreateInfo.FLAGS); }
     /** Unsafe version of {@link #magFilter}. */
-    public static int nmagFilter(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.MAGFILTER); }
+    public static int nmagFilter(long struct) { return memGetInt(struct + VkSamplerCreateInfo.MAGFILTER); }
     /** Unsafe version of {@link #minFilter}. */
-    public static int nminFilter(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.MINFILTER); }
+    public static int nminFilter(long struct) { return memGetInt(struct + VkSamplerCreateInfo.MINFILTER); }
     /** Unsafe version of {@link #mipmapMode}. */
-    public static int nmipmapMode(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.MIPMAPMODE); }
+    public static int nmipmapMode(long struct) { return memGetInt(struct + VkSamplerCreateInfo.MIPMAPMODE); }
     /** Unsafe version of {@link #addressModeU}. */
-    public static int naddressModeU(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.ADDRESSMODEU); }
+    public static int naddressModeU(long struct) { return memGetInt(struct + VkSamplerCreateInfo.ADDRESSMODEU); }
     /** Unsafe version of {@link #addressModeV}. */
-    public static int naddressModeV(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.ADDRESSMODEV); }
+    public static int naddressModeV(long struct) { return memGetInt(struct + VkSamplerCreateInfo.ADDRESSMODEV); }
     /** Unsafe version of {@link #addressModeW}. */
-    public static int naddressModeW(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.ADDRESSMODEW); }
+    public static int naddressModeW(long struct) { return memGetInt(struct + VkSamplerCreateInfo.ADDRESSMODEW); }
     /** Unsafe version of {@link #mipLodBias}. */
-    public static float nmipLodBias(long struct) { return UNSAFE.getFloat(null, struct + VkSamplerCreateInfo.MIPLODBIAS); }
+    public static float nmipLodBias(long struct) { return memGetFloat(struct + VkSamplerCreateInfo.MIPLODBIAS); }
     /** Unsafe version of {@link #anisotropyEnable}. */
-    public static int nanisotropyEnable(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.ANISOTROPYENABLE); }
+    public static int nanisotropyEnable(long struct) { return memGetInt(struct + VkSamplerCreateInfo.ANISOTROPYENABLE); }
     /** Unsafe version of {@link #maxAnisotropy}. */
-    public static float nmaxAnisotropy(long struct) { return UNSAFE.getFloat(null, struct + VkSamplerCreateInfo.MAXANISOTROPY); }
+    public static float nmaxAnisotropy(long struct) { return memGetFloat(struct + VkSamplerCreateInfo.MAXANISOTROPY); }
     /** Unsafe version of {@link #compareEnable}. */
-    public static int ncompareEnable(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.COMPAREENABLE); }
+    public static int ncompareEnable(long struct) { return memGetInt(struct + VkSamplerCreateInfo.COMPAREENABLE); }
     /** Unsafe version of {@link #compareOp}. */
-    public static int ncompareOp(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.COMPAREOP); }
+    public static int ncompareOp(long struct) { return memGetInt(struct + VkSamplerCreateInfo.COMPAREOP); }
     /** Unsafe version of {@link #minLod}. */
-    public static float nminLod(long struct) { return UNSAFE.getFloat(null, struct + VkSamplerCreateInfo.MINLOD); }
+    public static float nminLod(long struct) { return memGetFloat(struct + VkSamplerCreateInfo.MINLOD); }
     /** Unsafe version of {@link #maxLod}. */
-    public static float nmaxLod(long struct) { return UNSAFE.getFloat(null, struct + VkSamplerCreateInfo.MAXLOD); }
+    public static float nmaxLod(long struct) { return memGetFloat(struct + VkSamplerCreateInfo.MAXLOD); }
     /** Unsafe version of {@link #borderColor}. */
-    public static int nborderColor(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.BORDERCOLOR); }
+    public static int nborderColor(long struct) { return memGetInt(struct + VkSamplerCreateInfo.BORDERCOLOR); }
     /** Unsafe version of {@link #unnormalizedCoordinates}. */
-    public static int nunnormalizedCoordinates(long struct) { return UNSAFE.getInt(null, struct + VkSamplerCreateInfo.UNNORMALIZEDCOORDINATES); }
+    public static int nunnormalizedCoordinates(long struct) { return memGetInt(struct + VkSamplerCreateInfo.UNNORMALIZEDCOORDINATES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSamplerCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #magFilter(int) magFilter}. */
-    public static void nmagFilter(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.MAGFILTER, value); }
+    public static void nmagFilter(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.MAGFILTER, value); }
     /** Unsafe version of {@link #minFilter(int) minFilter}. */
-    public static void nminFilter(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.MINFILTER, value); }
+    public static void nminFilter(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.MINFILTER, value); }
     /** Unsafe version of {@link #mipmapMode(int) mipmapMode}. */
-    public static void nmipmapMode(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.MIPMAPMODE, value); }
+    public static void nmipmapMode(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.MIPMAPMODE, value); }
     /** Unsafe version of {@link #addressModeU(int) addressModeU}. */
-    public static void naddressModeU(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.ADDRESSMODEU, value); }
+    public static void naddressModeU(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.ADDRESSMODEU, value); }
     /** Unsafe version of {@link #addressModeV(int) addressModeV}. */
-    public static void naddressModeV(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.ADDRESSMODEV, value); }
+    public static void naddressModeV(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.ADDRESSMODEV, value); }
     /** Unsafe version of {@link #addressModeW(int) addressModeW}. */
-    public static void naddressModeW(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.ADDRESSMODEW, value); }
+    public static void naddressModeW(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.ADDRESSMODEW, value); }
     /** Unsafe version of {@link #mipLodBias(float) mipLodBias}. */
-    public static void nmipLodBias(long struct, float value) { UNSAFE.putFloat(null, struct + VkSamplerCreateInfo.MIPLODBIAS, value); }
+    public static void nmipLodBias(long struct, float value) { memPutFloat(struct + VkSamplerCreateInfo.MIPLODBIAS, value); }
     /** Unsafe version of {@link #anisotropyEnable(boolean) anisotropyEnable}. */
-    public static void nanisotropyEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.ANISOTROPYENABLE, value); }
+    public static void nanisotropyEnable(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.ANISOTROPYENABLE, value); }
     /** Unsafe version of {@link #maxAnisotropy(float) maxAnisotropy}. */
-    public static void nmaxAnisotropy(long struct, float value) { UNSAFE.putFloat(null, struct + VkSamplerCreateInfo.MAXANISOTROPY, value); }
+    public static void nmaxAnisotropy(long struct, float value) { memPutFloat(struct + VkSamplerCreateInfo.MAXANISOTROPY, value); }
     /** Unsafe version of {@link #compareEnable(boolean) compareEnable}. */
-    public static void ncompareEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.COMPAREENABLE, value); }
+    public static void ncompareEnable(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.COMPAREENABLE, value); }
     /** Unsafe version of {@link #compareOp(int) compareOp}. */
-    public static void ncompareOp(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.COMPAREOP, value); }
+    public static void ncompareOp(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.COMPAREOP, value); }
     /** Unsafe version of {@link #minLod(float) minLod}. */
-    public static void nminLod(long struct, float value) { UNSAFE.putFloat(null, struct + VkSamplerCreateInfo.MINLOD, value); }
+    public static void nminLod(long struct, float value) { memPutFloat(struct + VkSamplerCreateInfo.MINLOD, value); }
     /** Unsafe version of {@link #maxLod(float) maxLod}. */
-    public static void nmaxLod(long struct, float value) { UNSAFE.putFloat(null, struct + VkSamplerCreateInfo.MAXLOD, value); }
+    public static void nmaxLod(long struct, float value) { memPutFloat(struct + VkSamplerCreateInfo.MAXLOD, value); }
     /** Unsafe version of {@link #borderColor(int) borderColor}. */
-    public static void nborderColor(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.BORDERCOLOR, value); }
+    public static void nborderColor(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.BORDERCOLOR, value); }
     /** Unsafe version of {@link #unnormalizedCoordinates(boolean) unnormalizedCoordinates}. */
-    public static void nunnormalizedCoordinates(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerCreateInfo.UNNORMALIZEDCOORDINATES, value); }
+    public static void nunnormalizedCoordinates(long struct, int value) { memPutInt(struct + VkSamplerCreateInfo.UNNORMALIZEDCOORDINATES, value); }
 
     // -----------------------------------
 
@@ -643,6 +641,11 @@ public class VkSamplerCreateInfo extends Struct<VkSamplerCreateInfo> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

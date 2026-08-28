@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -175,8 +175,7 @@ public class VkPipelineCoverageReductionStateCreateInfoNV extends Struct<VkPipel
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCoverageReductionStateCreateInfoNV createSafe(long address) {
+    public static @Nullable VkPipelineCoverageReductionStateCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkPipelineCoverageReductionStateCreateInfoNV(address, null);
     }
 
@@ -219,8 +218,7 @@ public class VkPipelineCoverageReductionStateCreateInfoNV extends Struct<VkPipel
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCoverageReductionStateCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineCoverageReductionStateCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,22 +282,22 @@ public class VkPipelineCoverageReductionStateCreateInfoNV extends Struct<VkPipel
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineCoverageReductionStateCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.FLAGS); }
     /** Unsafe version of {@link #coverageReductionMode}. */
-    public static int ncoverageReductionMode(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.COVERAGEREDUCTIONMODE); }
+    public static int ncoverageReductionMode(long struct) { return memGetInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.COVERAGEREDUCTIONMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineCoverageReductionStateCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.FLAGS, value); }
     /** Unsafe version of {@link #coverageReductionMode(int) coverageReductionMode}. */
-    public static void ncoverageReductionMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.COVERAGEREDUCTIONMODE, value); }
+    public static void ncoverageReductionMode(long struct, int value) { memPutInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.COVERAGEREDUCTIONMODE, value); }
 
     // -----------------------------------
 
@@ -332,6 +330,11 @@ public class VkPipelineCoverageReductionStateCreateInfoNV extends Struct<VkPipel
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

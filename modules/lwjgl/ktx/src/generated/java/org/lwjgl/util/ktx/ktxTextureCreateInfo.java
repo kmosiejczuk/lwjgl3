@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -125,9 +125,8 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
      *
      * @return pointer to DFD. Used only when creating a {@code ktxTexture2} and only if {@code vkFormat} is {@code VK_FORMAT_UNDEFINED}.
      */
-    @Nullable
     @NativeType("ktx_uint32_t *")
-    public IntBuffer pDfd(int capacity) { return npDfd(address(), capacity); }
+    public @Nullable IntBuffer pDfd(int capacity) { return npDfd(address(), capacity); }
     /** width of the base level of the texture */
     @NativeType("ktx_uint32_t")
     public int baseWidth() { return nbaseWidth(address()); }
@@ -248,8 +247,7 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxTextureCreateInfo createSafe(long address) {
+    public static @Nullable ktxTextureCreateInfo createSafe(long address) {
         return address == NULL ? null : new ktxTextureCreateInfo(address, null);
     }
 
@@ -292,8 +290,7 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxTextureCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static ktxTextureCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -338,54 +335,54 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #glInternalformat}. */
-    public static int nglInternalformat(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.GLINTERNALFORMAT); }
+    public static int nglInternalformat(long struct) { return memGetInt(struct + ktxTextureCreateInfo.GLINTERNALFORMAT); }
     /** Unsafe version of {@link #vkFormat}. */
-    public static int nvkFormat(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.VKFORMAT); }
+    public static int nvkFormat(long struct) { return memGetInt(struct + ktxTextureCreateInfo.VKFORMAT); }
     /** Unsafe version of {@link #pDfd(int) pDfd}. */
-    @Nullable public static IntBuffer npDfd(long struct, int capacity) { return memIntBufferSafe(memGetAddress(struct + ktxTextureCreateInfo.PDFD), capacity); }
+    public static @Nullable IntBuffer npDfd(long struct, int capacity) { return memIntBufferSafe(memGetAddress(struct + ktxTextureCreateInfo.PDFD), capacity); }
     /** Unsafe version of {@link #baseWidth}. */
-    public static int nbaseWidth(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.BASEWIDTH); }
+    public static int nbaseWidth(long struct) { return memGetInt(struct + ktxTextureCreateInfo.BASEWIDTH); }
     /** Unsafe version of {@link #baseHeight}. */
-    public static int nbaseHeight(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.BASEHEIGHT); }
+    public static int nbaseHeight(long struct) { return memGetInt(struct + ktxTextureCreateInfo.BASEHEIGHT); }
     /** Unsafe version of {@link #baseDepth}. */
-    public static int nbaseDepth(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.BASEDEPTH); }
+    public static int nbaseDepth(long struct) { return memGetInt(struct + ktxTextureCreateInfo.BASEDEPTH); }
     /** Unsafe version of {@link #numDimensions}. */
-    public static int nnumDimensions(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.NUMDIMENSIONS); }
+    public static int nnumDimensions(long struct) { return memGetInt(struct + ktxTextureCreateInfo.NUMDIMENSIONS); }
     /** Unsafe version of {@link #numLevels}. */
-    public static int nnumLevels(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.NUMLEVELS); }
+    public static int nnumLevels(long struct) { return memGetInt(struct + ktxTextureCreateInfo.NUMLEVELS); }
     /** Unsafe version of {@link #numLayers}. */
-    public static int nnumLayers(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.NUMLAYERS); }
+    public static int nnumLayers(long struct) { return memGetInt(struct + ktxTextureCreateInfo.NUMLAYERS); }
     /** Unsafe version of {@link #numFaces}. */
-    public static int nnumFaces(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.NUMFACES); }
+    public static int nnumFaces(long struct) { return memGetInt(struct + ktxTextureCreateInfo.NUMFACES); }
     /** Unsafe version of {@link #isArray}. */
-    public static boolean nisArray(long struct) { return UNSAFE.getByte(null, struct + ktxTextureCreateInfo.ISARRAY) != 0; }
+    public static boolean nisArray(long struct) { return memGetByte(struct + ktxTextureCreateInfo.ISARRAY) != 0; }
     /** Unsafe version of {@link #generateMipmaps}. */
-    public static boolean ngenerateMipmaps(long struct) { return UNSAFE.getByte(null, struct + ktxTextureCreateInfo.GENERATEMIPMAPS) != 0; }
+    public static boolean ngenerateMipmaps(long struct) { return memGetByte(struct + ktxTextureCreateInfo.GENERATEMIPMAPS) != 0; }
 
     /** Unsafe version of {@link #glInternalformat(int) glInternalformat}. */
-    public static void nglInternalformat(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.GLINTERNALFORMAT, value); }
+    public static void nglInternalformat(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.GLINTERNALFORMAT, value); }
     /** Unsafe version of {@link #vkFormat(int) vkFormat}. */
-    public static void nvkFormat(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.VKFORMAT, value); }
+    public static void nvkFormat(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.VKFORMAT, value); }
     /** Unsafe version of {@link #pDfd(IntBuffer) pDfd}. */
     public static void npDfd(long struct, @Nullable IntBuffer value) { memPutAddress(struct + ktxTextureCreateInfo.PDFD, memAddressSafe(value)); }
     /** Unsafe version of {@link #baseWidth(int) baseWidth}. */
-    public static void nbaseWidth(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.BASEWIDTH, value); }
+    public static void nbaseWidth(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.BASEWIDTH, value); }
     /** Unsafe version of {@link #baseHeight(int) baseHeight}. */
-    public static void nbaseHeight(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.BASEHEIGHT, value); }
+    public static void nbaseHeight(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.BASEHEIGHT, value); }
     /** Unsafe version of {@link #baseDepth(int) baseDepth}. */
-    public static void nbaseDepth(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.BASEDEPTH, value); }
+    public static void nbaseDepth(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.BASEDEPTH, value); }
     /** Unsafe version of {@link #numDimensions(int) numDimensions}. */
-    public static void nnumDimensions(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.NUMDIMENSIONS, value); }
+    public static void nnumDimensions(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.NUMDIMENSIONS, value); }
     /** Unsafe version of {@link #numLevels(int) numLevels}. */
-    public static void nnumLevels(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.NUMLEVELS, value); }
+    public static void nnumLevels(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.NUMLEVELS, value); }
     /** Unsafe version of {@link #numLayers(int) numLayers}. */
-    public static void nnumLayers(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.NUMLAYERS, value); }
+    public static void nnumLayers(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.NUMLAYERS, value); }
     /** Unsafe version of {@link #numFaces(int) numFaces}. */
-    public static void nnumFaces(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.NUMFACES, value); }
+    public static void nnumFaces(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.NUMFACES, value); }
     /** Unsafe version of {@link #isArray(boolean) isArray}. */
-    public static void nisArray(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxTextureCreateInfo.ISARRAY, value ? (byte)1 : (byte)0); }
+    public static void nisArray(long struct, boolean value) { memPutByte(struct + ktxTextureCreateInfo.ISARRAY, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #generateMipmaps(boolean) generateMipmaps}. */
-    public static void ngenerateMipmaps(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxTextureCreateInfo.GENERATEMIPMAPS, value ? (byte)1 : (byte)0); }
+    public static void ngenerateMipmaps(long struct, boolean value) { memPutByte(struct + ktxTextureCreateInfo.GENERATEMIPMAPS, value ? (byte)1 : (byte)0); }
 
     // -----------------------------------
 
@@ -421,6 +418,11 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ktxTextureCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -436,9 +438,8 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("ktx_uint32_t *")
-        public IntBuffer pDfd(int capacity) { return ktxTextureCreateInfo.npDfd(address(), capacity); }
+        public @Nullable IntBuffer pDfd(int capacity) { return ktxTextureCreateInfo.npDfd(address(), capacity); }
         /** @return the value of the {@link ktxTextureCreateInfo#baseWidth} field. */
         @NativeType("ktx_uint32_t")
         public int baseWidth() { return ktxTextureCreateInfo.nbaseWidth(address()); }

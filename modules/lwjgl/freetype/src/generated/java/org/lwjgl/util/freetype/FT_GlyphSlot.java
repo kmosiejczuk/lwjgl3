@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class FT_GlyphSlot extends Struct<FT_GlyphSlot> {
     /** @return a {@link FT_Face} view of the struct pointed to by the {@code face} field. */
     public FT_Face face() { return nface(address()); }
     /** @return a {@link FT_GlyphSlot} view of the struct pointed to by the {@code next} field. */
-    @Nullable
-    public FT_GlyphSlot next() { return nnext(address()); }
+    public @Nullable FT_GlyphSlot next() { return nnext(address()); }
     /** @return the value of the {@code glyph_index} field. */
     @NativeType("FT_UInt")
     public int glyph_index() { return nglyph_index(address()); }
@@ -204,8 +203,7 @@ public class FT_GlyphSlot extends Struct<FT_GlyphSlot> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_GlyphSlot createSafe(long address) {
+    public static @Nullable FT_GlyphSlot createSafe(long address) {
         return address == NULL ? null : new FT_GlyphSlot(address, null);
     }
 
@@ -220,8 +218,7 @@ public class FT_GlyphSlot extends Struct<FT_GlyphSlot> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_GlyphSlot.Buffer createSafe(long address, int capacity) {
+    public static FT_GlyphSlot.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -232,9 +229,9 @@ public class FT_GlyphSlot extends Struct<FT_GlyphSlot> {
     /** Unsafe version of {@link #face}. */
     public static FT_Face nface(long struct) { return FT_Face.create(memGetAddress(struct + FT_GlyphSlot.FACE)); }
     /** Unsafe version of {@link #next}. */
-    @Nullable public static FT_GlyphSlot nnext(long struct) { return FT_GlyphSlot.createSafe(memGetAddress(struct + FT_GlyphSlot.NEXT)); }
+    public static @Nullable FT_GlyphSlot nnext(long struct) { return FT_GlyphSlot.createSafe(memGetAddress(struct + FT_GlyphSlot.NEXT)); }
     /** Unsafe version of {@link #glyph_index}. */
-    public static int nglyph_index(long struct) { return UNSAFE.getInt(null, struct + FT_GlyphSlot.GLYPH_INDEX); }
+    public static int nglyph_index(long struct) { return memGetInt(struct + FT_GlyphSlot.GLYPH_INDEX); }
     /** Unsafe version of {@link #generic}. */
     public static FT_Generic ngeneric(long struct) { return FT_Generic.create(struct + FT_GlyphSlot.GENERIC); }
     /** Unsafe version of {@link #metrics}. */
@@ -246,18 +243,18 @@ public class FT_GlyphSlot extends Struct<FT_GlyphSlot> {
     /** Unsafe version of {@link #advance}. */
     public static FT_Vector nadvance(long struct) { return FT_Vector.create(struct + FT_GlyphSlot.ADVANCE); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + FT_GlyphSlot.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + FT_GlyphSlot.FORMAT); }
     /** Unsafe version of {@link #bitmap}. */
     public static FT_Bitmap nbitmap(long struct) { return FT_Bitmap.create(struct + FT_GlyphSlot.BITMAP); }
     /** Unsafe version of {@link #bitmap_left}. */
-    public static int nbitmap_left(long struct) { return UNSAFE.getInt(null, struct + FT_GlyphSlot.BITMAP_LEFT); }
+    public static int nbitmap_left(long struct) { return memGetInt(struct + FT_GlyphSlot.BITMAP_LEFT); }
     /** Unsafe version of {@link #bitmap_top}. */
-    public static int nbitmap_top(long struct) { return UNSAFE.getInt(null, struct + FT_GlyphSlot.BITMAP_TOP); }
+    public static int nbitmap_top(long struct) { return memGetInt(struct + FT_GlyphSlot.BITMAP_TOP); }
     /** Unsafe version of {@link #outline}. */
     public static FT_Outline noutline(long struct) { return FT_Outline.create(struct + FT_GlyphSlot.OUTLINE); }
-    public static int nnum_subglyphs(long struct) { return UNSAFE.getInt(null, struct + FT_GlyphSlot.NUM_SUBGLYPHS); }
+    public static int nnum_subglyphs(long struct) { return memGetInt(struct + FT_GlyphSlot.NUM_SUBGLYPHS); }
     public static long nsubglyphs(long struct) { return memGetAddress(struct + FT_GlyphSlot.SUBGLYPHS); }
-    @Nullable public static ByteBuffer ncontrol_data(long struct) { return memByteBufferSafe(memGetAddress(struct + FT_GlyphSlot.CONTROL_DATA), (int)ncontrol_len(struct)); }
+    public static @Nullable ByteBuffer ncontrol_data(long struct) { return memByteBufferSafe(memGetAddress(struct + FT_GlyphSlot.CONTROL_DATA), (int)ncontrol_len(struct)); }
     public static long ncontrol_len(long struct) { return memGetCLong(struct + FT_GlyphSlot.CONTROL_LEN); }
     /** Unsafe version of {@link #lsb_delta}. */
     public static long nlsb_delta(long struct) { return memGetCLong(struct + FT_GlyphSlot.LSB_DELTA); }
@@ -300,6 +297,11 @@ public class FT_GlyphSlot extends Struct<FT_GlyphSlot> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FT_GlyphSlot getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -310,8 +312,7 @@ public class FT_GlyphSlot extends Struct<FT_GlyphSlot> {
         /** @return a {@link FT_Face} view of the struct pointed to by the {@code face} field. */
         public FT_Face face() { return FT_GlyphSlot.nface(address()); }
         /** @return a {@link FT_GlyphSlot} view of the struct pointed to by the {@code next} field. */
-        @Nullable
-        public FT_GlyphSlot next() { return FT_GlyphSlot.nnext(address()); }
+        public @Nullable FT_GlyphSlot next() { return FT_GlyphSlot.nnext(address()); }
         /** @return the value of the {@code glyph_index} field. */
         @NativeType("FT_UInt")
         public int glyph_index() { return FT_GlyphSlot.nglyph_index(address()); }

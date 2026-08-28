@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -117,8 +117,7 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIUVTransform createSafe(long address) {
+    public static @Nullable AIUVTransform createSafe(long address) {
         return address == NULL ? null : new AIUVTransform(address, null);
     }
 
@@ -161,8 +160,7 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIUVTransform.Buffer createSafe(long address, int capacity) {
+    public static AIUVTransform.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -230,7 +228,7 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
     /** Unsafe version of {@link #mScaling}. */
     public static AIVector2D nmScaling(long struct) { return AIVector2D.create(struct + AIUVTransform.MSCALING); }
     /** Unsafe version of {@link #mRotation}. */
-    public static float nmRotation(long struct) { return UNSAFE.getFloat(null, struct + AIUVTransform.MROTATION); }
+    public static float nmRotation(long struct) { return memGetFloat(struct + AIUVTransform.MROTATION); }
 
     // -----------------------------------
 
@@ -263,6 +261,11 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

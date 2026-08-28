@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -114,8 +114,7 @@ public class OVRExternalCamera extends Struct<OVRExternalCamera> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRExternalCamera createSafe(long address) {
+    public static @Nullable OVRExternalCamera createSafe(long address) {
         return address == NULL ? null : new OVRExternalCamera(address, null);
     }
 
@@ -158,8 +157,7 @@ public class OVRExternalCamera extends Struct<OVRExternalCamera> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRExternalCamera.Buffer createSafe(long address, int capacity) {
+    public static OVRExternalCamera.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,6 +260,11 @@ public class OVRExternalCamera extends Struct<OVRExternalCamera> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

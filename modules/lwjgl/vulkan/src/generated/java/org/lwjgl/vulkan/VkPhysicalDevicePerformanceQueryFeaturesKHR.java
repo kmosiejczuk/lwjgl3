@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePerformanceQueryFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePerformanceQueryFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePerformanceQueryFeaturesKHR(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePerformanceQueryFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #performanceCounterQueryPools}. */
-    public static int nperformanceCounterQueryPools(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERQUERYPOOLS); }
+    public static int nperformanceCounterQueryPools(long struct) { return memGetInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERQUERYPOOLS); }
     /** Unsafe version of {@link #performanceCounterMultipleQueryPools}. */
-    public static int nperformanceCounterMultipleQueryPools(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERMULTIPLEQUERYPOOLS); }
+    public static int nperformanceCounterMultipleQueryPools(long struct) { return memGetInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERMULTIPLEQUERYPOOLS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #performanceCounterQueryPools(boolean) performanceCounterQueryPools}. */
-    public static void nperformanceCounterQueryPools(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERQUERYPOOLS, value); }
+    public static void nperformanceCounterQueryPools(long struct, int value) { memPutInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERQUERYPOOLS, value); }
     /** Unsafe version of {@link #performanceCounterMultipleQueryPools(boolean) performanceCounterMultipleQueryPools}. */
-    public static void nperformanceCounterMultipleQueryPools(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERMULTIPLEQUERYPOOLS, value); }
+    public static void nperformanceCounterMultipleQueryPools(long struct, int value) { memPutInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERMULTIPLEQUERYPOOLS, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

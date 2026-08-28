@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -149,8 +149,7 @@ public class XrSwapchainStateBaseHeaderFB extends Struct<XrSwapchainStateBaseHea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateBaseHeaderFB createSafe(long address) {
+    public static @Nullable XrSwapchainStateBaseHeaderFB createSafe(long address) {
         return address == NULL ? null : new XrSwapchainStateBaseHeaderFB(address, null);
     }
 
@@ -208,8 +207,7 @@ public class XrSwapchainStateBaseHeaderFB extends Struct<XrSwapchainStateBaseHea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateBaseHeaderFB.Buffer createSafe(long address, int capacity) {
+    public static XrSwapchainStateBaseHeaderFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,12 +267,12 @@ public class XrSwapchainStateBaseHeaderFB extends Struct<XrSwapchainStateBaseHea
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateBaseHeaderFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSwapchainStateBaseHeaderFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSwapchainStateBaseHeaderFB.NEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateBaseHeaderFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSwapchainStateBaseHeaderFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSwapchainStateBaseHeaderFB.NEXT, value); }
 
@@ -309,6 +307,11 @@ public class XrSwapchainStateBaseHeaderFB extends Struct<XrSwapchainStateBaseHea
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

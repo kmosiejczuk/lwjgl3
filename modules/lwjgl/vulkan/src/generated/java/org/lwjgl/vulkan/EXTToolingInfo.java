@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <h5>Promotion to Vulkan 1.3</h5>
  * 
- * <p>Functionality in this extension is included in core Vulkan 1.3, with the EXT suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
+ * <p>Vulkan APIs in this extension are included in core Vulkan 1.3, with the EXT suffix omitted. External interactions defined by this extension, such as SPIR-V token names, retain their original names. The original Vulkan API names are still available as aliases of the core functionality.</p>
  * 
  * <h5>Examples</h5>
  * 
@@ -68,7 +68,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * </ul></dd>
  * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
- * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
+ * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
@@ -162,7 +162,7 @@ public class EXTToolingInfo {
      * @param pToolProperties either {@code NULL} or a pointer to an array of {@link VkPhysicalDeviceToolProperties} structures.
      */
     @NativeType("VkResult")
-    public static int vkGetPhysicalDeviceToolPropertiesEXT(VkPhysicalDevice physicalDevice, @NativeType("uint32_t *") IntBuffer pToolCount, @Nullable @NativeType("VkPhysicalDeviceToolProperties *") VkPhysicalDeviceToolProperties.Buffer pToolProperties) {
+    public static int vkGetPhysicalDeviceToolPropertiesEXT(VkPhysicalDevice physicalDevice, @NativeType("uint32_t *") IntBuffer pToolCount, @NativeType("VkPhysicalDeviceToolProperties *") VkPhysicalDeviceToolProperties.@Nullable Buffer pToolProperties) {
         if (CHECKS) {
             check(pToolCount, 1);
             checkSafe(pToolProperties, pToolCount.get(pToolCount.position()));
@@ -172,7 +172,7 @@ public class EXTToolingInfo {
 
     /** Array version of: {@link #vkGetPhysicalDeviceToolPropertiesEXT GetPhysicalDeviceToolPropertiesEXT} */
     @NativeType("VkResult")
-    public static int vkGetPhysicalDeviceToolPropertiesEXT(VkPhysicalDevice physicalDevice, @NativeType("uint32_t *") int[] pToolCount, @Nullable @NativeType("VkPhysicalDeviceToolProperties *") VkPhysicalDeviceToolProperties.Buffer pToolProperties) {
+    public static int vkGetPhysicalDeviceToolPropertiesEXT(VkPhysicalDevice physicalDevice, @NativeType("uint32_t *") int[] pToolCount, @NativeType("VkPhysicalDeviceToolProperties *") VkPhysicalDeviceToolProperties.@Nullable Buffer pToolProperties) {
         long __functionAddress = physicalDevice.getCapabilities().vkGetPhysicalDeviceToolPropertiesEXT;
         if (CHECKS) {
             check(__functionAddress);

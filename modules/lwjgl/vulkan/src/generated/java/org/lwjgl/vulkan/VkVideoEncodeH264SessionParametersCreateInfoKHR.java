@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -103,16 +103,15 @@ public class VkVideoEncodeH264SessionParametersCreateInfoKHR extends Struct<VkVi
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-sps">H.264 SPS</a> entries the created {@code VkVideoSessionParametersKHR} <b>can</b> contain. */
+    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-sps">H.264 SPS</a> entries the created {@code VkVideoSessionParametersKHR} <b>can</b> contain. */
     @NativeType("uint32_t")
     public int maxStdSPSCount() { return nmaxStdSPSCount(address()); }
-    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-h264-pps">H.264 PPS</a> entries the created {@code VkVideoSessionParametersKHR} <b>can</b> contain. */
+    /** the maximum number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-h264-pps">H.264 PPS</a> entries the created {@code VkVideoSessionParametersKHR} <b>can</b> contain. */
     @NativeType("uint32_t")
     public int maxStdPPSCount() { return nmaxStdPPSCount(address()); }
     /** {@code NULL} or a pointer to a {@link VkVideoEncodeH264SessionParametersAddInfoKHR} structure specifying H.264 parameters to add upon object creation. */
-    @Nullable
     @NativeType("VkVideoEncodeH264SessionParametersAddInfoKHR const *")
-    public VkVideoEncodeH264SessionParametersAddInfoKHR pParametersAddInfo() { return npParametersAddInfo(address()); }
+    public @Nullable VkVideoEncodeH264SessionParametersAddInfoKHR pParametersAddInfo() { return npParametersAddInfo(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkVideoEncodeH264SessionParametersCreateInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -180,8 +179,7 @@ public class VkVideoEncodeH264SessionParametersCreateInfoKHR extends Struct<VkVi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264SessionParametersCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264SessionParametersCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264SessionParametersCreateInfoKHR(address, null);
     }
 
@@ -224,8 +222,7 @@ public class VkVideoEncodeH264SessionParametersCreateInfoKHR extends Struct<VkVi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264SessionParametersCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264SessionParametersCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,24 +267,24 @@ public class VkVideoEncodeH264SessionParametersCreateInfoKHR extends Struct<VkVi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #maxStdSPSCount}. */
-    public static int nmaxStdSPSCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.MAXSTDSPSCOUNT); }
+    public static int nmaxStdSPSCount(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.MAXSTDSPSCOUNT); }
     /** Unsafe version of {@link #maxStdPPSCount}. */
-    public static int nmaxStdPPSCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.MAXSTDPPSCOUNT); }
+    public static int nmaxStdPPSCount(long struct) { return memGetInt(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.MAXSTDPPSCOUNT); }
     /** Unsafe version of {@link #pParametersAddInfo}. */
-    @Nullable public static VkVideoEncodeH264SessionParametersAddInfoKHR npParametersAddInfo(long struct) { return VkVideoEncodeH264SessionParametersAddInfoKHR.createSafe(memGetAddress(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.PPARAMETERSADDINFO)); }
+    public static @Nullable VkVideoEncodeH264SessionParametersAddInfoKHR npParametersAddInfo(long struct) { return VkVideoEncodeH264SessionParametersAddInfoKHR.createSafe(memGetAddress(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.PPARAMETERSADDINFO)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #maxStdSPSCount(int) maxStdSPSCount}. */
-    public static void nmaxStdSPSCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.MAXSTDSPSCOUNT, value); }
+    public static void nmaxStdSPSCount(long struct, int value) { memPutInt(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.MAXSTDSPSCOUNT, value); }
     /** Unsafe version of {@link #maxStdPPSCount(int) maxStdPPSCount}. */
-    public static void nmaxStdPPSCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.MAXSTDPPSCOUNT, value); }
+    public static void nmaxStdPPSCount(long struct, int value) { memPutInt(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.MAXSTDPPSCOUNT, value); }
     /** Unsafe version of {@link #pParametersAddInfo(VkVideoEncodeH264SessionParametersAddInfoKHR) pParametersAddInfo}. */
     public static void npParametersAddInfo(long struct, @Nullable VkVideoEncodeH264SessionParametersAddInfoKHR value) { memPutAddress(struct + VkVideoEncodeH264SessionParametersCreateInfoKHR.PPARAMETERSADDINFO, memAddressSafe(value)); }
 
@@ -325,6 +322,11 @@ public class VkVideoEncodeH264SessionParametersCreateInfoKHR extends Struct<VkVi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoEncodeH264SessionParametersCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -342,9 +344,8 @@ public class VkVideoEncodeH264SessionParametersCreateInfoKHR extends Struct<VkVi
         @NativeType("uint32_t")
         public int maxStdPPSCount() { return VkVideoEncodeH264SessionParametersCreateInfoKHR.nmaxStdPPSCount(address()); }
         /** @return a {@link VkVideoEncodeH264SessionParametersAddInfoKHR} view of the struct pointed to by the {@link VkVideoEncodeH264SessionParametersCreateInfoKHR#pParametersAddInfo} field. */
-        @Nullable
         @NativeType("VkVideoEncodeH264SessionParametersAddInfoKHR const *")
-        public VkVideoEncodeH264SessionParametersAddInfoKHR pParametersAddInfo() { return VkVideoEncodeH264SessionParametersCreateInfoKHR.npParametersAddInfo(address()); }
+        public @Nullable VkVideoEncodeH264SessionParametersAddInfoKHR pParametersAddInfo() { return VkVideoEncodeH264SessionParametersCreateInfoKHR.npParametersAddInfo(address()); }
 
         /** Sets the specified value to the {@link VkVideoEncodeH264SessionParametersCreateInfoKHR#sType} field. */
         public VkVideoEncodeH264SessionParametersCreateInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkVideoEncodeH264SessionParametersCreateInfoKHR.nsType(address(), value); return this; }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -185,8 +185,7 @@ public class VkBufferCopy2 extends Struct<VkBufferCopy2> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCopy2 createSafe(long address) {
+    public static @Nullable VkBufferCopy2 createSafe(long address) {
         return address == NULL ? null : new VkBufferCopy2(address, null);
     }
 
@@ -229,8 +228,7 @@ public class VkBufferCopy2 extends Struct<VkBufferCopy2> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCopy2.Buffer createSafe(long address, int capacity) {
+    public static VkBufferCopy2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,26 +273,26 @@ public class VkBufferCopy2 extends Struct<VkBufferCopy2> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBufferCopy2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBufferCopy2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBufferCopy2.PNEXT); }
     /** Unsafe version of {@link #srcOffset}. */
-    public static long nsrcOffset(long struct) { return UNSAFE.getLong(null, struct + VkBufferCopy2.SRCOFFSET); }
+    public static long nsrcOffset(long struct) { return memGetLong(struct + VkBufferCopy2.SRCOFFSET); }
     /** Unsafe version of {@link #dstOffset}. */
-    public static long ndstOffset(long struct) { return UNSAFE.getLong(null, struct + VkBufferCopy2.DSTOFFSET); }
+    public static long ndstOffset(long struct) { return memGetLong(struct + VkBufferCopy2.DSTOFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkBufferCopy2.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkBufferCopy2.SIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferCopy2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBufferCopy2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBufferCopy2.PNEXT, value); }
     /** Unsafe version of {@link #srcOffset(long) srcOffset}. */
-    public static void nsrcOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCopy2.SRCOFFSET, value); }
+    public static void nsrcOffset(long struct, long value) { memPutLong(struct + VkBufferCopy2.SRCOFFSET, value); }
     /** Unsafe version of {@link #dstOffset(long) dstOffset}. */
-    public static void ndstOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCopy2.DSTOFFSET, value); }
+    public static void ndstOffset(long struct, long value) { memPutLong(struct + VkBufferCopy2.DSTOFFSET, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCopy2.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkBufferCopy2.SIZE, value); }
 
     // -----------------------------------
 
@@ -327,6 +325,11 @@ public class VkBufferCopy2 extends Struct<VkBufferCopy2> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

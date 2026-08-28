@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.par;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -98,8 +98,7 @@ public class ParSLAnnotation extends Struct<ParSLAnnotation> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLAnnotation createSafe(long address) {
+    public static @Nullable ParSLAnnotation createSafe(long address) {
         return address == NULL ? null : new ParSLAnnotation(address, null);
     }
 
@@ -114,21 +113,20 @@ public class ParSLAnnotation extends Struct<ParSLAnnotation> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLAnnotation.Buffer createSafe(long address, int capacity) {
+    public static ParSLAnnotation.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #u_along_curve}. */
-    public static float nu_along_curve(long struct) { return UNSAFE.getFloat(null, struct + ParSLAnnotation.U_ALONG_CURVE); }
+    public static float nu_along_curve(long struct) { return memGetFloat(struct + ParSLAnnotation.U_ALONG_CURVE); }
     /** Unsafe version of {@link #v_across_curve}. */
-    public static float nv_across_curve(long struct) { return UNSAFE.getFloat(null, struct + ParSLAnnotation.V_ACROSS_CURVE); }
+    public static float nv_across_curve(long struct) { return memGetFloat(struct + ParSLAnnotation.V_ACROSS_CURVE); }
     /** Unsafe version of {@link #spine_to_edge_x}. */
-    public static float nspine_to_edge_x(long struct) { return UNSAFE.getFloat(null, struct + ParSLAnnotation.SPINE_TO_EDGE_X); }
+    public static float nspine_to_edge_x(long struct) { return memGetFloat(struct + ParSLAnnotation.SPINE_TO_EDGE_X); }
     /** Unsafe version of {@link #spine_to_edge_y}. */
-    public static float nspine_to_edge_y(long struct) { return UNSAFE.getFloat(null, struct + ParSLAnnotation.SPINE_TO_EDGE_Y); }
+    public static float nspine_to_edge_y(long struct) { return memGetFloat(struct + ParSLAnnotation.SPINE_TO_EDGE_Y); }
 
     // -----------------------------------
 
@@ -161,6 +159,11 @@ public class ParSLAnnotation extends Struct<ParSLAnnotation> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

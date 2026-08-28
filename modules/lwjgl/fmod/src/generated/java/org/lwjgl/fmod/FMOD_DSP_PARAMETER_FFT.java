@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -146,8 +146,7 @@ public class FMOD_DSP_PARAMETER_FFT extends Struct<FMOD_DSP_PARAMETER_FFT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_FFT createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_FFT createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_FFT(address, null);
     }
 
@@ -190,8 +189,7 @@ public class FMOD_DSP_PARAMETER_FFT extends Struct<FMOD_DSP_PARAMETER_FFT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_FFT.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_FFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -236,9 +234,9 @@ public class FMOD_DSP_PARAMETER_FFT extends Struct<FMOD_DSP_PARAMETER_FFT> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #length}. */
-    public static int nlength(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_FFT.LENGTH); }
+    public static int nlength(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_FFT.LENGTH); }
     /** Unsafe version of {@link #numchannels}. */
-    public static int nnumchannels(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_FFT.NUMCHANNELS); }
+    public static int nnumchannels(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_FFT.NUMCHANNELS); }
     /** Unsafe version of {@link #spectrum}. */
     public static PointerBuffer nspectrum(long struct) { return memPointerBuffer(struct + FMOD_DSP_PARAMETER_FFT.SPECTRUM, 32); }
     /** Unsafe version of {@link #spectrum(int) spectrum}. */
@@ -247,9 +245,9 @@ public class FMOD_DSP_PARAMETER_FFT extends Struct<FMOD_DSP_PARAMETER_FFT> imple
     }
 
     /** Unsafe version of {@link #length(int) length}. */
-    public static void nlength(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_FFT.LENGTH, value); }
+    public static void nlength(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_FFT.LENGTH, value); }
     /** Unsafe version of {@link #numchannels(int) numchannels}. */
-    public static void nnumchannels(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_FFT.NUMCHANNELS, value); }
+    public static void nnumchannels(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_FFT.NUMCHANNELS, value); }
     /** Unsafe version of {@link #spectrum(PointerBuffer) spectrum}. */
     public static void nspectrum(long struct, PointerBuffer value) {
         if (CHECKS) { checkGT(value, 32); }
@@ -300,6 +298,11 @@ public class FMOD_DSP_PARAMETER_FFT extends Struct<FMOD_DSP_PARAMETER_FFT> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,8 +150,7 @@ public class NkRecti extends Struct<NkRecti> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkRecti createSafe(long address) {
+    public static @Nullable NkRecti createSafe(long address) {
         return address == NULL ? null : new NkRecti(address, null);
     }
 
@@ -194,8 +193,7 @@ public class NkRecti extends Struct<NkRecti> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkRecti.Buffer createSafe(long address, int capacity) {
+    public static NkRecti.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,22 +238,22 @@ public class NkRecti extends Struct<NkRecti> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static short nx(long struct) { return UNSAFE.getShort(null, struct + NkRecti.X); }
+    public static short nx(long struct) { return memGetShort(struct + NkRecti.X); }
     /** Unsafe version of {@link #y}. */
-    public static short ny(long struct) { return UNSAFE.getShort(null, struct + NkRecti.Y); }
+    public static short ny(long struct) { return memGetShort(struct + NkRecti.Y); }
     /** Unsafe version of {@link #w}. */
-    public static short nw(long struct) { return UNSAFE.getShort(null, struct + NkRecti.W); }
+    public static short nw(long struct) { return memGetShort(struct + NkRecti.W); }
     /** Unsafe version of {@link #h}. */
-    public static short nh(long struct) { return UNSAFE.getShort(null, struct + NkRecti.H); }
+    public static short nh(long struct) { return memGetShort(struct + NkRecti.H); }
 
     /** Unsafe version of {@link #x(short) x}. */
-    public static void nx(long struct, short value) { UNSAFE.putShort(null, struct + NkRecti.X, value); }
+    public static void nx(long struct, short value) { memPutShort(struct + NkRecti.X, value); }
     /** Unsafe version of {@link #y(short) y}. */
-    public static void ny(long struct, short value) { UNSAFE.putShort(null, struct + NkRecti.Y, value); }
+    public static void ny(long struct, short value) { memPutShort(struct + NkRecti.Y, value); }
     /** Unsafe version of {@link #w(short) w}. */
-    public static void nw(long struct, short value) { UNSAFE.putShort(null, struct + NkRecti.W, value); }
+    public static void nw(long struct, short value) { memPutShort(struct + NkRecti.W, value); }
     /** Unsafe version of {@link #h(short) h}. */
-    public static void nh(long struct, short value) { UNSAFE.putShort(null, struct + NkRecti.H, value); }
+    public static void nh(long struct, short value) { memPutShort(struct + NkRecti.H, value); }
 
     // -----------------------------------
 
@@ -288,6 +286,11 @@ public class NkRecti extends Struct<NkRecti> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

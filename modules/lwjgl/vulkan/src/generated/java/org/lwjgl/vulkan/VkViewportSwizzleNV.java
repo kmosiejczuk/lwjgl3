@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class VkViewportSwizzleNV extends Struct<VkViewportSwizzleNV> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkViewportSwizzleNV createSafe(long address) {
+    public static @Nullable VkViewportSwizzleNV createSafe(long address) {
         return address == NULL ? null : new VkViewportSwizzleNV(address, null);
     }
 
@@ -212,8 +211,7 @@ public class VkViewportSwizzleNV extends Struct<VkViewportSwizzleNV> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkViewportSwizzleNV.Buffer createSafe(long address, int capacity) {
+    public static VkViewportSwizzleNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,22 +275,22 @@ public class VkViewportSwizzleNV extends Struct<VkViewportSwizzleNV> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + VkViewportSwizzleNV.X); }
+    public static int nx(long struct) { return memGetInt(struct + VkViewportSwizzleNV.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + VkViewportSwizzleNV.Y); }
+    public static int ny(long struct) { return memGetInt(struct + VkViewportSwizzleNV.Y); }
     /** Unsafe version of {@link #z}. */
-    public static int nz(long struct) { return UNSAFE.getInt(null, struct + VkViewportSwizzleNV.Z); }
+    public static int nz(long struct) { return memGetInt(struct + VkViewportSwizzleNV.Z); }
     /** Unsafe version of {@link #w}. */
-    public static int nw(long struct) { return UNSAFE.getInt(null, struct + VkViewportSwizzleNV.W); }
+    public static int nw(long struct) { return memGetInt(struct + VkViewportSwizzleNV.W); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + VkViewportSwizzleNV.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + VkViewportSwizzleNV.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + VkViewportSwizzleNV.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + VkViewportSwizzleNV.Y, value); }
     /** Unsafe version of {@link #z(int) z}. */
-    public static void nz(long struct, int value) { UNSAFE.putInt(null, struct + VkViewportSwizzleNV.Z, value); }
+    public static void nz(long struct, int value) { memPutInt(struct + VkViewportSwizzleNV.Z, value); }
     /** Unsafe version of {@link #w(int) w}. */
-    public static void nw(long struct, int value) { UNSAFE.putInt(null, struct + VkViewportSwizzleNV.W, value); }
+    public static void nw(long struct, int value) { memPutInt(struct + VkViewportSwizzleNV.W, value); }
 
     // -----------------------------------
 
@@ -325,6 +323,11 @@ public class VkViewportSwizzleNV extends Struct<VkViewportSwizzleNV> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

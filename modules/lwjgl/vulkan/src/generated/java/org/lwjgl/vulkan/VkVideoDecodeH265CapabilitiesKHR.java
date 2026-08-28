@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -92,7 +92,7 @@ public class VkVideoDecodeH265CapabilitiesKHR extends Struct<VkVideoDecodeH265Ca
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@code StdVideoH265LevelIdc} value indicating the maximum H.265 level supported by the profile, where enum constant {@code STD_VIDEO_H265_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;} identifies H.265 level {@code &lt;major&gt;.&lt;minor&gt;} as defined in section A.4 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>. */
+    /** a {@code StdVideoH265LevelIdc} value indicating the maximum H.265 level supported by the profile, where enum constant {@code STD_VIDEO_H265_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;} identifies H.265 level {@code &lt;major&gt;.&lt;minor&gt;} as defined in section A.4 of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#itu-t-h265">ITU-T H.265 Specification</a>. */
     @NativeType("StdVideoH265LevelIdc")
     public int maxLevelIdc() { return nmaxLevelIdc(address()); }
 
@@ -150,8 +150,7 @@ public class VkVideoDecodeH265CapabilitiesKHR extends Struct<VkVideoDecodeH265Ca
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH265CapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeH265CapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeH265CapabilitiesKHR(address, null);
     }
 
@@ -194,8 +193,7 @@ public class VkVideoDecodeH265CapabilitiesKHR extends Struct<VkVideoDecodeH265Ca
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH265CapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeH265CapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,14 +238,14 @@ public class VkVideoDecodeH265CapabilitiesKHR extends Struct<VkVideoDecodeH265Ca
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH265CapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeH265CapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeH265CapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #maxLevelIdc}. */
-    public static int nmaxLevelIdc(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH265CapabilitiesKHR.MAXLEVELIDC); }
+    public static int nmaxLevelIdc(long struct) { return memGetInt(struct + VkVideoDecodeH265CapabilitiesKHR.MAXLEVELIDC); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH265CapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeH265CapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeH265CapabilitiesKHR.PNEXT, value); }
 
@@ -282,6 +280,11 @@ public class VkVideoDecodeH265CapabilitiesKHR extends Struct<VkVideoDecodeH265Ca
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

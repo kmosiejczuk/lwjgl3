@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,13 +20,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The application <b>can</b> also add a {@link VkPipelineRasterizationStateRasterizationOrderAMD} structure to the {@code pNext} chain of a {@link VkPipelineRasterizationStateCreateInfo} structure. This structure enables selecting the rasterization order to use when rendering with the corresponding graphics pipeline as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-order">Rasterization Order</a>.</p>
+ * <p>The application <b>can</b> also add a {@link VkPipelineRasterizationStateRasterizationOrderAMD} structure to the {@code pNext} chain of a {@link VkPipelineRasterizationStateCreateInfo} structure. This structure enables selecting the rasterization order to use when rendering with the corresponding graphics pipeline as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-order">Rasterization Order</a>.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-depthClamp">{@code depthClamp}</a> feature is not enabled, {@code depthClampEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-fillModeNonSolid">{@code fillModeNonSolid}</a> feature is not enabled, {@code polygonMode} <b>must</b> be {@link VK10#VK_POLYGON_MODE_FILL POLYGON_MODE_FILL} or {@link NVFillRectangle#VK_POLYGON_MODE_FILL_RECTANGLE_NV POLYGON_MODE_FILL_RECTANGLE_NV}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-depthClamp">{@code depthClamp}</a> feature is not enabled, {@code depthClampEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-fillModeNonSolid">{@code fillModeNonSolid}</a> feature is not enabled, {@code polygonMode} <b>must</b> be {@link VK10#VK_POLYGON_MODE_FILL POLYGON_MODE_FILL} or {@link NVFillRectangle#VK_POLYGON_MODE_FILL_RECTANGLE_NV POLYGON_MODE_FILL_RECTANGLE_NV}</li>
  * <li>If the {@link NVFillRectangle VK_NV_fill_rectangle} extension is not enabled, {@code polygonMode} <b>must</b> not be {@link NVFillRectangle#VK_POLYGON_MODE_FILL_RECTANGLE_NV POLYGON_MODE_FILL_RECTANGLE_NV}</li>
  * <li>If the {@link KHRPortabilitySubset VK_KHR_portability_subset} extension is enabled, and {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR}{@code ::pointPolygons} is {@link VK10#VK_FALSE FALSE}, and {@code rasterizerDiscardEnable} is {@link VK10#VK_FALSE FALSE}, {@code polygonMode} <b>must</b> not be {@link VK10#VK_POLYGON_MODE_POINT POLYGON_MODE_POINT}</li>
  * </ul>
@@ -35,7 +35,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDepthBiasRepresentationInfoEXT}, {@link VkPipelineRasterizationConservativeStateCreateInfoEXT}, {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT}, {@link VkPipelineRasterizationLineStateCreateInfoKHR}, {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT}, {@link VkPipelineRasterizationStateRasterizationOrderAMD}, or {@link VkPipelineRasterizationStateStreamCreateInfoEXT}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDepthBiasRepresentationInfoEXT}, {@link VkPipelineRasterizationConservativeStateCreateInfoEXT}, {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT}, {@link VkPipelineRasterizationLineStateCreateInfo}, {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT}, {@link VkPipelineRasterizationStateRasterizationOrderAMD}, or {@link VkPipelineRasterizationStateStreamCreateInfoEXT}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be 0</li>
  * <li>{@code polygonMode} <b>must</b> be a valid {@code VkPolygonMode} value</li>
@@ -156,7 +156,7 @@ public class VkPipelineRasterizationStateCreateInfo extends Struct<VkPipelineRas
     /** reserved for future use. */
     @NativeType("VkPipelineRasterizationStateCreateFlags")
     public int flags() { return nflags(address()); }
-    /** controls whether to clamp the fragment’s depth values as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth">Depth Test</a>. If the pipeline is not created with {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT} present then enabling depth clamp will also disable clipping primitives to the z planes of the frustum as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vertexpostproc-clipping">Primitive Clipping</a>. Otherwise depth clipping is controlled by the state set in {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT}. */
+    /** controls whether to clamp the fragment’s depth values as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-depth">Depth Test</a>. If the pipeline is not created with {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT} present then enabling depth clamp will also disable clipping primitives to the z planes of the frustum as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vertexpostproc-clipping">Primitive Clipping</a>. Otherwise depth clipping is controlled by the state set in {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT}. */
     @NativeType("VkBool32")
     public boolean depthClampEnable() { return ndepthClampEnable(address()) != 0; }
     /** controls whether primitives are discarded immediately before the rasterization stage. */
@@ -195,6 +195,8 @@ public class VkPipelineRasterizationStateCreateInfo extends Struct<VkPipelineRas
     public VkPipelineRasterizationStateCreateInfo pNext(VkPipelineRasterizationConservativeStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT} value to the {@code pNext} chain. */
     public VkPipelineRasterizationStateCreateInfo pNext(VkPipelineRasterizationDepthClipStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkPipelineRasterizationLineStateCreateInfo} value to the {@code pNext} chain. */
+    public VkPipelineRasterizationStateCreateInfo pNext(VkPipelineRasterizationLineStateCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPipelineRasterizationLineStateCreateInfoEXT} value to the {@code pNext} chain. */
     public VkPipelineRasterizationStateCreateInfo pNext(VkPipelineRasterizationLineStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPipelineRasterizationLineStateCreateInfoKHR} value to the {@code pNext} chain. */
@@ -297,8 +299,7 @@ public class VkPipelineRasterizationStateCreateInfo extends Struct<VkPipelineRas
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationStateCreateInfo createSafe(long address) {
+    public static @Nullable VkPipelineRasterizationStateCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkPipelineRasterizationStateCreateInfo(address, null);
     }
 
@@ -341,8 +342,7 @@ public class VkPipelineRasterizationStateCreateInfo extends Struct<VkPipelineRas
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationStateCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineRasterizationStateCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -406,58 +406,58 @@ public class VkPipelineRasterizationStateCreateInfo extends Struct<VkPipelineRas
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationStateCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineRasterizationStateCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineRasterizationStateCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationStateCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPipelineRasterizationStateCreateInfo.FLAGS); }
     /** Unsafe version of {@link #depthClampEnable}. */
-    public static int ndepthClampEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationStateCreateInfo.DEPTHCLAMPENABLE); }
+    public static int ndepthClampEnable(long struct) { return memGetInt(struct + VkPipelineRasterizationStateCreateInfo.DEPTHCLAMPENABLE); }
     /** Unsafe version of {@link #rasterizerDiscardEnable}. */
-    public static int nrasterizerDiscardEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationStateCreateInfo.RASTERIZERDISCARDENABLE); }
+    public static int nrasterizerDiscardEnable(long struct) { return memGetInt(struct + VkPipelineRasterizationStateCreateInfo.RASTERIZERDISCARDENABLE); }
     /** Unsafe version of {@link #polygonMode}. */
-    public static int npolygonMode(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationStateCreateInfo.POLYGONMODE); }
+    public static int npolygonMode(long struct) { return memGetInt(struct + VkPipelineRasterizationStateCreateInfo.POLYGONMODE); }
     /** Unsafe version of {@link #cullMode}. */
-    public static int ncullMode(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationStateCreateInfo.CULLMODE); }
+    public static int ncullMode(long struct) { return memGetInt(struct + VkPipelineRasterizationStateCreateInfo.CULLMODE); }
     /** Unsafe version of {@link #frontFace}. */
-    public static int nfrontFace(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationStateCreateInfo.FRONTFACE); }
+    public static int nfrontFace(long struct) { return memGetInt(struct + VkPipelineRasterizationStateCreateInfo.FRONTFACE); }
     /** Unsafe version of {@link #depthBiasEnable}. */
-    public static int ndepthBiasEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASENABLE); }
+    public static int ndepthBiasEnable(long struct) { return memGetInt(struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASENABLE); }
     /** Unsafe version of {@link #depthBiasConstantFactor}. */
-    public static float ndepthBiasConstantFactor(long struct) { return UNSAFE.getFloat(null, struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASCONSTANTFACTOR); }
+    public static float ndepthBiasConstantFactor(long struct) { return memGetFloat(struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASCONSTANTFACTOR); }
     /** Unsafe version of {@link #depthBiasClamp}. */
-    public static float ndepthBiasClamp(long struct) { return UNSAFE.getFloat(null, struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASCLAMP); }
+    public static float ndepthBiasClamp(long struct) { return memGetFloat(struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASCLAMP); }
     /** Unsafe version of {@link #depthBiasSlopeFactor}. */
-    public static float ndepthBiasSlopeFactor(long struct) { return UNSAFE.getFloat(null, struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASSLOPEFACTOR); }
+    public static float ndepthBiasSlopeFactor(long struct) { return memGetFloat(struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASSLOPEFACTOR); }
     /** Unsafe version of {@link #lineWidth}. */
-    public static float nlineWidth(long struct) { return UNSAFE.getFloat(null, struct + VkPipelineRasterizationStateCreateInfo.LINEWIDTH); }
+    public static float nlineWidth(long struct) { return memGetFloat(struct + VkPipelineRasterizationStateCreateInfo.LINEWIDTH); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationStateCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineRasterizationStateCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineRasterizationStateCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationStateCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPipelineRasterizationStateCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #depthClampEnable(boolean) depthClampEnable}. */
-    public static void ndepthClampEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationStateCreateInfo.DEPTHCLAMPENABLE, value); }
+    public static void ndepthClampEnable(long struct, int value) { memPutInt(struct + VkPipelineRasterizationStateCreateInfo.DEPTHCLAMPENABLE, value); }
     /** Unsafe version of {@link #rasterizerDiscardEnable(boolean) rasterizerDiscardEnable}. */
-    public static void nrasterizerDiscardEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationStateCreateInfo.RASTERIZERDISCARDENABLE, value); }
+    public static void nrasterizerDiscardEnable(long struct, int value) { memPutInt(struct + VkPipelineRasterizationStateCreateInfo.RASTERIZERDISCARDENABLE, value); }
     /** Unsafe version of {@link #polygonMode(int) polygonMode}. */
-    public static void npolygonMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationStateCreateInfo.POLYGONMODE, value); }
+    public static void npolygonMode(long struct, int value) { memPutInt(struct + VkPipelineRasterizationStateCreateInfo.POLYGONMODE, value); }
     /** Unsafe version of {@link #cullMode(int) cullMode}. */
-    public static void ncullMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationStateCreateInfo.CULLMODE, value); }
+    public static void ncullMode(long struct, int value) { memPutInt(struct + VkPipelineRasterizationStateCreateInfo.CULLMODE, value); }
     /** Unsafe version of {@link #frontFace(int) frontFace}. */
-    public static void nfrontFace(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationStateCreateInfo.FRONTFACE, value); }
+    public static void nfrontFace(long struct, int value) { memPutInt(struct + VkPipelineRasterizationStateCreateInfo.FRONTFACE, value); }
     /** Unsafe version of {@link #depthBiasEnable(boolean) depthBiasEnable}. */
-    public static void ndepthBiasEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASENABLE, value); }
+    public static void ndepthBiasEnable(long struct, int value) { memPutInt(struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASENABLE, value); }
     /** Unsafe version of {@link #depthBiasConstantFactor(float) depthBiasConstantFactor}. */
-    public static void ndepthBiasConstantFactor(long struct, float value) { UNSAFE.putFloat(null, struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASCONSTANTFACTOR, value); }
+    public static void ndepthBiasConstantFactor(long struct, float value) { memPutFloat(struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASCONSTANTFACTOR, value); }
     /** Unsafe version of {@link #depthBiasClamp(float) depthBiasClamp}. */
-    public static void ndepthBiasClamp(long struct, float value) { UNSAFE.putFloat(null, struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASCLAMP, value); }
+    public static void ndepthBiasClamp(long struct, float value) { memPutFloat(struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASCLAMP, value); }
     /** Unsafe version of {@link #depthBiasSlopeFactor(float) depthBiasSlopeFactor}. */
-    public static void ndepthBiasSlopeFactor(long struct, float value) { UNSAFE.putFloat(null, struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASSLOPEFACTOR, value); }
+    public static void ndepthBiasSlopeFactor(long struct, float value) { memPutFloat(struct + VkPipelineRasterizationStateCreateInfo.DEPTHBIASSLOPEFACTOR, value); }
     /** Unsafe version of {@link #lineWidth(float) lineWidth}. */
-    public static void nlineWidth(long struct, float value) { UNSAFE.putFloat(null, struct + VkPipelineRasterizationStateCreateInfo.LINEWIDTH, value); }
+    public static void nlineWidth(long struct, float value) { memPutFloat(struct + VkPipelineRasterizationStateCreateInfo.LINEWIDTH, value); }
 
     // -----------------------------------
 
@@ -490,6 +490,11 @@ public class VkPipelineRasterizationStateCreateInfo extends Struct<VkPipelineRas
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -545,6 +550,8 @@ public class VkPipelineRasterizationStateCreateInfo extends Struct<VkPipelineRas
         public VkPipelineRasterizationStateCreateInfo.Buffer pNext(VkPipelineRasterizationConservativeStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT} value to the {@code pNext} chain. */
         public VkPipelineRasterizationStateCreateInfo.Buffer pNext(VkPipelineRasterizationDepthClipStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkPipelineRasterizationLineStateCreateInfo} value to the {@code pNext} chain. */
+        public VkPipelineRasterizationStateCreateInfo.Buffer pNext(VkPipelineRasterizationLineStateCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPipelineRasterizationLineStateCreateInfoEXT} value to the {@code pNext} chain. */
         public VkPipelineRasterizationStateCreateInfo.Buffer pNext(VkPipelineRasterizationLineStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPipelineRasterizationLineStateCreateInfoKHR} value to the {@code pNext} chain. */

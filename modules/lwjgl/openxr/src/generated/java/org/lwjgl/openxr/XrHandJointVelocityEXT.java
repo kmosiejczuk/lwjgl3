@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class XrHandJointVelocityEXT extends Struct<XrHandJointVelocityEXT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandJointVelocityEXT createSafe(long address) {
+    public static @Nullable XrHandJointVelocityEXT createSafe(long address) {
         return address == NULL ? null : new XrHandJointVelocityEXT(address, null);
     }
 
@@ -202,8 +201,7 @@ public class XrHandJointVelocityEXT extends Struct<XrHandJointVelocityEXT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandJointVelocityEXT.Buffer createSafe(long address, int capacity) {
+    public static XrHandJointVelocityEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +246,14 @@ public class XrHandJointVelocityEXT extends Struct<XrHandJointVelocityEXT> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #velocityFlags}. */
-    public static long nvelocityFlags(long struct) { return UNSAFE.getLong(null, struct + XrHandJointVelocityEXT.VELOCITYFLAGS); }
+    public static long nvelocityFlags(long struct) { return memGetLong(struct + XrHandJointVelocityEXT.VELOCITYFLAGS); }
     /** Unsafe version of {@link #linearVelocity}. */
     public static XrVector3f nlinearVelocity(long struct) { return XrVector3f.create(struct + XrHandJointVelocityEXT.LINEARVELOCITY); }
     /** Unsafe version of {@link #angularVelocity}. */
     public static XrVector3f nangularVelocity(long struct) { return XrVector3f.create(struct + XrHandJointVelocityEXT.ANGULARVELOCITY); }
 
     /** Unsafe version of {@link #velocityFlags(long) velocityFlags}. */
-    public static void nvelocityFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrHandJointVelocityEXT.VELOCITYFLAGS, value); }
+    public static void nvelocityFlags(long struct, long value) { memPutLong(struct + XrHandJointVelocityEXT.VELOCITYFLAGS, value); }
     /** Unsafe version of {@link #linearVelocity(XrVector3f) linearVelocity}. */
     public static void nlinearVelocity(long struct, XrVector3f value) { memCopy(value.address(), struct + XrHandJointVelocityEXT.LINEARVELOCITY, XrVector3f.SIZEOF); }
     /** Unsafe version of {@link #angularVelocity(XrVector3f) angularVelocity}. */
@@ -292,6 +290,11 @@ public class XrHandJointVelocityEXT extends Struct<XrHandJointVelocityEXT> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

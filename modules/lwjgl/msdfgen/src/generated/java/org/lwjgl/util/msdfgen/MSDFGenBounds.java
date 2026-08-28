@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.msdfgen;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,8 +150,7 @@ public class MSDFGenBounds extends Struct<MSDFGenBounds> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MSDFGenBounds createSafe(long address) {
+    public static @Nullable MSDFGenBounds createSafe(long address) {
         return address == NULL ? null : new MSDFGenBounds(address, null);
     }
 
@@ -194,8 +193,7 @@ public class MSDFGenBounds extends Struct<MSDFGenBounds> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MSDFGenBounds.Buffer createSafe(long address, int capacity) {
+    public static MSDFGenBounds.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,22 +238,22 @@ public class MSDFGenBounds extends Struct<MSDFGenBounds> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #l}. */
-    public static double nl(long struct) { return UNSAFE.getDouble(null, struct + MSDFGenBounds.L); }
+    public static double nl(long struct) { return memGetDouble(struct + MSDFGenBounds.L); }
     /** Unsafe version of {@link #b}. */
-    public static double nb(long struct) { return UNSAFE.getDouble(null, struct + MSDFGenBounds.B); }
+    public static double nb(long struct) { return memGetDouble(struct + MSDFGenBounds.B); }
     /** Unsafe version of {@link #r}. */
-    public static double nr(long struct) { return UNSAFE.getDouble(null, struct + MSDFGenBounds.R); }
+    public static double nr(long struct) { return memGetDouble(struct + MSDFGenBounds.R); }
     /** Unsafe version of {@link #t}. */
-    public static double nt(long struct) { return UNSAFE.getDouble(null, struct + MSDFGenBounds.T); }
+    public static double nt(long struct) { return memGetDouble(struct + MSDFGenBounds.T); }
 
     /** Unsafe version of {@link #l(double) l}. */
-    public static void nl(long struct, double value) { UNSAFE.putDouble(null, struct + MSDFGenBounds.L, value); }
+    public static void nl(long struct, double value) { memPutDouble(struct + MSDFGenBounds.L, value); }
     /** Unsafe version of {@link #b(double) b}. */
-    public static void nb(long struct, double value) { UNSAFE.putDouble(null, struct + MSDFGenBounds.B, value); }
+    public static void nb(long struct, double value) { memPutDouble(struct + MSDFGenBounds.B, value); }
     /** Unsafe version of {@link #r(double) r}. */
-    public static void nr(long struct, double value) { UNSAFE.putDouble(null, struct + MSDFGenBounds.R, value); }
+    public static void nr(long struct, double value) { memPutDouble(struct + MSDFGenBounds.R, value); }
     /** Unsafe version of {@link #t(double) t}. */
-    public static void nt(long struct, double value) { UNSAFE.putDouble(null, struct + MSDFGenBounds.T, value); }
+    public static void nt(long struct, double value) { memPutDouble(struct + MSDFGenBounds.T, value); }
 
     // -----------------------------------
 
@@ -288,6 +286,11 @@ public class MSDFGenBounds extends Struct<MSDFGenBounds> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

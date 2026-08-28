@@ -5,7 +5,7 @@
  */
 package org.lwjgl.egl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class EGLClientPixmapHI extends Struct<EGLClientPixmapHI> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EGLClientPixmapHI createSafe(long address) {
+    public static @Nullable EGLClientPixmapHI createSafe(long address) {
         return address == NULL ? null : new EGLClientPixmapHI(address, null);
     }
 
@@ -210,8 +209,7 @@ public class EGLClientPixmapHI extends Struct<EGLClientPixmapHI> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EGLClientPixmapHI.Buffer createSafe(long address, int capacity) {
+    public static EGLClientPixmapHI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,20 +275,20 @@ public class EGLClientPixmapHI extends Struct<EGLClientPixmapHI> implements Nati
     /** Unsafe version of {@link #pData(int) pData}. */
     public static ByteBuffer npData(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + EGLClientPixmapHI.PDATA), capacity); }
     /** Unsafe version of {@link #iWidth}. */
-    public static int niWidth(long struct) { return UNSAFE.getInt(null, struct + EGLClientPixmapHI.IWIDTH); }
+    public static int niWidth(long struct) { return memGetInt(struct + EGLClientPixmapHI.IWIDTH); }
     /** Unsafe version of {@link #iHeight}. */
-    public static int niHeight(long struct) { return UNSAFE.getInt(null, struct + EGLClientPixmapHI.IHEIGHT); }
+    public static int niHeight(long struct) { return memGetInt(struct + EGLClientPixmapHI.IHEIGHT); }
     /** Unsafe version of {@link #iStride}. */
-    public static int niStride(long struct) { return UNSAFE.getInt(null, struct + EGLClientPixmapHI.ISTRIDE); }
+    public static int niStride(long struct) { return memGetInt(struct + EGLClientPixmapHI.ISTRIDE); }
 
     /** Unsafe version of {@link #pData(ByteBuffer) pData}. */
     public static void npData(long struct, ByteBuffer value) { memPutAddress(struct + EGLClientPixmapHI.PDATA, memAddress(value)); }
     /** Unsafe version of {@link #iWidth(int) iWidth}. */
-    public static void niWidth(long struct, int value) { UNSAFE.putInt(null, struct + EGLClientPixmapHI.IWIDTH, value); }
+    public static void niWidth(long struct, int value) { memPutInt(struct + EGLClientPixmapHI.IWIDTH, value); }
     /** Unsafe version of {@link #iHeight(int) iHeight}. */
-    public static void niHeight(long struct, int value) { UNSAFE.putInt(null, struct + EGLClientPixmapHI.IHEIGHT, value); }
+    public static void niHeight(long struct, int value) { memPutInt(struct + EGLClientPixmapHI.IHEIGHT, value); }
     /** Unsafe version of {@link #iStride(int) iStride}. */
-    public static void niStride(long struct, int value) { UNSAFE.putInt(null, struct + EGLClientPixmapHI.ISTRIDE, value); }
+    public static void niStride(long struct, int value) { memPutInt(struct + EGLClientPixmapHI.ISTRIDE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -332,6 +330,11 @@ public class EGLClientPixmapHI extends Struct<EGLClientPixmapHI> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

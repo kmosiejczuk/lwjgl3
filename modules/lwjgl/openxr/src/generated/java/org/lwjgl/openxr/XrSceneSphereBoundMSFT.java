@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -147,8 +147,7 @@ public class XrSceneSphereBoundMSFT extends Struct<XrSceneSphereBoundMSFT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneSphereBoundMSFT createSafe(long address) {
+    public static @Nullable XrSceneSphereBoundMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneSphereBoundMSFT(address, null);
     }
 
@@ -191,8 +190,7 @@ public class XrSceneSphereBoundMSFT extends Struct<XrSceneSphereBoundMSFT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneSphereBoundMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneSphereBoundMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -239,12 +237,12 @@ public class XrSceneSphereBoundMSFT extends Struct<XrSceneSphereBoundMSFT> imple
     /** Unsafe version of {@link #center}. */
     public static XrVector3f ncenter(long struct) { return XrVector3f.create(struct + XrSceneSphereBoundMSFT.CENTER); }
     /** Unsafe version of {@link #radius}. */
-    public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + XrSceneSphereBoundMSFT.RADIUS); }
+    public static float nradius(long struct) { return memGetFloat(struct + XrSceneSphereBoundMSFT.RADIUS); }
 
     /** Unsafe version of {@link #center(XrVector3f) center}. */
     public static void ncenter(long struct, XrVector3f value) { memCopy(value.address(), struct + XrSceneSphereBoundMSFT.CENTER, XrVector3f.SIZEOF); }
     /** Unsafe version of {@link #radius(float) radius}. */
-    public static void nradius(long struct, float value) { UNSAFE.putFloat(null, struct + XrSceneSphereBoundMSFT.RADIUS, value); }
+    public static void nradius(long struct, float value) { memPutFloat(struct + XrSceneSphereBoundMSFT.RADIUS, value); }
 
     // -----------------------------------
 
@@ -277,6 +275,11 @@ public class XrSceneSphereBoundMSFT extends Struct<XrSceneSphereBoundMSFT> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

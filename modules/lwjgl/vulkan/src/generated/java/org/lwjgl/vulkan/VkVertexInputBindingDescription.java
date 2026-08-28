@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class VkVertexInputBindingDescription extends Struct<VkVertexInputBinding
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVertexInputBindingDescription createSafe(long address) {
+    public static @Nullable VkVertexInputBindingDescription createSafe(long address) {
         return address == NULL ? null : new VkVertexInputBindingDescription(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkVertexInputBindingDescription extends Struct<VkVertexInputBinding
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVertexInputBindingDescription.Buffer createSafe(long address, int capacity) {
+    public static VkVertexInputBindingDescription.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -271,18 +269,18 @@ public class VkVertexInputBindingDescription extends Struct<VkVertexInputBinding
     // -----------------------------------
 
     /** Unsafe version of {@link #binding}. */
-    public static int nbinding(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputBindingDescription.BINDING); }
+    public static int nbinding(long struct) { return memGetInt(struct + VkVertexInputBindingDescription.BINDING); }
     /** Unsafe version of {@link #stride}. */
-    public static int nstride(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputBindingDescription.STRIDE); }
+    public static int nstride(long struct) { return memGetInt(struct + VkVertexInputBindingDescription.STRIDE); }
     /** Unsafe version of {@link #inputRate}. */
-    public static int ninputRate(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputBindingDescription.INPUTRATE); }
+    public static int ninputRate(long struct) { return memGetInt(struct + VkVertexInputBindingDescription.INPUTRATE); }
 
     /** Unsafe version of {@link #binding(int) binding}. */
-    public static void nbinding(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputBindingDescription.BINDING, value); }
+    public static void nbinding(long struct, int value) { memPutInt(struct + VkVertexInputBindingDescription.BINDING, value); }
     /** Unsafe version of {@link #stride(int) stride}. */
-    public static void nstride(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputBindingDescription.STRIDE, value); }
+    public static void nstride(long struct, int value) { memPutInt(struct + VkVertexInputBindingDescription.STRIDE, value); }
     /** Unsafe version of {@link #inputRate(int) inputRate}. */
-    public static void ninputRate(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputBindingDescription.INPUTRATE, value); }
+    public static void ninputRate(long struct, int value) { memPutInt(struct + VkVertexInputBindingDescription.INPUTRATE, value); }
 
     // -----------------------------------
 
@@ -315,6 +313,11 @@ public class VkVertexInputBindingDescription extends Struct<VkVertexInputBinding
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

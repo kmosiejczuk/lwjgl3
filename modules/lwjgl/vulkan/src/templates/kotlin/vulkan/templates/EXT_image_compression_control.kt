@@ -27,7 +27,7 @@ val EXT_image_compression_control = "EXTImageCompressionControl".nativeClassVK("
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -169,11 +169,11 @@ val EXT_image_compression_control = "EXTImageCompressionControl".nativeClassVK("
 
     void(
         "GetImageSubresourceLayout2EXT",
-        "See #GetImageSubresourceLayout2KHR().",
+        "See #GetImageSubresourceLayout2().",
 
         VkDevice("device", "the logical device that owns the image."),
         VkImage("image", "the image whose layout is being queried."),
-        VkImageSubresource2KHR.const.p("pSubresource", "a pointer to a ##VkImageSubresource2KHR structure selecting a specific image for the image subresource."),
-        VkSubresourceLayout2KHR.p("pLayout", "a pointer to a ##VkSubresourceLayout2KHR structure in which the layout is returned.")
+        VkImageSubresource2.const.p("pSubresource", "a pointer to a ##VkImageSubresource2 structure selecting a specific image for the image subresource."),
+        VkSubresourceLayout2.p("pLayout", "a pointer to a ##VkSubresourceLayout2 structure in which the layout is returned.")
     )
 }

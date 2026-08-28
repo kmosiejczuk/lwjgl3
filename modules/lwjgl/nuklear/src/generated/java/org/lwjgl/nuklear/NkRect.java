@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,8 +150,7 @@ public class NkRect extends Struct<NkRect> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkRect createSafe(long address) {
+    public static @Nullable NkRect createSafe(long address) {
         return address == NULL ? null : new NkRect(address, null);
     }
 
@@ -194,8 +193,7 @@ public class NkRect extends Struct<NkRect> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkRect.Buffer createSafe(long address, int capacity) {
+    public static NkRect.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,22 +257,22 @@ public class NkRect extends Struct<NkRect> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + NkRect.X); }
+    public static float nx(long struct) { return memGetFloat(struct + NkRect.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + NkRect.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + NkRect.Y); }
     /** Unsafe version of {@link #w}. */
-    public static float nw(long struct) { return UNSAFE.getFloat(null, struct + NkRect.W); }
+    public static float nw(long struct) { return memGetFloat(struct + NkRect.W); }
     /** Unsafe version of {@link #h}. */
-    public static float nh(long struct) { return UNSAFE.getFloat(null, struct + NkRect.H); }
+    public static float nh(long struct) { return memGetFloat(struct + NkRect.H); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + NkRect.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + NkRect.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + NkRect.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + NkRect.Y, value); }
     /** Unsafe version of {@link #w(float) w}. */
-    public static void nw(long struct, float value) { UNSAFE.putFloat(null, struct + NkRect.W, value); }
+    public static void nw(long struct, float value) { memPutFloat(struct + NkRect.W, value); }
     /** Unsafe version of {@link #h(float) h}. */
-    public static void nh(long struct, float value) { UNSAFE.putFloat(null, struct + NkRect.H, value); }
+    public static void nh(long struct, float value) { memPutFloat(struct + NkRect.H, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class NkRect extends Struct<NkRect> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

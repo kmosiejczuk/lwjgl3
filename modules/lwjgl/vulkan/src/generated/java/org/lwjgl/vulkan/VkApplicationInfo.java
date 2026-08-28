@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,28 +152,24 @@ public class VkApplicationInfo extends Struct<VkApplicationInfo> implements Nati
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** {@code NULL} or is a pointer to a null-terminated UTF-8 string containing the name of the application. */
-    @Nullable
     @NativeType("char const *")
-    public ByteBuffer pApplicationName() { return npApplicationName(address()); }
+    public @Nullable ByteBuffer pApplicationName() { return npApplicationName(address()); }
     /** {@code NULL} or is a pointer to a null-terminated UTF-8 string containing the name of the application. */
-    @Nullable
     @NativeType("char const *")
-    public String pApplicationNameString() { return npApplicationNameString(address()); }
+    public @Nullable String pApplicationNameString() { return npApplicationNameString(address()); }
     /** an unsigned integer variable containing the developer-supplied version number of the application. */
     @NativeType("uint32_t")
     public int applicationVersion() { return napplicationVersion(address()); }
     /** {@code NULL} or is a pointer to a null-terminated UTF-8 string containing the name of the engine (if any) used to create the application. */
-    @Nullable
     @NativeType("char const *")
-    public ByteBuffer pEngineName() { return npEngineName(address()); }
+    public @Nullable ByteBuffer pEngineName() { return npEngineName(address()); }
     /** {@code NULL} or is a pointer to a null-terminated UTF-8 string containing the name of the engine (if any) used to create the application. */
-    @Nullable
     @NativeType("char const *")
-    public String pEngineNameString() { return npEngineNameString(address()); }
+    public @Nullable String pEngineNameString() { return npEngineNameString(address()); }
     /** an unsigned integer variable containing the developer-supplied version number of the engine used to create the application. */
     @NativeType("uint32_t")
     public int engineVersion() { return nengineVersion(address()); }
-    /** <b>must</b> be the highest version of Vulkan that the application is designed to use, encoded as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-coreversions-versionnumbers">Version Numbers</a>. The patch version number specified in {@code apiVersion} is ignored when creating an instance object. The variant version of the instance <b>must</b> match that requested in {@code apiVersion}. */
+    /** <b>must</b> be the highest version of Vulkan that the application is designed to use, encoded as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#extendingvulkan-coreversions-versionnumbers">Version Numbers</a>. The patch version number specified in {@code apiVersion} is ignored when creating an instance object. The variant version of the instance <b>must</b> match that requested in {@code apiVersion}. */
     @NativeType("uint32_t")
     public int apiVersion() { return napiVersion(address()); }
 
@@ -251,8 +247,7 @@ public class VkApplicationInfo extends Struct<VkApplicationInfo> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkApplicationInfo createSafe(long address) {
+    public static @Nullable VkApplicationInfo createSafe(long address) {
         return address == NULL ? null : new VkApplicationInfo(address, null);
     }
 
@@ -295,8 +290,7 @@ public class VkApplicationInfo extends Struct<VkApplicationInfo> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkApplicationInfo.Buffer createSafe(long address, int capacity) {
+    public static VkApplicationInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -360,26 +354,26 @@ public class VkApplicationInfo extends Struct<VkApplicationInfo> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkApplicationInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkApplicationInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkApplicationInfo.PNEXT); }
     /** Unsafe version of {@link #pApplicationName}. */
-    @Nullable public static ByteBuffer npApplicationName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + VkApplicationInfo.PAPPLICATIONNAME)); }
+    public static @Nullable ByteBuffer npApplicationName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + VkApplicationInfo.PAPPLICATIONNAME)); }
     /** Unsafe version of {@link #pApplicationNameString}. */
-    @Nullable public static String npApplicationNameString(long struct) { return memUTF8Safe(memGetAddress(struct + VkApplicationInfo.PAPPLICATIONNAME)); }
+    public static @Nullable String npApplicationNameString(long struct) { return memUTF8Safe(memGetAddress(struct + VkApplicationInfo.PAPPLICATIONNAME)); }
     /** Unsafe version of {@link #applicationVersion}. */
-    public static int napplicationVersion(long struct) { return UNSAFE.getInt(null, struct + VkApplicationInfo.APPLICATIONVERSION); }
+    public static int napplicationVersion(long struct) { return memGetInt(struct + VkApplicationInfo.APPLICATIONVERSION); }
     /** Unsafe version of {@link #pEngineName}. */
-    @Nullable public static ByteBuffer npEngineName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + VkApplicationInfo.PENGINENAME)); }
+    public static @Nullable ByteBuffer npEngineName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + VkApplicationInfo.PENGINENAME)); }
     /** Unsafe version of {@link #pEngineNameString}. */
-    @Nullable public static String npEngineNameString(long struct) { return memUTF8Safe(memGetAddress(struct + VkApplicationInfo.PENGINENAME)); }
+    public static @Nullable String npEngineNameString(long struct) { return memUTF8Safe(memGetAddress(struct + VkApplicationInfo.PENGINENAME)); }
     /** Unsafe version of {@link #engineVersion}. */
-    public static int nengineVersion(long struct) { return UNSAFE.getInt(null, struct + VkApplicationInfo.ENGINEVERSION); }
+    public static int nengineVersion(long struct) { return memGetInt(struct + VkApplicationInfo.ENGINEVERSION); }
     /** Unsafe version of {@link #apiVersion}. */
-    public static int napiVersion(long struct) { return UNSAFE.getInt(null, struct + VkApplicationInfo.APIVERSION); }
+    public static int napiVersion(long struct) { return memGetInt(struct + VkApplicationInfo.APIVERSION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkApplicationInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkApplicationInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkApplicationInfo.PNEXT, value); }
     /** Unsafe version of {@link #pApplicationName(ByteBuffer) pApplicationName}. */
@@ -388,16 +382,16 @@ public class VkApplicationInfo extends Struct<VkApplicationInfo> implements Nati
         memPutAddress(struct + VkApplicationInfo.PAPPLICATIONNAME, memAddressSafe(value));
     }
     /** Unsafe version of {@link #applicationVersion(int) applicationVersion}. */
-    public static void napplicationVersion(long struct, int value) { UNSAFE.putInt(null, struct + VkApplicationInfo.APPLICATIONVERSION, value); }
+    public static void napplicationVersion(long struct, int value) { memPutInt(struct + VkApplicationInfo.APPLICATIONVERSION, value); }
     /** Unsafe version of {@link #pEngineName(ByteBuffer) pEngineName}. */
     public static void npEngineName(long struct, @Nullable ByteBuffer value) {
         if (CHECKS) { checkNT1Safe(value); }
         memPutAddress(struct + VkApplicationInfo.PENGINENAME, memAddressSafe(value));
     }
     /** Unsafe version of {@link #engineVersion(int) engineVersion}. */
-    public static void nengineVersion(long struct, int value) { UNSAFE.putInt(null, struct + VkApplicationInfo.ENGINEVERSION, value); }
+    public static void nengineVersion(long struct, int value) { memPutInt(struct + VkApplicationInfo.ENGINEVERSION, value); }
     /** Unsafe version of {@link #apiVersion(int) apiVersion}. */
-    public static void napiVersion(long struct, int value) { UNSAFE.putInt(null, struct + VkApplicationInfo.APIVERSION, value); }
+    public static void napiVersion(long struct, int value) { memPutInt(struct + VkApplicationInfo.APIVERSION, value); }
 
     // -----------------------------------
 
@@ -433,6 +427,11 @@ public class VkApplicationInfo extends Struct<VkApplicationInfo> implements Nati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkApplicationInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -444,24 +443,20 @@ public class VkApplicationInfo extends Struct<VkApplicationInfo> implements Nati
         @NativeType("void const *")
         public long pNext() { return VkApplicationInfo.npNext(address()); }
         /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link VkApplicationInfo#pApplicationName} field. */
-        @Nullable
         @NativeType("char const *")
-        public ByteBuffer pApplicationName() { return VkApplicationInfo.npApplicationName(address()); }
+        public @Nullable ByteBuffer pApplicationName() { return VkApplicationInfo.npApplicationName(address()); }
         /** @return the null-terminated string pointed to by the {@link VkApplicationInfo#pApplicationName} field. */
-        @Nullable
         @NativeType("char const *")
-        public String pApplicationNameString() { return VkApplicationInfo.npApplicationNameString(address()); }
+        public @Nullable String pApplicationNameString() { return VkApplicationInfo.npApplicationNameString(address()); }
         /** @return the value of the {@link VkApplicationInfo#applicationVersion} field. */
         @NativeType("uint32_t")
         public int applicationVersion() { return VkApplicationInfo.napplicationVersion(address()); }
         /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link VkApplicationInfo#pEngineName} field. */
-        @Nullable
         @NativeType("char const *")
-        public ByteBuffer pEngineName() { return VkApplicationInfo.npEngineName(address()); }
+        public @Nullable ByteBuffer pEngineName() { return VkApplicationInfo.npEngineName(address()); }
         /** @return the null-terminated string pointed to by the {@link VkApplicationInfo#pEngineName} field. */
-        @Nullable
         @NativeType("char const *")
-        public String pEngineNameString() { return VkApplicationInfo.npEngineNameString(address()); }
+        public @Nullable String pEngineNameString() { return VkApplicationInfo.npEngineNameString(address()); }
         /** @return the value of the {@link VkApplicationInfo#engineVersion} field. */
         @NativeType("uint32_t")
         public int engineVersion() { return VkApplicationInfo.nengineVersion(address()); }

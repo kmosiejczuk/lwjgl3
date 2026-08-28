@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class BGFXTextureInfo extends Struct<BGFXTextureInfo> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXTextureInfo createSafe(long address) {
+    public static @Nullable BGFXTextureInfo createSafe(long address) {
         return address == NULL ? null : new BGFXTextureInfo(address, null);
     }
 
@@ -199,8 +198,7 @@ public class BGFXTextureInfo extends Struct<BGFXTextureInfo> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXTextureInfo.Buffer createSafe(long address, int capacity) {
+    public static BGFXTextureInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,23 +262,23 @@ public class BGFXTextureInfo extends Struct<BGFXTextureInfo> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + BGFXTextureInfo.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + BGFXTextureInfo.FORMAT); }
     /** Unsafe version of {@link #storageSize}. */
-    public static int nstorageSize(long struct) { return UNSAFE.getInt(null, struct + BGFXTextureInfo.STORAGESIZE); }
+    public static int nstorageSize(long struct) { return memGetInt(struct + BGFXTextureInfo.STORAGESIZE); }
     /** Unsafe version of {@link #width}. */
-    public static short nwidth(long struct) { return UNSAFE.getShort(null, struct + BGFXTextureInfo.WIDTH); }
+    public static short nwidth(long struct) { return memGetShort(struct + BGFXTextureInfo.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static short nheight(long struct) { return UNSAFE.getShort(null, struct + BGFXTextureInfo.HEIGHT); }
+    public static short nheight(long struct) { return memGetShort(struct + BGFXTextureInfo.HEIGHT); }
     /** Unsafe version of {@link #depth}. */
-    public static short ndepth(long struct) { return UNSAFE.getShort(null, struct + BGFXTextureInfo.DEPTH); }
+    public static short ndepth(long struct) { return memGetShort(struct + BGFXTextureInfo.DEPTH); }
     /** Unsafe version of {@link #numLayers}. */
-    public static short nnumLayers(long struct) { return UNSAFE.getShort(null, struct + BGFXTextureInfo.NUMLAYERS); }
+    public static short nnumLayers(long struct) { return memGetShort(struct + BGFXTextureInfo.NUMLAYERS); }
     /** Unsafe version of {@link #numMips}. */
-    public static byte nnumMips(long struct) { return UNSAFE.getByte(null, struct + BGFXTextureInfo.NUMMIPS); }
+    public static byte nnumMips(long struct) { return memGetByte(struct + BGFXTextureInfo.NUMMIPS); }
     /** Unsafe version of {@link #bitsPerPixel}. */
-    public static byte nbitsPerPixel(long struct) { return UNSAFE.getByte(null, struct + BGFXTextureInfo.BITSPERPIXEL); }
+    public static byte nbitsPerPixel(long struct) { return memGetByte(struct + BGFXTextureInfo.BITSPERPIXEL); }
     /** Unsafe version of {@link #cubeMap}. */
-    public static boolean ncubeMap(long struct) { return UNSAFE.getByte(null, struct + BGFXTextureInfo.CUBEMAP) != 0; }
+    public static boolean ncubeMap(long struct) { return memGetByte(struct + BGFXTextureInfo.CUBEMAP) != 0; }
 
     // -----------------------------------
 
@@ -313,6 +311,11 @@ public class BGFXTextureInfo extends Struct<BGFXTextureInfo> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

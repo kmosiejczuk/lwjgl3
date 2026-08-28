@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -121,8 +121,7 @@ public class XrSceneMarkerMSFT extends Struct<XrSceneMarkerMSFT> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneMarkerMSFT createSafe(long address) {
+    public static @Nullable XrSceneMarkerMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneMarkerMSFT(address, null);
     }
 
@@ -137,17 +136,16 @@ public class XrSceneMarkerMSFT extends Struct<XrSceneMarkerMSFT> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneMarkerMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneMarkerMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #markerType}. */
-    public static int nmarkerType(long struct) { return UNSAFE.getInt(null, struct + XrSceneMarkerMSFT.MARKERTYPE); }
+    public static int nmarkerType(long struct) { return memGetInt(struct + XrSceneMarkerMSFT.MARKERTYPE); }
     /** Unsafe version of {@link #lastSeenTime}. */
-    public static long nlastSeenTime(long struct) { return UNSAFE.getLong(null, struct + XrSceneMarkerMSFT.LASTSEENTIME); }
+    public static long nlastSeenTime(long struct) { return memGetLong(struct + XrSceneMarkerMSFT.LASTSEENTIME); }
     /** Unsafe version of {@link #center}. */
     public static XrOffset2Df ncenter(long struct) { return XrOffset2Df.create(struct + XrSceneMarkerMSFT.CENTER); }
     /** Unsafe version of {@link #size}. */
@@ -184,6 +182,11 @@ public class XrSceneMarkerMSFT extends Struct<XrSceneMarkerMSFT> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class AIColor4D extends Struct<AIColor4D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIColor4D createSafe(long address) {
+    public static @Nullable AIColor4D createSafe(long address) {
         return address == NULL ? null : new AIColor4D(address, null);
     }
 
@@ -196,8 +195,7 @@ public class AIColor4D extends Struct<AIColor4D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIColor4D.Buffer createSafe(long address, int capacity) {
+    public static AIColor4D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,22 +259,22 @@ public class AIColor4D extends Struct<AIColor4D> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #r}. */
-    public static float nr(long struct) { return UNSAFE.getFloat(null, struct + AIColor4D.R); }
+    public static float nr(long struct) { return memGetFloat(struct + AIColor4D.R); }
     /** Unsafe version of {@link #g}. */
-    public static float ng(long struct) { return UNSAFE.getFloat(null, struct + AIColor4D.G); }
+    public static float ng(long struct) { return memGetFloat(struct + AIColor4D.G); }
     /** Unsafe version of {@link #b}. */
-    public static float nb(long struct) { return UNSAFE.getFloat(null, struct + AIColor4D.B); }
+    public static float nb(long struct) { return memGetFloat(struct + AIColor4D.B); }
     /** Unsafe version of {@link #a}. */
-    public static float na(long struct) { return UNSAFE.getFloat(null, struct + AIColor4D.A); }
+    public static float na(long struct) { return memGetFloat(struct + AIColor4D.A); }
 
     /** Unsafe version of {@link #r(float) r}. */
-    public static void nr(long struct, float value) { UNSAFE.putFloat(null, struct + AIColor4D.R, value); }
+    public static void nr(long struct, float value) { memPutFloat(struct + AIColor4D.R, value); }
     /** Unsafe version of {@link #g(float) g}. */
-    public static void ng(long struct, float value) { UNSAFE.putFloat(null, struct + AIColor4D.G, value); }
+    public static void ng(long struct, float value) { memPutFloat(struct + AIColor4D.G, value); }
     /** Unsafe version of {@link #b(float) b}. */
-    public static void nb(long struct, float value) { UNSAFE.putFloat(null, struct + AIColor4D.B, value); }
+    public static void nb(long struct, float value) { memPutFloat(struct + AIColor4D.B, value); }
     /** Unsafe version of {@link #a(float) a}. */
-    public static void na(long struct, float value) { UNSAFE.putFloat(null, struct + AIColor4D.A, value); }
+    public static void na(long struct, float value) { memPutFloat(struct + AIColor4D.A, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class AIColor4D extends Struct<AIColor4D> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

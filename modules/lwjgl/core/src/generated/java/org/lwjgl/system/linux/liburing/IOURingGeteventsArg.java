@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct io_uring_getevents_arg {
  *     __u64 sigmask;
  *     __u32 sigmask_sz;
- *     __u32 pad;
+ *     __u32 min_wait_usec;
  *     __u64 ts;
  * }</code></pre>
  */
@@ -39,7 +39,7 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
     public static final int
         SIGMASK,
         SIGMASK_SZ,
-        PAD,
+        MIN_WAIT_USEC,
         TS;
 
     static {
@@ -55,7 +55,7 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
 
         SIGMASK = layout.offsetof(0);
         SIGMASK_SZ = layout.offsetof(1);
-        PAD = layout.offsetof(2);
+        MIN_WAIT_USEC = layout.offsetof(2);
         TS = layout.offsetof(3);
     }
 
@@ -87,9 +87,9 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
     /** @return the value of the {@code sigmask_sz} field. */
     @NativeType("__u32")
     public int sigmask_sz() { return nsigmask_sz(address()); }
-    /** @return the value of the {@code pad} field. */
+    /** @return the value of the {@code min_wait_usec} field. */
     @NativeType("__u32")
-    public int pad() { return npad(address()); }
+    public int min_wait_usec() { return nmin_wait_usec(address()); }
     /** @return the value of the {@code ts} field. */
     @NativeType("__u64")
     public long ts() { return nts(address()); }
@@ -98,8 +98,8 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
     public IOURingGeteventsArg sigmask(@NativeType("__u64") long value) { nsigmask(address(), value); return this; }
     /** Sets the specified value to the {@code sigmask_sz} field. */
     public IOURingGeteventsArg sigmask_sz(@NativeType("__u32") int value) { nsigmask_sz(address(), value); return this; }
-    /** Sets the specified value to the {@code pad} field. */
-    public IOURingGeteventsArg pad(@NativeType("__u32") int value) { npad(address(), value); return this; }
+    /** Sets the specified value to the {@code min_wait_usec} field. */
+    public IOURingGeteventsArg min_wait_usec(@NativeType("__u32") int value) { nmin_wait_usec(address(), value); return this; }
     /** Sets the specified value to the {@code ts} field. */
     public IOURingGeteventsArg ts(@NativeType("__u64") long value) { nts(address(), value); return this; }
 
@@ -107,12 +107,12 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
     public IOURingGeteventsArg set(
         long sigmask,
         int sigmask_sz,
-        int pad,
+        int min_wait_usec,
         long ts
     ) {
         sigmask(sigmask);
         sigmask_sz(sigmask_sz);
-        pad(pad);
+        min_wait_usec(min_wait_usec);
         ts(ts);
 
         return this;
@@ -154,8 +154,7 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingGeteventsArg createSafe(long address) {
+    public static @Nullable IOURingGeteventsArg createSafe(long address) {
         return address == NULL ? null : new IOURingGeteventsArg(address, null);
     }
 
@@ -198,8 +197,7 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingGeteventsArg.Buffer createSafe(long address, int capacity) {
+    public static IOURingGeteventsArg.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,22 +242,22 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #sigmask}. */
-    public static long nsigmask(long struct) { return UNSAFE.getLong(null, struct + IOURingGeteventsArg.SIGMASK); }
+    public static long nsigmask(long struct) { return memGetLong(struct + IOURingGeteventsArg.SIGMASK); }
     /** Unsafe version of {@link #sigmask_sz}. */
-    public static int nsigmask_sz(long struct) { return UNSAFE.getInt(null, struct + IOURingGeteventsArg.SIGMASK_SZ); }
-    /** Unsafe version of {@link #pad}. */
-    public static int npad(long struct) { return UNSAFE.getInt(null, struct + IOURingGeteventsArg.PAD); }
+    public static int nsigmask_sz(long struct) { return memGetInt(struct + IOURingGeteventsArg.SIGMASK_SZ); }
+    /** Unsafe version of {@link #min_wait_usec}. */
+    public static int nmin_wait_usec(long struct) { return memGetInt(struct + IOURingGeteventsArg.MIN_WAIT_USEC); }
     /** Unsafe version of {@link #ts}. */
-    public static long nts(long struct) { return UNSAFE.getLong(null, struct + IOURingGeteventsArg.TS); }
+    public static long nts(long struct) { return memGetLong(struct + IOURingGeteventsArg.TS); }
 
     /** Unsafe version of {@link #sigmask(long) sigmask}. */
-    public static void nsigmask(long struct, long value) { UNSAFE.putLong(null, struct + IOURingGeteventsArg.SIGMASK, value); }
+    public static void nsigmask(long struct, long value) { memPutLong(struct + IOURingGeteventsArg.SIGMASK, value); }
     /** Unsafe version of {@link #sigmask_sz(int) sigmask_sz}. */
-    public static void nsigmask_sz(long struct, int value) { UNSAFE.putInt(null, struct + IOURingGeteventsArg.SIGMASK_SZ, value); }
-    /** Unsafe version of {@link #pad(int) pad}. */
-    public static void npad(long struct, int value) { UNSAFE.putInt(null, struct + IOURingGeteventsArg.PAD, value); }
+    public static void nsigmask_sz(long struct, int value) { memPutInt(struct + IOURingGeteventsArg.SIGMASK_SZ, value); }
+    /** Unsafe version of {@link #min_wait_usec(int) min_wait_usec}. */
+    public static void nmin_wait_usec(long struct, int value) { memPutInt(struct + IOURingGeteventsArg.MIN_WAIT_USEC, value); }
     /** Unsafe version of {@link #ts(long) ts}. */
-    public static void nts(long struct, long value) { UNSAFE.putLong(null, struct + IOURingGeteventsArg.TS, value); }
+    public static void nts(long struct, long value) { memPutLong(struct + IOURingGeteventsArg.TS, value); }
 
     // -----------------------------------
 
@@ -295,6 +293,11 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected IOURingGeteventsArg getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -305,9 +308,9 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
         /** @return the value of the {@code sigmask_sz} field. */
         @NativeType("__u32")
         public int sigmask_sz() { return IOURingGeteventsArg.nsigmask_sz(address()); }
-        /** @return the value of the {@code pad} field. */
+        /** @return the value of the {@code min_wait_usec} field. */
         @NativeType("__u32")
-        public int pad() { return IOURingGeteventsArg.npad(address()); }
+        public int min_wait_usec() { return IOURingGeteventsArg.nmin_wait_usec(address()); }
         /** @return the value of the {@code ts} field. */
         @NativeType("__u64")
         public long ts() { return IOURingGeteventsArg.nts(address()); }
@@ -316,8 +319,8 @@ public class IOURingGeteventsArg extends Struct<IOURingGeteventsArg> implements 
         public IOURingGeteventsArg.Buffer sigmask(@NativeType("__u64") long value) { IOURingGeteventsArg.nsigmask(address(), value); return this; }
         /** Sets the specified value to the {@code sigmask_sz} field. */
         public IOURingGeteventsArg.Buffer sigmask_sz(@NativeType("__u32") int value) { IOURingGeteventsArg.nsigmask_sz(address(), value); return this; }
-        /** Sets the specified value to the {@code pad} field. */
-        public IOURingGeteventsArg.Buffer pad(@NativeType("__u32") int value) { IOURingGeteventsArg.npad(address(), value); return this; }
+        /** Sets the specified value to the {@code min_wait_usec} field. */
+        public IOURingGeteventsArg.Buffer min_wait_usec(@NativeType("__u32") int value) { IOURingGeteventsArg.nmin_wait_usec(address(), value); return this; }
         /** Sets the specified value to the {@code ts} field. */
         public IOURingGeteventsArg.Buffer ts(@NativeType("__u64") long value) { IOURingGeteventsArg.nts(address(), value); return this; }
 

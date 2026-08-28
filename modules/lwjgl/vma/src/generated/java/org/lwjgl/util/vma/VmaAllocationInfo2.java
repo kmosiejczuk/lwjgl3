@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -124,8 +124,7 @@ public class VmaAllocationInfo2 extends Struct<VmaAllocationInfo2> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaAllocationInfo2 createSafe(long address) {
+    public static @Nullable VmaAllocationInfo2 createSafe(long address) {
         return address == NULL ? null : new VmaAllocationInfo2(address, null);
     }
 
@@ -168,8 +167,7 @@ public class VmaAllocationInfo2 extends Struct<VmaAllocationInfo2> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaAllocationInfo2.Buffer createSafe(long address, int capacity) {
+    public static VmaAllocationInfo2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -216,9 +214,9 @@ public class VmaAllocationInfo2 extends Struct<VmaAllocationInfo2> implements Na
     /** Unsafe version of {@link #allocationInfo}. */
     public static VmaAllocationInfo nallocationInfo(long struct) { return VmaAllocationInfo.create(struct + VmaAllocationInfo2.ALLOCATIONINFO); }
     /** Unsafe version of {@link #blockSize}. */
-    public static long nblockSize(long struct) { return UNSAFE.getLong(null, struct + VmaAllocationInfo2.BLOCKSIZE); }
+    public static long nblockSize(long struct) { return memGetLong(struct + VmaAllocationInfo2.BLOCKSIZE); }
     /** Unsafe version of {@link #dedicatedMemory}. */
-    public static int ndedicatedMemory(long struct) { return UNSAFE.getInt(null, struct + VmaAllocationInfo2.DEDICATEDMEMORY); }
+    public static int ndedicatedMemory(long struct) { return memGetInt(struct + VmaAllocationInfo2.DEDICATEDMEMORY); }
 
     // -----------------------------------
 
@@ -251,6 +249,11 @@ public class VmaAllocationInfo2 extends Struct<VmaAllocationInfo2> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code pVideoProfile} <b>must</b> be a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profile-support">supported video profile</a></li>
+ * <li>{@code pVideoProfile} <b>must</b> be a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#video-profile-support">supported video profile</a></li>
  * <li>{@code pVideoProfile→videoCodecOperation} <b>must</b> specify an encode operation</li>
  * <li>{@code qualityLevel} <b>must</b> be less than {@link VkVideoEncodeCapabilitiesKHR}{@code ::maxQualityLevels}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile specified in {@code pVideoProfile}</li>
  * </ul>
@@ -178,8 +178,7 @@ public class VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,22 +266,22 @@ public class VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pVideoProfile}. */
     public static VkVideoProfileInfoKHR npVideoProfile(long struct) { return VkVideoProfileInfoKHR.create(memGetAddress(struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.PVIDEOPROFILE)); }
     /** Unsafe version of {@link #qualityLevel}. */
-    public static int nqualityLevel(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.QUALITYLEVEL); }
+    public static int nqualityLevel(long struct) { return memGetInt(struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.QUALITYLEVEL); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pVideoProfile(VkVideoProfileInfoKHR) pVideoProfile}. */
     public static void npVideoProfile(long struct, VkVideoProfileInfoKHR value) { memPutAddress(struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.PVIDEOPROFILE, value.address()); }
     /** Unsafe version of {@link #qualityLevel(int) qualityLevel}. */
-    public static void nqualityLevel(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.QUALITYLEVEL, value); }
+    public static void nqualityLevel(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR.QUALITYLEVEL, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -325,6 +323,11 @@ public class VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

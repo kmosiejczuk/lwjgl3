@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -95,8 +95,7 @@ public class ktxOrientation extends Struct<ktxOrientation> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxOrientation createSafe(long address) {
+    public static @Nullable ktxOrientation createSafe(long address) {
         return address == NULL ? null : new ktxOrientation(address, null);
     }
 
@@ -111,19 +110,18 @@ public class ktxOrientation extends Struct<ktxOrientation> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxOrientation.Buffer createSafe(long address, int capacity) {
+    public static ktxOrientation.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + ktxOrientation.X); }
+    public static int nx(long struct) { return memGetInt(struct + ktxOrientation.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + ktxOrientation.Y); }
+    public static int ny(long struct) { return memGetInt(struct + ktxOrientation.Y); }
     /** Unsafe version of {@link #z}. */
-    public static int nz(long struct) { return UNSAFE.getInt(null, struct + ktxOrientation.Z); }
+    public static int nz(long struct) { return memGetInt(struct + ktxOrientation.Z); }
 
     // -----------------------------------
 
@@ -156,6 +154,11 @@ public class ktxOrientation extends Struct<ktxOrientation> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

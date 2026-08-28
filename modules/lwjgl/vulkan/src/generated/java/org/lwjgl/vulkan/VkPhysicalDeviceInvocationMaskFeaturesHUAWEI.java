@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceInvocationMaskFeaturesHUAWEI createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceInvocationMaskFeaturesHUAWEI createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceInvocationMaskFeaturesHUAWEI(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.PNEXT); }
     /** Unsafe version of {@link #invocationMask}. */
-    public static int ninvocationMask(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.INVOCATIONMASK); }
+    public static int ninvocationMask(long struct) { return memGetInt(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.INVOCATIONMASK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.PNEXT, value); }
     /** Unsafe version of {@link #invocationMask(boolean) invocationMask}. */
-    public static void ninvocationMask(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.INVOCATIONMASK, value); }
+    public static void ninvocationMask(long struct, int value) { memPutInt(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.INVOCATIONMASK, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends Struct<VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

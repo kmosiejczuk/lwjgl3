@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.macosx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class CGEventTapInformation extends Struct<CGEventTapInformation> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CGEventTapInformation createSafe(long address) {
+    public static @Nullable CGEventTapInformation createSafe(long address) {
         return address == NULL ? null : new CGEventTapInformation(address, null);
     }
 
@@ -202,8 +201,7 @@ public class CGEventTapInformation extends Struct<CGEventTapInformation> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CGEventTapInformation.Buffer createSafe(long address, int capacity) {
+    public static CGEventTapInformation.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,25 +265,25 @@ public class CGEventTapInformation extends Struct<CGEventTapInformation> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #eventTapID}. */
-    public static int neventTapID(long struct) { return UNSAFE.getInt(null, struct + CGEventTapInformation.EVENTTAPID); }
+    public static int neventTapID(long struct) { return memGetInt(struct + CGEventTapInformation.EVENTTAPID); }
     /** Unsafe version of {@link #tapPoint}. */
-    public static int ntapPoint(long struct) { return UNSAFE.getInt(null, struct + CGEventTapInformation.TAPPOINT); }
+    public static int ntapPoint(long struct) { return memGetInt(struct + CGEventTapInformation.TAPPOINT); }
     /** Unsafe version of {@link #options}. */
-    public static int noptions(long struct) { return UNSAFE.getInt(null, struct + CGEventTapInformation.OPTIONS); }
+    public static int noptions(long struct) { return memGetInt(struct + CGEventTapInformation.OPTIONS); }
     /** Unsafe version of {@link #eventsOfInterest}. */
-    public static long neventsOfInterest(long struct) { return UNSAFE.getLong(null, struct + CGEventTapInformation.EVENTSOFINTEREST); }
+    public static long neventsOfInterest(long struct) { return memGetLong(struct + CGEventTapInformation.EVENTSOFINTEREST); }
     /** Unsafe version of {@link #tappingProcess}. */
     public static long ntappingProcess(long struct) { return memGetAddress(struct + CGEventTapInformation.TAPPINGPROCESS); }
     /** Unsafe version of {@link #processBeingTapped}. */
     public static long nprocessBeingTapped(long struct) { return memGetAddress(struct + CGEventTapInformation.PROCESSBEINGTAPPED); }
     /** Unsafe version of {@link #enabled}. */
-    public static boolean nenabled(long struct) { return UNSAFE.getByte(null, struct + CGEventTapInformation.ENABLED) != 0; }
+    public static boolean nenabled(long struct) { return memGetByte(struct + CGEventTapInformation.ENABLED) != 0; }
     /** Unsafe version of {@link #minUsecLatency}. */
-    public static float nminUsecLatency(long struct) { return UNSAFE.getFloat(null, struct + CGEventTapInformation.MINUSECLATENCY); }
+    public static float nminUsecLatency(long struct) { return memGetFloat(struct + CGEventTapInformation.MINUSECLATENCY); }
     /** Unsafe version of {@link #avgUsecLatency}. */
-    public static float navgUsecLatency(long struct) { return UNSAFE.getFloat(null, struct + CGEventTapInformation.AVGUSECLATENCY); }
+    public static float navgUsecLatency(long struct) { return memGetFloat(struct + CGEventTapInformation.AVGUSECLATENCY); }
     /** Unsafe version of {@link #maxUsecLatency}. */
-    public static float nmaxUsecLatency(long struct) { return UNSAFE.getFloat(null, struct + CGEventTapInformation.MAXUSECLATENCY); }
+    public static float nmaxUsecLatency(long struct) { return memGetFloat(struct + CGEventTapInformation.MAXUSECLATENCY); }
 
     // -----------------------------------
 
@@ -318,6 +316,11 @@ public class CGEventTapInformation extends Struct<CGEventTapInformation> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -91,8 +91,7 @@ public class VkMemoryHeap extends Struct<VkMemoryHeap> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryHeap createSafe(long address) {
+    public static @Nullable VkMemoryHeap createSafe(long address) {
         return address == NULL ? null : new VkMemoryHeap(address, null);
     }
 
@@ -107,17 +106,16 @@ public class VkMemoryHeap extends Struct<VkMemoryHeap> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryHeap.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryHeap.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkMemoryHeap.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkMemoryHeap.SIZE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkMemoryHeap.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkMemoryHeap.FLAGS); }
 
     // -----------------------------------
 
@@ -150,6 +148,11 @@ public class VkMemoryHeap extends Struct<VkMemoryHeap> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

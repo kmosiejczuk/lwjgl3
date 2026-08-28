@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceCooperativeMatrixFeaturesNV extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCooperativeMatrixFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCooperativeMatrixFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCooperativeMatrixFeaturesNV(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceCooperativeMatrixFeaturesNV extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCooperativeMatrixFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCooperativeMatrixFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -276,22 +274,22 @@ public class VkPhysicalDeviceCooperativeMatrixFeaturesNV extends Struct<VkPhysic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #cooperativeMatrix}. */
-    public static int ncooperativeMatrix(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.COOPERATIVEMATRIX); }
+    public static int ncooperativeMatrix(long struct) { return memGetInt(struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.COOPERATIVEMATRIX); }
     /** Unsafe version of {@link #cooperativeMatrixRobustBufferAccess}. */
-    public static int ncooperativeMatrixRobustBufferAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.COOPERATIVEMATRIXROBUSTBUFFERACCESS); }
+    public static int ncooperativeMatrixRobustBufferAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.COOPERATIVEMATRIXROBUSTBUFFERACCESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #cooperativeMatrix(boolean) cooperativeMatrix}. */
-    public static void ncooperativeMatrix(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.COOPERATIVEMATRIX, value); }
+    public static void ncooperativeMatrix(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.COOPERATIVEMATRIX, value); }
     /** Unsafe version of {@link #cooperativeMatrixRobustBufferAccess(boolean) cooperativeMatrixRobustBufferAccess}. */
-    public static void ncooperativeMatrixRobustBufferAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.COOPERATIVEMATRIXROBUSTBUFFERACCESS, value); }
+    public static void ncooperativeMatrixRobustBufferAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCooperativeMatrixFeaturesNV.COOPERATIVEMATRIXROBUSTBUFFERACCESS, value); }
 
     // -----------------------------------
 
@@ -324,6 +322,11 @@ public class VkPhysicalDeviceCooperativeMatrixFeaturesNV extends Struct<VkPhysic
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

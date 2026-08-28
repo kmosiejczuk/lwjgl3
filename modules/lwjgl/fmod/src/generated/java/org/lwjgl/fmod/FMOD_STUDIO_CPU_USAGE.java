@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -110,8 +110,7 @@ public class FMOD_STUDIO_CPU_USAGE extends Struct<FMOD_STUDIO_CPU_USAGE> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_CPU_USAGE createSafe(long address) {
+    public static @Nullable FMOD_STUDIO_CPU_USAGE createSafe(long address) {
         return address == NULL ? null : new FMOD_STUDIO_CPU_USAGE(address, null);
     }
 
@@ -154,8 +153,7 @@ public class FMOD_STUDIO_CPU_USAGE extends Struct<FMOD_STUDIO_CPU_USAGE> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_CPU_USAGE.Buffer createSafe(long address, int capacity) {
+    public static FMOD_STUDIO_CPU_USAGE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -200,10 +198,10 @@ public class FMOD_STUDIO_CPU_USAGE extends Struct<FMOD_STUDIO_CPU_USAGE> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #update}. */
-    public static float nupdate(long struct) { return UNSAFE.getFloat(null, struct + FMOD_STUDIO_CPU_USAGE.UPDATE); }
+    public static float nupdate(long struct) { return memGetFloat(struct + FMOD_STUDIO_CPU_USAGE.UPDATE); }
 
     /** Unsafe version of {@link #update(float) update}. */
-    public static void nupdate(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_STUDIO_CPU_USAGE.UPDATE, value); }
+    public static void nupdate(long struct, float value) { memPutFloat(struct + FMOD_STUDIO_CPU_USAGE.UPDATE, value); }
 
     // -----------------------------------
 
@@ -236,6 +234,11 @@ public class FMOD_STUDIO_CPU_USAGE extends Struct<FMOD_STUDIO_CPU_USAGE> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

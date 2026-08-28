@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkAccelerationStructureDeviceAddressInfoKHR extends Struct<VkAccele
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureDeviceAddressInfoKHR createSafe(long address) {
+    public static @Nullable VkAccelerationStructureDeviceAddressInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureDeviceAddressInfoKHR(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkAccelerationStructureDeviceAddressInfoKHR extends Struct<VkAccele
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureDeviceAddressInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureDeviceAddressInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +246,18 @@ public class VkAccelerationStructureDeviceAddressInfoKHR extends Struct<VkAccele
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureDeviceAddressInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureDeviceAddressInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureDeviceAddressInfoKHR.PNEXT); }
     /** Unsafe version of {@link #accelerationStructure}. */
-    public static long naccelerationStructure(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureDeviceAddressInfoKHR.ACCELERATIONSTRUCTURE); }
+    public static long naccelerationStructure(long struct) { return memGetLong(struct + VkAccelerationStructureDeviceAddressInfoKHR.ACCELERATIONSTRUCTURE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureDeviceAddressInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureDeviceAddressInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureDeviceAddressInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #accelerationStructure(long) accelerationStructure}. */
-    public static void naccelerationStructure(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureDeviceAddressInfoKHR.ACCELERATIONSTRUCTURE, value); }
+    public static void naccelerationStructure(long struct, long value) { memPutLong(struct + VkAccelerationStructureDeviceAddressInfoKHR.ACCELERATIONSTRUCTURE, value); }
 
     // -----------------------------------
 
@@ -292,6 +290,11 @@ public class VkAccelerationStructureDeviceAddressInfoKHR extends Struct<VkAccele
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

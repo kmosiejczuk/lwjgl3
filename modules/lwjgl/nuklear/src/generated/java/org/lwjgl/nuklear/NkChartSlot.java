@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,8 +137,7 @@ public class NkChartSlot extends Struct<NkChartSlot> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkChartSlot createSafe(long address) {
+    public static @Nullable NkChartSlot createSafe(long address) {
         return address == NULL ? null : new NkChartSlot(address, null);
     }
 
@@ -153,33 +152,32 @@ public class NkChartSlot extends Struct<NkChartSlot> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkChartSlot.Buffer createSafe(long address, int capacity) {
+    public static NkChartSlot.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + NkChartSlot.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + NkChartSlot.TYPE); }
     /** Unsafe version of {@link #color}. */
     public static NkColor ncolor(long struct) { return NkColor.create(struct + NkChartSlot.COLOR); }
     /** Unsafe version of {@link #highlight}. */
     public static NkColor nhighlight(long struct) { return NkColor.create(struct + NkChartSlot.HIGHLIGHT); }
     /** Unsafe version of {@link #min}. */
-    public static float nmin(long struct) { return UNSAFE.getFloat(null, struct + NkChartSlot.MIN); }
+    public static float nmin(long struct) { return memGetFloat(struct + NkChartSlot.MIN); }
     /** Unsafe version of {@link #max}. */
-    public static float nmax(long struct) { return UNSAFE.getFloat(null, struct + NkChartSlot.MAX); }
+    public static float nmax(long struct) { return memGetFloat(struct + NkChartSlot.MAX); }
     /** Unsafe version of {@link #range}. */
-    public static float nrange(long struct) { return UNSAFE.getFloat(null, struct + NkChartSlot.RANGE); }
+    public static float nrange(long struct) { return memGetFloat(struct + NkChartSlot.RANGE); }
     /** Unsafe version of {@link #count}. */
-    public static int ncount(long struct) { return UNSAFE.getInt(null, struct + NkChartSlot.COUNT); }
+    public static int ncount(long struct) { return memGetInt(struct + NkChartSlot.COUNT); }
     /** Unsafe version of {@link #last}. */
     public static NkVec2 nlast(long struct) { return NkVec2.create(struct + NkChartSlot.LAST); }
     /** Unsafe version of {@link #index}. */
-    public static int nindex(long struct) { return UNSAFE.getInt(null, struct + NkChartSlot.INDEX); }
+    public static int nindex(long struct) { return memGetInt(struct + NkChartSlot.INDEX); }
     /** Unsafe version of {@link #show_markers}. */
-    public static boolean nshow_markers(long struct) { return UNSAFE.getByte(null, struct + NkChartSlot.SHOW_MARKERS) != 0; }
+    public static boolean nshow_markers(long struct) { return memGetByte(struct + NkChartSlot.SHOW_MARKERS) != 0; }
 
     // -----------------------------------
 
@@ -212,6 +210,11 @@ public class NkChartSlot extends Struct<NkChartSlot> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -129,8 +129,7 @@ public class XrUuidMSFT extends Struct<XrUuidMSFT> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrUuidMSFT createSafe(long address) {
+    public static @Nullable XrUuidMSFT createSafe(long address) {
         return address == NULL ? null : new XrUuidMSFT(address, null);
     }
 
@@ -173,8 +172,7 @@ public class XrUuidMSFT extends Struct<XrUuidMSFT> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrUuidMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrUuidMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -222,7 +220,7 @@ public class XrUuidMSFT extends Struct<XrUuidMSFT> implements NativeResource {
     public static ByteBuffer nbytes(long struct) { return memByteBuffer(struct + XrUuidMSFT.BYTES, 16); }
     /** Unsafe version of {@link #bytes(int) bytes}. */
     public static byte nbytes(long struct, int index) {
-        return UNSAFE.getByte(null, struct + XrUuidMSFT.BYTES + check(index, 16) * 1);
+        return memGetByte(struct + XrUuidMSFT.BYTES + check(index, 16) * 1);
     }
 
     /** Unsafe version of {@link #bytes(ByteBuffer) bytes}. */
@@ -232,7 +230,7 @@ public class XrUuidMSFT extends Struct<XrUuidMSFT> implements NativeResource {
     }
     /** Unsafe version of {@link #bytes(int, byte) bytes}. */
     public static void nbytes(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + XrUuidMSFT.BYTES + check(index, 16) * 1, value);
+        memPutByte(struct + XrUuidMSFT.BYTES + check(index, 16) * 1, value);
     }
 
     // -----------------------------------
@@ -266,6 +264,11 @@ public class XrUuidMSFT extends Struct<XrUuidMSFT> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.jawt;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -111,8 +111,7 @@ public class JAWTDrawingSurfaceInfo extends Struct<JAWTDrawingSurfaceInfo> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static JAWTDrawingSurfaceInfo createSafe(long address) {
+    public static @Nullable JAWTDrawingSurfaceInfo createSafe(long address) {
         return address == NULL ? null : new JAWTDrawingSurfaceInfo(address, null);
     }
 
@@ -127,8 +126,7 @@ public class JAWTDrawingSurfaceInfo extends Struct<JAWTDrawingSurfaceInfo> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static JAWTDrawingSurfaceInfo.Buffer createSafe(long address, int capacity) {
+    public static JAWTDrawingSurfaceInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -141,7 +139,7 @@ public class JAWTDrawingSurfaceInfo extends Struct<JAWTDrawingSurfaceInfo> {
     /** Unsafe version of {@link #bounds}. */
     public static JAWTRectangle nbounds(long struct) { return JAWTRectangle.create(struct + JAWTDrawingSurfaceInfo.BOUNDS); }
     /** Unsafe version of {@link #clipSize}. */
-    public static int nclipSize(long struct) { return UNSAFE.getInt(null, struct + JAWTDrawingSurfaceInfo.CLIPSIZE); }
+    public static int nclipSize(long struct) { return memGetInt(struct + JAWTDrawingSurfaceInfo.CLIPSIZE); }
     /** Unsafe version of {@link #clip}. */
     public static JAWTRectangle.Buffer nclip(long struct) { return JAWTRectangle.create(memGetAddress(struct + JAWTDrawingSurfaceInfo.CLIP), nclipSize(struct)); }
 
@@ -176,6 +174,11 @@ public class JAWTDrawingSurfaceInfo extends Struct<JAWTDrawingSurfaceInfo> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

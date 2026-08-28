@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -120,8 +120,7 @@ public class NkHandle extends Struct<NkHandle> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkHandle createSafe(long address) {
+    public static @Nullable NkHandle createSafe(long address) {
         return address == NULL ? null : new NkHandle(address, null);
     }
 
@@ -164,8 +163,7 @@ public class NkHandle extends Struct<NkHandle> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkHandle.Buffer createSafe(long address, int capacity) {
+    public static NkHandle.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -231,12 +229,12 @@ public class NkHandle extends Struct<NkHandle> implements NativeResource {
     /** Unsafe version of {@link #ptr}. */
     public static long nptr(long struct) { return memGetAddress(struct + NkHandle.PTR); }
     /** Unsafe version of {@link #id}. */
-    public static int nid(long struct) { return UNSAFE.getInt(null, struct + NkHandle.ID); }
+    public static int nid(long struct) { return memGetInt(struct + NkHandle.ID); }
 
     /** Unsafe version of {@link #ptr(long) ptr}. */
     public static void nptr(long struct, long value) { memPutAddress(struct + NkHandle.PTR, value); }
     /** Unsafe version of {@link #id(int) id}. */
-    public static void nid(long struct, int value) { UNSAFE.putInt(null, struct + NkHandle.ID, value); }
+    public static void nid(long struct, int value) { memPutInt(struct + NkHandle.ID, value); }
 
     // -----------------------------------
 
@@ -269,6 +267,11 @@ public class NkHandle extends Struct<NkHandle> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

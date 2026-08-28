@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,14 +22,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Implementations <b>must</b> include support for at least {@link KHRVideoEncodeQueue#VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR} and {@link KHRVideoEncodeQueue#VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR} in {@code supportedEncodeFeedbackFlags}.</p>
  * 
- * <p>{@code encodeInputPictureGranularity} provides information about the way <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-input-picture">encode input picture</a> data is used as input to video encode operations. In particular, some implementations <b>may</b> not be able to limit the set of texels used to encode the output video bitstream to the image subregion specified in the {@link VkVideoPictureResourceInfoKHR} structure corresponding to the encode input picture (i.e. to the resolution of the image data to encode specified in its {@code codedExtent} member).</p>
+ * <p>{@code encodeInputPictureGranularity} provides information about the way <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-input-picture">encode input picture</a> data is used as input to video encode operations. In particular, some implementations <b>may</b> not be able to limit the set of texels used to encode the output video bitstream to the image subregion specified in the {@link VkVideoPictureResourceInfoKHR} structure corresponding to the encode input picture (i.e. to the resolution of the image data to encode specified in its {@code codedExtent} member).</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
  * <p>For example, the application requests the coded extent to be 1920x1080, but the implementation is only able to source the encode input picture data at the granularity of the codec-specific coding block size which is 16x16 pixels (or as otherwise indicated in {@code encodeInputPictureGranularity}). In this example, the content is horizontally aligned with the coding block size, but not vertically aligned with it. Thus encoding of the last row of coding blocks will be impacted by the contents of the input image at texel rows 1080 to 1087 (the latter being the next row which is vertically aligned with the coding block size, assuming a zero-based texel row index).</p>
  * </div>
  * 
- * <p>If {@code codedExtent} rounded up to the next integer multiple of {@code encodeInputPictureGranularity} is greater than the extent of the image subresource specified for the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-input-picture">encode input picture</a>, then the texel values corresponding to texel coordinates outside of the bounds of the image subresource <b>may</b> be undefined. However, implementations <b>should</b> use well-defined default values for such texels in order to maximize the encoding efficiency for the last coding block row/column, and/or to ensure consistent encoding results across repeated encoding of the same input content. Nonetheless, the values used for such texels <b>must</b> not have an effect on whether the video encode operation produces a compliant bitstream, and <b>must</b> not have any other effects on the encoded picture data beyond what <b>may</b> otherwise result from using these texel values as input to any compression algorithm, as defined in the used video compression standard.</p>
+ * <p>If {@code codedExtent} rounded up to the next integer multiple of {@code encodeInputPictureGranularity} is greater than the extent of the image subresource specified for the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-input-picture">encode input picture</a>, then the texel values corresponding to texel coordinates outside of the bounds of the image subresource <b>may</b> be undefined. However, implementations <b>should</b> use well-defined default values for such texels in order to maximize the encoding efficiency for the last coding block row/column, and/or to ensure consistent encoding results across repeated encoding of the same input content. Nonetheless, the values used for such texels <b>must</b> not have an effect on whether the video encode operation produces a compliant bitstream, and <b>must</b> not have any other effects on the encoded picture data beyond what <b>may</b> otherwise result from using these texel values as input to any compression algorithm, as defined in the used video compression standard.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -139,21 +139,21 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct<VkVideoEncodeCapabiliti
     /** a bitmask of {@code VkVideoEncodeCapabilityFlagBitsKHR} describing supported encoding features. */
     @NativeType("VkVideoEncodeCapabilityFlagsKHR")
     public int flags() { return nflags(address()); }
-    /** a bitmask of {@code VkVideoEncodeRateControlModeFlagBitsKHR} indicating supported <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-rate-control-modes">rate control modes</a>. */
+    /** a bitmask of {@code VkVideoEncodeRateControlModeFlagBitsKHR} indicating supported <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-rate-control-modes">rate control modes</a>. */
     @NativeType("VkVideoEncodeRateControlModeFlagsKHR")
     public int rateControlModes() { return nrateControlModes(address()); }
-    /** indicates the maximum number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-rate-control-layers">rate control layers</a> supported. */
+    /** indicates the maximum number of <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-rate-control-layers">rate control layers</a> supported. */
     @NativeType("uint32_t")
     public int maxRateControlLayers() { return nmaxRateControlLayers(address()); }
     /** indicates the maximum supported bitrate. */
     @NativeType("uint64_t")
     public long maxBitrate() { return nmaxBitrate(address()); }
-    /** indicates the number of discrete <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-quality-level">video encode quality levels</a> supported. Implementations <b>must</b> support at least one quality level. */
+    /** indicates the number of discrete <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-quality-level">video encode quality levels</a> supported. Implementations <b>must</b> support at least one quality level. */
     @NativeType("uint32_t")
     public int maxQualityLevels() { return nmaxQualityLevels(address()); }
-    /** indicates the granularity at which <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-input-picture">encode input picture</a> data is encoded and <b>may</b> indicate a texel granularity up to the size of the codec-specific coding block size. This capability does not impose any valid usage constraints on the application, however, depending on the contents of the encode input picture, it <b>may</b> have effects on the encoded bitstream, as described in more detail below. */
+    /** indicates the granularity at which <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#encode-input-picture">encode input picture</a> data is encoded and <b>may</b> indicate a texel granularity up to the size of the largest supported codec-specific coding block. This capability does not impose any valid usage constraints on the application, however, depending on the contents of the encode input picture, it <b>may</b> have effects on the encoded bitstream, as described in more detail below. */
     public VkExtent2D encodeInputPictureGranularity() { return nencodeInputPictureGranularity(address()); }
-    /** a bitmask of {@code VkVideoEncodeFeedbackFlagBitsKHR} values specifying the supported flags for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#queries-video-encode-feedback">video encode feedback queries</a>. */
+    /** a bitmask of {@code VkVideoEncodeFeedbackFlagBitsKHR} values specifying the supported flags for <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#queries-video-encode-feedback">video encode feedback queries</a>. */
     @NativeType("VkVideoEncodeFeedbackFlagsKHR")
     public int supportedEncodeFeedbackFlags() { return nsupportedEncodeFeedbackFlags(address()); }
 
@@ -211,8 +211,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct<VkVideoEncodeCapabiliti
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeCapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeCapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeCapabilitiesKHR(address, null);
     }
 
@@ -255,8 +254,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct<VkVideoEncodeCapabiliti
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeCapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -301,26 +299,26 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct<VkVideoEncodeCapabiliti
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeCapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeCapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeCapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeCapabilitiesKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkVideoEncodeCapabilitiesKHR.FLAGS); }
     /** Unsafe version of {@link #rateControlModes}. */
-    public static int nrateControlModes(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeCapabilitiesKHR.RATECONTROLMODES); }
+    public static int nrateControlModes(long struct) { return memGetInt(struct + VkVideoEncodeCapabilitiesKHR.RATECONTROLMODES); }
     /** Unsafe version of {@link #maxRateControlLayers}. */
-    public static int nmaxRateControlLayers(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeCapabilitiesKHR.MAXRATECONTROLLAYERS); }
+    public static int nmaxRateControlLayers(long struct) { return memGetInt(struct + VkVideoEncodeCapabilitiesKHR.MAXRATECONTROLLAYERS); }
     /** Unsafe version of {@link #maxBitrate}. */
-    public static long nmaxBitrate(long struct) { return UNSAFE.getLong(null, struct + VkVideoEncodeCapabilitiesKHR.MAXBITRATE); }
+    public static long nmaxBitrate(long struct) { return memGetLong(struct + VkVideoEncodeCapabilitiesKHR.MAXBITRATE); }
     /** Unsafe version of {@link #maxQualityLevels}. */
-    public static int nmaxQualityLevels(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeCapabilitiesKHR.MAXQUALITYLEVELS); }
+    public static int nmaxQualityLevels(long struct) { return memGetInt(struct + VkVideoEncodeCapabilitiesKHR.MAXQUALITYLEVELS); }
     /** Unsafe version of {@link #encodeInputPictureGranularity}. */
     public static VkExtent2D nencodeInputPictureGranularity(long struct) { return VkExtent2D.create(struct + VkVideoEncodeCapabilitiesKHR.ENCODEINPUTPICTUREGRANULARITY); }
     /** Unsafe version of {@link #supportedEncodeFeedbackFlags}. */
-    public static int nsupportedEncodeFeedbackFlags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeCapabilitiesKHR.SUPPORTEDENCODEFEEDBACKFLAGS); }
+    public static int nsupportedEncodeFeedbackFlags(long struct) { return memGetInt(struct + VkVideoEncodeCapabilitiesKHR.SUPPORTEDENCODEFEEDBACKFLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeCapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeCapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeCapabilitiesKHR.PNEXT, value); }
 
@@ -355,6 +353,11 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct<VkVideoEncodeCapabiliti
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

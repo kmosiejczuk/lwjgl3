@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -153,8 +153,7 @@ public class VkMemoryFdPropertiesKHR extends Struct<VkMemoryFdPropertiesKHR> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryFdPropertiesKHR createSafe(long address) {
+    public static @Nullable VkMemoryFdPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkMemoryFdPropertiesKHR(address, null);
     }
 
@@ -197,8 +196,7 @@ public class VkMemoryFdPropertiesKHR extends Struct<VkMemoryFdPropertiesKHR> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryFdPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryFdPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,14 +260,14 @@ public class VkMemoryFdPropertiesKHR extends Struct<VkMemoryFdPropertiesKHR> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryFdPropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryFdPropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryFdPropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #memoryTypeBits}. */
-    public static int nmemoryTypeBits(long struct) { return UNSAFE.getInt(null, struct + VkMemoryFdPropertiesKHR.MEMORYTYPEBITS); }
+    public static int nmemoryTypeBits(long struct) { return memGetInt(struct + VkMemoryFdPropertiesKHR.MEMORYTYPEBITS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryFdPropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryFdPropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryFdPropertiesKHR.PNEXT, value); }
 
@@ -304,6 +302,11 @@ public class VkMemoryFdPropertiesKHR extends Struct<VkMemoryFdPropertiesKHR> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

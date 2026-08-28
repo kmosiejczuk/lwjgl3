@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link XrCompositionLayerReprojectionPlaneOverrideMSFT}, {@link XrGeometryInstanceCreateInfoFB}, {@link XrGeometryInstanceTransformFB}, {@link XrHandCapsuleFB}, {@link XrHandJointVelocityEXT}, {@link XrHandMeshVertexMSFT}, {@link XrHandTrackingMeshFB}, {@link XrKeyboardTrackingDescriptionFB}, {@link XrPassthroughMeshTransformInfoHTC}, {@link XrPosef}, {@link XrQuaternionf}, {@link XrSceneMeshVertexBufferMSFT}, {@link XrSceneOrientedBoxBoundMSFT}, {@link XrSceneSphereBoundMSFT}, {@link XrSpaceTriangleMeshMETA}, {@link XrSpaceVelocity}, {@link XrSpaceVelocityData}, {@link XrTriangleMeshCreateInfoFB}, {@link XrVector2f}, {@link XrVector4f}, {@link FBTriangleMesh#xrTriangleMeshGetVertexBufferFB TriangleMeshGetVertexBufferFB}</p>
+ * <p>{@link XrCompositionLayerReprojectionPlaneOverrideMSFT}, {@link XrGeometryInstanceCreateInfoFB}, {@link XrGeometryInstanceTransformFB}, {@link XrHandCapsuleFB}, {@link XrHandJointVelocityEXT}, {@link XrHandMeshVertexMSFT}, {@link XrHandTrackingMeshFB}, {@link XrKeyboardTrackingDescriptionFB}, {@link XrPassthroughMeshTransformInfoHTC}, {@link XrPosef}, {@link XrQuaternionf}, {@link XrSceneMeshVertexBufferMSFT}, {@link XrSceneOrientedBoxBoundMSFT}, {@link XrSceneSphereBoundMSFT}, {@link XrSpaceTriangleMeshMETA}, {@link XrSpaceVelocity}, {@link XrSpaceVelocityData}, {@link XrSpatialAnchorsQueryInfoRadiusML}, {@link XrTriangleMeshCreateInfoFB}, {@link XrVector2f}, {@link XrVector4f}, {@link XrWorldMeshBlockML}, {@link FBTriangleMesh#xrTriangleMeshGetVertexBufferFB TriangleMeshGetVertexBufferFB}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -149,8 +149,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVector3f createSafe(long address) {
+    public static @Nullable XrVector3f createSafe(long address) {
         return address == NULL ? null : new XrVector3f(address, null);
     }
 
@@ -193,8 +192,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVector3f.Buffer createSafe(long address, int capacity) {
+    public static XrVector3f.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -239,18 +237,18 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + XrVector3f.X); }
+    public static float nx(long struct) { return memGetFloat(struct + XrVector3f.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + XrVector3f.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + XrVector3f.Y); }
     /** Unsafe version of {@link #z}. */
-    public static float nz(long struct) { return UNSAFE.getFloat(null, struct + XrVector3f.Z); }
+    public static float nz(long struct) { return memGetFloat(struct + XrVector3f.Z); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector3f.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + XrVector3f.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector3f.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + XrVector3f.Y, value); }
     /** Unsafe version of {@link #z(float) z}. */
-    public static void nz(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector3f.Z, value); }
+    public static void nz(long struct, float value) { memPutFloat(struct + XrVector3f.Z, value); }
 
     // -----------------------------------
 
@@ -283,6 +281,11 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

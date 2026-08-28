@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -149,8 +149,7 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXUniformInfo createSafe(long address) {
+    public static @Nullable BGFXUniformInfo createSafe(long address) {
         return address == NULL ? null : new BGFXUniformInfo(address, null);
     }
 
@@ -193,8 +192,7 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXUniformInfo.Buffer createSafe(long address, int capacity) {
+    public static BGFXUniformInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,9 +260,9 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
     /** Unsafe version of {@link #nameString}. */
     public static String nnameString(long struct) { return memASCII(struct + BGFXUniformInfo.NAME); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + BGFXUniformInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + BGFXUniformInfo.TYPE); }
     /** Unsafe version of {@link #num}. */
-    public static short nnum(long struct) { return UNSAFE.getShort(null, struct + BGFXUniformInfo.NUM); }
+    public static short nnum(long struct) { return memGetShort(struct + BGFXUniformInfo.NUM); }
 
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
@@ -275,9 +273,9 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
         memCopy(memAddress(value), struct + BGFXUniformInfo.NAME, value.remaining());
     }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + BGFXUniformInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + BGFXUniformInfo.TYPE, value); }
     /** Unsafe version of {@link #num(short) num}. */
-    public static void nnum(long struct, short value) { UNSAFE.putShort(null, struct + BGFXUniformInfo.NUM, value); }
+    public static void nnum(long struct, short value) { memPutShort(struct + BGFXUniformInfo.NUM, value); }
 
     // -----------------------------------
 
@@ -310,6 +308,11 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

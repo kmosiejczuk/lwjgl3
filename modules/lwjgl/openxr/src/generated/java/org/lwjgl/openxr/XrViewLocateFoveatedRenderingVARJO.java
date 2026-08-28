@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class XrViewLocateFoveatedRenderingVARJO extends Struct<XrViewLocateFovea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewLocateFoveatedRenderingVARJO createSafe(long address) {
+    public static @Nullable XrViewLocateFoveatedRenderingVARJO createSafe(long address) {
         return address == NULL ? null : new XrViewLocateFoveatedRenderingVARJO(address, null);
     }
 
@@ -206,8 +205,7 @@ public class XrViewLocateFoveatedRenderingVARJO extends Struct<XrViewLocateFovea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewLocateFoveatedRenderingVARJO.Buffer createSafe(long address, int capacity) {
+    public static XrViewLocateFoveatedRenderingVARJO.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class XrViewLocateFoveatedRenderingVARJO extends Struct<XrViewLocateFovea
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrViewLocateFoveatedRenderingVARJO.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrViewLocateFoveatedRenderingVARJO.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrViewLocateFoveatedRenderingVARJO.NEXT); }
     /** Unsafe version of {@link #foveatedRenderingActive}. */
-    public static int nfoveatedRenderingActive(long struct) { return UNSAFE.getInt(null, struct + XrViewLocateFoveatedRenderingVARJO.FOVEATEDRENDERINGACTIVE); }
+    public static int nfoveatedRenderingActive(long struct) { return memGetInt(struct + XrViewLocateFoveatedRenderingVARJO.FOVEATEDRENDERINGACTIVE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrViewLocateFoveatedRenderingVARJO.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrViewLocateFoveatedRenderingVARJO.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrViewLocateFoveatedRenderingVARJO.NEXT, value); }
     /** Unsafe version of {@link #foveatedRenderingActive(boolean) foveatedRenderingActive}. */
-    public static void nfoveatedRenderingActive(long struct, int value) { UNSAFE.putInt(null, struct + XrViewLocateFoveatedRenderingVARJO.FOVEATEDRENDERINGACTIVE, value); }
+    public static void nfoveatedRenderingActive(long struct, int value) { memPutInt(struct + XrViewLocateFoveatedRenderingVARJO.FOVEATEDRENDERINGACTIVE, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class XrViewLocateFoveatedRenderingVARJO extends Struct<XrViewLocateFovea
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

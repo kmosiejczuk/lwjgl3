@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -126,8 +126,7 @@ public class OVRTextureLayoutDescUnion extends Struct<OVRTextureLayoutDescUnion>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTextureLayoutDescUnion createSafe(long address) {
+    public static @Nullable OVRTextureLayoutDescUnion createSafe(long address) {
         return address == NULL ? null : new OVRTextureLayoutDescUnion(address, null);
     }
 
@@ -170,8 +169,7 @@ public class OVRTextureLayoutDescUnion extends Struct<OVRTextureLayoutDescUnion>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRTextureLayoutDescUnion.Buffer createSafe(long address, int capacity) {
+    public static OVRTextureLayoutDescUnion.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -282,6 +280,11 @@ public class OVRTextureLayoutDescUnion extends Struct<OVRTextureLayoutDescUnion>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

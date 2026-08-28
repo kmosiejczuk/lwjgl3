@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkDeviceFaultAddressInfoEXT extends Struct<VkDeviceFaultAddressInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceFaultAddressInfoEXT createSafe(long address) {
+    public static @Nullable VkDeviceFaultAddressInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDeviceFaultAddressInfoEXT(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkDeviceFaultAddressInfoEXT extends Struct<VkDeviceFaultAddressInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceFaultAddressInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceFaultAddressInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,18 +255,18 @@ public class VkDeviceFaultAddressInfoEXT extends Struct<VkDeviceFaultAddressInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #addressType}. */
-    public static int naddressType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceFaultAddressInfoEXT.ADDRESSTYPE); }
+    public static int naddressType(long struct) { return memGetInt(struct + VkDeviceFaultAddressInfoEXT.ADDRESSTYPE); }
     /** Unsafe version of {@link #reportedAddress}. */
-    public static long nreportedAddress(long struct) { return UNSAFE.getLong(null, struct + VkDeviceFaultAddressInfoEXT.REPORTEDADDRESS); }
+    public static long nreportedAddress(long struct) { return memGetLong(struct + VkDeviceFaultAddressInfoEXT.REPORTEDADDRESS); }
     /** Unsafe version of {@link #addressPrecision}. */
-    public static long naddressPrecision(long struct) { return UNSAFE.getLong(null, struct + VkDeviceFaultAddressInfoEXT.ADDRESSPRECISION); }
+    public static long naddressPrecision(long struct) { return memGetLong(struct + VkDeviceFaultAddressInfoEXT.ADDRESSPRECISION); }
 
     /** Unsafe version of {@link #addressType(int) addressType}. */
-    public static void naddressType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceFaultAddressInfoEXT.ADDRESSTYPE, value); }
+    public static void naddressType(long struct, int value) { memPutInt(struct + VkDeviceFaultAddressInfoEXT.ADDRESSTYPE, value); }
     /** Unsafe version of {@link #reportedAddress(long) reportedAddress}. */
-    public static void nreportedAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkDeviceFaultAddressInfoEXT.REPORTEDADDRESS, value); }
+    public static void nreportedAddress(long struct, long value) { memPutLong(struct + VkDeviceFaultAddressInfoEXT.REPORTEDADDRESS, value); }
     /** Unsafe version of {@link #addressPrecision(long) addressPrecision}. */
-    public static void naddressPrecision(long struct, long value) { UNSAFE.putLong(null, struct + VkDeviceFaultAddressInfoEXT.ADDRESSPRECISION, value); }
+    public static void naddressPrecision(long struct, long value) { memPutLong(struct + VkDeviceFaultAddressInfoEXT.ADDRESSPRECISION, value); }
 
     // -----------------------------------
 
@@ -301,6 +299,11 @@ public class VkDeviceFaultAddressInfoEXT extends Struct<VkDeviceFaultAddressInfo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

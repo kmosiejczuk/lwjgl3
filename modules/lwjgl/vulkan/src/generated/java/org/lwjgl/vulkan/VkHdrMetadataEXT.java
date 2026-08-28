@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,17 +18,22 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Specify HDR metadata.
  * 
+ * <h5>Description</h5>
+ * 
+ * <p>If any of the above values are unknown, they <b>can</b> be set to 0.</p>
+ * 
+ * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+ * 
+ * <p>The meta-data provided here is intended to be used as defined in the SMPTE 2086, CTA 861.3 and CIE 15:2004 specifications. The validity and use of this data is outside the scope of Vulkan.</p>
+ * </div>
+ * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link EXTHdrMetadata#VK_STRUCTURE_TYPE_HDR_METADATA_EXT STRUCTURE_TYPE_HDR_METADATA_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
+ * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkHdrVividDynamicMetadataHUAWEI}</li>
+ * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * </ul>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>The validity and use of this data is outside the scope of Vulkan.</p>
- * </div>
  * 
  * <h5>See Also</h5>
  * 
@@ -128,21 +133,21 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@link VkXYColorEXT} structure specifying the reference monitor’s red primary in chromaticity coordinates */
+    /** a {@link VkXYColorEXT} structure specifying the red primary of the display used to optimize the content */
     public VkXYColorEXT displayPrimaryRed() { return ndisplayPrimaryRed(address()); }
-    /** a {@link VkXYColorEXT} structure specifying the reference monitor’s green primary in chromaticity coordinates */
+    /** a {@link VkXYColorEXT} structure specifying the green primary of the display used to optimize the content */
     public VkXYColorEXT displayPrimaryGreen() { return ndisplayPrimaryGreen(address()); }
-    /** a {@link VkXYColorEXT} structure specifying the reference monitor’s blue primary in chromaticity coordinates */
+    /** a {@link VkXYColorEXT} structure specifying the blue primary of the display used to optimize the content */
     public VkXYColorEXT displayPrimaryBlue() { return ndisplayPrimaryBlue(address()); }
-    /** a {@link VkXYColorEXT} structure specifying the reference monitor’s white-point in chromaticity coordinates */
+    /** a {@link VkXYColorEXT} structure specifying the white-point of the display used to optimize the content */
     public VkXYColorEXT whitePoint() { return nwhitePoint(address()); }
-    /** the maximum luminance of the reference monitor in nits */
+    /** the maximum luminance of the display used to optimize the content in nits */
     public float maxLuminance() { return nmaxLuminance(address()); }
-    /** the minimum luminance of the reference monitor in nits */
+    /** the minimum luminance of the display used to optimize the content in nits */
     public float minLuminance() { return nminLuminance(address()); }
-    /** content’s maximum luminance in nits */
+    /** the value in nits of the desired luminance for the brightest pixels in the displayed image. */
     public float maxContentLightLevel() { return nmaxContentLightLevel(address()); }
-    /** the maximum frame average light level in nits */
+    /** the value in nits of the average luminance of the frame which has the brightest average luminance anywhere in the content. */
     public float maxFrameAverageLightLevel() { return nmaxFrameAverageLightLevel(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
@@ -151,6 +156,8 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
     public VkHdrMetadataEXT sType$Default() { return sType(EXTHdrMetadata.VK_STRUCTURE_TYPE_HDR_METADATA_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkHdrMetadataEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkHdrVividDynamicMetadataHUAWEI} value to the {@code pNext} chain. */
+    public VkHdrMetadataEXT pNext(VkHdrVividDynamicMetadataHUAWEI value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Copies the specified {@link VkXYColorEXT} to the {@link #displayPrimaryRed} field. */
     public VkHdrMetadataEXT displayPrimaryRed(VkXYColorEXT value) { ndisplayPrimaryRed(address(), value); return this; }
     /** Passes the {@link #displayPrimaryRed} field to the specified {@link java.util.function.Consumer Consumer}. */
@@ -239,8 +246,7 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkHdrMetadataEXT createSafe(long address) {
+    public static @Nullable VkHdrMetadataEXT createSafe(long address) {
         return address == NULL ? null : new VkHdrMetadataEXT(address, null);
     }
 
@@ -283,8 +289,7 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkHdrMetadataEXT.Buffer createSafe(long address, int capacity) {
+    public static VkHdrMetadataEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -348,7 +353,7 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkHdrMetadataEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkHdrMetadataEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkHdrMetadataEXT.PNEXT); }
     /** Unsafe version of {@link #displayPrimaryRed}. */
@@ -360,16 +365,16 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
     /** Unsafe version of {@link #whitePoint}. */
     public static VkXYColorEXT nwhitePoint(long struct) { return VkXYColorEXT.create(struct + VkHdrMetadataEXT.WHITEPOINT); }
     /** Unsafe version of {@link #maxLuminance}. */
-    public static float nmaxLuminance(long struct) { return UNSAFE.getFloat(null, struct + VkHdrMetadataEXT.MAXLUMINANCE); }
+    public static float nmaxLuminance(long struct) { return memGetFloat(struct + VkHdrMetadataEXT.MAXLUMINANCE); }
     /** Unsafe version of {@link #minLuminance}. */
-    public static float nminLuminance(long struct) { return UNSAFE.getFloat(null, struct + VkHdrMetadataEXT.MINLUMINANCE); }
+    public static float nminLuminance(long struct) { return memGetFloat(struct + VkHdrMetadataEXT.MINLUMINANCE); }
     /** Unsafe version of {@link #maxContentLightLevel}. */
-    public static float nmaxContentLightLevel(long struct) { return UNSAFE.getFloat(null, struct + VkHdrMetadataEXT.MAXCONTENTLIGHTLEVEL); }
+    public static float nmaxContentLightLevel(long struct) { return memGetFloat(struct + VkHdrMetadataEXT.MAXCONTENTLIGHTLEVEL); }
     /** Unsafe version of {@link #maxFrameAverageLightLevel}. */
-    public static float nmaxFrameAverageLightLevel(long struct) { return UNSAFE.getFloat(null, struct + VkHdrMetadataEXT.MAXFRAMEAVERAGELIGHTLEVEL); }
+    public static float nmaxFrameAverageLightLevel(long struct) { return memGetFloat(struct + VkHdrMetadataEXT.MAXFRAMEAVERAGELIGHTLEVEL); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkHdrMetadataEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkHdrMetadataEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkHdrMetadataEXT.PNEXT, value); }
     /** Unsafe version of {@link #displayPrimaryRed(VkXYColorEXT) displayPrimaryRed}. */
@@ -381,13 +386,13 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
     /** Unsafe version of {@link #whitePoint(VkXYColorEXT) whitePoint}. */
     public static void nwhitePoint(long struct, VkXYColorEXT value) { memCopy(value.address(), struct + VkHdrMetadataEXT.WHITEPOINT, VkXYColorEXT.SIZEOF); }
     /** Unsafe version of {@link #maxLuminance(float) maxLuminance}. */
-    public static void nmaxLuminance(long struct, float value) { UNSAFE.putFloat(null, struct + VkHdrMetadataEXT.MAXLUMINANCE, value); }
+    public static void nmaxLuminance(long struct, float value) { memPutFloat(struct + VkHdrMetadataEXT.MAXLUMINANCE, value); }
     /** Unsafe version of {@link #minLuminance(float) minLuminance}. */
-    public static void nminLuminance(long struct, float value) { UNSAFE.putFloat(null, struct + VkHdrMetadataEXT.MINLUMINANCE, value); }
+    public static void nminLuminance(long struct, float value) { memPutFloat(struct + VkHdrMetadataEXT.MINLUMINANCE, value); }
     /** Unsafe version of {@link #maxContentLightLevel(float) maxContentLightLevel}. */
-    public static void nmaxContentLightLevel(long struct, float value) { UNSAFE.putFloat(null, struct + VkHdrMetadataEXT.MAXCONTENTLIGHTLEVEL, value); }
+    public static void nmaxContentLightLevel(long struct, float value) { memPutFloat(struct + VkHdrMetadataEXT.MAXCONTENTLIGHTLEVEL, value); }
     /** Unsafe version of {@link #maxFrameAverageLightLevel(float) maxFrameAverageLightLevel}. */
-    public static void nmaxFrameAverageLightLevel(long struct, float value) { UNSAFE.putFloat(null, struct + VkHdrMetadataEXT.MAXFRAMEAVERAGELIGHTLEVEL, value); }
+    public static void nmaxFrameAverageLightLevel(long struct, float value) { memPutFloat(struct + VkHdrMetadataEXT.MAXFRAMEAVERAGELIGHTLEVEL, value); }
 
     // -----------------------------------
 
@@ -420,6 +425,11 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -456,6 +466,8 @@ public class VkHdrMetadataEXT extends Struct<VkHdrMetadataEXT> implements Native
         public VkHdrMetadataEXT.Buffer sType$Default() { return sType(EXTHdrMetadata.VK_STRUCTURE_TYPE_HDR_METADATA_EXT); }
         /** Sets the specified value to the {@link VkHdrMetadataEXT#pNext} field. */
         public VkHdrMetadataEXT.Buffer pNext(@NativeType("void const *") long value) { VkHdrMetadataEXT.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkHdrVividDynamicMetadataHUAWEI} value to the {@code pNext} chain. */
+        public VkHdrMetadataEXT.Buffer pNext(VkHdrVividDynamicMetadataHUAWEI value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Copies the specified {@link VkXYColorEXT} to the {@link VkHdrMetadataEXT#displayPrimaryRed} field. */
         public VkHdrMetadataEXT.Buffer displayPrimaryRed(VkXYColorEXT value) { VkHdrMetadataEXT.ndisplayPrimaryRed(address(), value); return this; }
         /** Passes the {@link VkHdrMetadataEXT#displayPrimaryRed} field to the specified {@link java.util.function.Consumer Consumer}. */

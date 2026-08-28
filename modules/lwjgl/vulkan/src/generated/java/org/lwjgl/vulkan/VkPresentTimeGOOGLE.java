@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,8 +137,7 @@ public class VkPresentTimeGOOGLE extends Struct<VkPresentTimeGOOGLE> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPresentTimeGOOGLE createSafe(long address) {
+    public static @Nullable VkPresentTimeGOOGLE createSafe(long address) {
         return address == NULL ? null : new VkPresentTimeGOOGLE(address, null);
     }
 
@@ -181,8 +180,7 @@ public class VkPresentTimeGOOGLE extends Struct<VkPresentTimeGOOGLE> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPresentTimeGOOGLE.Buffer createSafe(long address, int capacity) {
+    public static VkPresentTimeGOOGLE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,14 +244,14 @@ public class VkPresentTimeGOOGLE extends Struct<VkPresentTimeGOOGLE> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #presentID}. */
-    public static int npresentID(long struct) { return UNSAFE.getInt(null, struct + VkPresentTimeGOOGLE.PRESENTID); }
+    public static int npresentID(long struct) { return memGetInt(struct + VkPresentTimeGOOGLE.PRESENTID); }
     /** Unsafe version of {@link #desiredPresentTime}. */
-    public static long ndesiredPresentTime(long struct) { return UNSAFE.getLong(null, struct + VkPresentTimeGOOGLE.DESIREDPRESENTTIME); }
+    public static long ndesiredPresentTime(long struct) { return memGetLong(struct + VkPresentTimeGOOGLE.DESIREDPRESENTTIME); }
 
     /** Unsafe version of {@link #presentID(int) presentID}. */
-    public static void npresentID(long struct, int value) { UNSAFE.putInt(null, struct + VkPresentTimeGOOGLE.PRESENTID, value); }
+    public static void npresentID(long struct, int value) { memPutInt(struct + VkPresentTimeGOOGLE.PRESENTID, value); }
     /** Unsafe version of {@link #desiredPresentTime(long) desiredPresentTime}. */
-    public static void ndesiredPresentTime(long struct, long value) { UNSAFE.putLong(null, struct + VkPresentTimeGOOGLE.DESIREDPRESENTTIME, value); }
+    public static void ndesiredPresentTime(long struct, long value) { memPutLong(struct + VkPresentTimeGOOGLE.DESIREDPRESENTTIME, value); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class VkPresentTimeGOOGLE extends Struct<VkPresentTimeGOOGLE> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -129,8 +129,7 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIFace createSafe(long address) {
+    public static @Nullable AIFace createSafe(long address) {
         return address == NULL ? null : new AIFace(address, null);
     }
 
@@ -173,8 +172,7 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIFace.Buffer createSafe(long address, int capacity) {
+    public static AIFace.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -238,12 +236,12 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #mNumIndices}. */
-    public static int nmNumIndices(long struct) { return UNSAFE.getInt(null, struct + AIFace.MNUMINDICES); }
+    public static int nmNumIndices(long struct) { return memGetInt(struct + AIFace.MNUMINDICES); }
     /** Unsafe version of {@link #mIndices() mIndices}. */
     public static IntBuffer nmIndices(long struct) { return memIntBuffer(memGetAddress(struct + AIFace.MINDICES), nmNumIndices(struct)); }
 
     /** Sets the specified value to the {@code mNumIndices} field of the specified {@code struct}. */
-    public static void nmNumIndices(long struct, int value) { UNSAFE.putInt(null, struct + AIFace.MNUMINDICES, value); }
+    public static void nmNumIndices(long struct, int value) { memPutInt(struct + AIFace.MNUMINDICES, value); }
     /** Unsafe version of {@link #mIndices(IntBuffer) mIndices}. */
     public static void nmIndices(long struct, IntBuffer value) { memPutAddress(struct + AIFace.MINDICES, memAddress(value)); nmNumIndices(struct, value.remaining()); }
 
@@ -287,6 +285,11 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

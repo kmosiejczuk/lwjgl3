@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Only one of {@code pImageInfo}, {@code pBufferInfo}, or {@code pTexelBufferView} members is used according to the descriptor type specified in the {@code descriptorType} member of the containing {@link VkWriteDescriptorSet} structure, or none of them in case {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, in which case the source data for the descriptor writes is taken from the {@link VkWriteDescriptorSetInlineUniformBlock} structure included in the {@code pNext} chain of {@link VkWriteDescriptorSet}, or if {@code descriptorType} is {@link KHRAccelerationStructure#VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR}, in which case the source data for the descriptor writes is taken from the {@link VkWriteDescriptorSetAccelerationStructureKHR} structure in the {@code pNext} chain of {@link VkWriteDescriptorSet}, or if {@code descriptorType} is {@link NVRayTracing#VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV}, in which case the source data for the descriptor writes is taken from the {@link VkWriteDescriptorSetAccelerationStructureNV} structure in the {@code pNext} chain of {@link VkWriteDescriptorSet}, as specified below.</p>
  * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is enabled, the buffer, acceleration structure, imageView, or bufferView <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}. Loads from a null descriptor return zero values and stores and atomics to a null descriptor are discarded. A null acceleration structure descriptor results in the miss shader being invoked.</p>
+ * <p>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is enabled, the buffer, acceleration structure, imageView, or bufferView <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}. Loads from a null descriptor return zero values and stores and atomics to a null descriptor are discarded. A null acceleration structure descriptor results in the miss shader being invoked.</p>
  * 
  * <p>If the destination descriptor is a mutable descriptor, the active descriptor type for the destination descriptor becomes {@code descriptorType}.</p>
  * 
@@ -43,38 +43,38 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>All consecutive bindings updated via a single {@link VkWriteDescriptorSet} structure, except those with a {@code descriptorCount} of zero, <b>must</b> all either use immutable samplers or <b>must</b> all not use immutable samplers</li>
  * <li>{@code descriptorType} <b>must</b> match the type of {@code dstBinding} within {@code dstSet}</li>
  * <li>{@code dstSet} <b>must</b> be a valid {@code VkDescriptorSet} handle</li>
- * <li>The sum of {@code dstArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding specified by {@code dstBinding}, and all applicable consecutive bindings, as described by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
+ * <li>The sum of {@code dstArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding specified by {@code dstBinding}, and all applicable <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-updates-consecutive">consecutive bindings</a></li>
  * <li>If {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code dstArrayElement} <b>must</b> be an integer multiple of 4</li>
  * <li>If {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code descriptorCount} <b>must</b> be an integer multiple of 4</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}, each element of {@code pTexelBufferView} <b>must</b> be either a valid {@code VkBufferView} handle or {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is not enabled, each element of {@code pTexelBufferView} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} and the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is not enabled, each element of {@code pTexelBufferView} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER}, {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER}, {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC}, or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC}, {@code pBufferInfo} <b>must</b> be a valid pointer to an array of {@code descriptorCount} valid {@link VkDescriptorBufferInfo} structures</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLER DESCRIPTOR_TYPE_SAMPLER} or {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, and {@code dstSet} was not allocated with a layout that included immutable samplers for {@code dstBinding} with {@code descriptorType}, the {@code sampler} member of each element of {@code pImageInfo} <b>must</b> be a valid {@code VkSampler} object</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE}, or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE}, the {@code imageView} member of each element of {@code pImageInfo} <b>must</b> be either a valid {@code VkImageView} handle or {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE}, or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE}, and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is not enabled, the {@code imageView} member of each element of {@code pImageInfo} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE}, or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE}, and the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-nullDescriptor">{@code nullDescriptor}</a> feature is not enabled, the {@code imageView} member of each element of {@code pImageInfo} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT}, the {@code imageView} member of each element of {@code pImageInfo} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>If {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, the {@code pNext} chain <b>must</b> include a {@link VkWriteDescriptorSetInlineUniformBlock} structure whose {@code dataSize} member equals {@code descriptorCount}</li>
  * <li>If {@code descriptorType} is {@link KHRAccelerationStructure#VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR}, the {@code pNext} chain <b>must</b> include a {@link VkWriteDescriptorSetAccelerationStructureKHR} structure whose {@code accelerationStructureCount} member equals {@code descriptorCount}</li>
  * <li>If {@code descriptorType} is {@link NVRayTracing#VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV}, the {@code pNext} chain <b>must</b> include a {@link VkWriteDescriptorSetAccelerationStructureNV} structure whose {@code accelerationStructureCount} member equals {@code descriptorCount}</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE}, then the {@code imageView} member of each {@code pImageInfo} element <b>must</b> have been created without a {@link VkSamplerYcbcrConversionInfo} structure in its {@code pNext} chain</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, and if any element of {@code pImageInfo} has an {@code imageView} member that was created with a {@link VkSamplerYcbcrConversionInfo} structure in its {@code pNext} chain, then {@code dstSet} <b>must</b> have been allocated with a layout that included immutable samplers for {@code dstBinding}, and the corresponding immutable sampler <b>must</b> have been created with an <em>identically defined</em> {@link VkSamplerYcbcrConversionInfo} object</li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, and {@code dstSet} was allocated with a layout that included immutable samplers for {@code dstBinding}, then the {@code imageView} member of each element of {@code pImageInfo} which corresponds to an immutable sampler that enables <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> <b>must</b> have been created with a {@link VkSamplerYcbcrConversionInfo} structure in its {@code pNext} chain with an <em>identically defined</em> {@link VkSamplerYcbcrConversionInfo} to the corresponding immutable sampler</li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, {@code dstSet} was allocated with a layout that included immutable samplers for {@code dstBinding}, and those samplers enable <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, then {@code imageView} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, and {@code dstSet} was allocated with a layout that included immutable samplers for {@code dstBinding}, then the {@code imageView} member of each element of {@code pImageInfo} which corresponds to an immutable sampler that enables <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> <b>must</b> have been created with a {@link VkSamplerYcbcrConversionInfo} structure in its {@code pNext} chain with an <em>identically defined</em> {@link VkSamplerYcbcrConversionInfo} to the corresponding immutable sampler</li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, {@code dstSet} was allocated with a layout that included immutable samplers for {@code dstBinding}, and those samplers enable <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, then {@code imageView} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC}, the {@code offset} member of each element of {@code pBufferInfo} <b>must</b> be a multiple of {@link VkPhysicalDeviceLimits}{@code ::minUniformBufferOffsetAlignment}</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC}, the {@code offset} member of each element of {@code pBufferInfo} <b>must</b> be a multiple of {@link VkPhysicalDeviceLimits}{@code ::minStorageBufferOffsetAlignment}</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER}, {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC}, {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER}, or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC}, and the {@code buffer} member of any element of {@code pBufferInfo} is the handle of a non-sparse buffer, then that buffer <b>must</b> be bound completely and contiguously to a single {@code VkDeviceMemory} object</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC}, the {@code buffer} member of each element of {@code pBufferInfo} <b>must</b> have been created with {@link VK10#VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT BUFFER_USAGE_UNIFORM_BUFFER_BIT} set</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC}, the {@code buffer} member of each element of {@code pBufferInfo} <b>must</b> have been created with {@link VK10#VK_BUFFER_USAGE_STORAGE_BUFFER_BIT BUFFER_USAGE_STORAGE_BUFFER_BIT} set</li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC}, the {@code range} member of each element of {@code pBufferInfo}, or the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#buffer-info-effective-range">effective range</a> if {@code range} is {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxUniformBufferRange}</li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC}, the {@code range} member of each element of {@code pBufferInfo}, or the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#buffer-info-effective-range">effective range</a> if {@code range} is {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxStorageBufferRange}</li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER}, the {@code pTexelBufferView} <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-buffer-views-usage">buffer view usage</a> <b>must</b> include {@link VK10#VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT}</li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}, the {@code pTexelBufferView} <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-buffer-views-usage">buffer view usage</a> <b>must</b> include {@link VK10#VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT}</li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE} or {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT}, the {@code imageView} member of each element of {@code pImageInfo} <b>must</b> have been created with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-views-identity-mappings">identity swizzle</a></li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC}, the {@code range} member of each element of {@code pBufferInfo}, or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#buffer-info-effective-range">effective range</a> if {@code range} is {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxUniformBufferRange}</li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC}, the {@code range} member of each element of {@code pBufferInfo}, or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#buffer-info-effective-range">effective range</a> if {@code range} is {@link VK10#VK_WHOLE_SIZE WHOLE_SIZE}, <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxStorageBufferRange}</li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER}, the {@code pTexelBufferView} <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-buffer-views-usage">buffer view usage</a> <b>must</b> include {@link VK10#VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT}</li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}, the {@code pTexelBufferView} <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-buffer-views-usage">buffer view usage</a> <b>must</b> include {@link VK10#VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT}</li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE} or {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT}, the {@code imageView} member of each element of {@code pImageInfo} <b>must</b> have been created with the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-image-views-identity-mappings">identity swizzle</a></li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE} or {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, the {@code imageView} member of each element of {@code pImageInfo} <b>must</b> have been created with {@link VK10#VK_IMAGE_USAGE_SAMPLED_BIT IMAGE_USAGE_SAMPLED_BIT} set</li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE} the {@code imageLayout} member of each element of {@code pImageInfo} <b>must</b> be a member of the list given in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-sampledimage">Sampled Image</a></li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER} the {@code imageLayout} member of each element of {@code pImageInfo} <b>must</b> be a member of the list given in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-combinedimagesampler">Combined Image Sampler</a></li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT} the {@code imageLayout} member of each element of {@code pImageInfo} <b>must</b> be a member of the list given in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-inputattachment">Input Attachment</a></li>
- * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE} the {@code imageLayout} member of each element of {@code pImageInfo} <b>must</b> be a member of the list given in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-storageimage">Storage Image</a></li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE} the {@code imageLayout} member of each element of {@code pImageInfo} <b>must</b> be a member of the list given in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-sampledimage">Sampled Image</a></li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER} the {@code imageLayout} member of each element of {@code pImageInfo} <b>must</b> be a member of the list given in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-combinedimagesampler">Combined Image Sampler</a></li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT} the {@code imageLayout} member of each element of {@code pImageInfo} <b>must</b> be a member of the list given in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-inputattachment">Input Attachment</a></li>
+ * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE} the {@code imageLayout} member of each element of {@code pImageInfo} <b>must</b> be a member of the list given in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-storageimage">Storage Image</a></li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT}, the {@code imageView} member of each element of {@code pImageInfo} <b>must</b> have been created with {@link VK10#VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT IMAGE_USAGE_INPUT_ATTACHMENT_BIT} set</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE}, the {@code imageView} member of each element of {@code pImageInfo} <b>must</b> have been created with {@link VK10#VK_IMAGE_USAGE_STORAGE_BIT IMAGE_USAGE_STORAGE_BIT} set</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLER DESCRIPTOR_TYPE_SAMPLER}, then {@code dstSet} <b>must</b> not have been allocated with a layout that included immutable samplers for {@code dstBinding}</li>
@@ -97,7 +97,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkDescriptorBufferInfo}, {@link VkDescriptorImageInfo}, {@link VkPushDescriptorSetInfoKHR}, {@link KHRPushDescriptor#vkCmdPushDescriptorSetKHR CmdPushDescriptorSetKHR}, {@link VK10#vkUpdateDescriptorSets UpdateDescriptorSets}</p>
+ * <p>{@link VkDescriptorBufferInfo}, {@link VkDescriptorImageInfo}, {@link VkPushDescriptorSetInfo}, {@link VK14#vkCmdPushDescriptorSet CmdPushDescriptorSet}, {@link KHRPushDescriptor#vkCmdPushDescriptorSetKHR CmdPushDescriptorSetKHR}, {@link VK10#vkUpdateDescriptorSets UpdateDescriptorSets}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -210,7 +210,7 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
      * <li>the number of elements in {@code pBufferInfo}</li>
      * <li>the number of elements in {@code pTexelBufferView}</li>
      * <li>a value matching the {@code dataSize} member of a {@link VkWriteDescriptorSetInlineUniformBlock} structure in the {@code pNext} chain</li>
-     * <li>a value matching the {@code accelerationStructureCount} of a {@link VkWriteDescriptorSetAccelerationStructureKHR} structure in the {@code pNext} chain</li>
+     * <li>a value matching the {@code accelerationStructureCount} of a {@link VkWriteDescriptorSetAccelerationStructureKHR} or {@link VkWriteDescriptorSetAccelerationStructureNV} structure in the {@code pNext} chain</li>
      * </ul>
      */
     @NativeType("uint32_t")
@@ -219,17 +219,14 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
     @NativeType("VkDescriptorType")
     public int descriptorType() { return ndescriptorType(address()); }
     /** a pointer to an array of {@link VkDescriptorImageInfo} structures or is ignored, as described below. */
-    @Nullable
     @NativeType("VkDescriptorImageInfo const *")
-    public VkDescriptorImageInfo.Buffer pImageInfo() { return npImageInfo(address()); }
+    public VkDescriptorImageInfo.@Nullable Buffer pImageInfo() { return npImageInfo(address()); }
     /** a pointer to an array of {@link VkDescriptorBufferInfo} structures or is ignored, as described below. */
-    @Nullable
     @NativeType("VkDescriptorBufferInfo const *")
-    public VkDescriptorBufferInfo.Buffer pBufferInfo() { return npBufferInfo(address()); }
-    /** a pointer to an array of {@code VkBufferView} handles as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-buffer-views">Buffer Views</a> section or is ignored, as described below. */
-    @Nullable
+    public VkDescriptorBufferInfo.@Nullable Buffer pBufferInfo() { return npBufferInfo(address()); }
+    /** a pointer to an array of {@code VkBufferView} handles as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-buffer-views">Buffer Views</a> section or is ignored, as described below. */
     @NativeType("VkBufferView const *")
-    public LongBuffer pTexelBufferView() { return npTexelBufferView(address()); }
+    public @Nullable LongBuffer pTexelBufferView() { return npTexelBufferView(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkWriteDescriptorSet sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -256,9 +253,9 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
     /** Sets the specified value to the {@link #descriptorType} field. */
     public VkWriteDescriptorSet descriptorType(@NativeType("VkDescriptorType") int value) { ndescriptorType(address(), value); return this; }
     /** Sets the address of the specified {@link VkDescriptorImageInfo.Buffer} to the {@link #pImageInfo} field. */
-    public VkWriteDescriptorSet pImageInfo(@Nullable @NativeType("VkDescriptorImageInfo const *") VkDescriptorImageInfo.Buffer value) { npImageInfo(address(), value); return this; }
+    public VkWriteDescriptorSet pImageInfo(@NativeType("VkDescriptorImageInfo const *") VkDescriptorImageInfo.@Nullable Buffer value) { npImageInfo(address(), value); return this; }
     /** Sets the address of the specified {@link VkDescriptorBufferInfo.Buffer} to the {@link #pBufferInfo} field. */
-    public VkWriteDescriptorSet pBufferInfo(@Nullable @NativeType("VkDescriptorBufferInfo const *") VkDescriptorBufferInfo.Buffer value) { npBufferInfo(address(), value); return this; }
+    public VkWriteDescriptorSet pBufferInfo(@NativeType("VkDescriptorBufferInfo const *") VkDescriptorBufferInfo.@Nullable Buffer value) { npBufferInfo(address(), value); return this; }
     /** Sets the address of the specified {@link LongBuffer} to the {@link #pTexelBufferView} field. */
     public VkWriteDescriptorSet pTexelBufferView(@Nullable @NativeType("VkBufferView const *") LongBuffer value) { npTexelBufferView(address(), value); return this; }
 
@@ -271,8 +268,8 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
         int dstArrayElement,
         int descriptorCount,
         int descriptorType,
-        @Nullable VkDescriptorImageInfo.Buffer pImageInfo,
-        @Nullable VkDescriptorBufferInfo.Buffer pBufferInfo,
+        VkDescriptorImageInfo.@Nullable Buffer pImageInfo,
+        VkDescriptorBufferInfo.@Nullable Buffer pBufferInfo,
         @Nullable LongBuffer pTexelBufferView
     ) {
         sType(sType);
@@ -325,8 +322,7 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteDescriptorSet createSafe(long address) {
+    public static @Nullable VkWriteDescriptorSet createSafe(long address) {
         return address == NULL ? null : new VkWriteDescriptorSet(address, null);
     }
 
@@ -369,8 +365,7 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteDescriptorSet.Buffer createSafe(long address, int capacity) {
+    public static VkWriteDescriptorSet.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -434,44 +429,44 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSet.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkWriteDescriptorSet.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkWriteDescriptorSet.PNEXT); }
     /** Unsafe version of {@link #dstSet}. */
-    public static long ndstSet(long struct) { return UNSAFE.getLong(null, struct + VkWriteDescriptorSet.DSTSET); }
+    public static long ndstSet(long struct) { return memGetLong(struct + VkWriteDescriptorSet.DSTSET); }
     /** Unsafe version of {@link #dstBinding}. */
-    public static int ndstBinding(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSet.DSTBINDING); }
+    public static int ndstBinding(long struct) { return memGetInt(struct + VkWriteDescriptorSet.DSTBINDING); }
     /** Unsafe version of {@link #dstArrayElement}. */
-    public static int ndstArrayElement(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSet.DSTARRAYELEMENT); }
+    public static int ndstArrayElement(long struct) { return memGetInt(struct + VkWriteDescriptorSet.DSTARRAYELEMENT); }
     /** Unsafe version of {@link #descriptorCount}. */
-    public static int ndescriptorCount(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSet.DESCRIPTORCOUNT); }
+    public static int ndescriptorCount(long struct) { return memGetInt(struct + VkWriteDescriptorSet.DESCRIPTORCOUNT); }
     /** Unsafe version of {@link #descriptorType}. */
-    public static int ndescriptorType(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSet.DESCRIPTORTYPE); }
+    public static int ndescriptorType(long struct) { return memGetInt(struct + VkWriteDescriptorSet.DESCRIPTORTYPE); }
     /** Unsafe version of {@link #pImageInfo}. */
-    @Nullable public static VkDescriptorImageInfo.Buffer npImageInfo(long struct) { return VkDescriptorImageInfo.createSafe(memGetAddress(struct + VkWriteDescriptorSet.PIMAGEINFO), ndescriptorCount(struct)); }
+    public static VkDescriptorImageInfo.@Nullable Buffer npImageInfo(long struct) { return VkDescriptorImageInfo.createSafe(memGetAddress(struct + VkWriteDescriptorSet.PIMAGEINFO), ndescriptorCount(struct)); }
     /** Unsafe version of {@link #pBufferInfo}. */
-    @Nullable public static VkDescriptorBufferInfo.Buffer npBufferInfo(long struct) { return VkDescriptorBufferInfo.createSafe(memGetAddress(struct + VkWriteDescriptorSet.PBUFFERINFO), ndescriptorCount(struct)); }
+    public static VkDescriptorBufferInfo.@Nullable Buffer npBufferInfo(long struct) { return VkDescriptorBufferInfo.createSafe(memGetAddress(struct + VkWriteDescriptorSet.PBUFFERINFO), ndescriptorCount(struct)); }
     /** Unsafe version of {@link #pTexelBufferView() pTexelBufferView}. */
-    @Nullable public static LongBuffer npTexelBufferView(long struct) { return memLongBufferSafe(memGetAddress(struct + VkWriteDescriptorSet.PTEXELBUFFERVIEW), ndescriptorCount(struct)); }
+    public static @Nullable LongBuffer npTexelBufferView(long struct) { return memLongBufferSafe(memGetAddress(struct + VkWriteDescriptorSet.PTEXELBUFFERVIEW), ndescriptorCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSet.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkWriteDescriptorSet.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkWriteDescriptorSet.PNEXT, value); }
     /** Unsafe version of {@link #dstSet(long) dstSet}. */
-    public static void ndstSet(long struct, long value) { UNSAFE.putLong(null, struct + VkWriteDescriptorSet.DSTSET, value); }
+    public static void ndstSet(long struct, long value) { memPutLong(struct + VkWriteDescriptorSet.DSTSET, value); }
     /** Unsafe version of {@link #dstBinding(int) dstBinding}. */
-    public static void ndstBinding(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSet.DSTBINDING, value); }
+    public static void ndstBinding(long struct, int value) { memPutInt(struct + VkWriteDescriptorSet.DSTBINDING, value); }
     /** Unsafe version of {@link #dstArrayElement(int) dstArrayElement}. */
-    public static void ndstArrayElement(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSet.DSTARRAYELEMENT, value); }
+    public static void ndstArrayElement(long struct, int value) { memPutInt(struct + VkWriteDescriptorSet.DSTARRAYELEMENT, value); }
     /** Sets the specified value to the {@code descriptorCount} field of the specified {@code struct}. */
-    public static void ndescriptorCount(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSet.DESCRIPTORCOUNT, value); }
+    public static void ndescriptorCount(long struct, int value) { memPutInt(struct + VkWriteDescriptorSet.DESCRIPTORCOUNT, value); }
     /** Unsafe version of {@link #descriptorType(int) descriptorType}. */
-    public static void ndescriptorType(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSet.DESCRIPTORTYPE, value); }
+    public static void ndescriptorType(long struct, int value) { memPutInt(struct + VkWriteDescriptorSet.DESCRIPTORTYPE, value); }
     /** Unsafe version of {@link #pImageInfo(VkDescriptorImageInfo.Buffer) pImageInfo}. */
-    public static void npImageInfo(long struct, @Nullable VkDescriptorImageInfo.Buffer value) { memPutAddress(struct + VkWriteDescriptorSet.PIMAGEINFO, memAddressSafe(value)); }
+    public static void npImageInfo(long struct, VkDescriptorImageInfo.@Nullable Buffer value) { memPutAddress(struct + VkWriteDescriptorSet.PIMAGEINFO, memAddressSafe(value)); }
     /** Unsafe version of {@link #pBufferInfo(VkDescriptorBufferInfo.Buffer) pBufferInfo}. */
-    public static void npBufferInfo(long struct, @Nullable VkDescriptorBufferInfo.Buffer value) { memPutAddress(struct + VkWriteDescriptorSet.PBUFFERINFO, memAddressSafe(value)); }
+    public static void npBufferInfo(long struct, VkDescriptorBufferInfo.@Nullable Buffer value) { memPutAddress(struct + VkWriteDescriptorSet.PBUFFERINFO, memAddressSafe(value)); }
     /** Unsafe version of {@link #pTexelBufferView(LongBuffer) pTexelBufferView}. */
     public static void npTexelBufferView(long struct, @Nullable LongBuffer value) { memPutAddress(struct + VkWriteDescriptorSet.PTEXELBUFFERVIEW, memAddressSafe(value)); }
 
@@ -509,6 +504,11 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkWriteDescriptorSet getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -535,17 +535,14 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
         @NativeType("VkDescriptorType")
         public int descriptorType() { return VkWriteDescriptorSet.ndescriptorType(address()); }
         /** @return a {@link VkDescriptorImageInfo.Buffer} view of the struct array pointed to by the {@link VkWriteDescriptorSet#pImageInfo} field. */
-        @Nullable
         @NativeType("VkDescriptorImageInfo const *")
-        public VkDescriptorImageInfo.Buffer pImageInfo() { return VkWriteDescriptorSet.npImageInfo(address()); }
+        public VkDescriptorImageInfo.@Nullable Buffer pImageInfo() { return VkWriteDescriptorSet.npImageInfo(address()); }
         /** @return a {@link VkDescriptorBufferInfo.Buffer} view of the struct array pointed to by the {@link VkWriteDescriptorSet#pBufferInfo} field. */
-        @Nullable
         @NativeType("VkDescriptorBufferInfo const *")
-        public VkDescriptorBufferInfo.Buffer pBufferInfo() { return VkWriteDescriptorSet.npBufferInfo(address()); }
+        public VkDescriptorBufferInfo.@Nullable Buffer pBufferInfo() { return VkWriteDescriptorSet.npBufferInfo(address()); }
         /** @return a {@link LongBuffer} view of the data pointed to by the {@link VkWriteDescriptorSet#pTexelBufferView} field. */
-        @Nullable
         @NativeType("VkBufferView const *")
-        public LongBuffer pTexelBufferView() { return VkWriteDescriptorSet.npTexelBufferView(address()); }
+        public @Nullable LongBuffer pTexelBufferView() { return VkWriteDescriptorSet.npTexelBufferView(address()); }
 
         /** Sets the specified value to the {@link VkWriteDescriptorSet#sType} field. */
         public VkWriteDescriptorSet.Buffer sType(@NativeType("VkStructureType") int value) { VkWriteDescriptorSet.nsType(address(), value); return this; }
@@ -572,9 +569,9 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
         /** Sets the specified value to the {@link VkWriteDescriptorSet#descriptorType} field. */
         public VkWriteDescriptorSet.Buffer descriptorType(@NativeType("VkDescriptorType") int value) { VkWriteDescriptorSet.ndescriptorType(address(), value); return this; }
         /** Sets the address of the specified {@link VkDescriptorImageInfo.Buffer} to the {@link VkWriteDescriptorSet#pImageInfo} field. */
-        public VkWriteDescriptorSet.Buffer pImageInfo(@Nullable @NativeType("VkDescriptorImageInfo const *") VkDescriptorImageInfo.Buffer value) { VkWriteDescriptorSet.npImageInfo(address(), value); return this; }
+        public VkWriteDescriptorSet.Buffer pImageInfo(@NativeType("VkDescriptorImageInfo const *") VkDescriptorImageInfo.@Nullable Buffer value) { VkWriteDescriptorSet.npImageInfo(address(), value); return this; }
         /** Sets the address of the specified {@link VkDescriptorBufferInfo.Buffer} to the {@link VkWriteDescriptorSet#pBufferInfo} field. */
-        public VkWriteDescriptorSet.Buffer pBufferInfo(@Nullable @NativeType("VkDescriptorBufferInfo const *") VkDescriptorBufferInfo.Buffer value) { VkWriteDescriptorSet.npBufferInfo(address(), value); return this; }
+        public VkWriteDescriptorSet.Buffer pBufferInfo(@NativeType("VkDescriptorBufferInfo const *") VkDescriptorBufferInfo.@Nullable Buffer value) { VkWriteDescriptorSet.npBufferInfo(address(), value); return this; }
         /** Sets the address of the specified {@link LongBuffer} to the {@link VkWriteDescriptorSet#pTexelBufferView} field. */
         public VkWriteDescriptorSet.Buffer pTexelBufferView(@Nullable @NativeType("VkBufferView const *") LongBuffer value) { VkWriteDescriptorSet.npTexelBufferView(address(), value); return this; }
 

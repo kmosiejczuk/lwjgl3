@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.xxhash;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -141,8 +141,7 @@ public class XXH32State extends Struct<XXH32State> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XXH32State createSafe(long address) {
+    public static @Nullable XXH32State createSafe(long address) {
         return address == NULL ? null : new XXH32State(address, null);
     }
 
@@ -185,8 +184,7 @@ public class XXH32State extends Struct<XXH32State> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XXH32State.Buffer createSafe(long address, int capacity) {
+    public static XXH32State.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,25 +248,25 @@ public class XXH32State extends Struct<XXH32State> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #total_len_32}. */
-    public static int ntotal_len_32(long struct) { return UNSAFE.getInt(null, struct + XXH32State.TOTAL_LEN_32); }
+    public static int ntotal_len_32(long struct) { return memGetInt(struct + XXH32State.TOTAL_LEN_32); }
     /** Unsafe version of {@link #large_len}. */
-    public static int nlarge_len(long struct) { return UNSAFE.getInt(null, struct + XXH32State.LARGE_LEN); }
+    public static int nlarge_len(long struct) { return memGetInt(struct + XXH32State.LARGE_LEN); }
     /** Unsafe version of {@link #v}. */
     public static IntBuffer nv(long struct) { return memIntBuffer(struct + XXH32State.V, 4); }
     /** Unsafe version of {@link #v(int) v}. */
     public static int nv(long struct, int index) {
-        return UNSAFE.getInt(null, struct + XXH32State.V + check(index, 4) * 4);
+        return memGetInt(struct + XXH32State.V + check(index, 4) * 4);
     }
     /** Unsafe version of {@link #mem32}. */
     public static IntBuffer nmem32(long struct) { return memIntBuffer(struct + XXH32State.MEM32, 4); }
     /** Unsafe version of {@link #mem32(int) mem32}. */
     public static int nmem32(long struct, int index) {
-        return UNSAFE.getInt(null, struct + XXH32State.MEM32 + check(index, 4) * 4);
+        return memGetInt(struct + XXH32State.MEM32 + check(index, 4) * 4);
     }
     /** Unsafe version of {@link #memsize}. */
-    public static int nmemsize(long struct) { return UNSAFE.getInt(null, struct + XXH32State.MEMSIZE); }
+    public static int nmemsize(long struct) { return memGetInt(struct + XXH32State.MEMSIZE); }
     /** Unsafe version of {@link #reserved}. */
-    public static int nreserved(long struct) { return UNSAFE.getInt(null, struct + XXH32State.RESERVED); }
+    public static int nreserved(long struct) { return memGetInt(struct + XXH32State.RESERVED); }
 
     // -----------------------------------
 
@@ -301,6 +299,11 @@ public class XXH32State extends Struct<XXH32State> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

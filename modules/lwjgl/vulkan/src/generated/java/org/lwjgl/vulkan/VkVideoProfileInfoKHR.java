@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,10 +27,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <p>When this structure is specified as an input parameter to {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR}, or through the {@code pProfiles} member of a {@link VkVideoProfileListInfoKHR} structure in the {@code pNext} chain of the input parameter of a query command such as {@link KHRVideoQueue#vkGetPhysicalDeviceVideoFormatPropertiesKHR GetPhysicalDeviceVideoFormatPropertiesKHR} or {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2}, the following error codes indicate specific causes of the failure of the query operation:</p>
  * 
  * <ul>
- * <li>{@link KHRVideoQueue#VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR} indicates that the requested video picture layout (e.g. through the {@code pictureLayout} member of a {@link VkVideoDecodeH264ProfileInfoKHR} structure included in the {@code pNext} chain of {@link VkVideoProfileInfoKHR}) is not supported.</li>
- * <li>{@link KHRVideoQueue#VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR} indicates that a video profile operation specified by {@code videoCodecOperation} is not supported.</li>
- * <li>{@link KHRVideoQueue#VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR} indicates that video format parameters specified by {@code chromaSubsampling}, {@code lumaBitDepth}, or {@code chromaBitDepth} are not supported.</li>
- * <li>{@link KHRVideoQueue#VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR} indicates that the codec-specific parameters corresponding to the video codec operation are not supported.</li>
+ * <li>{@link KHRVideoQueue#VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR} specifies that the requested video picture layout (e.g. through the {@code pictureLayout} member of a {@link VkVideoDecodeH264ProfileInfoKHR} structure included in the {@code pNext} chain of {@link VkVideoProfileInfoKHR}) is not supported.</li>
+ * <li>{@link KHRVideoQueue#VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR} specifies that a video profile operation specified by {@code videoCodecOperation} is not supported.</li>
+ * <li>{@link KHRVideoQueue#VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR} specifies that video format parameters specified by {@code chromaSubsampling}, {@code lumaBitDepth}, or {@code chromaBitDepth} are not supported.</li>
+ * <li>{@link KHRVideoQueue#VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR} specifies that the codec-specific parameters corresponding to the video codec operation are not supported.</li>
  * </ul>
  * 
  * <h5>Valid Usage</h5>
@@ -44,6 +44,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code videoCodecOperation} is {@link KHRVideoDecodeAV1#VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoDecodeAV1ProfileInfoKHR} structure</li>
  * <li>If {@code videoCodecOperation} is {@link KHRVideoEncodeH264#VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeH264ProfileInfoKHR} structure</li>
  * <li>If {@code videoCodecOperation} is {@link KHRVideoEncodeH265#VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeH265ProfileInfoKHR} structure</li>
+ * <li>If {@code videoCodecOperation} is {@link KHRVideoEncodeAV1#VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoEncodeAV1ProfileInfoKHR} structure</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -167,6 +168,8 @@ public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> impleme
     public VkVideoProfileInfoKHR pNext(VkVideoDecodeH265ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoDecodeUsageInfoKHR} value to the {@code pNext} chain. */
     public VkVideoProfileInfoKHR pNext(VkVideoDecodeUsageInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeAV1ProfileInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoProfileInfoKHR pNext(VkVideoEncodeAV1ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH264ProfileInfoKHR} value to the {@code pNext} chain. */
     public VkVideoProfileInfoKHR pNext(VkVideoEncodeH264ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoEncodeH265ProfileInfoKHR} value to the {@code pNext} chain. */
@@ -237,8 +240,7 @@ public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoProfileInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoProfileInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoProfileInfoKHR(address, null);
     }
 
@@ -281,8 +283,7 @@ public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoProfileInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoProfileInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -327,30 +328,30 @@ public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoProfileInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoProfileInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoProfileInfoKHR.PNEXT); }
     /** Unsafe version of {@link #videoCodecOperation}. */
-    public static int nvideoCodecOperation(long struct) { return UNSAFE.getInt(null, struct + VkVideoProfileInfoKHR.VIDEOCODECOPERATION); }
+    public static int nvideoCodecOperation(long struct) { return memGetInt(struct + VkVideoProfileInfoKHR.VIDEOCODECOPERATION); }
     /** Unsafe version of {@link #chromaSubsampling}. */
-    public static int nchromaSubsampling(long struct) { return UNSAFE.getInt(null, struct + VkVideoProfileInfoKHR.CHROMASUBSAMPLING); }
+    public static int nchromaSubsampling(long struct) { return memGetInt(struct + VkVideoProfileInfoKHR.CHROMASUBSAMPLING); }
     /** Unsafe version of {@link #lumaBitDepth}. */
-    public static int nlumaBitDepth(long struct) { return UNSAFE.getInt(null, struct + VkVideoProfileInfoKHR.LUMABITDEPTH); }
+    public static int nlumaBitDepth(long struct) { return memGetInt(struct + VkVideoProfileInfoKHR.LUMABITDEPTH); }
     /** Unsafe version of {@link #chromaBitDepth}. */
-    public static int nchromaBitDepth(long struct) { return UNSAFE.getInt(null, struct + VkVideoProfileInfoKHR.CHROMABITDEPTH); }
+    public static int nchromaBitDepth(long struct) { return memGetInt(struct + VkVideoProfileInfoKHR.CHROMABITDEPTH); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoProfileInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoProfileInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoProfileInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #videoCodecOperation(int) videoCodecOperation}. */
-    public static void nvideoCodecOperation(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoProfileInfoKHR.VIDEOCODECOPERATION, value); }
+    public static void nvideoCodecOperation(long struct, int value) { memPutInt(struct + VkVideoProfileInfoKHR.VIDEOCODECOPERATION, value); }
     /** Unsafe version of {@link #chromaSubsampling(int) chromaSubsampling}. */
-    public static void nchromaSubsampling(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoProfileInfoKHR.CHROMASUBSAMPLING, value); }
+    public static void nchromaSubsampling(long struct, int value) { memPutInt(struct + VkVideoProfileInfoKHR.CHROMASUBSAMPLING, value); }
     /** Unsafe version of {@link #lumaBitDepth(int) lumaBitDepth}. */
-    public static void nlumaBitDepth(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoProfileInfoKHR.LUMABITDEPTH, value); }
+    public static void nlumaBitDepth(long struct, int value) { memPutInt(struct + VkVideoProfileInfoKHR.LUMABITDEPTH, value); }
     /** Unsafe version of {@link #chromaBitDepth(int) chromaBitDepth}. */
-    public static void nchromaBitDepth(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoProfileInfoKHR.CHROMABITDEPTH, value); }
+    public static void nchromaBitDepth(long struct, int value) { memPutInt(struct + VkVideoProfileInfoKHR.CHROMABITDEPTH, value); }
 
     // -----------------------------------
 
@@ -383,6 +384,11 @@ public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -423,6 +429,8 @@ public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> impleme
         public VkVideoProfileInfoKHR.Buffer pNext(VkVideoDecodeH265ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoDecodeUsageInfoKHR} value to the {@code pNext} chain. */
         public VkVideoProfileInfoKHR.Buffer pNext(VkVideoDecodeUsageInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeAV1ProfileInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoProfileInfoKHR.Buffer pNext(VkVideoEncodeAV1ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH264ProfileInfoKHR} value to the {@code pNext} chain. */
         public VkVideoProfileInfoKHR.Buffer pNext(VkVideoEncodeH264ProfileInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoEncodeH265ProfileInfoKHR} value to the {@code pNext} chain. */

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>308</dd>
  * <dt><b>Revision</b></dt>
  * <dd><ul>
- * <li>This is a <em>provisional</em> extension and <b>must</b> be used with caution. See the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#boilerplate-provisional-header">description</a> of provisional header files for enablement and stability details.</li>
+ * <li>This is a <em>provisional</em> extension and <b>must</b> be used with caution. See the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#boilerplate-provisional-header">description</a> of provisional header files for enablement and stability details.</li>
  * </ul></dd>
  * <dt><b>API Interactions</b></dt>
  * <dd><ul>
@@ -181,11 +181,11 @@ public class NVCudaKernelLaunch {
      *
      * @param device      the logical device that creates the shader module.
      * @param pCreateInfo a pointer to a {@link VkCudaModuleCreateInfoNV} structure.
-     * @param pAllocator  controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator  controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pModule     a pointer to a {@code VkCudaModuleNV} handle in which the resulting CUDA module object is returned.
      */
     @NativeType("VkResult")
-    public static int vkCreateCudaModuleNV(VkDevice device, @NativeType("VkCudaModuleCreateInfoNV const *") VkCudaModuleCreateInfoNV pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkCudaModuleNV *") LongBuffer pModule) {
+    public static int vkCreateCudaModuleNV(VkDevice device, @NativeType("VkCudaModuleCreateInfoNV const *") VkCudaModuleCreateInfoNV pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkCudaModuleNV *") LongBuffer pModule) {
         if (CHECKS) {
             check(pModule, 1);
         }
@@ -264,7 +264,7 @@ public class NVCudaKernelLaunch {
      * @param pCacheData a pointer to a buffer in which to copy the binary cache
      */
     @NativeType("VkResult")
-    public static int vkGetCudaModuleCacheNV(VkDevice device, @NativeType("VkCudaModuleNV") long module, @NativeType("size_t *") PointerBuffer pCacheSize, @Nullable @NativeType("void *") ByteBuffer pCacheData) {
+    public static int vkGetCudaModuleCacheNV(VkDevice device, @NativeType("VkCudaModuleNV") long module, @NativeType("size_t *") PointerBuffer pCacheSize, @NativeType("void *") @Nullable ByteBuffer pCacheData) {
         if (CHECKS) {
             check(pCacheSize, 1);
             checkSafe(pCacheData, pCacheSize.get(pCacheSize.position()));
@@ -327,11 +327,11 @@ public class NVCudaKernelLaunch {
      *
      * @param device      the logical device that creates the shader module.
      * @param pCreateInfo a pointer to a {@link VkCudaFunctionCreateInfoNV} structure.
-     * @param pAllocator  controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator  controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pFunction   a pointer to a {@code VkCudaFunctionNV} handle in which the resulting CUDA function object is returned.
      */
     @NativeType("VkResult")
-    public static int vkCreateCudaFunctionNV(VkDevice device, @NativeType("VkCudaFunctionCreateInfoNV const *") VkCudaFunctionCreateInfoNV pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkCudaFunctionNV *") LongBuffer pFunction) {
+    public static int vkCreateCudaFunctionNV(VkDevice device, @NativeType("VkCudaFunctionCreateInfoNV const *") VkCudaFunctionCreateInfoNV pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkCudaFunctionNV *") LongBuffer pFunction) {
         if (CHECKS) {
             check(pFunction, 1);
         }
@@ -377,9 +377,9 @@ public class NVCudaKernelLaunch {
      *
      * @param device     the logical device that destroys the shader module.
      * @param module     the handle of the CUDA module to destroy.
-     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
-    public static void vkDestroyCudaModuleNV(VkDevice device, @NativeType("VkCudaModuleNV") long module, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
+    public static void vkDestroyCudaModuleNV(VkDevice device, @NativeType("VkCudaModuleNV") long module, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator) {
         nvkDestroyCudaModuleNV(device, module, memAddressSafe(pAllocator));
     }
 
@@ -422,9 +422,9 @@ public class NVCudaKernelLaunch {
      *
      * @param device     the logical device that destroys the Function.
      * @param function   the handle of the CUDA function to destroy.
-     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
-    public static void vkDestroyCudaFunctionNV(VkDevice device, @NativeType("VkCudaFunctionNV") long function, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
+    public static void vkDestroyCudaFunctionNV(VkDevice device, @NativeType("VkCudaFunctionNV") long function, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator) {
         nvkDestroyCudaFunctionNV(device, function, memAddressSafe(pAllocator));
     }
 
@@ -460,7 +460,7 @@ public class NVCudaKernelLaunch {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pLaunchInfo} <b>must</b> be a valid pointer to a valid {@link VkCudaLaunchInfoNV} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -474,7 +474,7 @@ public class NVCudaKernelLaunch {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>Action</td></tr></tbody>
      * </table>
      * 
@@ -491,7 +491,7 @@ public class NVCudaKernelLaunch {
 
     /** Array version of: {@link #vkCreateCudaModuleNV CreateCudaModuleNV} */
     @NativeType("VkResult")
-    public static int vkCreateCudaModuleNV(VkDevice device, @NativeType("VkCudaModuleCreateInfoNV const *") VkCudaModuleCreateInfoNV pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkCudaModuleNV *") long[] pModule) {
+    public static int vkCreateCudaModuleNV(VkDevice device, @NativeType("VkCudaModuleCreateInfoNV const *") VkCudaModuleCreateInfoNV pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkCudaModuleNV *") long[] pModule) {
         long __functionAddress = device.getCapabilities().vkCreateCudaModuleNV;
         if (CHECKS) {
             check(__functionAddress);
@@ -503,7 +503,7 @@ public class NVCudaKernelLaunch {
 
     /** Array version of: {@link #vkCreateCudaFunctionNV CreateCudaFunctionNV} */
     @NativeType("VkResult")
-    public static int vkCreateCudaFunctionNV(VkDevice device, @NativeType("VkCudaFunctionCreateInfoNV const *") VkCudaFunctionCreateInfoNV pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkCudaFunctionNV *") long[] pFunction) {
+    public static int vkCreateCudaFunctionNV(VkDevice device, @NativeType("VkCudaFunctionCreateInfoNV const *") VkCudaFunctionCreateInfoNV pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkCudaFunctionNV *") long[] pFunction) {
         long __functionAddress = device.getCapabilities().vkCreateCudaFunctionNV;
         if (CHECKS) {
             check(__functionAddress);

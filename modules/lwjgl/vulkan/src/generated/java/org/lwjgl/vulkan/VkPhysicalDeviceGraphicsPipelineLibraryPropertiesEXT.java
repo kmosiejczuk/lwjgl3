@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT extends Struct
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT extends Struct
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT extends Struct
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #graphicsPipelineLibraryFastLinking}. */
-    public static int ngraphicsPipelineLibraryFastLinking(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.GRAPHICSPIPELINELIBRARYFASTLINKING); }
+    public static int ngraphicsPipelineLibraryFastLinking(long struct) { return memGetInt(struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.GRAPHICSPIPELINELIBRARYFASTLINKING); }
     /** Unsafe version of {@link #graphicsPipelineLibraryIndependentInterpolationDecoration}. */
-    public static int ngraphicsPipelineLibraryIndependentInterpolationDecoration(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.GRAPHICSPIPELINELIBRARYINDEPENDENTINTERPOLATIONDECORATION); }
+    public static int ngraphicsPipelineLibraryIndependentInterpolationDecoration(long struct) { return memGetInt(struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.GRAPHICSPIPELINELIBRARYINDEPENDENTINTERPOLATIONDECORATION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.PNEXT, value); }
     /** Unsafe version of {@link #graphicsPipelineLibraryFastLinking(boolean) graphicsPipelineLibraryFastLinking}. */
-    public static void ngraphicsPipelineLibraryFastLinking(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.GRAPHICSPIPELINELIBRARYFASTLINKING, value); }
+    public static void ngraphicsPipelineLibraryFastLinking(long struct, int value) { memPutInt(struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.GRAPHICSPIPELINELIBRARYFASTLINKING, value); }
     /** Unsafe version of {@link #graphicsPipelineLibraryIndependentInterpolationDecoration(boolean) graphicsPipelineLibraryIndependentInterpolationDecoration}. */
-    public static void ngraphicsPipelineLibraryIndependentInterpolationDecoration(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.GRAPHICSPIPELINELIBRARYINDEPENDENTINTERPOLATIONDECORATION, value); }
+    public static void ngraphicsPipelineLibraryIndependentInterpolationDecoration(long struct, int value) { memPutInt(struct + VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.GRAPHICSPIPELINELIBRARYINDEPENDENTINTERPOLATIONDECORATION, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT extends Struct
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

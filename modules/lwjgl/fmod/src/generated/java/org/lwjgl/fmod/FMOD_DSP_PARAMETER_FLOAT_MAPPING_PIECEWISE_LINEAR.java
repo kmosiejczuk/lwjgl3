@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -83,9 +83,8 @@ public class FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR extends Struct<FM
     @NativeType("float *")
     public FloatBuffer pointparamvalues() { return npointparamvalues(address()); }
     /** @return a {@link FloatBuffer} view of the data pointed to by the {@code pointpositions} field. */
-    @Nullable
     @NativeType("float *")
-    public FloatBuffer pointpositions() { return npointpositions(address()); }
+    public @Nullable FloatBuffer pointpositions() { return npointpositions(address()); }
 
     /** Sets the specified value to the {@code numpoints} field. */
     public FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR numpoints(int value) { nnumpoints(address(), value); return this; }
@@ -143,8 +142,7 @@ public class FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR extends Struct<FM
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR(address, null);
     }
 
@@ -187,8 +185,7 @@ public class FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR extends Struct<FM
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,14 +230,14 @@ public class FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR extends Struct<FM
     // -----------------------------------
 
     /** Unsafe version of {@link #numpoints}. */
-    public static int nnumpoints(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.NUMPOINTS); }
+    public static int nnumpoints(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.NUMPOINTS); }
     /** Unsafe version of {@link #pointparamvalues() pointparamvalues}. */
     public static FloatBuffer npointparamvalues(long struct) { return memFloatBuffer(memGetAddress(struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.POINTPARAMVALUES), nnumpoints(struct)); }
     /** Unsafe version of {@link #pointpositions() pointpositions}. */
-    @Nullable public static FloatBuffer npointpositions(long struct) { return memFloatBufferSafe(memGetAddress(struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.POINTPOSITIONS), nnumpoints(struct)); }
+    public static @Nullable FloatBuffer npointpositions(long struct) { return memFloatBufferSafe(memGetAddress(struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.POINTPOSITIONS), nnumpoints(struct)); }
 
     /** Sets the specified value to the {@code numpoints} field of the specified {@code struct}. */
-    public static void nnumpoints(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.NUMPOINTS, value); }
+    public static void nnumpoints(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.NUMPOINTS, value); }
     /** Unsafe version of {@link #pointparamvalues(FloatBuffer) pointparamvalues}. */
     public static void npointparamvalues(long struct, FloatBuffer value) { memPutAddress(struct + FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.POINTPARAMVALUES, memAddress(value)); }
     /** Unsafe version of {@link #pointpositions(FloatBuffer) pointpositions}. */
@@ -289,6 +286,11 @@ public class FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR extends Struct<FM
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -299,9 +301,8 @@ public class FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR extends Struct<FM
         @NativeType("float *")
         public FloatBuffer pointparamvalues() { return FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.npointparamvalues(address()); }
         /** @return a {@link FloatBuffer} view of the data pointed to by the {@code pointpositions} field. */
-        @Nullable
         @NativeType("float *")
-        public FloatBuffer pointpositions() { return FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.npointpositions(address()); }
+        public @Nullable FloatBuffer pointpositions() { return FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.npointpositions(address()); }
 
         /** Sets the specified value to the {@code numpoints} field. */
         public FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.Buffer numpoints(int value) { FMOD_DSP_PARAMETER_FLOAT_MAPPING_PIECEWISE_LINEAR.nnumpoints(address(), value); return this; }

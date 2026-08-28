@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -131,8 +131,7 @@ public class NVGTextRow extends Struct<NVGTextRow> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NVGTextRow createSafe(long address) {
+    public static @Nullable NVGTextRow createSafe(long address) {
         return address == NULL ? null : new NVGTextRow(address, null);
     }
 
@@ -175,8 +174,7 @@ public class NVGTextRow extends Struct<NVGTextRow> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NVGTextRow.Buffer createSafe(long address, int capacity) {
+    public static NVGTextRow.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,11 +244,11 @@ public class NVGTextRow extends Struct<NVGTextRow> implements NativeResource {
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + NVGTextRow.NEXT); }
     /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + NVGTextRow.WIDTH); }
+    public static float nwidth(long struct) { return memGetFloat(struct + NVGTextRow.WIDTH); }
     /** Unsafe version of {@link #minx}. */
-    public static float nminx(long struct) { return UNSAFE.getFloat(null, struct + NVGTextRow.MINX); }
+    public static float nminx(long struct) { return memGetFloat(struct + NVGTextRow.MINX); }
     /** Unsafe version of {@link #maxx}. */
-    public static float nmaxx(long struct) { return UNSAFE.getFloat(null, struct + NVGTextRow.MAXX); }
+    public static float nmaxx(long struct) { return memGetFloat(struct + NVGTextRow.MAXX); }
 
     // -----------------------------------
 
@@ -283,6 +281,11 @@ public class NVGTextRow extends Struct<NVGTextRow> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

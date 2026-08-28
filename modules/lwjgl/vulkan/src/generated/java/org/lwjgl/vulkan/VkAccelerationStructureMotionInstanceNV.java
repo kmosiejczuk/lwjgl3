@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class VkAccelerationStructureMotionInstanceNV extends Struct<VkAccelerati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMotionInstanceNV createSafe(long address) {
+    public static @Nullable VkAccelerationStructureMotionInstanceNV createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureMotionInstanceNV(address, null);
     }
 
@@ -210,8 +209,7 @@ public class VkAccelerationStructureMotionInstanceNV extends Struct<VkAccelerati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMotionInstanceNV.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureMotionInstanceNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,16 +254,16 @@ public class VkAccelerationStructureMotionInstanceNV extends Struct<VkAccelerati
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMotionInstanceNV.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkAccelerationStructureMotionInstanceNV.TYPE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMotionInstanceNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkAccelerationStructureMotionInstanceNV.FLAGS); }
     /** Unsafe version of {@link #data}. */
     public static VkAccelerationStructureMotionInstanceDataNV ndata(long struct) { return VkAccelerationStructureMotionInstanceDataNV.create(struct + VkAccelerationStructureMotionInstanceNV.DATA); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMotionInstanceNV.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkAccelerationStructureMotionInstanceNV.TYPE, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMotionInstanceNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkAccelerationStructureMotionInstanceNV.FLAGS, value); }
     /** Unsafe version of {@link #data(VkAccelerationStructureMotionInstanceDataNV) data}. */
     public static void ndata(long struct, VkAccelerationStructureMotionInstanceDataNV value) { memCopy(value.address(), struct + VkAccelerationStructureMotionInstanceNV.DATA, VkAccelerationStructureMotionInstanceDataNV.SIZEOF); }
 
@@ -300,6 +298,11 @@ public class VkAccelerationStructureMotionInstanceNV extends Struct<VkAccelerati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

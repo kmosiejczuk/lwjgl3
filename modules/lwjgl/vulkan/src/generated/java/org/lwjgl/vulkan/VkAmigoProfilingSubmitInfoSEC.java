@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -163,8 +163,7 @@ public class VkAmigoProfilingSubmitInfoSEC extends Struct<VkAmigoProfilingSubmit
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAmigoProfilingSubmitInfoSEC createSafe(long address) {
+    public static @Nullable VkAmigoProfilingSubmitInfoSEC createSafe(long address) {
         return address == NULL ? null : new VkAmigoProfilingSubmitInfoSEC(address, null);
     }
 
@@ -207,8 +206,7 @@ public class VkAmigoProfilingSubmitInfoSEC extends Struct<VkAmigoProfilingSubmit
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAmigoProfilingSubmitInfoSEC.Buffer createSafe(long address, int capacity) {
+    public static VkAmigoProfilingSubmitInfoSEC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,22 +251,22 @@ public class VkAmigoProfilingSubmitInfoSEC extends Struct<VkAmigoProfilingSubmit
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAmigoProfilingSubmitInfoSEC.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAmigoProfilingSubmitInfoSEC.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAmigoProfilingSubmitInfoSEC.PNEXT); }
     /** Unsafe version of {@link #firstDrawTimestamp}. */
-    public static long nfirstDrawTimestamp(long struct) { return UNSAFE.getLong(null, struct + VkAmigoProfilingSubmitInfoSEC.FIRSTDRAWTIMESTAMP); }
+    public static long nfirstDrawTimestamp(long struct) { return memGetLong(struct + VkAmigoProfilingSubmitInfoSEC.FIRSTDRAWTIMESTAMP); }
     /** Unsafe version of {@link #swapBufferTimestamp}. */
-    public static long nswapBufferTimestamp(long struct) { return UNSAFE.getLong(null, struct + VkAmigoProfilingSubmitInfoSEC.SWAPBUFFERTIMESTAMP); }
+    public static long nswapBufferTimestamp(long struct) { return memGetLong(struct + VkAmigoProfilingSubmitInfoSEC.SWAPBUFFERTIMESTAMP); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAmigoProfilingSubmitInfoSEC.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAmigoProfilingSubmitInfoSEC.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAmigoProfilingSubmitInfoSEC.PNEXT, value); }
     /** Unsafe version of {@link #firstDrawTimestamp(long) firstDrawTimestamp}. */
-    public static void nfirstDrawTimestamp(long struct, long value) { UNSAFE.putLong(null, struct + VkAmigoProfilingSubmitInfoSEC.FIRSTDRAWTIMESTAMP, value); }
+    public static void nfirstDrawTimestamp(long struct, long value) { memPutLong(struct + VkAmigoProfilingSubmitInfoSEC.FIRSTDRAWTIMESTAMP, value); }
     /** Unsafe version of {@link #swapBufferTimestamp(long) swapBufferTimestamp}. */
-    public static void nswapBufferTimestamp(long struct, long value) { UNSAFE.putLong(null, struct + VkAmigoProfilingSubmitInfoSEC.SWAPBUFFERTIMESTAMP, value); }
+    public static void nswapBufferTimestamp(long struct, long value) { memPutLong(struct + VkAmigoProfilingSubmitInfoSEC.SWAPBUFFERTIMESTAMP, value); }
 
     // -----------------------------------
 
@@ -301,6 +299,11 @@ public class VkAmigoProfilingSubmitInfoSEC extends Struct<VkAmigoProfilingSubmit
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

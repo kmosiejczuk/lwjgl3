@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -111,8 +111,7 @@ public class InputPoseActionData extends Struct<InputPoseActionData> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static InputPoseActionData createSafe(long address) {
+    public static @Nullable InputPoseActionData createSafe(long address) {
         return address == NULL ? null : new InputPoseActionData(address, null);
     }
 
@@ -155,8 +154,7 @@ public class InputPoseActionData extends Struct<InputPoseActionData> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static InputPoseActionData.Buffer createSafe(long address, int capacity) {
+    public static InputPoseActionData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -220,9 +218,9 @@ public class InputPoseActionData extends Struct<InputPoseActionData> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #bActive}. */
-    public static boolean nbActive(long struct) { return UNSAFE.getByte(null, struct + InputPoseActionData.BACTIVE) != 0; }
+    public static boolean nbActive(long struct) { return memGetByte(struct + InputPoseActionData.BACTIVE) != 0; }
     /** Unsafe version of {@link #activeOrigin}. */
-    public static long nactiveOrigin(long struct) { return UNSAFE.getLong(null, struct + InputPoseActionData.ACTIVEORIGIN); }
+    public static long nactiveOrigin(long struct) { return memGetLong(struct + InputPoseActionData.ACTIVEORIGIN); }
     /** Unsafe version of {@link #pose}. */
     public static TrackedDevicePose npose(long struct) { return TrackedDevicePose.create(struct + InputPoseActionData.POSE); }
 
@@ -257,6 +255,11 @@ public class InputPoseActionData extends Struct<InputPoseActionData> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

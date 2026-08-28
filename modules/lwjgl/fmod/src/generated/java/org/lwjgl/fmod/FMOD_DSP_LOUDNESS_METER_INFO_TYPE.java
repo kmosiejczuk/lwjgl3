@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -195,8 +195,7 @@ public class FMOD_DSP_LOUDNESS_METER_INFO_TYPE extends Struct<FMOD_DSP_LOUDNESS_
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_LOUDNESS_METER_INFO_TYPE createSafe(long address) {
+    public static @Nullable FMOD_DSP_LOUDNESS_METER_INFO_TYPE createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_LOUDNESS_METER_INFO_TYPE(address, null);
     }
 
@@ -239,8 +238,7 @@ public class FMOD_DSP_LOUDNESS_METER_INFO_TYPE extends Struct<FMOD_DSP_LOUDNESS_
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_LOUDNESS_METER_INFO_TYPE.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_LOUDNESS_METER_INFO_TYPE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,36 +283,36 @@ public class FMOD_DSP_LOUDNESS_METER_INFO_TYPE extends Struct<FMOD_DSP_LOUDNESS_
     // -----------------------------------
 
     /** Unsafe version of {@link #momentaryloudness}. */
-    public static float nmomentaryloudness(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MOMENTARYLOUDNESS); }
+    public static float nmomentaryloudness(long struct) { return memGetFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MOMENTARYLOUDNESS); }
     /** Unsafe version of {@link #shorttermloudness}. */
-    public static float nshorttermloudness(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.SHORTTERMLOUDNESS); }
+    public static float nshorttermloudness(long struct) { return memGetFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.SHORTTERMLOUDNESS); }
     /** Unsafe version of {@link #integratedloudness}. */
-    public static float nintegratedloudness(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.INTEGRATEDLOUDNESS); }
+    public static float nintegratedloudness(long struct) { return memGetFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.INTEGRATEDLOUDNESS); }
     /** Unsafe version of {@link #loudness10thpercentile}. */
-    public static float nloudness10thpercentile(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESS10THPERCENTILE); }
+    public static float nloudness10thpercentile(long struct) { return memGetFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESS10THPERCENTILE); }
     /** Unsafe version of {@link #loudness95thpercentile}. */
-    public static float nloudness95thpercentile(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESS95THPERCENTILE); }
+    public static float nloudness95thpercentile(long struct) { return memGetFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESS95THPERCENTILE); }
     /** Unsafe version of {@link #loudnesshistogram}. */
     public static FloatBuffer nloudnesshistogram(long struct) { return memFloatBuffer(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESSHISTOGRAM, 66); }
     /** Unsafe version of {@link #loudnesshistogram(int) loudnesshistogram}. */
     public static float nloudnesshistogram(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESSHISTOGRAM + check(index, 66) * 4);
+        return memGetFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESSHISTOGRAM + check(index, 66) * 4);
     }
     /** Unsafe version of {@link #maxtruepeak}. */
-    public static float nmaxtruepeak(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MAXTRUEPEAK); }
+    public static float nmaxtruepeak(long struct) { return memGetFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MAXTRUEPEAK); }
     /** Unsafe version of {@link #maxmomentaryloudness}. */
-    public static float nmaxmomentaryloudness(long struct) { return UNSAFE.getFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MAXMOMENTARYLOUDNESS); }
+    public static float nmaxmomentaryloudness(long struct) { return memGetFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MAXMOMENTARYLOUDNESS); }
 
     /** Unsafe version of {@link #momentaryloudness(float) momentaryloudness}. */
-    public static void nmomentaryloudness(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MOMENTARYLOUDNESS, value); }
+    public static void nmomentaryloudness(long struct, float value) { memPutFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MOMENTARYLOUDNESS, value); }
     /** Unsafe version of {@link #shorttermloudness(float) shorttermloudness}. */
-    public static void nshorttermloudness(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.SHORTTERMLOUDNESS, value); }
+    public static void nshorttermloudness(long struct, float value) { memPutFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.SHORTTERMLOUDNESS, value); }
     /** Unsafe version of {@link #integratedloudness(float) integratedloudness}. */
-    public static void nintegratedloudness(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.INTEGRATEDLOUDNESS, value); }
+    public static void nintegratedloudness(long struct, float value) { memPutFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.INTEGRATEDLOUDNESS, value); }
     /** Unsafe version of {@link #loudness10thpercentile(float) loudness10thpercentile}. */
-    public static void nloudness10thpercentile(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESS10THPERCENTILE, value); }
+    public static void nloudness10thpercentile(long struct, float value) { memPutFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESS10THPERCENTILE, value); }
     /** Unsafe version of {@link #loudness95thpercentile(float) loudness95thpercentile}. */
-    public static void nloudness95thpercentile(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESS95THPERCENTILE, value); }
+    public static void nloudness95thpercentile(long struct, float value) { memPutFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESS95THPERCENTILE, value); }
     /** Unsafe version of {@link #loudnesshistogram(FloatBuffer) loudnesshistogram}. */
     public static void nloudnesshistogram(long struct, FloatBuffer value) {
         if (CHECKS) { checkGT(value, 66); }
@@ -322,12 +320,12 @@ public class FMOD_DSP_LOUDNESS_METER_INFO_TYPE extends Struct<FMOD_DSP_LOUDNESS_
     }
     /** Unsafe version of {@link #loudnesshistogram(int, float) loudnesshistogram}. */
     public static void nloudnesshistogram(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESSHISTOGRAM + check(index, 66) * 4, value);
+        memPutFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.LOUDNESSHISTOGRAM + check(index, 66) * 4, value);
     }
     /** Unsafe version of {@link #maxtruepeak(float) maxtruepeak}. */
-    public static void nmaxtruepeak(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MAXTRUEPEAK, value); }
+    public static void nmaxtruepeak(long struct, float value) { memPutFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MAXTRUEPEAK, value); }
     /** Unsafe version of {@link #maxmomentaryloudness(float) maxmomentaryloudness}. */
-    public static void nmaxmomentaryloudness(long struct, float value) { UNSAFE.putFloat(null, struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MAXMOMENTARYLOUDNESS, value); }
+    public static void nmaxmomentaryloudness(long struct, float value) { memPutFloat(struct + FMOD_DSP_LOUDNESS_METER_INFO_TYPE.MAXMOMENTARYLOUDNESS, value); }
 
     // -----------------------------------
 
@@ -360,6 +358,11 @@ public class FMOD_DSP_LOUDNESS_METER_INFO_TYPE extends Struct<FMOD_DSP_LOUDNESS_
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

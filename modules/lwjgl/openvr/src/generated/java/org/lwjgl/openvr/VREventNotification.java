@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -88,8 +88,7 @@ public class VREventNotification extends Struct<VREventNotification> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventNotification createSafe(long address) {
+    public static @Nullable VREventNotification createSafe(long address) {
         return address == NULL ? null : new VREventNotification(address, null);
     }
 
@@ -104,17 +103,16 @@ public class VREventNotification extends Struct<VREventNotification> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventNotification.Buffer createSafe(long address, int capacity) {
+    public static VREventNotification.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #ulUserValue}. */
-    public static long nulUserValue(long struct) { return UNSAFE.getLong(null, struct + VREventNotification.ULUSERVALUE); }
+    public static long nulUserValue(long struct) { return memGetLong(struct + VREventNotification.ULUSERVALUE); }
     /** Unsafe version of {@link #notificationId}. */
-    public static int nnotificationId(long struct) { return UNSAFE.getInt(null, struct + VREventNotification.NOTIFICATIONID); }
+    public static int nnotificationId(long struct) { return memGetInt(struct + VREventNotification.NOTIFICATIONID); }
 
     // -----------------------------------
 
@@ -147,6 +145,11 @@ public class VREventNotification extends Struct<VREventNotification> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

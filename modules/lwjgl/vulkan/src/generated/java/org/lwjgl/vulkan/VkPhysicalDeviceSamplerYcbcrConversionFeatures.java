@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends Struct<VkPhy
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** specifies whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>. If {@code samplerYcbcrConversion} is {@link VK10#VK_FALSE FALSE}, sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is not supported, and samplers using sampler Y′C<sub>B</sub>C<sub>R</sub> conversion <b>must</b> not be used. */
+    /** specifies whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>. If {@code samplerYcbcrConversion} is {@link VK10#VK_FALSE FALSE}, sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is not supported, and samplers using sampler Y′C<sub>B</sub>C<sub>R</sub> conversion <b>must</b> not be used. */
     @NativeType("VkBool32")
     public boolean samplerYcbcrConversion() { return nsamplerYcbcrConversion(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSamplerYcbcrConversionFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSamplerYcbcrConversionFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSamplerYcbcrConversionFeatures(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSamplerYcbcrConversionFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSamplerYcbcrConversionFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSamplerYcbcrConversionFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSamplerYcbcrConversionFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSamplerYcbcrConversionFeatures.PNEXT); }
     /** Unsafe version of {@link #samplerYcbcrConversion}. */
-    public static int nsamplerYcbcrConversion(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSamplerYcbcrConversionFeatures.SAMPLERYCBCRCONVERSION); }
+    public static int nsamplerYcbcrConversion(long struct) { return memGetInt(struct + VkPhysicalDeviceSamplerYcbcrConversionFeatures.SAMPLERYCBCRCONVERSION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSamplerYcbcrConversionFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSamplerYcbcrConversionFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSamplerYcbcrConversionFeatures.PNEXT, value); }
     /** Unsafe version of {@link #samplerYcbcrConversion(boolean) samplerYcbcrConversion}. */
-    public static void nsamplerYcbcrConversion(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSamplerYcbcrConversionFeatures.SAMPLERYCBCRCONVERSION, value); }
+    public static void nsamplerYcbcrConversion(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSamplerYcbcrConversionFeatures.SAMPLERYCBCRCONVERSION, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

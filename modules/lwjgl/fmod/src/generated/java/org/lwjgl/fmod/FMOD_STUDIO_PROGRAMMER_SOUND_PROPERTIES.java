@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -145,8 +145,7 @@ public class FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES extends Struct<FMOD_STUDIO_
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES createSafe(long address) {
+    public static @Nullable FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES createSafe(long address) {
         return address == NULL ? null : new FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES(address, null);
     }
 
@@ -189,8 +188,7 @@ public class FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES extends Struct<FMOD_STUDIO_
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES.Buffer createSafe(long address, int capacity) {
+    public static FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,7 +239,7 @@ public class FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES extends Struct<FMOD_STUDIO_
     /** Unsafe version of {@link #sound}. */
     public static long nsound(long struct) { return memGetAddress(struct + FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES.SOUND); }
     /** Unsafe version of {@link #subsoundIndex}. */
-    public static int nsubsoundIndex(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES.SUBSOUNDINDEX); }
+    public static int nsubsoundIndex(long struct) { return memGetInt(struct + FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES.SUBSOUNDINDEX); }
 
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
@@ -251,7 +249,7 @@ public class FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES extends Struct<FMOD_STUDIO_
     /** Unsafe version of {@link #sound(long) sound}. */
     public static void nsound(long struct, long value) { memPutAddress(struct + FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES.SOUND, check(value)); }
     /** Unsafe version of {@link #subsoundIndex(int) subsoundIndex}. */
-    public static void nsubsoundIndex(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES.SUBSOUNDINDEX, value); }
+    public static void nsubsoundIndex(long struct, int value) { memPutInt(struct + FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES.SUBSOUNDINDEX, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -294,6 +292,11 @@ public class FMOD_STUDIO_PROGRAMMER_SOUND_PROPERTIES extends Struct<FMOD_STUDIO_
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -170,8 +170,7 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureVersionInfoKHR createSafe(long address) {
+    public static @Nullable VkAccelerationStructureVersionInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureVersionInfoKHR(address, null);
     }
 
@@ -214,8 +213,7 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureVersionInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureVersionInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,14 +258,14 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureVersionInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureVersionInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureVersionInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pVersionData(int) pVersionData}. */
     public static ByteBuffer npVersionData(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + VkAccelerationStructureVersionInfoKHR.PVERSIONDATA), capacity); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureVersionInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureVersionInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureVersionInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pVersionData(ByteBuffer) pVersionData}. */
@@ -313,6 +311,11 @@ public class VkAccelerationStructureVersionInfoKHR extends Struct<VkAcceleration
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

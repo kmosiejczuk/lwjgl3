@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -148,8 +148,7 @@ public class VRTextureDepthInfo extends Struct<VRTextureDepthInfo> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRTextureDepthInfo createSafe(long address) {
+    public static @Nullable VRTextureDepthInfo createSafe(long address) {
         return address == NULL ? null : new VRTextureDepthInfo(address, null);
     }
 
@@ -192,8 +191,7 @@ public class VRTextureDepthInfo extends Struct<VRTextureDepthInfo> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRTextureDepthInfo.Buffer createSafe(long address, int capacity) {
+    public static VRTextureDepthInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -310,6 +308,11 @@ public class VRTextureDepthInfo extends Struct<VRTextureDepthInfo> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

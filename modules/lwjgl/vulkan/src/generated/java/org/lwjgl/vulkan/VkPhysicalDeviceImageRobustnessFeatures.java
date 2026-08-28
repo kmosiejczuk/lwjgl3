@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceImageRobustnessFeatures extends Struct<VkPhysicalDe
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether image accesses are tightly bounds-checked against the dimensions of the image view. <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-input-validation">Invalid texels</a> resulting from out of bounds image loads will be replaced as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-texel-replacement">Texel Replacement</a>, with either <code>(0,0,1)</code> or <code>(0,0,0)</code> values inserted for missing G, B, or A components based on the format. */
+    /** indicates whether image accesses are tightly bounds-checked against the dimensions of the image view. <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-input-validation">Invalid texels</a> resulting from out of bounds image loads will be replaced as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-texel-replacement">Texel Replacement</a>, with either <code>(0,0,1)</code> or <code>(0,0,0)</code> values inserted for missing G, B, or A components based on the format. */
     @NativeType("VkBool32")
     public boolean robustImageAccess() { return nrobustImageAccess(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceImageRobustnessFeatures extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageRobustnessFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImageRobustnessFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImageRobustnessFeatures(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceImageRobustnessFeatures extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageRobustnessFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImageRobustnessFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceImageRobustnessFeatures extends Struct<VkPhysicalDe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageRobustnessFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImageRobustnessFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImageRobustnessFeatures.PNEXT); }
     /** Unsafe version of {@link #robustImageAccess}. */
-    public static int nrobustImageAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageRobustnessFeatures.ROBUSTIMAGEACCESS); }
+    public static int nrobustImageAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceImageRobustnessFeatures.ROBUSTIMAGEACCESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageRobustnessFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageRobustnessFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImageRobustnessFeatures.PNEXT, value); }
     /** Unsafe version of {@link #robustImageAccess(boolean) robustImageAccess}. */
-    public static void nrobustImageAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageRobustnessFeatures.ROBUSTIMAGEACCESS, value); }
+    public static void nrobustImageAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageRobustnessFeatures.ROBUSTIMAGEACCESS, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceImageRobustnessFeatures extends Struct<VkPhysicalDe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -155,8 +155,7 @@ public class XrBodySkeletonJointFB extends Struct<XrBodySkeletonJointFB> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodySkeletonJointFB createSafe(long address) {
+    public static @Nullable XrBodySkeletonJointFB createSafe(long address) {
         return address == NULL ? null : new XrBodySkeletonJointFB(address, null);
     }
 
@@ -199,8 +198,7 @@ public class XrBodySkeletonJointFB extends Struct<XrBodySkeletonJointFB> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodySkeletonJointFB.Buffer createSafe(long address, int capacity) {
+    public static XrBodySkeletonJointFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,16 +243,16 @@ public class XrBodySkeletonJointFB extends Struct<XrBodySkeletonJointFB> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #joint}. */
-    public static int njoint(long struct) { return UNSAFE.getInt(null, struct + XrBodySkeletonJointFB.JOINT); }
+    public static int njoint(long struct) { return memGetInt(struct + XrBodySkeletonJointFB.JOINT); }
     /** Unsafe version of {@link #parentJoint}. */
-    public static int nparentJoint(long struct) { return UNSAFE.getInt(null, struct + XrBodySkeletonJointFB.PARENTJOINT); }
+    public static int nparentJoint(long struct) { return memGetInt(struct + XrBodySkeletonJointFB.PARENTJOINT); }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrBodySkeletonJointFB.POSE); }
 
     /** Unsafe version of {@link #joint(int) joint}. */
-    public static void njoint(long struct, int value) { UNSAFE.putInt(null, struct + XrBodySkeletonJointFB.JOINT, value); }
+    public static void njoint(long struct, int value) { memPutInt(struct + XrBodySkeletonJointFB.JOINT, value); }
     /** Unsafe version of {@link #parentJoint(int) parentJoint}. */
-    public static void nparentJoint(long struct, int value) { UNSAFE.putInt(null, struct + XrBodySkeletonJointFB.PARENTJOINT, value); }
+    public static void nparentJoint(long struct, int value) { memPutInt(struct + XrBodySkeletonJointFB.PARENTJOINT, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrBodySkeletonJointFB.POSE, XrPosef.SIZEOF); }
 
@@ -289,6 +287,11 @@ public class XrBodySkeletonJointFB extends Struct<XrBodySkeletonJointFB> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

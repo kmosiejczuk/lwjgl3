@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -111,8 +111,7 @@ public class VkImageMemoryRequirementsInfo2KHR extends VkImageMemoryRequirements
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageMemoryRequirementsInfo2KHR createSafe(long address) {
+    public static @Nullable VkImageMemoryRequirementsInfo2KHR createSafe(long address) {
         return address == NULL ? null : new VkImageMemoryRequirementsInfo2KHR(address, null);
     }
 
@@ -155,8 +154,7 @@ public class VkImageMemoryRequirementsInfo2KHR extends VkImageMemoryRequirements
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageMemoryRequirementsInfo2KHR.Buffer createSafe(long address, int capacity) {
+    public static VkImageMemoryRequirementsInfo2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,6 +246,11 @@ public class VkImageMemoryRequirementsInfo2KHR extends VkImageMemoryRequirements
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

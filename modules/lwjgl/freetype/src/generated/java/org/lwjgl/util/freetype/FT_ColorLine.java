@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -86,8 +86,7 @@ public class FT_ColorLine extends Struct<FT_ColorLine> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_ColorLine createSafe(long address) {
+    public static @Nullable FT_ColorLine createSafe(long address) {
         return address == NULL ? null : new FT_ColorLine(address, null);
     }
 
@@ -102,15 +101,14 @@ public class FT_ColorLine extends Struct<FT_ColorLine> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_ColorLine.Buffer createSafe(long address, int capacity) {
+    public static FT_ColorLine.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #extend}. */
-    public static int nextend(long struct) { return UNSAFE.getInt(null, struct + FT_ColorLine.EXTEND); }
+    public static int nextend(long struct) { return memGetInt(struct + FT_ColorLine.EXTEND); }
     /** Unsafe version of {@link #color_stop_iterator}. */
     public static FT_ColorStopIterator ncolor_stop_iterator(long struct) { return FT_ColorStopIterator.create(struct + FT_ColorLine.COLOR_STOP_ITERATOR); }
 
@@ -145,6 +143,11 @@ public class FT_ColorLine extends Struct<FT_ColorLine> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

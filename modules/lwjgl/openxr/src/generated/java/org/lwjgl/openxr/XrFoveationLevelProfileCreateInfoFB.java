@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -179,8 +179,7 @@ public class XrFoveationLevelProfileCreateInfoFB extends Struct<XrFoveationLevel
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationLevelProfileCreateInfoFB createSafe(long address) {
+    public static @Nullable XrFoveationLevelProfileCreateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrFoveationLevelProfileCreateInfoFB(address, null);
     }
 
@@ -223,8 +222,7 @@ public class XrFoveationLevelProfileCreateInfoFB extends Struct<XrFoveationLevel
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationLevelProfileCreateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrFoveationLevelProfileCreateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,26 +267,26 @@ public class XrFoveationLevelProfileCreateInfoFB extends Struct<XrFoveationLevel
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFoveationLevelProfileCreateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFoveationLevelProfileCreateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFoveationLevelProfileCreateInfoFB.NEXT); }
     /** Unsafe version of {@link #level}. */
-    public static int nlevel(long struct) { return UNSAFE.getInt(null, struct + XrFoveationLevelProfileCreateInfoFB.LEVEL); }
+    public static int nlevel(long struct) { return memGetInt(struct + XrFoveationLevelProfileCreateInfoFB.LEVEL); }
     /** Unsafe version of {@link #verticalOffset}. */
-    public static float nverticalOffset(long struct) { return UNSAFE.getFloat(null, struct + XrFoveationLevelProfileCreateInfoFB.VERTICALOFFSET); }
+    public static float nverticalOffset(long struct) { return memGetFloat(struct + XrFoveationLevelProfileCreateInfoFB.VERTICALOFFSET); }
     /** Unsafe version of {@link #dynamic}. */
-    public static int ndynamic(long struct) { return UNSAFE.getInt(null, struct + XrFoveationLevelProfileCreateInfoFB.DYNAMIC); }
+    public static int ndynamic(long struct) { return memGetInt(struct + XrFoveationLevelProfileCreateInfoFB.DYNAMIC); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationLevelProfileCreateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFoveationLevelProfileCreateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFoveationLevelProfileCreateInfoFB.NEXT, value); }
     /** Unsafe version of {@link #level(int) level}. */
-    public static void nlevel(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationLevelProfileCreateInfoFB.LEVEL, value); }
+    public static void nlevel(long struct, int value) { memPutInt(struct + XrFoveationLevelProfileCreateInfoFB.LEVEL, value); }
     /** Unsafe version of {@link #verticalOffset(float) verticalOffset}. */
-    public static void nverticalOffset(long struct, float value) { UNSAFE.putFloat(null, struct + XrFoveationLevelProfileCreateInfoFB.VERTICALOFFSET, value); }
+    public static void nverticalOffset(long struct, float value) { memPutFloat(struct + XrFoveationLevelProfileCreateInfoFB.VERTICALOFFSET, value); }
     /** Unsafe version of {@link #dynamic(int) dynamic}. */
-    public static void ndynamic(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationLevelProfileCreateInfoFB.DYNAMIC, value); }
+    public static void ndynamic(long struct, int value) { memPutInt(struct + XrFoveationLevelProfileCreateInfoFB.DYNAMIC, value); }
 
     // -----------------------------------
 
@@ -321,6 +319,11 @@ public class XrFoveationLevelProfileCreateInfoFB extends Struct<XrFoveationLevel
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

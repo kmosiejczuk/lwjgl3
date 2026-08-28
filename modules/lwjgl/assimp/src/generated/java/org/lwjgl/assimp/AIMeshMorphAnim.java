@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -147,8 +147,7 @@ public class AIMeshMorphAnim extends Struct<AIMeshMorphAnim> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshMorphAnim createSafe(long address) {
+    public static @Nullable AIMeshMorphAnim createSafe(long address) {
         return address == NULL ? null : new AIMeshMorphAnim(address, null);
     }
 
@@ -191,8 +190,7 @@ public class AIMeshMorphAnim extends Struct<AIMeshMorphAnim> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshMorphAnim.Buffer createSafe(long address, int capacity) {
+    public static AIMeshMorphAnim.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,14 +256,14 @@ public class AIMeshMorphAnim extends Struct<AIMeshMorphAnim> implements NativeRe
     /** Unsafe version of {@link #mName}. */
     public static AIString nmName(long struct) { return AIString.create(struct + AIMeshMorphAnim.MNAME); }
     /** Unsafe version of {@link #mNumKeys}. */
-    public static int nmNumKeys(long struct) { return UNSAFE.getInt(null, struct + AIMeshMorphAnim.MNUMKEYS); }
+    public static int nmNumKeys(long struct) { return memGetInt(struct + AIMeshMorphAnim.MNUMKEYS); }
     /** Unsafe version of {@link #mKeys}. */
     public static AIMeshMorphKey.Buffer nmKeys(long struct) { return AIMeshMorphKey.create(memGetAddress(struct + AIMeshMorphAnim.MKEYS), nmNumKeys(struct)); }
 
     /** Unsafe version of {@link #mName(AIString) mName}. */
     public static void nmName(long struct, AIString value) { memCopy(value.address(), struct + AIMeshMorphAnim.MNAME, AIString.SIZEOF); }
     /** Sets the specified value to the {@code mNumKeys} field of the specified {@code struct}. */
-    public static void nmNumKeys(long struct, int value) { UNSAFE.putInt(null, struct + AIMeshMorphAnim.MNUMKEYS, value); }
+    public static void nmNumKeys(long struct, int value) { memPutInt(struct + AIMeshMorphAnim.MNUMKEYS, value); }
     /** Unsafe version of {@link #mKeys(AIMeshMorphKey.Buffer) mKeys}. */
     public static void nmKeys(long struct, AIMeshMorphKey.Buffer value) { memPutAddress(struct + AIMeshMorphAnim.MKEYS, value.address()); nmNumKeys(struct, value.remaining()); }
 
@@ -312,6 +310,11 @@ public class AIMeshMorphAnim extends Struct<AIMeshMorphAnim> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

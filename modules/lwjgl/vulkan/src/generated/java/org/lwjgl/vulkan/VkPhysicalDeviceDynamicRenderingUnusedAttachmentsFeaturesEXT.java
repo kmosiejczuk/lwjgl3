@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extend
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extend
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extend
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #dynamicRenderingUnusedAttachments}. */
-    public static int ndynamicRenderingUnusedAttachments(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.DYNAMICRENDERINGUNUSEDATTACHMENTS); }
+    public static int ndynamicRenderingUnusedAttachments(long struct) { return memGetInt(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.DYNAMICRENDERINGUNUSEDATTACHMENTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #dynamicRenderingUnusedAttachments(boolean) dynamicRenderingUnusedAttachments}. */
-    public static void ndynamicRenderingUnusedAttachments(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.DYNAMICRENDERINGUNUSEDATTACHMENTS, value); }
+    public static void ndynamicRenderingUnusedAttachments(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.DYNAMICRENDERINGUNUSEDATTACHMENTS, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extend
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

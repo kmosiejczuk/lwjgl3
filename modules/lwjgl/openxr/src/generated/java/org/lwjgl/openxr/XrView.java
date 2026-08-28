@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrView createSafe(long address) {
+    public static @Nullable XrView createSafe(long address) {
         return address == NULL ? null : new XrView(address, null);
     }
 
@@ -218,8 +217,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrView.Buffer createSafe(long address, int capacity) {
+    public static XrView.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,7 +262,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrView.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrView.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrView.NEXT); }
     /** Unsafe version of {@link #pose}. */
@@ -273,7 +271,7 @@ public class XrView extends Struct<XrView> implements NativeResource {
     public static XrFovf nfov(long struct) { return XrFovf.create(struct + XrView.FOV); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrView.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrView.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrView.NEXT, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
@@ -312,6 +310,11 @@ public class XrView extends Struct<XrView> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

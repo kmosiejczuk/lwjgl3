@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,8 +137,7 @@ public class XrKeyboardTrackingDescriptionFB extends Struct<XrKeyboardTrackingDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrKeyboardTrackingDescriptionFB createSafe(long address) {
+    public static @Nullable XrKeyboardTrackingDescriptionFB createSafe(long address) {
         return address == NULL ? null : new XrKeyboardTrackingDescriptionFB(address, null);
     }
 
@@ -181,8 +180,7 @@ public class XrKeyboardTrackingDescriptionFB extends Struct<XrKeyboardTrackingDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrKeyboardTrackingDescriptionFB.Buffer createSafe(long address, int capacity) {
+    public static XrKeyboardTrackingDescriptionFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -227,11 +225,11 @@ public class XrKeyboardTrackingDescriptionFB extends Struct<XrKeyboardTrackingDe
     // -----------------------------------
 
     /** Unsafe version of {@link #trackedKeyboardId}. */
-    public static long ntrackedKeyboardId(long struct) { return UNSAFE.getLong(null, struct + XrKeyboardTrackingDescriptionFB.TRACKEDKEYBOARDID); }
+    public static long ntrackedKeyboardId(long struct) { return memGetLong(struct + XrKeyboardTrackingDescriptionFB.TRACKEDKEYBOARDID); }
     /** Unsafe version of {@link #size}. */
     public static XrVector3f nsize(long struct) { return XrVector3f.create(struct + XrKeyboardTrackingDescriptionFB.SIZE); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrKeyboardTrackingDescriptionFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrKeyboardTrackingDescriptionFB.FLAGS); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBuffer(struct + XrKeyboardTrackingDescriptionFB.NAME, XR_MAX_KEYBOARD_TRACKING_NAME_SIZE_FB); }
     /** Unsafe version of {@link #nameString}. */
@@ -268,6 +266,11 @@ public class XrKeyboardTrackingDescriptionFB extends Struct<XrKeyboardTrackingDe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

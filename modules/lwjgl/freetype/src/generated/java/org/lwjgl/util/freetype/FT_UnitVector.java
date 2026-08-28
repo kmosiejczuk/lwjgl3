@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -133,8 +133,7 @@ public class FT_UnitVector extends Struct<FT_UnitVector> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_UnitVector createSafe(long address) {
+    public static @Nullable FT_UnitVector createSafe(long address) {
         return address == NULL ? null : new FT_UnitVector(address, null);
     }
 
@@ -177,8 +176,7 @@ public class FT_UnitVector extends Struct<FT_UnitVector> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_UnitVector.Buffer createSafe(long address, int capacity) {
+    public static FT_UnitVector.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,14 +221,14 @@ public class FT_UnitVector extends Struct<FT_UnitVector> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static short nx(long struct) { return UNSAFE.getShort(null, struct + FT_UnitVector.X); }
+    public static short nx(long struct) { return memGetShort(struct + FT_UnitVector.X); }
     /** Unsafe version of {@link #y}. */
-    public static short ny(long struct) { return UNSAFE.getShort(null, struct + FT_UnitVector.Y); }
+    public static short ny(long struct) { return memGetShort(struct + FT_UnitVector.Y); }
 
     /** Unsafe version of {@link #x(short) x}. */
-    public static void nx(long struct, short value) { UNSAFE.putShort(null, struct + FT_UnitVector.X, value); }
+    public static void nx(long struct, short value) { memPutShort(struct + FT_UnitVector.X, value); }
     /** Unsafe version of {@link #y(short) y}. */
-    public static void ny(long struct, short value) { UNSAFE.putShort(null, struct + FT_UnitVector.Y, value); }
+    public static void ny(long struct, short value) { memPutShort(struct + FT_UnitVector.Y, value); }
 
     // -----------------------------------
 
@@ -263,6 +261,11 @@ public class FT_UnitVector extends Struct<FT_UnitVector> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

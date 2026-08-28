@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -136,8 +136,7 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshKey createSafe(long address) {
+    public static @Nullable AIMeshKey createSafe(long address) {
         return address == NULL ? null : new AIMeshKey(address, null);
     }
 
@@ -180,8 +179,7 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshKey.Buffer createSafe(long address, int capacity) {
+    public static AIMeshKey.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,14 +243,14 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #mTime}. */
-    public static double nmTime(long struct) { return UNSAFE.getDouble(null, struct + AIMeshKey.MTIME); }
+    public static double nmTime(long struct) { return memGetDouble(struct + AIMeshKey.MTIME); }
     /** Unsafe version of {@link #mValue}. */
-    public static int nmValue(long struct) { return UNSAFE.getInt(null, struct + AIMeshKey.MVALUE); }
+    public static int nmValue(long struct) { return memGetInt(struct + AIMeshKey.MVALUE); }
 
     /** Unsafe version of {@link #mTime(double) mTime}. */
-    public static void nmTime(long struct, double value) { UNSAFE.putDouble(null, struct + AIMeshKey.MTIME, value); }
+    public static void nmTime(long struct, double value) { memPutDouble(struct + AIMeshKey.MTIME, value); }
     /** Unsafe version of {@link #mValue(int) mValue}. */
-    public static void nmValue(long struct, int value) { UNSAFE.putInt(null, struct + AIMeshKey.MVALUE, value); }
+    public static void nmValue(long struct, int value) { memPutInt(struct + AIMeshKey.MVALUE, value); }
 
     // -----------------------------------
 
@@ -285,6 +283,11 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

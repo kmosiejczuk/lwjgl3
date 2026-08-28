@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class XrSystemKeyboardTrackingPropertiesFB extends Struct<XrSystemKeyboar
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemKeyboardTrackingPropertiesFB createSafe(long address) {
+    public static @Nullable XrSystemKeyboardTrackingPropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrSystemKeyboardTrackingPropertiesFB(address, null);
     }
 
@@ -202,8 +201,7 @@ public class XrSystemKeyboardTrackingPropertiesFB extends Struct<XrSystemKeyboar
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemKeyboardTrackingPropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrSystemKeyboardTrackingPropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +246,14 @@ public class XrSystemKeyboardTrackingPropertiesFB extends Struct<XrSystemKeyboar
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemKeyboardTrackingPropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemKeyboardTrackingPropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemKeyboardTrackingPropertiesFB.NEXT); }
     /** Unsafe version of {@link #supportsKeyboardTracking}. */
-    public static int nsupportsKeyboardTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemKeyboardTrackingPropertiesFB.SUPPORTSKEYBOARDTRACKING); }
+    public static int nsupportsKeyboardTracking(long struct) { return memGetInt(struct + XrSystemKeyboardTrackingPropertiesFB.SUPPORTSKEYBOARDTRACKING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemKeyboardTrackingPropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemKeyboardTrackingPropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemKeyboardTrackingPropertiesFB.NEXT, value); }
 
@@ -290,6 +288,11 @@ public class XrSystemKeyboardTrackingPropertiesFB extends Struct<XrSystemKeyboar
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

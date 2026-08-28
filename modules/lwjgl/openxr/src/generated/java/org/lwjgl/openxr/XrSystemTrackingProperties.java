@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -137,8 +137,7 @@ public class XrSystemTrackingProperties extends Struct<XrSystemTrackingPropertie
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemTrackingProperties createSafe(long address) {
+    public static @Nullable XrSystemTrackingProperties createSafe(long address) {
         return address == NULL ? null : new XrSystemTrackingProperties(address, null);
     }
 
@@ -181,8 +180,7 @@ public class XrSystemTrackingProperties extends Struct<XrSystemTrackingPropertie
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemTrackingProperties.Buffer createSafe(long address, int capacity) {
+    public static XrSystemTrackingProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -227,14 +225,14 @@ public class XrSystemTrackingProperties extends Struct<XrSystemTrackingPropertie
     // -----------------------------------
 
     /** Unsafe version of {@link #orientationTracking}. */
-    public static int norientationTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemTrackingProperties.ORIENTATIONTRACKING); }
+    public static int norientationTracking(long struct) { return memGetInt(struct + XrSystemTrackingProperties.ORIENTATIONTRACKING); }
     /** Unsafe version of {@link #positionTracking}. */
-    public static int npositionTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemTrackingProperties.POSITIONTRACKING); }
+    public static int npositionTracking(long struct) { return memGetInt(struct + XrSystemTrackingProperties.POSITIONTRACKING); }
 
     /** Unsafe version of {@link #orientationTracking(boolean) orientationTracking}. */
-    public static void norientationTracking(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemTrackingProperties.ORIENTATIONTRACKING, value); }
+    public static void norientationTracking(long struct, int value) { memPutInt(struct + XrSystemTrackingProperties.ORIENTATIONTRACKING, value); }
     /** Unsafe version of {@link #positionTracking(boolean) positionTracking}. */
-    public static void npositionTracking(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemTrackingProperties.POSITIONTRACKING, value); }
+    public static void npositionTracking(long struct, int value) { memPutInt(struct + XrSystemTrackingProperties.POSITIONTRACKING, value); }
 
     // -----------------------------------
 
@@ -267,6 +265,11 @@ public class XrSystemTrackingProperties extends Struct<XrSystemTrackingPropertie
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

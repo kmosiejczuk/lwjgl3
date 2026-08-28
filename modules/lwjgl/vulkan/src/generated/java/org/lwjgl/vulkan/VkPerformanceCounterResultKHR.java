@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPerformanceCounterResultKHR extends Struct<VkPerformanceCounterRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceCounterResultKHR createSafe(long address) {
+    public static @Nullable VkPerformanceCounterResultKHR createSafe(long address) {
         return address == NULL ? null : new VkPerformanceCounterResultKHR(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPerformanceCounterResultKHR extends Struct<VkPerformanceCounterRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceCounterResultKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPerformanceCounterResultKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,30 +244,30 @@ public class VkPerformanceCounterResultKHR extends Struct<VkPerformanceCounterRe
     // -----------------------------------
 
     /** Unsafe version of {@link #int32}. */
-    public static int nint32(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceCounterResultKHR.INT32); }
+    public static int nint32(long struct) { return memGetInt(struct + VkPerformanceCounterResultKHR.INT32); }
     /** Unsafe version of {@link #int64}. */
-    public static long nint64(long struct) { return UNSAFE.getLong(null, struct + VkPerformanceCounterResultKHR.INT64); }
+    public static long nint64(long struct) { return memGetLong(struct + VkPerformanceCounterResultKHR.INT64); }
     /** Unsafe version of {@link #uint32}. */
-    public static int nuint32(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceCounterResultKHR.UINT32); }
+    public static int nuint32(long struct) { return memGetInt(struct + VkPerformanceCounterResultKHR.UINT32); }
     /** Unsafe version of {@link #uint64}. */
-    public static long nuint64(long struct) { return UNSAFE.getLong(null, struct + VkPerformanceCounterResultKHR.UINT64); }
+    public static long nuint64(long struct) { return memGetLong(struct + VkPerformanceCounterResultKHR.UINT64); }
     /** Unsafe version of {@link #float32}. */
-    public static float nfloat32(long struct) { return UNSAFE.getFloat(null, struct + VkPerformanceCounterResultKHR.FLOAT32); }
+    public static float nfloat32(long struct) { return memGetFloat(struct + VkPerformanceCounterResultKHR.FLOAT32); }
     /** Unsafe version of {@link #float64}. */
-    public static double nfloat64(long struct) { return UNSAFE.getDouble(null, struct + VkPerformanceCounterResultKHR.FLOAT64); }
+    public static double nfloat64(long struct) { return memGetDouble(struct + VkPerformanceCounterResultKHR.FLOAT64); }
 
     /** Unsafe version of {@link #int32(int) int32}. */
-    public static void nint32(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceCounterResultKHR.INT32, value); }
+    public static void nint32(long struct, int value) { memPutInt(struct + VkPerformanceCounterResultKHR.INT32, value); }
     /** Unsafe version of {@link #int64(long) int64}. */
-    public static void nint64(long struct, long value) { UNSAFE.putLong(null, struct + VkPerformanceCounterResultKHR.INT64, value); }
+    public static void nint64(long struct, long value) { memPutLong(struct + VkPerformanceCounterResultKHR.INT64, value); }
     /** Unsafe version of {@link #uint32(int) uint32}. */
-    public static void nuint32(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceCounterResultKHR.UINT32, value); }
+    public static void nuint32(long struct, int value) { memPutInt(struct + VkPerformanceCounterResultKHR.UINT32, value); }
     /** Unsafe version of {@link #uint64(long) uint64}. */
-    public static void nuint64(long struct, long value) { UNSAFE.putLong(null, struct + VkPerformanceCounterResultKHR.UINT64, value); }
+    public static void nuint64(long struct, long value) { memPutLong(struct + VkPerformanceCounterResultKHR.UINT64, value); }
     /** Unsafe version of {@link #float32(float) float32}. */
-    public static void nfloat32(long struct, float value) { UNSAFE.putFloat(null, struct + VkPerformanceCounterResultKHR.FLOAT32, value); }
+    public static void nfloat32(long struct, float value) { memPutFloat(struct + VkPerformanceCounterResultKHR.FLOAT32, value); }
     /** Unsafe version of {@link #float64(double) float64}. */
-    public static void nfloat64(long struct, double value) { UNSAFE.putDouble(null, struct + VkPerformanceCounterResultKHR.FLOAT64, value); }
+    public static void nfloat64(long struct, double value) { memPutDouble(struct + VkPerformanceCounterResultKHR.FLOAT64, value); }
 
     // -----------------------------------
 
@@ -302,6 +300,11 @@ public class VkPerformanceCounterResultKHR extends Struct<VkPerformanceCounterRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

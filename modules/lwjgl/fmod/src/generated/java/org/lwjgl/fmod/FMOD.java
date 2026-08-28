@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -421,7 +421,9 @@ public class FMOD {
         return FMOD;
     }
 
-    public static final int FMOD_VERSION = 0x20221;
+    public static final int FMOD_VERSION = 0x20304;
+
+    public static final int FMOD_BUILDNUMBER = 0x2406B;
 
     public static final int FMOD_DEBUG_LEVEL_NONE = 0x0;
 
@@ -525,23 +527,21 @@ public class FMOD {
 
     public static final int FMOD_SYSTEM_CALLBACK_ERROR = 0x80;
 
-    public static final int FMOD_SYSTEM_CALLBACK_MIDMIX = 0x100;
+    public static final int FMOD_SYSTEM_CALLBACK_THREADDESTROYED = 0x100;
 
-    public static final int FMOD_SYSTEM_CALLBACK_THREADDESTROYED = 0x200;
+    public static final int FMOD_SYSTEM_CALLBACK_PREUPDATE = 0x200;
 
-    public static final int FMOD_SYSTEM_CALLBACK_PREUPDATE = 0x400;
+    public static final int FMOD_SYSTEM_CALLBACK_POSTUPDATE = 0x400;
 
-    public static final int FMOD_SYSTEM_CALLBACK_POSTUPDATE = 0x800;
+    public static final int FMOD_SYSTEM_CALLBACK_RECORDLISTCHANGED = 0x800;
 
-    public static final int FMOD_SYSTEM_CALLBACK_RECORDLISTCHANGED = 0x1000;
+    public static final int FMOD_SYSTEM_CALLBACK_BUFFEREDNOMIX = 0x1000;
 
-    public static final int FMOD_SYSTEM_CALLBACK_BUFFEREDNOMIX = 0x2000;
+    public static final int FMOD_SYSTEM_CALLBACK_DEVICEREINITIALIZE = 0x2000;
 
-    public static final int FMOD_SYSTEM_CALLBACK_DEVICEREINITIALIZE = 0x4000;
+    public static final int FMOD_SYSTEM_CALLBACK_OUTPUTUNDERRUN = 0x4000;
 
-    public static final int FMOD_SYSTEM_CALLBACK_OUTPUTUNDERRUN = 0x8000;
-
-    public static final int FMOD_SYSTEM_CALLBACK_RECORDPOSITIONCHANGED = 0x10000;
+    public static final int FMOD_SYSTEM_CALLBACK_RECORDPOSITIONCHANGED = 0x8000;
 
     public static final int FMOD_SYSTEM_CALLBACK_ALL = 0xFFFFFFFF;
 
@@ -640,8 +640,6 @@ public class FMOD {
     public static final int FMOD_CHANNELMASK_7POINT1 = FMOD_CHANNELMASK_FRONT_LEFT | FMOD_CHANNELMASK_FRONT_RIGHT | FMOD_CHANNELMASK_FRONT_CENTER  | FMOD_CHANNELMASK_LOW_FREQUENCY | FMOD_CHANNELMASK_SURROUND_LEFT  | FMOD_CHANNELMASK_SURROUND_RIGHT | FMOD_CHANNELMASK_BACK_LEFT | FMOD_CHANNELMASK_BACK_RIGHT;
 
     public static final long FMOD_PORT_INDEX_NONE = 0xFFFFFFFFFFFFFFFFL;
-
-    public static final long FMOD_PORT_INDEX_FLAG_VR_CONTROLLER = 0x1000000000000000L;
 
     public static final int FMOD_THREAD_PRIORITY_PLATFORM_MIN = -32 * 1024;
 
@@ -1568,6 +1566,8 @@ public class FMOD {
      * <li>{@link #FMOD_PORT_TYPE_PERSONAL PORT_TYPE_PERSONAL}</li>
      * <li>{@link #FMOD_PORT_TYPE_VIBRATION PORT_TYPE_VIBRATION}</li>
      * <li>{@link #FMOD_PORT_TYPE_AUX PORT_TYPE_AUX}</li>
+     * <li>{@link #FMOD_PORT_TYPE_PASSTHROUGH PORT_TYPE_PASSTHROUGH}</li>
+     * <li>{@link #FMOD_PORT_TYPE_VR_VIBRATION PORT_TYPE_VR_VIBRATION}</li>
      * <li>{@link #FMOD_PORT_TYPE_MAX PORT_TYPE_MAX}</li>
      * </ul>
      */
@@ -1579,7 +1579,9 @@ public class FMOD {
         FMOD_PORT_TYPE_PERSONAL        = 4,
         FMOD_PORT_TYPE_VIBRATION       = 5,
         FMOD_PORT_TYPE_AUX             = 6,
-        FMOD_PORT_TYPE_MAX             = 7;
+        FMOD_PORT_TYPE_PASSTHROUGH     = 7,
+        FMOD_PORT_TYPE_VR_VIBRATION    = 8,
+        FMOD_PORT_TYPE_MAX             = 9;
 
     /**
      * {@code FMOD_DSP_TYPE}
@@ -1602,15 +1604,12 @@ public class FMOD {
      * <li>{@link #FMOD_DSP_TYPE_PARAMEQ DSP_TYPE_PARAMEQ}</li>
      * <li>{@link #FMOD_DSP_TYPE_PITCHSHIFT DSP_TYPE_PITCHSHIFT}</li>
      * <li>{@link #FMOD_DSP_TYPE_CHORUS DSP_TYPE_CHORUS}</li>
-     * <li>{@link #FMOD_DSP_TYPE_VSTPLUGIN DSP_TYPE_VSTPLUGIN}</li>
-     * <li>{@link #FMOD_DSP_TYPE_WINAMPPLUGIN DSP_TYPE_WINAMPPLUGIN}</li>
      * <li>{@link #FMOD_DSP_TYPE_ITECHO DSP_TYPE_ITECHO}</li>
      * <li>{@link #FMOD_DSP_TYPE_COMPRESSOR DSP_TYPE_COMPRESSOR}</li>
      * <li>{@link #FMOD_DSP_TYPE_SFXREVERB DSP_TYPE_SFXREVERB}</li>
      * <li>{@link #FMOD_DSP_TYPE_LOWPASS_SIMPLE DSP_TYPE_LOWPASS_SIMPLE}</li>
      * <li>{@link #FMOD_DSP_TYPE_DELAY DSP_TYPE_DELAY}</li>
      * <li>{@link #FMOD_DSP_TYPE_TREMOLO DSP_TYPE_TREMOLO}</li>
-     * <li>{@link #FMOD_DSP_TYPE_LADSPAPLUGIN DSP_TYPE_LADSPAPLUGIN}</li>
      * <li>{@link #FMOD_DSP_TYPE_SEND DSP_TYPE_SEND}</li>
      * <li>{@link #FMOD_DSP_TYPE_RETURN DSP_TYPE_RETURN}</li>
      * <li>{@link #FMOD_DSP_TYPE_HIGHPASS_SIMPLE DSP_TYPE_HIGHPASS_SIMPLE}</li>
@@ -1618,54 +1617,51 @@ public class FMOD {
      * <li>{@link #FMOD_DSP_TYPE_THREE_EQ DSP_TYPE_THREE_EQ}</li>
      * <li>{@link #FMOD_DSP_TYPE_FFT DSP_TYPE_FFT}</li>
      * <li>{@link #FMOD_DSP_TYPE_LOUDNESS_METER DSP_TYPE_LOUDNESS_METER}</li>
-     * <li>{@link #FMOD_DSP_TYPE_ENVELOPEFOLLOWER DSP_TYPE_ENVELOPEFOLLOWER}</li>
      * <li>{@link #FMOD_DSP_TYPE_CONVOLUTIONREVERB DSP_TYPE_CONVOLUTIONREVERB}</li>
      * <li>{@link #FMOD_DSP_TYPE_CHANNELMIX DSP_TYPE_CHANNELMIX}</li>
      * <li>{@link #FMOD_DSP_TYPE_TRANSCEIVER DSP_TYPE_TRANSCEIVER}</li>
      * <li>{@link #FMOD_DSP_TYPE_OBJECTPAN DSP_TYPE_OBJECTPAN}</li>
      * <li>{@link #FMOD_DSP_TYPE_MULTIBAND_EQ DSP_TYPE_MULTIBAND_EQ}</li>
+     * <li>{@link #FMOD_DSP_TYPE_MULTIBAND_DYNAMICS DSP_TYPE_MULTIBAND_DYNAMICS}</li>
      * <li>{@link #FMOD_DSP_TYPE_MAX DSP_TYPE_MAX}</li>
      * </ul>
      */
     public static final int
-        FMOD_DSP_TYPE_UNKNOWN           = 0,
-        FMOD_DSP_TYPE_MIXER             = 1,
-        FMOD_DSP_TYPE_OSCILLATOR        = 2,
-        FMOD_DSP_TYPE_LOWPASS           = 3,
-        FMOD_DSP_TYPE_ITLOWPASS         = 4,
-        FMOD_DSP_TYPE_HIGHPASS          = 5,
-        FMOD_DSP_TYPE_ECHO              = 6,
-        FMOD_DSP_TYPE_FADER             = 7,
-        FMOD_DSP_TYPE_FLANGE            = 8,
-        FMOD_DSP_TYPE_DISTORTION        = 9,
-        FMOD_DSP_TYPE_NORMALIZE         = 10,
-        FMOD_DSP_TYPE_LIMITER           = 11,
-        FMOD_DSP_TYPE_PARAMEQ           = 12,
-        FMOD_DSP_TYPE_PITCHSHIFT        = 13,
-        FMOD_DSP_TYPE_CHORUS            = 14,
-        FMOD_DSP_TYPE_VSTPLUGIN         = 15,
-        FMOD_DSP_TYPE_WINAMPPLUGIN      = 16,
-        FMOD_DSP_TYPE_ITECHO            = 17,
-        FMOD_DSP_TYPE_COMPRESSOR        = 18,
-        FMOD_DSP_TYPE_SFXREVERB         = 19,
-        FMOD_DSP_TYPE_LOWPASS_SIMPLE    = 20,
-        FMOD_DSP_TYPE_DELAY             = 21,
-        FMOD_DSP_TYPE_TREMOLO           = 22,
-        FMOD_DSP_TYPE_LADSPAPLUGIN      = 23,
-        FMOD_DSP_TYPE_SEND              = 24,
-        FMOD_DSP_TYPE_RETURN            = 25,
-        FMOD_DSP_TYPE_HIGHPASS_SIMPLE   = 26,
-        FMOD_DSP_TYPE_PAN               = 27,
-        FMOD_DSP_TYPE_THREE_EQ          = 28,
-        FMOD_DSP_TYPE_FFT               = 29,
-        FMOD_DSP_TYPE_LOUDNESS_METER    = 30,
-        FMOD_DSP_TYPE_ENVELOPEFOLLOWER  = 31,
-        FMOD_DSP_TYPE_CONVOLUTIONREVERB = 32,
-        FMOD_DSP_TYPE_CHANNELMIX        = 33,
-        FMOD_DSP_TYPE_TRANSCEIVER       = 34,
-        FMOD_DSP_TYPE_OBJECTPAN         = 35,
-        FMOD_DSP_TYPE_MULTIBAND_EQ      = 36,
-        FMOD_DSP_TYPE_MAX               = 37;
+        FMOD_DSP_TYPE_UNKNOWN            = 0,
+        FMOD_DSP_TYPE_MIXER              = 1,
+        FMOD_DSP_TYPE_OSCILLATOR         = 2,
+        FMOD_DSP_TYPE_LOWPASS            = 3,
+        FMOD_DSP_TYPE_ITLOWPASS          = 4,
+        FMOD_DSP_TYPE_HIGHPASS           = 5,
+        FMOD_DSP_TYPE_ECHO               = 6,
+        FMOD_DSP_TYPE_FADER              = 7,
+        FMOD_DSP_TYPE_FLANGE             = 8,
+        FMOD_DSP_TYPE_DISTORTION         = 9,
+        FMOD_DSP_TYPE_NORMALIZE          = 10,
+        FMOD_DSP_TYPE_LIMITER            = 11,
+        FMOD_DSP_TYPE_PARAMEQ            = 12,
+        FMOD_DSP_TYPE_PITCHSHIFT         = 13,
+        FMOD_DSP_TYPE_CHORUS             = 14,
+        FMOD_DSP_TYPE_ITECHO             = 15,
+        FMOD_DSP_TYPE_COMPRESSOR         = 16,
+        FMOD_DSP_TYPE_SFXREVERB          = 17,
+        FMOD_DSP_TYPE_LOWPASS_SIMPLE     = 18,
+        FMOD_DSP_TYPE_DELAY              = 19,
+        FMOD_DSP_TYPE_TREMOLO            = 20,
+        FMOD_DSP_TYPE_SEND               = 21,
+        FMOD_DSP_TYPE_RETURN             = 22,
+        FMOD_DSP_TYPE_HIGHPASS_SIMPLE    = 23,
+        FMOD_DSP_TYPE_PAN                = 24,
+        FMOD_DSP_TYPE_THREE_EQ           = 25,
+        FMOD_DSP_TYPE_FFT                = 26,
+        FMOD_DSP_TYPE_LOUDNESS_METER     = 27,
+        FMOD_DSP_TYPE_CONVOLUTIONREVERB  = 28,
+        FMOD_DSP_TYPE_CHANNELMIX         = 29,
+        FMOD_DSP_TYPE_TRANSCEIVER        = 30,
+        FMOD_DSP_TYPE_OBJECTPAN          = 31,
+        FMOD_DSP_TYPE_MULTIBAND_EQ       = 32,
+        FMOD_DSP_TYPE_MULTIBAND_DYNAMICS = 33,
+        FMOD_DSP_TYPE_MAX                = 34;
 
     /**
      * {@code FMOD_DSP_OSCILLATOR}
@@ -1733,13 +1729,31 @@ public class FMOD {
      * <li>{@link #FMOD_DSP_ECHO_FEEDBACK DSP_ECHO_FEEDBACK}</li>
      * <li>{@link #FMOD_DSP_ECHO_DRYLEVEL DSP_ECHO_DRYLEVEL}</li>
      * <li>{@link #FMOD_DSP_ECHO_WETLEVEL DSP_ECHO_WETLEVEL}</li>
+     * <li>{@link #FMOD_DSP_ECHO_DELAYCHANGEMODE DSP_ECHO_DELAYCHANGEMODE}</li>
      * </ul>
      */
     public static final int
-        FMOD_DSP_ECHO_DELAY    = 0,
-        FMOD_DSP_ECHO_FEEDBACK = 1,
-        FMOD_DSP_ECHO_DRYLEVEL = 2,
-        FMOD_DSP_ECHO_WETLEVEL = 3;
+        FMOD_DSP_ECHO_DELAY           = 0,
+        FMOD_DSP_ECHO_FEEDBACK        = 1,
+        FMOD_DSP_ECHO_DRYLEVEL        = 2,
+        FMOD_DSP_ECHO_WETLEVEL        = 3,
+        FMOD_DSP_ECHO_DELAYCHANGEMODE = 4;
+
+    /**
+     * {@code FMOD_DSP_ECHO_DELAYCHANGEMODE_TYPE}
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #FMOD_DSP_ECHO_DELAYCHANGEMODE_FADE DSP_ECHO_DELAYCHANGEMODE_FADE}</li>
+     * <li>{@link #FMOD_DSP_ECHO_DELAYCHANGEMODE_LERP DSP_ECHO_DELAYCHANGEMODE_LERP}</li>
+     * <li>{@link #FMOD_DSP_ECHO_DELAYCHANGEMODE_NONE DSP_ECHO_DELAYCHANGEMODE_NONE}</li>
+     * </ul>
+     */
+    public static final int
+        FMOD_DSP_ECHO_DELAYCHANGEMODE_FADE = 0,
+        FMOD_DSP_ECHO_DELAYCHANGEMODE_LERP = 1,
+        FMOD_DSP_ECHO_DELAYCHANGEMODE_NONE = 2;
 
     /**
      * {@code FMOD_DSP_FADER}
@@ -1893,6 +1907,8 @@ public class FMOD {
      * <li>{@link #FMOD_DSP_MULTIBAND_EQ_FILTER_BANDPASS DSP_MULTIBAND_EQ_FILTER_BANDPASS}</li>
      * <li>{@link #FMOD_DSP_MULTIBAND_EQ_FILTER_NOTCH DSP_MULTIBAND_EQ_FILTER_NOTCH}</li>
      * <li>{@link #FMOD_DSP_MULTIBAND_EQ_FILTER_ALLPASS DSP_MULTIBAND_EQ_FILTER_ALLPASS}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_EQ_FILTER_LOWPASS_6DB DSP_MULTIBAND_EQ_FILTER_LOWPASS_6DB}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_EQ_FILTER_HIGHPASS_6DB DSP_MULTIBAND_EQ_FILTER_HIGHPASS_6DB}</li>
      * </ul>
      */
     public static final int
@@ -1908,7 +1924,95 @@ public class FMOD {
         FMOD_DSP_MULTIBAND_EQ_FILTER_PEAKING       = 9,
         FMOD_DSP_MULTIBAND_EQ_FILTER_BANDPASS      = 10,
         FMOD_DSP_MULTIBAND_EQ_FILTER_NOTCH         = 11,
-        FMOD_DSP_MULTIBAND_EQ_FILTER_ALLPASS       = 12;
+        FMOD_DSP_MULTIBAND_EQ_FILTER_ALLPASS       = 12,
+        FMOD_DSP_MULTIBAND_EQ_FILTER_LOWPASS_6DB   = 13,
+        FMOD_DSP_MULTIBAND_EQ_FILTER_HIGHPASS_6DB  = 14;
+
+    /**
+     * {@code FMOD_DSP_MULTIBAND_DYNAMICS}
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_LOWER_FREQUENCY DSP_MULTIBAND_DYNAMICS_LOWER_FREQUENCY}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_UPPER_FREQUENCY DSP_MULTIBAND_DYNAMICS_UPPER_FREQUENCY}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_LINKED DSP_MULTIBAND_DYNAMICS_LINKED}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_USE_SIDECHAIN DSP_MULTIBAND_DYNAMICS_USE_SIDECHAIN}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_A_MODE DSP_MULTIBAND_DYNAMICS_A_MODE}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_A_GAIN DSP_MULTIBAND_DYNAMICS_A_GAIN}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_A_THRESHOLD DSP_MULTIBAND_DYNAMICS_A_THRESHOLD}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_A_RATIO DSP_MULTIBAND_DYNAMICS_A_RATIO}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_A_ATTACK DSP_MULTIBAND_DYNAMICS_A_ATTACK}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_A_RELEASE DSP_MULTIBAND_DYNAMICS_A_RELEASE}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_A_GAIN_MAKEUP DSP_MULTIBAND_DYNAMICS_A_GAIN_MAKEUP}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_A_RESPONSE_DATA DSP_MULTIBAND_DYNAMICS_A_RESPONSE_DATA}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_B_MODE DSP_MULTIBAND_DYNAMICS_B_MODE}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_B_GAIN DSP_MULTIBAND_DYNAMICS_B_GAIN}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_B_THRESHOLD DSP_MULTIBAND_DYNAMICS_B_THRESHOLD}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_B_RATIO DSP_MULTIBAND_DYNAMICS_B_RATIO}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_B_ATTACK DSP_MULTIBAND_DYNAMICS_B_ATTACK}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_B_RELEASE DSP_MULTIBAND_DYNAMICS_B_RELEASE}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_B_GAIN_MAKEUP DSP_MULTIBAND_DYNAMICS_B_GAIN_MAKEUP}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_B_RESPONSE_DATA DSP_MULTIBAND_DYNAMICS_B_RESPONSE_DATA}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_C_MODE DSP_MULTIBAND_DYNAMICS_C_MODE}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_C_GAIN DSP_MULTIBAND_DYNAMICS_C_GAIN}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_C_THRESHOLD DSP_MULTIBAND_DYNAMICS_C_THRESHOLD}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_C_RATIO DSP_MULTIBAND_DYNAMICS_C_RATIO}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_C_ATTACK DSP_MULTIBAND_DYNAMICS_C_ATTACK}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_C_RELEASE DSP_MULTIBAND_DYNAMICS_C_RELEASE}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_C_GAIN_MAKEUP DSP_MULTIBAND_DYNAMICS_C_GAIN_MAKEUP}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_C_RESPONSE_DATA DSP_MULTIBAND_DYNAMICS_C_RESPONSE_DATA}</li>
+     * </ul>
+     */
+    public static final int
+        FMOD_DSP_MULTIBAND_DYNAMICS_LOWER_FREQUENCY = 0,
+        FMOD_DSP_MULTIBAND_DYNAMICS_UPPER_FREQUENCY = 1,
+        FMOD_DSP_MULTIBAND_DYNAMICS_LINKED          = 2,
+        FMOD_DSP_MULTIBAND_DYNAMICS_USE_SIDECHAIN   = 3,
+        FMOD_DSP_MULTIBAND_DYNAMICS_A_MODE          = 4,
+        FMOD_DSP_MULTIBAND_DYNAMICS_A_GAIN          = 5,
+        FMOD_DSP_MULTIBAND_DYNAMICS_A_THRESHOLD     = 6,
+        FMOD_DSP_MULTIBAND_DYNAMICS_A_RATIO         = 7,
+        FMOD_DSP_MULTIBAND_DYNAMICS_A_ATTACK        = 8,
+        FMOD_DSP_MULTIBAND_DYNAMICS_A_RELEASE       = 9,
+        FMOD_DSP_MULTIBAND_DYNAMICS_A_GAIN_MAKEUP   = 10,
+        FMOD_DSP_MULTIBAND_DYNAMICS_A_RESPONSE_DATA = 11,
+        FMOD_DSP_MULTIBAND_DYNAMICS_B_MODE          = 12,
+        FMOD_DSP_MULTIBAND_DYNAMICS_B_GAIN          = 13,
+        FMOD_DSP_MULTIBAND_DYNAMICS_B_THRESHOLD     = 14,
+        FMOD_DSP_MULTIBAND_DYNAMICS_B_RATIO         = 15,
+        FMOD_DSP_MULTIBAND_DYNAMICS_B_ATTACK        = 16,
+        FMOD_DSP_MULTIBAND_DYNAMICS_B_RELEASE       = 17,
+        FMOD_DSP_MULTIBAND_DYNAMICS_B_GAIN_MAKEUP   = 18,
+        FMOD_DSP_MULTIBAND_DYNAMICS_B_RESPONSE_DATA = 19,
+        FMOD_DSP_MULTIBAND_DYNAMICS_C_MODE          = 20,
+        FMOD_DSP_MULTIBAND_DYNAMICS_C_GAIN          = 21,
+        FMOD_DSP_MULTIBAND_DYNAMICS_C_THRESHOLD     = 22,
+        FMOD_DSP_MULTIBAND_DYNAMICS_C_RATIO         = 23,
+        FMOD_DSP_MULTIBAND_DYNAMICS_C_ATTACK        = 24,
+        FMOD_DSP_MULTIBAND_DYNAMICS_C_RELEASE       = 25,
+        FMOD_DSP_MULTIBAND_DYNAMICS_C_GAIN_MAKEUP   = 26,
+        FMOD_DSP_MULTIBAND_DYNAMICS_C_RESPONSE_DATA = 27;
+
+    /**
+     * {@code FMOD_DSP_MULTIBAND_DYNAMICS_MODE_TYPE}
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_MODE_DISABLED DSP_MULTIBAND_DYNAMICS_MODE_DISABLED}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_MODE_COMPRESS_UP DSP_MULTIBAND_DYNAMICS_MODE_COMPRESS_UP}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_MODE_COMPRESS_DOWN DSP_MULTIBAND_DYNAMICS_MODE_COMPRESS_DOWN}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_MODE_EXPAND_UP DSP_MULTIBAND_DYNAMICS_MODE_EXPAND_UP}</li>
+     * <li>{@link #FMOD_DSP_MULTIBAND_DYNAMICS_MODE_EXPAND_DOWN DSP_MULTIBAND_DYNAMICS_MODE_EXPAND_DOWN}</li>
+     * </ul>
+     */
+    public static final int
+        FMOD_DSP_MULTIBAND_DYNAMICS_MODE_DISABLED      = 0,
+        FMOD_DSP_MULTIBAND_DYNAMICS_MODE_COMPRESS_UP   = 1,
+        FMOD_DSP_MULTIBAND_DYNAMICS_MODE_COMPRESS_DOWN = 2,
+        FMOD_DSP_MULTIBAND_DYNAMICS_MODE_EXPAND_UP     = 3,
+        FMOD_DSP_MULTIBAND_DYNAMICS_MODE_EXPAND_DOWN   = 4;
 
     /**
      * {@code FMOD_DSP_PITCHSHIFT}
@@ -2291,7 +2395,7 @@ public class FMOD {
         FMOD_DSP_THREE_EQ_CROSSOVERSLOPE = 5;
 
     /**
-     * {@code FMOD_DSP_FFT_WINDOW}
+     * {@code FMOD_DSP_FFT_WINDOW_TYPE}
      * 
      * <h5>Enum values:</h5>
      * 
@@ -2313,22 +2417,48 @@ public class FMOD {
         FMOD_DSP_FFT_WINDOW_BLACKMANHARRIS = 5;
 
     /**
+     * {@code FMOD_DSP_FFT_DOWNMIX_TYPE}
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #FMOD_DSP_FFT_DOWNMIX_NONE DSP_FFT_DOWNMIX_NONE}</li>
+     * <li>{@link #FMOD_DSP_FFT_DOWNMIX_MONO DSP_FFT_DOWNMIX_MONO}</li>
+     * </ul>
+     */
+    public static final int
+        FMOD_DSP_FFT_DOWNMIX_NONE = 0,
+        FMOD_DSP_FFT_DOWNMIX_MONO = 1;
+
+    /**
      * {@code FMOD_DSP_FFT}
      * 
      * <h5>Enum values:</h5>
      * 
      * <ul>
      * <li>{@link #FMOD_DSP_FFT_WINDOWSIZE DSP_FFT_WINDOWSIZE}</li>
-     * <li>{@link #FMOD_DSP_FFT_WINDOWTYPE DSP_FFT_WINDOWTYPE}</li>
+     * <li>{@link #FMOD_DSP_FFT_WINDOW DSP_FFT_WINDOW}</li>
+     * <li>{@link #FMOD_DSP_FFT_BAND_START_FREQ DSP_FFT_BAND_START_FREQ}</li>
+     * <li>{@link #FMOD_DSP_FFT_BAND_STOP_FREQ DSP_FFT_BAND_STOP_FREQ}</li>
      * <li>{@link #FMOD_DSP_FFT_SPECTRUMDATA DSP_FFT_SPECTRUMDATA}</li>
-     * <li>{@link #FMOD_DSP_FFT_DOMINANT_FREQ DSP_FFT_DOMINANT_FREQ}</li>
+     * <li>{@link #FMOD_DSP_FFT_RMS DSP_FFT_RMS}</li>
+     * <li>{@link #FMOD_DSP_FFT_SPECTRAL_CENTROID DSP_FFT_SPECTRAL_CENTROID}</li>
+     * <li>{@link #FMOD_DSP_FFT_IMMEDIATE_MODE DSP_FFT_IMMEDIATE_MODE}</li>
+     * <li>{@link #FMOD_DSP_FFT_DOWNMIX DSP_FFT_DOWNMIX}</li>
+     * <li>{@link #FMOD_DSP_FFT_CHANNEL DSP_FFT_CHANNEL}</li>
      * </ul>
      */
     public static final int
-        FMOD_DSP_FFT_WINDOWSIZE    = 0,
-        FMOD_DSP_FFT_WINDOWTYPE    = 1,
-        FMOD_DSP_FFT_SPECTRUMDATA  = 2,
-        FMOD_DSP_FFT_DOMINANT_FREQ = 3;
+        FMOD_DSP_FFT_WINDOWSIZE        = 0,
+        FMOD_DSP_FFT_WINDOW            = 1,
+        FMOD_DSP_FFT_BAND_START_FREQ   = 2,
+        FMOD_DSP_FFT_BAND_STOP_FREQ    = 3,
+        FMOD_DSP_FFT_SPECTRUMDATA      = 4,
+        FMOD_DSP_FFT_RMS               = 5,
+        FMOD_DSP_FFT_SPECTRAL_CENTROID = 6,
+        FMOD_DSP_FFT_IMMEDIATE_MODE    = 7,
+        FMOD_DSP_FFT_DOWNMIX           = 8,
+        FMOD_DSP_FFT_CHANNEL           = 9;
 
     /**
      * {@code FMOD_DSP_LOUDNESS_METER}
@@ -2365,24 +2495,6 @@ public class FMOD {
         FMOD_DSP_LOUDNESS_METER_STATE_RESET_ALL        = -1,
         FMOD_DSP_LOUDNESS_METER_STATE_PAUSED           = 0,
         FMOD_DSP_LOUDNESS_METER_STATE_ANALYZING        = 1;
-
-    /**
-     * {@code FMOD_DSP_ENVELOPEFOLLOWER}
-     * 
-     * <h5>Enum values:</h5>
-     * 
-     * <ul>
-     * <li>{@link #FMOD_DSP_ENVELOPEFOLLOWER_ATTACK DSP_ENVELOPEFOLLOWER_ATTACK}</li>
-     * <li>{@link #FMOD_DSP_ENVELOPEFOLLOWER_RELEASE DSP_ENVELOPEFOLLOWER_RELEASE}</li>
-     * <li>{@link #FMOD_DSP_ENVELOPEFOLLOWER_ENVELOPE DSP_ENVELOPEFOLLOWER_ENVELOPE}</li>
-     * <li>{@link #FMOD_DSP_ENVELOPEFOLLOWER_USESIDECHAIN DSP_ENVELOPEFOLLOWER_USESIDECHAIN}</li>
-     * </ul>
-     */
-    public static final int
-        FMOD_DSP_ENVELOPEFOLLOWER_ATTACK       = 0,
-        FMOD_DSP_ENVELOPEFOLLOWER_RELEASE      = 1,
-        FMOD_DSP_ENVELOPEFOLLOWER_ENVELOPE     = 2,
-        FMOD_DSP_ENVELOPEFOLLOWER_USESIDECHAIN = 3;
 
     /**
      * {@code FMOD_DSP_CONVOLUTION_REVERB}
@@ -2713,6 +2825,7 @@ public class FMOD {
      * <li>{@link #FMOD_DSP_PARAMETER_DATA_TYPE_FFT DSP_PARAMETER_DATA_TYPE_FFT}</li>
      * <li>{@link #FMOD_DSP_PARAMETER_DATA_TYPE_3DATTRIBUTES_MULTI DSP_PARAMETER_DATA_TYPE_3DATTRIBUTES_MULTI}</li>
      * <li>{@link #FMOD_DSP_PARAMETER_DATA_TYPE_ATTENUATION_RANGE DSP_PARAMETER_DATA_TYPE_ATTENUATION_RANGE}</li>
+     * <li>{@link #FMOD_DSP_PARAMETER_DATA_TYPE_DYNAMIC_RESPONSE DSP_PARAMETER_DATA_TYPE_DYNAMIC_RESPONSE}</li>
      * </ul>
      */
     public static final int
@@ -2722,7 +2835,8 @@ public class FMOD {
         FMOD_DSP_PARAMETER_DATA_TYPE_SIDECHAIN          = -3,
         FMOD_DSP_PARAMETER_DATA_TYPE_FFT                = -4,
         FMOD_DSP_PARAMETER_DATA_TYPE_3DATTRIBUTES_MULTI = -5,
-        FMOD_DSP_PARAMETER_DATA_TYPE_ATTENUATION_RANGE  = -6;
+        FMOD_DSP_PARAMETER_DATA_TYPE_ATTENUATION_RANGE  = -6,
+        FMOD_DSP_PARAMETER_DATA_TYPE_DYNAMIC_RESPONSE   = -7;
 
     protected FMOD() {
         throw new UnsupportedOperationException();
@@ -2736,7 +2850,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Memory_Initialize(@Nullable @NativeType("void *") ByteBuffer poolmem, @Nullable @NativeType("FMOD_MEMORY_ALLOC_CALLBACK") FMOD_MEMORY_ALLOC_CALLBACKI useralloc, @Nullable @NativeType("FMOD_MEMORY_REALLOC_CALLBACK") FMOD_MEMORY_REALLOC_CALLBACKI userrealloc, @Nullable @NativeType("FMOD_MEMORY_FREE_CALLBACK") FMOD_MEMORY_FREE_CALLBACKI userfree, @NativeType("FMOD_MEMORY_TYPE") int memtypeflags) {
+    public static int FMOD_Memory_Initialize(@NativeType("void *") @Nullable ByteBuffer poolmem, @NativeType("FMOD_MEMORY_ALLOC_CALLBACK") @Nullable FMOD_MEMORY_ALLOC_CALLBACKI useralloc, @NativeType("FMOD_MEMORY_REALLOC_CALLBACK") @Nullable FMOD_MEMORY_REALLOC_CALLBACKI userrealloc, @NativeType("FMOD_MEMORY_FREE_CALLBACK") @Nullable FMOD_MEMORY_FREE_CALLBACKI userfree, @NativeType("FMOD_MEMORY_TYPE") int memtypeflags) {
         return nFMOD_Memory_Initialize(memAddressSafe(poolmem), remainingSafe(poolmem), memAddressSafe(useralloc), memAddressSafe(userrealloc), memAddressSafe(userfree), memtypeflags);
     }
 
@@ -2748,7 +2862,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Memory_GetStats(@Nullable @NativeType("int *") IntBuffer currentalloced, @Nullable @NativeType("int *") IntBuffer maxalloced, @NativeType("FMOD_BOOL") int blocking) {
+    public static int FMOD_Memory_GetStats(@NativeType("int *") @Nullable IntBuffer currentalloced, @NativeType("int *") @Nullable IntBuffer maxalloced, @NativeType("FMOD_BOOL") int blocking) {
         if (CHECKS) {
             checkSafe(currentalloced, 1);
             checkSafe(maxalloced, 1);
@@ -2764,7 +2878,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Debug_Initialize(@NativeType("FMOD_DEBUG_FLAGS") int flags, @NativeType("FMOD_DEBUG_MODE") int mode, @Nullable @NativeType("FMOD_DEBUG_CALLBACK") FMOD_DEBUG_CALLBACKI callback, @Nullable @NativeType("char const *") ByteBuffer filename) {
+    public static int FMOD_Debug_Initialize(@NativeType("FMOD_DEBUG_FLAGS") int flags, @NativeType("FMOD_DEBUG_MODE") int mode, @NativeType("FMOD_DEBUG_CALLBACK") @Nullable FMOD_DEBUG_CALLBACKI callback, @NativeType("char const *") @Nullable ByteBuffer filename) {
         if (CHECKS) {
             checkNT1Safe(filename);
         }
@@ -2772,7 +2886,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Debug_Initialize(@NativeType("FMOD_DEBUG_FLAGS") int flags, @NativeType("FMOD_DEBUG_MODE") int mode, @Nullable @NativeType("FMOD_DEBUG_CALLBACK") FMOD_DEBUG_CALLBACKI callback, @Nullable @NativeType("char const *") CharSequence filename) {
+    public static int FMOD_Debug_Initialize(@NativeType("FMOD_DEBUG_FLAGS") int flags, @NativeType("FMOD_DEBUG_MODE") int mode, @NativeType("FMOD_DEBUG_CALLBACK") @Nullable FMOD_DEBUG_CALLBACKI callback, @NativeType("char const *") @Nullable CharSequence filename) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             stack.nUTF8Safe(filename, true);
@@ -2901,7 +3015,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetDriverInfo(@NativeType("FMOD_SYSTEM *") long system, int id, @Nullable @NativeType("char *") ByteBuffer name, @Nullable @NativeType("FMOD_GUID *") FMOD_GUID guid, @Nullable @NativeType("int *") IntBuffer systemrate, @Nullable @NativeType("FMOD_SPEAKERMODE *") IntBuffer speakermode, @Nullable @NativeType("int *") IntBuffer speakermodechannels) {
+    public static int FMOD_System_GetDriverInfo(@NativeType("FMOD_SYSTEM *") long system, int id, @NativeType("char *") @Nullable ByteBuffer name, @NativeType("FMOD_GUID *") @Nullable FMOD_GUID guid, @NativeType("int *") @Nullable IntBuffer systemrate, @NativeType("FMOD_SPEAKERMODE *") @Nullable IntBuffer speakermode, @NativeType("int *") @Nullable IntBuffer speakermodechannels) {
         if (CHECKS) {
             checkSafe(systemrate, 1);
             checkSafe(speakermode, 1);
@@ -2990,7 +3104,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetSoftwareFormat(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("int *") IntBuffer samplerate, @Nullable @NativeType("FMOD_SPEAKERMODE *") IntBuffer speakermode, @Nullable @NativeType("int *") IntBuffer numrawspeakers) {
+    public static int FMOD_System_GetSoftwareFormat(@NativeType("FMOD_SYSTEM *") long system, @NativeType("int *") @Nullable IntBuffer samplerate, @NativeType("FMOD_SPEAKERMODE *") @Nullable IntBuffer speakermode, @NativeType("int *") @Nullable IntBuffer numrawspeakers) {
         if (CHECKS) {
             checkSafe(samplerate, 1);
             checkSafe(speakermode, 1);
@@ -3021,7 +3135,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetDSPBufferSize(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("unsigned int *") IntBuffer bufferlength, @Nullable @NativeType("int *") IntBuffer numbuffers) {
+    public static int FMOD_System_GetDSPBufferSize(@NativeType("FMOD_SYSTEM *") long system, @NativeType("unsigned int *") @Nullable IntBuffer bufferlength, @NativeType("int *") @Nullable IntBuffer numbuffers) {
         if (CHECKS) {
             checkSafe(bufferlength, 1);
             checkSafe(numbuffers, 1);
@@ -3040,7 +3154,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_SetFileSystem(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("FMOD_FILE_OPEN_CALLBACK") FMOD_FILE_OPEN_CALLBACKI useropen, @Nullable @NativeType("FMOD_FILE_CLOSE_CALLBACK") FMOD_FILE_CLOSE_CALLBACKI userclose, @Nullable @NativeType("FMOD_FILE_READ_CALLBACK") FMOD_FILE_READ_CALLBACKI userread, @Nullable @NativeType("FMOD_FILE_SEEK_CALLBACK") FMOD_FILE_SEEK_CALLBACKI userseek, @Nullable @NativeType("FMOD_FILE_ASYNCREAD_CALLBACK") FMOD_FILE_ASYNCREAD_CALLBACKI userasyncread, @Nullable @NativeType("FMOD_FILE_ASYNCCANCEL_CALLBACK") FMOD_FILE_ASYNCCANCEL_CALLBACKI userasynccancel, int blockalign) {
+    public static int FMOD_System_SetFileSystem(@NativeType("FMOD_SYSTEM *") long system, @NativeType("FMOD_FILE_OPEN_CALLBACK") @Nullable FMOD_FILE_OPEN_CALLBACKI useropen, @NativeType("FMOD_FILE_CLOSE_CALLBACK") @Nullable FMOD_FILE_CLOSE_CALLBACKI userclose, @NativeType("FMOD_FILE_READ_CALLBACK") @Nullable FMOD_FILE_READ_CALLBACKI userread, @NativeType("FMOD_FILE_SEEK_CALLBACK") @Nullable FMOD_FILE_SEEK_CALLBACKI userseek, @NativeType("FMOD_FILE_ASYNCREAD_CALLBACK") @Nullable FMOD_FILE_ASYNCREAD_CALLBACKI userasyncread, @NativeType("FMOD_FILE_ASYNCCANCEL_CALLBACK") @Nullable FMOD_FILE_ASYNCCANCEL_CALLBACKI userasynccancel, int blockalign) {
         return nFMOD_System_SetFileSystem(system, memAddressSafe(useropen), memAddressSafe(userclose), memAddressSafe(userread), memAddressSafe(userseek), memAddressSafe(userasyncread), memAddressSafe(userasynccancel), blockalign);
     }
 
@@ -3055,7 +3169,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_AttachFileSystem(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("FMOD_FILE_OPEN_CALLBACK") FMOD_FILE_OPEN_CALLBACKI useropen, @Nullable @NativeType("FMOD_FILE_CLOSE_CALLBACK") FMOD_FILE_CLOSE_CALLBACKI userclose, @Nullable @NativeType("FMOD_FILE_READ_CALLBACK") FMOD_FILE_READ_CALLBACKI userread, @Nullable @NativeType("FMOD_FILE_SEEK_CALLBACK") FMOD_FILE_SEEK_CALLBACKI userseek) {
+    public static int FMOD_System_AttachFileSystem(@NativeType("FMOD_SYSTEM *") long system, @NativeType("FMOD_FILE_OPEN_CALLBACK") @Nullable FMOD_FILE_OPEN_CALLBACKI useropen, @NativeType("FMOD_FILE_CLOSE_CALLBACK") @Nullable FMOD_FILE_CLOSE_CALLBACKI userclose, @NativeType("FMOD_FILE_READ_CALLBACK") @Nullable FMOD_FILE_READ_CALLBACKI userread, @NativeType("FMOD_FILE_SEEK_CALLBACK") @Nullable FMOD_FILE_SEEK_CALLBACKI userseek) {
         return nFMOD_System_AttachFileSystem(system, memAddressSafe(useropen), memAddressSafe(userclose), memAddressSafe(userread), memAddressSafe(userseek));
     }
 
@@ -3265,7 +3379,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetPluginInfo(@NativeType("FMOD_SYSTEM *") long system, @NativeType("unsigned int") int handle, @Nullable @NativeType("FMOD_PLUGINTYPE *") IntBuffer plugintype, @Nullable @NativeType("char *") ByteBuffer name, @Nullable @NativeType("unsigned int *") IntBuffer version) {
+    public static int FMOD_System_GetPluginInfo(@NativeType("FMOD_SYSTEM *") long system, @NativeType("unsigned int") int handle, @NativeType("FMOD_PLUGINTYPE *") @Nullable IntBuffer plugintype, @NativeType("char *") @Nullable ByteBuffer name, @NativeType("unsigned int *") @Nullable IntBuffer version) {
         if (CHECKS) {
             checkSafe(plugintype, 1);
             checkSafe(version, 1);
@@ -3449,7 +3563,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetSpeakerPosition(@NativeType("FMOD_SYSTEM *") long system, @NativeType("FMOD_SPEAKER") int speaker, @Nullable @NativeType("float *") FloatBuffer x, @Nullable @NativeType("float *") FloatBuffer y, @Nullable @NativeType("FMOD_BOOL *") IntBuffer active) {
+    public static int FMOD_System_GetSpeakerPosition(@NativeType("FMOD_SYSTEM *") long system, @NativeType("FMOD_SPEAKER") int speaker, @NativeType("float *") @Nullable FloatBuffer x, @NativeType("float *") @Nullable FloatBuffer y, @NativeType("FMOD_BOOL *") @Nullable IntBuffer active) {
         if (CHECKS) {
             checkSafe(x, 1);
             checkSafe(y, 1);
@@ -3480,7 +3594,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetStreamBufferSize(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("unsigned int *") IntBuffer filebuffersize, @Nullable @NativeType("FMOD_TIMEUNIT *") IntBuffer filebuffersizetype) {
+    public static int FMOD_System_GetStreamBufferSize(@NativeType("FMOD_SYSTEM *") long system, @NativeType("unsigned int *") @Nullable IntBuffer filebuffersize, @NativeType("FMOD_TIMEUNIT *") @Nullable IntBuffer filebuffersizetype) {
         if (CHECKS) {
             checkSafe(filebuffersize, 1);
             checkSafe(filebuffersizetype, 1);
@@ -3510,7 +3624,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_Get3DSettings(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("float *") FloatBuffer dopplerscale, @Nullable @NativeType("float *") FloatBuffer distancefactor, @Nullable @NativeType("float *") FloatBuffer rolloffscale) {
+    public static int FMOD_System_Get3DSettings(@NativeType("FMOD_SYSTEM *") long system, @NativeType("float *") @Nullable FloatBuffer dopplerscale, @NativeType("float *") @Nullable FloatBuffer distancefactor, @NativeType("float *") @Nullable FloatBuffer rolloffscale) {
         if (CHECKS) {
             checkSafe(dopplerscale, 1);
             checkSafe(distancefactor, 1);
@@ -3559,7 +3673,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_Set3DListenerAttributes(@NativeType("FMOD_SYSTEM *") long system, int listener, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR pos, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR vel, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR forward, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR up) {
+    public static int FMOD_System_Set3DListenerAttributes(@NativeType("FMOD_SYSTEM *") long system, int listener, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR pos, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR vel, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR forward, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR up) {
         return nFMOD_System_Set3DListenerAttributes(system, listener, memAddressSafe(pos), memAddressSafe(vel), memAddressSafe(forward), memAddressSafe(up));
     }
 
@@ -3574,7 +3688,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_Get3DListenerAttributes(@NativeType("FMOD_SYSTEM *") long system, int listener, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR pos, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR vel, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR forward, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR up) {
+    public static int FMOD_System_Get3DListenerAttributes(@NativeType("FMOD_SYSTEM *") long system, int listener, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR pos, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR vel, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR forward, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR up) {
         return nFMOD_System_Get3DListenerAttributes(system, listener, memAddressSafe(pos), memAddressSafe(vel), memAddressSafe(forward), memAddressSafe(up));
     }
 
@@ -3651,21 +3765,22 @@ public class FMOD {
     // --- [ FMOD_System_GetVersion ] ---
 
     /** Unsafe version of: {@link #FMOD_System_GetVersion System_GetVersion} */
-    public static int nFMOD_System_GetVersion(long system, long version) {
+    public static int nFMOD_System_GetVersion(long system, long version, long buildnumber) {
         long __functionAddress = Functions.System_GetVersion;
         if (CHECKS) {
             check(system);
         }
-        return callPPI(system, version, __functionAddress);
+        return callPPPI(system, version, buildnumber, __functionAddress);
     }
 
     /** System information functions. */
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetVersion(@NativeType("FMOD_SYSTEM *") long system, @NativeType("unsigned int *") IntBuffer version) {
+    public static int FMOD_System_GetVersion(@NativeType("FMOD_SYSTEM *") long system, @NativeType("unsigned int *") IntBuffer version, @NativeType("unsigned int *") IntBuffer buildnumber) {
         if (CHECKS) {
             check(version, 1);
+            check(buildnumber, 1);
         }
-        return nFMOD_System_GetVersion(system, memAddress(version));
+        return nFMOD_System_GetVersion(system, memAddress(version), memAddress(buildnumber));
     }
 
     // --- [ FMOD_System_GetOutputHandle ] ---
@@ -3697,7 +3812,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetChannelsPlaying(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("int *") IntBuffer channels, @Nullable @NativeType("int *") IntBuffer realchannels) {
+    public static int FMOD_System_GetChannelsPlaying(@NativeType("FMOD_SYSTEM *") long system, @NativeType("int *") @Nullable IntBuffer channels, @NativeType("int *") @Nullable IntBuffer realchannels) {
         if (CHECKS) {
             checkSafe(channels, 1);
             checkSafe(realchannels, 1);
@@ -3731,7 +3846,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetFileUsage(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("long long *") LongBuffer sampleBytesRead, @Nullable @NativeType("long long *") LongBuffer streamBytesRead, @Nullable @NativeType("long long *") LongBuffer otherBytesRead) {
+    public static int FMOD_System_GetFileUsage(@NativeType("FMOD_SYSTEM *") long system, @NativeType("long long *") @Nullable LongBuffer sampleBytesRead, @NativeType("long long *") @Nullable LongBuffer streamBytesRead, @NativeType("long long *") @Nullable LongBuffer otherBytesRead) {
         if (CHECKS) {
             checkSafe(sampleBytesRead, 1);
             checkSafe(streamBytesRead, 1);
@@ -3753,7 +3868,7 @@ public class FMOD {
 
     /** Sound/DSP/Channel/FX creation and retrieval. */
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_CreateSound(@NativeType("FMOD_SYSTEM *") long system, @NativeType("char const *") ByteBuffer name_or_data, @NativeType("FMOD_MODE") int mode, @Nullable @NativeType("FMOD_CREATESOUNDEXINFO *") FMOD_CREATESOUNDEXINFO exinfo, @NativeType("FMOD_SOUND **") PointerBuffer sound) {
+    public static int FMOD_System_CreateSound(@NativeType("FMOD_SYSTEM *") long system, @NativeType("char const *") ByteBuffer name_or_data, @NativeType("FMOD_MODE") int mode, @NativeType("FMOD_CREATESOUNDEXINFO *") @Nullable FMOD_CREATESOUNDEXINFO exinfo, @NativeType("FMOD_SOUND **") PointerBuffer sound) {
         if (CHECKS) {
             check(sound, 1);
         }
@@ -3771,7 +3886,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_CreateStream(@NativeType("FMOD_SYSTEM *") long system, @NativeType("char const *") ByteBuffer name_or_data, @NativeType("FMOD_MODE") int mode, @Nullable @NativeType("FMOD_CREATESOUNDEXINFO *") FMOD_CREATESOUNDEXINFO exinfo, @NativeType("FMOD_SOUND **") PointerBuffer sound) {
+    public static int FMOD_System_CreateStream(@NativeType("FMOD_SYSTEM *") long system, @NativeType("char const *") ByteBuffer name_or_data, @NativeType("FMOD_MODE") int mode, @NativeType("FMOD_CREATESOUNDEXINFO *") @Nullable FMOD_CREATESOUNDEXINFO exinfo, @NativeType("FMOD_SOUND **") PointerBuffer sound) {
         if (CHECKS) {
             check(sound, 1);
         }
@@ -3826,7 +3941,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_CreateChannelGroup(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("char const *") ByteBuffer name, @NativeType("FMOD_CHANNELGROUP **") PointerBuffer channelgroup) {
+    public static int FMOD_System_CreateChannelGroup(@NativeType("FMOD_SYSTEM *") long system, @NativeType("char const *") @Nullable ByteBuffer name, @NativeType("FMOD_CHANNELGROUP **") PointerBuffer channelgroup) {
         if (CHECKS) {
             checkNT1Safe(name);
             check(channelgroup, 1);
@@ -3835,7 +3950,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_CreateChannelGroup(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("char const *") CharSequence name, @NativeType("FMOD_CHANNELGROUP **") PointerBuffer channelgroup) {
+    public static int FMOD_System_CreateChannelGroup(@NativeType("FMOD_SYSTEM *") long system, @NativeType("char const *") @Nullable CharSequence name, @NativeType("FMOD_CHANNELGROUP **") PointerBuffer channelgroup) {
         if (CHECKS) {
             check(channelgroup, 1);
         }
@@ -3913,7 +4028,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_PlaySound(@NativeType("FMOD_SYSTEM *") long system, @NativeType("FMOD_SOUND *") long sound, @NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_BOOL") int paused, @Nullable @NativeType("FMOD_CHANNEL **") PointerBuffer channel) {
+    public static int FMOD_System_PlaySound(@NativeType("FMOD_SYSTEM *") long system, @NativeType("FMOD_SOUND *") long sound, @NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_BOOL") int paused, @NativeType("FMOD_CHANNEL **") @Nullable PointerBuffer channel) {
         if (CHECKS) {
             checkSafe(channel, 1);
         }
@@ -3932,7 +4047,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_PlayDSP(@NativeType("FMOD_SYSTEM *") long system, @NativeType("FMOD_DSP *") long dsp, @NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_BOOL") int paused, @Nullable @NativeType("FMOD_CHANNEL **") PointerBuffer channel) {
+    public static int FMOD_System_PlayDSP(@NativeType("FMOD_SYSTEM *") long system, @NativeType("FMOD_DSP *") long dsp, @NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_BOOL") int paused, @NativeType("FMOD_CHANNEL **") @Nullable PointerBuffer channel) {
         if (CHECKS) {
             checkSafe(channel, 1);
         }
@@ -4049,7 +4164,7 @@ public class FMOD {
 
     /** Reverb API. */
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_SetReverbProperties(@NativeType("FMOD_SYSTEM *") long system, int instance, @Nullable @NativeType("FMOD_REVERB_PROPERTIES const *") FMOD_REVERB_PROPERTIES prop) {
+    public static int FMOD_System_SetReverbProperties(@NativeType("FMOD_SYSTEM *") long system, int instance, @NativeType("FMOD_REVERB_PROPERTIES const *") @Nullable FMOD_REVERB_PROPERTIES prop) {
         return nFMOD_System_SetReverbProperties(system, instance, memAddressSafe(prop));
     }
 
@@ -4104,7 +4219,7 @@ public class FMOD {
 
     /** Recording API. */
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetRecordNumDrivers(@NativeType("FMOD_SYSTEM *") long system, @Nullable @NativeType("int *") IntBuffer numdrivers, @Nullable @NativeType("int *") IntBuffer numconnected) {
+    public static int FMOD_System_GetRecordNumDrivers(@NativeType("FMOD_SYSTEM *") long system, @NativeType("int *") @Nullable IntBuffer numdrivers, @NativeType("int *") @Nullable IntBuffer numconnected) {
         if (CHECKS) {
             checkSafe(numdrivers, 1);
             checkSafe(numconnected, 1);
@@ -4123,7 +4238,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetRecordDriverInfo(@NativeType("FMOD_SYSTEM *") long system, int id, @Nullable @NativeType("char *") ByteBuffer name, @Nullable @NativeType("FMOD_GUID *") FMOD_GUID guid, @Nullable @NativeType("int *") IntBuffer systemrate, @Nullable @NativeType("FMOD_SPEAKERMODE *") IntBuffer speakermode, @Nullable @NativeType("int *") IntBuffer speakermodechannels, @Nullable @NativeType("FMOD_DRIVER_STATE *") IntBuffer state) {
+    public static int FMOD_System_GetRecordDriverInfo(@NativeType("FMOD_SYSTEM *") long system, int id, @NativeType("char *") @Nullable ByteBuffer name, @NativeType("FMOD_GUID *") @Nullable FMOD_GUID guid, @NativeType("int *") @Nullable IntBuffer systemrate, @NativeType("FMOD_SPEAKERMODE *") @Nullable IntBuffer speakermode, @NativeType("int *") @Nullable IntBuffer speakermodechannels, @NativeType("FMOD_DRIVER_STATE *") @Nullable IntBuffer state) {
         if (CHECKS) {
             checkSafe(systemrate, 1);
             checkSafe(speakermode, 1);
@@ -4185,7 +4300,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_IsRecording(@NativeType("FMOD_SYSTEM *") long system, int id, @Nullable @NativeType("FMOD_BOOL *") IntBuffer recording) {
+    public static int FMOD_System_IsRecording(@NativeType("FMOD_SYSTEM *") long system, int id, @NativeType("FMOD_BOOL *") @Nullable IntBuffer recording) {
         if (CHECKS) {
             checkSafe(recording, 1);
         }
@@ -4270,7 +4385,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_System_GetGeometryOcclusion(@NativeType("FMOD_SYSTEM *") long system, @NativeType("FMOD_VECTOR const *") FMOD_VECTOR listener, @NativeType("FMOD_VECTOR const *") FMOD_VECTOR source, @Nullable @NativeType("float *") FloatBuffer direct, @Nullable @NativeType("float *") FloatBuffer reverb) {
+    public static int FMOD_System_GetGeometryOcclusion(@NativeType("FMOD_SYSTEM *") long system, @NativeType("FMOD_VECTOR const *") FMOD_VECTOR listener, @NativeType("FMOD_VECTOR const *") FMOD_VECTOR source, @NativeType("float *") @Nullable FloatBuffer direct, @NativeType("float *") @Nullable FloatBuffer reverb) {
         if (CHECKS) {
             checkSafe(direct, 1);
             checkSafe(reverb, 1);
@@ -4472,7 +4587,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_GetDefaults(@NativeType("FMOD_SOUND *") long sound, @Nullable @NativeType("float *") FloatBuffer frequency, @Nullable @NativeType("int *") IntBuffer priority) {
+    public static int FMOD_Sound_GetDefaults(@NativeType("FMOD_SOUND *") long sound, @NativeType("float *") @Nullable FloatBuffer frequency, @NativeType("int *") @Nullable IntBuffer priority) {
         if (CHECKS) {
             checkSafe(frequency, 1);
             checkSafe(priority, 1);
@@ -4502,7 +4617,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_Get3DMinMaxDistance(@NativeType("FMOD_SOUND *") long sound, @Nullable @NativeType("float *") FloatBuffer min, @Nullable @NativeType("float *") FloatBuffer max) {
+    public static int FMOD_Sound_Get3DMinMaxDistance(@NativeType("FMOD_SOUND *") long sound, @NativeType("float *") @Nullable FloatBuffer min, @NativeType("float *") @Nullable FloatBuffer max) {
         if (CHECKS) {
             checkSafe(min, 1);
             checkSafe(max, 1);
@@ -4532,7 +4647,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_Get3DConeSettings(@NativeType("FMOD_SOUND *") long sound, @Nullable @NativeType("float *") FloatBuffer insideconeangle, @Nullable @NativeType("float *") FloatBuffer outsideconeangle, @Nullable @NativeType("float *") FloatBuffer outsidevolume) {
+    public static int FMOD_Sound_Get3DConeSettings(@NativeType("FMOD_SOUND *") long sound, @NativeType("float *") @Nullable FloatBuffer insideconeangle, @NativeType("float *") @Nullable FloatBuffer outsideconeangle, @NativeType("float *") @Nullable FloatBuffer outsidevolume) {
         if (CHECKS) {
             checkSafe(insideconeangle, 1);
             checkSafe(outsideconeangle, 1);
@@ -4567,7 +4682,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_Get3DCustomRolloff(@NativeType("FMOD_SOUND *") long sound, @Nullable @NativeType("FMOD_VECTOR **") PointerBuffer points, @Nullable @NativeType("int *") IntBuffer numpoints) {
+    public static int FMOD_Sound_Get3DCustomRolloff(@NativeType("FMOD_SOUND *") long sound, @NativeType("FMOD_VECTOR **") @Nullable PointerBuffer points, @NativeType("int *") @Nullable IntBuffer numpoints) {
         if (CHECKS) {
             checkSafe(points, 1);
             checkSafe(numpoints, 1);
@@ -4655,7 +4770,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_GetFormat(@NativeType("FMOD_SOUND *") long sound, @Nullable @NativeType("FMOD_SOUND_TYPE *") IntBuffer type, @Nullable @NativeType("FMOD_SOUND_FORMAT *") IntBuffer format, @Nullable @NativeType("int *") IntBuffer channels, @Nullable @NativeType("int *") IntBuffer bits) {
+    public static int FMOD_Sound_GetFormat(@NativeType("FMOD_SOUND *") long sound, @NativeType("FMOD_SOUND_TYPE *") @Nullable IntBuffer type, @NativeType("FMOD_SOUND_FORMAT *") @Nullable IntBuffer format, @NativeType("int *") @Nullable IntBuffer channels, @NativeType("int *") @Nullable IntBuffer bits) {
         if (CHECKS) {
             checkSafe(type, 1);
             checkSafe(format, 1);
@@ -4694,7 +4809,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_GetNumTags(@NativeType("FMOD_SOUND *") long sound, @Nullable @NativeType("int *") IntBuffer numtags, @Nullable @NativeType("int *") IntBuffer numtagsupdated) {
+    public static int FMOD_Sound_GetNumTags(@NativeType("FMOD_SOUND *") long sound, @NativeType("int *") @Nullable IntBuffer numtags, @NativeType("int *") @Nullable IntBuffer numtagsupdated) {
         if (CHECKS) {
             checkSafe(numtags, 1);
             checkSafe(numtagsupdated, 1);
@@ -4743,7 +4858,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_GetOpenState(@NativeType("FMOD_SOUND *") long sound, @Nullable @NativeType("FMOD_OPENSTATE *") IntBuffer openstate, @Nullable @NativeType("unsigned int *") IntBuffer percentbuffered, @Nullable @NativeType("FMOD_BOOL *") IntBuffer starving, @Nullable @NativeType("FMOD_BOOL *") IntBuffer diskbusy) {
+    public static int FMOD_Sound_GetOpenState(@NativeType("FMOD_SOUND *") long sound, @NativeType("FMOD_OPENSTATE *") @Nullable IntBuffer openstate, @NativeType("unsigned int *") @Nullable IntBuffer percentbuffered, @NativeType("FMOD_BOOL *") @Nullable IntBuffer starving, @NativeType("FMOD_BOOL *") @Nullable IntBuffer diskbusy) {
         if (CHECKS) {
             checkSafe(openstate, 1);
             checkSafe(percentbuffered, 1);
@@ -4764,7 +4879,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_ReadData(@NativeType("FMOD_SOUND *") long sound, @NativeType("void *") ByteBuffer buffer, @Nullable @NativeType("unsigned int *") IntBuffer read) {
+    public static int FMOD_Sound_ReadData(@NativeType("FMOD_SOUND *") long sound, @NativeType("void *") ByteBuffer buffer, @NativeType("unsigned int *") @Nullable IntBuffer read) {
         if (CHECKS) {
             checkSafe(read, 1);
         }
@@ -4860,7 +4975,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_GetSyncPointInfo(@NativeType("FMOD_SOUND *") long sound, @NativeType("FMOD_SYNCPOINT *") long point, @NativeType("char *") ByteBuffer name, @Nullable @NativeType("unsigned int *") IntBuffer offset, @NativeType("FMOD_TIMEUNIT") int offsettype) {
+    public static int FMOD_Sound_GetSyncPointInfo(@NativeType("FMOD_SOUND *") long sound, @NativeType("FMOD_SYNCPOINT *") long point, @NativeType("char *") ByteBuffer name, @NativeType("unsigned int *") @Nullable IntBuffer offset, @NativeType("FMOD_TIMEUNIT") int offsettype) {
         if (CHECKS) {
             checkSafe(offset, 1);
         }
@@ -4878,7 +4993,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_AddSyncPoint(@NativeType("FMOD_SOUND *") long sound, @NativeType("unsigned int") int offset, @NativeType("FMOD_TIMEUNIT") int offsettype, @NativeType("char const *") ByteBuffer name, @Nullable @NativeType("FMOD_SYNCPOINT **") PointerBuffer point) {
+    public static int FMOD_Sound_AddSyncPoint(@NativeType("FMOD_SOUND *") long sound, @NativeType("unsigned int") int offset, @NativeType("FMOD_TIMEUNIT") int offsettype, @NativeType("char const *") ByteBuffer name, @NativeType("FMOD_SYNCPOINT **") @Nullable PointerBuffer point) {
         if (CHECKS) {
             checkNT1(name);
             checkSafe(point, 1);
@@ -4887,7 +5002,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_AddSyncPoint(@NativeType("FMOD_SOUND *") long sound, @NativeType("unsigned int") int offset, @NativeType("FMOD_TIMEUNIT") int offsettype, @NativeType("char const *") CharSequence name, @Nullable @NativeType("FMOD_SYNCPOINT **") PointerBuffer point) {
+    public static int FMOD_Sound_AddSyncPoint(@NativeType("FMOD_SOUND *") long sound, @NativeType("unsigned int") int offset, @NativeType("FMOD_TIMEUNIT") int offsettype, @NativeType("char const *") CharSequence name, @NativeType("FMOD_SYNCPOINT **") @Nullable PointerBuffer point) {
         if (CHECKS) {
             checkSafe(point, 1);
         }
@@ -4994,7 +5109,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Sound_GetLoopPoints(@NativeType("FMOD_SOUND *") long sound, @Nullable @NativeType("unsigned int *") IntBuffer loopstart, @NativeType("FMOD_TIMEUNIT") int loopstarttype, @Nullable @NativeType("unsigned int *") IntBuffer loopend, @NativeType("FMOD_TIMEUNIT") int loopendtype) {
+    public static int FMOD_Sound_GetLoopPoints(@NativeType("FMOD_SOUND *") long sound, @NativeType("unsigned int *") @Nullable IntBuffer loopstart, @NativeType("FMOD_TIMEUNIT") int loopstarttype, @NativeType("unsigned int *") @Nullable IntBuffer loopend, @NativeType("FMOD_TIMEUNIT") int loopendtype) {
         if (CHECKS) {
             checkSafe(loopstart, 1);
             checkSafe(loopend, 1);
@@ -5397,7 +5512,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_SetCallback(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("FMOD_CHANNELCONTROL_CALLBACK") FMOD_CHANNELCONTROL_CALLBACKI callback) {
+    public static int FMOD_Channel_SetCallback(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("FMOD_CHANNELCONTROL_CALLBACK") @Nullable FMOD_CHANNELCONTROL_CALLBACKI callback) {
         return nFMOD_Channel_SetCallback(channel, memAddressSafe(callback));
     }
 
@@ -5471,7 +5586,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_SetMixMatrix(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("float *") FloatBuffer matrix, int outchannels, int inchannels, int inchannel_hop) {
+    public static int FMOD_Channel_SetMixMatrix(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("float *") @Nullable FloatBuffer matrix, int outchannels, int inchannels, int inchannel_hop) {
         if (CHECKS) {
             checkSafe(matrix, outchannels * (inchannel_hop == 0 ? inchannels : inchannel_hop));
         }
@@ -5489,7 +5604,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_GetMixMatrix(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("float *") FloatBuffer matrix, @Nullable @NativeType("int *") IntBuffer outchannels, @Nullable @NativeType("int *") IntBuffer inchannels, int inchannel_hop) {
+    public static int FMOD_Channel_GetMixMatrix(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("float *") @Nullable FloatBuffer matrix, @NativeType("int *") @Nullable IntBuffer outchannels, @NativeType("int *") @Nullable IntBuffer inchannels, int inchannel_hop) {
         if (CHECKS) {
             checkSafe(outchannels, 1);
             checkSafe(inchannels, 1);
@@ -5510,7 +5625,7 @@ public class FMOD {
 
     /** Clock based functionality. */
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_GetDSPClock(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("unsigned long long *") LongBuffer dspclock, @Nullable @NativeType("unsigned long long *") LongBuffer parentclock) {
+    public static int FMOD_Channel_GetDSPClock(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("unsigned long long *") @Nullable LongBuffer dspclock, @NativeType("unsigned long long *") @Nullable LongBuffer parentclock) {
         if (CHECKS) {
             checkSafe(dspclock, 1);
             checkSafe(parentclock, 1);
@@ -5540,7 +5655,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_GetDelay(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("unsigned long long *") LongBuffer dspclock_start, @Nullable @NativeType("unsigned long long *") LongBuffer dspclock_end, @Nullable @NativeType("FMOD_BOOL *") IntBuffer stopchannels) {
+    public static int FMOD_Channel_GetDelay(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("unsigned long long *") @Nullable LongBuffer dspclock_start, @NativeType("unsigned long long *") @Nullable LongBuffer dspclock_end, @NativeType("FMOD_BOOL *") @Nullable IntBuffer stopchannels) {
         if (CHECKS) {
             checkSafe(dspclock_start, 1);
             checkSafe(dspclock_end, 1);
@@ -5593,7 +5708,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_GetFadePoints(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("unsigned int *") IntBuffer numpoints, @Nullable @NativeType("unsigned long long *") LongBuffer point_dspclock, @Nullable @NativeType("float *") FloatBuffer point_volume) {
+    public static int FMOD_Channel_GetFadePoints(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("unsigned int *") IntBuffer numpoints, @NativeType("unsigned long long *") @Nullable LongBuffer point_dspclock, @NativeType("float *") @Nullable FloatBuffer point_volume) {
         if (CHECKS) {
             check(numpoints, 1);
             checkSafe(point_dspclock, 1);
@@ -5708,7 +5823,7 @@ public class FMOD {
 
     /** 3D functionality. */
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_Set3DAttributes(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR pos, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR vel) {
+    public static int FMOD_Channel_Set3DAttributes(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR pos, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR vel) {
         return nFMOD_Channel_Set3DAttributes(channel, memAddressSafe(pos), memAddressSafe(vel));
     }
 
@@ -5723,7 +5838,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_Get3DAttributes(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR pos, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR vel) {
+    public static int FMOD_Channel_Get3DAttributes(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR pos, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR vel) {
         return nFMOD_Channel_Get3DAttributes(channel, memAddressSafe(pos), memAddressSafe(vel));
     }
 
@@ -5749,7 +5864,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_Get3DMinMaxDistance(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("float *") FloatBuffer mindistance, @Nullable @NativeType("float *") FloatBuffer maxdistance) {
+    public static int FMOD_Channel_Get3DMinMaxDistance(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("float *") @Nullable FloatBuffer mindistance, @NativeType("float *") @Nullable FloatBuffer maxdistance) {
         if (CHECKS) {
             checkSafe(mindistance, 1);
             checkSafe(maxdistance, 1);
@@ -5779,7 +5894,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_Get3DConeSettings(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("float *") FloatBuffer insideconeangle, @Nullable @NativeType("float *") FloatBuffer outsideconeangle, @Nullable @NativeType("float *") FloatBuffer outsidevolume) {
+    public static int FMOD_Channel_Get3DConeSettings(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("float *") @Nullable FloatBuffer insideconeangle, @NativeType("float *") @Nullable FloatBuffer outsideconeangle, @NativeType("float *") @Nullable FloatBuffer outsidevolume) {
         if (CHECKS) {
             checkSafe(insideconeangle, 1);
             checkSafe(outsideconeangle, 1);
@@ -5844,7 +5959,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_Get3DCustomRolloff(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("FMOD_VECTOR **") PointerBuffer points, @Nullable @NativeType("int *") IntBuffer numpoints) {
+    public static int FMOD_Channel_Get3DCustomRolloff(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("FMOD_VECTOR **") @Nullable PointerBuffer points, @NativeType("int *") @Nullable IntBuffer numpoints) {
         if (CHECKS) {
             checkSafe(points, 1);
             checkSafe(numpoints, 1);
@@ -5874,7 +5989,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_Get3DOcclusion(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("float *") FloatBuffer directocclusion, @Nullable @NativeType("float *") FloatBuffer reverbocclusion) {
+    public static int FMOD_Channel_Get3DOcclusion(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("float *") @Nullable FloatBuffer directocclusion, @NativeType("float *") @Nullable FloatBuffer reverbocclusion) {
         if (CHECKS) {
             checkSafe(directocclusion, 1);
             checkSafe(reverbocclusion, 1);
@@ -5991,7 +6106,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_Get3DDistanceFilter(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("FMOD_BOOL *") IntBuffer custom, @Nullable @NativeType("float *") FloatBuffer customLevel, @Nullable @NativeType("float *") FloatBuffer centerFreq) {
+    public static int FMOD_Channel_Get3DDistanceFilter(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("FMOD_BOOL *") @Nullable IntBuffer custom, @NativeType("float *") @Nullable FloatBuffer customLevel, @NativeType("float *") @Nullable FloatBuffer centerFreq) {
         if (CHECKS) {
             checkSafe(custom, 1);
             checkSafe(customLevel, 1);
@@ -6198,7 +6313,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Channel_GetLoopPoints(@NativeType("FMOD_CHANNEL *") long channel, @Nullable @NativeType("unsigned int *") IntBuffer loopstart, @NativeType("FMOD_TIMEUNIT") int loopstarttype, @Nullable @NativeType("unsigned int *") IntBuffer loopend, @NativeType("FMOD_TIMEUNIT") int loopendtype) {
+    public static int FMOD_Channel_GetLoopPoints(@NativeType("FMOD_CHANNEL *") long channel, @NativeType("unsigned int *") @Nullable IntBuffer loopstart, @NativeType("FMOD_TIMEUNIT") int loopstarttype, @NativeType("unsigned int *") @Nullable IntBuffer loopend, @NativeType("FMOD_TIMEUNIT") int loopendtype) {
         if (CHECKS) {
             checkSafe(loopstart, 1);
             checkSafe(loopend, 1);
@@ -6553,7 +6668,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_SetCallback(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("FMOD_CHANNELCONTROL_CALLBACK") FMOD_CHANNELCONTROL_CALLBACKI callback) {
+    public static int FMOD_ChannelGroup_SetCallback(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_CHANNELCONTROL_CALLBACK") @Nullable FMOD_CHANNELCONTROL_CALLBACKI callback) {
         return nFMOD_ChannelGroup_SetCallback(channelgroup, memAddressSafe(callback));
     }
 
@@ -6627,7 +6742,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_SetMixMatrix(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("float *") FloatBuffer matrix, int outchannels, int inchannels, int inchannel_hop) {
+    public static int FMOD_ChannelGroup_SetMixMatrix(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("float *") @Nullable FloatBuffer matrix, int outchannels, int inchannels, int inchannel_hop) {
         if (CHECKS) {
             checkSafe(matrix, outchannels * (inchannel_hop == 0 ? inchannels : inchannel_hop));
         }
@@ -6645,7 +6760,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_GetMixMatrix(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("float *") FloatBuffer matrix, @Nullable @NativeType("int *") IntBuffer outchannels, @Nullable @NativeType("int *") IntBuffer inchannels, int inchannel_hop) {
+    public static int FMOD_ChannelGroup_GetMixMatrix(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("float *") @Nullable FloatBuffer matrix, @NativeType("int *") @Nullable IntBuffer outchannels, @NativeType("int *") @Nullable IntBuffer inchannels, int inchannel_hop) {
         if (CHECKS) {
             checkSafe(outchannels, 1);
             checkSafe(inchannels, 1);
@@ -6666,7 +6781,7 @@ public class FMOD {
 
     /** Clock based functionality. */
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_GetDSPClock(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("unsigned long long *") LongBuffer dspclock, @Nullable @NativeType("unsigned long long *") LongBuffer parentclock) {
+    public static int FMOD_ChannelGroup_GetDSPClock(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("unsigned long long *") @Nullable LongBuffer dspclock, @NativeType("unsigned long long *") @Nullable LongBuffer parentclock) {
         if (CHECKS) {
             checkSafe(dspclock, 1);
             checkSafe(parentclock, 1);
@@ -6696,7 +6811,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_GetDelay(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("unsigned long long *") LongBuffer dspclock_start, @Nullable @NativeType("unsigned long long *") LongBuffer dspclock_end, @Nullable @NativeType("FMOD_BOOL *") IntBuffer stopchannels) {
+    public static int FMOD_ChannelGroup_GetDelay(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("unsigned long long *") @Nullable LongBuffer dspclock_start, @NativeType("unsigned long long *") @Nullable LongBuffer dspclock_end, @NativeType("FMOD_BOOL *") @Nullable IntBuffer stopchannels) {
         if (CHECKS) {
             checkSafe(dspclock_start, 1);
             checkSafe(dspclock_end, 1);
@@ -6749,7 +6864,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_GetFadePoints(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("unsigned int *") IntBuffer numpoints, @Nullable @NativeType("unsigned long long *") LongBuffer point_dspclock, @Nullable @NativeType("float *") FloatBuffer point_volume) {
+    public static int FMOD_ChannelGroup_GetFadePoints(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("unsigned int *") IntBuffer numpoints, @NativeType("unsigned long long *") @Nullable LongBuffer point_dspclock, @NativeType("float *") @Nullable FloatBuffer point_volume) {
         if (CHECKS) {
             check(numpoints, 1);
             checkSafe(point_dspclock, 1);
@@ -6864,7 +6979,7 @@ public class FMOD {
 
     /** 3D functionality. */
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_Set3DAttributes(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR pos, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR vel) {
+    public static int FMOD_ChannelGroup_Set3DAttributes(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR pos, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR vel) {
         return nFMOD_ChannelGroup_Set3DAttributes(channelgroup, memAddressSafe(pos), memAddressSafe(vel));
     }
 
@@ -6879,7 +6994,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_Get3DAttributes(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR pos, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR vel) {
+    public static int FMOD_ChannelGroup_Get3DAttributes(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR pos, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR vel) {
         return nFMOD_ChannelGroup_Get3DAttributes(channelgroup, memAddressSafe(pos), memAddressSafe(vel));
     }
 
@@ -6905,7 +7020,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_Get3DMinMaxDistance(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("float *") FloatBuffer mindistance, @Nullable @NativeType("float *") FloatBuffer maxdistance) {
+    public static int FMOD_ChannelGroup_Get3DMinMaxDistance(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("float *") @Nullable FloatBuffer mindistance, @NativeType("float *") @Nullable FloatBuffer maxdistance) {
         if (CHECKS) {
             checkSafe(mindistance, 1);
             checkSafe(maxdistance, 1);
@@ -6935,7 +7050,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_Get3DConeSettings(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("float *") FloatBuffer insideconeangle, @Nullable @NativeType("float *") FloatBuffer outsideconeangle, @Nullable @NativeType("float *") FloatBuffer outsidevolume) {
+    public static int FMOD_ChannelGroup_Get3DConeSettings(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("float *") @Nullable FloatBuffer insideconeangle, @NativeType("float *") @Nullable FloatBuffer outsideconeangle, @NativeType("float *") @Nullable FloatBuffer outsidevolume) {
         if (CHECKS) {
             checkSafe(insideconeangle, 1);
             checkSafe(outsideconeangle, 1);
@@ -7000,7 +7115,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_Get3DCustomRolloff(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("FMOD_VECTOR **") PointerBuffer points, @Nullable @NativeType("int *") IntBuffer numpoints) {
+    public static int FMOD_ChannelGroup_Get3DCustomRolloff(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_VECTOR **") @Nullable PointerBuffer points, @NativeType("int *") @Nullable IntBuffer numpoints) {
         if (CHECKS) {
             checkSafe(points, 1);
             checkSafe(numpoints, 1);
@@ -7030,7 +7145,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_Get3DOcclusion(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("float *") FloatBuffer directocclusion, @Nullable @NativeType("float *") FloatBuffer reverbocclusion) {
+    public static int FMOD_ChannelGroup_Get3DOcclusion(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("float *") @Nullable FloatBuffer directocclusion, @NativeType("float *") @Nullable FloatBuffer reverbocclusion) {
         if (CHECKS) {
             checkSafe(directocclusion, 1);
             checkSafe(reverbocclusion, 1);
@@ -7147,7 +7262,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_Get3DDistanceFilter(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @Nullable @NativeType("FMOD_BOOL *") IntBuffer custom, @Nullable @NativeType("float *") FloatBuffer customLevel, @Nullable @NativeType("float *") FloatBuffer centerFreq) {
+    public static int FMOD_ChannelGroup_Get3DDistanceFilter(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_BOOL *") @Nullable IntBuffer custom, @NativeType("float *") @Nullable FloatBuffer customLevel, @NativeType("float *") @Nullable FloatBuffer centerFreq) {
         if (CHECKS) {
             checkSafe(custom, 1);
             checkSafe(customLevel, 1);
@@ -7208,7 +7323,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_ChannelGroup_AddGroup(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_CHANNELGROUP *") long group, @NativeType("FMOD_BOOL") int propagatedspclock, @Nullable @NativeType("FMOD_DSPCONNECTION **") PointerBuffer connection) {
+    public static int FMOD_ChannelGroup_AddGroup(@NativeType("FMOD_CHANNELGROUP *") long channelgroup, @NativeType("FMOD_CHANNELGROUP *") long group, @NativeType("FMOD_BOOL") int propagatedspclock, @NativeType("FMOD_DSPCONNECTION **") @Nullable PointerBuffer connection) {
         if (CHECKS) {
             checkSafe(connection, 1);
         }
@@ -7616,7 +7731,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_AddInput(@NativeType("FMOD_DSP *") long dsp, @NativeType("FMOD_DSP *") long input, @Nullable @NativeType("FMOD_DSPCONNECTION **") PointerBuffer connection, @NativeType("FMOD_DSPCONNECTION_TYPE") int type) {
+    public static int FMOD_DSP_AddInput(@NativeType("FMOD_DSP *") long dsp, @NativeType("FMOD_DSP *") long input, @NativeType("FMOD_DSPCONNECTION **") @Nullable PointerBuffer connection, @NativeType("FMOD_DSPCONNECTION_TYPE") int type) {
         if (CHECKS) {
             checkSafe(connection, 1);
         }
@@ -7692,7 +7807,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetInput(@NativeType("FMOD_DSP *") long dsp, int index, @Nullable @NativeType("FMOD_DSP **") PointerBuffer input, @Nullable @NativeType("FMOD_DSPCONNECTION **") PointerBuffer inputconnection) {
+    public static int FMOD_DSP_GetInput(@NativeType("FMOD_DSP *") long dsp, int index, @NativeType("FMOD_DSP **") @Nullable PointerBuffer input, @NativeType("FMOD_DSPCONNECTION **") @Nullable PointerBuffer inputconnection) {
         if (CHECKS) {
             checkSafe(input, 1);
             checkSafe(inputconnection, 1);
@@ -7711,7 +7826,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetOutput(@NativeType("FMOD_DSP *") long dsp, int index, @Nullable @NativeType("FMOD_DSP **") PointerBuffer output, @Nullable @NativeType("FMOD_DSPCONNECTION **") PointerBuffer outputconnection) {
+    public static int FMOD_DSP_GetOutput(@NativeType("FMOD_DSP *") long dsp, int index, @NativeType("FMOD_DSP **") @Nullable PointerBuffer output, @NativeType("FMOD_DSPCONNECTION **") @Nullable PointerBuffer outputconnection) {
         if (CHECKS) {
             checkSafe(output, 1);
             checkSafe(outputconnection, 1);
@@ -7800,7 +7915,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetWetDryMix(@NativeType("FMOD_DSP *") long dsp, @Nullable @NativeType("float *") FloatBuffer prewet, @Nullable @NativeType("float *") FloatBuffer postwet, @Nullable @NativeType("float *") FloatBuffer dry) {
+    public static int FMOD_DSP_GetWetDryMix(@NativeType("FMOD_DSP *") long dsp, @NativeType("float *") @Nullable FloatBuffer prewet, @NativeType("float *") @Nullable FloatBuffer postwet, @NativeType("float *") @Nullable FloatBuffer dry) {
         if (CHECKS) {
             checkSafe(prewet, 1);
             checkSafe(postwet, 1);
@@ -7831,7 +7946,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetChannelFormat(@NativeType("FMOD_DSP *") long dsp, @Nullable @NativeType("FMOD_CHANNELMASK *") IntBuffer channelmask, @Nullable @NativeType("int *") IntBuffer numchannels, @Nullable @NativeType("FMOD_SPEAKERMODE *") IntBuffer source_speakermode) {
+    public static int FMOD_DSP_GetChannelFormat(@NativeType("FMOD_DSP *") long dsp, @NativeType("FMOD_CHANNELMASK *") @Nullable IntBuffer channelmask, @NativeType("int *") @Nullable IntBuffer numchannels, @NativeType("FMOD_SPEAKERMODE *") @Nullable IntBuffer source_speakermode) {
         if (CHECKS) {
             checkSafe(channelmask, 1);
             checkSafe(numchannels, 1);
@@ -7851,7 +7966,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetOutputChannelFormat(@NativeType("FMOD_DSP *") long dsp, @NativeType("FMOD_CHANNELMASK") int inmask, int inchannels, @NativeType("FMOD_SPEAKERMODE") int inspeakermode, @Nullable @NativeType("FMOD_CHANNELMASK *") IntBuffer outmask, @Nullable @NativeType("int *") IntBuffer outchannels, @Nullable @NativeType("FMOD_SPEAKERMODE *") IntBuffer outspeakermode) {
+    public static int FMOD_DSP_GetOutputChannelFormat(@NativeType("FMOD_DSP *") long dsp, @NativeType("FMOD_CHANNELMASK") int inmask, int inchannels, @NativeType("FMOD_SPEAKERMODE") int inspeakermode, @NativeType("FMOD_CHANNELMASK *") @Nullable IntBuffer outmask, @NativeType("int *") @Nullable IntBuffer outchannels, @NativeType("FMOD_SPEAKERMODE *") @Nullable IntBuffer outspeakermode) {
         if (CHECKS) {
             checkSafe(outmask, 1);
             checkSafe(outchannels, 1);
@@ -7946,7 +8061,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetParameterFloat(@NativeType("FMOD_DSP *") long dsp, int index, @Nullable @NativeType("float *") FloatBuffer value, @Nullable @NativeType("char *") ByteBuffer valuestr) {
+    public static int FMOD_DSP_GetParameterFloat(@NativeType("FMOD_DSP *") long dsp, int index, @NativeType("float *") @Nullable FloatBuffer value, @NativeType("char *") @Nullable ByteBuffer valuestr) {
         if (CHECKS) {
             checkSafe(value, 1);
         }
@@ -7964,7 +8079,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetParameterInt(@NativeType("FMOD_DSP *") long dsp, int index, @Nullable @NativeType("int *") IntBuffer value, @Nullable @NativeType("char *") ByteBuffer valuestr) {
+    public static int FMOD_DSP_GetParameterInt(@NativeType("FMOD_DSP *") long dsp, int index, @NativeType("int *") @Nullable IntBuffer value, @NativeType("char *") @Nullable ByteBuffer valuestr) {
         if (CHECKS) {
             checkSafe(value, 1);
         }
@@ -7982,7 +8097,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetParameterBool(@NativeType("FMOD_DSP *") long dsp, int index, @Nullable @NativeType("FMOD_BOOL *") IntBuffer value, @Nullable @NativeType("char *") ByteBuffer valuestr) {
+    public static int FMOD_DSP_GetParameterBool(@NativeType("FMOD_DSP *") long dsp, int index, @NativeType("FMOD_BOOL *") @Nullable IntBuffer value, @NativeType("char *") @Nullable ByteBuffer valuestr) {
         if (CHECKS) {
             checkSafe(value, 1);
         }
@@ -8000,7 +8115,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetParameterData(@NativeType("FMOD_DSP *") long dsp, int index, @Nullable @NativeType("void **") PointerBuffer data, @Nullable @NativeType("unsigned int *") IntBuffer length, @Nullable @NativeType("char *") ByteBuffer valuestr) {
+    public static int FMOD_DSP_GetParameterData(@NativeType("FMOD_DSP *") long dsp, int index, @NativeType("void **") @Nullable PointerBuffer data, @NativeType("unsigned int *") @Nullable IntBuffer length, @NativeType("char *") @Nullable ByteBuffer valuestr) {
         if (CHECKS) {
             checkSafe(data, 1);
             checkSafe(length, 1);
@@ -8087,7 +8202,7 @@ public class FMOD {
 
     /** DSP attributes. */
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetInfo(@NativeType("FMOD_DSP *") long dsp, @Nullable @NativeType("char *") ByteBuffer name, @Nullable @NativeType("unsigned int *") IntBuffer version, @Nullable @NativeType("int *") IntBuffer channels, @Nullable @NativeType("int *") IntBuffer configwidth, @Nullable @NativeType("int *") IntBuffer configheight) {
+    public static int FMOD_DSP_GetInfo(@NativeType("FMOD_DSP *") long dsp, @NativeType("char *") @Nullable ByteBuffer name, @NativeType("unsigned int *") @Nullable IntBuffer version, @NativeType("int *") @Nullable IntBuffer channels, @NativeType("int *") @Nullable IntBuffer configwidth, @NativeType("int *") @Nullable IntBuffer configheight) {
         if (CHECKS) {
             checkSafe(name, 32);
             checkSafe(version, 1);
@@ -8186,7 +8301,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetMeteringEnabled(@NativeType("FMOD_DSP *") long dsp, @Nullable @NativeType("FMOD_BOOL *") IntBuffer inputEnabled, @Nullable @NativeType("FMOD_BOOL *") IntBuffer outputEnabled) {
+    public static int FMOD_DSP_GetMeteringEnabled(@NativeType("FMOD_DSP *") long dsp, @NativeType("FMOD_BOOL *") @Nullable IntBuffer inputEnabled, @NativeType("FMOD_BOOL *") @Nullable IntBuffer outputEnabled) {
         if (CHECKS) {
             checkSafe(inputEnabled, 1);
             checkSafe(outputEnabled, 1);
@@ -8205,7 +8320,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetMeteringInfo(@NativeType("FMOD_DSP *") long dsp, @Nullable @NativeType("FMOD_DSP_METERING_INFO *") FMOD_DSP_METERING_INFO inputInfo, @Nullable @NativeType("FMOD_DSP_METERING_INFO *") FMOD_DSP_METERING_INFO outputInfo) {
+    public static int FMOD_DSP_GetMeteringInfo(@NativeType("FMOD_DSP *") long dsp, @NativeType("FMOD_DSP_METERING_INFO *") @Nullable FMOD_DSP_METERING_INFO inputInfo, @NativeType("FMOD_DSP_METERING_INFO *") @Nullable FMOD_DSP_METERING_INFO outputInfo) {
         return nFMOD_DSP_GetMeteringInfo(dsp, memAddressSafe(inputInfo), memAddressSafe(outputInfo));
     }
 
@@ -8220,7 +8335,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSP_GetCPUUsage(@NativeType("FMOD_DSP *") long dsp, @Nullable @NativeType("unsigned int *") IntBuffer exclusive, @Nullable @NativeType("unsigned int *") IntBuffer inclusive) {
+    public static int FMOD_DSP_GetCPUUsage(@NativeType("FMOD_DSP *") long dsp, @NativeType("unsigned int *") @Nullable IntBuffer exclusive, @NativeType("unsigned int *") @Nullable IntBuffer inclusive) {
         if (CHECKS) {
             checkSafe(exclusive, 1);
             checkSafe(inclusive, 1);
@@ -8304,7 +8419,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSPConnection_SetMixMatrix(@NativeType("FMOD_DSPCONNECTION *") long dspconnection, @Nullable @NativeType("float *") FloatBuffer matrix, int outchannels, int inchannels, int inchannel_hop) {
+    public static int FMOD_DSPConnection_SetMixMatrix(@NativeType("FMOD_DSPCONNECTION *") long dspconnection, @NativeType("float *") @Nullable FloatBuffer matrix, int outchannels, int inchannels, int inchannel_hop) {
         if (CHECKS) {
             checkSafe(matrix, outchannels * (inchannel_hop == 0 ? inchannels : inchannel_hop));
         }
@@ -8322,7 +8437,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_DSPConnection_GetMixMatrix(@NativeType("FMOD_DSPCONNECTION *") long dspconnection, @Nullable @NativeType("float *") FloatBuffer matrix, @Nullable @NativeType("int *") IntBuffer outchannels, @Nullable @NativeType("int *") IntBuffer inchannels, int inchannel_hop) {
+    public static int FMOD_DSPConnection_GetMixMatrix(@NativeType("FMOD_DSPCONNECTION *") long dspconnection, @NativeType("float *") @Nullable FloatBuffer matrix, @NativeType("int *") @Nullable IntBuffer outchannels, @NativeType("int *") @Nullable IntBuffer inchannels, int inchannel_hop) {
         if (CHECKS) {
             checkSafe(outchannels, 1);
             checkSafe(inchannels, 1);
@@ -8401,7 +8516,7 @@ public class FMOD {
 
     /** Polygon manipulation. */
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Geometry_AddPolygon(@NativeType("FMOD_GEOMETRY *") long geometry, float directocclusion, float reverbocclusion, @NativeType("FMOD_BOOL") int doublesided, @NativeType("FMOD_VECTOR const *") FMOD_VECTOR.Buffer vertices, @Nullable @NativeType("int *") IntBuffer polygonindex) {
+    public static int FMOD_Geometry_AddPolygon(@NativeType("FMOD_GEOMETRY *") long geometry, float directocclusion, float reverbocclusion, @NativeType("FMOD_BOOL") int doublesided, @NativeType("FMOD_VECTOR const *") FMOD_VECTOR.Buffer vertices, @NativeType("int *") @Nullable IntBuffer polygonindex) {
         if (CHECKS) {
             checkSafe(polygonindex, 1);
         }
@@ -8437,7 +8552,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Geometry_GetMaxPolygons(@NativeType("FMOD_GEOMETRY *") long geometry, @Nullable @NativeType("int *") IntBuffer maxpolygons, @Nullable @NativeType("int *") IntBuffer maxvertices) {
+    public static int FMOD_Geometry_GetMaxPolygons(@NativeType("FMOD_GEOMETRY *") long geometry, @NativeType("int *") @Nullable IntBuffer maxpolygons, @NativeType("int *") @Nullable IntBuffer maxvertices) {
         if (CHECKS) {
             checkSafe(maxpolygons, 1);
             checkSafe(maxvertices, 1);
@@ -8515,7 +8630,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Geometry_GetPolygonAttributes(@NativeType("FMOD_GEOMETRY *") long geometry, int index, @Nullable @NativeType("float *") FloatBuffer directocclusion, @Nullable @NativeType("float *") FloatBuffer reverbocclusion, @Nullable @NativeType("FMOD_BOOL *") IntBuffer doublesided) {
+    public static int FMOD_Geometry_GetPolygonAttributes(@NativeType("FMOD_GEOMETRY *") long geometry, int index, @NativeType("float *") @Nullable FloatBuffer directocclusion, @NativeType("float *") @Nullable FloatBuffer reverbocclusion, @NativeType("FMOD_BOOL *") @Nullable IntBuffer doublesided) {
         if (CHECKS) {
             checkSafe(directocclusion, 1);
             checkSafe(reverbocclusion, 1);
@@ -8565,7 +8680,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Geometry_SetRotation(@NativeType("FMOD_GEOMETRY *") long geometry, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR forward, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR up) {
+    public static int FMOD_Geometry_SetRotation(@NativeType("FMOD_GEOMETRY *") long geometry, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR forward, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR up) {
         return nFMOD_Geometry_SetRotation(geometry, memAddressSafe(forward), memAddressSafe(up));
     }
 
@@ -8580,7 +8695,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Geometry_GetRotation(@NativeType("FMOD_GEOMETRY *") long geometry, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR forward, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR up) {
+    public static int FMOD_Geometry_GetRotation(@NativeType("FMOD_GEOMETRY *") long geometry, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR forward, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR up) {
         return nFMOD_Geometry_GetRotation(geometry, memAddressSafe(forward), memAddressSafe(up));
     }
 
@@ -8655,7 +8770,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Geometry_Save(@NativeType("FMOD_GEOMETRY *") long geometry, @Nullable @NativeType("void *") ByteBuffer data, @NativeType("int *") IntBuffer datasize) {
+    public static int FMOD_Geometry_Save(@NativeType("FMOD_GEOMETRY *") long geometry, @NativeType("void *") @Nullable ByteBuffer data, @NativeType("int *") IntBuffer datasize) {
         if (CHECKS) {
             check(datasize, 1);
         }
@@ -8713,7 +8828,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Reverb3D_Set3DAttributes(@NativeType("FMOD_REVERB3D *") long reverb3d, @Nullable @NativeType("FMOD_VECTOR const *") FMOD_VECTOR position, float mindistance, float maxdistance) {
+    public static int FMOD_Reverb3D_Set3DAttributes(@NativeType("FMOD_REVERB3D *") long reverb3d, @NativeType("FMOD_VECTOR const *") @Nullable FMOD_VECTOR position, float mindistance, float maxdistance) {
         return nFMOD_Reverb3D_Set3DAttributes(reverb3d, memAddressSafe(position), mindistance, maxdistance);
     }
 
@@ -8728,7 +8843,7 @@ public class FMOD {
     }
 
     @NativeType("FMOD_RESULT")
-    public static int FMOD_Reverb3D_Get3DAttributes(@NativeType("FMOD_REVERB3D *") long reverb3d, @Nullable @NativeType("FMOD_VECTOR *") FMOD_VECTOR position, @Nullable @NativeType("float *") FloatBuffer mindistance, @Nullable @NativeType("float *") FloatBuffer maxdistance) {
+    public static int FMOD_Reverb3D_Get3DAttributes(@NativeType("FMOD_REVERB3D *") long reverb3d, @NativeType("FMOD_VECTOR *") @Nullable FMOD_VECTOR position, @NativeType("float *") @Nullable FloatBuffer mindistance, @NativeType("float *") @Nullable FloatBuffer maxdistance) {
         if (CHECKS) {
             checkSafe(mindistance, 1);
             checkSafe(maxdistance, 1);

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,9 +22,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Including this structure in the {@code pNext} chain of {@link VkBufferImageCopy2} defines a rotation to be performed when copying between an image and a buffer. Including this structure in the {@code pNext} chain of {@link VkBlitImageInfo2} defines a rotation to be performed when blitting between two images. If this structure is not specified in either case, the implementation behaves as if it was specified with a {@code transform} equal to {@link KHRSurface#VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR SURFACE_TRANSFORM_IDENTITY_BIT_KHR}.</p>
  * 
- * <p>Specifying a transform for a copy between an image and a buffer <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#copies-buffers-images-rotation-addressing">rotates the region accessed in the image around the offset</a>. Specifying a transform for a blit performs a similar transform as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#copies-images-scaling-rotation">Image Blits with Scaling and Rotation</a>.</p>
+ * <p>Specifying a transform for a copy between an image and a buffer <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#copies-buffers-images-rotation-addressing">rotates the region accessed in the image around the offset</a>. Specifying a transform for a blit performs a similar transform as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#copies-images-scaling-rotation">Image Blits with Scaling and Rotation</a>.</p>
  * 
- * <p>Rotations other than {@link KHRSurface#VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR SURFACE_TRANSFORM_IDENTITY_BIT_KHR} <b>can</b> only be specified for single-plane 2D images with a 1x1x1 <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-compatibility-classes">texel block extent</a>.</p>
+ * <p>Rotations other than {@link KHRSurface#VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR SURFACE_TRANSFORM_IDENTITY_BIT_KHR} <b>can</b> only be specified for single-plane 2D images with a 1x1x1 <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-compatibility-classes">texel block extent</a>.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -166,8 +166,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyCommandTransformInfoQCOM createSafe(long address) {
+    public static @Nullable VkCopyCommandTransformInfoQCOM createSafe(long address) {
         return address == NULL ? null : new VkCopyCommandTransformInfoQCOM(address, null);
     }
 
@@ -210,8 +209,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyCommandTransformInfoQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkCopyCommandTransformInfoQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,18 +254,18 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCopyCommandTransformInfoQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCopyCommandTransformInfoQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCopyCommandTransformInfoQCOM.PNEXT); }
     /** Unsafe version of {@link #transform}. */
-    public static int ntransform(long struct) { return UNSAFE.getInt(null, struct + VkCopyCommandTransformInfoQCOM.TRANSFORM); }
+    public static int ntransform(long struct) { return memGetInt(struct + VkCopyCommandTransformInfoQCOM.TRANSFORM); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyCommandTransformInfoQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCopyCommandTransformInfoQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCopyCommandTransformInfoQCOM.PNEXT, value); }
     /** Unsafe version of {@link #transform(int) transform}. */
-    public static void ntransform(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyCommandTransformInfoQCOM.TRANSFORM, value); }
+    public static void ntransform(long struct, int value) { memPutInt(struct + VkCopyCommandTransformInfoQCOM.TRANSFORM, value); }
 
     // -----------------------------------
 
@@ -300,6 +298,11 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

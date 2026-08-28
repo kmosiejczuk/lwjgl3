@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -127,8 +127,7 @@ public class VRSkeletalSummaryData extends Struct<VRSkeletalSummaryData> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRSkeletalSummaryData createSafe(long address) {
+    public static @Nullable VRSkeletalSummaryData createSafe(long address) {
         return address == NULL ? null : new VRSkeletalSummaryData(address, null);
     }
 
@@ -171,8 +170,7 @@ public class VRSkeletalSummaryData extends Struct<VRSkeletalSummaryData> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRSkeletalSummaryData.Buffer createSafe(long address, int capacity) {
+    public static VRSkeletalSummaryData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -239,13 +237,13 @@ public class VRSkeletalSummaryData extends Struct<VRSkeletalSummaryData> impleme
     public static FloatBuffer nflFingerCurl(long struct) { return memFloatBuffer(struct + VRSkeletalSummaryData.FLFINGERCURL, 5); }
     /** Unsafe version of {@link #flFingerCurl(int) flFingerCurl}. */
     public static float nflFingerCurl(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + VRSkeletalSummaryData.FLFINGERCURL + check(index, 5) * 4);
+        return memGetFloat(struct + VRSkeletalSummaryData.FLFINGERCURL + check(index, 5) * 4);
     }
     /** Unsafe version of {@link #flFingerSplay}. */
     public static FloatBuffer nflFingerSplay(long struct) { return memFloatBuffer(struct + VRSkeletalSummaryData.FLFINGERSPLAY, 4); }
     /** Unsafe version of {@link #flFingerSplay(int) flFingerSplay}. */
     public static float nflFingerSplay(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + VRSkeletalSummaryData.FLFINGERSPLAY + check(index, 4) * 4);
+        return memGetFloat(struct + VRSkeletalSummaryData.FLFINGERSPLAY + check(index, 4) * 4);
     }
 
     // -----------------------------------
@@ -279,6 +277,11 @@ public class VRSkeletalSummaryData extends Struct<VRSkeletalSummaryData> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

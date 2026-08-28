@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -176,8 +176,7 @@ public class XrSecondaryViewConfigurationFrameEndInfoMSFT extends Struct<XrSecon
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationFrameEndInfoMSFT createSafe(long address) {
+    public static @Nullable XrSecondaryViewConfigurationFrameEndInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrSecondaryViewConfigurationFrameEndInfoMSFT(address, null);
     }
 
@@ -220,8 +219,7 @@ public class XrSecondaryViewConfigurationFrameEndInfoMSFT extends Struct<XrSecon
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationFrameEndInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSecondaryViewConfigurationFrameEndInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,20 +264,20 @@ public class XrSecondaryViewConfigurationFrameEndInfoMSFT extends Struct<XrSecon
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.NEXT); }
     /** Unsafe version of {@link #viewConfigurationCount}. */
-    public static int nviewConfigurationCount(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.VIEWCONFIGURATIONCOUNT); }
+    public static int nviewConfigurationCount(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.VIEWCONFIGURATIONCOUNT); }
     /** Unsafe version of {@link #viewConfigurationLayersInfo}. */
     public static XrSecondaryViewConfigurationLayerInfoMSFT.Buffer nviewConfigurationLayersInfo(long struct) { return XrSecondaryViewConfigurationLayerInfoMSFT.create(memGetAddress(struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.VIEWCONFIGURATIONLAYERSINFO), nviewConfigurationCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.NEXT, value); }
     /** Sets the specified value to the {@code viewConfigurationCount} field of the specified {@code struct}. */
-    public static void nviewConfigurationCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.VIEWCONFIGURATIONCOUNT, value); }
+    public static void nviewConfigurationCount(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.VIEWCONFIGURATIONCOUNT, value); }
     /** Unsafe version of {@link #viewConfigurationLayersInfo(XrSecondaryViewConfigurationLayerInfoMSFT.Buffer) viewConfigurationLayersInfo}. */
     public static void nviewConfigurationLayersInfo(long struct, XrSecondaryViewConfigurationLayerInfoMSFT.Buffer value) { memPutAddress(struct + XrSecondaryViewConfigurationFrameEndInfoMSFT.VIEWCONFIGURATIONLAYERSINFO, value.address()); nviewConfigurationCount(struct, value.remaining()); }
 
@@ -326,6 +324,11 @@ public class XrSecondaryViewConfigurationFrameEndInfoMSFT extends Struct<XrSecon
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

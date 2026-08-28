@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkPhysicalDeviceSubpassShadingPropertiesHUAWEI extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSubpassShadingPropertiesHUAWEI createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSubpassShadingPropertiesHUAWEI createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSubpassShadingPropertiesHUAWEI(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkPhysicalDeviceSubpassShadingPropertiesHUAWEI extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkPhysicalDeviceSubpassShadingPropertiesHUAWEI extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.PNEXT); }
     /** Unsafe version of {@link #maxSubpassShadingWorkgroupSizeAspectRatio}. */
-    public static int nmaxSubpassShadingWorkgroupSizeAspectRatio(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.MAXSUBPASSSHADINGWORKGROUPSIZEASPECTRATIO); }
+    public static int nmaxSubpassShadingWorkgroupSizeAspectRatio(long struct) { return memGetInt(struct + VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.MAXSUBPASSSHADINGWORKGROUPSIZEASPECTRATIO); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.PNEXT, value); }
 
@@ -284,6 +282,11 @@ public class VkPhysicalDeviceSubpassShadingPropertiesHUAWEI extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

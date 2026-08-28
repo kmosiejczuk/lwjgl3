@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -171,8 +171,7 @@ public class XrEnvironmentDepthImageAcquireInfoMETA extends Struct<XrEnvironment
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEnvironmentDepthImageAcquireInfoMETA createSafe(long address) {
+    public static @Nullable XrEnvironmentDepthImageAcquireInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrEnvironmentDepthImageAcquireInfoMETA(address, null);
     }
 
@@ -215,8 +214,7 @@ public class XrEnvironmentDepthImageAcquireInfoMETA extends Struct<XrEnvironment
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEnvironmentDepthImageAcquireInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrEnvironmentDepthImageAcquireInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,22 +259,22 @@ public class XrEnvironmentDepthImageAcquireInfoMETA extends Struct<XrEnvironment
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEnvironmentDepthImageAcquireInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEnvironmentDepthImageAcquireInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEnvironmentDepthImageAcquireInfoMETA.NEXT); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrEnvironmentDepthImageAcquireInfoMETA.SPACE); }
     /** Unsafe version of {@link #displayTime}. */
-    public static long ndisplayTime(long struct) { return UNSAFE.getLong(null, struct + XrEnvironmentDepthImageAcquireInfoMETA.DISPLAYTIME); }
+    public static long ndisplayTime(long struct) { return memGetLong(struct + XrEnvironmentDepthImageAcquireInfoMETA.DISPLAYTIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEnvironmentDepthImageAcquireInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEnvironmentDepthImageAcquireInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEnvironmentDepthImageAcquireInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
     public static void nspace(long struct, XrSpace value) { memPutAddress(struct + XrEnvironmentDepthImageAcquireInfoMETA.SPACE, value.address()); }
     /** Unsafe version of {@link #displayTime(long) displayTime}. */
-    public static void ndisplayTime(long struct, long value) { UNSAFE.putLong(null, struct + XrEnvironmentDepthImageAcquireInfoMETA.DISPLAYTIME, value); }
+    public static void ndisplayTime(long struct, long value) { memPutLong(struct + XrEnvironmentDepthImageAcquireInfoMETA.DISPLAYTIME, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -318,6 +316,11 @@ public class XrEnvironmentDepthImageAcquireInfoMETA extends Struct<XrEnvironment
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

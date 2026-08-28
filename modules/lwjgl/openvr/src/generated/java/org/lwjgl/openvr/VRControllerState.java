@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class VRControllerState extends Struct<VRControllerState> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRControllerState createSafe(long address) {
+    public static @Nullable VRControllerState createSafe(long address) {
         return address == NULL ? null : new VRControllerState(address, null);
     }
 
@@ -210,8 +209,7 @@ public class VRControllerState extends Struct<VRControllerState> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VRControllerState.Buffer createSafe(long address, int capacity) {
+    public static VRControllerState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,11 +273,11 @@ public class VRControllerState extends Struct<VRControllerState> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #unPacketNum}. */
-    public static int nunPacketNum(long struct) { return UNSAFE.getInt(null, struct + VRControllerState.UNPACKETNUM); }
+    public static int nunPacketNum(long struct) { return memGetInt(struct + VRControllerState.UNPACKETNUM); }
     /** Unsafe version of {@link #ulButtonPressed}. */
-    public static long nulButtonPressed(long struct) { return UNSAFE.getLong(null, struct + VRControllerState.ULBUTTONPRESSED); }
+    public static long nulButtonPressed(long struct) { return memGetLong(struct + VRControllerState.ULBUTTONPRESSED); }
     /** Unsafe version of {@link #ulButtonTouched}. */
-    public static long nulButtonTouched(long struct) { return UNSAFE.getLong(null, struct + VRControllerState.ULBUTTONTOUCHED); }
+    public static long nulButtonTouched(long struct) { return memGetLong(struct + VRControllerState.ULBUTTONTOUCHED); }
     /** Unsafe version of {@link #rAxis}. */
     public static VRControllerAxis.Buffer nrAxis(long struct) { return VRControllerAxis.create(struct + VRControllerState.RAXIS, 5); }
     /** Unsafe version of {@link #rAxis(int) rAxis}. */
@@ -288,11 +286,11 @@ public class VRControllerState extends Struct<VRControllerState> implements Nati
     }
 
     /** Unsafe version of {@link #unPacketNum(int) unPacketNum}. */
-    public static void nunPacketNum(long struct, int value) { UNSAFE.putInt(null, struct + VRControllerState.UNPACKETNUM, value); }
+    public static void nunPacketNum(long struct, int value) { memPutInt(struct + VRControllerState.UNPACKETNUM, value); }
     /** Unsafe version of {@link #ulButtonPressed(long) ulButtonPressed}. */
-    public static void nulButtonPressed(long struct, long value) { UNSAFE.putLong(null, struct + VRControllerState.ULBUTTONPRESSED, value); }
+    public static void nulButtonPressed(long struct, long value) { memPutLong(struct + VRControllerState.ULBUTTONPRESSED, value); }
     /** Unsafe version of {@link #ulButtonTouched(long) ulButtonTouched}. */
-    public static void nulButtonTouched(long struct, long value) { UNSAFE.putLong(null, struct + VRControllerState.ULBUTTONTOUCHED, value); }
+    public static void nulButtonTouched(long struct, long value) { memPutLong(struct + VRControllerState.ULBUTTONTOUCHED, value); }
     /** Unsafe version of {@link #rAxis(VRControllerAxis.Buffer) rAxis}. */
     public static void nrAxis(long struct, VRControllerAxis.Buffer value) {
         if (CHECKS) { checkGT(value, 5); }
@@ -334,6 +332,11 @@ public class VRControllerState extends Struct<VRControllerState> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

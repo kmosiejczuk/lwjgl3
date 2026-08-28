@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorMapMonoToMonoFB createSafe(long address) {
+    public static @Nullable XrPassthroughColorMapMonoToMonoFB createSafe(long address) {
         return address == NULL ? null : new XrPassthroughColorMapMonoToMonoFB(address, null);
     }
 
@@ -212,8 +211,7 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorMapMonoToMonoFB.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughColorMapMonoToMonoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,18 +256,18 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorMapMonoToMonoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughColorMapMonoToMonoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughColorMapMonoToMonoFB.NEXT); }
     /** Unsafe version of {@link #textureColorMap}. */
     public static ByteBuffer ntextureColorMap(long struct) { return memByteBuffer(struct + XrPassthroughColorMapMonoToMonoFB.TEXTURECOLORMAP, XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB); }
     /** Unsafe version of {@link #textureColorMap(int) textureColorMap}. */
     public static byte ntextureColorMap(long struct, int index) {
-        return UNSAFE.getByte(null, struct + XrPassthroughColorMapMonoToMonoFB.TEXTURECOLORMAP + check(index, XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB) * 1);
+        return memGetByte(struct + XrPassthroughColorMapMonoToMonoFB.TEXTURECOLORMAP + check(index, XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB) * 1);
     }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorMapMonoToMonoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughColorMapMonoToMonoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughColorMapMonoToMonoFB.NEXT, value); }
     /** Unsafe version of {@link #textureColorMap(ByteBuffer) textureColorMap}. */
@@ -279,7 +277,7 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
     }
     /** Unsafe version of {@link #textureColorMap(int, byte) textureColorMap}. */
     public static void ntextureColorMap(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + XrPassthroughColorMapMonoToMonoFB.TEXTURECOLORMAP + check(index, XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB) * 1, value);
+        memPutByte(struct + XrPassthroughColorMapMonoToMonoFB.TEXTURECOLORMAP + check(index, XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB) * 1, value);
     }
 
     // -----------------------------------
@@ -313,6 +311,11 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>The {@link VkCoarseSampleOrderCustomNV} structure is used with a coverage sample ordering type of {@link NVShadingRateImage#VK_COARSE_SAMPLE_ORDER_TYPE_CUSTOM_NV COARSE_SAMPLE_ORDER_TYPE_CUSTOM_NV} to specify the order of coverage samples for one combination of fragment width, fragment height, and coverage sample count.</p>
  * 
- * <p>When using a custom sample ordering, element <em>j</em> in {@code pSampleLocations} specifies a specific pixel location and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-multisampling-coverage-mask">sample index</a> that corresponds to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-multisampling-coverage-mask">coverage index</a> <em>j</em> in the multi-pixel fragment.</p>
+ * <p>When using a custom sample ordering, element <em>j</em> in {@code pSampleLocations} specifies a specific pixel location and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-multisampling-coverage-mask">sample index</a> that corresponds to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-multisampling-coverage-mask">coverage index</a> <em>j</em> in the multi-pixel fragment.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -180,8 +180,7 @@ public class VkCoarseSampleOrderCustomNV extends Struct<VkCoarseSampleOrderCusto
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCoarseSampleOrderCustomNV createSafe(long address) {
+    public static @Nullable VkCoarseSampleOrderCustomNV createSafe(long address) {
         return address == NULL ? null : new VkCoarseSampleOrderCustomNV(address, null);
     }
 
@@ -224,8 +223,7 @@ public class VkCoarseSampleOrderCustomNV extends Struct<VkCoarseSampleOrderCusto
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCoarseSampleOrderCustomNV.Buffer createSafe(long address, int capacity) {
+    public static VkCoarseSampleOrderCustomNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,20 +287,20 @@ public class VkCoarseSampleOrderCustomNV extends Struct<VkCoarseSampleOrderCusto
     // -----------------------------------
 
     /** Unsafe version of {@link #shadingRate}. */
-    public static int nshadingRate(long struct) { return UNSAFE.getInt(null, struct + VkCoarseSampleOrderCustomNV.SHADINGRATE); }
+    public static int nshadingRate(long struct) { return memGetInt(struct + VkCoarseSampleOrderCustomNV.SHADINGRATE); }
     /** Unsafe version of {@link #sampleCount}. */
-    public static int nsampleCount(long struct) { return UNSAFE.getInt(null, struct + VkCoarseSampleOrderCustomNV.SAMPLECOUNT); }
+    public static int nsampleCount(long struct) { return memGetInt(struct + VkCoarseSampleOrderCustomNV.SAMPLECOUNT); }
     /** Unsafe version of {@link #sampleLocationCount}. */
-    public static int nsampleLocationCount(long struct) { return UNSAFE.getInt(null, struct + VkCoarseSampleOrderCustomNV.SAMPLELOCATIONCOUNT); }
+    public static int nsampleLocationCount(long struct) { return memGetInt(struct + VkCoarseSampleOrderCustomNV.SAMPLELOCATIONCOUNT); }
     /** Unsafe version of {@link #pSampleLocations}. */
     public static VkCoarseSampleLocationNV.Buffer npSampleLocations(long struct) { return VkCoarseSampleLocationNV.create(memGetAddress(struct + VkCoarseSampleOrderCustomNV.PSAMPLELOCATIONS), nsampleLocationCount(struct)); }
 
     /** Unsafe version of {@link #shadingRate(int) shadingRate}. */
-    public static void nshadingRate(long struct, int value) { UNSAFE.putInt(null, struct + VkCoarseSampleOrderCustomNV.SHADINGRATE, value); }
+    public static void nshadingRate(long struct, int value) { memPutInt(struct + VkCoarseSampleOrderCustomNV.SHADINGRATE, value); }
     /** Unsafe version of {@link #sampleCount(int) sampleCount}. */
-    public static void nsampleCount(long struct, int value) { UNSAFE.putInt(null, struct + VkCoarseSampleOrderCustomNV.SAMPLECOUNT, value); }
+    public static void nsampleCount(long struct, int value) { memPutInt(struct + VkCoarseSampleOrderCustomNV.SAMPLECOUNT, value); }
     /** Sets the specified value to the {@code sampleLocationCount} field of the specified {@code struct}. */
-    public static void nsampleLocationCount(long struct, int value) { UNSAFE.putInt(null, struct + VkCoarseSampleOrderCustomNV.SAMPLELOCATIONCOUNT, value); }
+    public static void nsampleLocationCount(long struct, int value) { memPutInt(struct + VkCoarseSampleOrderCustomNV.SAMPLELOCATIONCOUNT, value); }
     /** Unsafe version of {@link #pSampleLocations(VkCoarseSampleLocationNV.Buffer) pSampleLocations}. */
     public static void npSampleLocations(long struct, VkCoarseSampleLocationNV.Buffer value) { memPutAddress(struct + VkCoarseSampleOrderCustomNV.PSAMPLELOCATIONS, value.address()); nsampleLocationCount(struct, value.remaining()); }
 
@@ -346,6 +344,11 @@ public class VkCoarseSampleOrderCustomNV extends Struct<VkCoarseSampleOrderCusto
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

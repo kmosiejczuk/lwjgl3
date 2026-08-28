@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -205,8 +205,7 @@ public class VkPhysicalDeviceRayTracingPropertiesNV extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingPropertiesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRayTracingPropertiesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRayTracingPropertiesNV(address, null);
     }
 
@@ -249,8 +248,7 @@ public class VkPhysicalDeviceRayTracingPropertiesNV extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingPropertiesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRayTracingPropertiesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -314,28 +312,28 @@ public class VkPhysicalDeviceRayTracingPropertiesNV extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPropertiesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPropertiesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRayTracingPropertiesNV.PNEXT); }
     /** Unsafe version of {@link #shaderGroupHandleSize}. */
-    public static int nshaderGroupHandleSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPropertiesNV.SHADERGROUPHANDLESIZE); }
+    public static int nshaderGroupHandleSize(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPropertiesNV.SHADERGROUPHANDLESIZE); }
     /** Unsafe version of {@link #maxRecursionDepth}. */
-    public static int nmaxRecursionDepth(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXRECURSIONDEPTH); }
+    public static int nmaxRecursionDepth(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXRECURSIONDEPTH); }
     /** Unsafe version of {@link #maxShaderGroupStride}. */
-    public static int nmaxShaderGroupStride(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXSHADERGROUPSTRIDE); }
+    public static int nmaxShaderGroupStride(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXSHADERGROUPSTRIDE); }
     /** Unsafe version of {@link #shaderGroupBaseAlignment}. */
-    public static int nshaderGroupBaseAlignment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPropertiesNV.SHADERGROUPBASEALIGNMENT); }
+    public static int nshaderGroupBaseAlignment(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPropertiesNV.SHADERGROUPBASEALIGNMENT); }
     /** Unsafe version of {@link #maxGeometryCount}. */
-    public static long nmaxGeometryCount(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXGEOMETRYCOUNT); }
+    public static long nmaxGeometryCount(long struct) { return memGetLong(struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXGEOMETRYCOUNT); }
     /** Unsafe version of {@link #maxInstanceCount}. */
-    public static long nmaxInstanceCount(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXINSTANCECOUNT); }
+    public static long nmaxInstanceCount(long struct) { return memGetLong(struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXINSTANCECOUNT); }
     /** Unsafe version of {@link #maxTriangleCount}. */
-    public static long nmaxTriangleCount(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXTRIANGLECOUNT); }
+    public static long nmaxTriangleCount(long struct) { return memGetLong(struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXTRIANGLECOUNT); }
     /** Unsafe version of {@link #maxDescriptorSetAccelerationStructures}. */
-    public static int nmaxDescriptorSetAccelerationStructures(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXDESCRIPTORSETACCELERATIONSTRUCTURES); }
+    public static int nmaxDescriptorSetAccelerationStructures(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPropertiesNV.MAXDESCRIPTORSETACCELERATIONSTRUCTURES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPropertiesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPropertiesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRayTracingPropertiesNV.PNEXT, value); }
 
@@ -370,6 +368,11 @@ public class VkPhysicalDeviceRayTracingPropertiesNV extends Struct<VkPhysicalDev
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

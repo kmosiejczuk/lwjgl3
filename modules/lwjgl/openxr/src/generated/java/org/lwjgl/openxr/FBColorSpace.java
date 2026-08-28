@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <li>An application to set the color space for the session.</li>
  * </ul>
  * 
- * <p>In order to enable the functionality of this extension, the application <b>must</b> pass the name of the extension into {@link XR10#xrCreateInstance CreateInstance} via the {@link XrInstanceCreateInfo}{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#fundamentals-extensions">fundamentals-extensions</a> section.</p>
+ * <p>In order to enable the functionality of this extension, the application <b>must</b> pass the name of the extension into {@link XR10#xrCreateInstance CreateInstance} via the {@link XrInstanceCreateInfo}{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#fundamentals-extensions">extension</a> section.</p>
  */
 public class FBColorSpace {
 
@@ -185,7 +185,7 @@ public class FBColorSpace {
      * @param colorSpaces           a pointer to an array of {@code XrColorSpaceFB} color spaces, but <b>can</b> be {@code NULL} if {@code colorSpaceCapacityInput} is 0.
      */
     @NativeType("XrResult")
-    public static int xrEnumerateColorSpacesFB(XrSession session, @NativeType("uint32_t *") IntBuffer colorSpaceCountOutput, @Nullable @NativeType("XrColorSpaceFB *") IntBuffer colorSpaces) {
+    public static int xrEnumerateColorSpacesFB(XrSession session, @NativeType("uint32_t *") IntBuffer colorSpaceCountOutput, @NativeType("XrColorSpaceFB *") @Nullable IntBuffer colorSpaces) {
         if (CHECKS) {
             check(colorSpaceCountOutput, 1);
         }

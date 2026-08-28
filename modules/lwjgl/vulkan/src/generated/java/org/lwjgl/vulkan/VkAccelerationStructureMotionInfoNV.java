@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class VkAccelerationStructureMotionInfoNV extends Struct<VkAccelerationSt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMotionInfoNV createSafe(long address) {
+    public static @Nullable VkAccelerationStructureMotionInfoNV createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureMotionInfoNV(address, null);
     }
 
@@ -208,8 +207,7 @@ public class VkAccelerationStructureMotionInfoNV extends Struct<VkAccelerationSt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMotionInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureMotionInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,22 +252,22 @@ public class VkAccelerationStructureMotionInfoNV extends Struct<VkAccelerationSt
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMotionInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureMotionInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureMotionInfoNV.PNEXT); }
     /** Unsafe version of {@link #maxInstances}. */
-    public static int nmaxInstances(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMotionInfoNV.MAXINSTANCES); }
+    public static int nmaxInstances(long struct) { return memGetInt(struct + VkAccelerationStructureMotionInfoNV.MAXINSTANCES); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMotionInfoNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkAccelerationStructureMotionInfoNV.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMotionInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureMotionInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureMotionInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #maxInstances(int) maxInstances}. */
-    public static void nmaxInstances(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMotionInfoNV.MAXINSTANCES, value); }
+    public static void nmaxInstances(long struct, int value) { memPutInt(struct + VkAccelerationStructureMotionInfoNV.MAXINSTANCES, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMotionInfoNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkAccelerationStructureMotionInfoNV.FLAGS, value); }
 
     // -----------------------------------
 
@@ -302,6 +300,11 @@ public class VkAccelerationStructureMotionInfoNV extends Struct<VkAccelerationSt
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

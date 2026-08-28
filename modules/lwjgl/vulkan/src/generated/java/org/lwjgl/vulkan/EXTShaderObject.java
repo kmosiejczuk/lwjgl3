@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -317,13 +317,14 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a> and {@link KHRDynamicRendering VK_KHR_dynamic_rendering} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3">Version 1.3</a></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a> and {@link KHRDynamicRendering VK_KHR_dynamic_rendering} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.3">Version 1.3</a></dd>
  * <dt><b>API Interactions</b></dt>
  * <dd><ul>
  * <li>Interacts with VK_VERSION_1_1</li>
  * <li>Interacts with VK_VERSION_1_3</li>
  * <li>Interacts with VK_EXT_blend_operation_advanced</li>
  * <li>Interacts with VK_EXT_conservative_rasterization</li>
+ * <li>Interacts with VK_EXT_depth_clamp_control</li>
  * <li>Interacts with VK_EXT_depth_clip_control</li>
  * <li>Interacts with VK_EXT_depth_clip_enable</li>
  * <li>Interacts with VK_EXT_fragment_density_map</li>
@@ -476,12 +477,13 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@link #VK_SHADER_CREATE_LINK_STAGE_BIT_EXT SHADER_CREATE_LINK_STAGE_BIT_EXT} specifies that a shader is linked to all other shaders created in the same {@link #vkCreateShadersEXT CreateShadersEXT} call whose {@link VkShaderCreateInfoEXT} structures' {@code flags} include {@link #VK_SHADER_CREATE_LINK_STAGE_BIT_EXT SHADER_CREATE_LINK_STAGE_BIT_EXT}.</li>
-     * <li>{@link #VK_SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT} specifies that the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-builtin-variables-sgs">{@code SubgroupSize}</a> <b>may</b> vary in a task, mesh, or compute shader.</li>
+     * <li>{@link #VK_SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT} specifies that the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces-builtin-variables-sgs">{@code SubgroupSize}</a> <b>may</b> vary in a task, mesh, or compute shader.</li>
      * <li>{@link #VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT} specifies that the subgroup sizes <b>must</b> be launched with all invocations active in a task, mesh, or compute shader.</li>
      * <li>{@link #VK_SHADER_CREATE_NO_TASK_SHADER_BIT_EXT SHADER_CREATE_NO_TASK_SHADER_BIT_EXT} specifies that a mesh shader <b>must</b> only be used without a task shader. Otherwise, the mesh shader <b>must</b> only be used with a task shader.</li>
      * <li>{@link #VK_SHADER_CREATE_DISPATCH_BASE_BIT_EXT SHADER_CREATE_DISPATCH_BASE_BIT_EXT} specifies that a compute shader <b>can</b> be used with {@link VK11#vkCmdDispatchBase CmdDispatchBase} with a non-zero base workgroup.</li>
      * <li>{@link #VK_SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT} specifies that a fragment shader <b>can</b> be used with a fragment shading rate attachment.</li>
      * <li>{@link #VK_SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT} specifies that a fragment shader <b>can</b> be used with a fragment density map attachment.</li>
+     * <li>{@link EXTDeviceGeneratedCommands#VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT} specifies that the shader <b>can</b> be used in combination with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#device-generated-commands">Device-Generated Commands</a>.</li>
      * </ul>
      */
     public static final int VK_SHADER_CREATE_LINK_STAGE_BIT_EXT = 0x1;
@@ -503,6 +505,24 @@ public class EXTShaderObject {
     public static final int
         VK_SHADER_CODE_TYPE_BINARY_EXT = 0,
         VK_SHADER_CODE_TYPE_SPIRV_EXT  = 1;
+
+    /**
+     * VkDepthClampModeEXT - Modes that determine the depth clamp range
+     * 
+     * <h5>Description</h5>
+     * 
+     * <ul>
+     * <li>{@link #VK_DEPTH_CLAMP_MODE_VIEWPORT_RANGE_EXT DEPTH_CLAMP_MODE_VIEWPORT_RANGE_EXT} specifies that the depth clamp range follows the viewport depth range. The depth clamp range of each viewport will implicitly be set to <code>z<sub>min</sub> = min(n,f)</code> and <code>z<sub>max</sub> = max(n,f)</code>, where <code>n</code> and <code>f</code> are the {@code minDepth} and {@code maxDepth} depth range values of the viewport.</li>
+     * <li>{@link #VK_DEPTH_CLAMP_MODE_USER_DEFINED_RANGE_EXT DEPTH_CLAMP_MODE_USER_DEFINED_RANGE_EXT} specifies that a single user-defined depth clamp range will be used for all viewports. The user-defined depth clamp range is defined by the {@code minDepthClamp} and {@code maxDepthClamp} members of {@link VkDepthClampRangeEXT}.</li>
+     * </ul>
+     * 
+     * <h5>See Also</h5>
+     * 
+     * <p>{@link VkPipelineViewportDepthClampControlCreateInfoEXT}, {@link #vkCmdSetDepthClampRangeEXT CmdSetDepthClampRangeEXT}</p>
+     */
+    public static final int
+        VK_DEPTH_CLAMP_MODE_VIEWPORT_RANGE_EXT     = 0,
+        VK_DEPTH_CLAMP_MODE_USER_DEFINED_RANGE_EXT = 1;
 
     protected EXTShaderObject() {
         throw new UnsupportedOperationException();
@@ -548,10 +568,9 @@ public class EXTShaderObject {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>{@code device} <b>must</b> support at least one queue family with one of the {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT} or {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} capabilities</li>
      * <li>If the {@code stage} member of any element of {@code pCreateInfos} is {@link VK10#VK_SHADER_STAGE_COMPUTE_BIT SHADER_STAGE_COMPUTE_BIT}, {@code device} <b>must</b> support at least one queue family with the {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT} capability</li>
      * <li>If the {@code stage} member of any element of {@code pCreateInfos} is {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT}, {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT}, {@link VK10#VK_SHADER_STAGE_VERTEX_BIT SHADER_STAGE_VERTEX_BIT}, {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT}, {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}, or {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT}, {@code device} <b>must</b> support at least one queue family with the {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} capability</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature <b>must</b> be enabled</li>
      * <li>If the {@code flags} member of any element of {@code pCreateInfos} includes {@link #VK_SHADER_CREATE_LINK_STAGE_BIT_EXT SHADER_CREATE_LINK_STAGE_BIT_EXT}, the {@code flags} member of all other elements of {@code pCreateInfos} whose {@code stage} is {@link VK10#VK_SHADER_STAGE_VERTEX_BIT SHADER_STAGE_VERTEX_BIT}, {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT}, {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}, or {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT} <b>must</b> also include {@link #VK_SHADER_CREATE_LINK_STAGE_BIT_EXT SHADER_CREATE_LINK_STAGE_BIT_EXT}</li>
      * <li>If the {@code flags} member of any element of {@code pCreateInfos} includes {@link #VK_SHADER_CREATE_LINK_STAGE_BIT_EXT SHADER_CREATE_LINK_STAGE_BIT_EXT}, the {@code flags} member of all other elements of {@code pCreateInfos} whose {@code stage} is {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT} or {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT} <b>must</b> also include {@link #VK_SHADER_CREATE_LINK_STAGE_BIT_EXT SHADER_CREATE_LINK_STAGE_BIT_EXT}</li>
      * <li>If the {@code flags} member of any element of {@code pCreateInfos} whose {@code stage} is {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT} or {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT} includes {@link #VK_SHADER_CREATE_LINK_STAGE_BIT_EXT SHADER_CREATE_LINK_STAGE_BIT_EXT}, there <b>must</b> be no member of {@code pCreateInfos} whose {@code stage} is {@link VK10#VK_SHADER_STAGE_VERTEX_BIT SHADER_STAGE_VERTEX_BIT} and whose {@code flags} member includes {@link #VK_SHADER_CREATE_LINK_STAGE_BIT_EXT SHADER_CREATE_LINK_STAGE_BIT_EXT}</li>
@@ -599,11 +618,11 @@ public class EXTShaderObject {
      *
      * @param device       the logical device that creates the shader objects.
      * @param pCreateInfos a pointer to an array of {@link VkShaderCreateInfoEXT} structures.
-     * @param pAllocator   controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator   controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pShaders     a pointer to an array of {@code VkShaderEXT} handles in which the resulting shader objects are returned.
      */
     @NativeType("VkResult")
-    public static int vkCreateShadersEXT(VkDevice device, @NativeType("VkShaderCreateInfoEXT const *") VkShaderCreateInfoEXT.Buffer pCreateInfos, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkShaderEXT *") LongBuffer pShaders) {
+    public static int vkCreateShadersEXT(VkDevice device, @NativeType("VkShaderCreateInfoEXT const *") VkShaderCreateInfoEXT.Buffer pCreateInfos, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkShaderEXT *") LongBuffer pShaders) {
         if (CHECKS) {
             check(pShaders, pCreateInfos.remaining());
         }
@@ -636,12 +655,12 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Destroying a shader object used by one or more command buffers in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording or executable state</a> causes those command buffers to move into the <em>invalid state</em>.</p>
+     * <p>Destroying a shader object used by one or more command buffers in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording or executable state</a> causes those command buffers to move into the <em>invalid state</em>.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature <b>must</b> be enabled</li>
      * <li>All submitted commands that refer to {@code shader} <b>must</b> have completed execution</li>
      * <li>If {@link VkAllocationCallbacks} were provided when {@code shader} was created, a compatible set of callbacks <b>must</b> be provided here</li>
      * <li>If no {@link VkAllocationCallbacks} were provided when {@code shader} was created, {@code pAllocator} <b>must</b> be {@code NULL}</li>
@@ -668,9 +687,9 @@ public class EXTShaderObject {
      *
      * @param device     the logical device that destroys the shader object.
      * @param shader     the handle of the shader object to destroy.
-     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
-    public static void vkDestroyShaderEXT(VkDevice device, @NativeType("VkShaderEXT") long shader, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
+    public static void vkDestroyShaderEXT(VkDevice device, @NativeType("VkShaderEXT") long shader, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator) {
         nvkDestroyShaderEXT(device, shader, memAddressSafe(pAllocator));
     }
 
@@ -719,7 +738,7 @@ public class EXTShaderObject {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature <b>must</b> be enabled</li>
      * <li>If {@code pData} is not {@code NULL}, it <b>must</b> be aligned to 16 bytes</li>
      * </ul>
      * 
@@ -754,7 +773,7 @@ public class EXTShaderObject {
      * @param pData     either {@code NULL} or a pointer to a buffer.
      */
     @NativeType("VkResult")
-    public static int vkGetShaderBinaryDataEXT(VkDevice device, @NativeType("VkShaderEXT") long shader, @NativeType("size_t *") PointerBuffer pDataSize, @Nullable @NativeType("void *") ByteBuffer pData) {
+    public static int vkGetShaderBinaryDataEXT(VkDevice device, @NativeType("VkShaderEXT") long shader, @NativeType("size_t *") PointerBuffer pDataSize, @NativeType("void *") @Nullable ByteBuffer pData) {
         if (CHECKS) {
             check(pDataSize, 1);
             checkSafe(pData, pDataSize.get(pDataSize.position()));
@@ -800,7 +819,7 @@ public class EXTShaderObject {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature <b>must</b> be enabled</li>
      * <li>Every element of {@code pStages} <b>must</b> be unique</li>
      * <li>{@code pStages} <b>must</b> not contain {@link VK10#VK_SHADER_STAGE_ALL_GRAPHICS SHADER_STAGE_ALL_GRAPHICS} or {@link VK10#VK_SHADER_STAGE_ALL SHADER_STAGE_ALL}</li>
      * <li>{@code pStages} <b>must</b> not contain {@link KHRRayTracingPipeline#VK_SHADER_STAGE_RAYGEN_BIT_KHR SHADER_STAGE_RAYGEN_BIT_KHR}, {@link KHRRayTracingPipeline#VK_SHADER_STAGE_ANY_HIT_BIT_KHR SHADER_STAGE_ANY_HIT_BIT_KHR}, {@link KHRRayTracingPipeline#VK_SHADER_STAGE_CLOSEST_HIT_BIT_KHR SHADER_STAGE_CLOSEST_HIT_BIT_KHR}, {@link KHRRayTracingPipeline#VK_SHADER_STAGE_MISS_BIT_KHR SHADER_STAGE_MISS_BIT_KHR}, {@link KHRRayTracingPipeline#VK_SHADER_STAGE_INTERSECTION_BIT_KHR SHADER_STAGE_INTERSECTION_BIT_KHR}, or {@link KHRRayTracingPipeline#VK_SHADER_STAGE_CALLABLE_BIT_KHR SHADER_STAGE_CALLABLE_BIT_KHR}</li>
@@ -809,10 +828,10 @@ public class EXTShaderObject {
      * <li>For each element of {@code pStages}, if {@code pShaders} is not {@code NULL}, and the element of the {@code pShaders} array with the same index is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> have been created with a {@code stage} equal to the corresponding element of {@code pStages}</li>
      * <li>If {@code pStages} contains both {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT} and {@link VK10#VK_SHADER_STAGE_VERTEX_BIT SHADER_STAGE_VERTEX_BIT}, and {@code pShaders} is not {@code NULL}, and the same index in {@code pShaders} as {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT} in {@code pStages} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the same index in {@code pShaders} as {@link VK10#VK_SHADER_STAGE_VERTEX_BIT SHADER_STAGE_VERTEX_BIT} in {@code pStages} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
      * <li>If {@code pStages} contains both {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT} and {@link VK10#VK_SHADER_STAGE_VERTEX_BIT SHADER_STAGE_VERTEX_BIT}, and {@code pShaders} is not {@code NULL}, and the same index in {@code pShaders} as {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT} in {@code pStages} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the same index in {@code pShaders} as {@link VK10#VK_SHADER_STAGE_VERTEX_BIT SHADER_STAGE_VERTEX_BIT} in {@code pStages} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
-     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, and {@code pStages} contains {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT} or {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, and {@code pShaders} is not {@code NULL}, the same index or indices in {@code pShaders} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
-     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, and {@code pStages} contains {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}, and {@code pShaders} is not {@code NULL}, the same index in {@code pShaders} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
-     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, and {@code pStages} contains {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT}, and {@code pShaders} is not {@code NULL}, the same index in {@code pShaders} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
-     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, and {@code pStages} contains {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT}, and {@code pShaders} is not {@code NULL}, the same index in {@code pShaders} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, and {@code pStages} contains {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT} or {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, and {@code pShaders} is not {@code NULL}, the same index or indices in {@code pShaders} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, and {@code pStages} contains {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}, and {@code pShaders} is not {@code NULL}, the same index in {@code pShaders} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-taskShader">{@code taskShader}</a> feature is not enabled, and {@code pStages} contains {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT}, and {@code pShaders} is not {@code NULL}, the same index in {@code pShaders} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-meshShader">{@code meshShader}</a> feature is not enabled, and {@code pStages} contains {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT}, and {@code pShaders} is not {@code NULL}, the same index in {@code pShaders} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
      * <li>If {@code pStages} contains {@link VK10#VK_SHADER_STAGE_COMPUTE_BIT SHADER_STAGE_COMPUTE_BIT}, the {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support compute operations</li>
      * <li>If {@code pStages} contains {@link VK10#VK_SHADER_STAGE_VERTEX_BIT SHADER_STAGE_VERTEX_BIT}, {@link VK10#VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT SHADER_STAGE_TESSELLATION_CONTROL_BIT}, {@link VK10#VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT SHADER_STAGE_TESSELLATION_EVALUATION_BIT}, {@link VK10#VK_SHADER_STAGE_GEOMETRY_BIT SHADER_STAGE_GEOMETRY_BIT}, or {@link VK10#VK_SHADER_STAGE_FRAGMENT_BIT SHADER_STAGE_FRAGMENT_BIT}, the {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>If {@code pStages} contains {@link EXTMeshShader#VK_SHADER_STAGE_MESH_BIT_EXT SHADER_STAGE_MESH_BIT_EXT} or {@link EXTMeshShader#VK_SHADER_STAGE_TASK_BIT_EXT SHADER_STAGE_TASK_BIT_EXT}, the {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
@@ -824,7 +843,7 @@ public class EXTShaderObject {
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pStages} <b>must</b> be a valid pointer to an array of {@code stageCount} valid {@code VkShaderStageFlagBits} values</li>
      * <li>If {@code pShaders} is not {@code NULL}, {@code pShaders} <b>must</b> be a valid pointer to an array of {@code stageCount} valid or {@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@code VkShaderEXT} handles</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * <li>{@code stageCount} <b>must</b> be greater than 0</li>
@@ -841,7 +860,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -979,7 +998,7 @@ public class EXTShaderObject {
      * @param pSizes        {@code NULL} or a pointer to an array of the size in bytes of vertex data bound from {@code pBuffers}.
      * @param pStrides      {@code NULL} or a pointer to an array of buffer strides.
      */
-    public static void vkCmdBindVertexBuffers2EXT(VkCommandBuffer commandBuffer, @NativeType("uint32_t") int firstBinding, @NativeType("VkBuffer const *") LongBuffer pBuffers, @NativeType("VkDeviceSize const *") LongBuffer pOffsets, @Nullable @NativeType("VkDeviceSize const *") LongBuffer pSizes, @Nullable @NativeType("VkDeviceSize const *") LongBuffer pStrides) {
+    public static void vkCmdBindVertexBuffers2EXT(VkCommandBuffer commandBuffer, @NativeType("uint32_t") int firstBinding, @NativeType("VkBuffer const *") LongBuffer pBuffers, @NativeType("VkDeviceSize const *") LongBuffer pOffsets, @NativeType("VkDeviceSize const *") @Nullable LongBuffer pSizes, @NativeType("VkDeviceSize const *") @Nullable LongBuffer pStrides) {
         if (CHECKS) {
             check(pOffsets, pBuffers.remaining());
             checkSafe(pSizes, pBuffers.remaining());
@@ -1026,7 +1045,7 @@ public class EXTShaderObject {
      * See {@link VK13#vkCmdSetDepthCompareOp CmdSetDepthCompareOp}.
      *
      * @param commandBuffer  the command buffer into which the command will be recorded.
-     * @param depthCompareOp a {@code VkCompareOp} value specifying the comparison operator used for the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth-comparison">Depth Comparison</a> step of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth">depth test</a>.
+     * @param depthCompareOp a {@code VkCompareOp} value specifying the comparison operator used for the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-depth-comparison">Depth Comparison</a> step of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-depth">depth test</a>.
      */
     public static void vkCmdSetDepthCompareOpEXT(VkCommandBuffer commandBuffer, @NativeType("VkCompareOp") int depthCompareOp) {
         long __functionAddress = commandBuffer.getCapabilities().vkCmdSetDepthCompareOpEXT;
@@ -1109,7 +1128,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the vertex input attribute and vertex input binding descriptions, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the vertex input attribute and vertex input binding descriptions, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetVertexInputEXT(
@@ -1121,14 +1140,16 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the vertex input attribute and vertex input binding descriptions state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTVertexInputDynamicState#VK_DYNAMIC_STATE_VERTEX_INPUT_EXT DYNAMIC_STATE_VERTEX_INPUT_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkGraphicsPipelineCreateInfo}{@code ::pVertexInputState} values used to create the currently active pipeline.</p>
+     * <p>This command sets the vertex input attribute and vertex input binding descriptions state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTVertexInputDynamicState#VK_DYNAMIC_STATE_VERTEX_INPUT_EXT DYNAMIC_STATE_VERTEX_INPUT_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkGraphicsPipelineCreateInfo}{@code ::pVertexInputState} values used to create the currently active pipeline.</p>
      * 
-     * <p>If drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or if the bound pipeline state object was also created with the {@link VK13#VK_DYNAMIC_STATE_VERTEX_INPUT_BINDING_STRIDE DYNAMIC_STATE_VERTEX_INPUT_BINDING_STRIDE} dynamic state enabled, then {@link VK13#vkCmdBindVertexBuffers2 CmdBindVertexBuffers2} can be used instead of {@code vkCmdSetVertexInputEXT} to dynamically set the stride.</p>
+     * <p>If drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or if the bound pipeline state object was also created with the {@link VK13#VK_DYNAMIC_STATE_VERTEX_INPUT_BINDING_STRIDE DYNAMIC_STATE_VERTEX_INPUT_BINDING_STRIDE} dynamic state enabled, then {@link VK13#vkCmdBindVertexBuffers2 CmdBindVertexBuffers2} can be used instead of {@code vkCmdSetVertexInputEXT} to dynamically set the stride.</p>
+     * 
+     * <p>The vertex attribute description for any location in the range <code>[0,{@link VkPhysicalDeviceLimits}::maxVertexInputAttributes)</code> not specified in the {@code pVertexAttributeDescriptions} array becomes undefined.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>Either the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-vertexInputDynamicState">{@code vertexInputDynamicState}</a> feature or the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature or both <b>must</b> be enabled</li>
+     * <li>Either the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-vertexInputDynamicState">{@code vertexInputDynamicState}</a> feature or the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature or both <b>must</b> be enabled</li>
      * <li>{@code vertexBindingDescriptionCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputBindings}</li>
      * <li>{@code vertexAttributeDescriptionCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxVertexInputAttributes}</li>
      * <li>For every {@code binding} specified by each element of {@code pVertexAttributeDescriptions}, a {@link VkVertexInputBindingDescription2EXT} <b>must</b> exist in {@code pVertexBindingDescriptions} with the same value of {@code binding}</li>
@@ -1142,7 +1163,7 @@ public class EXTShaderObject {
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>If {@code vertexBindingDescriptionCount} is not 0, {@code pVertexBindingDescriptions} <b>must</b> be a valid pointer to an array of {@code vertexBindingDescriptionCount} valid {@link VkVertexInputBindingDescription2EXT} structures</li>
      * <li>If {@code vertexAttributeDescriptionCount} is not 0, {@code pVertexAttributeDescriptions} <b>must</b> be a valid pointer to an array of {@code vertexAttributeDescriptionCount} valid {@link VkVertexInputAttributeDescription2EXT} structures</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1157,7 +1178,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      * 
@@ -1169,7 +1190,7 @@ public class EXTShaderObject {
      * @param pVertexBindingDescriptions   a pointer to an array of {@link VkVertexInputBindingDescription2EXT} structures.
      * @param pVertexAttributeDescriptions a pointer to an array of {@link VkVertexInputAttributeDescription2EXT} structures.
      */
-    public static void vkCmdSetVertexInputEXT(VkCommandBuffer commandBuffer, @Nullable @NativeType("VkVertexInputBindingDescription2EXT const *") VkVertexInputBindingDescription2EXT.Buffer pVertexBindingDescriptions, @Nullable @NativeType("VkVertexInputAttributeDescription2EXT const *") VkVertexInputAttributeDescription2EXT.Buffer pVertexAttributeDescriptions) {
+    public static void vkCmdSetVertexInputEXT(VkCommandBuffer commandBuffer, @NativeType("VkVertexInputBindingDescription2EXT const *") VkVertexInputBindingDescription2EXT.@Nullable Buffer pVertexBindingDescriptions, @NativeType("VkVertexInputAttributeDescription2EXT const *") VkVertexInputAttributeDescription2EXT.@Nullable Buffer pVertexAttributeDescriptions) {
         nvkCmdSetVertexInputEXT(commandBuffer, remainingSafe(pVertexBindingDescriptions), memAddressSafe(pVertexBindingDescriptions), remainingSafe(pVertexAttributeDescriptions), memAddressSafe(pVertexAttributeDescriptions));
     }
 
@@ -1180,7 +1201,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the number of control points per patch, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the number of control points per patch, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetPatchControlPointsEXT(
@@ -1189,7 +1210,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the number of control points per patch for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState2#VK_DYNAMIC_STATE_PATCH_CONTROL_POINTS_EXT DYNAMIC_STATE_PATCH_CONTROL_POINTS_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineTessellationStateCreateInfo}{@code ::patchControlPoints} value used to create the currently active pipeline.</p>
+     * <p>This command sets the number of control points per patch for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState2#VK_DYNAMIC_STATE_PATCH_CONTROL_POINTS_EXT DYNAMIC_STATE_PATCH_CONTROL_POINTS_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineTessellationStateCreateInfo}{@code ::patchControlPoints} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1197,8 +1218,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState2PatchControlPoints">{@code extendedDynamicState2PatchControlPoints}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState2PatchControlPoints">{@code extendedDynamicState2PatchControlPoints}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * <li>{@code patchControlPoints} <b>must</b> be greater than zero and less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxTessellationPatchSize}</li>
@@ -1208,7 +1229,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1223,7 +1244,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1277,7 +1298,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the logical operation to apply for blend state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the logical operation to apply for blend state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetLogicOpEXT(
@@ -1286,7 +1307,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the logical operation for blend state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState2#VK_DYNAMIC_STATE_LOGIC_OP_EXT DYNAMIC_STATE_LOGIC_OP_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendStateCreateInfo}{@code ::logicOp} value used to create the currently active pipeline.</p>
+     * <p>This command sets the logical operation for blend state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState2#VK_DYNAMIC_STATE_LOGIC_OP_EXT DYNAMIC_STATE_LOGIC_OP_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendStateCreateInfo}{@code ::logicOp} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1294,8 +1315,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState2LogicOp">{@code extendedDynamicState2LogicOp}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState2LogicOp">{@code extendedDynamicState2LogicOp}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -1305,7 +1326,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code logicOp} <b>must</b> be a valid {@code VkLogicOp} value</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1320,7 +1341,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1358,7 +1379,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the origin of the tessellation domain space, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the origin of the tessellation domain space, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetTessellationDomainOriginEXT(
@@ -1367,7 +1388,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the origin of the tessellation domain space for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_TESSELLATION_DOMAIN_ORIGIN_EXT DYNAMIC_STATE_TESSELLATION_DOMAIN_ORIGIN_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineTessellationDomainOriginStateCreateInfo}{@code ::domainOrigin} value used to create the currently active pipeline.</p>
+     * <p>This command sets the origin of the tessellation domain space for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_TESSELLATION_DOMAIN_ORIGIN_EXT DYNAMIC_STATE_TESSELLATION_DOMAIN_ORIGIN_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineTessellationDomainOriginStateCreateInfo}{@code ::domainOrigin} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1375,8 +1396,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3TessellationDomainOrigin">{@code extendedDynamicState3TessellationDomainOrigin}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3TessellationDomainOrigin">{@code extendedDynamicState3TessellationDomainOrigin}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -1386,7 +1407,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code domainOrigin} <b>must</b> be a valid {@code VkTessellationDomainOrigin} value</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1401,7 +1422,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1423,7 +1444,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> enable or disable depth clamping, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> enable or disable depth clamping, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetDepthClampEnableEXT(
@@ -1432,7 +1453,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets whether depth clamping is enabled or disabled for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_DEPTH_CLAMP_ENABLE_EXT DYNAMIC_STATE_DEPTH_CLAMP_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationStateCreateInfo}{@code ::depthClampEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets whether depth clamping is enabled or disabled for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_DEPTH_CLAMP_ENABLE_EXT DYNAMIC_STATE_DEPTH_CLAMP_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationStateCreateInfo}{@code ::depthClampEnable} value used to create the currently active pipeline.</p>
      * 
      * <p>If the depth clamping state is changed dynamically, and the pipeline was not created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_DEPTH_CLIP_ENABLE_EXT DYNAMIC_STATE_DEPTH_CLIP_ENABLE_EXT} enabled, then depth clipping is enabled when depth clamping is disabled and vice versa.</p>
      * 
@@ -1442,18 +1463,18 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3DepthClampEnable">{@code extendedDynamicState3DepthClampEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3DepthClampEnable">{@code extendedDynamicState3DepthClampEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
-     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-depthClamp">{@code depthClamp}</a> feature is not enabled, {@code depthClampEnable} must be {@link VK10#VK_FALSE FALSE}</li>
+     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-depthClamp">{@code depthClamp}</a> feature is not enabled, {@code depthClampEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1468,7 +1489,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1490,7 +1511,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the polygon mode, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the polygon mode, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetPolygonModeEXT(
@@ -1499,7 +1520,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the polygon mode for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_POLYGON_MODE_EXT DYNAMIC_STATE_POLYGON_MODE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationStateCreateInfo}{@code ::polygonMode} value used to create the currently active pipeline.</p>
+     * <p>This command sets the polygon mode for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_POLYGON_MODE_EXT DYNAMIC_STATE_POLYGON_MODE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationStateCreateInfo}{@code ::polygonMode} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1507,11 +1528,11 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3PolygonMode">{@code extendedDynamicState3PolygonMode}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3PolygonMode">{@code extendedDynamicState3PolygonMode}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
-     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-fillModeNonSolid">{@code fillModeNonSolid}</a> feature is not enabled, {@code polygonMode} <b>must</b> be {@link VK10#VK_POLYGON_MODE_FILL POLYGON_MODE_FILL} or {@link NVFillRectangle#VK_POLYGON_MODE_FILL_RECTANGLE_NV POLYGON_MODE_FILL_RECTANGLE_NV}</li>
+     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-fillModeNonSolid">{@code fillModeNonSolid}</a> feature is not enabled, {@code polygonMode} <b>must</b> be {@link VK10#VK_POLYGON_MODE_FILL POLYGON_MODE_FILL} or {@link NVFillRectangle#VK_POLYGON_MODE_FILL_RECTANGLE_NV POLYGON_MODE_FILL_RECTANGLE_NV}</li>
      * <li>If the {@link NVFillRectangle VK_NV_fill_rectangle} extension is not enabled, {@code polygonMode} <b>must</b> not be {@link NVFillRectangle#VK_POLYGON_MODE_FILL_RECTANGLE_NV POLYGON_MODE_FILL_RECTANGLE_NV}</li>
      * </ul>
      * 
@@ -1520,7 +1541,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code polygonMode} <b>must</b> be a valid {@code VkPolygonMode} value</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1535,7 +1556,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1557,7 +1578,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code rasterizationSamples}, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code rasterizationSamples}, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetRasterizationSamplesEXT(
@@ -1566,7 +1587,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code rasterizationSamples} for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineMultisampleStateCreateInfo}{@code ::rasterizationSamples} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code rasterizationSamples} for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineMultisampleStateCreateInfo}{@code ::rasterizationSamples} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1574,8 +1595,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3RasterizationSamples">{@code extendedDynamicState3RasterizationSamples}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3RasterizationSamples">{@code extendedDynamicState3RasterizationSamples}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -1585,7 +1606,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code rasterizationSamples} <b>must</b> be a valid {@code VkSampleCountFlagBits} value</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1600,7 +1621,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1631,7 +1652,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the sample mask, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the sample mask, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetSampleMaskEXT(
@@ -1641,7 +1662,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the sample mask for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SAMPLE_MASK_EXT DYNAMIC_STATE_SAMPLE_MASK_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineMultisampleStateCreateInfo}{@code ::pSampleMask} value used to create the currently active pipeline.</p>
+     * <p>This command sets the sample mask for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SAMPLE_MASK_EXT DYNAMIC_STATE_SAMPLE_MASK_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineMultisampleStateCreateInfo}{@code ::pSampleMask} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1649,8 +1670,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3SampleMask">{@code extendedDynamicState3SampleMask}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3SampleMask">{@code extendedDynamicState3SampleMask}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -1661,7 +1682,7 @@ public class EXTShaderObject {
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code samples} <b>must</b> be a valid {@code VkSampleCountFlagBits} value</li>
      * <li>{@code pSampleMask} <b>must</b> be a valid pointer to an array of {@code ceil(samples / 32)} {@code VkSampleMask} values</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1676,7 +1697,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1695,7 +1716,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code alphaToCoverageEnable} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code alphaToCoverageEnable} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetAlphaToCoverageEnableEXT(
@@ -1704,7 +1725,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code alphaToCoverageEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineMultisampleStateCreateInfo}{@code ::alphaToCoverageEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code alphaToCoverageEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineMultisampleStateCreateInfo}{@code ::alphaToCoverageEnable} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1712,8 +1733,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3AlphaToCoverageEnable">{@code extendedDynamicState3AlphaToCoverageEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3AlphaToCoverageEnable">{@code extendedDynamicState3AlphaToCoverageEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -1722,7 +1743,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1737,7 +1758,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1759,7 +1780,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code alphaToOneEnable} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code alphaToOneEnable} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetAlphaToOneEnableEXT(
@@ -1768,7 +1789,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code alphaToOneEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineMultisampleStateCreateInfo}{@code ::alphaToOneEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code alphaToOneEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineMultisampleStateCreateInfo}{@code ::alphaToOneEnable} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1776,18 +1797,18 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3AlphaToOneEnable">{@code extendedDynamicState3AlphaToOneEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3AlphaToOneEnable">{@code extendedDynamicState3AlphaToOneEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
-     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-alphaToOne">{@code alphaToOne}</a> feature is not enabled, {@code alphaToOneEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-alphaToOne">{@code alphaToOne}</a> feature is not enabled, {@code alphaToOneEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1802,7 +1823,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1824,7 +1845,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> whether logical operations are enabled, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> whether logical operations are enabled, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetLogicOpEnableEXT(
@@ -1833,7 +1854,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets whether logical operations are enabled for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_LOGIC_OP_ENABLE_EXT DYNAMIC_STATE_LOGIC_OP_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendStateCreateInfo}{@code ::logicOpEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets whether logical operations are enabled for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_LOGIC_OP_ENABLE_EXT DYNAMIC_STATE_LOGIC_OP_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendStateCreateInfo}{@code ::logicOpEnable} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1841,18 +1862,18 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3LogicOpEnable">{@code extendedDynamicState3LogicOpEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3LogicOpEnable">{@code extendedDynamicState3LogicOpEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
-     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-logicOp">{@code logicOp}</a> feature is not enabled, {@code logicOpEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+     * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-logicOp">{@code logicOp}</a> feature is not enabled, {@code logicOpEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -1867,7 +1888,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1902,7 +1923,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> {@code blendEnable}, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> {@code blendEnable}, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetColorBlendEnableEXT(
@@ -1913,7 +1934,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the color blending enable of the specified color attachments for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendAttachmentState}{@code ::blendEnable} values used to create the currently active pipeline.</p>
+     * <p>This command sets the color blending enable of the specified color attachments for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendAttachmentState}{@code ::blendEnable} values used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1921,8 +1942,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3ColorBlendEnable">{@code extendedDynamicState3ColorBlendEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3ColorBlendEnable">{@code extendedDynamicState3ColorBlendEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -1932,7 +1953,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pColorBlendEnables} <b>must</b> be a valid pointer to an array of {@code attachmentCount} {@code VkBool32} values</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * <li>{@code attachmentCount} <b>must</b> be greater than 0</li>
@@ -1948,7 +1969,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -1980,7 +2001,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> color blend factors and operations, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> color blend factors and operations, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetColorBlendEquationEXT(
@@ -1991,7 +2012,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the color blending factors and operations of the specified attachments for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendAttachmentState}{@code ::srcColorBlendFactor}, {@link VkPipelineColorBlendAttachmentState}{@code ::dstColorBlendFactor}, {@link VkPipelineColorBlendAttachmentState}{@code ::colorBlendOp}, {@link VkPipelineColorBlendAttachmentState}{@code ::srcAlphaBlendFactor}, {@link VkPipelineColorBlendAttachmentState}{@code ::dstAlphaBlendFactor}, and {@link VkPipelineColorBlendAttachmentState}{@code ::alphaBlendOp} values used to create the currently active pipeline.</p>
+     * <p>This command sets the color blending factors and operations of the specified attachments for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendAttachmentState}{@code ::srcColorBlendFactor}, {@link VkPipelineColorBlendAttachmentState}{@code ::dstColorBlendFactor}, {@link VkPipelineColorBlendAttachmentState}{@code ::colorBlendOp}, {@link VkPipelineColorBlendAttachmentState}{@code ::srcAlphaBlendFactor}, {@link VkPipelineColorBlendAttachmentState}{@code ::dstAlphaBlendFactor}, and {@link VkPipelineColorBlendAttachmentState}{@code ::alphaBlendOp} values used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1999,8 +2020,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3ColorBlendEquation">{@code extendedDynamicState3ColorBlendEquation}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3ColorBlendEquation">{@code extendedDynamicState3ColorBlendEquation}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -2010,7 +2031,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pColorBlendEquations} <b>must</b> be a valid pointer to an array of {@code attachmentCount} valid {@link VkColorBlendEquationEXT} structures</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * <li>{@code attachmentCount} <b>must</b> be greater than 0</li>
@@ -2026,7 +2047,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      * 
@@ -2062,7 +2083,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the color write masks, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the color write masks, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetColorWriteMaskEXT(
@@ -2073,7 +2094,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the color write masks of the specified attachments for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_WRITE_MASK_EXT DYNAMIC_STATE_COLOR_WRITE_MASK_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendAttachmentState}{@code ::colorWriteMask} values used to create the currently active pipeline.</p>
+     * <p>This command sets the color write masks of the specified attachments for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_WRITE_MASK_EXT DYNAMIC_STATE_COLOR_WRITE_MASK_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendAttachmentState}{@code ::colorWriteMask} values used to create the currently active pipeline.</p>
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
@@ -2086,8 +2107,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3ColorWriteMask">{@code extendedDynamicState3ColorWriteMask}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3ColorWriteMask">{@code extendedDynamicState3ColorWriteMask}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -2097,7 +2118,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pColorWriteMasks} <b>must</b> be a valid pointer to an array of {@code attachmentCount} valid combinations of {@code VkColorComponentFlagBits} values</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * <li>{@code attachmentCount} <b>must</b> be greater than 0</li>
@@ -2113,7 +2134,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2132,7 +2153,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code rasterizationStream} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code rasterizationStream} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetRasterizationStreamEXT(
@@ -2141,7 +2162,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code rasterizationStream} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_RASTERIZATION_STREAM_EXT DYNAMIC_STATE_RASTERIZATION_STREAM_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationStateStreamCreateInfoEXT}{@code ::rasterizationStream} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code rasterizationStream} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_RASTERIZATION_STREAM_EXT DYNAMIC_STATE_RASTERIZATION_STREAM_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationStateStreamCreateInfoEXT}{@code ::rasterizationStream} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2149,11 +2170,11 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3RasterizationStream">{@code extendedDynamicState3RasterizationStream}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3RasterizationStream">{@code extendedDynamicState3RasterizationStream}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-transformFeedback">{@code transformFeedback}</a> feature <b>must</b> be enabled</li>
      * <li>{@code rasterizationStream} <b>must</b> be less than {@link VkPhysicalDeviceTransformFeedbackPropertiesEXT}{@code ::maxTransformFeedbackStreams}</li>
      * <li>{@code rasterizationStream} <b>must</b> be zero if {@link VkPhysicalDeviceTransformFeedbackPropertiesEXT}{@code ::transformFeedbackRasterizationStreamSelect} is {@link VK10#VK_FALSE FALSE}</li>
      * </ul>
@@ -2162,7 +2183,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2177,7 +2198,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2199,7 +2220,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code conservativeRasterizationMode}, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code conservativeRasterizationMode}, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetConservativeRasterizationModeEXT(
@@ -2208,7 +2229,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code conservativeRasterizationMode} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_CONSERVATIVE_RASTERIZATION_MODE_EXT DYNAMIC_STATE_CONSERVATIVE_RASTERIZATION_MODE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationConservativeStateCreateInfoEXT}{@code ::conservativeRasterizationMode} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code conservativeRasterizationMode} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_CONSERVATIVE_RASTERIZATION_MODE_EXT DYNAMIC_STATE_CONSERVATIVE_RASTERIZATION_MODE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationConservativeStateCreateInfoEXT}{@code ::conservativeRasterizationMode} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2216,8 +2237,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3ConservativeRasterizationMode">{@code extendedDynamicState3ConservativeRasterizationMode}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3ConservativeRasterizationMode">{@code extendedDynamicState3ConservativeRasterizationMode}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -2227,7 +2248,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code conservativeRasterizationMode} <b>must</b> be a valid {@code VkConservativeRasterizationModeEXT} value</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2242,7 +2263,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2264,7 +2285,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code extraPrimitiveOverestimationSize}, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code extraPrimitiveOverestimationSize}, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetExtraPrimitiveOverestimationSizeEXT(
@@ -2273,7 +2294,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code extraPrimitiveOverestimationSize} for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT DYNAMIC_STATE_EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationConservativeStateCreateInfoEXT}{@code ::extraPrimitiveOverestimationSize} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code extraPrimitiveOverestimationSize} for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT DYNAMIC_STATE_EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationConservativeStateCreateInfoEXT}{@code ::extraPrimitiveOverestimationSize} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2281,8 +2302,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3ExtraPrimitiveOverestimationSize">{@code extendedDynamicState3ExtraPrimitiveOverestimationSize}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3ExtraPrimitiveOverestimationSize">{@code extendedDynamicState3ExtraPrimitiveOverestimationSize}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * <li>{@code extraPrimitiveOverestimationSize} <b>must</b> be in the range of {@code 0.0} to {@link VkPhysicalDeviceConservativeRasterizationPropertiesEXT}{@code ::maxExtraPrimitiveOverestimationSize} inclusive</li>
@@ -2292,7 +2313,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2307,7 +2328,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2329,7 +2350,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> enable or disable depth clipping, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> enable or disable depth clipping, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetDepthClipEnableEXT(
@@ -2338,7 +2359,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets whether depth clipping is enabled or disabled for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_DEPTH_CLIP_ENABLE_EXT DYNAMIC_STATE_DEPTH_CLIP_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT}{@code ::depthClipEnable} value used to create the currently active pipeline, or is set to the inverse of {@link VkPipelineRasterizationStateCreateInfo}{@code ::depthClampEnable} if {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT} is not specified.</p>
+     * <p>This command sets whether depth clipping is enabled or disabled for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_DEPTH_CLIP_ENABLE_EXT DYNAMIC_STATE_DEPTH_CLIP_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT}{@code ::depthClipEnable} value used to create the currently active pipeline, or by the inverse of {@link VkPipelineRasterizationStateCreateInfo}{@code ::depthClampEnable} if {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT} is not specified.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2346,18 +2367,18 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3DepthClipEnable">{@code extendedDynamicState3DepthClipEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3DepthClipEnable">{@code extendedDynamicState3DepthClipEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-depthClipEnable">{@code depthClipEnable}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-depthClipEnable">{@code depthClipEnable}</a> feature <b>must</b> be enabled</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2372,7 +2393,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2394,7 +2415,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code sampleLocationsEnable} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code sampleLocationsEnable} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetSampleLocationsEnableEXT(
@@ -2403,7 +2424,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code sampleLocationsEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineSampleLocationsStateCreateInfoEXT}{@code ::sampleLocationsEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code sampleLocationsEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineSampleLocationsStateCreateInfoEXT}{@code ::sampleLocationsEnable} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2411,8 +2432,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3SampleLocationsEnable">{@code extendedDynamicState3SampleLocationsEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3SampleLocationsEnable">{@code extendedDynamicState3SampleLocationsEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -2421,7 +2442,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2436,7 +2457,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2471,7 +2492,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the advanced blend state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the advanced blend state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetColorBlendAdvancedEXT(
@@ -2482,7 +2503,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the advanced blend operation parameters of the specified attachments for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendAdvancedStateCreateInfoEXT}{@code ::srcPremultiplied}, {@link VkPipelineColorBlendAdvancedStateCreateInfoEXT}{@code ::dstPremultiplied}, and {@link VkPipelineColorBlendAdvancedStateCreateInfoEXT}{@code ::blendOverlap} values used to create the currently active pipeline.</p>
+     * <p>This command sets the advanced blend operation parameters of the specified attachments for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineColorBlendAdvancedStateCreateInfoEXT}{@code ::srcPremultiplied}, {@link VkPipelineColorBlendAdvancedStateCreateInfoEXT}{@code ::dstPremultiplied}, and {@link VkPipelineColorBlendAdvancedStateCreateInfoEXT}{@code ::blendOverlap} values used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2490,8 +2511,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3ColorBlendAdvanced">{@code extendedDynamicState3ColorBlendAdvanced}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3ColorBlendAdvanced">{@code extendedDynamicState3ColorBlendAdvanced}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -2501,7 +2522,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pColorBlendAdvanced} <b>must</b> be a valid pointer to an array of {@code attachmentCount} valid {@link VkColorBlendAdvancedEXT} structures</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * <li>{@code attachmentCount} <b>must</b> be greater than 0</li>
@@ -2517,7 +2538,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      * 
@@ -2540,7 +2561,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code provokingVertexMode} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code provokingVertexMode} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetProvokingVertexModeEXT(
@@ -2549,7 +2570,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code provokingVertexMode} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_PROVOKING_VERTEX_MODE_EXT DYNAMIC_STATE_PROVOKING_VERTEX_MODE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT}{@code ::provokingVertexMode} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code provokingVertexMode} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_PROVOKING_VERTEX_MODE_EXT DYNAMIC_STATE_PROVOKING_VERTEX_MODE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT}{@code ::provokingVertexMode} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2557,11 +2578,11 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3ProvokingVertexMode">{@code extendedDynamicState3ProvokingVertexMode}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3ProvokingVertexMode">{@code extendedDynamicState3ProvokingVertexMode}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
-     * <li>If {@code provokingVertexMode} is {@link EXTProvokingVertex#VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-provokingVertexLast">{@code provokingVertexLast}</a> feature <b>must</b> be enabled</li>
+     * <li>If {@code provokingVertexMode} is {@link EXTProvokingVertex#VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-provokingVertexLast">{@code provokingVertexLast}</a> feature <b>must</b> be enabled</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -2569,7 +2590,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code provokingVertexMode} <b>must</b> be a valid {@code VkProvokingVertexModeEXT} value</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2584,7 +2605,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2606,7 +2627,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code lineRasterizationMode} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code lineRasterizationMode} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetLineRasterizationModeEXT(
@@ -2615,7 +2636,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code lineRasterizationMode} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationLineStateCreateInfoKHR}{@code ::lineRasterizationMode} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code lineRasterizationMode} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationLineStateCreateInfo}{@code ::lineRasterizationMode} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2623,13 +2644,13 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3LineRasterizationMode">{@code extendedDynamicState3LineRasterizationMode}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3LineRasterizationMode">{@code extendedDynamicState3LineRasterizationMode}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
-     * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_KHR LINE_RASTERIZATION_MODE_RECTANGULAR_KHR}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rectangularLines">{@code rectangularLines}</a> feature <b>must</b> be enabled</li>
-     * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_BRESENHAM_KHR LINE_RASTERIZATION_MODE_BRESENHAM_KHR}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bresenhamLines">{@code bresenhamLines}</a> feature <b>must</b> be enabled</li>
-     * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_KHR LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_KHR}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-smoothLines">{@code smoothLines}</a> feature <b>must</b> be enabled</li>
+     * <li>If {@code lineRasterizationMode} is {@link VK14#VK_LINE_RASTERIZATION_MODE_RECTANGULAR LINE_RASTERIZATION_MODE_RECTANGULAR}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-rectangularLines">{@code rectangularLines}</a> feature <b>must</b> be enabled</li>
+     * <li>If {@code lineRasterizationMode} is {@link VK14#VK_LINE_RASTERIZATION_MODE_BRESENHAM LINE_RASTERIZATION_MODE_BRESENHAM}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-bresenhamLines">{@code bresenhamLines}</a> feature <b>must</b> be enabled</li>
+     * <li>If {@code lineRasterizationMode} is {@link VK14#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH}, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-smoothLines">{@code smoothLines}</a> feature <b>must</b> be enabled</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -2637,7 +2658,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code lineRasterizationMode} <b>must</b> be a valid {@code VkLineRasterizationModeEXT} value</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2652,7 +2673,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2674,7 +2695,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code stippledLineEnable} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code stippledLineEnable} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetLineStippleEnableEXT(
@@ -2683,7 +2704,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code stippledLineEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_LINE_STIPPLE_ENABLE_EXT DYNAMIC_STATE_LINE_STIPPLE_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationLineStateCreateInfoKHR}{@code ::stippledLineEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code stippledLineEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_LINE_STIPPLE_ENABLE_EXT DYNAMIC_STATE_LINE_STIPPLE_ENABLE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRasterizationLineStateCreateInfo}{@code ::stippledLineEnable} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2691,8 +2712,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3LineStippleEnable">{@code extendedDynamicState3LineStippleEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3LineStippleEnable">{@code extendedDynamicState3LineStippleEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -2701,7 +2722,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2716,7 +2737,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2738,7 +2759,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> {@code negativeOneToOne}, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> {@code negativeOneToOne}, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetDepthClipNegativeOneToOneEXT(
@@ -2747,7 +2768,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code negativeOneToOne} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT DYNAMIC_STATE_DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineViewportDepthClipControlCreateInfoEXT}{@code ::negativeOneToOne} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code negativeOneToOne} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT DYNAMIC_STATE_DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineViewportDepthClipControlCreateInfoEXT}{@code ::negativeOneToOne} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2755,18 +2776,18 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3DepthClipNegativeOneToOne">{@code extendedDynamicState3DepthClipNegativeOneToOne}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3DepthClipNegativeOneToOne">{@code extendedDynamicState3DepthClipNegativeOneToOne}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-depthClipControl">{@code depthClipControl}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-depthClipControl">{@code depthClipControl}</a> feature <b>must</b> be enabled</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2781,7 +2802,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2803,7 +2824,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code viewportWScalingEnable} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code viewportWScalingEnable} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetViewportWScalingEnableNV(
@@ -2812,7 +2833,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code viewportWScalingEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_VIEWPORT_W_SCALING_ENABLE_NV DYNAMIC_STATE_VIEWPORT_W_SCALING_ENABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineViewportWScalingStateCreateInfoNV}{@code ::viewportWScalingEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code viewportWScalingEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_VIEWPORT_W_SCALING_ENABLE_NV DYNAMIC_STATE_VIEWPORT_W_SCALING_ENABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineViewportWScalingStateCreateInfoNV}{@code ::viewportWScalingEnable} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2820,8 +2841,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3ViewportWScalingEnable">{@code extendedDynamicState3ViewportWScalingEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3ViewportWScalingEnable">{@code extendedDynamicState3ViewportWScalingEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -2830,7 +2851,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2845,7 +2866,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -2880,7 +2901,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the viewport swizzle state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the viewport swizzle state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetViewportSwizzleNV(
@@ -2891,7 +2912,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the viewport swizzle state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_VIEWPORT_SWIZZLE_NV DYNAMIC_STATE_VIEWPORT_SWIZZLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineViewportSwizzleStateCreateInfoNV}{@code ::viewportCount}, and {@link VkPipelineViewportSwizzleStateCreateInfoNV}{@code ::pViewportSwizzles} values used to create the currently active pipeline.</p>
+     * <p>This command sets the viewport swizzle state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_VIEWPORT_SWIZZLE_NV DYNAMIC_STATE_VIEWPORT_SWIZZLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineViewportSwizzleStateCreateInfoNV}{@code ::viewportCount}, and {@link VkPipelineViewportSwizzleStateCreateInfoNV}{@code ::pViewportSwizzles} values used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2899,8 +2920,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3ViewportSwizzle">{@code extendedDynamicState3ViewportSwizzle}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3ViewportSwizzle">{@code extendedDynamicState3ViewportSwizzle}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -2910,7 +2931,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pViewportSwizzles} <b>must</b> be a valid pointer to an array of {@code viewportCount} valid {@link VkViewportSwizzleNV} structures</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * <li>{@code viewportCount} <b>must</b> be greater than 0</li>
@@ -2926,7 +2947,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      * 
@@ -2949,7 +2970,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code coverageToColorEnable} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code coverageToColorEnable} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetCoverageToColorEnableNV(
@@ -2958,7 +2979,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code coverageToColorEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageToColorStateCreateInfoNV}{@code ::coverageToColorEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code coverageToColorEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageToColorStateCreateInfoNV}{@code ::coverageToColorEnable} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -2966,8 +2987,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3CoverageToColorEnable">{@code extendedDynamicState3CoverageToColorEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3CoverageToColorEnable">{@code extendedDynamicState3CoverageToColorEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -2976,7 +2997,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -2991,7 +3012,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -3013,7 +3034,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code coverageToColorLocation} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code coverageToColorLocation} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetCoverageToColorLocationNV(
@@ -3022,7 +3043,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code coverageToColorLocation} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageToColorStateCreateInfoNV}{@code ::coverageToColorLocation} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code coverageToColorLocation} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageToColorStateCreateInfoNV}{@code ::coverageToColorLocation} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -3030,8 +3051,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3CoverageToColorLocation">{@code extendedDynamicState3CoverageToColorLocation}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3CoverageToColorLocation">{@code extendedDynamicState3CoverageToColorLocation}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -3040,7 +3061,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -3055,7 +3076,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -3077,7 +3098,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code coverageModulationMode} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code coverageModulationMode} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetCoverageModulationModeNV(
@@ -3086,7 +3107,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code coverageModulationMode} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_MODULATION_MODE_NV DYNAMIC_STATE_COVERAGE_MODULATION_MODE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageModulationStateCreateInfoNV}{@code ::coverageModulationMode} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code coverageModulationMode} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_MODULATION_MODE_NV DYNAMIC_STATE_COVERAGE_MODULATION_MODE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageModulationStateCreateInfoNV}{@code ::coverageModulationMode} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -3094,8 +3115,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3CoverageModulationMode">{@code extendedDynamicState3CoverageModulationMode}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3CoverageModulationMode">{@code extendedDynamicState3CoverageModulationMode}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -3105,7 +3126,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code coverageModulationMode} <b>must</b> be a valid {@code VkCoverageModulationModeNV} value</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -3120,7 +3141,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -3142,7 +3163,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code coverageModulationTableEnable} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code coverageModulationTableEnable} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetCoverageModulationTableEnableNV(
@@ -3151,7 +3172,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code coverageModulationTableEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_ENABLE_NV DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_ENABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageModulationStateCreateInfoNV}{@code ::coverageModulationTableEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code coverageModulationTableEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_ENABLE_NV DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_ENABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageModulationStateCreateInfoNV}{@code ::coverageModulationTableEnable} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -3159,8 +3180,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3CoverageModulationTableEnable">{@code extendedDynamicState3CoverageModulationTableEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3CoverageModulationTableEnable">{@code extendedDynamicState3CoverageModulationTableEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -3169,7 +3190,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -3184,7 +3205,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -3219,7 +3240,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code pCoverageModulationTable} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code pCoverageModulationTable} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetCoverageModulationTableNV(
@@ -3229,7 +3250,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the table of modulation factors for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_NV DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageModulationStateCreateInfoNV}{@code ::coverageModulationTableCount}, and {@link VkPipelineCoverageModulationStateCreateInfoNV}{@code ::pCoverageModulationTable} values used to create the currently active pipeline.</p>
+     * <p>This command sets the table of modulation factors for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_NV DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageModulationStateCreateInfoNV}{@code ::coverageModulationTableCount}, and {@link VkPipelineCoverageModulationStateCreateInfoNV}{@code ::pCoverageModulationTable} values used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -3237,8 +3258,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3CoverageModulationTable">{@code extendedDynamicState3CoverageModulationTable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3CoverageModulationTable">{@code extendedDynamicState3CoverageModulationTable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -3248,7 +3269,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pCoverageModulationTable} <b>must</b> be a valid pointer to an array of {@code coverageModulationTableCount} {@code float} values</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * <li>{@code coverageModulationTableCount} <b>must</b> be greater than 0</li>
@@ -3264,7 +3285,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -3282,7 +3303,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code shadingRateImageEnable} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code shadingRateImageEnable} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetShadingRateImageEnableNV(
@@ -3291,7 +3312,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code shadingRateImageEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SHADING_RATE_IMAGE_ENABLE_NV DYNAMIC_STATE_SHADING_RATE_IMAGE_ENABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineViewportShadingRateImageStateCreateInfoNV}{@code ::shadingRateImageEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code shadingRateImageEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SHADING_RATE_IMAGE_ENABLE_NV DYNAMIC_STATE_SHADING_RATE_IMAGE_ENABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineViewportShadingRateImageStateCreateInfoNV}{@code ::shadingRateImageEnable} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -3299,8 +3320,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3ShadingRateImageEnable">{@code extendedDynamicState3ShadingRateImageEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3ShadingRateImageEnable">{@code extendedDynamicState3ShadingRateImageEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -3309,7 +3330,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -3324,7 +3345,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -3346,7 +3367,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code representativeFragmentTestEnable} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code representativeFragmentTestEnable} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetRepresentativeFragmentTestEnableNV(
@@ -3355,7 +3376,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code representativeFragmentTestEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV DYNAMIC_STATE_REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRepresentativeFragmentTestStateCreateInfoNV}{@code ::representativeFragmentTestEnable} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code representativeFragmentTestEnable} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV DYNAMIC_STATE_REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineRepresentativeFragmentTestStateCreateInfoNV}{@code ::representativeFragmentTestEnable} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -3363,8 +3384,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3RepresentativeFragmentTestEnable">{@code extendedDynamicState3RepresentativeFragmentTestEnable}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3RepresentativeFragmentTestEnable">{@code extendedDynamicState3RepresentativeFragmentTestEnable}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -3373,7 +3394,7 @@ public class EXTShaderObject {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -3388,7 +3409,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -3410,7 +3431,7 @@ public class EXTShaderObject {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>To <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code coverageReductionMode} state, call:</p>
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the {@code coverageReductionMode} state, call:</p>
      * 
      * <pre><code>
      * void vkCmdSetCoverageReductionModeNV(
@@ -3419,7 +3440,7 @@ public class EXTShaderObject {
      * 
      * <h5>Description</h5>
      * 
-     * <p>This command sets the {@code coverageReductionMode} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageReductionStateCreateInfoNV}{@code ::coverageReductionMode} value used to create the currently active pipeline.</p>
+     * <p>This command sets the {@code coverageReductionMode} state for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineCoverageReductionStateCreateInfoNV}{@code ::coverageReductionMode} value used to create the currently active pipeline.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -3427,8 +3448,8 @@ public class EXTShaderObject {
      * <li>At least one of the following <b>must</b> be true:
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-extendedDynamicState3CoverageReductionMode">{@code extendedDynamicState3CoverageReductionMode}</a> feature is enabled</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-extendedDynamicState3CoverageReductionMode">{@code extendedDynamicState3CoverageReductionMode}</a> feature is enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
      * </ul>
      * </li>
      * </ul>
@@ -3438,7 +3459,7 @@ public class EXTShaderObject {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code coverageReductionMode} <b>must</b> be a valid {@code VkCoverageReductionModeNV} value</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
@@ -3453,7 +3474,7 @@ public class EXTShaderObject {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
      * </table>
      *
@@ -3468,9 +3489,80 @@ public class EXTShaderObject {
         callPV(commandBuffer.address(), coverageReductionMode, __functionAddress);
     }
 
+    // --- [ vkCmdSetDepthClampRangeEXT ] ---
+
+    /** Unsafe version of: {@link #vkCmdSetDepthClampRangeEXT CmdSetDepthClampRangeEXT} */
+    public static void nvkCmdSetDepthClampRangeEXT(VkCommandBuffer commandBuffer, int depthClampMode, long pDepthClampRange) {
+        long __functionAddress = commandBuffer.getCapabilities().vkCmdSetDepthClampRangeEXT;
+        if (CHECKS) {
+            check(__functionAddress);
+        }
+        callPPV(commandBuffer.address(), depthClampMode, pDepthClampRange, __functionAddress);
+    }
+
+    /**
+     * Set the viewport depth clamp range dynamically for a command buffer.
+     * 
+     * <h5>C Specification</h5>
+     * 
+     * <p>To <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-dynamic-state">dynamically set</a> the viewport depth clamp range parameters, call:</p>
+     * 
+     * <pre><code>
+     * void vkCmdSetDepthClampRangeEXT(
+     *     VkCommandBuffer                             commandBuffer,
+     *     VkDepthClampModeEXT                         depthClampMode,
+     *     const VkDepthClampRangeEXT*                 pDepthClampRange);</code></pre>
+     * 
+     * <h5>Description</h5>
+     * 
+     * <p>This command sets the viewport depth clamp range for subsequent drawing commands when drawing using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#shaders-objects">shader objects</a>, or when the graphics pipeline is created with {@link EXTDepthClampControl#VK_DYNAMIC_STATE_DEPTH_CLAMP_RANGE_EXT DYNAMIC_STATE_DEPTH_CLAMP_RANGE_EXT} set in {@link VkPipelineDynamicStateCreateInfo}{@code ::pDynamicStates}. Otherwise, this state is specified by the {@link VkPipelineViewportDepthClampControlCreateInfoEXT}{@code ::depthClampMode} value used to create the currently active pipeline.</p>
+     * 
+     * <h5>Valid Usage</h5>
+     * 
+     * <ul>
+     * <li>If {@code depthClampMode} is {@link #VK_DEPTH_CLAMP_MODE_USER_DEFINED_RANGE_EXT DEPTH_CLAMP_MODE_USER_DEFINED_RANGE_EXT}, then {@code pDepthClampRange} must be a valid pointer to a valid {@link VkDepthClampRangeEXT} structure</li>
+     * </ul>
+     * 
+     * <h5>Valid Usage (Implicit)</h5>
+     * 
+     * <ul>
+     * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
+     * <li>{@code depthClampMode} <b>must</b> be a valid {@code VkDepthClampModeEXT} value</li>
+     * <li>If {@code pDepthClampRange} is not {@code NULL}, {@code pDepthClampRange} <b>must</b> be a valid pointer to a valid {@link VkDepthClampRangeEXT} structure</li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics operations</li>
+     * <li>This command <b>must</b> only be called outside of a video coding scope</li>
+     * </ul>
+     * 
+     * <h5>Host Synchronization</h5>
+     * 
+     * <ul>
+     * <li>Host access to {@code commandBuffer} <b>must</b> be externally synchronized</li>
+     * <li>Host access to the {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> be externally synchronized</li>
+     * </ul>
+     * 
+     * <h5>Command Properties</h5>
+     * 
+     * <table class="lwjgl">
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics</td><td>State</td></tr></tbody>
+     * </table>
+     * 
+     * <h5>See Also</h5>
+     * 
+     * <p>{@link VkDepthClampRangeEXT}</p>
+     *
+     * @param commandBuffer    the command buffer into which the command will be recorded.
+     * @param depthClampMode   determines how the clamp range is determined for each viewport.
+     * @param pDepthClampRange sets the depth clamp range for all viewports if {@code depthClampMode} is {@link #VK_DEPTH_CLAMP_MODE_USER_DEFINED_RANGE_EXT DEPTH_CLAMP_MODE_USER_DEFINED_RANGE_EXT}.
+     */
+    public static void vkCmdSetDepthClampRangeEXT(VkCommandBuffer commandBuffer, @NativeType("VkDepthClampModeEXT") int depthClampMode, @NativeType("VkDepthClampRangeEXT const *") @Nullable VkDepthClampRangeEXT pDepthClampRange) {
+        nvkCmdSetDepthClampRangeEXT(commandBuffer, depthClampMode, memAddressSafe(pDepthClampRange));
+    }
+
     /** Array version of: {@link #vkCreateShadersEXT CreateShadersEXT} */
     @NativeType("VkResult")
-    public static int vkCreateShadersEXT(VkDevice device, @NativeType("VkShaderCreateInfoEXT const *") VkShaderCreateInfoEXT.Buffer pCreateInfos, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkShaderEXT *") long[] pShaders) {
+    public static int vkCreateShadersEXT(VkDevice device, @NativeType("VkShaderCreateInfoEXT const *") VkShaderCreateInfoEXT.Buffer pCreateInfos, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkShaderEXT *") long[] pShaders) {
         long __functionAddress = device.getCapabilities().vkCreateShadersEXT;
         if (CHECKS) {
             check(__functionAddress);
@@ -3491,7 +3583,7 @@ public class EXTShaderObject {
     }
 
     /** Array version of: {@link #vkCmdBindVertexBuffers2EXT CmdBindVertexBuffers2EXT} */
-    public static void vkCmdBindVertexBuffers2EXT(VkCommandBuffer commandBuffer, @NativeType("uint32_t") int firstBinding, @NativeType("VkBuffer const *") long[] pBuffers, @NativeType("VkDeviceSize const *") long[] pOffsets, @Nullable @NativeType("VkDeviceSize const *") long[] pSizes, @Nullable @NativeType("VkDeviceSize const *") long[] pStrides) {
+    public static void vkCmdBindVertexBuffers2EXT(VkCommandBuffer commandBuffer, @NativeType("uint32_t") int firstBinding, @NativeType("VkBuffer const *") long[] pBuffers, @NativeType("VkDeviceSize const *") long[] pOffsets, @NativeType("VkDeviceSize const *") long @Nullable [] pSizes, @NativeType("VkDeviceSize const *") long @Nullable [] pStrides) {
         long __functionAddress = commandBuffer.getCapabilities().vkCmdBindVertexBuffers2EXT;
         if (CHECKS) {
             check(__functionAddress);

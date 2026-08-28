@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The {@code deviceMask} serves several purposes. It is an upper bound on the set of physical devices that <b>can</b> be used during the render pass instance, and the initial device mask when the render pass instance begins. In addition, commands transitioning to the next subpass in a render pass instance and commands ending the render pass instance, and, accordingly render pass <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-load-operations">load</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-store-operations">store</a>, and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">multisample resolve</a> operations and subpass dependencies corresponding to the render pass instance, are executed on the physical devices included in the device mask provided here.</p>
+ * <p>The {@code deviceMask} serves several purposes. It is an upper bound on the set of physical devices that <b>can</b> be used during the render pass instance, and the initial device mask when the render pass instance begins. In addition, commands transitioning to the next subpass in a render pass instance and commands ending the render pass instance, and, accordingly render pass <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-load-operations">load</a>, <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-store-operations">store</a>, and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#renderpass-resolve-operations">multisample resolve</a> operations and subpass dependencies corresponding to the render pass instance, are executed on the physical devices included in the device mask provided here.</p>
  * 
  * <p>If {@code deviceRenderAreaCount} is not zero, then the elements of {@code pDeviceRenderAreas} override the value of {@link VkRenderPassBeginInfo}{@code ::renderArea}, and provide a render area specific to each physical device. These render areas serve the same purpose as {@link VkRenderPassBeginInfo}{@code ::renderArea}, including controlling the region of attachments that are cleared by {@link VK10#VK_ATTACHMENT_LOAD_OP_CLEAR ATTACHMENT_LOAD_OP_CLEAR} and that are resolved into resolve attachments.</p>
  * 
@@ -36,8 +36,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code deviceRenderAreaCount} <b>must</b> either be zero or equal to the number of physical devices in the logical device</li>
  * <li>The {@code offset.x} member of any element of {@code pDeviceRenderAreas} <b>must</b> be greater than or equal to 0</li>
  * <li>The {@code offset.y} member of any element of {@code pDeviceRenderAreas} <b>must</b> be greater than or equal to 0</li>
- * <li>The sum of the {@code offset.x} and {@code extent.width} members of any element of {@code pDeviceRenderAreas} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferWidth">{@code maxFramebufferWidth}</a></li>
- * <li>The sum of the {@code offset.y} and {@code extent.height} members of any element of {@code pDeviceRenderAreas} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferHeight">{@code maxFramebufferHeight}</a></li>
+ * <li>The sum of the {@code offset.x} and {@code extent.width} members of any element of {@code pDeviceRenderAreas} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxFramebufferWidth">{@code maxFramebufferWidth}</a></li>
+ * <li>The sum of the {@code offset.y} and {@code extent.height} members of any element of {@code pDeviceRenderAreas} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits-maxFramebufferHeight">{@code maxFramebufferHeight}</a></li>
  * <li>The {@code extent.width} member of any element of {@code pDeviceRenderAreas} <b>must</b> be greater than 0</li>
  * <li>The {@code extent.height} member of any element of {@code pDeviceRenderAreas} <b>must</b> be greater than 0</li>
  * </ul>
@@ -134,9 +134,8 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct<VkDeviceGroupRender
     @NativeType("uint32_t")
     public int deviceRenderAreaCount() { return ndeviceRenderAreaCount(address()); }
     /** a pointer to an array of {@link VkRect2D} structures defining the render area for each physical device. */
-    @Nullable
     @NativeType("VkRect2D const *")
-    public VkRect2D.Buffer pDeviceRenderAreas() { return npDeviceRenderAreas(address()); }
+    public VkRect2D.@Nullable Buffer pDeviceRenderAreas() { return npDeviceRenderAreas(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkDeviceGroupRenderPassBeginInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -147,14 +146,14 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct<VkDeviceGroupRender
     /** Sets the specified value to the {@link #deviceMask} field. */
     public VkDeviceGroupRenderPassBeginInfo deviceMask(@NativeType("uint32_t") int value) { ndeviceMask(address(), value); return this; }
     /** Sets the address of the specified {@link VkRect2D.Buffer} to the {@link #pDeviceRenderAreas} field. */
-    public VkDeviceGroupRenderPassBeginInfo pDeviceRenderAreas(@Nullable @NativeType("VkRect2D const *") VkRect2D.Buffer value) { npDeviceRenderAreas(address(), value); return this; }
+    public VkDeviceGroupRenderPassBeginInfo pDeviceRenderAreas(@NativeType("VkRect2D const *") VkRect2D.@Nullable Buffer value) { npDeviceRenderAreas(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkDeviceGroupRenderPassBeginInfo set(
         int sType,
         long pNext,
         int deviceMask,
-        @Nullable VkRect2D.Buffer pDeviceRenderAreas
+        VkRect2D.@Nullable Buffer pDeviceRenderAreas
     ) {
         sType(sType);
         pNext(pNext);
@@ -200,8 +199,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct<VkDeviceGroupRender
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupRenderPassBeginInfo createSafe(long address) {
+    public static @Nullable VkDeviceGroupRenderPassBeginInfo createSafe(long address) {
         return address == NULL ? null : new VkDeviceGroupRenderPassBeginInfo(address, null);
     }
 
@@ -244,8 +242,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct<VkDeviceGroupRender
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupRenderPassBeginInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceGroupRenderPassBeginInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -309,26 +306,26 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct<VkDeviceGroupRender
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupRenderPassBeginInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceGroupRenderPassBeginInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceGroupRenderPassBeginInfo.PNEXT); }
     /** Unsafe version of {@link #deviceMask}. */
-    public static int ndeviceMask(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupRenderPassBeginInfo.DEVICEMASK); }
+    public static int ndeviceMask(long struct) { return memGetInt(struct + VkDeviceGroupRenderPassBeginInfo.DEVICEMASK); }
     /** Unsafe version of {@link #deviceRenderAreaCount}. */
-    public static int ndeviceRenderAreaCount(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupRenderPassBeginInfo.DEVICERENDERAREACOUNT); }
+    public static int ndeviceRenderAreaCount(long struct) { return memGetInt(struct + VkDeviceGroupRenderPassBeginInfo.DEVICERENDERAREACOUNT); }
     /** Unsafe version of {@link #pDeviceRenderAreas}. */
-    @Nullable public static VkRect2D.Buffer npDeviceRenderAreas(long struct) { return VkRect2D.createSafe(memGetAddress(struct + VkDeviceGroupRenderPassBeginInfo.PDEVICERENDERAREAS), ndeviceRenderAreaCount(struct)); }
+    public static VkRect2D.@Nullable Buffer npDeviceRenderAreas(long struct) { return VkRect2D.createSafe(memGetAddress(struct + VkDeviceGroupRenderPassBeginInfo.PDEVICERENDERAREAS), ndeviceRenderAreaCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupRenderPassBeginInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceGroupRenderPassBeginInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceGroupRenderPassBeginInfo.PNEXT, value); }
     /** Unsafe version of {@link #deviceMask(int) deviceMask}. */
-    public static void ndeviceMask(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupRenderPassBeginInfo.DEVICEMASK, value); }
+    public static void ndeviceMask(long struct, int value) { memPutInt(struct + VkDeviceGroupRenderPassBeginInfo.DEVICEMASK, value); }
     /** Sets the specified value to the {@code deviceRenderAreaCount} field of the specified {@code struct}. */
-    public static void ndeviceRenderAreaCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupRenderPassBeginInfo.DEVICERENDERAREACOUNT, value); }
+    public static void ndeviceRenderAreaCount(long struct, int value) { memPutInt(struct + VkDeviceGroupRenderPassBeginInfo.DEVICERENDERAREACOUNT, value); }
     /** Unsafe version of {@link #pDeviceRenderAreas(VkRect2D.Buffer) pDeviceRenderAreas}. */
-    public static void npDeviceRenderAreas(long struct, @Nullable VkRect2D.Buffer value) { memPutAddress(struct + VkDeviceGroupRenderPassBeginInfo.PDEVICERENDERAREAS, memAddressSafe(value)); ndeviceRenderAreaCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npDeviceRenderAreas(long struct, VkRect2D.@Nullable Buffer value) { memPutAddress(struct + VkDeviceGroupRenderPassBeginInfo.PDEVICERENDERAREAS, memAddressSafe(value)); ndeviceRenderAreaCount(struct, value == null ? 0 : value.remaining()); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -375,6 +372,11 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct<VkDeviceGroupRender
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceGroupRenderPassBeginInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -392,9 +394,8 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct<VkDeviceGroupRender
         @NativeType("uint32_t")
         public int deviceRenderAreaCount() { return VkDeviceGroupRenderPassBeginInfo.ndeviceRenderAreaCount(address()); }
         /** @return a {@link VkRect2D.Buffer} view of the struct array pointed to by the {@link VkDeviceGroupRenderPassBeginInfo#pDeviceRenderAreas} field. */
-        @Nullable
         @NativeType("VkRect2D const *")
-        public VkRect2D.Buffer pDeviceRenderAreas() { return VkDeviceGroupRenderPassBeginInfo.npDeviceRenderAreas(address()); }
+        public VkRect2D.@Nullable Buffer pDeviceRenderAreas() { return VkDeviceGroupRenderPassBeginInfo.npDeviceRenderAreas(address()); }
 
         /** Sets the specified value to the {@link VkDeviceGroupRenderPassBeginInfo#sType} field. */
         public VkDeviceGroupRenderPassBeginInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkDeviceGroupRenderPassBeginInfo.nsType(address(), value); return this; }
@@ -405,7 +406,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct<VkDeviceGroupRender
         /** Sets the specified value to the {@link VkDeviceGroupRenderPassBeginInfo#deviceMask} field. */
         public VkDeviceGroupRenderPassBeginInfo.Buffer deviceMask(@NativeType("uint32_t") int value) { VkDeviceGroupRenderPassBeginInfo.ndeviceMask(address(), value); return this; }
         /** Sets the address of the specified {@link VkRect2D.Buffer} to the {@link VkDeviceGroupRenderPassBeginInfo#pDeviceRenderAreas} field. */
-        public VkDeviceGroupRenderPassBeginInfo.Buffer pDeviceRenderAreas(@Nullable @NativeType("VkRect2D const *") VkRect2D.Buffer value) { VkDeviceGroupRenderPassBeginInfo.npDeviceRenderAreas(address(), value); return this; }
+        public VkDeviceGroupRenderPassBeginInfo.Buffer pDeviceRenderAreas(@NativeType("VkRect2D const *") VkRect2D.@Nullable Buffer value) { VkDeviceGroupRenderPassBeginInfo.npDeviceRenderAreas(address(), value); return this; }
 
     }
 

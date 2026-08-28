@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.tinyexr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -185,8 +185,7 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRTile createSafe(long address) {
+    public static @Nullable EXRTile createSafe(long address) {
         return address == NULL ? null : new EXRTile(address, null);
     }
 
@@ -229,8 +228,7 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRTile.Buffer createSafe(long address, int capacity) {
+    public static EXRTile.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,32 +292,32 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #offset_x}. */
-    public static int noffset_x(long struct) { return UNSAFE.getInt(null, struct + EXRTile.OFFSET_X); }
+    public static int noffset_x(long struct) { return memGetInt(struct + EXRTile.OFFSET_X); }
     /** Unsafe version of {@link #offset_y}. */
-    public static int noffset_y(long struct) { return UNSAFE.getInt(null, struct + EXRTile.OFFSET_Y); }
+    public static int noffset_y(long struct) { return memGetInt(struct + EXRTile.OFFSET_Y); }
     /** Unsafe version of {@link #level_x}. */
-    public static int nlevel_x(long struct) { return UNSAFE.getInt(null, struct + EXRTile.LEVEL_X); }
+    public static int nlevel_x(long struct) { return memGetInt(struct + EXRTile.LEVEL_X); }
     /** Unsafe version of {@link #level_y}. */
-    public static int nlevel_y(long struct) { return UNSAFE.getInt(null, struct + EXRTile.LEVEL_Y); }
+    public static int nlevel_y(long struct) { return memGetInt(struct + EXRTile.LEVEL_Y); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + EXRTile.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + EXRTile.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + EXRTile.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + EXRTile.HEIGHT); }
     /** Unsafe version of {@link #images(int) images}. */
     public static PointerBuffer nimages(long struct, int capacity) { return memPointerBuffer(memGetAddress(struct + EXRTile.IMAGES), capacity); }
 
     /** Unsafe version of {@link #offset_x(int) offset_x}. */
-    public static void noffset_x(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.OFFSET_X, value); }
+    public static void noffset_x(long struct, int value) { memPutInt(struct + EXRTile.OFFSET_X, value); }
     /** Unsafe version of {@link #offset_y(int) offset_y}. */
-    public static void noffset_y(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.OFFSET_Y, value); }
+    public static void noffset_y(long struct, int value) { memPutInt(struct + EXRTile.OFFSET_Y, value); }
     /** Unsafe version of {@link #level_x(int) level_x}. */
-    public static void nlevel_x(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.LEVEL_X, value); }
+    public static void nlevel_x(long struct, int value) { memPutInt(struct + EXRTile.LEVEL_X, value); }
     /** Unsafe version of {@link #level_y(int) level_y}. */
-    public static void nlevel_y(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.LEVEL_Y, value); }
+    public static void nlevel_y(long struct, int value) { memPutInt(struct + EXRTile.LEVEL_Y, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + EXRTile.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + EXRTile.HEIGHT, value); }
     /** Unsafe version of {@link #images(PointerBuffer) images}. */
     public static void nimages(long struct, PointerBuffer value) { memPutAddress(struct + EXRTile.IMAGES, memAddress(value)); }
 
@@ -363,6 +361,11 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

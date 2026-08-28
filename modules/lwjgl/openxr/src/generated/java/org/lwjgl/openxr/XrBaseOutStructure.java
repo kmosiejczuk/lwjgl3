@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -142,8 +142,7 @@ public class XrBaseOutStructure extends Struct<XrBaseOutStructure> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBaseOutStructure createSafe(long address) {
+    public static @Nullable XrBaseOutStructure createSafe(long address) {
         return address == NULL ? null : new XrBaseOutStructure(address, null);
     }
 
@@ -186,8 +185,7 @@ public class XrBaseOutStructure extends Struct<XrBaseOutStructure> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBaseOutStructure.Buffer createSafe(long address, int capacity) {
+    public static XrBaseOutStructure.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -232,12 +230,12 @@ public class XrBaseOutStructure extends Struct<XrBaseOutStructure> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrBaseOutStructure.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrBaseOutStructure.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static XrBaseOutStructure nnext(long struct) { return XrBaseOutStructure.create(memGetAddress(struct + XrBaseOutStructure.NEXT)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrBaseOutStructure.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrBaseOutStructure.TYPE, value); }
     /** Unsafe version of {@link #next(XrBaseOutStructure) next}. */
     public static void nnext(long struct, XrBaseOutStructure value) { memPutAddress(struct + XrBaseOutStructure.NEXT, value.address()); }
 
@@ -281,6 +279,11 @@ public class XrBaseOutStructure extends Struct<XrBaseOutStructure> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

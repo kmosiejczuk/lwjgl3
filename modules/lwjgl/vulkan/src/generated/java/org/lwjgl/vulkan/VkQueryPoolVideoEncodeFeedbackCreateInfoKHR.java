@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends Struct<VkQueryP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolVideoEncodeFeedbackCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkQueryPoolVideoEncodeFeedbackCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkQueryPoolVideoEncodeFeedbackCreateInfoKHR(address, null);
     }
 
@@ -198,8 +197,7 @@ public class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends Struct<VkQueryP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,18 +242,18 @@ public class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends Struct<VkQueryP
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #encodeFeedbackFlags}. */
-    public static int nencodeFeedbackFlags(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.ENCODEFEEDBACKFLAGS); }
+    public static int nencodeFeedbackFlags(long struct) { return memGetInt(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.ENCODEFEEDBACKFLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #encodeFeedbackFlags(int) encodeFeedbackFlags}. */
-    public static void nencodeFeedbackFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.ENCODEFEEDBACKFLAGS, value); }
+    public static void nencodeFeedbackFlags(long struct, int value) { memPutInt(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.ENCODEFEEDBACKFLAGS, value); }
 
     // -----------------------------------
 
@@ -288,6 +286,11 @@ public class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends Struct<VkQueryP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

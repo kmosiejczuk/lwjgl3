@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -160,8 +160,7 @@ public class VkRenderPassCreationControlEXT extends Struct<VkRenderPassCreationC
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassCreationControlEXT createSafe(long address) {
+    public static @Nullable VkRenderPassCreationControlEXT createSafe(long address) {
         return address == NULL ? null : new VkRenderPassCreationControlEXT(address, null);
     }
 
@@ -204,8 +203,7 @@ public class VkRenderPassCreationControlEXT extends Struct<VkRenderPassCreationC
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassCreationControlEXT.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassCreationControlEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,18 +248,18 @@ public class VkRenderPassCreationControlEXT extends Struct<VkRenderPassCreationC
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassCreationControlEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderPassCreationControlEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderPassCreationControlEXT.PNEXT); }
     /** Unsafe version of {@link #disallowMerging}. */
-    public static int ndisallowMerging(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassCreationControlEXT.DISALLOWMERGING); }
+    public static int ndisallowMerging(long struct) { return memGetInt(struct + VkRenderPassCreationControlEXT.DISALLOWMERGING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderPassCreationControlEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderPassCreationControlEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderPassCreationControlEXT.PNEXT, value); }
     /** Unsafe version of {@link #disallowMerging(boolean) disallowMerging}. */
-    public static void ndisallowMerging(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderPassCreationControlEXT.DISALLOWMERGING, value); }
+    public static void ndisallowMerging(long struct, int value) { memPutInt(struct + VkRenderPassCreationControlEXT.DISALLOWMERGING, value); }
 
     // -----------------------------------
 
@@ -294,6 +292,11 @@ public class VkRenderPassCreationControlEXT extends Struct<VkRenderPassCreationC
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

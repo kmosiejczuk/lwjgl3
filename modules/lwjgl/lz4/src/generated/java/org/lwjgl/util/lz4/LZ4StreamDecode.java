@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.lz4;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -92,8 +92,7 @@ public class LZ4StreamDecode extends Struct<LZ4StreamDecode> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4StreamDecode createSafe(long address) {
+    public static @Nullable LZ4StreamDecode createSafe(long address) {
         return address == NULL ? null : new LZ4StreamDecode(address, null);
     }
 
@@ -108,8 +107,7 @@ public class LZ4StreamDecode extends Struct<LZ4StreamDecode> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4StreamDecode.Buffer createSafe(long address, int capacity) {
+    public static LZ4StreamDecode.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -119,7 +117,7 @@ public class LZ4StreamDecode extends Struct<LZ4StreamDecode> {
     public static ByteBuffer nminStateSize(long struct) { return memByteBuffer(struct + LZ4StreamDecode.MINSTATESIZE, LZ4_STREAMDECODE_MINSIZE); }
     /** Unsafe version of {@link #minStateSize(int) minStateSize}. */
     public static byte nminStateSize(long struct, int index) {
-        return UNSAFE.getByte(null, struct + LZ4StreamDecode.MINSTATESIZE + check(index, LZ4_STREAMDECODE_MINSIZE) * 1);
+        return memGetByte(struct + LZ4StreamDecode.MINSTATESIZE + check(index, LZ4_STREAMDECODE_MINSIZE) * 1);
     }
     /** Unsafe version of {@link #internal_donotuse}. */
     public static LZ4StreamDecodeInternal ninternal_donotuse(long struct) { return LZ4StreamDecodeInternal.create(struct + LZ4StreamDecode.INTERNAL_DONOTUSE); }
@@ -155,6 +153,11 @@ public class LZ4StreamDecode extends Struct<LZ4StreamDecode> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

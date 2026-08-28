@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -132,8 +132,7 @@ public class FMOD_PLUGINLIST extends Struct<FMOD_PLUGINLIST> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_PLUGINLIST createSafe(long address) {
+    public static @Nullable FMOD_PLUGINLIST createSafe(long address) {
         return address == NULL ? null : new FMOD_PLUGINLIST(address, null);
     }
 
@@ -176,8 +175,7 @@ public class FMOD_PLUGINLIST extends Struct<FMOD_PLUGINLIST> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_PLUGINLIST.Buffer createSafe(long address, int capacity) {
+    public static FMOD_PLUGINLIST.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -222,12 +220,12 @@ public class FMOD_PLUGINLIST extends Struct<FMOD_PLUGINLIST> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + FMOD_PLUGINLIST.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + FMOD_PLUGINLIST.TYPE); }
     /** Unsafe version of {@link #description}. */
     public static long ndescription(long struct) { return memGetAddress(struct + FMOD_PLUGINLIST.DESCRIPTION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_PLUGINLIST.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + FMOD_PLUGINLIST.TYPE, value); }
     /** Unsafe version of {@link #description(long) description}. */
     public static void ndescription(long struct, long value) { memPutAddress(struct + FMOD_PLUGINLIST.DESCRIPTION, check(value)); }
 
@@ -271,6 +269,11 @@ public class FMOD_PLUGINLIST extends Struct<FMOD_PLUGINLIST> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

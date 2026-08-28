@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -103,8 +103,7 @@ public class hwloc_location extends Struct<hwloc_location> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_location createSafe(long address) {
+    public static @Nullable hwloc_location createSafe(long address) {
         return address == NULL ? null : new hwloc_location(address, null);
     }
 
@@ -147,8 +146,7 @@ public class hwloc_location extends Struct<hwloc_location> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_location.Buffer createSafe(long address, int capacity) {
+    public static hwloc_location.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -193,7 +191,7 @@ public class hwloc_location extends Struct<hwloc_location> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + hwloc_location.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + hwloc_location.TYPE); }
     /** Unsafe version of {@link #location}. */
     public static hwloc_location_u nlocation(long struct) { return hwloc_location_u.create(struct + hwloc_location.LOCATION); }
 
@@ -228,6 +226,11 @@ public class hwloc_location extends Struct<hwloc_location> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

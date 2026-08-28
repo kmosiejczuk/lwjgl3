@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCoherentMemoryFeaturesAMD createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCoherentMemoryFeaturesAMD createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCoherentMemoryFeaturesAMD(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCoherentMemoryFeaturesAMD.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCoherentMemoryFeaturesAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.PNEXT); }
     /** Unsafe version of {@link #deviceCoherentMemory}. */
-    public static int ndeviceCoherentMemory(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.DEVICECOHERENTMEMORY); }
+    public static int ndeviceCoherentMemory(long struct) { return memGetInt(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.DEVICECOHERENTMEMORY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.PNEXT, value); }
     /** Unsafe version of {@link #deviceCoherentMemory(boolean) deviceCoherentMemory}. */
-    public static void ndeviceCoherentMemory(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.DEVICECOHERENTMEMORY, value); }
+    public static void ndeviceCoherentMemory(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.DEVICECOHERENTMEMORY, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

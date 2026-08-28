@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -186,8 +186,7 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XSelectionClearEvent createSafe(long address) {
+    public static @Nullable XSelectionClearEvent createSafe(long address) {
         return address == NULL ? null : new XSelectionClearEvent(address, null);
     }
 
@@ -230,8 +229,7 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XSelectionClearEvent.Buffer createSafe(long address, int capacity) {
+    public static XSelectionClearEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -295,11 +293,11 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XSelectionClearEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XSelectionClearEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XSelectionClearEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XSelectionClearEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XSelectionClearEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XSelectionClearEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
@@ -310,11 +308,11 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
     public static long ntime(long struct) { return memGetCLong(struct + XSelectionClearEvent.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XSelectionClearEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XSelectionClearEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XSelectionClearEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XSelectionClearEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XSelectionClearEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XSelectionClearEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
@@ -364,6 +362,11 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

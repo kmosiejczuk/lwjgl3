@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,15 +20,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Each bit in the sample mask is associated with a unique <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-multisampling-coverage-mask">sample index</a> as defined for the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-multisampling-coverage-mask">coverage mask</a>. Each bit <code>b</code> for mask word <code>w</code> in the sample mask corresponds to sample index <code>i</code>, where <code>i = 32 × w + b</code>. {@code pSampleMask} has a length equal to <code>⌈ rasterizationSamples / 32 ⌉</code> words.</p>
+ * <p>Each bit in the sample mask is associated with a unique <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-multisampling-coverage-mask">sample index</a> as defined for the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-multisampling-coverage-mask">coverage mask</a>. Each bit <code>b</code> for mask word <code>w</code> in the sample mask corresponds to sample index <code>i</code>, where <code>i = 32 × w + b</code>. {@code pSampleMask} has a length equal to <code>⌈ rasterizationSamples / 32 ⌉</code> words.</p>
  * 
  * <p>If {@code pSampleMask} is {@code NULL}, it is treated as if the mask has all bits set to 1.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sampleRateShading">{@code sampleRateShading}</a> feature is not enabled, {@code sampleShadingEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-alphaToOne">{@code alphaToOne}</a> feature is not enabled, {@code alphaToOneEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-sampleRateShading">{@code sampleRateShading}</a> feature is not enabled, {@code sampleShadingEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-alphaToOne">{@code alphaToOne}</a> feature is not enabled, {@code alphaToOneEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * <li>{@code minSampleShading} <b>must</b> be in the range <code>[0,1]</code></li>
  * <li>If the {@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} extension is enabled, and if the subpass has any color attachments and {@code rasterizationSamples} is greater than the number of color samples, then {@code sampleShadingEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * </ul>
@@ -144,23 +144,22 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
     /** a {@code VkSampleCountFlagBits} value specifying the number of samples used in rasterization. This value is ignored for the purposes of setting the number of samples used in rasterization if the pipeline is created with the {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT} dynamic state set, but if {@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SAMPLE_MASK_EXT DYNAMIC_STATE_SAMPLE_MASK_EXT} dynamic state is not set, it is still used to define the size of the {@code pSampleMask} array as described below. */
     @NativeType("VkSampleCountFlagBits")
     public int rasterizationSamples() { return nrasterizationSamples(address()); }
-    /** <b>can</b> be used to enable <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-sampleshading">Sample Shading</a>. */
+    /** <b>can</b> be used to enable <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#primsrast-sampleshading">Sample Shading</a>. */
     @NativeType("VkBool32")
     public boolean sampleShadingEnable() { return nsampleShadingEnable(address()) != 0; }
-    /** specifies a minimum fraction of sample shading if {@code sampleShadingEnable} is set to {@link VK10#VK_TRUE TRUE}. */
+    /** specifies a minimum fraction of sample shading if {@code sampleShadingEnable} is {@link VK10#VK_TRUE TRUE}. */
     public float minSampleShading() { return nminSampleShading(address()); }
     /**
      * @param capacity the number of elements in the returned buffer
      *
-     * @return a pointer to an array of {@code VkSampleMask} values used in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-samplemask">sample mask test</a>.
+     * @return a pointer to an array of {@code VkSampleMask} values used in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-samplemask">sample mask test</a>.
      */
-    @Nullable
     @NativeType("VkSampleMask const *")
-    public IntBuffer pSampleMask(int capacity) { return npSampleMask(address(), capacity); }
-    /** controls whether a temporary coverage value is generated based on the alpha component of the fragment’s first color output as specified in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-covg">Multisample Coverage</a> section. */
+    public @Nullable IntBuffer pSampleMask(int capacity) { return npSampleMask(address(), capacity); }
+    /** controls whether a temporary coverage value is generated based on the alpha component of the fragment’s first color output as specified in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-covg">Multisample Coverage</a> section. */
     @NativeType("VkBool32")
     public boolean alphaToCoverageEnable() { return nalphaToCoverageEnable(address()) != 0; }
-    /** controls whether the alpha component of the fragment’s first color output is replaced with one as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-covg">Multisample Coverage</a>. */
+    /** controls whether the alpha component of the fragment’s first color output is replaced with one as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fragops-covg">Multisample Coverage</a>. */
     @NativeType("VkBool32")
     public boolean alphaToOneEnable() { return nalphaToOneEnable(address()) != 0; }
 
@@ -254,8 +253,7 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineMultisampleStateCreateInfo createSafe(long address) {
+    public static @Nullable VkPipelineMultisampleStateCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkPipelineMultisampleStateCreateInfo(address, null);
     }
 
@@ -298,8 +296,7 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineMultisampleStateCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineMultisampleStateCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -363,42 +360,42 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineMultisampleStateCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineMultisampleStateCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineMultisampleStateCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineMultisampleStateCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPipelineMultisampleStateCreateInfo.FLAGS); }
     /** Unsafe version of {@link #rasterizationSamples}. */
-    public static int nrasterizationSamples(long struct) { return UNSAFE.getInt(null, struct + VkPipelineMultisampleStateCreateInfo.RASTERIZATIONSAMPLES); }
+    public static int nrasterizationSamples(long struct) { return memGetInt(struct + VkPipelineMultisampleStateCreateInfo.RASTERIZATIONSAMPLES); }
     /** Unsafe version of {@link #sampleShadingEnable}. */
-    public static int nsampleShadingEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineMultisampleStateCreateInfo.SAMPLESHADINGENABLE); }
+    public static int nsampleShadingEnable(long struct) { return memGetInt(struct + VkPipelineMultisampleStateCreateInfo.SAMPLESHADINGENABLE); }
     /** Unsafe version of {@link #minSampleShading}. */
-    public static float nminSampleShading(long struct) { return UNSAFE.getFloat(null, struct + VkPipelineMultisampleStateCreateInfo.MINSAMPLESHADING); }
+    public static float nminSampleShading(long struct) { return memGetFloat(struct + VkPipelineMultisampleStateCreateInfo.MINSAMPLESHADING); }
     /** Unsafe version of {@link #pSampleMask(int) pSampleMask}. */
-    @Nullable public static IntBuffer npSampleMask(long struct, int capacity) { return memIntBufferSafe(memGetAddress(struct + VkPipelineMultisampleStateCreateInfo.PSAMPLEMASK), capacity); }
+    public static @Nullable IntBuffer npSampleMask(long struct, int capacity) { return memIntBufferSafe(memGetAddress(struct + VkPipelineMultisampleStateCreateInfo.PSAMPLEMASK), capacity); }
     /** Unsafe version of {@link #alphaToCoverageEnable}. */
-    public static int nalphaToCoverageEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineMultisampleStateCreateInfo.ALPHATOCOVERAGEENABLE); }
+    public static int nalphaToCoverageEnable(long struct) { return memGetInt(struct + VkPipelineMultisampleStateCreateInfo.ALPHATOCOVERAGEENABLE); }
     /** Unsafe version of {@link #alphaToOneEnable}. */
-    public static int nalphaToOneEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineMultisampleStateCreateInfo.ALPHATOONEENABLE); }
+    public static int nalphaToOneEnable(long struct) { return memGetInt(struct + VkPipelineMultisampleStateCreateInfo.ALPHATOONEENABLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineMultisampleStateCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineMultisampleStateCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineMultisampleStateCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineMultisampleStateCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPipelineMultisampleStateCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #rasterizationSamples(int) rasterizationSamples}. */
-    public static void nrasterizationSamples(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineMultisampleStateCreateInfo.RASTERIZATIONSAMPLES, value); }
+    public static void nrasterizationSamples(long struct, int value) { memPutInt(struct + VkPipelineMultisampleStateCreateInfo.RASTERIZATIONSAMPLES, value); }
     /** Unsafe version of {@link #sampleShadingEnable(boolean) sampleShadingEnable}. */
-    public static void nsampleShadingEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineMultisampleStateCreateInfo.SAMPLESHADINGENABLE, value); }
+    public static void nsampleShadingEnable(long struct, int value) { memPutInt(struct + VkPipelineMultisampleStateCreateInfo.SAMPLESHADINGENABLE, value); }
     /** Unsafe version of {@link #minSampleShading(float) minSampleShading}. */
-    public static void nminSampleShading(long struct, float value) { UNSAFE.putFloat(null, struct + VkPipelineMultisampleStateCreateInfo.MINSAMPLESHADING, value); }
+    public static void nminSampleShading(long struct, float value) { memPutFloat(struct + VkPipelineMultisampleStateCreateInfo.MINSAMPLESHADING, value); }
     /** Unsafe version of {@link #pSampleMask(IntBuffer) pSampleMask}. */
     public static void npSampleMask(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkPipelineMultisampleStateCreateInfo.PSAMPLEMASK, memAddressSafe(value)); }
     /** Unsafe version of {@link #alphaToCoverageEnable(boolean) alphaToCoverageEnable}. */
-    public static void nalphaToCoverageEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineMultisampleStateCreateInfo.ALPHATOCOVERAGEENABLE, value); }
+    public static void nalphaToCoverageEnable(long struct, int value) { memPutInt(struct + VkPipelineMultisampleStateCreateInfo.ALPHATOCOVERAGEENABLE, value); }
     /** Unsafe version of {@link #alphaToOneEnable(boolean) alphaToOneEnable}. */
-    public static void nalphaToOneEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineMultisampleStateCreateInfo.ALPHATOONEENABLE, value); }
+    public static void nalphaToOneEnable(long struct, int value) { memPutInt(struct + VkPipelineMultisampleStateCreateInfo.ALPHATOONEENABLE, value); }
 
     // -----------------------------------
 
@@ -434,6 +431,11 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineMultisampleStateCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -460,9 +462,8 @@ public class VkPipelineMultisampleStateCreateInfo extends Struct<VkPipelineMulti
          *
          * @param capacity the number of elements in the returned buffer
          */
-        @Nullable
         @NativeType("VkSampleMask const *")
-        public IntBuffer pSampleMask(int capacity) { return VkPipelineMultisampleStateCreateInfo.npSampleMask(address(), capacity); }
+        public @Nullable IntBuffer pSampleMask(int capacity) { return VkPipelineMultisampleStateCreateInfo.npSampleMask(address(), capacity); }
         /** @return the value of the {@link VkPipelineMultisampleStateCreateInfo#alphaToCoverageEnable} field. */
         @NativeType("VkBool32")
         public boolean alphaToCoverageEnable() { return VkPipelineMultisampleStateCreateInfo.nalphaToCoverageEnable(address()) != 0; }

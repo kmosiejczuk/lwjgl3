@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -139,8 +139,7 @@ public class StdVideoH265LongTermRefPicsSps extends Struct<StdVideoH265LongTermR
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265LongTermRefPicsSps createSafe(long address) {
+    public static @Nullable StdVideoH265LongTermRefPicsSps createSafe(long address) {
         return address == NULL ? null : new StdVideoH265LongTermRefPicsSps(address, null);
     }
 
@@ -183,8 +182,7 @@ public class StdVideoH265LongTermRefPicsSps extends Struct<StdVideoH265LongTermR
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265LongTermRefPicsSps.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265LongTermRefPicsSps.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,16 +227,16 @@ public class StdVideoH265LongTermRefPicsSps extends Struct<StdVideoH265LongTermR
     // -----------------------------------
 
     /** Unsafe version of {@link #used_by_curr_pic_lt_sps_flag}. */
-    public static int nused_by_curr_pic_lt_sps_flag(long struct) { return UNSAFE.getInt(null, struct + StdVideoH265LongTermRefPicsSps.USED_BY_CURR_PIC_LT_SPS_FLAG); }
+    public static int nused_by_curr_pic_lt_sps_flag(long struct) { return memGetInt(struct + StdVideoH265LongTermRefPicsSps.USED_BY_CURR_PIC_LT_SPS_FLAG); }
     /** Unsafe version of {@link #lt_ref_pic_poc_lsb_sps}. */
     public static IntBuffer nlt_ref_pic_poc_lsb_sps(long struct) { return memIntBuffer(struct + StdVideoH265LongTermRefPicsSps.LT_REF_PIC_POC_LSB_SPS, STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS); }
     /** Unsafe version of {@link #lt_ref_pic_poc_lsb_sps(int) lt_ref_pic_poc_lsb_sps}. */
     public static int nlt_ref_pic_poc_lsb_sps(long struct, int index) {
-        return UNSAFE.getInt(null, struct + StdVideoH265LongTermRefPicsSps.LT_REF_PIC_POC_LSB_SPS + check(index, STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS) * 4);
+        return memGetInt(struct + StdVideoH265LongTermRefPicsSps.LT_REF_PIC_POC_LSB_SPS + check(index, STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS) * 4);
     }
 
     /** Unsafe version of {@link #used_by_curr_pic_lt_sps_flag(int) used_by_curr_pic_lt_sps_flag}. */
-    public static void nused_by_curr_pic_lt_sps_flag(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH265LongTermRefPicsSps.USED_BY_CURR_PIC_LT_SPS_FLAG, value); }
+    public static void nused_by_curr_pic_lt_sps_flag(long struct, int value) { memPutInt(struct + StdVideoH265LongTermRefPicsSps.USED_BY_CURR_PIC_LT_SPS_FLAG, value); }
     /** Unsafe version of {@link #lt_ref_pic_poc_lsb_sps(IntBuffer) lt_ref_pic_poc_lsb_sps}. */
     public static void nlt_ref_pic_poc_lsb_sps(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS); }
@@ -246,7 +244,7 @@ public class StdVideoH265LongTermRefPicsSps extends Struct<StdVideoH265LongTermR
     }
     /** Unsafe version of {@link #lt_ref_pic_poc_lsb_sps(int, int) lt_ref_pic_poc_lsb_sps}. */
     public static void nlt_ref_pic_poc_lsb_sps(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + StdVideoH265LongTermRefPicsSps.LT_REF_PIC_POC_LSB_SPS + check(index, STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS) * 4, value);
+        memPutInt(struct + StdVideoH265LongTermRefPicsSps.LT_REF_PIC_POC_LSB_SPS + check(index, STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS) * 4, value);
     }
 
     // -----------------------------------
@@ -280,6 +278,11 @@ public class StdVideoH265LongTermRefPicsSps extends Struct<StdVideoH265LongTermR
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

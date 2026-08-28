@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -143,8 +143,7 @@ public class XrSceneMeshMSFT extends Struct<XrSceneMeshMSFT> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneMeshMSFT createSafe(long address) {
+    public static @Nullable XrSceneMeshMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneMeshMSFT(address, null);
     }
 
@@ -187,8 +186,7 @@ public class XrSceneMeshMSFT extends Struct<XrSceneMeshMSFT> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneMeshMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneMeshMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,14 +231,14 @@ public class XrSceneMeshMSFT extends Struct<XrSceneMeshMSFT> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #meshBufferId}. */
-    public static long nmeshBufferId(long struct) { return UNSAFE.getLong(null, struct + XrSceneMeshMSFT.MESHBUFFERID); }
+    public static long nmeshBufferId(long struct) { return memGetLong(struct + XrSceneMeshMSFT.MESHBUFFERID); }
     /** Unsafe version of {@link #supportsIndicesUint16}. */
-    public static int nsupportsIndicesUint16(long struct) { return UNSAFE.getInt(null, struct + XrSceneMeshMSFT.SUPPORTSINDICESUINT16); }
+    public static int nsupportsIndicesUint16(long struct) { return memGetInt(struct + XrSceneMeshMSFT.SUPPORTSINDICESUINT16); }
 
     /** Unsafe version of {@link #meshBufferId(long) meshBufferId}. */
-    public static void nmeshBufferId(long struct, long value) { UNSAFE.putLong(null, struct + XrSceneMeshMSFT.MESHBUFFERID, value); }
+    public static void nmeshBufferId(long struct, long value) { memPutLong(struct + XrSceneMeshMSFT.MESHBUFFERID, value); }
     /** Unsafe version of {@link #supportsIndicesUint16(boolean) supportsIndicesUint16}. */
-    public static void nsupportsIndicesUint16(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneMeshMSFT.SUPPORTSINDICESUINT16, value); }
+    public static void nsupportsIndicesUint16(long struct, int value) { memPutInt(struct + XrSceneMeshMSFT.SUPPORTSINDICESUINT16, value); }
 
     // -----------------------------------
 
@@ -273,6 +271,11 @@ public class XrSceneMeshMSFT extends Struct<XrSceneMeshMSFT> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

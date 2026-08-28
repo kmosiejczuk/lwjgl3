@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class OVRMirrorTextureDesc extends Struct<OVRMirrorTextureDesc> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRMirrorTextureDesc createSafe(long address) {
+    public static @Nullable OVRMirrorTextureDesc createSafe(long address) {
         return address == NULL ? null : new OVRMirrorTextureDesc(address, null);
     }
 
@@ -198,8 +197,7 @@ public class OVRMirrorTextureDesc extends Struct<OVRMirrorTextureDesc> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRMirrorTextureDesc.Buffer createSafe(long address, int capacity) {
+    public static OVRMirrorTextureDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,22 +261,22 @@ public class OVRMirrorTextureDesc extends Struct<OVRMirrorTextureDesc> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #Format}. */
-    public static int nFormat(long struct) { return UNSAFE.getInt(null, struct + OVRMirrorTextureDesc.FORMAT); }
+    public static int nFormat(long struct) { return memGetInt(struct + OVRMirrorTextureDesc.FORMAT); }
     /** Unsafe version of {@link #Width}. */
-    public static int nWidth(long struct) { return UNSAFE.getInt(null, struct + OVRMirrorTextureDesc.WIDTH); }
+    public static int nWidth(long struct) { return memGetInt(struct + OVRMirrorTextureDesc.WIDTH); }
     /** Unsafe version of {@link #Height}. */
-    public static int nHeight(long struct) { return UNSAFE.getInt(null, struct + OVRMirrorTextureDesc.HEIGHT); }
+    public static int nHeight(long struct) { return memGetInt(struct + OVRMirrorTextureDesc.HEIGHT); }
     /** Unsafe version of {@link #MiscFlags}. */
-    public static int nMiscFlags(long struct) { return UNSAFE.getInt(null, struct + OVRMirrorTextureDesc.MISCFLAGS); }
+    public static int nMiscFlags(long struct) { return memGetInt(struct + OVRMirrorTextureDesc.MISCFLAGS); }
 
     /** Unsafe version of {@link #Format(int) Format}. */
-    public static void nFormat(long struct, int value) { UNSAFE.putInt(null, struct + OVRMirrorTextureDesc.FORMAT, value); }
+    public static void nFormat(long struct, int value) { memPutInt(struct + OVRMirrorTextureDesc.FORMAT, value); }
     /** Unsafe version of {@link #Width(int) Width}. */
-    public static void nWidth(long struct, int value) { UNSAFE.putInt(null, struct + OVRMirrorTextureDesc.WIDTH, value); }
+    public static void nWidth(long struct, int value) { memPutInt(struct + OVRMirrorTextureDesc.WIDTH, value); }
     /** Unsafe version of {@link #Height(int) Height}. */
-    public static void nHeight(long struct, int value) { UNSAFE.putInt(null, struct + OVRMirrorTextureDesc.HEIGHT, value); }
+    public static void nHeight(long struct, int value) { memPutInt(struct + OVRMirrorTextureDesc.HEIGHT, value); }
     /** Unsafe version of {@link #MiscFlags(int) MiscFlags}. */
-    public static void nMiscFlags(long struct, int value) { UNSAFE.putInt(null, struct + OVRMirrorTextureDesc.MISCFLAGS, value); }
+    public static void nMiscFlags(long struct, int value) { memPutInt(struct + OVRMirrorTextureDesc.MISCFLAGS, value); }
 
     // -----------------------------------
 
@@ -311,6 +309,11 @@ public class OVRMirrorTextureDesc extends Struct<OVRMirrorTextureDesc> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkBufferImageCopy}, {@link VkBufferImageCopy2}, {@link VkCopyMemoryToImageIndirectCommandNV}, {@link VkImageCopy}, {@link VkImageCopy2}, {@link VkImageCreateInfo}, {@link VkImageFormatProperties}, {@link VkImageResolve}, {@link VkImageResolve2}, {@link VkImageToMemoryCopyEXT}, {@link VkMemoryToImageCopyEXT}, {@link VkQueueFamilyProperties}, {@link VkSparseImageFormatProperties}, {@link VkSparseImageMemoryBind}, {@link VkTilePropertiesQCOM}</p>
+ * <p>{@link VkBufferImageCopy}, {@link VkBufferImageCopy2}, {@link VkCopyMemoryToImageIndirectCommandNV}, {@link VkImageCopy}, {@link VkImageCopy2}, {@link VkImageCreateInfo}, {@link VkImageFormatProperties}, {@link VkImageResolve}, {@link VkImageResolve2}, {@link VkImageToMemoryCopy}, {@link VkMemoryToImageCopy}, {@link VkQueueFamilyProperties}, {@link VkSparseImageFormatProperties}, {@link VkSparseImageMemoryBind}, {@link VkTilePropertiesQCOM}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -148,8 +148,7 @@ public class VkExtent3D extends Struct<VkExtent3D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtent3D createSafe(long address) {
+    public static @Nullable VkExtent3D createSafe(long address) {
         return address == NULL ? null : new VkExtent3D(address, null);
     }
 
@@ -192,8 +191,7 @@ public class VkExtent3D extends Struct<VkExtent3D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtent3D.Buffer createSafe(long address, int capacity) {
+    public static VkExtent3D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,18 +255,18 @@ public class VkExtent3D extends Struct<VkExtent3D> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + VkExtent3D.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + VkExtent3D.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + VkExtent3D.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + VkExtent3D.HEIGHT); }
     /** Unsafe version of {@link #depth}. */
-    public static int ndepth(long struct) { return UNSAFE.getInt(null, struct + VkExtent3D.DEPTH); }
+    public static int ndepth(long struct) { return memGetInt(struct + VkExtent3D.DEPTH); }
 
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + VkExtent3D.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + VkExtent3D.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + VkExtent3D.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + VkExtent3D.HEIGHT, value); }
     /** Unsafe version of {@link #depth(int) depth}. */
-    public static void ndepth(long struct, int value) { UNSAFE.putInt(null, struct + VkExtent3D.DEPTH, value); }
+    public static void ndepth(long struct, int value) { memPutInt(struct + VkExtent3D.DEPTH, value); }
 
     // -----------------------------------
 
@@ -301,6 +299,11 @@ public class VkExtent3D extends Struct<VkExtent3D> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

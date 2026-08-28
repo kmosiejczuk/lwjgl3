@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -98,8 +98,7 @@ public class VkDrmFormatModifierProperties2EXT extends Struct<VkDrmFormatModifie
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrmFormatModifierProperties2EXT createSafe(long address) {
+    public static @Nullable VkDrmFormatModifierProperties2EXT createSafe(long address) {
         return address == NULL ? null : new VkDrmFormatModifierProperties2EXT(address, null);
     }
 
@@ -114,19 +113,18 @@ public class VkDrmFormatModifierProperties2EXT extends Struct<VkDrmFormatModifie
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrmFormatModifierProperties2EXT.Buffer createSafe(long address, int capacity) {
+    public static VkDrmFormatModifierProperties2EXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #drmFormatModifier}. */
-    public static long ndrmFormatModifier(long struct) { return UNSAFE.getLong(null, struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIER); }
+    public static long ndrmFormatModifier(long struct) { return memGetLong(struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIER); }
     /** Unsafe version of {@link #drmFormatModifierPlaneCount}. */
-    public static int ndrmFormatModifierPlaneCount(long struct) { return UNSAFE.getInt(null, struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIERPLANECOUNT); }
+    public static int ndrmFormatModifierPlaneCount(long struct) { return memGetInt(struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIERPLANECOUNT); }
     /** Unsafe version of {@link #drmFormatModifierTilingFeatures}. */
-    public static long ndrmFormatModifierTilingFeatures(long struct) { return UNSAFE.getLong(null, struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIERTILINGFEATURES); }
+    public static long ndrmFormatModifierTilingFeatures(long struct) { return memGetLong(struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIERTILINGFEATURES); }
 
     // -----------------------------------
 
@@ -159,6 +157,11 @@ public class VkDrmFormatModifierProperties2EXT extends Struct<VkDrmFormatModifie
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -183,8 +183,7 @@ public class XrMarkerSpaceCreateInfoML extends Struct<XrMarkerSpaceCreateInfoML>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerSpaceCreateInfoML createSafe(long address) {
+    public static @Nullable XrMarkerSpaceCreateInfoML createSafe(long address) {
         return address == NULL ? null : new XrMarkerSpaceCreateInfoML(address, null);
     }
 
@@ -227,8 +226,7 @@ public class XrMarkerSpaceCreateInfoML extends Struct<XrMarkerSpaceCreateInfoML>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerSpaceCreateInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrMarkerSpaceCreateInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,24 +271,24 @@ public class XrMarkerSpaceCreateInfoML extends Struct<XrMarkerSpaceCreateInfoML>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrMarkerSpaceCreateInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrMarkerSpaceCreateInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrMarkerSpaceCreateInfoML.NEXT); }
     /** Unsafe version of {@link #markerDetector}. */
     public static long nmarkerDetector(long struct) { return memGetAddress(struct + XrMarkerSpaceCreateInfoML.MARKERDETECTOR); }
     /** Unsafe version of {@link #marker}. */
-    public static long nmarker(long struct) { return UNSAFE.getLong(null, struct + XrMarkerSpaceCreateInfoML.MARKER); }
+    public static long nmarker(long struct) { return memGetLong(struct + XrMarkerSpaceCreateInfoML.MARKER); }
     /** Unsafe version of {@link #poseInMarkerSpace}. */
     public static XrPosef nposeInMarkerSpace(long struct) { return XrPosef.create(struct + XrMarkerSpaceCreateInfoML.POSEINMARKERSPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrMarkerSpaceCreateInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrMarkerSpaceCreateInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrMarkerSpaceCreateInfoML.NEXT, value); }
     /** Unsafe version of {@link #markerDetector(XrMarkerDetectorML) markerDetector}. */
     public static void nmarkerDetector(long struct, XrMarkerDetectorML value) { memPutAddress(struct + XrMarkerSpaceCreateInfoML.MARKERDETECTOR, value.address()); }
     /** Unsafe version of {@link #marker(long) marker}. */
-    public static void nmarker(long struct, long value) { UNSAFE.putLong(null, struct + XrMarkerSpaceCreateInfoML.MARKER, value); }
+    public static void nmarker(long struct, long value) { memPutLong(struct + XrMarkerSpaceCreateInfoML.MARKER, value); }
     /** Unsafe version of {@link #poseInMarkerSpace(XrPosef) poseInMarkerSpace}. */
     public static void nposeInMarkerSpace(long struct, XrPosef value) { memCopy(value.address(), struct + XrMarkerSpaceCreateInfoML.POSEINMARKERSPACE, XrPosef.SIZEOF); }
 
@@ -334,6 +332,11 @@ public class XrMarkerSpaceCreateInfoML extends Struct<XrMarkerSpaceCreateInfoML>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

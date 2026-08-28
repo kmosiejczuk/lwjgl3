@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -179,8 +179,7 @@ public class VkAccelerationStructureCreateInfoNV extends Struct<VkAccelerationSt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureCreateInfoNV createSafe(long address) {
+    public static @Nullable VkAccelerationStructureCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureCreateInfoNV(address, null);
     }
 
@@ -223,8 +222,7 @@ public class VkAccelerationStructureCreateInfoNV extends Struct<VkAccelerationSt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -288,20 +286,20 @@ public class VkAccelerationStructureCreateInfoNV extends Struct<VkAccelerationSt
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #compactedSize}. */
-    public static long ncompactedSize(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureCreateInfoNV.COMPACTEDSIZE); }
+    public static long ncompactedSize(long struct) { return memGetLong(struct + VkAccelerationStructureCreateInfoNV.COMPACTEDSIZE); }
     /** Unsafe version of {@link #info}. */
     public static VkAccelerationStructureInfoNV ninfo(long struct) { return VkAccelerationStructureInfoNV.create(struct + VkAccelerationStructureCreateInfoNV.INFO); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #compactedSize(long) compactedSize}. */
-    public static void ncompactedSize(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureCreateInfoNV.COMPACTEDSIZE, value); }
+    public static void ncompactedSize(long struct, long value) { memPutLong(struct + VkAccelerationStructureCreateInfoNV.COMPACTEDSIZE, value); }
     /** Unsafe version of {@link #info(VkAccelerationStructureInfoNV) info}. */
     public static void ninfo(long struct, VkAccelerationStructureInfoNV value) { memCopy(value.address(), struct + VkAccelerationStructureCreateInfoNV.INFO, VkAccelerationStructureInfoNV.SIZEOF); }
 
@@ -345,6 +343,11 @@ public class VkAccelerationStructureCreateInfoNV extends Struct<VkAccelerationSt
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

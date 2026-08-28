@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -86,8 +86,7 @@ public class VREventApplicationLaunch extends Struct<VREventApplicationLaunch> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventApplicationLaunch createSafe(long address) {
+    public static @Nullable VREventApplicationLaunch createSafe(long address) {
         return address == NULL ? null : new VREventApplicationLaunch(address, null);
     }
 
@@ -102,17 +101,16 @@ public class VREventApplicationLaunch extends Struct<VREventApplicationLaunch> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventApplicationLaunch.Buffer createSafe(long address, int capacity) {
+    public static VREventApplicationLaunch.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #pid}. */
-    public static int npid(long struct) { return UNSAFE.getInt(null, struct + VREventApplicationLaunch.PID); }
+    public static int npid(long struct) { return memGetInt(struct + VREventApplicationLaunch.PID); }
     /** Unsafe version of {@link #unArgsHandle}. */
-    public static int nunArgsHandle(long struct) { return UNSAFE.getInt(null, struct + VREventApplicationLaunch.UNARGSHANDLE); }
+    public static int nunArgsHandle(long struct) { return memGetInt(struct + VREventApplicationLaunch.UNARGSHANDLE); }
 
     // -----------------------------------
 
@@ -145,6 +143,11 @@ public class VREventApplicationLaunch extends Struct<VREventApplicationLaunch> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

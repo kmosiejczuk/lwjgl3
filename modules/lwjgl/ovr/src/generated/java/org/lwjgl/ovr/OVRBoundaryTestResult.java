@@ -5,7 +5,7 @@
  */
 package org.lwjgl.ovr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -119,8 +119,7 @@ public class OVRBoundaryTestResult extends Struct<OVRBoundaryTestResult> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRBoundaryTestResult createSafe(long address) {
+    public static @Nullable OVRBoundaryTestResult createSafe(long address) {
         return address == NULL ? null : new OVRBoundaryTestResult(address, null);
     }
 
@@ -163,8 +162,7 @@ public class OVRBoundaryTestResult extends Struct<OVRBoundaryTestResult> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OVRBoundaryTestResult.Buffer createSafe(long address, int capacity) {
+    public static OVRBoundaryTestResult.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -228,9 +226,9 @@ public class OVRBoundaryTestResult extends Struct<OVRBoundaryTestResult> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #IsTriggering}. */
-    public static boolean nIsTriggering(long struct) { return UNSAFE.getByte(null, struct + OVRBoundaryTestResult.ISTRIGGERING) != 0; }
+    public static boolean nIsTriggering(long struct) { return memGetByte(struct + OVRBoundaryTestResult.ISTRIGGERING) != 0; }
     /** Unsafe version of {@link #ClosestDistance}. */
-    public static float nClosestDistance(long struct) { return UNSAFE.getFloat(null, struct + OVRBoundaryTestResult.CLOSESTDISTANCE); }
+    public static float nClosestDistance(long struct) { return memGetFloat(struct + OVRBoundaryTestResult.CLOSESTDISTANCE); }
     /** Unsafe version of {@link #ClosestPoint}. */
     public static OVRVector3f nClosestPoint(long struct) { return OVRVector3f.create(struct + OVRBoundaryTestResult.CLOSESTPOINT); }
     /** Unsafe version of {@link #ClosestPointNormal}. */
@@ -267,6 +265,11 @@ public class OVRBoundaryTestResult extends Struct<OVRBoundaryTestResult> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

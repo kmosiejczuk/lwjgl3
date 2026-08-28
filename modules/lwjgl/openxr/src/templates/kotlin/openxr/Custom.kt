@@ -48,6 +48,7 @@ fun templateCustomization() {
     generateDispatchableHandle(XrActionSet, XrInstance)
     generateDispatchableHandle(XrAction, XrActionSet)
     generateDispatchableHandle(XrBodyTrackerFB, XrSession)
+    generateDispatchableHandle(XrBodyTrackerHTC, XrSession)
     generateDispatchableHandle(XrDebugUtilsMessengerEXT, XrInstance)
     generateDispatchableHandle(XrEnvironmentDepthProviderMETA, XrSession)
     generateDispatchableHandle(XrEnvironmentDepthSwapchainMETA, XrEnvironmentDepthProviderMETA)
@@ -55,6 +56,7 @@ fun templateCustomization() {
     generateDispatchableHandle(XrExportedLocalizationMapML, XrSession)
     generateDispatchableHandle(XrFaceTrackerFB, XrSession)
     generateDispatchableHandle(XrFaceTracker2FB, XrSession)
+    generateDispatchableHandle(XrFacialExpressionClientML, XrSession)
     generateDispatchableHandle(XrFacialTrackerHTC, XrSession)
     generateDispatchableHandle(XrFoveationProfileFB, XrSession)
     generateDispatchableHandle(XrGeometryInstanceFB, XrSession)
@@ -72,16 +74,18 @@ fun templateCustomization() {
     generateDispatchableHandle(XrSpaceUserFB, XrSession)
     generateDispatchableHandle(XrSpatialAnchorMSFT, XrSession)
     generateDispatchableHandle(XrSpatialAnchorStoreConnectionMSFT, XrSession)
+    generateDispatchableHandle(XrSpatialAnchorsStorageML, XrSession)
     generateDispatchableHandle(XrSpatialGraphNodeBindingMSFT, XrSession)
     generateDispatchableHandle(XrSwapchain, XrSession)
     generateDispatchableHandle(XrTriangleMeshFB, XrSession)
     generateDispatchableHandle(XrVirtualKeyboardMETA, XrSession)
+    generateDispatchableHandle(XrWorldMeshDetectorML, XrSession)
 
     XR10.apply {
         LongConstant(
             "OpenXR current version number.",
 
-            "CURRENT_API_VERSION".."XR_MAKE_VERSION(1, 1, 37)"
+            "CURRENT_API_VERSION".."XR_MAKE_VERSION(1, 1, 43)"
         )
 
         LongConstant(
@@ -278,6 +282,14 @@ fun templateCustomization() {
             "API Constants",
 
             "NULL_RENDER_MODEL_KEY_FB"..0L
+        )
+    }
+
+    HTC_body_tracking.apply {
+        IntConstant(
+            "API Constants",
+
+            "BODY_JOINT_COUNT_HTC"..26
         )
     }
 

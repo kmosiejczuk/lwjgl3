@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class CMsghdr extends Struct<CMsghdr> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CMsghdr createSafe(long address) {
+    public static @Nullable CMsghdr createSafe(long address) {
         return address == NULL ? null : new CMsghdr(address, null);
     }
 
@@ -202,8 +201,7 @@ public class CMsghdr extends Struct<CMsghdr> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CMsghdr.Buffer createSafe(long address, int capacity) {
+    public static CMsghdr.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,24 +246,24 @@ public class CMsghdr extends Struct<CMsghdr> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #cmsg_len}. */
-    public static int ncmsg_len(long struct) { return UNSAFE.getInt(null, struct + CMsghdr.CMSG_LEN); }
+    public static int ncmsg_len(long struct) { return memGetInt(struct + CMsghdr.CMSG_LEN); }
     /** Unsafe version of {@link #cmsg_level}. */
-    public static int ncmsg_level(long struct) { return UNSAFE.getInt(null, struct + CMsghdr.CMSG_LEVEL); }
+    public static int ncmsg_level(long struct) { return memGetInt(struct + CMsghdr.CMSG_LEVEL); }
     /** Unsafe version of {@link #cmsg_type}. */
-    public static int ncmsg_type(long struct) { return UNSAFE.getInt(null, struct + CMsghdr.CMSG_TYPE); }
+    public static int ncmsg_type(long struct) { return memGetInt(struct + CMsghdr.CMSG_TYPE); }
     /** Unsafe version of {@link #cmsg_data}. */
     public static ByteBuffer ncmsg_data(long struct) { return memByteBuffer(struct + CMsghdr.CMSG_DATA, 0); }
     /** Unsafe version of {@link #cmsg_data(int) cmsg_data}. */
     public static byte ncmsg_data(long struct, int index) {
-        return UNSAFE.getByte(null, struct + CMsghdr.CMSG_DATA + check(index, 0) * 1);
+        return memGetByte(struct + CMsghdr.CMSG_DATA + check(index, 0) * 1);
     }
 
     /** Unsafe version of {@link #cmsg_len(int) cmsg_len}. */
-    public static void ncmsg_len(long struct, int value) { UNSAFE.putInt(null, struct + CMsghdr.CMSG_LEN, value); }
+    public static void ncmsg_len(long struct, int value) { memPutInt(struct + CMsghdr.CMSG_LEN, value); }
     /** Unsafe version of {@link #cmsg_level(int) cmsg_level}. */
-    public static void ncmsg_level(long struct, int value) { UNSAFE.putInt(null, struct + CMsghdr.CMSG_LEVEL, value); }
+    public static void ncmsg_level(long struct, int value) { memPutInt(struct + CMsghdr.CMSG_LEVEL, value); }
     /** Unsafe version of {@link #cmsg_type(int) cmsg_type}. */
-    public static void ncmsg_type(long struct, int value) { UNSAFE.putInt(null, struct + CMsghdr.CMSG_TYPE, value); }
+    public static void ncmsg_type(long struct, int value) { memPutInt(struct + CMsghdr.CMSG_TYPE, value); }
     /** Unsafe version of {@link #cmsg_data(ByteBuffer) cmsg_data}. */
     public static void ncmsg_data(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 0); }
@@ -273,7 +271,7 @@ public class CMsghdr extends Struct<CMsghdr> implements NativeResource {
     }
     /** Unsafe version of {@link #cmsg_data(int, byte) cmsg_data}. */
     public static void ncmsg_data(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + CMsghdr.CMSG_DATA + check(index, 0) * 1, value);
+        memPutByte(struct + CMsghdr.CMSG_DATA + check(index, 0) * 1, value);
     }
 
     // -----------------------------------
@@ -307,6 +305,11 @@ public class CMsghdr extends Struct<CMsghdr> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

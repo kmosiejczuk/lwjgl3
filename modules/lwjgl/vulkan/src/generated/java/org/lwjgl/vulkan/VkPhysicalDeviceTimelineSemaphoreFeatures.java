@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceTimelineSemaphoreFeatures extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTimelineSemaphoreFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceTimelineSemaphoreFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceTimelineSemaphoreFeatures(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceTimelineSemaphoreFeatures extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTimelineSemaphoreFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceTimelineSemaphoreFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceTimelineSemaphoreFeatures extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTimelineSemaphoreFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.PNEXT); }
     /** Unsafe version of {@link #timelineSemaphore}. */
-    public static int ntimelineSemaphore(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTimelineSemaphoreFeatures.TIMELINESEMAPHORE); }
+    public static int ntimelineSemaphore(long struct) { return memGetInt(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.TIMELINESEMAPHORE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTimelineSemaphoreFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.PNEXT, value); }
     /** Unsafe version of {@link #timelineSemaphore(boolean) timelineSemaphore}. */
-    public static void ntimelineSemaphore(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTimelineSemaphoreFeatures.TIMELINESEMAPHORE, value); }
+    public static void ntimelineSemaphore(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.TIMELINESEMAPHORE, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceTimelineSemaphoreFeatures extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

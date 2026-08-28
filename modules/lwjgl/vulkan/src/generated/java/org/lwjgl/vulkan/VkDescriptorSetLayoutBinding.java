@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLER DESCRIPTOR_TYPE_SAMPLER} or {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, and {@code descriptorCount} is not 0 and {@code pImmutableSamplers} is not {@code NULL}, {@code pImmutableSamplers} <b>must</b> be a valid pointer to an array of {@code descriptorCount} valid {@code VkSampler} handles</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inlineUniformBlock">{@code inlineUniformBlock}</a> feature is not enabled, {@code descriptorType} <b>must</b> not be {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-inlineUniformBlock">{@code inlineUniformBlock}</a> feature is not enabled, {@code descriptorType} <b>must</b> not be {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}</li>
  * <li>If {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} then {@code descriptorCount} <b>must</b> be a multiple of 4</li>
  * <li>If {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} and {@link VkDescriptorSetLayoutCreateInfo}{@code ::flags} does not contain {@link EXTDescriptorBuffer#VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT} then {@code descriptorCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceInlineUniformBlockProperties}{@code ::maxInlineUniformBlockSize}</li>
  * <li>If {@link VkDescriptorSetLayoutCreateInfo}{@code ::flags} contains {@link EXTDescriptorBuffer#VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT}, {@code descriptorType} <b>must</b> be {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLER DESCRIPTOR_TYPE_SAMPLER}</li>
@@ -139,9 +139,8 @@ public class VkDescriptorSetLayoutBinding extends Struct<VkDescriptorSetLayoutBi
     @NativeType("VkShaderStageFlags")
     public int stageFlags() { return nstageFlags(address()); }
     /** affects initialization of samplers. If {@code descriptorType} specifies a {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLER DESCRIPTOR_TYPE_SAMPLER} or {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER} type descriptor, then {@code pImmutableSamplers} <b>can</b> be used to initialize a set of <em>immutable samplers</em>. Immutable samplers are permanently bound into the set layout and <b>must</b> not be changed; updating a {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLER DESCRIPTOR_TYPE_SAMPLER} descriptor with immutable samplers is not allowed and updates to a {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER} descriptor with immutable samplers does not modify the samplers (the image views are updated, but the sampler updates are ignored). If {@code pImmutableSamplers} is not {@code NULL}, then it is a pointer to an array of sampler handles that will be copied into the set layout and used for the corresponding binding. Only the sampler handles are copied; the sampler objects <b>must</b> not be destroyed before the final use of the set layout and any descriptor pools and sets created using it. If {@code pImmutableSamplers} is {@code NULL}, then the sampler slots are dynamic and sampler handles <b>must</b> be bound into descriptor sets using this layout. If {@code descriptorType} is not one of these descriptor types, then {@code pImmutableSamplers} is ignored. */
-    @Nullable
     @NativeType("VkSampler const *")
-    public LongBuffer pImmutableSamplers() { return npImmutableSamplers(address()); }
+    public @Nullable LongBuffer pImmutableSamplers() { return npImmutableSamplers(address()); }
 
     /** Sets the specified value to the {@link #binding} field. */
     public VkDescriptorSetLayoutBinding binding(@NativeType("uint32_t") int value) { nbinding(address(), value); return this; }
@@ -207,8 +206,7 @@ public class VkDescriptorSetLayoutBinding extends Struct<VkDescriptorSetLayoutBi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorSetLayoutBinding createSafe(long address) {
+    public static @Nullable VkDescriptorSetLayoutBinding createSafe(long address) {
         return address == NULL ? null : new VkDescriptorSetLayoutBinding(address, null);
     }
 
@@ -251,8 +249,7 @@ public class VkDescriptorSetLayoutBinding extends Struct<VkDescriptorSetLayoutBi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorSetLayoutBinding.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorSetLayoutBinding.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -316,24 +313,24 @@ public class VkDescriptorSetLayoutBinding extends Struct<VkDescriptorSetLayoutBi
     // -----------------------------------
 
     /** Unsafe version of {@link #binding}. */
-    public static int nbinding(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetLayoutBinding.BINDING); }
+    public static int nbinding(long struct) { return memGetInt(struct + VkDescriptorSetLayoutBinding.BINDING); }
     /** Unsafe version of {@link #descriptorType}. */
-    public static int ndescriptorType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetLayoutBinding.DESCRIPTORTYPE); }
+    public static int ndescriptorType(long struct) { return memGetInt(struct + VkDescriptorSetLayoutBinding.DESCRIPTORTYPE); }
     /** Unsafe version of {@link #descriptorCount}. */
-    public static int ndescriptorCount(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetLayoutBinding.DESCRIPTORCOUNT); }
+    public static int ndescriptorCount(long struct) { return memGetInt(struct + VkDescriptorSetLayoutBinding.DESCRIPTORCOUNT); }
     /** Unsafe version of {@link #stageFlags}. */
-    public static int nstageFlags(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetLayoutBinding.STAGEFLAGS); }
+    public static int nstageFlags(long struct) { return memGetInt(struct + VkDescriptorSetLayoutBinding.STAGEFLAGS); }
     /** Unsafe version of {@link #pImmutableSamplers() pImmutableSamplers}. */
-    @Nullable public static LongBuffer npImmutableSamplers(long struct) { return memLongBufferSafe(memGetAddress(struct + VkDescriptorSetLayoutBinding.PIMMUTABLESAMPLERS), ndescriptorCount(struct)); }
+    public static @Nullable LongBuffer npImmutableSamplers(long struct) { return memLongBufferSafe(memGetAddress(struct + VkDescriptorSetLayoutBinding.PIMMUTABLESAMPLERS), ndescriptorCount(struct)); }
 
     /** Unsafe version of {@link #binding(int) binding}. */
-    public static void nbinding(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetLayoutBinding.BINDING, value); }
+    public static void nbinding(long struct, int value) { memPutInt(struct + VkDescriptorSetLayoutBinding.BINDING, value); }
     /** Unsafe version of {@link #descriptorType(int) descriptorType}. */
-    public static void ndescriptorType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetLayoutBinding.DESCRIPTORTYPE, value); }
+    public static void ndescriptorType(long struct, int value) { memPutInt(struct + VkDescriptorSetLayoutBinding.DESCRIPTORTYPE, value); }
     /** Sets the specified value to the {@code descriptorCount} field of the specified {@code struct}. */
-    public static void ndescriptorCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetLayoutBinding.DESCRIPTORCOUNT, value); }
+    public static void ndescriptorCount(long struct, int value) { memPutInt(struct + VkDescriptorSetLayoutBinding.DESCRIPTORCOUNT, value); }
     /** Unsafe version of {@link #stageFlags(int) stageFlags}. */
-    public static void nstageFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetLayoutBinding.STAGEFLAGS, value); }
+    public static void nstageFlags(long struct, int value) { memPutInt(struct + VkDescriptorSetLayoutBinding.STAGEFLAGS, value); }
     /** Unsafe version of {@link #pImmutableSamplers(LongBuffer) pImmutableSamplers}. */
     public static void npImmutableSamplers(long struct, @Nullable LongBuffer value) { memPutAddress(struct + VkDescriptorSetLayoutBinding.PIMMUTABLESAMPLERS, memAddressSafe(value)); if (value != null) { ndescriptorCount(struct, value.remaining()); } }
 
@@ -371,6 +368,11 @@ public class VkDescriptorSetLayoutBinding extends Struct<VkDescriptorSetLayoutBi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDescriptorSetLayoutBinding getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -388,9 +390,8 @@ public class VkDescriptorSetLayoutBinding extends Struct<VkDescriptorSetLayoutBi
         @NativeType("VkShaderStageFlags")
         public int stageFlags() { return VkDescriptorSetLayoutBinding.nstageFlags(address()); }
         /** @return a {@link LongBuffer} view of the data pointed to by the {@link VkDescriptorSetLayoutBinding#pImmutableSamplers} field. */
-        @Nullable
         @NativeType("VkSampler const *")
-        public LongBuffer pImmutableSamplers() { return VkDescriptorSetLayoutBinding.npImmutableSamplers(address()); }
+        public @Nullable LongBuffer pImmutableSamplers() { return VkDescriptorSetLayoutBinding.npImmutableSamplers(address()); }
 
         /** Sets the specified value to the {@link VkDescriptorSetLayoutBinding#binding} field. */
         public VkDescriptorSetLayoutBinding.Buffer binding(@NativeType("uint32_t") int value) { VkDescriptorSetLayoutBinding.nbinding(address(), value); return this; }

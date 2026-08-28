@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -139,8 +139,7 @@ public class CameraVideoStreamFrameHeader extends Struct<CameraVideoStreamFrameH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CameraVideoStreamFrameHeader createSafe(long address) {
+    public static @Nullable CameraVideoStreamFrameHeader createSafe(long address) {
         return address == NULL ? null : new CameraVideoStreamFrameHeader(address, null);
     }
 
@@ -183,8 +182,7 @@ public class CameraVideoStreamFrameHeader extends Struct<CameraVideoStreamFrameH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CameraVideoStreamFrameHeader.Buffer createSafe(long address, int capacity) {
+    public static CameraVideoStreamFrameHeader.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,19 +246,19 @@ public class CameraVideoStreamFrameHeader extends Struct<CameraVideoStreamFrameH
     // -----------------------------------
 
     /** Unsafe version of {@link #eFrameType}. */
-    public static int neFrameType(long struct) { return UNSAFE.getInt(null, struct + CameraVideoStreamFrameHeader.EFRAMETYPE); }
+    public static int neFrameType(long struct) { return memGetInt(struct + CameraVideoStreamFrameHeader.EFRAMETYPE); }
     /** Unsafe version of {@link #nWidth}. */
-    public static int nnWidth(long struct) { return UNSAFE.getInt(null, struct + CameraVideoStreamFrameHeader.NWIDTH); }
+    public static int nnWidth(long struct) { return memGetInt(struct + CameraVideoStreamFrameHeader.NWIDTH); }
     /** Unsafe version of {@link #nHeight}. */
-    public static int nnHeight(long struct) { return UNSAFE.getInt(null, struct + CameraVideoStreamFrameHeader.NHEIGHT); }
+    public static int nnHeight(long struct) { return memGetInt(struct + CameraVideoStreamFrameHeader.NHEIGHT); }
     /** Unsafe version of {@link #nBytesPerPixel}. */
-    public static int nnBytesPerPixel(long struct) { return UNSAFE.getInt(null, struct + CameraVideoStreamFrameHeader.NBYTESPERPIXEL); }
+    public static int nnBytesPerPixel(long struct) { return memGetInt(struct + CameraVideoStreamFrameHeader.NBYTESPERPIXEL); }
     /** Unsafe version of {@link #nFrameSequence}. */
-    public static int nnFrameSequence(long struct) { return UNSAFE.getInt(null, struct + CameraVideoStreamFrameHeader.NFRAMESEQUENCE); }
+    public static int nnFrameSequence(long struct) { return memGetInt(struct + CameraVideoStreamFrameHeader.NFRAMESEQUENCE); }
     /** Unsafe version of {@link #trackedDevicePose}. */
     public static TrackedDevicePose ntrackedDevicePose(long struct) { return TrackedDevicePose.create(struct + CameraVideoStreamFrameHeader.TRACKEDDEVICEPOSE); }
     /** Unsafe version of {@link #ulFrameExposureTime}. */
-    public static long nulFrameExposureTime(long struct) { return UNSAFE.getLong(null, struct + CameraVideoStreamFrameHeader.ULFRAMEEXPOSURETIME); }
+    public static long nulFrameExposureTime(long struct) { return memGetLong(struct + CameraVideoStreamFrameHeader.ULFRAMEEXPOSURETIME); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class CameraVideoStreamFrameHeader extends Struct<CameraVideoStreamFrameH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

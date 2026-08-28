@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -150,8 +150,7 @@ public class XrSystemEyeGazeInteractionPropertiesEXT extends Struct<XrSystemEyeG
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemEyeGazeInteractionPropertiesEXT createSafe(long address) {
+    public static @Nullable XrSystemEyeGazeInteractionPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new XrSystemEyeGazeInteractionPropertiesEXT(address, null);
     }
 
@@ -194,8 +193,7 @@ public class XrSystemEyeGazeInteractionPropertiesEXT extends Struct<XrSystemEyeG
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemEyeGazeInteractionPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static XrSystemEyeGazeInteractionPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,14 +238,14 @@ public class XrSystemEyeGazeInteractionPropertiesEXT extends Struct<XrSystemEyeG
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemEyeGazeInteractionPropertiesEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemEyeGazeInteractionPropertiesEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemEyeGazeInteractionPropertiesEXT.NEXT); }
     /** Unsafe version of {@link #supportsEyeGazeInteraction}. */
-    public static int nsupportsEyeGazeInteraction(long struct) { return UNSAFE.getInt(null, struct + XrSystemEyeGazeInteractionPropertiesEXT.SUPPORTSEYEGAZEINTERACTION); }
+    public static int nsupportsEyeGazeInteraction(long struct) { return memGetInt(struct + XrSystemEyeGazeInteractionPropertiesEXT.SUPPORTSEYEGAZEINTERACTION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemEyeGazeInteractionPropertiesEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemEyeGazeInteractionPropertiesEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemEyeGazeInteractionPropertiesEXT.NEXT, value); }
 
@@ -282,6 +280,11 @@ public class XrSystemEyeGazeInteractionPropertiesEXT extends Struct<XrSystemEyeG
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

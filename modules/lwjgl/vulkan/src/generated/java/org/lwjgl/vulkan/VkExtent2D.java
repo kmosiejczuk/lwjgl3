@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkDisplayModeParametersKHR}, {@link VkDisplayPlaneCapabilitiesKHR}, {@link VkDisplayPropertiesKHR}, {@link VkDisplaySurfaceCreateInfoKHR}, {@link VkFragmentShadingRateAttachmentInfoKHR}, {@link VkImageViewSampleWeightCreateInfoQCOM}, {@link VkMultisamplePropertiesEXT}, {@link VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM}, {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT}, {@link VkPhysicalDeviceFragmentShadingRateKHR}, {@link VkPhysicalDeviceFragmentShadingRatePropertiesKHR}, {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM}, {@link VkPhysicalDeviceImageProcessingPropertiesQCOM}, {@link VkPhysicalDeviceRenderPassStripedPropertiesARM}, {@link VkPhysicalDeviceSampleLocationsPropertiesEXT}, {@link VkPhysicalDeviceShadingRateImagePropertiesNV}, {@link VkPipelineFragmentShadingRateStateCreateInfoKHR}, {@link VkRect2D}, {@link VkRectLayerKHR}, {@link VkRenderingFragmentShadingRateAttachmentInfoKHR}, {@link VkSampleLocationsInfoEXT}, {@link VkSamplerBlockMatchWindowCreateInfoQCOM}, {@link VkSurfaceCapabilities2EXT}, {@link VkSurfaceCapabilitiesKHR}, {@link VkSurfacePresentScalingCapabilitiesEXT}, {@link VkSwapchainCreateInfoKHR}, {@link VkTilePropertiesQCOM}, {@link VkVideoCapabilitiesKHR}, {@link VkVideoEncodeCapabilitiesKHR}, {@link VkVideoEncodeH265CapabilitiesKHR}, {@link VkVideoPictureResourceInfoKHR}, {@link VkVideoSessionCreateInfoKHR}, {@link KHRFragmentShadingRate#vkCmdSetFragmentShadingRateKHR CmdSetFragmentShadingRateKHR}, {@link HUAWEISubpassShading#vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI GetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI}, {@link VK10#vkGetRenderAreaGranularity GetRenderAreaGranularity}, {@link KHRMaintenance5#vkGetRenderingAreaGranularityKHR GetRenderingAreaGranularityKHR}</p>
+ * <p>{@link VkDisplayModeParametersKHR}, {@link VkDisplayPlaneCapabilitiesKHR}, {@link VkDisplayPropertiesKHR}, {@link VkDisplaySurfaceCreateInfoKHR}, {@link VkFragmentShadingRateAttachmentInfoKHR}, {@link VkImageViewSampleWeightCreateInfoQCOM}, {@link VkMultisamplePropertiesEXT}, {@link VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM}, {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT}, {@link VkPhysicalDeviceFragmentShadingRateKHR}, {@link VkPhysicalDeviceFragmentShadingRatePropertiesKHR}, {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM}, {@link VkPhysicalDeviceImageProcessingPropertiesQCOM}, {@link VkPhysicalDeviceRenderPassStripedPropertiesARM}, {@link VkPhysicalDeviceSampleLocationsPropertiesEXT}, {@link VkPhysicalDeviceShadingRateImagePropertiesNV}, {@link VkPipelineFragmentShadingRateStateCreateInfoKHR}, {@link VkRect2D}, {@link VkRectLayerKHR}, {@link VkRenderingFragmentShadingRateAttachmentInfoKHR}, {@link VkSampleLocationsInfoEXT}, {@link VkSamplerBlockMatchWindowCreateInfoQCOM}, {@link VkSurfaceCapabilities2EXT}, {@link VkSurfaceCapabilitiesKHR}, {@link VkSurfacePresentScalingCapabilitiesEXT}, {@link VkSwapchainCreateInfoKHR}, {@link VkTilePropertiesQCOM}, {@link VkVideoCapabilitiesKHR}, {@link VkVideoEncodeAV1CapabilitiesKHR}, {@link VkVideoEncodeCapabilitiesKHR}, {@link VkVideoEncodeH265CapabilitiesKHR}, {@link VkVideoEncodeQuantizationMapCapabilitiesKHR}, {@link VkVideoEncodeQuantizationMapInfoKHR}, {@link VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR}, {@link VkVideoFormatQuantizationMapPropertiesKHR}, {@link VkVideoPictureResourceInfoKHR}, {@link VkVideoSessionCreateInfoKHR}, {@link KHRFragmentShadingRate#vkCmdSetFragmentShadingRateKHR CmdSetFragmentShadingRateKHR}, {@link HUAWEISubpassShading#vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI GetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI}, {@link VK10#vkGetRenderAreaGranularity GetRenderAreaGranularity}, {@link VK14#vkGetRenderingAreaGranularity GetRenderingAreaGranularity}, {@link KHRMaintenance5#vkGetRenderingAreaGranularityKHR GetRenderingAreaGranularityKHR}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -137,8 +137,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtent2D createSafe(long address) {
+    public static @Nullable VkExtent2D createSafe(long address) {
         return address == NULL ? null : new VkExtent2D(address, null);
     }
 
@@ -181,8 +180,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtent2D.Buffer createSafe(long address, int capacity) {
+    public static VkExtent2D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,14 +244,14 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + VkExtent2D.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + VkExtent2D.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + VkExtent2D.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + VkExtent2D.HEIGHT); }
 
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + VkExtent2D.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + VkExtent2D.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + VkExtent2D.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + VkExtent2D.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -286,6 +284,11 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

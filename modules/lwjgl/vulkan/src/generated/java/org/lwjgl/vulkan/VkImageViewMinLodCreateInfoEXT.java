@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the {@code pNext} chain includes a {@link VkImageViewMinLodCreateInfoEXT} structure, then that structure includes a parameter specifying a value to clamp the minimum LOD value during <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-image-level-selection">Image Level(s) Selection</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-gather">Texel Gathering</a> and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-integer-coordinate-operations">Integer Texel Coordinate Operations</a>.</p>
+ * <p>If the {@code pNext} chain includes a {@link VkImageViewMinLodCreateInfoEXT} structure, then that structure includes a parameter specifying a value to clamp the minimum LOD value during <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-image-level-selection">Image Level(s) Selection</a>, <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-gather">Texel Gathering</a> and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#textures-integer-coordinate-operations">Integer Texel Coordinate Operations</a>.</p>
  * 
  * <p>If the image view contains {@link VkImageViewMinLodCreateInfoEXT} and it is used as part of a sampling operation:</p>
  * 
@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-minLod">{@code minLod}</a> feature is not enabled, {@code minLod} <b>must</b> be {@code 0.0}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-minLod">{@code minLod}</a> feature is not enabled, {@code minLod} <b>must</b> be {@code 0.0}</li>
  * <li>{@code minLod} <b>must</b> be less or equal to the index of the last mipmap level accessible to the view</li>
  * </ul>
  * 
@@ -174,8 +174,7 @@ public class VkImageViewMinLodCreateInfoEXT extends Struct<VkImageViewMinLodCrea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewMinLodCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkImageViewMinLodCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkImageViewMinLodCreateInfoEXT(address, null);
     }
 
@@ -218,8 +217,7 @@ public class VkImageViewMinLodCreateInfoEXT extends Struct<VkImageViewMinLodCrea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewMinLodCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImageViewMinLodCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,18 +262,18 @@ public class VkImageViewMinLodCreateInfoEXT extends Struct<VkImageViewMinLodCrea
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageViewMinLodCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageViewMinLodCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageViewMinLodCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #minLod}. */
-    public static float nminLod(long struct) { return UNSAFE.getFloat(null, struct + VkImageViewMinLodCreateInfoEXT.MINLOD); }
+    public static float nminLod(long struct) { return memGetFloat(struct + VkImageViewMinLodCreateInfoEXT.MINLOD); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewMinLodCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageViewMinLodCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageViewMinLodCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #minLod(float) minLod}. */
-    public static void nminLod(long struct, float value) { UNSAFE.putFloat(null, struct + VkImageViewMinLodCreateInfoEXT.MINLOD, value); }
+    public static void nminLod(long struct, float value) { memPutFloat(struct + VkImageViewMinLodCreateInfoEXT.MINLOD, value); }
 
     // -----------------------------------
 
@@ -308,6 +306,11 @@ public class VkImageViewMinLodCreateInfoEXT extends Struct<VkImageViewMinLodCrea
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

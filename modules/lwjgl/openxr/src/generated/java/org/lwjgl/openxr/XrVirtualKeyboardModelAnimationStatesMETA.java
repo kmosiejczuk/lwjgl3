@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -112,9 +112,8 @@ public class XrVirtualKeyboardModelAnimationStatesMETA extends Struct<XrVirtualK
     @NativeType("uint32_t")
     public int stateCountOutput() { return nstateCountOutput(address()); }
     /** the array of {@link XrVirtualKeyboardAnimationStateMETA} to apply to the model. */
-    @Nullable
     @NativeType("XrVirtualKeyboardAnimationStateMETA *")
-    public XrVirtualKeyboardAnimationStateMETA.Buffer states() { return nstates(address()); }
+    public XrVirtualKeyboardAnimationStateMETA.@Nullable Buffer states() { return nstates(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
     public XrVirtualKeyboardModelAnimationStatesMETA type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
@@ -127,7 +126,7 @@ public class XrVirtualKeyboardModelAnimationStatesMETA extends Struct<XrVirtualK
     /** Sets the specified value to the {@link #stateCountOutput} field. */
     public XrVirtualKeyboardModelAnimationStatesMETA stateCountOutput(@NativeType("uint32_t") int value) { nstateCountOutput(address(), value); return this; }
     /** Sets the address of the specified {@link XrVirtualKeyboardAnimationStateMETA.Buffer} to the {@link #states} field. */
-    public XrVirtualKeyboardModelAnimationStatesMETA states(@Nullable @NativeType("XrVirtualKeyboardAnimationStateMETA *") XrVirtualKeyboardAnimationStateMETA.Buffer value) { nstates(address(), value); return this; }
+    public XrVirtualKeyboardModelAnimationStatesMETA states(@NativeType("XrVirtualKeyboardAnimationStateMETA *") XrVirtualKeyboardAnimationStateMETA.@Nullable Buffer value) { nstates(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrVirtualKeyboardModelAnimationStatesMETA set(
@@ -135,7 +134,7 @@ public class XrVirtualKeyboardModelAnimationStatesMETA extends Struct<XrVirtualK
         long next,
         int stateCapacityInput,
         int stateCountOutput,
-        @Nullable XrVirtualKeyboardAnimationStateMETA.Buffer states
+        XrVirtualKeyboardAnimationStateMETA.@Nullable Buffer states
     ) {
         type(type);
         next(next);
@@ -182,8 +181,7 @@ public class XrVirtualKeyboardModelAnimationStatesMETA extends Struct<XrVirtualK
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardModelAnimationStatesMETA createSafe(long address) {
+    public static @Nullable XrVirtualKeyboardModelAnimationStatesMETA createSafe(long address) {
         return address == NULL ? null : new XrVirtualKeyboardModelAnimationStatesMETA(address, null);
     }
 
@@ -226,8 +224,7 @@ public class XrVirtualKeyboardModelAnimationStatesMETA extends Struct<XrVirtualK
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardModelAnimationStatesMETA.Buffer createSafe(long address, int capacity) {
+    public static XrVirtualKeyboardModelAnimationStatesMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,26 +269,26 @@ public class XrVirtualKeyboardModelAnimationStatesMETA extends Struct<XrVirtualK
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardModelAnimationStatesMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVirtualKeyboardModelAnimationStatesMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVirtualKeyboardModelAnimationStatesMETA.NEXT); }
     /** Unsafe version of {@link #stateCapacityInput}. */
-    public static int nstateCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardModelAnimationStatesMETA.STATECAPACITYINPUT); }
+    public static int nstateCapacityInput(long struct) { return memGetInt(struct + XrVirtualKeyboardModelAnimationStatesMETA.STATECAPACITYINPUT); }
     /** Unsafe version of {@link #stateCountOutput}. */
-    public static int nstateCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardModelAnimationStatesMETA.STATECOUNTOUTPUT); }
+    public static int nstateCountOutput(long struct) { return memGetInt(struct + XrVirtualKeyboardModelAnimationStatesMETA.STATECOUNTOUTPUT); }
     /** Unsafe version of {@link #states}. */
-    @Nullable public static XrVirtualKeyboardAnimationStateMETA.Buffer nstates(long struct) { return XrVirtualKeyboardAnimationStateMETA.createSafe(memGetAddress(struct + XrVirtualKeyboardModelAnimationStatesMETA.STATES), nstateCapacityInput(struct)); }
+    public static XrVirtualKeyboardAnimationStateMETA.@Nullable Buffer nstates(long struct) { return XrVirtualKeyboardAnimationStateMETA.createSafe(memGetAddress(struct + XrVirtualKeyboardModelAnimationStatesMETA.STATES), nstateCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardModelAnimationStatesMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVirtualKeyboardModelAnimationStatesMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVirtualKeyboardModelAnimationStatesMETA.NEXT, value); }
     /** Sets the specified value to the {@code stateCapacityInput} field of the specified {@code struct}. */
-    public static void nstateCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardModelAnimationStatesMETA.STATECAPACITYINPUT, value); }
+    public static void nstateCapacityInput(long struct, int value) { memPutInt(struct + XrVirtualKeyboardModelAnimationStatesMETA.STATECAPACITYINPUT, value); }
     /** Unsafe version of {@link #stateCountOutput(int) stateCountOutput}. */
-    public static void nstateCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardModelAnimationStatesMETA.STATECOUNTOUTPUT, value); }
+    public static void nstateCountOutput(long struct, int value) { memPutInt(struct + XrVirtualKeyboardModelAnimationStatesMETA.STATECOUNTOUTPUT, value); }
     /** Unsafe version of {@link #states(XrVirtualKeyboardAnimationStateMETA.Buffer) states}. */
-    public static void nstates(long struct, @Nullable XrVirtualKeyboardAnimationStateMETA.Buffer value) { memPutAddress(struct + XrVirtualKeyboardModelAnimationStatesMETA.STATES, memAddressSafe(value)); if (value != null) { nstateCapacityInput(struct, value.remaining()); } }
+    public static void nstates(long struct, XrVirtualKeyboardAnimationStateMETA.@Nullable Buffer value) { memPutAddress(struct + XrVirtualKeyboardModelAnimationStatesMETA.STATES, memAddressSafe(value)); if (value != null) { nstateCapacityInput(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -327,6 +324,11 @@ public class XrVirtualKeyboardModelAnimationStatesMETA extends Struct<XrVirtualK
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVirtualKeyboardModelAnimationStatesMETA getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -344,9 +346,8 @@ public class XrVirtualKeyboardModelAnimationStatesMETA extends Struct<XrVirtualK
         @NativeType("uint32_t")
         public int stateCountOutput() { return XrVirtualKeyboardModelAnimationStatesMETA.nstateCountOutput(address()); }
         /** @return a {@link XrVirtualKeyboardAnimationStateMETA.Buffer} view of the struct array pointed to by the {@link XrVirtualKeyboardModelAnimationStatesMETA#states} field. */
-        @Nullable
         @NativeType("XrVirtualKeyboardAnimationStateMETA *")
-        public XrVirtualKeyboardAnimationStateMETA.Buffer states() { return XrVirtualKeyboardModelAnimationStatesMETA.nstates(address()); }
+        public XrVirtualKeyboardAnimationStateMETA.@Nullable Buffer states() { return XrVirtualKeyboardModelAnimationStatesMETA.nstates(address()); }
 
         /** Sets the specified value to the {@link XrVirtualKeyboardModelAnimationStatesMETA#type} field. */
         public XrVirtualKeyboardModelAnimationStatesMETA.Buffer type(@NativeType("XrStructureType") int value) { XrVirtualKeyboardModelAnimationStatesMETA.ntype(address(), value); return this; }
@@ -359,7 +360,7 @@ public class XrVirtualKeyboardModelAnimationStatesMETA extends Struct<XrVirtualK
         /** Sets the specified value to the {@link XrVirtualKeyboardModelAnimationStatesMETA#stateCountOutput} field. */
         public XrVirtualKeyboardModelAnimationStatesMETA.Buffer stateCountOutput(@NativeType("uint32_t") int value) { XrVirtualKeyboardModelAnimationStatesMETA.nstateCountOutput(address(), value); return this; }
         /** Sets the address of the specified {@link XrVirtualKeyboardAnimationStateMETA.Buffer} to the {@link XrVirtualKeyboardModelAnimationStatesMETA#states} field. */
-        public XrVirtualKeyboardModelAnimationStatesMETA.Buffer states(@Nullable @NativeType("XrVirtualKeyboardAnimationStateMETA *") XrVirtualKeyboardAnimationStateMETA.Buffer value) { XrVirtualKeyboardModelAnimationStatesMETA.nstates(address(), value); return this; }
+        public XrVirtualKeyboardModelAnimationStatesMETA.Buffer states(@NativeType("XrVirtualKeyboardAnimationStateMETA *") XrVirtualKeyboardAnimationStateMETA.@Nullable Buffer value) { XrVirtualKeyboardModelAnimationStatesMETA.nstates(address(), value); return this; }
 
     }
 

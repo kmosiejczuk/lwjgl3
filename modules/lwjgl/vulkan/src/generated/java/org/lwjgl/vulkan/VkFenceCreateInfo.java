@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class VkFenceCreateInfo extends Struct<VkFenceCreateInfo> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFenceCreateInfo createSafe(long address) {
+    public static @Nullable VkFenceCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkFenceCreateInfo(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkFenceCreateInfo extends Struct<VkFenceCreateInfo> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFenceCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkFenceCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,18 +272,18 @@ public class VkFenceCreateInfo extends Struct<VkFenceCreateInfo> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkFenceCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkFenceCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkFenceCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkFenceCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkFenceCreateInfo.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkFenceCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkFenceCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkFenceCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkFenceCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkFenceCreateInfo.FLAGS, value); }
 
     // -----------------------------------
 
@@ -318,6 +316,11 @@ public class VkFenceCreateInfo extends Struct<VkFenceCreateInfo> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

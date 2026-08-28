@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -174,8 +174,7 @@ public class NkUserFontGlyph extends Struct<NkUserFontGlyph> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkUserFontGlyph createSafe(long address) {
+    public static @Nullable NkUserFontGlyph createSafe(long address) {
         return address == NULL ? null : new NkUserFontGlyph(address, null);
     }
 
@@ -218,8 +217,7 @@ public class NkUserFontGlyph extends Struct<NkUserFontGlyph> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkUserFontGlyph.Buffer createSafe(long address, int capacity) {
+    public static NkUserFontGlyph.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -291,11 +289,11 @@ public class NkUserFontGlyph extends Struct<NkUserFontGlyph> implements NativeRe
     /** Unsafe version of {@link #offset}. */
     public static NkVec2 noffset(long struct) { return NkVec2.create(struct + NkUserFontGlyph.OFFSET); }
     /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + NkUserFontGlyph.WIDTH); }
+    public static float nwidth(long struct) { return memGetFloat(struct + NkUserFontGlyph.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + NkUserFontGlyph.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + NkUserFontGlyph.HEIGHT); }
     /** Unsafe version of {@link #xadvance}. */
-    public static float nxadvance(long struct) { return UNSAFE.getFloat(null, struct + NkUserFontGlyph.XADVANCE); }
+    public static float nxadvance(long struct) { return memGetFloat(struct + NkUserFontGlyph.XADVANCE); }
 
     /** Unsafe version of {@link #uv(NkVec2.Buffer) uv}. */
     public static void nuv(long struct, NkVec2.Buffer value) {
@@ -309,11 +307,11 @@ public class NkUserFontGlyph extends Struct<NkUserFontGlyph> implements NativeRe
     /** Unsafe version of {@link #offset(NkVec2) offset}. */
     public static void noffset(long struct, NkVec2 value) { memCopy(value.address(), struct + NkUserFontGlyph.OFFSET, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #width(float) width}. */
-    public static void nwidth(long struct, float value) { UNSAFE.putFloat(null, struct + NkUserFontGlyph.WIDTH, value); }
+    public static void nwidth(long struct, float value) { memPutFloat(struct + NkUserFontGlyph.WIDTH, value); }
     /** Unsafe version of {@link #height(float) height}. */
-    public static void nheight(long struct, float value) { UNSAFE.putFloat(null, struct + NkUserFontGlyph.HEIGHT, value); }
+    public static void nheight(long struct, float value) { memPutFloat(struct + NkUserFontGlyph.HEIGHT, value); }
     /** Unsafe version of {@link #xadvance(float) xadvance}. */
-    public static void nxadvance(long struct, float value) { UNSAFE.putFloat(null, struct + NkUserFontGlyph.XADVANCE, value); }
+    public static void nxadvance(long struct, float value) { memPutFloat(struct + NkUserFontGlyph.XADVANCE, value); }
 
     // -----------------------------------
 
@@ -346,6 +344,11 @@ public class NkUserFontGlyph extends Struct<NkUserFontGlyph> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

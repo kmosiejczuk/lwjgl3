@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>The initial device mask also acts as an upper bound on the set of devices that <b>can</b> ever be in the device mask in the command buffer.</p>
  * 
- * <p>If this structure is not present, the initial value of a command buffer’s device mask is set to include all physical devices in the logical device when the command buffer begins recording.</p>
+ * <p>If this structure is not present, the initial value of a command buffer’s device mask includes all physical devices in the logical device when the command buffer begins recording.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -165,8 +165,7 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupCommandBufferBeginInfo createSafe(long address) {
+    public static @Nullable VkDeviceGroupCommandBufferBeginInfo createSafe(long address) {
         return address == NULL ? null : new VkDeviceGroupCommandBufferBeginInfo(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupCommandBufferBeginInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceGroupCommandBufferBeginInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,18 +272,18 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupCommandBufferBeginInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceGroupCommandBufferBeginInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceGroupCommandBufferBeginInfo.PNEXT); }
     /** Unsafe version of {@link #deviceMask}. */
-    public static int ndeviceMask(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupCommandBufferBeginInfo.DEVICEMASK); }
+    public static int ndeviceMask(long struct) { return memGetInt(struct + VkDeviceGroupCommandBufferBeginInfo.DEVICEMASK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupCommandBufferBeginInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceGroupCommandBufferBeginInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceGroupCommandBufferBeginInfo.PNEXT, value); }
     /** Unsafe version of {@link #deviceMask(int) deviceMask}. */
-    public static void ndeviceMask(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupCommandBufferBeginInfo.DEVICEMASK, value); }
+    public static void ndeviceMask(long struct, int value) { memPutInt(struct + VkDeviceGroupCommandBufferBeginInfo.DEVICEMASK, value); }
 
     // -----------------------------------
 
@@ -318,6 +316,11 @@ public class VkDeviceGroupCommandBufferBeginInfo extends Struct<VkDeviceGroupCom
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

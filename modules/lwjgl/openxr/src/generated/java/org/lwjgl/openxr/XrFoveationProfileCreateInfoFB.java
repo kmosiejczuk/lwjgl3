@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -149,8 +149,7 @@ public class XrFoveationProfileCreateInfoFB extends Struct<XrFoveationProfileCre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationProfileCreateInfoFB createSafe(long address) {
+    public static @Nullable XrFoveationProfileCreateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrFoveationProfileCreateInfoFB(address, null);
     }
 
@@ -193,8 +192,7 @@ public class XrFoveationProfileCreateInfoFB extends Struct<XrFoveationProfileCre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationProfileCreateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrFoveationProfileCreateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -239,12 +237,12 @@ public class XrFoveationProfileCreateInfoFB extends Struct<XrFoveationProfileCre
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFoveationProfileCreateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFoveationProfileCreateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFoveationProfileCreateInfoFB.NEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationProfileCreateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFoveationProfileCreateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFoveationProfileCreateInfoFB.NEXT, value); }
 
@@ -279,6 +277,11 @@ public class XrFoveationProfileCreateInfoFB extends Struct<XrFoveationProfileCre
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

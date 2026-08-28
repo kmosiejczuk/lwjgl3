@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class XrFrameEndInfoML extends Struct<XrFrameEndInfoML> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFrameEndInfoML createSafe(long address) {
+    public static @Nullable XrFrameEndInfoML createSafe(long address) {
         return address == NULL ? null : new XrFrameEndInfoML(address, null);
     }
 
@@ -209,8 +208,7 @@ public class XrFrameEndInfoML extends Struct<XrFrameEndInfoML> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFrameEndInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrFrameEndInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,22 +253,22 @@ public class XrFrameEndInfoML extends Struct<XrFrameEndInfoML> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFrameEndInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFrameEndInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFrameEndInfoML.NEXT); }
     /** Unsafe version of {@link #focusDistance}. */
-    public static float nfocusDistance(long struct) { return UNSAFE.getFloat(null, struct + XrFrameEndInfoML.FOCUSDISTANCE); }
+    public static float nfocusDistance(long struct) { return memGetFloat(struct + XrFrameEndInfoML.FOCUSDISTANCE); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrFrameEndInfoML.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrFrameEndInfoML.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFrameEndInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFrameEndInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFrameEndInfoML.NEXT, value); }
     /** Unsafe version of {@link #focusDistance(float) focusDistance}. */
-    public static void nfocusDistance(long struct, float value) { UNSAFE.putFloat(null, struct + XrFrameEndInfoML.FOCUSDISTANCE, value); }
+    public static void nfocusDistance(long struct, float value) { memPutFloat(struct + XrFrameEndInfoML.FOCUSDISTANCE, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrFrameEndInfoML.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrFrameEndInfoML.FLAGS, value); }
 
     // -----------------------------------
 
@@ -303,6 +301,11 @@ public class XrFrameEndInfoML extends Struct<XrFrameEndInfoML> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -113,8 +113,7 @@ public class VREventProgressUpdate extends Struct<VREventProgressUpdate> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventProgressUpdate createSafe(long address) {
+    public static @Nullable VREventProgressUpdate createSafe(long address) {
         return address == NULL ? null : new VREventProgressUpdate(address, null);
     }
 
@@ -129,25 +128,24 @@ public class VREventProgressUpdate extends Struct<VREventProgressUpdate> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventProgressUpdate.Buffer createSafe(long address, int capacity) {
+    public static VREventProgressUpdate.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #ulApplicationPropertyContainer}. */
-    public static long nulApplicationPropertyContainer(long struct) { return UNSAFE.getLong(null, struct + VREventProgressUpdate.ULAPPLICATIONPROPERTYCONTAINER); }
+    public static long nulApplicationPropertyContainer(long struct) { return memGetLong(struct + VREventProgressUpdate.ULAPPLICATIONPROPERTYCONTAINER); }
     /** Unsafe version of {@link #pathDevice}. */
-    public static long npathDevice(long struct) { return UNSAFE.getLong(null, struct + VREventProgressUpdate.PATHDEVICE); }
+    public static long npathDevice(long struct) { return memGetLong(struct + VREventProgressUpdate.PATHDEVICE); }
     /** Unsafe version of {@link #pathInputSource}. */
-    public static long npathInputSource(long struct) { return UNSAFE.getLong(null, struct + VREventProgressUpdate.PATHINPUTSOURCE); }
+    public static long npathInputSource(long struct) { return memGetLong(struct + VREventProgressUpdate.PATHINPUTSOURCE); }
     /** Unsafe version of {@link #pathProgressAction}. */
-    public static long npathProgressAction(long struct) { return UNSAFE.getLong(null, struct + VREventProgressUpdate.PATHPROGRESSACTION); }
+    public static long npathProgressAction(long struct) { return memGetLong(struct + VREventProgressUpdate.PATHPROGRESSACTION); }
     /** Unsafe version of {@link #pathIcon}. */
-    public static long npathIcon(long struct) { return UNSAFE.getLong(null, struct + VREventProgressUpdate.PATHICON); }
+    public static long npathIcon(long struct) { return memGetLong(struct + VREventProgressUpdate.PATHICON); }
     /** Unsafe version of {@link #fProgress}. */
-    public static float nfProgress(long struct) { return UNSAFE.getFloat(null, struct + VREventProgressUpdate.FPROGRESS); }
+    public static float nfProgress(long struct) { return memGetFloat(struct + VREventProgressUpdate.FPROGRESS); }
 
     // -----------------------------------
 
@@ -180,6 +178,11 @@ public class VREventProgressUpdate extends Struct<VREventProgressUpdate> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

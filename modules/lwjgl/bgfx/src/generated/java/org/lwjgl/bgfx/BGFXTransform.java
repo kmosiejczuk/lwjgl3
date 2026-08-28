@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -106,8 +106,7 @@ public class BGFXTransform extends Struct<BGFXTransform> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXTransform createSafe(long address) {
+    public static @Nullable BGFXTransform createSafe(long address) {
         return address == NULL ? null : new BGFXTransform(address, null);
     }
 
@@ -150,8 +149,7 @@ public class BGFXTransform extends Struct<BGFXTransform> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXTransform.Buffer createSafe(long address, int capacity) {
+    public static BGFXTransform.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -217,7 +215,7 @@ public class BGFXTransform extends Struct<BGFXTransform> implements NativeResour
     /** Unsafe version of {@link #data() data}. */
     public static FloatBuffer ndata(long struct) { return memFloatBuffer(memGetAddress(struct + BGFXTransform.DATA), (Short.toUnsignedInt(nnum(struct)) << 4)); }
     /** Unsafe version of {@link #num}. */
-    public static short nnum(long struct) { return UNSAFE.getShort(null, struct + BGFXTransform.NUM); }
+    public static short nnum(long struct) { return memGetShort(struct + BGFXTransform.NUM); }
 
     // -----------------------------------
 
@@ -250,6 +248,11 @@ public class BGFXTransform extends Struct<BGFXTransform> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

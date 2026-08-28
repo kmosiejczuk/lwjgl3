@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -123,8 +123,7 @@ public class CUdevResource extends Struct<CUdevResource> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUdevResource createSafe(long address) {
+    public static @Nullable CUdevResource createSafe(long address) {
         return address == NULL ? null : new CUdevResource(address, null);
     }
 
@@ -167,8 +166,7 @@ public class CUdevResource extends Struct<CUdevResource> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUdevResource.Buffer createSafe(long address, int capacity) {
+    public static CUdevResource.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -213,16 +211,16 @@ public class CUdevResource extends Struct<CUdevResource> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + CUdevResource.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + CUdevResource.TYPE); }
     public static ByteBuffer n_internal_padding(long struct) { return memByteBuffer(struct + CUdevResource._INTERNAL_PADDING, 92); }
     public static byte n_internal_padding(long struct, int index) {
-        return UNSAFE.getByte(null, struct + CUdevResource._INTERNAL_PADDING + check(index, 92) * 1);
+        return memGetByte(struct + CUdevResource._INTERNAL_PADDING + check(index, 92) * 1);
     }
     /** Unsafe version of {@link #resource_sm}. */
     public static CUdevSmResource nresource_sm(long struct) { return CUdevSmResource.create(struct + CUdevResource.RESOURCE_SM); }
     public static ByteBuffer nresource__oversize(long struct) { return memByteBuffer(struct + CUdevResource.RESOURCE__OVERSIZE, 48); }
     public static byte nresource__oversize(long struct, int index) {
-        return UNSAFE.getByte(null, struct + CUdevResource.RESOURCE__OVERSIZE + check(index, 48) * 1);
+        return memGetByte(struct + CUdevResource.RESOURCE__OVERSIZE + check(index, 48) * 1);
     }
 
     // -----------------------------------
@@ -256,6 +254,11 @@ public class CUdevResource extends Struct<CUdevResource> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class XrSpaceStorageLocationFilterInfoFB extends Struct<XrSpaceStorageLoc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceStorageLocationFilterInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceStorageLocationFilterInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceStorageLocationFilterInfoFB(address, null);
     }
 
@@ -203,8 +202,7 @@ public class XrSpaceStorageLocationFilterInfoFB extends Struct<XrSpaceStorageLoc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceStorageLocationFilterInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceStorageLocationFilterInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +247,18 @@ public class XrSpaceStorageLocationFilterInfoFB extends Struct<XrSpaceStorageLoc
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceStorageLocationFilterInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceStorageLocationFilterInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceStorageLocationFilterInfoFB.NEXT); }
     /** Unsafe version of {@link #location}. */
-    public static int nlocation(long struct) { return UNSAFE.getInt(null, struct + XrSpaceStorageLocationFilterInfoFB.LOCATION); }
+    public static int nlocation(long struct) { return memGetInt(struct + XrSpaceStorageLocationFilterInfoFB.LOCATION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceStorageLocationFilterInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceStorageLocationFilterInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceStorageLocationFilterInfoFB.NEXT, value); }
     /** Unsafe version of {@link #location(int) location}. */
-    public static void nlocation(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceStorageLocationFilterInfoFB.LOCATION, value); }
+    public static void nlocation(long struct, int value) { memPutInt(struct + XrSpaceStorageLocationFilterInfoFB.LOCATION, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class XrSpaceStorageLocationFilterInfoFB extends Struct<XrSpaceStorageLoc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

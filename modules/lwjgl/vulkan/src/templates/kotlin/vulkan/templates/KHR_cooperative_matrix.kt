@@ -31,7 +31,7 @@ val KHR_cooperative_matrix = "KHRCooperativeMatrix".nativeClassVK("KHR_cooperati
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>SPIR-V Dependencies</b></dt>
             <dd><ul>
@@ -97,18 +97,18 @@ val KHR_cooperative_matrix = "KHRCooperativeMatrix".nativeClassVK("KHR_cooperati
             <li>#COMPONENT_TYPE_FLOAT16_KHR corresponds to SPIR-V {@code OpTypeFloat} 16.</li>
             <li>#COMPONENT_TYPE_FLOAT32_KHR corresponds to SPIR-V {@code OpTypeFloat} 32.</li>
             <li>#COMPONENT_TYPE_FLOAT64_KHR corresponds to SPIR-V {@code OpTypeFloat} 64.</li>
-            <li>#COMPONENT_TYPE_SINT8_KHR corresponds to SPIR-V {@code OpTypeInt} 8 1.</li>
-            <li>#COMPONENT_TYPE_SINT16_KHR corresponds to SPIR-V {@code OpTypeInt} 16 1.</li>
-            <li>#COMPONENT_TYPE_SINT32_KHR corresponds to SPIR-V {@code OpTypeInt} 32 1.</li>
-            <li>#COMPONENT_TYPE_SINT64_KHR corresponds to SPIR-V {@code OpTypeInt} 64 1.</li>
-            <li>#COMPONENT_TYPE_UINT8_KHR corresponds to SPIR-V {@code OpTypeInt} 8 0.</li>
-            <li>#COMPONENT_TYPE_UINT16_KHR corresponds to SPIR-V {@code OpTypeInt} 16 0.</li>
-            <li>#COMPONENT_TYPE_UINT32_KHR corresponds to SPIR-V {@code OpTypeInt} 32 0.</li>
-            <li>#COMPONENT_TYPE_UINT64_KHR corresponds to SPIR-V {@code OpTypeInt} 64 0.</li>
+            <li>#COMPONENT_TYPE_SINT8_KHR corresponds to SPIR-V {@code OpTypeInt} 8 0/1.</li>
+            <li>#COMPONENT_TYPE_SINT16_KHR corresponds to SPIR-V {@code OpTypeInt} 16 0/1.</li>
+            <li>#COMPONENT_TYPE_SINT32_KHR corresponds to SPIR-V {@code OpTypeInt} 32 0/1.</li>
+            <li>#COMPONENT_TYPE_SINT64_KHR corresponds to SPIR-V {@code OpTypeInt} 64 0/1.</li>
+            <li>#COMPONENT_TYPE_UINT8_KHR corresponds to SPIR-V {@code OpTypeInt} 8 0/1.</li>
+            <li>#COMPONENT_TYPE_UINT16_KHR corresponds to SPIR-V {@code OpTypeInt} 16 0/1.</li>
+            <li>#COMPONENT_TYPE_UINT32_KHR corresponds to SPIR-V {@code OpTypeInt} 32 0/1.</li>
+            <li>#COMPONENT_TYPE_UINT64_KHR corresponds to SPIR-V {@code OpTypeInt} 64 0/1.</li>
         </ul>
 
         <h5>See Also</h5>
-        ##VkCooperativeMatrixPropertiesKHR
+        ##VkCooperativeMatrixFlexibleDimensionsPropertiesNV, ##VkCooperativeMatrixPropertiesKHR
         """,
 
         "COMPONENT_TYPE_FLOAT16_KHR".."0",
@@ -139,7 +139,7 @@ val KHR_cooperative_matrix = "KHRCooperativeMatrix".nativeClassVK("KHR_cooperati
         All enum values match the corresponding SPIR-V value.
 
         <h5>See Also</h5>
-        ##VkCooperativeMatrixPropertiesKHR
+        ##VkCooperativeMatrixFlexibleDimensionsPropertiesNV, ##VkCooperativeMatrixPropertiesKHR
         """,
 
         "SCOPE_DEVICE_KHR".."1",

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.xxhash;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -141,8 +141,7 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XXH64State createSafe(long address) {
+    public static @Nullable XXH64State createSafe(long address) {
         return address == NULL ? null : new XXH64State(address, null);
     }
 
@@ -185,8 +184,7 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XXH64State.Buffer createSafe(long address, int capacity) {
+    public static XXH64State.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,25 +248,25 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #total_len}. */
-    public static long ntotal_len(long struct) { return UNSAFE.getLong(null, struct + XXH64State.TOTAL_LEN); }
+    public static long ntotal_len(long struct) { return memGetLong(struct + XXH64State.TOTAL_LEN); }
     /** Unsafe version of {@link #v}. */
     public static LongBuffer nv(long struct) { return memLongBuffer(struct + XXH64State.V, 4); }
     /** Unsafe version of {@link #v(int) v}. */
     public static long nv(long struct, int index) {
-        return UNSAFE.getLong(null, struct + XXH64State.V + check(index, 4) * 8);
+        return memGetLong(struct + XXH64State.V + check(index, 4) * 8);
     }
     /** Unsafe version of {@link #mem64}. */
     public static LongBuffer nmem64(long struct) { return memLongBuffer(struct + XXH64State.MEM64, 4); }
     /** Unsafe version of {@link #mem64(int) mem64}. */
     public static long nmem64(long struct, int index) {
-        return UNSAFE.getLong(null, struct + XXH64State.MEM64 + check(index, 4) * 8);
+        return memGetLong(struct + XXH64State.MEM64 + check(index, 4) * 8);
     }
     /** Unsafe version of {@link #memsize}. */
-    public static int nmemsize(long struct) { return UNSAFE.getInt(null, struct + XXH64State.MEMSIZE); }
+    public static int nmemsize(long struct) { return memGetInt(struct + XXH64State.MEMSIZE); }
     /** Unsafe version of {@link #reserved32}. */
-    public static int nreserved32(long struct) { return UNSAFE.getInt(null, struct + XXH64State.RESERVED32); }
+    public static int nreserved32(long struct) { return memGetInt(struct + XXH64State.RESERVED32); }
     /** Unsafe version of {@link #reserved64}. */
-    public static long nreserved64(long struct) { return UNSAFE.getLong(null, struct + XXH64State.RESERVED64); }
+    public static long nreserved64(long struct) { return memGetLong(struct + XXH64State.RESERVED64); }
 
     // -----------------------------------
 
@@ -301,6 +299,11 @@ public class XXH64State extends Struct<XXH64State> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

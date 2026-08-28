@@ -5,7 +5,7 @@
  */
 package org.lwjgl.cuda;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -209,8 +209,7 @@ public class CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS extends Struct<CUDA_EXTERNAL_SE
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS createSafe(long address) {
+    public static @Nullable CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS createSafe(long address) {
         return address == NULL ? null : new CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS(address, null);
     }
 
@@ -253,8 +252,7 @@ public class CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS extends Struct<CUDA_EXTERNAL_SE
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.Buffer createSafe(long address, int capacity) {
+    public static CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -318,40 +316,40 @@ public class CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS extends Struct<CUDA_EXTERNAL_SE
     // -----------------------------------
 
     /** Unsafe version of {@link #params_fence_value}. */
-    public static long nparams_fence_value(long struct) { return UNSAFE.getLong(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_FENCE_VALUE); }
+    public static long nparams_fence_value(long struct) { return memGetLong(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_FENCE_VALUE); }
     /** Unsafe version of {@link #params_nvSciSync_fence}. */
     public static long nparams_nvSciSync_fence(long struct) { return memGetAddress(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_NVSCISYNC_FENCE); }
     /** Unsafe version of {@link #params_nvSciSync_reserved}. */
-    public static long nparams_nvSciSync_reserved(long struct) { return UNSAFE.getLong(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_NVSCISYNC_RESERVED); }
+    public static long nparams_nvSciSync_reserved(long struct) { return memGetLong(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_NVSCISYNC_RESERVED); }
     /** Unsafe version of {@link #params_keyedMutex_key}. */
-    public static long nparams_keyedMutex_key(long struct) { return UNSAFE.getLong(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_KEYEDMUTEX_KEY); }
+    public static long nparams_keyedMutex_key(long struct) { return memGetLong(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_KEYEDMUTEX_KEY); }
     /** Unsafe version of {@link #params_keyedMutex_timeoutMs}. */
-    public static int nparams_keyedMutex_timeoutMs(long struct) { return UNSAFE.getInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_KEYEDMUTEX_TIMEOUTMS); }
+    public static int nparams_keyedMutex_timeoutMs(long struct) { return memGetInt(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_KEYEDMUTEX_TIMEOUTMS); }
     /** Unsafe version of {@link #params_reserved}. */
     public static IntBuffer nparams_reserved(long struct) { return memIntBuffer(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_RESERVED, 10); }
     /** Unsafe version of {@link #params_reserved(int) params_reserved}. */
     public static int nparams_reserved(long struct, int index) {
-        return UNSAFE.getInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_RESERVED + check(index, 10) * 4);
+        return memGetInt(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_RESERVED + check(index, 10) * 4);
     }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.FLAGS); }
     /** Unsafe version of {@link #reserved}. */
     public static IntBuffer nreserved(long struct) { return memIntBuffer(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.RESERVED, 16); }
     /** Unsafe version of {@link #reserved(int) reserved}. */
     public static int nreserved(long struct, int index) {
-        return UNSAFE.getInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.RESERVED + check(index, 16) * 4);
+        return memGetInt(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.RESERVED + check(index, 16) * 4);
     }
 
     /** Unsafe version of {@link #params_fence_value(long) params_fence_value}. */
-    public static void nparams_fence_value(long struct, long value) { UNSAFE.putLong(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_FENCE_VALUE, value); }
+    public static void nparams_fence_value(long struct, long value) { memPutLong(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_FENCE_VALUE, value); }
     /** Unsafe version of {@link #params_nvSciSync_fence(long) params_nvSciSync_fence}. */
     public static void nparams_nvSciSync_fence(long struct, long value) { memPutAddress(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_NVSCISYNC_FENCE, value); }
     /** Unsafe version of {@link #params_nvSciSync_reserved(long) params_nvSciSync_reserved}. */
-    public static void nparams_nvSciSync_reserved(long struct, long value) { UNSAFE.putLong(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_NVSCISYNC_RESERVED, value); }
+    public static void nparams_nvSciSync_reserved(long struct, long value) { memPutLong(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_NVSCISYNC_RESERVED, value); }
     /** Unsafe version of {@link #params_keyedMutex_key(long) params_keyedMutex_key}. */
-    public static void nparams_keyedMutex_key(long struct, long value) { UNSAFE.putLong(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_KEYEDMUTEX_KEY, value); }
+    public static void nparams_keyedMutex_key(long struct, long value) { memPutLong(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_KEYEDMUTEX_KEY, value); }
     /** Unsafe version of {@link #params_keyedMutex_timeoutMs(int) params_keyedMutex_timeoutMs}. */
-    public static void nparams_keyedMutex_timeoutMs(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_KEYEDMUTEX_TIMEOUTMS, value); }
+    public static void nparams_keyedMutex_timeoutMs(long struct, int value) { memPutInt(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_KEYEDMUTEX_TIMEOUTMS, value); }
     /** Unsafe version of {@link #params_reserved(IntBuffer) params_reserved}. */
     public static void nparams_reserved(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 10); }
@@ -359,10 +357,10 @@ public class CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS extends Struct<CUDA_EXTERNAL_SE
     }
     /** Unsafe version of {@link #params_reserved(int, int) params_reserved}. */
     public static void nparams_reserved(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_RESERVED + check(index, 10) * 4, value);
+        memPutInt(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.PARAMS_RESERVED + check(index, 10) * 4, value);
     }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.FLAGS, value); }
     /** Unsafe version of {@link #reserved(IntBuffer) reserved}. */
     public static void nreserved(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 16); }
@@ -370,7 +368,7 @@ public class CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS extends Struct<CUDA_EXTERNAL_SE
     }
     /** Unsafe version of {@link #reserved(int, int) reserved}. */
     public static void nreserved(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.RESERVED + check(index, 16) * 4, value);
+        memPutInt(struct + CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS.RESERVED + check(index, 16) * 4, value);
     }
 
     // -----------------------------------
@@ -404,6 +402,11 @@ public class CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS extends Struct<CUDA_EXTERNAL_SE
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

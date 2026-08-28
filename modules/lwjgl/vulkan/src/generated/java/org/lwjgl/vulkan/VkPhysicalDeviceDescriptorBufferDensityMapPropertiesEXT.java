@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT extends Str
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT extends Str
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT extends Str
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #combinedImageSamplerDensityMapDescriptorSize}. */
     public static long ncombinedImageSamplerDensityMapDescriptorSize(long struct) { return memGetAddress(struct + VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.COMBINEDIMAGESAMPLERDENSITYMAPDESCRIPTORSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT.PNEXT, value); }
 
@@ -284,6 +282,11 @@ public class VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT extends Str
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

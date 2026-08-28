@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class hb_segment_properties_t extends Struct<hb_segment_properties_t> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_segment_properties_t createSafe(long address) {
+    public static @Nullable hb_segment_properties_t createSafe(long address) {
         return address == NULL ? null : new hb_segment_properties_t(address, null);
     }
 
@@ -198,8 +197,7 @@ public class hb_segment_properties_t extends Struct<hb_segment_properties_t> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_segment_properties_t.Buffer createSafe(long address, int capacity) {
+    public static hb_segment_properties_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,18 +242,18 @@ public class hb_segment_properties_t extends Struct<hb_segment_properties_t> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #direction}. */
-    public static int ndirection(long struct) { return UNSAFE.getInt(null, struct + hb_segment_properties_t.DIRECTION); }
+    public static int ndirection(long struct) { return memGetInt(struct + hb_segment_properties_t.DIRECTION); }
     /** Unsafe version of {@link #script}. */
-    public static int nscript(long struct) { return UNSAFE.getInt(null, struct + hb_segment_properties_t.SCRIPT); }
+    public static int nscript(long struct) { return memGetInt(struct + hb_segment_properties_t.SCRIPT); }
     /** Unsafe version of {@link #language}. */
     public static long nlanguage(long struct) { return memGetAddress(struct + hb_segment_properties_t.LANGUAGE); }
     public static long nreserved1(long struct) { return memGetAddress(struct + hb_segment_properties_t.RESERVED1); }
     public static long nreserved2(long struct) { return memGetAddress(struct + hb_segment_properties_t.RESERVED2); }
 
     /** Unsafe version of {@link #direction(int) direction}. */
-    public static void ndirection(long struct, int value) { UNSAFE.putInt(null, struct + hb_segment_properties_t.DIRECTION, value); }
+    public static void ndirection(long struct, int value) { memPutInt(struct + hb_segment_properties_t.DIRECTION, value); }
     /** Unsafe version of {@link #script(int) script}. */
-    public static void nscript(long struct, int value) { UNSAFE.putInt(null, struct + hb_segment_properties_t.SCRIPT, value); }
+    public static void nscript(long struct, int value) { memPutInt(struct + hb_segment_properties_t.SCRIPT, value); }
     /** Unsafe version of {@link #language(long) language}. */
     public static void nlanguage(long struct, long value) { memPutAddress(struct + hb_segment_properties_t.LANGUAGE, value); }
     public static void nreserved1(long struct, long value) { memPutAddress(struct + hb_segment_properties_t.RESERVED1, value); }
@@ -292,6 +290,11 @@ public class hb_segment_properties_t extends Struct<hb_segment_properties_t> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

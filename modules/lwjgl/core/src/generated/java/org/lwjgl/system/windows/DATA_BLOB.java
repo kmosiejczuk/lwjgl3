@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -121,8 +121,7 @@ public class DATA_BLOB extends Struct<DATA_BLOB> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DATA_BLOB createSafe(long address) {
+    public static @Nullable DATA_BLOB createSafe(long address) {
         return address == NULL ? null : new DATA_BLOB(address, null);
     }
 
@@ -165,8 +164,7 @@ public class DATA_BLOB extends Struct<DATA_BLOB> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DATA_BLOB.Buffer createSafe(long address, int capacity) {
+    public static DATA_BLOB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -211,12 +209,12 @@ public class DATA_BLOB extends Struct<DATA_BLOB> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #cbData}. */
-    public static int ncbData(long struct) { return UNSAFE.getInt(null, struct + DATA_BLOB.CBDATA); }
+    public static int ncbData(long struct) { return memGetInt(struct + DATA_BLOB.CBDATA); }
     /** Unsafe version of {@link #pbData() pbData}. */
     public static ByteBuffer npbData(long struct) { return memByteBuffer(memGetAddress(struct + DATA_BLOB.PBDATA), ncbData(struct)); }
 
     /** Sets the specified value to the {@code cbData} field of the specified {@code struct}. */
-    public static void ncbData(long struct, int value) { UNSAFE.putInt(null, struct + DATA_BLOB.CBDATA, value); }
+    public static void ncbData(long struct, int value) { memPutInt(struct + DATA_BLOB.CBDATA, value); }
     /** Unsafe version of {@link #pbData(ByteBuffer) pbData}. */
     public static void npbData(long struct, ByteBuffer value) { memPutAddress(struct + DATA_BLOB.PBDATA, memAddress(value)); ncbData(struct, value.remaining()); }
 
@@ -260,6 +258,11 @@ public class DATA_BLOB extends Struct<DATA_BLOB> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

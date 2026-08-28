@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class XrSpatialGraphNodeBindingPropertiesMSFT extends Struct<XrSpatialGra
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialGraphNodeBindingPropertiesMSFT createSafe(long address) {
+    public static @Nullable XrSpatialGraphNodeBindingPropertiesMSFT createSafe(long address) {
         return address == NULL ? null : new XrSpatialGraphNodeBindingPropertiesMSFT(address, null);
     }
 
@@ -222,8 +221,7 @@ public class XrSpatialGraphNodeBindingPropertiesMSFT extends Struct<XrSpatialGra
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialGraphNodeBindingPropertiesMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialGraphNodeBindingPropertiesMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,20 +266,20 @@ public class XrSpatialGraphNodeBindingPropertiesMSFT extends Struct<XrSpatialGra
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpatialGraphNodeBindingPropertiesMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpatialGraphNodeBindingPropertiesMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpatialGraphNodeBindingPropertiesMSFT.NEXT); }
     /** Unsafe version of {@link #nodeId}. */
     public static ByteBuffer nnodeId(long struct) { return memByteBuffer(struct + XrSpatialGraphNodeBindingPropertiesMSFT.NODEID, XR_GUID_SIZE_MSFT); }
     /** Unsafe version of {@link #nodeId(int) nodeId}. */
     public static byte nnodeId(long struct, int index) {
-        return UNSAFE.getByte(null, struct + XrSpatialGraphNodeBindingPropertiesMSFT.NODEID + check(index, XR_GUID_SIZE_MSFT) * 1);
+        return memGetByte(struct + XrSpatialGraphNodeBindingPropertiesMSFT.NODEID + check(index, XR_GUID_SIZE_MSFT) * 1);
     }
     /** Unsafe version of {@link #poseInNodeSpace}. */
     public static XrPosef nposeInNodeSpace(long struct) { return XrPosef.create(struct + XrSpatialGraphNodeBindingPropertiesMSFT.POSEINNODESPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialGraphNodeBindingPropertiesMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpatialGraphNodeBindingPropertiesMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpatialGraphNodeBindingPropertiesMSFT.NEXT, value); }
     /** Unsafe version of {@link #nodeId(ByteBuffer) nodeId}. */
@@ -291,7 +289,7 @@ public class XrSpatialGraphNodeBindingPropertiesMSFT extends Struct<XrSpatialGra
     }
     /** Unsafe version of {@link #nodeId(int, byte) nodeId}. */
     public static void nnodeId(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + XrSpatialGraphNodeBindingPropertiesMSFT.NODEID + check(index, XR_GUID_SIZE_MSFT) * 1, value);
+        memPutByte(struct + XrSpatialGraphNodeBindingPropertiesMSFT.NODEID + check(index, XR_GUID_SIZE_MSFT) * 1, value);
     }
     /** Unsafe version of {@link #poseInNodeSpace(XrPosef) poseInNodeSpace}. */
     public static void nposeInNodeSpace(long struct, XrPosef value) { memCopy(value.address(), struct + XrSpatialGraphNodeBindingPropertiesMSFT.POSEINNODESPACE, XrPosef.SIZEOF); }
@@ -327,6 +325,11 @@ public class XrSpatialGraphNodeBindingPropertiesMSFT extends Struct<XrSpatialGra
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

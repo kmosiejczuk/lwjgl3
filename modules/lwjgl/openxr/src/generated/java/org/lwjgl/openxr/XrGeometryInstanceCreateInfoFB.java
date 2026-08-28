@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -221,8 +221,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGeometryInstanceCreateInfoFB createSafe(long address) {
+    public static @Nullable XrGeometryInstanceCreateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrGeometryInstanceCreateInfoFB(address, null);
     }
 
@@ -265,8 +264,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGeometryInstanceCreateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrGeometryInstanceCreateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -311,7 +309,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrGeometryInstanceCreateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrGeometryInstanceCreateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrGeometryInstanceCreateInfoFB.NEXT); }
     /** Unsafe version of {@link #layer}. */
@@ -326,7 +324,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
     public static XrVector3f nscale(long struct) { return XrVector3f.create(struct + XrGeometryInstanceCreateInfoFB.SCALE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrGeometryInstanceCreateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrGeometryInstanceCreateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrGeometryInstanceCreateInfoFB.NEXT, value); }
     /** Unsafe version of {@link #layer(XrPassthroughLayerFB) layer}. */
@@ -382,6 +380,11 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

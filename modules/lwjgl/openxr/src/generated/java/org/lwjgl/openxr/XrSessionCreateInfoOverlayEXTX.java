@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class XrSessionCreateInfoOverlayEXTX extends Struct<XrSessionCreateInfoOv
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSessionCreateInfoOverlayEXTX createSafe(long address) {
+    public static @Nullable XrSessionCreateInfoOverlayEXTX createSafe(long address) {
         return address == NULL ? null : new XrSessionCreateInfoOverlayEXTX(address, null);
     }
 
@@ -210,8 +209,7 @@ public class XrSessionCreateInfoOverlayEXTX extends Struct<XrSessionCreateInfoOv
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSessionCreateInfoOverlayEXTX.Buffer createSafe(long address, int capacity) {
+    public static XrSessionCreateInfoOverlayEXTX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,22 +254,22 @@ public class XrSessionCreateInfoOverlayEXTX extends Struct<XrSessionCreateInfoOv
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSessionCreateInfoOverlayEXTX.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSessionCreateInfoOverlayEXTX.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSessionCreateInfoOverlayEXTX.NEXT); }
     /** Unsafe version of {@link #createFlags}. */
-    public static long ncreateFlags(long struct) { return UNSAFE.getLong(null, struct + XrSessionCreateInfoOverlayEXTX.CREATEFLAGS); }
+    public static long ncreateFlags(long struct) { return memGetLong(struct + XrSessionCreateInfoOverlayEXTX.CREATEFLAGS); }
     /** Unsafe version of {@link #sessionLayersPlacement}. */
-    public static int nsessionLayersPlacement(long struct) { return UNSAFE.getInt(null, struct + XrSessionCreateInfoOverlayEXTX.SESSIONLAYERSPLACEMENT); }
+    public static int nsessionLayersPlacement(long struct) { return memGetInt(struct + XrSessionCreateInfoOverlayEXTX.SESSIONLAYERSPLACEMENT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSessionCreateInfoOverlayEXTX.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSessionCreateInfoOverlayEXTX.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSessionCreateInfoOverlayEXTX.NEXT, value); }
     /** Unsafe version of {@link #createFlags(long) createFlags}. */
-    public static void ncreateFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrSessionCreateInfoOverlayEXTX.CREATEFLAGS, value); }
+    public static void ncreateFlags(long struct, long value) { memPutLong(struct + XrSessionCreateInfoOverlayEXTX.CREATEFLAGS, value); }
     /** Unsafe version of {@link #sessionLayersPlacement(int) sessionLayersPlacement}. */
-    public static void nsessionLayersPlacement(long struct, int value) { UNSAFE.putInt(null, struct + XrSessionCreateInfoOverlayEXTX.SESSIONLAYERSPLACEMENT, value); }
+    public static void nsessionLayersPlacement(long struct, int value) { memPutInt(struct + XrSessionCreateInfoOverlayEXTX.SESSIONLAYERSPLACEMENT, value); }
 
     // -----------------------------------
 
@@ -304,6 +302,11 @@ public class XrSessionCreateInfoOverlayEXTX extends Struct<XrSessionCreateInfoOv
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

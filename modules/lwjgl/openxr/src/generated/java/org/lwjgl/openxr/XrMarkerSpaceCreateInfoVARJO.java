@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -170,8 +170,7 @@ public class XrMarkerSpaceCreateInfoVARJO extends Struct<XrMarkerSpaceCreateInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerSpaceCreateInfoVARJO createSafe(long address) {
+    public static @Nullable XrMarkerSpaceCreateInfoVARJO createSafe(long address) {
         return address == NULL ? null : new XrMarkerSpaceCreateInfoVARJO(address, null);
     }
 
@@ -214,8 +213,7 @@ public class XrMarkerSpaceCreateInfoVARJO extends Struct<XrMarkerSpaceCreateInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrMarkerSpaceCreateInfoVARJO.Buffer createSafe(long address, int capacity) {
+    public static XrMarkerSpaceCreateInfoVARJO.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,20 +258,20 @@ public class XrMarkerSpaceCreateInfoVARJO extends Struct<XrMarkerSpaceCreateInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrMarkerSpaceCreateInfoVARJO.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrMarkerSpaceCreateInfoVARJO.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrMarkerSpaceCreateInfoVARJO.NEXT); }
     /** Unsafe version of {@link #markerId}. */
-    public static long nmarkerId(long struct) { return UNSAFE.getLong(null, struct + XrMarkerSpaceCreateInfoVARJO.MARKERID); }
+    public static long nmarkerId(long struct) { return memGetLong(struct + XrMarkerSpaceCreateInfoVARJO.MARKERID); }
     /** Unsafe version of {@link #poseInMarkerSpace}. */
     public static XrPosef nposeInMarkerSpace(long struct) { return XrPosef.create(struct + XrMarkerSpaceCreateInfoVARJO.POSEINMARKERSPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrMarkerSpaceCreateInfoVARJO.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrMarkerSpaceCreateInfoVARJO.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrMarkerSpaceCreateInfoVARJO.NEXT, value); }
     /** Unsafe version of {@link #markerId(long) markerId}. */
-    public static void nmarkerId(long struct, long value) { UNSAFE.putLong(null, struct + XrMarkerSpaceCreateInfoVARJO.MARKERID, value); }
+    public static void nmarkerId(long struct, long value) { memPutLong(struct + XrMarkerSpaceCreateInfoVARJO.MARKERID, value); }
     /** Unsafe version of {@link #poseInMarkerSpace(XrPosef) poseInMarkerSpace}. */
     public static void nposeInMarkerSpace(long struct, XrPosef value) { memCopy(value.address(), struct + XrMarkerSpaceCreateInfoVARJO.POSEINMARKERSPACE, XrPosef.SIZEOF); }
 
@@ -308,6 +306,11 @@ public class XrMarkerSpaceCreateInfoVARJO extends Struct<XrMarkerSpaceCreateInfo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

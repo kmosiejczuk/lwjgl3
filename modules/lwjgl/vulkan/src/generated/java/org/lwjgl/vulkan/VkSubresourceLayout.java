@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the image is <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary-linear-resource">linear</a>, then {@code rowPitch}, {@code arrayPitch} and {@code depthPitch} describe the layout of the image subresource in linear memory. For uncompressed formats, {@code rowPitch} is the number of bytes between texels with the same x coordinate in adjacent rows (y coordinates differ by one). {@code arrayPitch} is the number of bytes between texels with the same x and y coordinate in adjacent array layers of the image (array layer values differ by one). {@code depthPitch} is the number of bytes between texels with the same x and y coordinate in adjacent slices of a 3D image (z coordinates differ by one). Expressed as an addressing formula, the starting byte of a texel in the image subresource has address:</p>
+ * <p>If the image is <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary-linear-resource">linear</a>, then {@code rowPitch}, {@code arrayPitch} and {@code depthPitch} describe the layout of the image subresource in linear memory. For uncompressed formats, {@code rowPitch} is the number of bytes between texels with the same x coordinate in adjacent rows (y coordinates differ by one). {@code arrayPitch} is the number of bytes between texels with the same x and y coordinate in adjacent array layers of the image (array layer values differ by one). {@code depthPitch} is the number of bytes between texels with the same x and y coordinate in adjacent slices of a 3D image (z coordinates differ by one). Expressed as an addressing formula, the starting byte of a texel in the image subresource has address:</p>
  * 
  * <pre><code>
  * // (x,y,z,layer) are in texel coordinates
@@ -38,13 +38,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the image has a depth/stencil format and its tiling is {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR} , then {@code aspectMask} <b>must</b> be either {@link VK10#VK_IMAGE_ASPECT_DEPTH_BIT IMAGE_ASPECT_DEPTH_BIT} or {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT}. On implementations that store depth and stencil aspects separately, querying each of these image subresource layouts will return a different {@code offset} and {@code size} representing the region of memory used for that aspect. On implementations that store depth and stencil aspects interleaved, the same {@code offset} and {@code size} are returned and represent the interleaved memory allocation.</p>
  * 
- * <p>If the image has a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar format</a> and its tiling is {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR} , then the {@code aspectMask} member of {@link VkImageSubresource} <b>must</b> be {@link VK11#VK_IMAGE_ASPECT_PLANE_0_BIT IMAGE_ASPECT_PLANE_0_BIT}, {@link VK11#VK_IMAGE_ASPECT_PLANE_1_BIT IMAGE_ASPECT_PLANE_1_BIT}, or (for 3-plane formats only) {@link VK11#VK_IMAGE_ASPECT_PLANE_2_BIT IMAGE_ASPECT_PLANE_2_BIT}. Querying each of these image subresource layouts will return a different {@code offset} and {@code size} representing the region of memory used for that plane. If the image is <em>disjoint</em>, then the {@code offset} is relative to the base address of the plane. If the image is <em>non-disjoint</em>, then the {@code offset} is relative to the base address of the image.</p>
+ * <p>If the image has a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar format</a> and its tiling is {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR} , then the {@code aspectMask} member of {@link VkImageSubresource} <b>must</b> be {@link VK11#VK_IMAGE_ASPECT_PLANE_0_BIT IMAGE_ASPECT_PLANE_0_BIT}, {@link VK11#VK_IMAGE_ASPECT_PLANE_1_BIT IMAGE_ASPECT_PLANE_1_BIT}, or (for 3-plane formats only) {@link VK11#VK_IMAGE_ASPECT_PLANE_2_BIT IMAGE_ASPECT_PLANE_2_BIT}. Querying each of these image subresource layouts will return a different {@code offset} and {@code size} representing the region of memory used for that plane. If the image is <em>disjoint</em>, then the {@code offset} is relative to the base address of the plane. If the image is <em>non-disjoint</em>, then the {@code offset} is relative to the base address of the image.</p>
  * 
- * <p>If the image’s tiling is {@link EXTImageDrmFormatModifier#VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT}, then the {@code aspectMask} member of {@link VkImageSubresource} <b>must</b> be one of <code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code>, where the maximum allowed plane index <em>i</em> is defined by the {@link VkDrmFormatModifierPropertiesEXT}{@code ::drmFormatModifierPlaneCount} associated with the image’s {@link VkImageCreateInfo}{@code ::format} and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary-drm-format-modifier">modifier</a>. The memory range used by the subresource is described by {@code offset} and {@code size}. If the image is <em>disjoint</em>, then the {@code offset} is relative to the base address of the <em>memory plane</em>. If the image is <em>non-disjoint</em>, then the {@code offset} is relative to the base address of the image. If the image is <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#glossary-linear-resource">non-linear</a>, then {@code rowPitch}, {@code arrayPitch}, and {@code depthPitch} have an implementation-dependent meaning.</p>
+ * <p>If the image’s tiling is {@link EXTImageDrmFormatModifier#VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT}, then the {@code aspectMask} member of {@link VkImageSubresource} <b>must</b> be one of <code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code>, where the maximum allowed plane index <em>i</em> is defined by the {@link VkDrmFormatModifierPropertiesEXT}{@code ::drmFormatModifierPlaneCount} associated with the image’s {@link VkImageCreateInfo}{@code ::format} and <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary-drm-format-modifier">modifier</a>. The memory range used by the subresource is described by {@code offset} and {@code size}. If the image is <em>disjoint</em>, then the {@code offset} is relative to the base address of the <em>memory plane</em>. If the image is <em>non-disjoint</em>, then the {@code offset} is relative to the base address of the image. If the image is <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary-linear-resource">non-linear</a>, then {@code rowPitch}, {@code arrayPitch}, and {@code depthPitch} have an implementation-dependent meaning.</p>
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkImageDrmFormatModifierExplicitCreateInfoEXT}, {@link VkSubresourceLayout2KHR}, {@link VK10#vkGetImageSubresourceLayout GetImageSubresourceLayout}</p>
+ * <p>{@link VkImageDrmFormatModifierExplicitCreateInfoEXT}, {@link VkSubresourceLayout2}, {@link VK10#vkGetImageSubresourceLayout GetImageSubresourceLayout}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -194,8 +194,7 @@ public class VkSubresourceLayout extends Struct<VkSubresourceLayout> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubresourceLayout createSafe(long address) {
+    public static @Nullable VkSubresourceLayout createSafe(long address) {
         return address == NULL ? null : new VkSubresourceLayout(address, null);
     }
 
@@ -238,8 +237,7 @@ public class VkSubresourceLayout extends Struct<VkSubresourceLayout> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubresourceLayout.Buffer createSafe(long address, int capacity) {
+    public static VkSubresourceLayout.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -303,26 +301,26 @@ public class VkSubresourceLayout extends Struct<VkSubresourceLayout> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VkSubresourceLayout.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VkSubresourceLayout.OFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkSubresourceLayout.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkSubresourceLayout.SIZE); }
     /** Unsafe version of {@link #rowPitch}. */
-    public static long nrowPitch(long struct) { return UNSAFE.getLong(null, struct + VkSubresourceLayout.ROWPITCH); }
+    public static long nrowPitch(long struct) { return memGetLong(struct + VkSubresourceLayout.ROWPITCH); }
     /** Unsafe version of {@link #arrayPitch}. */
-    public static long narrayPitch(long struct) { return UNSAFE.getLong(null, struct + VkSubresourceLayout.ARRAYPITCH); }
+    public static long narrayPitch(long struct) { return memGetLong(struct + VkSubresourceLayout.ARRAYPITCH); }
     /** Unsafe version of {@link #depthPitch}. */
-    public static long ndepthPitch(long struct) { return UNSAFE.getLong(null, struct + VkSubresourceLayout.DEPTHPITCH); }
+    public static long ndepthPitch(long struct) { return memGetLong(struct + VkSubresourceLayout.DEPTHPITCH); }
 
     /** Unsafe version of {@link #offset(long) offset}. */
-    public static void noffset(long struct, long value) { UNSAFE.putLong(null, struct + VkSubresourceLayout.OFFSET, value); }
+    public static void noffset(long struct, long value) { memPutLong(struct + VkSubresourceLayout.OFFSET, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkSubresourceLayout.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkSubresourceLayout.SIZE, value); }
     /** Unsafe version of {@link #rowPitch(long) rowPitch}. */
-    public static void nrowPitch(long struct, long value) { UNSAFE.putLong(null, struct + VkSubresourceLayout.ROWPITCH, value); }
+    public static void nrowPitch(long struct, long value) { memPutLong(struct + VkSubresourceLayout.ROWPITCH, value); }
     /** Unsafe version of {@link #arrayPitch(long) arrayPitch}. */
-    public static void narrayPitch(long struct, long value) { UNSAFE.putLong(null, struct + VkSubresourceLayout.ARRAYPITCH, value); }
+    public static void narrayPitch(long struct, long value) { memPutLong(struct + VkSubresourceLayout.ARRAYPITCH, value); }
     /** Unsafe version of {@link #depthPitch(long) depthPitch}. */
-    public static void ndepthPitch(long struct, long value) { UNSAFE.putLong(null, struct + VkSubresourceLayout.DEPTHPITCH, value); }
+    public static void ndepthPitch(long struct, long value) { memPutLong(struct + VkSubresourceLayout.DEPTHPITCH, value); }
 
     // -----------------------------------
 
@@ -355,6 +353,11 @@ public class VkSubresourceLayout extends Struct<VkSubresourceLayout> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

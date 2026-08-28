@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -112,8 +112,7 @@ public class StdVideoEncodeH264ReferenceInfoFlags extends Struct<StdVideoEncodeH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH264ReferenceInfoFlags createSafe(long address) {
+    public static @Nullable StdVideoEncodeH264ReferenceInfoFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoEncodeH264ReferenceInfoFlags(address, null);
     }
 
@@ -156,8 +155,7 @@ public class StdVideoEncodeH264ReferenceInfoFlags extends Struct<StdVideoEncodeH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH264ReferenceInfoFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoEncodeH264ReferenceInfoFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -201,12 +199,12 @@ public class StdVideoEncodeH264ReferenceInfoFlags extends Struct<StdVideoEncodeH
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH264ReferenceInfoFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoEncodeH264ReferenceInfoFlags.BITFIELD0); }
     /** Unsafe version of {@link #used_for_long_term_reference}. */
     public static int nused_for_long_term_reference(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     public static int nreserved(long struct) { return nbitfield0(struct) >>> 1; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH264ReferenceInfoFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoEncodeH264ReferenceInfoFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #used_for_long_term_reference(boolean) used_for_long_term_reference}. */
     public static void nused_for_long_term_reference(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     public static void nreserved(long struct, int value) { nbitfield0(struct, (value << 1) | (nbitfield0(struct) & 0x00_00_00_01)); }
@@ -242,6 +240,11 @@ public class StdVideoEncodeH264ReferenceInfoFlags extends Struct<StdVideoEncodeH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

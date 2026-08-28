@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class VkBufferDeviceAddressInfo extends Struct<VkBufferDeviceAddressInfo>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferDeviceAddressInfo createSafe(long address) {
+    public static @Nullable VkBufferDeviceAddressInfo createSafe(long address) {
         return address == NULL ? null : new VkBufferDeviceAddressInfo(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkBufferDeviceAddressInfo extends Struct<VkBufferDeviceAddressInfo>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferDeviceAddressInfo.Buffer createSafe(long address, int capacity) {
+    public static VkBufferDeviceAddressInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,18 +253,18 @@ public class VkBufferDeviceAddressInfo extends Struct<VkBufferDeviceAddressInfo>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBufferDeviceAddressInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBufferDeviceAddressInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBufferDeviceAddressInfo.PNEXT); }
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkBufferDeviceAddressInfo.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkBufferDeviceAddressInfo.BUFFER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferDeviceAddressInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBufferDeviceAddressInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBufferDeviceAddressInfo.PNEXT, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferDeviceAddressInfo.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkBufferDeviceAddressInfo.BUFFER, value); }
 
     // -----------------------------------
 
@@ -299,6 +297,11 @@ public class VkBufferDeviceAddressInfo extends Struct<VkBufferDeviceAddressInfo>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

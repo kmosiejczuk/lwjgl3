@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -116,8 +116,7 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandCapsuleFB createSafe(long address) {
+    public static @Nullable XrHandCapsuleFB createSafe(long address) {
         return address == NULL ? null : new XrHandCapsuleFB(address, null);
     }
 
@@ -132,8 +131,7 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandCapsuleFB.Buffer createSafe(long address, int capacity) {
+    public static XrHandCapsuleFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -146,9 +144,9 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
         return XrVector3f.create(struct + XrHandCapsuleFB.POINTS + check(index, XR_HAND_TRACKING_CAPSULE_POINT_COUNT_FB) * XrVector3f.SIZEOF);
     }
     /** Unsafe version of {@link #radius}. */
-    public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + XrHandCapsuleFB.RADIUS); }
+    public static float nradius(long struct) { return memGetFloat(struct + XrHandCapsuleFB.RADIUS); }
     /** Unsafe version of {@link #joint}. */
-    public static int njoint(long struct) { return UNSAFE.getInt(null, struct + XrHandCapsuleFB.JOINT); }
+    public static int njoint(long struct) { return memGetInt(struct + XrHandCapsuleFB.JOINT); }
 
     // -----------------------------------
 
@@ -181,6 +179,11 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

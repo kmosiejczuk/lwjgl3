@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkSamplerReductionModeCreateInfo extends Struct<VkSamplerReductionM
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerReductionModeCreateInfo createSafe(long address) {
+    public static @Nullable VkSamplerReductionModeCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkSamplerReductionModeCreateInfo(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkSamplerReductionModeCreateInfo extends Struct<VkSamplerReductionM
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerReductionModeCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSamplerReductionModeCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +247,18 @@ public class VkSamplerReductionModeCreateInfo extends Struct<VkSamplerReductionM
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSamplerReductionModeCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSamplerReductionModeCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSamplerReductionModeCreateInfo.PNEXT); }
     /** Unsafe version of {@link #reductionMode}. */
-    public static int nreductionMode(long struct) { return UNSAFE.getInt(null, struct + VkSamplerReductionModeCreateInfo.REDUCTIONMODE); }
+    public static int nreductionMode(long struct) { return memGetInt(struct + VkSamplerReductionModeCreateInfo.REDUCTIONMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerReductionModeCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSamplerReductionModeCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSamplerReductionModeCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #reductionMode(int) reductionMode}. */
-    public static void nreductionMode(long struct, int value) { UNSAFE.putInt(null, struct + VkSamplerReductionModeCreateInfo.REDUCTIONMODE, value); }
+    public static void nreductionMode(long struct, int value) { memPutInt(struct + VkSamplerReductionModeCreateInfo.REDUCTIONMODE, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class VkSamplerReductionModeCreateInfo extends Struct<VkSamplerReductionM
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

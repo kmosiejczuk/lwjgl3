@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,7 +18,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <pre><code>
  * struct hwloc_osdev_attr_s {
- *     hwloc_obj_osdev_type_t type;
+ *     hwloc_obj_osdev_types_t types;
  * }</code></pre>
  */
 public class hwloc_osdev_attr_s extends Struct<hwloc_osdev_attr_s> {
@@ -31,7 +31,7 @@ public class hwloc_osdev_attr_s extends Struct<hwloc_osdev_attr_s> {
 
     /** The struct member offsets. */
     public static final int
-        TYPE;
+        TYPES;
 
     static {
         Layout layout = __struct(
@@ -41,7 +41,7 @@ public class hwloc_osdev_attr_s extends Struct<hwloc_osdev_attr_s> {
         SIZEOF = layout.getSize();
         ALIGNOF = layout.getAlignment();
 
-        TYPE = layout.offsetof(0);
+        TYPES = layout.offsetof(0);
     }
 
     protected hwloc_osdev_attr_s(long address, @Nullable ByteBuffer container) {
@@ -66,9 +66,9 @@ public class hwloc_osdev_attr_s extends Struct<hwloc_osdev_attr_s> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code type} field. */
-    @NativeType("hwloc_obj_osdev_type_t")
-    public long type() { return ntype(address()); }
+    /** @return the value of the {@code types} field. */
+    @NativeType("hwloc_obj_osdev_types_t")
+    public long types() { return ntypes(address()); }
 
     // -----------------------------------
 
@@ -78,8 +78,7 @@ public class hwloc_osdev_attr_s extends Struct<hwloc_osdev_attr_s> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_osdev_attr_s createSafe(long address) {
+    public static @Nullable hwloc_osdev_attr_s createSafe(long address) {
         return address == NULL ? null : new hwloc_osdev_attr_s(address, null);
     }
 
@@ -94,15 +93,14 @@ public class hwloc_osdev_attr_s extends Struct<hwloc_osdev_attr_s> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_osdev_attr_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_osdev_attr_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
-    /** Unsafe version of {@link #type}. */
-    public static long ntype(long struct) { return memGetCLong(struct + hwloc_osdev_attr_s.TYPE); }
+    /** Unsafe version of {@link #types}. */
+    public static long ntypes(long struct) { return memGetCLong(struct + hwloc_osdev_attr_s.TYPES); }
 
     // -----------------------------------
 
@@ -138,13 +136,18 @@ public class hwloc_osdev_attr_s extends Struct<hwloc_osdev_attr_s> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected hwloc_osdev_attr_s getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code type} field. */
-        @NativeType("hwloc_obj_osdev_type_t")
-        public long type() { return hwloc_osdev_attr_s.ntype(address()); }
+        /** @return the value of the {@code types} field. */
+        @NativeType("hwloc_obj_osdev_types_t")
+        public long types() { return hwloc_osdev_attr_s.ntypes(address()); }
 
     }
 

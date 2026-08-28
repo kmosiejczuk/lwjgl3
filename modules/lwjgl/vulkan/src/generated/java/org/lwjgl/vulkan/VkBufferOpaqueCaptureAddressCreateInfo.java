@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -26,13 +26,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If this structure is not present, it is as if {@code opaqueCaptureAddress} is zero.</p>
  * 
- * <p>Apps <b>should</b> avoid creating buffers with app-provided addresses and implementation-provided addresses in the same process, to reduce the likelihood of {@link VK12#VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS} errors.</p>
+ * <p>Applications <b>should</b> avoid creating buffers with application-provided addresses and implementation-provided addresses in the same process, to reduce the likelihood of {@link VK12#VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS} errors.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
  * <p>The expected usage for this is that a trace capture/replay tool will add the {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT} flag to all buffers that use {@link VK12#VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT}, and during capture will save the queried opaque device addresses in the trace. During replay, the buffers will be created specifying the original address so any address values stored in the trace data will remain valid.</p>
  * 
- * <p>Implementations are expected to separate such buffers in the GPU address space so normal allocations will avoid using these addresses. Apps/tools should avoid mixing app-provided and implementation-provided addresses for buffers created with {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, to avoid address space allocation conflicts.</p>
+ * <p>Implementations are expected to separate such buffers in the GPU address space so normal allocations will avoid using these addresses. Applications and tools should avoid mixing application-provided and implementation-provided addresses for buffers created with {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, to avoid address space allocation conflicts.</p>
  * </div>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -169,8 +169,7 @@ public class VkBufferOpaqueCaptureAddressCreateInfo extends Struct<VkBufferOpaqu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferOpaqueCaptureAddressCreateInfo createSafe(long address) {
+    public static @Nullable VkBufferOpaqueCaptureAddressCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkBufferOpaqueCaptureAddressCreateInfo(address, null);
     }
 
@@ -213,8 +212,7 @@ public class VkBufferOpaqueCaptureAddressCreateInfo extends Struct<VkBufferOpaqu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferOpaqueCaptureAddressCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkBufferOpaqueCaptureAddressCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,18 +257,18 @@ public class VkBufferOpaqueCaptureAddressCreateInfo extends Struct<VkBufferOpaqu
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBufferOpaqueCaptureAddressCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBufferOpaqueCaptureAddressCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBufferOpaqueCaptureAddressCreateInfo.PNEXT); }
     /** Unsafe version of {@link #opaqueCaptureAddress}. */
-    public static long nopaqueCaptureAddress(long struct) { return UNSAFE.getLong(null, struct + VkBufferOpaqueCaptureAddressCreateInfo.OPAQUECAPTUREADDRESS); }
+    public static long nopaqueCaptureAddress(long struct) { return memGetLong(struct + VkBufferOpaqueCaptureAddressCreateInfo.OPAQUECAPTUREADDRESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferOpaqueCaptureAddressCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBufferOpaqueCaptureAddressCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBufferOpaqueCaptureAddressCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #opaqueCaptureAddress(long) opaqueCaptureAddress}. */
-    public static void nopaqueCaptureAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferOpaqueCaptureAddressCreateInfo.OPAQUECAPTUREADDRESS, value); }
+    public static void nopaqueCaptureAddress(long struct, long value) { memPutLong(struct + VkBufferOpaqueCaptureAddressCreateInfo.OPAQUECAPTUREADDRESS, value); }
 
     // -----------------------------------
 
@@ -303,6 +301,11 @@ public class VkBufferOpaqueCaptureAddressCreateInfo extends Struct<VkBufferOpaqu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
