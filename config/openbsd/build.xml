@@ -182,28 +182,6 @@
             </link>
 	</build>
 
-        <!-- LIBDIVIDE -->
-        <build module="libdivide" simple="true" if:true="${binding.libdivide}">
-            <beforeCompile>
-                <compile>
-                    <arg value="-I/usr/include"/>
-		    <arg value="-I/usr/local/include"/>
-		    <arg value="-I/usr/X11R6/include"/>
-
-                    <arg value="-I${src.main.rel}"/>
-
-                    <fileset dir=".">
-                        <include name="${src.main}/*.c"/>
-                        <include name="${src.generated}/*.c"/>
-                        <include name="${src.generated}/${platform}/*.c"/>
-                    </fileset>
-                </compile>
-            </beforeCompile>
-	    <link>
-		<arg value="-lc"/>
-	    </link>
-        </build>
-
         <!-- LLVM -->
         <build_simple module="llvm"/>
 	<build module="llvm" simple="true">
@@ -251,18 +229,6 @@
                <arg value="/usr/local/lib/liblz4.a"/>
 	    </link>
         </build>
-
-        <!-- Meow -->
-	<!--
-        <local name="meow.flags"/>
-        <condition property="meow.flags" value="-maes -msse4.2" else="-march=armv8-a+crypto">
-            <or>
-                <isset property="build.arch.x64"/>
-                <isset property="build.arch.x86"/>
-            </or>
-        </condition>
-        <build module="meow" simple="true" flags="${meow.flags}" if:true="${binding.meow}"/>
-	-->
 
         <!-- NanoVG -->
         <build module="nanovg" simple="true" if:true="${binding.nanovg}">
@@ -376,16 +342,6 @@
 	    </link>
 	</build>
 
-        <!-- SSE -->
-        <build module="sse" simple="true" if:true="${binding.sse}">
-            <source>
-                <arg value="-msse3"/>
-            </source>
-	    <link>
-		<arg value="-lc"/>
-	    </link>
-        </build>
-
         <!-- stb -->
         <build module="stb" if:true="${binding.stb}">
             <source>
@@ -433,50 +389,6 @@
                 <arg value="-lc"/>
             </link>
         </build>
-
-        <!-- AMD Tootle -->
-        <!--
-        <build module="tootle" lang="c++" if:true="${binding.tootle}">
-            <beforeCompile>
-                <compile flags="-D_SOFTWARE_ONLY_VERSION -D_LINUX">
-                    <arg value="-I/usr/include"/>
-                    <arg value="-I/usr/local/include"/>
-                    <arg value="-I/usr/X11R6/include"/>
-
-                    <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/*.c"/>
-                </compile>
-                <compile lang="c++" flags="-D_SOFTWARE_ONLY_VERSION -D_LINUX">
-                    <arg value="-I/usr/include"/>
-                    <arg value="-I/usr/local/include"/>
-                    <arg value="-I/usr/X11R6/include"/>
-
-                    <arg value="-I${src.main.rel}"/>
-                    <arg value="-I${src.main.rel}/include"/>
-                    <arg value="-I${src.main.rel}/RayTracer"/>
-                    <arg value="-I${src.main.rel}/RayTracer/JRT"/>
-                    <arg value="-I${src.main.rel}/RayTracer/Math"/>
-                    <fileset dir=".">
-                        <include name="${src.main}/*.cpp"/>
-                        <exclude name="${src.main}/d3d*.cpp"/>
-                        <exclude name="${src.main}/gdi*.cpp"/>
-                    </fileset>
-                    <fileset dir="." includes="${src.main}/RayTracer/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/JRT/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/Math/*.cpp"/>
-                </compile>
-            </beforeCompile>
-            <source>
-                <arg value="-D_LINUX"/>
-                <arg value="-I/usr/include"/>
-                <arg value="-I/usr/local/include"/>
-                <arg value="-I/usr/X11R6/include"/>
-
-                <arg value="-I${src.main.rel}/include"/>
-                <fileset dir="." includes="${src.generated}/*.cpp"/>
-            </source>
-        </build>
-	-->
 
         <!-- Vulkan Memory Allocator -->
         <build module="vma" lang="c++" if:true="${binding.vma}">
