@@ -26,10 +26,10 @@
             <mkdir dir="@{dest}"/>
             <apply dir="@{dest}" executable="${gcc}" dest="@{dest}" skipemptyfilesets="true" failonerror="true" parallel="true" taskname="Compiler">
                 <arg line="-c -std=gnu11" unless:set="cpp"/>
-                <arg line="-c -std=gnu++14" if:set="cpp"/>
+                <arg line="-c -std=gnu++2a" if:set="cpp"/>
                 <arg line="-m64" if:set="build.arch.x64"/>
                 <arg line="-m32 -mfpmath=sse -msse -msse2" if:set="build.arch.x86"/>
-                <arg line="-O3 -flto -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_OPENBSD -DLWJGL_${build.arch}"/>
+                <arg line="-O3 -flto=auto -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_OPENBSD -DLWJGL_${build.arch}"/>
                 <arg line="-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_GNU_SOURCE"/>
 
                 <arg value="-I/usr/include" if:true="@{stdincludes}"/>
@@ -119,7 +119,7 @@
                 <arg value="-m64" if:set="build.arch.x64"/>
                 <arg value="-m32" if:set="build.arch.x86"/>
 
-                <arg line="-O3 -flto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
+                <arg line="-O3 -flto=auto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
 
                 <arg line="-Wl,--no-undefined"/>
                 <arg line="-Wl,--version-script,${version.script}"/>
@@ -288,7 +288,13 @@
                     <arg line="${gtk3}"/>
                     <arg value="-I/usr/include"/>
 		    <arg value="-I/usr/local/include"/>
+		    <arg value="-I/usr/local/include/atk-1.0"/>
+		    <arg value="-I/usr/local/include/cairo"/>
 		    <arg value="-I/usr/local/include/dbus-1.0"/>
+		    <arg value="-I/usr/local/include/gdk-pixbuf-2.0"/>
+		    <arg value="-I/usr/local/include/glib-2.0"/>
+		    <arg value="-I/usr/local/include/gtk-3.0"/>
+		    <arg value="-I/usr/local/include/harfbuzz"/>
 		    <arg value="-I/usr/X11R6/include"/>
 
                     <arg value="-I${src.main.rel}"/>
