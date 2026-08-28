@@ -288,6 +288,7 @@
                     <arg line="${gtk3}"/>
                     <arg value="-I/usr/include"/>
 		    <arg value="-I/usr/local/include"/>
+		    <arg value="-I/usr/local/include/dbus-1.0"/>
 		    <arg value="-I/usr/X11R6/include"/>
 
                     <arg value="-I${src.main.rel}"/>
@@ -305,6 +306,7 @@
             <link>
                 <arg value="-L/usr/local/lib"/>
                 <arg value="-lc"/>
+                <arg value="-ldbus-1"/>
                 <arg value="-lglib-2.0"/>
                 <arg value="-lgobject-2.0"/>
                 <arg value="-lgtk-3"/>

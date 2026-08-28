@@ -1715,6 +1715,8 @@
                 <get-release platform="linux" arch="x64" file="liblwjgl_nfd_portal.so"/>
                 <get-release platform="linux" arch="arm64" file="liblwjgl_nfd_portal.so"/>
                 <get-release platform="linux" arch="arm32" file="liblwjgl_nfd_portal.so"/>
+
+                <get-release platform="openbsd" arch="x64" file="liblwjgl_nfd_portal.so"/>
             </natives>
         </release-module>
 
