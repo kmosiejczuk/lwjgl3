@@ -6,7 +6,7 @@ package org.lwjgl.system.openbsd;
 
 import org.lwjgl.system.*;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 import java.nio.*;
 
 import static org.lwjgl.system.MemoryStack.*;
