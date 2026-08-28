@@ -18,7 +18,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 /**
  * This extension adds support for using cooperative matrix types in SPIR-V. Cooperative matrix types are medium-sized matrices that are primarily supported in compute shaders, where the storage for the matrix is spread across all invocations in some scope (usually a subgroup) and those invocations cooperate to efficiently perform matrix multiplies.
  * 
- * <p>Cooperative matrix types are defined by the <a target="_blank" href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_cooperative_matrix.html">{@code SPV_NV_cooperative_matrix}</a> SPIR-V extension and can be used with the <a target="_blank" href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/nv/GLSL_NV_cooperative_matrix.txt">{@code GL_NV_cooperative_matrix}</a> GLSL extension.</p>
+ * <p>Cooperative matrix types are defined by the <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_cooperative_matrix.html">{@code SPV_NV_cooperative_matrix}</a> SPIR-V extension and can be used with the <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/nv/GLSL_NV_cooperative_matrix.txt">{@code GL_NV_cooperative_matrix}</a> GLSL extension.</p>
  * 
  * <p>This extension includes support for enumerating the matrix types and dimensions that are supported by the implementation.</p>
  * 
@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Jeff Bolz <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_cooperative_matrix]%20@jeffbolznv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_cooperative_matrix%20extension*">jeffbolznv</a></li>
+ * <li>Jeff Bolz <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_cooperative_matrix]%20@jeffbolznv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_cooperative_matrix%20extension*">jeffbolznv</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -48,8 +48,8 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>2019-02-05</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>This extension requires <a target="_blank" href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_cooperative_matrix.html">{@code SPV_NV_cooperative_matrix}</a></li>
- * <li>This extension provides API support for <a target="_blank" href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/nv/GLSL_NV_cooperative_matrix.txt">{@code GL_NV_cooperative_matrix}</a></li>
+ * <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_cooperative_matrix.html">{@code SPV_NV_cooperative_matrix}</a></li>
+ * <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/nv/GLSL_NV_cooperative_matrix.txt">{@code GL_NV_cooperative_matrix}</a></li>
  * </ul></dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
@@ -84,27 +84,41 @@ public class NVCooperativeMatrix {
         VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV = 1000249002;
 
     /**
-     * VkComponentTypeNV - Specify SPIR-V cooperative matrix component type
+     * Extends {@code VkScopeKHR}.
      * 
-     * <h5>Description</h5>
+     * <h5>Enum values:</h5>
      * 
      * <ul>
-     * <li>{@link #VK_COMPONENT_TYPE_FLOAT16_NV COMPONENT_TYPE_FLOAT16_NV} corresponds to SPIR-V {@code OpTypeFloat} 16.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_FLOAT32_NV COMPONENT_TYPE_FLOAT32_NV} corresponds to SPIR-V {@code OpTypeFloat} 32.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_FLOAT64_NV COMPONENT_TYPE_FLOAT64_NV} corresponds to SPIR-V {@code OpTypeFloat} 64.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT8_NV COMPONENT_TYPE_SINT8_NV} corresponds to SPIR-V {@code OpTypeInt} 8 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT16_NV COMPONENT_TYPE_SINT16_NV} corresponds to SPIR-V {@code OpTypeInt} 16 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT32_NV COMPONENT_TYPE_SINT32_NV} corresponds to SPIR-V {@code OpTypeInt} 32 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT64_NV COMPONENT_TYPE_SINT64_NV} corresponds to SPIR-V {@code OpTypeInt} 64 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT8_NV COMPONENT_TYPE_UINT8_NV} corresponds to SPIR-V {@code OpTypeInt} 8 0.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT16_NV COMPONENT_TYPE_UINT16_NV} corresponds to SPIR-V {@code OpTypeInt} 16 0.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT32_NV COMPONENT_TYPE_UINT32_NV} corresponds to SPIR-V {@code OpTypeInt} 32 0.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT64_NV COMPONENT_TYPE_UINT64_NV} corresponds to SPIR-V {@code OpTypeInt} 64 0.</li>
+     * <li>{@link #VK_SCOPE_DEVICE_NV SCOPE_DEVICE_NV}</li>
+     * <li>{@link #VK_SCOPE_WORKGROUP_NV SCOPE_WORKGROUP_NV}</li>
+     * <li>{@link #VK_SCOPE_SUBGROUP_NV SCOPE_SUBGROUP_NV}</li>
+     * <li>{@link #VK_SCOPE_QUEUE_FAMILY_NV SCOPE_QUEUE_FAMILY_NV}</li>
      * </ul>
+     */
+    public static final int
+        VK_SCOPE_DEVICE_NV       = 1,
+        VK_SCOPE_WORKGROUP_NV    = 2,
+        VK_SCOPE_SUBGROUP_NV     = 3,
+        VK_SCOPE_QUEUE_FAMILY_NV = 5;
+
+    /**
+     * Extends {@code VkComponentTypeKHR}.
      * 
-     * <h5>See Also</h5>
+     * <h5>Enum values:</h5>
      * 
-     * <p>{@link VkCooperativeMatrixPropertiesNV}</p>
+     * <ul>
+     * <li>{@link #VK_COMPONENT_TYPE_FLOAT16_NV COMPONENT_TYPE_FLOAT16_NV}</li>
+     * <li>{@link #VK_COMPONENT_TYPE_FLOAT32_NV COMPONENT_TYPE_FLOAT32_NV}</li>
+     * <li>{@link #VK_COMPONENT_TYPE_FLOAT64_NV COMPONENT_TYPE_FLOAT64_NV}</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT8_NV COMPONENT_TYPE_SINT8_NV}</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT16_NV COMPONENT_TYPE_SINT16_NV}</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT32_NV COMPONENT_TYPE_SINT32_NV}</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT64_NV COMPONENT_TYPE_SINT64_NV}</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT8_NV COMPONENT_TYPE_UINT8_NV}</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT16_NV COMPONENT_TYPE_UINT16_NV}</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT32_NV COMPONENT_TYPE_UINT32_NV}</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT64_NV COMPONENT_TYPE_UINT64_NV}</li>
+     * </ul>
      */
     public static final int
         VK_COMPONENT_TYPE_FLOAT16_NV = 0,
@@ -118,30 +132,6 @@ public class NVCooperativeMatrix {
         VK_COMPONENT_TYPE_UINT16_NV  = 8,
         VK_COMPONENT_TYPE_UINT32_NV  = 9,
         VK_COMPONENT_TYPE_UINT64_NV  = 10;
-
-    /**
-     * VkScopeNV - Specify SPIR-V scope
-     * 
-     * <h5>Description</h5>
-     * 
-     * <ul>
-     * <li>{@link #VK_SCOPE_DEVICE_NV SCOPE_DEVICE_NV} corresponds to SPIR-V {@code Device} scope.</li>
-     * <li>{@link #VK_SCOPE_WORKGROUP_NV SCOPE_WORKGROUP_NV} corresponds to SPIR-V {@code Workgroup} scope.</li>
-     * <li>{@link #VK_SCOPE_SUBGROUP_NV SCOPE_SUBGROUP_NV} corresponds to SPIR-V {@code Subgroup} scope.</li>
-     * <li>{@link #VK_SCOPE_QUEUE_FAMILY_NV SCOPE_QUEUE_FAMILY_NV} corresponds to SPIR-V {@code QueueFamily} scope.</li>
-     * </ul>
-     * 
-     * <p>All enum values match the corresponding SPIR-V value.</p>
-     * 
-     * <h5>See Also</h5>
-     * 
-     * <p>{@link VkCooperativeMatrixPropertiesNV}</p>
-     */
-    public static final int
-        VK_SCOPE_DEVICE_NV       = 1,
-        VK_SCOPE_WORKGROUP_NV    = 2,
-        VK_SCOPE_SUBGROUP_NV     = 3,
-        VK_SCOPE_QUEUE_FAMILY_NV = 5;
 
     protected NVCooperativeMatrix() {
         throw new UnsupportedOperationException();

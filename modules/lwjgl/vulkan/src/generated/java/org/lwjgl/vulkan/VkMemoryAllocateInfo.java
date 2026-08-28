@@ -50,10 +50,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>The parameters <b>must</b> not define more than one <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-import-operation">import operation</a></li>
- * <li>If the parameters do not define an <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-import-operation">import or export operation</a>, {@code allocationSize} <b>must</b> be greater than 0</li>
+ * <li>The parameters <b>must</b> not define more than one <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-import-operation">import operation</a></li>
+ * <li>If the parameters do not define an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-import-operation">import or export operation</a>, {@code allocationSize} <b>must</b> be greater than 0</li>
  * <li>If the parameters define an export operation and the handle type is not {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID}, {@code allocationSize} <b>must</b> be greater than 0</li>
- * <li>If the {@code pNext} chain includes a {@link VkExportMemoryAllocateInfo} structure, and any of the handle types specified in {@link VkExportMemoryAllocateInfo}{@code ::handleTypes} require a dedicated allocation, as reported by {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} in {@link VkExternalImageFormatProperties}{@code ::externalMemoryProperties.externalMemoryFeatures} or {@link VkExternalBufferProperties}{@code ::externalMemoryProperties.externalMemoryFeatures}, the {@code pNext} chain <b>must</b> include a {@link VkMemoryDedicatedAllocateInfo} or {@link VkDedicatedAllocationMemoryAllocateInfoNV} structure with either its {@code image} or {@code buffer} member set to a value other than {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If the {@code pNext} chain includes a {@link VkExportMemoryAllocateInfo} structure, and any of the handle types specified in {@link VkExportMemoryAllocateInfo}{@code ::handleTypes} require a dedicated allocation, as reported by {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} in {@link VkExternalImageFormatProperties}{@code ::externalMemoryProperties.externalMemoryFeatures}, or by {@link VK11#vkGetPhysicalDeviceExternalBufferProperties GetPhysicalDeviceExternalBufferProperties} in {@link VkExternalBufferProperties}{@code ::externalMemoryProperties.externalMemoryFeatures}, the {@code pNext} chain <b>must</b> include a {@link VkMemoryDedicatedAllocateInfo} or {@link VkDedicatedAllocationMemoryAllocateInfoNV} structure with either its {@code image} or {@code buffer} member set to a value other than {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>If the {@code pNext} chain includes a {@link VkExportMemoryAllocateInfo} structure, it <b>must</b> not include a {@link VkExportMemoryAllocateInfoNV} or {@link VkExportMemoryWin32HandleInfoNV} structure</li>
  * <li>If the {@code pNext} chain includes a {@link VkImportMemoryWin32HandleInfoKHR} structure, it <b>must</b> not include a {@link VkImportMemoryWin32HandleInfoNV} structure</li>
  * <li>If the parameters define an import operation, the external handle specified was created by the Vulkan API, and the external handle type is {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT}, then the values of {@code allocationSize} and {@code memoryTypeIndex} <b>must</b> match those specified when the payload being imported was created</li>
@@ -63,7 +63,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If the parameters define an import operation, the external handle was created by the Vulkan API, and the external handle type is {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT} or {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT}, then the values of {@code allocationSize} and {@code memoryTypeIndex} <b>must</b> match those specified when the payload being imported was created</li>
  * <li>If the parameters define an import operation and the external handle type is {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT}, {@code allocationSize} <b>must</b> match the size specified when creating the Direct3D 12 heap from which the payload was extracted</li>
  * <li>If the parameters define an import operation and the external handle is a POSIX file descriptor created outside of the Vulkan API, the value of {@code memoryTypeIndex} <b>must</b> be one of those returned by {@link KHRExternalMemoryFd#vkGetMemoryFdPropertiesKHR GetMemoryFdPropertiesKHR}</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled, the {@link VkMemoryAllocateInfo}{@code ::memoryTypeIndex} <b>must</b> not indicate a memory type that reports {@link VK11#VK_MEMORY_PROPERTY_PROTECTED_BIT MEMORY_PROPERTY_PROTECTED_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled, the {@link VkMemoryAllocateInfo}{@code ::memoryTypeIndex} <b>must</b> not indicate a memory type that reports {@link VK11#VK_MEMORY_PROPERTY_PROTECTED_BIT MEMORY_PROPERTY_PROTECTED_BIT}</li>
  * <li>If the parameters define an import operation and the external handle is a host pointer, the value of {@code memoryTypeIndex} <b>must</b> be one of those returned by {@link EXTExternalMemoryHost#vkGetMemoryHostPointerPropertiesEXT GetMemoryHostPointerPropertiesEXT}</li>
  * <li>If the parameters define an import operation and the external handle is a host pointer, {@code allocationSize} <b>must</b> be an integer multiple of {@link VkPhysicalDeviceExternalMemoryHostPropertiesEXT}{@code ::minImportedHostPointerAlignment}</li>
  * <li>If the parameters define an import operation and the external handle is a host pointer, the {@code pNext} chain <b>must</b> not include a {@link VkDedicatedAllocationMemoryAllocateInfoNV} structure with either its {@code image} or {@code buffer} field set to a value other than {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
@@ -79,10 +79,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If the parameters define an import operation, the external handle is an Android hardware buffer, and the {@code pNext} chain includes a {@link VkMemoryDedicatedAllocateInfo} structure with {@code image} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the width, height, and array layer dimensions of {@code image} and the Android hardware buffer’s {@code AHardwareBuffer_Desc} <b>must</b> be identical</li>
  * <li>If the parameters define an import operation, the external handle is an Android hardware buffer, and the {@code pNext} chain includes a {@link VkMemoryDedicatedAllocateInfo} structure with {@code image} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and the Android hardware buffer’s {@code AHardwareBuffer}{@code ::usage} includes {@code AHARDWAREBUFFER_USAGE_GPU_MIPMAP_COMPLETE}, the {@code image} <b>must</b> have a complete mipmap chain</li>
  * <li>If the parameters define an import operation, the external handle is an Android hardware buffer, and the {@code pNext} chain includes a {@link VkMemoryDedicatedAllocateInfo} structure with {@code image} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and the Android hardware buffer’s {@code AHardwareBuffer}{@code ::usage} does not include {@code AHARDWAREBUFFER_USAGE_GPU_MIPMAP_COMPLETE}, the {@code image} <b>must</b> have exactly one mipmap level</li>
- * <li>If the parameters define an import operation, the external handle is an Android hardware buffer, and the {@code pNext} chain includes a {@link VkMemoryDedicatedAllocateInfo} structure with {@code image} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, each bit set in the usage of {@code image} <b>must</b> be listed in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-external-android-hardware-buffer-usage">AHardwareBuffer Usage Equivalence</a>, and if there is a corresponding {@code AHARDWAREBUFFER_USAGE} bit listed that bit <b>must</b> be included in the Android hardware buffer’s {@code AHardwareBuffer_Desc}{@code ::usage}</li>
+ * <li>If the parameters define an import operation, the external handle is an Android hardware buffer, and the {@code pNext} chain includes a {@link VkMemoryDedicatedAllocateInfo} structure with {@code image} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, each bit set in the usage of {@code image} <b>must</b> be listed in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-external-android-hardware-buffer-usage">AHardwareBuffer Usage Equivalence</a>, and if there is a corresponding {@code AHARDWAREBUFFER_USAGE} bit listed that bit <b>must</b> be included in the Android hardware buffer’s {@code AHardwareBuffer_Desc}{@code ::usage}</li>
  * <li>If {@link VkMemoryOpaqueCaptureAddressAllocateInfo}{@code ::opaqueCaptureAddress} is not zero, {@link VkMemoryAllocateFlagsInfo}{@code ::flags} <b>must</b> include {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}</li>
- * <li>If {@link VkMemoryAllocateFlagsInfo}{@code ::flags} includes {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bufferDeviceAddressCaptureReplay">{@code bufferDeviceAddressCaptureReplay}</a> feature <b>must</b> be enabled</li>
- * <li>If {@link VkMemoryAllocateFlagsInfo}{@code ::flags} includes {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT}, the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bufferDeviceAddress">{@code bufferDeviceAddress}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@link VkMemoryAllocateFlagsInfo}{@code ::flags} includes {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bufferDeviceAddressCaptureReplay">{@code bufferDeviceAddressCaptureReplay}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@link VkMemoryAllocateFlagsInfo}{@code ::flags} includes {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bufferDeviceAddress">{@code bufferDeviceAddress}</a> feature <b>must</b> be enabled</li>
  * <li>If the {@code pNext} chain includes a {@link VkImportMemoryHostPointerInfoEXT} structure, {@link VkMemoryOpaqueCaptureAddressAllocateInfo}{@code ::opaqueCaptureAddress} <b>must</b> be zero</li>
  * <li>If the parameters define an import operation, {@link VkMemoryOpaqueCaptureAddressAllocateInfo}{@code ::opaqueCaptureAddress} <b>must</b> be zero</li>
  * <li>If the {@code pNext} chain includes a {@link VkExportMetalObjectCreateInfoEXT} structure, its {@code exportObjectType} member <b>must</b> be {@link EXTMetalObjects#VK_EXPORT_METAL_OBJECT_TYPE_METAL_BUFFER_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_BUFFER_BIT_EXT}</li>
@@ -110,7 +110,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #memoryTypeIndex};
  * }</code></pre>
  */
-public class VkMemoryAllocateInfo extends Struct implements NativeResource {
+public class VkMemoryAllocateInfo extends Struct<VkMemoryAllocateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -142,6 +142,15 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
         MEMORYTYPEINDEX = layout.offsetof(3);
     }
 
+    protected VkMemoryAllocateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkMemoryAllocateInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkMemoryAllocateInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkMemoryAllocateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -155,7 +164,7 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -250,29 +259,29 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code VkMemoryAllocateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkMemoryAllocateInfo malloc() {
-        return wrap(VkMemoryAllocateInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkMemoryAllocateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkMemoryAllocateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkMemoryAllocateInfo calloc() {
-        return wrap(VkMemoryAllocateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkMemoryAllocateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkMemoryAllocateInfo} instance allocated with {@link BufferUtils}. */
     public static VkMemoryAllocateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkMemoryAllocateInfo.class, memAddress(container), container);
+        return new VkMemoryAllocateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkMemoryAllocateInfo} instance for the specified memory address. */
     public static VkMemoryAllocateInfo create(long address) {
-        return wrap(VkMemoryAllocateInfo.class, address);
+        return new VkMemoryAllocateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryAllocateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkMemoryAllocateInfo.class, address);
+        return address == NULL ? null : new VkMemoryAllocateInfo(address, null);
     }
 
     /**
@@ -281,7 +290,7 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryAllocateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -290,7 +299,7 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryAllocateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -300,7 +309,7 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
      */
     public static VkMemoryAllocateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -310,13 +319,13 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryAllocateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkMemoryAllocateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -344,7 +353,7 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkMemoryAllocateInfo malloc(MemoryStack stack) {
-        return wrap(VkMemoryAllocateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkMemoryAllocateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -353,7 +362,7 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkMemoryAllocateInfo calloc(MemoryStack stack) {
-        return wrap(VkMemoryAllocateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkMemoryAllocateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -363,7 +372,7 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryAllocateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -373,7 +382,7 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkMemoryAllocateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -406,9 +415,9 @@ public class VkMemoryAllocateInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkMemoryAllocateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkMemoryAllocateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkMemoryAllocateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

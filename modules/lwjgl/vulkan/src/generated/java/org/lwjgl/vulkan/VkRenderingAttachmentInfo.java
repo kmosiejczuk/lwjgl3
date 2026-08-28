@@ -20,11 +20,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Values in {@code imageView} are loaded and stored according to the values of {@code loadOp} and {@code storeOp}, within the render area for each device specified in {@link VkRenderingInfo}. If {@code imageView} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, other members of this structure are ignored; writes to this attachment will be discarded, and no load, store, or resolve operations will be performed.</p>
+ * <p>Values in {@code imageView} are loaded and stored according to the values of {@code loadOp} and {@code storeOp}, within the render area for each device specified in {@link VkRenderingInfo}. If {@code imageView} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, other members of this structure are ignored; writes to this attachment will be discarded, and no <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-load-operations">load</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-store-operations">store</a>, or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">multisample resolve</a> operations will be performed.</p>
  * 
- * <p>If {@code resolveMode} is {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, then {@code resolveImageView} is ignored. If {@code resolveMode} is not {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, and {@code resolveImageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, values in {@code resolveImageView} within the render area become undefined once rendering begins. Only values in the aspect corresponding to the use of this attachment become undefined (the depth aspect if this attachment is used as {@link VkRenderingInfo}{@code ::pDepthAttachment}, and the stencil aspect if it is used as {@code pStencilAttachment}).</p>
- * 
- * <p>At the end of rendering, the values written to each pixel location in {@code imageView} will be resolved according to {@code resolveMode} and stored into the same location in {@code resolveImageView}.</p>
+ * <p>If {@code resolveMode} is {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, then {@code resolveImageView} is ignored. If {@code resolveMode} is not {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, and {@code resolveImageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">render pass multisample resolve operation</a> is defined for the attachment subresource.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -97,7 +95,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkClearValue VkClearValue} {@link #clearValue};
  * }</code></pre>
  */
-public class VkRenderingAttachmentInfo extends Struct implements NativeResource {
+public class VkRenderingAttachmentInfo extends Struct<VkRenderingAttachmentInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -147,6 +145,15 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
         CLEARVALUE = layout.offsetof(9);
     }
 
+    protected VkRenderingAttachmentInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkRenderingAttachmentInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkRenderingAttachmentInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkRenderingAttachmentInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -160,7 +167,7 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -181,10 +188,10 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
     /** the layout that {@code resolveImageView} will be in during rendering. */
     @NativeType("VkImageLayout")
     public int resolveImageLayout() { return nresolveImageLayout(address()); }
-    /** a {@code VkAttachmentLoadOp} value specifying how the contents of {@code imageView} are treated at the start of the render pass instance. */
+    /** a {@code VkAttachmentLoadOp} value defining the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-load-operations">load operation</a> for the attachment. */
     @NativeType("VkAttachmentLoadOp")
     public int loadOp() { return nloadOp(address()); }
-    /** a {@code VkAttachmentStoreOp} value specifying how the contents of {@code imageView} are treated at the end of the render pass instance. */
+    /** a {@code VkAttachmentStoreOp} value defining the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-store-operations">store operation</a> for the attachment. */
     @NativeType("VkAttachmentStoreOp")
     public int storeOp() { return nstoreOp(address()); }
     /** a {@link VkClearValue} structure defining values used to clear {@code imageView} when {@code loadOp} is {@link VK10#VK_ATTACHMENT_LOAD_OP_CLEAR ATTACHMENT_LOAD_OP_CLEAR}. */
@@ -258,29 +265,29 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
 
     /** Returns a new {@code VkRenderingAttachmentInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkRenderingAttachmentInfo malloc() {
-        return wrap(VkRenderingAttachmentInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkRenderingAttachmentInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkRenderingAttachmentInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkRenderingAttachmentInfo calloc() {
-        return wrap(VkRenderingAttachmentInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkRenderingAttachmentInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkRenderingAttachmentInfo} instance allocated with {@link BufferUtils}. */
     public static VkRenderingAttachmentInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkRenderingAttachmentInfo.class, memAddress(container), container);
+        return new VkRenderingAttachmentInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkRenderingAttachmentInfo} instance for the specified memory address. */
     public static VkRenderingAttachmentInfo create(long address) {
-        return wrap(VkRenderingAttachmentInfo.class, address);
+        return new VkRenderingAttachmentInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderingAttachmentInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkRenderingAttachmentInfo.class, address);
+        return address == NULL ? null : new VkRenderingAttachmentInfo(address, null);
     }
 
     /**
@@ -289,7 +296,7 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkRenderingAttachmentInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -298,7 +305,7 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkRenderingAttachmentInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -308,7 +315,7 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
      */
     public static VkRenderingAttachmentInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -318,13 +325,13 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkRenderingAttachmentInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderingAttachmentInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -333,7 +340,7 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static VkRenderingAttachmentInfo malloc(MemoryStack stack) {
-        return wrap(VkRenderingAttachmentInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkRenderingAttachmentInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -342,7 +349,7 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static VkRenderingAttachmentInfo calloc(MemoryStack stack) {
-        return wrap(VkRenderingAttachmentInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkRenderingAttachmentInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -352,7 +359,7 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkRenderingAttachmentInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -362,7 +369,7 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkRenderingAttachmentInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -419,9 +426,9 @@ public class VkRenderingAttachmentInfo extends Struct implements NativeResource 
         /**
          * Creates a new {@code VkRenderingAttachmentInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkRenderingAttachmentInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkRenderingAttachmentInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

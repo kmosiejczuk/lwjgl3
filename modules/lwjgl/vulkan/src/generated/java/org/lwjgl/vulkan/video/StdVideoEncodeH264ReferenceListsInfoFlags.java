@@ -22,9 +22,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct StdVideoEncodeH264ReferenceListsInfoFlags {
  *     uint32_t ref_pic_list_modification_l0_flag : 1;
  *     uint32_t ref_pic_list_modification_l1_flag : 1;
+ *     uint32_t reserved : 30;
  * }</code></pre>
  */
-public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements NativeResource {
+public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct<StdVideoEncodeH264ReferenceListsInfoFlags> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -45,6 +46,15 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
         ALIGNOF = layout.getAlignment();
 
         BITFIELD0 = layout.offsetof(0);
+    }
+
+    protected StdVideoEncodeH264ReferenceListsInfoFlags(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected StdVideoEncodeH264ReferenceListsInfoFlags create(long address, @Nullable ByteBuffer container) {
+        return new StdVideoEncodeH264ReferenceListsInfoFlags(address, container);
     }
 
     /**
@@ -99,29 +109,29 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
 
     /** Returns a new {@code StdVideoEncodeH264ReferenceListsInfoFlags} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static StdVideoEncodeH264ReferenceListsInfoFlags malloc() {
-        return wrap(StdVideoEncodeH264ReferenceListsInfoFlags.class, nmemAllocChecked(SIZEOF));
+        return new StdVideoEncodeH264ReferenceListsInfoFlags(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code StdVideoEncodeH264ReferenceListsInfoFlags} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static StdVideoEncodeH264ReferenceListsInfoFlags calloc() {
-        return wrap(StdVideoEncodeH264ReferenceListsInfoFlags.class, nmemCallocChecked(1, SIZEOF));
+        return new StdVideoEncodeH264ReferenceListsInfoFlags(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code StdVideoEncodeH264ReferenceListsInfoFlags} instance allocated with {@link BufferUtils}. */
     public static StdVideoEncodeH264ReferenceListsInfoFlags create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(StdVideoEncodeH264ReferenceListsInfoFlags.class, memAddress(container), container);
+        return new StdVideoEncodeH264ReferenceListsInfoFlags(memAddress(container), container);
     }
 
     /** Returns a new {@code StdVideoEncodeH264ReferenceListsInfoFlags} instance for the specified memory address. */
     public static StdVideoEncodeH264ReferenceListsInfoFlags create(long address) {
-        return wrap(StdVideoEncodeH264ReferenceListsInfoFlags.class, address);
+        return new StdVideoEncodeH264ReferenceListsInfoFlags(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoEncodeH264ReferenceListsInfoFlags createSafe(long address) {
-        return address == NULL ? null : wrap(StdVideoEncodeH264ReferenceListsInfoFlags.class, address);
+        return address == NULL ? null : new StdVideoEncodeH264ReferenceListsInfoFlags(address, null);
     }
 
     /**
@@ -130,7 +140,7 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264ReferenceListsInfoFlags.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -139,7 +149,7 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264ReferenceListsInfoFlags.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -149,7 +159,7 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
      */
     public static StdVideoEncodeH264ReferenceListsInfoFlags.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -159,13 +169,13 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264ReferenceListsInfoFlags.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoEncodeH264ReferenceListsInfoFlags.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -174,7 +184,7 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
      * @param stack the stack from which to allocate
      */
     public static StdVideoEncodeH264ReferenceListsInfoFlags malloc(MemoryStack stack) {
-        return wrap(StdVideoEncodeH264ReferenceListsInfoFlags.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new StdVideoEncodeH264ReferenceListsInfoFlags(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -183,7 +193,7 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
      * @param stack the stack from which to allocate
      */
     public static StdVideoEncodeH264ReferenceListsInfoFlags calloc(MemoryStack stack) {
-        return wrap(StdVideoEncodeH264ReferenceListsInfoFlags.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new StdVideoEncodeH264ReferenceListsInfoFlags(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -193,7 +203,7 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264ReferenceListsInfoFlags.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -203,7 +213,7 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH264ReferenceListsInfoFlags.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -213,12 +223,14 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
     public static int nref_pic_list_modification_l0_flag(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #ref_pic_list_modification_l1_flag}. */
     public static int nref_pic_list_modification_l1_flag(long struct) { return (nbitfield0(struct) & 0x00_00_00_02) >>> 1; }
+    public static int nreserved(long struct) { return nbitfield0(struct) >>> 2; }
 
     public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH264ReferenceListsInfoFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #ref_pic_list_modification_l0_flag(boolean) ref_pic_list_modification_l0_flag}. */
     public static void nref_pic_list_modification_l0_flag(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #ref_pic_list_modification_l1_flag(boolean) ref_pic_list_modification_l1_flag}. */
     public static void nref_pic_list_modification_l1_flag(long struct, int value) { nbitfield0(struct, ((value << 1) & 0x00_00_00_02) | (nbitfield0(struct) & 0xFF_FF_FF_FD)); }
+    public static void nreserved(long struct, int value) { nbitfield0(struct, (value << 2) | (nbitfield0(struct) & 0x00_00_00_03)); }
 
     // -----------------------------------
 
@@ -230,9 +242,9 @@ public class StdVideoEncodeH264ReferenceListsInfoFlags extends Struct implements
         /**
          * Creates a new {@code StdVideoEncodeH264ReferenceListsInfoFlags.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link StdVideoEncodeH264ReferenceListsInfoFlags#SIZEOF}, and its mark will be undefined.
+         * by {@link StdVideoEncodeH264ReferenceListsInfoFlags#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

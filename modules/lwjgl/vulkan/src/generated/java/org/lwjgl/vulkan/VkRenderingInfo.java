@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If there is an instance of {@link VkDeviceGroupRenderPassBeginInfo} included in the {@code pNext} chain and its {@code deviceRenderAreaCount} member is not 0, then {@code renderArea} is ignored, and the render area is defined per-device by that structure.</p>
  * 
- * <p>If multiview is enabled, and the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-per-view-render-areas">{@code multiviewPerViewRenderAreas}</a> feature is enabled, and there is an instance of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} included in the {@code pNext} chain with {@code perViewRenderAreaCount} not equal to 0, then the elements of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM}{@code ::pPerViewRenderAreas} override {@code renderArea} and define a render area for each view. In this case, {@code renderArea} <b>must</b> be set to an area at least as large as the union of all the per-view render areas.</p>
+ * <p>If multiview is enabled, and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-per-view-render-areas">{@code multiviewPerViewRenderAreas}</a> feature is enabled, and there is an instance of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} included in the {@code pNext} chain with {@code perViewRenderAreaCount} not equal to 0, then the elements of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM}{@code ::pPerViewRenderAreas} override {@code renderArea} and define a render area for each view. In this case, {@code renderArea} <b>must</b> be set to an area at least as large as the union of all the per-view render areas.</p>
  * 
  * <p>Each element of the {@code pColorAttachments} array corresponds to an output location in the shader, i.e. if the shader declares an output variable decorated with a {@code Location} value of <b>X</b>, then it uses the attachment provided in {@code pColorAttachments}[<b>X</b>]. If the {@code imageView} member of any element of {@code pColorAttachments} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, writes to the corresponding location by a fragment are discarded.</p>
  * 
@@ -33,13 +33,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If {@code viewMask} is 0, {@code layerCount} <b>must</b> not be 0</li>
- * <li>If none of the {@link AMDMixedAttachmentSamples VK_AMD_mixed_attachment_samples} extension, the {@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} extension, or the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multisampledRenderToSingleSampled">{@code multisampledRenderToSingleSampled}</a> feature are enabled, {@code imageView} members of {@code pDepthAttachment}, {@code pStencilAttachment}, and elements of {@code pColorAttachments} that are not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} <b>must</b> have been created with the same {@code sampleCount}</li>
- * <li>If <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#subpass-multisampledrendertosinglesampled">multisampled-render-to-single-sampled</a> is enabled, then all attachments referenced by {@code imageView} members of {@code pDepthAttachment}, {@code pStencilAttachment}, and elements of {@code pColorAttachments} that are not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} <b>must</b> have a sample count that is either {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT} or equal to {@link VkMultisampledRenderToSingleSampledInfoEXT}{@code ::rasterizationSamples}</li>
- * <li>If <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#subpass-multisampledrendertosinglesampled">multisampled-render-to-single-sampled</a> is enabled, then all attachments referenced by {@code imageView} members of {@code pDepthAttachment}, {@code pStencilAttachment}, and elements of {@code pColorAttachments} that are not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and have a sample count of {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT} <b>must</b> have been created with {@link EXTMultisampledRenderToSingleSampled#VK_IMAGE_CREATE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_BIT_EXT IMAGE_CREATE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_BIT_EXT} in their {@link VkImageCreateInfo}{@code ::flags}</li>
+ * <li>If none of the {@link AMDMixedAttachmentSamples VK_AMD_mixed_attachment_samples} extension, the {@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} extension, or the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multisampledRenderToSingleSampled">{@code multisampledRenderToSingleSampled}</a> feature are enabled, {@code imageView} members of {@code pDepthAttachment}, {@code pStencilAttachment}, and elements of {@code pColorAttachments} that are not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} <b>must</b> have been created with the same {@code sampleCount}</li>
+ * <li>If {@link VkDeviceGroupRenderPassBeginInfo}{@code ::deviceRenderAreaCount} is 0, {@code renderArea.extent.width} <b>must</b> be greater than 0</li>
+ * <li>If {@link VkDeviceGroupRenderPassBeginInfo}{@code ::deviceRenderAreaCount} is 0, {@code renderArea.extent.height} <b>must</b> be greater than 0</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#subpass-multisampledrendertosinglesampled">multisampled-render-to-single-sampled</a> is enabled, then all attachments referenced by {@code imageView} members of {@code pDepthAttachment}, {@code pStencilAttachment}, and elements of {@code pColorAttachments} that are not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} <b>must</b> have a sample count that is either {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT} or equal to {@link VkMultisampledRenderToSingleSampledInfoEXT}{@code ::rasterizationSamples}</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#subpass-multisampledrendertosinglesampled">multisampled-render-to-single-sampled</a> is enabled, then all attachments referenced by {@code imageView} members of {@code pDepthAttachment}, {@code pStencilAttachment}, and elements of {@code pColorAttachments} that are not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} and have a sample count of {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT} <b>must</b> have been created with {@link EXTMultisampledRenderToSingleSampled#VK_IMAGE_CREATE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_BIT_EXT IMAGE_CREATE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_BIT_EXT} in their {@link VkImageCreateInfo}{@code ::flags}</li>
  * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, {@code renderArea.offset.x} <b>must</b> be greater than or equal to 0</li>
  * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, {@code renderArea.offset.y} <b>must</b> be greater than or equal to 0</li>
- * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, the sum of {@code renderArea.extent.width} and {@code renderArea.offset.x} <b>must</b> be less than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferWidth">{@code maxFramebufferWidth}</a></li>
- * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, the sum of {@code renderArea.extent.height} and {@code renderArea.offset.y} <b>must</b> be less than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferWidth">{@code maxFramebufferHeight}</a></li>
+ * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, the sum of {@code renderArea.extent.width} and {@code renderArea.offset.x} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferWidth">{@code maxFramebufferWidth}</a></li>
+ * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, the sum of {@code renderArea.extent.height} and {@code renderArea.offset.y} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferWidth">{@code maxFramebufferHeight}</a></li>
  * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, the width of the {@code imageView} member of any element of {@code pColorAttachments}, {@code pDepthAttachment}, or {@code pStencilAttachment} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} <b>must</b> be greater than or equal to <code>renderArea.offset.x + renderArea.extent.width</code></li>
  * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, the height of the {@code imageView} member of any element of {@code pColorAttachments}, {@code pDepthAttachment}, or {@code pStencilAttachment} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} <b>must</b> be greater than or equal to <code>renderArea.offset.y + renderArea.extent.height</code></li>
  * <li>If the {@code pNext} chain contains {@link VkDeviceGroupRenderPassBeginInfo}, the width of the {@code imageView} member of any element of {@code pColorAttachments}, {@code pDepthAttachment}, or {@code pStencilAttachment} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE} <b>must</b> be greater than or equal to the sum of the {@code offset.x} and {@code extent.width} members of each element of {@code pDeviceRenderAreas}</li>
@@ -72,7 +74,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code pDepthAttachment} or {@code pStencilAttachment} are both not {@code NULL}, {@code pDepthAttachment→imageView} and {@code pStencilAttachment→imageView} are both not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::independentResolveNone} is {@link VK10#VK_FALSE FALSE}, the {@code resolveMode} of both structures <b>must</b> be the same value</li>
  * <li>If {@code pDepthAttachment} or {@code pStencilAttachment} are both not {@code NULL}, {@code pDepthAttachment→imageView} and {@code pStencilAttachment→imageView} are both not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@link VkPhysicalDeviceDepthStencilResolveProperties}{@code ::independentResolve} is {@link VK10#VK_FALSE FALSE}, and the {@code resolveMode} of neither structure is {@link VK12#VK_RESOLVE_MODE_NONE RESOLVE_MODE_NONE}, the {@code resolveMode} of both structures <b>must</b> be the same value</li>
  * <li>{@code colorAttachmentCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxColorAttachments}</li>
- * <li>If the {@code imageView} member of a {@link VkRenderingFragmentDensityMapAttachmentInfoEXT} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-fragmentDensityMapNonSubsampledImages">{@code fragmentDensityMapNonSubsampledImages}</a> feature is not enabled, valid {@code imageView} and {@code resolveImageView} members of {@code pDepthAttachment}, {@code pStencilAttachment}, and each element of {@code pColorAttachments} <b>must</b> be a {@code VkImageView} created with {@link EXTFragmentDensityMap#VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT IMAGE_CREATE_SUBSAMPLED_BIT_EXT}</li>
+ * <li>If the {@code imageView} member of a {@link VkRenderingFragmentDensityMapAttachmentInfoEXT} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-fragmentDensityMapNonSubsampledImages">{@code fragmentDensityMapNonSubsampledImages}</a> feature is not enabled, valid {@code imageView} and {@code resolveImageView} members of {@code pDepthAttachment}, {@code pStencilAttachment}, and each element of {@code pColorAttachments} <b>must</b> be a {@code VkImageView} created with {@link EXTFragmentDensityMap#VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT IMAGE_CREATE_SUBSAMPLED_BIT_EXT}</li>
  * <li>If the {@code imageView} member of a {@link VkRenderingFragmentDensityMapAttachmentInfoEXT} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and {@code viewMask} is not 0, {@code imageView} <b>must</b> have a {@code layerCount} greater than or equal to the index of the most significant bit in {@code viewMask}</li>
  * <li>If the {@code imageView} member of a {@link VkRenderingFragmentDensityMapAttachmentInfoEXT} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and {@code viewMask} is 0, {@code imageView} <b>must</b> have a {@code layerCount} equal to 1</li>
  * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0 and the {@code imageView} member of a {@link VkRenderingFragmentDensityMapAttachmentInfoEXT} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code imageView} <b>must</b> have a width greater than or equal to <code>ceil((renderArea<sub>x</sub>+renderArea<sub>width</sub>) / maxFragmentDensityTexelSize<sub>width</sub>)</code></li>
@@ -84,15 +86,16 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If the {@code pNext} chain contains a {@link VkDeviceGroupRenderPassBeginInfo} structure, its {@code deviceRenderAreaCount} member is not 0, and the {@code imageView} member of a {@link VkRenderingFragmentShadingRateAttachmentInfoKHR} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code imageView} <b>must</b> have a width greater than or equal to <code>ceil((pDeviceRenderAreas<sub>x</sub>+pDeviceRenderAreas<sub>width</sub>) / shadingRateAttachmentTexelSize<sub>width</sub>)</code> for each element of {@code pDeviceRenderAreas}</li>
  * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0 and the {@code imageView} member of a {@link VkRenderingFragmentShadingRateAttachmentInfoKHR} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code imageView} <b>must</b> have a height greater than or equal to <code>ceil((renderArea<sub>y</sub>+renderArea<sub>height</sub>) / shadingRateAttachmentTexelSize<sub>height</sub>)</code></li>
  * <li>If the {@code pNext} chain contains a {@link VkDeviceGroupRenderPassBeginInfo} structure, its {@code deviceRenderAreaCount} member is not 0, and the {@code imageView} member of a {@link VkRenderingFragmentShadingRateAttachmentInfoKHR} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code imageView} <b>must</b> have a height greater than or equal to <code>ceil((pDeviceRenderAreas<sub>y</sub>+pDeviceRenderAreas<sub>height</sub>) / shadingRateAttachmentTexelSize<sub>height</sub>)</code> for each element of {@code pDeviceRenderAreas}</li>
- * <li>{@code layerCount} <b>must</b> be less than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferLayers">{@code maxFramebufferLayers}</a></li>
+ * <li>{@code layerCount} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferLayers">{@code maxFramebufferLayers}</a></li>
  * <li>If the {@code imageView} member of a {@link VkRenderingFragmentShadingRateAttachmentInfoKHR} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and {@code viewMask} is 0, {@code imageView} <b>must</b> have a {@code layerCount} that is either equal to 1 or greater than or equal to {@code layerCount}</li>
  * <li>If the {@code imageView} member of a {@link VkRenderingFragmentShadingRateAttachmentInfoKHR} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and {@code viewMask} is not 0, {@code imageView} <b>must</b> have a {@code layerCount} that either equal to 1 or greater than or equal to the index of the most significant bit in {@code viewMask}</li>
  * <li>If the {@code imageView} member of a {@link VkRenderingFragmentShadingRateAttachmentInfoKHR} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> not be equal to the {@code imageView} or {@code resolveImageView} member of {@code pDepthAttachment}, {@code pStencilAttachment}, or any element of {@code pColorAttachments}</li>
  * <li>If the {@code imageView} member of a {@link VkRenderingFragmentShadingRateAttachmentInfoKHR} structure included in the {@code pNext} chain is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> not be equal to the {@code imageView} member of a {@link VkRenderingFragmentDensityMapAttachmentInfoEXT} structure included in the {@code pNext} chain</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> feature is not enabled, {@code viewMask} <b>must</b> be 0</li>
- * <li>The index of the most significant bit in {@code viewMask} <b>must</b> be less than <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxMultiviewViewCount">{@code maxMultiviewViewCount}</a></li>
- * <li>If the {@code perViewRenderAreaCount} member of a {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} structure included in the {@code pNext} chain is not 0, then the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-per-view-render-areas">{@code multiviewPerViewRenderAreas}</a> feature <b>must</b> be enabled.</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> feature is not enabled, {@code viewMask} <b>must</b> be 0</li>
+ * <li>The index of the most significant bit in {@code viewMask} <b>must</b> be less than <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxMultiviewViewCount">{@code maxMultiviewViewCount}</a></li>
+ * <li>If the {@code perViewRenderAreaCount} member of a {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} structure included in the {@code pNext} chain is not 0, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-per-view-render-areas">{@code multiviewPerViewRenderAreas}</a> feature <b>must</b> be enabled.</li>
  * <li>If the {@code perViewRenderAreaCount} member of a {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} structure included in the {@code pNext} chain is not 0, then {@code renderArea} <b>must</b> specify a render area that includes the union of all per view render areas.</li>
+ * <li>Valid attachments specified by this structure <b>must</b> not be bound to memory locations that are bound to any other valid attachments specified by this structure</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -127,7 +130,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkRenderingAttachmentInfo VkRenderingAttachmentInfo} const * {@link #pStencilAttachment};
  * }</code></pre>
  */
-public class VkRenderingInfo extends Struct implements NativeResource {
+public class VkRenderingInfo extends Struct<VkRenderingInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -177,6 +180,15 @@ public class VkRenderingInfo extends Struct implements NativeResource {
         PSTENCILATTACHMENT = layout.offsetof(9);
     }
 
+    protected VkRenderingInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkRenderingInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkRenderingInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkRenderingInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -190,7 +202,7 @@ public class VkRenderingInfo extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -301,29 +313,29 @@ public class VkRenderingInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code VkRenderingInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkRenderingInfo malloc() {
-        return wrap(VkRenderingInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkRenderingInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkRenderingInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkRenderingInfo calloc() {
-        return wrap(VkRenderingInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkRenderingInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkRenderingInfo} instance allocated with {@link BufferUtils}. */
     public static VkRenderingInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkRenderingInfo.class, memAddress(container), container);
+        return new VkRenderingInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkRenderingInfo} instance for the specified memory address. */
     public static VkRenderingInfo create(long address) {
-        return wrap(VkRenderingInfo.class, address);
+        return new VkRenderingInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderingInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkRenderingInfo.class, address);
+        return address == NULL ? null : new VkRenderingInfo(address, null);
     }
 
     /**
@@ -332,7 +344,7 @@ public class VkRenderingInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkRenderingInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -341,7 +353,7 @@ public class VkRenderingInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkRenderingInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -351,7 +363,7 @@ public class VkRenderingInfo extends Struct implements NativeResource {
      */
     public static VkRenderingInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -361,13 +373,13 @@ public class VkRenderingInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkRenderingInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderingInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -376,7 +388,7 @@ public class VkRenderingInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkRenderingInfo malloc(MemoryStack stack) {
-        return wrap(VkRenderingInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkRenderingInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -385,7 +397,7 @@ public class VkRenderingInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkRenderingInfo calloc(MemoryStack stack) {
-        return wrap(VkRenderingInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkRenderingInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -395,7 +407,7 @@ public class VkRenderingInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkRenderingInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -405,7 +417,7 @@ public class VkRenderingInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkRenderingInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -473,9 +485,9 @@ public class VkRenderingInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkRenderingInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkRenderingInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkRenderingInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

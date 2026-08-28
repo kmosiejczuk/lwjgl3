@@ -68,17 +68,17 @@ import static org.lwjgl.system.MemoryUtil.*;
  * VkDevice device;
  * 
  * VkQueryPoolPerformanceCreateInfoKHR performanceQueryCreateInfo = {
- *   VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR,
- *   NULL,
+ *   .sType = VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR,
+ *   .pNext = NULL,
  * 
  *   // Specify the queue family that this performance query is performed on
- *   queueFamilyIndex,
+ *   .queueFamilyIndex = queueFamilyIndex,
  * 
  *   // The number of counters to enable
- *   enabledCounterCount,
+ *   .counterIndexCount = enabledCounterCount,
  * 
  *   // The array of indices of counters to enable
- *   enabledCounters
+ *   .pCounterIndices = enabledCounters
  * };
  * 
  * 
@@ -91,16 +91,13 @@ import static org.lwjgl.system.MemoryUtil.*;
  *   &amp;numPasses);
  * 
  * VkQueryPoolCreateInfo queryPoolCreateInfo = {
- *   VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO,
- *   &amp;performanceQueryCreateInfo,
- *   0,
- * 
+ *   .sType = VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO,
+ *   .pNext = &amp;performanceQueryCreateInfo,
+ *   .flags = 0,
  *   // Using our new query type here
- *   VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR,
- * 
- *   1,
- * 
- *   0
+ *   .queryType = VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR,
+ *   .queryCount = 1,
+ *   .pipelineStatistics = 0
  * };
  * 
  * VkQueryPool queryPool;
@@ -120,17 +117,17 @@ import static org.lwjgl.system.MemoryUtil.*;
  * VkCommandBuffer commandBuffer;
  * 
  * VkCommandBufferBeginInfo commandBufferBeginInfo = {
- *   VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
- *   NULL,
- *   0,
- *   NULL
+ *   .sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
+ *   .pNext = NULL,
+ *   .flags = 0,
+ *   .pInheritanceInfo = NULL
  * };
  * 
  * VkAcquireProfilingLockInfoKHR lockInfo = {
- *   VK_STRUCTURE_TYPE_ACQUIRE_PROFILING_LOCK_INFO_KHR,
- *   NULL,
- *   0,
- *   UINT64_MAX // Wait forever for the lock
+ *   .sType = VK_STRUCTURE_TYPE_ACQUIRE_PROFILING_LOCK_INFO_KHR,
+ *   .pNext = NULL,
+ *   .flags = 0,
+ *   .timeout = UINT64_MAX // Wait forever for the lock
  * };
  * 
  * // Acquire the profiling lock before we record command buffers
@@ -250,14 +247,14 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Special Use</b></dt>
  * <dd><ul>
- * <li><a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Alon Or-bach <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_performance_query]%20@alonorbach%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_performance_query%20extension*">alonorbach</a></li>
+ * <li>Alon Or-bach <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_performance_query]%20@alonorbach%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_performance_query%20extension*">alonorbach</a></li>
  * </ul></dd>
  * </dl>
  * 

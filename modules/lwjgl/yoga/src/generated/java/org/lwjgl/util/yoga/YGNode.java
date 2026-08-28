@@ -24,15 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <pre><code>
  * struct YGNode {
  *     void * context;
- *     bool hasNewLayout : 1;
- *     bool isReferenceBaseline : 1;
- *     bool isDirty : 1;
- *     YGNodeType nodeType : 1;
- *     bool measureUsesContext : 1;
- *     bool baselineUsesContext : 1;
- *     bool printUsesContext : 1;
- *     bool useWebDefaults : 1;
- *     char[1];
+ *     {@link YGNodeFlags YGNodeFlags} flags;
  *     union {
  *         {@link YGMeasureFuncI YGMeasureFunc} noContext;
  *         MeasureWithContextFn withContext;
@@ -55,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link YGValue YGValue} resolvedDimensions[2];
  * }</code></pre>
  */
-public class YGNode extends Struct implements NativeResource {
+public class YGNode extends Struct<YGNode> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -88,8 +80,7 @@ public class YGNode extends Struct implements NativeResource {
     static {
         Layout layout = __struct(
             __member(POINTER_SIZE),
-            __member(1),
-            __padding(1, true),
+            __member(YGNodeFlags.SIZEOF, YGNodeFlags.ALIGNOF),
             __union(
                 __member(POINTER_SIZE),
                 __member(POINTER_SIZE)
@@ -117,23 +108,32 @@ public class YGNode extends Struct implements NativeResource {
 
         CONTEXT = layout.offsetof(0);
         FLAGS = layout.offsetof(1);
-        MEASURE = layout.offsetof(3);
-            MEASURE_NOCONTEXT = layout.offsetof(4);
-            MEASURE_WITHCONTEXT = layout.offsetof(5);
-        BASELINE = layout.offsetof(6);
-            BASELINE_NOCONTEXT = layout.offsetof(7);
-            BASELINE_WITHCONTEXT = layout.offsetof(8);
-        PRINT = layout.offsetof(9);
-            PRINT_NOCONTEXT = layout.offsetof(10);
-            PRINT_WITHCONTEXT = layout.offsetof(11);
-        DIRTIED = layout.offsetof(12);
-        STYLE = layout.offsetof(13);
-        LAYOUT = layout.offsetof(14);
-        LINEINDEX = layout.offsetof(15);
-        OWNER = layout.offsetof(16);
-        CHILDREN = layout.offsetof(17);
-        CONFIG = layout.offsetof(18);
-        RESOLVEDDIMENSIONS = layout.offsetof(19);
+        MEASURE = layout.offsetof(2);
+            MEASURE_NOCONTEXT = layout.offsetof(3);
+            MEASURE_WITHCONTEXT = layout.offsetof(4);
+        BASELINE = layout.offsetof(5);
+            BASELINE_NOCONTEXT = layout.offsetof(6);
+            BASELINE_WITHCONTEXT = layout.offsetof(7);
+        PRINT = layout.offsetof(8);
+            PRINT_NOCONTEXT = layout.offsetof(9);
+            PRINT_WITHCONTEXT = layout.offsetof(10);
+        DIRTIED = layout.offsetof(11);
+        STYLE = layout.offsetof(12);
+        LAYOUT = layout.offsetof(13);
+        LINEINDEX = layout.offsetof(14);
+        OWNER = layout.offsetof(15);
+        CHILDREN = layout.offsetof(16);
+        CONFIG = layout.offsetof(17);
+        RESOLVEDDIMENSIONS = layout.offsetof(18);
+    }
+
+    protected YGNode(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected YGNode create(long address, @Nullable ByteBuffer container) {
+        return new YGNode(address, container);
     }
 
     /**
@@ -152,30 +152,8 @@ public class YGNode extends Struct implements NativeResource {
     /** @return the value of the {@code context} field. */
     @NativeType("void *")
     public long context() { return ncontext(address()); }
-    /** @return the value of the {@code hasNewLayout} field. */
-    @NativeType("bool")
-    public boolean hasNewLayout() { return nhasNewLayout(address()); }
-    /** @return the value of the {@code isReferenceBaseline} field. */
-    @NativeType("bool")
-    public boolean isReferenceBaseline() { return nisReferenceBaseline(address()); }
-    /** @return the value of the {@code isDirty} field. */
-    @NativeType("bool")
-    public boolean isDirty() { return nisDirty(address()); }
-    /** @return the value of the {@code nodeType} field. */
-    @NativeType("YGNodeType")
-    public int nodeType() { return nnodeType(address()); }
-    /** @return the value of the {@code measureUsesContext} field. */
-    @NativeType("bool")
-    public boolean measureUsesContext() { return nmeasureUsesContext(address()); }
-    /** @return the value of the {@code baselineUsesContext} field. */
-    @NativeType("bool")
-    public boolean baselineUsesContext() { return nbaselineUsesContext(address()); }
-    /** @return the value of the {@code printUsesContext} field. */
-    @NativeType("bool")
-    public boolean printUsesContext() { return nprintUsesContext(address()); }
-    /** @return the value of the {@code useWebDefaults} field. */
-    @NativeType("bool")
-    public boolean useWebDefaults() { return nuseWebDefaults(address()); }
+    /** @return a {@link YGNodeFlags} view of the {@code flags} field. */
+    public YGNodeFlags flags() { return nflags(address()); }
     /** @return the value of the {@code measure.noContext} field. */
     @Nullable
     public YGMeasureFunc measure_noContext() { return nmeasure_noContext(address()); }
@@ -218,22 +196,10 @@ public class YGNode extends Struct implements NativeResource {
 
     /** Sets the specified value to the {@code context} field. */
     public YGNode context(@NativeType("void *") long value) { ncontext(address(), value); return this; }
-    /** Sets the specified value to the {@code hasNewLayout} field. */
-    public YGNode hasNewLayout(@NativeType("bool") boolean value) { nhasNewLayout(address(), value); return this; }
-    /** Sets the specified value to the {@code isReferenceBaseline} field. */
-    public YGNode isReferenceBaseline(@NativeType("bool") boolean value) { nisReferenceBaseline(address(), value); return this; }
-    /** Sets the specified value to the {@code isDirty} field. */
-    public YGNode isDirty(@NativeType("bool") boolean value) { nisDirty(address(), value); return this; }
-    /** Sets the specified value to the {@code nodeType} field. */
-    public YGNode nodeType(@NativeType("YGNodeType") int value) { nnodeType(address(), value); return this; }
-    /** Sets the specified value to the {@code measureUsesContext} field. */
-    public YGNode measureUsesContext(@NativeType("bool") boolean value) { nmeasureUsesContext(address(), value); return this; }
-    /** Sets the specified value to the {@code baselineUsesContext} field. */
-    public YGNode baselineUsesContext(@NativeType("bool") boolean value) { nbaselineUsesContext(address(), value); return this; }
-    /** Sets the specified value to the {@code printUsesContext} field. */
-    public YGNode printUsesContext(@NativeType("bool") boolean value) { nprintUsesContext(address(), value); return this; }
-    /** Sets the specified value to the {@code useWebDefaults} field. */
-    public YGNode useWebDefaults(@NativeType("bool") boolean value) { nuseWebDefaults(address(), value); return this; }
+    /** Copies the specified {@link YGNodeFlags} to the {@code flags} field. */
+    public YGNode flags(YGNodeFlags value) { nflags(address(), value); return this; }
+    /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
+    public YGNode flags(java.util.function.Consumer<YGNodeFlags> consumer) { consumer.accept(flags()); return this; }
     /** Sets the specified value to the {@code noContext} field. */
     public YGNode measure_noContext(@Nullable @NativeType("YGMeasureFunc") YGMeasureFuncI value) { nmeasure_noContext(address(), value); return this; }
     /** Sets the specified value to the {@code withContext} field. */
@@ -283,29 +249,29 @@ public class YGNode extends Struct implements NativeResource {
 
     /** Returns a new {@code YGNode} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static YGNode malloc() {
-        return wrap(YGNode.class, nmemAllocChecked(SIZEOF));
+        return new YGNode(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code YGNode} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static YGNode calloc() {
-        return wrap(YGNode.class, nmemCallocChecked(1, SIZEOF));
+        return new YGNode(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code YGNode} instance allocated with {@link BufferUtils}. */
     public static YGNode create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(YGNode.class, memAddress(container), container);
+        return new YGNode(memAddress(container), container);
     }
 
     /** Returns a new {@code YGNode} instance for the specified memory address. */
     public static YGNode create(long address) {
-        return wrap(YGNode.class, address);
+        return new YGNode(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static YGNode createSafe(long address) {
-        return address == NULL ? null : wrap(YGNode.class, address);
+        return address == NULL ? null : new YGNode(address, null);
     }
 
     /**
@@ -314,7 +280,7 @@ public class YGNode extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static YGNode.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -323,7 +289,7 @@ public class YGNode extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static YGNode.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -333,7 +299,7 @@ public class YGNode extends Struct implements NativeResource {
      */
     public static YGNode.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -343,13 +309,13 @@ public class YGNode extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static YGNode.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static YGNode.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -377,7 +343,7 @@ public class YGNode extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static YGNode malloc(MemoryStack stack) {
-        return wrap(YGNode.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new YGNode(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -386,7 +352,7 @@ public class YGNode extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static YGNode calloc(MemoryStack stack) {
-        return wrap(YGNode.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new YGNode(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -396,7 +362,7 @@ public class YGNode extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static YGNode.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -406,30 +372,15 @@ public class YGNode extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static YGNode.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #context}. */
     public static long ncontext(long struct) { return memGetAddress(struct + YGNode.CONTEXT); }
-    public static byte nflags(long struct) { return UNSAFE.getByte(null, struct + YGNode.FLAGS); }
-    /** Unsafe version of {@link #hasNewLayout}. */
-    public static boolean nhasNewLayout(long struct) { return (nflags(struct) & 0b1) != 0; }
-    /** Unsafe version of {@link #isReferenceBaseline}. */
-    public static boolean nisReferenceBaseline(long struct) { return ((nflags(struct) >>> 1) & 0b1) != 0; }
-    /** Unsafe version of {@link #isDirty}. */
-    public static boolean nisDirty(long struct) { return ((nflags(struct) >>> 2) & 0b1) != 0; }
-    /** Unsafe version of {@link #nodeType}. */
-    public static int nnodeType(long struct) { return (nflags(struct) >>> 3) & 0b1; }
-    /** Unsafe version of {@link #measureUsesContext}. */
-    public static boolean nmeasureUsesContext(long struct) { return ((nflags(struct) >>> 4) & 0b1) != 0; }
-    /** Unsafe version of {@link #baselineUsesContext}. */
-    public static boolean nbaselineUsesContext(long struct) { return ((nflags(struct) >>> 5) & 0b1) != 0; }
-    /** Unsafe version of {@link #printUsesContext}. */
-    public static boolean nprintUsesContext(long struct) { return ((nflags(struct) >>> 6) & 0b1) != 0; }
-    /** Unsafe version of {@link #useWebDefaults}. */
-    public static boolean nuseWebDefaults(long struct) { return ((nflags(struct) >>> 7) & 0b1) != 0; }
+    /** Unsafe version of {@link #flags}. */
+    public static YGNodeFlags nflags(long struct) { return YGNodeFlags.create(struct + YGNode.FLAGS); }
     /** Unsafe version of {@link #measure_noContext}. */
     @Nullable public static YGMeasureFunc nmeasure_noContext(long struct) { return YGMeasureFunc.createSafe(memGetAddress(struct + YGNode.MEASURE_NOCONTEXT)); }
     /** Unsafe version of {@link #measure_withContext}. */
@@ -464,23 +415,8 @@ public class YGNode extends Struct implements NativeResource {
 
     /** Unsafe version of {@link #context(long) context}. */
     public static void ncontext(long struct, long value) { memPutAddress(struct + YGNode.CONTEXT, value); }
-    public static void nflags(long struct, byte value) { UNSAFE.putByte(null, struct + YGNode.FLAGS, value); }
-    /** Unsafe version of {@link #hasNewLayout(boolean) hasNewLayout}. */
-    public static native void nhasNewLayout(long struct, boolean value);
-    /** Unsafe version of {@link #isReferenceBaseline(boolean) isReferenceBaseline}. */
-    public static native void nisReferenceBaseline(long struct, boolean value);
-    /** Unsafe version of {@link #isDirty(boolean) isDirty}. */
-    public static native void nisDirty(long struct, boolean value);
-    /** Unsafe version of {@link #nodeType(int) nodeType}. */
-    public static native void nnodeType(long struct, int value);
-    /** Unsafe version of {@link #measureUsesContext(boolean) measureUsesContext}. */
-    public static native void nmeasureUsesContext(long struct, boolean value);
-    /** Unsafe version of {@link #baselineUsesContext(boolean) baselineUsesContext}. */
-    public static native void nbaselineUsesContext(long struct, boolean value);
-    /** Unsafe version of {@link #printUsesContext(boolean) printUsesContext}. */
-    public static native void nprintUsesContext(long struct, boolean value);
-    /** Unsafe version of {@link #useWebDefaults(boolean) useWebDefaults}. */
-    public static native void nuseWebDefaults(long struct, boolean value);
+    /** Unsafe version of {@link #flags(YGNodeFlags) flags}. */
+    public static void nflags(long struct, YGNodeFlags value) { memCopy(value.address(), struct + YGNode.FLAGS, YGNodeFlags.SIZEOF); }
     /** Unsafe version of {@link #measure_noContext(YGMeasureFuncI) measure_noContext}. */
     public static void nmeasure_noContext(long struct, @Nullable YGMeasureFuncI value) { memPutAddress(struct + YGNode.MEASURE_NOCONTEXT, memAddressSafe(value)); }
     /** Unsafe version of {@link #measure_withContext(long) measure_withContext}. */
@@ -526,9 +462,9 @@ public class YGNode extends Struct implements NativeResource {
         /**
          * Creates a new {@code YGNode.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link YGNode#SIZEOF}, and its mark will be undefined.
+         * by {@link YGNode#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -557,30 +493,8 @@ public class YGNode extends Struct implements NativeResource {
         /** @return the value of the {@code context} field. */
         @NativeType("void *")
         public long context() { return YGNode.ncontext(address()); }
-        /** @return the value of the {@code hasNewLayout} field. */
-        @NativeType("bool")
-        public boolean hasNewLayout() { return YGNode.nhasNewLayout(address()); }
-        /** @return the value of the {@code isReferenceBaseline} field. */
-        @NativeType("bool")
-        public boolean isReferenceBaseline() { return YGNode.nisReferenceBaseline(address()); }
-        /** @return the value of the {@code isDirty} field. */
-        @NativeType("bool")
-        public boolean isDirty() { return YGNode.nisDirty(address()); }
-        /** @return the value of the {@code nodeType} field. */
-        @NativeType("YGNodeType")
-        public int nodeType() { return YGNode.nnodeType(address()); }
-        /** @return the value of the {@code measureUsesContext} field. */
-        @NativeType("bool")
-        public boolean measureUsesContext() { return YGNode.nmeasureUsesContext(address()); }
-        /** @return the value of the {@code baselineUsesContext} field. */
-        @NativeType("bool")
-        public boolean baselineUsesContext() { return YGNode.nbaselineUsesContext(address()); }
-        /** @return the value of the {@code printUsesContext} field. */
-        @NativeType("bool")
-        public boolean printUsesContext() { return YGNode.nprintUsesContext(address()); }
-        /** @return the value of the {@code useWebDefaults} field. */
-        @NativeType("bool")
-        public boolean useWebDefaults() { return YGNode.nuseWebDefaults(address()); }
+        /** @return a {@link YGNodeFlags} view of the {@code flags} field. */
+        public YGNodeFlags flags() { return YGNode.nflags(address()); }
         /** @return the value of the {@code measure.noContext} field. */
         @Nullable
         public YGMeasureFunc measure_noContext() { return YGNode.nmeasure_noContext(address()); }
@@ -623,22 +537,10 @@ public class YGNode extends Struct implements NativeResource {
 
         /** Sets the specified value to the {@code context} field. */
         public YGNode.Buffer context(@NativeType("void *") long value) { YGNode.ncontext(address(), value); return this; }
-        /** Sets the specified value to the {@code hasNewLayout} field. */
-        public YGNode.Buffer hasNewLayout(@NativeType("bool") boolean value) { YGNode.nhasNewLayout(address(), value); return this; }
-        /** Sets the specified value to the {@code isReferenceBaseline} field. */
-        public YGNode.Buffer isReferenceBaseline(@NativeType("bool") boolean value) { YGNode.nisReferenceBaseline(address(), value); return this; }
-        /** Sets the specified value to the {@code isDirty} field. */
-        public YGNode.Buffer isDirty(@NativeType("bool") boolean value) { YGNode.nisDirty(address(), value); return this; }
-        /** Sets the specified value to the {@code nodeType} field. */
-        public YGNode.Buffer nodeType(@NativeType("YGNodeType") int value) { YGNode.nnodeType(address(), value); return this; }
-        /** Sets the specified value to the {@code measureUsesContext} field. */
-        public YGNode.Buffer measureUsesContext(@NativeType("bool") boolean value) { YGNode.nmeasureUsesContext(address(), value); return this; }
-        /** Sets the specified value to the {@code baselineUsesContext} field. */
-        public YGNode.Buffer baselineUsesContext(@NativeType("bool") boolean value) { YGNode.nbaselineUsesContext(address(), value); return this; }
-        /** Sets the specified value to the {@code printUsesContext} field. */
-        public YGNode.Buffer printUsesContext(@NativeType("bool") boolean value) { YGNode.nprintUsesContext(address(), value); return this; }
-        /** Sets the specified value to the {@code useWebDefaults} field. */
-        public YGNode.Buffer useWebDefaults(@NativeType("bool") boolean value) { YGNode.nuseWebDefaults(address(), value); return this; }
+        /** Copies the specified {@link YGNodeFlags} to the {@code flags} field. */
+        public YGNode.Buffer flags(YGNodeFlags value) { YGNode.nflags(address(), value); return this; }
+        /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
+        public YGNode.Buffer flags(java.util.function.Consumer<YGNodeFlags> consumer) { consumer.accept(flags()); return this; }
         /** Sets the specified value to the {@code noContext} field. */
         public YGNode.Buffer measure_noContext(@Nullable @NativeType("YGMeasureFunc") YGMeasureFuncI value) { YGNode.nmeasure_noContext(address(), value); return this; }
         /** Sets the specified value to the {@code withContext} field. */

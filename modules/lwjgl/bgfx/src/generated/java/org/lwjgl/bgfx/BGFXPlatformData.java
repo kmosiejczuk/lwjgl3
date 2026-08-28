@@ -27,10 +27,11 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void * {@link #context};
  *     void * {@link #backBuffer};
  *     void * {@link #backBufferDS};
+ *     bgfx_native_window_handle_type_t {@link #type};
  * }</code></pre>
  */
 @NativeType("struct bgfx_platform_data_t")
-public class BGFXPlatformData extends Struct implements NativeResource {
+public class BGFXPlatformData extends Struct<BGFXPlatformData> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -44,7 +45,8 @@ public class BGFXPlatformData extends Struct implements NativeResource {
         NWH,
         CONTEXT,
         BACKBUFFER,
-        BACKBUFFERDS;
+        BACKBUFFERDS,
+        TYPE;
 
     static {
         Layout layout = __struct(
@@ -52,7 +54,8 @@ public class BGFXPlatformData extends Struct implements NativeResource {
             __member(POINTER_SIZE),
             __member(POINTER_SIZE),
             __member(POINTER_SIZE),
-            __member(POINTER_SIZE)
+            __member(POINTER_SIZE),
+            __member(4)
         );
 
         SIZEOF = layout.getSize();
@@ -63,6 +66,16 @@ public class BGFXPlatformData extends Struct implements NativeResource {
         CONTEXT = layout.offsetof(2);
         BACKBUFFER = layout.offsetof(3);
         BACKBUFFERDS = layout.offsetof(4);
+        TYPE = layout.offsetof(5);
+    }
+
+    protected BGFXPlatformData(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected BGFXPlatformData create(long address, @Nullable ByteBuffer container) {
+        return new BGFXPlatformData(address, container);
     }
 
     /**
@@ -93,6 +106,9 @@ public class BGFXPlatformData extends Struct implements NativeResource {
     /** backbuffer depth/stencil. If {@code NULL}, bgfx will create a back-buffer depth/stencil surface. */
     @NativeType("void *")
     public long backBufferDS() { return nbackBufferDS(address()); }
+    /** handle type. Needed for platforms having more than one option. */
+    @NativeType("bgfx_native_window_handle_type_t")
+    public int type() { return ntype(address()); }
 
     /** Sets the specified value to the {@link #ndt} field. */
     public BGFXPlatformData ndt(@NativeType("void *") long value) { nndt(address(), value); return this; }
@@ -104,6 +120,8 @@ public class BGFXPlatformData extends Struct implements NativeResource {
     public BGFXPlatformData backBuffer(@NativeType("void *") long value) { nbackBuffer(address(), value); return this; }
     /** Sets the specified value to the {@link #backBufferDS} field. */
     public BGFXPlatformData backBufferDS(@NativeType("void *") long value) { nbackBufferDS(address(), value); return this; }
+    /** Sets the specified value to the {@link #type} field. */
+    public BGFXPlatformData type(@NativeType("bgfx_native_window_handle_type_t") int value) { ntype(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public BGFXPlatformData set(
@@ -111,13 +129,15 @@ public class BGFXPlatformData extends Struct implements NativeResource {
         long nwh,
         long context,
         long backBuffer,
-        long backBufferDS
+        long backBufferDS,
+        int type
     ) {
         ndt(ndt);
         nwh(nwh);
         context(context);
         backBuffer(backBuffer);
         backBufferDS(backBufferDS);
+        type(type);
 
         return this;
     }
@@ -138,29 +158,29 @@ public class BGFXPlatformData extends Struct implements NativeResource {
 
     /** Returns a new {@code BGFXPlatformData} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static BGFXPlatformData malloc() {
-        return wrap(BGFXPlatformData.class, nmemAllocChecked(SIZEOF));
+        return new BGFXPlatformData(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code BGFXPlatformData} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static BGFXPlatformData calloc() {
-        return wrap(BGFXPlatformData.class, nmemCallocChecked(1, SIZEOF));
+        return new BGFXPlatformData(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code BGFXPlatformData} instance allocated with {@link BufferUtils}. */
     public static BGFXPlatformData create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(BGFXPlatformData.class, memAddress(container), container);
+        return new BGFXPlatformData(memAddress(container), container);
     }
 
     /** Returns a new {@code BGFXPlatformData} instance for the specified memory address. */
     public static BGFXPlatformData create(long address) {
-        return wrap(BGFXPlatformData.class, address);
+        return new BGFXPlatformData(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXPlatformData createSafe(long address) {
-        return address == NULL ? null : wrap(BGFXPlatformData.class, address);
+        return address == NULL ? null : new BGFXPlatformData(address, null);
     }
 
     // -----------------------------------
@@ -181,7 +201,7 @@ public class BGFXPlatformData extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static BGFXPlatformData malloc(MemoryStack stack) {
-        return wrap(BGFXPlatformData.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new BGFXPlatformData(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -190,7 +210,7 @@ public class BGFXPlatformData extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static BGFXPlatformData calloc(MemoryStack stack) {
-        return wrap(BGFXPlatformData.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new BGFXPlatformData(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     // -----------------------------------
@@ -205,6 +225,8 @@ public class BGFXPlatformData extends Struct implements NativeResource {
     public static long nbackBuffer(long struct) { return memGetAddress(struct + BGFXPlatformData.BACKBUFFER); }
     /** Unsafe version of {@link #backBufferDS}. */
     public static long nbackBufferDS(long struct) { return memGetAddress(struct + BGFXPlatformData.BACKBUFFERDS); }
+    /** Unsafe version of {@link #type}. */
+    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + BGFXPlatformData.TYPE); }
 
     /** Unsafe version of {@link #ndt(long) ndt}. */
     public static void nndt(long struct, long value) { memPutAddress(struct + BGFXPlatformData.NDT, value); }
@@ -216,5 +238,7 @@ public class BGFXPlatformData extends Struct implements NativeResource {
     public static void nbackBuffer(long struct, long value) { memPutAddress(struct + BGFXPlatformData.BACKBUFFER, value); }
     /** Unsafe version of {@link #backBufferDS(long) backBufferDS}. */
     public static void nbackBufferDS(long struct, long value) { memPutAddress(struct + BGFXPlatformData.BACKBUFFERDS, value); }
+    /** Unsafe version of {@link #type(int) type}. */
+    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + BGFXPlatformData.TYPE, value); }
 
 }

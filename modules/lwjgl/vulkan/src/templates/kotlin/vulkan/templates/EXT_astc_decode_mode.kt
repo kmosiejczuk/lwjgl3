@@ -29,17 +29,17 @@ val EXT_astc_decode_mode = "EXTAstcDecodeMode".nativeClassVK("EXT_astc_decode_mo
         <pre><code>
 ￿    VkImageViewASTCDecodeModeEXT decodeMode =
 ￿    {
-￿        VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT, // sType
-￿        NULL, // pNext
-￿        VK_FORMAT_R8G8B8A8_UNORM // decode mode
+￿        .sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT,
+￿        .pNext = NULL,
+￿        .decodeMode = VK_FORMAT_R8G8B8A8_UNORM
 ￿    };
 ￿
 ￿    VkImageViewCreateInfo createInfo =
 ￿    {
-￿        VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO, // sType
-￿        &amp;decodeMode, // pNext
+￿        .sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
+￿        .pNext = &amp;decodeMode,
 ￿        // flags, image, viewType set to application-desired values
-￿        VK_FORMAT_ASTC_8x8_UNORM_BLOCK, // format
+￿        .format = VK_FORMAT_ASTC_8x8_UNORM_BLOCK,
 ￿        // components, subresourceRange set to application-desired values
 ￿    };
 ￿
@@ -65,11 +65,11 @@ val EXT_astc_decode_mode = "EXTAstcDecodeMode".nativeClassVK("EXT_astc_decode_mo
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jan-Harald Fredriksen <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_astc_decode_mode]%20@janharaldfredriksen-arm%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_astc_decode_mode%20extension*">janharaldfredriksen-arm</a></li>
+                <li>Jan-Harald Fredriksen <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_astc_decode_mode]%20@janharaldfredriksen-arm%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_astc_decode_mode%20extension*">janharaldfredriksen-arm</a></li>
             </ul></dd>
         </dl>
 

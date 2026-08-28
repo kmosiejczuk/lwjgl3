@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBSpatialEntityContainer XR_FB_spatial_entity_container} extension <b>must</b> be enabled prior to using {@link XrSpaceContainerFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBSpatialEntityContainer#XR_TYPE_SPACE_CONTAINER_FB TYPE_SPACE_CONTAINER_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>If {@code uuidCapacityInput} is not 0, {@code uuids} <b>must</b> be a pointer to an array of {@code uuidCapacityInput} {@link XrUuidEXT} structures</li>
  * </ul>
  * 
@@ -46,7 +46,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrUuidEXT XrUuidEXT} * {@link #uuids};
  * }</code></pre>
  */
-public class XrSpaceContainerFB extends Struct implements NativeResource {
+public class XrSpaceContainerFB extends Struct<XrSpaceContainerFB> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,6 +81,15 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
         UUIDS = layout.offsetof(4);
     }
 
+    protected XrSpaceContainerFB(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrSpaceContainerFB create(long address, @Nullable ByteBuffer container) {
+        return new XrSpaceContainerFB(address, container);
+    }
+
     /**
      * Creates a {@code XrSpaceContainerFB} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -100,7 +109,7 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
     /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** an input parameter for the application to specify a capacity for the output list */
+    /** the capacity of the {@code uuids} array, or 0 to indicate a request to retrieve the required capacity. */
     @NativeType("uint32_t")
     public int uuidCapacityInput() { return nuuidCapacityInput(address()); }
     /** an output parameter which will hold the number of UUIDs included in the output list, or the required capacity in the case that {@code uuidCapacityInput} is insufficient */
@@ -157,29 +166,29 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
 
     /** Returns a new {@code XrSpaceContainerFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSpaceContainerFB malloc() {
-        return wrap(XrSpaceContainerFB.class, nmemAllocChecked(SIZEOF));
+        return new XrSpaceContainerFB(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrSpaceContainerFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSpaceContainerFB calloc() {
-        return wrap(XrSpaceContainerFB.class, nmemCallocChecked(1, SIZEOF));
+        return new XrSpaceContainerFB(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrSpaceContainerFB} instance allocated with {@link BufferUtils}. */
     public static XrSpaceContainerFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrSpaceContainerFB.class, memAddress(container), container);
+        return new XrSpaceContainerFB(memAddress(container), container);
     }
 
     /** Returns a new {@code XrSpaceContainerFB} instance for the specified memory address. */
     public static XrSpaceContainerFB create(long address) {
-        return wrap(XrSpaceContainerFB.class, address);
+        return new XrSpaceContainerFB(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSpaceContainerFB createSafe(long address) {
-        return address == NULL ? null : wrap(XrSpaceContainerFB.class, address);
+        return address == NULL ? null : new XrSpaceContainerFB(address, null);
     }
 
     /**
@@ -188,7 +197,7 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrSpaceContainerFB.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -197,7 +206,7 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrSpaceContainerFB.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -207,7 +216,7 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
      */
     public static XrSpaceContainerFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -217,13 +226,13 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrSpaceContainerFB.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSpaceContainerFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -232,7 +241,7 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrSpaceContainerFB malloc(MemoryStack stack) {
-        return wrap(XrSpaceContainerFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrSpaceContainerFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -241,7 +250,7 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrSpaceContainerFB calloc(MemoryStack stack) {
-        return wrap(XrSpaceContainerFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrSpaceContainerFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -251,7 +260,7 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrSpaceContainerFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -261,7 +270,7 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrSpaceContainerFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -298,9 +307,9 @@ public class XrSpaceContainerFB extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrSpaceContainerFB.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSpaceContainerFB#SIZEOF}, and its mark will be undefined.
+         * by {@link XrSpaceContainerFB#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

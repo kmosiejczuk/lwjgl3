@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The {@code deviceMask} serves several purposes. It is an upper bound on the set of physical devices that <b>can</b> be used during the render pass instance, and the initial device mask when the render pass instance begins. In addition, commands transitioning to the next subpass in a render pass instance and commands ending the render pass instance, and, accordingly render pass attachment load, store, and resolve operations and subpass dependencies corresponding to the render pass instance, are executed on the physical devices included in the device mask provided here.</p>
+ * <p>The {@code deviceMask} serves several purposes. It is an upper bound on the set of physical devices that <b>can</b> be used during the render pass instance, and the initial device mask when the render pass instance begins. In addition, commands transitioning to the next subpass in a render pass instance and commands ending the render pass instance, and, accordingly render pass <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-load-operations">load</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-store-operations">store</a>, and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-resolve-operations">multisample resolve</a> operations and subpass dependencies corresponding to the render pass instance, are executed on the physical devices included in the device mask provided here.</p>
  * 
  * <p>If {@code deviceRenderAreaCount} is not zero, then the elements of {@code pDeviceRenderAreas} override the value of {@link VkRenderPassBeginInfo}{@code ::renderArea}, and provide a render area specific to each physical device. These render areas serve the same purpose as {@link VkRenderPassBeginInfo}{@code ::renderArea}, including controlling the region of attachments that are cleared by {@link VK10#VK_ATTACHMENT_LOAD_OP_CLEAR ATTACHMENT_LOAD_OP_CLEAR} and that are resolved into resolve attachments.</p>
  * 
@@ -36,8 +36,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code deviceRenderAreaCount} <b>must</b> either be zero or equal to the number of physical devices in the logical device</li>
  * <li>The {@code offset.x} member of any element of {@code pDeviceRenderAreas} <b>must</b> be greater than or equal to 0</li>
  * <li>The {@code offset.y} member of any element of {@code pDeviceRenderAreas} <b>must</b> be greater than or equal to 0</li>
- * <li>The sum of the {@code offset.x} and {@code extent.width} members of any element of {@code pDeviceRenderAreas} <b>must</b> be less than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferWidth">{@code maxFramebufferWidth}</a></li>
- * <li>The sum of the {@code offset.y} and {@code extent.height} members of any element of {@code pDeviceRenderAreas} <b>must</b> be less than or equal to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferHeight">{@code maxFramebufferHeight}</a></li>
+ * <li>The sum of the {@code offset.x} and {@code extent.width} members of any element of {@code pDeviceRenderAreas} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferWidth">{@code maxFramebufferWidth}</a></li>
+ * <li>The sum of the {@code offset.y} and {@code extent.height} members of any element of {@code pDeviceRenderAreas} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxFramebufferHeight">{@code maxFramebufferHeight}</a></li>
+ * <li>The {@code extent.width} member of any element of {@code pDeviceRenderAreas} <b>must</b> be greater than 0</li>
+ * <li>The {@code extent.height} member of any element of {@code pDeviceRenderAreas} <b>must</b> be greater than 0</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -62,7 +64,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkRect2D VkRect2D} const * {@link #pDeviceRenderAreas};
  * }</code></pre>
  */
-public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeResource {
+public class VkDeviceGroupRenderPassBeginInfo extends Struct<VkDeviceGroupRenderPassBeginInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -97,6 +99,15 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
         PDEVICERENDERAREAS = layout.offsetof(4);
     }
 
+    protected VkDeviceGroupRenderPassBeginInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkDeviceGroupRenderPassBeginInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkDeviceGroupRenderPassBeginInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkDeviceGroupRenderPassBeginInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -110,7 +121,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -169,29 +180,29 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
 
     /** Returns a new {@code VkDeviceGroupRenderPassBeginInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDeviceGroupRenderPassBeginInfo malloc() {
-        return wrap(VkDeviceGroupRenderPassBeginInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkDeviceGroupRenderPassBeginInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkDeviceGroupRenderPassBeginInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDeviceGroupRenderPassBeginInfo calloc() {
-        return wrap(VkDeviceGroupRenderPassBeginInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkDeviceGroupRenderPassBeginInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkDeviceGroupRenderPassBeginInfo} instance allocated with {@link BufferUtils}. */
     public static VkDeviceGroupRenderPassBeginInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkDeviceGroupRenderPassBeginInfo.class, memAddress(container), container);
+        return new VkDeviceGroupRenderPassBeginInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkDeviceGroupRenderPassBeginInfo} instance for the specified memory address. */
     public static VkDeviceGroupRenderPassBeginInfo create(long address) {
-        return wrap(VkDeviceGroupRenderPassBeginInfo.class, address);
+        return new VkDeviceGroupRenderPassBeginInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceGroupRenderPassBeginInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkDeviceGroupRenderPassBeginInfo.class, address);
+        return address == NULL ? null : new VkDeviceGroupRenderPassBeginInfo(address, null);
     }
 
     /**
@@ -200,7 +211,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupRenderPassBeginInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -209,7 +220,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupRenderPassBeginInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -219,7 +230,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
      */
     public static VkDeviceGroupRenderPassBeginInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -229,13 +240,13 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupRenderPassBeginInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDeviceGroupRenderPassBeginInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -263,7 +274,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static VkDeviceGroupRenderPassBeginInfo malloc(MemoryStack stack) {
-        return wrap(VkDeviceGroupRenderPassBeginInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkDeviceGroupRenderPassBeginInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -272,7 +283,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static VkDeviceGroupRenderPassBeginInfo calloc(MemoryStack stack) {
-        return wrap(VkDeviceGroupRenderPassBeginInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkDeviceGroupRenderPassBeginInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -282,7 +293,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupRenderPassBeginInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -292,7 +303,7 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkDeviceGroupRenderPassBeginInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -340,9 +351,9 @@ public class VkDeviceGroupRenderPassBeginInfo extends Struct implements NativeRe
         /**
          * Creates a new {@code VkDeviceGroupRenderPassBeginInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDeviceGroupRenderPassBeginInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkDeviceGroupRenderPassBeginInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

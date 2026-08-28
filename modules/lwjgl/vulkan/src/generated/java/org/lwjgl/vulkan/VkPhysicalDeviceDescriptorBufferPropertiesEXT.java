@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>A descriptor binding with type {@link VALVEMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_VALVE DESCRIPTOR_TYPE_MUTABLE_VALVE} has a descriptor size which is implied by the descriptor types included in the {@link VkMutableDescriptorTypeCreateInfoVALVE}{@code ::pDescriptorTypes} list. The descriptor size is equal to the maximum size of any descriptor type included in the {@code pDescriptorTypes} list.</p>
  * 
- * <p>As there is no way to request robust and non-robust descriptors separately, or specify robust/non-robust descriptors in the set layout, if <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> is enabled then robust descriptors are always used.</p>
+ * <p>As there is no way to request robust and non-robust descriptors separately, or specify robust/non-robust descriptors in the set layout, if <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> is enabled then robust descriptors are always used.</p>
  * 
  * <p>If the {@link VkPhysicalDeviceDescriptorBufferPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
  * 
@@ -73,7 +73,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDeviceSize {@link #descriptorBufferAddressSpaceSize};
  * }</code></pre>
  */
-public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implements NativeResource {
+public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct<VkPhysicalDeviceDescriptorBufferPropertiesEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -198,6 +198,15 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
         DESCRIPTORBUFFERADDRESSSPACESIZE = layout.offsetof(34);
     }
 
+    protected VkPhysicalDeviceDescriptorBufferPropertiesEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDeviceDescriptorBufferPropertiesEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDeviceDescriptorBufferPropertiesEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDeviceDescriptorBufferPropertiesEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -211,7 +220,7 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -271,28 +280,28 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
     /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE} descriptor. */
     @NativeType("size_t")
     public long storageImageDescriptorSize() { return nstorageImageDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} descriptor if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is not enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is not enabled. */
     @NativeType("size_t")
     public long uniformTexelBufferDescriptorSize() { return nuniformTexelBufferDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} descriptor if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
     @NativeType("size_t")
     public long robustUniformTexelBufferDescriptorSize() { return nrobustUniformTexelBufferDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} descriptor if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is not enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is not enabled. */
     @NativeType("size_t")
     public long storageTexelBufferDescriptorSize() { return nstorageTexelBufferDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} descriptor if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
     @NativeType("size_t")
     public long robustStorageTexelBufferDescriptorSize() { return nrobustStorageTexelBufferDescriptorSize(address()); }
     /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} descriptor. */
     @NativeType("size_t")
     public long uniformBufferDescriptorSize() { return nuniformBufferDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} descriptor if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
     @NativeType("size_t")
     public long robustUniformBufferDescriptorSize() { return nrobustUniformBufferDescriptorSize(address()); }
     /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER} descriptor. */
     @NativeType("size_t")
     public long storageBufferDescriptorSize() { return nstorageBufferDescriptorSize(address()); }
-    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER} descriptor if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
+    /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER} descriptor if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> feature is enabled. */
     @NativeType("size_t")
     public long robustStorageBufferDescriptorSize() { return nrobustStorageBufferDescriptorSize(address()); }
     /** indicates the size in bytes of a {@link VK10#VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT DESCRIPTOR_TYPE_INPUT_ATTACHMENT} descriptor. */
@@ -351,29 +360,29 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
 
     /** Returns a new {@code VkPhysicalDeviceDescriptorBufferPropertiesEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT malloc() {
-        return wrap(VkPhysicalDeviceDescriptorBufferPropertiesEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDeviceDescriptorBufferPropertiesEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceDescriptorBufferPropertiesEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT calloc() {
-        return wrap(VkPhysicalDeviceDescriptorBufferPropertiesEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDeviceDescriptorBufferPropertiesEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceDescriptorBufferPropertiesEXT} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDeviceDescriptorBufferPropertiesEXT.class, memAddress(container), container);
+        return new VkPhysicalDeviceDescriptorBufferPropertiesEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceDescriptorBufferPropertiesEXT} instance for the specified memory address. */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT create(long address) {
-        return wrap(VkPhysicalDeviceDescriptorBufferPropertiesEXT.class, address);
+        return new VkPhysicalDeviceDescriptorBufferPropertiesEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDeviceDescriptorBufferPropertiesEXT.class, address);
+        return address == NULL ? null : new VkPhysicalDeviceDescriptorBufferPropertiesEXT(address, null);
     }
 
     /**
@@ -382,7 +391,7 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -391,7 +400,7 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -401,7 +410,7 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
      */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -411,13 +420,13 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -426,7 +435,7 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceDescriptorBufferPropertiesEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDeviceDescriptorBufferPropertiesEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -435,7 +444,7 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceDescriptorBufferPropertiesEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDeviceDescriptorBufferPropertiesEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -445,7 +454,7 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -455,7 +464,7 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceDescriptorBufferPropertiesEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -546,9 +555,9 @@ public class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Struct implem
         /**
          * Creates a new {@code VkPhysicalDeviceDescriptorBufferPropertiesEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceDescriptorBufferPropertiesEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDeviceDescriptorBufferPropertiesEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

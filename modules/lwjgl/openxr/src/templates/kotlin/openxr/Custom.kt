@@ -55,9 +55,11 @@ fun templateCustomization() {
     generateDispatchableHandle(XrFoveationProfileFB, XrSession)
     generateDispatchableHandle(XrGeometryInstanceFB, XrSession)
     generateDispatchableHandle(XrHandTrackerEXT, XrSession)
+    generateDispatchableHandle(XrPassthroughColorLutMETA, XrPassthroughFB)
     generateDispatchableHandle(XrPassthroughFB, XrSession)
     generateDispatchableHandle(XrPassthroughHTC, XrSession)
     generateDispatchableHandle(XrPassthroughLayerFB, XrSession)
+    generateDispatchableHandle(XrPlaneDetectorEXT, XrSession)
     generateDispatchableHandle(XrSceneMSFT, XrSceneObserverMSFT)
     generateDispatchableHandle(XrSceneObserverMSFT, XrSession)
     generateDispatchableHandle(XrSession, XrInstance)
@@ -68,12 +70,13 @@ fun templateCustomization() {
     generateDispatchableHandle(XrSpatialGraphNodeBindingMSFT, XrSession)
     generateDispatchableHandle(XrSwapchain, XrSession)
     generateDispatchableHandle(XrTriangleMeshFB, XrSession)
+    generateDispatchableHandle(XrVirtualKeyboardMETA, XrSession)
 
     XR10.apply {
         LongConstant(
             "OpenXR current version number.",
 
-            "CURRENT_API_VERSION".."XR_MAKE_VERSION(1, 0, 27)"
+            "CURRENT_API_VERSION".."XR_MAKE_VERSION(1, 0, 29)"
         )
 
         macro(expression = "((major & 0xFFFFL) << 48) | ((minor & 0xFFFFL) << 32) | (patch & 0xFFFF_FFFFL)")..uint64_t(

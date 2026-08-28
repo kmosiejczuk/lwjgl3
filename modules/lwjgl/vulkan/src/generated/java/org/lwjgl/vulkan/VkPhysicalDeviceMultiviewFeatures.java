@@ -46,7 +46,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #multiviewTessellationShader};
  * }</code></pre>
  */
-public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeResource {
+public class VkPhysicalDeviceMultiviewFeatures extends Struct<VkPhysicalDeviceMultiviewFeatures> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,6 +81,15 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
         MULTIVIEWTESSELLATIONSHADER = layout.offsetof(4);
     }
 
+    protected VkPhysicalDeviceMultiviewFeatures(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDeviceMultiviewFeatures create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDeviceMultiviewFeatures(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDeviceMultiviewFeatures} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -94,7 +103,7 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -103,10 +112,10 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
     /** specifies whether the implementation supports multiview rendering within a render pass. If this feature is not enabled, the view mask of each subpass <b>must</b> always be zero. */
     @NativeType("VkBool32")
     public boolean multiview() { return nmultiview(address()) != 0; }
-    /** specifies whether the implementation supports multiview rendering within a render pass, with <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#geometry">geometry shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include a geometry shader. */
+    /** specifies whether the implementation supports multiview rendering within a render pass, with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#geometry">geometry shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include a geometry shader. */
     @NativeType("VkBool32")
     public boolean multiviewGeometryShader() { return nmultiviewGeometryShader(address()) != 0; }
-    /** specifies whether the implementation supports multiview rendering within a render pass, with <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">tessellation shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include any tessellation shaders. */
+    /** specifies whether the implementation supports multiview rendering within a render pass, with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">tessellation shaders</a>. If this feature is not enabled, then a pipeline compiled against a subpass with a non-zero view mask <b>must</b> not include any tessellation shaders. */
     @NativeType("VkBool32")
     public boolean multiviewTessellationShader() { return nmultiviewTessellationShader(address()) != 0; }
 
@@ -156,29 +165,29 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
 
     /** Returns a new {@code VkPhysicalDeviceMultiviewFeatures} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceMultiviewFeatures malloc() {
-        return wrap(VkPhysicalDeviceMultiviewFeatures.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDeviceMultiviewFeatures(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceMultiviewFeatures} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceMultiviewFeatures calloc() {
-        return wrap(VkPhysicalDeviceMultiviewFeatures.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDeviceMultiviewFeatures(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceMultiviewFeatures} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceMultiviewFeatures create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDeviceMultiviewFeatures.class, memAddress(container), container);
+        return new VkPhysicalDeviceMultiviewFeatures(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceMultiviewFeatures} instance for the specified memory address. */
     public static VkPhysicalDeviceMultiviewFeatures create(long address) {
-        return wrap(VkPhysicalDeviceMultiviewFeatures.class, address);
+        return new VkPhysicalDeviceMultiviewFeatures(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceMultiviewFeatures createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDeviceMultiviewFeatures.class, address);
+        return address == NULL ? null : new VkPhysicalDeviceMultiviewFeatures(address, null);
     }
 
     /**
@@ -187,7 +196,7 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMultiviewFeatures.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -196,7 +205,7 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMultiviewFeatures.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -206,7 +215,7 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
      */
     public static VkPhysicalDeviceMultiviewFeatures.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -216,13 +225,13 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMultiviewFeatures.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceMultiviewFeatures.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -250,7 +259,7 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceMultiviewFeatures malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceMultiviewFeatures.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDeviceMultiviewFeatures(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -259,7 +268,7 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceMultiviewFeatures calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceMultiviewFeatures.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDeviceMultiviewFeatures(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -269,7 +278,7 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMultiviewFeatures.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -279,7 +288,7 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceMultiviewFeatures.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -316,9 +325,9 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct implements NativeR
         /**
          * Creates a new {@code VkPhysicalDeviceMultiviewFeatures.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceMultiviewFeatures#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDeviceMultiviewFeatures#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

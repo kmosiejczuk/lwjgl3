@@ -28,10 +28,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRExternalMemory VK_KHR_external_memory} or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dd>{@link KHRExternalMemory VK_KHR_external_memory} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_external_memory_fd]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_external_memory_fd%20extension*">cubanismo</a></li>
+ * <li>James Jones <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_external_memory_fd]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_external_memory_fd%20extension*">cubanismo</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -171,7 +171,7 @@ public class KHRExternalMemoryFd {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>{@code fd} <b>must</b> be an external memory handle created outside of the Vulkan API</li>
+     * <li>{@code fd} <b>must</b> point to a valid POSIX file descriptor memory handle</li>
      * <li>{@code handleType} <b>must</b> not be {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT}</li>
      * </ul>
      * 

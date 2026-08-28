@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Implementations <b>must</b> include support for at least {@link KHRVideoEncodeQueue#VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR} and {@link KHRVideoEncodeQueue#VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR} in {@code supportedEncodeFeedbackFlags}.</p>
  * 
- * <p>The input content and encode resolution (specified in {@link VkVideoEncodeInfoKHR}{@code ::codedExtent}) may not be aligned with the codec-specific coding block size. For example, the input content may be 1920x1080 and the coding block size may be 16x16 pixel blocks. In this example, the content is horizontally aligned with the coding block size, but not vertically aligned with the coding block size. Encoding of the last row of blocks may be impacted by contents of the input image in pixel rows 1081 to 1088 (the next vertical alignment with the coding block size). In general, to ensure efficient encoding for the last row/column of blocks, and/or to ensure consistent encoding results between repeated encoding of the same input content, these extra pixel rows/columns should be filled to known values up to the coding block size alignment before encoding operations are performed. Some implementations support performing auto-fill of unaligned pixels beyond a specific alignment, which is reported in {@code inputImageDataFillAlignment}. For example, if an implementation reports 1x1 in {@code inputImageDataFillAlignment}, then the implementation will perform auto-fill for any unaligned pixels beyond the encode resolution up to the next coding block size. For a coding block size of 16x16, if the implementation reports 16x16 in {@code inputImageDataFillAlignment}, then it is the application’s responsibility to fill any unaligned pixels, if desired. If not, it may impact the encoding efficiency, but it will not affect the validity of the generated bitstream. If the implementation reports 8x8 in {@code inputImageDataFillAlignment}, then for the 1920x1080 example, since the content is aligned to 8 pixels vertically, the implementation will auto-fill pixel rows 1081 to 1088 (up to the 16x16 coding block size in the example). The auto-fill value(s) are implementation-specific. The auto-fill value(s) are not written to the input image memory, but are used as part of the encoding operation on the input image.</p>
+ * <p>The input content and encode resolution (specified in {@link VkVideoEncodeInfoKHR}{@code ::codedExtent}) may not be aligned with the codec-specific coding block size. For example, the input content may be 1920x1080 and the coding block size may be 16x16 pixel blocks. In this example, the content is horizontally aligned with the coding block size, but not vertically aligned with the coding block size. Encoding of the last row of blocks may be impacted by contents of the input image in pixel rows 1081 to 1088 (the next vertical alignment with the coding block size). In general, to ensure efficient encoding for the last row/column of blocks, and/or to ensure consistent encoding results between repeated encoding of the same input content, these extra pixel rows/columns should be filled to known values up to the coding block size alignment before encoding operations are performed. Some implementations support performing auto-fill of unaligned pixels beyond a specific alignment for the purposes of encoding, which is reported in {@code encodeInputPictureGranularity}. For example, if an implementation reports 1x1 in {@code encodeInputPictureGranularity}, then the implementation will perform auto-fill for any unaligned pixels beyond the encode resolution up to the next coding block size. For a coding block size of 16x16, if the implementation reports 16x16 in {@code encodeInputPictureGranularity}, then it is the application’s responsibility to fill any unaligned pixels, if desired. When the application does not fill these unaligned pixels, there <b>may</b> be an impact on the encoding efficiency but there will be no effect on the validity of the generated bitstream. If the implementation reports 8x8 in {@code encodeInputPictureGranularity}, then for the 1920x1080 example, since the content is aligned to 8 pixels vertically, the implementation will auto-fill pixel rows 1081 to 1088 (up to the 16x16 coding block size in the example). The auto-fill value(s) are implementation-specific. The auto-fill value(s) are not written to the input image memory, but are used as part of the encoding operation on the input image.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -43,12 +43,13 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkVideoEncodeCapabilityFlagsKHR {@link #flags};
  *     VkVideoEncodeRateControlModeFlagsKHR {@link #rateControlModes};
  *     uint32_t {@link #maxRateControlLayers};
+ *     uint64_t {@link #maxBitrate};
  *     uint32_t {@link #maxQualityLevels};
- *     {@link VkExtent2D VkExtent2D} {@link #inputImageDataFillAlignment};
+ *     {@link VkExtent2D VkExtent2D} {@link #encodeInputPictureGranularity};
  *     VkVideoEncodeFeedbackFlagsKHR {@link #supportedEncodeFeedbackFlags};
  * }</code></pre>
  */
-public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResource {
+public class VkVideoEncodeCapabilitiesKHR extends Struct<VkVideoEncodeCapabilitiesKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -63,8 +64,9 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
         FLAGS,
         RATECONTROLMODES,
         MAXRATECONTROLLAYERS,
+        MAXBITRATE,
         MAXQUALITYLEVELS,
-        INPUTIMAGEDATAFILLALIGNMENT,
+        ENCODEINPUTPICTUREGRANULARITY,
         SUPPORTEDENCODEFEEDBACKFLAGS;
 
     static {
@@ -74,6 +76,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
             __member(4),
             __member(4),
             __member(4),
+            __member(8),
             __member(4),
             __member(VkExtent2D.SIZEOF, VkExtent2D.ALIGNOF),
             __member(4)
@@ -87,9 +90,19 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
         FLAGS = layout.offsetof(2);
         RATECONTROLMODES = layout.offsetof(3);
         MAXRATECONTROLLAYERS = layout.offsetof(4);
-        MAXQUALITYLEVELS = layout.offsetof(5);
-        INPUTIMAGEDATAFILLALIGNMENT = layout.offsetof(6);
-        SUPPORTEDENCODEFEEDBACKFLAGS = layout.offsetof(7);
+        MAXBITRATE = layout.offsetof(5);
+        MAXQUALITYLEVELS = layout.offsetof(6);
+        ENCODEINPUTPICTUREGRANULARITY = layout.offsetof(7);
+        SUPPORTEDENCODEFEEDBACKFLAGS = layout.offsetof(8);
+    }
+
+    protected VkVideoEncodeCapabilitiesKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkVideoEncodeCapabilitiesKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkVideoEncodeCapabilitiesKHR(address, container);
     }
 
     /**
@@ -105,7 +118,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -114,18 +127,21 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
     /** a bitmask of {@code VkVideoEncodeCapabilityFlagBitsKHR} describing supported encoding features. */
     @NativeType("VkVideoEncodeCapabilityFlagsKHR")
     public int flags() { return nflags(address()); }
-    /** a bitmask of {@code VkVideoEncodeRateControlModeFlagBitsKHR} describing supported rate control modes. */
+    /** a bitmask of {@code VkVideoEncodeRateControlModeFlagBitsKHR} indicating supported rate control modes. */
     @NativeType("VkVideoEncodeRateControlModeFlagsKHR")
     public int rateControlModes() { return nrateControlModes(address()); }
-    /** reports the maximum number of rate control layers supported. Implementations <b>must</b> report at least 1. */
+    /** indicates the maximum number of rate control layers supported. */
     @NativeType("uint32_t")
     public int maxRateControlLayers() { return nmaxRateControlLayers(address()); }
-    /** the number of discrete quality levels supported. Implementations <b>must</b> report at least 1. */
+    /** indicates the maximum supported bitrate. */
+    @NativeType("uint64_t")
+    public long maxBitrate() { return nmaxBitrate(address()); }
+    /** indicates the number of discrete video encode quality levels supported. Implementations <b>must</b> report at least 1. */
     @NativeType("uint32_t")
     public int maxQualityLevels() { return nmaxQualityLevels(address()); }
-    /** reports alignment of data that should be filled in the input image horizontally and vertically in pixels before encode operations are performed on the input image. */
-    public VkExtent2D inputImageDataFillAlignment() { return ninputImageDataFillAlignment(address()); }
-    /** a bitmask of {@code VkVideoEncodeFeedbackFlagBitsKHR} values specifying the supported flags for <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#queries-video-encode-feedback">video encode feedback queries</a>. */
+    /** indicates the granularity at which <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#encode-input-picture">encode input picture</a> data is encoded. */
+    public VkExtent2D encodeInputPictureGranularity() { return nencodeInputPictureGranularity(address()); }
+    /** a bitmask of {@code VkVideoEncodeFeedbackFlagBitsKHR} values specifying the supported flags for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#queries-video-encode-feedback">video encode feedback queries</a>. */
     @NativeType("VkVideoEncodeFeedbackFlagsKHR")
     public int supportedEncodeFeedbackFlags() { return nsupportedEncodeFeedbackFlags(address()); }
 
@@ -163,29 +179,29 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
 
     /** Returns a new {@code VkVideoEncodeCapabilitiesKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVideoEncodeCapabilitiesKHR malloc() {
-        return wrap(VkVideoEncodeCapabilitiesKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkVideoEncodeCapabilitiesKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoEncodeCapabilitiesKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVideoEncodeCapabilitiesKHR calloc() {
-        return wrap(VkVideoEncodeCapabilitiesKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkVideoEncodeCapabilitiesKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoEncodeCapabilitiesKHR} instance allocated with {@link BufferUtils}. */
     public static VkVideoEncodeCapabilitiesKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkVideoEncodeCapabilitiesKHR.class, memAddress(container), container);
+        return new VkVideoEncodeCapabilitiesKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkVideoEncodeCapabilitiesKHR} instance for the specified memory address. */
     public static VkVideoEncodeCapabilitiesKHR create(long address) {
-        return wrap(VkVideoEncodeCapabilitiesKHR.class, address);
+        return new VkVideoEncodeCapabilitiesKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoEncodeCapabilitiesKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkVideoEncodeCapabilitiesKHR.class, address);
+        return address == NULL ? null : new VkVideoEncodeCapabilitiesKHR(address, null);
     }
 
     /**
@@ -194,7 +210,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeCapabilitiesKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -203,7 +219,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeCapabilitiesKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -213,7 +229,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
      */
     public static VkVideoEncodeCapabilitiesKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -223,13 +239,13 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeCapabilitiesKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoEncodeCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -238,7 +254,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static VkVideoEncodeCapabilitiesKHR malloc(MemoryStack stack) {
-        return wrap(VkVideoEncodeCapabilitiesKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkVideoEncodeCapabilitiesKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -247,7 +263,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static VkVideoEncodeCapabilitiesKHR calloc(MemoryStack stack) {
-        return wrap(VkVideoEncodeCapabilitiesKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkVideoEncodeCapabilitiesKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -257,7 +273,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeCapabilitiesKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -267,7 +283,7 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeCapabilitiesKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -282,10 +298,12 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
     public static int nrateControlModes(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeCapabilitiesKHR.RATECONTROLMODES); }
     /** Unsafe version of {@link #maxRateControlLayers}. */
     public static int nmaxRateControlLayers(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeCapabilitiesKHR.MAXRATECONTROLLAYERS); }
+    /** Unsafe version of {@link #maxBitrate}. */
+    public static long nmaxBitrate(long struct) { return UNSAFE.getLong(null, struct + VkVideoEncodeCapabilitiesKHR.MAXBITRATE); }
     /** Unsafe version of {@link #maxQualityLevels}. */
     public static int nmaxQualityLevels(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeCapabilitiesKHR.MAXQUALITYLEVELS); }
-    /** Unsafe version of {@link #inputImageDataFillAlignment}. */
-    public static VkExtent2D ninputImageDataFillAlignment(long struct) { return VkExtent2D.create(struct + VkVideoEncodeCapabilitiesKHR.INPUTIMAGEDATAFILLALIGNMENT); }
+    /** Unsafe version of {@link #encodeInputPictureGranularity}. */
+    public static VkExtent2D nencodeInputPictureGranularity(long struct) { return VkExtent2D.create(struct + VkVideoEncodeCapabilitiesKHR.ENCODEINPUTPICTUREGRANULARITY); }
     /** Unsafe version of {@link #supportedEncodeFeedbackFlags}. */
     public static int nsupportedEncodeFeedbackFlags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeCapabilitiesKHR.SUPPORTEDENCODEFEEDBACKFLAGS); }
 
@@ -304,9 +322,9 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
         /**
          * Creates a new {@code VkVideoEncodeCapabilitiesKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVideoEncodeCapabilitiesKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkVideoEncodeCapabilitiesKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -347,11 +365,14 @@ public class VkVideoEncodeCapabilitiesKHR extends Struct implements NativeResour
         /** @return the value of the {@link VkVideoEncodeCapabilitiesKHR#maxRateControlLayers} field. */
         @NativeType("uint32_t")
         public int maxRateControlLayers() { return VkVideoEncodeCapabilitiesKHR.nmaxRateControlLayers(address()); }
+        /** @return the value of the {@link VkVideoEncodeCapabilitiesKHR#maxBitrate} field. */
+        @NativeType("uint64_t")
+        public long maxBitrate() { return VkVideoEncodeCapabilitiesKHR.nmaxBitrate(address()); }
         /** @return the value of the {@link VkVideoEncodeCapabilitiesKHR#maxQualityLevels} field. */
         @NativeType("uint32_t")
         public int maxQualityLevels() { return VkVideoEncodeCapabilitiesKHR.nmaxQualityLevels(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkVideoEncodeCapabilitiesKHR#inputImageDataFillAlignment} field. */
-        public VkExtent2D inputImageDataFillAlignment() { return VkVideoEncodeCapabilitiesKHR.ninputImageDataFillAlignment(address()); }
+        /** @return a {@link VkExtent2D} view of the {@link VkVideoEncodeCapabilitiesKHR#encodeInputPictureGranularity} field. */
+        public VkExtent2D encodeInputPictureGranularity() { return VkVideoEncodeCapabilitiesKHR.nencodeInputPictureGranularity(address()); }
         /** @return the value of the {@link VkVideoEncodeCapabilitiesKHR#supportedEncodeFeedbackFlags} field. */
         @NativeType("VkVideoEncodeFeedbackFlagsKHR")
         public int supportedEncodeFeedbackFlags() { return VkVideoEncodeCapabilitiesKHR.nsupportedEncodeFeedbackFlags(address()); }

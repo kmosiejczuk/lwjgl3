@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>We use OpenXR {@code XrSpace} handles to give applications access to spatial entities such as Spatial Anchors. In other words, any operation which involves spatial entities uses {@code XrSpace} handles to identify the affected spatial entities.</p>
  * 
- * <p>In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into {@link XR10#xrCreateInstance CreateInstance} via the {@link XrInstanceCreateInfo}{@code ::enabledExtensionNames} parameter as indicated in the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#extensions">extensions</a> section.</p>
+ * <p>In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into {@link XR10#xrCreateInstance CreateInstance} via the {@link XrInstanceCreateInfo}{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#extensions">extensions</a> section.</p>
  * 
  * <p>This extension allows:</p>
  * 
@@ -146,7 +146,7 @@ public class FBSpatialEntity {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Creates a Spatial Anchor using the specified tracking origin and pose relative to the specified tracking origin. The anchor will be locatable at the time of creation, and the 6 DOF pose relative to the tracking origin <b>can</b> be queried using the {@link XR10#xrLocateSpace LocateSpace} method. This operation is asynchronous and the runtime <b>must</b> post an {@link XrEventDataSpatialAnchorCreateCompleteFB} event when the operation completes successfully or encounters an error. The {@code requestId} <b>can</b> be used to later refer to the request, such as identifying which request has completed when an {@link XrEventDataSpatialAnchorCreateCompleteFB} is posted to the event queue.</p>
+     * <p>Creates a Spatial Anchor using the specified tracking origin and pose relative to the specified tracking origin. The anchor will be locatable at the time of creation, and the 6 DOF pose relative to the tracking origin <b>can</b> be queried using the {@link XR10#xrLocateSpace LocateSpace} method. This operation is asynchronous and the runtime <b>must</b> post an {@link XrEventDataSpatialAnchorCreateCompleteFB} event when the operation completes successfully or encounters an error. If this function returns a failure code, no event is posted. The {@code requestId} <b>can</b> be used to later refer to the request, such as identifying which request has completed when an {@link XrEventDataSpatialAnchorCreateCompleteFB} is posted to the event queue.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -322,6 +322,7 @@ public class FBSpatialEntity {
      * <li>{@link XR10#XR_ERROR_HANDLE_INVALID ERROR_HANDLE_INVALID}</li>
      * <li>{@link XR10#XR_ERROR_INSTANCE_LOST ERROR_INSTANCE_LOST}</li>
      * <li>{@link XR10#XR_ERROR_SESSION_LOST ERROR_SESSION_LOST}</li>
+     * <li>{@link XR10#XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT}</li>
      * <li>{@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED}</li>
      * </ul></dd>
      * </dl>
@@ -364,7 +365,7 @@ public class FBSpatialEntity {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Enables or disables the specified component for the specified entity. This operation is asynchronous and always returns immediately, regardless of the value of {@code timeout}. The {@code requestId} <b>can</b> be used to later refer to the request, such as identifying which request has completed when an {@link XrEventDataSpaceSetStatusCompleteFB} is posted to the event queue. This function <b>must</b> return {@link #XR_ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB} if the {@code XrSpace} does not support the specified component type.</p>
+     * <p>Enables or disables the specified component for the specified entity. This operation is asynchronous and always returns immediately, regardless of the value of {@code timeout}. The {@code requestId} <b>can</b> be used to later refer to the request, such as identifying which request has completed when an {@link XrEventDataSpaceSetStatusCompleteFB} is posted to the event queue. If this function returns a failure code, no event is posted. This function <b>must</b> return {@link #XR_ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB} if the {@code XrSpace} does not support the specified component type.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

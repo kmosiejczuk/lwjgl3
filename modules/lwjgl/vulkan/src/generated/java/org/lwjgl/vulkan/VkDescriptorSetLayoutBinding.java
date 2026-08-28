@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLER DESCRIPTOR_TYPE_SAMPLER} or {@link VK10#VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER}, and {@code descriptorCount} is not 0 and {@code pImmutableSamplers} is not {@code NULL}, {@code pImmutableSamplers} <b>must</b> be a valid pointer to an array of {@code descriptorCount} valid {@code VkSampler} handles</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inlineUniformBlock">{@code inlineUniformBlock}</a> feature is not enabled, {@code descriptorType} <b>must</b> not be {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-inlineUniformBlock">{@code inlineUniformBlock}</a> feature is not enabled, {@code descriptorType} <b>must</b> not be {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}</li>
  * <li>If {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} then {@code descriptorCount} <b>must</b> be a multiple of 4</li>
  * <li>If {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} and {@link VkDescriptorSetLayoutCreateInfo}{@code ::flags} does not contain {@link EXTDescriptorBuffer#VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT} then {@code descriptorCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceInlineUniformBlockPropertiesEXT}{@code ::maxInlineUniformBlockSize}</li>
  * <li>If {@link VkDescriptorSetLayoutCreateInfo}{@code ::flags} contains {@link EXTDescriptorBuffer#VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT}, {@code descriptorType} <b>must</b> be {@link VK10#VK_DESCRIPTOR_TYPE_SAMPLER DESCRIPTOR_TYPE_SAMPLER}</li>
@@ -64,7 +64,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkSampler const * {@link #pImmutableSamplers};
  * }</code></pre>
  */
-public class VkDescriptorSetLayoutBinding extends Struct implements NativeResource {
+public class VkDescriptorSetLayoutBinding extends Struct<VkDescriptorSetLayoutBinding> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -97,6 +97,15 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
         DESCRIPTORCOUNT = layout.offsetof(2);
         STAGEFLAGS = layout.offsetof(3);
         PIMMUTABLESAMPLERS = layout.offsetof(4);
+    }
+
+    protected VkDescriptorSetLayoutBinding(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkDescriptorSetLayoutBinding create(long address, @Nullable ByteBuffer container) {
+        return new VkDescriptorSetLayoutBinding(address, container);
     }
 
     /**
@@ -177,29 +186,29 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
 
     /** Returns a new {@code VkDescriptorSetLayoutBinding} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDescriptorSetLayoutBinding malloc() {
-        return wrap(VkDescriptorSetLayoutBinding.class, nmemAllocChecked(SIZEOF));
+        return new VkDescriptorSetLayoutBinding(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkDescriptorSetLayoutBinding} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDescriptorSetLayoutBinding calloc() {
-        return wrap(VkDescriptorSetLayoutBinding.class, nmemCallocChecked(1, SIZEOF));
+        return new VkDescriptorSetLayoutBinding(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkDescriptorSetLayoutBinding} instance allocated with {@link BufferUtils}. */
     public static VkDescriptorSetLayoutBinding create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkDescriptorSetLayoutBinding.class, memAddress(container), container);
+        return new VkDescriptorSetLayoutBinding(memAddress(container), container);
     }
 
     /** Returns a new {@code VkDescriptorSetLayoutBinding} instance for the specified memory address. */
     public static VkDescriptorSetLayoutBinding create(long address) {
-        return wrap(VkDescriptorSetLayoutBinding.class, address);
+        return new VkDescriptorSetLayoutBinding(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorSetLayoutBinding createSafe(long address) {
-        return address == NULL ? null : wrap(VkDescriptorSetLayoutBinding.class, address);
+        return address == NULL ? null : new VkDescriptorSetLayoutBinding(address, null);
     }
 
     /**
@@ -208,7 +217,7 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetLayoutBinding.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -217,7 +226,7 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetLayoutBinding.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -227,7 +236,7 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
      */
     public static VkDescriptorSetLayoutBinding.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -237,13 +246,13 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetLayoutBinding.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorSetLayoutBinding.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -271,7 +280,7 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorSetLayoutBinding malloc(MemoryStack stack) {
-        return wrap(VkDescriptorSetLayoutBinding.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkDescriptorSetLayoutBinding(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -280,7 +289,7 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorSetLayoutBinding calloc(MemoryStack stack) {
-        return wrap(VkDescriptorSetLayoutBinding.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkDescriptorSetLayoutBinding(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -290,7 +299,7 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetLayoutBinding.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -300,7 +309,7 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
      * @param capacity the buffer capacity
      */
     public static VkDescriptorSetLayoutBinding.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -337,9 +346,9 @@ public class VkDescriptorSetLayoutBinding extends Struct implements NativeResour
         /**
          * Creates a new {@code VkDescriptorSetLayoutBinding.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDescriptorSetLayoutBinding#SIZEOF}, and its mark will be undefined.
+         * by {@link VkDescriptorSetLayoutBinding#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -8,7 +8,7 @@ package org.lwjgl.system.linux.liburing;
 import org.lwjgl.system.*;
 
 /**
- * Native bindings to <a target="_blank" href="https://github.com/axboe/liburing">io_uring</a>, a Linux-specific API for asynchronous I/O.
+ * Native bindings to <a href="https://github.com/axboe/liburing">io_uring</a>, a Linux-specific API for asynchronous I/O.
  * 
  * <p>It allows the user to submit one or more I/O requests, which are processed asynchronously without blocking the calling process. {@code io_uring} gets
  * its name from ring buffers which are shared between user space and kernel space. This arrangement allows for efficient I/O, while avoiding the overhead
@@ -945,6 +945,7 @@ public class LibIOURing {
      * <li>{@link #IORING_TIMEOUT_REALTIME TIMEOUT_REALTIME}</li>
      * <li>{@link #IORING_LINK_TIMEOUT_UPDATE LINK_TIMEOUT_UPDATE}</li>
      * <li>{@link #IORING_TIMEOUT_ETIME_SUCCESS TIMEOUT_ETIME_SUCCESS}</li>
+     * <li>{@link #IORING_TIMEOUT_MULTISHOT TIMEOUT_MULTISHOT}</li>
      * <li>{@link #IORING_TIMEOUT_CLOCK_MASK TIMEOUT_CLOCK_MASK}</li>
      * <li>{@link #IORING_TIMEOUT_UPDATE_MASK TIMEOUT_UPDATE_MASK}</li>
      * </ul>
@@ -956,6 +957,7 @@ public class LibIOURing {
         IORING_TIMEOUT_REALTIME      = 1 << 3,
         IORING_LINK_TIMEOUT_UPDATE   = 1 << 4,
         IORING_TIMEOUT_ETIME_SUCCESS = 1 << 5,
+        IORING_TIMEOUT_MULTISHOT     = 1 << 6,
         IORING_TIMEOUT_CLOCK_MASK    = IORING_TIMEOUT_BOOTTIME | IORING_TIMEOUT_REALTIME,
         IORING_TIMEOUT_UPDATE_MASK   = IORING_TIMEOUT_UPDATE | IORING_LINK_TIMEOUT_UPDATE;
 

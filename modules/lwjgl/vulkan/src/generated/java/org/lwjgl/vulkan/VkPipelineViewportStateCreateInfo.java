@@ -21,14 +21,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiViewport">{@code multiViewport}</a> feature is not enabled, {@code viewportCount} <b>must</b> not be greater than 1</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiViewport">{@code multiViewport}</a> feature is not enabled, {@code scissorCount} <b>must</b> not be greater than 1</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiViewport">{@code multiViewport}</a> feature is not enabled, {@code viewportCount} <b>must</b> not be greater than 1</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiViewport">{@code multiViewport}</a> feature is not enabled, {@code scissorCount} <b>must</b> not be greater than 1</li>
  * <li>{@code viewportCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxViewports}</li>
  * <li>{@code scissorCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxViewports}</li>
  * <li>The {@code x} and {@code y} members of {@code offset} member of any element of {@code pScissors} <b>must</b> be greater than or equal to 0</li>
  * <li>Evaluation of <code>(offset.x + extent.width)</code> <b>must</b> not cause a signed integer addition overflow for any element of {@code pScissors}</li>
  * <li>Evaluation of <code>(offset.y + extent.height)</code> <b>must</b> not cause a signed integer addition overflow for any element of {@code pScissors}</li>
- * <li>If the graphics pipeline is being created without {@link VK13#VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT DYNAMIC_STATE_VIEWPORT_WITH_COUNT} and {@link VK13#VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT DYNAMIC_STATE_SCISSOR_WITH_COUNT} set then {@code scissorCount} and {@code viewportCount} <b>must</b> be identical</li>
+ * <li>If {@code scissorCount} and {@code viewportCount} are both not dynamic, then {@code scissorCount} and {@code viewportCount} <b>must</b> be identical</li>
  * <li>If the graphics pipeline is being created with {@link VK13#VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT DYNAMIC_STATE_VIEWPORT_WITH_COUNT} set then {@code viewportCount} <b>must</b> be 0, otherwise it <b>must</b> be greater than 0</li>
  * <li>If the graphics pipeline is being created with {@link VK13#VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT DYNAMIC_STATE_SCISSOR_WITH_COUNT} set then {@code scissorCount} <b>must</b> be 0, otherwise it <b>must</b> be greater than 0</li>
  * <li>If the {@code viewportWScalingEnable} member of a {@link VkPipelineViewportWScalingStateCreateInfoNV} structure included in the {@code pNext} chain is {@link VK10#VK_TRUE TRUE}, the {@code viewportCount} member of the {@link VkPipelineViewportWScalingStateCreateInfoNV} structure <b>must</b> be greater than or equal to {@link VkPipelineViewportStateCreateInfo}{@code ::viewportCount}</li>
@@ -60,7 +60,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkRect2D VkRect2D} const * {@link #pScissors};
  * }</code></pre>
  */
-public class VkPipelineViewportStateCreateInfo extends Struct implements NativeResource {
+public class VkPipelineViewportStateCreateInfo extends Struct<VkPipelineViewportStateCreateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -101,6 +101,15 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
         PSCISSORS = layout.offsetof(6);
     }
 
+    protected VkPipelineViewportStateCreateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPipelineViewportStateCreateInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkPipelineViewportStateCreateInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkPipelineViewportStateCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -114,7 +123,7 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -130,7 +139,7 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
     @Nullable
     @NativeType("VkViewport const *")
     public VkViewport.Buffer pViewports() { return npViewports(address()); }
-    /** the number of <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-scissor">scissors</a> and <b>must</b> match the number of viewports. */
+    /** the number of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-scissor">scissors</a> and <b>must</b> match the number of viewports. */
     @NativeType("uint32_t")
     public int scissorCount() { return nscissorCount(address()); }
     /** a pointer to an array of {@link VkRect2D} structures defining the rectangular bounds of the scissor for the corresponding viewport. If the scissor state is dynamic, this member is ignored. */
@@ -204,29 +213,29 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
 
     /** Returns a new {@code VkPipelineViewportStateCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineViewportStateCreateInfo malloc() {
-        return wrap(VkPipelineViewportStateCreateInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkPipelineViewportStateCreateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPipelineViewportStateCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineViewportStateCreateInfo calloc() {
-        return wrap(VkPipelineViewportStateCreateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPipelineViewportStateCreateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPipelineViewportStateCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkPipelineViewportStateCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPipelineViewportStateCreateInfo.class, memAddress(container), container);
+        return new VkPipelineViewportStateCreateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineViewportStateCreateInfo} instance for the specified memory address. */
     public static VkPipelineViewportStateCreateInfo create(long address) {
-        return wrap(VkPipelineViewportStateCreateInfo.class, address);
+        return new VkPipelineViewportStateCreateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineViewportStateCreateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkPipelineViewportStateCreateInfo.class, address);
+        return address == NULL ? null : new VkPipelineViewportStateCreateInfo(address, null);
     }
 
     /**
@@ -235,7 +244,7 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportStateCreateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -244,7 +253,7 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportStateCreateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -254,7 +263,7 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
      */
     public static VkPipelineViewportStateCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -264,13 +273,13 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportStateCreateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineViewportStateCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -298,7 +307,7 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
      * @param stack the stack from which to allocate
      */
     public static VkPipelineViewportStateCreateInfo malloc(MemoryStack stack) {
-        return wrap(VkPipelineViewportStateCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPipelineViewportStateCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -307,7 +316,7 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
      * @param stack the stack from which to allocate
      */
     public static VkPipelineViewportStateCreateInfo calloc(MemoryStack stack) {
-        return wrap(VkPipelineViewportStateCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPipelineViewportStateCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -317,7 +326,7 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportStateCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -327,7 +336,7 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
      * @param capacity the buffer capacity
      */
     public static VkPipelineViewportStateCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -372,9 +381,9 @@ public class VkPipelineViewportStateCreateInfo extends Struct implements NativeR
         /**
          * Creates a new {@code VkPipelineViewportStateCreateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineViewportStateCreateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPipelineViewportStateCreateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

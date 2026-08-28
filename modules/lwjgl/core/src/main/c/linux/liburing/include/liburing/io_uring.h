@@ -250,6 +250,7 @@ enum io_uring_op {
 #define IORING_TIMEOUT_REALTIME		(1U << 3)
 #define IORING_LINK_TIMEOUT_UPDATE	(1U << 4)
 #define IORING_TIMEOUT_ETIME_SUCCESS	(1U << 5)
+#define IORING_TIMEOUT_MULTISHOT	(1U << 6)
 #define IORING_TIMEOUT_CLOCK_MASK	(IORING_TIMEOUT_BOOTTIME | IORING_TIMEOUT_REALTIME)
 #define IORING_TIMEOUT_UPDATE_MASK	(IORING_TIMEOUT_UPDATE | IORING_LINK_TIMEOUT_UPDATE)
 /*
@@ -569,19 +570,6 @@ struct io_uring_rsrc_update2 {
 	__aligned_u64 tags;
 	__u32 nr;
 	__u32 resv2;
-};
-
-struct io_uring_notification_slot {
-	__u64 tag;
-	__u64 resv[3];
-};
-
-struct io_uring_notification_register {
-	__u32 nr_slots;
-	__u32 resv;
-	__u64 resv2;
-	__u64 data;
-	__u64 resv3;
 };
 
 /* Skip updating fd indexes set to this value in the fd table */

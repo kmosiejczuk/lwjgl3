@@ -18,7 +18,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>This extension enables multiple spatial entities at a time to be persisted across sessions. If the {@link FBSpatialEntity#XR_SPACE_COMPONENT_TYPE_STORABLE_FB SPACE_COMPONENT_TYPE_STORABLE_FB} component has been enabled on the spatial entity, application developers <b>may</b> save and erase {@code XrSpace} entities.</p>
  * 
- * <p>In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into {@link XR10#xrCreateInstance CreateInstance} via the {@link XrInstanceCreateInfo}{@code ::enabledExtensionNames} parameter as indicated in the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#extensions">extensions</a> section.</p>
+ * <p>In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into {@link XR10#xrCreateInstance CreateInstance} via the {@link XrInstanceCreateInfo}{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#extensions">extensions</a> section.</p>
  */
 public class FBSpatialEntityStorageBatch {
 
@@ -73,7 +73,7 @@ public class FBSpatialEntityStorageBatch {
      * 
      * <h5>Description</h5>
      * 
-     * <p>The {@link #xrSaveSpaceListFB SaveSpaceListFB} function persists the specified spatial entities at the specified storage location. The runtime <b>must</b> return {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE} if {@link XrSpaceSaveInfoFB}{@code ::location} is invalid. This operation is asynchronous and the runtime <b>must</b> post an {@link XrEventDataSpaceListSaveCompleteFB} event when the operation completes successfully or encounters an error.</p>
+     * <p>The {@link #xrSaveSpaceListFB SaveSpaceListFB} function persists the specified spatial entities at the specified storage location. The runtime <b>must</b> return {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE} if {@link XrSpaceSaveInfoFB}{@code ::location} is invalid. This operation is asynchronous and the runtime <b>must</b> post an {@link XrEventDataSpaceListSaveCompleteFB} event when the operation completes successfully or encounters an error. If this function returns a failure code, no event is posted.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

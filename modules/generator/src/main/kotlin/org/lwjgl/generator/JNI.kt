@@ -55,7 +55,7 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
                 depending on the platform. {@code P} parameters represent pointer addresses, which maybe 32-bit or 64-bit values depending on the JVM.
                 """,
                 """
-                the return value <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/types.html\#type_signatures">JNI type signature</a>
+                the return value <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/types.html\#type_signatures">JNI type signature</a>
                 """
             )}
             """
@@ -135,8 +135,12 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
                     print("($resultType)");
             }
             print("((${it.returnType.abiType} (${if (it.callingConvention === CallingConvention.STDCALL) "APIENTRY " else ""}*) ")
-            print(it.arguments.asSequence()
-                .joinToString(", ", prefix = "(", postfix = ")") { arg -> arg.abiType })
+            print(if (it.arguments.isEmpty())
+                "(void)"
+            else
+                it.arguments.asSequence()
+                    .joinToString(", ", prefix = "(", postfix = ")") { arg -> arg.abiType }
+            )
             print(")(uintptr_t)$FUNCTION_ADDRESS)(")
             print(it.arguments.asSequence()
                 .mapIndexed { i, arg ->

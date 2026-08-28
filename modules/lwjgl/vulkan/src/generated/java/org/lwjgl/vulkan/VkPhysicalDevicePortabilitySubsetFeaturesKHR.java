@@ -51,7 +51,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #vertexAttributeAccessBeyondStride};
  * }</code></pre>
  */
-public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct implements NativeResource {
+public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct<VkPhysicalDevicePortabilitySubsetFeaturesKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -122,6 +122,15 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
         VERTEXATTRIBUTEACCESSBEYONDSTRIDE = layout.offsetof(16);
     }
 
+    protected VkPhysicalDevicePortabilitySubsetFeaturesKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDevicePortabilitySubsetFeaturesKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDevicePortabilitySubsetFeaturesKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDevicePortabilitySubsetFeaturesKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -135,16 +144,16 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether this implementation supports constant <em>alpha</em> <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-blendfactors">Blend Factors</a> used as source or destination <em>color</em> <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-blending">Blending</a>. */
+    /** indicates whether this implementation supports constant <em>alpha</em> <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-blendfactors">Blend Factors</a> used as source or destination <em>color</em> <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-blending">Blending</a>. */
     @NativeType("VkBool32")
     public boolean constantAlphaColorBlendFactors() { return nconstantAlphaColorBlendFactors(address()) != 0; }
-    /** indicates whether this implementation supports synchronization using <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-events">Events</a>. */
+    /** indicates whether this implementation supports synchronization using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-events">Events</a>. */
     @NativeType("VkBool32")
     public boolean events() { return nevents(address()) != 0; }
     /** indicates whether this implementation supports a {@code VkImageView} being created with a texel format containing a different number of components, or a different number of bits in each component, than the texel format of the underlying {@code VkImage}. */
@@ -159,28 +168,28 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
     /** indicates whether this implementation supports a {@code VkImage} being created as a 2D array with multiple samples per texel. */
     @NativeType("VkBool32")
     public boolean multisampleArrayImage() { return nmultisampleArrayImage(address()) != 0; }
-    /** indicates whether this implementation allows descriptors with comparison samplers to be <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates">updated</a>. */
+    /** indicates whether this implementation allows descriptors with comparison samplers to be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates">updated</a>. */
     @NativeType("VkBool32")
     public boolean mutableComparisonSamplers() { return nmutableComparisonSamplers(address()) != 0; }
-    /** indicates whether this implementation supports <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast">Rasterization</a> using a <em>point</em> <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-polygonmode">Polygon Mode</a>. */
+    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast">Rasterization</a> using a <em>point</em> <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-polygonmode">Polygon Mode</a>. */
     @NativeType("VkBool32")
     public boolean pointPolygons() { return npointPolygons(address()) != 0; }
-    /** indicates whether this implementation supports setting a <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-mipLodBias">mipmap LOD bias value</a> when <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers">creating a sampler</a>. */
+    /** indicates whether this implementation supports setting a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers-mipLodBias">mipmap LOD bias value</a> when <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#samplers">creating a sampler</a>. */
     @NativeType("VkBool32")
     public boolean samplerMipLodBias() { return nsamplerMipLodBias(address()) != 0; }
-    /** indicates whether this implementation supports separate front and back <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-stencil">Stencil Test</a> reference values. */
+    /** indicates whether this implementation supports separate front and back <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-stencil">Stencil Test</a> reference values. */
     @NativeType("VkBool32")
     public boolean separateStencilMaskRef() { return nseparateStencilMaskRef(address()) != 0; }
-    /** indicates whether this implementation supports fragment shaders which use the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities-table-InterpolationFunction">{@code InterpolationFunction}</a> capability and the extended instructions {@code InterpolateAtCentroid}, {@code InterpolateAtOffset}, and {@code InterpolateAtSample} from the {@code GLSL.std.450} extended instruction set. This member is only meaningful if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sampleRateShading">{@code sampleRateShading}</a> feature is supported. */
+    /** indicates whether this implementation supports fragment shaders which use the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-capabilities-table-InterpolationFunction">{@code InterpolationFunction}</a> capability and the extended instructions {@code InterpolateAtCentroid}, {@code InterpolateAtOffset}, and {@code InterpolateAtSample} from the {@code GLSL.std.450} extended instruction set. This member is only meaningful if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sampleRateShading">{@code sampleRateShading}</a> feature is supported. */
     @NativeType("VkBool32")
     public boolean shaderSampleRateInterpolationFunctions() { return nshaderSampleRateInterpolationFunctions(address()) != 0; }
-    /** indicates whether this implementation supports <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation-isoline-tessellation">isoline output</a> from the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">Tessellation</a> stage of a graphics pipeline. This member is only meaningful if <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> are supported. */
+    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation-isoline-tessellation">isoline output</a> from the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">Tessellation</a> stage of a graphics pipeline. This member is only meaningful if <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> are supported. */
     @NativeType("VkBool32")
     public boolean tessellationIsolines() { return ntessellationIsolines(address()) != 0; }
-    /** indicates whether this implementation supports <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation-point-mode">point output</a> from the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">Tessellation</a> stage of a graphics pipeline. This member is only meaningful if <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> are supported. */
+    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation-point-mode">point output</a> from the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#tessellation">Tessellation</a> stage of a graphics pipeline. This member is only meaningful if <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> are supported. */
     @NativeType("VkBool32")
     public boolean tessellationPointMode() { return ntessellationPointMode(address()) != 0; }
-    /** indicates whether this implementation supports <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#drawing-triangle-fans">Triangle Fans</a> primitive topology. */
+    /** indicates whether this implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#drawing-triangle-fans">Triangle Fans</a> primitive topology. */
     @NativeType("VkBool32")
     public boolean triangleFans() { return ntriangleFans(address()) != 0; }
     /** indicates whether this implementation supports accessing a vertex input attribute beyond the stride of the corresponding vertex input binding. */
@@ -281,29 +290,29 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
 
     /** Returns a new {@code VkPhysicalDevicePortabilitySubsetFeaturesKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR malloc() {
-        return wrap(VkPhysicalDevicePortabilitySubsetFeaturesKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDevicePortabilitySubsetFeaturesKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDevicePortabilitySubsetFeaturesKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR calloc() {
-        return wrap(VkPhysicalDevicePortabilitySubsetFeaturesKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDevicePortabilitySubsetFeaturesKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDevicePortabilitySubsetFeaturesKHR} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDevicePortabilitySubsetFeaturesKHR.class, memAddress(container), container);
+        return new VkPhysicalDevicePortabilitySubsetFeaturesKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDevicePortabilitySubsetFeaturesKHR} instance for the specified memory address. */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR create(long address) {
-        return wrap(VkPhysicalDevicePortabilitySubsetFeaturesKHR.class, address);
+        return new VkPhysicalDevicePortabilitySubsetFeaturesKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDevicePortabilitySubsetFeaturesKHR.class, address);
+        return address == NULL ? null : new VkPhysicalDevicePortabilitySubsetFeaturesKHR(address, null);
     }
 
     /**
@@ -312,7 +321,7 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -321,7 +330,7 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -331,7 +340,7 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
      */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -341,13 +350,13 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -356,7 +365,7 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDevicePortabilitySubsetFeaturesKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDevicePortabilitySubsetFeaturesKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -365,7 +374,7 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDevicePortabilitySubsetFeaturesKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDevicePortabilitySubsetFeaturesKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -375,7 +384,7 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -385,7 +394,7 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDevicePortabilitySubsetFeaturesKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -470,9 +479,9 @@ public class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends Struct impleme
         /**
          * Creates a new {@code VkPhysicalDevicePortabilitySubsetFeaturesKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

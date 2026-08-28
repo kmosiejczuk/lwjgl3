@@ -15,7 +15,7 @@ val FB_spatial_entity_storage = "FBSpatialEntityStorage".nativeClassXR("FB_spati
 
         This extension enables spatial entities to be stored and persisted across sessions. If the #SPACE_COMPONENT_TYPE_STORABLE_FB component has been enabled on the spatial entity, application developers <b>may</b> save, load, and erase persisted {@code XrSpace} entities.
 
-        In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo{@code ::enabledExtensionNames} parameter as indicated in the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#extensions">extensions</a> section.
+        In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#extensions">extensions</a> section.
         """
 
     IntConstant(
@@ -75,7 +75,7 @@ val FB_spatial_entity_storage = "FBSpatialEntityStorage".nativeClassXR("FB_spati
 ￿    XrAsyncRequestIdFB*                         requestId);</code></pre>
 
         <h5>Description</h5>
-        The #SaveSpaceFB() function persists the spatial entity at the specified location with the specified mode. The runtime <b>must</b> return #ERROR_VALIDATION_FAILURE if ##XrSpaceSaveInfoFB{@code ::space} is #NULL_HANDLE or otherwise invalid. The runtime <b>must</b> return #ERROR_VALIDATION_FAILURE if ##XrSpaceSaveInfoFB{@code ::location} or ##XrSpaceSaveInfoFB{@code ::persistenceMode} is invalid. This operation is asynchronous and the runtime <b>must</b> post an ##XrEventDataSpaceSaveCompleteFB event when the operation completes successfully or encounters an error.
+        The #SaveSpaceFB() function persists the spatial entity at the specified location with the specified mode. The runtime <b>must</b> return #ERROR_VALIDATION_FAILURE if ##XrSpaceSaveInfoFB{@code ::space} is #NULL_HANDLE or otherwise invalid. The runtime <b>must</b> return #ERROR_VALIDATION_FAILURE if ##XrSpaceSaveInfoFB{@code ::location} or ##XrSpaceSaveInfoFB{@code ::persistenceMode} is invalid. This operation is asynchronous and the runtime <b>must</b> post an ##XrEventDataSpaceSaveCompleteFB event when the operation completes successfully or encounters an error. If this function returns a failure code, no event is posted.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -130,7 +130,7 @@ val FB_spatial_entity_storage = "FBSpatialEntityStorage".nativeClassXR("FB_spati
 ￿    XrAsyncRequestIdFB*                         requestId);</code></pre>
 
         <h5>Description</h5>
-        The #EraseSpaceFB() function erases a spatial entity from storage at the specified location. The {@code XrSpace} remains valid in the current session until the application destroys it or the session ends. The runtime <b>must</b> return #ERROR_VALIDATION_FAILURE if ##XrSpaceEraseInfoFB{@code ::space} is #NULL_HANDLE or otherwise invalid. The runtime <b>must</b> return #ERROR_VALIDATION_FAILURE if ##XrSpaceEraseInfoFB{@code ::location} is invalid. This operation is asynchronous and the runtime <b>must</b> post an ##XrEventDataSpaceEraseCompleteFB event when the operation completes successfully or encounters an error.
+        The #EraseSpaceFB() function erases a spatial entity from storage at the specified location. The {@code XrSpace} remains valid in the current session until the application destroys it or the session ends. The runtime <b>must</b> return #ERROR_VALIDATION_FAILURE if ##XrSpaceEraseInfoFB{@code ::space} is #NULL_HANDLE or otherwise invalid. The runtime <b>must</b> return #ERROR_VALIDATION_FAILURE if ##XrSpaceEraseInfoFB{@code ::location} is invalid. This operation is asynchronous and the runtime <b>must</b> post an ##XrEventDataSpaceEraseCompleteFB event when the operation completes successfully or encounters an error. If this function returns a failure code, no event is posted.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

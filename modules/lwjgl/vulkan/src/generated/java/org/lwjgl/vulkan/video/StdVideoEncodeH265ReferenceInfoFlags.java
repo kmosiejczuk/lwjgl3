@@ -22,9 +22,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct StdVideoEncodeH265ReferenceInfoFlags {
  *     uint32_t used_for_long_term_reference : 1;
  *     uint32_t unused_for_reference : 1;
+ *     uint32_t reserved : 30;
  * }</code></pre>
  */
-public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements NativeResource {
+public class StdVideoEncodeH265ReferenceInfoFlags extends Struct<StdVideoEncodeH265ReferenceInfoFlags> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -34,10 +35,12 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
 
     /** The struct member offsets. */
     public static final int
-        BITFIELD0;
+        BITFIELD0,
+        BITFIELD1;
 
     static {
         Layout layout = __struct(
+            __member(4),
             __member(4)
         );
 
@@ -45,6 +48,16 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
         ALIGNOF = layout.getAlignment();
 
         BITFIELD0 = layout.offsetof(0);
+        BITFIELD1 = layout.offsetof(1);
+    }
+
+    protected StdVideoEncodeH265ReferenceInfoFlags(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected StdVideoEncodeH265ReferenceInfoFlags create(long address, @Nullable ByteBuffer container) {
+        return new StdVideoEncodeH265ReferenceInfoFlags(address, container);
     }
 
     /**
@@ -99,29 +112,29 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
 
     /** Returns a new {@code StdVideoEncodeH265ReferenceInfoFlags} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static StdVideoEncodeH265ReferenceInfoFlags malloc() {
-        return wrap(StdVideoEncodeH265ReferenceInfoFlags.class, nmemAllocChecked(SIZEOF));
+        return new StdVideoEncodeH265ReferenceInfoFlags(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code StdVideoEncodeH265ReferenceInfoFlags} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static StdVideoEncodeH265ReferenceInfoFlags calloc() {
-        return wrap(StdVideoEncodeH265ReferenceInfoFlags.class, nmemCallocChecked(1, SIZEOF));
+        return new StdVideoEncodeH265ReferenceInfoFlags(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code StdVideoEncodeH265ReferenceInfoFlags} instance allocated with {@link BufferUtils}. */
     public static StdVideoEncodeH265ReferenceInfoFlags create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(StdVideoEncodeH265ReferenceInfoFlags.class, memAddress(container), container);
+        return new StdVideoEncodeH265ReferenceInfoFlags(memAddress(container), container);
     }
 
     /** Returns a new {@code StdVideoEncodeH265ReferenceInfoFlags} instance for the specified memory address. */
     public static StdVideoEncodeH265ReferenceInfoFlags create(long address) {
-        return wrap(StdVideoEncodeH265ReferenceInfoFlags.class, address);
+        return new StdVideoEncodeH265ReferenceInfoFlags(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoEncodeH265ReferenceInfoFlags createSafe(long address) {
-        return address == NULL ? null : wrap(StdVideoEncodeH265ReferenceInfoFlags.class, address);
+        return address == NULL ? null : new StdVideoEncodeH265ReferenceInfoFlags(address, null);
     }
 
     /**
@@ -130,7 +143,7 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH265ReferenceInfoFlags.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -139,7 +152,7 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH265ReferenceInfoFlags.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -149,7 +162,7 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
      */
     public static StdVideoEncodeH265ReferenceInfoFlags.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -159,13 +172,13 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH265ReferenceInfoFlags.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoEncodeH265ReferenceInfoFlags.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -174,7 +187,7 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
      * @param stack the stack from which to allocate
      */
     public static StdVideoEncodeH265ReferenceInfoFlags malloc(MemoryStack stack) {
-        return wrap(StdVideoEncodeH265ReferenceInfoFlags.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new StdVideoEncodeH265ReferenceInfoFlags(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -183,7 +196,7 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
      * @param stack the stack from which to allocate
      */
     public static StdVideoEncodeH265ReferenceInfoFlags calloc(MemoryStack stack) {
-        return wrap(StdVideoEncodeH265ReferenceInfoFlags.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new StdVideoEncodeH265ReferenceInfoFlags(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -193,7 +206,7 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH265ReferenceInfoFlags.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -203,7 +216,7 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static StdVideoEncodeH265ReferenceInfoFlags.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -213,12 +226,16 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
     public static int nused_for_long_term_reference(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #unused_for_reference}. */
     public static int nunused_for_reference(long struct) { return (nbitfield0(struct) & 0x00_00_00_02) >>> 1; }
+    public static int nbitfield1(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH265ReferenceInfoFlags.BITFIELD1); }
+    public static int nreserved(long struct) { return nbitfield1(struct) & 0x3F_FF_FF_FF; }
 
     public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH265ReferenceInfoFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #used_for_long_term_reference(boolean) used_for_long_term_reference}. */
     public static void nused_for_long_term_reference(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #unused_for_reference(boolean) unused_for_reference}. */
     public static void nunused_for_reference(long struct, int value) { nbitfield0(struct, ((value << 1) & 0x00_00_00_02) | (nbitfield0(struct) & 0xFF_FF_FF_FD)); }
+    public static void nbitfield1(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH265ReferenceInfoFlags.BITFIELD1, value); }
+    public static void nreserved(long struct, int value) { nbitfield1(struct, (nbitfield1(struct) & 0xC0_00_00_00) | (value & 0x3F_FF_FF_FF)); }
 
     // -----------------------------------
 
@@ -230,9 +247,9 @@ public class StdVideoEncodeH265ReferenceInfoFlags extends Struct implements Nati
         /**
          * Creates a new {@code StdVideoEncodeH265ReferenceInfoFlags.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link StdVideoEncodeH265ReferenceInfoFlags#SIZEOF}, and its mark will be undefined.
+         * by {@link StdVideoEncodeH265ReferenceInfoFlags#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

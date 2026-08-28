@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBScene XR_FB_scene} extension <b>must</b> be enabled prior to using {@link XrBoundary2DFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBScene#XR_TYPE_BOUNDARY_2D_FB TYPE_BOUNDARY_2D_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>If {@code vertexCapacityInput} is not 0, {@code vertices} <b>must</b> be a pointer to an array of {@code vertexCapacityInput} {@link XrVector2f} structures</li>
  * </ul>
  * 
@@ -46,7 +46,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrVector2f XrVector2f} * {@link #vertices};
  * }</code></pre>
  */
-public class XrBoundary2DFB extends Struct implements NativeResource {
+public class XrBoundary2DFB extends Struct<XrBoundary2DFB> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,6 +81,15 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
         VERTICES = layout.offsetof(4);
     }
 
+    protected XrBoundary2DFB(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrBoundary2DFB create(long address, @Nullable ByteBuffer container) {
+        return new XrBoundary2DFB(address, container);
+    }
+
     /**
      * Creates a {@code XrBoundary2DFB} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -100,10 +109,10 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
     /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the capacity of the {@code vertices} array, in bytes, or 0 to indicate a request to retrieve the required capacity. */
+    /** the capacity of the {@code vertices} array, in number of vertices, or 0 to indicate a request to retrieve the required capacity. */
     @NativeType("uint32_t")
     public int vertexCapacityInput() { return nvertexCapacityInput(address()); }
-    /** a pointer to the count of {@link XrVector2f} written, or a pointer to the required capacity in the case that {@code vertexCapacityInput} is insufficient. */
+    /** the count of {@link XrVector2f} written, or the required capacity in the case that {@code vertexCapacityInput} is insufficient. */
     @NativeType("uint32_t")
     public int vertexCountOutput() { return nvertexCountOutput(address()); }
     /** a pointer to an array of {@link XrVector2f}, but <b>can</b> be {@code NULL} if {@code vertexCapacityInput} is 0. */
@@ -157,29 +166,29 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
 
     /** Returns a new {@code XrBoundary2DFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrBoundary2DFB malloc() {
-        return wrap(XrBoundary2DFB.class, nmemAllocChecked(SIZEOF));
+        return new XrBoundary2DFB(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrBoundary2DFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrBoundary2DFB calloc() {
-        return wrap(XrBoundary2DFB.class, nmemCallocChecked(1, SIZEOF));
+        return new XrBoundary2DFB(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrBoundary2DFB} instance allocated with {@link BufferUtils}. */
     public static XrBoundary2DFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrBoundary2DFB.class, memAddress(container), container);
+        return new XrBoundary2DFB(memAddress(container), container);
     }
 
     /** Returns a new {@code XrBoundary2DFB} instance for the specified memory address. */
     public static XrBoundary2DFB create(long address) {
-        return wrap(XrBoundary2DFB.class, address);
+        return new XrBoundary2DFB(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrBoundary2DFB createSafe(long address) {
-        return address == NULL ? null : wrap(XrBoundary2DFB.class, address);
+        return address == NULL ? null : new XrBoundary2DFB(address, null);
     }
 
     /**
@@ -188,7 +197,7 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrBoundary2DFB.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -197,7 +206,7 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrBoundary2DFB.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -207,7 +216,7 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
      */
     public static XrBoundary2DFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -217,13 +226,13 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrBoundary2DFB.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrBoundary2DFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -232,7 +241,7 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrBoundary2DFB malloc(MemoryStack stack) {
-        return wrap(XrBoundary2DFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrBoundary2DFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -241,7 +250,7 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrBoundary2DFB calloc(MemoryStack stack) {
-        return wrap(XrBoundary2DFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrBoundary2DFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -251,7 +260,7 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrBoundary2DFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -261,7 +270,7 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrBoundary2DFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -298,9 +307,9 @@ public class XrBoundary2DFB extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrBoundary2DFB.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrBoundary2DFB#SIZEOF}, and its mark will be undefined.
+         * by {@link XrBoundary2DFB#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

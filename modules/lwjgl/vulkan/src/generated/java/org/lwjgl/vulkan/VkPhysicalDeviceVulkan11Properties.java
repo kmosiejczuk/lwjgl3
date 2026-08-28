@@ -58,7 +58,7 @@ import static org.lwjgl.vulkan.VK10.*;
  *     VkDeviceSize {@link #maxMemoryAllocationSize};
  * }</code></pre>
  */
-public class VkPhysicalDeviceVulkan11Properties extends Struct implements NativeResource {
+public class VkPhysicalDeviceVulkan11Properties extends Struct<VkPhysicalDeviceVulkan11Properties> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -129,6 +129,15 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
         MAXMEMORYALLOCATIONSIZE = layout.offsetof(16);
     }
 
+    protected VkPhysicalDeviceVulkan11Properties(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDeviceVulkan11Properties create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDeviceVulkan11Properties(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDeviceVulkan11Properties} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -142,7 +151,7 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -175,13 +184,13 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
     /** the default number of invocations in each subgroup. {@code subgroupSize} is at least 1 if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. {@code subgroupSize} is a power-of-two. */
     @NativeType("uint32_t")
     public int subgroupSize() { return nsubgroupSize(address()); }
-    /** a bitfield of {@code VkShaderStageFlagBits} describing the shader stages that <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-group-operations">group operations</a> with <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-scope-subgroup">subgroup scope</a> are supported in. {@code subgroupSupportedStages} will have the {@link VK10#VK_SHADER_STAGE_COMPUTE_BIT SHADER_STAGE_COMPUTE_BIT} bit set if any of the physical device’s queues support {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. */
+    /** a bitfield of {@code VkShaderStageFlagBits} describing the shader stages that <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-group-operations">group operations</a> with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-scope-subgroup">subgroup scope</a> are supported in. {@code subgroupSupportedStages} will have the {@link VK10#VK_SHADER_STAGE_COMPUTE_BIT SHADER_STAGE_COMPUTE_BIT} bit set if any of the physical device’s queues support {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. */
     @NativeType("VkShaderStageFlags")
     public int subgroupSupportedStages() { return nsubgroupSupportedStages(address()); }
-    /** a bitmask of {@code VkSubgroupFeatureFlagBits} specifying the sets of <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-group-operations">group operations</a> with <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-scope-subgroup">subgroup scope</a> supported on this device. {@code subgroupSupportedOperations} will have the {@link VK11#VK_SUBGROUP_FEATURE_BASIC_BIT SUBGROUP_FEATURE_BASIC_BIT} bit set if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. */
+    /** a bitmask of {@code VkSubgroupFeatureFlagBits} specifying the sets of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-group-operations">group operations</a> with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-scope-subgroup">subgroup scope</a> supported on this device. {@code subgroupSupportedOperations} will have the {@link VK11#VK_SUBGROUP_FEATURE_BASIC_BIT SUBGROUP_FEATURE_BASIC_BIT} bit set if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. */
     @NativeType("VkSubgroupFeatureFlags")
     public int subgroupSupportedOperations() { return nsubgroupSupportedOperations(address()); }
-    /** a boolean specifying whether <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-quad-operations">quad group operations</a> are available in all stages, or are restricted to fragment and compute stages. */
+    /** a boolean specifying whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-quad-operations">quad group operations</a> are available in all stages, or are restricted to fragment and compute stages. */
     @NativeType("VkBool32")
     public boolean subgroupQuadOperationsInAllStages() { return nsubgroupQuadOperationsInAllStages(address()) != 0; }
     /** a {@code VkPointClippingBehavior} value specifying the point clipping behavior supported by the implementation. */
@@ -193,7 +202,7 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
     /** the maximum valid value of instance index allowed to be generated by a drawing command recorded within a subpass of a multiview render pass instance. */
     @NativeType("uint32_t")
     public int maxMultiviewInstanceIndex() { return nmaxMultiviewInstanceIndex(address()); }
-    /** specifies how an implementation behaves when an application attempts to write to unprotected memory in a protected queue operation, read from protected memory in an unprotected queue operation, or perform a query in a protected queue operation. If this limit is {@link VK10#VK_TRUE TRUE}, such writes will be discarded or have undefined values written, reads and queries will return undefined values. If this limit is {@link VK10#VK_FALSE FALSE}, applications <b>must</b> not perform these operations. See <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-protected-access-rules">Protected Memory Access Rules</a> for more information. */
+    /** specifies how an implementation behaves when an application attempts to write to unprotected memory in a protected queue operation, read from protected memory in an unprotected queue operation, or perform a query in a protected queue operation. If this limit is {@link VK10#VK_TRUE TRUE}, such writes will be discarded or have undefined values written, reads and queries will return undefined values. If this limit is {@link VK10#VK_FALSE FALSE}, applications <b>must</b> not perform these operations. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-protected-access-rules">Protected Memory Access Rules</a> for more information. */
     @NativeType("VkBool32")
     public boolean protectedNoFault() { return nprotectedNoFault(address()) != 0; }
     /** a maximum number of descriptors (summed over all descriptor types) in a single descriptor set that is guaranteed to satisfy any implementation-dependent constraints on the size of a descriptor set itself. Applications <b>can</b> query whether a descriptor set that goes beyond this limit is supported using {@link VK11#vkGetDescriptorSetLayoutSupport GetDescriptorSetLayoutSupport}. */
@@ -237,29 +246,29 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
 
     /** Returns a new {@code VkPhysicalDeviceVulkan11Properties} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceVulkan11Properties malloc() {
-        return wrap(VkPhysicalDeviceVulkan11Properties.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDeviceVulkan11Properties(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan11Properties} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceVulkan11Properties calloc() {
-        return wrap(VkPhysicalDeviceVulkan11Properties.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDeviceVulkan11Properties(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan11Properties} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceVulkan11Properties create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDeviceVulkan11Properties.class, memAddress(container), container);
+        return new VkPhysicalDeviceVulkan11Properties(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceVulkan11Properties} instance for the specified memory address. */
     public static VkPhysicalDeviceVulkan11Properties create(long address) {
-        return wrap(VkPhysicalDeviceVulkan11Properties.class, address);
+        return new VkPhysicalDeviceVulkan11Properties(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceVulkan11Properties createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDeviceVulkan11Properties.class, address);
+        return address == NULL ? null : new VkPhysicalDeviceVulkan11Properties(address, null);
     }
 
     /**
@@ -268,7 +277,7 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan11Properties.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -277,7 +286,7 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan11Properties.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -287,7 +296,7 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
      */
     public static VkPhysicalDeviceVulkan11Properties.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -297,13 +306,13 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan11Properties.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceVulkan11Properties.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -312,7 +321,7 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceVulkan11Properties malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceVulkan11Properties.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDeviceVulkan11Properties(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -321,7 +330,7 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceVulkan11Properties calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceVulkan11Properties.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDeviceVulkan11Properties(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -331,7 +340,7 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan11Properties.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -341,7 +350,7 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceVulkan11Properties.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -408,9 +417,9 @@ public class VkPhysicalDeviceVulkan11Properties extends Struct implements Native
         /**
          * Creates a new {@code VkPhysicalDeviceVulkan11Properties.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceVulkan11Properties#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDeviceVulkan11Properties#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -26,7 +26,7 @@ import org.lwjgl.vulkan.*;
  * <ul>
  * <li>The {@link KHRVulkanEnable2 XR_KHR_vulkan_enable2} extension <b>must</b> be enabled prior to using {@link XrVulkanInstanceCreateInfoKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRVulkanEnable2#XR_TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR TYPE_VULKAN_INSTANCE_CREATE_INFO_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code createFlags} <b>must</b> be 0</li>
  * <li>{@code pfnGetInstanceProcAddr} <b>must</b> be a valid {@code PFN_vkGetInstanceProcAddr} value</li>
  * <li>{@code vulkanCreateInfo} <b>must</b> be a pointer to a valid {@code VkInstanceCreateInfo} value</li>
@@ -50,7 +50,7 @@ import org.lwjgl.vulkan.*;
  *     {@link VkAllocationCallbacks VkAllocationCallbacks} const * {@link #vulkanAllocator};
  * }</code></pre>
  */
-public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResource {
+public class XrVulkanInstanceCreateInfoKHR extends Struct<XrVulkanInstanceCreateInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -91,6 +91,15 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
         VULKANALLOCATOR = layout.offsetof(6);
     }
 
+    protected XrVulkanInstanceCreateInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrVulkanInstanceCreateInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new XrVulkanInstanceCreateInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code XrVulkanInstanceCreateInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -119,10 +128,10 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
     /** a function pointer to {@code vkGetInstanceProcAddr} or a compatible entry point. */
     @NativeType("PFN_vkGetInstanceProcAddr")
     public long pfnGetInstanceProcAddr() { return npfnGetInstanceProcAddr(address()); }
-    /** the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInstanceCreateInfo.html">{@code VkInstanceCreateInfo} as specified by Vulkan</a>. */
+    /** the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInstanceCreateInfo.html">{@code VkInstanceCreateInfo} as specified by Vulkan</a>. */
     @NativeType("VkInstanceCreateInfo const *")
     public VkInstanceCreateInfo vulkanCreateInfo() { return nvulkanCreateInfo(address()); }
-    /** the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAllocationCallbacks.html">{@code VkAllocationCallbacks} as specified by Vulkan</a>. */
+    /** the <a href="https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAllocationCallbacks.html">{@code VkAllocationCallbacks} as specified by Vulkan</a>. */
     @Nullable
     @NativeType("VkAllocationCallbacks const *")
     public VkAllocationCallbacks vulkanAllocator() { return nvulkanAllocator(address()); }
@@ -181,29 +190,29 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
 
     /** Returns a new {@code XrVulkanInstanceCreateInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrVulkanInstanceCreateInfoKHR malloc() {
-        return wrap(XrVulkanInstanceCreateInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new XrVulkanInstanceCreateInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrVulkanInstanceCreateInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrVulkanInstanceCreateInfoKHR calloc() {
-        return wrap(XrVulkanInstanceCreateInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new XrVulkanInstanceCreateInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrVulkanInstanceCreateInfoKHR} instance allocated with {@link BufferUtils}. */
     public static XrVulkanInstanceCreateInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrVulkanInstanceCreateInfoKHR.class, memAddress(container), container);
+        return new XrVulkanInstanceCreateInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code XrVulkanInstanceCreateInfoKHR} instance for the specified memory address. */
     public static XrVulkanInstanceCreateInfoKHR create(long address) {
-        return wrap(XrVulkanInstanceCreateInfoKHR.class, address);
+        return new XrVulkanInstanceCreateInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrVulkanInstanceCreateInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(XrVulkanInstanceCreateInfoKHR.class, address);
+        return address == NULL ? null : new XrVulkanInstanceCreateInfoKHR(address, null);
     }
 
     /**
@@ -212,7 +221,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -221,7 +230,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -231,7 +240,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -241,13 +250,13 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrVulkanInstanceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -256,7 +265,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
      * @param stack the stack from which to allocate
      */
     public static XrVulkanInstanceCreateInfoKHR malloc(MemoryStack stack) {
-        return wrap(XrVulkanInstanceCreateInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrVulkanInstanceCreateInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -265,7 +274,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
      * @param stack the stack from which to allocate
      */
     public static XrVulkanInstanceCreateInfoKHR calloc(MemoryStack stack) {
-        return wrap(XrVulkanInstanceCreateInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrVulkanInstanceCreateInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -275,7 +284,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -285,7 +294,7 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static XrVulkanInstanceCreateInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -342,9 +351,9 @@ public class XrVulkanInstanceCreateInfoKHR extends Struct implements NativeResou
         /**
          * Creates a new {@code XrVulkanInstanceCreateInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrVulkanInstanceCreateInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link XrVulkanInstanceCreateInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Native bindings to <a target="_blank" href="https://harfbuzz.github.io/">HarfBuzz</a>, a text shaping library.
+ * Native bindings to <a href="https://harfbuzz.github.io/">HarfBuzz</a>, a text shaping library.
  * 
  * <p>Using the HarfBuzz library allows programs to convert a sequence of Unicode input into properly formatted and positioned glyph output — for any writing
  * system and language.</p>
@@ -259,7 +259,6 @@ public class HarfBuzz {
             font_get_glyph_contour_point              = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_contour_point"),
             font_get_glyph_name                       = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_name"),
             font_get_glyph_from_name                  = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_from_name"),
-            font_get_glyph_shape                      = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_shape"),
             font_draw_glyph                           = apiGetFunctionAddress(HARFBUZZ, "hb_font_draw_glyph"),
             font_paint_glyph                          = apiGetFunctionAddress(HARFBUZZ, "hb_font_paint_glyph"),
             font_get_glyph                            = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph"),
@@ -355,6 +354,7 @@ public class HarfBuzz {
             color_line_get_extend                     = apiGetFunctionAddress(HARFBUZZ, "hb_color_line_get_extend"),
             paint_funcs_set_push_transform_func       = apiGetFunctionAddress(HARFBUZZ, "hb_paint_funcs_set_push_transform_func"),
             paint_funcs_set_pop_transform_func        = apiGetFunctionAddress(HARFBUZZ, "hb_paint_funcs_set_pop_transform_func"),
+            paint_funcs_set_color_glyph_func          = apiGetFunctionAddress(HARFBUZZ, "hb_paint_funcs_set_color_glyph_func"),
             paint_funcs_set_push_clip_glyph_func      = apiGetFunctionAddress(HARFBUZZ, "hb_paint_funcs_set_push_clip_glyph_func"),
             paint_funcs_set_push_clip_rectangle_func  = apiGetFunctionAddress(HARFBUZZ, "hb_paint_funcs_set_push_clip_rectangle_func"),
             paint_funcs_set_pop_clip_func             = apiGetFunctionAddress(HARFBUZZ, "hb_paint_funcs_set_pop_clip_func"),
@@ -368,6 +368,7 @@ public class HarfBuzz {
             paint_funcs_set_custom_palette_color_func = apiGetFunctionAddress(HARFBUZZ, "hb_paint_funcs_set_custom_palette_color_func"),
             paint_push_transform                      = apiGetFunctionAddress(HARFBUZZ, "hb_paint_push_transform"),
             paint_pop_transform                       = apiGetFunctionAddress(HARFBUZZ, "hb_paint_pop_transform"),
+            paint_color_glyph                         = apiGetFunctionAddress(HARFBUZZ, "hb_paint_color_glyph"),
             paint_push_clip_glyph                     = apiGetFunctionAddress(HARFBUZZ, "hb_paint_push_clip_glyph"),
             paint_push_clip_rectangle                 = apiGetFunctionAddress(HARFBUZZ, "hb_paint_push_clip_rectangle"),
             paint_pop_clip                            = apiGetFunctionAddress(HARFBUZZ, "hb_paint_pop_clip"),
@@ -462,6 +463,9 @@ public class HarfBuzz {
         return HARFBUZZ;
     }
 
+    /** Unused {@code hb_codepoint_t} value. */
+    public static final int HB_CODEPOINT_INVALID = -1;
+
     /** Special setting for {@code hb_feature_t.start} to apply the feature from the start of the buffer. */
     public static final int HB_FEATURE_GLOBAL_START = 0;
 
@@ -504,7 +508,7 @@ public class HarfBuzz {
      * Data type for scripts. ({@code hb_script_t})
      * 
      * <p>Each {@code hb_script_t}'s value is an {@code hb_tag_t} corresponding to the four-letter values defined by
-     * <a target="_blank" href="https://unicode.org/iso15924/">ISO 15924</a>.</p>
+     * <a href="https://unicode.org/iso15924/">ISO 15924</a>.</p>
      * 
      * <h5>Enum values:</h5>
      * 
@@ -1129,7 +1133,7 @@ public class HarfBuzz {
      */
     public static final int HB_FONT_NO_VAR_NAMED_INSTANCE = 0xFFFFFFFF;
 
-    public static final int HB_MAP_VALUE_INVALID = -1;
+    public static final int HB_MAP_VALUE_INVALID = HB_CODEPOINT_INVALID;
 
     /** Tag identifying PNG images in {@code hb_paint_image_func_t} callbacks. */
     public static final int HB_PAINT_IMAGE_FORMAT_PNG = HB_TAG('p', 'n', 'g', ' ');
@@ -1229,10 +1233,10 @@ public class HarfBuzz {
         HB_PAINT_COMPOSITE_MODE_HSL_COLOR      = 26,
         HB_PAINT_COMPOSITE_MODE_HSL_LUMINOSITY = 27;
 
-    public static final int HB_SET_VALUE_INVALID = -1;
+    public static final int HB_SET_VALUE_INVALID = HB_CODEPOINT_INVALID;
 
     /**
-     * Defined by <a target="_blank" href="https://docs.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg">OpenType Design-Variation Axis Tag Registry</a>.
+     * Defined by <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg">OpenType Design-Variation Axis Tag Registry</a>.
      * ({@code hb_style_tag_t})
      * 
      * <h5>Enum values:</h5>
@@ -1402,7 +1406,7 @@ public class HarfBuzz {
      * <li>{@link #HB_UNICODE_COMBINING_CLASS_CCC122 UNICODE_COMBINING_CLASS_CCC122} - Lao</li>
      * <li>{@link #HB_UNICODE_COMBINING_CLASS_CCC129 UNICODE_COMBINING_CLASS_CCC129} - Tibetan</li>
      * <li>{@link #HB_UNICODE_COMBINING_CLASS_CCC130 UNICODE_COMBINING_CLASS_CCC130} - Tibetan</li>
-     * <li>{@link #HB_UNICODE_COMBINING_CLASS_CCC133 UNICODE_COMBINING_CLASS_CCC133} - Tibetan</li>
+     * <li>{@link #HB_UNICODE_COMBINING_CLASS_CCC132 UNICODE_COMBINING_CLASS_CCC132} - Tibetan</li>
      * <li>{@link #HB_UNICODE_COMBINING_CLASS_ATTACHED_BELOW_LEFT UNICODE_COMBINING_CLASS_ATTACHED_BELOW_LEFT} - Marks attached at the bottom left</li>
      * <li>{@link #HB_UNICODE_COMBINING_CLASS_ATTACHED_BELOW UNICODE_COMBINING_CLASS_ATTACHED_BELOW} - Marks attached directly below</li>
      * <li>{@link #HB_UNICODE_COMBINING_CLASS_ATTACHED_ABOVE UNICODE_COMBINING_CLASS_ATTACHED_ABOVE} - Marks attached directly above</li>
@@ -1462,7 +1466,7 @@ public class HarfBuzz {
         HB_UNICODE_COMBINING_CLASS_CCC122               = 122,
         HB_UNICODE_COMBINING_CLASS_CCC129               = 129,
         HB_UNICODE_COMBINING_CLASS_CCC130               = 130,
-        HB_UNICODE_COMBINING_CLASS_CCC133               = 132,
+        HB_UNICODE_COMBINING_CLASS_CCC132               = 132,
         HB_UNICODE_COMBINING_CLASS_ATTACHED_BELOW_LEFT  = 200,
         HB_UNICODE_COMBINING_CLASS_ATTACHED_BELOW       = 202,
         HB_UNICODE_COMBINING_CLASS_ATTACHED_ABOVE       = 214,
@@ -1480,13 +1484,13 @@ public class HarfBuzz {
         HB_UNICODE_COMBINING_CLASS_IOTA_SUBSCRIPT       = 240,
         HB_UNICODE_COMBINING_CLASS_INVALID              = 255;
 
-    public static final int HB_VERSION_MAJOR = 7;
+    public static final int HB_VERSION_MAJOR = 8;
 
-    public static final int HB_VERSION_MINOR = 1;
+    public static final int HB_VERSION_MINOR = 2;
 
     public static final int HB_VERSION_MICRO = 0;
 
-    public static final String HB_VERSION_STRING = "7.1.0";
+    public static final String HB_VERSION_STRING = "8.2.0";
 
     protected HarfBuzz() {
         throw new UnsupportedOperationException();
@@ -4206,17 +4210,6 @@ public class HarfBuzz {
         }
     }
 
-    // --- [ hb_font_get_glyph_shape ] ---
-
-    public static void hb_font_get_glyph_shape(@NativeType("hb_font_t *") long font, @NativeType("hb_codepoint_t") int glyph, @NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("void *") long draw_data) {
-        long __functionAddress = Functions.font_get_glyph_shape;
-        if (CHECKS) {
-            check(font);
-            check(dfuncs);
-        }
-        invokePPPV(font, glyph, dfuncs, draw_data, __functionAddress);
-    }
-
     // --- [ hb_font_draw_glyph ] ---
 
     public static void hb_font_draw_glyph(@NativeType("hb_font_t *") long font, @NativeType("hb_codepoint_t") int glyph, @NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("void *") long draw_data) {
@@ -5455,6 +5448,20 @@ public class HarfBuzz {
         nhb_paint_funcs_set_pop_transform_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
+    // --- [ hb_paint_funcs_set_color_glyph_func ] ---
+
+    public static void nhb_paint_funcs_set_color_glyph_func(long funcs, long func, long user_data, long destroy) {
+        long __functionAddress = Functions.paint_funcs_set_color_glyph_func;
+        if (CHECKS) {
+            check(funcs);
+        }
+        invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
+    }
+
+    public static void hb_paint_funcs_set_color_glyph_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_color_glyph_func_t") hb_paint_color_glyph_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+        nhb_paint_funcs_set_color_glyph_func(funcs, func.address(), user_data, memAddressSafe(destroy));
+    }
+
     // --- [ hb_paint_funcs_set_push_clip_glyph_func ] ---
 
     public static void nhb_paint_funcs_set_push_clip_glyph_func(long funcs, long func, long user_data, long destroy) {
@@ -5627,6 +5634,17 @@ public class HarfBuzz {
             check(funcs);
         }
         invokePPV(funcs, paint_data, __functionAddress);
+    }
+
+    // --- [ hb_paint_color_glyph ] ---
+
+    public static void hb_paint_color_glyph(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("void *") long paint_data, @NativeType("hb_codepoint_t") int glyph, @NativeType("hb_font_t *") long font) {
+        long __functionAddress = Functions.paint_color_glyph;
+        if (CHECKS) {
+            check(funcs);
+            check(font);
+        }
+        invokePPPV(funcs, paint_data, glyph, font, __functionAddress);
     }
 
     // --- [ hb_paint_push_clip_glyph ] ---

@@ -37,6 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>pathname:/model_fb/keyboard/local</li>
  * <li>pathname:/model_fb/keyboard/remote</li>
+ * <li>pathname:/model_meta/keyboard/virtual (if the {@link METAVirtualKeyboard XR_META_virtual_keyboard} extension is enabled)</li>
  * </ul>
  * </li>
  * </ul>
@@ -46,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBRenderModel XR_FB_render_model} extension <b>must</b> be enabled prior to using {@link XrRenderModelPathInfoFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBRenderModel#XR_TYPE_RENDER_MODEL_PATH_INFO_FB TYPE_RENDER_MODEL_PATH_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -62,7 +63,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrPath {@link #path};
  * }</code></pre>
  */
-public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
+public class XrRenderModelPathInfoFB extends Struct<XrRenderModelPathInfoFB> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -89,6 +90,15 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         PATH = layout.offsetof(2);
+    }
+
+    protected XrRenderModelPathInfoFB(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrRenderModelPathInfoFB create(long address, @Nullable ByteBuffer container) {
+        return new XrRenderModelPathInfoFB(address, container);
     }
 
     /**
@@ -152,29 +162,29 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
 
     /** Returns a new {@code XrRenderModelPathInfoFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrRenderModelPathInfoFB malloc() {
-        return wrap(XrRenderModelPathInfoFB.class, nmemAllocChecked(SIZEOF));
+        return new XrRenderModelPathInfoFB(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrRenderModelPathInfoFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrRenderModelPathInfoFB calloc() {
-        return wrap(XrRenderModelPathInfoFB.class, nmemCallocChecked(1, SIZEOF));
+        return new XrRenderModelPathInfoFB(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrRenderModelPathInfoFB} instance allocated with {@link BufferUtils}. */
     public static XrRenderModelPathInfoFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrRenderModelPathInfoFB.class, memAddress(container), container);
+        return new XrRenderModelPathInfoFB(memAddress(container), container);
     }
 
     /** Returns a new {@code XrRenderModelPathInfoFB} instance for the specified memory address. */
     public static XrRenderModelPathInfoFB create(long address) {
-        return wrap(XrRenderModelPathInfoFB.class, address);
+        return new XrRenderModelPathInfoFB(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrRenderModelPathInfoFB createSafe(long address) {
-        return address == NULL ? null : wrap(XrRenderModelPathInfoFB.class, address);
+        return address == NULL ? null : new XrRenderModelPathInfoFB(address, null);
     }
 
     /**
@@ -183,7 +193,7 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrRenderModelPathInfoFB.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -192,7 +202,7 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrRenderModelPathInfoFB.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -202,7 +212,7 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
      */
     public static XrRenderModelPathInfoFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -212,13 +222,13 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrRenderModelPathInfoFB.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrRenderModelPathInfoFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -227,7 +237,7 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrRenderModelPathInfoFB malloc(MemoryStack stack) {
-        return wrap(XrRenderModelPathInfoFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrRenderModelPathInfoFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -236,7 +246,7 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrRenderModelPathInfoFB calloc(MemoryStack stack) {
-        return wrap(XrRenderModelPathInfoFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrRenderModelPathInfoFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -246,7 +256,7 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrRenderModelPathInfoFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -256,7 +266,7 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrRenderModelPathInfoFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -285,9 +295,9 @@ public class XrRenderModelPathInfoFB extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrRenderModelPathInfoFB.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrRenderModelPathInfoFB#SIZEOF}, and its mark will be undefined.
+         * by {@link XrRenderModelPathInfoFB#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

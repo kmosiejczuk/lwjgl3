@@ -36,10 +36,8 @@ import org.lwjgl.vulkan.video.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link EXTVideoEncodeH264#VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_EXT STRUCTURE_TYPE_VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_EXT}</li>
- * <li>If {@code pStdSPSs} is not {@code NULL}, {@code pStdSPSs} <b>must</b> be a valid pointer to an array of {@code stdSPSCount} {@code StdVideoH264SequenceParameterSet} values</li>
- * <li>If {@code pStdPPSs} is not {@code NULL}, {@code pStdPPSs} <b>must</b> be a valid pointer to an array of {@code stdPPSCount} {@code StdVideoH264PictureParameterSet} values</li>
- * <li>{@code stdSPSCount} <b>must</b> be greater than 0</li>
- * <li>{@code stdPPSCount} <b>must</b> be greater than 0</li>
+ * <li>If {@code stdSPSCount} is not 0, and {@code pStdSPSs} is not {@code NULL}, {@code pStdSPSs} <b>must</b> be a valid pointer to an array of {@code stdSPSCount} {@code StdVideoH264SequenceParameterSet} values</li>
+ * <li>If {@code stdPPSCount} is not 0, and {@code pStdPPSs} is not {@code NULL}, {@code pStdPPSs} <b>must</b> be a valid pointer to an array of {@code stdPPSCount} {@code StdVideoH264PictureParameterSet} values</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -58,7 +56,7 @@ import org.lwjgl.vulkan.video.*;
  *     {@link StdVideoH264PictureParameterSet StdVideoH264PictureParameterSet} const * {@link #pStdPPSs};
  * }</code></pre>
  */
-public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct implements NativeResource {
+public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct<VkVideoEncodeH264SessionParametersAddInfoEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -96,6 +94,15 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
         PSTDPPSS = layout.offsetof(5);
     }
 
+    protected VkVideoEncodeH264SessionParametersAddInfoEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkVideoEncodeH264SessionParametersAddInfoEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkVideoEncodeH264SessionParametersAddInfoEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkVideoEncodeH264SessionParametersAddInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -109,7 +116,7 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -180,29 +187,29 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
 
     /** Returns a new {@code VkVideoEncodeH264SessionParametersAddInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT malloc() {
-        return wrap(VkVideoEncodeH264SessionParametersAddInfoEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkVideoEncodeH264SessionParametersAddInfoEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoEncodeH264SessionParametersAddInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT calloc() {
-        return wrap(VkVideoEncodeH264SessionParametersAddInfoEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkVideoEncodeH264SessionParametersAddInfoEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoEncodeH264SessionParametersAddInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkVideoEncodeH264SessionParametersAddInfoEXT.class, memAddress(container), container);
+        return new VkVideoEncodeH264SessionParametersAddInfoEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkVideoEncodeH264SessionParametersAddInfoEXT} instance for the specified memory address. */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT create(long address) {
-        return wrap(VkVideoEncodeH264SessionParametersAddInfoEXT.class, address);
+        return new VkVideoEncodeH264SessionParametersAddInfoEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoEncodeH264SessionParametersAddInfoEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkVideoEncodeH264SessionParametersAddInfoEXT.class, address);
+        return address == NULL ? null : new VkVideoEncodeH264SessionParametersAddInfoEXT(address, null);
     }
 
     /**
@@ -211,7 +218,7 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -220,7 +227,7 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -230,7 +237,7 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
      */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -240,13 +247,13 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoEncodeH264SessionParametersAddInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -255,7 +262,7 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
      * @param stack the stack from which to allocate
      */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT malloc(MemoryStack stack) {
-        return wrap(VkVideoEncodeH264SessionParametersAddInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkVideoEncodeH264SessionParametersAddInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -264,7 +271,7 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
      * @param stack the stack from which to allocate
      */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT calloc(MemoryStack stack) {
-        return wrap(VkVideoEncodeH264SessionParametersAddInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkVideoEncodeH264SessionParametersAddInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -274,7 +281,7 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -284,7 +291,7 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeH264SessionParametersAddInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -325,9 +332,9 @@ public class VkVideoEncodeH264SessionParametersAddInfoEXT extends Struct impleme
         /**
          * Creates a new {@code VkVideoEncodeH264SessionParametersAddInfoEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVideoEncodeH264SessionParametersAddInfoEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkVideoEncodeH264SessionParametersAddInfoEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

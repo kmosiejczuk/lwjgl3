@@ -23,7 +23,7 @@ import org.lwjgl.vulkan.video.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>This structure is specified in the {@code pNext} chain of {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot}, if not {@code NULL}, and the {@code pNext} chain of the elements of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots} to specify the codec-specific reference picture information for an <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264">H.264 decode operation</a>.</p>
+ * <p>This structure is specified in the {@code pNext} chain of {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot}, if not {@code NULL}, and the {@code pNext} chain of the elements of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots} to specify the codec-specific reference picture information for an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264">H.264 decode operation</a>.</p>
  * 
  * <dl>
  * <dt>Active Reference Picture Information</dt>
@@ -31,9 +31,9 @@ import org.lwjgl.vulkan.video.*;
  * <li>If neither {@code pStdReferenceInfo→flags.top_field_flag} nor {@code pStdReferenceInfo→flags.bottom_field_flag} is set, then the picture is added as a frame reference to the list of active reference pictures.</li>
  * <li>If {@code pStdReferenceInfo→flags.top_field_flag} is set, then the picture is added as a top field reference to the list of active reference pictures.</li>
  * <li>If {@code pStdReferenceInfo→flags.bottom_field_flag} is set, then the picture is added as a bottom field reference to the list of active reference pictures.</li>
- * <li>For each added reference picture, the corresponding image subregion used is determined according to the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
- * <li>Each added reference picture is associated with the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> index specified in the {@code slotIndex} member of the corresponding element of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots}.</li>
- * <li>Each added reference picture is associated with the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a> provided in {@code pStdReferenceInfo}.</li>
+ * <li>For each added reference picture, the corresponding image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
+ * <li>Each added reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> index specified in the {@code slotIndex} member of the corresponding element of {@link VkVideoDecodeInfoKHR}{@code ::pReferenceSlots}.</li>
+ * <li>Each added reference picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a> provided in {@code pStdReferenceInfo}.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -48,9 +48,9 @@ import org.lwjgl.vulkan.video.*;
  * <li>If neither {@code pStdReferenceInfo→flags.top_field_flag} nor {@code pStdReferenceInfo→flags.bottom_field_flag} is set, then the picture represents a frame.</li>
  * <li>If {@code pStdReferenceInfo→flags.top_field_flag} is set, then the picture represents a field, specifically, the top field of the frame.</li>
  * <li>If {@code pStdReferenceInfo→flags.bottom_field_flag} is set, then the picture represents a field, specifically, the bottom field of the frame.</li>
- * <li>The image subregion used is determined according to the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
- * <li>The reconstructed picture is used to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot-states">activate</a> the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> with the index specified in {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot→slotIndex}.</li>
- * <li>The reconstructed picture is associated with the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a> provided in {@code pStdReferenceInfo}.</li>
+ * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
+ * <li>The reconstructed picture is used to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot-states">activate</a> the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> with the index specified in {@link VkVideoDecodeInfoKHR}{@code ::pSetupReferenceSlot→slotIndex}.</li>
+ * <li>The reconstructed picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a> provided in {@code pStdReferenceInfo}.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -59,9 +59,9 @@ import org.lwjgl.vulkan.video.*;
  * <dd><ul>
  * <li>{@code flags.top_field_flag} is used to indicate whether the reference is used as top field reference;</li>
  * <li>{@code flags.bottom_field_flag} is used to indicate whether the reference is used as bottom field reference;</li>
- * <li>{@code flags.used_for_long_term_reference} is used to indicate whether the picture is marked as “used for long-term reference” as defined in section 8.2.5.1 of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
- * <li>{@code flags.is_non_existing} is used to indicate whether the picture is marked as “non-existing” as defined in section 8.2.5.2 of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
- * <li>all other members are interpreted as defined in section 8.2 of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>.</li>
+ * <li>{@code flags.used_for_long_term_reference} is used to indicate whether the picture is marked as “used for long-term reference” as defined in section 8.2.5.1 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
+ * <li>{@code flags.is_non_existing} is used to indicate whether the picture is marked as “non-existing” as defined in section 8.2.5.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
+ * <li>all other members are interpreted as defined in section 8.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>.</li>
  * </ul></dd>
  * </dl>
  * 
@@ -81,7 +81,7 @@ import org.lwjgl.vulkan.video.*;
  *     {@link StdVideoDecodeH264ReferenceInfo StdVideoDecodeH264ReferenceInfo} const * {@link #pStdReferenceInfo};
  * }</code></pre>
  */
-public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeResource {
+public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct<VkVideoDecodeH264DpbSlotInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -110,6 +110,15 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
         PSTDREFERENCEINFO = layout.offsetof(2);
     }
 
+    protected VkVideoDecodeH264DpbSlotInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkVideoDecodeH264DpbSlotInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkVideoDecodeH264DpbSlotInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkVideoDecodeH264DpbSlotInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -123,13 +132,13 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a pointer to a {@code StdVideoDecodeH264ReferenceInfo} structure specifying <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a>. */
+    /** a pointer to a {@code StdVideoDecodeH264ReferenceInfo} structure specifying <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-reference-info">H.264 reference information</a>. */
     @NativeType("StdVideoDecodeH264ReferenceInfo const *")
     public StdVideoDecodeH264ReferenceInfo pStdReferenceInfo() { return npStdReferenceInfo(address()); }
 
@@ -171,29 +180,29 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
 
     /** Returns a new {@code VkVideoDecodeH264DpbSlotInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVideoDecodeH264DpbSlotInfoKHR malloc() {
-        return wrap(VkVideoDecodeH264DpbSlotInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkVideoDecodeH264DpbSlotInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoDecodeH264DpbSlotInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVideoDecodeH264DpbSlotInfoKHR calloc() {
-        return wrap(VkVideoDecodeH264DpbSlotInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkVideoDecodeH264DpbSlotInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoDecodeH264DpbSlotInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkVideoDecodeH264DpbSlotInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkVideoDecodeH264DpbSlotInfoKHR.class, memAddress(container), container);
+        return new VkVideoDecodeH264DpbSlotInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkVideoDecodeH264DpbSlotInfoKHR} instance for the specified memory address. */
     public static VkVideoDecodeH264DpbSlotInfoKHR create(long address) {
-        return wrap(VkVideoDecodeH264DpbSlotInfoKHR.class, address);
+        return new VkVideoDecodeH264DpbSlotInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoDecodeH264DpbSlotInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkVideoDecodeH264DpbSlotInfoKHR.class, address);
+        return address == NULL ? null : new VkVideoDecodeH264DpbSlotInfoKHR(address, null);
     }
 
     /**
@@ -202,7 +211,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkVideoDecodeH264DpbSlotInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -211,7 +220,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkVideoDecodeH264DpbSlotInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -221,7 +230,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
      */
     public static VkVideoDecodeH264DpbSlotInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -231,13 +240,13 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkVideoDecodeH264DpbSlotInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoDecodeH264DpbSlotInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -246,7 +255,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static VkVideoDecodeH264DpbSlotInfoKHR malloc(MemoryStack stack) {
-        return wrap(VkVideoDecodeH264DpbSlotInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkVideoDecodeH264DpbSlotInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -255,7 +264,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static VkVideoDecodeH264DpbSlotInfoKHR calloc(MemoryStack stack) {
-        return wrap(VkVideoDecodeH264DpbSlotInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkVideoDecodeH264DpbSlotInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -265,7 +274,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkVideoDecodeH264DpbSlotInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -275,7 +284,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkVideoDecodeH264DpbSlotInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -313,9 +322,9 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct implements NativeRes
         /**
          * Creates a new {@code VkVideoDecodeH264DpbSlotInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVideoDecodeH264DpbSlotInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkVideoDecodeH264DpbSlotInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

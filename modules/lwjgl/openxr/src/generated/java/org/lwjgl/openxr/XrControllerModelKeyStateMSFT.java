@@ -24,12 +24,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>A {@code modelKey} value of {@link MSFTControllerModel#XR_NULL_CONTROLLER_MODEL_KEY_MSFT NULL_CONTROLLER_MODEL_KEY_MSFT}, represents an invalid model key and indicates there is no controller model yet available. The application <b>should</b> keep calling {@link MSFTControllerModel#xrGetControllerModelKeyMSFT GetControllerModelKeyMSFT} because the model <b>may</b> become available at a later point.</p>
  * 
+ * <p>The returned {@code modelKey} value depends on an active action binding to the corresponding subpathname:/grip/pose of the controller. Therefore, the application <b>must</b> have provided a valid action set containing an action for subpathname:/grip/pose, and have successfully completed an {@link XR10#xrSyncActions SyncActions} call, in order to obtain a valid {@code modelKey}.</p>
+ * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>The {@link MSFTControllerModel XR_MSFT_controller_model} extension <b>must</b> be enabled prior to using {@link XrControllerModelKeyStateMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTControllerModel#XR_TYPE_CONTROLLER_MODEL_KEY_STATE_MSFT TYPE_CONTROLLER_MODEL_KEY_STATE_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -45,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrControllerModelKeyMSFT {@link #modelKey};
  * }</code></pre>
  */
-public class XrControllerModelKeyStateMSFT extends Struct implements NativeResource {
+public class XrControllerModelKeyStateMSFT extends Struct<XrControllerModelKeyStateMSFT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -72,6 +74,15 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         MODELKEY = layout.offsetof(2);
+    }
+
+    protected XrControllerModelKeyStateMSFT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrControllerModelKeyStateMSFT create(long address, @Nullable ByteBuffer container) {
+        return new XrControllerModelKeyStateMSFT(address, container);
     }
 
     /**
@@ -135,29 +146,29 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
 
     /** Returns a new {@code XrControllerModelKeyStateMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrControllerModelKeyStateMSFT malloc() {
-        return wrap(XrControllerModelKeyStateMSFT.class, nmemAllocChecked(SIZEOF));
+        return new XrControllerModelKeyStateMSFT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrControllerModelKeyStateMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrControllerModelKeyStateMSFT calloc() {
-        return wrap(XrControllerModelKeyStateMSFT.class, nmemCallocChecked(1, SIZEOF));
+        return new XrControllerModelKeyStateMSFT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrControllerModelKeyStateMSFT} instance allocated with {@link BufferUtils}. */
     public static XrControllerModelKeyStateMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrControllerModelKeyStateMSFT.class, memAddress(container), container);
+        return new XrControllerModelKeyStateMSFT(memAddress(container), container);
     }
 
     /** Returns a new {@code XrControllerModelKeyStateMSFT} instance for the specified memory address. */
     public static XrControllerModelKeyStateMSFT create(long address) {
-        return wrap(XrControllerModelKeyStateMSFT.class, address);
+        return new XrControllerModelKeyStateMSFT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrControllerModelKeyStateMSFT createSafe(long address) {
-        return address == NULL ? null : wrap(XrControllerModelKeyStateMSFT.class, address);
+        return address == NULL ? null : new XrControllerModelKeyStateMSFT(address, null);
     }
 
     /**
@@ -166,7 +177,7 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static XrControllerModelKeyStateMSFT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -175,7 +186,7 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static XrControllerModelKeyStateMSFT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -185,7 +196,7 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
      */
     public static XrControllerModelKeyStateMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -195,13 +206,13 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static XrControllerModelKeyStateMSFT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrControllerModelKeyStateMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -210,7 +221,7 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
      * @param stack the stack from which to allocate
      */
     public static XrControllerModelKeyStateMSFT malloc(MemoryStack stack) {
-        return wrap(XrControllerModelKeyStateMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrControllerModelKeyStateMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -219,7 +230,7 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
      * @param stack the stack from which to allocate
      */
     public static XrControllerModelKeyStateMSFT calloc(MemoryStack stack) {
-        return wrap(XrControllerModelKeyStateMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrControllerModelKeyStateMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -229,7 +240,7 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static XrControllerModelKeyStateMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -239,7 +250,7 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
      * @param capacity the buffer capacity
      */
     public static XrControllerModelKeyStateMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -268,9 +279,9 @@ public class XrControllerModelKeyStateMSFT extends Struct implements NativeResou
         /**
          * Creates a new {@code XrControllerModelKeyStateMSFT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrControllerModelKeyStateMSFT#SIZEOF}, and its mark will be undefined.
+         * by {@link XrControllerModelKeyStateMSFT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

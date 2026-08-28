@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code indexType} <b>must</b> be a valid {@code VkIndexType} value</li>
  * <li>If {@code usageCountsCount} is not 0, and {@code pUsageCounts} is not {@code NULL}, {@code pUsageCounts} <b>must</b> be a valid pointer to an array of {@code usageCountsCount} {@link VkMicromapUsageEXT} structures</li>
  * <li>If {@code usageCountsCount} is not 0, and {@code ppUsageCounts} is not {@code NULL}, {@code ppUsageCounts} <b>must</b> be a valid pointer to an array of {@code usageCountsCount} valid pointers to {@link VkMicromapUsageEXT} structures</li>
- * <li>{@code micromap} <b>must</b> be a valid {@code VkMicromapEXT} handle</li>
+ * <li>If {@code micromap} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code micromap} <b>must</b> be a valid {@code VkMicromapEXT} handle</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -72,7 +72,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkMicromapEXT {@link #micromap};
  * }</code></pre>
  */
-public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Struct implements NativeResource {
+public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Struct<VkAccelerationStructureTrianglesDisplacementMicromapNV> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -146,6 +146,15 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
         MICROMAP = layout.offsetof(17);
     }
 
+    protected VkAccelerationStructureTrianglesDisplacementMicromapNV(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkAccelerationStructureTrianglesDisplacementMicromapNV create(long address, @Nullable ByteBuffer container) {
+        return new VkAccelerationStructureTrianglesDisplacementMicromapNV(address, container);
+    }
+
     /**
      * Creates a {@code VkAccelerationStructureTrianglesDisplacementMicromapNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -159,7 +168,7 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -318,29 +327,29 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
 
     /** Returns a new {@code VkAccelerationStructureTrianglesDisplacementMicromapNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV malloc() {
-        return wrap(VkAccelerationStructureTrianglesDisplacementMicromapNV.class, nmemAllocChecked(SIZEOF));
+        return new VkAccelerationStructureTrianglesDisplacementMicromapNV(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkAccelerationStructureTrianglesDisplacementMicromapNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV calloc() {
-        return wrap(VkAccelerationStructureTrianglesDisplacementMicromapNV.class, nmemCallocChecked(1, SIZEOF));
+        return new VkAccelerationStructureTrianglesDisplacementMicromapNV(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkAccelerationStructureTrianglesDisplacementMicromapNV} instance allocated with {@link BufferUtils}. */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkAccelerationStructureTrianglesDisplacementMicromapNV.class, memAddress(container), container);
+        return new VkAccelerationStructureTrianglesDisplacementMicromapNV(memAddress(container), container);
     }
 
     /** Returns a new {@code VkAccelerationStructureTrianglesDisplacementMicromapNV} instance for the specified memory address. */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV create(long address) {
-        return wrap(VkAccelerationStructureTrianglesDisplacementMicromapNV.class, address);
+        return new VkAccelerationStructureTrianglesDisplacementMicromapNV(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV createSafe(long address) {
-        return address == NULL ? null : wrap(VkAccelerationStructureTrianglesDisplacementMicromapNV.class, address);
+        return address == NULL ? null : new VkAccelerationStructureTrianglesDisplacementMicromapNV(address, null);
     }
 
     /**
@@ -349,7 +358,7 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -358,7 +367,7 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -368,7 +377,7 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
      */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -378,13 +387,13 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -393,7 +402,7 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV malloc(MemoryStack stack) {
-        return wrap(VkAccelerationStructureTrianglesDisplacementMicromapNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkAccelerationStructureTrianglesDisplacementMicromapNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -402,7 +411,7 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV calloc(MemoryStack stack) {
-        return wrap(VkAccelerationStructureTrianglesDisplacementMicromapNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkAccelerationStructureTrianglesDisplacementMicromapNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -412,7 +421,7 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -422,7 +431,7 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureTrianglesDisplacementMicromapNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -511,9 +520,9 @@ public class VkAccelerationStructureTrianglesDisplacementMicromapNV extends Stru
         /**
          * Creates a new {@code VkAccelerationStructureTrianglesDisplacementMicromapNV.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkAccelerationStructureTrianglesDisplacementMicromapNV#SIZEOF}, and its mark will be undefined.
+         * by {@link VkAccelerationStructureTrianglesDisplacementMicromapNV#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

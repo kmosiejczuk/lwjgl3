@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If {@link VkAccelerationStructureTrianglesOpacityMicromapEXT} is included in the {@code pNext} chain of a {@link VkAccelerationStructureGeometryTrianglesDataKHR} structure, that geometry will reference that micromap.</p>
  * 
- * <p>For each triangle in the geometry, the acceleration structure build fetches an index from {@code indexBuffer} using {@code indexType} and {@code indexStride}. If that value is the unsigned cast of one of the values from {@code VkOpacityMicromapSpecialIndexEXT} then that triangle behaves as described for that special value in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#ray-opacity-micromap">Ray Opacity Micromap</a>. Otherwise that triangle uses the opacity micromap information from {@code micromap} at that index plus {@code baseTriangle}.</p>
+ * <p>For each triangle in the geometry, the acceleration structure build fetches an index from {@code indexBuffer} using {@code indexType} and {@code indexStride}. If that value is the unsigned cast of one of the values from {@code VkOpacityMicromapSpecialIndexEXT} then that triangle behaves as described for that special value in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#ray-opacity-micromap">Ray Opacity Micromap</a>. Otherwise that triangle uses the opacity micromap information from {@code micromap} at that index plus {@code baseTriangle}.</p>
  * 
  * <p>Only one of {@code pUsageCounts} or {@code ppUsageCounts} <b>can</b> be a valid pointer, the other <b>must</b> be {@code NULL}. The elements of the non-{@code NULL} array describe the total count used to build this geometry. For a given {@code format} and {@code subdivisionLevel} the number of triangles in this geometry matching those values after indirection and special index handling <b>must</b> be equal to the sum of matching {@code count} provided.</p>
  * 
@@ -41,7 +41,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code indexType} <b>must</b> be a valid {@code VkIndexType} value</li>
  * <li>If {@code usageCountsCount} is not 0, and {@code pUsageCounts} is not {@code NULL}, {@code pUsageCounts} <b>must</b> be a valid pointer to an array of {@code usageCountsCount} {@link VkMicromapUsageEXT} structures</li>
  * <li>If {@code usageCountsCount} is not 0, and {@code ppUsageCounts} is not {@code NULL}, {@code ppUsageCounts} <b>must</b> be a valid pointer to an array of {@code usageCountsCount} valid pointers to {@link VkMicromapUsageEXT} structures</li>
- * <li>{@code micromap} <b>must</b> be a valid {@code VkMicromapEXT} handle</li>
+ * <li>If {@code micromap} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code micromap} <b>must</b> be a valid {@code VkMicromapEXT} handle</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -64,7 +64,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkMicromapEXT {@link #micromap};
  * }</code></pre>
  */
-public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct implements NativeResource {
+public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct<VkAccelerationStructureTrianglesOpacityMicromapEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -114,6 +114,15 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
         MICROMAP = layout.offsetof(9);
     }
 
+    protected VkAccelerationStructureTrianglesOpacityMicromapEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkAccelerationStructureTrianglesOpacityMicromapEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkAccelerationStructureTrianglesOpacityMicromapEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkAccelerationStructureTrianglesOpacityMicromapEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -127,7 +136,7 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -227,29 +236,29 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
 
     /** Returns a new {@code VkAccelerationStructureTrianglesOpacityMicromapEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT malloc() {
-        return wrap(VkAccelerationStructureTrianglesOpacityMicromapEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkAccelerationStructureTrianglesOpacityMicromapEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkAccelerationStructureTrianglesOpacityMicromapEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT calloc() {
-        return wrap(VkAccelerationStructureTrianglesOpacityMicromapEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkAccelerationStructureTrianglesOpacityMicromapEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkAccelerationStructureTrianglesOpacityMicromapEXT} instance allocated with {@link BufferUtils}. */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkAccelerationStructureTrianglesOpacityMicromapEXT.class, memAddress(container), container);
+        return new VkAccelerationStructureTrianglesOpacityMicromapEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkAccelerationStructureTrianglesOpacityMicromapEXT} instance for the specified memory address. */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT create(long address) {
-        return wrap(VkAccelerationStructureTrianglesOpacityMicromapEXT.class, address);
+        return new VkAccelerationStructureTrianglesOpacityMicromapEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkAccelerationStructureTrianglesOpacityMicromapEXT.class, address);
+        return address == NULL ? null : new VkAccelerationStructureTrianglesOpacityMicromapEXT(address, null);
     }
 
     /**
@@ -258,7 +267,7 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -267,7 +276,7 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -277,7 +286,7 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
      */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -287,13 +296,13 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -302,7 +311,7 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT malloc(MemoryStack stack) {
-        return wrap(VkAccelerationStructureTrianglesOpacityMicromapEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkAccelerationStructureTrianglesOpacityMicromapEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -311,7 +320,7 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
      * @param stack the stack from which to allocate
      */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT calloc(MemoryStack stack) {
-        return wrap(VkAccelerationStructureTrianglesOpacityMicromapEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkAccelerationStructureTrianglesOpacityMicromapEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -321,7 +330,7 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -331,7 +340,7 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
      * @param capacity the buffer capacity
      */
     public static VkAccelerationStructureTrianglesOpacityMicromapEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -388,9 +397,9 @@ public class VkAccelerationStructureTrianglesOpacityMicromapEXT extends Struct i
         /**
          * Creates a new {@code VkAccelerationStructureTrianglesOpacityMicromapEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkAccelerationStructureTrianglesOpacityMicromapEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkAccelerationStructureTrianglesOpacityMicromapEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

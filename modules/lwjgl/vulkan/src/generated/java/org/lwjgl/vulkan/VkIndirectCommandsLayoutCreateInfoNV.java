@@ -42,7 +42,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *   }
  * }</code></pre>
  * 
- * <p>When tokens are consumed, an offset is computed based on token offset and stream stride. The resulting offset is required to be aligned. The alignment for a specific token is equal to the scalar alignment of the data type as defined in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-alignment-requirements">Alignment Requirements</a>, or {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::minIndirectCommandsBufferOffsetAlignment}, whichever is lower.</p>
+ * <p>When tokens are consumed, an offset is computed based on token offset and stream stride. The resulting offset is required to be aligned. The alignment for a specific token is equal to the scalar alignment of the data type as defined in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-alignment-requirements">Alignment Requirements</a>, or {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::minIndirectCommandsBufferOffsetAlignment}, whichever is lower.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -52,14 +52,17 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>The {@code pipelineBindPoint} <b>must</b> be {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS}</li>
+ * <li>The {@code pipelineBindPoint} <b>must</b> be {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS} or {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE}</li>
  * <li>{@code tokenCount} <b>must</b> be greater than 0 and less than or equal to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::maxIndirectCommandsTokenCount}</li>
  * <li>If {@code pTokens} contains an entry of {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_SHADER_GROUP_NV INDIRECT_COMMANDS_TOKEN_TYPE_SHADER_GROUP_NV} it <b>must</b> be the first element of the array and there <b>must</b> be only a single element of such token type</li>
  * <li>If {@code pTokens} contains an entry of {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_STATE_FLAGS_NV INDIRECT_COMMANDS_TOKEN_TYPE_STATE_FLAGS_NV} there <b>must</b> be only a single element of such token type</li>
- * <li>All state tokens in {@code pTokens} <b>must</b> occur before any work provoking tokens ({@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_NV INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_NV}, {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_NV INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_NV}, {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_TASKS_NV INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_TASKS_NV}, {@link EXTMeshShader#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV})</li>
+ * <li>All state tokens in {@code pTokens} <b>must</b> occur before any work provoking tokens ({@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_NV INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_NV}, {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_NV INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_NV}, {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_TASKS_NV INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_TASKS_NV}, {@link EXTMeshShader#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV} , {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_NV INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_NV} )</li>
  * <li>The content of {@code pTokens} <b>must</b> include one single work provoking token that is compatible with the {@code pipelineBindPoint}</li>
  * <li>{@code streamCount} <b>must</b> be greater than 0 and less or equal to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::maxIndirectCommandsStreamCount}</li>
  * <li>each element of {@code pStreamStrides} <b>must</b> be greater than 0 and less than or equal to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::maxIndirectCommandsStreamStride}. Furthermore the alignment of each token input <b>must</b> be ensured</li>
+ * <li>If {@code pipelineBindPoint} is {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE} then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedCompute">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedCompute}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code pipelineBindPoint} is {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE} then the state tokens in {@code pTokens} <b>must</b> only include {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_NV INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_NV}, {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV}, or {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV}</li>
+ * <li>If {@code pipelineBindPoint} is {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE} and {@code pTokens} includes {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -93,7 +96,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t const * {@link #pStreamStrides};
  * }</code></pre>
  */
-public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements NativeResource {
+public class VkIndirectCommandsLayoutCreateInfoNV extends Struct<VkIndirectCommandsLayoutCreateInfoNV> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -137,6 +140,15 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
         PSTREAMSTRIDES = layout.offsetof(7);
     }
 
+    protected VkIndirectCommandsLayoutCreateInfoNV(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkIndirectCommandsLayoutCreateInfoNV create(long address, @Nullable ByteBuffer container) {
+        return new VkIndirectCommandsLayoutCreateInfoNV(address, container);
+    }
+
     /**
      * Creates a {@code VkIndirectCommandsLayoutCreateInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -150,7 +162,7 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -225,29 +237,29 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
 
     /** Returns a new {@code VkIndirectCommandsLayoutCreateInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkIndirectCommandsLayoutCreateInfoNV malloc() {
-        return wrap(VkIndirectCommandsLayoutCreateInfoNV.class, nmemAllocChecked(SIZEOF));
+        return new VkIndirectCommandsLayoutCreateInfoNV(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkIndirectCommandsLayoutCreateInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkIndirectCommandsLayoutCreateInfoNV calloc() {
-        return wrap(VkIndirectCommandsLayoutCreateInfoNV.class, nmemCallocChecked(1, SIZEOF));
+        return new VkIndirectCommandsLayoutCreateInfoNV(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkIndirectCommandsLayoutCreateInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkIndirectCommandsLayoutCreateInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkIndirectCommandsLayoutCreateInfoNV.class, memAddress(container), container);
+        return new VkIndirectCommandsLayoutCreateInfoNV(memAddress(container), container);
     }
 
     /** Returns a new {@code VkIndirectCommandsLayoutCreateInfoNV} instance for the specified memory address. */
     public static VkIndirectCommandsLayoutCreateInfoNV create(long address) {
-        return wrap(VkIndirectCommandsLayoutCreateInfoNV.class, address);
+        return new VkIndirectCommandsLayoutCreateInfoNV(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkIndirectCommandsLayoutCreateInfoNV createSafe(long address) {
-        return address == NULL ? null : wrap(VkIndirectCommandsLayoutCreateInfoNV.class, address);
+        return address == NULL ? null : new VkIndirectCommandsLayoutCreateInfoNV(address, null);
     }
 
     /**
@@ -256,7 +268,7 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkIndirectCommandsLayoutCreateInfoNV.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -265,7 +277,7 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkIndirectCommandsLayoutCreateInfoNV.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -275,7 +287,7 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
      */
     public static VkIndirectCommandsLayoutCreateInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -285,13 +297,13 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkIndirectCommandsLayoutCreateInfoNV.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkIndirectCommandsLayoutCreateInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -300,7 +312,7 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkIndirectCommandsLayoutCreateInfoNV malloc(MemoryStack stack) {
-        return wrap(VkIndirectCommandsLayoutCreateInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkIndirectCommandsLayoutCreateInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -309,7 +321,7 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
      * @param stack the stack from which to allocate
      */
     public static VkIndirectCommandsLayoutCreateInfoNV calloc(MemoryStack stack) {
-        return wrap(VkIndirectCommandsLayoutCreateInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkIndirectCommandsLayoutCreateInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -319,7 +331,7 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkIndirectCommandsLayoutCreateInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -329,7 +341,7 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static VkIndirectCommandsLayoutCreateInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -391,9 +403,9 @@ public class VkIndirectCommandsLayoutCreateInfoNV extends Struct implements Nati
         /**
          * Creates a new {@code VkIndirectCommandsLayoutCreateInfoNV.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkIndirectCommandsLayoutCreateInfoNV#SIZEOF}, and its mark will be undefined.
+         * by {@link VkIndirectCommandsLayoutCreateInfoNV#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

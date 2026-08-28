@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link EXTVideoEncodeH265#VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_RATE_CONTROL_INFO_EXT STRUCTURE_TYPE_VIDEO_ENCODE_H265_RATE_CONTROL_INFO_EXT}</li>
- * <li>{@code rateControlStructure} <b>must</b> be a valid {@code VkVideoEncodeH265RateControlStructureEXT} value</li>
+ * <li>{@code flags} <b>must</b> be a valid combination of {@code VkVideoEncodeH265RateControlFlagBitsEXT} values</li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -39,14 +39,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct VkVideoEncodeH265RateControlInfoEXT {
  *     VkStructureType {@link #sType};
  *     void const * {@link #pNext};
+ *     VkVideoEncodeH265RateControlFlagsEXT {@link #flags};
  *     uint32_t {@link #gopFrameCount};
  *     uint32_t {@link #idrPeriod};
  *     uint32_t {@link #consecutiveBFrameCount};
- *     VkVideoEncodeH265RateControlStructureEXT {@link #rateControlStructure};
  *     uint32_t {@link #subLayerCount};
  * }</code></pre>
  */
-public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements NativeResource {
+public class VkVideoEncodeH265RateControlInfoEXT extends Struct<VkVideoEncodeH265RateControlInfoEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -58,10 +58,10 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
     public static final int
         STYPE,
         PNEXT,
+        FLAGS,
         GOPFRAMECOUNT,
         IDRPERIOD,
         CONSECUTIVEBFRAMECOUNT,
-        RATECONTROLSTRUCTURE,
         SUBLAYERCOUNT;
 
     static {
@@ -80,11 +80,20 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
 
         STYPE = layout.offsetof(0);
         PNEXT = layout.offsetof(1);
-        GOPFRAMECOUNT = layout.offsetof(2);
-        IDRPERIOD = layout.offsetof(3);
-        CONSECUTIVEBFRAMECOUNT = layout.offsetof(4);
-        RATECONTROLSTRUCTURE = layout.offsetof(5);
+        FLAGS = layout.offsetof(2);
+        GOPFRAMECOUNT = layout.offsetof(3);
+        IDRPERIOD = layout.offsetof(4);
+        CONSECUTIVEBFRAMECOUNT = layout.offsetof(5);
         SUBLAYERCOUNT = layout.offsetof(6);
+    }
+
+    protected VkVideoEncodeH265RateControlInfoEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkVideoEncodeH265RateControlInfoEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkVideoEncodeH265RateControlInfoEXT(address, container);
     }
 
     /**
@@ -100,12 +109,15 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
+    /** a bitmask of {@code VkVideoEncodeH265RateControlFlagBitsEXT} specifying H.265 rate control flags. */
+    @NativeType("VkVideoEncodeH265RateControlFlagsEXT")
+    public int flags() { return nflags(address()); }
     /** the number of frames contained within the group of pictures (GOP), starting from an intra frame and until the next intra frame. If it is set to 0, the implementation chooses a suitable value. If it is set to {@code UINT32_MAX}, the GOP length is treated as infinite. */
     @NativeType("uint32_t")
     public int gopFrameCount() { return ngopFrameCount(address()); }
@@ -115,9 +127,6 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
     /** the number of consecutive B-frames between I- and/or P-frames within the GOP. */
     @NativeType("uint32_t")
     public int consecutiveBFrameCount() { return nconsecutiveBFrameCount(address()); }
-    /** a {@code VkVideoEncodeH265RateControlStructureEXT} value specifying the expected encode stream reference structure, to aid in rate control calculations. */
-    @NativeType("VkVideoEncodeH265RateControlStructureEXT")
-    public int rateControlStructure() { return nrateControlStructure(address()); }
     /** specifies the number of sub layers enabled in the stream. */
     @NativeType("uint32_t")
     public int subLayerCount() { return nsubLayerCount(address()); }
@@ -128,14 +137,14 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
     public VkVideoEncodeH265RateControlInfoEXT sType$Default() { return sType(EXTVideoEncodeH265.VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_RATE_CONTROL_INFO_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkVideoEncodeH265RateControlInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Sets the specified value to the {@link #flags} field. */
+    public VkVideoEncodeH265RateControlInfoEXT flags(@NativeType("VkVideoEncodeH265RateControlFlagsEXT") int value) { nflags(address(), value); return this; }
     /** Sets the specified value to the {@link #gopFrameCount} field. */
     public VkVideoEncodeH265RateControlInfoEXT gopFrameCount(@NativeType("uint32_t") int value) { ngopFrameCount(address(), value); return this; }
     /** Sets the specified value to the {@link #idrPeriod} field. */
     public VkVideoEncodeH265RateControlInfoEXT idrPeriod(@NativeType("uint32_t") int value) { nidrPeriod(address(), value); return this; }
     /** Sets the specified value to the {@link #consecutiveBFrameCount} field. */
     public VkVideoEncodeH265RateControlInfoEXT consecutiveBFrameCount(@NativeType("uint32_t") int value) { nconsecutiveBFrameCount(address(), value); return this; }
-    /** Sets the specified value to the {@link #rateControlStructure} field. */
-    public VkVideoEncodeH265RateControlInfoEXT rateControlStructure(@NativeType("VkVideoEncodeH265RateControlStructureEXT") int value) { nrateControlStructure(address(), value); return this; }
     /** Sets the specified value to the {@link #subLayerCount} field. */
     public VkVideoEncodeH265RateControlInfoEXT subLayerCount(@NativeType("uint32_t") int value) { nsubLayerCount(address(), value); return this; }
 
@@ -143,18 +152,18 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
     public VkVideoEncodeH265RateControlInfoEXT set(
         int sType,
         long pNext,
+        int flags,
         int gopFrameCount,
         int idrPeriod,
         int consecutiveBFrameCount,
-        int rateControlStructure,
         int subLayerCount
     ) {
         sType(sType);
         pNext(pNext);
+        flags(flags);
         gopFrameCount(gopFrameCount);
         idrPeriod(idrPeriod);
         consecutiveBFrameCount(consecutiveBFrameCount);
-        rateControlStructure(rateControlStructure);
         subLayerCount(subLayerCount);
 
         return this;
@@ -176,29 +185,29 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
 
     /** Returns a new {@code VkVideoEncodeH265RateControlInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVideoEncodeH265RateControlInfoEXT malloc() {
-        return wrap(VkVideoEncodeH265RateControlInfoEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkVideoEncodeH265RateControlInfoEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoEncodeH265RateControlInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVideoEncodeH265RateControlInfoEXT calloc() {
-        return wrap(VkVideoEncodeH265RateControlInfoEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkVideoEncodeH265RateControlInfoEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoEncodeH265RateControlInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkVideoEncodeH265RateControlInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkVideoEncodeH265RateControlInfoEXT.class, memAddress(container), container);
+        return new VkVideoEncodeH265RateControlInfoEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkVideoEncodeH265RateControlInfoEXT} instance for the specified memory address. */
     public static VkVideoEncodeH265RateControlInfoEXT create(long address) {
-        return wrap(VkVideoEncodeH265RateControlInfoEXT.class, address);
+        return new VkVideoEncodeH265RateControlInfoEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoEncodeH265RateControlInfoEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkVideoEncodeH265RateControlInfoEXT.class, address);
+        return address == NULL ? null : new VkVideoEncodeH265RateControlInfoEXT(address, null);
     }
 
     /**
@@ -207,7 +216,7 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeH265RateControlInfoEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -216,7 +225,7 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeH265RateControlInfoEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -226,7 +235,7 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
      */
     public static VkVideoEncodeH265RateControlInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -236,13 +245,13 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeH265RateControlInfoEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoEncodeH265RateControlInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -251,7 +260,7 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
      * @param stack the stack from which to allocate
      */
     public static VkVideoEncodeH265RateControlInfoEXT malloc(MemoryStack stack) {
-        return wrap(VkVideoEncodeH265RateControlInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkVideoEncodeH265RateControlInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -260,7 +269,7 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
      * @param stack the stack from which to allocate
      */
     public static VkVideoEncodeH265RateControlInfoEXT calloc(MemoryStack stack) {
-        return wrap(VkVideoEncodeH265RateControlInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkVideoEncodeH265RateControlInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -270,7 +279,7 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeH265RateControlInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -280,7 +289,7 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
      * @param capacity the buffer capacity
      */
     public static VkVideoEncodeH265RateControlInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -289,14 +298,14 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
     public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH265RateControlInfoEXT.PNEXT); }
+    /** Unsafe version of {@link #flags}. */
+    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.FLAGS); }
     /** Unsafe version of {@link #gopFrameCount}. */
     public static int ngopFrameCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.GOPFRAMECOUNT); }
     /** Unsafe version of {@link #idrPeriod}. */
     public static int nidrPeriod(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.IDRPERIOD); }
     /** Unsafe version of {@link #consecutiveBFrameCount}. */
     public static int nconsecutiveBFrameCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.CONSECUTIVEBFRAMECOUNT); }
-    /** Unsafe version of {@link #rateControlStructure}. */
-    public static int nrateControlStructure(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.RATECONTROLSTRUCTURE); }
     /** Unsafe version of {@link #subLayerCount}. */
     public static int nsubLayerCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.SUBLAYERCOUNT); }
 
@@ -304,14 +313,14 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
     public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH265RateControlInfoEXT.PNEXT, value); }
+    /** Unsafe version of {@link #flags(int) flags}. */
+    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.FLAGS, value); }
     /** Unsafe version of {@link #gopFrameCount(int) gopFrameCount}. */
     public static void ngopFrameCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.GOPFRAMECOUNT, value); }
     /** Unsafe version of {@link #idrPeriod(int) idrPeriod}. */
     public static void nidrPeriod(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.IDRPERIOD, value); }
     /** Unsafe version of {@link #consecutiveBFrameCount(int) consecutiveBFrameCount}. */
     public static void nconsecutiveBFrameCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.CONSECUTIVEBFRAMECOUNT, value); }
-    /** Unsafe version of {@link #rateControlStructure(int) rateControlStructure}. */
-    public static void nrateControlStructure(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.RATECONTROLSTRUCTURE, value); }
     /** Unsafe version of {@link #subLayerCount(int) subLayerCount}. */
     public static void nsubLayerCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265RateControlInfoEXT.SUBLAYERCOUNT, value); }
 
@@ -325,9 +334,9 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
         /**
          * Creates a new {@code VkVideoEncodeH265RateControlInfoEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVideoEncodeH265RateControlInfoEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkVideoEncodeH265RateControlInfoEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -359,6 +368,9 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
         /** @return the value of the {@link VkVideoEncodeH265RateControlInfoEXT#pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkVideoEncodeH265RateControlInfoEXT.npNext(address()); }
+        /** @return the value of the {@link VkVideoEncodeH265RateControlInfoEXT#flags} field. */
+        @NativeType("VkVideoEncodeH265RateControlFlagsEXT")
+        public int flags() { return VkVideoEncodeH265RateControlInfoEXT.nflags(address()); }
         /** @return the value of the {@link VkVideoEncodeH265RateControlInfoEXT#gopFrameCount} field. */
         @NativeType("uint32_t")
         public int gopFrameCount() { return VkVideoEncodeH265RateControlInfoEXT.ngopFrameCount(address()); }
@@ -368,9 +380,6 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
         /** @return the value of the {@link VkVideoEncodeH265RateControlInfoEXT#consecutiveBFrameCount} field. */
         @NativeType("uint32_t")
         public int consecutiveBFrameCount() { return VkVideoEncodeH265RateControlInfoEXT.nconsecutiveBFrameCount(address()); }
-        /** @return the value of the {@link VkVideoEncodeH265RateControlInfoEXT#rateControlStructure} field. */
-        @NativeType("VkVideoEncodeH265RateControlStructureEXT")
-        public int rateControlStructure() { return VkVideoEncodeH265RateControlInfoEXT.nrateControlStructure(address()); }
         /** @return the value of the {@link VkVideoEncodeH265RateControlInfoEXT#subLayerCount} field. */
         @NativeType("uint32_t")
         public int subLayerCount() { return VkVideoEncodeH265RateControlInfoEXT.nsubLayerCount(address()); }
@@ -381,14 +390,14 @@ public class VkVideoEncodeH265RateControlInfoEXT extends Struct implements Nativ
         public VkVideoEncodeH265RateControlInfoEXT.Buffer sType$Default() { return sType(EXTVideoEncodeH265.VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_RATE_CONTROL_INFO_EXT); }
         /** Sets the specified value to the {@link VkVideoEncodeH265RateControlInfoEXT#pNext} field. */
         public VkVideoEncodeH265RateControlInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkVideoEncodeH265RateControlInfoEXT.npNext(address(), value); return this; }
+        /** Sets the specified value to the {@link VkVideoEncodeH265RateControlInfoEXT#flags} field. */
+        public VkVideoEncodeH265RateControlInfoEXT.Buffer flags(@NativeType("VkVideoEncodeH265RateControlFlagsEXT") int value) { VkVideoEncodeH265RateControlInfoEXT.nflags(address(), value); return this; }
         /** Sets the specified value to the {@link VkVideoEncodeH265RateControlInfoEXT#gopFrameCount} field. */
         public VkVideoEncodeH265RateControlInfoEXT.Buffer gopFrameCount(@NativeType("uint32_t") int value) { VkVideoEncodeH265RateControlInfoEXT.ngopFrameCount(address(), value); return this; }
         /** Sets the specified value to the {@link VkVideoEncodeH265RateControlInfoEXT#idrPeriod} field. */
         public VkVideoEncodeH265RateControlInfoEXT.Buffer idrPeriod(@NativeType("uint32_t") int value) { VkVideoEncodeH265RateControlInfoEXT.nidrPeriod(address(), value); return this; }
         /** Sets the specified value to the {@link VkVideoEncodeH265RateControlInfoEXT#consecutiveBFrameCount} field. */
         public VkVideoEncodeH265RateControlInfoEXT.Buffer consecutiveBFrameCount(@NativeType("uint32_t") int value) { VkVideoEncodeH265RateControlInfoEXT.nconsecutiveBFrameCount(address(), value); return this; }
-        /** Sets the specified value to the {@link VkVideoEncodeH265RateControlInfoEXT#rateControlStructure} field. */
-        public VkVideoEncodeH265RateControlInfoEXT.Buffer rateControlStructure(@NativeType("VkVideoEncodeH265RateControlStructureEXT") int value) { VkVideoEncodeH265RateControlInfoEXT.nrateControlStructure(address(), value); return this; }
         /** Sets the specified value to the {@link VkVideoEncodeH265RateControlInfoEXT#subLayerCount} field. */
         public VkVideoEncodeH265RateControlInfoEXT.Buffer subLayerCount(@NativeType("uint32_t") int value) { VkVideoEncodeH265RateControlInfoEXT.nsubLayerCount(address(), value); return this; }
 

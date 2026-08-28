@@ -21,10 +21,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-depthBounds">{@code depthBounds}</a> feature is not enabled, {@code depthBoundsTestEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-depthBounds">{@code depthBounds}</a> feature is not enabled, {@code depthBoundsTestEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
  * <li>If the {@link KHRPortabilitySubset VK_KHR_portability_subset} extension is enabled, and {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR}{@code ::separateStencilMaskRef} is {@link VK10#VK_FALSE FALSE}, and the value of {@link VkPipelineDepthStencilStateCreateInfo}{@code ::stencilTestEnable} is {@link VK10#VK_TRUE TRUE}, and the value of {@link VkPipelineRasterizationStateCreateInfo}{@code ::cullMode} is {@link VK10#VK_CULL_MODE_NONE CULL_MODE_NONE}, the value of {@code reference} in each of the {@link VkStencilOpState} structs in {@code front} and {@code back} <b>must</b> be the same</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rasterizationOrderDepthAttachmentAccess">{@code rasterizationOrderDepthAttachmentAccess}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link EXTRasterizationOrderAttachmentAccess#VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_BIT_EXT PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_BIT_EXT}</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rasterizationOrderStencilAttachmentAccess">{@code rasterizationOrderStencilAttachmentAccess}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link EXTRasterizationOrderAttachmentAccess#VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rasterizationOrderDepthAttachmentAccess">{@code rasterizationOrderDepthAttachmentAccess}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link EXTRasterizationOrderAttachmentAccess#VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_BIT_EXT PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rasterizationOrderStencilAttachmentAccess">{@code rasterizationOrderStencilAttachmentAccess}</a> feature is not enabled, {@code flags} <b>must</b> not include {@link EXTRasterizationOrderAttachmentAccess#VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -60,7 +60,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #maxDepthBounds};
  * }</code></pre>
  */
-public class VkPipelineDepthStencilStateCreateInfo extends Struct implements NativeResource {
+public class VkPipelineDepthStencilStateCreateInfo extends Struct<VkPipelineDepthStencilStateCreateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -116,6 +116,15 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
         MAXDEPTHBOUNDS = layout.offsetof(11);
     }
 
+    protected VkPipelineDepthStencilStateCreateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPipelineDepthStencilStateCreateInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkPipelineDepthStencilStateCreateInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkPipelineDepthStencilStateCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -129,7 +138,7 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -138,28 +147,28 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
     /** a bitmask of {@code VkPipelineDepthStencilStateCreateFlagBits} specifying additional depth/stencil state information. */
     @NativeType("VkPipelineDepthStencilStateCreateFlags")
     public int flags() { return nflags(address()); }
-    /** controls whether <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth">depth testing</a> is enabled. */
+    /** controls whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth">depth testing</a> is enabled. */
     @NativeType("VkBool32")
     public boolean depthTestEnable() { return ndepthTestEnable(address()) != 0; }
-    /** controls whether <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth-write">depth writes</a> are enabled when {@code depthTestEnable} is {@link VK10#VK_TRUE TRUE}. Depth writes are always disabled when {@code depthTestEnable} is {@link VK10#VK_FALSE FALSE}. */
+    /** controls whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth-write">depth writes</a> are enabled when {@code depthTestEnable} is {@link VK10#VK_TRUE TRUE}. Depth writes are always disabled when {@code depthTestEnable} is {@link VK10#VK_FALSE FALSE}. */
     @NativeType("VkBool32")
     public boolean depthWriteEnable() { return ndepthWriteEnable(address()) != 0; }
-    /** a {@code VkCompareOp} value specifying the comparison operator to use in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth-comparison">Depth Comparison</a> step of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth">depth test</a>. */
+    /** a {@code VkCompareOp} value specifying the comparison operator to use in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth-comparison">Depth Comparison</a> step of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth">depth test</a>. */
     @NativeType("VkCompareOp")
     public int depthCompareOp() { return ndepthCompareOp(address()); }
-    /** controls whether <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-dbt">depth bounds testing</a> is enabled. */
+    /** controls whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-dbt">depth bounds testing</a> is enabled. */
     @NativeType("VkBool32")
     public boolean depthBoundsTestEnable() { return ndepthBoundsTestEnable(address()) != 0; }
-    /** controls whether <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-stencil">stencil testing</a> is enabled. */
+    /** controls whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-stencil">stencil testing</a> is enabled. */
     @NativeType("VkBool32")
     public boolean stencilTestEnable() { return nstencilTestEnable(address()) != 0; }
-    /** {@code front} and {@code back} are {@link VkStencilOpState} values controlling the corresponding parameters of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-stencil">stencil test</a>. */
+    /** {@code front} and {@code back} are {@link VkStencilOpState} values controlling the corresponding parameters of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-stencil">stencil test</a>. */
     public VkStencilOpState front() { return nfront(address()); }
     /** see {@code front} */
     public VkStencilOpState back() { return nback(address()); }
-    /** the minimum depth bound used in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-dbt">depth bounds test</a>. */
+    /** the minimum depth bound used in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-dbt">depth bounds test</a>. */
     public float minDepthBounds() { return nminDepthBounds(address()); }
-    /** the maximum depth bound used in the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-dbt">depth bounds test</a>. */
+    /** the maximum depth bound used in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-dbt">depth bounds test</a>. */
     public float maxDepthBounds() { return nmaxDepthBounds(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
@@ -240,29 +249,29 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
 
     /** Returns a new {@code VkPipelineDepthStencilStateCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineDepthStencilStateCreateInfo malloc() {
-        return wrap(VkPipelineDepthStencilStateCreateInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkPipelineDepthStencilStateCreateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPipelineDepthStencilStateCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineDepthStencilStateCreateInfo calloc() {
-        return wrap(VkPipelineDepthStencilStateCreateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPipelineDepthStencilStateCreateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPipelineDepthStencilStateCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkPipelineDepthStencilStateCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPipelineDepthStencilStateCreateInfo.class, memAddress(container), container);
+        return new VkPipelineDepthStencilStateCreateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineDepthStencilStateCreateInfo} instance for the specified memory address. */
     public static VkPipelineDepthStencilStateCreateInfo create(long address) {
-        return wrap(VkPipelineDepthStencilStateCreateInfo.class, address);
+        return new VkPipelineDepthStencilStateCreateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineDepthStencilStateCreateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkPipelineDepthStencilStateCreateInfo.class, address);
+        return address == NULL ? null : new VkPipelineDepthStencilStateCreateInfo(address, null);
     }
 
     /**
@@ -271,7 +280,7 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
      * @param capacity the buffer capacity
      */
     public static VkPipelineDepthStencilStateCreateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -280,7 +289,7 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
      * @param capacity the buffer capacity
      */
     public static VkPipelineDepthStencilStateCreateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -290,7 +299,7 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
      */
     public static VkPipelineDepthStencilStateCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -300,13 +309,13 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
      * @param capacity the buffer capacity
      */
     public static VkPipelineDepthStencilStateCreateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineDepthStencilStateCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -334,7 +343,7 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
      * @param stack the stack from which to allocate
      */
     public static VkPipelineDepthStencilStateCreateInfo malloc(MemoryStack stack) {
-        return wrap(VkPipelineDepthStencilStateCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPipelineDepthStencilStateCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -343,7 +352,7 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
      * @param stack the stack from which to allocate
      */
     public static VkPipelineDepthStencilStateCreateInfo calloc(MemoryStack stack) {
-        return wrap(VkPipelineDepthStencilStateCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPipelineDepthStencilStateCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -353,7 +362,7 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
      * @param capacity the buffer capacity
      */
     public static VkPipelineDepthStencilStateCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -363,7 +372,7 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
      * @param capacity the buffer capacity
      */
     public static VkPipelineDepthStencilStateCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -428,9 +437,9 @@ public class VkPipelineDepthStencilStateCreateInfo extends Struct implements Nat
         /**
          * Creates a new {@code VkPipelineDepthStencilStateCreateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineDepthStencilStateCreateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPipelineDepthStencilStateCreateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

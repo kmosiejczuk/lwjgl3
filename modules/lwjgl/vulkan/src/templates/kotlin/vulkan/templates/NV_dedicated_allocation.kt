@@ -23,15 +23,15 @@ val NV_dedicated_allocation = "NVDedicatedAllocation".nativeClassVK("NV_dedicate
 ￿
 ￿    VkDedicatedAllocationImageCreateInfoNV dedicatedImageInfo =
 ￿    {
-￿        VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV,            // sType
-￿        NULL,                                                                   // pNext
-￿        VK_TRUE,                                                                // dedicatedAllocation
+￿        .sType = VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV,
+￿        .pNext = NULL,
+￿        .dedicatedAllocation = VK_TRUE,
 ￿    };
 ￿
 ￿    VkImageCreateInfo imageCreateInfo =
 ￿    {
-￿        VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO,    // sType
-￿        &amp;dedicatedImageInfo                     // pNext
+￿        .sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO,
+￿        .pNext = &amp;dedicatedImageInfo
 ￿        // Other members set as usual
 ￿    };
 ￿
@@ -39,7 +39,7 @@ val NV_dedicated_allocation = "NVDedicatedAllocation".nativeClassVK("NV_dedicate
 ￿    VkResult result = vkCreateImage(
 ￿        device,
 ￿        &amp;imageCreateInfo,
-￿        NULL,                       // pAllocator
+￿        NULL,               // pAllocator
 ￿        &amp;image);
 ￿
 ￿    VkMemoryRequirements memoryRequirements;
@@ -53,25 +53,25 @@ val NV_dedicated_allocation = "NVDedicatedAllocation".nativeClassVK("NV_dedicate
 ￿
 ￿    VkDedicatedAllocationMemoryAllocateInfoNV dedicatedInfo =
 ￿    {
-￿        VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV,             // sType
-￿        NULL,                                                                       // pNext
-￿        image,                                                                      // image
-￿        VK_NULL_HANDLE,                                                             // buffer
+￿        .sType = VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV,
+￿        .pNext = NULL,
+￿        .image = image,
+￿        .buffer = VK_NULL_HANDLE,
 ￿    };
 ￿
 ￿    VkMemoryAllocateInfo memoryAllocateInfo =
 ￿    {
-￿        VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO,                 // sType
-￿        &amp;dedicatedInfo,                                         // pNext
-￿        memoryRequirements.size,                                // allocationSize
-￿        FindMemoryTypeIndex(memoryRequirements.memoryTypeBits), // memoryTypeIndex
+￿        .sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO,
+￿        .pNext = &amp;dedicatedInfo,
+￿        .allocationSize = memoryRequirements.size,
+￿        .memoryTypeIndex = FindMemoryTypeIndex(memoryRequirements.memoryTypeBits),
 ￿    };
 ￿
 ￿    VkDeviceMemory memory;
 ￿    vkAllocateMemory(
 ￿        device,
 ￿        &amp;memoryAllocateInfo,
-￿        NULL,                       // pAllocator
+￿        NULL,               // pAllocator
 ￿        &amp;memory);
 ￿
 ￿    // Bind the image to the memory
@@ -101,14 +101,14 @@ val NV_dedicated_allocation = "NVDedicatedAllocation".nativeClassVK("NV_dedicate
                 <li>
                     <em>Deprecated</em> by {@link KHRDedicatedAllocation VK_KHR_dedicated_allocation} extension
                     <ul>
-                        <li>Which in turn was <em>promoted</em> to <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
+                        <li>Which in turn was <em>promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
                     </ul>
                 </li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jeff Bolz <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_dedicated_allocation]%20@jeffbolznv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_dedicated_allocation%20extension*">jeffbolznv</a></li>
+                <li>Jeff Bolz <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_dedicated_allocation]%20@jeffbolznv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_dedicated_allocation%20extension*">jeffbolznv</a></li>
             </ul></dd>
         </dl>
 

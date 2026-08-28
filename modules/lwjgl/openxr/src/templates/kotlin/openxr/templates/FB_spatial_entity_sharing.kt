@@ -15,7 +15,7 @@ val FB_spatial_entity_sharing = "FBSpatialEntitySharing".nativeClassXR("FB_spati
 
         This extension enables spatial entities to be shared between users. If the #SPACE_COMPONENT_TYPE_SHARABLE_FB component has been enabled on the spatial entity, application developers <b>may</b> share {@code XrSpace} entities between users.
 
-        In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo{@code ::enabledExtensionNames} parameter as indicated in the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#extensions">extensions</a> section.
+        In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#extensions">extensions</a> section.
         """
 
     IntConstant(
@@ -62,7 +62,7 @@ val FB_spatial_entity_sharing = "FBSpatialEntitySharing".nativeClassXR("FB_spati
 ￿    XrAsyncRequestIdFB*                         requestId);</code></pre>
 
         <h5>Description</h5>
-        This operation is asynchronous and the runtime <b>must</b> post an ##XrEventDataSpaceShareCompleteFB event when the operation completes successfully or encounters an error. The {@code requestId} <b>can</b> be used to later refer to the request, such as identifying which request has completed when an ##XrEventDataSpaceShareCompleteFB is posted to the event queue.
+        This operation is asynchronous and the runtime <b>must</b> post an ##XrEventDataSpaceShareCompleteFB event when the operation completes successfully or encounters an error. If this function returns a failure code, no event is posted. The {@code requestId} <b>can</b> be used to later refer to the request, such as identifying which request has completed when an ##XrEventDataSpaceShareCompleteFB is posted to the event queue.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

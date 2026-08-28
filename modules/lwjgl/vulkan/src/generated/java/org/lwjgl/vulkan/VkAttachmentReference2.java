@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>{@code aspectMask} is ignored when this structure is used to describe anything other than an input attachment reference.</p>
  * 
- * <p>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-separateDepthStencilLayouts">{@code separateDepthStencilLayouts}</a> feature is enabled, and {@code attachment} has a depth/stencil format, {@code layout} <b>can</b> be set to a layout that only specifies the layout of the depth aspect.</p>
+ * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-separateDepthStencilLayouts">{@code separateDepthStencilLayouts}</a> feature is enabled, and {@code attachment} has a depth/stencil format, {@code layout} <b>can</b> be set to a layout that only specifies the layout of the depth aspect.</p>
  * 
  * <p>If {@code layout} only specifies the layout of the depth aspect of the attachment, the layout of the stencil aspect is specified by the {@code stencilLayout} member of a {@link VkAttachmentReferenceStencilLayout} structure included in the {@code pNext} chain. Otherwise, {@code layout} describes the layout for all relevant image aspects.</p>
  * 
@@ -32,9 +32,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If {@code attachment} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code layout} <b>must</b> not be {@link VK10#VK_IMAGE_LAYOUT_UNDEFINED IMAGE_LAYOUT_UNDEFINED}, {@link VK10#VK_IMAGE_LAYOUT_PREINITIALIZED IMAGE_LAYOUT_PREINITIALIZED}, or {@link KHRSwapchain#VK_IMAGE_LAYOUT_PRESENT_SRC_KHR IMAGE_LAYOUT_PRESENT_SRC_KHR}</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-separateDepthStencilLayouts">{@code separateDepthStencilLayouts}</a> feature is not enabled, and {@code attachment} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code layout} <b>must</b> not be {@link VK12#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL}, or {@link VK12#VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL},</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-synchronization2">{@code synchronization2}</a> feature is not enabled, {@code layout} <b>must</b> not be {@link KHRSynchronization2#VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL_KHR IMAGE_LAYOUT_ATTACHMENT_OPTIMAL_KHR} or {@link KHRSynchronization2#VK_IMAGE_LAYOUT_READ_ONLY_OPTIMAL_KHR IMAGE_LAYOUT_READ_ONLY_OPTIMAL_KHR}</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFeedbackLoopLayout">{@code attachmentFeedbackLoopLayout}</a> feature is not enabled, {@code layout} <b>must</b> not be {@link EXTAttachmentFeedbackLoopLayout#VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-separateDepthStencilLayouts">{@code separateDepthStencilLayouts}</a> feature is not enabled, and {@code attachment} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code layout} <b>must</b> not be {@link VK12#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL}, or {@link VK12#VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL},</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-synchronization2">{@code synchronization2}</a> feature is not enabled, {@code layout} <b>must</b> not be {@link KHRSynchronization2#VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL_KHR IMAGE_LAYOUT_ATTACHMENT_OPTIMAL_KHR} or {@link KHRSynchronization2#VK_IMAGE_LAYOUT_READ_ONLY_OPTIMAL_KHR IMAGE_LAYOUT_READ_ONLY_OPTIMAL_KHR}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFeedbackLoopLayout">{@code attachmentFeedbackLoopLayout}</a> feature is not enabled, {@code layout} <b>must</b> not be {@link EXTAttachmentFeedbackLoopLayout#VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -61,7 +61,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkImageAspectFlags {@link #aspectMask};
  * }</code></pre>
  */
-public class VkAttachmentReference2 extends Struct implements NativeResource {
+public class VkAttachmentReference2 extends Struct<VkAttachmentReference2> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -96,6 +96,15 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
         ASPECTMASK = layout.offsetof(4);
     }
 
+    protected VkAttachmentReference2(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkAttachmentReference2 create(long address, @Nullable ByteBuffer container) {
+        return new VkAttachmentReference2(address, container);
+    }
+
     /**
      * Creates a {@code VkAttachmentReference2} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -109,7 +118,7 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -175,29 +184,29 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
 
     /** Returns a new {@code VkAttachmentReference2} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkAttachmentReference2 malloc() {
-        return wrap(VkAttachmentReference2.class, nmemAllocChecked(SIZEOF));
+        return new VkAttachmentReference2(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkAttachmentReference2} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkAttachmentReference2 calloc() {
-        return wrap(VkAttachmentReference2.class, nmemCallocChecked(1, SIZEOF));
+        return new VkAttachmentReference2(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkAttachmentReference2} instance allocated with {@link BufferUtils}. */
     public static VkAttachmentReference2 create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkAttachmentReference2.class, memAddress(container), container);
+        return new VkAttachmentReference2(memAddress(container), container);
     }
 
     /** Returns a new {@code VkAttachmentReference2} instance for the specified memory address. */
     public static VkAttachmentReference2 create(long address) {
-        return wrap(VkAttachmentReference2.class, address);
+        return new VkAttachmentReference2(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAttachmentReference2 createSafe(long address) {
-        return address == NULL ? null : wrap(VkAttachmentReference2.class, address);
+        return address == NULL ? null : new VkAttachmentReference2(address, null);
     }
 
     /**
@@ -206,7 +215,7 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkAttachmentReference2.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -215,7 +224,7 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkAttachmentReference2.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -225,7 +234,7 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
      */
     public static VkAttachmentReference2.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -235,13 +244,13 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkAttachmentReference2.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkAttachmentReference2.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -250,7 +259,7 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkAttachmentReference2 malloc(MemoryStack stack) {
-        return wrap(VkAttachmentReference2.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkAttachmentReference2(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -259,7 +268,7 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkAttachmentReference2 calloc(MemoryStack stack) {
-        return wrap(VkAttachmentReference2.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkAttachmentReference2(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -269,7 +278,7 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkAttachmentReference2.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -279,7 +288,7 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkAttachmentReference2.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -316,9 +325,9 @@ public class VkAttachmentReference2 extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkAttachmentReference2.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkAttachmentReference2#SIZEOF}, and its mark will be undefined.
+         * by {@link VkAttachmentReference2#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

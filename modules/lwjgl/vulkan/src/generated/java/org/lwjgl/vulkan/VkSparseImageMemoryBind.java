@@ -21,9 +21,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sparseResidencyAliased">{@code sparseResidencyAliased}</a> feature is not enabled, and if any other resources are bound to ranges of {@code memory}, the range of {@code memory} being bound <b>must</b> not overlap with those bound ranges</li>
- * <li>{@code memory} and {@code memoryOffset} <b>must</b> match the memory requirements of the calling command’s {@code image}, as described in section <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-association">Resource Memory Association</a></li>
- * <li>{@code subresource} <b>must</b> be a valid image subresource for {@code image} (see <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-views">Image Views</a>)</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sparseResidencyAliased">{@code sparseResidencyAliased}</a> feature is not enabled, and if any other resources are bound to ranges of {@code memory}, the range of {@code memory} being bound <b>must</b> not overlap with those bound ranges</li>
+ * <li>{@code memory} and {@code memoryOffset} <b>must</b> match the memory requirements of the calling command’s {@code image}, as described in section <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-association">Resource Memory Association</a></li>
+ * <li>{@code subresource} <b>must</b> be a valid image subresource for {@code image} (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-views">Image Views</a>)</li>
  * <li>{@code offset.x} <b>must</b> be a multiple of the sparse image block width ({@link VkSparseImageFormatProperties}{@code ::imageGranularity.width}) of the image</li>
  * <li>{@code extent.width} <b>must</b> either be a multiple of the sparse image block width of the image, or else <code>(extent.width + offset.x)</code> <b>must</b> equal the width of the image subresource</li>
  * <li>{@code offset.y} <b>must</b> be a multiple of the sparse image block height ({@link VkSparseImageFormatProperties}{@code ::imageGranularity.height}) of the image</li>
@@ -58,7 +58,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkSparseMemoryBindFlags {@link #flags};
  * }</code></pre>
  */
-public class VkSparseImageMemoryBind extends Struct implements NativeResource {
+public class VkSparseImageMemoryBind extends Struct<VkSparseImageMemoryBind> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -94,6 +94,15 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
         MEMORY = layout.offsetof(3);
         MEMORYOFFSET = layout.offsetof(4);
         FLAGS = layout.offsetof(5);
+    }
+
+    protected VkSparseImageMemoryBind(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkSparseImageMemoryBind create(long address, @Nullable ByteBuffer container) {
+        return new VkSparseImageMemoryBind(address, container);
     }
 
     /**
@@ -179,29 +188,29 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
 
     /** Returns a new {@code VkSparseImageMemoryBind} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSparseImageMemoryBind malloc() {
-        return wrap(VkSparseImageMemoryBind.class, nmemAllocChecked(SIZEOF));
+        return new VkSparseImageMemoryBind(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkSparseImageMemoryBind} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSparseImageMemoryBind calloc() {
-        return wrap(VkSparseImageMemoryBind.class, nmemCallocChecked(1, SIZEOF));
+        return new VkSparseImageMemoryBind(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkSparseImageMemoryBind} instance allocated with {@link BufferUtils}. */
     public static VkSparseImageMemoryBind create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkSparseImageMemoryBind.class, memAddress(container), container);
+        return new VkSparseImageMemoryBind(memAddress(container), container);
     }
 
     /** Returns a new {@code VkSparseImageMemoryBind} instance for the specified memory address. */
     public static VkSparseImageMemoryBind create(long address) {
-        return wrap(VkSparseImageMemoryBind.class, address);
+        return new VkSparseImageMemoryBind(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSparseImageMemoryBind createSafe(long address) {
-        return address == NULL ? null : wrap(VkSparseImageMemoryBind.class, address);
+        return address == NULL ? null : new VkSparseImageMemoryBind(address, null);
     }
 
     /**
@@ -210,7 +219,7 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkSparseImageMemoryBind.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -219,7 +228,7 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkSparseImageMemoryBind.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -229,7 +238,7 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
      */
     public static VkSparseImageMemoryBind.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -239,13 +248,13 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkSparseImageMemoryBind.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSparseImageMemoryBind.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -273,7 +282,7 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkSparseImageMemoryBind malloc(MemoryStack stack) {
-        return wrap(VkSparseImageMemoryBind.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkSparseImageMemoryBind(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -282,7 +291,7 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkSparseImageMemoryBind calloc(MemoryStack stack) {
-        return wrap(VkSparseImageMemoryBind.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkSparseImageMemoryBind(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -292,7 +301,7 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkSparseImageMemoryBind.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -302,7 +311,7 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkSparseImageMemoryBind.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -343,9 +352,9 @@ public class VkSparseImageMemoryBind extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkSparseImageMemoryBind.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSparseImageMemoryBind#SIZEOF}, and its mark will be undefined.
+         * by {@link VkSparseImageMemoryBind#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

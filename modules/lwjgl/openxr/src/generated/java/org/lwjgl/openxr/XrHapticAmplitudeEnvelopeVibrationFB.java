@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code type} is the {@code XrStructureType} of this structure.</li>
  * <li>{@code next} is {@code NULL} or a pointer to the next structure in a structure chain.</li>
- * <li>{@code duration} is the duration of the haptic effect in nanoseconds. See <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#duration">duration</a> for more details.</li>
+ * <li>{@code duration} is the duration of the haptic effect in nanoseconds. See <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#duration">duration</a> for more details.</li>
  * <li>{@code amplitudeCount} is the number of samples in the buffer.</li>
  * <li>{@code amplitudes} is the pointer to a float array that contains the samples.</li>
  * </ul>
@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBHapticAmplitudeEnvelope XR_FB_haptic_amplitude_envelope} extension <b>must</b> be enabled prior to using {@link XrHapticAmplitudeEnvelopeVibrationFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBHapticAmplitudeEnvelope#XR_TYPE_HAPTIC_AMPLITUDE_ENVELOPE_VIBRATION_FB TYPE_HAPTIC_AMPLITUDE_ENVELOPE_VIBRATION_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code amplitudes} <b>must</b> be a pointer to an array of {@code amplitudeCount} {@code float} values</li>
  * <li>The {@code amplitudeCount} parameter <b>must</b> be greater than 0</li>
  * </ul>
@@ -52,7 +52,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float const * amplitudes;
  * }</code></pre>
  */
-public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements NativeResource {
+public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct<XrHapticAmplitudeEnvelopeVibrationFB> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -85,6 +85,15 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
         DURATION = layout.offsetof(2);
         AMPLITUDECOUNT = layout.offsetof(3);
         AMPLITUDES = layout.offsetof(4);
+    }
+
+    protected XrHapticAmplitudeEnvelopeVibrationFB(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrHapticAmplitudeEnvelopeVibrationFB create(long address, @Nullable ByteBuffer container) {
+        return new XrHapticAmplitudeEnvelopeVibrationFB(address, container);
     }
 
     /**
@@ -158,34 +167,34 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
 
     /** Returns a new {@code XrHapticAmplitudeEnvelopeVibrationFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrHapticAmplitudeEnvelopeVibrationFB malloc() {
-        return wrap(XrHapticAmplitudeEnvelopeVibrationFB.class, nmemAllocChecked(SIZEOF));
+        return new XrHapticAmplitudeEnvelopeVibrationFB(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrHapticAmplitudeEnvelopeVibrationFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrHapticAmplitudeEnvelopeVibrationFB calloc() {
-        return wrap(XrHapticAmplitudeEnvelopeVibrationFB.class, nmemCallocChecked(1, SIZEOF));
+        return new XrHapticAmplitudeEnvelopeVibrationFB(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrHapticAmplitudeEnvelopeVibrationFB} instance allocated with {@link BufferUtils}. */
     public static XrHapticAmplitudeEnvelopeVibrationFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrHapticAmplitudeEnvelopeVibrationFB.class, memAddress(container), container);
+        return new XrHapticAmplitudeEnvelopeVibrationFB(memAddress(container), container);
     }
 
     /** Returns a new {@code XrHapticAmplitudeEnvelopeVibrationFB} instance for the specified memory address. */
     public static XrHapticAmplitudeEnvelopeVibrationFB create(long address) {
-        return wrap(XrHapticAmplitudeEnvelopeVibrationFB.class, address);
+        return new XrHapticAmplitudeEnvelopeVibrationFB(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHapticAmplitudeEnvelopeVibrationFB createSafe(long address) {
-        return address == NULL ? null : wrap(XrHapticAmplitudeEnvelopeVibrationFB.class, address);
+        return address == NULL ? null : new XrHapticAmplitudeEnvelopeVibrationFB(address, null);
     }
 
     /** Downcasts the specified {@code XrHapticBaseHeader} instance to {@code XrHapticAmplitudeEnvelopeVibrationFB}. */
     public static XrHapticAmplitudeEnvelopeVibrationFB create(XrHapticBaseHeader value) {
-        return wrap(XrHapticAmplitudeEnvelopeVibrationFB.class, value);
+        return new XrHapticAmplitudeEnvelopeVibrationFB(value.address(), __getContainer(value));
     }
 
     /**
@@ -194,7 +203,7 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static XrHapticAmplitudeEnvelopeVibrationFB.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -203,7 +212,7 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static XrHapticAmplitudeEnvelopeVibrationFB.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -213,7 +222,7 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
      */
     public static XrHapticAmplitudeEnvelopeVibrationFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -223,18 +232,18 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static XrHapticAmplitudeEnvelopeVibrationFB.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHapticAmplitudeEnvelopeVibrationFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /** Downcasts the specified {@code XrHapticBaseHeader.Buffer} instance to {@code XrHapticAmplitudeEnvelopeVibrationFB.Buffer}. */
     public static XrHapticAmplitudeEnvelopeVibrationFB.Buffer create(XrHapticBaseHeader.Buffer value) {
-        return wrap(Buffer.class, value);
+        return new XrHapticAmplitudeEnvelopeVibrationFB.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
     /**
@@ -243,7 +252,7 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
      * @param stack the stack from which to allocate
      */
     public static XrHapticAmplitudeEnvelopeVibrationFB malloc(MemoryStack stack) {
-        return wrap(XrHapticAmplitudeEnvelopeVibrationFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrHapticAmplitudeEnvelopeVibrationFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -252,7 +261,7 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
      * @param stack the stack from which to allocate
      */
     public static XrHapticAmplitudeEnvelopeVibrationFB calloc(MemoryStack stack) {
-        return wrap(XrHapticAmplitudeEnvelopeVibrationFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrHapticAmplitudeEnvelopeVibrationFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -262,7 +271,7 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static XrHapticAmplitudeEnvelopeVibrationFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -272,7 +281,7 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
      * @param capacity the buffer capacity
      */
     public static XrHapticAmplitudeEnvelopeVibrationFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -318,9 +327,9 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct implements Nati
         /**
          * Creates a new {@code XrHapticAmplitudeEnvelopeVibrationFB.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHapticAmplitudeEnvelopeVibrationFB#SIZEOF}, and its mark will be undefined.
+         * by {@link XrHapticAmplitudeEnvelopeVibrationFB#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

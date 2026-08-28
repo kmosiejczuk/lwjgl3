@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If the single texel alignment property is {@link VK10#VK_FALSE FALSE}, then the buffer view’s offset <b>must</b> be aligned to the corresponding byte alignment value. If the single texel alignment property is {@link VK10#VK_TRUE TRUE}, then the buffer view’s offset <b>must</b> be aligned to the lesser of the corresponding byte alignment value or the size of a single texel, based on {@link VkBufferViewCreateInfo}{@code ::format}. If the size of a single texel is a multiple of three bytes, then the size of a single component of the format is used instead.</p>
  * 
- * <p>These limits <b>must</b> not advertise a larger alignment than the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-required">required</a> maximum minimum value of {@link VkPhysicalDeviceLimits}{@code ::minTexelBufferOffsetAlignment}, for any format that supports use as a texel buffer.</p>
+ * <p>These limits <b>must</b> not advertise a larger alignment than the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-required">required</a> maximum minimum value of {@link VkPhysicalDeviceLimits}{@code ::minTexelBufferOffsetAlignment}, for any format that supports use as a texel buffer.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -44,7 +44,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #uniformTexelBufferOffsetSingleTexelAlignment};
  * }</code></pre>
  */
-public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct implements NativeResource {
+public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct<VkPhysicalDeviceTexelBufferAlignmentProperties> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -82,6 +82,15 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
         UNIFORMTEXELBUFFEROFFSETSINGLETEXELALIGNMENT = layout.offsetof(5);
     }
 
+    protected VkPhysicalDeviceTexelBufferAlignmentProperties(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDeviceTexelBufferAlignmentProperties create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDeviceTexelBufferAlignmentProperties(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDeviceTexelBufferAlignmentProperties} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -95,7 +104,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -148,29 +157,29 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
 
     /** Returns a new {@code VkPhysicalDeviceTexelBufferAlignmentProperties} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties malloc() {
-        return wrap(VkPhysicalDeviceTexelBufferAlignmentProperties.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDeviceTexelBufferAlignmentProperties(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceTexelBufferAlignmentProperties} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties calloc() {
-        return wrap(VkPhysicalDeviceTexelBufferAlignmentProperties.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDeviceTexelBufferAlignmentProperties(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceTexelBufferAlignmentProperties} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDeviceTexelBufferAlignmentProperties.class, memAddress(container), container);
+        return new VkPhysicalDeviceTexelBufferAlignmentProperties(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceTexelBufferAlignmentProperties} instance for the specified memory address. */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties create(long address) {
-        return wrap(VkPhysicalDeviceTexelBufferAlignmentProperties.class, address);
+        return new VkPhysicalDeviceTexelBufferAlignmentProperties(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceTexelBufferAlignmentProperties createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDeviceTexelBufferAlignmentProperties.class, address);
+        return address == NULL ? null : new VkPhysicalDeviceTexelBufferAlignmentProperties(address, null);
     }
 
     /**
@@ -179,7 +188,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -188,7 +197,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -198,7 +207,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
      */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -208,13 +217,13 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceTexelBufferAlignmentProperties.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -223,7 +232,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceTexelBufferAlignmentProperties.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDeviceTexelBufferAlignmentProperties(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -232,7 +241,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceTexelBufferAlignmentProperties.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDeviceTexelBufferAlignmentProperties(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -242,7 +251,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -252,7 +261,7 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceTexelBufferAlignmentProperties.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -285,9 +294,9 @@ public class VkPhysicalDeviceTexelBufferAlignmentProperties extends Struct imple
         /**
          * Creates a new {@code VkPhysicalDeviceTexelBufferAlignmentProperties.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceTexelBufferAlignmentProperties#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDeviceTexelBufferAlignmentProperties#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

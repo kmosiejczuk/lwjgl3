@@ -22,15 +22,17 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>If {@code format} is a depth/stencil format, the aspect is determined by the value of {@link VkSamplerCreateInfo}{@code ::pname}:borderColor. If {@link VkSamplerCreateInfo}{@code ::pname}:borderColor is {@link EXTCustomBorderColor#VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT}, the depth aspect is considered. If {@link VkSamplerCreateInfo}{@code ::pname}:borderColor is {@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT}, the stencil aspect is considered.</p>
+ * <p>If {@code format} is a depth/stencil format, the aspect is determined by the value of {@link VkSamplerCreateInfo}{@code ::borderColor}. If {@link VkSamplerCreateInfo}{@code ::borderColor} is {@link EXTCustomBorderColor#VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT}, the depth aspect is considered. If {@link VkSamplerCreateInfo}{@code ::borderColor} is {@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT}, the stencil aspect is considered.</p>
+ * 
+ * <p>If {@code format} is {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, the {@link VkSamplerCreateInfo}{@code ::borderColor} is {@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT}, and the sampler is used with an image with a stencil format, then the implementation <b>must</b> source the custom border color from either the first or second components of {@link VkSamplerCreateInfo}{@code ::customBorderColor} and <b>should</b> source it from the first component.</p>
  * </div>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code format} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} and {@code format} is not a depth/stencil format then the {@link VkSamplerCreateInfo}{@code ::borderColor} type <b>must</b> match the sampled type of the provided {@code format}, as shown in the <em>SPIR-V Sampled Type</em> column of the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-numericformat">Interpretation of Numeric Format</a> table</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-customBorderColorWithoutFormat">{@code customBorderColorWithoutFormat}</a> feature is not enabled then {@code format} <b>must</b> not be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}</li>
- * <li>If the sampler is used to sample an image view of {@link VK10#VK_FORMAT_B4G4R4A4_UNORM_PACK16 FORMAT_B4G4R4A4_UNORM_PACK16}, {@link VK10#VK_FORMAT_B5G6R5_UNORM_PACK16 FORMAT_B5G6R5_UNORM_PACK16}, or {@link VK10#VK_FORMAT_B5G5R5A1_UNORM_PACK16 FORMAT_B5G5R5A1_UNORM_PACK16} format then {@code format} <b>must</b> not be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}</li>
+ * <li>If {@code format} is not {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} and {@code format} is not a depth/stencil format then the {@link VkSamplerCreateInfo}{@code ::borderColor} type <b>must</b> match the sampled type of the provided {@code format}, as shown in the <em>SPIR-V Type</em> column of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-numericformat">Interpretation of Numeric Format</a> table</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-customBorderColorWithoutFormat">{@code customBorderColorWithoutFormat}</a> feature is not enabled then {@code format} <b>must</b> not be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}</li>
+ * <li>If the sampler is used to sample an image view of {@link VK10#VK_FORMAT_B4G4R4A4_UNORM_PACK16 FORMAT_B4G4R4A4_UNORM_PACK16}, {@link VK10#VK_FORMAT_B5G6R5_UNORM_PACK16 FORMAT_B5G6R5_UNORM_PACK16}, {@link KHRMaintenance5#VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR FORMAT_A1B5G5R5_UNORM_PACK16_KHR}, or {@link VK10#VK_FORMAT_B5G5R5A1_UNORM_PACK16 FORMAT_B5G5R5A1_UNORM_PACK16} format then {@code format} <b>must</b> not be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -54,7 +56,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkFormat {@link #format};
  * }</code></pre>
  */
-public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements NativeResource {
+public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct<VkSamplerCustomBorderColorCreateInfoEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -86,6 +88,15 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
         FORMAT = layout.offsetof(3);
     }
 
+    protected VkSamplerCustomBorderColorCreateInfoEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkSamplerCustomBorderColorCreateInfoEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkSamplerCustomBorderColorCreateInfoEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkSamplerCustomBorderColorCreateInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -99,7 +110,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -107,7 +118,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
     public long pNext() { return npNext(address()); }
     /** a {@link VkClearColorValue} representing the desired custom sampler border color. */
     public VkClearColorValue customBorderColor() { return ncustomBorderColor(address()); }
-    /** a {@code VkFormat} representing the format of the sampled image view(s). This field may be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} if the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-customBorderColorWithoutFormat">{@code customBorderColorWithoutFormat}</a> feature is enabled. */
+    /** a {@code VkFormat} representing the format of the sampled image view(s). This field may be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-customBorderColorWithoutFormat">{@code customBorderColorWithoutFormat}</a> feature is enabled. */
     @NativeType("VkFormat")
     public int format() { return nformat(address()); }
 
@@ -155,29 +166,29 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
 
     /** Returns a new {@code VkSamplerCustomBorderColorCreateInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSamplerCustomBorderColorCreateInfoEXT malloc() {
-        return wrap(VkSamplerCustomBorderColorCreateInfoEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkSamplerCustomBorderColorCreateInfoEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkSamplerCustomBorderColorCreateInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSamplerCustomBorderColorCreateInfoEXT calloc() {
-        return wrap(VkSamplerCustomBorderColorCreateInfoEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkSamplerCustomBorderColorCreateInfoEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkSamplerCustomBorderColorCreateInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkSamplerCustomBorderColorCreateInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkSamplerCustomBorderColorCreateInfoEXT.class, memAddress(container), container);
+        return new VkSamplerCustomBorderColorCreateInfoEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkSamplerCustomBorderColorCreateInfoEXT} instance for the specified memory address. */
     public static VkSamplerCustomBorderColorCreateInfoEXT create(long address) {
-        return wrap(VkSamplerCustomBorderColorCreateInfoEXT.class, address);
+        return new VkSamplerCustomBorderColorCreateInfoEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSamplerCustomBorderColorCreateInfoEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkSamplerCustomBorderColorCreateInfoEXT.class, address);
+        return address == NULL ? null : new VkSamplerCustomBorderColorCreateInfoEXT(address, null);
     }
 
     /**
@@ -186,7 +197,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
      * @param capacity the buffer capacity
      */
     public static VkSamplerCustomBorderColorCreateInfoEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +206,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
      * @param capacity the buffer capacity
      */
     public static VkSamplerCustomBorderColorCreateInfoEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +216,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
      */
     public static VkSamplerCustomBorderColorCreateInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -215,13 +226,13 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
      * @param capacity the buffer capacity
      */
     public static VkSamplerCustomBorderColorCreateInfoEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSamplerCustomBorderColorCreateInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -230,7 +241,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
      * @param stack the stack from which to allocate
      */
     public static VkSamplerCustomBorderColorCreateInfoEXT malloc(MemoryStack stack) {
-        return wrap(VkSamplerCustomBorderColorCreateInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkSamplerCustomBorderColorCreateInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -239,7 +250,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
      * @param stack the stack from which to allocate
      */
     public static VkSamplerCustomBorderColorCreateInfoEXT calloc(MemoryStack stack) {
-        return wrap(VkSamplerCustomBorderColorCreateInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkSamplerCustomBorderColorCreateInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -249,7 +260,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
      * @param capacity the buffer capacity
      */
     public static VkSamplerCustomBorderColorCreateInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +270,7 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
      * @param capacity the buffer capacity
      */
     public static VkSamplerCustomBorderColorCreateInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -292,9 +303,9 @@ public class VkSamplerCustomBorderColorCreateInfoEXT extends Struct implements N
         /**
          * Creates a new {@code VkSamplerCustomBorderColorCreateInfoEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSamplerCustomBorderColorCreateInfoEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkSamplerCustomBorderColorCreateInfoEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

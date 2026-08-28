@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>Each element of {@code pAttachments} <b>must</b> only specify a single mip level</li>
  * <li>Each element of {@code pAttachments} <b>must</b> have been created with the identity swizzle</li>
  * <li>Each element of {@code pAttachments} <b>must</b> have been created with {@link VkImageViewCreateInfo}{@code ::viewType} not equal to {@link VK10#VK_IMAGE_VIEW_TYPE_3D IMAGE_VIEW_TYPE_3D}</li>
- * <li>If <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#subpass-multisampledrendertosinglesampled">multisampled-render-to-single-sampled</a> is enabled for any subpass, all element of {@code pAttachments} which have a sample count equal to {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT} <b>must</b> have a format that supports the sample count specified in {@link VkMultisampledRenderToSingleSampledInfoEXT}{@code ::rasterizationSamples}</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#subpass-multisampledrendertosinglesampled">multisampled-render-to-single-sampled</a> is enabled for any subpass, all element of {@code pAttachments} which have a sample count equal to {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT} <b>must</b> have a format that supports the sample count specified in {@link VkMultisampledRenderToSingleSampledInfoEXT}{@code ::rasterizationSamples}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -45,7 +45,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkImageView const * {@link #pAttachments};
  * }</code></pre>
  */
-public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeResource {
+public class VkRenderPassAttachmentBeginInfo extends Struct<VkRenderPassAttachmentBeginInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -77,6 +77,15 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
         PATTACHMENTS = layout.offsetof(3);
     }
 
+    protected VkRenderPassAttachmentBeginInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkRenderPassAttachmentBeginInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkRenderPassAttachmentBeginInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkRenderPassAttachmentBeginInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -90,7 +99,7 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -142,29 +151,29 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
 
     /** Returns a new {@code VkRenderPassAttachmentBeginInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkRenderPassAttachmentBeginInfo malloc() {
-        return wrap(VkRenderPassAttachmentBeginInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkRenderPassAttachmentBeginInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkRenderPassAttachmentBeginInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkRenderPassAttachmentBeginInfo calloc() {
-        return wrap(VkRenderPassAttachmentBeginInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkRenderPassAttachmentBeginInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkRenderPassAttachmentBeginInfo} instance allocated with {@link BufferUtils}. */
     public static VkRenderPassAttachmentBeginInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkRenderPassAttachmentBeginInfo.class, memAddress(container), container);
+        return new VkRenderPassAttachmentBeginInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkRenderPassAttachmentBeginInfo} instance for the specified memory address. */
     public static VkRenderPassAttachmentBeginInfo create(long address) {
-        return wrap(VkRenderPassAttachmentBeginInfo.class, address);
+        return new VkRenderPassAttachmentBeginInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderPassAttachmentBeginInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkRenderPassAttachmentBeginInfo.class, address);
+        return address == NULL ? null : new VkRenderPassAttachmentBeginInfo(address, null);
     }
 
     /**
@@ -173,7 +182,7 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkRenderPassAttachmentBeginInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -182,7 +191,7 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkRenderPassAttachmentBeginInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -192,7 +201,7 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
      */
     public static VkRenderPassAttachmentBeginInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -202,13 +211,13 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkRenderPassAttachmentBeginInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderPassAttachmentBeginInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -217,7 +226,7 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static VkRenderPassAttachmentBeginInfo malloc(MemoryStack stack) {
-        return wrap(VkRenderPassAttachmentBeginInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkRenderPassAttachmentBeginInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -226,7 +235,7 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static VkRenderPassAttachmentBeginInfo calloc(MemoryStack stack) {
-        return wrap(VkRenderPassAttachmentBeginInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkRenderPassAttachmentBeginInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -236,7 +245,7 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkRenderPassAttachmentBeginInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -246,7 +255,7 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkRenderPassAttachmentBeginInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -290,9 +299,9 @@ public class VkRenderPassAttachmentBeginInfo extends Struct implements NativeRes
         /**
          * Creates a new {@code VkRenderPassAttachmentBeginInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkRenderPassAttachmentBeginInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkRenderPassAttachmentBeginInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

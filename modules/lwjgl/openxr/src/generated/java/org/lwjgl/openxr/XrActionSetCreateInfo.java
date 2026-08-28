@@ -25,17 +25,17 @@ import static org.lwjgl.openxr.XR10.*;
  * 
  * <p>When multiple actions are bound to the same input source, the {@code priority} of each action set determines which bindings are suppressed. Runtimes <b>must</b> ignore input sources from action sets with a lower priority number if those specific input sources are also present in active actions within a higher priority action set. If multiple action sets with the same priority are bound to the same input source and that is the highest priority number, runtimes <b>must</b> process all those bindings at the same time.</p>
  * 
- * <p>Two actions are considered to be bound to the same input source if they use the same <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#semantic-path-input">identifier and optional location</a> path segments, even if they have different component segments.</p>
+ * <p>Two actions are considered to be bound to the same input source if they use the same <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#semantic-path-input">identifier and optional location</a> path segments, even if they have different component segments.</p>
  * 
  * <p>When runtimes are ignoring bindings because of priority, they <b>must</b> treat the binding to that input source as though they do not exist. That means the {@code isActive} field <b>must</b> be {@link XR10#XR_FALSE FALSE} when retrieving action data, and that the runtime <b>must</b> not provide any visual, haptic, or other feedback related to the binding of that action to that input source. Other actions in the same action set which are bound to input sources that do not collide are not affected and are processed as normal.</p>
  * 
- * <p>If {@code actionSetName} or {@code localizedActionSetName} are empty strings, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_INVALID ERROR_NAME_INVALID} or {@link XR10#XR_ERROR_LOCALIZED_NAME_INVALID ERROR_LOCALIZED_NAME_INVALID} respectively. If {@code actionSetName} or {@code localizedActionSetName} are duplicates of the corresponding field for any existing action set in the specified instance, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_DUPLICATED ERROR_NAME_DUPLICATED} or {@link XR10#XR_ERROR_LOCALIZED_NAME_DUPLICATED ERROR_LOCALIZED_NAME_DUPLICATED} respectively. If the conflicting action set is destroyed, the conflicting field is no longer considered duplicated. If {@code actionSetName} contains characters which are not allowed in a single level of a <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#well-formed-path-strings">well-formed path string</a>, the runtime <b>must</b> return {@link XR10#XR_ERROR_PATH_FORMAT_INVALID ERROR_PATH_FORMAT_INVALID}.</p>
+ * <p>If {@code actionSetName} or {@code localizedActionSetName} are empty strings, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_INVALID ERROR_NAME_INVALID} or {@link XR10#XR_ERROR_LOCALIZED_NAME_INVALID ERROR_LOCALIZED_NAME_INVALID} respectively. If {@code actionSetName} or {@code localizedActionSetName} are duplicates of the corresponding field for any existing action set in the specified instance, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_DUPLICATED ERROR_NAME_DUPLICATED} or {@link XR10#XR_ERROR_LOCALIZED_NAME_DUPLICATED ERROR_LOCALIZED_NAME_DUPLICATED} respectively. If the conflicting action set is destroyed, the conflicting field is no longer considered duplicated. If {@code actionSetName} contains characters which are not allowed in a single level of a <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#well-formed-path-strings">well-formed path string</a>, the runtime <b>must</b> return {@link XR10#XR_ERROR_PATH_FORMAT_INVALID ERROR_PATH_FORMAT_INVALID}.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_ACTION_SET_CREATE_INFO TYPE_ACTION_SET_CREATE_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code actionSetName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link XR10#XR_MAX_ACTION_SET_NAME_SIZE MAX_ACTION_SET_NAME_SIZE}</li>
  * <li>{@code localizedActionSetName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link XR10#XR_MAX_LOCALIZED_ACTION_SET_NAME_SIZE MAX_LOCALIZED_ACTION_SET_NAME_SIZE}</li>
  * </ul>
@@ -55,7 +55,7 @@ import static org.lwjgl.openxr.XR10.*;
  *     uint32_t {@link #priority};
  * }</code></pre>
  */
-public class XrActionSetCreateInfo extends Struct implements NativeResource {
+public class XrActionSetCreateInfo extends Struct<XrActionSetCreateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -88,6 +88,15 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
         ACTIONSETNAME = layout.offsetof(2);
         LOCALIZEDACTIONSETNAME = layout.offsetof(3);
         PRIORITY = layout.offsetof(4);
+    }
+
+    protected XrActionSetCreateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrActionSetCreateInfo create(long address, @Nullable ByteBuffer container) {
+        return new XrActionSetCreateInfo(address, container);
     }
 
     /**
@@ -171,29 +180,29 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code XrActionSetCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrActionSetCreateInfo malloc() {
-        return wrap(XrActionSetCreateInfo.class, nmemAllocChecked(SIZEOF));
+        return new XrActionSetCreateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrActionSetCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrActionSetCreateInfo calloc() {
-        return wrap(XrActionSetCreateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new XrActionSetCreateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrActionSetCreateInfo} instance allocated with {@link BufferUtils}. */
     public static XrActionSetCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrActionSetCreateInfo.class, memAddress(container), container);
+        return new XrActionSetCreateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code XrActionSetCreateInfo} instance for the specified memory address. */
     public static XrActionSetCreateInfo create(long address) {
-        return wrap(XrActionSetCreateInfo.class, address);
+        return new XrActionSetCreateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrActionSetCreateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(XrActionSetCreateInfo.class, address);
+        return address == NULL ? null : new XrActionSetCreateInfo(address, null);
     }
 
     /**
@@ -202,7 +211,7 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrActionSetCreateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -211,7 +220,7 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrActionSetCreateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -221,7 +230,7 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
      */
     public static XrActionSetCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -231,13 +240,13 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrActionSetCreateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrActionSetCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -246,7 +255,7 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrActionSetCreateInfo malloc(MemoryStack stack) {
-        return wrap(XrActionSetCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrActionSetCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -255,7 +264,7 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrActionSetCreateInfo calloc(MemoryStack stack) {
-        return wrap(XrActionSetCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrActionSetCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -265,7 +274,7 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrActionSetCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -275,7 +284,7 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrActionSetCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -328,9 +337,9 @@ public class XrActionSetCreateInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrActionSetCreateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrActionSetCreateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link XrActionSetCreateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

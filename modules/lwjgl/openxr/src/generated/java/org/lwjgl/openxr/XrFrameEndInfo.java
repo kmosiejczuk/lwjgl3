@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_FRAME_END_INFO TYPE_FRAME_END_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrFrameEndInfoML}, {@link XrGlobalDimmerFrameEndInfoML}, {@link XrLocalDimmingFrameEndInfoMETA}, {@link XrSecondaryViewConfigurationFrameEndInfoMSFT}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrFrameEndInfoML}, {@link XrGlobalDimmerFrameEndInfoML}, {@link XrLocalDimmingFrameEndInfoMETA}, {@link XrSecondaryViewConfigurationFrameEndInfoMSFT}</li>
  * <li>{@code environmentBlendMode} <b>must</b> be a valid {@code XrEnvironmentBlendMode} value</li>
  * <li>If {@code layerCount} is not 0, {@code layers} <b>must</b> be a pointer to an array of {@code layerCount} valid {@link XrCompositionLayerBaseHeader}-based structures. See also: {@link XrCompositionLayerCubeKHR}, {@link XrCompositionLayerCylinderKHR}, {@link XrCompositionLayerEquirect2KHR}, {@link XrCompositionLayerEquirectKHR}, {@link XrCompositionLayerPassthroughHTC}, {@link XrCompositionLayerProjection}, {@link XrCompositionLayerQuad}</li>
  * </ul>
@@ -43,7 +43,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrCompositionLayerBaseHeader XrCompositionLayerBaseHeader} const * const * {@link #layers};
  * }</code></pre>
  */
-public class XrFrameEndInfo extends Struct implements NativeResource {
+public class XrFrameEndInfo extends Struct<XrFrameEndInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -81,6 +81,15 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
         LAYERS = layout.offsetof(5);
     }
 
+    protected XrFrameEndInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrFrameEndInfo create(long address, @Nullable ByteBuffer container) {
+        return new XrFrameEndInfo(address, container);
+    }
+
     /**
      * Creates a {@code XrFrameEndInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -103,7 +112,7 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
     /** the {@code XrTime} at which this frame <b>should</b> be displayed. */
     @NativeType("XrTime")
     public long displayTime() { return ndisplayTime(address()); }
-    /** the {@code XrEnvironmentBlendMode} value representing the desired <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#environment_blend_mode">environment blend mode</a> for this frame. */
+    /** the {@code XrEnvironmentBlendMode} value representing the desired <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#environment_blend_mode">environment blend mode</a> for this frame. */
     @NativeType("XrEnvironmentBlendMode")
     public int environmentBlendMode() { return nenvironmentBlendMode(address()); }
     /** the number of composition layers in this frame. The maximum supported layer count is identified by {@link XrSystemGraphicsProperties}::maxLayerCount. If layerCount is greater than the maximum supported layer count then {@link XR10#XR_ERROR_LAYER_LIMIT_EXCEEDED ERROR_LAYER_LIMIT_EXCEEDED} <b>must</b> be returned. */
@@ -172,29 +181,29 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code XrFrameEndInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrFrameEndInfo malloc() {
-        return wrap(XrFrameEndInfo.class, nmemAllocChecked(SIZEOF));
+        return new XrFrameEndInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrFrameEndInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrFrameEndInfo calloc() {
-        return wrap(XrFrameEndInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new XrFrameEndInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrFrameEndInfo} instance allocated with {@link BufferUtils}. */
     public static XrFrameEndInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrFrameEndInfo.class, memAddress(container), container);
+        return new XrFrameEndInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code XrFrameEndInfo} instance for the specified memory address. */
     public static XrFrameEndInfo create(long address) {
-        return wrap(XrFrameEndInfo.class, address);
+        return new XrFrameEndInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrFrameEndInfo createSafe(long address) {
-        return address == NULL ? null : wrap(XrFrameEndInfo.class, address);
+        return address == NULL ? null : new XrFrameEndInfo(address, null);
     }
 
     /**
@@ -203,7 +212,7 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFrameEndInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -212,7 +221,7 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFrameEndInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -222,7 +231,7 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
      */
     public static XrFrameEndInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -232,13 +241,13 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFrameEndInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrFrameEndInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -247,7 +256,7 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrFrameEndInfo malloc(MemoryStack stack) {
-        return wrap(XrFrameEndInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrFrameEndInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -256,7 +265,7 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrFrameEndInfo calloc(MemoryStack stack) {
-        return wrap(XrFrameEndInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrFrameEndInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -266,7 +275,7 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFrameEndInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -276,7 +285,7 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFrameEndInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -317,9 +326,9 @@ public class XrFrameEndInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrFrameEndInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrFrameEndInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link XrFrameEndInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -11,6 +11,9 @@ import core.linux.liburing.*
 val LibURing = "LibURing".nativeClass(Module.CORE_LINUX_LIBURING, nativeSubPath = "linux", prefixConstant = "", prefixMethod = "io_uring_") {
     nativeDirective(
         """DISABLE_WARNINGS()
+#ifdef LWJGL_LINUX
+    _Pragma("GCC diagnostic ignored \"-Wsign-compare\"")
+#endif
 #include "liburing.h"
 ENABLE_WARNINGS()""")
     javaImport("org.lwjgl.system.linux.*")
@@ -1301,6 +1304,28 @@ struct io_uring_buf {
     )
 
     void(
+        "prep_send_set_addr",
+        "",
+
+        io_uring_sqe.p("sqe", ""),
+        sockaddr.const.p("dest_addr", ""),
+        __u16("addr_len", "")
+    )
+
+    void(
+        "prep_sendto",
+        "",
+
+        io_uring_sqe.p("sqe", ""),
+        int("sockfd", ""),
+        void.const.p("buf", ""),
+        AutoSize("buf")..size_t("len", ""),
+        int("flags", ""),
+        sockaddr.const.p("addr", ""),
+        socklen_t("addrlen", "")
+    )
+
+    void(
         "prep_send_zc",
         "",
 
@@ -1333,15 +1358,6 @@ struct io_uring_buf {
         int("fd", ""),
         msghdr.const.p("msg", ""),
         unsigned("flags", "")
-    )
-
-    void(
-        "prep_send_set_addr",
-        "",
-
-        io_uring_sqe.p("sqe", ""),
-        sockaddr.const.p("dest_addr", ""),
-        __u16("addr_len", "")
     )
 
     void(

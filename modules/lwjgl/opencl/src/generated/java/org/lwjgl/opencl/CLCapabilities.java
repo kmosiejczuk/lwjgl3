@@ -158,6 +158,7 @@ public class CLCapabilities {
         clReleaseDeviceEXT,
         clRetainDeviceEXT,
         clCreateSubDevicesEXT,
+        clGetImageRequirementsInfoEXT,
         clEnqueueMigrateMemObjectEXT,
         clEnqueueGenerateMipmapIMG,
         clCreateAcceleratorINTEL,
@@ -247,7 +248,7 @@ public class CLCapabilities {
     /** When true, {@link AMDBusAddressableMemory} is supported. */
     public final boolean cl_amd_bus_addressable_memory;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_compile_options.txt">amd_compile_options</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_compile_options.txt">amd_compile_options</a> extension is supported.
      * 
      * <p>This extension adds the following options, which are not part of the OpenCL specification:</p>
      * 
@@ -281,14 +282,14 @@ public class CLCapabilities {
     /** When true, {@link AMDDeviceTopology} is supported. */
     public final boolean cl_amd_device_topology;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_event_callback.txt">amd_event_callback</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_event_callback.txt">amd_event_callback</a> extension is supported.
      * 
      * <p>This extension provides the ability to register event callbacks for states other than {@link CL10#CL_COMPLETE COMPLETE}. The full set of event states are allowed:
      * {@link CL10#CL_QUEUED QUEUED}, {@link CL10#CL_SUBMITTED SUBMITTED}, and {@link CL10#CL_RUNNING RUNNING}.</p>
      */
     public final boolean cl_amd_event_callback;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_fp64.txt">amd_fp64</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_fp64.txt">amd_fp64</a> extension is supported.
      * 
      * <p>This extension provides a subset of the functionality of that provided by the cl_khr_fp64 extension. When enabled, the compiler recognizes the double
      * scalar and vector types, compiles expressions involving those types, and accepts calls to all builtin functions enabled by the cl_khr_fp64 extension.
@@ -297,7 +298,7 @@ public class CLCapabilities {
      */
     public final boolean cl_amd_fp64;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_media_ops.txt">amd_media_ops</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_media_ops.txt">amd_media_ops</a> extension is supported.
      * 
      * <p>The directive when enabled adds the following built-in functions to the OpenCL language.</p>
      * 
@@ -401,7 +402,7 @@ public class CLCapabilities {
      */
     public final boolean cl_amd_media_ops;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_media_ops2.txt">amd_media_ops2</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_media_ops2.txt">amd_media_ops2</a> extension is supported.
      * 
      * <p>The directive when enabled adds the following built-in functions to the OpenCL language.</p>
      * 
@@ -521,14 +522,14 @@ public class CLCapabilities {
     /** When true, {@link AMDOfflineDevices} is supported. */
     public final boolean cl_amd_offline_devices;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_popcnt.txt">amd_popcnt</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_popcnt.txt">amd_popcnt</a> extension is supported.
      * 
      * <p>This extension introduces a “population count” function called popcnt. This extension was taken into core OpenCL 1.2, and the function was renamed
      * popcount. The core 1.2 popcount function is identical to the AMD extension popcnt function.</p>
      */
     public final boolean cl_amd_popcnt;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_predefined_macros.txt">amd_predefined_macros</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_predefined_macros.txt">amd_predefined_macros</a> extension is supported.
      * 
      * <p>The following macros are predefined when compiling OpenCL™ C kernels. These macros are defined automatically based on the device for which the code is
      * being compiled.</p>
@@ -585,7 +586,7 @@ public class CLCapabilities {
      */
     public final boolean cl_amd_predefined_macros;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_printf.txt">amd_printf</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_printf.txt">amd_printf</a> extension is supported.
      * 
      * <p>This extension adds the built-in function {@code printf(__constant char * restrict format, …);}</p>
      * 
@@ -618,7 +619,7 @@ public class CLCapabilities {
      */
     public final boolean cl_amd_printf;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_vec3.txt">amd_vec3</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/amd/cl_amd_vec3.txt">amd_vec3</a> extension is supported.
      * 
      * <p>This extension adds support for vectors with three elements: float3, short3, char3, etc. This data type was added to OpenCL 1.1 as a core feature.</p>
      */
@@ -645,18 +646,18 @@ public class CLCapabilities {
     public final boolean cl_arm_core_id;
     /** When true, {@link ARMImportMemory} is supported. */
     public final boolean cl_arm_import_memory;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_integer_dot_product.txt">cl_arm_integer_dot_product_accumulate_int16</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_integer_dot_product.txt">cl_arm_integer_dot_product_accumulate_int16</a> extension is supported. */
     public final boolean cl_arm_integer_dot_product_accumulate_int16;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_integer_dot_product.txt">cl_arm_integer_dot_product_accumulate_int8</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_integer_dot_product.txt">cl_arm_integer_dot_product_accumulate_int8</a> extension is supported. */
     public final boolean cl_arm_integer_dot_product_accumulate_int8;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_integer_dot_product.txt">cl_arm_integer_dot_product_accumulate_saturate_int8</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_integer_dot_product.txt">cl_arm_integer_dot_product_accumulate_saturate_int8</a> extension is supported. */
     public final boolean cl_arm_integer_dot_product_accumulate_saturate_int8;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_integer_dot_product.txt">cl_arm_integer_dot_product_int8</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_integer_dot_product.txt">cl_arm_integer_dot_product_int8</a> extension is supported. */
     public final boolean cl_arm_integer_dot_product_int8;
     /** When true, {@link ARMJobSlotSelection} is supported. */
     public final boolean cl_arm_job_slot_selection;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_non_uniform_work_group_size.txt">arm_non_uniform_work_group_size</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_non_uniform_work_group_size.txt">arm_non_uniform_work_group_size</a> extension is supported.
      * 
      * <p>This extension provides a way to enqueue kernels with local work-group sizes that are not integer factors of the global work-group size in OpenCL C 1.x
      * languages.</p>
@@ -681,19 +682,19 @@ public class CLCapabilities {
     /** When true, {@link ARMSchedulingControls} is supported. */
     public final boolean cl_arm_scheduling_controls;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_thread_limit_hint.txt">arm_thread_limit_hint</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/arm/cl_arm_thread_limit_hint.txt">arm_thread_limit_hint</a> extension is supported.
      * 
      * <p>This extension enables an application to provide a hint for the maximum number of threads allowed to run concurrently on a compute unit. This results
      * in a limit in the threads used by a kernel instance on devices that support it, lowering pressure on caches.</p>
      */
     public final boolean cl_arm_thread_limit_hint;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/cl/cl_cl_arm_import_memory_android_hardware_buffer.txt">cl_arm_import_memory_android_hardware_buffer</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/cl/cl_cl_arm_import_memory_android_hardware_buffer.txt">cl_arm_import_memory_android_hardware_buffer</a> extension is supported. */
     public final boolean cl_cl_arm_import_memory_android_hardware_buffer;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/cl/cl_cl_arm_import_memory_dma_buf.txt">cl_arm_import_memory_dma_buf</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/cl/cl_cl_arm_import_memory_dma_buf.txt">cl_arm_import_memory_dma_buf</a> extension is supported. */
     public final boolean cl_cl_arm_import_memory_dma_buf;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/cl/cl_cl_arm_import_memory_host.txt">cl_arm_import_memory_host</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/cl/cl_cl_arm_import_memory_host.txt">cl_arm_import_memory_host</a> extension is supported. */
     public final boolean cl_cl_arm_import_memory_host;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/cl/cl_cl_arm_import_memory_protected.txt">cl_arm_import_memory_protected</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/cl/cl_cl_arm_import_memory_protected.txt">cl_arm_import_memory_protected</a> extension is supported. */
     public final boolean cl_cl_arm_import_memory_protected;
     /** When true, {@link EXTAtomicCounters32} is supported. */
     public final boolean cl_ext_atomic_counters_32;
@@ -705,6 +706,10 @@ public class CLCapabilities {
     public final boolean cl_ext_device_fission;
     /** When true, {@link EXTFloatAtomics} is supported. */
     public final boolean cl_ext_float_atomics;
+    /** When true, {@link EXTImageFromBuffer} is supported. */
+    public final boolean cl_ext_image_from_buffer;
+    /** When true, {@link EXTImageRequirementsInfo} is supported. */
+    public final boolean cl_ext_image_requirements_info;
     /** When true, {@link EXTMigrateMemobject} is supported. */
     public final boolean cl_ext_migrate_memobject;
     /** When true, {@link IMGCachedAllocations} is supported. */
@@ -719,6 +724,14 @@ public class CLCapabilities {
     public final boolean cl_intel_accelerator;
     /** When true, {@link INTELAdvancedMotionEstimation} is supported. */
     public final boolean cl_intel_advanced_motion_estimation;
+    /**
+     * This extension adds built-in functions to convert between single-precision 32-bit floating-point values and 16-bit bfloat16 values. The 16-bit bfloat16
+     * format has similar dynamic range as the 32-bit float format, albeit with lower precision than the 16-bit half format.
+     * 
+     * <p>Please note that this extension currently does not introduce a bfloat16 type to OpenCL C and instead the built-in functions convert to or from a ushort
+     * 16-bit unsigned integer type with a bit pattern that represents a bfloat16 value.</p>
+     */
+    public final boolean cl_intel_bfloat16_conversions;
     /** When true, {@link INTELCommandQueueFamilies} is supported. */
     public final boolean cl_intel_command_queue_families;
     /** When true, {@link INTELCreateBufferWithProperties} is supported. */
@@ -737,7 +750,7 @@ public class CLCapabilities {
     public final boolean cl_intel_exec_by_local_thread;
     /**
      * This extension augments the block read/write functionality available in the Intel vendor extensions {@link INTELSubgroups intel_subgroups} and
-     * <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/intel/cl_intel_subgroups_short.txt">intel_media_block_io</a> by the specification of additional built-in functions to facilitate the reading and writing of flexible 2D
+     * <a href="https://www.khronos.org/registry/OpenCL/extensions/intel/cl_intel_subgroups_short.txt">intel_media_block_io</a> by the specification of additional built-in functions to facilitate the reading and writing of flexible 2D
      * regions from images. This API allows for the explicit specification of the width and height of the image regions.
      * 
      * <p>While not required, this extension is most useful when the subgroup size is known at compile-time. The primary use case for this extension is to
@@ -776,7 +789,7 @@ public class CLCapabilities {
     /**
      * This extension defines how modules using the SPIR-V extension {@code SPV_INTEL_media_block_io} may behave in an OpenCL environment.
      * 
-     * <p>Requires {@link CL21 OpenCL 2.1} and <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/intel/cl_intel_media_block_io.txt">intel_spirv_media_block_io</a>.</p>
+     * <p>Requires {@link CL21 OpenCL 2.1} and <a href="https://www.khronos.org/registry/OpenCL/extensions/intel/cl_intel_media_block_io.txt">intel_spirv_media_block_io</a>.</p>
      */
     public final boolean cl_intel_spirv_media_block_io;
     /**
@@ -785,6 +798,40 @@ public class CLCapabilities {
      * <p>Requires {@link CL21 OpenCL 2.1} and {@link INTELSubgroups intel_subgroups}.</p>
      */
     public final boolean cl_intel_spirv_subgroups;
+    /**
+     * This extension adds built-in functions to split a barrier or work_group_barrier function in OpenCL C into two separate operations: the first indicates
+     * that a work-item has "arrived" at a barrier but should continue executing, and the second indicates that a work-item should "wait" for all of the
+     * work-items to arrive at the barrier before executing further.
+     * 
+     * <p>Splitting a barrier operation may improve performance and may provide a closer match to "latch" or "barrier" operations in other parallel languages
+     * such as C++ 20.</p>
+     */
+    public final boolean cl_intel_split_work_group_barrier;
+    /**
+     * The goal of this extension is to allow programmers to access specialized hardware to compute the product of an M x K matrix with a K x N matrix and
+     * then add an M x N matrix accumulation value. This is a commonly used building block to compute the product of two large matrices. When used in an
+     * OpenCL kernel, all work items in the subgroup cooperate to perform this operation.
+     * 
+     * <p>This is a low-level extension for expert programmers seeking to access this functionality directly in custom kernels. Most users will access this
+     * functionality via high-level libraries or frameworks.</p>
+     * 
+     * <p>Requires support for subgroups.</p>
+     */
+    public final boolean cl_intel_subgroup_matrix_multiply_accumulate;
+    /**
+     * The goal of this extension is to allow programmers to access specialized hardware to compute the product of an M x K matrix with a K x N matrix and
+     * then add an M x N matrix accumulation value. This is a commonly used building block to compute the product of two large matrices.
+     * 
+     * <p>The functionality described in this extension is very similar to the functionality described in the
+     * {@code cl_intel_subgroup_matrix_multiply_accumulate} extension, with one key difference: in this extension, work items across two subgroups cooperate
+     * to perform the operation. This is done by splitting the M x K matrix source across two participating subgroups: The first M-divided-by-2 rows of the
+     * matrix source are provided by the first subgroup, and the remaining M-divided-by-2 rows of the matrix source are provided by the second subgroup.</p>
+     * 
+     * <p>Splitting the matrix source improves performance by halving the amount of data each subgroup must load for the first matrix source.</p>
+     * 
+     * <p>Requires support for subgroups.</p>
+     */
+    public final boolean cl_intel_subgroup_split_matrix_multiply_accumulate;
     /** When true, {@link INTELSubgroups} is supported. */
     public final boolean cl_intel_subgroups;
     /**
@@ -871,7 +918,7 @@ public class CLCapabilities {
     /** When true, {@link KHREGLImage} is supported. */
     public final boolean cl_khr_egl_image;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_expect_assume.txt">khr_expect_assume</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_expect_assume.txt">khr_expect_assume</a> extension is supported.
      * 
      * <p>This extension adds mechanisms to provide information to the compiler that may improve the performance of some kernels. Specifically, this extension
      * adds the ability to:</p>
@@ -889,7 +936,7 @@ public class CLCapabilities {
      */
     public final boolean cl_khr_expect_assume;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_extended_async_copies.txt">khr_extended_async_copies</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_extended_async_copies.txt">khr_extended_async_copies</a> extension is supported.
      * 
      * <p>This extension augments built-in asynchronous copy functions to OpenCL C to support more patterns:</p>
      * 
@@ -900,7 +947,7 @@ public class CLCapabilities {
      */
     public final boolean cl_khr_extended_async_copies;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_extended_bit_ops.txt">khr_extended_bit_ops</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_extended_bit_ops.txt">khr_extended_bit_ops</a> extension is supported.
      * 
      * <p>This extension adds OpenCL C functions for performing extended bit operations. Specifically, the following functions are added:</p>
      * 
@@ -915,11 +962,11 @@ public class CLCapabilities {
     public final boolean cl_khr_extended_versioning;
     /** When true, {@link KHRExternalMemory} is supported. */
     public final boolean cl_khr_external_memory;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_external_memory_dma_buf.txt">khr_external_memory_dma_buf</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_external_memory_dma_buf.txt">khr_external_memory_dma_buf</a> extension is supported. */
     public final boolean cl_khr_external_memory_dma_buf;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_external_memory_opaque_fd.txt">khr_external_memory_opaque_fd</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_external_memory_opaque_fd.txt">khr_external_memory_opaque_fd</a> extension is supported. */
     public final boolean cl_khr_external_memory_opaque_fd;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_external_memory_win32.txt">khr_external_memory_win32</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/khr/cl_khr_external_memory_win32.txt">khr_external_memory_win32</a> extension is supported. */
     public final boolean cl_khr_external_memory_win32;
     /** When true, {@link KHRExternalSemaphore} is supported. */
     public final boolean cl_khr_external_semaphore;
@@ -1093,7 +1140,7 @@ public class CLCapabilities {
     /** When true, {@link KHRThrottleHints} is supported. */
     public final boolean cl_khr_throttle_hints;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/nv/cl_nv_compiler_options.txt">nv_compiler_options</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/nv/cl_nv_compiler_options.txt">nv_compiler_options</a> extension is supported.
      * 
      * <p>This extension allows the programmer to pass options to the PTX assembler allowing greater control over code generation.</p>
      * 
@@ -1126,14 +1173,14 @@ public class CLCapabilities {
      *     callback parameter to clBuildProgram).</code></pre>
      */
     public final boolean cl_nv_compiler_options;
-    /** When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/nv/cl_nv_copy_opts.txt">nv_copy_opts</a> extension is supported. */
+    /** When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/nv/cl_nv_copy_opts.txt">nv_copy_opts</a> extension is supported. */
     public final boolean cl_nv_copy_opts;
     /** When true, {@link NVCreateBuffer} is supported. */
     public final boolean cl_nv_create_buffer;
     /** When true, {@link NVDeviceAttributeQuery} is supported. */
     public final boolean cl_nv_device_attribute_query;
     /**
-     * When true, the <a target="_blank" href="http://www.khronos.org/registry/OpenCL/extensions/nv/cl_nv_pragma_unroll.txt">nv_pragma_unroll</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/OpenCL/extensions/nv/cl_nv_pragma_unroll.txt">nv_pragma_unroll</a> extension is supported.
      * 
      * <h5>Overview</h5>
      * 
@@ -1306,6 +1353,7 @@ public class CLCapabilities {
             provider.getFunctionAddress("clReleaseDeviceEXT"),
             provider.getFunctionAddress("clRetainDeviceEXT"),
             provider.getFunctionAddress("clCreateSubDevicesEXT"),
+            provider.getFunctionAddress("clGetImageRequirementsInfoEXT"),
             provider.getFunctionAddress("clEnqueueMigrateMemObjectEXT"),
             provider.getFunctionAddress("clEnqueueGenerateMipmapIMG"),
             provider.getFunctionAddress("clCreateAcceleratorINTEL"),
@@ -1508,6 +1556,7 @@ public class CLCapabilities {
             caps.clReleaseDeviceEXT,
             caps.clRetainDeviceEXT,
             caps.clCreateSubDevicesEXT,
+            caps.clGetImageRequirementsInfoEXT,
             caps.clEnqueueMigrateMemObjectEXT,
             caps.clEnqueueGenerateMipmapIMG,
             caps.clCreateAcceleratorINTEL,
@@ -1709,67 +1758,68 @@ public class CLCapabilities {
         clReleaseDeviceEXT = functions[133];
         clRetainDeviceEXT = functions[134];
         clCreateSubDevicesEXT = functions[135];
-        clEnqueueMigrateMemObjectEXT = functions[136];
-        clEnqueueGenerateMipmapIMG = functions[137];
-        clCreateAcceleratorINTEL = functions[138];
-        clRetainAcceleratorINTEL = functions[139];
-        clReleaseAcceleratorINTEL = functions[140];
-        clGetAcceleratorInfoINTEL = functions[141];
-        clCreateBufferWithPropertiesINTEL = functions[142];
-        clGetSupportedGLTextureFormatsINTEL = functions[143];
-        clGetSupportedVA_APIMediaSurfaceFormatsINTEL = functions[144];
-        clHostMemAllocINTEL = functions[145];
-        clDeviceMemAllocINTEL = functions[146];
-        clSharedMemAllocINTEL = functions[147];
-        clMemFreeINTEL = functions[148];
-        clMemBlockingFreeINTEL = functions[149];
-        clGetMemAllocInfoINTEL = functions[150];
-        clSetKernelArgMemPointerINTEL = functions[151];
-        clEnqueueMemFillINTEL = functions[152];
-        clEnqueueMemcpyINTEL = functions[153];
-        clEnqueueMigrateMemINTEL = functions[154];
-        clEnqueueMemAdviseINTEL = functions[155];
-        clGetDeviceIDsFromVA_APIMediaAdapterINTEL = functions[156];
-        clCreateFromVA_APIMediaSurfaceINTEL = functions[157];
-        clEnqueueAcquireVA_APIMediaSurfacesINTEL = functions[158];
-        clEnqueueReleaseVA_APIMediaSurfacesINTEL = functions[159];
-        clCreateCommandBufferKHR = functions[160];
-        clRetainCommandBufferKHR = functions[161];
-        clReleaseCommandBufferKHR = functions[162];
-        clFinalizeCommandBufferKHR = functions[163];
-        clEnqueueCommandBufferKHR = functions[164];
-        clCommandBarrierWithWaitListKHR = functions[165];
-        clCommandCopyBufferKHR = functions[166];
-        clCommandCopyBufferRectKHR = functions[167];
-        clCommandCopyBufferToImageKHR = functions[168];
-        clCommandCopyImageKHR = functions[169];
-        clCommandCopyImageToBufferKHR = functions[170];
-        clCommandFillBufferKHR = functions[171];
-        clCommandFillImageKHR = functions[172];
-        clCommandNDRangeKernelKHR = functions[173];
-        clGetCommandBufferInfoKHR = functions[174];
-        clCreateCommandQueueWithPropertiesKHR = functions[175];
-        clCreateEventFromEGLSyncKHR = functions[176];
-        clCreateFromEGLImageKHR = functions[177];
-        clEnqueueAcquireEGLObjectsKHR = functions[178];
-        clEnqueueReleaseEGLObjectsKHR = functions[179];
-        clEnqueueAcquireExternalMemObjectsKHR = functions[180];
-        clEnqueueReleaseExternalMemObjectsKHR = functions[181];
-        clCreateEventFromGLsyncKHR = functions[182];
-        clGetGLContextInfoKHR = functions[183];
-        clCreateProgramWithILKHR = functions[184];
-        clCreateSemaphoreWithPropertiesKHR = functions[185];
-        clEnqueueWaitSemaphoresKHR = functions[186];
-        clEnqueueSignalSemaphoresKHR = functions[187];
-        clGetSemaphoreInfoKHR = functions[188];
-        clReleaseSemaphoreKHR = functions[189];
-        clRetainSemaphoreKHR = functions[190];
-        clGetKernelSubGroupInfoKHR = functions[191];
-        clGetKernelSuggestedLocalWorkSizeKHR = functions[192];
-        clTerminateContextKHR = functions[193];
-        clCreateBufferNV = functions[194];
-        clSetContentSizeBufferPoCL = functions[195];
-        clGetDeviceImageInfoQCOM = functions[196];
+        clGetImageRequirementsInfoEXT = functions[136];
+        clEnqueueMigrateMemObjectEXT = functions[137];
+        clEnqueueGenerateMipmapIMG = functions[138];
+        clCreateAcceleratorINTEL = functions[139];
+        clRetainAcceleratorINTEL = functions[140];
+        clReleaseAcceleratorINTEL = functions[141];
+        clGetAcceleratorInfoINTEL = functions[142];
+        clCreateBufferWithPropertiesINTEL = functions[143];
+        clGetSupportedGLTextureFormatsINTEL = functions[144];
+        clGetSupportedVA_APIMediaSurfaceFormatsINTEL = functions[145];
+        clHostMemAllocINTEL = functions[146];
+        clDeviceMemAllocINTEL = functions[147];
+        clSharedMemAllocINTEL = functions[148];
+        clMemFreeINTEL = functions[149];
+        clMemBlockingFreeINTEL = functions[150];
+        clGetMemAllocInfoINTEL = functions[151];
+        clSetKernelArgMemPointerINTEL = functions[152];
+        clEnqueueMemFillINTEL = functions[153];
+        clEnqueueMemcpyINTEL = functions[154];
+        clEnqueueMigrateMemINTEL = functions[155];
+        clEnqueueMemAdviseINTEL = functions[156];
+        clGetDeviceIDsFromVA_APIMediaAdapterINTEL = functions[157];
+        clCreateFromVA_APIMediaSurfaceINTEL = functions[158];
+        clEnqueueAcquireVA_APIMediaSurfacesINTEL = functions[159];
+        clEnqueueReleaseVA_APIMediaSurfacesINTEL = functions[160];
+        clCreateCommandBufferKHR = functions[161];
+        clRetainCommandBufferKHR = functions[162];
+        clReleaseCommandBufferKHR = functions[163];
+        clFinalizeCommandBufferKHR = functions[164];
+        clEnqueueCommandBufferKHR = functions[165];
+        clCommandBarrierWithWaitListKHR = functions[166];
+        clCommandCopyBufferKHR = functions[167];
+        clCommandCopyBufferRectKHR = functions[168];
+        clCommandCopyBufferToImageKHR = functions[169];
+        clCommandCopyImageKHR = functions[170];
+        clCommandCopyImageToBufferKHR = functions[171];
+        clCommandFillBufferKHR = functions[172];
+        clCommandFillImageKHR = functions[173];
+        clCommandNDRangeKernelKHR = functions[174];
+        clGetCommandBufferInfoKHR = functions[175];
+        clCreateCommandQueueWithPropertiesKHR = functions[176];
+        clCreateEventFromEGLSyncKHR = functions[177];
+        clCreateFromEGLImageKHR = functions[178];
+        clEnqueueAcquireEGLObjectsKHR = functions[179];
+        clEnqueueReleaseEGLObjectsKHR = functions[180];
+        clEnqueueAcquireExternalMemObjectsKHR = functions[181];
+        clEnqueueReleaseExternalMemObjectsKHR = functions[182];
+        clCreateEventFromGLsyncKHR = functions[183];
+        clGetGLContextInfoKHR = functions[184];
+        clCreateProgramWithILKHR = functions[185];
+        clCreateSemaphoreWithPropertiesKHR = functions[186];
+        clEnqueueWaitSemaphoresKHR = functions[187];
+        clEnqueueSignalSemaphoresKHR = functions[188];
+        clGetSemaphoreInfoKHR = functions[189];
+        clReleaseSemaphoreKHR = functions[190];
+        clRetainSemaphoreKHR = functions[191];
+        clGetKernelSubGroupInfoKHR = functions[192];
+        clGetKernelSuggestedLocalWorkSizeKHR = functions[193];
+        clTerminateContextKHR = functions[194];
+        clCreateBufferNV = functions[195];
+        clSetContentSizeBufferPoCL = functions[196];
+        clGetDeviceImageInfoQCOM = functions[197];
 
         OpenCL10 = check_CL10(ext);
         OpenCL10GL = check_CL10GL(ext);
@@ -1829,6 +1879,8 @@ public class CLCapabilities {
         cl_ext_cxx_for_opencl = ext.contains("cl_ext_cxx_for_opencl");
         cl_ext_device_fission = check_ext_device_fission(ext);
         cl_ext_float_atomics = ext.contains("cl_ext_float_atomics");
+        cl_ext_image_from_buffer = ext.contains("cl_ext_image_from_buffer");
+        cl_ext_image_requirements_info = check_ext_image_requirements_info(ext);
         cl_ext_migrate_memobject = check_ext_migrate_memobject(ext);
         cl_img_cached_allocations = ext.contains("cl_img_cached_allocations");
         cl_img_generate_mipmap = check_img_generate_mipmap(ext);
@@ -1836,6 +1888,7 @@ public class CLCapabilities {
         cl_img_yuv_image = ext.contains("cl_img_yuv_image");
         cl_intel_accelerator = check_intel_accelerator(ext);
         cl_intel_advanced_motion_estimation = ext.contains("cl_intel_advanced_motion_estimation");
+        cl_intel_bfloat16_conversions = ext.contains("cl_intel_bfloat16_conversions");
         cl_intel_command_queue_families = ext.contains("cl_intel_command_queue_families");
         cl_intel_create_buffer_with_properties = check_intel_create_buffer_with_properties(ext);
         cl_intel_device_attribute_query = ext.contains("cl_intel_device_attribute_query");
@@ -1858,6 +1911,9 @@ public class CLCapabilities {
         cl_intel_spirv_device_side_avc_motion_estimation = ext.contains("cl_intel_spirv_device_side_avc_motion_estimation");
         cl_intel_spirv_media_block_io = ext.contains("cl_intel_spirv_media_block_io");
         cl_intel_spirv_subgroups = ext.contains("cl_intel_spirv_subgroups");
+        cl_intel_split_work_group_barrier = ext.contains("cl_intel_split_work_group_barrier");
+        cl_intel_subgroup_matrix_multiply_accumulate = ext.contains("cl_intel_subgroup_matrix_multiply_accumulate");
+        cl_intel_subgroup_split_matrix_multiply_accumulate = ext.contains("cl_intel_subgroup_split_matrix_multiply_accumulate");
         cl_intel_subgroups = ext.contains("cl_intel_subgroups");
         cl_intel_subgroups_char = ext.contains("cl_intel_subgroups_char");
         cl_intel_subgroups_long = ext.contains("cl_intel_subgroups_long");
@@ -2053,6 +2109,12 @@ public class CLCapabilities {
     private boolean check_ext_device_fission(Set<String> ext) {
         return ext.contains("cl_ext_device_fission") && checkExtension("cl_ext_device_fission", checkFunctions(
             clReleaseDeviceEXT, clRetainDeviceEXT, clCreateSubDevicesEXT
+        ));
+    }
+
+    private boolean check_ext_image_requirements_info(Set<String> ext) {
+        return ext.contains("cl_ext_image_requirements_info") && checkExtension("cl_ext_image_requirements_info", checkFunctions(
+            clGetImageRequirementsInfoEXT
         ));
     }
 

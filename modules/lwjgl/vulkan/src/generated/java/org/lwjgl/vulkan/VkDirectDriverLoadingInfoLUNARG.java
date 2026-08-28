@@ -12,6 +12,7 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
+import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
@@ -27,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkGetInstanceProcAddrLUNARG}, {@link VkDirectDriverLoadingListLUNARG}</p>
+ * <p>{@link VkDirectDriverLoadingListLUNARG}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -36,10 +37,10 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkStructureType {@link #sType};
  *     void * {@link #pNext};
  *     VkDirectDriverLoadingFlagsLUNARG {@link #flags};
- *     {@link VkGetInstanceProcAddrLUNARGI PFN_vkGetInstanceProcAddrLUNARG} {@link #pfnGetInstanceProcAddr};
+ *     PFN_vkGetInstanceProcAddrLUNARG {@link #pfnGetInstanceProcAddr};
  * }</code></pre>
  */
-public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeResource {
+public class VkDirectDriverLoadingInfoLUNARG extends Struct<VkDirectDriverLoadingInfoLUNARG> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -71,6 +72,15 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
         PFNGETINSTANCEPROCADDR = layout.offsetof(3);
     }
 
+    protected VkDirectDriverLoadingInfoLUNARG(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkDirectDriverLoadingInfoLUNARG create(long address, @Nullable ByteBuffer container) {
+        return new VkDirectDriverLoadingInfoLUNARG(address, container);
+    }
+
     /**
      * Creates a {@code VkDirectDriverLoadingInfoLUNARG} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -84,7 +94,7 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -93,10 +103,9 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
     /** reserved for future use. */
     @NativeType("VkDirectDriverLoadingFlagsLUNARG")
     public int flags() { return nflags(address()); }
-    /** a {@link VkGetInstanceProcAddrLUNARG} pointer to the driver {@link VK10#vkGetInstanceProcAddr GetInstanceProcAddr} function. */
-    @Nullable
+    /** a {@code PFN_vkGetInstanceProcAddrLUNARG} pointer to the driver {@link VK10#vkGetInstanceProcAddr GetInstanceProcAddr} function. */
     @NativeType("PFN_vkGetInstanceProcAddrLUNARG")
-    public VkGetInstanceProcAddrLUNARG pfnGetInstanceProcAddr() { return npfnGetInstanceProcAddr(address()); }
+    public long pfnGetInstanceProcAddr() { return npfnGetInstanceProcAddr(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkDirectDriverLoadingInfoLUNARG sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -107,14 +116,14 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
     /** Sets the specified value to the {@link #flags} field. */
     public VkDirectDriverLoadingInfoLUNARG flags(@NativeType("VkDirectDriverLoadingFlagsLUNARG") int value) { nflags(address(), value); return this; }
     /** Sets the specified value to the {@link #pfnGetInstanceProcAddr} field. */
-    public VkDirectDriverLoadingInfoLUNARG pfnGetInstanceProcAddr(@Nullable @NativeType("PFN_vkGetInstanceProcAddrLUNARG") VkGetInstanceProcAddrLUNARGI value) { npfnGetInstanceProcAddr(address(), value); return this; }
+    public VkDirectDriverLoadingInfoLUNARG pfnGetInstanceProcAddr(@NativeType("PFN_vkGetInstanceProcAddrLUNARG") long value) { npfnGetInstanceProcAddr(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkDirectDriverLoadingInfoLUNARG set(
         int sType,
         long pNext,
         int flags,
-        VkGetInstanceProcAddrLUNARGI pfnGetInstanceProcAddr
+        long pfnGetInstanceProcAddr
     ) {
         sType(sType);
         pNext(pNext);
@@ -140,29 +149,29 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
 
     /** Returns a new {@code VkDirectDriverLoadingInfoLUNARG} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDirectDriverLoadingInfoLUNARG malloc() {
-        return wrap(VkDirectDriverLoadingInfoLUNARG.class, nmemAllocChecked(SIZEOF));
+        return new VkDirectDriverLoadingInfoLUNARG(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkDirectDriverLoadingInfoLUNARG} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDirectDriverLoadingInfoLUNARG calloc() {
-        return wrap(VkDirectDriverLoadingInfoLUNARG.class, nmemCallocChecked(1, SIZEOF));
+        return new VkDirectDriverLoadingInfoLUNARG(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkDirectDriverLoadingInfoLUNARG} instance allocated with {@link BufferUtils}. */
     public static VkDirectDriverLoadingInfoLUNARG create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkDirectDriverLoadingInfoLUNARG.class, memAddress(container), container);
+        return new VkDirectDriverLoadingInfoLUNARG(memAddress(container), container);
     }
 
     /** Returns a new {@code VkDirectDriverLoadingInfoLUNARG} instance for the specified memory address. */
     public static VkDirectDriverLoadingInfoLUNARG create(long address) {
-        return wrap(VkDirectDriverLoadingInfoLUNARG.class, address);
+        return new VkDirectDriverLoadingInfoLUNARG(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDirectDriverLoadingInfoLUNARG createSafe(long address) {
-        return address == NULL ? null : wrap(VkDirectDriverLoadingInfoLUNARG.class, address);
+        return address == NULL ? null : new VkDirectDriverLoadingInfoLUNARG(address, null);
     }
 
     /**
@@ -171,7 +180,7 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkDirectDriverLoadingInfoLUNARG.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -180,7 +189,7 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkDirectDriverLoadingInfoLUNARG.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -190,7 +199,7 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
      */
     public static VkDirectDriverLoadingInfoLUNARG.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -200,13 +209,13 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkDirectDriverLoadingInfoLUNARG.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDirectDriverLoadingInfoLUNARG.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -215,7 +224,7 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static VkDirectDriverLoadingInfoLUNARG malloc(MemoryStack stack) {
-        return wrap(VkDirectDriverLoadingInfoLUNARG.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkDirectDriverLoadingInfoLUNARG(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -224,7 +233,7 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static VkDirectDriverLoadingInfoLUNARG calloc(MemoryStack stack) {
-        return wrap(VkDirectDriverLoadingInfoLUNARG.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkDirectDriverLoadingInfoLUNARG(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -234,7 +243,7 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkDirectDriverLoadingInfoLUNARG.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -244,7 +253,7 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static VkDirectDriverLoadingInfoLUNARG.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -256,7 +265,7 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
     /** Unsafe version of {@link #flags}. */
     public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDirectDriverLoadingInfoLUNARG.FLAGS); }
     /** Unsafe version of {@link #pfnGetInstanceProcAddr}. */
-    @Nullable public static VkGetInstanceProcAddrLUNARG npfnGetInstanceProcAddr(long struct) { return VkGetInstanceProcAddrLUNARG.createSafe(memGetAddress(struct + VkDirectDriverLoadingInfoLUNARG.PFNGETINSTANCEPROCADDR)); }
+    public static long npfnGetInstanceProcAddr(long struct) { return memGetAddress(struct + VkDirectDriverLoadingInfoLUNARG.PFNGETINSTANCEPROCADDR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
     public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDirectDriverLoadingInfoLUNARG.STYPE, value); }
@@ -264,8 +273,17 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDirectDriverLoadingInfoLUNARG.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
     public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkDirectDriverLoadingInfoLUNARG.FLAGS, value); }
-    /** Unsafe version of {@link #pfnGetInstanceProcAddr(VkGetInstanceProcAddrLUNARGI) pfnGetInstanceProcAddr}. */
-    public static void npfnGetInstanceProcAddr(long struct, @Nullable VkGetInstanceProcAddrLUNARGI value) { memPutAddress(struct + VkDirectDriverLoadingInfoLUNARG.PFNGETINSTANCEPROCADDR, memAddressSafe(value)); }
+    /** Unsafe version of {@link #pfnGetInstanceProcAddr(long) pfnGetInstanceProcAddr}. */
+    public static void npfnGetInstanceProcAddr(long struct, long value) { memPutAddress(struct + VkDirectDriverLoadingInfoLUNARG.PFNGETINSTANCEPROCADDR, check(value)); }
+
+    /**
+     * Validates pointer members that should not be {@code NULL}.
+     *
+     * @param struct the struct to validate
+     */
+    public static void validate(long struct) {
+        check(memGetAddress(struct + VkDirectDriverLoadingInfoLUNARG.PFNGETINSTANCEPROCADDR));
+    }
 
     // -----------------------------------
 
@@ -277,9 +295,9 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
         /**
          * Creates a new {@code VkDirectDriverLoadingInfoLUNARG.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDirectDriverLoadingInfoLUNARG#SIZEOF}, and its mark will be undefined.
+         * by {@link VkDirectDriverLoadingInfoLUNARG#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -315,9 +333,8 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
         @NativeType("VkDirectDriverLoadingFlagsLUNARG")
         public int flags() { return VkDirectDriverLoadingInfoLUNARG.nflags(address()); }
         /** @return the value of the {@link VkDirectDriverLoadingInfoLUNARG#pfnGetInstanceProcAddr} field. */
-        @Nullable
         @NativeType("PFN_vkGetInstanceProcAddrLUNARG")
-        public VkGetInstanceProcAddrLUNARG pfnGetInstanceProcAddr() { return VkDirectDriverLoadingInfoLUNARG.npfnGetInstanceProcAddr(address()); }
+        public long pfnGetInstanceProcAddr() { return VkDirectDriverLoadingInfoLUNARG.npfnGetInstanceProcAddr(address()); }
 
         /** Sets the specified value to the {@link VkDirectDriverLoadingInfoLUNARG#sType} field. */
         public VkDirectDriverLoadingInfoLUNARG.Buffer sType(@NativeType("VkStructureType") int value) { VkDirectDriverLoadingInfoLUNARG.nsType(address(), value); return this; }
@@ -328,7 +345,7 @@ public class VkDirectDriverLoadingInfoLUNARG extends Struct implements NativeRes
         /** Sets the specified value to the {@link VkDirectDriverLoadingInfoLUNARG#flags} field. */
         public VkDirectDriverLoadingInfoLUNARG.Buffer flags(@NativeType("VkDirectDriverLoadingFlagsLUNARG") int value) { VkDirectDriverLoadingInfoLUNARG.nflags(address(), value); return this; }
         /** Sets the specified value to the {@link VkDirectDriverLoadingInfoLUNARG#pfnGetInstanceProcAddr} field. */
-        public VkDirectDriverLoadingInfoLUNARG.Buffer pfnGetInstanceProcAddr(@Nullable @NativeType("PFN_vkGetInstanceProcAddrLUNARG") VkGetInstanceProcAddrLUNARGI value) { VkDirectDriverLoadingInfoLUNARG.npfnGetInstanceProcAddr(address(), value); return this; }
+        public VkDirectDriverLoadingInfoLUNARG.Buffer pfnGetInstanceProcAddr(@NativeType("PFN_vkGetInstanceProcAddrLUNARG") long value) { VkDirectDriverLoadingInfoLUNARG.npfnGetInstanceProcAddr(address(), value); return this; }
 
     }
 

@@ -22,13 +22,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>{@code renderArea} is the render area that is affected by the render pass instance. The effects of attachment load, store and multisample resolve operations are restricted to the pixels whose x and y coordinates fall within the render area on all attachments. The render area extends to all layers of {@code framebuffer}. The application <b>must</b> ensure (using scissor if necessary) that all rendering is contained within the render area. The render area, after any transform specified by {@link VkRenderPassTransformBeginInfoQCOM}{@code ::transform} is applied, <b>must</b> be contained within the framebuffer dimensions.</p>
  * 
- * <p>If <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vertexpostproc-renderpass-transform">render pass transform</a> is enabled, then {@code renderArea} <b>must</b> equal the framebuffer pre-transformed dimensions. After {@code renderArea} has been transformed by {@link VkRenderPassTransformBeginInfoQCOM}{@code ::transform}, the resulting render area <b>must</b> be equal to the framebuffer dimensions.</p>
+ * <p>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vertexpostproc-renderpass-transform">render pass transform</a> is enabled, then {@code renderArea} <b>must</b> equal the framebuffer pre-transformed dimensions. After {@code renderArea} has been transformed by {@link VkRenderPassTransformBeginInfoQCOM}{@code ::transform}, the resulting render area <b>must</b> be equal to the framebuffer dimensions.</p>
  * 
- * <p>If multiview is enabled in {@code renderPass}, and <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-per-view-render-areas">{@code multiviewPerViewRenderAreas}</a> feature is enabled, and there is an instance of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} included in the {@code pNext} chain with {@code perViewRenderAreaCount} not equal to 0, then the elements of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM}{@code ::pPerViewRenderAreas} override {@code renderArea} and define a render area for each view. In this case, {@code renderArea} <b>must</b> be set to an area at least as large as the union of all the per-view render areas.</p>
+ * <p>If multiview is enabled in {@code renderPass}, and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-per-view-render-areas">{@code multiviewPerViewRenderAreas}</a> feature is enabled, and there is an instance of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} included in the {@code pNext} chain with {@code perViewRenderAreaCount} not equal to 0, then the elements of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM}{@code ::pPerViewRenderAreas} override {@code renderArea} and define a render area for each view. In this case, {@code renderArea} <b>must</b> be set to an area at least as large as the union of all the per-view render areas.</p>
  * 
- * <p>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-subpassShading">{@code subpassShading}</a> feature is enabled, then {@code renderArea} <b>must</b> equal the framebuffer dimensions.</p>
- * 
- * <p>When multiview is enabled, the resolve operation at the end of a subpass applies to all views in the view mask.</p>
+ * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-subpassShading">{@code subpassShading}</a> feature is enabled, then {@code renderArea} <b>must</b> equal the framebuffer dimensions.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -40,7 +38,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code clearValueCount} <b>must</b> be greater than the largest attachment index in {@code renderPass} specifying a {@code loadOp} (or {@code stencilLoadOp}, if the attachment has a depth/stencil format) of {@link VK10#VK_ATTACHMENT_LOAD_OP_CLEAR ATTACHMENT_LOAD_OP_CLEAR}</li>
  * <li>If {@code clearValueCount} is not 0, {@code pClearValues} <b>must</b> be a valid pointer to an array of {@code clearValueCount} {@link VkClearValue} unions</li>
- * <li>{@code renderPass} <b>must</b> be <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-compatibility">compatible</a> with the {@code renderPass} member of the {@link VkFramebufferCreateInfo} structure specified when creating {@code framebuffer}</li>
+ * <li>{@code renderPass} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#renderpass-compatibility">compatible</a> with the {@code renderPass} member of the {@link VkFramebufferCreateInfo} structure specified when creating {@code framebuffer}</li>
+ * <li>If {@link VkDeviceGroupRenderPassBeginInfo}{@code ::deviceRenderAreaCount} is 0, {@code renderArea.extent.width} <b>must</b> be greater than 0</li>
+ * <li>If {@link VkDeviceGroupRenderPassBeginInfo}{@code ::deviceRenderAreaCount} is 0, {@code renderArea.extent.height} <b>must</b> be greater than 0</li>
  * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, {@code renderArea.offset.x} <b>must</b> be greater than or equal to 0</li>
  * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, {@code renderArea.offset.y} <b>must</b> be greater than or equal to 0</li>
  * <li>If the {@code pNext} chain does not contain {@link VkDeviceGroupRenderPassBeginInfo} or its {@code deviceRenderAreaCount} member is equal to 0, <code>renderArea.offset.x + renderArea.extent.width</code> <b>must</b> be less than or equal to {@link VkFramebufferCreateInfo}{@code ::width} the {@code framebuffer} was created with</li>
@@ -51,17 +51,17 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, the {@code attachmentCount} of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be equal to the value of {@link VkFramebufferAttachmentsCreateInfo}{@code ::attachmentImageInfoCount} used to create {@code framebuffer}</li>
  * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> have been created on the same {@code VkDevice} as {@code framebuffer} and {@code renderPass}</li>
  * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} of an image created with a value of {@link VkImageCreateInfo}{@code ::flags} equal to the {@code flags} member of the corresponding element of {@link VkFramebufferAttachmentsCreateInfo}{@code ::pAttachmentImageInfos} used to create {@code framebuffer}</li>
- * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} with <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-inherited-usage">an inherited usage</a> equal to the {@code usage} member of the corresponding element of {@link VkFramebufferAttachmentsCreateInfo}{@code ::pAttachmentImageInfos} used to create {@code framebuffer}</li>
+ * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-inherited-usage">an inherited usage</a> equal to the {@code usage} member of the corresponding element of {@link VkFramebufferAttachmentsCreateInfo}{@code ::pAttachmentImageInfos} used to create {@code framebuffer}</li>
  * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} with a width equal to the {@code width} member of the corresponding element of {@link VkFramebufferAttachmentsCreateInfo}{@code ::pAttachmentImageInfos} used to create {@code framebuffer}</li>
  * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} with a height equal to the {@code height} member of the corresponding element of {@link VkFramebufferAttachmentsCreateInfo}{@code ::pAttachmentImageInfos} used to create {@code framebuffer}</li>
  * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} of an image created with a value of {@link VkImageViewCreateInfo}{@code ::subresourceRange.layerCount} equal to the {@code layerCount} member of the corresponding element of {@link VkFramebufferAttachmentsCreateInfo}{@code ::pAttachmentImageInfos} used to create {@code framebuffer}</li>
  * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} of an image created with a value of {@link VkImageFormatListCreateInfo}{@code ::viewFormatCount} equal to the {@code viewFormatCount} member of the corresponding element of {@link VkFramebufferAttachmentsCreateInfo}{@code ::pAttachmentImageInfos} used to create {@code framebuffer}</li>
  * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} of an image created with a set of elements in {@link VkImageFormatListCreateInfo}{@code ::pViewFormats} equal to the set of elements in the {@code pViewFormats} member of the corresponding element of {@link VkFramebufferAttachmentsCreateInfo}{@code ::pAttachmentImageInfos} used to create {@code framebuffer}</li>
  * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} of an image created with a value of {@link VkImageViewCreateInfo}{@code ::format} equal to the corresponding value of {@link VkAttachmentDescription}{@code ::format} in {@code renderPass}</li>
- * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} of an image created with a value of {@link VkImageCreateInfo}{@code ::samples} equal to the corresponding value of {@link VkAttachmentDescription}{@code ::samples} in {@code renderPass}</li>
+ * <li>If {@code framebuffer} was created with a {@link VkFramebufferCreateInfo}{@code ::flags} value that included {@link VK12#VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT FRAMEBUFFER_CREATE_IMAGELESS_BIT}, each element of the {@code pAttachments} member of a {@link VkRenderPassAttachmentBeginInfo} structure included in the {@code pNext} chain <b>must</b> be a {@code VkImageView} of an image created with a value of {@link VkImageCreateInfo}{@code ::samples} equal to the corresponding value of {@link VkAttachmentDescription}{@code ::samples} in {@code renderPass} , or {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT} if {@code renderPass} was created with {@link VkMultisampledRenderToSingleSampledInfoEXT} structure in the {@code pNext} chain with {@code multisampledRenderToSingleSampledEnable} equal to {@link VK10#VK_TRUE TRUE}</li>
  * <li>If the {@code pNext} chain includes {@link VkRenderPassTransformBeginInfoQCOM}, {@code renderArea.offset} <b>must</b> equal <code>(0,0)</code></li>
  * <li>If the {@code pNext} chain includes {@link VkRenderPassTransformBeginInfoQCOM}, {@code renderArea.extent} transformed by {@link VkRenderPassTransformBeginInfoQCOM}{@code ::transform} <b>must</b> equal the {@code framebuffer} dimensions</li>
- * <li>If the {@code perViewRenderAreaCount} member of a {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} structure included in the {@code pNext} chain is not 0, then the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-per-view-render-areas">{@code multiviewPerViewRenderAreas}</a> feature <b>must</b> be enabled.</li>
+ * <li>If the {@code perViewRenderAreaCount} member of a {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} structure included in the {@code pNext} chain is not 0, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-per-view-render-areas">{@code multiviewPerViewRenderAreas}</a> feature <b>must</b> be enabled.</li>
  * <li>If the {@code perViewRenderAreaCount} member of a {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} structure included in the {@code pNext} chain is not 0, then {@code renderArea} <b>must</b> specify a render area that includes the union of all per view render areas.</li>
  * </ul>
  * 
@@ -93,7 +93,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkClearValue VkClearValue} const * {@link #pClearValues};
  * }</code></pre>
  */
-public class VkRenderPassBeginInfo extends Struct implements NativeResource {
+public class VkRenderPassBeginInfo extends Struct<VkRenderPassBeginInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -134,6 +134,15 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
         PCLEARVALUES = layout.offsetof(6);
     }
 
+    protected VkRenderPassBeginInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkRenderPassBeginInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkRenderPassBeginInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkRenderPassBeginInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -147,7 +156,7 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -239,29 +248,29 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code VkRenderPassBeginInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkRenderPassBeginInfo malloc() {
-        return wrap(VkRenderPassBeginInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkRenderPassBeginInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkRenderPassBeginInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkRenderPassBeginInfo calloc() {
-        return wrap(VkRenderPassBeginInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkRenderPassBeginInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkRenderPassBeginInfo} instance allocated with {@link BufferUtils}. */
     public static VkRenderPassBeginInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkRenderPassBeginInfo.class, memAddress(container), container);
+        return new VkRenderPassBeginInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkRenderPassBeginInfo} instance for the specified memory address. */
     public static VkRenderPassBeginInfo create(long address) {
-        return wrap(VkRenderPassBeginInfo.class, address);
+        return new VkRenderPassBeginInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderPassBeginInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkRenderPassBeginInfo.class, address);
+        return address == NULL ? null : new VkRenderPassBeginInfo(address, null);
     }
 
     /**
@@ -270,7 +279,7 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkRenderPassBeginInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -279,7 +288,7 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkRenderPassBeginInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -289,7 +298,7 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
      */
     public static VkRenderPassBeginInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -299,13 +308,13 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkRenderPassBeginInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkRenderPassBeginInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -333,7 +342,7 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkRenderPassBeginInfo malloc(MemoryStack stack) {
-        return wrap(VkRenderPassBeginInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkRenderPassBeginInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -342,7 +351,7 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkRenderPassBeginInfo calloc(MemoryStack stack) {
-        return wrap(VkRenderPassBeginInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkRenderPassBeginInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -352,7 +361,7 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkRenderPassBeginInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -362,7 +371,7 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkRenderPassBeginInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -407,9 +416,9 @@ public class VkRenderPassBeginInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkRenderPassBeginInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkRenderPassBeginInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkRenderPassBeginInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

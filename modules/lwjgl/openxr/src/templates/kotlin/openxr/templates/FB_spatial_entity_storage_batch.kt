@@ -15,7 +15,7 @@ val FB_spatial_entity_storage_batch = "FBSpatialEntityStorageBatch".nativeClassX
 
         This extension enables multiple spatial entities at a time to be persisted across sessions. If the #SPACE_COMPONENT_TYPE_STORABLE_FB component has been enabled on the spatial entity, application developers <b>may</b> save and erase {@code XrSpace} entities.
 
-        In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo{@code ::enabledExtensionNames} parameter as indicated in the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#extensions">extensions</a> section.
+        In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#extensions">extensions</a> section.
         """
 
     IntConstant(
@@ -52,7 +52,7 @@ val FB_spatial_entity_storage_batch = "FBSpatialEntityStorageBatch".nativeClassX
 ￿    XrAsyncRequestIdFB*                         requestId);</code></pre>
 
         <h5>Description</h5>
-        The #SaveSpaceListFB() function persists the specified spatial entities at the specified storage location. The runtime <b>must</b> return #ERROR_VALIDATION_FAILURE if ##XrSpaceSaveInfoFB{@code ::location} is invalid. This operation is asynchronous and the runtime <b>must</b> post an ##XrEventDataSpaceListSaveCompleteFB event when the operation completes successfully or encounters an error.
+        The #SaveSpaceListFB() function persists the specified spatial entities at the specified storage location. The runtime <b>must</b> return #ERROR_VALIDATION_FAILURE if ##XrSpaceSaveInfoFB{@code ::location} is invalid. This operation is asynchronous and the runtime <b>must</b> post an ##XrEventDataSpaceListSaveCompleteFB event when the operation completes successfully or encounters an error. If this function returns a failure code, no event is posted.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

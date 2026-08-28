@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBPassthrough XR_FB_passthrough} extension <b>must</b> be enabled prior to using {@link XrPassthroughStyleFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBPassthrough#XR_TYPE_PASSTHROUGH_STYLE_FB TYPE_PASSTHROUGH_STYLE_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrPassthroughBrightnessContrastSaturationFB}, {@link XrPassthroughColorMapMonoToMonoFB}, {@link XrPassthroughColorMapMonoToRgbaFB}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrPassthroughBrightnessContrastSaturationFB}, {@link XrPassthroughColorMapInterpolatedLutMETA}, {@link XrPassthroughColorMapLutMETA}, {@link XrPassthroughColorMapMonoToMonoFB}, {@link XrPassthroughColorMapMonoToRgbaFB}</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -44,7 +44,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrColor4f XrColor4f} {@link #edgeColor};
  * }</code></pre>
  */
-public class XrPassthroughStyleFB extends Struct implements NativeResource {
+public class XrPassthroughStyleFB extends Struct<XrPassthroughStyleFB> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -74,6 +74,15 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
         NEXT = layout.offsetof(1);
         TEXTUREOPACITYFACTOR = layout.offsetof(2);
         EDGECOLOR = layout.offsetof(3);
+    }
+
+    protected XrPassthroughStyleFB(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrPassthroughStyleFB create(long address, @Nullable ByteBuffer container) {
+        return new XrPassthroughStyleFB(address, container);
     }
 
     /**
@@ -108,6 +117,10 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
     public XrPassthroughStyleFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Prepends the specified {@link XrPassthroughBrightnessContrastSaturationFB} value to the {@code next} chain. */
     public XrPassthroughStyleFB next(XrPassthroughBrightnessContrastSaturationFB value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrPassthroughColorMapInterpolatedLutMETA} value to the {@code next} chain. */
+    public XrPassthroughStyleFB next(XrPassthroughColorMapInterpolatedLutMETA value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrPassthroughColorMapLutMETA} value to the {@code next} chain. */
+    public XrPassthroughStyleFB next(XrPassthroughColorMapLutMETA value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrPassthroughColorMapMonoToMonoFB} value to the {@code next} chain. */
     public XrPassthroughStyleFB next(XrPassthroughColorMapMonoToMonoFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrPassthroughColorMapMonoToRgbaFB} value to the {@code next} chain. */
@@ -150,29 +163,29 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
 
     /** Returns a new {@code XrPassthroughStyleFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrPassthroughStyleFB malloc() {
-        return wrap(XrPassthroughStyleFB.class, nmemAllocChecked(SIZEOF));
+        return new XrPassthroughStyleFB(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrPassthroughStyleFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrPassthroughStyleFB calloc() {
-        return wrap(XrPassthroughStyleFB.class, nmemCallocChecked(1, SIZEOF));
+        return new XrPassthroughStyleFB(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrPassthroughStyleFB} instance allocated with {@link BufferUtils}. */
     public static XrPassthroughStyleFB create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrPassthroughStyleFB.class, memAddress(container), container);
+        return new XrPassthroughStyleFB(memAddress(container), container);
     }
 
     /** Returns a new {@code XrPassthroughStyleFB} instance for the specified memory address. */
     public static XrPassthroughStyleFB create(long address) {
-        return wrap(XrPassthroughStyleFB.class, address);
+        return new XrPassthroughStyleFB(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrPassthroughStyleFB createSafe(long address) {
-        return address == NULL ? null : wrap(XrPassthroughStyleFB.class, address);
+        return address == NULL ? null : new XrPassthroughStyleFB(address, null);
     }
 
     /**
@@ -181,7 +194,7 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrPassthroughStyleFB.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -190,7 +203,7 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrPassthroughStyleFB.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -200,7 +213,7 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
      */
     public static XrPassthroughStyleFB.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -210,13 +223,13 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrPassthroughStyleFB.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrPassthroughStyleFB.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -225,7 +238,7 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrPassthroughStyleFB malloc(MemoryStack stack) {
-        return wrap(XrPassthroughStyleFB.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrPassthroughStyleFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -234,7 +247,7 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrPassthroughStyleFB calloc(MemoryStack stack) {
-        return wrap(XrPassthroughStyleFB.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrPassthroughStyleFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -244,7 +257,7 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrPassthroughStyleFB.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -254,7 +267,7 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrPassthroughStyleFB.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -287,9 +300,9 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrPassthroughStyleFB.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrPassthroughStyleFB#SIZEOF}, and its mark will be undefined.
+         * by {@link XrPassthroughStyleFB#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -334,6 +347,10 @@ public class XrPassthroughStyleFB extends Struct implements NativeResource {
         public XrPassthroughStyleFB.Buffer next(@NativeType("void const *") long value) { XrPassthroughStyleFB.nnext(address(), value); return this; }
         /** Prepends the specified {@link XrPassthroughBrightnessContrastSaturationFB} value to the {@code next} chain. */
         public XrPassthroughStyleFB.Buffer next(XrPassthroughBrightnessContrastSaturationFB value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrPassthroughColorMapInterpolatedLutMETA} value to the {@code next} chain. */
+        public XrPassthroughStyleFB.Buffer next(XrPassthroughColorMapInterpolatedLutMETA value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrPassthroughColorMapLutMETA} value to the {@code next} chain. */
+        public XrPassthroughStyleFB.Buffer next(XrPassthroughColorMapLutMETA value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrPassthroughColorMapMonoToMonoFB} value to the {@code next} chain. */
         public XrPassthroughStyleFB.Buffer next(XrPassthroughColorMapMonoToMonoFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrPassthroughColorMapMonoToRgbaFB} value to the {@code next} chain. */

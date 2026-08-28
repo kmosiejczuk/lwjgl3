@@ -442,7 +442,7 @@ class YogaNode {
 
     public boolean hasNewLayout() {
         return INTERNAL_API
-            ? internal.hasNewLayout()
+            ? internal.flags().hasNewLayout()
             : YGNodeGetHasNewLayout(node);
     }
 
@@ -518,9 +518,7 @@ class YogaNode {
     float getFlexShrink() {
         if (INTERNAL_API) {
             YGFloatOptional value = internal.style().flexShrink();
-            return value.isUndefined()
-                ? internal.useWebDefaults() ? 1.0f : 0.0f
-                : value.value();
+            return value.isUndefined() ? 0.0f : value.value();
         }
         return YGNodeStyleGetFlexShrink(node);
     }
@@ -531,7 +529,7 @@ class YogaNode {
             : YGNodeStyleGetFlexBasis(node, __result);
     }
 
-    static <T extends Struct> boolean assertEquals(T a, T b) {
+    static <T extends Struct<T>> boolean assertEquals(T a, T b) {
         for (int i = 0; i < a.sizeof(); i++) {
             if (memGetByte(a.address() + i) != memGetByte(b.address() + i)) {
                 return false;
@@ -570,12 +568,12 @@ class YogaNode {
         static final YGValue ZERO      = YGValue.create().set(0, YogaUnit.POINT);
         static final YGValue AUTO      = YGValue.create().set(YogaConstants.UNDEFINED, YogaUnit.AUTO);
 
-        YogaValue(ByteBuffer container) {
-            super(container);
+        YogaValue(long address, @Nullable ByteBuffer container) {
+            super(address, container);
         }
 
         public static YogaValue create(MemoryStack stack, float value, int unit) {
-            YogaValue v = wrap(YogaValue.class, stack.nmalloc(ALIGNOF, SIZEOF));
+            YogaValue v = new YogaValue(stack.nmalloc(ALIGNOF, SIZEOF), null);
             v.set(value, unit);
             return v;
         }

@@ -11,7 +11,7 @@ import vulkan.*
 val KHR_get_display_properties2 = "KHRGetDisplayProperties2".nativeClassVK("KHR_get_display_properties2", type = "instance", postfix = "KHR") {
     documentation =
         """
-        This extension provides new entry points to query device display properties and capabilities in a way that can be easily extended by other extensions, without introducing any further entry points. This extension can be considered the {@link KHRDisplay VK_KHR_display} equivalent of the {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} extension.
+        This extension provides new queries for device display properties and capabilities that can be easily extended by other extensions, without introducing any further queries. This extension can be considered the {@link KHRDisplay VK_KHR_display} equivalent of the {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} extension.
 
         <h5>VK_KHR_get_display_properties2</h5>
         <dl>
@@ -32,7 +32,7 @@ val KHR_get_display_properties2 = "KHRGetDisplayProperties2".nativeClassVK("KHR_
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_get_display_properties2]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_get_display_properties2%20extension*">cubanismo</a></li>
+                <li>James Jones <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_get_display_properties2]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_get_display_properties2%20extension*">cubanismo</a></li>
             </ul></dd>
         </dl>
 

@@ -19,7 +19,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** Native bindings to the C API of the <a target="_blank" href="https://github.com/bkaradzic/bgfx">bgfx</a> library. */
+/** Native bindings to the C API of the <a href="https://github.com/bkaradzic/bgfx">bgfx</a> library. */
 public class BGFX {
 
     private static final SharedLibrary BGFX = Library.loadNative(BGFX.class, "org.lwjgl.bgfx", Configuration.BGFX_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("bgfx")), true);
@@ -229,7 +229,7 @@ public class BGFX {
     }
 
     /** API version */
-    public static final int BGFX_API_VERSION = 118;
+    public static final int BGFX_API_VERSION = 122;
 
     /** Invalid handle */
     public static final short BGFX_INVALID_HANDLE = (short)0xFFFF;
@@ -620,8 +620,9 @@ public class BGFX {
         BGFX_CAPS_VERTEX_ATTRIB_HALF       = 0x2000000L,
         BGFX_CAPS_VERTEX_ATTRIB_UINT10     = 0x4000000L,
         BGFX_CAPS_VERTEX_ID                = 0x8000000L,
-        BGFX_CAPS_VIEWPORT_LAYER_ARRAY     = 0x10000000L,
-        BGFX_CAPS_DRAW_INDIRECT_COUNT      = 0x20000000L;
+        BGFX_CAPS_PRIMITIVE_ID             = 0x10000000L,
+        BGFX_CAPS_VIEWPORT_LAYER_ARRAY     = 0x20000000L,
+        BGFX_CAPS_DRAW_INDIRECT_COUNT      = 0x40000000L;
 
     /** Format caps */
     public static final int
@@ -1194,6 +1195,22 @@ public class BGFX {
         BGFX_VIEW_MODE_DEPTH_ASCENDING  = 2,
         BGFX_VIEW_MODE_DEPTH_DESCENDING = 3,
         BGFX_VIEW_MODE_COUNT            = 4;
+
+    /**
+     * ({@code bgfx_native_window_handle_type}).
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #BGFX_NATIVE_WINDOW_HANDLE_TYPE_DEFAULT NATIVE_WINDOW_HANDLE_TYPE_DEFAULT} - Platform default handle type (X11 on Linux)</li>
+     * <li>{@link #BGFX_NATIVE_WINDOW_HANDLE_TYPE_WAYLAND NATIVE_WINDOW_HANDLE_TYPE_WAYLAND} - Wayland</li>
+     * <li>{@link #BGFX_NATIVE_WINDOW_HANDLE_TYPE_COUNT NATIVE_WINDOW_HANDLE_TYPE_COUNT}</li>
+     * </ul>
+     */
+    public static final int
+        BGFX_NATIVE_WINDOW_HANDLE_TYPE_DEFAULT = 0,
+        BGFX_NATIVE_WINDOW_HANDLE_TYPE_WAYLAND = 1,
+        BGFX_NATIVE_WINDOW_HANDLE_TYPE_COUNT   = 2;
 
     /** Blend state macros */
     public static final long

@@ -22,13 +22,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>{@link XrFrameState} describes the time at which the next frame will be displayed to the user. {@code predictedDisplayTime} <b>must</b> refer to the midpoint of the interval during which the frame is displayed. The runtime <b>may</b> report a different {@code predictedDisplayPeriod} from the hardware’s refresh cycle.</p>
  * 
- * <p>For any frame where {@code shouldRender} is {@link XR10#XR_FALSE FALSE}, the application <b>should</b> avoid heavy GPU work for that frame, for example by not rendering its layers. This typically happens when the application is transitioning into or out of a running session, or when some system UI is fully covering the application at the moment. As long as the session <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">is running</a>, the application <b>should</b> keep running the frame loop to maintain the frame synchronization to the runtime, even if this requires calling {@link XR10#xrEndFrame EndFrame} with all layers omitted.</p>
+ * <p>For any frame where {@code shouldRender} is {@link XR10#XR_FALSE FALSE}, the application <b>should</b> avoid heavy GPU work for that frame, for example by not rendering its layers. This typically happens when the application is transitioning into or out of a running session, or when some system UI is fully covering the application at the moment. As long as the session <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">is running</a>, the application <b>should</b> keep running the frame loop to maintain the frame synchronization to the runtime, even if this requires calling {@link XR10#xrEndFrame EndFrame} with all layers omitted.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_FRAME_STATE TYPE_FRAME_STATE}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrSecondaryViewConfigurationFrameStateMSFT}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrSecondaryViewConfigurationFrameStateMSFT}</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -46,7 +46,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrBool32 {@link #shouldRender};
  * }</code></pre>
  */
-public class XrFrameState extends Struct implements NativeResource {
+public class XrFrameState extends Struct<XrFrameState> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -79,6 +79,15 @@ public class XrFrameState extends Struct implements NativeResource {
         PREDICTEDDISPLAYTIME = layout.offsetof(2);
         PREDICTEDDISPLAYPERIOD = layout.offsetof(3);
         SHOULDRENDER = layout.offsetof(4);
+    }
+
+    protected XrFrameState(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrFrameState create(long address, @Nullable ByteBuffer container) {
+        return new XrFrameState(address, container);
     }
 
     /**
@@ -158,29 +167,29 @@ public class XrFrameState extends Struct implements NativeResource {
 
     /** Returns a new {@code XrFrameState} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrFrameState malloc() {
-        return wrap(XrFrameState.class, nmemAllocChecked(SIZEOF));
+        return new XrFrameState(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrFrameState} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrFrameState calloc() {
-        return wrap(XrFrameState.class, nmemCallocChecked(1, SIZEOF));
+        return new XrFrameState(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrFrameState} instance allocated with {@link BufferUtils}. */
     public static XrFrameState create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrFrameState.class, memAddress(container), container);
+        return new XrFrameState(memAddress(container), container);
     }
 
     /** Returns a new {@code XrFrameState} instance for the specified memory address. */
     public static XrFrameState create(long address) {
-        return wrap(XrFrameState.class, address);
+        return new XrFrameState(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrFrameState createSafe(long address) {
-        return address == NULL ? null : wrap(XrFrameState.class, address);
+        return address == NULL ? null : new XrFrameState(address, null);
     }
 
     /**
@@ -189,7 +198,7 @@ public class XrFrameState extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFrameState.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -198,7 +207,7 @@ public class XrFrameState extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFrameState.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -208,7 +217,7 @@ public class XrFrameState extends Struct implements NativeResource {
      */
     public static XrFrameState.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -218,13 +227,13 @@ public class XrFrameState extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFrameState.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrFrameState.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -233,7 +242,7 @@ public class XrFrameState extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrFrameState malloc(MemoryStack stack) {
-        return wrap(XrFrameState.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrFrameState(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -242,7 +251,7 @@ public class XrFrameState extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrFrameState calloc(MemoryStack stack) {
-        return wrap(XrFrameState.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrFrameState(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -252,7 +261,7 @@ public class XrFrameState extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFrameState.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -262,7 +271,7 @@ public class XrFrameState extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrFrameState.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -299,9 +308,9 @@ public class XrFrameState extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrFrameState.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrFrameState#SIZEOF}, and its mark will be undefined.
+         * by {@link XrFrameState#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

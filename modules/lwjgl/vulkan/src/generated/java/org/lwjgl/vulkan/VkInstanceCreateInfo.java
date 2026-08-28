@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>To capture events that occur while creating or destroying an instance, an application can link a {@link VkDebugReportCallbackCreateInfoEXT} structure or a {@link VkDebugUtilsMessengerCreateInfoEXT} structure to the {@code pNext} element of the {@link VkInstanceCreateInfo} structure given to {@code vkCreateInstance}. This callback is only valid for the duration of the {@link VK10#vkCreateInstance CreateInstance} and the {@link VK10#vkDestroyInstance DestroyInstance} call. Use {@link EXTDebugReport#vkCreateDebugReportCallbackEXT CreateDebugReportCallbackEXT} or {@link EXTDebugUtils#vkCreateDebugUtilsMessengerEXT CreateDebugUtilsMessengerEXT} to create persistent callback objects.</p>
+ * <p>To capture events that occur while creating or destroying an instance, an application <b>can</b> link a {@link VkDebugReportCallbackCreateInfoEXT} structure or a {@link VkDebugUtilsMessengerCreateInfoEXT} structure to the {@code pNext} element of the {@link VkInstanceCreateInfo} structure given to {@code vkCreateInstance}. This callback is only valid for the duration of the {@link VK10#vkCreateInstance CreateInstance} and the {@link VK10#vkDestroyInstance DestroyInstance} call. Use {@link EXTDebugReport#vkCreateDebugReportCallbackEXT CreateDebugReportCallbackEXT} or {@link EXTDebugUtils#vkCreateDebugUtilsMessengerEXT CreateDebugUtilsMessengerEXT} to create persistent callback objects.</p>
  * 
  * <p>An application can add additional drivers by including the {@link VkDirectDriverLoadingListLUNARG} struct to the {@code pNext} element of the {@link VkInstanceCreateInfo} structure given to {@code vkCreateInstance}.</p>
  * 
@@ -70,7 +70,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     char const * const * {@link #ppEnabledExtensionNames};
  * }</code></pre>
  */
-public class VkInstanceCreateInfo extends Struct implements NativeResource {
+public class VkInstanceCreateInfo extends Struct<VkInstanceCreateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -114,6 +114,15 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
         PPENABLEDEXTENSIONNAMES = layout.offsetof(7);
     }
 
+    protected VkInstanceCreateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkInstanceCreateInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkInstanceCreateInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkInstanceCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -127,7 +136,7 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -143,7 +152,7 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
     /** the number of global layers to enable. */
     @NativeType("uint32_t")
     public int enabledLayerCount() { return nenabledLayerCount(address()); }
-    /** a pointer to an array of {@code enabledLayerCount} null-terminated UTF-8 strings containing the names of layers to enable for the created instance. The layers are loaded in the order they are listed in this array, with the first array element being the closest to the application, and the last array element being the closest to the driver. See the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-layers">Layers</a> section for further details. */
+    /** a pointer to an array of {@code enabledLayerCount} null-terminated UTF-8 strings containing the names of layers to enable for the created instance. The layers are loaded in the order they are listed in this array, with the first array element being the closest to the application, and the last array element being the closest to the driver. See the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-layers">Layers</a> section for further details. */
     @Nullable
     @NativeType("char const * const *")
     public PointerBuffer ppEnabledLayerNames() { return nppEnabledLayerNames(address()); }
@@ -217,29 +226,29 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code VkInstanceCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkInstanceCreateInfo malloc() {
-        return wrap(VkInstanceCreateInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkInstanceCreateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkInstanceCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkInstanceCreateInfo calloc() {
-        return wrap(VkInstanceCreateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkInstanceCreateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkInstanceCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkInstanceCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkInstanceCreateInfo.class, memAddress(container), container);
+        return new VkInstanceCreateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkInstanceCreateInfo} instance for the specified memory address. */
     public static VkInstanceCreateInfo create(long address) {
-        return wrap(VkInstanceCreateInfo.class, address);
+        return new VkInstanceCreateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkInstanceCreateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkInstanceCreateInfo.class, address);
+        return address == NULL ? null : new VkInstanceCreateInfo(address, null);
     }
 
     /**
@@ -248,7 +257,7 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkInstanceCreateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -257,7 +266,7 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkInstanceCreateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -267,7 +276,7 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
      */
     public static VkInstanceCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -277,13 +286,13 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkInstanceCreateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkInstanceCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -311,7 +320,7 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkInstanceCreateInfo malloc(MemoryStack stack) {
-        return wrap(VkInstanceCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkInstanceCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -320,7 +329,7 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkInstanceCreateInfo calloc(MemoryStack stack) {
-        return wrap(VkInstanceCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkInstanceCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -330,7 +339,7 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkInstanceCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -340,7 +349,7 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkInstanceCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -403,9 +412,9 @@ public class VkInstanceCreateInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkInstanceCreateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkInstanceCreateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkInstanceCreateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

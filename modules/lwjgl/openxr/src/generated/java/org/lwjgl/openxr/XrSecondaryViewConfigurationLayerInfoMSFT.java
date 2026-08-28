@@ -34,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTSecondaryViewConfiguration XR_MSFT_secondary_view_configuration} extension <b>must</b> be enabled prior to using {@link XrSecondaryViewConfigurationLayerInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_LAYER_INFO_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_LAYER_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code viewConfigurationType} <b>must</b> be a valid {@code XrViewConfigurationType} value</li>
  * <li>{@code environmentBlendMode} <b>must</b> be a valid {@code XrEnvironmentBlendMode} value</li>
  * <li>{@code layers} <b>must</b> be a pointer to an array of {@code layerCount} valid {@link XrCompositionLayerBaseHeader}-based structures. See also: {@link XrCompositionLayerCubeKHR}, {@link XrCompositionLayerCylinderKHR}, {@link XrCompositionLayerEquirect2KHR}, {@link XrCompositionLayerEquirectKHR}, {@link XrCompositionLayerPassthroughHTC}, {@link XrCompositionLayerProjection}, {@link XrCompositionLayerQuad}</li>
@@ -57,7 +57,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrCompositionLayerBaseHeader XrCompositionLayerBaseHeader} const * const * {@link #layers};
  * }</code></pre>
  */
-public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements NativeResource {
+public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct<XrSecondaryViewConfigurationLayerInfoMSFT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -95,6 +95,15 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
         LAYERS = layout.offsetof(5);
     }
 
+    protected XrSecondaryViewConfigurationLayerInfoMSFT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrSecondaryViewConfigurationLayerInfoMSFT create(long address, @Nullable ByteBuffer container) {
+        return new XrSecondaryViewConfigurationLayerInfoMSFT(address, container);
+    }
+
     /**
      * Creates a {@code XrSecondaryViewConfigurationLayerInfoMSFT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -117,7 +126,7 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
     /** {@code XrViewConfigurationType} to which the composition layers will be displayed. */
     @NativeType("XrViewConfigurationType")
     public int viewConfigurationType() { return nviewConfigurationType(address()); }
-    /** the {@code XrEnvironmentBlendMode} value representing the desired <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#environment_blend_mode">environment blend mode</a> for this view configuration. */
+    /** the {@code XrEnvironmentBlendMode} value representing the desired <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#environment_blend_mode">environment blend mode</a> for this view configuration. */
     @NativeType("XrEnvironmentBlendMode")
     public int environmentBlendMode() { return nenvironmentBlendMode(address()); }
     /** the number of composition layers in this frame for the secondary view configuration type. The maximum supported layer count is identified by {@link XrSystemGraphicsProperties}::maxLayerCount. If layerCount is greater than the maximum supported layer count then {@link XR10#XR_ERROR_LAYER_LIMIT_EXCEEDED ERROR_LAYER_LIMIT_EXCEEDED} is returned. */
@@ -173,29 +182,29 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
 
     /** Returns a new {@code XrSecondaryViewConfigurationLayerInfoMSFT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSecondaryViewConfigurationLayerInfoMSFT malloc() {
-        return wrap(XrSecondaryViewConfigurationLayerInfoMSFT.class, nmemAllocChecked(SIZEOF));
+        return new XrSecondaryViewConfigurationLayerInfoMSFT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrSecondaryViewConfigurationLayerInfoMSFT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSecondaryViewConfigurationLayerInfoMSFT calloc() {
-        return wrap(XrSecondaryViewConfigurationLayerInfoMSFT.class, nmemCallocChecked(1, SIZEOF));
+        return new XrSecondaryViewConfigurationLayerInfoMSFT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrSecondaryViewConfigurationLayerInfoMSFT} instance allocated with {@link BufferUtils}. */
     public static XrSecondaryViewConfigurationLayerInfoMSFT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrSecondaryViewConfigurationLayerInfoMSFT.class, memAddress(container), container);
+        return new XrSecondaryViewConfigurationLayerInfoMSFT(memAddress(container), container);
     }
 
     /** Returns a new {@code XrSecondaryViewConfigurationLayerInfoMSFT} instance for the specified memory address. */
     public static XrSecondaryViewConfigurationLayerInfoMSFT create(long address) {
-        return wrap(XrSecondaryViewConfigurationLayerInfoMSFT.class, address);
+        return new XrSecondaryViewConfigurationLayerInfoMSFT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSecondaryViewConfigurationLayerInfoMSFT createSafe(long address) {
-        return address == NULL ? null : wrap(XrSecondaryViewConfigurationLayerInfoMSFT.class, address);
+        return address == NULL ? null : new XrSecondaryViewConfigurationLayerInfoMSFT(address, null);
     }
 
     /**
@@ -204,7 +213,7 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
      * @param capacity the buffer capacity
      */
     public static XrSecondaryViewConfigurationLayerInfoMSFT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -213,7 +222,7 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
      * @param capacity the buffer capacity
      */
     public static XrSecondaryViewConfigurationLayerInfoMSFT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -223,7 +232,7 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
      */
     public static XrSecondaryViewConfigurationLayerInfoMSFT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -233,13 +242,13 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
      * @param capacity the buffer capacity
      */
     public static XrSecondaryViewConfigurationLayerInfoMSFT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSecondaryViewConfigurationLayerInfoMSFT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -248,7 +257,7 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
      * @param stack the stack from which to allocate
      */
     public static XrSecondaryViewConfigurationLayerInfoMSFT malloc(MemoryStack stack) {
-        return wrap(XrSecondaryViewConfigurationLayerInfoMSFT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrSecondaryViewConfigurationLayerInfoMSFT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -257,7 +266,7 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
      * @param stack the stack from which to allocate
      */
     public static XrSecondaryViewConfigurationLayerInfoMSFT calloc(MemoryStack stack) {
-        return wrap(XrSecondaryViewConfigurationLayerInfoMSFT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrSecondaryViewConfigurationLayerInfoMSFT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -267,7 +276,7 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
      * @param capacity the buffer capacity
      */
     public static XrSecondaryViewConfigurationLayerInfoMSFT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -277,7 +286,7 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
      * @param capacity the buffer capacity
      */
     public static XrSecondaryViewConfigurationLayerInfoMSFT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -327,9 +336,9 @@ public class XrSecondaryViewConfigurationLayerInfoMSFT extends Struct implements
         /**
          * Creates a new {@code XrSecondaryViewConfigurationLayerInfoMSFT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSecondaryViewConfigurationLayerInfoMSFT#SIZEOF}, and its mark will be undefined.
+         * by {@link XrSecondaryViewConfigurationLayerInfoMSFT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

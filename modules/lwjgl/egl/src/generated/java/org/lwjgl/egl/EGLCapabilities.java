@@ -213,7 +213,7 @@ public class EGLCapabilities {
     /** When true, {@link EXTBufferAge} is supported. */
     public final boolean EGL_EXT_buffer_age;
     /**
-     * When true, the <a target="_blank" href="https://www.khronos.org/registry/EGL/extensions/EXT/EGL_EXT_client_extensions.txt">EXT_client_extensions</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/EGL/extensions/EXT/EGL_EXT_client_extensions.txt">EXT_client_extensions</a> extension is supported.
      * 
      * <p>This extension introduces the concept of *extension type*, requires that each EGL extension belong to exactly one type, and defines two types: display
      * and client. It also provides a method to query, without initializing a display, the set of supported client extensions.</p>
@@ -264,7 +264,7 @@ public class EGLCapabilities {
     /** When true, {@link EXTDeviceQueryName} is supported. */
     public final boolean EGL_EXT_device_query_name;
     /**
-     * When true, the <a target="_blank" href="https://www.khronos.org/registry/EGL/extensions/EXT/EGL_EXT_explicit_device.txt">EXT_explicit_device</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/EGL/extensions/EXT/EGL_EXT_explicit_device.txt">EXT_explicit_device</a> extension is supported.
      * 
      * <p>A system may support rendering with multiple devices for the same windowing system. In that case, an EGL implementation must select a default device
      * based on the native display.</p>
@@ -278,6 +278,8 @@ public class EGLCapabilities {
      * <p>Using {@code EGL_EXT_explicit_device} with {@code EGL_MESA_platform_surfaceless} is functionally identical to {@code EGL_EXT_platform_device}.</p>
      */
     public final boolean EGL_EXT_explicit_device;
+    /** When true, {@link EXTGLColorspaceBT2020HLG} is supported. */
+    public final boolean EGL_EXT_gl_colorspace_bt2020_hlg;
     /** When true, {@link EXTGLColorspaceBT2020Linear} is supported. */
     public final boolean EGL_EXT_gl_colorspace_bt2020_linear;
     /** When true, {@link EXTGLColorspaceBT2020PQ} is supported. */
@@ -351,7 +353,7 @@ public class EGLCapabilities {
     /** When true, {@link KHRCLEvent2} is supported. */
     public final boolean EGL_KHR_cl_event2;
     /**
-     * When true, the <a target="_blank" href="https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_get_all_proc_addresses.txt">KHR_client_get_all_proc_addresses</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_get_all_proc_addresses.txt">KHR_client_get_all_proc_addresses</a> extension is supported.
      * 
      * <p>eglGetProcAddress is currently defined to not support the querying of non-extension EGL or client API functions. Non-extension functions are expected
      * to be exposed as library symbols that can be resolved statically at link time, or dynamically at run time using OS-specific runtime linking mechanisms.</p>
@@ -389,7 +391,7 @@ public class EGLCapabilities {
     /** When true, {@link KHRFenceSync} is supported. */
     public final boolean EGL_KHR_fence_sync;
     /**
-     * When true, the <a target="_blank" href="https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_get_all_proc_addresses.txt">KHR_get_all_proc_addresses</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_get_all_proc_addresses.txt">KHR_get_all_proc_addresses</a> extension is supported.
      * 
      * <p>eglGetProcAddress is currently defined to not support the querying of non-extension EGL or client API functions. Non-extension functions are expected
      * to be exposed as library symbols that can be resolved statically at link time, or dynamically at run time using OS-specific runtime linking mechanisms.</p>
@@ -457,7 +459,7 @@ public class EGLCapabilities {
     /** When true, {@link KHRStreamFIFO} is supported. */
     public final boolean EGL_KHR_stream_fifo;
     /**
-     * When true, the <a target="_blank" href="https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_stream_producer_aldatalocator.txt">KHR_stream_producer_aldatalocator</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_stream_producer_aldatalocator.txt">KHR_stream_producer_aldatalocator</a> extension is supported.
      * 
      * <p>This extension (in conjunction with the OpenMAX_AL_EGLStream_DataLocator extension to OpenMAX AL) allows an OpenMAX AL MediaPlayer object to be
      * connected as the producer of an EGLStream.</p>
@@ -475,7 +477,7 @@ public class EGLCapabilities {
     /** When true, {@link KHRStreamProducerEGLSurface} is supported. */
     public final boolean EGL_KHR_stream_producer_eglsurface;
     /**
-     * When true, the <a target="_blank" href="https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_surfaceless_context.txt">KHR_surfaceless_context</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_surfaceless_context.txt">KHR_surfaceless_context</a> extension is supported.
      * 
      * <p>These extensions allows an application to make a context current by passing EGL_NO_SURFACE for the write and read surface in the call to
      * eglMakeCurrent. The motivation is that applications that only want to render to client API targets (such as OpenGL framebuffer objects) should not need
@@ -517,7 +519,7 @@ public class EGLCapabilities {
     /** When true, {@link NVNativeQuery} is supported. */
     public final boolean EGL_NV_native_query;
     /**
-     * When true, the <a target="_blank" href="https://www.khronos.org/registry/EGL/extensions/NV/EGL_NV_post_convert_rounding.txt">NV_post_convert_rounding</a> extension is supported.
+     * When true, the <a href="https://www.khronos.org/registry/EGL/extensions/NV/EGL_NV_post_convert_rounding.txt">NV_post_convert_rounding</a> extension is supported.
      * 
      * <p>This extension defines the conversions for posting operations when the destination's number of components or component sizes do not match the color
      * buffer. This extension supports posting a 24 bit (888) color buffer to a 16 bit (565) destination buffer, posting a 16 bit (565) color buffer to a 24
@@ -1079,6 +1081,7 @@ public class EGLCapabilities {
         EGL_EXT_device_query = check_EXT_device_query(ext);
         EGL_EXT_device_query_name = ext.contains("EGL_EXT_device_query_name");
         EGL_EXT_explicit_device = ext.contains("EGL_EXT_explicit_device");
+        EGL_EXT_gl_colorspace_bt2020_hlg = ext.contains("EGL_EXT_gl_colorspace_bt2020_hlg");
         EGL_EXT_gl_colorspace_bt2020_linear = ext.contains("EGL_EXT_gl_colorspace_bt2020_linear");
         EGL_EXT_gl_colorspace_bt2020_pq = ext.contains("EGL_EXT_gl_colorspace_bt2020_pq");
         EGL_EXT_gl_colorspace_display_p3 = ext.contains("EGL_EXT_gl_colorspace_display_p3");

@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If {@code flags} has the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} bit set, descriptor pool creation <b>may</b> fail with the error {@link VK12#VK_ERROR_FRAGMENTATION ERROR_FRAGMENTATION} if the total number of descriptors across all pools (including this one) created with this bit set exceeds {@code maxUpdateAfterBindDescriptorsInAllPools}, or if fragmentation of the underlying hardware resources occurs.</p>
  * 
- * <p>If a {@code pPoolSizes}[i]{@code ::type} is {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, a {@link VkMutableDescriptorTypeCreateInfoEXT} struct in the {@code pNext} chain <b>can</b> be used to specify which mutable descriptor types <b>can</b> be allocated from the pool. If present in the {@code pNext} chain, {@link VkMutableDescriptorTypeCreateInfoEXT}{@code ::pMutableDescriptorTypeLists}[i] specifies which kind of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} descriptors <b>can</b> be allocated from this pool entry. If {@link VkMutableDescriptorTypeCreateInfoEXT} does not exist in the {@code pNext} chain, or {@link VkMutableDescriptorTypeCreateInfoEXT}{@code ::pMutableDescriptorTypeLists}[i] is out of range, the descriptor pool allocates enough memory to be able to allocate a {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} descriptor with any supported {@code VkDescriptorType} as a mutable descriptor. A mutable descriptor <b>can</b> be allocated from a pool entry if the type list in {@link VkDescriptorSetLayoutCreateInfo} is a subset of the type list declared in the descriptor pool, or if the pool entry is created without a descriptor type list. Multiple {@code pPoolSizes} entries with {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} <b>can</b> be declared. When multiple such pool entries are present in {@code pPoolSizes}, they specify sets of supported descriptor types which either fully overlap, partially overlap, or are disjoint. Two sets fully overlap if the sets of supported descriptor types are equal. If the sets are not disjoint they partially overlap. A pool entry without a {@link VkMutableDescriptorTypeListEXT} assigned to it is considered to partially overlap any other pool entry which has a {@link VkMutableDescriptorTypeListEXT} assigned to it. The application <b>must</b> ensure that partial overlap does not exist in {@code pPoolSizes}.</p>
+ * <p>If a {@code pPoolSizes}[i]{@code ::type} is {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}, a {@link VkMutableDescriptorTypeCreateInfoEXT} struct in the {@code pNext} chain <b>can</b> be used to specify which mutable descriptor types <b>can</b> be allocated from the pool. If included in the {@code pNext} chain, {@link VkMutableDescriptorTypeCreateInfoEXT}{@code ::pMutableDescriptorTypeLists}[i] specifies which kind of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} descriptors <b>can</b> be allocated from this pool entry. If {@link VkMutableDescriptorTypeCreateInfoEXT} does not exist in the {@code pNext} chain, or {@link VkMutableDescriptorTypeCreateInfoEXT}{@code ::pMutableDescriptorTypeLists}[i] is out of range, the descriptor pool allocates enough memory to be able to allocate a {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} descriptor with any supported {@code VkDescriptorType} as a mutable descriptor. A mutable descriptor <b>can</b> be allocated from a pool entry if the type list in {@link VkDescriptorSetLayoutCreateInfo} is a subset of the type list declared in the descriptor pool, or if the pool entry is created without a descriptor type list. Multiple {@code pPoolSizes} entries with {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} <b>can</b> be declared. When multiple such pool entries are present in {@code pPoolSizes}, they specify sets of supported descriptor types which either fully overlap, partially overlap, or are disjoint. Two sets fully overlap if the sets of supported descriptor types are equal. If the sets are not disjoint they partially overlap. A pool entry without a {@link VkMutableDescriptorTypeListEXT} assigned to it is considered to partially overlap any other pool entry which has a {@link VkMutableDescriptorTypeListEXT} assigned to it. The application <b>must</b> ensure that partial overlap does not exist in {@code pPoolSizes}.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
@@ -41,7 +41,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code maxSets} <b>must</b> be greater than 0</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorPoolOverallocation">{@code descriptorPoolOverallocation}</a> feature is not enabled, or {@code flags} does not have {@link NVDescriptorPoolOverallocation#VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV} set, {@code maxSets} <b>must</b> be greater than 0</li>
+ * <li>If {@code flags} has the {@link NVDescriptorPoolOverallocation#VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV} or {@link NVDescriptorPoolOverallocation#VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_POOLS_BIT_NV DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_POOLS_BIT_NV} bits set, then <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorPoolOverallocation">{@code descriptorPoolOverallocation}</a> <b>must</b> be enabled</li>
  * <li>If {@code flags} has the {@link EXTMutableDescriptorType#VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT} bit set, then the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} bit <b>must</b> not be set</li>
  * <li>If {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT}{@code ::mutableDescriptorType} is not enabled, {@code pPoolSizes} <b>must</b> not contain a {@code descriptorType} of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}</li>
  * <li>If {@code flags} has the {@link EXTMutableDescriptorType#VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT} bit set, {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT}{@code ::mutableDescriptorType} <b>must</b> be enabled</li>
@@ -74,7 +75,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkDescriptorPoolSize VkDescriptorPoolSize} const * {@link #pPoolSizes};
  * }</code></pre>
  */
-public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource {
+public class VkDescriptorPoolCreateInfo extends Struct<VkDescriptorPoolCreateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -112,6 +113,15 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
         PPOOLSIZES = layout.offsetof(5);
     }
 
+    protected VkDescriptorPoolCreateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkDescriptorPoolCreateInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkDescriptorPoolCreateInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkDescriptorPoolCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -125,7 +135,7 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -199,29 +209,29 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
 
     /** Returns a new {@code VkDescriptorPoolCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkDescriptorPoolCreateInfo malloc() {
-        return wrap(VkDescriptorPoolCreateInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkDescriptorPoolCreateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkDescriptorPoolCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkDescriptorPoolCreateInfo calloc() {
-        return wrap(VkDescriptorPoolCreateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkDescriptorPoolCreateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkDescriptorPoolCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkDescriptorPoolCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkDescriptorPoolCreateInfo.class, memAddress(container), container);
+        return new VkDescriptorPoolCreateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkDescriptorPoolCreateInfo} instance for the specified memory address. */
     public static VkDescriptorPoolCreateInfo create(long address) {
-        return wrap(VkDescriptorPoolCreateInfo.class, address);
+        return new VkDescriptorPoolCreateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorPoolCreateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkDescriptorPoolCreateInfo.class, address);
+        return address == NULL ? null : new VkDescriptorPoolCreateInfo(address, null);
     }
 
     /**
@@ -230,7 +240,7 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
      * @param capacity the buffer capacity
      */
     public static VkDescriptorPoolCreateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -239,7 +249,7 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
      * @param capacity the buffer capacity
      */
     public static VkDescriptorPoolCreateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -249,7 +259,7 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
      */
     public static VkDescriptorPoolCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -259,13 +269,13 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
      * @param capacity the buffer capacity
      */
     public static VkDescriptorPoolCreateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkDescriptorPoolCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -293,7 +303,7 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorPoolCreateInfo malloc(MemoryStack stack) {
-        return wrap(VkDescriptorPoolCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkDescriptorPoolCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -302,7 +312,7 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
      * @param stack the stack from which to allocate
      */
     public static VkDescriptorPoolCreateInfo calloc(MemoryStack stack) {
-        return wrap(VkDescriptorPoolCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkDescriptorPoolCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -312,7 +322,7 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
      * @param capacity the buffer capacity
      */
     public static VkDescriptorPoolCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -322,7 +332,7 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
      * @param capacity the buffer capacity
      */
     public static VkDescriptorPoolCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -374,9 +384,9 @@ public class VkDescriptorPoolCreateInfo extends Struct implements NativeResource
         /**
          * Creates a new {@code VkDescriptorPoolCreateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkDescriptorPoolCreateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkDescriptorPoolCreateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

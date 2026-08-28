@@ -25,15 +25,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is not enabled, {@code queryType} <b>must</b> not be {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShaderQueries">{@code meshShaderQueries}</a> feature is not enabled, {@code queryType} <b>must</b> not be {@link EXTMeshShader#VK_QUERY_TYPE_MESH_PRIMITIVES_GENERATED_EXT QUERY_TYPE_MESH_PRIMITIVES_GENERATED_EXT}</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShaderQueries">{@code meshShaderQueries}</a> feature is not enabled, and {@code queryType} is {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}, {@code pipelineStatistics} <b>must</b> not contain {@link EXTMeshShader#VK_QUERY_PIPELINE_STATISTIC_TASK_SHADER_INVOCATIONS_BIT_EXT QUERY_PIPELINE_STATISTIC_TASK_SHADER_INVOCATIONS_BIT_EXT} or {@link EXTMeshShader#VK_QUERY_PIPELINE_STATISTIC_MESH_SHADER_INVOCATIONS_BIT_EXT QUERY_PIPELINE_STATISTIC_MESH_SHADER_INVOCATIONS_BIT_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-pipelineStatisticsQuery">{@code pipelineStatisticsQuery}</a> feature is not enabled, {@code queryType} <b>must</b> not be {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShaderQueries">{@code meshShaderQueries}</a> feature is not enabled, {@code queryType} <b>must</b> not be {@link EXTMeshShader#VK_QUERY_TYPE_MESH_PRIMITIVES_GENERATED_EXT QUERY_TYPE_MESH_PRIMITIVES_GENERATED_EXT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-meshShaderQueries">{@code meshShaderQueries}</a> feature is not enabled, and {@code queryType} is {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}, {@code pipelineStatistics} <b>must</b> not contain {@link EXTMeshShader#VK_QUERY_PIPELINE_STATISTIC_TASK_SHADER_INVOCATIONS_BIT_EXT QUERY_PIPELINE_STATISTIC_TASK_SHADER_INVOCATIONS_BIT_EXT} or {@link EXTMeshShader#VK_QUERY_PIPELINE_STATISTIC_MESH_SHADER_INVOCATIONS_BIT_EXT QUERY_PIPELINE_STATISTIC_MESH_SHADER_INVOCATIONS_BIT_EXT}</li>
  * <li>If {@code queryType} is {@link VK10#VK_QUERY_TYPE_PIPELINE_STATISTICS QUERY_TYPE_PIPELINE_STATISTICS}, {@code pipelineStatistics} <b>must</b> be a valid combination of {@code VkQueryPipelineStatisticFlagBits} values</li>
  * <li>If {@code queryType} is {@link KHRPerformanceQuery#VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR QUERY_TYPE_PERFORMANCE_QUERY_KHR}, the {@code pNext} chain <b>must</b> include a {@link VkQueryPoolPerformanceCreateInfoKHR} structure</li>
  * <li>{@code queryCount} <b>must</b> be greater than 0</li>
  * <li>If {@code queryType} is {@link KHRVideoEncodeQueue#VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkVideoProfileInfoKHR} structure with {@code videoCodecOperation} specifying an encode operation</li>
  * <li>If {@code queryType} is {@link KHRVideoEncodeQueue#VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR}, then the {@code pNext} chain <b>must</b> include a {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR} structure</li>
- * <li>If {@code queryType} is {@link KHRVideoEncodeQueue#VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR}, and the {@code pNext} chain includes a {@link VkVideoProfileInfoKHR} structure and a {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR} structure, then {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR}{@code ::encodeFeedbackFlags} <b>must</b> not contain any bits that are not set in {@link VkVideoEncodeCapabilitiesKHR}{@code ::supportedEncodeFeedbackFlags}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a> described by {@link VkVideoProfileInfoKHR} and its {@code pNext} chain</li>
+ * <li>If {@code queryType} is {@link KHRVideoEncodeQueue#VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR}, and the {@code pNext} chain includes a {@link VkVideoProfileInfoKHR} structure and a {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR} structure, then {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR}{@code ::encodeFeedbackFlags} <b>must</b> not contain any bits that are not set in {@link VkVideoEncodeCapabilitiesKHR}{@code ::supportedEncodeFeedbackFlags}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profiles">video profile</a> described by {@link VkVideoProfileInfoKHR} and its {@code pNext} chain</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -62,7 +62,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkQueryPipelineStatisticFlags {@link #pipelineStatistics};
  * }</code></pre>
  */
-public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
+public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -100,6 +100,15 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
         PIPELINESTATISTICS = layout.offsetof(5);
     }
 
+    protected VkQueryPoolCreateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkQueryPoolCreateInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkQueryPoolCreateInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkQueryPoolCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -113,7 +122,7 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -128,7 +137,7 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
     /** the number of queries managed by the pool. */
     @NativeType("uint32_t")
     public int queryCount() { return nqueryCount(address()); }
-    /** a bitmask of {@code VkQueryPipelineStatisticFlagBits} specifying which counters will be returned in queries on the new pool, as described below in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#queries-pipestats">Pipeline Statistics Queries</a>. */
+    /** a bitmask of {@code VkQueryPipelineStatisticFlagBits} specifying which counters will be returned in queries on the new pool, as described below in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#queries-pipestats">Pipeline Statistics Queries</a>. */
     @NativeType("VkQueryPipelineStatisticFlags")
     public int pipelineStatistics() { return npipelineStatistics(address()); }
 
@@ -204,29 +213,29 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code VkQueryPoolCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkQueryPoolCreateInfo malloc() {
-        return wrap(VkQueryPoolCreateInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkQueryPoolCreateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkQueryPoolCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkQueryPoolCreateInfo calloc() {
-        return wrap(VkQueryPoolCreateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkQueryPoolCreateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkQueryPoolCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkQueryPoolCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkQueryPoolCreateInfo.class, memAddress(container), container);
+        return new VkQueryPoolCreateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkQueryPoolCreateInfo} instance for the specified memory address. */
     public static VkQueryPoolCreateInfo create(long address) {
-        return wrap(VkQueryPoolCreateInfo.class, address);
+        return new VkQueryPoolCreateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkQueryPoolCreateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkQueryPoolCreateInfo.class, address);
+        return address == NULL ? null : new VkQueryPoolCreateInfo(address, null);
     }
 
     /**
@@ -235,7 +244,7 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkQueryPoolCreateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -244,7 +253,7 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkQueryPoolCreateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -254,7 +263,7 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
      */
     public static VkQueryPoolCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -264,13 +273,13 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkQueryPoolCreateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkQueryPoolCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -298,7 +307,7 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkQueryPoolCreateInfo malloc(MemoryStack stack) {
-        return wrap(VkQueryPoolCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkQueryPoolCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -307,7 +316,7 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkQueryPoolCreateInfo calloc(MemoryStack stack) {
-        return wrap(VkQueryPoolCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkQueryPoolCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -317,7 +326,7 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkQueryPoolCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -327,7 +336,7 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkQueryPoolCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -368,9 +377,9 @@ public class VkQueryPoolCreateInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkQueryPoolCreateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkQueryPoolCreateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkQueryPoolCreateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

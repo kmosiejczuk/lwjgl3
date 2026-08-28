@@ -25,13 +25,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_EXT}, then the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rectangularLines">{@code rectangularLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT LINE_RASTERIZATION_MODE_BRESENHAM_EXT}, then the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bresenhamLines">{@code bresenhamLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT}, then the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-smoothLines">{@code smoothLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_EXT}, then the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledRectangularLines">{@code stippledRectangularLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT LINE_RASTERIZATION_MODE_BRESENHAM_EXT}, then the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledBresenhamLines">{@code stippledBresenhamLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT}, then the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledSmoothLines">{@code stippledSmoothLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_DEFAULT_EXT LINE_RASTERIZATION_MODE_DEFAULT_EXT}, then the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledRectangularLines">{@code stippledRectangularLines}</a> feature <b>must</b> be enabled and {@link VkPhysicalDeviceLimits}{@code ::strictLines} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
+ * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rectangularLines">{@code rectangularLines}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT LINE_RASTERIZATION_MODE_BRESENHAM_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bresenhamLines">{@code bresenhamLines}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-smoothLines">{@code smoothLines}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledRectangularLines">{@code stippledRectangularLines}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT LINE_RASTERIZATION_MODE_BRESENHAM_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledBresenhamLines">{@code stippledBresenhamLines}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledSmoothLines">{@code stippledSmoothLines}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_DEFAULT_EXT LINE_RASTERIZATION_MODE_DEFAULT_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledRectangularLines">{@code stippledRectangularLines}</a> feature <b>must</b> be enabled and {@link VkPhysicalDeviceLimits}{@code ::strictLines} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -53,7 +53,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint16_t {@link #lineStipplePattern};
  * }</code></pre>
  */
-public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implements NativeResource {
+public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct<VkPipelineRasterizationLineStateCreateInfoEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -91,6 +91,15 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
         LINESTIPPLEPATTERN = layout.offsetof(5);
     }
 
+    protected VkPipelineRasterizationLineStateCreateInfoEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPipelineRasterizationLineStateCreateInfoEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkPipelineRasterizationLineStateCreateInfoEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkPipelineRasterizationLineStateCreateInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -104,7 +113,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -113,7 +122,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
     /** a {@code VkLineRasterizationModeEXT} value selecting the style of line rasterization. */
     @NativeType("VkLineRasterizationModeEXT")
     public int lineRasterizationMode() { return nlineRasterizationMode(address()); }
-    /** enables <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-lines-stipple">stippled line rasterization</a>. */
+    /** enables <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-lines-stipple">stippled line rasterization</a>. */
     @NativeType("VkBool32")
     public boolean stippledLineEnable() { return nstippledLineEnable(address()) != 0; }
     /** the repeat factor used in stippled line rasterization. */
@@ -173,29 +182,29 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
 
     /** Returns a new {@code VkPipelineRasterizationLineStateCreateInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineRasterizationLineStateCreateInfoEXT malloc() {
-        return wrap(VkPipelineRasterizationLineStateCreateInfoEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkPipelineRasterizationLineStateCreateInfoEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPipelineRasterizationLineStateCreateInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineRasterizationLineStateCreateInfoEXT calloc() {
-        return wrap(VkPipelineRasterizationLineStateCreateInfoEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPipelineRasterizationLineStateCreateInfoEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPipelineRasterizationLineStateCreateInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkPipelineRasterizationLineStateCreateInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPipelineRasterizationLineStateCreateInfoEXT.class, memAddress(container), container);
+        return new VkPipelineRasterizationLineStateCreateInfoEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineRasterizationLineStateCreateInfoEXT} instance for the specified memory address. */
     public static VkPipelineRasterizationLineStateCreateInfoEXT create(long address) {
-        return wrap(VkPipelineRasterizationLineStateCreateInfoEXT.class, address);
+        return new VkPipelineRasterizationLineStateCreateInfoEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineRasterizationLineStateCreateInfoEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkPipelineRasterizationLineStateCreateInfoEXT.class, address);
+        return address == NULL ? null : new VkPipelineRasterizationLineStateCreateInfoEXT(address, null);
     }
 
     /**
@@ -204,7 +213,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
      * @param capacity the buffer capacity
      */
     public static VkPipelineRasterizationLineStateCreateInfoEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -213,7 +222,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
      * @param capacity the buffer capacity
      */
     public static VkPipelineRasterizationLineStateCreateInfoEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -223,7 +232,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
      */
     public static VkPipelineRasterizationLineStateCreateInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -233,13 +242,13 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
      * @param capacity the buffer capacity
      */
     public static VkPipelineRasterizationLineStateCreateInfoEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineRasterizationLineStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -267,7 +276,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
      * @param stack the stack from which to allocate
      */
     public static VkPipelineRasterizationLineStateCreateInfoEXT malloc(MemoryStack stack) {
-        return wrap(VkPipelineRasterizationLineStateCreateInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPipelineRasterizationLineStateCreateInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -276,7 +285,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
      * @param stack the stack from which to allocate
      */
     public static VkPipelineRasterizationLineStateCreateInfoEXT calloc(MemoryStack stack) {
-        return wrap(VkPipelineRasterizationLineStateCreateInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPipelineRasterizationLineStateCreateInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -286,7 +295,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
      * @param capacity the buffer capacity
      */
     public static VkPipelineRasterizationLineStateCreateInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -296,7 +305,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
      * @param capacity the buffer capacity
      */
     public static VkPipelineRasterizationLineStateCreateInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -337,9 +346,9 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct implem
         /**
          * Creates a new {@code VkPipelineRasterizationLineStateCreateInfoEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineRasterizationLineStateCreateInfoEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPipelineRasterizationLineStateCreateInfoEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

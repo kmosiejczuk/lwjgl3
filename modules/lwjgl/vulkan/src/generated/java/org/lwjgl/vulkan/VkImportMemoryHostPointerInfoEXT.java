@@ -12,6 +12,7 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
+import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
@@ -20,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Importing memory from a host pointer shares ownership of the memory between the host and the Vulkan implementation. The application <b>can</b> continue to access the memory through the host pointer but it is the application’s responsibility to synchronize device and non-device access to the payload as defined in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-device-hostaccess">Host Access to Device Memory Objects</a>.</p>
+ * <p>Importing memory from a host pointer shares ownership of the memory between the host and the Vulkan implementation. The application <b>can</b> continue to access the memory through the host pointer but it is the application’s responsibility to synchronize device and non-device access to the payload as defined in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-device-hostaccess">Host Access to Device Memory Objects</a>.</p>
  * 
  * <p>Applications <b>can</b> import the same payload into multiple instances of Vulkan and multiple times into a given Vulkan instance. However, implementations <b>may</b> fail to import the same payload multiple times into a given physical device due to platform constraints.</p>
  * 
@@ -43,6 +44,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link EXTExternalMemoryHost#VK_STRUCTURE_TYPE_IMPORT_MEMORY_HOST_POINTER_INFO_EXT STRUCTURE_TYPE_IMPORT_MEMORY_HOST_POINTER_INFO_EXT}</li>
  * <li>{@code handleType} <b>must</b> be a valid {@code VkExternalMemoryHandleTypeFlagBits} value</li>
+ * <li>{@code pHostPointer} <b>must</b> be a pointer value</li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -55,7 +57,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void * {@link #pHostPointer};
  * }</code></pre>
  */
-public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeResource {
+public class VkImportMemoryHostPointerInfoEXT extends Struct<VkImportMemoryHostPointerInfoEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -87,6 +89,15 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
         PHOSTPOINTER = layout.offsetof(3);
     }
 
+    protected VkImportMemoryHostPointerInfoEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkImportMemoryHostPointerInfoEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkImportMemoryHostPointerInfoEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkImportMemoryHostPointerInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -100,7 +111,7 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -155,29 +166,29 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
 
     /** Returns a new {@code VkImportMemoryHostPointerInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImportMemoryHostPointerInfoEXT malloc() {
-        return wrap(VkImportMemoryHostPointerInfoEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkImportMemoryHostPointerInfoEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkImportMemoryHostPointerInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImportMemoryHostPointerInfoEXT calloc() {
-        return wrap(VkImportMemoryHostPointerInfoEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkImportMemoryHostPointerInfoEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkImportMemoryHostPointerInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkImportMemoryHostPointerInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkImportMemoryHostPointerInfoEXT.class, memAddress(container), container);
+        return new VkImportMemoryHostPointerInfoEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkImportMemoryHostPointerInfoEXT} instance for the specified memory address. */
     public static VkImportMemoryHostPointerInfoEXT create(long address) {
-        return wrap(VkImportMemoryHostPointerInfoEXT.class, address);
+        return new VkImportMemoryHostPointerInfoEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImportMemoryHostPointerInfoEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkImportMemoryHostPointerInfoEXT.class, address);
+        return address == NULL ? null : new VkImportMemoryHostPointerInfoEXT(address, null);
     }
 
     /**
@@ -186,7 +197,7 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryHostPointerInfoEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +206,7 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryHostPointerInfoEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +216,7 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
      */
     public static VkImportMemoryHostPointerInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -215,13 +226,13 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryHostPointerInfoEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImportMemoryHostPointerInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -249,7 +260,7 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static VkImportMemoryHostPointerInfoEXT malloc(MemoryStack stack) {
-        return wrap(VkImportMemoryHostPointerInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkImportMemoryHostPointerInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -258,7 +269,7 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static VkImportMemoryHostPointerInfoEXT calloc(MemoryStack stack) {
-        return wrap(VkImportMemoryHostPointerInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkImportMemoryHostPointerInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -268,7 +279,7 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryHostPointerInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -278,7 +289,7 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static VkImportMemoryHostPointerInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -299,7 +310,16 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
     /** Unsafe version of {@link #handleType(int) handleType}. */
     public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportMemoryHostPointerInfoEXT.HANDLETYPE, value); }
     /** Unsafe version of {@link #pHostPointer(long) pHostPointer}. */
-    public static void npHostPointer(long struct, long value) { memPutAddress(struct + VkImportMemoryHostPointerInfoEXT.PHOSTPOINTER, value); }
+    public static void npHostPointer(long struct, long value) { memPutAddress(struct + VkImportMemoryHostPointerInfoEXT.PHOSTPOINTER, check(value)); }
+
+    /**
+     * Validates pointer members that should not be {@code NULL}.
+     *
+     * @param struct the struct to validate
+     */
+    public static void validate(long struct) {
+        check(memGetAddress(struct + VkImportMemoryHostPointerInfoEXT.PHOSTPOINTER));
+    }
 
     // -----------------------------------
 
@@ -311,9 +331,9 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct implements NativeRe
         /**
          * Creates a new {@code VkImportMemoryHostPointerInfoEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImportMemoryHostPointerInfoEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkImportMemoryHostPointerInfoEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -11,7 +11,7 @@ import vulkan.*
 val KHR_map_memory2 = "KHRMapMemory2".nativeClassVK("KHR_map_memory2", type = "device", postfix = "KHR") {
     documentation =
         """
-        This extension provides extensible versions of the Vulkan memory map and unmap entrypoints. The new entrypoints are functionally identical to the core entrypoints, except that their parameters are specified using extensible structures that can be used to pass extension-specific information.
+        This extension provides extensible versions of the Vulkan memory map and unmap entry points. The new entry points are functionally identical to the core entry points, except that their parameters are specified using extensible structures that can be used to pass extension-specific information.
 
         <h5>VK_KHR_map_memory2</h5>
         <dl>
@@ -29,11 +29,11 @@ val KHR_map_memory2 = "KHRMapMemory2".nativeClassVK("KHR_map_memory2", type = "d
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Faith Ekstrand <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_map_memory2]%20@gfxstrand%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_map_memory2%20extension*">gfxstrand</a></li>
+                <li>Faith Ekstrand <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_map_memory2]%20@gfxstrand%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_map_memory2%20extension*">gfxstrand</a></li>
             </ul></dd>
 
             <dt><b>Extension Proposal</b></dt>
-            <dd><a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_KHR_map_memory2.adoc">VK_KHR_map_memory2</a></dd>
+            <dd><a href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_KHR_map_memory2.adoc">VK_KHR_map_memory2</a></dd>
         </dl>
 
         <h5>Other Extension Metadata</h5>

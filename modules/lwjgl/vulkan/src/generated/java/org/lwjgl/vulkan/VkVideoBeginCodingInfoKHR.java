@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>Let {@code VkOffset2D codedOffsetGranularity} be the minimum alignment requirement for the coded offset of video picture resources. Unless otherwise defined, the value of the {@code x} and {@code y} members of {@code codedOffsetGranularity} are 0.
  * 
  * <ul>
- * <li>If {@code videoSession} was created with an <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-profile">H.264 decode profile</a> with a {@link VkVideoDecodeH264ProfileInfoKHR}{@code ::pictureLayout} of {@link KHRVideoDecodeH264#VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR}, then {@code codedOffsetGranularity} is equal to {@link VkVideoDecodeH264CapabilitiesKHR}{@code ::fieldOffsetGranularity}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for that video profile.</li>
+ * <li>If {@code videoSession} was created with an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-profile">H.264 decode profile</a> with a {@link VkVideoDecodeH264ProfileInfoKHR}{@code ::pictureLayout} of {@link KHRVideoDecodeH264#VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR}, then {@code codedOffsetGranularity} is equal to {@link VkVideoDecodeH264CapabilitiesKHR}{@code ::fieldOffsetGranularity}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for that video profile.</li>
  * </ul>
  * </li>
  * </ul>
@@ -37,9 +37,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code videoSession} <b>must</b> have memory bound to all of its memory bindings returned by {@link KHRVideoQueue#vkGetVideoSessionMemoryRequirementsKHR GetVideoSessionMemoryRequirementsKHR} for {@code videoSession}</li>
  * <li>Each non-negative {@link VkVideoReferenceSlotInfoKHR}{@code ::slotIndex} specified in the elements of {@code pReferenceSlots} <b>must</b> be less than the {@link VkVideoSessionCreateInfoKHR}{@code ::maxDpbSlots} specified when {@code videoSession} was created</li>
- * <li>Each video picture resource corresponding to any non-{@code NULL} {@code pPictureResource} member specified in the elements of {@code pReferenceSlots} <b>must</b> be <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-picture-resource-uniqueness">unique</a> within {@code pReferenceSlots}</li>
- * <li>If the {@code pPictureResource} member of any element of {@code pReferenceSlots} is not {@code NULL}, then the image view specified in {@code pPictureResource→imageViewBinding} for that element <b>must</b> be <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profile-compatibility">compatible</a> with the video profile {@code videoSession} was created with</li>
- * <li>If the {@code pPictureResource} member of any element of {@code pReferenceSlots} is not {@code NULL}, then the format of the image view specified in {@code pPictureResource→imageViewBinding} for that element <b>must</b> match the {@link VkVideoSessionCreateInfoKHR}::referencePictureFormat {@code videoSession} was created with</li>
+ * <li>Each video picture resource corresponding to any non-{@code NULL} {@code pPictureResource} member specified in the elements of {@code pReferenceSlots} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-picture-resource-uniqueness">unique</a> within {@code pReferenceSlots}</li>
+ * <li>If the {@code pPictureResource} member of any element of {@code pReferenceSlots} is not {@code NULL}, then the image view specified in {@code pPictureResource→imageViewBinding} for that element <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-profile-compatibility">compatible</a> with the video profile {@code videoSession} was created with</li>
+ * <li>If the {@code pPictureResource} member of any element of {@code pReferenceSlots} is not {@code NULL}, then the format of the image view specified in {@code pPictureResource→imageViewBinding} for that element <b>must</b> match the {@link VkVideoSessionCreateInfoKHR}{@code ::referencePictureFormat} {@code videoSession} was created with</li>
  * <li>If the {@code pPictureResource} member of any element of {@code pReferenceSlots} is not {@code NULL}, then its {@code codedOffset} member <b>must</b> be an integer multiple of {@code codedOffsetGranularity}</li>
  * <li>If the {@code pPictureResource} member of any element of {@code pReferenceSlots} is not {@code NULL}, then its {@code codedExtent} member <b>must</b> be between {@code minCodedExtent} and {@code maxCodedExtent}, inclusive, {@code videoSession} was created with</li>
  * <li>If {@link VkVideoCapabilitiesKHR}{@code ::flags} does not include {@link KHRVideoQueue#VK_VIDEO_CAPABILITY_SEPARATE_REFERENCE_IMAGES_BIT_KHR VIDEO_CAPABILITY_SEPARATE_REFERENCE_IMAGES_BIT_KHR}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the video profile {@code videoSession} was created with, then {@code pPictureResource→imageViewBinding} of all elements of {@code pReferenceSlots} with a non-{@code NULL} {@code pPictureResource} member <b>must</b> specify image views created from the same image</li>
@@ -56,7 +56,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_BEGIN_CODING_INFO_KHR STRUCTURE_TYPE_VIDEO_BEGIN_CODING_INFO_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeH264GopRemainingFrameInfoEXT}, {@link VkVideoEncodeH264RateControlInfoEXT}, {@link VkVideoEncodeH265GopRemainingFrameInfoEXT}, {@link VkVideoEncodeH265RateControlInfoEXT}, or {@link VkVideoEncodeRateControlInfoKHR}</li>
+ * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be 0</li>
  * <li>{@code videoSession} <b>must</b> be a valid {@code VkVideoSessionKHR} handle</li>
  * <li>If {@code videoSessionParameters} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code videoSessionParameters} <b>must</b> be a valid {@code VkVideoSessionParametersKHR} handle</li>
@@ -82,7 +83,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkVideoReferenceSlotInfoKHR VkVideoReferenceSlotInfoKHR} const * {@link #pReferenceSlots};
  * }</code></pre>
  */
-public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource {
+public class VkVideoBeginCodingInfoKHR extends Struct<VkVideoBeginCodingInfoKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -123,6 +124,15 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
         PREFERENCESLOTS = layout.offsetof(6);
     }
 
+    protected VkVideoBeginCodingInfoKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkVideoBeginCodingInfoKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkVideoBeginCodingInfoKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkVideoBeginCodingInfoKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -136,7 +146,7 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -154,7 +164,7 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
     /** the number of elements in the {@code pReferenceSlots} array. */
     @NativeType("uint32_t")
     public int referenceSlotCount() { return nreferenceSlotCount(address()); }
-    /** a pointer to an array of {@link VkVideoReferenceSlotInfoKHR} structures specifying the information used to determine the set of <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#bound-reference-picture-resources">bound reference picture resources</a> for the video coding scope and their initial association with <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> indices. */
+    /** a pointer to an array of {@link VkVideoReferenceSlotInfoKHR} structures specifying the information used to determine the set of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#bound-reference-picture-resources">bound reference picture resources</a> for the video coding scope and their initial association with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> indices. */
     @Nullable
     @NativeType("VkVideoReferenceSlotInfoKHR const *")
     public VkVideoReferenceSlotInfoKHR.Buffer pReferenceSlots() { return npReferenceSlots(address()); }
@@ -165,6 +175,16 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
     public VkVideoBeginCodingInfoKHR sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_BEGIN_CODING_INFO_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkVideoBeginCodingInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkVideoEncodeH264GopRemainingFrameInfoEXT} value to the {@code pNext} chain. */
+    public VkVideoBeginCodingInfoKHR pNext(VkVideoEncodeH264GopRemainingFrameInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH264RateControlInfoEXT} value to the {@code pNext} chain. */
+    public VkVideoBeginCodingInfoKHR pNext(VkVideoEncodeH264RateControlInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH265GopRemainingFrameInfoEXT} value to the {@code pNext} chain. */
+    public VkVideoBeginCodingInfoKHR pNext(VkVideoEncodeH265GopRemainingFrameInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH265RateControlInfoEXT} value to the {@code pNext} chain. */
+    public VkVideoBeginCodingInfoKHR pNext(VkVideoEncodeH265RateControlInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeRateControlInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoBeginCodingInfoKHR pNext(VkVideoEncodeRateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #flags} field. */
     public VkVideoBeginCodingInfoKHR flags(@NativeType("VkVideoBeginCodingFlagsKHR") int value) { nflags(address(), value); return this; }
     /** Sets the specified value to the {@link #videoSession} field. */
@@ -209,29 +229,29 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
 
     /** Returns a new {@code VkVideoBeginCodingInfoKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkVideoBeginCodingInfoKHR malloc() {
-        return wrap(VkVideoBeginCodingInfoKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkVideoBeginCodingInfoKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoBeginCodingInfoKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkVideoBeginCodingInfoKHR calloc() {
-        return wrap(VkVideoBeginCodingInfoKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkVideoBeginCodingInfoKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkVideoBeginCodingInfoKHR} instance allocated with {@link BufferUtils}. */
     public static VkVideoBeginCodingInfoKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkVideoBeginCodingInfoKHR.class, memAddress(container), container);
+        return new VkVideoBeginCodingInfoKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkVideoBeginCodingInfoKHR} instance for the specified memory address. */
     public static VkVideoBeginCodingInfoKHR create(long address) {
-        return wrap(VkVideoBeginCodingInfoKHR.class, address);
+        return new VkVideoBeginCodingInfoKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoBeginCodingInfoKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkVideoBeginCodingInfoKHR.class, address);
+        return address == NULL ? null : new VkVideoBeginCodingInfoKHR(address, null);
     }
 
     /**
@@ -240,7 +260,7 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkVideoBeginCodingInfoKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -249,7 +269,7 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkVideoBeginCodingInfoKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +279,7 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
      */
     public static VkVideoBeginCodingInfoKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -269,13 +289,13 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkVideoBeginCodingInfoKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkVideoBeginCodingInfoKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -284,7 +304,7 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static VkVideoBeginCodingInfoKHR malloc(MemoryStack stack) {
-        return wrap(VkVideoBeginCodingInfoKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkVideoBeginCodingInfoKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -293,7 +313,7 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static VkVideoBeginCodingInfoKHR calloc(MemoryStack stack) {
-        return wrap(VkVideoBeginCodingInfoKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkVideoBeginCodingInfoKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -303,7 +323,7 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkVideoBeginCodingInfoKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -313,7 +333,7 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkVideoBeginCodingInfoKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -369,9 +389,9 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
         /**
          * Creates a new {@code VkVideoBeginCodingInfoKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkVideoBeginCodingInfoKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkVideoBeginCodingInfoKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -426,6 +446,16 @@ public class VkVideoBeginCodingInfoKHR extends Struct implements NativeResource 
         public VkVideoBeginCodingInfoKHR.Buffer sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_BEGIN_CODING_INFO_KHR); }
         /** Sets the specified value to the {@link VkVideoBeginCodingInfoKHR#pNext} field. */
         public VkVideoBeginCodingInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoBeginCodingInfoKHR.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkVideoEncodeH264GopRemainingFrameInfoEXT} value to the {@code pNext} chain. */
+        public VkVideoBeginCodingInfoKHR.Buffer pNext(VkVideoEncodeH264GopRemainingFrameInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH264RateControlInfoEXT} value to the {@code pNext} chain. */
+        public VkVideoBeginCodingInfoKHR.Buffer pNext(VkVideoEncodeH264RateControlInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH265GopRemainingFrameInfoEXT} value to the {@code pNext} chain. */
+        public VkVideoBeginCodingInfoKHR.Buffer pNext(VkVideoEncodeH265GopRemainingFrameInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH265RateControlInfoEXT} value to the {@code pNext} chain. */
+        public VkVideoBeginCodingInfoKHR.Buffer pNext(VkVideoEncodeH265RateControlInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeRateControlInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoBeginCodingInfoKHR.Buffer pNext(VkVideoEncodeRateControlInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkVideoBeginCodingInfoKHR#flags} field. */
         public VkVideoBeginCodingInfoKHR.Buffer flags(@NativeType("VkVideoBeginCodingFlagsKHR") int value) { VkVideoBeginCodingInfoKHR.nflags(address(), value); return this; }
         /** Sets the specified value to the {@link VkVideoBeginCodingInfoKHR#videoSession} field. */

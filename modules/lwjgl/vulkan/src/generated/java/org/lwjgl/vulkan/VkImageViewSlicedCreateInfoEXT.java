@@ -24,19 +24,19 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>A sliced 3D view <b>must</b> only be used with a single mip level. The slice coordinates are integer coordinates within the {@code subresourceRange.baseMipLevel} used to create the image view.</p>
  * 
- * <p>The effective view depth is equal to {@code extent.depth} used to create the {@code image} for this view adjusted by {@code subresourceRange.baseMipLevel} as specified in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-miplevel-sizing">Image Miplevel Sizing</a>.</p>
+ * <p>The effective view depth is equal to {@code extent.depth} used to create the {@code image} for this view adjusted by {@code subresourceRange.baseMipLevel} as specified in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-mip-level-sizing">Image Mip Level Sizing</a>.</p>
  * 
  * <p>Shader access to this image view is only affected by {@link VkImageViewSlicedCreateInfoEXT} if it uses a descriptor of type {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE}. For access using any other descriptor type, the contents of {@link VkImageViewSlicedCreateInfoEXT} are ignored; instead, {@code sliceOffset} is treated as being equal to 0, and {@code sliceCount} is treated as being equal to {@link EXTImageSlicedViewOf3d#VK_REMAINING_3D_SLICES_EXT REMAINING_3D_SLICES_EXT}.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code sliceOffset} <b>must</b> be less than the effective view depth as specified in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-miplevel-sizing">Image Miplevel Sizing</a></li>
- * <li>If {@code sliceCount} is not {@link EXTImageSlicedViewOf3d#VK_REMAINING_3D_SLICES_EXT REMAINING_3D_SLICES_EXT}, it <b>must</b> be be non-zero and <code>sliceOffset + sliceCount</code> <b>must</b> be less than or equal to the effective view depth as specified in <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-miplevel-sizing">Image Miplevel Sizing</a></li>
+ * <li>{@code sliceOffset} <b>must</b> be less than the effective view depth as specified in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-mip-level-sizing">Image Mip Level Sizing</a></li>
+ * <li>If {@code sliceCount} is not {@link EXTImageSlicedViewOf3d#VK_REMAINING_3D_SLICES_EXT REMAINING_3D_SLICES_EXT}, it <b>must</b> be be non-zero and <code>sliceOffset + sliceCount</code> <b>must</b> be less than or equal to the effective view depth as specified in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-mip-level-sizing">Image Mip Level Sizing</a></li>
  * <li>{@code image} <b>must</b> have been created with {@code imageType} equal to {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D}</li>
  * <li>{@code viewType} <b>must</b> be {@link VK10#VK_IMAGE_VIEW_TYPE_3D IMAGE_VIEW_TYPE_3D}</li>
  * <li>The image view <b>must</b> reference exactly 1 mip level</li>
- * <li>The <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-imageSlicedViewOf3D">imageSlicedViewOf3D</a> feature <b>must</b> be enabled on the device</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-imageSlicedViewOf3D">imageSlicedViewOf3D</a> feature <b>must</b> be enabled on the device</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -55,7 +55,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #sliceCount};
  * }</code></pre>
  */
-public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeResource {
+public class VkImageViewSlicedCreateInfoEXT extends Struct<VkImageViewSlicedCreateInfoEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -87,6 +87,15 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
         SLICECOUNT = layout.offsetof(3);
     }
 
+    protected VkImageViewSlicedCreateInfoEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkImageViewSlicedCreateInfoEXT create(long address, @Nullable ByteBuffer container) {
+        return new VkImageViewSlicedCreateInfoEXT(address, container);
+    }
+
     /**
      * Creates a {@code VkImageViewSlicedCreateInfoEXT} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -100,7 +109,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -155,29 +164,29 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
 
     /** Returns a new {@code VkImageViewSlicedCreateInfoEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImageViewSlicedCreateInfoEXT malloc() {
-        return wrap(VkImageViewSlicedCreateInfoEXT.class, nmemAllocChecked(SIZEOF));
+        return new VkImageViewSlicedCreateInfoEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkImageViewSlicedCreateInfoEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImageViewSlicedCreateInfoEXT calloc() {
-        return wrap(VkImageViewSlicedCreateInfoEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new VkImageViewSlicedCreateInfoEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkImageViewSlicedCreateInfoEXT} instance allocated with {@link BufferUtils}. */
     public static VkImageViewSlicedCreateInfoEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkImageViewSlicedCreateInfoEXT.class, memAddress(container), container);
+        return new VkImageViewSlicedCreateInfoEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code VkImageViewSlicedCreateInfoEXT} instance for the specified memory address. */
     public static VkImageViewSlicedCreateInfoEXT create(long address) {
-        return wrap(VkImageViewSlicedCreateInfoEXT.class, address);
+        return new VkImageViewSlicedCreateInfoEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageViewSlicedCreateInfoEXT createSafe(long address) {
-        return address == NULL ? null : wrap(VkImageViewSlicedCreateInfoEXT.class, address);
+        return address == NULL ? null : new VkImageViewSlicedCreateInfoEXT(address, null);
     }
 
     /**
@@ -186,7 +195,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
      * @param capacity the buffer capacity
      */
     public static VkImageViewSlicedCreateInfoEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +204,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
      * @param capacity the buffer capacity
      */
     public static VkImageViewSlicedCreateInfoEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +214,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
      */
     public static VkImageViewSlicedCreateInfoEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -215,13 +224,13 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
      * @param capacity the buffer capacity
      */
     public static VkImageViewSlicedCreateInfoEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageViewSlicedCreateInfoEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -230,7 +239,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static VkImageViewSlicedCreateInfoEXT malloc(MemoryStack stack) {
-        return wrap(VkImageViewSlicedCreateInfoEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkImageViewSlicedCreateInfoEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -239,7 +248,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
      * @param stack the stack from which to allocate
      */
     public static VkImageViewSlicedCreateInfoEXT calloc(MemoryStack stack) {
-        return wrap(VkImageViewSlicedCreateInfoEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkImageViewSlicedCreateInfoEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -249,7 +258,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
      * @param capacity the buffer capacity
      */
     public static VkImageViewSlicedCreateInfoEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -259,7 +268,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
      * @param capacity the buffer capacity
      */
     public static VkImageViewSlicedCreateInfoEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -292,9 +301,9 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct implements NativeReso
         /**
          * Creates a new {@code VkImageViewSlicedCreateInfoEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImageViewSlicedCreateInfoEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link VkImageViewSlicedCreateInfoEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

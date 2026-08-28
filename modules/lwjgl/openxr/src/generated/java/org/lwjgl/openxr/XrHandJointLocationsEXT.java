@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link EXTHandTracking XR_EXT_hand_tracking} extension <b>must</b> be enabled prior to using {@link XrHandJointLocationsEXT}</li>
  * <li>{@code type} <b>must</b> be {@link EXTHandTracking#XR_TYPE_HAND_JOINT_LOCATIONS_EXT TYPE_HAND_JOINT_LOCATIONS_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrHandJointVelocitiesEXT}, {@link XrHandTrackingAimStateFB}, {@link XrHandTrackingCapsulesStateFB}, {@link XrHandTrackingScaleFB}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrHandJointVelocitiesEXT}, {@link XrHandTrackingAimStateFB}, {@link XrHandTrackingCapsulesStateFB}, {@link XrHandTrackingDataSourceStateEXT}, {@link XrHandTrackingScaleFB}</li>
  * <li>{@code jointLocations} <b>must</b> be a pointer to an array of {@code jointCount} {@link XrHandJointLocationEXT} structures</li>
  * <li>The {@code jointCount} parameter <b>must</b> be greater than 0</li>
  * </ul>
@@ -58,7 +58,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link XrHandJointLocationEXT XrHandJointLocationEXT} * {@link #jointLocations};
  * }</code></pre>
  */
-public class XrHandJointLocationsEXT extends Struct implements NativeResource {
+public class XrHandJointLocationsEXT extends Struct<XrHandJointLocationsEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -91,6 +91,15 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
         ISACTIVE = layout.offsetof(2);
         JOINTCOUNT = layout.offsetof(3);
         JOINTLOCATIONS = layout.offsetof(4);
+    }
+
+    protected XrHandJointLocationsEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrHandJointLocationsEXT create(long address, @Nullable ByteBuffer container) {
+        return new XrHandJointLocationsEXT(address, container);
     }
 
     /**
@@ -134,6 +143,8 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
     public XrHandJointLocationsEXT next(XrHandTrackingAimStateFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrHandTrackingCapsulesStateFB} value to the {@code next} chain. */
     public XrHandJointLocationsEXT next(XrHandTrackingCapsulesStateFB value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrHandTrackingDataSourceStateEXT} value to the {@code next} chain. */
+    public XrHandJointLocationsEXT next(XrHandTrackingDataSourceStateEXT value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrHandTrackingScaleFB} value to the {@code next} chain. */
     public XrHandJointLocationsEXT next(XrHandTrackingScaleFB value) { return this.next(value.next(this.next()).address()); }
     /** Sets the specified value to the {@link #isActive} field. */
@@ -172,29 +183,29 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
 
     /** Returns a new {@code XrHandJointLocationsEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrHandJointLocationsEXT malloc() {
-        return wrap(XrHandJointLocationsEXT.class, nmemAllocChecked(SIZEOF));
+        return new XrHandJointLocationsEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrHandJointLocationsEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrHandJointLocationsEXT calloc() {
-        return wrap(XrHandJointLocationsEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new XrHandJointLocationsEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrHandJointLocationsEXT} instance allocated with {@link BufferUtils}. */
     public static XrHandJointLocationsEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrHandJointLocationsEXT.class, memAddress(container), container);
+        return new XrHandJointLocationsEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code XrHandJointLocationsEXT} instance for the specified memory address. */
     public static XrHandJointLocationsEXT create(long address) {
-        return wrap(XrHandJointLocationsEXT.class, address);
+        return new XrHandJointLocationsEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandJointLocationsEXT createSafe(long address) {
-        return address == NULL ? null : wrap(XrHandJointLocationsEXT.class, address);
+        return address == NULL ? null : new XrHandJointLocationsEXT(address, null);
     }
 
     /**
@@ -203,7 +214,7 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrHandJointLocationsEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -212,7 +223,7 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrHandJointLocationsEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -222,7 +233,7 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
      */
     public static XrHandJointLocationsEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -232,13 +243,13 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrHandJointLocationsEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrHandJointLocationsEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -247,7 +258,7 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrHandJointLocationsEXT malloc(MemoryStack stack) {
-        return wrap(XrHandJointLocationsEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrHandJointLocationsEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -256,7 +267,7 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrHandJointLocationsEXT calloc(MemoryStack stack) {
-        return wrap(XrHandJointLocationsEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrHandJointLocationsEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -266,7 +277,7 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrHandJointLocationsEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -276,7 +287,7 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrHandJointLocationsEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -322,9 +333,9 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrHandJointLocationsEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrHandJointLocationsEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link XrHandJointLocationsEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -378,6 +389,8 @@ public class XrHandJointLocationsEXT extends Struct implements NativeResource {
         public XrHandJointLocationsEXT.Buffer next(XrHandTrackingAimStateFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrHandTrackingCapsulesStateFB} value to the {@code next} chain. */
         public XrHandJointLocationsEXT.Buffer next(XrHandTrackingCapsulesStateFB value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrHandTrackingDataSourceStateEXT} value to the {@code next} chain. */
+        public XrHandJointLocationsEXT.Buffer next(XrHandTrackingDataSourceStateEXT value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrHandTrackingScaleFB} value to the {@code next} chain. */
         public XrHandJointLocationsEXT.Buffer next(XrHandTrackingScaleFB value) { return this.next(value.next(this.next()).address()); }
         /** Sets the specified value to the {@link XrHandJointLocationsEXT#isActive} field. */

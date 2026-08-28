@@ -105,6 +105,7 @@ __cold int io_uring_queue_mmap(int fd, struct io_uring_params *p,
 		ring->flags = p->flags;
 		ring->ring_fd = ring->enter_ring_fd = fd;
 		ring->int_flags = 0;
+		return 0;
 	}
 	return ret;
 }
@@ -305,11 +306,13 @@ static size_t rings_size(struct io_uring_params *p, unsigned entries,
 __cold ssize_t io_uring_mlock_size_params(unsigned entries,
 					  struct io_uring_params *p)
 {
-	struct io_uring_params lp = { };
+	struct io_uring_params lp;
 	struct io_uring ring;
 	unsigned cq_entries;
 	long page_size;
 	ssize_t ret;
+
+	memset(&lp, 0, sizeof(lp));
 
 	/*
 	 * We only really use this inited ring to see if the kernel is newer
@@ -364,8 +367,10 @@ __cold ssize_t io_uring_mlock_size_params(unsigned entries,
  */
 __cold ssize_t io_uring_mlock_size(unsigned entries, unsigned flags)
 {
-	struct io_uring_params p = { .flags = flags, };
+	struct io_uring_params p;
 
+	memset(&p, 0, sizeof(p));
+	p.flags = flags;
 	return io_uring_mlock_size_params(entries, &p);
 }
 
@@ -374,12 +379,13 @@ static struct io_uring_buf_ring *br_setup(struct io_uring *ring,
 					  unsigned int nentries, int bgid,
 					  unsigned int flags, int *ret)
 {
-	struct io_uring_buf_reg reg = { };
 	struct io_uring_buf_ring *br;
+	struct io_uring_buf_reg reg;
 	size_t ring_size;
 	off_t off;
 	int lret;
 
+	memset(&reg, 0, sizeof(reg));
 	reg.ring_entries = nentries;
 	reg.bgid = bgid;
 	reg.flags = IOU_PBUF_RING_MMAP;
@@ -401,18 +407,18 @@ static struct io_uring_buf_ring *br_setup(struct io_uring *ring,
 	}
 
 	return br;
-
 }
 #else
 static struct io_uring_buf_ring *br_setup(struct io_uring *ring,
 					  unsigned int nentries, int bgid,
 					  unsigned int flags, int *ret)
 {
-	struct io_uring_buf_reg reg = { };
 	struct io_uring_buf_ring *br;
+	struct io_uring_buf_reg reg;
 	size_t ring_size;
 	int lret;
 
+	memset(&reg, 0, sizeof(reg));
 	ring_size = nentries * sizeof(struct io_uring_buf);
 	br = __sys_mmap(NULL, ring_size, PROT_READ | PROT_WRITE,
 			MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
@@ -434,7 +440,6 @@ static struct io_uring_buf_ring *br_setup(struct io_uring *ring,
 	}
 
 	return br;
-
 }
 #endif
 

@@ -466,6 +466,7 @@
 
         <mkdir dir="${bin.lwjgl}/core/META-INF/versions/9" if:set="jdk9"/>
         <mkdir dir="${bin.lwjgl}/core/META-INF/versions/10" if:set="jdk10"/>
+        <mkdir dir="${bin.lwjgl}/core/META-INF/versions/16" if:set="jdk16"/>
         <delete file="${bin.lwjgl}/core/META-INF/versions/9/module-info.class" quiet="true" if:set="jdk9"/>
         <lwjgl.javac9 destdir="${bin.lwjgl}/core/META-INF/versions/9" taskname="javac: Core - Java 9" if:set="jdk9">
             <classpath>
@@ -486,6 +487,15 @@
             </src>
             <include name="**"/>
         </lwjgl.javac10>
+        <lwjgl.javac16 destdir="${bin.lwjgl}/core/META-INF/versions/16" taskname="javac: Core - Java 16" if:set="jdk16">
+            <classpath>
+                <pathelement path="${bin.lwjgl}/core"/>
+            </classpath>
+            <src>
+                <pathelement path="${module.lwjgl}/core/src/main/java16"/>
+            </src>
+            <include name="**"/>
+        </lwjgl.javac16>
 
         <parallel threadsPerProcessor="1">
             <compileBinding binding="assimp"/>
@@ -587,6 +597,7 @@
             <classpath>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/9" if:set="core.java9"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/10" if:set="core.java10"/>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/16" if:set="core.java16"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${kotlinc}/lib/kotlin-stdlib.jar"/>
                 <pathelement path="${kotlinc}/lib/kotlin-stdlib-jdk7.jar"/>
@@ -614,6 +625,7 @@
             <classpath>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/9" if:set="core.java9"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/10" if:set="core.java10"/>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/16" if:set="core.java16"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${bin.extract}"/>
                 <pathelement path="${test.resources}"/>
@@ -873,6 +885,7 @@
             <classpath>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/9" if:set="core.java9"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/10" if:set="core.java10"/>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/16" if:set="core.java16"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${bin.test}"/>
                 <pathelement path="${lib}/java/jcommander.jar"/>
@@ -883,6 +896,7 @@
             </classpath>
 
             <!--<jvmarg value="-Xcheck:jni"/>--> <!-- SIMD fails with this (see -XX:+RestoreMXCSROnJNICall) -->
+            <jvmarg value="-server"/>
             <jvmarg value="-ea"/>
             <jvmarg value="-Dorg.lwjgl.util.Debug=true"/>
             <jvmarg value="-Dorg.lwjgl.util.DebugAllocator=true"/>
@@ -911,6 +925,7 @@
             <classpath>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/9" if:set="core.java9"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/10" if:set="core.java10"/>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/16" if:set="core.java16"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${bin.test}"/>
                 <pathelement path="${bin.samples}"/>
@@ -923,12 +938,15 @@
                 <pathelement path="${lib}/native"/>
             </classpath>
 
+            <jvmarg value="-server"/>
             <jvmarg value="-XstartOnFirstThread" if:set="platform.macos"/>
             <!--<jvmarg value="-Xcheck:jni"/>-->
 
             <jvmarg line="-XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation" if:set="jitwatch"/>
             <jvmarg line="-XX:+PrintAssembly -XX:PrintAssemblyOptions=intel -XX:-TieredCompilation -XX:-UseCompressedOops" if:set="jitwatch"/>
             <jvmarg line="-XX:LogFile=${jitwatch}" if:set="jitwatch"/>
+
+            <!--<jvmarg line="-agentlib:native-image-agent=config-output-dir=META-INF/native-image"/>-->
 
             <jvmarg line="${jvmargs}" if:set="jvmargs"/>
 
@@ -1425,13 +1443,13 @@
 
         <local name="input"/>
         <input
-            message="It is recommended to build LWJGL releases on JDK 10 or higher. Continue with current JDK?"
+            message="It is recommended to build LWJGL releases on JDK 16 or higher. Continue with current JDK?"
             validargs="y,n"
             defaultvalue="n"
             addproperty="input"
-            unless:set="jdk10"
+            unless:set="jdk16"
         />
-        <fail message="Cancelled" unless:set="jdk9">
+        <fail message="Cancelled" unless:set="jdk16">
             <condition>
                 <equals arg1="n" arg2="${input}"/>
             </condition>
@@ -1503,8 +1521,17 @@
                 <copy todir="${module.lwjgl}/core/src/generated/java/META-INF/versions/10" if:set="jdk10">
                     <fileset dir="${module.lwjgl}/core/src/main/java10" includes="**"/>
                 </copy>
+                <copy todir="${module.lwjgl}/core/src/generated/java/META-INF/versions/16" if:set="jdk16">
+                    <fileset dir="${module.lwjgl}/core/src/main/java16" includes="**"/>
+                </copy>
+                <copy todir="${bin.lwjgl}/core/META-INF/native-image/org.lwjgl/lwjgl">
+                    <fileset dir="config/native-image/META-INF/native-image" includes="**" excludes="resource-config.json"/>
+                </copy>
             </quiet>
+
             <release-module name="core" native-library="lwjgl" title="Core"/>
+
+            <delete dir="${bin.lwjgl}/core/META-INF/native-image" quiet="true"/>
         </sequential>
 
         <!-- Assimp -->
@@ -1638,7 +1665,17 @@
         <release-module name="jemalloc" native-library="jemalloc" title="jemalloc" if:true="${binding.jemalloc}"/>
 
         <!-- KTX -->
-        <release-module name="ktx" native-library="ktx" title="KTX" if:true="${binding.ktx}"/>
+        <release-module name="ktx" title="KTX" if:true="${binding.ktx}">
+            <natives>
+                <get-release platform="linux" arch="x64" file="libktx.so"/>
+                <get-release platform="linux" arch="arm64" file="libktx.so"/>
+                <get-release platform="linux" arch="arm32" file="libktx.so"/>
+                <get-release platform="macos" arch="x64" file="libktx.dylib"/>
+                <get-release platform="macos" arch="arm64" file="libktx.dylib"/>
+                <get-release platform="windows" arch="x64" file="ktx.dll"/>
+                <get-release platform="windows" arch="arm64" file="ktx.dll"/>
+            </natives>
+        </release-module>
 
         <!-- libdivide -->
         <release-module name="libdivide" native-library="lwjgl_libdivide" title="libdivide" if:true="${binding.libdivide}"/>
@@ -1673,7 +1710,13 @@
         <release-module name="nanovg" native-library="lwjgl_nanovg" title="NanoVG" if:true="${binding.nanovg}"/>
 
         <!-- Native File Dialog -->
-        <release-module name="nfd" native-library="lwjgl_nfd" title="Native File Dialog" if:true="${binding.nfd}"/>
+        <release-module name="nfd" native-library="lwjgl_nfd" title="Native File Dialog" if:true="${binding.nfd}">
+            <natives>
+                <get-release platform="linux" arch="x64" file="liblwjgl_nfd_portal.so"/>
+                <get-release platform="linux" arch="arm64" file="liblwjgl_nfd_portal.so"/>
+                <get-release platform="linux" arch="arm32" file="liblwjgl_nfd_portal.so"/>
+            </natives>
+        </release-module>
 
         <!-- Nuklear -->
         <release-module name="nuklear" native-library="lwjgl_nuklear" title="Nuklear" if:true="${binding.nuklear}"/>

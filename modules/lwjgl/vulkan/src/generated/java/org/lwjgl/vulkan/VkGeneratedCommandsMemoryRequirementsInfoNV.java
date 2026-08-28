@@ -22,6 +22,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code maxSequencesCount} <b>must</b> be less or equal to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::maxIndirectSequenceCount}</li>
+ * <li>If {@code pipelineBindPoint} is of type {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS}, then {@code pipeline} <b>must</b> be a valid {@code VkPipeline} handle</li>
+ * <li>If {@code pipelineBindPoint} is of type {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE}, and the {@code indirectCommandsLayout} was not created with a {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV} token, then the {@code pipeline} <b>must</b> be a valid {@code VkPipeline} handle</li>
+ * <li>If {@code pipelineBindPoint} is of type {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE}, and the {@code indirectCommandsLayout} contains a {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV} token, then the {@code pipeline} <b>must</b> be {@code NULL}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -30,9 +33,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code sType} <b>must</b> be {@link NVDeviceGeneratedCommands#VK_STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV}</li>
  * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
  * <li>{@code pipelineBindPoint} <b>must</b> be a valid {@code VkPipelineBindPoint} value</li>
- * <li>{@code pipeline} <b>must</b> be a valid {@code VkPipeline} handle</li>
+ * <li>If {@code pipeline} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code pipeline} <b>must</b> be a valid {@code VkPipeline} handle</li>
  * <li>{@code indirectCommandsLayout} <b>must</b> be a valid {@code VkIndirectCommandsLayoutNV} handle</li>
- * <li>Both of {@code indirectCommandsLayout}, and {@code pipeline} <b>must</b> have been created, allocated, or retrieved from the same {@code VkDevice}</li>
+ * <li>Both of {@code indirectCommandsLayout}, and {@code pipeline} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkDevice}</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -51,7 +54,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #maxSequencesCount};
  * }</code></pre>
  */
-public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implements NativeResource {
+public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct<VkGeneratedCommandsMemoryRequirementsInfoNV> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -89,6 +92,15 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
         MAXSEQUENCESCOUNT = layout.offsetof(5);
     }
 
+    protected VkGeneratedCommandsMemoryRequirementsInfoNV(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkGeneratedCommandsMemoryRequirementsInfoNV create(long address, @Nullable ByteBuffer container) {
+        return new VkGeneratedCommandsMemoryRequirementsInfoNV(address, container);
+    }
+
     /**
      * Creates a {@code VkGeneratedCommandsMemoryRequirementsInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -102,7 +114,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -171,29 +183,29 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
 
     /** Returns a new {@code VkGeneratedCommandsMemoryRequirementsInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV malloc() {
-        return wrap(VkGeneratedCommandsMemoryRequirementsInfoNV.class, nmemAllocChecked(SIZEOF));
+        return new VkGeneratedCommandsMemoryRequirementsInfoNV(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkGeneratedCommandsMemoryRequirementsInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV calloc() {
-        return wrap(VkGeneratedCommandsMemoryRequirementsInfoNV.class, nmemCallocChecked(1, SIZEOF));
+        return new VkGeneratedCommandsMemoryRequirementsInfoNV(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkGeneratedCommandsMemoryRequirementsInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkGeneratedCommandsMemoryRequirementsInfoNV.class, memAddress(container), container);
+        return new VkGeneratedCommandsMemoryRequirementsInfoNV(memAddress(container), container);
     }
 
     /** Returns a new {@code VkGeneratedCommandsMemoryRequirementsInfoNV} instance for the specified memory address. */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV create(long address) {
-        return wrap(VkGeneratedCommandsMemoryRequirementsInfoNV.class, address);
+        return new VkGeneratedCommandsMemoryRequirementsInfoNV(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkGeneratedCommandsMemoryRequirementsInfoNV createSafe(long address) {
-        return address == NULL ? null : wrap(VkGeneratedCommandsMemoryRequirementsInfoNV.class, address);
+        return address == NULL ? null : new VkGeneratedCommandsMemoryRequirementsInfoNV(address, null);
     }
 
     /**
@@ -202,7 +214,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
      * @param capacity the buffer capacity
      */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -211,7 +223,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
      * @param capacity the buffer capacity
      */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -221,7 +233,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
      */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -231,13 +243,13 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
      * @param capacity the buffer capacity
      */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkGeneratedCommandsMemoryRequirementsInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -246,7 +258,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
      * @param stack the stack from which to allocate
      */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV malloc(MemoryStack stack) {
-        return wrap(VkGeneratedCommandsMemoryRequirementsInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkGeneratedCommandsMemoryRequirementsInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -255,7 +267,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
      * @param stack the stack from which to allocate
      */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV calloc(MemoryStack stack) {
-        return wrap(VkGeneratedCommandsMemoryRequirementsInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkGeneratedCommandsMemoryRequirementsInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -265,7 +277,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
      * @param capacity the buffer capacity
      */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -275,7 +287,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
      * @param capacity the buffer capacity
      */
     public static VkGeneratedCommandsMemoryRequirementsInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -316,9 +328,9 @@ public class VkGeneratedCommandsMemoryRequirementsInfoNV extends Struct implemen
         /**
          * Creates a new {@code VkGeneratedCommandsMemoryRequirementsInfoNV.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkGeneratedCommandsMemoryRequirementsInfoNV#SIZEOF}, and its mark will be undefined.
+         * by {@link VkGeneratedCommandsMemoryRequirementsInfoNV#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

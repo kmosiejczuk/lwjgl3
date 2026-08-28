@@ -25,10 +25,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If {@code topology} is {@link VK10#VK_PRIMITIVE_TOPOLOGY_POINT_LIST PRIMITIVE_TOPOLOGY_POINT_LIST}, {@link VK10#VK_PRIMITIVE_TOPOLOGY_LINE_LIST PRIMITIVE_TOPOLOGY_LINE_LIST}, {@link VK10#VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST PRIMITIVE_TOPOLOGY_TRIANGLE_LIST}, {@link VK10#VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY} or {@link VK10#VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY}, and {@code primitiveRestartEnable} is {@link VK10#VK_TRUE TRUE}, the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveTopologyListRestart">{@code primitiveTopologyListRestart}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code topology} is {@link VK10#VK_PRIMITIVE_TOPOLOGY_PATCH_LIST PRIMITIVE_TOPOLOGY_PATCH_LIST}, and {@code primitiveRestartEnable} is {@link VK10#VK_TRUE TRUE}, the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveTopologyPatchListRestart">{@code primitiveTopologyPatchListRestart}</a> feature <b>must</b> be enabled</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code topology} <b>must</b> not be any of {@link VK10#VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY}, {@link VK10#VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY}, {@link VK10#VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY} or {@link VK10#VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY}</li>
- * <li>If the <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code topology} <b>must</b> not be {@link VK10#VK_PRIMITIVE_TOPOLOGY_PATCH_LIST PRIMITIVE_TOPOLOGY_PATCH_LIST}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveTopologyListRestart">{@code primitiveTopologyListRestart}</a> feature is not enabled, and {@code topology} is {@link VK10#VK_PRIMITIVE_TOPOLOGY_POINT_LIST PRIMITIVE_TOPOLOGY_POINT_LIST}, {@link VK10#VK_PRIMITIVE_TOPOLOGY_LINE_LIST PRIMITIVE_TOPOLOGY_LINE_LIST}, {@link VK10#VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST PRIMITIVE_TOPOLOGY_TRIANGLE_LIST}, {@link VK10#VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY}, or {@link VK10#VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY}, {@code primitiveRestartEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveTopologyPatchListRestart">{@code primitiveTopologyPatchListRestart}</a> feature is not enabled, and {@code topology} is {@link VK10#VK_PRIMITIVE_TOPOLOGY_PATCH_LIST PRIMITIVE_TOPOLOGY_PATCH_LIST}, {@code primitiveRestartEnable} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-geometryShader">{@code geometryShader}</a> feature is not enabled, {@code topology} <b>must</b> not be any of {@link VK10#VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY}, {@link VK10#VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY}, {@link VK10#VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY} or {@link VK10#VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-tessellationShader">{@code tessellationShader}</a> feature is not enabled, {@code topology} <b>must</b> not be {@link VK10#VK_PRIMITIVE_TOPOLOGY_PATCH_LIST PRIMITIVE_TOPOLOGY_PATCH_LIST}</li>
  * <li>If the {@link KHRPortabilitySubset VK_KHR_portability_subset} extension is enabled, and {@link VkPhysicalDevicePortabilitySubsetFeaturesKHR}{@code ::triangleFans} is {@link VK10#VK_FALSE FALSE}, {@code topology} <b>must</b> not be {@link VK10#VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN PRIMITIVE_TOPOLOGY_TRIANGLE_FAN}</li>
  * </ul>
  * 
@@ -56,7 +56,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 {@link #primitiveRestartEnable};
  * }</code></pre>
  */
-public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements NativeResource {
+public class VkPipelineInputAssemblyStateCreateInfo extends Struct<VkPipelineInputAssemblyStateCreateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -91,6 +91,15 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
         PRIMITIVERESTARTENABLE = layout.offsetof(4);
     }
 
+    protected VkPipelineInputAssemblyStateCreateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPipelineInputAssemblyStateCreateInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkPipelineInputAssemblyStateCreateInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkPipelineInputAssemblyStateCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -104,7 +113,7 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -116,7 +125,7 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
     /** a {@code VkPrimitiveTopology} defining the primitive topology, as described below. */
     @NativeType("VkPrimitiveTopology")
     public int topology() { return ntopology(address()); }
-    /** controls whether a special vertex index value is treated as restarting the assembly of primitives. This enable only applies to indexed draws ({@link VK10#vkCmdDrawIndexed CmdDrawIndexed}, {@link EXTMultiDraw#vkCmdDrawMultiIndexedEXT CmdDrawMultiIndexedEXT}, and {@link VK10#vkCmdDrawIndexedIndirect CmdDrawIndexedIndirect}), and the special index value is either 0xFFFFFFFF when the {@code indexType} parameter of {@code vkCmdBindIndexBuffer} is equal to {@link VK10#VK_INDEX_TYPE_UINT32 INDEX_TYPE_UINT32}, 0xFF when {@code indexType} is equal to {@link EXTIndexTypeUint8#VK_INDEX_TYPE_UINT8_EXT INDEX_TYPE_UINT8_EXT}, or 0xFFFF when {@code indexType} is equal to {@link VK10#VK_INDEX_TYPE_UINT16 INDEX_TYPE_UINT16}. Primitive restart is not allowed for “list” topologies, unless one of the features <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveTopologyPatchListRestart">{@code primitiveTopologyPatchListRestart}</a> (for {@link VK10#VK_PRIMITIVE_TOPOLOGY_PATCH_LIST PRIMITIVE_TOPOLOGY_PATCH_LIST}) or <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveTopologyListRestart">{@code primitiveTopologyListRestart}</a> (for all other list topologies) is enabled. */
+    /** controls whether a special vertex index value is treated as restarting the assembly of primitives. This enable only applies to indexed draws ({@link VK10#vkCmdDrawIndexed CmdDrawIndexed}, {@link EXTMultiDraw#vkCmdDrawMultiIndexedEXT CmdDrawMultiIndexedEXT}, and {@link VK10#vkCmdDrawIndexedIndirect CmdDrawIndexedIndirect}), and the special index value is either 0xFFFFFFFF when the {@code indexType} parameter of {@code vkCmdBindIndexBuffer2KHR} or {@code vkCmdBindIndexBuffer} is equal to {@link VK10#VK_INDEX_TYPE_UINT32 INDEX_TYPE_UINT32}, 0xFF when {@code indexType} is equal to {@link EXTIndexTypeUint8#VK_INDEX_TYPE_UINT8_EXT INDEX_TYPE_UINT8_EXT}, or 0xFFFF when {@code indexType} is equal to {@link VK10#VK_INDEX_TYPE_UINT16 INDEX_TYPE_UINT16}. Primitive restart is not allowed for “list” topologies, unless one of the features <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveTopologyPatchListRestart">{@code primitiveTopologyPatchListRestart}</a> (for {@link VK10#VK_PRIMITIVE_TOPOLOGY_PATCH_LIST PRIMITIVE_TOPOLOGY_PATCH_LIST}) or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-primitiveTopologyListRestart">{@code primitiveTopologyListRestart}</a> (for all other list topologies) is enabled. */
     @NativeType("VkBool32")
     public boolean primitiveRestartEnable() { return nprimitiveRestartEnable(address()) != 0; }
 
@@ -166,29 +175,29 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
 
     /** Returns a new {@code VkPipelineInputAssemblyStateCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPipelineInputAssemblyStateCreateInfo malloc() {
-        return wrap(VkPipelineInputAssemblyStateCreateInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkPipelineInputAssemblyStateCreateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPipelineInputAssemblyStateCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPipelineInputAssemblyStateCreateInfo calloc() {
-        return wrap(VkPipelineInputAssemblyStateCreateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPipelineInputAssemblyStateCreateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPipelineInputAssemblyStateCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VkPipelineInputAssemblyStateCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPipelineInputAssemblyStateCreateInfo.class, memAddress(container), container);
+        return new VkPipelineInputAssemblyStateCreateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPipelineInputAssemblyStateCreateInfo} instance for the specified memory address. */
     public static VkPipelineInputAssemblyStateCreateInfo create(long address) {
-        return wrap(VkPipelineInputAssemblyStateCreateInfo.class, address);
+        return new VkPipelineInputAssemblyStateCreateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineInputAssemblyStateCreateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkPipelineInputAssemblyStateCreateInfo.class, address);
+        return address == NULL ? null : new VkPipelineInputAssemblyStateCreateInfo(address, null);
     }
 
     /**
@@ -197,7 +206,7 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkPipelineInputAssemblyStateCreateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -206,7 +215,7 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkPipelineInputAssemblyStateCreateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -216,7 +225,7 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
      */
     public static VkPipelineInputAssemblyStateCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -226,13 +235,13 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkPipelineInputAssemblyStateCreateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPipelineInputAssemblyStateCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -260,7 +269,7 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
      * @param stack the stack from which to allocate
      */
     public static VkPipelineInputAssemblyStateCreateInfo malloc(MemoryStack stack) {
-        return wrap(VkPipelineInputAssemblyStateCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPipelineInputAssemblyStateCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -269,7 +278,7 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
      * @param stack the stack from which to allocate
      */
     public static VkPipelineInputAssemblyStateCreateInfo calloc(MemoryStack stack) {
-        return wrap(VkPipelineInputAssemblyStateCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPipelineInputAssemblyStateCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -279,7 +288,7 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkPipelineInputAssemblyStateCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -289,7 +298,7 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
      * @param capacity the buffer capacity
      */
     public static VkPipelineInputAssemblyStateCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -326,9 +335,9 @@ public class VkPipelineInputAssemblyStateCreateInfo extends Struct implements Na
         /**
          * Creates a new {@code VkPipelineInputAssemblyStateCreateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPipelineInputAssemblyStateCreateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPipelineInputAssemblyStateCreateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

@@ -24,7 +24,8 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code aspectMask} contains {@link VK10#VK_IMAGE_ASPECT_COLOR_BIT IMAGE_ASPECT_COLOR_BIT}, it <b>must</b> not contain either of {@link VK10#VK_IMAGE_ASPECT_DEPTH_BIT IMAGE_ASPECT_DEPTH_BIT} or {@link VK10#VK_IMAGE_ASPECT_STENCIL_BIT IMAGE_ASPECT_STENCIL_BIT}</li>
  * <li>{@code aspectMask} <b>must</b> not contain {@link VK10#VK_IMAGE_ASPECT_METADATA_BIT IMAGE_ASPECT_METADATA_BIT}</li>
  * <li>{@code aspectMask} <b>must</b> not include <code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> for any index <em>i</em></li>
- * <li>{@code layerCount} <b>must</b> be greater than 0</li>
+ * <li>{@code layerCount} <b>must</b> be greater than 0 or {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS}</li>
+ * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-maintenance5">{@code maintenance5}</a> is not enabled, {@code layerCount} <b>must</b> not be {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS}</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -36,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkBufferImageCopy}, {@link VkBufferImageCopy2}, {@link VkCopyMemoryToImageIndirectCommandNV}, {@link VkImageBlit}, {@link VkImageBlit2}, {@link VkImageCopy}, {@link VkImageCopy2}, {@link VkImageResolve}, {@link VkImageResolve2}, {@link NVCopyMemoryIndirect#vkCmdCopyMemoryToImageIndirectNV CmdCopyMemoryToImageIndirectNV}</p>
+ * <p>{@link VkBufferImageCopy}, {@link VkBufferImageCopy2}, {@link VkCopyMemoryToImageIndirectCommandNV}, {@link VkImageBlit}, {@link VkImageBlit2}, {@link VkImageCopy}, {@link VkImageCopy2}, {@link VkImageResolve}, {@link VkImageResolve2}, {@link VkImageToMemoryCopyEXT}, {@link VkMemoryToImageCopyEXT}, {@link NVCopyMemoryIndirect#vkCmdCopyMemoryToImageIndirectNV CmdCopyMemoryToImageIndirectNV}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -48,7 +49,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #layerCount};
  * }</code></pre>
  */
-public class VkImageSubresourceLayers extends Struct implements NativeResource {
+public class VkImageSubresourceLayers extends Struct<VkImageSubresourceLayers> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -78,6 +79,15 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
         MIPLEVEL = layout.offsetof(1);
         BASEARRAYLAYER = layout.offsetof(2);
         LAYERCOUNT = layout.offsetof(3);
+    }
+
+    protected VkImageSubresourceLayers(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkImageSubresourceLayers create(long address, @Nullable ByteBuffer container) {
+        return new VkImageSubresourceLayers(address, container);
     }
 
     /**
@@ -146,29 +156,29 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
 
     /** Returns a new {@code VkImageSubresourceLayers} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImageSubresourceLayers malloc() {
-        return wrap(VkImageSubresourceLayers.class, nmemAllocChecked(SIZEOF));
+        return new VkImageSubresourceLayers(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkImageSubresourceLayers} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImageSubresourceLayers calloc() {
-        return wrap(VkImageSubresourceLayers.class, nmemCallocChecked(1, SIZEOF));
+        return new VkImageSubresourceLayers(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkImageSubresourceLayers} instance allocated with {@link BufferUtils}. */
     public static VkImageSubresourceLayers create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkImageSubresourceLayers.class, memAddress(container), container);
+        return new VkImageSubresourceLayers(memAddress(container), container);
     }
 
     /** Returns a new {@code VkImageSubresourceLayers} instance for the specified memory address. */
     public static VkImageSubresourceLayers create(long address) {
-        return wrap(VkImageSubresourceLayers.class, address);
+        return new VkImageSubresourceLayers(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageSubresourceLayers createSafe(long address) {
-        return address == NULL ? null : wrap(VkImageSubresourceLayers.class, address);
+        return address == NULL ? null : new VkImageSubresourceLayers(address, null);
     }
 
     /**
@@ -177,7 +187,7 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkImageSubresourceLayers.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -186,7 +196,7 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkImageSubresourceLayers.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -196,7 +206,7 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
      */
     public static VkImageSubresourceLayers.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -206,13 +216,13 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkImageSubresourceLayers.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageSubresourceLayers.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -240,7 +250,7 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkImageSubresourceLayers malloc(MemoryStack stack) {
-        return wrap(VkImageSubresourceLayers.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkImageSubresourceLayers(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -249,7 +259,7 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkImageSubresourceLayers calloc(MemoryStack stack) {
-        return wrap(VkImageSubresourceLayers.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkImageSubresourceLayers(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -259,7 +269,7 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkImageSubresourceLayers.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -269,7 +279,7 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkImageSubresourceLayers.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -302,9 +312,9 @@ public class VkImageSubresourceLayers extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkImageSubresourceLayers.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImageSubresourceLayers#SIZEOF}, and its mark will be undefined.
+         * by {@link VkImageSubresourceLayers#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

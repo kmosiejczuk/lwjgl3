@@ -27,6 +27,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If the {@code indirectCommandsLayout} uses a token of {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_SHADER_GROUP_NV INDIRECT_COMMANDS_TOKEN_TYPE_SHADER_GROUP_NV}, then the {@code pipeline} <b>must</b> have been created with {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV} set in {@link VkGraphicsPipelineCreateInfo}{@code ::flags}</li>
  * <li>If the {@code indirectCommandsLayout} uses a token of {@link NVDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV}, then the {@code pipeline}`s {@code VkPipelineLayout} <b>must</b> match the {@link VkIndirectCommandsLayoutTokenNV}{@code ::pushconstantPipelineLayout}</li>
  * <li>{@code streamCount} <b>must</b> match the {@code indirectCommandsLayout}’s {@code streamCount}</li>
+ * <li>If {@code pipelineBindPoint} is of type {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE}, then the {@code pipeline} <b>must</b> have been created with the flag {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV}</li>
+ * <li>If {@code pipelineBindPoint} is of type {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE}, then the {@code pipeline} <b>must</b> have been created with a {@link VkComputePipelineIndirectBufferInfoNV} structure specifying a valid address where its metadata will be saved</li>
+ * <li>If {@code pipelineBindPoint} is of type {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE}, then {@link NVDeviceGeneratedCommandsCompute#vkCmdUpdatePipelineIndirectBufferNV CmdUpdatePipelineIndirectBufferNV} <b>must</b> have been called on that pipeline to save its metadata to a device address</li>
+ * <li>If {@code pipelineBindPoint} is of type {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE}, and if {@link NVDeviceGeneratedCommandsCompute#VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV} is used, then {@code pipeline} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>{@code sequencesCount} <b>must</b> be less or equal to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::maxIndirectSequenceCount} and {@link VkGeneratedCommandsMemoryRequirementsInfoNV}{@code ::maxSequencesCount} that was used to determine the {@code preprocessSize}</li>
  * <li>{@code preprocessBuffer} <b>must</b> have the {@link VK10#VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT BUFFER_USAGE_INDIRECT_BUFFER_BIT} bit set in its usage flag</li>
  * <li>{@code preprocessOffset} <b>must</b> be aligned to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV}{@code ::minIndirectCommandsBufferOffsetAlignment}</li>
@@ -85,7 +89,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDeviceSize {@link #sequencesIndexOffset};
  * }</code></pre>
  */
-public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource {
+public class VkGeneratedCommandsInfoNV extends Struct<VkGeneratedCommandsInfoNV> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -150,6 +154,15 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
         SEQUENCESINDEXOFFSET = layout.offsetof(14);
     }
 
+    protected VkGeneratedCommandsInfoNV(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkGeneratedCommandsInfoNV create(long address, @Nullable ByteBuffer container) {
+        return new VkGeneratedCommandsInfoNV(address, container);
+    }
+
     /**
      * Creates a {@code VkGeneratedCommandsInfoNV} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -163,7 +176,7 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -291,29 +304,29 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
 
     /** Returns a new {@code VkGeneratedCommandsInfoNV} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkGeneratedCommandsInfoNV malloc() {
-        return wrap(VkGeneratedCommandsInfoNV.class, nmemAllocChecked(SIZEOF));
+        return new VkGeneratedCommandsInfoNV(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkGeneratedCommandsInfoNV} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkGeneratedCommandsInfoNV calloc() {
-        return wrap(VkGeneratedCommandsInfoNV.class, nmemCallocChecked(1, SIZEOF));
+        return new VkGeneratedCommandsInfoNV(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkGeneratedCommandsInfoNV} instance allocated with {@link BufferUtils}. */
     public static VkGeneratedCommandsInfoNV create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkGeneratedCommandsInfoNV.class, memAddress(container), container);
+        return new VkGeneratedCommandsInfoNV(memAddress(container), container);
     }
 
     /** Returns a new {@code VkGeneratedCommandsInfoNV} instance for the specified memory address. */
     public static VkGeneratedCommandsInfoNV create(long address) {
-        return wrap(VkGeneratedCommandsInfoNV.class, address);
+        return new VkGeneratedCommandsInfoNV(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkGeneratedCommandsInfoNV createSafe(long address) {
-        return address == NULL ? null : wrap(VkGeneratedCommandsInfoNV.class, address);
+        return address == NULL ? null : new VkGeneratedCommandsInfoNV(address, null);
     }
 
     /**
@@ -322,7 +335,7 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkGeneratedCommandsInfoNV.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -331,7 +344,7 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkGeneratedCommandsInfoNV.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -341,7 +354,7 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
      */
     public static VkGeneratedCommandsInfoNV.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -351,13 +364,13 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkGeneratedCommandsInfoNV.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkGeneratedCommandsInfoNV.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -366,7 +379,7 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static VkGeneratedCommandsInfoNV malloc(MemoryStack stack) {
-        return wrap(VkGeneratedCommandsInfoNV.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkGeneratedCommandsInfoNV(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -375,7 +388,7 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static VkGeneratedCommandsInfoNV calloc(MemoryStack stack) {
-        return wrap(VkGeneratedCommandsInfoNV.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkGeneratedCommandsInfoNV(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -385,7 +398,7 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkGeneratedCommandsInfoNV.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -395,7 +408,7 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkGeneratedCommandsInfoNV.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -481,9 +494,9 @@ public class VkGeneratedCommandsInfoNV extends Struct implements NativeResource 
         /**
          * Creates a new {@code VkGeneratedCommandsInfoNV.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkGeneratedCommandsInfoNV#SIZEOF}, and its mark will be undefined.
+         * by {@link VkGeneratedCommandsInfoNV#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
