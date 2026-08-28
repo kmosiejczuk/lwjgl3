@@ -15,6 +15,7 @@
 #endif
 #ifdef LWJGL_OPENBSD
     #include "OpenBSDConfig.h"
+#endif
 #ifdef LWJGL_WINDOWS
     #include "WindowsConfig.h"
 #endif
