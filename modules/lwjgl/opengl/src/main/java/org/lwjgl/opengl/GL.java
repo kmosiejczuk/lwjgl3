@@ -98,6 +98,7 @@ public final class GL {
     public static void create() {
         SharedLibrary GL;
         switch (Platform.get()) {
+            case FREEBSD:
             case LINUX:
                 GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
                 break;
@@ -134,6 +135,7 @@ public final class GL {
 
                     switch (Platform.get()) {
                         case OPENBSD:
+                        case FREEBSD:
                         case LINUX:
                             GetProcAddress = library.getFunctionAddress("glXGetProcAddress");
                             if (GetProcAddress == NULL) {

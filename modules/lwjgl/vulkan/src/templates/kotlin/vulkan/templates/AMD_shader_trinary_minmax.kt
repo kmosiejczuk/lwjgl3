@@ -17,7 +17,6 @@ val AMD_shader_trinary_minmax = "AMDShaderTrinaryMinmax".nativeClassVK("AMD_shad
             <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/AMD/SPV_AMD_shader_trinary_minmax.html">{@code SPV_AMD_shader_trinary_minmax}</a></li>
         </ul>
 
-        <h5>VK_AMD_shader_trinary_minmax</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_AMD_shader_trinary_minmax}</dd>
@@ -30,6 +29,11 @@ val AMD_shader_trinary_minmax = "AMDShaderTrinaryMinmax".nativeClassVK("AMD_shad
 
             <dt><b>Revision</b></dt>
             <dd>1</dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/AMD/SPV_AMD_shader_trinary_minmax.html">SPV_AMD_shader_trinary_minmax</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -47,7 +51,6 @@ val AMD_shader_trinary_minmax = "AMDShaderTrinaryMinmax".nativeClassVK("AMD_shad
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/AMD/SPV_AMD_shader_trinary_minmax.html">{@code SPV_AMD_shader_trinary_minmax}</a></li>
                 <li>This extension provides API support for <a href="https://registry.khronos.org/OpenGL/extensions/AMD/AMD_shader_trinary_minmax.txt">{@code GL_AMD_shader_trinary_minmax}</a></li>
             </ul></dd>
 

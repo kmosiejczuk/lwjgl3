@@ -17,10 +17,9 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
 
         <h5>Examples</h5>
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-        The example code for the {@code VK_KHR_surface} and {@link KHRSwapchain VK_KHR_swapchain} extensions was removed from the appendix after revision 1.0.29. This WSI example code was ported to the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c</a>).
+        The example code for the {@code VK_KHR_surface} and {@link KHRSwapchain VK_KHR_swapchain} extensions was removed from the appendix after revision 1.0.29. This WSI example code was ported to the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c</a>).
         </div>
 
-        <h5>VK_KHR_surface</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_surface}</dd>
@@ -158,7 +157,7 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
         </div>
 
         <h5>See Also</h5>
-        ##VkSurfacePresentModeCompatibilityEXT, ##VkSurfacePresentModeEXT, ##VkSwapchainCreateInfoKHR, ##VkSwapchainPresentModeInfoEXT, ##VkSwapchainPresentModesCreateInfoEXT, #GetPhysicalDeviceSurfacePresentModes2EXT(), #GetPhysicalDeviceSurfacePresentModesKHR()
+        ##VkLatencySurfaceCapabilitiesNV, ##VkSurfacePresentModeCompatibilityEXT, ##VkSurfacePresentModeEXT, ##VkSwapchainCreateInfoKHR, ##VkSwapchainPresentModeInfoEXT, ##VkSwapchainPresentModesCreateInfoEXT, #GetPhysicalDeviceSurfacePresentModes2EXT(), #GetPhysicalDeviceSurfacePresentModesKHR()
         """,
 
         "PRESENT_MODE_IMMEDIATE_KHR".."0",
@@ -431,7 +430,7 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
 ￿    VkSurfaceFormatKHR*                         pSurfaceFormats);</code></pre>
 
         <h5>Description</h5>
-        If {@code pSurfaceFormats} is {@code NULL}, then the number of format pairs supported for the given {@code surface} is returned in {@code pSurfaceFormatCount}. Otherwise, {@code pSurfaceFormatCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pSurfaceFormats} array, and on return the variable is overwritten with the number of structures actually written to {@code pSurfaceFormats}. If the value of {@code pSurfaceFormatCount} is less than the number of format pairs supported, at most {@code pSurfaceFormatCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available format pairs were returned.
+        If {@code pSurfaceFormats} is {@code NULL}, then the number of format pairs supported for the given {@code surface} is returned in {@code pSurfaceFormatCount}. Otherwise, {@code pSurfaceFormatCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pSurfaceFormats} array, and on return the variable is overwritten with the number of structures actually written to {@code pSurfaceFormats}. If the value of {@code pSurfaceFormatCount} is less than the number of format pairs supported, at most {@code pSurfaceFormatCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available format pairs were returned.
 
         The number of format pairs supported <b>must</b> be greater than or equal to 1. {@code pSurfaceFormats} <b>must</b> not contain an entry whose value for {@code format} is #FORMAT_UNDEFINED.
 
@@ -442,7 +441,7 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
         <h5>Valid Usage</h5>
         <ul>
             <li>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is not enabled, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
-            <li>If {@code surface} is not #NULL_HANDLE, it <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
+            <li>If {@code surface} is not #NULL_HANDLE, {@code surface} <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -496,14 +495,14 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
 ￿    VkPresentModeKHR*                           pPresentModes);</code></pre>
 
         <h5>Description</h5>
-        If {@code pPresentModes} is {@code NULL}, then the number of presentation modes supported for the given {@code surface} is returned in {@code pPresentModeCount}. Otherwise, {@code pPresentModeCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pPresentModes} array, and on return the variable is overwritten with the number of values actually written to {@code pPresentModes}. If the value of {@code pPresentModeCount} is less than the number of presentation modes supported, at most {@code pPresentModeCount} values will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available modes were returned.
+        If {@code pPresentModes} is {@code NULL}, then the number of presentation modes supported for the given {@code surface} is returned in {@code pPresentModeCount}. Otherwise, {@code pPresentModeCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pPresentModes} array, and on return the variable is overwritten with the number of values actually written to {@code pPresentModes}. If the value of {@code pPresentModeCount} is less than the number of presentation modes supported, at most {@code pPresentModeCount} values will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available modes were returned.
 
         If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is enabled and {@code surface} is #NULL_HANDLE, the values returned in {@code pPresentModes} will only indicate support for #PRESENT_MODE_FIFO_KHR, #PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR, and #PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR. To query support for any other present mode, a valid handle <b>must</b> be provided in {@code surface}.
 
         <h5>Valid Usage</h5>
         <ul>
             <li>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is not enabled, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
-            <li>If {@code surface} is not #NULL_HANDLE, it <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
+            <li>If {@code surface} is not #NULL_HANDLE, {@code surface} <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>

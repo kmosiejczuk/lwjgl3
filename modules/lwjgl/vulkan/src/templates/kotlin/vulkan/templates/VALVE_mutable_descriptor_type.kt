@@ -19,7 +19,6 @@ val VALVE_mutable_descriptor_type = "VALVEMutableDescriptorType".nativeClassVK("
 
         These features together allow much more efficient emulation of the raw D3D12 binding model. This extension is primarily intended to be useful for API layering efforts.
 
-        <h5>VK_VALVE_mutable_descriptor_type</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_VALVE_mutable_descriptor_type}</dd>
@@ -36,7 +35,7 @@ val VALVE_mutable_descriptor_type = "VALVEMutableDescriptorType".nativeClassVK("
             <dt><b>Extension and Version Dependencies</b></dt>
             <dd>{@link KHRMaintenance3 VK_KHR_maintenance3}</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li><em>Promoted</em> to {@link EXTMutableDescriptorType VK_EXT_mutable_descriptor_type} extension</li>
             </ul></dd>

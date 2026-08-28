@@ -14,8 +14,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>Vulkan 1.3 adds <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-new-features">additional functionality related to this extension</a> in the form of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxInlineUniformTotalSize">{@code maxInlineUniformTotalSize}</a> limit.</p>
  * 
- * <h5>VK_EXT_inline_uniform_block</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_inline_uniform_block}</dd>
@@ -26,8 +24,8 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRMaintenance1 VK_KHR_maintenance1}</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRMaintenance1 VK_KHR_maintenance1} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
@@ -42,10 +40,6 @@ package org.lwjgl.vulkan;
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
  * <dd>2018-08-01</dd>
- * <dt><b>Interactions and External Dependencies</b></dt>
- * <dd><ul>
- * <li>Promoted to Vulkan 1.3 Core</li>
- * </ul></dd>
  * <dt><b>IP Status</b></dt>
  * <dd>No known IP claims.</dd>
  * <dt><b>Contributors</b></dt>

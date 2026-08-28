@@ -6,13 +6,11 @@
 package org.lwjgl.vulkan;
 
 /**
- * When using pipeline libraries in ray tracing pipelines, a library might get linked into different pipelines in an incremental way. An application can have a strategy where a ray tracing pipeline is comprised of N pipeline libraries and is later augumented by creating a new pipeline with N + 1 libraries. Without this extension, all group handles must be re-queried as the group handle is tied to the pipeline, not the library. This is problematic for applications which aim to decouple construction of record buffers and the linkage of ray tracing pipelines.
+ * When using pipeline libraries in ray tracing pipelines, a library might get linked into different pipelines in an incremental way. An application can have a strategy where a ray tracing pipeline is comprised of N pipeline libraries and is later augmented by creating a new pipeline with N + 1 libraries. Without this extension, all group handles must be re-queried as the group handle is tied to the pipeline, not the library. This is problematic for applications which aim to decouple construction of record buffers and the linkage of ray tracing pipelines.
  * 
  * <p>To aid in this, this extension enables support for querying group handles directly from pipeline libraries. Group handles obtained from a library <b>must</b> remain bitwise identical in any {@code VkPipeline} that links to the library.</p>
  * 
  * <p>With this feature, the extension also improves compatibility with DXR 1.1 AddToStateObject(), which guarantees that group handles returned remain bitwise identical between parent and child pipelines. In addition, querying group handles from COLLECTION objects is also supported with that API.</p>
- * 
- * <h5>VK_EXT_pipeline_library_group_handles</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>

@@ -17,7 +17,6 @@ val AMD_gcn_shader = "AMDGCNShader".nativeClassVK("AMD_gcn_shader", type = "devi
             <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/AMD/SPV_AMD_gcn_shader.html">{@code SPV_AMD_gcn_shader}</a></li>
         </ul>
 
-        <h5>VK_AMD_gcn_shader</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_AMD_gcn_shader}</dd>
@@ -30,6 +29,11 @@ val AMD_gcn_shader = "AMDGCNShader".nativeClassVK("AMD_gcn_shader", type = "devi
 
             <dt><b>Revision</b></dt>
             <dd>1</dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/AMD/SPV_AMD_gcn_shader.html">SPV_AMD_gcn_shader</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -47,7 +51,6 @@ val AMD_gcn_shader = "AMDGCNShader".nativeClassVK("AMD_gcn_shader", type = "devi
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/AMD/SPV_AMD_gcn_shader.html">{@code SPV_AMD_gcn_shader}</a></li>
                 <li>This extension provides API support for <a href="https://registry.khronos.org/OpenGL/extensions/AMD/AMD_gcn_shader.txt">{@code GL_AMD_gcn_shader}</a></li>
             </ul></dd>
 

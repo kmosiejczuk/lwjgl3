@@ -536,7 +536,8 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
         "MEMBIND_FIRSTTOUCH".enum,
         "MEMBIND_BIND".enum,
         "MEMBIND_INTERLEAVE".enum,
-        "MEMBIND_NEXTTOUCH".enum,
+        "MEMBIND_WEIGHTED_INTERLEAVE".enum("", "5"),
+        "MEMBIND_NEXTTOUCH".enum("", "4"),
         "MEMBIND_MIXED".enum("", "-1")
     )
 
@@ -1029,6 +1030,15 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
     )
 
     int(
+        "obj_set_subtype",
+        "",
+
+        hwloc_topology_t("topology", ""),
+        hwloc_obj_t("obj", ""),
+        nullable..charASCII.const.p("subtype", "")
+    )
+
+    int(
         "set_cpubind",
         "",
 
@@ -1410,6 +1420,14 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
         "",
 
         hwloc_topology_t("topology", "")
+    )
+
+    int(
+        "topology_free_group_object",
+        "",
+
+        hwloc_topology_t("topology", ""),
+        hwloc_obj_t("group", "")
     )
 
     hwloc_obj_t(
@@ -2392,8 +2410,9 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
 
         "DISTANCES_KIND_FROM_OS".enumLong("", "1L<<0"),
         "DISTANCES_KIND_FROM_USER".enumLong("", "1L<<1"),
-        "DISTANCES_KIND_MEANS_LATENCY".enumLong("", "1L<<2"),
-        "DISTANCES_KIND_MEANS_BANDWIDTH".enumLong("", "1L<<3"),
+        "DISTANCES_KIND_VALUE_LATENCY".enumLong("", "1L<<2"),
+        "DISTANCES_KIND_VALUE_BANDWIDTH".enumLong("", "1L<<3"),
+        "DISTANCES_KIND_VALUE_HOPS".enumLong("", "1L<<5"),
         "DISTANCES_KIND_HETEROGENEOUS_TYPES".enumLong("", "1L<<4")
     )
 

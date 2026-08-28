@@ -35,8 +35,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>Functionality in this extension is included in core Vulkan 1.3, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
  * 
- * <h5>VK_KHR_maintenance4</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_KHR_maintenance4}</dd>
@@ -48,7 +46,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
@@ -65,7 +63,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>2021-10-25</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>Promoted to Vulkan 1.3 Core</li>
  * <li>Requires SPIR-V 1.2 for {@code LocalSizeId}</li>
  * </ul></dd>
  * <dt><b>Contributors</b></dt>

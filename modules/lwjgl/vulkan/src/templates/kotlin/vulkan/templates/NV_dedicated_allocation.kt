@@ -82,7 +82,6 @@ val NV_dedicated_allocation = "NVDedicatedAllocation".nativeClassVK("NV_dedicate
 ￿        memory,
 ￿        0);</code></pre>
 
-        <h5>VK_NV_dedicated_allocation</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_dedicated_allocation}</dd>
@@ -96,7 +95,7 @@ val NV_dedicated_allocation = "NVDedicatedAllocation".nativeClassVK("NV_dedicate
             <dt><b>Revision</b></dt>
             <dd>1</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li>
                     <em>Deprecated</em> by {@link KHRDedicatedAllocation VK_KHR_dedicated_allocation} extension

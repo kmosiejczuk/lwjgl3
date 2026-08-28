@@ -16,7 +16,6 @@ val AMD_draw_indirect_count = "AMDDrawIndirectCount".nativeClassVK("AMD_draw_ind
         <h5>Promotion to {@code VK_KHR_draw_indirect_count}</h5>
         All functionality in this extension is included in {@link KHRDrawIndirectCount VK_KHR_draw_indirect_count}, with the suffix changed to KHR. The original type, enum and command names are still available as aliases of the core functionality.
 
-        <h5>VK_AMD_draw_indirect_count</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_AMD_draw_indirect_count}</dd>
@@ -30,7 +29,7 @@ val AMD_draw_indirect_count = "AMDDrawIndirectCount".nativeClassVK("AMD_draw_ind
             <dt><b>Revision</b></dt>
             <dd>2</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li>
                     <em>Promoted</em> to {@link KHRDrawIndirectCount VK_KHR_draw_indirect_count} extension
@@ -50,11 +49,6 @@ val AMD_draw_indirect_count = "AMDDrawIndirectCount".nativeClassVK("AMD_draw_ind
         <dl>
             <dt><b>Last Modified Date</b></dt>
             <dd>2016-08-23</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to {@link KHRDrawIndirectCount VK_KHR_draw_indirect_count}</li>
-            </ul></dd>
 
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>

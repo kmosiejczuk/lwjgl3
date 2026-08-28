@@ -31,6 +31,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/templates/templates.lz4.iml" filepath="$PROJECT_DIR$/.idea/modules/templates/templates.lz4.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/templates/templates.meow.iml" filepath="$PROJECT_DIR$/.idea/modules/templates/templates.meow.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/templates/templates.meshoptimizer.iml" filepath="$PROJECT_DIR$/.idea/modules/templates/templates.meshoptimizer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/templates/templates.msdfgen.iml" filepath="$PROJECT_DIR$/.idea/modules/templates/templates.msdfgen.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/templates/templates.nanovg.iml" filepath="$PROJECT_DIR$/.idea/modules/templates/templates.nanovg.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/templates/templates.nfd.iml" filepath="$PROJECT_DIR$/.idea/modules/templates/templates.nfd.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/templates/templates.nuklear.iml" filepath="$PROJECT_DIR$/.idea/modules/templates/templates.nuklear.iml" />
@@ -59,8 +60,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/templates/templates.yoga.iml" filepath="$PROJECT_DIR$/.idea/modules/templates/templates.yoga.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/templates/templates.zstd.iml" filepath="$PROJECT_DIR$/.idea/modules/templates/templates.zstd.iml" />
 
-      <!-- Used for building the generator -->
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/templates.iml" filepath="$PROJECT_DIR$/.idea/modules/templates.iml" />
+      <!-- Used to build the templates at the same time as the generator -->
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/generator_templates.iml" filepath="$PROJECT_DIR$/.idea/modules/generator_templates.iml" />
 
       <!-- The LWJGL library (includes generated code) -->
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.assimp.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.assimp.iml" />
@@ -85,6 +86,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.lz4.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.lz4.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.meow.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.meow.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.meshoptimizer.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.meshoptimizer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.msdfgen.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.msdfgen.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.nanovg.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.nanovg.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.nfd.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.nfd.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.nuklear.iml" filepath="$PROJECT_DIR$/.idea/modules/lwjgl/lwjgl.nuklear.iml" />

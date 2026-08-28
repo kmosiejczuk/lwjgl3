@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code samples} <b>must</b> be a bit value that is set in {@link VkImageFormatProperties}{@code ::sampleCounts} returned by {@code vkGetPhysicalDeviceImageFormatProperties} with {@code format}, {@code type}, {@code tiling}, and {@code usage} equal to those in this command and {@code flags} equal to the value that is set in {@link VkImageCreateInfo}{@code ::flags} when the image is created</li>
+ * <li>{@code samples} <b>must</b> be a valid {@code VkSampleCountFlagBits} value that is set in {@link VkImageFormatProperties}{@code ::sampleCounts} returned by {@code vkGetPhysicalDeviceImageFormatProperties} with {@code format}, {@code type}, {@code tiling}, and {@code usage} equal to those in this command</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -126,7 +126,7 @@ public class VkPhysicalDeviceSparseImageFormatInfo2 extends Struct<VkPhysicalDev
     /** the image format. */
     @NativeType("VkFormat")
     public int format() { return nformat(address()); }
-    /** the dimensionality of image. */
+    /** the dimensionality of the image. */
     @NativeType("VkImageType")
     public int type() { return ntype(address()); }
     /** a {@code VkSampleCountFlagBits} value specifying the number of samples per texel. */

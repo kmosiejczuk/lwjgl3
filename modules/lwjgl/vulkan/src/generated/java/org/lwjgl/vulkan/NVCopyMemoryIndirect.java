@@ -13,8 +13,6 @@ import static org.lwjgl.system.JNI.*;
 /**
  * This extension adds support for performing copies between memory and image regions using indirect parameters that are read by the device from a buffer during execution. This functionality <b>may</b> be useful for performing copies where the copy parameters are not known during the command buffer creation time.
  * 
- * <h5>VK_NV_copy_memory_indirect</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_copy_memory_indirect}</dd>
@@ -25,7 +23,7 @@ import static org.lwjgl.system.JNI.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRBufferDeviceAddress VK_KHR_buffer_device_address}</dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a> and {@link KHRBufferDeviceAddress VK_KHR_buffer_device_address} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.2">Version 1.2</a></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Vikram Kushwaha <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_copy_memory_indirect]%20@vkushwaha-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_copy_memory_indirect%20extension*">vkushwaha-nv</a></li>
@@ -172,7 +170,7 @@ public class NVCopyMemoryIndirect {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Each region in {@code copyBufferAddress} is copied from the source memory region to an image region in the destination image. If the destination image is of type {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D}, the starting slice and number of slices to copy are specified in {@code pImageSubresources}{@code ::baseArrayLayer} and {@code pImageSubresources}{@code ::layerCount} respectively. The copy <b>must</b> be performed on a queue that supports indirect copy operations, see {@link VkPhysicalDeviceCopyMemoryIndirectPropertiesNV}.</p>
+     * <p>Each region in {@code copyBufferAddress} is copied from the source memory region to an image region in the destination image. If the destination image is of type {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D}, the starting slice and number of slices to copy are specified in {@code pImageSubresources→baseArrayLayer} and {@code pImageSubresources→layerCount} respectively. The copy <b>must</b> be performed on a queue that supports indirect copy operations, see {@link VkPhysicalDeviceCopyMemoryIndirectPropertiesNV}.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -188,7 +186,7 @@ public class NVCopyMemoryIndirect {
      * <ul>
      * <li>{@code dstImage} <b>must</b> have a sample count equal to {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}</li>
      * <li>{@code dstImageLayout} <b>must</b> specify the layout of the image subresources of {@code dstImage} at the time this command is executed on a {@code VkDevice}</li>
-     * <li>{@code dstImageLayout} <b>must</b> be {@link VK10#VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL}, {@link VK10#VK_IMAGE_LAYOUT_GENERAL IMAGE_LAYOUT_GENERAL}, or {@link KHRSharedPresentableImage#VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR IMAGE_LAYOUT_SHARED_PRESENT_KHR}</li>
+     * <li>{@code dstImageLayout} <b>must</b> be {@link VK10#VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL}, {@link KHRSharedPresentableImage#VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR IMAGE_LAYOUT_SHARED_PRESENT_KHR}, or {@link VK10#VK_IMAGE_LAYOUT_GENERAL IMAGE_LAYOUT_GENERAL}</li>
      * <li>The specified {@code mipLevel} of each region <b>must</b> be less than the {@code mipLevels} specified in {@link VkImageCreateInfo} when {@code dstImage} was created</li>
      * <li>If {@code layerCount} is not {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS}, the specified {@code baseArrayLayer} + {@code layerCount} of each region <b>must</b> be less than or equal to the {@code arrayLayers} specified in {@link VkImageCreateInfo} when {@code dstImage} was created</li>
      * <li>The {@code imageOffset} and {@code imageExtent} members of each region <b>must</b> respect the image transfer granularity requirements of {@code commandBuffer}’s command pool’s queue family, as described in {@link VkQueueFamilyProperties}</li>

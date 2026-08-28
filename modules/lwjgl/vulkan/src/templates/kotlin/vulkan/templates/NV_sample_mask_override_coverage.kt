@@ -21,7 +21,6 @@ val NV_sample_mask_override_coverage = "NVSampleMaskOverrideCoverage".nativeClas
 
         When using GLSL source-based shader languages, the {@code override_coverage} layout qualifier from {@code GL_NV_sample_mask_override_coverage} maps to the {@code OverrideCoverageNV} decoration. To use the {@code override_coverage} layout qualifier in GLSL the {@code GL_NV_sample_mask_override_coverage} extension must be enabled. Behavior is described in the {@code GL_NV_sample_mask_override_coverage} extension spec.
 
-        <h5>VK_NV_sample_mask_override_coverage</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_sample_mask_override_coverage}</dd>
@@ -34,6 +33,11 @@ val NV_sample_mask_override_coverage = "NVSampleMaskOverrideCoverage".nativeClas
 
             <dt><b>Revision</b></dt>
             <dd>1</dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_sample_mask_override_coverage.html">SPV_NV_sample_mask_override_coverage</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -51,7 +55,6 @@ val NV_sample_mask_override_coverage = "NVSampleMaskOverrideCoverage".nativeClas
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_sample_mask_override_coverage.html">{@code SPV_NV_sample_mask_override_coverage}</a></li>
                 <li>This extension provides API support for <a href="https://registry.khronos.org/OpenGL/extensions/NV/NV_sample_mask_override_coverage.txt">{@code GL_NV_sample_mask_override_coverage}</a></li>
             </ul></dd>
 

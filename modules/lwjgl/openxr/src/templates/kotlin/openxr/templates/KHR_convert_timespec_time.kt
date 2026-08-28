@@ -11,7 +11,7 @@ import openxr.*
 val KHR_convert_timespec_time = "KHRConvertTimespecTime".nativeClassXR("KHR_convert_timespec_time", type = "instance", postfix = "KHR") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_KHR_convert_timespec_time">XR_KHR_convert_timespec_time</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_KHR_convert_timespec_time">XR_KHR_convert_timespec_time</a> extension.
 
         This extension provides two functions for converting between timespec monotonic time and {@code XrTime}. The #ConvertTimespecTimeToTimeKHR() function converts from timespec time to {@code XrTime}, while the #ConvertTimeToTimespecTimeKHR() function converts {@code XrTime} to timespec monotonic time. The primary use case for this functionality is to be able to synchronize events between the local system and the OpenXR system.
         """
@@ -39,7 +39,7 @@ val KHR_convert_timespec_time = "KHRConvertTimespecTime".nativeClassXR("KHR_conv
         <pre><code>
 ￿XrResult xrConvertTimespecTimeToTimeKHR(
 ￿    XrInstance                                  instance,
-￿    const struct timespec*                      unixTime,
+￿    const struct timespec*                      timespecTime,
 ￿    XrTime*                                     time);</code></pre>
 
         <h5>Description</h5>
@@ -51,7 +51,7 @@ val KHR_convert_timespec_time = "KHRConvertTimespecTime".nativeClassXR("KHR_conv
         <ul>
             <li>The {@link KHRConvertTimespecTime XR_KHR_convert_timespec_time} extension <b>must</b> be enabled prior to calling #ConvertTimespecTimeToTimeKHR()</li>
             <li>{@code instance} <b>must</b> be a valid {@code XrInstance} handle</li>
-            <li>{@code unixTime} <b>must</b> be a pointer to a valid {@code timespec} value</li>
+            <li>{@code timespecTime} <b>must</b> be a pointer to a valid {@code timespec} value</li>
             <li>{@code time} <b>must</b> be a pointer to an {@code XrTime} value</li>
         </ul>
 
@@ -75,7 +75,7 @@ val KHR_convert_timespec_time = "KHRConvertTimespecTime".nativeClassXR("KHR_conv
         """,
 
         XrInstance("instance", "an {@code XrInstance} handle previously created with #CreateInstance()."),
-        timespec.const.p("unixTime", ""),
+        timespec.const.p("timespecTime", "a {@code timespec} obtained from {@code clock_gettime} with {@code CLOCK_MONOTONIC}."),
         Check(1)..XrTime.p("time", "the resulting {@code XrTime} that is equivalent to the {@code timespecTime}.")
     )
 

@@ -15,9 +15,8 @@ val ARM_shader_core_builtins = "ARMShaderCoreBuiltins".nativeClassVK("ARM_shader
 
         This extension enables support for the SPIR-V {@code CoreBuiltinsARM} capability.
 
-        These properties and built-ins can be used for debugging or performance optimisation purposes. A typical optimisation example would be to use {@code CoreIDARM} to select a per-shader-core instance of a data structure in algorithms that use atomics so as to reduce contention.
+        These properties and built-ins can be used for debugging or performance optimization purposes. A typical optimization example would be to use {@code CoreIDARM} to select a per-shader-core instance of a data structure in algorithms that use atomics so as to reduce contention.
 
-        <h5>VK_ARM_shader_core_builtins</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_ARM_shader_core_builtins}</dd>
@@ -32,7 +31,12 @@ val ARM_shader_core_builtins = "ARMShaderCoreBuiltins".nativeClassVK("ARM_shader
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/ARM/SPV_ARM_core_builtins.html">SPV_ARM_core_builtins</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -47,8 +51,7 @@ val ARM_shader_core_builtins = "ARMShaderCoreBuiltins".nativeClassVK("ARM_shader
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/ARM/SPV_ARM_core_builtins.html">{@code SPV_ARM_core_builtins}</a>.</li>
-                <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/arm/GLSL_ARM_shader_core_builtins.txt">{@code GL_ARM_shader_core_builtins}</a></li>
+                <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/arm/GLSL_ARM_shader_core_builtins.txt">{@code GL_ARM_shader_core_builtins}</a></li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>

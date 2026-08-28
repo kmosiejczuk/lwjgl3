@@ -11,7 +11,7 @@ import vulkan.*
 val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micromap", type = "device", postfix = "EXT") {
     documentation =
         """
-        When adding adding transparency to a ray traced scene, an application can choose between further tessellating the geometry or using an any hit shader to allow the ray through specific parts of the geometry. These options have the downside of either significantly increasing memory consumption or adding runtime overhead to run shader code in the middle of traversal, respectively.
+        When adding transparency to a ray traced scene, an application can choose between further tessellating the geometry or using an any-hit shader to allow the ray through specific parts of the geometry. These options have the downside of either significantly increasing memory consumption or adding runtime overhead to run shader code in the middle of traversal, respectively.
 
         This extension adds the ability to add an <em>opacity micromap</em> to geometry when building an acceleration structure. The opacity micromap compactly encodes opacity information which can be read by the implementation to mark parts of triangles as opaque or transparent. The format is externally visible to allow the application to compress its internal geometry and surface representations into the compressed format ahead of time. The compressed format subdivides each triangle into a set of subtriangles, each of which can be assigned either two or four opacity values. These opacity values can control if a ray hitting that subtriangle is treated as an opaque hit, complete miss, or possible hit, depending on the controls described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#ray-opacity-micromap">Ray Opacity Micromap</a>.
 
@@ -78,7 +78,6 @@ val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micro
 ￿    return b0 | (b1 &lt;&lt; 1u);
 ￿}</code></pre>
 
-        <h5>VK_EXT_opacity_micromap</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_opacity_micromap}</dd>
@@ -93,7 +92,12 @@ val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micro
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRAccelerationStructure VK_KHR_acceleration_structure} and {@link KHRSynchronization2 VK_KHR_synchronization2}</dd>
+            <dd>{@link KHRAccelerationStructure VK_KHR_acceleration_structure} and {@link KHRSynchronization2 VK_KHR_synchronization2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3">Version 1.3</a></dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/EXT/SPV_EXT_opacity_micromap.html">SPV_EXT_opacity_micromap</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -112,8 +116,7 @@ val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micro
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/EXT/SPV_EXT_opacity_micromap.html">{@code SPV_EXT_opacity_micromap}</a></li>
-                <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GLSL_EXT_opacity_micromap.txt">{@code GLSL_EXT_opacity_micromap}</a></li>
+                <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/ext/GLSL_EXT_opacity_micromap.txt">{@code GLSL_EXT_opacity_micromap}</a></li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>
@@ -614,7 +617,6 @@ val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micro
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>If {@code deferredOperation} is not #NULL_HANDLE, it <b>must</b> be a valid {@code VkDeferredOperationKHR} object</li>
             <li>Any previous deferred operation that was associated with {@code deferredOperation} <b>must</b> be complete</li>
             <li>The {@code buffer} used to create {@code pInfo→src} <b>must</b> be bound to host-visible device memory</li>
             <li>The {@code buffer} used to create {@code pInfo→dst} <b>must</b> be bound to host-visible device memory</li>
@@ -677,7 +679,6 @@ val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micro
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>If {@code deferredOperation} is not #NULL_HANDLE, it <b>must</b> be a valid {@code VkDeferredOperationKHR} object</li>
             <li>Any previous deferred operation that was associated with {@code deferredOperation} <b>must</b> be complete</li>
             <li>The {@code buffer} used to create {@code pInfo→src} <b>must</b> be bound to host-visible device memory</li>
             <li>{@code pInfo→dst.hostAddress} <b>must</b> be a valid host pointer</li>
@@ -740,7 +741,6 @@ val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micro
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>If {@code deferredOperation} is not #NULL_HANDLE, it <b>must</b> be a valid {@code VkDeferredOperationKHR} object</li>
             <li>Any previous deferred operation that was associated with {@code deferredOperation} <b>must</b> be complete</li>
             <li>{@code pInfo→src.hostAddress} <b>must</b> be a valid host pointer</li>
             <li>{@code pInfo→src.hostAddress} <b>must</b> be aligned to 16 bytes</li>
@@ -848,7 +848,7 @@ val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micro
         VkMicromapEXT.const.p("pMicromaps", "a pointer to an array of existing previously built micromaps."),
         VkQueryType("queryType", "a {@code VkQueryType} value specifying the property to be queried."),
         AutoSize("pData")..size_t("dataSize", "the size in bytes of the buffer pointed to by {@code pData}."),
-        void.p("pData", "a pointer to a user-allocated buffer where the results will be written."),
+        void.p("pData", "a pointer to an application-allocated buffer where the results will be written."),
         size_t("stride", "the stride in bytes between results for individual queries within {@code pData}.")
     )
 

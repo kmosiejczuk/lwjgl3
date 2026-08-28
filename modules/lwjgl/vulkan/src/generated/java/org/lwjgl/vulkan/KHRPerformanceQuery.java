@@ -210,7 +210,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *   1,
  *   sizeof(VkPerformanceCounterResultKHR) * enabledCounterCount,
  *   recordedCounters,
- *   sizeof(VkPerformanceCounterResultKHR),
+ *   sizeof(VkPerformanceCounterResultKHR) * enabledCounterCount,
  *   NULL);
  * 
  * // recordedCounters is filled with our counters, we will look at one for posterity
@@ -234,8 +234,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     // use recordCounters[0].float64 to get at the counter result!
  *     break;
  * }</code></pre>
- * 
- * <h5>VK_KHR_performance_query</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -471,7 +469,7 @@ public class KHRPerformanceQuery {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pCounters} is {@code NULL} and {@code pCounterDescriptions} is {@code NULL}, then the number of counters available is returned in {@code pCounterCount}. Otherwise, {@code pCounterCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pCounters}, {@code pCounterDescriptions}, or both arrays and on return the variable is overwritten with the number of structures actually written out. If {@code pCounterCount} is less than the number of counters available, at most {@code pCounterCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available counters were returned.</p>
+     * <p>If {@code pCounters} is {@code NULL} and {@code pCounterDescriptions} is {@code NULL}, then the number of counters available is returned in {@code pCounterCount}. Otherwise, {@code pCounterCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pCounters}, {@code pCounterDescriptions}, or both arrays and on return the variable is overwritten with the number of structures actually written out. If {@code pCounterCount} is less than the number of counters available, at most {@code pCounterCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available counters were returned.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

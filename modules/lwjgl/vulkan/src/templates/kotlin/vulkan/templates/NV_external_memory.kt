@@ -17,7 +17,6 @@ val NV_external_memory = "NVExternalMemory".nativeClassVK("NV_external_memory", 
         <pre><code>
 ￿    // TODO: Write some sample code here.</code></pre>
 
-        <h5>VK_NV_external_memory</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_external_memory}</dd>
@@ -34,7 +33,7 @@ val NV_external_memory = "NVExternalMemory".nativeClassVK("NV_external_memory", 
             <dt><b>Extension and Version Dependencies</b></dt>
             <dd>{@link NVExternalMemoryCapabilities VK_NV_external_memory_capabilities}</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li>
                     <em>Deprecated</em> by {@link KHRExternalMemory VK_KHR_external_memory} extension

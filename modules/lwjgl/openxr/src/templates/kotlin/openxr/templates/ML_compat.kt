@@ -11,7 +11,7 @@ import openxr.*
 val ML_compat = "MLCompat".nativeClassXR("ML_compat", type = "instance", postfix = "ML") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_ML_compat">XR_ML_compat</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_ML_compat">XR_ML_compat</a> extension.
 
         This extension provides functionality to facilitate transitioning from Magic Leap SDK to OpenXR SDK, most notably interoperability between Coordinate Frame UUIDs and {@code XrSpace}.
         """
@@ -49,7 +49,7 @@ val ML_compat = "MLCompat".nativeClassXR("ML_compat", type = "instance", postfix
 ￿    XrSpace*                                    space);</code></pre>
 
         <h5>Description</h5>
-        The service that created the underlying ##XrCoordinateSpaceCreateInfoML{@code ::cfuid} <b>must</b> remain active for the lifetime of the {@code XrSpace}. If #LocateSpace() is called on a space created from a {@code cfuid} from a no-longer-active service, the runtime <b>may</b> set ##XrSpaceLocation{@code ::locationFlags} to 0.
+        The service that created the underlying ##XrCoordinateSpaceCreateInfoML{@code ::cfuid} <b>must</b> remain active for the lifetime of the {@code XrSpace}. If #LocateSpace() is called on a space created from an ##XrCoordinateSpaceCreateInfoML{@code ::cfuid} from a no-longer-active service, the runtime <b>may</b> set ##XrSpaceLocation{@code ::locationFlags} to 0.
 
         {@code XrSpace} handles are destroyed using #DestroySpace().
 

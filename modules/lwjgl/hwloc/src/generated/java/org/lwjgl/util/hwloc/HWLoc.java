@@ -119,6 +119,7 @@ public class HWLoc {
             type_sscanf                           = apiGetFunctionAddress(HWLOC, "hwloc_type_sscanf"),
             modify_infos                          = apiGetFunctionAddress(HWLOC, "hwloc_modify_infos"),
             topology_get_infos                    = apiGetFunctionAddress(HWLOC, "hwloc_topology_get_infos"),
+            obj_set_subtype                       = apiGetFunctionAddress(HWLOC, "hwloc_obj_set_subtype"),
             set_cpubind                           = apiGetFunctionAddress(HWLOC, "hwloc_set_cpubind"),
             get_cpubind                           = apiGetFunctionAddress(HWLOC, "hwloc_get_cpubind"),
             set_proc_cpubind_pid                  = apiGetFunctionAddress(HWLOC, "hwloc_set_proc_cpubind"),
@@ -166,6 +167,7 @@ public class HWLoc {
             topology_allow                        = apiGetFunctionAddress(HWLOC, "hwloc_topology_allow"),
             topology_insert_misc_object           = apiGetFunctionAddress(HWLOC, "hwloc_topology_insert_misc_object"),
             topology_alloc_group_object           = apiGetFunctionAddress(HWLOC, "hwloc_topology_alloc_group_object"),
+            topology_free_group_object            = apiGetFunctionAddress(HWLOC, "hwloc_topology_free_group_object"),
             topology_insert_group_object          = apiGetFunctionAddress(HWLOC, "hwloc_topology_insert_group_object"),
             obj_add_other_obj_sets                = apiGetFunctionAddress(HWLOC, "hwloc_obj_add_other_obj_sets"),
             topology_refresh                      = apiGetFunctionAddress(HWLOC, "hwloc_topology_refresh"),
@@ -428,17 +430,19 @@ public class HWLoc {
      * <li>{@link #HWLOC_MEMBIND_FIRSTTOUCH MEMBIND_FIRSTTOUCH}</li>
      * <li>{@link #HWLOC_MEMBIND_BIND MEMBIND_BIND}</li>
      * <li>{@link #HWLOC_MEMBIND_INTERLEAVE MEMBIND_INTERLEAVE}</li>
+     * <li>{@link #HWLOC_MEMBIND_WEIGHTED_INTERLEAVE MEMBIND_WEIGHTED_INTERLEAVE}</li>
      * <li>{@link #HWLOC_MEMBIND_NEXTTOUCH MEMBIND_NEXTTOUCH}</li>
      * <li>{@link #HWLOC_MEMBIND_MIXED MEMBIND_MIXED}</li>
      * </ul>
      */
     public static final int
-        HWLOC_MEMBIND_DEFAULT    = 0,
-        HWLOC_MEMBIND_FIRSTTOUCH = 1,
-        HWLOC_MEMBIND_BIND       = 2,
-        HWLOC_MEMBIND_INTERLEAVE = 3,
-        HWLOC_MEMBIND_NEXTTOUCH  = 4,
-        HWLOC_MEMBIND_MIXED      = -1;
+        HWLOC_MEMBIND_DEFAULT             = 0,
+        HWLOC_MEMBIND_FIRSTTOUCH          = 1,
+        HWLOC_MEMBIND_BIND                = 2,
+        HWLOC_MEMBIND_INTERLEAVE          = 3,
+        HWLOC_MEMBIND_WEIGHTED_INTERLEAVE = 5,
+        HWLOC_MEMBIND_NEXTTOUCH           = 4,
+        HWLOC_MEMBIND_MIXED               = -1;
 
     /**
      * {@code hwloc_membind_flags_t}
@@ -671,16 +675,18 @@ public class HWLoc {
      * <ul>
      * <li>{@link #HWLOC_DISTANCES_KIND_FROM_OS DISTANCES_KIND_FROM_OS}</li>
      * <li>{@link #HWLOC_DISTANCES_KIND_FROM_USER DISTANCES_KIND_FROM_USER}</li>
-     * <li>{@link #HWLOC_DISTANCES_KIND_MEANS_LATENCY DISTANCES_KIND_MEANS_LATENCY}</li>
-     * <li>{@link #HWLOC_DISTANCES_KIND_MEANS_BANDWIDTH DISTANCES_KIND_MEANS_BANDWIDTH}</li>
+     * <li>{@link #HWLOC_DISTANCES_KIND_VALUE_LATENCY DISTANCES_KIND_VALUE_LATENCY}</li>
+     * <li>{@link #HWLOC_DISTANCES_KIND_VALUE_BANDWIDTH DISTANCES_KIND_VALUE_BANDWIDTH}</li>
+     * <li>{@link #HWLOC_DISTANCES_KIND_VALUE_HOPS DISTANCES_KIND_VALUE_HOPS}</li>
      * <li>{@link #HWLOC_DISTANCES_KIND_HETEROGENEOUS_TYPES DISTANCES_KIND_HETEROGENEOUS_TYPES}</li>
      * </ul>
      */
     public static final long
         HWLOC_DISTANCES_KIND_FROM_OS             = 1L<<0,
         HWLOC_DISTANCES_KIND_FROM_USER           = 1L<<1,
-        HWLOC_DISTANCES_KIND_MEANS_LATENCY       = 1L<<2,
-        HWLOC_DISTANCES_KIND_MEANS_BANDWIDTH     = 1L<<3,
+        HWLOC_DISTANCES_KIND_VALUE_LATENCY       = 1L<<2,
+        HWLOC_DISTANCES_KIND_VALUE_BANDWIDTH     = 1L<<3,
+        HWLOC_DISTANCES_KIND_VALUE_HOPS          = 1L<<5,
         HWLOC_DISTANCES_KIND_HETEROGENEOUS_TYPES = 1L<<4;
 
     /**
@@ -1663,6 +1669,34 @@ public class HWLoc {
         return hwloc_infos_s.create(__result);
     }
 
+    // --- [ hwloc_obj_set_subtype ] ---
+
+    public static int nhwloc_obj_set_subtype(long topology, long obj, long subtype) {
+        long __functionAddress = Functions.obj_set_subtype;
+        if (CHECKS) {
+            check(topology);
+        }
+        return invokePPPI(topology, obj, subtype, __functionAddress);
+    }
+
+    public static int hwloc_obj_set_subtype(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_obj_t") hwloc_obj obj, @Nullable @NativeType("char const *") ByteBuffer subtype) {
+        if (CHECKS) {
+            checkNT1Safe(subtype);
+        }
+        return nhwloc_obj_set_subtype(topology, obj.address(), memAddressSafe(subtype));
+    }
+
+    public static int hwloc_obj_set_subtype(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_obj_t") hwloc_obj obj, @Nullable @NativeType("char const *") CharSequence subtype) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nASCIISafe(subtype, true);
+            long subtypeEncoded = subtype == null ? NULL : stack.getPointerAddress();
+            return nhwloc_obj_set_subtype(topology, obj.address(), subtypeEncoded);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ hwloc_set_cpubind ] ---
 
     public static int hwloc_set_cpubind(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_const_cpuset_t") long set, int flags) {
@@ -2352,6 +2386,20 @@ public class HWLoc {
     public static hwloc_obj hwloc_topology_alloc_group_object(@NativeType("hwloc_topology_t") long topology) {
         long __result = nhwloc_topology_alloc_group_object(topology);
         return hwloc_obj.createSafe(__result);
+    }
+
+    // --- [ hwloc_topology_free_group_object ] ---
+
+    public static int nhwloc_topology_free_group_object(long topology, long group) {
+        long __functionAddress = Functions.topology_free_group_object;
+        if (CHECKS) {
+            check(topology);
+        }
+        return invokePPI(topology, group, __functionAddress);
+    }
+
+    public static int hwloc_topology_free_group_object(@NativeType("hwloc_topology_t") long topology, @NativeType("hwloc_obj_t") hwloc_obj group) {
+        return nhwloc_topology_free_group_object(topology, group.address());
     }
 
     // --- [ hwloc_topology_insert_group_object ] ---

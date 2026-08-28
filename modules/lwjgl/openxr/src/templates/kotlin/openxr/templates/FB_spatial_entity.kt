@@ -11,13 +11,13 @@ import openxr.*
 val FB_spatial_entity = "FBSpatialEntity".nativeClassXR("FB_spatial_entity", type = "instance", postfix = "FB") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_FB_spatial_entity">XR_FB_spatial_entity</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_FB_spatial_entity">XR_FB_spatial_entity</a> extension.
 
         This extension enables applications to use spatial entities to specify world-locked frames of reference. It enables applications to persist the real world location of content over time and contains definitions for the Entity-Component System. All Facebook spatial entity and scene extensions are dependent on this one.
 
         We use OpenXR {@code XrSpace} handles to give applications access to spatial entities such as Spatial Anchors. In other words, any operation which involves spatial entities uses {@code XrSpace} handles to identify the affected spatial entities.
 
-        In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#extensions">extensions</a> section.
+        In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#fundamentals-extensions">fundamentals-extensions</a> section.
 
         This extension allows:
 
@@ -32,7 +32,7 @@ val FB_spatial_entity = "FBSpatialEntity".nativeClassXR("FB_spatial_entity", typ
     IntConstant(
         "The extension specification version.",
 
-        "FB_spatial_entity_SPEC_VERSION".."2"
+        "FB_spatial_entity_SPEC_VERSION".."3"
     )
 
     StringConstant(
@@ -272,7 +272,7 @@ val FB_spatial_entity = "FBSpatialEntity".nativeClassXR("FB_spatial_entity", typ
 ￿    XrAsyncRequestIdFB*                         requestId);</code></pre>
 
         <h5>Description</h5>
-        Enables or disables the specified component for the specified entity. This operation is asynchronous and always returns immediately, regardless of the value of {@code timeout}. The {@code requestId} <b>can</b> be used to later refer to the request, such as identifying which request has completed when an ##XrEventDataSpaceSetStatusCompleteFB is posted to the event queue. If this function returns a failure code, no event is posted. This function <b>must</b> return #ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB if the {@code XrSpace} does not support the specified component type.
+        Enables or disables the specified component for the specified entity. This operation is asynchronous and always returns immediately, regardless of the value of ##XrSpaceComponentStatusSetInfoFB{@code ::timeout}. The {@code requestId} <b>can</b> be used to later refer to the request, such as identifying which request has completed when an ##XrEventDataSpaceSetStatusCompleteFB is posted to the event queue. If this function returns a failure code, no event is posted. This function <b>must</b> return #ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB if the {@code XrSpace} does not support the specified component type.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

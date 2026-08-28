@@ -53,8 +53,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     vkCreateDevice(props[0].physicalDevices[0], &amp;devCreateInfo, NULL, &amp;g_vkDevice);
  *     free(props);</code></pre>
  * 
- * <h5>VK_KHR_device_group_creation</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_KHR_device_group_creation}</dd>
@@ -64,7 +62,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>71</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
  * </ul></dd>
@@ -81,10 +79,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>2016-10-19</dd>
  * <dt><b>IP Status</b></dt>
  * <dd>No known IP claims.</dd>
- * <dt><b>Interactions and External Dependencies</b></dt>
- * <dd><ul>
- * <li>Promoted to Vulkan 1.1 Core</li>
- * </ul></dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
  * <li>Jeff Bolz, NVIDIA</li>

@@ -13,7 +13,6 @@ val GOOGLE_user_type = "GOOGLEUserType".nativeClassVK("GOOGLE_user_type", type =
         """
         The {@code VK_GOOGLE_user_type} extension allows use of the {@code SPV_GOOGLE_user_type} extension in SPIR-V shader modules.
 
-        <h5>VK_GOOGLE_user_type</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_GOOGLE_user_type}</dd>
@@ -26,6 +25,11 @@ val GOOGLE_user_type = "GOOGLEUserType".nativeClassVK("GOOGLE_user_type", type =
 
             <dt><b>Revision</b></dt>
             <dd>1</dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/GOOGLE/SPV_GOOGLE_user_type.html">SPV_GOOGLE_user_type</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -40,11 +44,6 @@ val GOOGLE_user_type = "GOOGLEUserType".nativeClassVK("GOOGLE_user_type", type =
 
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/GOOGLE/SPV_GOOGLE_user_type.html">{@code SPV_GOOGLE_user_type}</a></li>
-            </ul></dd>
 
             <dt><b>Contributors</b></dt>
             <dd><ul>

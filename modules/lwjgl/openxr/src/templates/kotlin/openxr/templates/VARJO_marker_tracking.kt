@@ -11,7 +11,7 @@ import openxr.*
 val VARJO_marker_tracking = "VARJOMarkerTracking".nativeClassXR("VARJO_marker_tracking", type = "instance", postfix = "VARJO") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_VARJO_marker_tracking">XR_VARJO_marker_tracking</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_VARJO_marker_tracking">XR_VARJO_marker_tracking</a> extension.
 
         Varjo Markers are physical markers tracked by the video cameras of the HMD. Different types of markers <b>can</b> be used for different purposes. As an example, Varjo Markers <b>can</b> be used as cheap replacements for electronic trackers. The cost per printed tracker is significantly lower and the markers require no power to function.
 
@@ -156,7 +156,7 @@ val VARJO_marker_tracking = "VARJOMarkerTracking".nativeClassXR("VARJO_marker_tr
 ￿XrResult xrSetMarkerTrackingPredictionVARJO(
 ￿    XrSession                                   session,
 ￿    uint64_t                                    markerId,
-￿    XrBool32                                    enabled);</code></pre>
+￿    XrBool32                                    enable);</code></pre>
 
         <h5>Description</h5>
         The #SetMarkerTrackingPredictionVARJO() function enables or disables the prediction feature for a specified marker. By default, markers are created with disabled prediction. This works well for markers that are supposed to be stationary. The prediction <b>can</b> be used to improve tracking of movable markers. The runtime <b>must</b> return #ERROR_MARKER_ID_INVALID_VARJO if the supplied {@code markerId} is invalid.
@@ -190,7 +190,7 @@ val VARJO_marker_tracking = "VARJOMarkerTracking".nativeClassXR("VARJO_marker_tr
 
         XrSession("session", "an {@code XrSession} handle previously created with #CreateSession()."),
         uint64_t("markerId", "the unique identifier of the marker which should be tracked with prediction."),
-        XrBool32("enabled", "")
+        XrBool32("enable", "whether to enable the prediction feature.")
     )
 
     XrResult(
@@ -262,7 +262,7 @@ val VARJO_marker_tracking = "VARJOMarkerTracking".nativeClassXR("VARJO_marker_tr
 ￿    XrSpace*                                    space);</code></pre>
 
         <h5>Description</h5>
-        The #CreateMarkerSpaceVARJO() function creates marker {@code XrSpace} for pose relative to the marker specified in ##XrMarkerSpaceCreateInfoVARJO. The runtime <b>must</b> return #ERROR_MARKER_ID_INVALID_VARJO if the supplied {@code markerId} is invalid.
+        The #CreateMarkerSpaceVARJO() function creates marker {@code XrSpace} for pose relative to the marker specified in ##XrMarkerSpaceCreateInfoVARJO. The runtime <b>must</b> return #ERROR_MARKER_ID_INVALID_VARJO if the supplied ##XrMarkerSpaceCreateInfoVARJO{@code ::markerId} is invalid.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

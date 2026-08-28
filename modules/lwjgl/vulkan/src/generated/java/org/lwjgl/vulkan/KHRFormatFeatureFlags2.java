@@ -8,7 +8,7 @@ package org.lwjgl.vulkan;
 /**
  * This extension adds a new {@code VkFormatFeatureFlagBits2KHR} 64bits format feature flag type to extend the existing {@code VkFormatFeatureFlagBits} which is limited to 31 flags. At the time of this writing 29 bits of {@code VkFormatFeatureFlagBits} are already used.
  * 
- * <p>Because {@link VkFormatProperties2} is already defined to extend the Vulkan 1.0 {@link VK10#vkGetPhysicalDeviceFormatProperties GetPhysicalDeviceFormatProperties} entry point, this extension defines a new {@link VkFormatProperties3KHR} to extend the {@link VkFormatProperties}.</p>
+ * <p>Because {@link VkFormatProperties2} is already defined to extend the Vulkan 1.0 {@link VK10#vkGetPhysicalDeviceFormatProperties GetPhysicalDeviceFormatProperties} command, this extension defines a new {@link VkFormatProperties3KHR} to extend the {@link VkFormatProperties}.</p>
  * 
  * <p>On top of replicating all the bits from {@code VkFormatFeatureFlagBits}, {@code VkFormatFeatureFlagBits2KHR} adds the following bits :</p>
  * 
@@ -23,8 +23,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>Functionality in this extension is included in core Vulkan 1.3, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
  * 
- * <h5>VK_KHR_format_feature_flags2</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_KHR_format_feature_flags2}</dd>
@@ -35,8 +33,8 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
@@ -51,10 +49,6 @@ package org.lwjgl.vulkan;
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
  * <dd>2021-07-01</dd>
- * <dt><b>Interactions and External Dependencies</b></dt>
- * <dd><ul>
- * <li>Promoted to Vulkan 1.3 Core</li>
- * </ul></dd>
  * <dt><b>IP Status</b></dt>
  * <dd>No known IP claims.</dd>
  * <dt><b>Contributors</b></dt>

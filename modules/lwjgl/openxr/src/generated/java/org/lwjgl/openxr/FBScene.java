@@ -11,16 +11,16 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_FB_scene">XR_FB_scene</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_FB_scene">XR_FB_scene</a> extension.
  * 
  * <p>This extension expands on the concept of spatial entities to include a way for a spatial entity to represent rooms, objects, or other boundaries in a scene.</p>
  * 
- * <p>In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into {@link XR10#xrCreateInstance CreateInstance} via the {@link XrInstanceCreateInfo}{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#extensions">extensions</a> section.</p>
+ * <p>In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into {@link XR10#xrCreateInstance CreateInstance} via the {@link XrInstanceCreateInfo}{@code ::enabledExtensionNames} parameter as indicated in the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#fundamentals-extensions">fundamentals-extensions</a> section.</p>
  */
 public class FBScene {
 
     /** The extension specification version. */
-    public static final int XR_FB_scene_SPEC_VERSION = 3;
+    public static final int XR_FB_scene_SPEC_VERSION = 4;
 
     /** The extension name. */
     public static final String XR_FB_SCENE_EXTENSION_NAME = "XR_FB_scene";
@@ -51,11 +51,13 @@ public class FBScene {
      * <ul>
      * <li>{@link #XR_SEMANTIC_LABELS_SUPPORT_MULTIPLE_SEMANTIC_LABELS_BIT_FB SEMANTIC_LABELS_SUPPORT_MULTIPLE_SEMANTIC_LABELS_BIT_FB} — If set, and the runtime reports the {@code extensionVersion} as 2 or greater, the runtime <b>may</b> return multiple semantic labels separated by a comma without spaces. Otherwise, the runtime <b>must</b> return a single semantic label.</li>
      * <li>{@link #XR_SEMANTIC_LABELS_SUPPORT_ACCEPT_DESK_TO_TABLE_MIGRATION_BIT_FB SEMANTIC_LABELS_SUPPORT_ACCEPT_DESK_TO_TABLE_MIGRATION_BIT_FB} — If set, and the runtime reports the {@code extensionVersion} as 3 or greater, the runtime <b>must</b> return "TABLE" instead of "DESK" as a semantic label to the application. Otherwise, the runtime <b>must</b> return "DESK" instead of "TABLE" as a semantic label to the application, when applicable.</li>
+     * <li>{@link #XR_SEMANTIC_LABELS_SUPPORT_ACCEPT_INVISIBLE_WALL_FACE_BIT_FB SEMANTIC_LABELS_SUPPORT_ACCEPT_INVISIBLE_WALL_FACE_BIT_FB} — If set, and the runtime reports the {@code extensionVersion} as 4 or greater, the runtime <b>may</b> return "INVISIBLE_WALL_FACE" instead of "WALL_FACE" as a semantic label to the application in order to represent an invisible wall used to conceptually separate a space (e.g., separate a living space from a kitchen space in an open floor plan house even though there is no real wall between the two spaces) instead of a real wall. Otherwise, the runtime <b>must</b> return "WALL_FACE" as a semantic label to the application in order to represent both an invisible and real wall, when applicable.</li>
      * </ul>
      */
     public static final int
         XR_SEMANTIC_LABELS_SUPPORT_MULTIPLE_SEMANTIC_LABELS_BIT_FB       = 0x1,
-        XR_SEMANTIC_LABELS_SUPPORT_ACCEPT_DESK_TO_TABLE_MIGRATION_BIT_FB = 0x2;
+        XR_SEMANTIC_LABELS_SUPPORT_ACCEPT_DESK_TO_TABLE_MIGRATION_BIT_FB = 0x2,
+        XR_SEMANTIC_LABELS_SUPPORT_ACCEPT_INVISIBLE_WALL_FACE_BIT_FB     = 0x4;
 
     protected FBScene() {
         throw new UnsupportedOperationException();
@@ -89,7 +91,7 @@ public class FBScene {
      * 
      * <p>Gets the 2D bounding box for a spatial entity with the {@link FBSpatialEntity#XR_SPACE_COMPONENT_TYPE_BOUNDED_2D_FB SPACE_COMPONENT_TYPE_BOUNDED_2D_FB} component type enabled.</p>
      * 
-     * <p>The bounding box is defined by an {@code offset} and {@code extent}. The {@code offset} refers to the coordinate of the minimum corner of the box in the x-y plane of the given {@code XrSpace}’s coordinate system; that is, the corner whose coordinate has the minimum value on each axis. The {@code extent} refers to the dimensions of the box along each axis. The maximum corner can therefore be computed as <code>offset extent</code>.</p>
+     * <p>The bounding box is defined by an {@link XrRect2Df}{@code ::offset} and {@link XrRect2Df}{@code ::extent}. The {@link XrRect2Df}{@code ::offset} refers to the coordinate of the minimum corner of the box in the x-y plane of the given {@code XrSpace}’s coordinate system; that is, the corner whose coordinate has the minimum value on each axis. The {@link XrRect2Df}{@code ::extent} refers to the dimensions of the box along each axis. The maximum corner can therefore be computed as <code>{@link XrRect2Df}::offset {@link XrRect2Df}::extent</code>.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

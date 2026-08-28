@@ -11,7 +11,7 @@ import openxr.*
 val MSFT_spatial_anchor = "MSFTSpatialAnchor".nativeClassXR("MSFT_spatial_anchor", type = "instance", postfix = "MSFT") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_MSFT_spatial_anchor">XR_MSFT_spatial_anchor</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_MSFT_spatial_anchor">XR_MSFT_spatial_anchor</a> extension.
 
         This extension allows an application to create a <b>spatial anchor</b>, an arbitrary freespace point in the user’s physical environment that will then be tracked by the runtime. The runtime <b>should</b> then adjust the position and orientation of that anchor’s origin over time as needed, independently of all other spaces and anchors, to ensure that it maintains its original mapping to the real world.
         """
@@ -62,13 +62,13 @@ val MSFT_spatial_anchor = "MSFTSpatialAnchor".nativeClassXR("MSFT_spatial_anchor
 ￿    XrSpatialAnchorMSFT*                        anchor);</code></pre>
 
         <h5>Description</h5>
-        Creates an {@code XrSpatialAnchorMSFT} handle representing a spatial anchor that will track a fixed location in the physical world over time. That real-world location is specified by the position and orientation of the specified {@code pose} within {@code space} at {@code time}.
+        Creates an {@code XrSpatialAnchorMSFT} handle representing a spatial anchor that will track a fixed location in the physical world over time. That real-world location is specified by the position and orientation of the specified ##XrSpatialAnchorCreateInfoMSFT{@code ::pose} within ##XrSpatialAnchorCreateInfoMSFT{@code ::space} at ##XrSpatialAnchorCreateInfoMSFT{@code ::time}.
 
         The runtime <b>must</b> avoid long blocking operations such as networking or disk operations for #CreateSpatialAnchorMSFT() function. The application <b>may</b> safely use this function in UI thread. Though, the created anchor handle <b>may</b> not be ready immediately for certain operations yet. For example, the corresponding anchor space <b>may</b> not return valid location, or its location <b>may</b> not be successfully saved in anchor store.
 
-        If {@code space} cannot be located relative to the environment at the moment of the call to #CreateSpatialAnchorMSFT(), the runtime <b>must</b> return #ERROR_CREATE_SPATIAL_ANCHOR_FAILED_MSFT.
+        If ##XrSpatialAnchorCreateInfoMSFT{@code ::space} cannot be located relative to the environment at the moment of the call to #CreateSpatialAnchorMSFT(), the runtime <b>must</b> return #ERROR_CREATE_SPATIAL_ANCHOR_FAILED_MSFT.
 
-        After the anchor is created, the runtime <b>should</b> then adjust its position and orientation over time relative to other spaces so as to maintain maximum alignment to its original real-world location, even if that changes the anchor’s relationship to the original {@code space} used to initialize it.
+        After the anchor is created, the runtime <b>should</b> then adjust its position and orientation over time relative to other spaces so as to maintain maximum alignment to its original real-world location, even if that changes the anchor’s relationship to the original ##XrSpatialAnchorCreateInfoMSFT{@code ::space} used to initialize it.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

@@ -38,7 +38,6 @@ val KHR_sampler_mirror_clamp_to_edge = "KHRSamplerMirrorClampToEdge".nativeClass
 ￿        &amp;createInfo,
 ￿        &amp;sampler);</code></pre>
 
-        <h5>VK_KHR_sampler_mirror_clamp_to_edge</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_sampler_mirror_clamp_to_edge}</dd>
@@ -52,7 +51,7 @@ val KHR_sampler_mirror_clamp_to_edge = "KHRSamplerMirrorClampToEdge".nativeClass
             <dt><b>Revision</b></dt>
             <dd>3</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
             </ul></dd>
@@ -67,11 +66,6 @@ val KHR_sampler_mirror_clamp_to_edge = "KHRSamplerMirrorClampToEdge".nativeClass
         <dl>
             <dt><b>Last Modified Date</b></dt>
             <dd>2019-08-17</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.2 Core</li>
-            </ul></dd>
 
             <dt><b>Contributors</b></dt>
             <dd><ul>

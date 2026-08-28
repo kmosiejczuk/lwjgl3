@@ -36,8 +36,6 @@ package org.lwjgl.vulkan;
  *     VkShaderModule vertexShader;
  *     vkCreateShaderModule(device, &amp;vertexShaderInfo, 0, &amp;vertexShader);</code></pre>
  * 
- * <h5>VK_NV_glsl_shader</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_glsl_shader}</dd>
@@ -47,7 +45,7 @@ package org.lwjgl.vulkan;
  * <dd>13</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Deprecated</em> without replacement</li>
  * </ul></dd>

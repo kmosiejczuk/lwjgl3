@@ -13,9 +13,8 @@ val INTEL_shader_integer_functions2 = "INTELShaderIntegerFunctions2".nativeClass
         """
         This extension adds support for several new integer instructions in SPIR-V for use in graphics shaders. Many of these instructions have pre-existing counterparts in the Kernel environment.
 
-        The added integer functions are defined by the <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/INTEL/SPV_INTEL_shader_integer_functions2.html">{@code SPV_INTEL_shader_integer_functions2}</a> SPIR-V extension and can be used with the GL_INTEL_shader_integer_functions2 GLSL extension.
+        The added integer functions are defined by the <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/INTEL/SPV_INTEL_shader_integer_functions2.html">{@code SPV_INTEL_shader_integer_functions2}</a> SPIR-V extension and can be used with the {@code GL_INTEL_shader_integer_functions2} GLSL extension.
 
-        <h5>VK_INTEL_shader_integer_functions2</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_INTEL_shader_integer_functions2}</dd>
@@ -30,7 +29,12 @@ val INTEL_shader_integer_functions2 = "INTELShaderIntegerFunctions2".nativeClass
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/INTEL/SPV_INTEL_shader_integer_functions2.html">SPV_INTEL_shader_integer_functions2</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -48,7 +52,6 @@ val INTEL_shader_integer_functions2 = "INTELShaderIntegerFunctions2".nativeClass
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/INTEL/SPV_INTEL_shader_integer_functions2.html">{@code SPV_INTEL_shader_integer_functions2}</a>.</li>
                 <li>This extension provides API support for <a href="https://registry.khronos.org/OpenGL/extensions/INTEL/INTEL_shader_integer_functions2.txt">{@code GL_INTEL_shader_integer_functions2}</a>.</li>
             </ul></dd>
 

@@ -21,12 +21,12 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <h5>Description</h5>
         All return codes in the API are reported via {@code XrResult} return values.
 
-        Some common suffixes shared across many of the return codes are defined below:
+        The following are common suffixes shared across many of the return codes:
 
         <ul>
-            <li>{@code _INVALID}: The specified handle, atom or value is formatted incorrectly, or the specified handle was never created or has been destroyed.</li>
-            <li>{@code _UNSUPPORTED}: The specified handle, atom, enumerant or value is formatted correctly but cannot be used for the lifetime of this function’s parent handle.</li>
-            <li>{@code _UNAVAILABLE}: The specified handle, atom, enumerant or value is supported by this function’s parent handle but not at this moment.</li>
+            <li>{@code _INVALID}: The specified handle, atom, or value is formatted incorrectly, or the specified handle was never created or has been destroyed.</li>
+            <li>{@code _UNSUPPORTED}: The specified handle, atom, enumerant, or value is formatted correctly but cannot be used for the lifetime of this function’s parent handle.</li>
+            <li>{@code _UNAVAILABLE}: The specified handle, atom, enumerant, or value is supported by the handle taken by this function, but is not usable at this moment.</li>
         </ul>
 
         <h5>Success Codes</h5>
@@ -40,7 +40,9 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
                 <tr><td>#SPACE_BOUNDS_UNAVAILABLE</td><td>The space’s bounds are not known at the moment.</td></tr>
                 <tr><td>#SESSION_NOT_FOCUSED</td><td>The session is not in the focused state.</td></tr>
                 <tr><td>#FRAME_DISCARDED</td><td>A frame has been discarded from composition.</td></tr>
-                <tr><td>#RENDER_MODEL_UNAVAILABLE_FB</td><td>The model is unavailable. (Added by the {@link FBRenderModel XR_FB_render_model} extension)</td></tr>
+                <tr><td>#RENDER_MODEL_UNAVAILABLE_FB</td><td>The model is unavailable.  (Added by the {@link FBRenderModel XR_FB_render_model} extension)</td></tr>
+                <tr><td>#SCENE_MARKER_DATA_NOT_STRING_MSFT</td><td>Marker does not encode a string.  (Added by the {@link MSFTSceneMarker XR_MSFT_scene_marker} extension)</td></tr>
+                <tr><td>#ENVIRONMENT_DEPTH_NOT_AVAILABLE_META</td><td>Warning: The requested depth image is not yet available.  (Added by the {@link METAEnvironmentDepth XR_META_environment_depth} extension)</td></tr>
             </tbody>
         </table>
 
@@ -60,8 +62,8 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
                 <tr><td>#ERROR_SIZE_INSUFFICIENT</td><td>The supplied size was smaller than required.</td></tr>
                 <tr><td>#ERROR_HANDLE_INVALID</td><td>A supplied object handle was invalid.</td></tr>
                 <tr><td>#ERROR_INSTANCE_LOST</td><td>The {@code XrInstance} was lost or could not be found. It will need to be destroyed and optionally recreated.</td></tr>
-                <tr><td>#ERROR_SESSION_RUNNING</td><td>The session <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_running">is already running</a>.</td></tr>
-                <tr><td>#ERROR_SESSION_NOT_RUNNING</td><td>The session <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_not_running">is not yet running</a>.</td></tr>
+                <tr><td>#ERROR_SESSION_RUNNING</td><td>The session <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-running">is already running</a>.</td></tr>
+                <tr><td>#ERROR_SESSION_NOT_RUNNING</td><td>The session <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-not-running">is not yet running</a>.</td></tr>
                 <tr><td>#ERROR_SESSION_LOST</td><td>The {@code XrSession} was lost. It will need to be destroyed and optionally recreated.</td></tr>
                 <tr><td>#ERROR_SYSTEM_INVALID</td><td>The provided {@code XrSystemId} was invalid.</td></tr>
                 <tr><td>#ERROR_PATH_INVALID</td><td>The provided {@code XrPath} was not valid.</td></tr>
@@ -96,47 +98,64 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
                 <tr><td>#ERROR_LOCALIZED_NAME_INVALID</td><td>The localized name provided was invalid.</td></tr>
                 <tr><td>#ERROR_GRAPHICS_REQUIREMENTS_CALL_MISSING</td><td>The {@code xrGetGraphicsRequirements}* call was not made before calling {@code xrCreateSession}.</td></tr>
                 <tr><td>#ERROR_RUNTIME_UNAVAILABLE</td><td>The loader was unable to find or load a runtime.</td></tr>
-                <tr><td>#ERROR_CREATE_SPATIAL_ANCHOR_FAILED_MSFT</td><td>Spatial anchor could not be created at that location. (Added by the {@link MSFTSpatialAnchor XR_MSFT_spatial_anchor} extension)</td></tr>
-                <tr><td>#ERROR_SECONDARY_VIEW_CONFIGURATION_TYPE_NOT_ENABLED_MSFT</td><td>The secondary view configuration was not enabled when creating the session. (Added by the {@link MSFTSecondaryViewConfiguration XR_MSFT_secondary_view_configuration} extension)</td></tr>
-                <tr><td>#ERROR_CONTROLLER_MODEL_KEY_INVALID_MSFT</td><td>The controller model key is invalid. (Added by the {@link MSFTControllerModel XR_MSFT_controller_model} extension)</td></tr>
-                <tr><td>#ERROR_REPROJECTION_MODE_UNSUPPORTED_MSFT</td><td>The reprojection mode is not supported. (Added by the {@link MSFTCompositionLayerReprojection XR_MSFT_composition_layer_reprojection} extension)</td></tr>
-                <tr><td>#ERROR_COMPUTE_NEW_SCENE_NOT_COMPLETED_MSFT</td><td>Compute new scene not completed. (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
-                <tr><td>#ERROR_SCENE_COMPONENT_ID_INVALID_MSFT</td><td>Scene component id invalid. (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
-                <tr><td>#ERROR_SCENE_COMPONENT_TYPE_MISMATCH_MSFT</td><td>Scene component type mismatch. (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
-                <tr><td>#ERROR_SCENE_MESH_BUFFER_ID_INVALID_MSFT</td><td>Scene mesh buffer id invalid. (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
-                <tr><td>#ERROR_SCENE_COMPUTE_FEATURE_INCOMPATIBLE_MSFT</td><td>Scene compute feature incompatible. (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
-                <tr><td>#ERROR_SCENE_COMPUTE_CONSISTENCY_MISMATCH_MSFT</td><td>Scene compute consistency mismatch. (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
-                <tr><td>#ERROR_DISPLAY_REFRESH_RATE_UNSUPPORTED_FB</td><td>The display refresh rate is not supported by the platform. (Added by the {@link FBDisplayRefreshRate XR_FB_display_refresh_rate} extension)</td></tr>
-                <tr><td>#ERROR_COLOR_SPACE_UNSUPPORTED_FB</td><td>The color space is not supported by the runtime. (Added by the {@link FBColorSpace XR_FB_color_space} extension)</td></tr>
-                <tr><td>#ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB</td><td>The component type is not supported for this space. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
-                <tr><td>#ERROR_SPACE_COMPONENT_NOT_ENABLED_FB</td><td>The required component is not enabled for this space. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
-                <tr><td>#ERROR_SPACE_COMPONENT_STATUS_PENDING_FB</td><td>A request to set the component’s status is currently pending. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
-                <tr><td>#ERROR_SPACE_COMPONENT_STATUS_ALREADY_SET_FB</td><td>The component is already set to the requested value. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
-                <tr><td>#ERROR_UNEXPECTED_STATE_PASSTHROUGH_FB</td><td>The object state is unexpected for the issued command. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
-                <tr><td>#ERROR_FEATURE_ALREADY_CREATED_PASSTHROUGH_FB</td><td>Trying to create an MR feature when one was already created and only one instance is allowed. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
-                <tr><td>#ERROR_FEATURE_REQUIRED_PASSTHROUGH_FB</td><td>Requested functionality requires a feature to be created first. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
-                <tr><td>#ERROR_NOT_PERMITTED_PASSTHROUGH_FB</td><td>Requested functionality is not permitted - application is not allowed to perform the requested operation. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
-                <tr><td>#ERROR_INSUFFICIENT_RESOURCES_PASSTHROUGH_FB</td><td>There weren’t sufficient resources available to perform an operation. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
-                <tr><td>#ERROR_UNKNOWN_PASSTHROUGH_FB</td><td>Unknown Passthrough error (no further details provided). (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
-                <tr><td>#ERROR_RENDER_MODEL_KEY_INVALID_FB</td><td>The model key is invalid. (Added by the {@link FBRenderModel XR_FB_render_model} extension)</td></tr>
-                <tr><td>#ERROR_MARKER_NOT_TRACKED_VARJO</td><td>Marker tracking is disabled or the specified marker is not currently tracked. (Added by the {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension)</td></tr>
-                <tr><td>#ERROR_MARKER_ID_INVALID_VARJO</td><td>The specified marker ID is not valid. (Added by the {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension)</td></tr>
-                <tr><td>#ERROR_SPATIAL_ANCHOR_NAME_NOT_FOUND_MSFT</td><td>A spatial anchor was not found associated with the spatial anchor name provided (Added by the {@link MSFTSpatialAnchorPersistence XR_MSFT_spatial_anchor_persistence} extension)</td></tr>
-                <tr><td>#ERROR_SPATIAL_ANCHOR_NAME_INVALID_MSFT</td><td>The spatial anchor name provided was not valid (Added by the {@link MSFTSpatialAnchorPersistence XR_MSFT_spatial_anchor_persistence} extension)</td></tr>
-                <tr><td>#ERROR_SPACE_MAPPING_INSUFFICIENT_FB</td><td>Anchor import from cloud or export from device failed. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
-                <tr><td>#ERROR_SPACE_LOCALIZATION_FAILED_FB</td><td>Anchors were downloaded from the cloud but failed to be imported/aligned on the device. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
-                <tr><td>#ERROR_SPACE_NETWORK_TIMEOUT_FB</td><td>Timeout occurred while waiting for network request to complete. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
-                <tr><td>#ERROR_SPACE_NETWORK_REQUEST_FAILED_FB</td><td>The network request failed. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
-                <tr><td>#ERROR_SPACE_CLOUD_STORAGE_DISABLED_FB</td><td>Cloud storage is required for this operation but is currently disabled. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
-                <tr><td>#ERROR_PASSTHROUGH_COLOR_LUT_BUFFER_SIZE_MISMATCH_META</td><td>The provided data buffer did not match the required size. (Added by the {@link METAPassthroughColorLut XR_META_passthrough_color_lut} extension)</td></tr>
-                <tr><td>#ERROR_HINT_ALREADY_SET_QCOM</td><td>Tracking optimization hint is already set for the domain. (Added by the {@link QCOMTrackingOptimizationSettings XR_QCOM_tracking_optimization_settings} extension)</td></tr>
-                <tr><td>#ERROR_SPACE_NOT_LOCATABLE_EXT</td><td>The space passed to the function was not locatable. (Added by the {@link EXTPlaneDetection XR_EXT_plane_detection} extension)</td></tr>
-                <tr><td>#ERROR_PLANE_DETECTION_PERMISSION_DENIED_EXT</td><td>The permission for this resource was not granted. (Added by the {@link EXTPlaneDetection XR_EXT_plane_detection} extension)</td></tr>
+                <tr><td>#ERROR_EXTENSION_DEPENDENCY_NOT_ENABLED</td><td>One or more of the extensions being enabled has dependency on extensions that are not enabled.</td></tr>
+                <tr><td>#ERROR_PERMISSION_INSUFFICIENT</td><td>Insufficient permissions. This error is included for use by vendor extensions. The precise definition of {@code XR_ERROR_PERMISSION_INSUFFICIENT} and actions possible by the developer or user to resolve it can vary by platform, extension or function. The developer should refer to the documentation of the function that returned the error code and extension it was defined.</td></tr>
+                <tr><td>#ERROR_CREATE_SPATIAL_ANCHOR_FAILED_MSFT</td><td>Spatial anchor could not be created at that location.  (Added by the {@link MSFTSpatialAnchor XR_MSFT_spatial_anchor} extension)</td></tr>
+                <tr><td>#ERROR_SECONDARY_VIEW_CONFIGURATION_TYPE_NOT_ENABLED_MSFT</td><td>The secondary view configuration was not enabled when creating the session.  (Added by the {@link MSFTSecondaryViewConfiguration XR_MSFT_secondary_view_configuration} extension)</td></tr>
+                <tr><td>#ERROR_CONTROLLER_MODEL_KEY_INVALID_MSFT</td><td>The controller model key is invalid.  (Added by the {@link MSFTControllerModel XR_MSFT_controller_model} extension)</td></tr>
+                <tr><td>#ERROR_REPROJECTION_MODE_UNSUPPORTED_MSFT</td><td>The reprojection mode is not supported.  (Added by the {@link MSFTCompositionLayerReprojection XR_MSFT_composition_layer_reprojection} extension)</td></tr>
+                <tr><td>#ERROR_COMPUTE_NEW_SCENE_NOT_COMPLETED_MSFT</td><td>Compute new scene not completed.  (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
+                <tr><td>#ERROR_SCENE_COMPONENT_ID_INVALID_MSFT</td><td>Scene component id invalid.  (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
+                <tr><td>#ERROR_SCENE_COMPONENT_TYPE_MISMATCH_MSFT</td><td>Scene component type mismatch.  (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
+                <tr><td>#ERROR_SCENE_MESH_BUFFER_ID_INVALID_MSFT</td><td>Scene mesh buffer id invalid.  (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
+                <tr><td>#ERROR_SCENE_COMPUTE_FEATURE_INCOMPATIBLE_MSFT</td><td>Scene compute feature incompatible.  (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
+                <tr><td>#ERROR_SCENE_COMPUTE_CONSISTENCY_MISMATCH_MSFT</td><td>Scene compute consistency mismatch.  (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
+                <tr><td>#ERROR_DISPLAY_REFRESH_RATE_UNSUPPORTED_FB</td><td>The display refresh rate is not supported by the platform.  (Added by the {@link FBDisplayRefreshRate XR_FB_display_refresh_rate} extension)</td></tr>
+                <tr><td>#ERROR_COLOR_SPACE_UNSUPPORTED_FB</td><td>The color space is not supported by the runtime.  (Added by the {@link FBColorSpace XR_FB_color_space} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB</td><td>The component type is not supported for this space.  (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_COMPONENT_NOT_ENABLED_FB</td><td>The required component is not enabled for this space.  (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_COMPONENT_STATUS_PENDING_FB</td><td>A request to set the component’s status is currently pending.  (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_COMPONENT_STATUS_ALREADY_SET_FB</td><td>The component is already set to the requested value.  (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
+                <tr><td>#ERROR_UNEXPECTED_STATE_PASSTHROUGH_FB</td><td>The object state is unexpected for the issued command.  (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
+                <tr><td>#ERROR_FEATURE_ALREADY_CREATED_PASSTHROUGH_FB</td><td>Trying to create an MR feature when one was already created and only one instance is allowed.  (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
+                <tr><td>#ERROR_FEATURE_REQUIRED_PASSTHROUGH_FB</td><td>Requested functionality requires a feature to be created first.  (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
+                <tr><td>#ERROR_NOT_PERMITTED_PASSTHROUGH_FB</td><td>Requested functionality is not permitted - application is not allowed to perform the requested operation.  (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
+                <tr><td>#ERROR_INSUFFICIENT_RESOURCES_PASSTHROUGH_FB</td><td>There were insufficient resources available to perform an operation.  (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
+                <tr><td>#ERROR_UNKNOWN_PASSTHROUGH_FB</td><td>Unknown Passthrough error (no further details provided).  (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
+                <tr><td>#ERROR_RENDER_MODEL_KEY_INVALID_FB</td><td>The model key is invalid.  (Added by the {@link FBRenderModel XR_FB_render_model} extension)</td></tr>
+                <tr><td>#ERROR_MARKER_NOT_TRACKED_VARJO</td><td>Marker tracking is disabled or the specified marker is not currently tracked.  (Added by the {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension)</td></tr>
+                <tr><td>#ERROR_MARKER_ID_INVALID_VARJO</td><td>The specified marker ID is not valid.  (Added by the {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension)</td></tr>
+                <tr><td>#ERROR_MARKER_DETECTOR_PERMISSION_DENIED_ML</td><td>The com.magicleap.permission.MARKER_TRACKING permission was denied.  (Added by the {@link MLMarkerUnderstanding XR_ML_marker_understanding} extension)</td></tr>
+                <tr><td>#ERROR_MARKER_DETECTOR_LOCATE_FAILED_ML</td><td>The specified marker could not be located spatially.  (Added by the {@link MLMarkerUnderstanding XR_ML_marker_understanding} extension)</td></tr>
+                <tr><td>#ERROR_MARKER_DETECTOR_INVALID_DATA_QUERY_ML</td><td>The marker queried does not contain data of the requested type.  (Added by the {@link MLMarkerUnderstanding XR_ML_marker_understanding} extension)</td></tr>
+                <tr><td>#ERROR_MARKER_DETECTOR_INVALID_CREATE_INFO_ML</td><td>{@code createInfo} contains mutually exclusive parameters, such as setting #MARKER_DETECTOR_CORNER_REFINE_METHOD_APRIL_TAG_ML with #MARKER_TYPE_ARUCO_ML.  (Added by the {@link MLMarkerUnderstanding XR_ML_marker_understanding} extension)</td></tr>
+                <tr><td>#ERROR_MARKER_INVALID_ML</td><td>The marker id passed to the function was invalid.  (Added by the {@link MLMarkerUnderstanding XR_ML_marker_understanding} extension)</td></tr>
+                <tr><td>#ERROR_LOCALIZATION_MAP_INCOMPATIBLE_ML</td><td>The localization map being imported is not compatible with current OS or mode.  (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+                <tr><td>#ERROR_LOCALIZATION_MAP_UNAVAILABLE_ML</td><td>The localization map requested is not available.  (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+                <tr><td>#ERROR_LOCALIZATION_MAP_FAIL_ML</td><td>The map localization service failed to fulfill the request, retry later.  (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+                <tr><td>#ERROR_LOCALIZATION_MAP_IMPORT_EXPORT_PERMISSION_DENIED_ML</td><td>The com.magicleap.permission.SPACE_IMPORT_EXPORT permission was denied.  (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+                <tr><td>#ERROR_LOCALIZATION_MAP_PERMISSION_DENIED_ML</td><td>The com.magicleap.permission.SPACE_MANAGER permission was denied.  (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+                <tr><td>#ERROR_LOCALIZATION_MAP_ALREADY_EXISTS_ML</td><td>The map being imported already exists in the system.  (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+                <tr><td>#ERROR_LOCALIZATION_MAP_CANNOT_EXPORT_CLOUD_MAP_ML</td><td>The map localization service cannot export cloud based maps.  (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+                <tr><td>#ERROR_SPATIAL_ANCHOR_NAME_NOT_FOUND_MSFT</td><td>A spatial anchor was not found associated with the spatial anchor name provided  (Added by the {@link MSFTSpatialAnchorPersistence XR_MSFT_spatial_anchor_persistence} extension)</td></tr>
+                <tr><td>#ERROR_SPATIAL_ANCHOR_NAME_INVALID_MSFT</td><td>The spatial anchor name provided was not valid  (Added by the {@link MSFTSpatialAnchorPersistence XR_MSFT_spatial_anchor_persistence} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_MAPPING_INSUFFICIENT_FB</td><td>Anchor import from cloud or export from device failed.  (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_LOCALIZATION_FAILED_FB</td><td>Anchors were downloaded from the cloud but failed to be imported/aligned on the device.  (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_NETWORK_TIMEOUT_FB</td><td>Timeout occurred while waiting for network request to complete.  (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_NETWORK_REQUEST_FAILED_FB</td><td>The network request failed.  (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_CLOUD_STORAGE_DISABLED_FB</td><td>Cloud storage is required for this operation but is currently disabled.  (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+                <tr><td>#ERROR_PASSTHROUGH_COLOR_LUT_BUFFER_SIZE_MISMATCH_META</td><td>The provided data buffer did not match the required size.  (Added by the {@link METAPassthroughColorLut XR_META_passthrough_color_lut} extension)</td></tr>
+                <tr><td>#ERROR_HINT_ALREADY_SET_QCOM</td><td>Tracking optimization hint is already set for the domain.  (Added by the {@link QCOMTrackingOptimizationSettings XR_QCOM_tracking_optimization_settings} extension)</td></tr>
+                <tr><td>#ERROR_NOT_AN_ANCHOR_HTC</td><td>The provided space is valid but not an anchor.  (Added by the {@link HTCAnchor XR_HTC_anchor} extension)</td></tr>
+                <tr><td>#ERROR_SPACE_NOT_LOCATABLE_EXT</td><td>The space passed to the function was not locatable.  (Added by the {@link EXTPlaneDetection XR_EXT_plane_detection} extension)</td></tr>
+                <tr><td>#ERROR_PLANE_DETECTION_PERMISSION_DENIED_EXT</td><td>The permission for this resource was not granted.  (Added by the {@link EXTPlaneDetection XR_EXT_plane_detection} extension)</td></tr>
+                <tr><td>#ERROR_FUTURE_PENDING_EXT</td><td>Returned by completion function to indicate future is not ready.  (Added by the {@link EXTFuture XR_EXT_future} extension)</td></tr>
+                <tr><td>#ERROR_FUTURE_INVALID_EXT</td><td>Returned by completion function to indicate future is not valid.  (Added by the {@link EXTFuture XR_EXT_future} extension)</td></tr>
             </tbody>
         </table>
 
         <h5>See Also</h5>
-        ##XrEventDataSceneCaptureCompleteFB, ##XrEventDataSpaceEraseCompleteFB, ##XrEventDataSpaceListSaveCompleteFB, ##XrEventDataSpaceQueryCompleteFB, ##XrEventDataSpaceSaveCompleteFB, ##XrEventDataSpaceSetStatusCompleteFB, ##XrEventDataSpaceShareCompleteFB, ##XrEventDataSpatialAnchorCreateCompleteFB, #ResultToString()
+        ##XrEventDataSceneCaptureCompleteFB, ##XrEventDataSpaceEraseCompleteFB, ##XrEventDataSpaceListSaveCompleteFB, ##XrEventDataSpaceQueryCompleteFB, ##XrEventDataSpaceSaveCompleteFB, ##XrEventDataSpaceSetStatusCompleteFB, ##XrEventDataSpaceShareCompleteFB, ##XrEventDataSpatialAnchorCreateCompleteFB, ##XrFutureCompletionBaseHeaderEXT, ##XrFutureCompletionEXT, #ResultToString()
         """,
 
         "SUCCESS".."0",
@@ -201,12 +220,12 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         XrStructureType - Values for type members of structs
 
         <h5>Description</h5>
-        Most structures containing {@code type} members have a value of {@code type} matching the type of the structure, as described more fully in <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#valid-usage-for-structure-types">Valid Usage for Structure Types</a>.
+        Most structures containing {@code type} members have a value of {@code type} matching the type of the structure, as described more fully in <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#fundamentals-valid-usage-for-structure-types">fundamentals-valid-usage-for-structure-types</a>.
 
         Note that all extension enums begin at the extension enum base of <code>10^9</code> (base 10). Each extension is assigned a block of 1000 enums, starting at the enum base and arranged by the extension’s number.
 
         <h5>See Also</h5>
-        ##XrActionCreateInfo, ##XrActionSetCreateInfo, ##XrActionSpaceCreateInfo, ##XrActionStateBoolean, ##XrActionStateFloat, ##XrActionStateGetInfo, ##XrActionStatePose, ##XrActionStateVector2f, ##XrActionsSyncInfo, ##XrActiveActionSetPrioritiesEXT, ##XrApiLayerProperties, ##XrBaseInStructure, ##XrBaseOutStructure, ##XrBindingModificationBaseHeaderKHR, ##XrBindingModificationsKHR, ##XrBodyJointLocationsFB, ##XrBodyJointsLocateInfoFB, ##XrBodySkeletonFB, ##XrBodyTrackerCreateInfoFB, ##XrBoundSourcesForActionEnumerateInfo, ##XrBoundary2DFB, ##XrCompositionLayerAlphaBlendFB, ##XrCompositionLayerBaseHeader, ##XrCompositionLayerColorScaleBiasKHR, ##XrCompositionLayerCubeKHR, ##XrCompositionLayerCylinderKHR, ##XrCompositionLayerDepthInfoKHR, ##XrCompositionLayerDepthTestFB, ##XrCompositionLayerDepthTestVARJO, ##XrCompositionLayerEquirect2KHR, ##XrCompositionLayerEquirectKHR, ##XrCompositionLayerImageLayoutFB, ##XrCompositionLayerPassthroughFB, ##XrCompositionLayerPassthroughHTC, ##XrCompositionLayerProjection, ##XrCompositionLayerProjectionView, ##XrCompositionLayerQuad, ##XrCompositionLayerReprojectionInfoMSFT, ##XrCompositionLayerReprojectionPlaneOverrideMSFT, ##XrCompositionLayerSecureContentFB, ##XrCompositionLayerSettingsFB, ##XrCompositionLayerSpaceWarpInfoFB, ##XrControllerModelKeyStateMSFT, ##XrControllerModelNodePropertiesMSFT, ##XrControllerModelNodeStateMSFT, ##XrControllerModelPropertiesMSFT, ##XrControllerModelStateMSFT, ##XrCoordinateSpaceCreateInfoML, ##XrDebugUtilsLabelEXT, ##XrDebugUtilsMessengerCallbackDataEXT, ##XrDebugUtilsMessengerCreateInfoEXT, ##XrDebugUtilsObjectNameInfoEXT, ##XrDevicePcmSampleRateStateFB, ##XrDigitalLensControlALMALENCE, ##XrEventDataBaseHeader, ##XrEventDataBuffer, ##XrEventDataDisplayRefreshRateChangedFB, ##XrEventDataEventsLost, ##XrEventDataInstanceLossPending, ##XrEventDataInteractionProfileChanged, ##XrEventDataMainSessionVisibilityChangedEXTX, ##XrEventDataMarkerTrackingUpdateVARJO, ##XrEventDataPassthroughStateChangedFB, ##XrEventDataPerfSettingsEXT, ##XrEventDataReferenceSpaceChangePending, ##XrEventDataSceneCaptureCompleteFB, ##XrEventDataSessionStateChanged, ##XrEventDataSpaceEraseCompleteFB, ##XrEventDataSpaceListSaveCompleteFB, ##XrEventDataSpaceQueryCompleteFB, ##XrEventDataSpaceQueryResultsAvailableFB, ##XrEventDataSpaceSaveCompleteFB, ##XrEventDataSpaceSetStatusCompleteFB, ##XrEventDataSpaceShareCompleteFB, ##XrEventDataSpatialAnchorCreateCompleteFB, ##XrEventDataVirtualKeyboardBackspaceMETA, ##XrEventDataVirtualKeyboardCommitTextMETA, ##XrEventDataVirtualKeyboardEnterMETA, ##XrEventDataVirtualKeyboardHiddenMETA, ##XrEventDataVirtualKeyboardShownMETA, ##XrEventDataVisibilityMaskChangedKHR, ##XrEventDataViveTrackerConnectedHTCX, ##XrExtensionProperties, ##XrExternalCameraOCULUS, ##XrEyeGazeSampleTimeEXT, ##XrEyeGazesFB, ##XrEyeGazesInfoFB, ##XrEyeTrackerCreateInfoFB, ##XrFaceExpressionInfoFB, ##XrFaceExpressionWeightsFB, ##XrFaceTrackerCreateInfoFB, ##XrFacialExpressionsHTC, ##XrFacialTrackerCreateInfoHTC, ##XrForceFeedbackCurlApplyLocationsMNDX, ##XrFoveatedViewConfigurationViewVARJO, ##XrFoveationApplyInfoHTC, ##XrFoveationCustomModeInfoHTC, ##XrFoveationDynamicModeInfoHTC, ##XrFoveationEyeTrackedProfileCreateInfoMETA, ##XrFoveationEyeTrackedStateMETA, ##XrFoveationLevelProfileCreateInfoFB, ##XrFoveationProfileCreateInfoFB, ##XrFrameBeginInfo, ##XrFrameEndInfo, ##XrFrameEndInfoML, ##XrFrameState, ##XrFrameWaitInfo, ##XrGeometryInstanceCreateInfoFB, ##XrGeometryInstanceTransformFB, ##XrGlobalDimmerFrameEndInfoML, ##XrGraphicsBindingEGLMNDX, ##XrGraphicsBindingOpenGLWaylandKHR, ##XrGraphicsBindingOpenGLWin32KHR, ##XrGraphicsBindingOpenGLXcbKHR, ##XrGraphicsBindingOpenGLXlibKHR, ##XrGraphicsBindingVulkanKHR, ##XrGraphicsRequirementsOpenGLKHR, ##XrGraphicsRequirementsVulkanKHR, ##XrHandJointLocationsEXT, ##XrHandJointVelocitiesEXT, ##XrHandJointsLocateInfoEXT, ##XrHandJointsMotionRangeInfoEXT, ##XrHandMeshMSFT, ##XrHandMeshSpaceCreateInfoMSFT, ##XrHandMeshUpdateInfoMSFT, ##XrHandPoseTypeInfoMSFT, ##XrHandTrackerCreateInfoEXT, ##XrHandTrackingAimStateFB, ##XrHandTrackingCapsulesStateFB, ##XrHandTrackingDataSourceInfoEXT, ##XrHandTrackingDataSourceStateEXT, ##XrHandTrackingMeshFB, ##XrHandTrackingScaleFB, ##XrHapticActionInfo, ##XrHapticAmplitudeEnvelopeVibrationFB, ##XrHapticBaseHeader, ##XrHapticPcmVibrationFB, ##XrHapticVibration, ##XrHolographicWindowAttachmentMSFT, ##XrInputSourceLocalizedNameGetInfo, ##XrInstanceCreateInfo, ##XrInstanceProperties, ##XrInteractionProfileAnalogThresholdVALVE, ##XrInteractionProfileDpadBindingEXT, ##XrInteractionProfileState, ##XrInteractionProfileSuggestedBinding, ##XrKeyboardSpaceCreateInfoFB, ##XrKeyboardTrackingQueryFB, ##XrLoaderInitInfoBaseHeaderKHR, ##XrLocalDimmingFrameEndInfoMETA, ##XrMarkerSpaceCreateInfoVARJO, ##XrNewSceneComputeInfoMSFT, ##XrPassthroughBrightnessContrastSaturationFB, ##XrPassthroughColorHTC, ##XrPassthroughColorLutCreateInfoMETA, ##XrPassthroughColorLutUpdateInfoMETA, ##XrPassthroughColorMapInterpolatedLutMETA, ##XrPassthroughColorMapLutMETA, ##XrPassthroughColorMapMonoToMonoFB, ##XrPassthroughColorMapMonoToRgbaFB, ##XrPassthroughCreateInfoFB, ##XrPassthroughCreateInfoHTC, ##XrPassthroughKeyboardHandsIntensityFB, ##XrPassthroughLayerCreateInfoFB, ##XrPassthroughMeshTransformInfoHTC, ##XrPassthroughPreferencesMETA, ##XrPassthroughStyleFB, ##XrPerformanceMetricsCounterMETA, ##XrPerformanceMetricsStateMETA, ##XrPlaneDetectorBeginInfoEXT, ##XrPlaneDetectorCreateInfoEXT, ##XrPlaneDetectorGetInfoEXT, ##XrPlaneDetectorLocationEXT, ##XrPlaneDetectorLocationsEXT, ##XrPlaneDetectorPolygonBufferEXT, ##XrReferenceSpaceCreateInfo, ##XrRenderModelBufferFB, ##XrRenderModelCapabilitiesRequestFB, ##XrRenderModelLoadInfoFB, ##XrRenderModelPathInfoFB, ##XrRenderModelPropertiesFB, ##XrRoomLayoutFB, ##XrSceneCaptureRequestInfoFB, ##XrSceneComponentLocationsMSFT, ##XrSceneComponentParentFilterInfoMSFT, ##XrSceneComponentsGetInfoMSFT, ##XrSceneComponentsLocateInfoMSFT, ##XrSceneComponentsMSFT, ##XrSceneCreateInfoMSFT, ##XrSceneDeserializeInfoMSFT, ##XrSceneMeshBuffersGetInfoMSFT, ##XrSceneMeshBuffersMSFT, ##XrSceneMeshIndicesUint16MSFT, ##XrSceneMeshIndicesUint32MSFT, ##XrSceneMeshVertexBufferMSFT, ##XrSceneMeshesMSFT, ##XrSceneObjectTypesFilterInfoMSFT, ##XrSceneObjectsMSFT, ##XrSceneObserverCreateInfoMSFT, ##XrScenePlaneAlignmentFilterInfoMSFT, ##XrScenePlanesMSFT, ##XrSecondaryViewConfigurationFrameEndInfoMSFT, ##XrSecondaryViewConfigurationFrameStateMSFT, ##XrSecondaryViewConfigurationLayerInfoMSFT, ##XrSecondaryViewConfigurationSessionBeginInfoMSFT, ##XrSecondaryViewConfigurationStateMSFT, ##XrSecondaryViewConfigurationSwapchainCreateInfoMSFT, ##XrSemanticLabelsFB, ##XrSemanticLabelsSupportInfoFB, ##XrSerializedSceneFragmentDataGetInfoMSFT, ##XrSessionActionSetsAttachInfo, ##XrSessionBeginInfo, ##XrSessionCreateInfo, ##XrSessionCreateInfoOverlayEXTX, ##XrSpaceComponentFilterInfoFB, ##XrSpaceComponentStatusFB, ##XrSpaceComponentStatusSetInfoFB, ##XrSpaceContainerFB, ##XrSpaceEraseInfoFB, ##XrSpaceFilterInfoBaseHeaderFB, ##XrSpaceListSaveInfoFB, ##XrSpaceLocation, ##XrSpaceQueryInfoBaseHeaderFB, ##XrSpaceQueryInfoFB, ##XrSpaceQueryResultsFB, ##XrSpaceSaveInfoFB, ##XrSpaceShareInfoFB, ##XrSpaceStorageLocationFilterInfoFB, ##XrSpaceUserCreateInfoFB, ##XrSpaceUuidFilterInfoFB, ##XrSpaceVelocity, ##XrSpatialAnchorCreateInfoFB, ##XrSpatialAnchorCreateInfoMSFT, ##XrSpatialAnchorFromPersistedAnchorCreateInfoMSFT, ##XrSpatialAnchorPersistenceInfoMSFT, ##XrSpatialAnchorSpaceCreateInfoMSFT, ##XrSpatialGraphNodeBindingPropertiesGetInfoMSFT, ##XrSpatialGraphNodeBindingPropertiesMSFT, ##XrSpatialGraphNodeSpaceCreateInfoMSFT, ##XrSpatialGraphStaticNodeBindingCreateInfoMSFT, ##XrSwapchainCreateInfo, ##XrSwapchainCreateInfoFoveationFB, ##XrSwapchainImageAcquireInfo, ##XrSwapchainImageBaseHeader, ##XrSwapchainImageFoveationVulkanFB, ##XrSwapchainImageOpenGLKHR, ##XrSwapchainImageReleaseInfo, ##XrSwapchainImageVulkanKHR, ##XrSwapchainImageWaitInfo, ##XrSwapchainStateBaseHeaderFB, ##XrSwapchainStateFoveationFB, ##XrSwapchainStateSamplerOpenGLESFB, ##XrSwapchainStateSamplerVulkanFB, ##XrSystemBodyTrackingPropertiesFB, ##XrSystemColorSpacePropertiesFB, ##XrSystemEyeGazeInteractionPropertiesEXT, ##XrSystemEyeTrackingPropertiesFB, ##XrSystemFaceTrackingPropertiesFB, ##XrSystemFacialTrackingPropertiesHTC, ##XrSystemForceFeedbackCurlPropertiesMNDX, ##XrSystemFoveatedRenderingPropertiesVARJO, ##XrSystemFoveationEyeTrackedPropertiesMETA, ##XrSystemGetInfo, ##XrSystemHandTrackingMeshPropertiesMSFT, ##XrSystemHandTrackingPropertiesEXT, ##XrSystemHeadsetIdPropertiesMETA, ##XrSystemKeyboardTrackingPropertiesFB, ##XrSystemMarkerTrackingPropertiesVARJO, ##XrSystemPassthroughColorLutPropertiesMETA, ##XrSystemPassthroughProperties2FB, ##XrSystemPassthroughPropertiesFB, ##XrSystemPlaneDetectionPropertiesEXT, ##XrSystemProperties, ##XrSystemRenderModelPropertiesFB, ##XrSystemSpaceWarpPropertiesFB, ##XrSystemSpatialEntityPropertiesFB, ##XrSystemVirtualKeyboardPropertiesMETA, ##XrTriangleMeshCreateInfoFB, ##XrView, ##XrViewConfigurationDepthRangeEXT, ##XrViewConfigurationProperties, ##XrViewConfigurationView, ##XrViewConfigurationViewFovEPIC, ##XrViewLocateFoveatedRenderingVARJO, ##XrViewLocateInfo, ##XrViewState, ##XrVirtualKeyboardAnimationStateMETA, ##XrVirtualKeyboardCreateInfoMETA, ##XrVirtualKeyboardInputInfoMETA, ##XrVirtualKeyboardLocationInfoMETA, ##XrVirtualKeyboardModelAnimationStatesMETA, ##XrVirtualKeyboardModelVisibilitySetInfoMETA, ##XrVirtualKeyboardSpaceCreateInfoMETA, ##XrVirtualKeyboardTextContextChangeInfoMETA, ##XrVirtualKeyboardTextureDataMETA, ##XrVisibilityMaskKHR, ##XrVisualMeshComputeLodInfoMSFT, ##XrViveTrackerPathsHTCX, ##XrVulkanDeviceCreateInfoKHR, ##XrVulkanGraphicsDeviceGetInfoKHR, ##XrVulkanInstanceCreateInfoKHR, ##XrVulkanSwapchainCreateInfoMETA, ##XrVulkanSwapchainFormatListCreateInfoKHR, #StructureTypeToString()
+        ##XrActionCreateInfo, ##XrActionSetCreateInfo, ##XrActionSpaceCreateInfo, ##XrActionStateBoolean, ##XrActionStateFloat, ##XrActionStateGetInfo, ##XrActionStatePose, ##XrActionStateVector2f, ##XrActionsSyncInfo, ##XrActiveActionSetPrioritiesEXT, ##XrApiLayerProperties, ##XrBaseInStructure, ##XrBaseOutStructure, ##XrBindingModificationBaseHeaderKHR, ##XrBindingModificationsKHR, ##XrBodyJointLocationsFB, ##XrBodyJointsLocateInfoFB, ##XrBodySkeletonFB, ##XrBodyTrackerCreateInfoFB, ##XrBoundSourcesForActionEnumerateInfo, ##XrBoundary2DFB, ##XrCompositionLayerAlphaBlendFB, ##XrCompositionLayerBaseHeader, ##XrCompositionLayerColorScaleBiasKHR, ##XrCompositionLayerCubeKHR, ##XrCompositionLayerCylinderKHR, ##XrCompositionLayerDepthInfoKHR, ##XrCompositionLayerDepthTestFB, ##XrCompositionLayerDepthTestVARJO, ##XrCompositionLayerEquirect2KHR, ##XrCompositionLayerEquirectKHR, ##XrCompositionLayerImageLayoutFB, ##XrCompositionLayerPassthroughFB, ##XrCompositionLayerPassthroughHTC, ##XrCompositionLayerProjection, ##XrCompositionLayerProjectionView, ##XrCompositionLayerQuad, ##XrCompositionLayerReprojectionInfoMSFT, ##XrCompositionLayerReprojectionPlaneOverrideMSFT, ##XrCompositionLayerSecureContentFB, ##XrCompositionLayerSettingsFB, ##XrCompositionLayerSpaceWarpInfoFB, ##XrControllerModelKeyStateMSFT, ##XrControllerModelNodePropertiesMSFT, ##XrControllerModelNodeStateMSFT, ##XrControllerModelPropertiesMSFT, ##XrControllerModelStateMSFT, ##XrCoordinateSpaceCreateInfoML, ##XrDebugUtilsLabelEXT, ##XrDebugUtilsMessengerCallbackDataEXT, ##XrDebugUtilsMessengerCreateInfoEXT, ##XrDebugUtilsObjectNameInfoEXT, ##XrDevicePcmSampleRateStateFB, ##XrDigitalLensControlALMALENCE, ##XrEnvironmentDepthHandRemovalSetInfoMETA, ##XrEnvironmentDepthImageAcquireInfoMETA, ##XrEnvironmentDepthImageMETA, ##XrEnvironmentDepthImageViewMETA, ##XrEnvironmentDepthProviderCreateInfoMETA, ##XrEnvironmentDepthSwapchainCreateInfoMETA, ##XrEnvironmentDepthSwapchainStateMETA, ##XrEventDataBaseHeader, ##XrEventDataBuffer, ##XrEventDataDisplayRefreshRateChangedFB, ##XrEventDataEventsLost, ##XrEventDataEyeCalibrationChangedML, ##XrEventDataHeadsetFitChangedML, ##XrEventDataInstanceLossPending, ##XrEventDataInteractionProfileChanged, ##XrEventDataLocalizationChangedML, ##XrEventDataMainSessionVisibilityChangedEXTX, ##XrEventDataMarkerTrackingUpdateVARJO, ##XrEventDataPassthroughStateChangedFB, ##XrEventDataPerfSettingsEXT, ##XrEventDataReferenceSpaceChangePending, ##XrEventDataSceneCaptureCompleteFB, ##XrEventDataSessionStateChanged, ##XrEventDataSpaceEraseCompleteFB, ##XrEventDataSpaceListSaveCompleteFB, ##XrEventDataSpaceQueryCompleteFB, ##XrEventDataSpaceQueryResultsAvailableFB, ##XrEventDataSpaceSaveCompleteFB, ##XrEventDataSpaceSetStatusCompleteFB, ##XrEventDataSpaceShareCompleteFB, ##XrEventDataSpatialAnchorCreateCompleteFB, ##XrEventDataUserPresenceChangedEXT, ##XrEventDataVirtualKeyboardBackspaceMETA, ##XrEventDataVirtualKeyboardCommitTextMETA, ##XrEventDataVirtualKeyboardEnterMETA, ##XrEventDataVirtualKeyboardHiddenMETA, ##XrEventDataVirtualKeyboardShownMETA, ##XrEventDataVisibilityMaskChangedKHR, ##XrEventDataViveTrackerConnectedHTCX, ##XrExtensionProperties, ##XrExternalCameraOCULUS, ##XrEyeGazeSampleTimeEXT, ##XrEyeGazesFB, ##XrEyeGazesInfoFB, ##XrEyeTrackerCreateInfoFB, ##XrFaceExpressionInfo2FB, ##XrFaceExpressionInfoFB, ##XrFaceExpressionWeights2FB, ##XrFaceExpressionWeightsFB, ##XrFaceTrackerCreateInfo2FB, ##XrFaceTrackerCreateInfoFB, ##XrFacialExpressionsHTC, ##XrFacialTrackerCreateInfoHTC, ##XrForceFeedbackCurlApplyLocationsMNDX, ##XrFoveatedViewConfigurationViewVARJO, ##XrFoveationApplyInfoHTC, ##XrFoveationCustomModeInfoHTC, ##XrFoveationDynamicModeInfoHTC, ##XrFoveationEyeTrackedProfileCreateInfoMETA, ##XrFoveationEyeTrackedStateMETA, ##XrFoveationLevelProfileCreateInfoFB, ##XrFoveationProfileCreateInfoFB, ##XrFrameBeginInfo, ##XrFrameEndInfo, ##XrFrameEndInfoML, ##XrFrameState, ##XrFrameWaitInfo, ##XrFutureCancelInfoEXT, ##XrFutureCompletionBaseHeaderEXT, ##XrFutureCompletionEXT, ##XrFuturePollInfoEXT, ##XrFuturePollResultEXT, ##XrGeometryInstanceCreateInfoFB, ##XrGeometryInstanceTransformFB, ##XrGlobalDimmerFrameEndInfoML, ##XrGraphicsBindingEGLMNDX, ##XrGraphicsBindingOpenGLWaylandKHR, ##XrGraphicsBindingOpenGLWin32KHR, ##XrGraphicsBindingOpenGLXcbKHR, ##XrGraphicsBindingOpenGLXlibKHR, ##XrGraphicsBindingVulkanKHR, ##XrGraphicsRequirementsOpenGLKHR, ##XrGraphicsRequirementsVulkanKHR, ##XrHandJointLocationsEXT, ##XrHandJointVelocitiesEXT, ##XrHandJointsLocateInfoEXT, ##XrHandJointsMotionRangeInfoEXT, ##XrHandMeshMSFT, ##XrHandMeshSpaceCreateInfoMSFT, ##XrHandMeshUpdateInfoMSFT, ##XrHandPoseTypeInfoMSFT, ##XrHandTrackerCreateInfoEXT, ##XrHandTrackingAimStateFB, ##XrHandTrackingCapsulesStateFB, ##XrHandTrackingDataSourceInfoEXT, ##XrHandTrackingDataSourceStateEXT, ##XrHandTrackingMeshFB, ##XrHandTrackingScaleFB, ##XrHapticActionInfo, ##XrHapticAmplitudeEnvelopeVibrationFB, ##XrHapticBaseHeader, ##XrHapticPcmVibrationFB, ##XrHapticVibration, ##XrHolographicWindowAttachmentMSFT, ##XrInputSourceLocalizedNameGetInfo, ##XrInstanceCreateInfo, ##XrInstanceProperties, ##XrInteractionProfileAnalogThresholdVALVE, ##XrInteractionProfileDpadBindingEXT, ##XrInteractionProfileState, ##XrInteractionProfileSuggestedBinding, ##XrKeyboardSpaceCreateInfoFB, ##XrKeyboardTrackingQueryFB, ##XrLoaderInitInfoBaseHeaderKHR, ##XrLocalDimmingFrameEndInfoMETA, ##XrLocalizationEnableEventsInfoML, ##XrLocalizationMapImportInfoML, ##XrLocalizationMapML, ##XrLocalizationMapQueryInfoBaseHeaderML, ##XrMapLocalizationRequestInfoML, ##XrMarkerDetectorAprilTagInfoML, ##XrMarkerDetectorArucoInfoML, ##XrMarkerDetectorCreateInfoML, ##XrMarkerDetectorCustomProfileInfoML, ##XrMarkerDetectorSizeInfoML, ##XrMarkerDetectorSnapshotInfoML, ##XrMarkerDetectorStateML, ##XrMarkerSpaceCreateInfoML, ##XrMarkerSpaceCreateInfoVARJO, ##XrNewSceneComputeInfoMSFT, ##XrPassthroughBrightnessContrastSaturationFB, ##XrPassthroughColorHTC, ##XrPassthroughColorLutCreateInfoMETA, ##XrPassthroughColorLutUpdateInfoMETA, ##XrPassthroughColorMapInterpolatedLutMETA, ##XrPassthroughColorMapLutMETA, ##XrPassthroughColorMapMonoToMonoFB, ##XrPassthroughColorMapMonoToRgbaFB, ##XrPassthroughCreateInfoFB, ##XrPassthroughCreateInfoHTC, ##XrPassthroughKeyboardHandsIntensityFB, ##XrPassthroughLayerCreateInfoFB, ##XrPassthroughMeshTransformInfoHTC, ##XrPassthroughPreferencesMETA, ##XrPassthroughStyleFB, ##XrPerformanceMetricsCounterMETA, ##XrPerformanceMetricsStateMETA, ##XrPlaneDetectorBeginInfoEXT, ##XrPlaneDetectorCreateInfoEXT, ##XrPlaneDetectorGetInfoEXT, ##XrPlaneDetectorLocationEXT, ##XrPlaneDetectorLocationsEXT, ##XrPlaneDetectorPolygonBufferEXT, ##XrRecommendedLayerResolutionGetInfoMETA, ##XrRecommendedLayerResolutionMETA, ##XrReferenceSpaceCreateInfo, ##XrRenderModelBufferFB, ##XrRenderModelCapabilitiesRequestFB, ##XrRenderModelLoadInfoFB, ##XrRenderModelPathInfoFB, ##XrRenderModelPropertiesFB, ##XrRoomLayoutFB, ##XrSceneCaptureRequestInfoFB, ##XrSceneComponentLocationsMSFT, ##XrSceneComponentParentFilterInfoMSFT, ##XrSceneComponentsGetInfoMSFT, ##XrSceneComponentsLocateInfoMSFT, ##XrSceneComponentsMSFT, ##XrSceneCreateInfoMSFT, ##XrSceneDeserializeInfoMSFT, ##XrSceneMarkerQRCodesMSFT, ##XrSceneMarkerTypeFilterMSFT, ##XrSceneMarkersMSFT, ##XrSceneMeshBuffersGetInfoMSFT, ##XrSceneMeshBuffersMSFT, ##XrSceneMeshIndicesUint16MSFT, ##XrSceneMeshIndicesUint32MSFT, ##XrSceneMeshVertexBufferMSFT, ##XrSceneMeshesMSFT, ##XrSceneObjectTypesFilterInfoMSFT, ##XrSceneObjectsMSFT, ##XrSceneObserverCreateInfoMSFT, ##XrScenePlaneAlignmentFilterInfoMSFT, ##XrScenePlanesMSFT, ##XrSecondaryViewConfigurationFrameEndInfoMSFT, ##XrSecondaryViewConfigurationFrameStateMSFT, ##XrSecondaryViewConfigurationLayerInfoMSFT, ##XrSecondaryViewConfigurationSessionBeginInfoMSFT, ##XrSecondaryViewConfigurationStateMSFT, ##XrSecondaryViewConfigurationSwapchainCreateInfoMSFT, ##XrSemanticLabelsFB, ##XrSemanticLabelsSupportInfoFB, ##XrSerializedSceneFragmentDataGetInfoMSFT, ##XrSessionActionSetsAttachInfo, ##XrSessionBeginInfo, ##XrSessionCreateInfo, ##XrSessionCreateInfoOverlayEXTX, ##XrSpaceComponentFilterInfoFB, ##XrSpaceComponentStatusFB, ##XrSpaceComponentStatusSetInfoFB, ##XrSpaceContainerFB, ##XrSpaceEraseInfoFB, ##XrSpaceFilterInfoBaseHeaderFB, ##XrSpaceListSaveInfoFB, ##XrSpaceLocation, ##XrSpaceLocations, ##XrSpaceQueryInfoBaseHeaderFB, ##XrSpaceQueryInfoFB, ##XrSpaceQueryResultsFB, ##XrSpaceSaveInfoFB, ##XrSpaceShareInfoFB, ##XrSpaceStorageLocationFilterInfoFB, ##XrSpaceTriangleMeshGetInfoMETA, ##XrSpaceTriangleMeshMETA, ##XrSpaceUserCreateInfoFB, ##XrSpaceUuidFilterInfoFB, ##XrSpaceVelocities, ##XrSpaceVelocity, ##XrSpacesLocateInfo, ##XrSpatialAnchorCreateInfoFB, ##XrSpatialAnchorCreateInfoHTC, ##XrSpatialAnchorCreateInfoMSFT, ##XrSpatialAnchorFromPersistedAnchorCreateInfoMSFT, ##XrSpatialAnchorPersistenceInfoMSFT, ##XrSpatialAnchorSpaceCreateInfoMSFT, ##XrSpatialGraphNodeBindingPropertiesGetInfoMSFT, ##XrSpatialGraphNodeBindingPropertiesMSFT, ##XrSpatialGraphNodeSpaceCreateInfoMSFT, ##XrSpatialGraphStaticNodeBindingCreateInfoMSFT, ##XrSwapchainCreateInfo, ##XrSwapchainCreateInfoFoveationFB, ##XrSwapchainImageAcquireInfo, ##XrSwapchainImageBaseHeader, ##XrSwapchainImageFoveationVulkanFB, ##XrSwapchainImageOpenGLKHR, ##XrSwapchainImageReleaseInfo, ##XrSwapchainImageVulkanKHR, ##XrSwapchainImageWaitInfo, ##XrSwapchainStateBaseHeaderFB, ##XrSwapchainStateFoveationFB, ##XrSwapchainStateSamplerOpenGLESFB, ##XrSwapchainStateSamplerVulkanFB, ##XrSystemAnchorPropertiesHTC, ##XrSystemBodyTrackingPropertiesFB, ##XrSystemColorSpacePropertiesFB, ##XrSystemEnvironmentDepthPropertiesMETA, ##XrSystemEyeGazeInteractionPropertiesEXT, ##XrSystemEyeTrackingPropertiesFB, ##XrSystemFaceTrackingProperties2FB, ##XrSystemFaceTrackingPropertiesFB, ##XrSystemFacialTrackingPropertiesHTC, ##XrSystemForceFeedbackCurlPropertiesMNDX, ##XrSystemFoveatedRenderingPropertiesVARJO, ##XrSystemFoveationEyeTrackedPropertiesMETA, ##XrSystemGetInfo, ##XrSystemHandTrackingMeshPropertiesMSFT, ##XrSystemHandTrackingPropertiesEXT, ##XrSystemHeadsetIdPropertiesMETA, ##XrSystemKeyboardTrackingPropertiesFB, ##XrSystemMarkerTrackingPropertiesVARJO, ##XrSystemMarkerUnderstandingPropertiesML, ##XrSystemPassthroughColorLutPropertiesMETA, ##XrSystemPassthroughProperties2FB, ##XrSystemPassthroughPropertiesFB, ##XrSystemPlaneDetectionPropertiesEXT, ##XrSystemProperties, ##XrSystemRenderModelPropertiesFB, ##XrSystemSpaceWarpPropertiesFB, ##XrSystemSpatialEntityPropertiesFB, ##XrSystemUserPresencePropertiesEXT, ##XrSystemVirtualKeyboardPropertiesMETA, ##XrTriangleMeshCreateInfoFB, ##XrUserCalibrationEnableEventsInfoML, ##XrView, ##XrViewConfigurationDepthRangeEXT, ##XrViewConfigurationProperties, ##XrViewConfigurationView, ##XrViewConfigurationViewFovEPIC, ##XrViewLocateFoveatedRenderingVARJO, ##XrViewLocateInfo, ##XrViewState, ##XrVirtualKeyboardAnimationStateMETA, ##XrVirtualKeyboardCreateInfoMETA, ##XrVirtualKeyboardInputInfoMETA, ##XrVirtualKeyboardLocationInfoMETA, ##XrVirtualKeyboardModelAnimationStatesMETA, ##XrVirtualKeyboardModelVisibilitySetInfoMETA, ##XrVirtualKeyboardSpaceCreateInfoMETA, ##XrVirtualKeyboardTextContextChangeInfoMETA, ##XrVirtualKeyboardTextureDataMETA, ##XrVisibilityMaskKHR, ##XrVisualMeshComputeLodInfoMSFT, ##XrViveTrackerPathsHTCX, ##XrVulkanDeviceCreateInfoKHR, ##XrVulkanGraphicsDeviceGetInfoKHR, ##XrVulkanInstanceCreateInfoKHR, ##XrVulkanSwapchainCreateInfoMETA, ##XrVulkanSwapchainFormatListCreateInfoKHR, #StructureTypeToString()
         """,
 
         "TYPE_UNKNOWN".."0",
@@ -295,7 +314,10 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <ul>
             <li>#VIEW_CONFIGURATION_TYPE_PRIMARY_MONO. One view representing the form factor’s one primary display. For example, an AR phone’s screen. This configuration requires one element in ##XrViewConfigurationProperties and one projection in each ##XrCompositionLayerProjection layer.</li>
             <li>#VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO. Two views representing the form factor’s two primary displays, which map to a left-eye and right-eye view. This configuration requires two views in ##XrViewConfigurationProperties and two views in each ##XrCompositionLayerProjection layer. View index 0 <b>must</b> represent the left eye and view index 1 <b>must</b> represent the right eye.</li>
+            <li>#VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO_WITH_FOVEATED_INSET. Four views representing the form factor’s primary stereo displays. This view configuration type represents a hardware independent way of providing foveated rendering. The view configuration adds two foveated inset views for the left and right eye separately to the already defined two views specified in the #VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO view configuration. View index 0 <b>must</b> represent the left eye and view index 1 <b>must</b> represent the right eye as specified in #VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO view configuration, and view index 2 <b>must</b> represent the left eye inset view and view index 3 <b>must</b> represent the right eye inset view. The new inset view 2 and view 3 <b>must</b>, after applying the pose and FoV projection to same plane, be contained within view 0 and 1 respectively. The inset views <b>may</b> have a higher resolution with respect to the same field of view as the corresponding wide FoV view for each eye. The runtime <b>may</b> blend between the views at the edges, so the application <b>must</b> not omit the inner field of view from being rendered in the outer view. The {@code fov} returned by #LocateViews() for each inset view relative to the corresponding outer stereo view <b>may</b> change at run-time, the {@code pose} for inset view and stereo view for each eye respectively <b>must</b> have the same values.</li>
         </ul>
+
+        The benefits of the #VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO_WITH_FOVEATED_INSET view configuration type can be demonstrated by looking at the rendered pixel count. For example, a Varjo Aero requires a pair of stereo views rendered at 4148 x 3556 (14.7 million pixels) to achieve a pixel density of 35 pixels per degree. By using four views, with an eye-tracked foveated inset covering about 1/9th of the full FoV and rendered with the same 35 pixels per degree and while the remaining views are dropped to 14 pixels per degree, the resolution of the inset is 1076 x 1076 (1.1 million pixels) and the resolution of the stereo views is 1660 x 1420 (2.3 million pixels). The total pixel count is 75% less with #VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO_WITH_FOVEATED_INSET over the #VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO view configuration type.
 
         <h5>See Also</h5>
         ##XrEventDataVisibilityMaskChangedKHR, ##XrSecondaryViewConfigurationLayerInfoMSFT, ##XrSecondaryViewConfigurationSessionBeginInfoMSFT, ##XrSecondaryViewConfigurationStateMSFT, ##XrSecondaryViewConfigurationSwapchainCreateInfoMSFT, ##XrSessionBeginInfo, ##XrViewConfigurationProperties, ##XrViewLocateInfo, #EnumerateEnvironmentBlendModes(), #EnumerateReprojectionModesMSFT(), #EnumerateViewConfigurationViews(), #EnumerateViewConfigurations(), #GetViewConfigurationProperties(), #GetVisibilityMaskKHR()
@@ -351,39 +373,31 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         XrReferenceSpaceType - Reference space types
 
         <h5>Description</h5>
-        Available reference space types are indicated by #EnumerateReferenceSpaces(). Note that other spaces can be created as well, such as pose action spaces created by #CreateActionSpace(), which are not enumerated by that API.
+        Brief introductions to core reference space types follow. Each has full requirements in a subsequent section, linked from these descriptions.
 
         <h5>Enumerant Descriptions</h5>
         <ul>
             <li>
-                #REFERENCE_SPACE_TYPE_VIEW. The {@code VIEW} space tracks the view origin used to generate view transforms for the primary viewer (or centroid of view origins if stereo), with +Y up, +X to the right, and -Z forward. This space points in the forward direction for the viewer without incorporating the user’s eye orientation, and is not gravity-aligned.
-                {@code VIEW} space is primarily useful when projecting from the user’s perspective into another space to obtain a targeting ray, or when rendering small head-locked content such as a reticle. Content rendered in {@code VIEW} space will stay at a fixed point on head-mounted displays and may be uncomfortable to view if too large. To obtain the ideal view and projection transforms to use each frame for rendering world content, applications should call #LocateViews() instead of using this space.
-
-                Runtimes <b>must</b> support this reference space.
+                #REFERENCE_SPACE_TYPE_VIEW. The {@code VIEW} reference space tracks the view origin used to generate view transforms for the primary viewer (or centroid of view origins if stereo), with +Y up, +X to the right, and -Z forward. This space points in the forward direction for the viewer without incorporating the user’s eye orientation, and is not gravity-aligned.
+                Runtimes <b>must</b> support {@code VIEW} reference space.
             </li>
             <li>
                 #REFERENCE_SPACE_TYPE_LOCAL. The {@code LOCAL} reference space establishes a world-locked origin, gravity-aligned to exclude pitch and roll, with +Y up, +X to the right, and -Z forward. This space locks in both its initial position and orientation, which the runtime <b>may</b> define to be either the initial position at application launch or some other calibrated zero position.
-                {@code LOCAL} space is useful when an application needs to render <b>seated-scale</b> content that is not positioned relative to the physical floor.
-
-                When a user needs to recenter {@code LOCAL} space, a runtime <b>may</b> offer some system-level recentering interaction that is transparent to the application, but which causes the current leveled head space to become the new {@code LOCAL} space. When such a recentering occurs, the runtime <b>must</b> queue the ##XrEventDataReferenceSpaceChangePending event, with the recentered {@code LOCAL} space origin only taking effect for #LocateSpace() or #LocateViews() calls whose {@code XrTime} parameter is greater than or equal to the {@code changeTime} provided in that event.
-
-                When views, controllers or other spaces experience tracking loss relative to the {@code LOCAL} space, runtimes <b>should</b> continue to provide inferred or last-known {@code position} and {@code orientation} values. These inferred poses can, for example, be based on neck model updates, inertial dead reckoning, or a last-known position, so long as it is still reasonable for the application to use that pose. While a runtime is providing position data, it <b>must</b> continue to set #SPACE_LOCATION_POSITION_VALID_BIT and #VIEW_STATE_POSITION_VALID_BIT but it <b>can</b> clear #SPACE_LOCATION_POSITION_TRACKED_BIT and #VIEW_STATE_POSITION_TRACKED_BIT to indicate that the position is inferred or last-known in this way.
-
-                When tracking is recovered, runtimes <b>should</b> snap the pose of other spaces back into position relative to the {@code LOCAL} space’s original origin.
-
-                Runtimes <b>must</b> support this reference space.
+                Runtimes <b>must</b> support {@code LOCAL} reference space.
             </li>
             <li>
-                #REFERENCE_SPACE_TYPE_STAGE. The {@code STAGE} reference space is a runtime-defined flat, rectangular space that is empty and can be walked around on. The origin is on the floor at the center of the rectangle, with +Y up, and the X and Z axes aligned with the rectangle edges. The runtime <b>may</b> not be able to locate spaces relative to the {@code STAGE} reference space if the user has not yet defined one within the runtime-specific UI. Applications can use #GetReferenceSpaceBoundsRect() to determine the extents of the {@code STAGE} reference space’s XZ bounds rectangle, if defined.
-                {@code STAGE} space is useful when an application needs to render <b>standing-scale</b> content (no bounds) or <b>room-scale</b> content (with bounds) that is relative to the physical floor.
-
-                When the user redefines the origin or bounds of the current {@code STAGE} space, or the runtime otherwise switches to a new {@code STAGE} definition, the runtime <b>must</b> queue the ##XrEventDataReferenceSpaceChangePending event, with the new {@code STAGE} space origin only taking effect for #LocateSpace() or #LocateViews() calls whose {@code XrTime} parameter is greater than or equal to the {@code changeTime} provided in that event.
-
-                When views, controllers or other spaces experience tracking loss relative to the {@code STAGE} space, runtimes <b>should</b> continue to provide inferred or last-known {@code position} and {@code orientation} values. These inferred poses can, for example, be based on neck model updates, inertial dead reckoning, or a last-known position, so long as it is still reasonable for the application to use that pose. While a runtime is providing position data, it <b>must</b> continue to set #SPACE_LOCATION_POSITION_VALID_BIT and #VIEW_STATE_POSITION_VALID_BIT but it <b>can</b> clear #SPACE_LOCATION_POSITION_TRACKED_BIT and #VIEW_STATE_POSITION_TRACKED_BIT to indicate that the position is inferred or last-known in this way.
-
-                When tracking is recovered, runtimes <b>should</b> snap the pose of other spaces back into position relative to the {@code STAGE} space’s original origin.
+                #REFERENCE_SPACE_TYPE_STAGE. The {@code STAGE} reference space is a runtime-defined flat, rectangular space that is empty and can be walked around on. The origin is on the floor at the center of the rectangle, with +Y up, and the X and Z axes aligned with the rectangle edges. The runtime <b>may</b> not be able to locate spaces relative to the {@code STAGE} reference space if the user has not yet defined one within the runtime-specific UI. Applications <b>can</b> use #GetReferenceSpaceBoundsRect() to determine the extents of the {@code STAGE} reference space’s XZ bounds rectangle, if defined.
+                Support for the {@code STAGE} reference space is <b>optional</b>.
+            </li>
+            <li>
+                #REFERENCE_SPACE_TYPE_LOCAL_FLOOR. (provided by {@code XR_VERSION_1_1}) Similar to {@code LOCAL} space, the {@code LOCAL_FLOOR} reference space establishes a world-locked origin, gravity-aligned to exclude pitch and roll, with +Y up, +X to the right, and -Z forward. However, the origin of this space is defined to be on an estimate of the floor level.
+                Runtimes <b>must</b> support {@code LOCAL_FLOOR} reference space.
             </li>
         </ul>
+
+        An {@code XrSpace} handle for a reference space is created using #CreateReferenceSpace(), by specifying the chosen reference space type and a pose within the natural reference frame defined for that reference space type.
+
+        Runtimes implement well-known reference spaces from {@code XrReferenceSpaceType} if they support tracking of that kind. Available reference space types are indicated by #EnumerateReferenceSpaces(). Note that other spaces can be created as well, such as pose action spaces created by #CreateActionSpace(), which are not enumerated by that API.
 
         <h5>See Also</h5>
         ##XrEventDataReferenceSpaceChangePending, ##XrReferenceSpaceCreateInfo, #EnumerateReferenceSpaces(), #GetReferenceSpaceBoundsRect()
@@ -458,8 +472,8 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
             <li>#SWAPCHAIN_USAGE_TRANSFER_DST_BIT — Specifies that the image <b>may</b> be used as the destination of a transfer operation.</li>
             <li>#SWAPCHAIN_USAGE_SAMPLED_BIT — Specifies that the image <b>may</b> be sampled by a shader.</li>
             <li>#SWAPCHAIN_USAGE_MUTABLE_FORMAT_BIT — Specifies that the image <b>may</b> be reinterpreted as another image format.</li>
-            <li>#SWAPCHAIN_USAGE_INPUT_ATTACHMENT_BIT_MND — Specifies that the image <b>may</b> be used as a input attachment. (Added by the {@link MNDSwapchainUsageInputAttachmentBit XR_MND_swapchain_usage_input_attachment_bit} extension)</li>
-            <li>#SWAPCHAIN_USAGE_INPUT_ATTACHMENT_BIT_KHR — Specifies that the image <b>may</b> be used as a input attachment. (Added by the {@link KHRSwapchainUsageInputAttachmentBit XR_KHR_swapchain_usage_input_attachment_bit} extension)</li>
+            <li>#SWAPCHAIN_USAGE_INPUT_ATTACHMENT_BIT_MND — Specifies that the image <b>may</b> be used as a input attachment.  (Added by the {@link MNDSwapchainUsageInputAttachmentBit XR_MND_swapchain_usage_input_attachment_bit} extension)</li>
+            <li>#SWAPCHAIN_USAGE_INPUT_ATTACHMENT_BIT_KHR — Specifies that the image <b>may</b> be used as a input attachment.  (Added by the {@link KHRSwapchainUsageInputAttachmentBit XR_KHR_swapchain_usage_input_attachment_bit} extension)</li>
         </ul>
 
         <h5>See Also</h5>
@@ -484,9 +498,10 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         <h5>Flag Descriptions</h5>
         <ul>
-            <li>#COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT — Enables chromatic aberration correction when not done by default. This flag has no effect on any known conformant runtime, and is planned for deprecation for OpenXR 1.1</li>
+            <li>#COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT <em>(deprecated — ignored)</em>  — Enables chromatic aberration correction when not done by default. This flag has no effect on any known conformant runtime, and is officially deprecated in OpenXR 1.1.</li>
             <li>#COMPOSITION_LAYER_BLEND_TEXTURE_SOURCE_ALPHA_BIT — Enables the layer texture alpha channel.</li>
             <li>#COMPOSITION_LAYER_UNPREMULTIPLIED_ALPHA_BIT — Indicates the texture color channels have not been premultiplied by the texture alpha channel.</li>
+            <li>#COMPOSITION_LAYER_INVERTED_ALPHA_BIT_EXT — Indicates that the texture alpha channel stores transparency instead of opacity, and is to be inverted before layer blending.  (Added by the {@link EXTCompositionLayerInvertedAlpha XR_EXT_composition_layer_inverted_alpha} extension)</li>
         </ul>
 
         <h5>See Also</h5>
@@ -598,10 +613,10 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <ul>
             <li>#SESSION_STATE_UNKNOWN. An unknown state. The runtime <b>must</b> not return this value in an ##XrEventDataSessionStateChanged event.</li>
             <li>#SESSION_STATE_IDLE. The initial state after calling #CreateSession() or returned to after calling #EndSession().</li>
-            <li>#SESSION_STATE_READY. The application is ready to call #BeginSession() and <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#sync_frame_loop">sync its frame loop with the runtime.</a></li>
+            <li>#SESSION_STATE_READY. The application is ready to call #BeginSession() and <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-sync-frame-loop">sync its frame loop with the runtime.</a></li>
             <li>#SESSION_STATE_SYNCHRONIZED. The application has synced its frame loop with the runtime but is not visible to the user.</li>
-            <li>#SESSION_STATE_VISIBLE. The application has <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#sync_frame_loop">synced its frame loop with the runtime</a> and is visible to the user but cannot receive XR input.</li>
-            <li>#SESSION_STATE_FOCUSED. The application has <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#sync_frame_loop">synced its frame loop with the runtime</a>, is visible to the user and can receive XR input.</li>
+            <li>#SESSION_STATE_VISIBLE. The application has <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-sync-frame-loop">synced its frame loop with the runtime</a> and is visible to the user but cannot receive XR input.</li>
+            <li>#SESSION_STATE_FOCUSED. The application has <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-sync-frame-loop">synced its frame loop with the runtime</a>, is visible to the user and can receive XR input.</li>
             <li>#SESSION_STATE_STOPPING. The application should exit its frame loop and call #EndSession().</li>
             <li>#SESSION_STATE_LOSS_PENDING. The session is in the process of being lost. The application should destroy the current session and can optionally recreate it.</li>
             <li>#SESSION_STATE_EXITING. The application should end its XR experience and not automatically restart it.</li>
@@ -611,15 +626,17 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         Receiving the #SESSION_STATE_IDLE state indicates that the runtime considers the session is idle. Applications in this state <b>should</b> minimize resource consumption but continue to call #PollEvent() at some reasonable cadence.
 
-        Receiving the #SESSION_STATE_READY state indicates that the runtime desires the application to prepare rendering resources, begin its session and synchronize its frame loop with the runtime. The application does this by successfully calling #BeginSession() and then running its frame loop by calling #WaitFrame(), #BeginFrame() and #EndFrame() in a loop. If the runtime wishes to return the session to the #SESSION_STATE_IDLE state, it <b>must</b> wait until the application calls #BeginSession(). After returning from the #BeginSession() call, the runtime may then immediately transition forward through the #SESSION_STATE_SYNCHRONIZED state to the #SESSION_STATE_STOPPING state, to request that the application end this session. If the system supports a user engagement sensor and runtime is in #SESSION_STATE_IDLE state, the runtime <b>should</b> not transition to the #SESSION_STATE_READY state until the user starts engaging with the device.
+        Receiving the #SESSION_STATE_READY state indicates that the runtime desires the application to prepare rendering resources, begin its session and synchronize its frame loop with the runtime.
 
-        Receiving the #SESSION_STATE_SYNCHRONIZED state indicates that the application has <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#sync_frame_loop">synchronized its frame loop with the runtime</a>, but its frames are not visible to the user. The application <b>should</b> continue running its frame loop by calling #WaitFrame(), #BeginFrame() and #EndFrame(), although it should avoid heavy GPU work so that other visible applications can take CPU and GPU precedence. The application can save resources here by skipping rendering and not submitting any composition layers until #WaitFrame() returns an ##XrFrameState with {@code shouldRender} set to true. A runtime <b>may</b> use this frame synchronization to facilitate seamless switching from a previous XR application to this application on a frame boundary.
+        The application does this by successfully calling #BeginSession() and then running its frame loop by calling #WaitFrame(), #BeginFrame() and #EndFrame() in a loop. If the runtime wishes to return the session to the #SESSION_STATE_IDLE state, it <b>must</b> wait until the application calls #BeginSession(). After returning from the #BeginSession() call, the runtime may then immediately transition forward through the #SESSION_STATE_SYNCHRONIZED state to the #SESSION_STATE_STOPPING state, to request that the application end this session. If the system supports a user engagement sensor and runtime is in #SESSION_STATE_IDLE state, the runtime <b>may</b> wait until the user starts engaging with the device before transitioning to the #SESSION_STATE_READY state.
 
-        Receiving the #SESSION_STATE_VISIBLE state indicates that the application has <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#sync_frame_loop">synchronized its frame loop with the runtime</a>, and the session’s frames will be visible to the user, but the session is not eligible to receive XR input. An application may be visible but not have focus, for example when the runtime is composing a modal pop-up on top of the application’s rendered frames. The application <b>should</b> continue running its frame loop, rendering and submitting its composition layers, although it may wish to pause its experience, as users cannot interact with the application at this time. It is important for applications to continue rendering when visible, even when they do not have focus, so the user continues to see something reasonable underneath modal pop-ups. Runtimes <b>should</b> make input actions inactive while the application is unfocused, and applications should react to an inactive input action by skipping rendering of that action’s input avatar (depictions of hands or other tracked objects controlled by the user).
+        Receiving the #SESSION_STATE_SYNCHRONIZED state indicates that the application has <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-sync-frame-loop">synchronized its frame loop with the runtime</a>, but its frames are not visible to the user. The application <b>should</b> continue running its frame loop by calling #WaitFrame(), #BeginFrame() and #EndFrame(), although it should avoid heavy GPU work so that other visible applications can take CPU and GPU precedence. The application can save resources here by skipping rendering and not submitting any composition layers until #WaitFrame() returns an ##XrFrameState with {@code shouldRender} set to true. A runtime <b>may</b> use this frame synchronization to facilitate seamless switching from a previous XR application to this application on a frame boundary.
 
-        Receiving the #SESSION_STATE_FOCUSED state indicates that the application has <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#sync_frame_loop">synchronized its frame loop with the runtime</a>, the session’s frames will be visible to the user, and the session is eligible to receive XR input. The runtime <b>should</b> only give one session XR input focus at any given time. The application <b>should</b> be running its frame loop, rendering and submitting composition layers, including input avatars (depictions of hands or other tracked objects controlled by the user) for any input actions that are active. The runtime <b>should</b> avoid rendering its own input avatars when an application is focused, unless input from a given source is being captured by the runtime at the moment.
+        Receiving the #SESSION_STATE_VISIBLE state indicates that the application has <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-sync-frame-loop">synchronized its frame loop with the runtime</a>, and the session’s frames will be visible to the user, but the session is not eligible to receive XR input. An application may be visible but not have focus, for example when the runtime is composing a modal pop-up on top of the application’s rendered frames. The application <b>should</b> continue running its frame loop, rendering and submitting its composition layers, although it may wish to pause its experience, as users cannot interact with the application at this time. It is important for applications to continue rendering when visible, even when they do not have focus, so the user continues to see something reasonable underneath modal pop-ups. Runtimes <b>should</b> make input actions inactive while the application is unfocused, and applications should react to an inactive input action by skipping rendering of that action’s input avatar (depictions of hands or other tracked objects controlled by the user).
 
-        Receiving the #SESSION_STATE_STOPPING state indicates that the runtime has determined that the application should halt its rendering loop. Applications <b>should</b> exit their rendering loop and call #EndSession() when in this state. A possible reason for this would be to minimize contention between multiple applications. If the system supports a user engagement sensor and the session is running, the runtime <b>should</b> transition to the #SESSION_STATE_STOPPING state when the user stops engaging with the device.
+        Receiving the #SESSION_STATE_FOCUSED state indicates that the application has <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-sync-frame-loop">synchronized its frame loop with the runtime</a>, the session’s frames will be visible to the user, and the session is eligible to receive XR input. The runtime <b>should</b> only give one session XR input focus at any given time. The application <b>should</b> be running its frame loop, rendering and submitting composition layers, including input avatars (depictions of hands or other tracked objects controlled by the user) for any input actions that are active. The runtime <b>should</b> avoid rendering its own input avatars when an application is focused, unless input from a given source is being captured by the runtime at the moment.
+
+        Receiving the #SESSION_STATE_STOPPING state indicates that the runtime has determined that the application should halt its rendering loop. Applications <b>should</b> exit their rendering loop and call #EndSession() when in this state. A possible reason for this would be to minimize contention between multiple applications. If the system supports a user engagement sensor and the session is running, the runtime <b>may</b> transition to the #SESSION_STATE_STOPPING state when the user stops engaging with the device.
 
         Receiving the #SESSION_STATE_EXITING state indicates the runtime wishes the application to terminate its XR experience, typically due to a user request via a runtime user interface. Applications <b>should</b> gracefully end their process when in this state if they do not have a non-XR user experience.
 
@@ -647,7 +664,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <h5>Description</h5>
         The {@code XrObjectType} enumeration defines values, each of which corresponds to a specific OpenXR handle type. These values <b>can</b> be used to associate debug information with a particular type of object through one or more extensions.
 
-        The following table defines {@code XrObjectType} and OpenXR Handle relationships:
+        The following table defines {@code XrObjectType} and OpenXR Handle relationships in the core specification:
 
         <table class="lwjgl">
             <thead><tr><th>{@code XrObjectType}</th><th>OpenXR Handle Type</th></tr></thead>
@@ -911,6 +928,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
                 <li>#ERROR_NAME_INVALID</li>
                 <li>#ERROR_INITIALIZATION_FAILED</li>
                 <li>#ERROR_EXTENSION_NOT_PRESENT</li>
+                <li>#ERROR_EXTENSION_DEPENDENCY_NOT_ENABLED</li>
                 <li>#ERROR_API_VERSION_UNSUPPORTED</li>
                 <li>#ERROR_API_LAYER_NOT_PRESENT</li>
             </ul></dd>
@@ -1022,16 +1040,17 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         Polls for events.
 
         <h5>C Specification</h5>
+        The #PollEvent() function is defined as:
+
         <pre><code>
 ￿XrResult xrPollEvent(
 ￿    XrInstance                                  instance,
 ￿    XrEventDataBuffer*                          eventData);</code></pre>
 
-        <h5>Parameter Descriptions</h5>
-        <ul>
-            <li>{@code instance} is a valid {@code XrInstance}.</li>
-            <li>{@code eventData} is a pointer to a valid ##XrEventDataBuffer.</li>
-        </ul>
+        <h5>Description</h5>
+        #PollEvent() polls for the next event and returns an event if one is available. #PollEvent() returns immediately regardless of whether an event was available. The event (if present) is unilaterally removed from the queue if a valid {@code XrInstance} is provided. On return, the {@code eventData} parameter is filled with the event’s data and the type field is changed to the event’s type. Runtimes <b>may</b> create valid {@code next} chains depending on enabled extensions, but they <b>must</b> guarantee that any such chains point only to objects which fit completely within the original ##XrEventDataBuffer pointed to by {@code eventData}.
+
+        The runtime <b>must</b> discard queued events which contain destroyed or otherwise invalid handles. The runtime <b>must</b> not return events containing handles that have been destroyed or are otherwise invalid at the time of the call to #PollEvent().
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -1056,17 +1075,15 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
             </ul></dd>
         </dl>
 
-        The runtime <b>must</b> discard queued events which contain destroyed or otherwise invalid handles.
-
         <h6>Event Descriptions</h6>
         <table class="lwjgl">
             <thead><tr><th>Event</th><th>Description</th></tr></thead>
             <tbody>
                 <tr><td>##XrEventDataEventsLost</td><td>event queue has overflowed and some events were lost</td></tr>
                 <tr><td>##XrEventDataInstanceLossPending</td><td>application is about to lose the instance</td></tr>
-                <tr><td>##XrEventDataInteractionProfileChanged</td><td>active input form factor for one or more top level user paths has changed</td></tr>
-                <tr><td>##XrEventDataReferenceSpaceChangePending</td><td>runtime will begin operating with updated space bounds</td></tr>
-                <tr><td>##XrEventDataSessionStateChanged</td><td>application has changed lifecycle state</td></tr>
+                <tr><td>##XrEventDataInteractionProfileChanged</td><td>current interaction profile for one or more top level user paths has changed</td></tr>
+                <tr><td>##XrEventDataReferenceSpaceChangePending</td><td>runtime will begin operating with updated definitions or bounds for a reference space</td></tr>
+                <tr><td>##XrEventDataSessionStateChanged</td><td>the application’s session has changed lifecycle state</td></tr>
             </tbody>
         </table>
 
@@ -1074,8 +1091,8 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         ##XrEventDataBuffer
         """,
 
-        XrInstance("instance", ""),
-        XrEventDataBuffer.p("eventData", "")
+        XrInstance("instance", "a valid {@code XrInstance}."),
+        XrEventDataBuffer.p("eventData", "a pointer to a valid ##XrEventDataBuffer.")
     )
 
     XrResult(
@@ -1208,7 +1225,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    XrSystemId*                                 systemId);</code></pre>
 
         <h5>Description</h5>
-        To get an {@code XrSystemId}, an application specifies its desired <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#form_factor_description">form factor</a> to #GetSystem() and gets the runtime’s {@code XrSystemId} associated with that configuration.
+        To get an {@code XrSystemId}, an application specifies its desired <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#system-form-factor-description">form factor</a> to #GetSystem() and gets the runtime’s {@code XrSystemId} associated with that configuration.
 
         If the form factor is supported but temporarily unavailable, #GetSystem() <b>must</b> return #ERROR_FORM_FACTOR_UNAVAILABLE. A runtime <b>may</b> return #SUCCESS on a subsequent call for a form factor it previously returned #ERROR_FORM_FACTOR_UNAVAILABLE. For example, connecting or warming up hardware might cause an unavailable form factor to become available.
 
@@ -1406,7 +1423,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         ##XrExtensionProperties, ##XrSessionCreateInfo, #BeginSession(), #DestroySession(), #EndSession()
         """,
 
-        XrInstance("instance", "the instance from which {@code systemId} was retrieved."),
+        XrInstance("instance", "the instance from which ##XrSessionCreateInfo{@code ::systemId} was retrieved."),
         XrSessionCreateInfo.const.p("createInfo", "a pointer to an ##XrSessionCreateInfo structure containing information about how to create the session."),
         Check(1)..XrSession.p("session", "a pointer to a handle in which the created {@code XrSession} is returned.")
     )
@@ -1580,21 +1597,24 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         Gets the bounds rectangle of a reference space.
 
         <h5>C Specification</h5>
-        XR systems may have limited real world spatial ranges in which users can freely move around while remaining tracked. Applications may wish to query these boundaries and alter application behavior or content placement to ensure the user can complete the experience while remaining within the boundary. Applications <b>can</b> query this information using #GetReferenceSpaceBoundsRect().
-
-        When called, #GetReferenceSpaceBoundsRect() <b>should</b> return the extents of a rectangle that is clear of obstacles down to the floor, allowing where the user can freely move while remaining tracked, if available for that reference space. The returned extent represents the dimensions of an axis-aligned bounding box where the ##XrExtent2Df{@code ::width} and ##XrExtent2Df{@code ::height} fields correspond to the X and Z axes of the provided space, with the extents centered at the origin of the space. Not all systems or spaces may support boundaries. If a runtime is unable to provide bounds for a given space, #SPACE_BOUNDS_UNAVAILABLE will be returned and all fields of {@code bounds} will be set to 0.
-
-        The returned extents are expressed relative to the natural origin of the provided {@code XrReferenceSpaceType} and <b>must</b> not incorporate any origin offsets specified by the application during calls to #CreateReferenceSpace().
-
-        The runtime <b>must</b> return #ERROR_REFERENCE_SPACE_UNSUPPORTED if the {@code XrReferenceSpaceType} passed in {@code createInfo} is not supported by this {@code session}.
-
-        When a runtime will begin operating with updated space bounds, the runtime <b>must</b> queue a corresponding ##XrEventDataReferenceSpaceChangePending event.
+        The #GetReferenceSpaceBoundsRect() function is defined as:
 
         <pre><code>
 ￿XrResult xrGetReferenceSpaceBoundsRect(
 ￿    XrSession                                   session,
 ￿    XrReferenceSpaceType                        referenceSpaceType,
 ￿    XrExtent2Df*                                bounds);</code></pre>
+
+        <h5>Description</h5>
+        XR systems <b>may</b> have limited real world spatial ranges in which users can freely move around while remaining tracked. Applications sometimes wish to query these boundaries and alter application behavior or content placement to ensure the user can complete the experience while remaining within the boundary. Applications <b>can</b> query this information using #GetReferenceSpaceBoundsRect().
+
+        When called, #GetReferenceSpaceBoundsRect() <b>should</b> return the extents of a rectangle that is clear of obstacles down to the floor, allowing where the user can freely move while remaining tracked, if available for that reference space. The returned extent represents the dimensions of an axis-aligned bounding box where the ##XrExtent2Df{@code ::width} and ##XrExtent2Df{@code ::height} fields correspond to the X and Z axes of the provided space, with the extents centered at the origin of the space. Not all systems or spaces support boundaries. If a runtime is unable to provide bounds for a given space, #SPACE_BOUNDS_UNAVAILABLE <b>must</b> be returned and all fields of {@code bounds} <b>must</b> be set to 0.
+
+        The returned extents are expressed relative to the natural origin of the provided {@code XrReferenceSpaceType} and <b>must</b> not incorporate any origin offsets specified by the application during calls to #CreateReferenceSpace().
+
+        The runtime <b>must</b> return #ERROR_REFERENCE_SPACE_UNSUPPORTED if the {@code XrReferenceSpaceType} passed in {@code referenceSpaceType} is not supported by this {@code session}.
+
+        When a runtime will begin operating with updated space bounds, the runtime <b>must</b> queue a corresponding ##XrEventDataReferenceSpaceChangePending event.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -1652,7 +1672,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         Multiple {@code XrSpace} handles may exist simultaneously, up to some limit imposed by the runtime. The {@code XrSpace} handle must be eventually freed via the #DestroySpace() function or by destroying the parent {@code XrAction} handle.
 
-        The runtime <b>must</b> return #ERROR_ACTION_TYPE_MISMATCH if the action provided in {@code action} is not of type #ACTION_TYPE_POSE_INPUT.
+        The runtime <b>must</b> return #ERROR_ACTION_TYPE_MISMATCH if the action provided in ##XrActionSpaceCreateInfo{@code ::action} is not of type #ACTION_TYPE_POSE_INPUT.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -1714,11 +1734,11 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         For a {@code time} in the future, the runtime <b>should</b> locate the spaces based on the runtime’s most up-to-date prediction of how the world will be at that future time.
 
-        The minimum valid range of values for {@code time} are described in <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#prediction-time-limits">prediction-time-limits</a>. For values of {@code time} outside this range, #LocateSpace() <b>may</b> return a location with no position and #SPACE_LOCATION_POSITION_VALID_BIT unset.
+        The minimum valid range of values for {@code time} are described in <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#fundamentals-prediction-time-limits">fundamentals-prediction-time-limits</a>. For values of {@code time} outside this range, #LocateSpace() <b>may</b> return a location with no position and #SPACE_LOCATION_POSITION_VALID_BIT unset.
 
         Some devices improve their understanding of the world as the device is used. The location returned by #LocateSpace() for a given {@code space}, {@code baseSpace} and {@code time} <b>may</b> change over time, even for spaces that track static objects, as one or both spaces adjust their origins.
 
-        During tracking loss of {@code space} relative to {@code baseSpace}, runtimes <b>should</b> continue to provide inferred or last-known {@code position} and {@code orientation} values. These inferred poses can, for example, be based on neck model updates, inertial dead reckoning, or a last-known position, so long as it is still reasonable for the application to use that pose. While a runtime is providing position data, it <b>must</b> continue to set #SPACE_LOCATION_POSITION_VALID_BIT but it <b>can</b> clear #SPACE_LOCATION_POSITION_TRACKED_BIT to indicate that the position is inferred or last-known in this way.
+        During tracking loss of {@code space} relative to {@code baseSpace}, runtimes <b>should</b> continue to provide inferred or last-known ##XrPosef{@code ::position} and ##XrPosef{@code ::orientation} values. These inferred poses can, for example, be based on neck model updates, inertial dead reckoning, or a last-known position, so long as it is still reasonable for the application to use that pose. While a runtime is providing position data, it <b>must</b> continue to set #SPACE_LOCATION_POSITION_VALID_BIT but it <b>can</b> clear #SPACE_LOCATION_POSITION_TRACKED_BIT to indicate that the position is inferred or last-known in this way.
 
         If the runtime has not yet observed even a last-known pose for how to locate {@code space} in {@code baseSpace} (e.g. one space is an action space bound to a motion controller that has not yet been detected, or the two spaces are in disconnected fragments of the runtime’s tracked volume), the runtime <b>should</b> return a location with no position and #SPACE_LOCATION_POSITION_VALID_BIT unset.
 
@@ -1726,9 +1746,9 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         During tracking loss, the runtime <b>should</b> return a location with #SPACE_LOCATION_POSITION_VALID_BIT and #SPACE_LOCATION_ORIENTATION_VALID_BIT set and #SPACE_LOCATION_POSITION_TRACKED_BIT and #SPACE_LOCATION_ORIENTATION_TRACKED_BIT unset for spaces tracking two static entities in the world when their relative pose is known to the runtime. This enables applications to continue to make use of the runtime’s latest knowledge of the world.
 
-        If an ##XrSpaceVelocity structure is chained to the {@code next} pointer of ##XrSpaceLocation and the velocity is observed or can be calculated by the runtime, the runtime <b>must</b> fill in the linear velocity of the origin of space within the reference frame of {@code baseSpace} and set the #SPACE_VELOCITY_LINEAR_VALID_BIT. Similarly, if an ##XrSpaceVelocity structure is chained to the {@code next} pointer of ##XrSpaceLocation and the angular velocity is observed or can be calculated by the runtime, the runtime <b>must</b> fill in the angular velocity of the origin of space within the reference frame of {@code baseSpace} and set the #SPACE_VELOCITY_ANGULAR_VALID_BIT.
+        If an ##XrSpaceVelocity structure is chained to the ##XrSpaceLocation{@code ::next} pointer, and the velocity is observed or can be calculated by the runtime, the runtime <b>must</b> fill in the linear velocity of the origin of space within the reference frame of {@code baseSpace} and set the #SPACE_VELOCITY_LINEAR_VALID_BIT. Similarly, if an ##XrSpaceVelocity structure is chained to the ##XrSpaceLocation{@code ::next} pointer, and the angular velocity is observed or can be calculated by the runtime, the runtime <b>must</b> fill in the angular velocity of the origin of space within the reference frame of {@code baseSpace} and set the #SPACE_VELOCITY_ANGULAR_VALID_BIT.
 
-        The following example code shows how an application can get both the location and velocity of a space within a base space using the #LocateSpace() function by chaining an ##XrSpaceVelocity to the next pointer of ##XrSpaceLocation and calling #LocateSpace().
+        The following example code shows how an application can get both the location and velocity of a space within a base space using the #LocateSpace() function by chaining an ##XrSpaceVelocity to the {@code next} pointer of ##XrSpaceLocation and calling #LocateSpace().
 
         <pre><code>
 ￿XrSpace space;      // previously initialized
@@ -1835,9 +1855,9 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿XrResult xrEnumerateViewConfigurations(
 ￿    XrInstance                                  instance,
 ￿    XrSystemId                                  systemId,
-￿    uint32_t                                    viewConfigurationsTypeCapacityInput,
-￿    uint32_t*                                   viewConfigurationsTypeCountOutput,
-￿    XrViewConfigurationType*                    viewConfigurationsTypes);</code></pre>
+￿    uint32_t                                    viewConfigurationTypeCapacityInput,
+￿    uint32_t*                                   viewConfigurationTypeCountOutput,
+￿    XrViewConfigurationType*                    viewConfigurationTypes);</code></pre>
 
         <h5>Description</h5>
         #EnumerateViewConfigurations() enumerates the view configuration types supported by the {@code XrSystemId}. The supported set for that system <b>must</b> not change during the lifetime of its {@code XrInstance}. The returned list of primary view configurations <b>should</b> be in order from what the runtime considered highest to lowest user preference. Thus the first enumerated view configuration type <b>should</b> be the one the runtime prefers the application to use if possible.
@@ -1847,8 +1867,8 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <h5>Valid Usage (Implicit)</h5>
         <ul>
             <li>{@code instance} <b>must</b> be a valid {@code XrInstance} handle</li>
-            <li>{@code viewConfigurationsTypeCountOutput} <b>must</b> be a pointer to a {@code uint32_t} value</li>
-            <li>If {@code viewConfigurationsTypeCapacityInput} is not 0, {@code viewConfigurationsTypes} <b>must</b> be a pointer to an array of {@code viewConfigurationsTypeCapacityInput} {@code XrViewConfigurationType} values</li>
+            <li>{@code viewConfigurationTypeCountOutput} <b>must</b> be a pointer to a {@code uint32_t} value</li>
+            <li>If {@code viewConfigurationTypeCapacityInput} is not 0, {@code viewConfigurationTypes} <b>must</b> be a pointer to an array of {@code viewConfigurationTypeCapacityInput} {@code XrViewConfigurationType} values</li>
         </ul>
 
         <h5>Return Codes</h5>
@@ -1872,9 +1892,9 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         XrInstance("instance", "the instance from which {@code systemId} was retrieved."),
         XrSystemId("systemId", "the {@code XrSystemId} whose view configurations will be enumerated."),
-        AutoSize("viewConfigurationsTypes")..uint32_t("viewConfigurationsTypeCapacityInput", "the capacity of the {@code viewConfigurations} array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("viewConfigurationsTypeCountOutput", "a pointer to the count of {@code viewConfigurations} written, or a pointer to the required capacity in the case that {@code viewConfigurationsTypeCapacityInput} is insufficient."),
-        nullable..XrViewConfigurationType.p("viewConfigurationsTypes", "a pointer to an array of {@code XrViewConfigurationType} values, but <b>can</b> be {@code NULL} if {@code viewConfigurationsTypeCapacityInput} is 0.")
+        AutoSize("viewConfigurationTypes")..uint32_t("viewConfigurationTypeCapacityInput", "the capacity of the {@code viewConfigurationTypes} array, or 0 to indicate a request to retrieve the required capacity."),
+        Check(1)..uint32_t.p("viewConfigurationTypeCountOutput", "a pointer to the count of {@code viewConfigurationTypes} written, or a pointer to the required capacity in the case that {@code viewConfigurationTypeCapacityInput} is insufficient."),
+        nullable..XrViewConfigurationType.p("viewConfigurationTypes", "a pointer to an array of {@code XrViewConfigurationType} values, but <b>can</b> be {@code NULL} if {@code viewConfigurationTypeCapacityInput} is 0.")
     )
 
     XrResult(
@@ -2066,7 +2086,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    XrSwapchain*                                swapchain);</code></pre>
 
         <h5>Description</h5>
-        Creates an {@code XrSwapchain} handle. The returned swapchain handle <b>may</b> be subsequently used in API calls. Multiple {@code XrSwapchain} handles may exist simultaneously, up to some limit imposed by the runtime. The {@code XrSwapchain} handle <b>must</b> be eventually freed via the #DestroySwapchain() function. The runtime <b>must</b> return #ERROR_SWAPCHAIN_FORMAT_UNSUPPORTED if the image format specified in the ##XrSwapchainCreateInfo is unsupported. The runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED if any bit of the create flags specified in the ##XrSwapchainCreateInfo is unsupported.
+        Creates an {@code XrSwapchain} handle. The returned swapchain handle <b>may</b> be subsequently used in API calls. Multiple {@code XrSwapchain} handles <b>may</b> exist simultaneously, up to some limit imposed by the runtime. The {@code XrSwapchain} handle <b>must</b> be eventually freed via the #DestroySwapchain() function. The runtime <b>must</b> return #ERROR_SWAPCHAIN_FORMAT_UNSUPPORTED if the image format specified in the ##XrSwapchainCreateInfo is unsupported. The runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED if any bit of the create or usage flags specified in the ##XrSwapchainCreateInfo is unsupported.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -2176,7 +2196,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         The pointer submitted as {@code images} will be treated as an array of the expected graphics API-specific type based on the graphics API used at session creation time. If the {@code type} member of any array element accessed in this way does not match the expected value, the runtime <b>must</b> return #ERROR_VALIDATION_FAILURE.
 
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-        Under a typical memory model, a runtime must treat the supplied pointer as an opaque blob beginning with ##XrSwapchainImageBaseHeader, until after it has verified the {@code type}.
+        Under a typical memory model, a runtime <b>must</b> treat the supplied pointer as an opaque blob beginning with ##XrSwapchainImageBaseHeader, until after it has verified the ##XrSwapchainImageBaseHeader{@code ::type}.
         </div>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -2232,6 +2252,8 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <h5>Description</h5>
         Acquires the image corresponding to the {@code index} position in the array returned by #EnumerateSwapchainImages(). The runtime <b>must</b> return #ERROR_CALL_ORDER_INVALID if the next available index has already been acquired and not yet released with #ReleaseSwapchainImage(). If the {@code swapchain} was created with the #SWAPCHAIN_CREATE_STATIC_IMAGE_BIT set in ##XrSwapchainCreateInfo{@code ::createFlags}, this function <b>must</b> not have been previously called for this swapchain. The runtime <b>must</b> return #ERROR_CALL_ORDER_INVALID if a {@code swapchain} created with the #SWAPCHAIN_CREATE_STATIC_IMAGE_BIT set in ##XrSwapchainCreateInfo{@code ::createFlags} and this function has been successfully called previously for this swapchain.
 
+        This function only provides the index of the swapchain image, for example for use in recording command buffers. It does not wait for the image to be usable by the application. The application <b>must</b> call #WaitSwapchainImage() for each "acquire" call before submitting graphics commands that write to the image.
+
         <h5>Valid Usage (Implicit)</h5>
         <ul>
             <li>{@code swapchain} <b>must</b> be a valid {@code XrSwapchain} handle</li>
@@ -2281,9 +2303,9 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    const XrSwapchainImageWaitInfo*             waitInfo);</code></pre>
 
         <h5>Description</h5>
-        Before an application can begin writing to a swapchain image, it must first wait on the image to avoid writing to it before the compositor has finished reading from it. #WaitSwapchainImage() will implicitly wait on the oldest acquired swapchain image which has not yet been successfully waited on. Once a swapchain image has been successfully waited on without timeout, the app <b>must</b> release before waiting on the next acquired swapchain image.
+        Before an application begins writing to a swapchain image, it <b>must</b> first wait on the image, to avoid writing to it before the compositor has finished reading from it. #WaitSwapchainImage() will implicitly wait on the oldest acquired swapchain image which has not yet been successfully waited on. Once a swapchain image has been successfully waited on without timeout, the app <b>must</b> release before waiting on the next acquired swapchain image.
 
-        This function may block for longer than the timeout specified in ##XrSwapchainImageWaitInfo due to scheduling or contention.
+        This function <b>may</b> block for longer than the timeout specified in ##XrSwapchainImageWaitInfo due to scheduling or contention.
 
         If the timeout expires without the image becoming available for writing, #TIMEOUT_EXPIRED <b>must</b> be returned. If #WaitSwapchainImage() returns #TIMEOUT_EXPIRED, the next call to #WaitSwapchainImage() will wait on the same image index again until the function succeeds with #SUCCESS. Note that this is not an error code; {@code XR_SUCCEEDED(#TIMEOUT_EXPIRED)} is {@code true}.
 
@@ -2394,15 +2416,15 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <h5>Description</h5>
         When the application receives ##XrEventDataSessionStateChanged event with the #SESSION_STATE_READY state, the application <b>should</b> then call #BeginSession() to start rendering frames for display to the user.
 
-        After this function successfully returns, the session <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_running">is considered to be running</a>. The application <b>should</b> then start its frame loop consisting of some sequence of #WaitFrame()/#BeginFrame()/#EndFrame() calls.
+        After this function successfully returns, the session <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-running">is considered to be running</a>. The application <b>should</b> then start its frame loop consisting of some sequence of #WaitFrame()/#BeginFrame()/#EndFrame() calls.
 
-        If the session <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_running">is already running</a> when the application calls #BeginSession(), the runtime <b>must</b> return error #ERROR_SESSION_RUNNING. If the session <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_not_running">is not running</a> when the application calls #BeginSession(), but the session is not yet in the #SESSION_STATE_READY state, the runtime <b>must</b> return error #ERROR_SESSION_NOT_READY.
+        If the session <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-running">is already running</a> when the application calls #BeginSession(), the runtime <b>must</b> return error #ERROR_SESSION_RUNNING. If the session <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-not-running">is not running</a> when the application calls #BeginSession(), but the session is not yet in the #SESSION_STATE_READY state, the runtime <b>must</b> return error #ERROR_SESSION_NOT_READY.
 
-        Note that a runtime <b>may</b> decide not to show the user any given frame from a session at any time, for example if the user has switched to a different application’s running session. The application should check whether #WaitFrame() returns an ##XrFrameState with {@code shouldRender} set to true before rendering a given frame to determine whether that frame will be visible to the user.
+        Note that a runtime <b>may</b> decide not to show the user any given frame from a session at any time, for example if the user has switched to a different application’s running session. The application should check whether #WaitFrame() returns ##XrFrameState{@code ::shouldRender} set to true before rendering a given frame to determine whether that frame will be visible to the user.
 
-        Runtime session frame state <b>must</b> start in a reset state when a session transitions to <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_running">running</a> so that no state is carried over from when the same session was previously running.
+        Runtime session frame state <b>must</b> start in a reset state when a session transitions to <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-running">running</a> so that no state is carried over from when the same session was previously running. Frame state in this context includes #WaitFrame(), #BeginFrame(), and #EndFrame() call order enforcement.
 
-        If {@code primaryViewConfigurationType} in {@code beginInfo} is not supported by the {@code XrSystemId} used to create the {@code session}, the runtime <b>must</b> return #ERROR_VIEW_CONFIGURATION_TYPE_UNSUPPORTED.
+        If ##XrSessionBeginInfo{@code ::primaryViewConfigurationType} in {@code beginInfo} is not supported by the {@code XrSystemId} used to create the {@code session}, the runtime <b>must</b> return #ERROR_VIEW_CONFIGURATION_TYPE_UNSUPPORTED.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -2452,9 +2474,9 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    XrSession                                   session);</code></pre>
 
         <h5>Description</h5>
-        When the application receives ##XrEventDataSessionStateChanged event with the #SESSION_STATE_STOPPING state, the application should stop its frame loop and then call #EndSession() to end the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_running">running</a> session. This function signals to the runtime that the application will no longer call #WaitFrame(), #BeginFrame() or #EndFrame() from any thread allowing the runtime to safely transition the session to #SESSION_STATE_IDLE. The application <b>must</b> also avoid reading input state or sending haptic output after calling #EndSession().
+        When the application receives ##XrEventDataSessionStateChanged event with the #SESSION_STATE_STOPPING state, the application should stop its frame loop and then call #EndSession() to end the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-running">running</a> session. This function signals to the runtime that the application will no longer call #WaitFrame(), #BeginFrame() or #EndFrame() from any thread allowing the runtime to safely transition the session to #SESSION_STATE_IDLE. The application <b>must</b> also avoid reading input state or sending haptic output after calling #EndSession().
 
-        If the session <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_not_running">is not running</a> when the application calls #EndSession(), the runtime <b>must</b> return error #ERROR_SESSION_NOT_RUNNING. If the session <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_running">is still running</a> when the application calls #EndSession(), but the session is not yet in the #SESSION_STATE_STOPPING state, the runtime <b>must</b> return error #ERROR_SESSION_NOT_STOPPING.
+        If the session <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-not-running">is not running</a> when the application calls #EndSession(), the runtime <b>must</b> return error #ERROR_SESSION_NOT_RUNNING. If the session <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-running">is still running</a> when the application calls #EndSession(), but the session is not yet in the #SESSION_STATE_STOPPING state, the runtime <b>must</b> return error #ERROR_SESSION_NOT_STOPPING.
 
         If the application wishes to exit a running session, the application can call #RequestExitSession() so that the session transitions from #SESSION_STATE_IDLE to #SESSION_STATE_EXITING.
 
@@ -2487,7 +2509,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         #BeginSession(), #CreateSession(), #DestroySession()
         """,
 
-        XrSession("session", "a handle to a <a href=\"https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\\#session_running\">running</a> {@code XrSession}.")
+        XrSession("session", "a handle to a <a href=\"https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\\#session-running\">running</a> {@code XrSession}.")
     )
 
     XrResult(
@@ -2496,7 +2518,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         Request to exit a running session.
 
         <h5>C Specification</h5>
-        When an application wishes to exit a <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_running">running</a> session, it <b>can</b> call #RequestExitSession(), requesting that the runtime transition through the various intermediate session states including #SESSION_STATE_STOPPING to #SESSION_STATE_EXITING.
+        When an application wishes to exit a <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-running">running</a> session, it <b>can</b> call #RequestExitSession(), requesting that the runtime transition through the various intermediate session states including #SESSION_STATE_STOPPING to #SESSION_STATE_EXITING.
 
         On platforms where an application’s lifecycle is managed by the system, session state changes may be implicitly triggered by application lifecycle state changes. On such platforms, using platform-specific methods to alter application lifecycle state may be the preferred method of provoking session state changes. The behavior of #RequestExitSession() is not altered, however explicit session exit <b>may</b> not interact with the platform-specific application lifecycle.
 
@@ -2507,7 +2529,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    XrSession                                   session);</code></pre>
 
         <h5>Description</h5>
-        If {@code session} <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_not_running">is not running</a> when #RequestExitSession() is called, #ERROR_SESSION_NOT_RUNNING <b>must</b> be returned.
+        If {@code session} <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-not-running">is not running</a> when #RequestExitSession() is called, #ERROR_SESSION_NOT_RUNNING <b>must</b> be returned.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -2557,7 +2579,9 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    XrFrameState*                               frameState);</code></pre>
 
         <h5>Description</h5>
-        #WaitFrame() throttles the application frame loop in order to synchronize application frame submissions with the display. #WaitFrame() returns a predicted display time for the next time that the runtime predicts a composited frame will be displayed. The runtime <b>may</b> affect this computation by changing the return values and throttling of #WaitFrame() in response to feedback from frame submission and completion times in #EndFrame(). An application <b>must</b> eventually match each #WaitFrame() call with one call to #BeginFrame(). A subsequent #WaitFrame() call <b>must</b> block until the previous frame has been begun with #BeginFrame() and <b>must</b> unblock independently of the corresponding call to #EndFrame(). When less than one frame interval has passed since the previous return from #WaitFrame(), the runtime <b>should</b> block until the beginning of the next frame interval. If more than one frame interval has passed since the last return from #WaitFrame(), the runtime <b>may</b> return immediately or block until the beginning of the next frame interval.
+        #WaitFrame() throttles the application frame loop in order to synchronize application frame submissions with the display. #WaitFrame() returns a predicted display time for the next time that the runtime predicts a composited frame will be displayed. The runtime <b>may</b> affect this computation by changing the return values and throttling of #WaitFrame() in response to feedback from frame submission and completion times in #EndFrame(). A subsequent #WaitFrame() call <b>must</b> block until the previous frame has been begun with #BeginFrame() and <b>must</b> unblock independently of the corresponding call to #EndFrame(). Refer to #BeginSession() for details on how a transition to <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-running">session running</a> resets the frame function call order.
+
+        When less than one frame interval has passed since the previous return from #WaitFrame(), the runtime <b>should</b> block until the beginning of the next frame interval. If more than one frame interval has passed since the last return from #WaitFrame(), the runtime <b>may</b> return immediately or block until the beginning of the next frame interval.
 
         In the case that an application has pipelined frame submissions, the application <b>should</b> compute the appropriate target display time using both the predicted display time and predicted display interval. The application <b>should</b> use the computed target display time when requesting space and view locations for rendering.
 
@@ -2569,10 +2593,10 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         Calling #WaitFrame() <b>must</b> be externally synchronized by the application, concurrent calls <b>may</b> result in undefined behavior.
 
-        The runtime <b>must</b> return #ERROR_SESSION_NOT_RUNNING if the {@code session} <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_not_running">is not running</a>.
+        The runtime <b>must</b> return #ERROR_SESSION_NOT_RUNNING if the {@code session} <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-not-running">is not running</a>.
 
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-        The engine simulation <b>should</b> advance based on the display time. Every stage in the engine pipeline should use the exact same display time for one particular application-generated frame. An accurate and consistent display time across all stages and threads in the engine pipeline is important to avoid object motion judder. If the application has multiple pipeline stages, the application should pass its computed display time through its pipeline, as #WaitFrame() must be called only once per frame.
+        The engine simulation <b>should</b> advance based on the display time. Every stage in the engine pipeline <b>should</b> use the exact same display time for one particular application-generated frame. An accurate and consistent display time across all stages and threads in the engine pipeline is important to avoid object motion judder. If the application has multiple pipeline stages, the application <b>should</b> pass its computed display time through its pipeline, as #WaitFrame() <b>must</b> be called only once per frame.
         </div>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -2633,11 +2657,9 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         Runtimes <b>must</b> not perform frame synchronization or throttling through the #BeginFrame() function and <b>should</b> instead do so through #WaitFrame().
 
-        The runtime <b>must</b> return the error code #ERROR_CALL_ORDER_INVALID if there was no corresponding successful call to #WaitFrame().
+        The runtime <b>must</b> return the error code #ERROR_CALL_ORDER_INVALID if there was no corresponding successful call to #WaitFrame(). The runtime <b>must</b> return the success code #FRAME_DISCARDED if a prior #BeginFrame() has been called without an intervening call to #EndFrame(). Refer to #BeginSession() for details on how a transition to <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-running">session running</a> resets the frame function call order.
 
-        The runtime <b>must</b> return the success code #FRAME_DISCARDED if a prior #BeginFrame() has been called without an intervening call to #EndFrame().
-
-        The runtime <b>must</b> return #ERROR_SESSION_NOT_RUNNING if the {@code session} <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_not_running">is not running</a>.
+        The runtime <b>must</b> return #ERROR_SESSION_NOT_RUNNING if the {@code session} <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-not-running">is not running</a>.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -2696,10 +2718,10 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         #EndFrame() <b>may</b> return immediately to the application. ##XrFrameEndInfo{@code ::displayTime} <b>should</b> be computed using values returned by #WaitFrame(). The runtime <b>should</b> be robust against variations in the timing of calls to #WaitFrame(), since a pipelined system may call #WaitFrame() on a separate thread from #BeginFrame() and #EndFrame() without any synchronization guarantees.
 
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-        An accurate predicted display time is very important to avoid black pull-in by reprojection and to reduce motion judder in case the runtime does not implement a translational reprojection. Reprojection should never display images before the display refresh period they were predicted for, even if they are completed early, because this will cause motion judder just the same. In other words, the better the predicted display time, the less latency experienced by the user.
+        An accurate predicted display time is very important to avoid black pull-in by reprojection and to reduce motion judder in case the runtime does not implement a translational reprojection. Reprojection <b>should</b> never display images before the display refresh period they were predicted for, even if they are completed early, because this will cause motion judder just the same. In other words, the better the predicted display time, the less latency experienced by the user.
         </div>
 
-        Every call to #EndFrame() <b>must</b> be preceded by a successful call to #BeginFrame(). Failure to do so <b>must</b> result in #ERROR_CALL_ORDER_INVALID being returned by #EndFrame(). ##XrFrameEndInfo <b>may</b> reference swapchains into which the application has rendered for this frame. From each {@code XrSwapchain} only one image index is implicitly referenced per frame, the one corresponding to the last call to #ReleaseSwapchainImage(). However, a specific swapchain (and by extension a specific swapchain image index) <b>may</b> be referenced in ##XrFrameEndInfo multiple times. This can be used for example to render a side by side image into a single swapchain image and referencing it twice with differing image rectangles in different layers.
+        Every call to #EndFrame() <b>must</b> be preceded by a successful call to #BeginFrame(). Failure to do so <b>must</b> result in #ERROR_CALL_ORDER_INVALID being returned by #EndFrame(). Refer to #BeginSession() for details on how a transition to <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-running">session running</a> resets the frame function call order. ##XrFrameEndInfo <b>may</b> reference swapchains into which the application has rendered for this frame. From each {@code XrSwapchain} only one image index is implicitly referenced per frame, the one corresponding to the last call to #ReleaseSwapchainImage(). However, a specific swapchain (and by extension a specific swapchain image index) <b>may</b> be referenced in ##XrFrameEndInfo multiple times. This <b>can</b> be used for example to render a side by side image into a single swapchain image and referencing it twice with differing image rectangles in different layers.
 
         If no layers are provided then the display <b>must</b> be cleared.
 
@@ -2713,7 +2735,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 
         #ERROR_ENVIRONMENT_BLEND_MODE_UNSUPPORTED <b>must</b> be returned if ##XrFrameEndInfo::environmentBlendMode is not supported.
 
-        #ERROR_SESSION_NOT_RUNNING <b>must</b> be returned if the {@code session} <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#session_not_running">is not running</a>.
+        #ERROR_SESSION_NOT_RUNNING <b>must</b> be returned if the {@code session} <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#session-not-running">is not running</a>.
 
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
         Applications should discard frames for which #EndFrame() returns a recoverable error over attempting to resubmit the frame with different frame parameters to provide a more consistent experience across different runtime implementations.
@@ -2784,9 +2806,9 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <h5>Description</h5>
         The #LocateViews() function returns the view and projection info for a particular display time. This time is typically the target display time for a given frame. Repeatedly calling #LocateViews() with the same time <b>may</b> not necessarily return the same result. Instead the prediction gets increasingly accurate as the function is called closer to the given time for which a prediction is made. This allows an application to get the predicted views as late as possible in its pipeline to get the least amount of latency and prediction error.
 
-        #LocateViews() returns an array of ##XrView elements, one for each view of the specified view configuration type, along with an ##XrViewState containing additional state data shared across all views. The eye each view corresponds to is statically defined in <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#view_configuration_type">{@code XrViewConfigurationType}</a> in case the application wants to apply eye-specific rendering traits. The ##XrViewState and ##XrView member data may change on subsequent calls to #LocateViews(), and so applications <b>must</b> not assume it to be constant.
+        #LocateViews() returns an array of ##XrView elements, one for each view of the specified view configuration type, along with an ##XrViewState containing additional state data shared across all views. The eye each view corresponds to is statically defined in {@code XrViewConfigurationType} in case the application wants to apply eye-specific rendering traits. The ##XrViewState and ##XrView member data <b>may</b> change on subsequent calls to #LocateViews(), and so applications <b>must</b> not assume it to be constant.
 
-        If an application gives a {@code viewLocateInfo} with a {@code viewConfigurationType} that was not passed in the session’s call to #BeginSession() via the {@code beginInfo.pname}:primaryViewConfigurationType, or enabled though an extension, then the runtime <b>must</b> return #ERROR_VALIDATION_FAILURE.
+        If an application gives a {@code viewLocateInfo} with a ##XrViewLocateInfo{@code ::viewConfigurationType} that was not passed in the session’s call to #BeginSession() via the ##XrSessionBeginInfo{@code ::primaryViewConfigurationType}, or enabled though an extension, then the runtime <b>must</b> return #ERROR_VALIDATION_FAILURE.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -2847,7 +2869,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    XrPath*                                     path);</code></pre>
 
         <h5>Description</h5>
-        #StringToPath() retrieves the {@code XrPath} value for a well-formed path string. If such a value had not yet been assigned by the runtime to the provided path string in this {@code XrInstance}, one <b>must</b> be assigned at this point. All calls to this function with the same {@code XrInstance} and path string <b>must</b> retrieve the same {@code XrPath} value. Upon failure, #StringToPath() <b>must</b> return an appropriate {@code XrResult}, and <b>may</b> set the output parameter to #NULL_PATH. See <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#path-atom-type">Path Atom Type</a> for the conditions under which an error <b>may</b> be returned when this function is given a valid {@code XrInstance} and a well-formed path string.
+        #StringToPath() retrieves the {@code XrPath} value for a well-formed path string. If such a value had not yet been assigned by the runtime to the provided path string in this {@code XrInstance}, one <b>must</b> be assigned at this point. All calls to this function with the same {@code XrInstance} and path string <b>must</b> retrieve the same {@code XrPath} value. Upon failure, #StringToPath() <b>must</b> return an appropriate {@code XrResult}, and <b>may</b> set the output parameter to #NULL_PATH. See <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#semantic-paths-path-atom-type">semantic-paths-path-atom-type</a> for the conditions under which an error <b>may</b> be returned when this function is given a valid {@code XrInstance} and a well-formed path string.
 
         If the runtime’s resources are exhausted and it cannot create the path, a return value of #ERROR_PATH_COUNT_EXCEEDED <b>must</b> be returned. If the application specifies a string that is not a well-formed path string, #ERROR_PATH_FORMAT_INVALID <b>must</b> be returned.
 
@@ -3013,7 +3035,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <h5>Description</h5>
         Action set handles <b>can</b> be destroyed by calling #DestroyActionSet(). When an action set handle is destroyed, all handles of actions in that action set are also destroyed.
 
-        The implementation <b>must</b> not free underlying resources for the action set while there are other valid handles that refer to those resources. The implementation <b>may</b> release resources for an action set when all of the action spaces for actions in that action set have been destroyed. See <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#spaces-action-spaces-lifetime">Action Spaces Lifetime</a> for details.
+        The implementation <b>must</b> not free underlying resources for the action set while there are other valid handles that refer to those resources. The implementation <b>may</b> release resources for an action set when all of the action spaces for actions in that action set have been destroyed. See <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#spaces-action-spaces-lifetime">Action Spaces Lifetime</a> for details.
 
         Resources for all action sets in an instance <b>must</b> be freed when the instance containing those actions sets is destroyed.
 
@@ -3123,7 +3145,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         <h5>Description</h5>
         Action handles <b>can</b> be destroyed by calling #DestroyAction(). Handles for actions that are part of an action set are automatically destroyed when the action set’s handle is destroyed.
 
-        The implementation <b>must</b> not destroy the underlying resources for an action when #DestroyAction() is called. Those resources are still used to make <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#spaces-action-spaces-lifetime">action spaces locatable</a> and when processing action priority in #SyncActions(). Destroying the action handle removes the application’s access to these resources, but has no other change on actions.
+        The implementation <b>must</b> not destroy the underlying resources for an action when #DestroyAction() is called. Those resources are still used to make <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#spaces-action-spaces-lifetime">action spaces locatable</a> and when processing action priority in #SyncActions(). Destroying the action handle removes the application’s access to these resources, but has no other change on actions.
 
         Resources for all actions in an instance <b>must</b> be freed when the instance containing those actions sets is destroyed.
 
@@ -3171,13 +3193,13 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    const XrInteractionProfileSuggestedBinding* suggestedBindings);</code></pre>
 
         <h5>Description</h5>
-        #SuggestInteractionProfileBindings() sets an interaction profile for which the application can provide default bindings. The application <b>can</b> call #SuggestInteractionProfileBindings() once per interaction profile that it supports.
+        The #SuggestInteractionProfileBindings() function provides action bindings for a single interaction profile. The application <b>can</b> call #SuggestInteractionProfileBindings() once per interaction profile that it supports.
 
         The application <b>can</b> provide any number of bindings for each action.
 
         If the application successfully calls #SuggestInteractionProfileBindings() more than once for an interaction profile, the runtime <b>must</b> discard the previous suggested bindings and replace them with the new suggested bindings for that profile.
 
-        If the interaction profile path does not follow the structure defined in <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#semantic-path-interaction-profiles">Interaction Profiles</a> or suggested bindings contain paths that do not follow the format defined in <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#semantic-path-input">Device input subpaths</a>, the runtime <b>must</b> return #ERROR_PATH_UNSUPPORTED. If the interaction profile or input source for any of the suggested bindings does not exist in the allowlist defined in <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#semantic-path-interaction-profiles">Interaction Profile Paths</a>, the runtime <b>must</b> return #ERROR_PATH_UNSUPPORTED. A runtime <b>must</b> accept every valid binding in the allowlist though it is free to ignore any of them.
+        If the interaction profile path does not follow the structure defined in <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#semantic-paths-interaction-profiles">Interaction Profiles</a> or suggested bindings contain paths that do not follow the format defined in <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#semantic-paths-input">semantic-paths-input</a> (further described in ##XrActionSuggestedBinding), the runtime <b>must</b> return #ERROR_PATH_UNSUPPORTED. If the interaction profile or input source for any of the suggested bindings does not exist in the allowlist defined in <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#semantic-paths-interaction-profiles">Interaction Profile Paths</a>, the runtime <b>must</b> return #ERROR_PATH_UNSUPPORTED. A runtime <b>must</b> accept every valid binding in the allowlist though it is free to ignore any of them.
 
         If the action set for any action referenced in the {@code suggestedBindings} parameter has been included in a call to #AttachSessionActionSets(), the implementation <b>must</b> return #ERROR_ACTIONSETS_ALREADY_ATTACHED.
 
@@ -3228,7 +3250,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    const XrSessionActionSetsAttachInfo*        attachInfo);</code></pre>
 
         <h5>Description</h5>
-        #AttachSessionActionSets() attaches the {@code XrActionSet} handles in {@code attachInfo.actionSets} to the {@code session}. Action sets <b>must</b> be attached in order to be synchronized with #SyncActions().
+        #AttachSessionActionSets() attaches the {@code XrActionSet} handles in ##XrSessionActionSetsAttachInfo{@code ::actionSets} to the {@code session}. Action sets <b>must</b> be attached in order to be synchronized with #SyncActions().
 
         When an action set is attached to a session, that action set becomes immutable. See #CreateAction() and #SuggestInteractionProfileBindings() for details.
 
@@ -3284,11 +3306,11 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    XrInteractionProfileState*                  interactionProfile);</code></pre>
 
         <h5>Description</h5>
-        #GetCurrentInteractionProfile() asks the runtime for the active interaction profiles for a top level user path.
+        #GetCurrentInteractionProfile() retrieves the current interaction profile for a top level user path.
 
-        The runtime <b>must</b> return only interaction profiles for which the application has provided bindings with #SuggestInteractionProfileBindings() or #NULL_PATH. The runtime <b>may</b> return interaction profiles that do not represent physically present hardware, for example if the runtime is using a known interaction profile to bind to hardware that the application is not aware of. The runtime <b>may</b> return the last-known interaction profile in the event that no controllers are active.
+        The runtime <b>must</b> return only interaction profiles for which the application has provided suggested bindings with #SuggestInteractionProfileBindings() or #NULL_PATH. The runtime <b>may</b> return interaction profiles that do not represent physically present hardware, for example if the runtime is using a known interaction profile to bind to hardware that the application is not aware of. The runtime <b>may</b> return the last-known interaction profile in the event that no controllers are active.
 
-        If #AttachSessionActionSets() has not yet been called for the {@code session}, the runtime <b>must</b> return #ERROR_ACTIONSET_NOT_ATTACHED. If {@code topLevelUserPath} is not one of the device input subpaths described in section <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#semantic-path-user">/user paths</a>, the runtime <b>must</b> return #ERROR_PATH_UNSUPPORTED.
+        If #AttachSessionActionSets() has not yet been called for the {@code session}, the runtime <b>must</b> return #ERROR_ACTIONSET_NOT_ATTACHED. If {@code topLevelUserPath} is not one of the top level user paths described in <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#semantic-paths-user">semantic-paths-user</a>, the runtime <b>must</b> return #ERROR_PATH_UNSUPPORTED.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -3551,7 +3573,7 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
 ￿    const XrActionsSyncInfo*                    syncInfo);</code></pre>
 
         <h5>Description</h5>
-        #SyncActions() updates the current state of input actions. Repeated input action state queries between subsequent synchronization calls <b>must</b> return the same values. The {@code XrActionSet} structures referenced in the {@code syncInfo.activeActionSets} <b>must</b> have been previously attached to the session via #AttachSessionActionSets(). If any action sets not attached to this session are passed to #SyncActions() it <b>must</b> return #ERROR_ACTIONSET_NOT_ATTACHED. Subsets of the bound action sets <b>can</b> be synchronized in order to control which actions are seen as active.
+        #SyncActions() updates the current state of input actions. Repeated input action state queries between subsequent synchronization calls <b>must</b> return the same values. The {@code XrActionSet} structures referenced in the ##XrActionsSyncInfo{@code ::activeActionSets} <b>must</b> have been previously attached to the session via #AttachSessionActionSets(). If any action sets not attached to this session are passed to #SyncActions() it <b>must</b> return #ERROR_ACTIONSET_NOT_ATTACHED. Subsets of the bound action sets <b>can</b> be synchronized in order to control which actions are seen as active.
 
         If {@code session} is not focused, the runtime <b>must</b> return #SESSION_NOT_FOCUSED, and all action states in the session <b>must</b> be inactive.
 

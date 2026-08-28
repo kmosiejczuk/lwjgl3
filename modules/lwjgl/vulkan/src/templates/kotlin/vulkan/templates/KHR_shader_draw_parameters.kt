@@ -36,7 +36,6 @@ val KHR_shader_draw_parameters = "KHRShaderDrawParameters".nativeClassVK("KHR_sh
         <h5>Promotion to Vulkan 1.1</h5>
         All functionality in this extension is included in core Vulkan 1.1. However, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderDrawParameters">{@code shaderDrawParameters}</a> feature bit was added to distinguish whether it is actually available or not.
 
-        <h5>VK_KHR_shader_draw_parameters</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_shader_draw_parameters}</dd>
@@ -50,7 +49,12 @@ val KHR_shader_draw_parameters = "KHRShaderDrawParameters".nativeClassVK("KHR_sh
             <dt><b>Revision</b></dt>
             <dd>1</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_shader_draw_parameters.html">SPV_KHR_shader_draw_parameters</a></li>
+            </ul></dd>
+
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
             </ul></dd>
@@ -71,9 +75,7 @@ val KHR_shader_draw_parameters = "KHRShaderDrawParameters".nativeClassVK("KHR_sh
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_shader_draw_parameters.html">{@code SPV_KHR_shader_draw_parameters}</a></li>
                 <li>This extension provides API support for <a href="https://registry.khronos.org/OpenGL/extensions/ARB/ARB_shader_draw_parameters.txt">{@code GL_ARB_shader_draw_parameters}</a></li>
-                <li>Promoted to Vulkan 1.1 Core</li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>

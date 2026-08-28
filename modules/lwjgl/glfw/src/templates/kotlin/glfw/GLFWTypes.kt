@@ -85,17 +85,23 @@ void* function_name(size_t size, void* user)""")}
             This function must return either a memory block at least {@code size} bytes long, or #NULL if allocation failed. Note that not all parts of GLFW
             handle allocation failures gracefully yet.
 
-            This function may be called during #Init() but before the library is flagged as initialized, as well as during #Terminate() after the library is no
-            longer flagged as initialized.
+            This function must support being called during #Init() but before the library is flagged as initialized, as well as during #Terminate() after the
+            library is no longer flagged as initialized.
 
-            Any memory allocated by this function will be deallocated during library termination or earlier.
+            Any memory allocated via this function will be deallocated via the same allocator during library termination or earlier.
+
+            Any memory allocated via this function must be suitably aligned for any object type. If you are using C99 or earlier, this alignment is
+            platform-dependent but will be the same as what {@code malloc} provides. If you are using C11 or later, this is the value of
+            {@code alignof(max_align_t)}.
 
             The size will always be greater than zero. Allocations of size zero are filtered out before reaching the custom allocator.
 
+            If this function returns #NULL, GLFW will emit #OUT_OF_MEMORY.
+
             ${note(ul(
                 "The returned memory block must be valid at least until it is deallocated.",
-                "This function should not call any GLFW function.",
-                "This function may be called from any thread that calls GLFW functions."
+                "This function must not call any GLFW function.",
+                "This function must support being called from any thread that calls GLFW functions."
             ))}
             """
         since = "version 3.4"
@@ -125,18 +131,25 @@ void* function_name(void* block, size_t size, void* user)            """)}
             This function must return a memory block at least {@code size} bytes long, or #NULL if allocation failed. Note that not all parts of GLFW handle
             allocation failures gracefully yet.
 
-            This function may be called during #Init() but before the library is flagged as initialized, as well as during #Terminate() after the library is no
-            longer flagged as initialized.
+            This function must support being called during #Init() but before the library is flagged as initialized, as well as during #Terminate() after the
+            library is no longer flagged as initialized.
 
-            Any memory allocated by this function will be deallocated during library termination or earlier.
+            Any memory allocated via this function will be deallocated via the same allocator during library termination or earlier.
+
+            Any memory allocated via this function must be suitably aligned for any object type. If you are using C99 or earlier, this alignment is
+            platform-dependent but will be the same as what {@code malloc} provides. If you are using C11 or later, this is the value of
+            {@code alignof(max_align_t)}.
 
             The block address will never be #NULL and the size will always be greater than zero. Reallocations of a block to size zero are converted into
-            deallocations. Reallocations of #NULL to a non-zero size are converted into regular allocations.
-        
+            deallocations before reaching the custom allocator. Reallocations of #NULL to a non-zero size are converted into regular allocations before
+            reaching the custom allocator.
+
+            If this function returns #NULL, GLFW will emit #OUT_OF_MEMORY.
+
             ${note(ul(
                 "The returned memory block must be valid at least until it is deallocated.",
                 "This function should not call any GLFW function.",
-                "This function may be called from any thread that calls GLFW functions."
+                "This function must support being called from any thread that calls GLFW functions."
             ))}
             """
         since = "version 3.4"
@@ -162,16 +175,18 @@ val GLFWdeallocatefun = Module.GLFW.callback {
 void function_name(void* block, void* user)""")}
 
             This function may deallocate the specified memory block. This memory block will have been allocated with the same allocator.
- 
-            This function may be called during #Init() but before the library is flagged as initialized, as well as during #Terminate() after the library is no
-            longer flagged as initialized.
- 
+
+            This function must support being called during #Init() but before the library is flagged as initialized, as well as during #Terminate() after the
+            library is no longer flagged as initialized.
+
             The block address will never be #NULL. Deallocations of #NULL are filtered out before reaching the custom allocator.
- 
+
+            If this function returns #NULL, GLFW will emit #OUT_OF_MEMORY.
+
             ${note(ul(
                 "The specified memory block will not be accessed by GLFW after this function is called.",
                 "This function should not call any GLFW function.",
-                "This function may be called from any thread that calls GLFW functions."
+                "This function must support being called from any thread that calls GLFW functions."
             ))}
             """
         since = "version 3.4"
@@ -279,13 +294,18 @@ val GLFWerrorfun = Module.GLFW.callback {
 }
 
 val GLFWallocator = struct(Module.GLFW, "GLFWAllocator", nativeName = "GLFWallocator") {
-    documentation = "A custom memory allocator that can be set with #InitAllocator()."
+    documentation =
+        """
+        Custom heap memory allocator.
+
+        This describes a custom heap memory allocator for GLFW. To set an allocator, pass it to #InitAllocator() before initializing the library.
+        """
     since = "version 3.4"
 
-    GLFWallocatefun("allocate", "the memory allocation callback")
-    GLFWreallocatefun("reallocate", "the memory reallocation callback")
-    GLFWdeallocatefun("deallocate", "the memory deallocation callback")
-    nullable..opaque_p("user", "a user-defined pointer that will be passed to the callbacks")
+    GLFWallocatefun("allocate", "the memory allocation function")
+    GLFWreallocatefun("reallocate", "the memory reallocation function")
+    GLFWdeallocatefun("deallocate", "the memory deallocation function")
+    nullable..opaque_p("user", "the user pointer for this custom allocator. This value will be passed to the allocator functions.")
 }
 
 val GLFWmonitorfun = Module.GLFW.callback {
@@ -616,6 +636,86 @@ val GLFWcharmodsfun = Module.GLFW.callback {
     /** See {@link GLFW#glfwSetCharModsCallback SetCharModsCallback}. */
     public GLFWCharModsCallback set(long window) {
         glfwSetCharModsCallback(window, this);
+        return this;
+    }
+    """
+    }
+}
+
+val GLFWpreeditfun = Module.GLFW.callback {
+    void(
+        "GLFWPreeditCallback",
+        "The function pointer type for preedit callbacks.",
+
+        GLFWwindow.p("window", "the window that received the event"),
+        AutoSize("preedit_string")..int("preedit_count", "preedit string count"),
+        unsigned_int.p("preedit_string", "preedit string"),
+        AutoSize("block_sizes")..int("block_count", "attributed block count"),
+        int.p("block_sizes", "list of attributed block size"),
+        int("focused_block", "Focused block index"),
+        int("caret", "Caret position"),
+
+        nativeType = "GLFWpreeditfun"
+    ) {
+        documentation = "Instances of this interface may be passed to the #SetPreeditCallback() method."
+        since = "version 3.X"
+        javaImport("static org.lwjgl.glfw.GLFW.*")
+        additionalCode = """
+    /** See {@link GLFW#glfwSetPreeditCallback SetPreeditCallback}. */
+    public GLFWPreeditCallback set(long window) {
+        glfwSetPreeditCallback(window, this);
+        return this;
+    }
+    """
+    }
+}
+
+val GLFWimestatusfun = Module.GLFW.callback {
+    void(
+        "GLFWIMEStatusCallback",
+        "The function pointer type for IME status change callbacks.",
+
+        GLFWwindow.p("window", "the window that received the event"),
+
+        nativeType = "GLFWimestatusfun"
+    ) {
+        documentation = "Instances of this interface may be passed to the #SetIMEStatusCallback() method."
+        since = "version 3.X"
+        javaImport("static org.lwjgl.glfw.GLFW.*")
+        additionalCode = """
+    /** See {@link GLFW#glfwSetIMEStatusCallback SetIMEStatusCallback}. */
+    public GLFWIMEStatusCallback set(long window) {
+        glfwSetIMEStatusCallback(window, this);
+        return this;
+    }
+    """
+    }
+}
+
+val GLFWpreeditcandidatefun = Module.GLFW.callback {
+    void(
+        "GLFWPreeditCandidateCallback",
+        """
+        The function pointer type for preedit candidate callbacks.
+
+        Use #GetPreeditCandidate() to get the candidate text for a specific index.
+        """,
+
+        GLFWwindow.p("window", "the window that received the event"),
+        int("candidates_count", "candidates count"),
+        int("selected_index", "index of selected candidate"),
+        int("page_start", "start index of candidate currently displayed"),
+        int("page_size", "count of candidates currently displayed"),
+
+        nativeType = "GLFWpreeditcandidatefun"
+    ) {
+        documentation = "Instances of this interface may be passed to the #SetPreeditCandidateCallback() method."
+        since = "version 3.X"
+        javaImport("static org.lwjgl.glfw.GLFW.*")
+        additionalCode = """
+    /** See {@link GLFW#glfwSetPreeditCandidateCallback SetPreeditCandidateCallback}. */
+    public GLFWPreeditCandidateCallback set(long window) {
+        glfwSetPreeditCandidateCallback(window, this);
         return this;
     }
     """

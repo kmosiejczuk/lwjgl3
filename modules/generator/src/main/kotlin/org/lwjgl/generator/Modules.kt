@@ -38,6 +38,11 @@ enum class Module(
         "org.lwjgl.system.linux",
         "Contains bindings to native APIs specific to the Linux operating system."
     ),
+    CORE_FREEBSD(
+        "core.freebsd",
+        "org.lwjgl.system.freebsd",
+        "Contains bindings to native APIs specific to the FreeBSD operating system."
+    ),
     CORE_LINUX_LIBURING(
         "core.linux.liburing",
         "org.lwjgl.system.linux.liburing",
@@ -226,11 +231,11 @@ enum class Module(
         The jemalloc shared library that comes with LWJGL is configured with:
         ${ul(
             "--with-jemalloc-prefix=je_",
-            "--enable-lazy-lock (Linux)",
+            "--enable-lazy-lock=no (FreeBSD)",
             "--disable-stats",
             "--disable-fill",
             "--disable-cxx",
-            "--disable-initial-exec-tls (Linux &amp; macOS)",
+            "--disable-initial-exec-tls (FreeBSD, Linux &amp; macOS)",
             "--disable-zone-allocator (macOS)"
         )}
 
@@ -412,6 +417,13 @@ enum class Module(
         library = JNILibrary.create("LibMeshOptimizer"),
         arrayOverloads = false
     ),
+    MSDFGEN(
+        "msdfgen",
+        "org.lwjgl.util.msdfgen",
+        "Contains bindings to ${url("https://github.com/Chlumsky/msdfgen", "msdfgen")}, a multi-channel signed distance field generator library.",
+        library = JNILibrary.create("LibMsdfGen"),
+        arrayOverloads = false
+    ),
     NANOVG(
         "nanovg",
         "org.lwjgl.nanovg",
@@ -430,7 +442,7 @@ enum class Module(
         """,
         library = JNILibrary.create(
             "LibNFD",
-            libraryName = "Platform.get() == Platform.LINUX && Configuration.NFD_LINUX_PORTAL.get(false) ? \"lwjgl_nfd_portal\" : \"lwjgl_nfd\"",
+            libraryName = "(Platform.get() == Platform.FREEBSD || Platform.get() == Platform.LINUX) && Configuration.NFD_LINUX_PORTAL.get(false) ? \"lwjgl_nfd_portal\" : \"lwjgl_nfd\"",
             setupAllocator = true
         )
     ),

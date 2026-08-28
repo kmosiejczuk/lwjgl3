@@ -16,7 +16,6 @@ val KHR_separate_depth_stencil_layouts = "KHRSeparateDepthStencilLayouts".native
         <h5>Promotion to Vulkan 1.2</h5>
         All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
 
-        <h5>VK_KHR_separate_depth_stencil_layouts</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_separate_depth_stencil_layouts}</dd>
@@ -31,9 +30,9 @@ val KHR_separate_depth_stencil_layouts = "KHRSeparateDepthStencilLayouts".native
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRCreateRenderpass2 VK_KHR_create_renderpass2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRCreateRenderpass2 VK_KHR_create_renderpass2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2">Version 1.2</a></dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
             </ul></dd>
@@ -48,11 +47,6 @@ val KHR_separate_depth_stencil_layouts = "KHRSeparateDepthStencilLayouts".native
         <dl>
             <dt><b>Last Modified Date</b></dt>
             <dd>2019-06-25</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.2 Core</li>
-            </ul></dd>
 
             <dt><b>Contributors</b></dt>
             <dd><ul>

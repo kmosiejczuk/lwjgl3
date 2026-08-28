@@ -12,8 +12,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>Functionality in this extension was included in {@link KHRShaderFloat16Int8 VK_KHR_shader_float16_int8} extension, when {@link VkPhysicalDeviceShaderFloat16Int8FeaturesKHR}{@code ::shaderFloat16} is enabled.</p>
  * 
- * <h5>VK_AMD_gpu_shader_half_float</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_AMD_gpu_shader_half_float}</dd>
@@ -23,7 +21,11 @@ package org.lwjgl.vulkan;
  * <dd>37</dd>
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>SPIR-V Dependencies</b></dt>
+ * <dd><ul>
+ * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/AMD/SPV_AMD_gpu_shader_half_float.html">SPV_AMD_gpu_shader_half_float</a></li>
+ * </ul></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Deprecated</em> by {@link KHRShaderFloat16Int8 VK_KHR_shader_float16_int8} extension
  * 
@@ -47,7 +49,6 @@ package org.lwjgl.vulkan;
  * <dd>No known IP claims.</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/AMD/SPV_AMD_gpu_shader_half_float.html">{@code SPV_AMD_gpu_shader_half_float}</a></li>
  * <li>This extension provides API support for <a href="https://registry.khronos.org/OpenGL/extensions/AMD/AMD_gpu_shader_half_float.txt">{@code GL_AMD_gpu_shader_half_float}</a></li>
  * </ul></dd>
  * <dt><b>Contributors</b></dt>

@@ -25,6 +25,12 @@ fun templateCustomization() {
     """
     }
 
+    VkMemoryRequirements.definition.apply {
+        this["size"].mutable()
+        this["alignment"].mutable()
+        this["memoryTypeBits"].mutable()
+    }
+
     VkShaderModuleCreateInfo.definition.apply {
         AutoSize("pCode")..this["codeSize"]
         PrimitiveType("uint32_t", PrimitiveMapping.BYTE).const.p("pCode", "points to code that is used to create the shader module")
@@ -45,7 +51,7 @@ fun templateCustomization() {
 
         IntConstant(
             "The Vulkan registry version used to generate the LWJGL bindings.",
-            "HEADER_VERSION".."264"
+            "HEADER_VERSION".."289"
         )
 
         LongConstant(
@@ -447,7 +453,7 @@ fun templateCustomization() {
                 EXT_texel_buffer_alignment.link,
                 EXT_texture_compression_astc_hdr.link,
                 EXT_tooling_info.link,
-                EXT_ycbcr_2plane_444_formats.link                
+                EXT_ycbcr_2plane_444_formats.link
             )}
 
             All differences in behavior between these extensions and the corresponding Vulkan 1.3 functionality are summarized below.

@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>A runtime <b>may</b> not maintain a full history of hand mesh data, therefore the returned {@link XrHandMeshMSFT} might return data that’s not exactly corresponding to the {@code time} input. If the runtime cannot return any tracking data for the given {@code time} at all, it <b>must</b> set {@code isActive} to {@link XR10#XR_FALSE FALSE} for the call to {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT}. Otherwise, if the runtime returns {@code isActive} as {@link XR10#XR_TRUE TRUE}, the data in {@link XrHandMeshMSFT} must be valid to use.</p>
+ * <p>A runtime <b>may</b> not maintain a full history of hand mesh data, therefore the returned {@link XrHandMeshMSFT} might return data that’s not exactly corresponding to the {@code time} input. If the runtime cannot return any tracking data for the given {@code time} at all, it <b>must</b> set {@link XrHandMeshMSFT}{@code ::isActive} to {@link XR10#XR_FALSE FALSE} for the call to {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT}. Otherwise, if the runtime returns {@link XrHandMeshMSFT}{@code ::isActive} as {@link XR10#XR_TRUE TRUE}, the data in {@link XrHandMeshMSFT} must be valid to use.</p>
  * 
  * <p>An application can choose different {@code handPoseType} values to query the hand mesh data. The returned hand mesh <b>must</b> be consistent to the hand joint space location on the same {@code XrHandTrackerEXT} when using the same {@code XrHandPoseTypeMSFT}.</p>
  * 
@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTHandTrackingMesh XR_MSFT_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrHandMeshUpdateInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTHandTrackingMesh#XR_TYPE_HAND_MESH_UPDATE_INFO_MSFT TYPE_HAND_MESH_UPDATE_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code handPoseType} <b>must</b> be a valid {@code XrHandPoseTypeMSFT} value</li>
  * </ul>
  * 

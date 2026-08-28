@@ -35,7 +35,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK10#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDepthBiasRepresentationInfoEXT}, {@link VkPipelineRasterizationConservativeStateCreateInfoEXT}, {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT}, {@link VkPipelineRasterizationLineStateCreateInfoEXT}, {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT}, {@link VkPipelineRasterizationStateRasterizationOrderAMD}, or {@link VkPipelineRasterizationStateStreamCreateInfoEXT}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDepthBiasRepresentationInfoEXT}, {@link VkPipelineRasterizationConservativeStateCreateInfoEXT}, {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT}, {@link VkPipelineRasterizationLineStateCreateInfoKHR}, {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT}, {@link VkPipelineRasterizationStateRasterizationOrderAMD}, or {@link VkPipelineRasterizationStateStreamCreateInfoEXT}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code flags} <b>must</b> be 0</li>
  * <li>{@code polygonMode} <b>must</b> be a valid {@code VkPolygonMode} value</li>
@@ -156,7 +156,7 @@ public class VkPipelineRasterizationStateCreateInfo extends Struct<VkPipelineRas
     /** reserved for future use. */
     @NativeType("VkPipelineRasterizationStateCreateFlags")
     public int flags() { return nflags(address()); }
-    /** controls whether to clamp the fragment’s depth values as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth">Depth Test</a>. If the pipeline is not created with {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT} present then enabling depth clamp will also disable clipping primitives to the z planes of the frustrum as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vertexpostproc-clipping">Primitive Clipping</a>. Otherwise depth clipping is controlled by the state set in {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT}. */
+    /** controls whether to clamp the fragment’s depth values as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fragops-depth">Depth Test</a>. If the pipeline is not created with {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT} present then enabling depth clamp will also disable clipping primitives to the z planes of the frustum as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vertexpostproc-clipping">Primitive Clipping</a>. Otherwise depth clipping is controlled by the state set in {@link VkPipelineRasterizationDepthClipStateCreateInfoEXT}. */
     @NativeType("VkBool32")
     public boolean depthClampEnable() { return ndepthClampEnable(address()) != 0; }
     /** controls whether primitives are discarded immediately before the rasterization stage. */
@@ -197,6 +197,8 @@ public class VkPipelineRasterizationStateCreateInfo extends Struct<VkPipelineRas
     public VkPipelineRasterizationStateCreateInfo pNext(VkPipelineRasterizationDepthClipStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPipelineRasterizationLineStateCreateInfoEXT} value to the {@code pNext} chain. */
     public VkPipelineRasterizationStateCreateInfo pNext(VkPipelineRasterizationLineStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkPipelineRasterizationLineStateCreateInfoKHR} value to the {@code pNext} chain. */
+    public VkPipelineRasterizationStateCreateInfo pNext(VkPipelineRasterizationLineStateCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT} value to the {@code pNext} chain. */
     public VkPipelineRasterizationStateCreateInfo pNext(VkPipelineRasterizationProvokingVertexStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPipelineRasterizationStateRasterizationOrderAMD} value to the {@code pNext} chain. */
@@ -545,6 +547,8 @@ public class VkPipelineRasterizationStateCreateInfo extends Struct<VkPipelineRas
         public VkPipelineRasterizationStateCreateInfo.Buffer pNext(VkPipelineRasterizationDepthClipStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPipelineRasterizationLineStateCreateInfoEXT} value to the {@code pNext} chain. */
         public VkPipelineRasterizationStateCreateInfo.Buffer pNext(VkPipelineRasterizationLineStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkPipelineRasterizationLineStateCreateInfoKHR} value to the {@code pNext} chain. */
+        public VkPipelineRasterizationStateCreateInfo.Buffer pNext(VkPipelineRasterizationLineStateCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT} value to the {@code pNext} chain. */
         public VkPipelineRasterizationStateCreateInfo.Buffer pNext(VkPipelineRasterizationProvokingVertexStateCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPipelineRasterizationStateRasterizationOrderAMD} value to the {@code pNext} chain. */

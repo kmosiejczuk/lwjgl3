@@ -27,8 +27,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>The new command {@link #vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV} can be used to query the various raster, color, depth/stencil sample count and reduction mode combinations that are supported by the implementation. This extension would allow an implementation to support the behavior of both {@code VK_NV_framebuffer_mixed_samples} and {@code VK_AMD_mixed_attachment_samples} extensions simultaneously.</p>
  * 
- * <h5>VK_NV_coverage_reduction_mode</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_coverage_reduction_mode}</dd>
@@ -39,7 +37,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+ * <dd>{@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Kedarnath Thangudu <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_coverage_reduction_mode]%20@kthangudu%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_coverage_reduction_mode%20extension*">kthangudu</a></li>
@@ -134,7 +132,7 @@ public class NVCoverageReductionMode {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pCombinations} is {@code NULL}, then the number of supported combinations for the given {@code physicalDevice} is returned in {@code pCombinationCount}. Otherwise, {@code pCombinationCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pCombinations} array, and on return the variable is overwritten with the number of values actually written to {@code pCombinations}. If the value of {@code pCombinationCount} is less than the number of combinations supported for the given {@code physicalDevice}, at most {@code pCombinationCount} values will be written to {@code pCombinations}, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the supported values were returned.</p>
+     * <p>If {@code pCombinations} is {@code NULL}, then the number of supported combinations for the given {@code physicalDevice} is returned in {@code pCombinationCount}. Otherwise, {@code pCombinationCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pCombinations} array, and on return the variable is overwritten with the number of values actually written to {@code pCombinations}. If the value of {@code pCombinationCount} is less than the number of combinations supported for the given {@code physicalDevice}, at most {@code pCombinationCount} values will be written to {@code pCombinations}, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the supported values were returned.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

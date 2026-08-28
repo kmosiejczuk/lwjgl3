@@ -20,13 +20,15 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>This structure is used for component values that may be fractional (floating-point). If used to represent physical distances, values <b>must</b> be in meters.</p>
+ * <p>This structure is used for component values that may be real numbers, represented with single-precision floating point. For representing extents in discrete values, such as texels, the integer variant {@link XrExtent2Di} is used instead.</p>
+ * 
+ * <p>If used to represent physical distances, values <b>must</b> be in meters.</p>
  * 
  * <p>The {@code width} and {@code height} value <b>must</b> be non-negative.</p>
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link XrCompositionLayerQuad}, {@link XrOffset2Df}, {@link XrPlaneDetectorLocationEXT}, {@link XrRect2Df}, {@link XrScenePlaneMSFT}, {@link VARJOMarkerTracking#xrGetMarkerSizeVARJO GetMarkerSizeVARJO}, {@link XR10#xrGetReferenceSpaceBoundsRect GetReferenceSpaceBoundsRect}</p>
+ * <p>{@link XrCompositionLayerQuad}, {@link XrOffset2Df}, {@link XrPlaneDetectorLocationEXT}, {@link XrRect2Df}, {@link XrSceneMarkerMSFT}, {@link XrScenePlaneMSFT}, {@link VARJOMarkerTracking#xrGetMarkerSizeVARJO GetMarkerSizeVARJO}, {@link XR10#xrGetReferenceSpaceBoundsRect GetReferenceSpaceBoundsRect}</p>
  * 
  * <h3>Layout</h3>
  * 

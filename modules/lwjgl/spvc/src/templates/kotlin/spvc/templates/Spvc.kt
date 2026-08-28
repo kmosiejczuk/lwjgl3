@@ -33,7 +33,7 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
         """
 
     IntConstant("", "C_API_VERSION_MAJOR".."0")
-    IntConstant("", "C_API_VERSION_MINOR".."57")
+    IntConstant("", "C_API_VERSION_MINOR".."61")
     IntConstant("", "C_API_VERSION_PATCH".."0")
 
     IntConstant("", "COMPILER_OPTION_COMMON_BIT"..0x1000000)
@@ -519,7 +519,11 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
         "COMPILER_OPTION_MSL_CHECK_DISCARDED_FRAG_STORES".enum("", "82 | SPVC_COMPILER_OPTION_MSL_BIT"),
         "COMPILER_OPTION_GLSL_ENABLE_ROW_MAJOR_LOAD_WORKAROUND".enum("", "83 | SPVC_COMPILER_OPTION_GLSL_BIT"),
         "COMPILER_OPTION_MSL_ARGUMENT_BUFFERS_TIER".enum("", "84 | SPVC_COMPILER_OPTION_MSL_BIT"),
-        "COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRAD".enum("", "85 | SPVC_COMPILER_OPTION_MSL_BIT")
+        "COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRAD".enum("", "85 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_READWRITE_TEXTURE_FENCES".enum("", "86 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_REPLACE_RECURSIVE_INPUTS".enum("", "87 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_AGX_MANUAL_CUBE_GRAD_FIXUP".enum("", "88 | SPVC_COMPILER_OPTION_MSL_BIT"),
+        "COMPILER_OPTION_MSL_FORCE_FRAGMENT_WITH_SIDE_EFFECTS_EXECUTION".enum("", "89 | SPVC_COMPILER_OPTION_MSL_BIT"),
     )
 
     void(
@@ -572,9 +576,20 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
 
     void(
         "msl_resource_binding_init",
-        "Initializes the resource binding struct. The defaults are non-zero.",
+        """
+        Deprecated: Use #msl_resource_binding_init_2().
+
+        Initializes the resource binding struct. The defaults are non-zero.
+        """,
 
         spvc_msl_resource_binding.p("binding", "")
+    )
+
+    void(
+        "msl_resource_binding_init_2",
+        "Initializes the resource binding struct. The defaults are non-zero.",
+
+        spvc_msl_resource_binding_2.p("binding", "")
     )
 
     unsigned_int(
@@ -894,10 +909,18 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
 
     spvc_result(
         "compiler_msl_add_resource_binding",
-        "",
+        "Deprecated, use #compiler_msl_add_resource_binding_2().",
 
         spvc_compiler("compiler", ""),
         spvc_msl_resource_binding.const.p("binding", "")
+    )
+
+    spvc_result(
+        "compiler_msl_add_resource_binding_2",
+        "",
+
+        spvc_compiler("compiler", ""),
+        spvc_msl_resource_binding_2.const.p("binding", "")
     )
 
     spvc_result(
@@ -1765,6 +1788,24 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
         Check(1)..size_t.p("count", "")
     )
 
+    unsigned_long_long(
+        "constant_get_scalar_u64",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", "")
+    )
+
+    long_long(
+        "constant_get_scalar_i64",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", "")
+    )
+
     spvc_type_id(
         "constant_get_type",
         "",
@@ -1820,6 +1861,26 @@ val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spv
         unsigned("column", ""),
         unsigned("row", ""),
         int("value", "")
+    )
+
+    void(
+        "constant_set_scalar_u64",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        unsigned_long_long("value", "")
+    )
+
+    void(
+        "constant_set_scalar_i64",
+        "",
+
+        spvc_constant("constant", ""),
+        unsigned("column", ""),
+        unsigned("row", ""),
+        long_long("value", "")
     )
 
     void(

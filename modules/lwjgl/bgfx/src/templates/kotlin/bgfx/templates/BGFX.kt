@@ -14,7 +14,7 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
     IntConstant(
         "API version",
 
-        "API_VERSION".."122"
+        "API_VERSION".."128"
     )
 
     ShortConstant(
@@ -456,33 +456,33 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         "CAPS_COMPUTE"..0x0000000000000004L,
         "CAPS_CONSERVATIVE_RASTER"..0x0000000000000008L,
         "CAPS_DRAW_INDIRECT"..0x0000000000000010L,
-        "CAPS_FRAGMENT_DEPTH"..0x0000000000000020L,
-        "CAPS_FRAGMENT_ORDERING"..0x0000000000000040L,
-        "CAPS_GRAPHICS_DEBUGGER"..0x0000000000000080L,
-        "CAPS_HDR10"..0x0000000000000100L,
-        "CAPS_HIDPI"..0x0000000000000200L,
-        "CAPS_IMAGE_RW"..0x0000000000000400L,
-        "CAPS_INDEX32"..0x000000000000800L,
-        "CAPS_INSTANCING"..0x0000000000001000L,
-        "CAPS_OCCLUSION_QUERY"..0x0000000000002000L,
-        "CAPS_RENDERER_MULTITHREADED"..0x0000000000004000L,
-        "CAPS_SWAP_CHAIN"..0x000000000008000L,
-        "CAPS_TEXTURE_2D_ARRAY"..0x0000000000010000L,
-        "CAPS_TEXTURE_3D"..0x0000000000020000L,
+        "CAPS_DRAW_INDIRECT_COUNT"..0x0000000000000020L,
+        "CAPS_FRAGMENT_DEPTH"..0x0000000000000040L,
+        "CAPS_FRAGMENT_ORDERING"..0x0000000000000080L,
+        "CAPS_GRAPHICS_DEBUGGER"..0x0000000000000100L,
+        "CAPS_HDR10"..0x0000000000000200L,
+        "CAPS_HIDPI"..0x0000000000000400L,
+        "CAPS_IMAGE_RW"..0x0000000000000800L,
+        "CAPS_INDEX32"..0x0000000000001000L,
+        "CAPS_INSTANCING"..0x0000000000002000L,
+        "CAPS_OCCLUSION_QUERY"..0x0000000000004000L,
+        "CAPS_PRIMITIVE_ID"..0x0000000000008000L,
+        "CAPS_RENDERER_MULTITHREADED"..0x0000000000010000L,
+        "CAPS_SWAP_CHAIN"..0x0000000000020000L,
         "CAPS_TEXTURE_BLIT"..0x0000000000040000L,
-        "CAPS_TRANSPARENT_BACKBUFFER"..0x0000000000080000L,
+        "CAPS_TEXTURE_COMPARE_LEQUAL"..0x0000000000080000L,
         "CAPS_TEXTURE_COMPARE_RESERVED"..0x0000000000100000L,
-        "CAPS_TEXTURE_COMPARE_LEQUAL"..0x0000000000200000L,
-        "CAPS_TEXTURE_COMPARE_ALL".."BGFX_CAPS_TEXTURE_COMPARE_RESERVED | BGFX_CAPS_TEXTURE_COMPARE_LEQUAL",
-        "CAPS_TEXTURE_CUBE_ARRAY"..0x0000000000400000L,
-        "CAPS_TEXTURE_DIRECT_ACCESS"..0x0000000000800000L,
-        "CAPS_TEXTURE_READ_BACK"..0x0000000001000000L,
-        "CAPS_VERTEX_ATTRIB_HALF"..0x0000000002000000L,
-        "CAPS_VERTEX_ATTRIB_UINT10"..0x0000000004000000L,
-        "CAPS_VERTEX_ID"..0x0000000008000000L,
-        "CAPS_PRIMITIVE_ID"..0x0000000010000000L,
-        "CAPS_VIEWPORT_LAYER_ARRAY"..0x0000000020000000L,
-        "CAPS_DRAW_INDIRECT_COUNT"..0x0000000040000000L
+        "CAPS_TEXTURE_CUBE_ARRAY"..0x0000000000200000L,
+        "CAPS_TEXTURE_DIRECT_ACCESS"..0x0000000000400000L,
+        "CAPS_TEXTURE_READ_BACK"..0x0000000000800000L,
+        "CAPS_TEXTURE_2D_ARRAY"..0x0000000001000000L,
+        "CAPS_TEXTURE_3D"..0x0000000002000000L,
+        "CAPS_TRANSPARENT_BACKBUFFER"..0x0000000004000000L,
+        "CAPS_VERTEX_ATTRIB_HALF"..0x0000000008000000L,
+        "CAPS_VERTEX_ATTRIB_UINT10"..0x0000000010000000L,
+        "CAPS_VERTEX_ID"..0x0000000020000000L,
+        "CAPS_VIEWPORT_LAYER_ARRAY"..0x0000000040000000L,
+        "CAPS_TEXTURE_COMPARE_ALL".."BGFX_CAPS_TEXTURE_COMPARE_RESERVED | BGFX_CAPS_TEXTURE_COMPARE_LEQUAL"
     )
 
     IntConstant(
@@ -555,7 +555,6 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
 
         "RENDERER_TYPE_NOOP".enum("No rendering."),
         "RENDERER_TYPE_AGC".enum("AGC"),
-        "RENDERER_TYPE_DIRECT3D9".enum("Direct3D 9.0"),
         "RENDERER_TYPE_DIRECT3D11".enum("Direct3D 11.0"),
         "RENDERER_TYPE_DIRECT3D12".enum("Direct3D 12.0"),
         "RENDERER_TYPE_GNM".enum("GNM"),
@@ -564,7 +563,6 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         "RENDERER_TYPE_OPENGLES".enum("OpenGL ES 2.0+"),
         "RENDERER_TYPE_OPENGL".enum("OpenGL 2.1+"),
         "RENDERER_TYPE_VULKAN".enum("Vulkan"),
-        "BGFX_RENDERER_TYPE_WEBGPU".enum("WebGPU"),
 
         "RENDERER_TYPE_COUNT".enum
     ).javaDocLinks
@@ -828,7 +826,7 @@ RGBA16S
     ).javaDocLinksSkipCount
 
     EnumConstant(
-        "({@code bgfx_native_window_handle_type}).",
+        "Native window handle type. ({@code bgfx_native_window_handle_type}).",
 
         "NATIVE_WINDOW_HANDLE_TYPE_DEFAULT".enum("Platform default handle type (X11 on Linux)"),
         "NATIVE_WINDOW_HANDLE_TYPE_WAYLAND".enum("Wayland"),
@@ -972,7 +970,7 @@ RGBA16S
         )..void.p("_output", "welded vertices remapping table. The size of buffer must be the same as number of vertices."),
         bgfx_vertex_layout_t.const.p("_layout", "vertex stream layout"),
         Unsafe..void.const.p("_data", "vertex stream"),
-        AutoSizeShr("(_index32 ? 2 : 1)", "_output")..uint32_t("_num", "number of vertices in vertex stream"),
+        AutoSizeShr("_index32 ? 2 : 1", "_output")..uint32_t("_num", "number of vertices in vertex stream"),
         bool("_index32", "set to {@code true} if input indices are 32-bit"),
         float("_epsilon", "error tolerance for vertex position comparison"),
 
@@ -999,7 +997,7 @@ RGBA16S
             PointerMapping.DATA_SHORT,
             PointerMapping.DATA_INT
         )..void.const.p("_indices", "source indices"),
-        AutoSizeShr("(_index32 ? 2 : 1)", "_indices")..uint32_t("_numIndices", "number of input indices"),
+        AutoSizeShr("_index32 ? 2 : 1", "_indices")..uint32_t("_numIndices", "number of input indices"),
         bool("_index32", "set to {@code true} if input indices are 32-bit"),
 
         returnDoc = "number of output indices after conversion"
@@ -1032,7 +1030,7 @@ RGBA16S
             PointerMapping.DATA_SHORT,
             PointerMapping.DATA_INT
         )..void.const.p("_indices", "source indices"),
-        AutoSizeShr("(_index32 ? 2 : 1)", "_indices")..uint32_t("_numIndices", "number of input indices"),
+        AutoSizeShr("_index32 ? 2 : 1", "_indices")..uint32_t("_numIndices", "number of input indices"),
         bool("_index32", "set to {@code true} if input indices are 32-bit")
     )
 
@@ -1055,9 +1053,9 @@ RGBA16S
 
     void(
         "init_ctor",
-        "Updates the specified initialization parameters with default values.",
+        "Fill {@code bgfx_init_t} struct with default values, before using it to initialize the library.",
 
-        bgfx_init_t.p("_init", "initialization parameters")
+        bgfx_init_t.p("_init", "pointer to structure to be initialized")
     )
 
     bool(
@@ -1458,7 +1456,11 @@ RGBA16S
 
     bgfx_shader_handle_t(
         "create_shader",
-        "Creates shader from memory buffer.",
+        """
+        Creates shader from memory buffer.
+
+        Shader binary is obtained by compiling shader offline with shaderc command line tool.
+        """,
 
         bgfx_memory_t.const.p("_mem", ""),
 
@@ -1542,7 +1544,7 @@ RGBA16S
         "is_frame_buffer_valid",
         "Validate frame buffer parameters.",
 
-        MapToInt..uint8_t("_num", "number of attachments"),
+        AutoSize("_attachment")..uint8_t("_num", "number of attachments"),
         bgfx_attachment_t.const.p("_attachment", "attachment texture info"),
 
         returnDoc = "true if a frame buffer with the same parameters can be created"
@@ -1801,7 +1803,15 @@ RGBA16S
         MapToInt..uint16_t("_width", "texture width"),
         MapToInt..uint16_t("_height", "texture height"),
         bgfx_texture_format_t("_format", "texture format", TextureFormat),
-        uint64_t("_textureFlags", "default texture sampling mode is linear, and wrap mode is repeat", "$TextureFlags $SamplerFlags"),
+        uint64_t(
+            "_textureFlags",
+            """
+            texture creation and sampler flags.
+
+            Default texture sampling mode is linear, and wrap mode is repeat.
+            """,
+            "$TextureFlags $SamplerFlags"
+        ),
 
         returnDoc = "handle to frame buffer object"
     )
@@ -1812,7 +1822,15 @@ RGBA16S
 
         bgfx_backbuffer_ratio_t("_ratio", "frame buffer size in respect to back-buffer size", BackbufferRatio),
         bgfx_texture_format_t("_format", "texture format", TextureFormat),
-        uint64_t("_textureFlags", "default texture sampling mode is linear, and wrap mode is repeat", "$TextureFlags $SamplerFlags"),
+        uint64_t(
+            "_textureFlags",
+            """
+            texture creation and sampler flags.
+
+            Default texture sampling mode is linear, and wrap mode is repeat.
+            """,
+            "$TextureFlags $SamplerFlags"
+        ),
 
         returnDoc = "handle to frame buffer object"
     )
@@ -1991,7 +2009,8 @@ RGBA16S
         """,
 
         MapToInt..bgfx_view_id_t("_id", "view id"),
-        charASCII.const.p("_name", "view name")
+        charASCII.const.p("_name", "view name"),
+        AutoSize("_name")..int32_t("_len", "view name length (if length is {@code INT32_MAX}, it's expected that {@code _name} is zero terminated string)")
     )
 
     void(
@@ -2128,10 +2147,15 @@ RGBA16S
 
     void(
         "encoder_set_marker",
-        "Sets debug marker.",
+        """
+        Sets a debug marker.
+
+        This allows you to group graphics calls together for easy browsing in graphics debugging tools.
+        """,
 
         bgfx_encoder_t.p("_this", "the encoder"),
-        charASCII.const.p("_marker", "debug marker")
+        charASCII.const.p("_name", "marker name"),
+        AutoSize("_name")..int32_t("_len", "marker name length (if length is {@code INT32_MAX}, it's expected that {@code _nane} is zero terminated string)")
     )
 
     void(
@@ -2479,8 +2503,8 @@ BGFX_STATE_BLEND_EQUATION_SEPARATE(_equationRGB, _equationA)""")}
         MapToInt..bgfx_view_id_t("_id", "view id"),
         bgfx_program_handle_t("_handle", "program"),
         bgfx_indirect_buffer_handle_t("_indirectHandle", "indirect buffer"),
-        MapToInt..uint16_t("_start", "first element in indirect buffer"),
-        MapToInt..uint16_t("_num", "number of draws"),
+        uint32_t("_start", "first element in indirect buffer"),
+        uint32_t("_num", "number of draws"),
         uint32_t("_depth", "depth for sorting"),
         MapToInt..uint8_t("_flags", "discard or preserve states", DiscardFlags, LinkMode.BITFIELD)
     )
@@ -2497,10 +2521,10 @@ BGFX_STATE_BLEND_EQUATION_SEPARATE(_equationRGB, _equationA)""")}
         MapToInt..bgfx_view_id_t("_id", "view id"),
         bgfx_program_handle_t("_program", "program"),
         bgfx_indirect_buffer_handle_t("_indirectHandle", "indirect buffer"),
-        MapToInt..uint16_t("_start", "first element in indirect buffer"),
+        uint32_t("_start", "first element in indirect buffer"),
         bgfx_index_buffer_handle_t("_numHandle", "buffer for number of draws. Must be created with #BUFFER_INDEX32 and #BUFFER_DRAW_INDIRECT"),
         uint32_t("_numIndex", "element in number buffer"),
-        MapToInt..uint16_t("_numMax", "max number of draws"),
+        uint32_t("_numMax", "max number of draws"),
         uint32_t("_depth", "depth for sorting"),
         MapToInt..uint8_t("_flags", "discard or preserve states", DiscardFlags, LinkMode.BITFIELD)
     )
@@ -2588,8 +2612,8 @@ BGFX_STATE_BLEND_EQUATION_SEPARATE(_equationRGB, _equationA)""")}
         MapToInt..bgfx_view_id_t("_id", "view id"),
         bgfx_program_handle_t("_handle", "compute program"),
         bgfx_indirect_buffer_handle_t("_indirectHandle", "indirect buffer"),
-        MapToInt..uint16_t("_start", "first element in indirect buffer"),
-        MapToInt..uint16_t("_num", "number of dispatches"),
+        uint32_t("_start", "first element in indirect buffer"),
+        uint32_t("_num", "number of dispatches"),
         MapToInt..uint8_t("_flags", "discard or preserve states", DiscardFlags, LinkMode.BITFIELD)
     )
 
@@ -2648,9 +2672,14 @@ BGFX_STATE_BLEND_EQUATION_SEPARATE(_equationRGB, _equationA)""")}
 
     void(
         "set_marker",
-        "Sets debug marker.",
+        """
+        Sets a debug marker.
 
-        charASCII.const.p("_marker", "debug marker")
+        This allows you to group graphics calls together for easy browsing in graphics debugging tools.
+        """,
+
+        charASCII.const.p("_name", "marker name"),
+        AutoSize("_name")..int32_t("_len", "marker name length (if length is {@code INT32_MAX}, it's expected that {@code _name} is zero terminated string)")
     )
 
     void(
@@ -2967,8 +2996,8 @@ BGFX_STATE_BLEND_EQUATION_SEPARATE(_equationRGB, _equationA)""")}
         MapToInt..bgfx_view_id_t("_id", "view id"),
         bgfx_program_handle_t("_program", "program"),
         bgfx_indirect_buffer_handle_t("_indirectHandle", "indirect buffer"),
-        MapToInt..uint16_t("_start", "first element in indirect buffer"),
-        MapToInt..uint16_t("_num", "number of draws"),
+        uint32_t("_start", "first element in indirect buffer"),
+        uint32_t("_num", "number of draws"),
         uint32_t("_depth", "depth for sorting"),
         MapToInt..uint8_t("_flags", "which states to discard for next draw", DiscardFlags, LinkMode.BITFIELD)
     )
@@ -2984,10 +3013,10 @@ BGFX_STATE_BLEND_EQUATION_SEPARATE(_equationRGB, _equationA)""")}
         MapToInt..bgfx_view_id_t("_id", "view id"),
         bgfx_program_handle_t("_program", "program"),
         bgfx_indirect_buffer_handle_t("_indirectHandle", "indirect buffer"),
-        MapToInt..uint16_t("_start", "first element in indirect buffer"),
+        uint32_t("_start", "first element in indirect buffer"),
         bgfx_index_buffer_handle_t("_numHandle", "buffer for number of draws. Must be created with #BUFFER_INDEX32 and #BUFFER_DRAW_INDIRECT"),
         uint32_t("_numIndex", "element in number buffer"),
-        MapToInt..uint16_t("_numMax", "max number of draws"),
+        uint32_t("_numMax", "max number of draws"),
         uint32_t("_depth", "depth for sorting"),
         MapToInt..uint8_t("_flags", "which states to discard for next draw", DiscardFlags, LinkMode.BITFIELD)
     )
@@ -3067,8 +3096,8 @@ BGFX_STATE_BLEND_EQUATION_SEPARATE(_equationRGB, _equationA)""")}
         MapToInt..bgfx_view_id_t("_id", "view id"),
         bgfx_program_handle_t("_program", "compute program"),
         bgfx_indirect_buffer_handle_t("_indirectHandle", "indirect buffer"),
-        MapToInt..uint16_t("_start", "first element in indirect buffer"),
-        MapToInt..uint16_t("_num", "number of dispatches"),
+        uint32_t("_start", "first element in indirect buffer"),
+        uint32_t("_num", "number of dispatches"),
         MapToInt..uint8_t("_flags", "discard or preserve states", DiscardFlags, LinkMode.BITFIELD)
     )
 

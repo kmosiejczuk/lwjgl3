@@ -16,14 +16,14 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_EXT_plane_detection">XR_EXT_plane_detection</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_EXT_plane_detection">XR_EXT_plane_detection</a> extension.
  * 
  * <p>This extension enables applications to detect planes in the scene.</p>
  */
 public class EXTPlaneDetection {
 
     /** The extension specification version. */
-    public static final int XR_EXT_plane_detection_SPEC_VERSION = 1;
+    public static final int XR_EXT_plane_detection_SPEC_VERSION = 2;
 
     /** The extension name. */
     public static final String XR_EXT_PLANE_DETECTION_EXTENSION_NAME = "XR_EXT_plane_detection";
@@ -362,9 +362,9 @@ public class EXTPlaneDetection {
      * 
      * <p>The {@link #xrBeginPlaneDetectionEXT BeginPlaneDetectionEXT} function begins the detection of planes in the scene. Detecting planes in a scene is an asynchronous operation. {@link #xrGetPlaneDetectionStateEXT GetPlaneDetectionStateEXT} <b>can</b> be used to determine if the query has finished. Once it has finished the results <b>may</b> be retrieved via {@link #xrGetPlaneDetectionsEXT GetPlaneDetectionsEXT}. If a detection has already been started on a plane detector handle, calling {@link #xrBeginPlaneDetectionEXT BeginPlaneDetectionEXT} again on the same handle will cancel the operation in progress and start a new detection with the new filter parameters.</p>
      * 
-     * <p>The bounding volume is resolved and fixed relative to LOCAL space at the time of the call to {@link #xrBeginPlaneDetectionEXT BeginPlaneDetectionEXT} using {@link XrPlaneDetectorBeginInfoEXT}{@code ::baseSpace}, {@link XrPlaneDetectorBeginInfoEXT}{@code ::time}, {@link XrPlaneDetectorBeginInfoEXT}{@code ::boundingBoxPose} and {@link XrPlaneDetectorBeginInfoEXT}{@code ::boundingBoxExtent}. The runtime <b>must</b> resolve the location defined by {@code baseSpace} at the time of the call. The {@link XrPlaneDetectorBeginInfoEXT}{@code ::boundingBoxPose} is the pose of the center of the box defined by {@link XrPlaneDetectorBeginInfoEXT}{@code ::boundingBoxExtent}.</p>
+     * <p>The bounding volume is resolved and fixed relative to LOCAL space at the time of the call to {@link #xrBeginPlaneDetectionEXT BeginPlaneDetectionEXT} using {@link XrPlaneDetectorBeginInfoEXT}{@code ::baseSpace}, {@link XrPlaneDetectorBeginInfoEXT}{@code ::time}, {@link XrPlaneDetectorBeginInfoEXT}{@code ::boundingBoxPose} and {@link XrPlaneDetectorBeginInfoEXT}{@code ::boundingBoxExtent}. The runtime <b>must</b> resolve the location defined by {@link XrPlaneDetectorBeginInfoEXT}{@code ::baseSpace} at the time of the call. The {@link XrPlaneDetectorBeginInfoEXT}{@code ::boundingBoxPose} is the pose of the center of the box defined by {@link XrPlaneDetectorBeginInfoEXT}{@code ::boundingBoxExtent}.</p>
      * 
-     * <p>The runtime <b>must</b> return {@link #XR_ERROR_SPACE_NOT_LOCATABLE_EXT ERROR_SPACE_NOT_LOCATABLE_EXT} if the {@code baseSpace} is not locatable at the time of the call.</p>
+     * <p>The runtime <b>must</b> return {@link #XR_ERROR_SPACE_NOT_LOCATABLE_EXT ERROR_SPACE_NOT_LOCATABLE_EXT} if the {@link XrPlaneDetectorBeginInfoEXT}{@code ::baseSpace} is not locatable at the time of the call.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

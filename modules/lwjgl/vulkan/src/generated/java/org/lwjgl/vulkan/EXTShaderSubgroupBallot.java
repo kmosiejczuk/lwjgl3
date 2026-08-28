@@ -12,7 +12,7 @@ package org.lwjgl.vulkan;
  * <li>{@code SPV_KHR_shader_ballot}</li>
  * </ul>
  * 
- * <p>This extension provides the ability for a group of invocations, which execute in parallel, to do limited forms of cross-invocation communication via a group broadcast of a invocation value, or broadcast of a bitarray representing a predicate value from each invocation in the group.</p>
+ * <p>This extension provides the ability for a group of invocations, which execute in parallel, to do limited forms of cross-invocation communication via a group broadcast of an invocation value, or broadcast of a bit array representing a predicate value from each invocation in the group.</p>
  * 
  * <p>This extension provides access to a number of additional built-in shader variables in Vulkan:</p>
  * 
@@ -53,8 +53,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>Most of the functionality in this extension is superseded by the core Vulkan 1.1 <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkPhysicalDeviceSubgroupProperties">subgroup operations</a>. However, Vulkan 1.1 required the {@code OpGroupNonUniformBroadcast} “{@code Id}” to be constant. This restriction was removed in Vulkan 1.2 with the addition of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-subgroupBroadcastDynamicId">{@code subgroupBroadcastDynamicId}</a> feature.</p>
  * 
- * <h5>VK_EXT_shader_subgroup_ballot</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_shader_subgroup_ballot}</dd>
@@ -64,7 +62,11 @@ package org.lwjgl.vulkan;
  * <dd>65</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>SPIR-V Dependencies</b></dt>
+ * <dd><ul>
+ * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_shader_ballot.html">SPV_KHR_shader_ballot</a></li>
+ * </ul></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Deprecated</em> by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.2-new-features">Vulkan 1.2</a></li>
  * </ul></dd>
@@ -83,7 +85,6 @@ package org.lwjgl.vulkan;
  * <dd>No known IP claims.</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_shader_ballot.html">{@code SPV_KHR_shader_ballot}</a></li>
  * <li>This extension provides API support for <a href="https://registry.khronos.org/OpenGL/extensions/ARB/ARB_shader_ballot.txt">{@code GL_ARB_shader_ballot}</a></li>
  * </ul></dd>
  * <dt><b>Contributors</b></dt>

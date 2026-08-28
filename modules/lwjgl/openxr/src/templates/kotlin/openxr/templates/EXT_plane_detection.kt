@@ -11,7 +11,7 @@ import openxr.*
 val EXT_plane_detection = "EXTPlaneDetection".nativeClassXR("EXT_plane_detection", type = "instance", postfix = "EXT") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_EXT_plane_detection">XR_EXT_plane_detection</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_EXT_plane_detection">XR_EXT_plane_detection</a> extension.
 
         This extension enables applications to detect planes in the scene.
         """
@@ -19,7 +19,7 @@ val EXT_plane_detection = "EXTPlaneDetection".nativeClassXR("EXT_plane_detection
     IntConstant(
         "The extension specification version.",
 
-        "EXT_plane_detection_SPEC_VERSION".."1"
+        "EXT_plane_detection_SPEC_VERSION".."2"
     )
 
     StringConstant(
@@ -300,9 +300,9 @@ val EXT_plane_detection = "EXTPlaneDetection".nativeClassXR("EXT_plane_detection
         <h5>Description</h5>
         The #BeginPlaneDetectionEXT() function begins the detection of planes in the scene. Detecting planes in a scene is an asynchronous operation. #GetPlaneDetectionStateEXT() <b>can</b> be used to determine if the query has finished. Once it has finished the results <b>may</b> be retrieved via #GetPlaneDetectionsEXT(). If a detection has already been started on a plane detector handle, calling #BeginPlaneDetectionEXT() again on the same handle will cancel the operation in progress and start a new detection with the new filter parameters.
 
-        The bounding volume is resolved and fixed relative to LOCAL space at the time of the call to #BeginPlaneDetectionEXT() using ##XrPlaneDetectorBeginInfoEXT{@code ::baseSpace}, ##XrPlaneDetectorBeginInfoEXT{@code ::time}, ##XrPlaneDetectorBeginInfoEXT{@code ::boundingBoxPose} and ##XrPlaneDetectorBeginInfoEXT{@code ::boundingBoxExtent}. The runtime <b>must</b> resolve the location defined by {@code baseSpace} at the time of the call. The ##XrPlaneDetectorBeginInfoEXT{@code ::boundingBoxPose} is the pose of the center of the box defined by ##XrPlaneDetectorBeginInfoEXT{@code ::boundingBoxExtent}.
+        The bounding volume is resolved and fixed relative to LOCAL space at the time of the call to #BeginPlaneDetectionEXT() using ##XrPlaneDetectorBeginInfoEXT{@code ::baseSpace}, ##XrPlaneDetectorBeginInfoEXT{@code ::time}, ##XrPlaneDetectorBeginInfoEXT{@code ::boundingBoxPose} and ##XrPlaneDetectorBeginInfoEXT{@code ::boundingBoxExtent}. The runtime <b>must</b> resolve the location defined by ##XrPlaneDetectorBeginInfoEXT{@code ::baseSpace} at the time of the call. The ##XrPlaneDetectorBeginInfoEXT{@code ::boundingBoxPose} is the pose of the center of the box defined by ##XrPlaneDetectorBeginInfoEXT{@code ::boundingBoxExtent}.
 
-        The runtime <b>must</b> return #ERROR_SPACE_NOT_LOCATABLE_EXT if the {@code baseSpace} is not locatable at the time of the call.
+        The runtime <b>must</b> return #ERROR_SPACE_NOT_LOCATABLE_EXT if the ##XrPlaneDetectorBeginInfoEXT{@code ::baseSpace} is not locatable at the time of the call.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

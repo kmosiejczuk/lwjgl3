@@ -16,8 +16,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>When using GLSL source-based shader languages, the {@code override_coverage} layout qualifier from {@code GL_NV_sample_mask_override_coverage} maps to the {@code OverrideCoverageNV} decoration. To use the {@code override_coverage} layout qualifier in GLSL the {@code GL_NV_sample_mask_override_coverage} extension must be enabled. Behavior is described in the {@code GL_NV_sample_mask_override_coverage} extension spec.</p>
  * 
- * <h5>VK_NV_sample_mask_override_coverage</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_sample_mask_override_coverage}</dd>
@@ -27,6 +25,10 @@ package org.lwjgl.vulkan;
  * <dd>95</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
+ * <dt><b>SPIR-V Dependencies</b></dt>
+ * <dd><ul>
+ * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_sample_mask_override_coverage.html">SPV_NV_sample_mask_override_coverage</a></li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Piers Daniell <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_sample_mask_override_coverage]%20@pdaniell-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_sample_mask_override_coverage%20extension*">pdaniell-nv</a></li>
@@ -42,7 +44,6 @@ package org.lwjgl.vulkan;
  * <dd>No known IP claims.</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_sample_mask_override_coverage.html">{@code SPV_NV_sample_mask_override_coverage}</a></li>
  * <li>This extension provides API support for <a href="https://registry.khronos.org/OpenGL/extensions/NV/NV_sample_mask_override_coverage.txt">{@code GL_NV_sample_mask_override_coverage}</a></li>
  * </ul></dd>
  * <dt><b>Contributors</b></dt>

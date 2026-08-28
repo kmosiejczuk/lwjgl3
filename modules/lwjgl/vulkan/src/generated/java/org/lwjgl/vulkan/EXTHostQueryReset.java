@@ -17,8 +17,6 @@ import static org.lwjgl.system.JNI.*;
  * 
  * <p>All functionality in this extension is included in core Vulkan 1.2, with the EXT suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
  * 
- * <h5>VK_EXT_host_query_reset</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_host_query_reset}</dd>
@@ -29,8 +27,8 @@ import static org.lwjgl.system.JNI.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.2-promotions">Vulkan 1.2</a></li>
  * </ul></dd>
@@ -47,10 +45,6 @@ import static org.lwjgl.system.JNI.*;
  * <dd>2019-03-06</dd>
  * <dt><b>IP Status</b></dt>
  * <dd>No known IP claims.</dd>
- * <dt><b>Interactions and External Dependencies</b></dt>
- * <dd><ul>
- * <li>Promoted to Vulkan 1.2 Core</li>
- * </ul></dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
  * <li>Bas Nieuwenhuizen, Google</li>

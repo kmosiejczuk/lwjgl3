@@ -14,9 +14,8 @@ val EXT_extended_dynamic_state2 = "EXTExtendedDynamicState2".nativeClassVK("EXT_
         This extension adds some more dynamic state to support applications that need to reduce the number of pipeline state objects they compile and bind.
 
         <h5>Promotion to Vulkan 1.3</h5>
-        This extension has been partially promoted. The dynamic state enumerants #DYNAMIC_STATE_DEPTH_BIAS_ENABLE_EXT, #DYNAMIC_STATE_PRIMITIVE_RESTART_ENABLE_EXT, and #DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE_EXT; and the corresponding entry points in this extension are included in core Vulkan 1.3, with the EXT suffix omitted. The enumerants and entry points for dynamic logic operation and patch control points are not promoted, nor is the feature structure. Extension interfaces that were promoted remain available as aliases of the core functionality.
+        This extension has been partially promoted. The dynamic state enumerants #DYNAMIC_STATE_DEPTH_BIAS_ENABLE_EXT, #DYNAMIC_STATE_PRIMITIVE_RESTART_ENABLE_EXT, and #DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE_EXT; and the corresponding commands in this extension are included in core Vulkan 1.3, with the EXT suffix omitted. The enumerants and commands for dynamic logic operation and patch control points are not promoted, nor is the feature structure. Extension interfaces that were promoted remain available as aliases of the core functionality.
 
-        <h5>VK_EXT_extended_dynamic_state2</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_extended_dynamic_state2}</dd>
@@ -33,7 +32,7 @@ val EXT_extended_dynamic_state2 = "EXTExtendedDynamicState2".nativeClassVK("EXT_
             <dt><b>Extension and Version Dependencies</b></dt>
             <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
@@ -48,11 +47,6 @@ val EXT_extended_dynamic_state2 = "EXTExtendedDynamicState2".nativeClassVK("EXT_
         <dl>
             <dt><b>Last Modified Date</b></dt>
             <dd>2021-04-12</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.3 Core</li>
-            </ul></dd>
 
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>
@@ -112,7 +106,13 @@ val EXT_extended_dynamic_state2 = "EXTExtendedDynamicState2".nativeClassVK("EXT_
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>Either the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-extendedDynamicState2PatchControlPoints">{@code extendedDynamicState2PatchControlPoints}</a> feature or the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderObject">{@code shaderObject}</a> feature or both <b>must</b> be enabled</li>
+            <li>
+                At least one of the following <b>must</b> be true:
+                <ul>
+                    <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-extendedDynamicState2PatchControlPoints">{@code extendedDynamicState2PatchControlPoints}</a> feature is enabled</li>
+                    <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+                </ul>
+            </li>
             <li>{@code patchControlPoints} <b>must</b> be greater than zero and less than or equal to ##VkPhysicalDeviceLimits{@code ::maxTessellationPatchSize}</li>
         </ul>
 
@@ -175,7 +175,13 @@ val EXT_extended_dynamic_state2 = "EXTExtendedDynamicState2".nativeClassVK("EXT_
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>Either the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-extendedDynamicState2LogicOp">{@code extendedDynamicState2LogicOp}</a> feature or the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderObject">{@code shaderObject}</a> feature or both <b>must</b> be enabled</li>
+            <li>
+                At least one of the following <b>must</b> be true:
+                <ul>
+                    <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-extendedDynamicState2LogicOp">{@code extendedDynamicState2LogicOp}</a> feature is enabled</li>
+                    <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderObject">{@code shaderObject}</a> feature is enabled</li>
+                </ul>
+            </li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>

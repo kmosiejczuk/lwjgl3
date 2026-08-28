@@ -14,7 +14,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_EXT_hand_tracking">XR_EXT_hand_tracking</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_EXT_hand_tracking">XR_EXT_hand_tracking</a> extension.
  * 
  * <p>This extension enables applications to locate the individual joints of hand tracking inputs. It enables applications to render hands in XR experiences and interact with virtual objects using hand joints.</p>
  */
@@ -210,7 +210,7 @@ public class EXTHandTracking {
      * </ul></dd>
      * </dl>
      * 
-     * <p>If the system does not support hand tracking, runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateHandTrackerEXT CreateHandTrackerEXT}. In this case, the runtime <b>must</b> return {@link XR10#XR_FALSE FALSE} for {@code supportsHandTracking} in {@link XrSystemHandTrackingPropertiesEXT} when the function {@link XR10#xrGetSystemProperties GetSystemProperties} is called, so that the application <b>can</b> avoid creating a hand tracker.</p>
+     * <p>If the system does not support hand tracking, runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateHandTrackerEXT CreateHandTrackerEXT}. In this case, the runtime <b>must</b> return {@link XR10#XR_FALSE FALSE} for {@link XrSystemHandTrackingPropertiesEXT}{@code ::supportsHandTracking} when the function {@link XR10#xrGetSystemProperties GetSystemProperties} is called, so that the application <b>can</b> avoid creating a hand tracker.</p>
      * 
      * <h5>See Also</h5>
      * 

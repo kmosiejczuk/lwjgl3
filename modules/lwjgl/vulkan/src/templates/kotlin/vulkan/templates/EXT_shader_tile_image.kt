@@ -42,7 +42,6 @@ val EXT_shader_tile_image = "EXTShaderTileImage".nativeClassVK("EXT_shader_tile_
 ￿    //..
 ￿}</code></pre>
 
-        <h5>VK_EXT_shader_tile_image</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_shader_tile_image}</dd>
@@ -58,6 +57,11 @@ val EXT_shader_tile_image = "EXTShaderTileImage".nativeClassVK("EXT_shader_tile_
 
             <dt><b>Extension and Version Dependencies</b></dt>
             <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3">Version 1.3</a></dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/EXT/SPV_EXT_shader_tile_image.html">SPV_EXT_shader_tile_image</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -78,8 +82,7 @@ val EXT_shader_tile_image = "EXTShaderTileImage".nativeClassVK("EXT_shader_tile_
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/EXT/SPV_EXT_shader_tile_image.html">{@code SPV_EXT_shader_tile_image}</a></li>
-                <li>This extension provides API support for <a href="https://raw.githubusercontent.com/KhronosGroup/GLSL/master/extensions/ext/GLSL_EXT_shader_tile_image.txt">{@code GL_EXT_shader_tile_image}</a></li>
+                <li>This extension provides API support for <a href="https://raw.githubusercontent.com/KhronosGroup/GLSL/main/extensions/ext/GLSL_EXT_shader_tile_image.txt">{@code GL_EXT_shader_tile_image}</a></li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>

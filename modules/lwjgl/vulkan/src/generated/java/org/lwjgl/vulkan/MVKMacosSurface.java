@@ -22,8 +22,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>The {@code VK_MVK_macos_surface} extension is considered deprecated and has been superseded by the {@link EXTMetalSurface VK_EXT_metal_surface} extension.</p>
  * 
- * <h5>VK_MVK_macos_surface</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_MVK_macos_surface}</dd>
@@ -35,7 +33,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>3</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd>{@link KHRSurface VK_KHR_surface}</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Deprecated</em> by {@link EXTMetalSurface VK_EXT_metal_surface} extension</li>
  * </ul></dd>
@@ -97,6 +95,13 @@ public class MVKMacosSurface {
      *     const VkMacOSSurfaceCreateInfoMVK*          pCreateInfo,
      *     const VkAllocationCallbacks*                pAllocator,
      *     VkSurfaceKHR*                               pSurface);</code></pre>
+     * 
+     * <h5>Description</h5>
+     * 
+     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+     * 
+     * <p>The {@code vkCreateMacOSSurfaceMVK} function is considered deprecated and has been superseded by {@link EXTMetalSurface#vkCreateMetalSurfaceEXT CreateMetalSurfaceEXT} from the {@link EXTMetalSurface VK_EXT_metal_surface} extension.</p>
+     * </div>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

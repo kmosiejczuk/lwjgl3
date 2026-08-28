@@ -14,7 +14,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_VARJO_marker_tracking">XR_VARJO_marker_tracking</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_VARJO_marker_tracking">XR_VARJO_marker_tracking</a> extension.
  * 
  * <p>Varjo Markers are physical markers tracked by the video cameras of the HMD. Different types of markers <b>can</b> be used for different purposes. As an example, Varjo Markers <b>can</b> be used as cheap replacements for electronic trackers. The cost per printed tracker is significantly lower and the markers require no power to function.</p>
  * 
@@ -194,7 +194,7 @@ public class VARJOMarkerTracking {
      * XrResult xrSetMarkerTrackingPredictionVARJO(
      *     XrSession                                   session,
      *     uint64_t                                    markerId,
-     *     XrBool32                                    enabled);</code></pre>
+     *     XrBool32                                    enable);</code></pre>
      * 
      * <h5>Description</h5>
      * 
@@ -229,14 +229,15 @@ public class VARJOMarkerTracking {
      *
      * @param session  an {@code XrSession} handle previously created with {@link XR10#xrCreateSession CreateSession}.
      * @param markerId the unique identifier of the marker which should be tracked with prediction.
+     * @param enable   whether to enable the prediction feature.
      */
     @NativeType("XrResult")
-    public static int xrSetMarkerTrackingPredictionVARJO(XrSession session, @NativeType("uint64_t") long markerId, @NativeType("XrBool32") boolean enabled) {
+    public static int xrSetMarkerTrackingPredictionVARJO(XrSession session, @NativeType("uint64_t") long markerId, @NativeType("XrBool32") boolean enable) {
         long __functionAddress = session.getCapabilities().xrSetMarkerTrackingPredictionVARJO;
         if (CHECKS) {
             check(__functionAddress);
         }
-        return callPJI(session.address(), markerId, enabled ? 1 : 0, __functionAddress);
+        return callPJI(session.address(), markerId, enable ? 1 : 0, __functionAddress);
     }
 
     // --- [ xrGetMarkerSizeVARJO ] ---
@@ -335,7 +336,7 @@ public class VARJOMarkerTracking {
      * 
      * <h5>Description</h5>
      * 
-     * <p>The {@link #xrCreateMarkerSpaceVARJO CreateMarkerSpaceVARJO} function creates marker {@code XrSpace} for pose relative to the marker specified in {@link XrMarkerSpaceCreateInfoVARJO}. The runtime <b>must</b> return {@link #XR_ERROR_MARKER_ID_INVALID_VARJO ERROR_MARKER_ID_INVALID_VARJO} if the supplied {@code markerId} is invalid.</p>
+     * <p>The {@link #xrCreateMarkerSpaceVARJO CreateMarkerSpaceVARJO} function creates marker {@code XrSpace} for pose relative to the marker specified in {@link XrMarkerSpaceCreateInfoVARJO}. The runtime <b>must</b> return {@link #XR_ERROR_MARKER_ID_INVALID_VARJO ERROR_MARKER_ID_INVALID_VARJO} if the supplied {@link XrMarkerSpaceCreateInfoVARJO}{@code ::markerId} is invalid.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

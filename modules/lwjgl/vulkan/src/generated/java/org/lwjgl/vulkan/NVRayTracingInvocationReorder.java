@@ -14,7 +14,7 @@ package org.lwjgl.vulkan;
  * 
  * <p>However, it is possible to use this functionality via <a href="https://github.com/microsoft/DirectXShaderCompiler/wiki/GL_EXT_spirv_intrinsics-for-SPIR-V-code-gen">SPIR-V Intrinsics</a>.</p>
  * 
- * <p>The codes for shader invocation reorder are obtained from <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_shader_invocation_reorder.html">this page</a>:</p>
+ * <p>The codes for shader invocation reorder are obtained from <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/NV/SPV_NV_shader_invocation_reorder.html">this page</a>:</p>
  * 
  * <pre><code>
  * #define ShaderInvocationReorderNV 5383
@@ -140,8 +140,6 @@ package org.lwjgl.vulkan;
  * <li>Function with a payload parameter, needs to have the payload struct defined before. There are no templated declaration of the function.</li>
  * </ul>
  * 
- * <h5>VK_NV_ray_tracing_invocation_reorder</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_ray_tracing_invocation_reorder}</dd>
@@ -153,6 +151,10 @@ package org.lwjgl.vulkan;
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd>{@link KHRRayTracingPipeline VK_KHR_ray_tracing_pipeline}</dd>
+ * <dt><b>SPIR-V Dependencies</b></dt>
+ * <dd><ul>
+ * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_shader_invocation_reorder.html">SPV_NV_shader_invocation_reorder</a></li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Eric Werness <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_ray_tracing_invocation_reorder]%20@ewerness-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_ray_tracing_invocation_reorder%20extension*">ewerness-nv</a></li>
@@ -166,8 +168,7 @@ package org.lwjgl.vulkan;
  * <dd>2022-11-02</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_shader_invocation_reorder.html">{@code SPV_NV_shader_invocation_reorder}</a></li>
- * <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/nv/GLSL_NV_shader_invocation_reorder.txt">{@code GL_NV_shader_invocation_reorder}</a></li>
+ * <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/nv/GLSL_NV_shader_invocation_reorder.txt">{@code GL_NV_shader_invocation_reorder}</a></li>
  * </ul></dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>

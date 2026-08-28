@@ -12,7 +12,6 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
-import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
@@ -21,17 +20,17 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>An application <b>should</b> preallocate the indices array using the {@code maxHandMeshIndexCount} in {@link XrSystemHandTrackingMeshPropertiesMSFT} returned from {@link XR10#xrGetSystemProperties GetSystemProperties}. In this way, the application can avoid possible insufficient buffer sizees for each query, and therefore avoid reallocating memory each frame.</p>
+ * <p>An application <b>should</b> preallocate the indices array using the {@link XrSystemHandTrackingMeshPropertiesMSFT}{@code ::maxHandMeshIndexCount} returned from {@link XR10#xrGetSystemProperties GetSystemProperties}. In this way, the application can avoid possible insufficient buffer sizees for each query, and therefore avoid reallocating memory each frame.</p>
  * 
  * <p>The input {@code indexCapacityInput} <b>must</b> not be 0, and {@code indices} <b>must</b> not be {@code NULL}, or else the runtime <b>must</b> return {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE} on calls to the {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT} function.</p>
  * 
  * <p>If the input {@code indexCapacityInput} is not sufficient to contain all output indices, the runtime <b>must</b> return {@link XR10#XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT} on calls to {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT}, not change the content in {@code indexBufferKey} and {@code indices}, and return 0 for {@code indexCountOutput}.</p>
  * 
- * <p>If the input {@code indexCapacityInput} is equal to or larger than the {@code maxHandMeshIndexCount} in {@link XrSystemHandTrackingMeshPropertiesMSFT} returned from {@link XR10#xrGetSystemProperties GetSystemProperties}, the runtime <b>must</b> not return {@link XR10#XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT} error on {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT} because of insufficient index buffer size.</p>
+ * <p>If the input {@code indexCapacityInput} is equal to or larger than the {@link XrSystemHandTrackingMeshPropertiesMSFT}{@code ::maxHandMeshIndexCount} returned from {@link XR10#xrGetSystemProperties GetSystemProperties}, the runtime <b>must</b> not return {@link XR10#XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT} error on {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT} because of insufficient index buffer size.</p>
  * 
  * <p>If the input {@code indexBufferKey} is 0, the capacity of indices array is sufficient, and hand mesh tracking is active, the runtime <b>must</b> return the latest non-zero {@code indexBufferKey}, and fill in {@code indexCountOutput} and {@code indices}.</p>
  * 
- * <p>If the input {@code indexBufferKey} is not 0, the runtime <b>can</b> either return without changing {@code indexCountOutput} or content in {@code indices}, and return {@link XR10#XR_FALSE FALSE} for {@code indexBufferChanged} indicating the indices are not changed; or return a new non-zero {@code indexBufferKey} and fill in latest data in {@code indexCountOutput} and {@code indices}, and return {@link XR10#XR_TRUE TRUE} for {@code indexBufferChanged} indicating the indices are updated to a newer version.</p>
+ * <p>If the input {@code indexBufferKey} is not 0, the runtime <b>can</b> either return without changing {@code indexCountOutput} or content in {@code indices}, and return {@link XR10#XR_FALSE FALSE} for {@link XrHandMeshMSFT}{@code ::indexBufferChanged} indicating the indices are not changed; or return a new non-zero {@code indexBufferKey} and fill in latest data in {@code indexCountOutput} and {@code indices}, and return {@link XR10#XR_TRUE TRUE} for {@link XrHandMeshMSFT}{@code ::indexBufferChanged} indicating the indices are updated to a newer version.</p>
  * 
  * <p>An application <b>can</b> keep the {@link XrHandMeshIndexBufferMSFT} structure for each frame in a frame loop and use the returned {@code indexBufferKey} to identify different triangle list topology described in {@code indices}. The application can therefore avoid unnecessary processing of indices, such as coping them to GPU memory.</p>
  * 
@@ -41,8 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>The {@link MSFTHandTrackingMesh XR_MSFT_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrHandMeshIndexBufferMSFT}</li>
- * <li>{@code indices} <b>must</b> be a pointer to an array of {@code indexCapacityInput} {@code uint32_t} values</li>
- * <li>The {@code indexCapacityInput} parameter <b>must</b> be greater than 0</li>
+ * <li>If {@code indexCapacityInput} is not 0, {@code indices} <b>must</b> be a pointer to an array of {@code indexCapacityInput} {@code uint32_t} values</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -123,23 +121,28 @@ public class XrHandMeshIndexBufferMSFT extends Struct<XrHandMeshIndexBufferMSFT>
     @NativeType("uint32_t")
     public int indexCountOutput() { return nindexCountOutput(address()); }
     /** an array of indices filled in by the runtime, specifying the indices of the triangles list in the vertex buffer. */
+    @Nullable
     @NativeType("uint32_t *")
     public IntBuffer indices() { return nindices(address()); }
 
     /** Sets the specified value to the {@link #indexBufferKey} field. */
     public XrHandMeshIndexBufferMSFT indexBufferKey(@NativeType("uint32_t") int value) { nindexBufferKey(address(), value); return this; }
+    /** Sets the specified value to the {@link #indexCapacityInput} field. */
+    public XrHandMeshIndexBufferMSFT indexCapacityInput(@NativeType("uint32_t") int value) { nindexCapacityInput(address(), value); return this; }
     /** Sets the specified value to the {@link #indexCountOutput} field. */
     public XrHandMeshIndexBufferMSFT indexCountOutput(@NativeType("uint32_t") int value) { nindexCountOutput(address(), value); return this; }
     /** Sets the address of the specified {@link IntBuffer} to the {@link #indices} field. */
-    public XrHandMeshIndexBufferMSFT indices(@NativeType("uint32_t *") IntBuffer value) { nindices(address(), value); return this; }
+    public XrHandMeshIndexBufferMSFT indices(@Nullable @NativeType("uint32_t *") IntBuffer value) { nindices(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrHandMeshIndexBufferMSFT set(
         int indexBufferKey,
+        int indexCapacityInput,
         int indexCountOutput,
-        IntBuffer indices
+        @Nullable IntBuffer indices
     ) {
         indexBufferKey(indexBufferKey);
+        indexCapacityInput(indexCapacityInput);
         indexCountOutput(indexCountOutput);
         indices(indices);
 
@@ -278,7 +281,7 @@ public class XrHandMeshIndexBufferMSFT extends Struct<XrHandMeshIndexBufferMSFT>
     /** Unsafe version of {@link #indexCountOutput}. */
     public static int nindexCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshIndexBufferMSFT.INDEXCOUNTOUTPUT); }
     /** Unsafe version of {@link #indices() indices}. */
-    public static IntBuffer nindices(long struct) { return memIntBuffer(memGetAddress(struct + XrHandMeshIndexBufferMSFT.INDICES), nindexCapacityInput(struct)); }
+    @Nullable public static IntBuffer nindices(long struct) { return memIntBufferSafe(memGetAddress(struct + XrHandMeshIndexBufferMSFT.INDICES), nindexCapacityInput(struct)); }
 
     /** Unsafe version of {@link #indexBufferKey(int) indexBufferKey}. */
     public static void nindexBufferKey(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshIndexBufferMSFT.INDEXBUFFERKEY, value); }
@@ -287,16 +290,7 @@ public class XrHandMeshIndexBufferMSFT extends Struct<XrHandMeshIndexBufferMSFT>
     /** Unsafe version of {@link #indexCountOutput(int) indexCountOutput}. */
     public static void nindexCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshIndexBufferMSFT.INDEXCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #indices(IntBuffer) indices}. */
-    public static void nindices(long struct, IntBuffer value) { memPutAddress(struct + XrHandMeshIndexBufferMSFT.INDICES, memAddress(value)); nindexCapacityInput(struct, value.remaining()); }
-
-    /**
-     * Validates pointer members that should not be {@code NULL}.
-     *
-     * @param struct the struct to validate
-     */
-    public static void validate(long struct) {
-        check(memGetAddress(struct + XrHandMeshIndexBufferMSFT.INDICES));
-    }
+    public static void nindices(long struct, @Nullable IntBuffer value) { memPutAddress(struct + XrHandMeshIndexBufferMSFT.INDICES, memAddressSafe(value)); if (value != null) { nindexCapacityInput(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -346,15 +340,18 @@ public class XrHandMeshIndexBufferMSFT extends Struct<XrHandMeshIndexBufferMSFT>
         @NativeType("uint32_t")
         public int indexCountOutput() { return XrHandMeshIndexBufferMSFT.nindexCountOutput(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link XrHandMeshIndexBufferMSFT#indices} field. */
+        @Nullable
         @NativeType("uint32_t *")
         public IntBuffer indices() { return XrHandMeshIndexBufferMSFT.nindices(address()); }
 
         /** Sets the specified value to the {@link XrHandMeshIndexBufferMSFT#indexBufferKey} field. */
         public XrHandMeshIndexBufferMSFT.Buffer indexBufferKey(@NativeType("uint32_t") int value) { XrHandMeshIndexBufferMSFT.nindexBufferKey(address(), value); return this; }
+        /** Sets the specified value to the {@link XrHandMeshIndexBufferMSFT#indexCapacityInput} field. */
+        public XrHandMeshIndexBufferMSFT.Buffer indexCapacityInput(@NativeType("uint32_t") int value) { XrHandMeshIndexBufferMSFT.nindexCapacityInput(address(), value); return this; }
         /** Sets the specified value to the {@link XrHandMeshIndexBufferMSFT#indexCountOutput} field. */
         public XrHandMeshIndexBufferMSFT.Buffer indexCountOutput(@NativeType("uint32_t") int value) { XrHandMeshIndexBufferMSFT.nindexCountOutput(address(), value); return this; }
         /** Sets the address of the specified {@link IntBuffer} to the {@link XrHandMeshIndexBufferMSFT#indices} field. */
-        public XrHandMeshIndexBufferMSFT.Buffer indices(@NativeType("uint32_t *") IntBuffer value) { XrHandMeshIndexBufferMSFT.nindices(address(), value); return this; }
+        public XrHandMeshIndexBufferMSFT.Buffer indices(@Nullable @NativeType("uint32_t *") IntBuffer value) { XrHandMeshIndexBufferMSFT.nindices(address(), value); return this; }
 
     }
 

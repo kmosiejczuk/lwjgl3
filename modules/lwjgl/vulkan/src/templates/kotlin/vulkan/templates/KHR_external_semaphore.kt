@@ -16,7 +16,6 @@ val KHR_external_semaphore = "KHRExternalSemaphore".nativeClassVK("KHR_external_
         <h5>Promotion to Vulkan 1.1</h5>
         All functionality in this extension is included in core Vulkan 1.1, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
 
-        <h5>VK_KHR_external_semaphore</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_external_semaphore}</dd>
@@ -33,7 +32,7 @@ val KHR_external_semaphore = "KHRExternalSemaphore".nativeClassVK("KHR_external_
             <dt><b>Extension and Version Dependencies</b></dt>
             <dd>{@link KHRExternalSemaphoreCapabilities VK_KHR_external_semaphore_capabilities}</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
             </ul></dd>
@@ -51,11 +50,6 @@ val KHR_external_semaphore = "KHRExternalSemaphore".nativeClassVK("KHR_external_
 
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.1 Core</li>
-            </ul></dd>
 
             <dt><b>Contributors</b></dt>
             <dd><ul>

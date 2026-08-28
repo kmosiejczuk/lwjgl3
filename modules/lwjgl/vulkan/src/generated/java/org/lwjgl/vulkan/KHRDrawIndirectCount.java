@@ -11,15 +11,13 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 
 /**
- * This extension is based off the {@link AMDDrawIndirectCount VK_AMD_draw_indirect_count} extension. This extension allows an application to source the number of draws for indirect drawing calls from a buffer.
+ * This extension is based on the {@link AMDDrawIndirectCount VK_AMD_draw_indirect_count} extension. This extension allows an application to source the number of draws for indirect drawing calls from a buffer.
  * 
  * <p>Applications might want to do culling on the GPU via a compute shader prior to drawing. This enables the application to generate an arbitrary number of drawing commands and execute them without host intervention.</p>
  * 
  * <h5>Promotion to Vulkan 1.2</h5>
  * 
- * <p>All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. However, if Vulkan 1.2 is supported and this extension is not, the entry points {@link VK12#vkCmdDrawIndirectCount CmdDrawIndirectCount} and {@link VK12#vkCmdDrawIndexedIndirectCount CmdDrawIndexedIndirectCount} are optional. The original type, enum and command names are still available as aliases of the core functionality.</p>
- * 
- * <h5>VK_KHR_draw_indirect_count</h5>
+ * <p>All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. However, if Vulkan 1.2 is supported and this extension is not, the commands {@link VK12#vkCmdDrawIndirectCount CmdDrawIndirectCount} and {@link VK12#vkCmdDrawIndexedIndirectCount CmdDrawIndexedIndirectCount} are optional. The original type, enum and command names are still available as aliases of the core functionality.</p>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -30,7 +28,7 @@ import static org.lwjgl.system.JNI.*;
  * <dd>170</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.2-promotions">Vulkan 1.2</a></li>
  * </ul></dd>
@@ -45,10 +43,6 @@ import static org.lwjgl.system.JNI.*;
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
  * <dd>2017-08-25</dd>
- * <dt><b>Interactions and External Dependencies</b></dt>
- * <dd><ul>
- * <li>Promoted to Vulkan 1.2 Core</li>
- * </ul></dd>
  * <dt><b>IP Status</b></dt>
  * <dd>No known IP claims.</dd>
  * <dt><b>Contributors</b></dt>

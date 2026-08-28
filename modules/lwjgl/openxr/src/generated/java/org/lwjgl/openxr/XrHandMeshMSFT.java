@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>When the returned {@code isActive} value is {@link XR10#XR_FALSE FALSE}, the runtime indicates the hand is not actively tracked, for example, the hand is outside of sensor’s range, or the input focus is taken away from the application. When the runtime returns {@link XR10#XR_FALSE FALSE} to {@code isActive}, it <b>must</b> set {@code indexBufferChanged} and {@code vertexBufferChanged} to {@link XR10#XR_FALSE FALSE}, and <b>must</b> not change the content in {@code indexBuffer} or {@code vertexBuffer},</p>
  * 
- * <p>When the returned {@code isActive} value is {@link XR10#XR_TRUE TRUE}, the hand tracking mesh represented in {@code indexBuffer} and {@code vertexBuffer} are updated to the latest data of the {@code time} given to the {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT} function. The runtime <b>must</b> set {@code indexBufferChanged} and {@code vertexBufferChanged} to reflect whether the index or vertex buffer’s content are changed during the update. In this way, the application can easily avoid unnecessary processing of buffers when there’s no new data.</p>
+ * <p>When the returned {@code isActive} value is {@link XR10#XR_TRUE TRUE}, the hand tracking mesh represented in {@code indexBuffer} and {@code vertexBuffer} are updated to the latest data of the {@link XrHandMeshUpdateInfoMSFT}{@code ::time} given to the {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT} function. The runtime <b>must</b> set {@code indexBufferChanged} and {@code vertexBufferChanged} to reflect whether the index or vertex buffer’s content are changed during the update. In this way, the application can easily avoid unnecessary processing of buffers when there’s no new data.</p>
  * 
  * <p>The hand mesh is represented in triangle lists and each triangle’s vertices are in clockwise order when looking from outside of the hand. When hand tracking is active, i.e. when {@code isActive} is returned as {@link XR10#XR_TRUE TRUE}, the returned {@code indexBuffer.indexCountOutput} value <b>must</b> be positive and multiple of 3, and {@code vertexBuffer.vertexCountOutput} value <b>must</b> be equal to or larger than 3.</p>
  * 
@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTHandTrackingMesh XR_MSFT_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrHandMeshMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTHandTrackingMesh#XR_TYPE_HAND_MESH_MSFT TYPE_HAND_MESH_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code indexBuffer} <b>must</b> be a valid {@link XrHandMeshIndexBufferMSFT} structure</li>
  * <li>{@code vertexBuffer} <b>must</b> be a valid {@link XrHandMeshVertexBufferMSFT} structure</li>
  * </ul>
@@ -332,16 +332,6 @@ public class XrHandMeshMSFT extends Struct<XrHandMeshMSFT> implements NativeReso
     public static void nindexBuffer(long struct, XrHandMeshIndexBufferMSFT value) { memCopy(value.address(), struct + XrHandMeshMSFT.INDEXBUFFER, XrHandMeshIndexBufferMSFT.SIZEOF); }
     /** Unsafe version of {@link #vertexBuffer(XrHandMeshVertexBufferMSFT) vertexBuffer}. */
     public static void nvertexBuffer(long struct, XrHandMeshVertexBufferMSFT value) { memCopy(value.address(), struct + XrHandMeshMSFT.VERTEXBUFFER, XrHandMeshVertexBufferMSFT.SIZEOF); }
-
-    /**
-     * Validates pointer members that should not be {@code NULL}.
-     *
-     * @param struct the struct to validate
-     */
-    public static void validate(long struct) {
-        XrHandMeshIndexBufferMSFT.validate(struct + XrHandMeshMSFT.INDEXBUFFER);
-        XrHandMeshVertexBufferMSFT.validate(struct + XrHandMeshMSFT.VERTEXBUFFER);
-    }
 
     // -----------------------------------
 

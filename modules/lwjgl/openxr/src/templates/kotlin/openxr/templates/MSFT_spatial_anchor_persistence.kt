@@ -11,7 +11,7 @@ import openxr.*
 val MSFT_spatial_anchor_persistence = "MSFTSpatialAnchorPersistence".nativeClassXR("MSFT_spatial_anchor_persistence", type = "instance", postfix = "MSFT") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_MSFT_spatial_anchor_persistence">XR_MSFT_spatial_anchor_persistence</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_MSFT_spatial_anchor_persistence">XR_MSFT_spatial_anchor_persistence</a> extension.
 
         This extension allows persistence and retrieval of spatial anchors sharing and localization across application sessions on a device. Spatial anchors persisted during an application session on a device will only be able to be retrieved during sessions of that same application on the same device. This extension requires {@link MSFTSpatialAnchor XR_MSFT_spatial_anchor} to also be enabled.
         """
@@ -149,7 +149,7 @@ val MSFT_spatial_anchor_persistence = "MSFTSpatialAnchorPersistence".nativeClass
         Persist the spatial anchor in the spatial anchor store.
 
         <h5>C Specification</h5>
-        The application <b>can</b> use the #PersistSpatialAnchorMSFT() function to persist a spatial anchor in the spatial anchor store for this application. The given {@code spatialAnchorName} will be the string to retrieve the spatial anchor from the Spatial Anchor store or subsequently remove the record of this spatial anchor from the store. This name will uniquely identify the spatial anchor for the current application. If there is already a spatial anchor of the same name persisted in the spatial anchor store, the existing spatial anchor will be replaced and #PersistSpatialAnchorMSFT() <b>must</b> return #SUCCESS.
+        The application <b>can</b> use the #PersistSpatialAnchorMSFT() function to persist a spatial anchor in the spatial anchor store for this application. The given ##XrSpatialAnchorPersistenceInfoMSFT{@code ::spatialAnchorPersistenceName} will be the string to retrieve the spatial anchor from the Spatial Anchor store or subsequently remove the record of this spatial anchor from the store. This name will uniquely identify the spatial anchor for the current application. If there is already a spatial anchor of the same name persisted in the spatial anchor store, the existing spatial anchor will be replaced and #PersistSpatialAnchorMSFT() <b>must</b> return #SUCCESS.
 
         <pre><code>
 ￿XrResult xrPersistSpatialAnchorMSFT(
@@ -187,7 +187,7 @@ val MSFT_spatial_anchor_persistence = "MSFTSpatialAnchorPersistence".nativeClass
         ##XrSpatialAnchorPersistenceInfoMSFT
         """,
 
-        XrSpatialAnchorStoreConnectionMSFT("spatialAnchorStore", "the {@code XrSpatialAnchorStoreConnectionMSFT} with which to persist the {@code spatialAnchor}."),
+        XrSpatialAnchorStoreConnectionMSFT("spatialAnchorStore", "the {@code XrSpatialAnchorStoreConnectionMSFT} with which to persist the ##XrSpatialAnchorPersistenceInfoMSFT{@code ::spatialAnchor}."),
         XrSpatialAnchorPersistenceInfoMSFT.const.p("spatialAnchorPersistenceInfo", "a pointer to ##XrSpatialAnchorPersistenceInfoMSFT structure to specify the anchor and its name to persist.")
     )
 
@@ -197,21 +197,21 @@ val MSFT_spatial_anchor_persistence = "MSFTSpatialAnchorPersistence".nativeClass
         Enumerate the names of currently persisted spatial anchors in the spatial anchor store.
 
         <h5>C Specification</h5>
-        The application <b>can</b> use the #EnumeratePersistedSpatialAnchorNamesMSFT() function to enumerate the names of all spatial anchors currently persisted in the spatial anchor store for this application. This function follows the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#buffer-size-parameters">two-call idiom</a> for filling the {@code spatialAnchorNames}.
+        The application <b>can</b> use the #EnumeratePersistedSpatialAnchorNamesMSFT() function to enumerate the names of all spatial anchors currently persisted in the spatial anchor store for this application. This function follows the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#fundamentals-buffer-size-parameters">two-call idiom</a> for filling the {@code spatialAnchorNames}.
 
         <pre><code>
 ￿XrResult xrEnumeratePersistedSpatialAnchorNamesMSFT(
 ￿    XrSpatialAnchorStoreConnectionMSFT          spatialAnchorStore,
-￿    uint32_t                                    spatialAnchorNamesCapacityInput,
-￿    uint32_t*                                   spatialAnchorNamesCountOutput,
-￿    XrSpatialAnchorPersistenceNameMSFT*         persistedAnchorNames);</code></pre>
+￿    uint32_t                                    spatialAnchorNameCapacityInput,
+￿    uint32_t*                                   spatialAnchorNameCountOutput,
+￿    XrSpatialAnchorPersistenceNameMSFT*         spatialAnchorNames);</code></pre>
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
             <li>The {@link MSFTSpatialAnchorPersistence XR_MSFT_spatial_anchor_persistence} extension <b>must</b> be enabled prior to calling #EnumeratePersistedSpatialAnchorNamesMSFT()</li>
             <li>{@code spatialAnchorStore} <b>must</b> be a valid {@code XrSpatialAnchorStoreConnectionMSFT} handle</li>
-            <li>If {@code spatialAnchorNamesCountOutput} is not {@code NULL}, {@code spatialAnchorNamesCountOutput} <b>must</b> be a pointer to a {@code uint32_t} value</li>
-            <li>If {@code spatialAnchorNamesCapacityInput} is not 0, {@code persistedAnchorNames} <b>must</b> be a pointer to an array of {@code spatialAnchorNamesCapacityInput} ##XrSpatialAnchorPersistenceNameMSFT structures</li>
+            <li>{@code spatialAnchorNameCountOutput} <b>must</b> be a pointer to a {@code uint32_t} value</li>
+            <li>If {@code spatialAnchorNameCapacityInput} is not 0, {@code spatialAnchorNames} <b>must</b> be a pointer to an array of {@code spatialAnchorNameCapacityInput} ##XrSpatialAnchorPersistenceNameMSFT structures</li>
         </ul>
 
         <h5>Return Codes</h5>
@@ -239,9 +239,9 @@ val MSFT_spatial_anchor_persistence = "MSFTSpatialAnchorPersistence".nativeClass
         """,
 
         XrSpatialAnchorStoreConnectionMSFT("spatialAnchorStore", "the {@code XrSpatialAnchorStoreConnectionMSFT} anchor store to perform the enumeration operation on."),
-        AutoSize("persistedAnchorNames")..uint32_t("spatialAnchorNamesCapacityInput", "the capacity of the {@code spatialAnchorNames} array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..nullable..uint32_t.p("spatialAnchorNamesCountOutput", "filled in by the runtime with the count of anchor names written or the required capacity in the case that {@code spatialAnchorNamesCapacityInput} is insufficient."),
-        nullable..XrSpatialAnchorPersistenceNameMSFT.p("persistedAnchorNames", "a pointer to an array of ##XrSpatialAnchorPersistenceNameMSFT structures, but <b>can</b> be {@code NULL} if propertyCapacityInput is 0.")
+        AutoSize("spatialAnchorNames")..uint32_t("spatialAnchorNameCapacityInput", "the capacity of the {@code spatialAnchorNames} array, or 0 to indicate a request to retrieve the required capacity."),
+        Check(1)..uint32_t.p("spatialAnchorNameCountOutput", "filled in by the runtime with the count of anchor names written or the required capacity in the case that {@code spatialAnchorNameCapacityInput} is insufficient."),
+        nullable..XrSpatialAnchorPersistenceNameMSFT.p("spatialAnchorNames", "a pointer to an array of ##XrSpatialAnchorPersistenceNameMSFT structures, but <b>can</b> be {@code NULL} if propertyCapacityInput is 0.")
     )
 
     XrResult(
@@ -250,7 +250,7 @@ val MSFT_spatial_anchor_persistence = "MSFTSpatialAnchorPersistence".nativeClass
         Create a spatial anchor from the spatial anchor store by name.
 
         <h5>C Specification</h5>
-        The application <b>can</b> use the #CreateSpatialAnchorFromPersistedNameMSFT() function to create a {@code XrSpatialAnchorMSFT} from the spatial anchor store. If the {@code spatialAnchorName} provided does not correspond to a currently stored anchor (i.e. the list of spatial anchor names returned from #EnumeratePersistedSpatialAnchorNamesMSFT()), the function <b>must</b> return #ERROR_SPATIAL_ANCHOR_NAME_NOT_FOUND_MSFT.
+        The application <b>can</b> use the #CreateSpatialAnchorFromPersistedNameMSFT() function to create a {@code XrSpatialAnchorMSFT} from the spatial anchor store. If the ##XrSpatialAnchorFromPersistedAnchorCreateInfoMSFT{@code ::spatialAnchorPersistenceName} provided does not correspond to a currently stored anchor (i.e. the list of spatial anchor names returned from #EnumeratePersistedSpatialAnchorNamesMSFT()), the function <b>must</b> return #ERROR_SPATIAL_ANCHOR_NAME_NOT_FOUND_MSFT.
 
         <pre><code>
 ￿XrResult xrCreateSpatialAnchorFromPersistedNameMSFT(
@@ -303,7 +303,7 @@ val MSFT_spatial_anchor_persistence = "MSFTSpatialAnchorPersistence".nativeClass
         Removes an anchor from the store.
 
         <h5>C Specification</h5>
-        The application <b>can</b> use the #UnpersistSpatialAnchorMSFT() function to remove the record of the anchor in the spatial anchor store. This operation will not affect any {@code XrSpatialAnchorMSFT} handles previously created. If the {@code spatialAnchorName} provided does not correspond to a currently stored anchor, the function <b>must</b> return #ERROR_SPATIAL_ANCHOR_NAME_NOT_FOUND_MSFT.
+        The application <b>can</b> use the #UnpersistSpatialAnchorMSFT() function to remove the record of the anchor in the spatial anchor store. This operation will not affect any {@code XrSpatialAnchorMSFT} handles previously created. If the {@code spatialAnchorPersistenceName} provided does not correspond to a currently stored anchor, the function <b>must</b> return #ERROR_SPATIAL_ANCHOR_NAME_NOT_FOUND_MSFT.
 
         <pre><code>
 ￿XrResult xrUnpersistSpatialAnchorMSFT(

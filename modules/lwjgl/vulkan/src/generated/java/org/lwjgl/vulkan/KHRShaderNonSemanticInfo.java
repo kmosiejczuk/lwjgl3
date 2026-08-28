@@ -12,8 +12,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>Functionality in this extension is included in core Vulkan 1.3 Because the extension has no API controlling its functionality, this results only in a change to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#spirvenv-extensions-table">SPIR-V Extensions table</a>.</p>
  * 
- * <h5>VK_KHR_shader_non_semantic_info</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_KHR_shader_non_semantic_info}</dd>
@@ -23,7 +21,11 @@ package org.lwjgl.vulkan;
  * <dd>294</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>SPIR-V Dependencies</b></dt>
+ * <dd><ul>
+ * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_non_semantic_info.html">SPV_KHR_non_semantic_info</a></li>
+ * </ul></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
@@ -38,11 +40,6 @@ package org.lwjgl.vulkan;
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
  * <dd>2019-10-16</dd>
- * <dt><b>Interactions and External Dependencies</b></dt>
- * <dd><ul>
- * <li>Promoted to Vulkan 1.3 Core</li>
- * <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_non_semantic_info.html">{@code SPV_KHR_non_semantic_info}</a></li>
- * </ul></dd>
  * <dt><b>IP Status</b></dt>
  * <dd>No known IP claims.</dd>
  * <dt><b>Contributors</b></dt>

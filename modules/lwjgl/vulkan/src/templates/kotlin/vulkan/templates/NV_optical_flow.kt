@@ -95,7 +95,6 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
 ￿
 ￿"submit command buffer"</code></pre>
 
-        <h5>VK_NV_optical_flow</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_optical_flow}</dd>
@@ -110,7 +109,7 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRFormatFeatureFlags2 VK_KHR_format_feature_flags2} and {@link KHRSynchronization2 VK_KHR_synchronization2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRFormatFeatureFlags2 VK_KHR_format_feature_flags2} and {@link KHRSynchronization2 VK_KHR_synchronization2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3">Version 1.3</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -160,6 +159,7 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
     EnumConstant(
         "Extends {@code VkFormat}.",
 
+        "FORMAT_R16G16_SFIXED5_NV".."1000464000",
         "FORMAT_R16G16_S10_5_NV".."1000464000"
     )
 
@@ -268,11 +268,11 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
             <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_INPUT_NV specifies the binding point for the input frame.</li>
             <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_REFERENCE_NV specifies the binding point for the input reference frame.</li>
             <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_HINT_NV specifies the binding point for the optional external hint flow vectors.</li>
-            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_FLOW_VECTOR_NV specifies the binding point for output flow vectors of default forward flow calcution.</li>
-            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_FLOW_VECTOR_NV specifies the binding point for the optional output flow vector map of optional backward flow calcution.</li>
-            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_COST_NV specifies the binding point for the optional output cost map of default forward flow calcution.</li>
-            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_COST_NV specifies the binding point for the optional output cost map of optional backward flow calcution.</li>
-            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_GLOBAL_FLOW_NV specifies the binding point for the optional global flow value of default forward flow calcution.</li>
+            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_FLOW_VECTOR_NV specifies the binding point for output flow vectors of default forward flow calculation.</li>
+            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_FLOW_VECTOR_NV specifies the binding point for the optional output flow vector map of optional backward flow calculation.</li>
+            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_COST_NV specifies the binding point for the optional output cost map of default forward flow calculation.</li>
+            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_COST_NV specifies the binding point for the optional output cost map of optional backward flow calculation.</li>
+            <li>#OPTICAL_FLOW_SESSION_BINDING_POINT_GLOBAL_FLOW_NV specifies the binding point for the optional global flow value of default forward flow calculation.</li>
         </ul>
 
         <h5>See Also</h5>
@@ -340,7 +340,11 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
 ￿    VkOpticalFlowImageFormatPropertiesNV*       pImageFormatProperties);</code></pre>
 
         <h5>Description</h5>
-        If {@code pImageFormatProperties} is {@code NULL}, then the number of optical flow properties supported for the given {@code physicalDevice} is returned in {@code pFormatCount}. Otherwise, {@code pFormatCount} must point to a variable set by the user to the number of elements in the {@code pImageFormatProperties} array, and on return the variable is overwritten with the number of values actually written to {@code pImageFormatProperties}. If the value of {@code pFormatCount} is less than the number of optical flow properties supported, at most {@code pFormatCount} values will be written to {@code pImageFormatProperties}, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available values were returned. Before creating an image to be used as a optical flow frame, obtain the supported image creation parameters by querying with #GetPhysicalDeviceFormatProperties2() and #GetPhysicalDeviceImageFormatProperties2() using one of the reported formats and adding ##VkOpticalFlowImageFormatInfoNV to the {@code pNext} chain of ##VkPhysicalDeviceImageFormatInfo2. When querying the parameters with #GetPhysicalDeviceImageFormatProperties2() for images used for optical flow operations, the ##VkOpticalFlowImageFormatInfoNV{@code ::usage} field should contain one or more of the bits defined in {@code VkOpticalFlowUsageFlagBitsNV}.
+        If {@code pImageFormatProperties} is {@code NULL}, then the number of optical flow properties supported for the given {@code physicalDevice} is returned in {@code pFormatCount}. Otherwise, {@code pFormatCount} must point to a variable set by the application to the number of elements in the {@code pImageFormatProperties} array, and on return the variable is overwritten with the number of values actually written to {@code pImageFormatProperties}. If the value of {@code pFormatCount} is less than the number of optical flow properties supported, at most {@code pFormatCount} values will be written to {@code pImageFormatProperties}, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available values were returned.
+
+        Before creating an image to be used as a optical flow frame, obtain the supported image creation parameters by querying with #GetPhysicalDeviceFormatProperties2() and #GetPhysicalDeviceImageFormatProperties2() using one of the reported formats and adding ##VkOpticalFlowImageFormatInfoNV to the {@code pNext} chain of ##VkPhysicalDeviceImageFormatInfo2.
+
+        When querying the parameters with #GetPhysicalDeviceImageFormatProperties2() for images used for optical flow operations, the ##VkOpticalFlowImageFormatInfoNV{@code ::usage} field <b>must</b> contain one or more of the bits defined in {@code VkOpticalFlowUsageFlagBitsNV}.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>
@@ -369,7 +373,7 @@ val NV_optical_flow = "NVOpticalFlow".nativeClassVK("NV_optical_flow", type = "d
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
         #FORMAT_B8G8R8A8_UNORM, #FORMAT_R8_UNORM and #FORMAT_G8_B8R8_2PLANE_420_UNORM are initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#opticalflow-usage">optical usage</a> #OPTICAL_FLOW_USAGE_INPUT_BIT_NV.
 
-        #FORMAT_R16G16_S10_5_NV is initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#opticalflow-usage">optical flow usage</a> #OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV, #OPTICAL_FLOW_USAGE_HINT_BIT_NV and #OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV.
+        #FORMAT_R16G16_SFIXED5_NV is initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#opticalflow-usage">optical flow usage</a> #OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV, #OPTICAL_FLOW_USAGE_HINT_BIT_NV and #OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV.
 
         #FORMAT_R8_UINT and #FORMAT_R32_UINT are initially supported for images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#opticalflow-usage">optical flow usage</a> #OPTICAL_FLOW_USAGE_COST_BIT_NV. It is recommended to use #FORMAT_R8_UINT because of the lower bandwidth.
         </div>

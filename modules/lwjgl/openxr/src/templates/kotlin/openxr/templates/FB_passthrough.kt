@@ -11,7 +11,7 @@ import openxr.*
 val FB_passthrough = "FBPassthrough".nativeClassXR("FB_passthrough", type = "instance", postfix = "FB") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_FB_passthrough">XR_FB_passthrough</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_FB_passthrough">XR_FB_passthrough</a> extension.
 
         Passthrough is a way to show a user their physical environment in a light-blocking VR headset. Applications may use passthrough in a multitude of ways, including:
 
@@ -34,7 +34,7 @@ val FB_passthrough = "FBPassthrough".nativeClassXR("FB_passthrough", type = "ins
     IntConstant(
         "The extension specification version.",
 
-        "FB_passthrough_SPEC_VERSION".."3"
+        "FB_passthrough_SPEC_VERSION".."4"
     )
 
     StringConstant(
@@ -125,8 +125,8 @@ val FB_passthrough = "FBPassthrough".nativeClassXR("FB_passthrough", type = "ins
         <ul>
             <li>#PASSTHROUGH_LAYER_PURPOSE_RECONSTRUCTION_FB — Reconstruction passthrough (full screen environment)</li>
             <li>#PASSTHROUGH_LAYER_PURPOSE_PROJECTED_FB — Projected passthrough (using a custom surface)</li>
-            <li>#PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_HANDS_FB — Passthrough layer purpose for keyboard hands presence.</li>
-            <li>#PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_MASKED_HANDS_FB — Passthrough layer purpose for keyboard hands presence with keyboard masked hand transitions (i.e passthrough hands rendered only when they are over the keyboard).</li>
+            <li>#PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_HANDS_FB — Passthrough layer purpose for keyboard hands presence.  (Added by the {@link FBPassthroughKeyboardHands XR_FB_passthrough_keyboard_hands} extension)</li>
+            <li>#PASSTHROUGH_LAYER_PURPOSE_TRACKED_KEYBOARD_MASKED_HANDS_FB — Passthrough layer purpose for keyboard hands presence with keyboard masked hand transitions (i.e passthrough hands rendered only when they are over the keyboard).  (Added by the {@link FBPassthroughKeyboardHands XR_FB_passthrough_keyboard_hands} extension)</li>
         </ul>
 
         <h5>See Also</h5>
@@ -702,7 +702,7 @@ val FB_passthrough = "FBPassthrough".nativeClassXR("FB_passthrough", type = "ins
         </dl>
         """,
 
-        XrGeometryInstanceFB("instance", "")
+        XrGeometryInstanceFB("instance", "the {@code XrGeometryInstanceFB} to be destroyed.")
     )
 
     XrResult(
@@ -754,7 +754,7 @@ val FB_passthrough = "FBPassthrough".nativeClassXR("FB_passthrough", type = "ins
         ##XrGeometryInstanceTransformFB
         """,
 
-        XrGeometryInstanceFB("instance", ""),
-        XrGeometryInstanceTransformFB.const.p("transformation", "")
+        XrGeometryInstanceFB("instance", "the {@code XrGeometryInstanceFB} to get the transform."),
+        XrGeometryInstanceTransformFB.const.p("transformation", "the ##XrGeometryInstanceTransformFB to be set.")
     )
 }

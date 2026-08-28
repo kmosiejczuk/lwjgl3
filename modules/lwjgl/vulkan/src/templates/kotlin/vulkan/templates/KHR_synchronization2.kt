@@ -32,7 +32,6 @@ val KHR_synchronization2 = "KHRSynchronization2".nativeClassVK("KHR_synchronizat
                 </ul>
             </li>
             <li>Queue family ownership transfer parameters are simplified in some cases.</li>
-            <li>Where two synchronization commands need to be matched up (queue transfer operations, events), the dependency information specified in each place must now match completely for consistency.</li>
             <li>Extensions with commands or functions with a {@code VkPipelineStageFlags} or {@code VkPipelineStageFlagBits} parameter have had those APIs replaced with equivalents using {@code VkPipelineStageFlags2KHR}.</li>
             <li>The new event and barrier interfaces are now more extensible for future changes.</li>
             <li>Relevant pipeline stage masks can now be specified as empty with the new #PIPELINE_STAGE_NONE_KHR and #PIPELINE_STAGE_2_NONE_KHR values.</li>
@@ -45,7 +44,6 @@ val KHR_synchronization2 = "KHRSynchronization2".nativeClassVK("KHR_synchronizat
         <h5>Examples</h5>
         See <a href="https://github.com/KhronosGroup/Vulkan-Docs/wiki/Synchronization-Examples">https://github.com/KhronosGroup/Vulkan-Docs/wiki/Synchronization-Examples</a>
 
-        <h5>VK_KHR_synchronization2</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_synchronization2}</dd>
@@ -62,7 +60,25 @@ val KHR_synchronization2 = "KHRSynchronization2".nativeClassVK("KHR_synchronizat
             <dt><b>Extension and Version Dependencies</b></dt>
             <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>API Interactions</b></dt>
+            <dd><ul>
+                <li>Interacts with VK_AMD_buffer_marker</li>
+                <li>Interacts with VK_EXT_blend_operation_advanced</li>
+                <li>Interacts with VK_EXT_conditional_rendering</li>
+                <li>Interacts with VK_EXT_fragment_density_map</li>
+                <li>Interacts with VK_EXT_mesh_shader</li>
+                <li>Interacts with VK_EXT_transform_feedback</li>
+                <li>Interacts with VK_KHR_acceleration_structure</li>
+                <li>Interacts with VK_KHR_fragment_shading_rate</li>
+                <li>Interacts with VK_KHR_ray_tracing_pipeline</li>
+                <li>Interacts with VK_NV_device_diagnostic_checkpoints</li>
+                <li>Interacts with VK_NV_device_generated_commands</li>
+                <li>Interacts with VK_NV_mesh_shader</li>
+                <li>Interacts with VK_NV_ray_tracing</li>
+                <li>Interacts with VK_NV_shading_rate_image</li>
+            </ul></dd>
+
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
@@ -80,7 +96,6 @@ val KHR_synchronization2 = "KHRSynchronization2".nativeClassVK("KHR_synchronizat
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>Promoted to Vulkan 1.3 Core</li>
                 <li>Interacts with {@link KHRCreateRenderpass2 VK_KHR_create_renderpass2}</li>
             </ul></dd>
 
@@ -492,7 +507,7 @@ val KHR_synchronization2 = "KHRSynchronization2".nativeClassVK("KHR_synchronizat
 ￿    VkCheckpointData2NV*                        pCheckpointData);</code></pre>
 
         <h5>Description</h5>
-        If {@code pCheckpointData} is {@code NULL}, then the number of checkpoint markers available is returned in {@code pCheckpointDataCount}. Otherwise, {@code pCheckpointDataCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pCheckpointData} array, and on return the variable is overwritten with the number of structures actually written to {@code pCheckpointData}.
+        If {@code pCheckpointData} is {@code NULL}, then the number of checkpoint markers available is returned in {@code pCheckpointDataCount}. Otherwise, {@code pCheckpointDataCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pCheckpointData} array, and on return the variable is overwritten with the number of structures actually written to {@code pCheckpointData}.
 
         If {@code pCheckpointDataCount} is less than the number of checkpoint markers available, at most {@code pCheckpointDataCount} structures will be written.
 

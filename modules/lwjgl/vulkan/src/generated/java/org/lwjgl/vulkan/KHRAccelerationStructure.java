@@ -28,8 +28,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <li>Acceleration structure copy commands</li>
  * </ul>
  * 
- * <h5>VK_KHR_acceleration_structure</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_KHR_acceleration_structure}</dd>
@@ -40,7 +38,13 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>13</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a> and {@link EXTDescriptorIndexing VK_EXT_descriptor_indexing} and {@link KHRBufferDeviceAddress VK_KHR_buffer_device_address} and {@link KHRDeferredHostOperations VK_KHR_deferred_host_operations}</dd>
+ * <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a> and {@link EXTDescriptorIndexing VK_EXT_descriptor_indexing} and {@link KHRBufferDeviceAddress VK_KHR_buffer_device_address} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.2">Version 1.2</a> and {@link KHRDeferredHostOperations VK_KHR_deferred_host_operations}</dd>
+ * <dt><b>API Interactions</b></dt>
+ * <dd><ul>
+ * <li>Interacts with VK_VERSION_1_3</li>
+ * <li>Interacts with VK_EXT_debug_report</li>
+ * <li>Interacts with VK_KHR_format_feature_flags2</li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Daniel Koch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_acceleration_structure]%20@dgkoch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_acceleration_structure%20extension*">dgkoch</a></li>
@@ -451,6 +455,11 @@ public class KHRAccelerationStructure {
      * <p>The expected usage for a trace capture/replay tool is that it will serialize and later deserialize the acceleration structure data using acceleration structure copy commands. During capture the tool will use {@link #vkCopyAccelerationStructureToMemoryKHR CopyAccelerationStructureToMemoryKHR} or {@link #vkCmdCopyAccelerationStructureToMemoryKHR CmdCopyAccelerationStructureToMemoryKHR} with a {@code mode} of {@link #VK_COPY_ACCELERATION_STRUCTURE_MODE_SERIALIZE_KHR COPY_ACCELERATION_STRUCTURE_MODE_SERIALIZE_KHR}, and {@link #vkCopyMemoryToAccelerationStructureKHR CopyMemoryToAccelerationStructureKHR} or {@link #vkCmdCopyMemoryToAccelerationStructureKHR CmdCopyMemoryToAccelerationStructureKHR} with a {@code mode} of {@link #VK_COPY_ACCELERATION_STRUCTURE_MODE_DESERIALIZE_KHR COPY_ACCELERATION_STRUCTURE_MODE_DESERIALIZE_KHR} during replay.</p>
      * </div>
      * 
+     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+     * 
+     * <p>Memory does not need to be bound to the underlying buffer when {@link #vkCreateAccelerationStructureKHR CreateAccelerationStructureKHR} is called.</p>
+     * </div>
+     * 
      * <p>The input buffers passed to acceleration structure build commands will be referenced by the implementation for the duration of the command. After the command completes, the acceleration structure <b>may</b> hold a reference to any acceleration structure specified by an active instance contained therein. Apart from this referencing, acceleration structures <b>must</b> be fully self-contained. The application <b>can</b> reuse or free any memory which was used by the command as an input or as scratch without affecting the results of ray traversal.</p>
      * 
      * <h5>Valid Usage</h5>
@@ -640,8 +649,7 @@ public class KHRAccelerationStructure {
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, if {@code geometryType} is {@link #VK_GEOMETRY_TYPE_TRIANGLES_KHR GEOMETRY_TYPE_TRIANGLES_KHR}, if its {@code geometry.triangles.transformData} address was {@code NULL} when {@code srcAccelerationStructure} was last built, then it <b>must</b> be {@code NULL}</li>
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, if {@code geometryType} is {@link #VK_GEOMETRY_TYPE_TRIANGLES_KHR GEOMETRY_TYPE_TRIANGLES_KHR}, if its {@code geometry.triangles.transformData} address was not {@code NULL} when {@code srcAccelerationStructure} was last built, then it <b>must</b> not be {@code NULL}</li>
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, if {@code geometryType} is {@link #VK_GEOMETRY_TYPE_TRIANGLES_KHR GEOMETRY_TYPE_TRIANGLES_KHR}, and {@code geometry.triangles.indexType} is not {@link #VK_INDEX_TYPE_NONE_KHR INDEX_TYPE_NONE_KHR}, then the value of each index referenced <b>must</b> be the same as the corresponding index value when {@code srcAccelerationStructure} was last built</li>
-     * <li>For each {@link VkAccelerationStructureBuildRangeInfoKHR} referenced by this command, its {@code primitiveCount} member <b>must</b> have the same value which was specified when {@code srcAccelerationStructure} was last built</li>
-     * <li>For each {@link VkAccelerationStructureBuildRangeInfoKHR} referenced by this command, if the corresponding geometry uses indices, its {@code firstVertex} member <b>must</b> have the same value which was specified when {@code srcAccelerationStructure} was last built</li>
+     * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, the {@code primitiveCount} member of its corresponding {@link VkAccelerationStructureBuildRangeInfoKHR} structure <b>must</b> have the same value which was specified when {@code srcAccelerationStructure} was last built</li>
      * <li>For each element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, the corresponding {@code ppBuildRangeInfos}[i][j].{@code primitiveCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceAccelerationStructurePropertiesKHR}{@code ::maxInstanceCount}</li>
      * </ul>
      * 
@@ -674,6 +682,7 @@ public class KHRAccelerationStructure {
      * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, {@code geometry.instances.data.deviceAddress} <b>must</b> be a valid device address obtained from {@link VK12#vkGetBufferDeviceAddress GetBufferDeviceAddress}</li>
      * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, if {@code geometry.instances.data.deviceAddress} is the address of a non-sparse buffer then it <b>must</b> be bound completely and contiguously to a single {@code VkDeviceMemory} object</li>
      * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, each {@link VkAccelerationStructureInstanceKHR}{@code ::accelerationStructureReference} value in {@code geometry.instances.data.deviceAddress} <b>must</b> be a valid device address containing a value obtained from {@link #vkGetAccelerationStructureDeviceAddressKHR GetAccelerationStructureDeviceAddressKHR} or 0</li>
+     * <li>{@code commandBuffer} <b>must</b> not be a protected command buffer</li>
      * </ul>
      * 
      * <ul>
@@ -797,8 +806,7 @@ public class KHRAccelerationStructure {
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, if {@code geometryType} is {@link #VK_GEOMETRY_TYPE_TRIANGLES_KHR GEOMETRY_TYPE_TRIANGLES_KHR}, if its {@code geometry.triangles.transformData} address was {@code NULL} when {@code srcAccelerationStructure} was last built, then it <b>must</b> be {@code NULL}</li>
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, if {@code geometryType} is {@link #VK_GEOMETRY_TYPE_TRIANGLES_KHR GEOMETRY_TYPE_TRIANGLES_KHR}, if its {@code geometry.triangles.transformData} address was not {@code NULL} when {@code srcAccelerationStructure} was last built, then it <b>must</b> not be {@code NULL}</li>
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, if {@code geometryType} is {@link #VK_GEOMETRY_TYPE_TRIANGLES_KHR GEOMETRY_TYPE_TRIANGLES_KHR}, and {@code geometry.triangles.indexType} is not {@link #VK_INDEX_TYPE_NONE_KHR INDEX_TYPE_NONE_KHR}, then the value of each index referenced <b>must</b> be the same as the corresponding index value when {@code srcAccelerationStructure} was last built</li>
-     * <li>For each {@link VkAccelerationStructureBuildRangeInfoKHR} referenced by this command, its {@code primitiveCount} member <b>must</b> have the same value which was specified when {@code srcAccelerationStructure} was last built</li>
-     * <li>For each {@link VkAccelerationStructureBuildRangeInfoKHR} referenced by this command, if the corresponding geometry uses indices, its {@code firstVertex} member <b>must</b> have the same value which was specified when {@code srcAccelerationStructure} was last built</li>
+     * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, the {@code primitiveCount} member of its corresponding {@link VkAccelerationStructureBuildRangeInfoKHR} structure <b>must</b> have the same value which was specified when {@code srcAccelerationStructure} was last built</li>
      * <li>For each element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, the corresponding {@code ppMaxPrimitiveCounts}[i][j] <b>must</b> be less than or equal to {@link VkPhysicalDeviceAccelerationStructurePropertiesKHR}{@code ::maxInstanceCount}</li>
      * </ul>
      * 
@@ -831,12 +839,12 @@ public class KHRAccelerationStructure {
      * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, {@code geometry.instances.data.deviceAddress} <b>must</b> be a valid device address obtained from {@link VK12#vkGetBufferDeviceAddress GetBufferDeviceAddress}</li>
      * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, if {@code geometry.instances.data.deviceAddress} is the address of a non-sparse buffer then it <b>must</b> be bound completely and contiguously to a single {@code VkDeviceMemory} object</li>
      * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, each {@link VkAccelerationStructureInstanceKHR}{@code ::accelerationStructureReference} value in {@code geometry.instances.data.deviceAddress} <b>must</b> be a valid device address containing a value obtained from {@link #vkGetAccelerationStructureDeviceAddressKHR GetAccelerationStructureDeviceAddressKHR} or 0</li>
+     * <li>{@code commandBuffer} <b>must</b> not be a protected command buffer</li>
      * <li>For any element of {@code pIndirectDeviceAddresses}, if the buffer from which it was queried is non-sparse then it <b>must</b> be bound completely and contiguously to a single {@code VkDeviceMemory} object</li>
      * <li>For any element of {@code pIndirectDeviceAddresses}[i], all device addresses between {@code pIndirectDeviceAddresses}[i] and <code>pIndirectDeviceAddresses[i] + (pInfos[i].geometryCount × pIndirectStrides[i]) - 1</code> <b>must</b> be in the buffer device address range of the same buffer</li>
      * <li>For any element of {@code pIndirectDeviceAddresses}, the buffer from which it was queried <b>must</b> have been created with the {@link VK10#VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT BUFFER_USAGE_INDIRECT_BUFFER_BIT} bit set</li>
      * <li>Each element of {@code pIndirectDeviceAddresses} <b>must</b> be a multiple of 4</li>
      * <li>Each element of {@code pIndirectStrides} <b>must</b> be a multiple of 4</li>
-     * <li>{@code commandBuffer} <b>must</b> not be a protected command buffer</li>
      * <li>Each {@link VkAccelerationStructureBuildRangeInfoKHR} structure referenced by any element of {@code pIndirectDeviceAddresses} <b>must</b> be a valid {@link VkAccelerationStructureBuildRangeInfoKHR} structure</li>
      * <li>{@code pInfos}[i].{@code dstAccelerationStructure} <b>must</b> have been created with a value of {@link VkAccelerationStructureCreateInfoKHR}{@code ::size} greater than or equal to the memory size required by the build operation, as returned by {@link #vkGetAccelerationStructureBuildSizesKHR GetAccelerationStructureBuildSizesKHR} with <code>pBuildInfo = pInfos[i]</code> and <code>pMaxPrimitiveCounts = ppMaxPrimitiveCounts[i]</code></li>
      * <li>Each {@code ppMaxPrimitiveCounts}[i][j] <b>must</b> be greater than or equal to the {@code primitiveCount} value specified by the {@link VkAccelerationStructureBuildRangeInfoKHR} structure located at <code>pIndirectDeviceAddresses[i] + (j × pIndirectStrides[i])</code></li>
@@ -968,8 +976,7 @@ public class KHRAccelerationStructure {
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, if {@code geometryType} is {@link #VK_GEOMETRY_TYPE_TRIANGLES_KHR GEOMETRY_TYPE_TRIANGLES_KHR}, if its {@code geometry.triangles.transformData} address was {@code NULL} when {@code srcAccelerationStructure} was last built, then it <b>must</b> be {@code NULL}</li>
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, if {@code geometryType} is {@link #VK_GEOMETRY_TYPE_TRIANGLES_KHR GEOMETRY_TYPE_TRIANGLES_KHR}, if its {@code geometry.triangles.transformData} address was not {@code NULL} when {@code srcAccelerationStructure} was last built, then it <b>must</b> not be {@code NULL}</li>
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, if {@code geometryType} is {@link #VK_GEOMETRY_TYPE_TRIANGLES_KHR GEOMETRY_TYPE_TRIANGLES_KHR}, and {@code geometry.triangles.indexType} is not {@link #VK_INDEX_TYPE_NONE_KHR INDEX_TYPE_NONE_KHR}, then the value of each index referenced <b>must</b> be the same as the corresponding index value when {@code srcAccelerationStructure} was last built</li>
-     * <li>For each {@link VkAccelerationStructureBuildRangeInfoKHR} referenced by this command, its {@code primitiveCount} member <b>must</b> have the same value which was specified when {@code srcAccelerationStructure} was last built</li>
-     * <li>For each {@link VkAccelerationStructureBuildRangeInfoKHR} referenced by this command, if the corresponding geometry uses indices, its {@code firstVertex} member <b>must</b> have the same value which was specified when {@code srcAccelerationStructure} was last built</li>
+     * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR}, then for each {@link VkAccelerationStructureGeometryKHR} structure referred to by its {@code pGeometries} or {@code ppGeometries} members, the {@code primitiveCount} member of its corresponding {@link VkAccelerationStructureBuildRangeInfoKHR} structure <b>must</b> have the same value which was specified when {@code srcAccelerationStructure} was last built</li>
      * <li>For each element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, the corresponding {@code ppBuildRangeInfos}[i][j].{@code primitiveCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceAccelerationStructurePropertiesKHR}{@code ::maxInstanceCount}</li>
      * </ul>
      * 
@@ -979,7 +986,6 @@ public class KHRAccelerationStructure {
      * </ul>
      * 
      * <ul>
-     * <li>If {@code deferredOperation} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be a valid {@code VkDeferredOperationKHR} object</li>
      * <li>Any previous deferred operation that was associated with {@code deferredOperation} <b>must</b> be complete</li>
      * <li>For each element of {@code pInfos}, the {@code buffer} used to create its {@code dstAccelerationStructure} member <b>must</b> be bound to host-visible device memory</li>
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR} the {@code buffer} used to create its {@code srcAccelerationStructure} member <b>must</b> be bound to host-visible device memory</li>
@@ -994,8 +1000,8 @@ public class KHRAccelerationStructure {
      * <li>For each element of {@code pInfos}, if its {@code mode} member is {@link #VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR} the {@code buffer} used to create its {@code srcAccelerationStructure} member <b>must</b> be bound to memory that was not allocated with multiple instances</li>
      * <li>For each element of {@code pInfos}, the {@code buffer} used to create each acceleration structure referenced by the {@code geometry.instances.data} member of any element of {@code pGeometries} or {@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR} <b>must</b> be bound to memory that was not allocated with multiple instances</li>
      * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, {@code geometry.instances.data.hostAddress} <b>must</b> be a valid host address</li>
-     * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, each {@link VkAccelerationStructureInstanceKHR}{@code ::accelerationStructureReference} value in {@code geometry.instances.data.hostAddress} must be a valid {@code VkAccelerationStructureKHR} object</li>
-     * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR} with {@link NVRayTracingMotionBlur#VK_BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV} set, each {@code accelerationStructureReference} in any structure in {@link VkAccelerationStructureMotionInstanceNV} value in {@code geometry.instances.data.hostAddress} must be a valid {@code VkAccelerationStructureKHR} object</li>
+     * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, each {@link VkAccelerationStructureInstanceKHR}{@code ::accelerationStructureReference} value in {@code geometry.instances.data.hostAddress} <b>must</b> be a valid {@code VkAccelerationStructureKHR} object</li>
+     * <li>For any element of {@code pInfos}[i].{@code pGeometries} or {@code pInfos}[i].{@code ppGeometries} with a {@code geometryType} of {@link #VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR} with {@link NVRayTracingMotionBlur#VK_BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV} set, each {@code accelerationStructureReference} in any structure in {@link VkAccelerationStructureMotionInstanceNV} value in {@code geometry.instances.data.hostAddress} <b>must</b> be a valid {@code VkAccelerationStructureKHR} object</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -1073,14 +1079,13 @@ public class KHRAccelerationStructure {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-accelerationStructureHostCommands">{@link VkPhysicalDeviceAccelerationStructureFeaturesKHR}{@code ::accelerationStructureHostCommands}</a></li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-accelerationStructureHostCommands">{@link VkPhysicalDeviceAccelerationStructureFeaturesKHR}{@code ::accelerationStructureHostCommands}</a> feature <b>must</b> be enabled</li>
      * </ul>
      * 
      * <ul>
-     * <li>If {@code deferredOperation} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be a valid {@code VkDeferredOperationKHR} object</li>
      * <li>Any previous deferred operation that was associated with {@code deferredOperation} <b>must</b> be complete</li>
      * <li>The {@code buffer} used to create {@code pInfo→src} <b>must</b> be bound to host-visible device memory</li>
-     * <li>The {@code buffer} used to create {@code pInfo→dst} <b>must</b> be bound to host-visible device memory feature <b>must</b> be enabled</li>
+     * <li>The {@code buffer} used to create {@code pInfo→dst} <b>must</b> be bound to host-visible device memory</li>
      * <li>The {@code buffer} used to create {@code pInfo→src} <b>must</b> be bound to memory that was not allocated with multiple instances</li>
      * <li>The {@code buffer} used to create {@code pInfo→dst} <b>must</b> be bound to memory that was not allocated with multiple instances</li>
      * </ul>
@@ -1160,7 +1165,6 @@ public class KHRAccelerationStructure {
      * </ul>
      * 
      * <ul>
-     * <li>If {@code deferredOperation} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be a valid {@code VkDeferredOperationKHR} object</li>
      * <li>Any previous deferred operation that was associated with {@code deferredOperation} <b>must</b> be complete</li>
      * <li>The {@code buffer} used to create {@code pInfo→src} <b>must</b> be bound to host-visible device memory</li>
      * <li>{@code pInfo→dst.hostAddress} <b>must</b> be a valid host pointer</li>
@@ -1243,7 +1247,6 @@ public class KHRAccelerationStructure {
      * </ul>
      * 
      * <ul>
-     * <li>If {@code deferredOperation} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be a valid {@code VkDeferredOperationKHR} object</li>
      * <li>Any previous deferred operation that was associated with {@code deferredOperation} <b>must</b> be complete</li>
      * <li>{@code pInfo→src.hostAddress} <b>must</b> be a valid host pointer</li>
      * <li>{@code pInfo→src.hostAddress} <b>must</b> be aligned to 16 bytes</li>
@@ -1335,7 +1338,7 @@ public class KHRAccelerationStructure {
      * <ul>
      * <li>All acceleration structures in {@code pAccelerationStructures} <b>must</b> have been built prior to the execution of this command</li>
      * <li>All acceleration structures in {@code pAccelerationStructures} <b>must</b> have been built with {@link #VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR} if {@code queryType} is {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR}</li>
-     * <li>{@code queryType} <b>must</b> be {@link KHRRayTracingMaintenance1#VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SIZE_KHR}, {@link KHRRayTracingMaintenance1#VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR}, {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR} or {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR}</li>
+     * <li>{@code queryType} <b>must</b> be {@link KHRRayTracingMaintenance1#VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SIZE_KHR}, {@link KHRRayTracingMaintenance1#VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR}, {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR}, or {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR}</li>
      * <li>If {@code queryType} is {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR}, then {@code stride} <b>must</b> be a multiple of the size of {@code VkDeviceSize}</li>
      * <li>If {@code queryType} is {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR}, then {@code pData} <b>must</b> point to a {@code VkDeviceSize}</li>
      * <li>If {@code queryType} is {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR}, then {@code stride} <b>must</b> be a multiple of the size of {@code VkDeviceSize}</li>
@@ -1378,7 +1381,7 @@ public class KHRAccelerationStructure {
      * @param device                  the device which owns the acceleration structures in {@code pAccelerationStructures}.
      * @param pAccelerationStructures a pointer to an array of existing previously built acceleration structures.
      * @param queryType               a {@code VkQueryType} value specifying the property to be queried.
-     * @param pData                   a pointer to a user-allocated buffer where the results will be written.
+     * @param pData                   a pointer to a application-allocated buffer where the results will be written.
      * @param stride                  the stride in bytes between results for individual queries within {@code pData}.
      */
     @NativeType("VkResult")
@@ -1666,6 +1669,8 @@ public class KHRAccelerationStructure {
      * <ul>
      * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-accelerationStructure">{@link VkPhysicalDeviceAccelerationStructureFeaturesKHR}{@code ::accelerationStructure}</a> feature <b>must</b> be enabled</li>
      * <li>If {@code device} was created with multiple physical devices, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bufferDeviceAddressMultiDevice">{@code bufferDeviceAddressMultiDevice}</a> feature <b>must</b> be enabled</li>
+     * <li>If the buffer on which {@code pInfo→accelerationStructure} was placed is non-sparse then it <b>must</b> be bound completely and contiguously to a single {@code VkDeviceMemory} object</li>
+     * <li>The buffer on which {@code pInfo→accelerationStructure} was placed <b>must</b> have been created with the {@link VK12#VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT} usage flag</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -1734,13 +1739,13 @@ public class KHRAccelerationStructure {
      * <li>{@code queryPool} <b>must</b> have been created with a {@code queryType} matching {@code queryType}</li>
      * <li>The queries identified by {@code queryPool} and {@code firstQuery} <b>must</b> be <em>unavailable</em></li>
      * <li>The {@code buffer} used to create each acceleration structure in {@code pAccelerationStructures} <b>must</b> be bound to device memory</li>
-     * <li>The sum of {@code query} plus {@code accelerationStructureCount} <b>must</b> be less than or equal to the number of queries in {@code queryPool}</li>
+     * <li>The sum of {@code firstQuery} plus {@code accelerationStructureCount} <b>must</b> be less than or equal to the number of queries in {@code queryPool}</li>
      * </ul>
      * 
      * <ul>
      * <li>All acceleration structures in {@code pAccelerationStructures} <b>must</b> have been built prior to the execution of this command</li>
      * <li>All acceleration structures in {@code pAccelerationStructures} <b>must</b> have been built with {@link #VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR} if {@code queryType} is {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR}</li>
-     * <li>{@code queryType} <b>must</b> be {@link KHRRayTracingMaintenance1#VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SIZE_KHR}, {@link KHRRayTracingMaintenance1#VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR}, {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR} or {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR}</li>
+     * <li>{@code queryType} <b>must</b> be {@link KHRRayTracingMaintenance1#VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SIZE_KHR}, {@link KHRRayTracingMaintenance1#VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR}, {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR}, or {@link #VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR}</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>

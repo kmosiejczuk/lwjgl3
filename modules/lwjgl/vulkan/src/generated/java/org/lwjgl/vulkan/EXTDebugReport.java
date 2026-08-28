@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <h5>Examples</h5>
  * 
- * <p>{@code VK_EXT_debug_report} allows an application to register multiple callbacks with the validation layers. Some callbacks may log the information to a file, others may cause a debug break point or other application defined behavior. An application <b>can</b> register callbacks even when no validation layers are enabled, but they will only be called for loader and, if implemented, driver events.</p>
+ * <p>{@code VK_EXT_debug_report} allows an application to register multiple callbacks with the validation layers. Some callbacks may log the information to a file, others may cause a debug break point or other application-defined behavior. An application <b>can</b> register callbacks even when no validation layers are enabled, but they will only be called for loader and, if implemented, driver events.</p>
  * 
  * <p>To capture events that occur while creating or destroying an instance an application <b>can</b> link a {@link VkDebugReportCallbackCreateInfoEXT} structure to the {@code pNext} element of the {@link VkInstanceCreateInfo} structure given to {@link VK10#vkCreateInstance CreateInstance}.</p>
  * 
@@ -68,8 +68,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     vkDestroyDebugReportCallbackEXT(instance, cb2);
  *     vkDestroyDebugReportCallbackEXT(instance, cb3);</code></pre>
  * 
- * <h5>VK_EXT_debug_report</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_debug_report}</dd>
@@ -79,7 +77,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>12</dd>
  * <dt><b>Revision</b></dt>
  * <dd>10</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>API Interactions</b></dt>
+ * <dd><ul>
+ * <li>Interacts with VK_VERSION_1_1</li>
+ * </ul></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Deprecated</em> by {@link EXTDebugUtils VK_EXT_debug_utils} extension</li>
  * </ul></dd>
@@ -158,7 +160,7 @@ public class EXTDebugReport {
      * 
      * <ul>
      * <li>{@link #VK_DEBUG_REPORT_ERROR_BIT_EXT DEBUG_REPORT_ERROR_BIT_EXT} specifies that the application has violated a valid usage condition of the specification.</li>
-     * <li>{@link #VK_DEBUG_REPORT_WARNING_BIT_EXT DEBUG_REPORT_WARNING_BIT_EXT} specifies use of Vulkan that <b>may</b> expose an app bug. Such cases may not be immediately harmful, such as a fragment shader outputting to a location with no attachment. Other cases <b>may</b> point to behavior that is almost certainly bad when unintended such as using an image whose memory has not been filled. In general if you see a warning but you know that the behavior is intended/desired, then simply ignore the warning.</li>
+     * <li>{@link #VK_DEBUG_REPORT_WARNING_BIT_EXT DEBUG_REPORT_WARNING_BIT_EXT} specifies use of Vulkan that <b>may</b> expose an application bug. Such cases may not be immediately harmful, such as a fragment shader outputting to a location with no attachment. Other cases <b>may</b> point to behavior that is almost certainly bad when unintended such as using an image whose memory has not been filled. In general if you see a warning but you know that the behavior is intended/desired, then simply ignore the warning.</li>
      * <li>{@link #VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT} specifies a potentially non-optimal use of Vulkan, e.g. using {@link VK10#vkCmdClearColorImage CmdClearColorImage} when setting {@link VkAttachmentDescription}{@code ::loadOp} to {@link VK10#VK_ATTACHMENT_LOAD_OP_CLEAR ATTACHMENT_LOAD_OP_CLEAR} would have worked.</li>
      * <li>{@link #VK_DEBUG_REPORT_INFORMATION_BIT_EXT DEBUG_REPORT_INFORMATION_BIT_EXT} specifies an informational message such as resource details that may be handy when debugging an application.</li>
      * <li>{@link #VK_DEBUG_REPORT_DEBUG_BIT_EXT DEBUG_REPORT_DEBUG_BIT_EXT} specifies diagnostic information from the implementation and layers.</li>
@@ -453,10 +455,10 @@ public class EXTDebugReport {
      * @param flags        specifies the {@code VkDebugReportFlagBitsEXT} classification of this event/message.
      * @param objectType   a {@code VkDebugReportObjectTypeEXT} specifying the type of object being used or created at the time the event was triggered.
      * @param object       the object where the issue was detected. {@code object} <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE} if there is no object associated with the event.
-     * @param location     an application defined value.
-     * @param messageCode  an application defined value.
+     * @param location     an application-defined value.
+     * @param messageCode  an application-defined value.
      * @param pLayerPrefix the abbreviation of the component making this event/message.
-     * @param pMessage     a null-terminated string detailing the trigger conditions.
+     * @param pMessage     a null-terminated UTF-8 string detailing the trigger conditions.
      */
     public static void vkDebugReportMessageEXT(VkInstance instance, @NativeType("VkDebugReportFlagsEXT") int flags, @NativeType("VkDebugReportObjectTypeEXT") int objectType, @NativeType("uint64_t") long object, @NativeType("size_t") long location, @NativeType("int32_t") int messageCode, @NativeType("char const *") ByteBuffer pLayerPrefix, @NativeType("char const *") ByteBuffer pMessage) {
         if (CHECKS) {
@@ -510,10 +512,10 @@ public class EXTDebugReport {
      * @param flags        specifies the {@code VkDebugReportFlagBitsEXT} classification of this event/message.
      * @param objectType   a {@code VkDebugReportObjectTypeEXT} specifying the type of object being used or created at the time the event was triggered.
      * @param object       the object where the issue was detected. {@code object} <b>can</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE} if there is no object associated with the event.
-     * @param location     an application defined value.
-     * @param messageCode  an application defined value.
+     * @param location     an application-defined value.
+     * @param messageCode  an application-defined value.
      * @param pLayerPrefix the abbreviation of the component making this event/message.
-     * @param pMessage     a null-terminated string detailing the trigger conditions.
+     * @param pMessage     a null-terminated UTF-8 string detailing the trigger conditions.
      */
     public static void vkDebugReportMessageEXT(VkInstance instance, @NativeType("VkDebugReportFlagsEXT") int flags, @NativeType("VkDebugReportObjectTypeEXT") int objectType, @NativeType("uint64_t") long object, @NativeType("size_t") long location, @NativeType("int32_t") int messageCode, @NativeType("char const *") CharSequence pLayerPrefix, @NativeType("char const *") CharSequence pMessage) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();

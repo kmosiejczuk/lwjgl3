@@ -13,11 +13,10 @@ val KHR_cooperative_matrix = "KHRCooperativeMatrix".nativeClassVK("KHR_cooperati
         """
         This extension adds support for using cooperative matrix types in SPIR-V. Cooperative matrix types are medium-sized matrices that are primarily supported in compute shaders, where the storage for the matrix is spread across all invocations in some scope (usually a subgroup) and those invocations cooperate to efficiently perform matrix multiplies.
 
-        Cooperative matrix types are defined by the <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_cooperative_matrix.html">{@code SPV_KHR_cooperative_matrix}</a> SPIR-V extension and can be used with the <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/khr/GL_KHR_cooperative_matrix.txt">{@code GL_KHR_cooperative_matrix}</a> GLSL extension.
+        Cooperative matrix types are defined by the <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_cooperative_matrix.html">{@code SPV_KHR_cooperative_matrix}</a> SPIR-V extension and can be used with the <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/khr/GLSL_KHR_cooperative_matrix.txt">{@code GLSL_KHR_cooperative_matrix}</a> GLSL extension.
 
         This extension includes support for enumerating the matrix types and dimensions that are supported by the implementation.
 
-        <h5>VK_KHR_cooperative_matrix</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_cooperative_matrix}</dd>
@@ -32,12 +31,20 @@ val KHR_cooperative_matrix = "KHRCooperativeMatrix".nativeClassVK("KHR_cooperati
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_cooperative_matrix.html">SPV_KHR_cooperative_matrix</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
                 <li>Kevin Petit <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_cooperative_matrix]%20@kpet%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_cooperative_matrix%20extension*">kpet</a></li>
             </ul></dd>
+
+            <dt><b>Extension Proposal</b></dt>
+            <dd><a href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_KHR_cooperative_matrix.adoc">VK_KHR_cooperative_matrix</a></dd>
         </dl>
 
         <h5>Other Extension Metadata</h5>
@@ -47,8 +54,7 @@ val KHR_cooperative_matrix = "KHRCooperativeMatrix".nativeClassVK("KHR_cooperati
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_cooperative_matrix.html">{@code SPV_KHR_cooperative_matrix}</a></li>
-                <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/khr/GL_KHR_cooperative_matrix.txt">{@code GL_KHR_cooperative_matrix}</a></li>
+                <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/khr/GLSL_KHR_cooperative_matrix.txt">{@code GLSL_KHR_cooperative_matrix}</a></li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>
@@ -157,7 +163,7 @@ val KHR_cooperative_matrix = "KHRCooperativeMatrix".nativeClassVK("KHR_cooperati
 ￿    VkCooperativeMatrixPropertiesKHR*           pProperties);</code></pre>
 
         <h5>Description</h5>
-        If {@code pProperties} is {@code NULL}, then the number of cooperative matrix properties available is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If {@code pPropertyCount} is less than the number of cooperative matrix properties available, at most {@code pPropertyCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available cooperative matrix properties were returned.
+        If {@code pProperties} is {@code NULL}, then the number of cooperative matrix properties available is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If {@code pPropertyCount} is less than the number of cooperative matrix properties available, at most {@code pPropertyCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available cooperative matrix properties were returned.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

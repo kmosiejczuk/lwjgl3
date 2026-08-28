@@ -6,7 +6,7 @@
 package org.lwjgl.openxr;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_FB_touch_controller_pro">XR_FB_touch_controller_pro</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_FB_touch_controller_pro">XR_FB_touch_controller_pro</a> extension.
  * 
  * <p>This extension defines a new interaction profile for the Meta Quest Touch Pro Controller.</p>
  * 
@@ -15,6 +15,10 @@ package org.lwjgl.openxr;
  * <ul>
  * <li>pathname:/interaction_profiles/facebook/touch_controller_pro</li>
  * </ul>
+ * 
+ * <h5>Note</h5>
+ * 
+ * <p>The interaction profile path pathname:{legacy-path} defined here does not follow current rules for interaction profile names. If this extension were introduced today, it would be called pathname:{properly-suffixed-path}, to allow for modifications when promoted to a KHR extension or the core specification.</p>
  * 
  * <p>Valid for user paths:</p>
  * 

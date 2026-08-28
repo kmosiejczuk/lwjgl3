@@ -300,12 +300,24 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
     StringConstant(
         """
         Configures the #Process_PreTransformVertices step to use a users defined matrix as the scene root node transformation before transforming vertices.
-        This property corresponds to the 'a1' component of the transformation matrix.
+        This property corresponds to the {@code a1} component of the transformation matrix.
 
         Property type: aiMatrix4x4.
         """,
 
         "AI_CONFIG_PP_PTV_ROOT_TRANSFORMATION".."PP_PTV_ROOT_TRANSFORMATION"
+    ).noPrefix()
+
+    StringConstant(
+        """
+        Set epsilon to check the identity of the matrix 4x4.
+
+        This is used by {@code aiMatrix4x4t<TReal>::IsIdentity(const TReal epsilon)}. The default value is 10e-3f for backward compatibility of legacy code.
+
+        Property type: Float.
+        """,
+
+        "AI_CONFIG_CHECK_IDENTITY_MATRIX_EPSILON".."CHECK_IDENTITY_MATRIX_EPSILON"
     ).noPrefix()
 
     StringConstant(
@@ -1204,6 +1216,33 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
         """,
 
         "AI_CONFIG_USE_GLTF_PBR_SPECULAR_GLOSSINESS".."USE_GLTF_PBR_SPECULAR_GLOSSINESS"
+    ).noPrefix()
+
+    StringConstant(
+        """
+        Specifies whether to apply a limit on the number of four bones per vertex in skinning
+
+        When this flag is not defined, all bone weights and indices are limited to a maximum of four bones for each vertex (attributes {@code JOINT_0} and
+        {@code WEIGHT_0} only). By enabling this flag, the number of bones per vertex is unlimited. In both cases, indices and bone weights are sorted by
+        weight in descending order. In the case of the limit of up to four bones, a maximum of the four largest values are exported. Weights are not
+        normalized.
+
+        Property type: Bool. Default value: false.
+        """,
+
+        "AI_CONFIG_EXPORT_GLTF_UNLIMITED_SKINNING_BONES_PER_VERTEX".."USE_UNLIMITED_BONES_PER VERTEX"
+    ).noPrefix()
+
+    StringConstant(
+        """
+        Specifies whether to write the value referenced to opacity in {@code TransparencyFactor} of each material. 
+
+        When this flag is not defined, the {@code TransparencyFactor} value of each meterial is 1.0. By enabling this flag, the value is {@code 1.0 - opacity}.
+
+        Property type: Bool. Default value: false.
+        """,
+
+        "AI_CONFIG_EXPORT_FBX_TRANSPARENCY_FACTOR_REFER_TO_OPACITY".."EXPORT_FBX_TRANSPARENCY_FACTOR_REFER_TO_OPACITY VERTEX"
     ).noPrefix()
 
     StringConstant(

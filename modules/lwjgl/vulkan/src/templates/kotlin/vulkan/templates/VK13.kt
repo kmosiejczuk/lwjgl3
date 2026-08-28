@@ -429,7 +429,7 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
                     <li>#PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT</li>
                     <li>#PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT</li>
                     <li>#PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT</li>
-                    <li>#PIPELINE_STAGE_2_SHADING_RATE_IMAGE_BIT_NV</li>
+                    <li>#PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR</li>
                     <li>#PIPELINE_STAGE_2_FRAGMENT_DENSITY_PROCESS_BIT_EXT</li>
                     <li>#PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI</li>
                     <li>#PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI</li>
@@ -511,7 +511,6 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
                 <ul>
                     <li>#ACCESS_2_SHADER_SAMPLED_READ_BIT</li>
                     <li>#ACCESS_2_SHADER_STORAGE_READ_BIT</li>
-                    <li>#ACCESS_2_SHADER_BINDING_TABLE_READ_BIT_KHR</li>
                 </ul>
             </li>
             <li>#ACCESS_2_SHADER_STORAGE_WRITE_BIT specifies write access to a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#descriptorsets-storagebuffer">storage buffer</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#descriptorsets-physical-storage-buffer">physical storage buffer</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#descriptorsets-storagetexelbuffer">storage texel buffer</a>, or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#descriptorsets-storageimage">storage image</a> in any shader pipeline stage.</li>
@@ -599,10 +598,11 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
 
         <h5>Description</h5>
         <ul>
-            <li>#RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT specifies that draw calls for the render pass instance will be recorded in secondary command buffers.</li>
+            <li>#RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT specifies that draw calls for the render pass instance will be recorded in secondary command buffers. If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-nestedCommandBuffer">{@code nestedCommandBuffer}</a> feature is enabled, the draw calls <b>can</b> come from both inline and #CmdExecuteCommands().</li>
             <li>#RENDERING_RESUMING_BIT specifies that the render pass instance is resuming an earlier suspended render pass instance.</li>
             <li>#RENDERING_SUSPENDING_BIT specifies that the render pass instance will be suspended.</li>
             <li>#RENDERING_ENABLE_LEGACY_DITHERING_BIT_EXT specifies that <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#interfaces-legacy-dithering">Legacy Dithering</a> is enabled for the render pass instance.</li>
+            <li>#RENDERING_CONTENTS_INLINE_BIT_KHR specifies that draw calls for the render pass instance <b>can</b> be recorded inline within the current command buffer. This <b>can</b> be combined with the #RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT bit to allow draw calls to be recorded both inline and in secondary command buffers.</li>
         </ul>
 
         The contents of {@code pRenderingInfo} <b>must</b> match between suspended render pass instances and the render pass instances that resume them, other than the presence or absence of the #RENDERING_RESUMING_BIT, #RENDERING_SUSPENDING_BIT, and #RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT flags. No action or synchronization commands, or other render pass instances, are allowed between suspending and resuming render pass instances.
@@ -736,7 +736,7 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
 ￿    VkPhysicalDeviceToolProperties*             pToolProperties);</code></pre>
 
         <h5>Description</h5>
-        If {@code pToolProperties} is {@code NULL}, then the number of tools currently active on {@code physicalDevice} is returned in {@code pToolCount}. Otherwise, {@code pToolCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pToolProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pToolProperties}. If {@code pToolCount} is less than the number of currently active tools, at most {@code pToolCount} structures will be written.
+        If {@code pToolProperties} is {@code NULL}, then the number of tools currently active on {@code physicalDevice} is returned in {@code pToolCount}. Otherwise, {@code pToolCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pToolProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pToolProperties}. If {@code pToolCount} is less than the number of currently active tools, at most {@code pToolCount} structures will be written.
 
         The count and properties of active tools <b>may</b> change in response to events outside the scope of the specification. An application <b>should</b> assume these properties might change at any given time.
 
@@ -888,7 +888,7 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
         Associate data with a Vulkan object.
 
         <h5>C Specification</h5>
-        To store user defined data in a slot associated with a Vulkan object, call:
+        To store application-defined data in a slot associated with a Vulkan object, call:
 
         <pre><code>
 ￿VkResult vkSetPrivateData(
@@ -940,7 +940,7 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
         VkObjectType("objectType", "a {@code VkObjectType} specifying the type of object to associate data with."),
         uint64_t("objectHandle", "a handle to the object to associate data with."),
         VkPrivateDataSlot("privateDataSlot", "a handle to a {@code VkPrivateDataSlot} specifying location of private data storage."),
-        uint64_t("data", "user defined data to associate the object with. This data will be stored at {@code privateDataSlot}.")
+        uint64_t("data", "application-defined data to associate the object with. This data will be stored at {@code privateDataSlot}.")
     )
 
     void(
@@ -949,7 +949,7 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
         Retrieve data associated with a Vulkan object.
 
         <h5>C Specification</h5>
-        To retrieve user defined data from a slot associated with a Vulkan object, call:
+        To retrieve application-defined data from a slot associated with a Vulkan object, call:
 
         <pre><code>
 ￿void vkGetPrivateData(
@@ -976,7 +976,8 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>{@code objectType} <b>must</b> be #OBJECT_TYPE_DEVICE, or an object type whose parent is {@code VkDevice}</li>
+            <li>{@code objectHandle} <b>must</b> be {@code device} or a child of {@code device}</li>
+            <li>{@code objectHandle} <b>must</b> be a valid handle to an object of type {@code objectType}</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -993,7 +994,7 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
         VkObjectType("objectType", "a {@code VkObjectType} specifying the type of object data is associated with."),
         uint64_t("objectHandle", "a handle to the object data is associated with."),
         VkPrivateDataSlot("privateDataSlot", "a handle to a {@code VkPrivateDataSlot} specifying location of private data pointer storage."),
-        Check(1)..uint64_t.p("pData", "a pointer to specify where user data is returned. 0 will be written in the absence of a previous call to {@code vkSetPrivateData} using the object specified by {@code objectHandle}.")
+        Check(1)..uint64_t.p("pData", "a pointer to specify where application-defined data is returned. 0 will be written in the absence of a previous call to {@code vkSetPrivateData} using the object specified by {@code objectHandle}.")
     )
 
     // Promoted from VK_KHR_synchronization2 (extension 315)
@@ -1041,6 +1042,8 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
         <ul>
             <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-synchronization2">{@code synchronization2}</a> feature <b>must</b> be enabled</li>
             <li>The {@code dependencyFlags} member of {@code pDependencyInfo} <b>must</b> be 0</li>
+            <li>The {@code srcStageMask} member of any element of the {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, or {@code pImageMemoryBarriers} members of {@code pDependencyInfo} <b>must</b> not include #PIPELINE_STAGE_2_HOST_BIT</li>
+            <li>The {@code dstStageMask} member of any element of the {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, or {@code pImageMemoryBarriers} members of {@code pDependencyInfo} <b>must</b> not include #PIPELINE_STAGE_2_HOST_BIT</li>
             <li>The current device mask of {@code commandBuffer} <b>must</b> include exactly one physical device</li>
             <li>The {@code srcStageMask} member of any element of the {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, or {@code pImageMemoryBarriers} members of {@code pDependencyInfo} <b>must</b> only include pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from</li>
             <li>The {@code dstStageMask} member of any element of the {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, or {@code pImageMemoryBarriers} members of {@code pDependencyInfo} <b>must</b> only include pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from</li>
@@ -1212,7 +1215,7 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
             <li>For any element <code>i</code> of {@code pEvents}, if that event is signaled by #SetEvent(), barriers in the <code>i</code>th element of {@code pDependencyInfos} <b>must</b> include only host operations in their first <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-dependencies-scopes">synchronization scope</a></li>
             <li>For any element <code>i</code> of {@code pEvents}, if barriers in the <code>i</code>th element of {@code pDependencyInfos} include only host operations, the <code>i</code>th element of {@code pEvents} <b>must</b> be signaled before #CmdWaitEvents2() is executed</li>
             <li>For any element <code>i</code> of {@code pEvents}, if barriers in the <code>i</code>th element of {@code pDependencyInfos} do not include host operations, the <code>i</code>th element of {@code pEvents} <b>must</b> be signaled by a corresponding #CmdSetEvent2() that occurred earlier in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-submission-order">submission order</a></li>
-            <li>The {@code srcStageMask} member of any element of the {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, or {@code pImageMemoryBarriers} members of {@code pDependencyInfos} <b>must</b> either include only pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from, or include only #PIPELINE_STAGE_2_HOST_BIT</li>
+            <li>The {@code srcStageMask} member of any element of the {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, or {@code pImageMemoryBarriers} members of {@code pDependencyInfos} <b>must</b> either include only pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from</li>
             <li>The {@code dstStageMask} member of any element of the {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, or {@code pImageMemoryBarriers} members of {@code pDependencyInfos} <b>must</b> only include pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from</li>
             <li>If {@code vkCmdWaitEvents2} is being called inside a render pass instance, the {@code srcStageMask} member of any element of the {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, or {@code pImageMemoryBarriers} members of {@code pDependencyInfos} <b>must</b> not include #PIPELINE_STAGE_2_HOST_BIT</li>
             <li>{@code commandBuffer}’s current device mask <b>must</b> include exactly one physical device</li>
@@ -1278,25 +1281,32 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
 
         The second <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-dependencies-scopes">synchronization scope</a> and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-dependencies-access-scopes">access scope</a> of each memory dependency defined by {@code pDependencyInfo} are applied to operations that occurred later in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-submission-order">submission order</a>.
 
-        If {@code vkCmdPipelineBarrier2} is recorded within a render pass instance, the synchronization scopes are limited to operations within the same subpass , or <b>must</b> follow the restrictions for <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-pipeline-barriers-explicit-renderpass-tileimage">Tile Image Access Synchronization</a> if the render pass instance was started with #CmdBeginRendering() .
+        If {@code vkCmdPipelineBarrier2} is recorded within a render pass instance, the synchronization scopes are limited to a subset of operations within the same subpass or render pass instance.
 
         <h5>Valid Usage</h5>
         <ul>
             <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance using a {@code VkRenderPass} object, the render pass <b>must</b> have been created with at least one subpass dependency that expresses a dependency from the current subpass to itself, does not include #DEPENDENCY_BY_REGION_BIT if this command does not, does not include #DEPENDENCY_VIEW_LOCAL_BIT if this command does not, and has <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-dependencies-scopes">synchronization scopes</a> and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-dependencies-access-scopes">access scopes</a> that are all supersets of the scopes defined in this command</li>
             <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance using a {@code VkRenderPass} object, it <b>must</b> not include any buffer memory barriers</li>
-            <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance using a {@code VkRenderPass} object, the {@code image} member of any image memory barrier included in this command <b>must</b> be an attachment used in the current subpass both as an input attachment, and as either a color or depth/stencil attachment</li>
+            <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance using a {@code VkRenderPass} object, the {@code image} member of any image memory barrier included in this command <b>must</b> be an attachment used in the current subpass both as an input attachment, and as either a color, color resolve, or depth/stencil attachment</li>
+            <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance using a {@code VkRenderPass} object, and the {@code image} member of any image memory barrier is a color resolve attachment, the corresponding color attachment <b>must</b> be #ATTACHMENT_UNUSED</li>
+            <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance using a {@code VkRenderPass} object, and the {@code image} member of any image memory barrier is a color resolve attachment, it <b>must</b> have been created with a non-zero ##VkExternalFormatANDROID{@code ::externalFormat} value</li>
             <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance, the {@code oldLayout} and {@code newLayout} members of any image memory barrier included in this command <b>must</b> be equal</li>
             <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance, the {@code srcQueueFamilyIndex} and {@code dstQueueFamilyIndex} members of any memory barrier included in this command <b>must</b> be equal</li>
             <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance, and the source stage masks of any memory barriers include <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-framebuffer-regions">framebuffer-space stages</a>, destination stage masks of all memory barriers <b>must</b> only include <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-framebuffer-regions">framebuffer-space stages</a></li>
-            <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance, and and the source stage masks of any memory barriers include <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-framebuffer-regions">framebuffer-space stages</a>, then {@code dependencyFlags} <b>must</b> include #DEPENDENCY_BY_REGION_BIT</li>
+            <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance, and the source stage masks of any memory barriers include <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-framebuffer-regions">framebuffer-space stages</a>, then {@code dependencyFlags} <b>must</b> include #DEPENDENCY_BY_REGION_BIT</li>
             <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance, the source and destination stage masks of any memory barriers <b>must</b> only include graphics pipeline stages</li>
             <li>If {@code vkCmdPipelineBarrier2} is called outside of a render pass instance, the dependency flags <b>must</b> not include #DEPENDENCY_VIEW_LOCAL_BIT</li>
             <li>If {@code vkCmdPipelineBarrier2} is called inside a render pass instance, and there is more than one view in the current subpass, dependency flags <b>must</b> include #DEPENDENCY_VIEW_LOCAL_BIT</li>
-            <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance and none of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderTileImageColorReadAccess">{@code shaderTileImageColorReadAccess}</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderTileImageDepthReadAccess">{@code shaderTileImageDepthReadAccess}</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderTileImageStencilReadAccess">{@code shaderTileImageStencilReadAccess}</a> features are enabled, the render pass <b>must</b> not have been started with #CmdBeginRendering()</li>
-            <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance started with #CmdBeginRendering(), it <b>must</b> adhere to the restrictions in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-pipeline-barriers-explicit-renderpass-tileimage">Explicit Render Pass Tile Image Access Synchronization</a></li>
+            <li>If none of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderTileImageColorReadAccess">{@code shaderTileImageColorReadAccess}</a>, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderTileImageStencilReadAccess">{@code shaderTileImageStencilReadAccess}</a>, or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-shaderTileImageDepthReadAccess">{@code shaderTileImageDepthReadAccess}</a> features are enabled, and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-dynamicRenderingLocalRead">{@code dynamicRenderingLocalRead}</a> feature is not enabled, {@code vkCmdPipelineBarrier2} <b>must</b> not be called within a render pass instance started with #CmdBeginRendering()</li>
+            <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-dynamicRenderingLocalRead">{@code dynamicRenderingLocalRead}</a> feature is not enabled, and {@code vkCmdPipelineBarrier2} is called within a render pass instance started with #CmdBeginRendering(), there <b>must</b> be no buffer or image memory barriers specified by this command</li>
+            <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-dynamicRenderingLocalRead">{@code dynamicRenderingLocalRead}</a> feature is not enabled, and {@code vkCmdPipelineBarrier2} is called within a render pass instance started with #CmdBeginRendering(), memory barriers specified by this command <b>must</b> only include #ACCESS_2_COLOR_ATTACHMENT_READ_BIT, #ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT, #ACCESS_2_DEPTH_STENCIL_ATTACHMENT_READ_BIT, or #ACCESS_2_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT in their access masks</li>
+            <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance started with #CmdBeginRendering(), and the {@code image} member of any image memory barrier is used as an attachment in the current render pass instance, it <b>must</b> be in the #IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR or #IMAGE_LAYOUT_GENERAL layout</li>
+            <li>If {@code vkCmdPipelineBarrier2} is called within a render pass instance started with #CmdBeginRendering(), this command <b>must</b> only specify <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-framebuffer-regions">framebuffer-space stages</a> in {@code srcStageMask} and {@code dstStageMask}</li>
             <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-synchronization2">{@code synchronization2}</a> feature <b>must</b> be enabled</li>
-            <li>The {@code srcStageMask} member of any element of the {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, or {@code pImageMemoryBarriers} members of {@code pDependencyInfo} <b>must</b> only include pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from</li>
-            <li>The {@code dstStageMask} member of any element of the {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, or {@code pImageMemoryBarriers} members of {@code pDependencyInfo} <b>must</b> only include pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from</li>
+            <li>The {@code srcStageMask} member of any element of the {@code pMemoryBarriers} member of {@code pDependencyInfo} <b>must</b> only include pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from</li>
+            <li>The {@code dstStageMask} member of any element of the {@code pMemoryBarriers} member of {@code pDependencyInfo} <b>must</b> only include pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from</li>
+            <li>If a buffer or image memory barrier does not specify an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-queue-transfers-acquire">acquire operation</a>, the respective {@code srcStageMask} member of the element of the {@code pBufferMemoryBarriers} or {@code pImageMemoryBarriers} members of {@code pDependencyInfo} <b>must</b> only include pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from</li>
+            <li>If a buffer or image memory barrier does not specify an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-queue-transfers-release">release operation</a>, the respective {@code dstStageMask} member of the element of the {@code pBufferMemoryBarriers} or {@code pImageMemoryBarriers} members of {@code pDependencyInfo} <b>must</b> only include pipeline stages valid for the queue family that was used to create the command pool that {@code commandBuffer} was allocated from</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -1362,10 +1372,10 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
         Implementations may write the timestamp at any stage that is <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-pipeline-stages-order">logically later</a> than {@code stage}.
         </div>
 
-        Any timestamp write that <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-dependencies-execution">happens-after</a> another timestamp write in the same submission <b>must</b> not have a lower value unless its value overflows the maximum supported integer bit width of the query. If {@link EXTCalibratedTimestamps VK_EXT_calibrated_timestamps} is enabled, this extends to timestamp writes across all submissions on the same logical device: any timestamp write that <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-dependencies-execution">happens-after</a> another <b>must</b> not have a lower value unless its value overflows the maximum supported integer bit width of the query. Timestamps written by this command <b>must</b> be in the #TIME_DOMAIN_DEVICE_EXT time domain ({@code VkTimeDomainEXT}). If an overflow occurs, the timestamp value <b>must</b> wrap back to zero.
+        Any timestamp write that <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-dependencies-execution">happens-after</a> another timestamp write in the same submission <b>must</b> not have a lower value unless its value overflows the maximum supported integer bit width of the query. If {@link KHRCalibratedTimestamps VK_KHR_calibrated_timestamps} or {@link EXTCalibratedTimestamps VK_EXT_calibrated_timestamps} is enabled, this extends to timestamp writes across all submissions on the same logical device: any timestamp write that <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-dependencies-execution">happens-after</a> another <b>must</b> not have a lower value unless its value overflows the maximum supported integer bit width of the query. Timestamps written by this command <b>must</b> be in the #TIME_DOMAIN_DEVICE_KHR time domain ({@code VkTimeDomainKHR}). If an overflow occurs, the timestamp value <b>must</b> wrap back to zero.
 
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-        Comparisons between timestamps should be done between timestamps where they are guaranteed to not decrease. For example, subtracting an older timestamp from a newer one to determine the execution time of a sequence of commands is only a reliable measurement if the two timestamp writes were performed in the same submission, or if the writes were performed on the same logical device and {@link EXTCalibratedTimestamps VK_EXT_calibrated_timestamps} is enabled.
+        Comparisons between timestamps should be done between timestamps where they are guaranteed to not decrease. For example, subtracting an older timestamp from a newer one to determine the execution time of a sequence of commands is only a reliable measurement if the two timestamp writes were performed in the same submission, or if the writes were performed on the same logical device and {@link KHRCalibratedTimestamps VK_KHR_calibrated_timestamps} or {@link EXTCalibratedTimestamps VK_EXT_calibrated_timestamps} is enabled.
         </div>
 
         If {@code vkCmdWriteTimestamp2} is called while executing a render pass instance that has multiview enabled, the timestamp uses <code>N</code> consecutive query indices in the query pool (starting at {@code query}) where <code>N</code> is the number of bits set in the view mask of the subpass the command is executed in. The resulting query values are determined by an implementation-dependent choice of one of the following behaviors:
@@ -1467,7 +1477,7 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
             <li>If {@code fence} is not #NULL_HANDLE, {@code fence} <b>must</b> be unsignaled</li>
             <li>If {@code fence} is not #NULL_HANDLE, {@code fence} <b>must</b> not be associated with any other queue command that has not yet completed execution on that queue</li>
             <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-synchronization2">{@code synchronization2}</a> feature <b>must</b> be enabled</li>
-            <li>If a command recorded into the {@code commandBuffer} member of any element of the {@code pCommandBufferInfos} member of any element of {@code pSubmits} referenced an {@code VkEvent}, that event <b>must</b> not be referenced by a command that has been submitted to another queue and is still in the <em>pending state</em></li>
+            <li>If a command recorded into the {@code commandBuffer} member of any element of the {@code pCommandBufferInfos} member of any element of {@code pSubmits} referenced a {@code VkEvent}, that event <b>must</b> not be referenced by a command that has been submitted to another queue and is still in the <em>pending state</em></li>
             <li>The {@code semaphore} member of any binary semaphore element of the {@code pSignalSemaphoreInfos} member of any element of {@code pSubmits} <b>must</b> be unsignaled when the semaphore signal operation it defines is executed on the device</li>
             <li>The {@code stageMask} member of any element of the {@code pSignalSemaphoreInfos} member of any element of {@code pSubmits} <b>must</b> only include pipeline stages that are supported by the queue family which {@code queue} belongs to</li>
             <li>The {@code stageMask} member of any element of the {@code pWaitSemaphoreInfos} member of any element of {@code pSubmits} <b>must</b> only include pipeline stages that are supported by the queue family which {@code queue} belongs to</li>
@@ -1478,7 +1488,7 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
             <li>Any <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-secondary">secondary command buffers recorded</a> into the {@code commandBuffer} member of any element of the {@code pCommandBufferInfos} member of any element of {@code pSubmits} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">pending or executable state</a></li>
             <li>If any <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-secondary">secondary command buffers recorded</a> into the {@code commandBuffer} member of any element of the {@code pCommandBufferInfos} member of any element of {@code pSubmits} was not recorded with the #COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT, it <b>must</b> not be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">pending state</a></li>
             <li>The {@code commandBuffer} member of any element of the {@code pCommandBufferInfos} member of any element of {@code pSubmits} <b>must</b> have been allocated from a {@code VkCommandPool} that was created for the same queue family {@code queue} belongs to</li>
-            <li>If a command recorded into the {@code commandBuffer} member of any element of the {@code pCommandBufferInfos} member of any element of {@code pSubmits} includes a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-queue-transfers-acquire">Queue Family Transfer Acquire Operation</a>, there <b>must</b> exist a previously submitted <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-queue-transfers-release">Queue Family Transfer Release Operation</a> on a queue in the queue family identified by the acquire operation, with parameters matching the acquire operation as defined in the definition of such <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-queue-transfers-acquire">acquire operations</a>, and which happens before the acquire operation</li>
+            <li>If a command recorded into the {@code commandBuffer} member of any element of the {@code pCommandBufferInfos} member of any element of {@code pSubmits} includes a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-queue-transfers-acquire">Queue Family Ownership Transfer Acquire Operation</a>, there <b>must</b> exist a previously submitted <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-queue-transfers-release">Queue Family Ownership Transfer Release Operation</a> on a queue in the queue family identified by the acquire operation, with parameters matching the acquire operation as defined in the definition of such <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-queue-transfers-acquire">acquire operations</a>, and which happens before the acquire operation</li>
             <li>If a command recorded into the {@code commandBuffer} member of any element of the {@code pCommandBufferInfos} member of any element of {@code pSubmits} was a #CmdBeginQuery() whose {@code queryPool} was created with a {@code queryType} of #QUERY_TYPE_PERFORMANCE_QUERY_KHR, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#profiling-lock">profiling lock</a> <b>must</b> have been held continuously on the {@code VkDevice} that {@code queue} was retrieved from, throughout recording of those command buffers</li>
             <li>If {@code queue} was not created with #DEVICE_QUEUE_CREATE_PROTECTED_BIT, the {@code flags} member of any element of {@code pSubmits} <b>must</b> not include #SUBMIT_PROTECTED_BIT_KHR</li>
         </ul>
@@ -1925,7 +1935,13 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
         <h5>Valid Usage</h5>
         <ul>
             <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-dynamicRendering">{@code dynamicRendering}</a> feature <b>must</b> be enabled</li>
-            <li>If {@code commandBuffer} is a secondary command buffer, {@code pRenderingInfo→flags} <b>must</b> not include #RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT</li>
+            <li>If {@code commandBuffer} is a secondary command buffer, and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-nestedCommandBuffer">{@code nestedCommandBuffer}</a> feature is not enabled, {@code pRenderingInfo→flags} <b>must</b> not include #RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT</li>
+            <li>If {@code pRenderingInfo→pDepthAttachment} is not {@code NULL} and {@code pRenderingInfo→pDepthAttachment→imageView} is not #NULL_HANDLE, {@code pRenderingInfo→pDepthAttachment→imageView} <b>must</b> be in the layout specified by {@code pRenderingInfo→pDepthAttachment→imageLayout}</li>
+            <li>If {@code pRenderingInfo→pDepthAttachment} is not {@code NULL}, {@code pRenderingInfo→pDepthAttachment→imageView} is not #NULL_HANDLE, {@code pRenderingInfo→pDepthAttachment→imageResolveMode} is not #RESOLVE_MODE_NONE, and {@code pRenderingInfo→pDepthAttachment→resolveImageView} is not #NULL_HANDLE, {@code pRenderingInfo→pDepthAttachment→resolveImageView} <b>must</b> be in the layout specified by {@code pRenderingInfo→pDepthAttachment→resolveImageLayout}</li>
+            <li>If {@code pRenderingInfo→pStencilAttachment} is not {@code NULL} and {@code pRenderingInfo→pStencilAttachment→imageView} is not #NULL_HANDLE, {@code pRenderingInfo→pStencilAttachment→imageView} <b>must</b> be in the layout specified by {@code pRenderingInfo→pStencilAttachment→imageLayout}</li>
+            <li>If {@code pRenderingInfo→pStencilAttachment} is not {@code NULL}, {@code pRenderingInfo→pStencilAttachment→imageView} is not #NULL_HANDLE, {@code pRenderingInfo→pStencilAttachment→imageResolveMode} is not #RESOLVE_MODE_NONE, and {@code pRenderingInfo→pStencilAttachment→resolveImageView} is not #NULL_HANDLE, {@code pRenderingInfo→pStencilAttachment→resolveImageView} <b>must</b> be in the layout specified by {@code pRenderingInfo→pStencilAttachment→resolveImageLayout}</li>
+            <li>For any element of {@code pRenderingInfo→pColorAttachments}, if {@code imageView} is not #NULL_HANDLE, that image view <b>must</b> be in the layout specified by {@code imageLayout}</li>
+            <li>For any element of {@code pRenderingInfo→pColorAttachments}, if either {@code imageResolveMode} is #RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID, or {@code imageView} is not #NULL_HANDLE and {@code resolveMode} is not #RESOLVE_MODE_NONE, and {@code resolveImageView} is not #NULL_HANDLE, {@code resolveImageView} <b>must</b> be in the layout specified by {@code resolveImageLayout}</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -2647,6 +2663,7 @@ val VK13 = "VK13".nativeClass(Module.VULKAN, "VK13", prefix = "VK", binding = VK
                     <li>the value of ##VkApplicationInfo{@code ::apiVersion} used to create the {@code VkInstance} parent of {@code commandBuffer} is greater than or equal to Version 1.3</li>
                 </ul>
             </li>
+            <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-depthBounds">{@code depthBounds}</a> feature is not enabled, {@code depthBoundsTestEnable} <b>must</b> be #FALSE</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>

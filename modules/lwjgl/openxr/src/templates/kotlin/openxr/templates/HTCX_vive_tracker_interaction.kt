@@ -11,11 +11,11 @@ import openxr.*
 val HTCX_vive_tracker_interaction = "HTCXViveTrackerInteraction".nativeClassXR("HTCX_vive_tracker_interaction", type = "instance", postfix = "HTCX") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_HTCX_vive_tracker_interaction">XR_HTCX_vive_tracker_interaction</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_HTCX_vive_tracker_interaction">XR_HTCX_vive_tracker_interaction</a> extension.
 
         This extension defines a new interaction profile for HTC VIVE Tracker. HTC VIVE Tracker is a generic tracked device which can be attached to anything to make them trackable. For example, it can be attached to user’s hands or feet to track the motion of human body. It can also be attached to any other devices the user wants to track and interact with.
 
-        In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo {@code enabledExtensionNames} parameter as indicated in the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#extensions">extensions</a> section.
+        In order to enable the functionality of this extension, you <b>must</b> pass the name of the extension into #CreateInstance() via the ##XrInstanceCreateInfo {@code enabledExtensionNames} parameter as indicated in the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#fundamentals-extensions">fundamentals-extensions</a> section.
 
         This extension allows:
 
@@ -54,10 +54,10 @@ val HTCX_vive_tracker_interaction = "HTCXViveTrackerInteraction".nativeClassXR("
                     </ul></dd>
                 </dl>
             </li>
-            <li>Either the persistent path or the role path can be be passed as a subaction path to indicate a specific tracker. For example, ##XrActionCreateInfo{@code ::subactionPath} into function #CreateAction() or ##XrActionSpaceCreateInfo{@code ::subactionPath} into function #CreateActionSpace(). Please see Example 1 below.</li>
+            <li>Either the persistent path or the role path can be be passed as a subaction path to indicate a specific tracker. For example, ##XrActionCreateInfo{@code ::subactionPaths} into function #CreateAction() or ##XrActionSpaceCreateInfo{@code ::subactionPath} into function #CreateActionSpace(). Please see Example 1 below.</li>
         </ul>
 
-        <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#input-suggested-bindings">As with other controllers</a>, if a VIVE tracker is connected and bound to a top-level user path, or disconnected while bound to top-level user path, the runtime <b>must</b> send event #TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED, and the application <b>may</b> call #GetCurrentInteractionProfile() to check if the tracker is active or not.
+        <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#input-suggested-bindings">As with other controllers</a>, if a VIVE tracker is connected and bound to a top-level user path, or disconnected while bound to top-level user path, the runtime <b>must</b> send event #TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED, and the application <b>may</b> call #GetCurrentInteractionProfile() to check if the tracker is active or not.
 
         The device that a tracker is attached to probably has a different motion model than what the tracker assumes. The motion tracking might not be as expected in this case.
         """
@@ -92,9 +92,9 @@ val HTCX_vive_tracker_interaction = "HTCXViveTrackerInteraction".nativeClassXR("
         <pre><code>
 ￿XrResult xrEnumerateViveTrackerPathsHTCX(
 ￿    XrInstance                                  instance,
-￿    uint32_t                                    pathsCapacityInput,
-￿    uint32_t*                                   pathsCountOutput,
-￿    XrViveTrackerPathsHTCX*                     viveTrackerPaths);</code></pre>
+￿    uint32_t                                    pathCapacityInput,
+￿    uint32_t*                                   pathCountOutput,
+￿    XrViveTrackerPathsHTCX*                     paths);</code></pre>
 
         <h5>Description</h5>
         #EnumerateViveTrackerPathsHTCX() enumerates all connected VIVE trackers to retrieve their paths under current instance.
@@ -103,8 +103,8 @@ val HTCX_vive_tracker_interaction = "HTCXViveTrackerInteraction".nativeClassXR("
         <ul>
             <li>The {@link HTCXViveTrackerInteraction XR_HTCX_vive_tracker_interaction} extension <b>must</b> be enabled prior to calling #EnumerateViveTrackerPathsHTCX()</li>
             <li>{@code instance} <b>must</b> be a valid {@code XrInstance} handle</li>
-            <li>{@code pathsCountOutput} <b>must</b> be a pointer to a {@code uint32_t} value</li>
-            <li>If {@code pathsCapacityInput} is not 0, {@code viveTrackerPaths} <b>must</b> be a pointer to an array of {@code pathsCapacityInput} ##XrViveTrackerPathsHTCX structures</li>
+            <li>{@code pathCountOutput} <b>must</b> be a pointer to a {@code uint32_t} value</li>
+            <li>If {@code pathCapacityInput} is not 0, {@code paths} <b>must</b> be a pointer to an array of {@code pathCapacityInput} ##XrViveTrackerPathsHTCX structures</li>
         </ul>
 
         <h5>Return Codes</h5>
@@ -130,8 +130,8 @@ val HTCX_vive_tracker_interaction = "HTCXViveTrackerInteraction".nativeClassXR("
         """,
 
         XrInstance("instance", "an instance previously created."),
-        AutoSize("viveTrackerPaths")..uint32_t("pathsCapacityInput", "the capacity of the {@code viveTrackerPaths}, or 0 to retrieve the required capacity."),
-        Check(1)..uint32_t.p("pathsCountOutput", "a pointer to the count of ##XrViveTrackerPathsHTCX {@code viveTrackerPaths} written, or a pointer to the required capacity in the case that {@code pathsCapacityInput} is insufficient."),
-        nullable..XrViveTrackerPathsHTCX.p("viveTrackerPaths", "a pointer to an array of ##XrViveTrackerPathsHTCX VIVE tracker paths, but <b>can</b> be {@code NULL} if {@code pathsCapacityInput} is 0.")
+        AutoSize("paths")..uint32_t("pathCapacityInput", "the capacity of the {@code paths}, or 0 to retrieve the required capacity."),
+        Check(1)..uint32_t.p("pathCountOutput", "a pointer to the count of ##XrViveTrackerPathsHTCX {@code paths} written, or a pointer to the required capacity in the case that {@code pathCapacityInput} is insufficient."),
+        nullable..XrViveTrackerPathsHTCX.p("paths", "a pointer to an array of ##XrViveTrackerPathsHTCX VIVE tracker paths, but <b>can</b> be {@code NULL} if {@code pathCapacityInput} is 0.")
     )
 }

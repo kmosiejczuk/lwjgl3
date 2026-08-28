@@ -140,8 +140,6 @@ package org.lwjgl.vulkan;
  *     submit_info.pCommandBuffers = &amp;cmd_buf;
  *     vkQueueSubmit(queue, 1, &amp;submit_info, VK_NULL_HANDLE);</code></pre>
  * 
- * <h5>VK_NV_win32_keyed_mutex</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_win32_keyed_mutex}</dd>
@@ -153,7 +151,7 @@ package org.lwjgl.vulkan;
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd>{@link NVExternalMemoryWin32 VK_NV_external_memory_win32}</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to {@link KHRWin32KeyedMutex VK_KHR_win32_keyed_mutex} extension</li>
  * </ul></dd>

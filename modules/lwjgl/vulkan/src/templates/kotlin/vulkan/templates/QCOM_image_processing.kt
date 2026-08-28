@@ -17,15 +17,14 @@ val QCOM_image_processing = "QCOMImageProcessing".nativeClassVK("QCOM_image_proc
 
         <ul>
             <li>The {@code OpImageSampleWeightedQCOM} instruction takes 3 operands: <em>sampled image</em>, <em>weight image</em>, and texture coordinates. The instruction computes a weighted average of an MxN region of texels in the <em>sampled image</em>, using a set of MxN weights in the <em>weight image</em>.</li>
-            <li>The {@code OpImageBoxFilterQCOM} instruction takes 3 operands: <em>sampled image</em>, <em>box size</em>, and texture coordinates. Note that <em>box size</em> specifies a floating point width and height in texels. The instruction computes a weighted average of all texels in the <em>sampled image</em> that are covered (either partially or fully) by a box with the specified size and centered at the specified texture coordinates.</li>
+            <li>The {@code OpImageBoxFilterQCOM} instruction takes 3 operands: <em>sampled image</em>, <em>box size</em>, and texture coordinates. Note that <em>box size</em> specifies a floating-point width and height in texels. The instruction computes a weighted average of all texels in the <em>sampled image</em> that are covered (either partially or fully) by a box with the specified size and centered at the specified texture coordinates.</li>
             <li>The {@code OpImageBlockMatchSADQCOM} and {@code OpImageBlockMatchSSDQCOM} instructions each takes 5 operands: <em>target image</em>, <em>target coordinates</em>, <em>reference image</em>, <em>reference coordinates</em>, and <em>block size</em>. Each instruction computes an error metric, that describes whether a block of texels in the <em>target image</em> matches a corresponding block of texels in the <em>reference image</em>. The error metric is computed per-component. {@code OpImageBlockMatchSADQCOM} computes "Sum Of Absolute Difference" and {@code OpImageBlockMatchSSDQCOM} computes "Sum of Squared Difference".</li>
         </ul>
 
         Each of the image processing instructions operate only on 2D images. The instructions do not-support sampling of mipmap, multi-plane, multi-layer, multi-sampled, or depth/stencil images. The instructions can be used in any shader stage.
 
-        Implementations of this this extension should support these operations natively at the HW instruction level, offering potential performance gains as well as ease of development.
+        Implementations of this extension should support these operations natively at the HW instruction level, offering potential performance gains as well as ease of development.
 
-        <h5>VK_QCOM_image_processing</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_QCOM_image_processing}</dd>
@@ -40,11 +39,22 @@ val QCOM_image_processing = "QCOMImageProcessing".nativeClassVK("QCOM_image_proc
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRFormatFeatureFlags2 VK_KHR_format_feature_flags2}</dd>
+            <dd>{@link KHRFormatFeatureFlags2 VK_KHR_format_feature_flags2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3">Version 1.3</a></dd>
+
+            <dt><b>API Interactions</b></dt>
+            <dd><ul>
+                <li>Interacts with VK_VERSION_1_3</li>
+                <li>Interacts with VK_KHR_format_feature_flags2</li>
+            </ul></dd>
+
+            <dt><b>SPIR-V Dependencies</b></dt>
+            <dd><ul>
+                <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/QCOM/SPV_QCOM_image_processing.html">SPV_QCOM_image_processing</a></li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jeff Leger <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_QCOM_image_processing]%20@jackohound%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_QCOM_image_processing%20extension*">jackohound</a></li>
+                <li>Matthew Netsch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_QCOM_image_processing]%20@mnetsch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_QCOM_image_processing%20extension*">mnetsch</a></li>
             </ul></dd>
 
             <dt><b>Extension Proposal</b></dt>
@@ -58,8 +68,7 @@ val QCOM_image_processing = "QCOMImageProcessing".nativeClassVK("QCOM_image_proc
 
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
-                <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/QCOM/SPV_QCOM_image_processing.html">{@code SPV_QCOM_image_processing}</a></li>
-                <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/qcom/GLSL_QCOM_image_processing.txt">{@code GL_QCOM_image_processing}</a></li>
+                <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/qcom/GLSL_QCOM_image_processing.txt">{@code GL_QCOM_image_processing}</a></li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>

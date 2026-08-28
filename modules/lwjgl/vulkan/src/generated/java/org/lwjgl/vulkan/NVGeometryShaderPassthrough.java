@@ -16,7 +16,7 @@ package org.lwjgl.vulkan;
  * 
  * <p>This extension provides access to the {@code PassthroughNV} decoration under the {@code GeometryShaderPassthroughNV} capability. Adding this to a geometry shader input variable specifies that the values of this input are copied to the corresponding vertex of the output primitive.</p>
  * 
- * <p>When using GLSL source-based shading languages, the {@code passthrough} layout qualifier from {@code GL_NV_geometry_shader_passthrough} maps to the {@code PassthroughNV} decoration. To use the {@code passthrough} layout, in GLSL the {@code GL_NV_geometry_shader_passthrough} extension must be enabled. Behaviour is described in the {@code GL_NV_geometry_shader_passthrough} extension specification.</p>
+ * <p>When using GLSL source-based shading languages, the {@code passthrough} layout qualifier from {@code GL_NV_geometry_shader_passthrough} maps to the {@code PassthroughNV} decoration. To use the {@code passthrough} layout, in GLSL the {@code GL_NV_geometry_shader_passthrough} extension must be enabled. Behavior is described in the {@code GL_NV_geometry_shader_passthrough} extension specification.</p>
  * 
  * <h5>Sample Code</h5>
  * 
@@ -78,8 +78,6 @@ package org.lwjgl.vulkan;
  *     gl_Layer = compute_layer();
  * }</code></pre>
  * 
- * <h5>VK_NV_geometry_shader_passthrough</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_NV_geometry_shader_passthrough}</dd>
@@ -89,6 +87,10 @@ package org.lwjgl.vulkan;
  * <dd>96</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
+ * <dt><b>SPIR-V Dependencies</b></dt>
+ * <dd><ul>
+ * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_geometry_shader_passthrough.html">SPV_NV_geometry_shader_passthrough</a></li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Daniel Koch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_geometry_shader_passthrough]%20@dgkoch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_geometry_shader_passthrough%20extension*">dgkoch</a></li>
@@ -102,7 +104,6 @@ package org.lwjgl.vulkan;
  * <dd>2017-02-15</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/NV/SPV_NV_geometry_shader_passthrough.html">{@code SPV_NV_geometry_shader_passthrough}</a></li>
  * <li>This extension provides API support for <a href="https://registry.khronos.org/OpenGL/extensions/NV/NV_geometry_shader_passthrough.txt">{@code GL_NV_geometry_shader_passthrough}</a></li>
  * <li>This extension requires the {@code geometryShader} feature.</li>
  * </ul></dd>

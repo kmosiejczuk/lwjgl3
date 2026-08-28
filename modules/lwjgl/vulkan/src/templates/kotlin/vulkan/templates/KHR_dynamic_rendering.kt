@@ -18,7 +18,6 @@ val KHR_dynamic_rendering = "KHRDynamicRendering".nativeClassVK("KHR_dynamic_ren
         <h5>Promotion to Vulkan 1.3</h5>
         Functionality in this extension is included in core Vulkan 1.3, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
 
-        <h5>VK_KHR_dynamic_rendering</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_dynamic_rendering}</dd>
@@ -33,9 +32,18 @@ val KHR_dynamic_rendering = "KHRDynamicRendering".nativeClassVK("KHR_dynamic_ren
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRDepthStencilResolve VK_KHR_depth_stencil_resolve} and {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRDepthStencilResolve VK_KHR_depth_stencil_resolve} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2">Version 1.2</a></dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>API Interactions</b></dt>
+            <dd><ul>
+                <li>Interacts with VK_AMD_mixed_attachment_samples</li>
+                <li>Interacts with VK_EXT_fragment_density_map</li>
+                <li>Interacts with VK_KHR_fragment_shading_rate</li>
+                <li>Interacts with VK_NVX_multiview_per_view_attributes</li>
+                <li>Interacts with VK_NV_framebuffer_mixed_samples</li>
+            </ul></dd>
+
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
@@ -53,11 +61,6 @@ val KHR_dynamic_rendering = "KHRDynamicRendering".nativeClassVK("KHR_dynamic_ren
         <dl>
             <dt><b>Last Modified Date</b></dt>
             <dd>2021-10-06</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.3 Core</li>
-            </ul></dd>
 
             <dt><b>Contributors</b></dt>
             <dd><ul>
